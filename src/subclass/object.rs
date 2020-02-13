@@ -434,14 +434,21 @@ mod test {
                 &[String::static_type()],
                 String::static_type(),
                 |_, args| {
-                    let obj = args[0].get::<Object>().unwrap().unwrap();
-                    let new_name = args[1].get::<String>().unwrap().unwrap();
+                    let obj = args[0]
+                        .get::<Object>()
+                        .expect("Failed to get args[0]")
+                        .expect("Failed to get Object from args[0]");
+                    let new_name = args[1]
+                        .get::<String>()
+                        .expect("Failed to get args[1]")
+                        .expect("Failed to get Object from args[1]");
                     let imp = Self::from_instance(&obj);
 
                     let old_name = imp.name.borrow_mut().take();
                     *imp.name.borrow_mut() = Some(new_name);
 
-                    obj.emit("name-changed", &[&*imp.name.borrow()]).unwrap();
+                    obj.emit("name-changed", &[&*imp.name.borrow()])
+                        .expect("Failed to borrow name");
 
                     Some(old_name.to_value())
                 },
@@ -480,9 +487,10 @@ mod test {
                 Property("name", ..) => {
                     let name = value
                         .get()
-                        .expect("type conformity checked by `Object::set_property`");
+                        .expect("type conformity checked by 'Object::set_property'");
                     self.name.replace(name);
-                    obj.emit("name-changed", &[&*self.name.borrow()]).unwrap();
+                    obj.emit("name-changed", &[&*self.name.borrow()])
+                        .expect("Failed to borrow name");
                 }
                 Property("child", ..) => {
                     // not stored, only used to test `set_property` with `Objects`
@@ -547,15 +555,15 @@ mod test {
     #[test]
     fn test_create() {
         let type_ = SimpleObject::get_type();
-        let obj = Object::new(type_, &[]).unwrap();
+        let obj = Object::new(type_, &[]).expect("Object::new failed");
 
         assert!(obj.get_type().is_a(&DummyInterface::static_type()));
 
         assert_eq!(
             obj.get_property("constructed")
-                .unwrap()
+                .expect("Failed to get 'constructed' property")
                 .get_some::<bool>()
-                .unwrap(),
+                .expect("Failed to get bool from 'constructed' property"),
             true
         );
 
@@ -567,7 +575,7 @@ mod test {
     #[test]
     fn test_create_child_object() {
         let type_ = ChildObject::get_type();
-        let obj = Object::new(type_, &[]).unwrap();
+        let obj = Object::new(type_, &[]).expect("Object::new failed");
 
         // ChildObject is a zero-sized type and we map that to the same pointer as the object
         // itself. No private/impl data is allocated for zero-sized types.
@@ -577,29 +585,35 @@ mod test {
 
     #[test]
     fn test_set_properties() {
-        let obj = Object::new(SimpleObject::get_type(), &[]).unwrap();
+        let obj = Object::new(SimpleObject::get_type(), &[]).expect("Object::new failed");
 
         assert!(obj
             .get_property("name")
-            .unwrap()
+            .expect("Failed to get 'name' property")
             .get::<&str>()
-            .unwrap()
+            .expect("Failed to get str from 'name' property")
             .is_none());
         assert!(obj.set_property("name", &"test").is_ok());
         assert_eq!(
-            obj.get_property("name").unwrap().get::<&str>().unwrap(),
+            obj.get_property("name")
+                .expect("Failed to get 'name' property")
+                .get::<&str>()
+                .expect("Failed to get str from 'name' property"),
             Some("test")
         );
 
         assert_eq!(
-            obj.set_property("test", &true).err().unwrap().description(),
+            obj.set_property("test", &true)
+                .err()
+                .expect("set_property failed")
+                .description(),
             "property not found",
         );
 
         assert_eq!(
             obj.set_property("constructed", &false)
                 .err()
-                .unwrap()
+                .expect("Failed to set 'constructed' property")
                 .description(),
             "property is not writable",
         );
@@ -607,21 +621,21 @@ mod test {
         assert_eq!(
             obj.set_property("name", &false)
                 .err()
-                .unwrap()
+                .expect("Failed to set 'name' property")
                 .description(),
             "property can't be set from the given type (expected: gchararray, got: gboolean)",
         );
 
-        let other_obj = Object::new(SimpleObject::get_type(), &[]).unwrap();
+        let other_obj = Object::new(SimpleObject::get_type(), &[]).expect("Object::new failed");
         assert_eq!(
             obj.set_property("child", &other_obj)
                 .err()
-                .unwrap()
+                .expect("Failed to set 'child' property")
                 .description(),
             "property can't be set from the given object type (expected: ChildObject, got: SimpleObject)",
         );
 
-        let child = Object::new(ChildObject::get_type(), &[]).unwrap();
+        let child = Object::new(ChildObject::get_type(), &[]).expect("Object::new failed");
         assert!(obj.set_property("child", &child).is_ok());
     }
 
@@ -630,47 +644,59 @@ mod test {
         use std::sync::{Arc, Mutex};
 
         let type_ = SimpleObject::get_type();
-        let obj = Object::new(type_, &[("name", &"old-name")]).unwrap();
+        let obj = Object::new(type_, &[("name", &"old-name")]).expect("Object::new failed");
 
         let name_changed_triggered = Arc::new(Mutex::new(false));
         let name_changed_clone = name_changed_triggered.clone();
         obj.connect("name-changed", false, move |args| {
-            let _obj = args[0].get::<Object>().unwrap().unwrap();
-            let name = args[1].get::<&str>().unwrap().unwrap();
+            let _obj = args[0]
+                .get::<Object>()
+                .expect("Failed to get args[0]")
+                .expect("Failed to get str from args[0]");
+            let name = args[1]
+                .get::<&str>()
+                .expect("Failed to get args[1]")
+                .expect("Failed to get str from args[1]");
 
             assert_eq!(name, "new-name");
-            *name_changed_clone.lock().unwrap() = true;
+            *name_changed_clone.lock().expect("Failed to lock") = true;
 
             None
         })
-        .unwrap();
+        .expect("Failed to connect on 'name-changed'");
 
         assert_eq!(
-            obj.get_property("name").unwrap().get::<&str>().unwrap(),
+            obj.get_property("name")
+                .expect("Failed to get 'name' property")
+                .get::<&str>()
+                .expect("Failed to get str from 'name' property"),
             Some("old-name")
         );
-        assert!(!*name_changed_triggered.lock().unwrap());
+        assert!(!*name_changed_triggered.lock().expect("Failed to lock"));
 
         let old_name = obj
             .emit("change-name", &[&"new-name"])
-            .unwrap()
-            .unwrap()
+            .expect("Failed to emit")
+            .expect("Failed to get value from emit")
             .get::<String>()
-            .unwrap();
+            .expect("Failed to get str from emit");
         assert_eq!(old_name, Some("old-name".to_string()));
-        assert!(*name_changed_triggered.lock().unwrap());
+        assert!(*name_changed_triggered.lock().expect("Failed to lock"));
     }
 
     #[test]
     fn test_signal_return_expected_type() {
-        let obj = Object::new(SimpleObject::get_type(), &[]).unwrap();
+        let obj = Object::new(SimpleObject::get_type(), &[]).expect("Object::new failed");
 
         obj.connect("create-string", false, move |_args| {
             Some("return value".to_value())
         })
-        .unwrap();
+        .expect("Failed to connect on 'create-string'");
 
-        let value = obj.emit("create-string", &[]).unwrap().unwrap();
+        let value = obj
+            .emit("create-string", &[])
+            .expect("Failed to emit")
+            .expect("Failed to get value from emit");
         assert_eq!(value.get::<String>(), Ok(Some("return value".to_string())));
     }
 
@@ -679,18 +705,21 @@ mod test {
 
     #[test]
     fn test_signal_return_expected_object_type() {
-        let obj = Object::new(SimpleObject::get_type(), &[]).unwrap();
+        let obj = Object::new(SimpleObject::get_type(), &[]).expect("Object::new failed");
 
         obj.connect("create-child-object", false, move |_args| {
             Some(
                 Object::new(ChildObject::get_type(), &[])
-                    .unwrap()
+                    .expect("Object::new failed")
                     .to_value(),
             )
         })
-        .unwrap();
+        .expect("Failed to connect on 'create-child-object'");
 
-        let value = obj.emit("create-child-object", &[]).unwrap().unwrap();
+        let value = obj
+            .emit("create-child-object", &[])
+            .expect("Failed to emit")
+            .expect("Failed to get value from emit");
         assert!(value.type_().is_a(&ChildObject::static_type()));
     }
 }

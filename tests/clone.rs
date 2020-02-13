@@ -120,13 +120,13 @@ fn clone_default_value() {
 #[test]
 fn clone_panic() {
     let state = Arc::new(Mutex::new(State::new()));
-    state.lock().unwrap().count = 20;
+    state.lock().expect("Failed to lock state mutex").count = 20;
 
     let closure = {
         let state2 = Arc::new(Mutex::new(State::new()));
         clone!(@weak state2, @strong state => @default-return panic!(), move |_| {
-            state.lock().unwrap().count = 21;
-            state2.lock().unwrap().started = true;
+            state.lock().expect("Failed to lock state mutex").count = 21;
+            state2.lock().expect("Failed to lock state2 mutex").started = true;
             10
         })
     };
@@ -139,5 +139,5 @@ fn clone_panic() {
         assert!(false, "should panic");
     }
 
-    assert_eq!(state.lock().unwrap().count, 20);
+    assert_eq!(state.lock().expect("Failed to lock state mutex").count, 20);
 }

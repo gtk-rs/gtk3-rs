@@ -261,7 +261,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
                     },
                 ];
 
-                let name = std::ffi::CString::new(#gtype_name).unwrap();
+                let name = std::ffi::CString::new(#gtype_name).expect("CString::new failed");
                 unsafe {
                     let type_ = gobject_sys::g_enum_register_static(name.as_ptr(), VALUES.as_ptr());
                     TYPE = glib::translate::from_glib(type_);
