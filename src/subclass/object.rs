@@ -565,6 +565,17 @@ mod test {
     }
 
     #[test]
+    fn test_create_child_object() {
+        let type_ = ChildObject::get_type();
+        let obj = Object::new(type_, &[]).unwrap();
+
+        // ChildObject is a zero-sized type and we map that to the same pointer as the object
+        // itself. No private/impl data is allocated for zero-sized types.
+        let imp = ChildObject::from_instance(&obj);
+        assert_eq!(imp as *const _ as *const (), obj.as_ptr() as *const _);
+    }
+
+    #[test]
     fn test_set_properties() {
         let obj = Object::new(SimpleObject::get_type(), &[]).unwrap();
 
