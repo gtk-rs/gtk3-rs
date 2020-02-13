@@ -454,6 +454,16 @@ pub fn register_type<T: ObjectSubclass>() -> Type
 where
     <<T as ObjectSubclass>::ParentType as ObjectType>::RustClassType: IsSubclassable<T>,
 {
+    // GLib aligns the type private data to two gsizes so we can't safely store any type there that
+    // requires a bigger alignment.
+    if mem::align_of::<T>() > 2 * mem::size_of::<usize>() {
+        panic!(
+            "Alignment {} of type not supported, bigger than {}",
+            mem::align_of::<T>(),
+            2 * mem::size_of::<usize>(),
+        );
+    }
+
     unsafe {
         use std::ffi::CString;
 
