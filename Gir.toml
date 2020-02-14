@@ -186,6 +186,14 @@ status = "generate"
     name = "init"
     #manual
     ignore = true
+    [[object.function]]
+    pattern = "threads_add_idle.*"
+    #use glib::source::idle_add() instead
+    ignore = true
+    [[object.function]]
+    pattern = "threads_add_timeout.*"
+    #use glib::source::timeout_add() instead
+    ignore = true
 
 [[object]]
 name = "Gdk.Cursor"
