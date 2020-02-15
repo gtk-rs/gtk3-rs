@@ -54,7 +54,8 @@ impl Drop for RectangleList {
 
 impl fmt::Debug for RectangleList {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.debug_tuple("RectangleList").field(&*self).finish()
+        use std::ops::Deref;
+        f.debug_tuple("RectangleList").field(&self.deref()).finish()
     }
 }
 
@@ -797,5 +798,16 @@ mod tests {
         let ctx = create_ctx();
         let pattern = LinearGradient::new(1.0f64, 2.0f64, 3.0f64, 4.0f64);
         ctx.set_source(&pattern);
+    }
+
+    #[test]
+    fn clip_rectange() {
+        let ctx = create_ctx();
+        let rect = ctx.copy_clip_rectangle_list();
+        assert_eq!(
+            format!("{:?}", rect),
+            "RectangleList([Rectangle { x: 0.0, y: 0.0, width: 10.0, height: 10.0 }])"
+        );
+        assert_eq!(rect.to_string(), "RectangleList");
     }
 }
