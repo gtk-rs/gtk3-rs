@@ -135,13 +135,27 @@ macro_rules! to_type_after {
     (@weak $variable:ident , $return_value:expr) => {
         let $variable = match $crate::clone::Upgrade::upgrade(&$variable) {
             Some(val) => val,
-            None => return ($return_value)(),
+            None => {
+                $crate::g_debug!(
+                    $crate::CLONE_MACRO_LOG_DOMAIN,
+                    "Failed to upgrade {}",
+                    stringify!($variable)
+                );
+                return ($return_value)();
+            }
         };
     };
     (as $rename:ident @weak $($variable:ident).+ , $return_value:expr) => {
         let $rename = match $crate::clone::Upgrade::upgrade(&$rename) {
             Some(val) => val,
-            None => return ($return_value)(),
+            None => {
+                $crate::g_debug!(
+                    $crate::CLONE_MACRO_LOG_DOMAIN,
+                    "Failed to upgrade {} {}",
+                    stringify!($rename), "yolo",
+                );
+                return ($return_value)();
+            }
         };
     };
     ($(as $rename:ident)? @strong $($variable:ident).+ , $return_value:expr) => {};

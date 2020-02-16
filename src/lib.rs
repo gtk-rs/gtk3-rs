@@ -206,6 +206,8 @@ pub use source_futures::*;
 mod thread_pool;
 pub use thread_pool::ThreadPool;
 
+pub const CLONE_MACRO_LOG_DOMAIN: &str = "clone-macro-debug";
+
 // Actual thread IDs can be reused by the OS once the old thread finished.
 // This works around it by using our own counter for threads.
 //
