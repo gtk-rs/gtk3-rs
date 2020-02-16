@@ -34,7 +34,7 @@ fn main() {
     {
         let state2 = Rc::new(RefCell::new(State::new()));
 
-        application.connect_activate(clone!(@weak state, @weak state2 => move |app| {
+        application.connect_activate(clone!(@weak state, @strong state2 => move |app| {
             state.borrow_mut().started = true;
 
             let window = ApplicationWindow::new(app);
