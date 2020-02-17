@@ -42,6 +42,7 @@
 
 extern crate cairo_sys as ffi;
 extern crate libc;
+extern crate thiserror;
 
 #[macro_use]
 extern crate bitflags;

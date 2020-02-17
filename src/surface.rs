@@ -224,7 +224,7 @@ impl Surface {
         unsafe {
             ImageSurface::from_raw_full(match extents {
                 Some(ref e) => ffi::cairo_surface_map_to_image(self.to_raw_none(), e.to_raw_none()),
-                None => ffi::cairo_surface_map_to_image(self.to_raw_none(), 0 as *const _),
+                None => ffi::cairo_surface_map_to_image(self.to_raw_none(), std::ptr::null()),
             })
             .map(|s| MappedImageSurface {
                 original_surface: self.clone(),
