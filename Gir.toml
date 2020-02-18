@@ -315,10 +315,16 @@ status = "generate"
 
 [[object]]
 name = "Gio.DataInputStream"
+manual_traits = ["DataInputStreamExtManual"]
 status = "generate"
     [[object.function]]
     name = "read_line"
     #return vec of u8
+    ignore = true
+
+    [[object.function]]
+    name = "read_line_utf8"
+    #redudant length returned
     ignore = true
 
     [[object.function]]

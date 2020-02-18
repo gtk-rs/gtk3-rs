@@ -9,13 +9,11 @@ use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
 use std::ptr;
 use BufferedInputStream;
@@ -124,11 +122,6 @@ pub trait DataInputStreamExt: 'static {
 
     //fn read_line_finish_utf8(&self, result: /*Ignored*/&AsyncResult) -> Result<(Option<GString>, usize), glib::Error>;
 
-    fn read_line_utf8<P: IsA<Cancellable>>(
-        &self,
-        cancellable: Option<&P>,
-    ) -> Result<(Option<GString>, usize), glib::Error>;
-
     fn read_uint16<P: IsA<Cancellable>>(&self, cancellable: Option<&P>)
         -> Result<u16, glib::Error>;
 
@@ -232,28 +225,6 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
     //fn read_line_finish_utf8(&self, result: /*Ignored*/&AsyncResult) -> Result<(Option<GString>, usize), glib::Error> {
     //    unsafe { TODO: call gio_sys:g_data_input_stream_read_line_finish_utf8() }
     //}
-
-    fn read_line_utf8<P: IsA<Cancellable>>(
-        &self,
-        cancellable: Option<&P>,
-    ) -> Result<(Option<GString>, usize), glib::Error> {
-        unsafe {
-            let mut length = mem::MaybeUninit::uninit();
-            let mut error = ptr::null_mut();
-            let ret = gio_sys::g_data_input_stream_read_line_utf8(
-                self.as_ref().to_glib_none().0,
-                length.as_mut_ptr(),
-                cancellable.map(|p| p.as_ref()).to_glib_none().0,
-                &mut error,
-            );
-            let length = length.assume_init();
-            if error.is_null() {
-                Ok((from_glib_full(ret), length))
-            } else {
-                Err(from_glib_full(error))
-            }
-        }
-    }
 
     fn read_uint16<P: IsA<Cancellable>>(
         &self,
