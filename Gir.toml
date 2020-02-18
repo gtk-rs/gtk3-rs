@@ -326,6 +326,30 @@ status = "generate"
     #return vec of u8
     ignore = true
 
+    [[object.function]]
+    name = "read_until"
+    #nullable return value and redundant length
+    #return vec of u8
+    ignore = true
+
+    [[object.function]]
+    name = "read_until_async"
+    #nullable return value and redundant length
+    #return vec of u8
+    ignore = true
+
+    [[object.function]]
+    name = "read_upto"
+    #nullable return value and redundant length
+    #return vec of u8
+    ignore = true
+
+    [[object.function]]
+    name = "read_upto_async"
+    #nullable return value and redundant length
+    #return vec of u8
+    ignore = true
+
 [[object]]
 name = "Gio.DesktopAppInfo"
 status = "generate"

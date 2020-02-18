@@ -13,6 +13,7 @@ pub use auto::traits::*;
 pub use app_info::AppInfoExtManual;
 pub use application::*;
 pub use converter::*;
+pub use data_input_stream::DataInputStreamExtManual;
 #[cfg(any(feature = "v2_58", feature = "dox"))]
 #[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
 pub use desktop_app_info::DesktopAppInfoExtManual;
