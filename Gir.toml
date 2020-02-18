@@ -315,6 +315,7 @@ status = "generate"
 
 [[object]]
 name = "Gio.DataInputStream"
+manual_traits = ["DataInputStreamExtManual"]
 status = "generate"
     [[object.function]]
     name = "read_line"
@@ -322,7 +323,36 @@ status = "generate"
     ignore = true
 
     [[object.function]]
+    name = "read_line_utf8"
+    #redudant length returned
+    ignore = true
+
+    [[object.function]]
     name = "read_line_async"
+    #return vec of u8
+    ignore = true
+
+    [[object.function]]
+    name = "read_until"
+    #nullable return value and redundant length
+    #return vec of u8
+    ignore = true
+
+    [[object.function]]
+    name = "read_until_async"
+    #nullable return value and redundant length
+    #return vec of u8
+    ignore = true
+
+    [[object.function]]
+    name = "read_upto"
+    #nullable return value and redundant length
+    #return vec of u8
+    ignore = true
+
+    [[object.function]]
+    name = "read_upto_async"
+    #nullable return value and redundant length
     #return vec of u8
     ignore = true
 
