@@ -81,7 +81,7 @@ fn build_ui(application: &gtk::Application) {
             let dialog = gtk::Dialog::new_with_buttons(Some("Edit Item"), Some(&window), gtk::DialogFlags::MODAL,
                 &[("Close", ResponseType::Close)]);
             dialog.set_default_response(ResponseType::Close);
-            dialog.connect_response(|dialog, _| dialog.destroy());
+            dialog.connect_response(|dialog, _| dialog.close());
 
             let content_area = dialog.get_content_area();
 
@@ -156,7 +156,7 @@ fn build_ui(application: &gtk::Application) {
                         model.append(&RowData::new(&text, spin_button.get_value() as u32));
                     }
                 }
-                dialog.destroy();
+                dialog.close();
             }));
 
             dialog.show_all();

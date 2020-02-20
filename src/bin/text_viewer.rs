@@ -57,7 +57,7 @@ pub fn build_ui(application: &gtk::Application) {
                     .expect("Couldn't get window")
                     .set_text(&contents);
             }
-            file_chooser.destroy();
+            file_chooser.close();
         }));
 
         file_chooser.show_all();

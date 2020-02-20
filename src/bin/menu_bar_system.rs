@@ -83,7 +83,7 @@ fn add_actions(
 
     let quit = gio::SimpleAction::new("quit", None);
     quit.connect_activate(clone!(@weak window => move |_, _| {
-        window.destroy();
+        window.close();
     }));
 
     let about = gio::SimpleAction::new("about", None);

@@ -94,7 +94,7 @@ fn build_ui(application: &gtk::Application) {
 
         dialog.connect_response(clone!(@weak entry => move |dialog, response| {
             entry.set_text(&format!("Clicked {}", response));
-            dialog.destroy();
+            dialog.close();
         }));
         dialog.show_all();
     }));
@@ -105,7 +105,7 @@ fn build_ui(application: &gtk::Application) {
     button_font.connect_clicked(clone!(@weak window => move |_| {
         let dialog = FontChooserDialog::new(Some("Font chooser test"), Some(&window));
 
-        dialog.connect_response(|dialog, _| dialog.destroy());
+        dialog.connect_response(|dialog, _| dialog.close());
         dialog.show_all();
     }));
 
@@ -119,7 +119,7 @@ fn build_ui(application: &gtk::Application) {
             ("Cancel", ResponseType::Cancel)
         ]);
 
-        dialog.connect_response(|dialog, _| dialog.destroy());
+        dialog.connect_response(|dialog, _| dialog.close());
         dialog.show_all();
     }));
 
@@ -142,7 +142,7 @@ fn build_ui(application: &gtk::Application) {
                 let files = dialog.get_filenames();
                 println!("Files: {:?}", files);
             }
-            dialog.destroy();
+            dialog.close();
         });
         dialog.show_all();
     }));
@@ -156,7 +156,7 @@ fn build_ui(application: &gtk::Application) {
                                                             gtk::DialogFlags::MODAL,
                                                             "sh");
 
-        dialog.connect_response(|dialog, _| dialog.destroy());
+        dialog.connect_response(|dialog, _| dialog.close());
         dialog.show_all();
     }));
 
