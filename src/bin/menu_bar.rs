@@ -75,7 +75,7 @@ fn build_ui(application: &gtk::Application) {
     menu_bar.append(&other);
 
     quit.connect_activate(clone!(@weak window => move |_| {
-        window.destroy();
+        window.close();
     }));
 
     // `Primary` is `Ctrl` on Windows and Linux, and `command` on macOS

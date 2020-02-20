@@ -29,7 +29,7 @@ fn build_ui(application: &gtk::Application) {
     // Create the whole window
     window.set_title("gtk::Clipboard Simple Example");
     window.connect_delete_event(|window, _| {
-        window.destroy();
+        window.close();
         Inhibit(false)
     });
 

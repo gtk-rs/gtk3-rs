@@ -141,7 +141,7 @@ impl Widgets {
         window.show_all();
         window.set_default_size(500, 250);
         window.connect_delete_event(move |window, _| {
-            window.destroy();
+            window.close();
             Inhibit(false)
         });
 
