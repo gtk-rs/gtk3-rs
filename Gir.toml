@@ -73,6 +73,7 @@ trait_name = "AtkActionExt" # duplicate with gio
 [[object]]
 name = "Atk.EditableText"
 status = "generate"
+manual_traits = ["EditableTextExtManual"]
     [[object.function]]
     name = "insert_text"
     # Expected pointer, received integer
@@ -106,6 +107,7 @@ trait_name = "AtkRangeExt" # duplicate with gtk
 [[object]]
 name = "Atk.Table"
 status = "generate"
+manual_traits = ["TableExtManual"]
     [[object.function]]
     name = "get_selected_columns"
     ignore = true
