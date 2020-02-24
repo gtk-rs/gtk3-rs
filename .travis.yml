@@ -1,63 +1,40 @@
 dist: xenial
 language: rust
-matrix:
-  include:
-    - os: linux
-      rust: nightly
-      env: GTK=3.14 FEATURES=
-    - os: linux
-      rust: nightly
-      env: GTK=3.24 FEATURES=v2_48
-    - os: linux
-      rust: beta
-      env: GTK=3.14 FEATURES=
-    - os: linux
-      rust: beta
-      env: GTK=3.24 FEATURES=v2_48
-    - os: linux
-      rust: stable
-      env: GTK=3.14 FEATURES=
-    - os: linux
-      rust: stable
-      env: GTK=3.24 FEATURES=v2_48
-    - os: linux
-      rust: 1.39.0
-      env: GTK=3.14 FEATURES=
-    - os: linux
-      rust: 1.39.0
-      env: GTK=3.24 FEATURES=v2_48
+os:
+  - linux
+  - osx
+
+rust:
+  - stable
+  - 1.39.0
+  - beta
+  - nightly
+
+env:
+  - GTK=3.14 FEATURES=
+  - GTK=3.24 FEATURES=v2_48
+
+jobs:
+  exclude:
     - os: osx
-      rust: nightly
-      env: GTK=3.14 FEATURES=
-    # - os: osx
-    #   rust: nightly
-    #   env: GTK=3.24 FEATURES=v2_48
-    - os: osx
-      rust: beta
-      env: GTK=3.14 FEATURES=
-    # - os: osx
-    #   rust: beta
-    #   env: GTK=3.24 FEATURES=v2_48
-    - os: osx
-      rust: stable
-      env: GTK=3.14 FEATURES=
-    # - os: osx
-    #   rust: stable
-    #   env: GTK=3.24 FEATURES=v2_48
+      env: GTK=3.24 FEATURES=v2_48
+
 addons:
   apt:
     packages:
     - libgtk-3-dev
     - libmount-dev
+
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew unlink python@2; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gtk+3 cairo atk; fi
+
 script:
   - rustc --version
   - if [ "$TRAVIS_RUST_VERSION" == "stable" ] && [ "$GTK" == "3.14" ]; then
-    rustup component add rustfmt;
-    make regen_check;
+      rustup component add rustfmt;
+      make regen_check;
     fi
   - cargo doc --features "dox,embed-lgpl-docs"
   - cargo test --features "$FEATURES,embed-lgpl-docs"
