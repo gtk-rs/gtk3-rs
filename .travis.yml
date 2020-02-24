@@ -71,3 +71,9 @@ script:
   - git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples _examples
   - cd _examples
   - ./build_travis.sh
+  - if [ "$TRAVIS_RUST_VERSION" == "stable" ] && [ "$GTK" == "3.14" ]; then
+      cd ..;
+      git clone https://github.com/gtk-rs/checker;
+      cd checker && cargo build --release;
+      cd .. && ./checker/target/release/checker .;
+    fi
