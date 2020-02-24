@@ -21,13 +21,31 @@
 //! ```
 //!
 //! `ToGlibPtr`, `FromGlibPtrNone`, `FromGlibPtrFull` and `FromGlibPtrBorrow` work on `gpointer`s
-//! and support different modes of ownership transfer.
+//! and ensure correct ownership of values
+//! according to [Glib ownership transfer rules](https://gi.readthedocs.io/en/latest/annotations/giannotations.html).
+//!
+//! `FromGlibPtrNone` and `FromGlibPtrFull`
+//! must be called on values obtained from C,
+//! according to their `transfer` annotations.
+//! They acquire non-gobject types,
+//! as well as turning floating references to strong ones,
+//! which are the only ones properly handled by the Rust bindings.
+//!
+//! For more information about floating references, please refer to the "Floating references" section
+//! of [the gobject reference](https://developer.gnome.org/gobject/stable/gobject-The-Base-Object-Type.html).
 //!
 //! ```ignore
 //!     fn get_title(&self) -> Option<String> {
 //!         unsafe {
 //!             let title = gtk_sys::gtk_window_get_title(self.pointer);
 //!             from_glib_none(title)
+//!         }
+//!     }
+//!     fn create_bool(value: gboolean) -> Variant {
+//!         unsafe {
+//!             let variant = glib_sys::g_variant_new_boolean(value);
+//!             // g_variant_new_boolean has `transfer none`
+//!             from_glib_none(variant)
 //!         }
 //!     }
 //! ```
@@ -1162,17 +1180,60 @@ impl FromGlib<i32> for Option<u64> {
     }
 }
 
-/// Translate from a pointer type without taking ownership, transfer: none.
+/// Translate from a pointer type which is annotated with `transfer none`.
+/// The resulting value is referenced at least once, by the bindings.
+///
+/// This is suitable for floating references, which become strong references.
+/// It is also suitable for acquiring non-gobject values, like `gchar*`.
+///
+/// The implementation of this trait should acquire a reference to the value
+/// in a way appropriate to the type,
+/// e.g. by increasing the reference count or copying.
+/// Values obtained using this trait must be properly released on `drop()`
+/// by the implementing type.
+///
+/// For more information, refer to module level documentation.
 pub trait FromGlibPtrNone<P: Ptr>: Sized {
     unsafe fn from_glib_none(ptr: P) -> Self;
 }
 
-/// Translate from a pointer type taking ownership, transfer: full.
+/// Translate from a pointer type which is annotated with `transfer full`.
+/// This transfers the ownership of the value to the Rust side.
+///
+/// Because ownership can only be transferred if something is already referenced,
+/// this is unsuitable for floating references.
+///
+/// The implementation of this trait should not alter the reference count
+/// or make copies of the underlying value.
+/// Values obtained using this trait must be properly released on `drop()`
+/// by the implementing type.
+///
+/// For more information, refer to module level documentation.
 pub trait FromGlibPtrFull<P: Ptr>: Sized {
     unsafe fn from_glib_full(ptr: P) -> Self;
 }
 
-/// Translate from a pointer type by borrowing. Don't increase the refcount
+/// Translate from a pointer type by borrowing, without affecting the refcount.
+///
+/// The purpose of this trait is to access values inside callbacks
+/// without changing their reference status.
+/// The obtained borrow must not be accessed outside of the scope of the callback,
+/// and called procedures must not store any references to the underlying data.
+/// Safe Rust code must never obtain a mutable Rust reference.
+///
+/// The implementation of this trait as well as the returned type
+/// must satisfy the same constraints together.
+/// They must not take ownership of the underlying value, copy it,
+/// and should not change its rerefence count.
+/// If it does, it must properly release obtained references.
+///
+/// The returned value, when dropped,
+/// must leave the underlying value in the same state
+/// as before from_glib_borrow was called:
+/// - it must not be dropped,
+/// - it must be the same type of reference, e.g. still floating.
+///
+/// For more information, refer to module level documentation.
 pub trait FromGlibPtrBorrow<P: Ptr>: Sized {
     unsafe fn from_glib_borrow(_ptr: P) -> Self {
         unimplemented!();
@@ -1180,6 +1241,8 @@ pub trait FromGlibPtrBorrow<P: Ptr>: Sized {
 }
 
 /// Translate from a pointer type, transfer: none.
+///
+/// See [`FromGlibPtrNone`](trait.FromGlibPtrNone.html).
 #[inline]
 #[allow(clippy::missing_safety_doc)]
 pub unsafe fn from_glib_none<P: Ptr, T: FromGlibPtrNone<P>>(ptr: P) -> T {
@@ -1187,6 +1250,8 @@ pub unsafe fn from_glib_none<P: Ptr, T: FromGlibPtrNone<P>>(ptr: P) -> T {
 }
 
 /// Translate from a pointer type, transfer: full (assume ownership).
+///
+/// See [`FromGlibPtrFull`](trait.FromGlibPtrFull.html).
 #[inline]
 #[allow(clippy::missing_safety_doc)]
 pub unsafe fn from_glib_full<P: Ptr, T: FromGlibPtrFull<P>>(ptr: P) -> T {
@@ -1194,6 +1259,8 @@ pub unsafe fn from_glib_full<P: Ptr, T: FromGlibPtrFull<P>>(ptr: P) -> T {
 }
 
 /// Translate from a pointer type, borrowing the pointer.
+///
+/// See [`FromGlibPtrBorrow`](trait.FromGlibPtrBorrow.html).
 #[inline]
 #[allow(clippy::missing_safety_doc)]
 pub unsafe fn from_glib_borrow<P: Ptr, T: FromGlibPtrBorrow<P>>(ptr: P) -> T {
