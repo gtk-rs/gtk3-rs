@@ -193,6 +193,7 @@ status = "generate"
 [[object]]
 name = "Gio.AppInfo"
 status = "generate"
+manual_traits = ["AppInfoExtManual"]
     [[object.function]]
     name = "create_from_commandline"
         [[object.function.parameter]]
@@ -491,6 +492,7 @@ manual_traits = ["InputStreamExtManual"]
 [[object]]
 name = "Gio.IOStream"
 status = "generate"
+manual_traits = ["IOStreamExtManual"]
     [[object.function]]
     name = "splice_async"
     #g_io_stream_splice_finish accept only 2 parameters instead normal 3 (no source_object)
