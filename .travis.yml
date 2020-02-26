@@ -49,4 +49,5 @@ script:
       git clone https://github.com/gtk-rs/checker;
       cd checker && cargo build --release;
       cd .. && ./checker/target/release/checker .;
+      ./checker/check_init_asserts;
     fi
