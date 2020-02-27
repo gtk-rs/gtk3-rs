@@ -1743,6 +1743,10 @@ where
         }
         let mut res = Vec::with_capacity(num);
         for _ in 0..num {
+            if ptr.is_null() {
+                break;
+            }
+
             let item_ptr: <T as GlibPtrDefault>::GlibType = Ptr::from((*ptr).data);
             if !item_ptr.is_null() {
                 res.push(from_glib_none(item_ptr));
@@ -1767,6 +1771,10 @@ where
         let orig_ptr = ptr;
         let mut res = Vec::with_capacity(num);
         for _ in 0..num {
+            if ptr.is_null() {
+                break;
+            }
+
             let item_ptr: <T as GlibPtrDefault>::GlibType = Ptr::from((*ptr).data);
             if !item_ptr.is_null() {
                 res.push(from_glib_full(item_ptr));
@@ -1812,6 +1820,10 @@ where
         }
         let mut res = Vec::with_capacity(num);
         for _ in 0..num {
+            if ptr.is_null() {
+                break;
+            }
+
             let item_ptr: <T as GlibPtrDefault>::GlibType = Ptr::from((*ptr).data);
             if !item_ptr.is_null() {
                 res.push(from_glib_none(item_ptr));
@@ -1836,6 +1848,10 @@ where
         let orig_ptr = ptr;
         let mut res = Vec::with_capacity(num);
         for _ in 0..num {
+            if ptr.is_null() {
+                break;
+            }
+
             let item_ptr: <T as GlibPtrDefault>::GlibType = Ptr::from((*ptr).data);
             if !item_ptr.is_null() {
                 res.push(from_glib_full(item_ptr));
