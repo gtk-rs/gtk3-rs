@@ -971,7 +971,7 @@ pub struct Array(*mut glib_sys::GArray);
 impl Drop for Array {
     fn drop(&mut self) {
         unsafe {
-            glib_sys::g_array_free(self.0, false.to_glib());
+            glib_sys::g_array_unref(self.0);
         }
     }
 }
