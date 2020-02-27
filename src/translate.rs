@@ -1757,10 +1757,8 @@ where
     }
 
     unsafe fn from_glib_container_num_as_vec(ptr: *mut glib_sys::GSList, num: usize) -> Vec<T> {
-        let res = FromGlibContainer::from_glib_none_num(ptr, num);
-        if !ptr.is_null() {
-            glib_sys::g_slist_free(ptr as *mut _);
-        }
+        let res = FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
+        glib_sys::g_slist_free(ptr);
         res
     }
 
@@ -1781,7 +1779,7 @@ where
             }
             ptr = (*ptr).next;
         }
-        glib_sys::g_slist_free(orig_ptr as *mut _);
+        glib_sys::g_slist_free(orig_ptr);
         res
     }
 }
@@ -1851,10 +1849,8 @@ where
     }
 
     unsafe fn from_glib_container_num_as_vec(ptr: *mut glib_sys::GList, num: usize) -> Vec<T> {
-        let res = FromGlibContainer::from_glib_none_num(ptr, num);
-        if !ptr.is_null() {
-            glib_sys::g_list_free(ptr as *mut _);
-        }
+        let res = FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
+        glib_sys::g_list_free(ptr);
         res
     }
 
@@ -1875,7 +1871,7 @@ where
             }
             ptr = (*ptr).next;
         }
-        glib_sys::g_list_free(orig_ptr as *mut _);
+        glib_sys::g_list_free(orig_ptr);
         res
     }
 }
@@ -1926,7 +1922,7 @@ where
         + FromGlibPtrFull<<T as GlibPtrDefault>::GlibType>,
 {
     unsafe fn from_glib_none_num_as_vec(ptr: *const glib_sys::GList, num: usize) -> Vec<T> {
-        FromGlibContainer::from_glib_none_num(mut_override(ptr), num)
+        FromGlibContainerAsVec::from_glib_none_num_as_vec(mut_override(ptr), num)
     }
 
     unsafe fn from_glib_container_num_as_vec(_: *const glib_sys::GList, _: usize) -> Vec<T> {
@@ -1948,7 +1944,7 @@ where
         + FromGlibPtrFull<<T as GlibPtrDefault>::GlibType>,
 {
     unsafe fn from_glib_none_as_vec(ptr: *const glib_sys::GList) -> Vec<T> {
-        FromGlibPtrContainer::from_glib_none(mut_override(ptr))
+        FromGlibPtrArrayContainerAsVec::from_glib_none_as_vec(mut_override(ptr))
     }
 
     unsafe fn from_glib_container_as_vec(_: *const glib_sys::GList) -> Vec<T> {
@@ -1969,7 +1965,7 @@ where
         + FromGlibPtrFull<<T as GlibPtrDefault>::GlibType>,
 {
     unsafe fn from_glib_none_num_as_vec(ptr: *const glib_sys::GSList, num: usize) -> Vec<T> {
-        FromGlibContainer::from_glib_none_num(mut_override(ptr), num)
+        FromGlibContainerAsVec::from_glib_none_num_as_vec(mut_override(ptr), num)
     }
 
     unsafe fn from_glib_container_num_as_vec(_: *const glib_sys::GSList, _: usize) -> Vec<T> {
@@ -1991,7 +1987,7 @@ where
         + FromGlibPtrFull<<T as GlibPtrDefault>::GlibType>,
 {
     unsafe fn from_glib_none_as_vec(ptr: *const glib_sys::GSList) -> Vec<T> {
-        FromGlibPtrContainer::from_glib_none(mut_override(ptr))
+        FromGlibPtrArrayContainerAsVec::from_glib_none_as_vec(mut_override(ptr))
     }
 
     unsafe fn from_glib_container_as_vec(_: *const glib_sys::GSList) -> Vec<T> {
@@ -2132,7 +2128,7 @@ where
         + FromGlibPtrFull<<T as GlibPtrDefault>::GlibType>,
 {
     unsafe fn from_glib_none_num_as_vec(ptr: *const glib_sys::GPtrArray, num: usize) -> Vec<T> {
-        FromGlibContainer::from_glib_none_num(mut_override(ptr), num)
+        FromGlibContainerAsVec::from_glib_none_num_as_vec(mut_override(ptr), num)
     }
 
     unsafe fn from_glib_container_num_as_vec(_: *const glib_sys::GPtrArray, _: usize) -> Vec<T> {
@@ -2154,7 +2150,7 @@ where
         + FromGlibPtrFull<<T as GlibPtrDefault>::GlibType>,
 {
     unsafe fn from_glib_none_as_vec(ptr: *const glib_sys::GPtrArray) -> Vec<T> {
-        FromGlibPtrContainer::from_glib_none(mut_override(ptr))
+        FromGlibPtrArrayContainerAsVec::from_glib_none_as_vec(mut_override(ptr))
     }
 
     unsafe fn from_glib_container_as_vec(_: *const glib_sys::GPtrArray) -> Vec<T> {
