@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use ::glib_macros::{GBoxed, GEnum};
+use ::glib_macros::{gflags, GBoxed, GEnum};
 use glib::prelude::*;
 use glib::subclass::prelude::*;
 use glib::translate::{FromGlib, ToGlib};
@@ -103,4 +103,68 @@ fn derive_gboxed_nullable() {
     let b: Option<MyNullableBoxed> = None;
     let v = b.to_value();
     assert_eq!(None, v.get::<&MyNullableBoxed>().unwrap());
+}
+
+#[test]
+fn attr_gflags() {
+    #[gflags("MyFlags")]
+    enum MyFlags {
+        #[gflags(name = "Flag A", nick = "nick-a")]
+        A = 0b00000001,
+        #[gflags(name = "Flag B")]
+        B = 0b00000010,
+        #[gflags(skip)]
+        AB = Self::A.bits() | Self::B.bits(),
+        C = 0b00000100,
+    }
+
+    assert_eq!(MyFlags::A.bits(), 1);
+    assert_eq!(MyFlags::B.bits(), 2);
+    assert_eq!(MyFlags::AB.bits(), 3);
+
+    assert_eq!(MyFlags::empty().to_glib(), 0);
+    assert_eq!(MyFlags::A.to_glib(), 1);
+    assert_eq!(MyFlags::B.to_glib(), 2);
+    assert_eq!(MyFlags::AB.to_glib(), 3);
+
+    assert_eq!(MyFlags::from_glib(0), MyFlags::empty());
+    assert_eq!(MyFlags::from_glib(1), MyFlags::A);
+    assert_eq!(MyFlags::from_glib(2), MyFlags::B);
+    assert_eq!(MyFlags::from_glib(3), MyFlags::AB);
+
+    assert_eq!(
+        MyFlags::empty().to_value().get::<MyFlags>(),
+        Ok(Some(MyFlags::empty()))
+    );
+    assert_eq!(MyFlags::A.to_value().get::<MyFlags>(), Ok(Some(MyFlags::A)));
+    assert_eq!(MyFlags::B.to_value().get::<MyFlags>(), Ok(Some(MyFlags::B)));
+    assert_eq!(
+        MyFlags::AB.to_value().get::<MyFlags>(),
+        Ok(Some(MyFlags::AB))
+    );
+
+    let t = MyFlags::static_type();
+    assert!(t.is_a(&glib::Type::BaseFlags));
+    assert_eq!(t.name(), "MyFlags");
+
+    let e = glib::FlagsClass::new(t).expect("FlagsClass::new failed");
+    let v = e.get_value(1).expect("FlagsClass::get_value(1) failed");
+    assert_eq!(v.get_name(), "Flag A");
+    assert_eq!(v.get_nick(), "nick-a");
+    let v = e.get_value(2).expect("FlagsClass::get_value(2) failed");
+    assert_eq!(v.get_name(), "Flag B");
+    assert_eq!(v.get_nick(), "b");
+    let v = e.get_value(4).expect("FlagsClass::get_value(4) failed");
+    assert_eq!(v.get_name(), "C");
+    assert_eq!(v.get_nick(), "c");
+
+    assert!(e.get_value_by_name("Flag A").is_some());
+    assert!(e.get_value_by_name("Flag B").is_some());
+    assert!(e.get_value_by_name("AB").is_none());
+    assert!(e.get_value_by_name("C").is_some());
+
+    assert!(e.get_value_by_nick("nick-a").is_some());
+    assert!(e.get_value_by_nick("b").is_some());
+    assert!(e.get_value_by_nick("ab").is_none());
+    assert!(e.get_value_by_nick("c").is_some());
 }
