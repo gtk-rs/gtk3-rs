@@ -5,9 +5,9 @@
 use anyhow::{bail, Result};
 use syn::{Attribute, DeriveInput, Lit, Meta, MetaList, NestedMeta};
 
-// find the #[genum] attribute in @attrs
-pub fn find_genum_meta(attrs: &[Attribute]) -> Result<Option<MetaList>> {
-    let meta = match attrs.iter().find(|a| a.path.is_ident("genum")) {
+// find the #[@attr_name] attribute in @attrs
+pub fn find_attribute_meta(attrs: &[Attribute], attr_name: &str) -> Result<Option<MetaList>> {
+    let meta = match attrs.iter().find(|a| a.path.is_ident(attr_name)) {
         Some(a) => a.parse_meta(),
         _ => return Ok(None),
     };
@@ -54,12 +54,12 @@ pub fn parse_enum_attribute(meta: &NestedMeta) -> Result<EnumAttribute> {
     }
 }
 
-// Parse enum attribute such as:
+// Parse attribute such as:
 // #[genum(type_name = "TestAnimalType")]
-pub fn parse_type_name(input: &DeriveInput) -> Result<String> {
-    let meta = match find_genum_meta(&input.attrs)? {
+pub fn parse_type_name(input: &DeriveInput, attr_name: &str) -> Result<String> {
+    let meta = match find_attribute_meta(&input.attrs, attr_name)? {
         Some(meta) => meta,
-        _ => bail!("Missing 'genum' attribute"),
+        _ => bail!("Missing '{}' attribute", attr_name),
     };
 
     let meta = match meta.nested.first() {

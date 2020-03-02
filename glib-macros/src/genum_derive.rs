@@ -13,7 +13,7 @@ use syn::{
     Variant,
 };
 
-use crate::utils::{find_genum_meta, parse_attribute, parse_type_name};
+use crate::utils::{find_attribute_meta, parse_attribute, parse_type_name};
 
 // Generate i32 to enum mapping, used to implement glib::translate::FromGlib<i32>, such as:
 //   if value == Animal::Goat as i32 {
@@ -53,7 +53,7 @@ fn parse_item_attribute(meta: &NestedMeta) -> Result<ItemAttribute> {
 // Parse optional enum item attributes such as:
 // #[genum(name = "My Name", nick = "my-nick")]
 fn parse_item_attributes(attrs: &[Attribute]) -> Result<Vec<ItemAttribute>> {
-    let meta = find_genum_meta(attrs)?;
+    let meta = find_attribute_meta(attrs, "genum")?;
 
     let v = match meta {
         Some(meta) => meta
@@ -131,7 +131,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
         _ => abort_call_site!("GEnum only supports enums"),
     };
 
-    let gtype_name = match parse_type_name(&input) {
+    let gtype_name = match parse_type_name(&input, "genum") {
         Ok(v) => v,
         Err(e) => abort_call_site!(
             "{}: derive(GEnum) requires #[genum(type_name = \"EnumTypeName\")]",
