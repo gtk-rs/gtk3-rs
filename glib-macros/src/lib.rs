@@ -5,6 +5,7 @@
 extern crate proc_macro;
 
 mod genum_derive;
+mod utils;
 
 use proc_macro_error::proc_macro_error;
 use syn::{parse_macro_input, DeriveInput};

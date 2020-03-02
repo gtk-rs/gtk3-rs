@@ -9,9 +9,11 @@ use proc_macro2::TokenStream;
 use proc_macro_error::abort_call_site;
 use quote::{format_ident, quote, quote_spanned};
 use syn::{
-    punctuated::Punctuated, spanned::Spanned, token::Comma, Attribute, Data, DeriveInput, Ident,
-    Lit, Meta, MetaList, NestedMeta, Variant,
+    punctuated::Punctuated, spanned::Spanned, token::Comma, Attribute, Data, Ident, NestedMeta,
+    Variant,
 };
+
+use crate::utils::{find_genum_meta, parse_attribute, parse_type_name};
 
 // Generate i32 to enum mapping, used to implement glib::translate::FromGlib<i32>, such as:
 //   if value == Animal::Goat as i32 {
@@ -29,55 +31,6 @@ fn gen_from_glib(enum_name: &Ident, enum_variants: &Punctuated<Variant, Comma>) 
     });
     quote! {
         #(#recurse)*
-    }
-}
-
-// find the #[genum] attribute in @attrs
-fn find_genum_meta(attrs: &[Attribute]) -> Result<Option<MetaList>> {
-    let meta = match attrs.iter().find(|a| a.path.is_ident("genum")) {
-        Some(a) => a.parse_meta(),
-        _ => return Ok(None),
-    };
-    match meta? {
-        Meta::List(n) => Ok(Some(n)),
-        _ => bail!("wrong meta type"),
-    }
-}
-
-// parse a single meta like: ident = "value"
-fn parse_attribute(meta: &NestedMeta) -> Result<(String, String)> {
-    let meta = match &meta {
-        NestedMeta::Meta(m) => m,
-        _ => bail!("wrong meta type"),
-    };
-    let meta = match meta {
-        Meta::NameValue(n) => n,
-        _ => bail!("wrong meta type"),
-    };
-    let value = match &meta.lit {
-        Lit::Str(s) => s.value(),
-        _ => bail!("wrong meta type"),
-    };
-
-    let ident = match meta.path.get_ident() {
-        None => bail!("missing ident"),
-        Some(ident) => ident,
-    };
-
-    Ok((ident.to_string(), value))
-}
-
-#[derive(Debug)]
-enum EnumAttribute {
-    TypeName(String),
-}
-
-fn parse_enum_attribute(meta: &NestedMeta) -> Result<EnumAttribute> {
-    let (ident, v) = parse_attribute(meta)?;
-
-    match ident.as_ref() {
-        "type_name" => Ok(EnumAttribute::TypeName(v)),
-        s => bail!("Unknown enum meta {}", s),
     }
 }
 
@@ -168,24 +121,6 @@ fn gen_genum_values(
         },
         n,
     )
-}
-
-// Parse enum attribute such as:
-// #[genum(type_name = "TestAnimalType")]
-fn parse_type_name(input: &DeriveInput) -> Result<String> {
-    let meta = match find_genum_meta(&input.attrs)? {
-        Some(meta) => meta,
-        _ => bail!("Missing 'genum' attribute"),
-    };
-
-    let meta = match meta.nested.first() {
-        Some(meta) => meta,
-        _ => bail!("Missing meta 'type_name'"),
-    };
-
-    match parse_enum_attribute(&meta)? {
-        EnumAttribute::TypeName(n) => Ok(n),
-    }
 }
 
 pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
