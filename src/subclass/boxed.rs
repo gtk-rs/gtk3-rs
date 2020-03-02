@@ -26,9 +26,9 @@ pub trait BoxedType: Clone + Sized + 'static {
 
     /// Returns the type ID.
     ///
-    /// This is usually defined via the [`glib_boxed_type!`] macro.
+    /// This is usually defined via the [`GBoxed!`] derive macro.
     ///
-    /// [`glib_boxed_type!`]: ../../macro.glib_boxed_type.html
+    /// [`GBoxed!`]: ../../derive.GBoxed.html
     fn get_type() -> ::Type;
 }
 
@@ -36,10 +36,10 @@ pub trait BoxedType: Clone + Sized + 'static {
 ///
 /// This must be called only once and will panic on a second call.
 ///
-/// See [`glib_boxed_type!`] for defining a function that ensures that
+/// See [`GBoxed!`] for defining a function that ensures that
 /// this is only called once and returns the type id.
 ///
-/// [`glib_boxed_type!`]: ../../macro.glib_boxed_type.html
+/// [`GBoxed!`]: ../../derive.GBoxed.html
 pub fn register_boxed_type<T: BoxedType>() -> ::Type {
     unsafe extern "C" fn boxed_copy<T: BoxedType>(v: glib_sys::gpointer) -> glib_sys::gpointer {
         let v = &*(v as *mut T);
@@ -152,10 +152,10 @@ macro_rules! glib_boxed_derive_traits {
 
 /// Wrapper struct for storing any `BoxedType` in `glib::Value`.
 ///
-/// Instead of this the [`glib_boxed_derive_traits!`] macro can be used to
+/// Instead of this the [`GBoxed!`] derive macro can be used to
 /// directly implement the relevant traits on the type itself.
 ///
-/// [`glib_boxed_derive_traits!`]: ../../macro.glib_boxed_derive_traits.html
+/// [`GBoxed!`]: ../../derive.GBoxed.html
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct Boxed<T: BoxedType>(pub T);
 

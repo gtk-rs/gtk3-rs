@@ -2,9 +2,12 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use ::glib_macros::GEnum;
+use ::glib_macros::{GBoxed, GEnum};
 use glib::prelude::*;
+use glib::subclass::prelude::*;
 use glib::translate::{FromGlib, ToGlib};
+#[macro_use]
+extern crate glib;
 
 #[test]
 fn derive_genum() {
@@ -56,4 +59,28 @@ fn derive_genum() {
     assert_eq!(v.get_name(), "The Cat");
     assert_eq!(v.get_nick(), "chat");
     assert_eq!(e.get_value(2), None);
+}
+
+#[test]
+fn derive_gboxed() {
+    #[derive(Clone, Debug, PartialEq, Eq, GBoxed)]
+    #[gboxed(type_name = "MyBoxed")]
+    struct MyBoxed(String);
+
+    assert_eq!(MyBoxed::get_type().name(), "MyBoxed");
+
+    let b = MyBoxed(String::from("abc"));
+    let v = b.to_value();
+    assert_eq!(&b, v.get::<&MyBoxed>().unwrap().unwrap());
+    assert_eq!(&b, v.get_some::<&MyBoxed>().unwrap());
+
+    let b = Some(MyBoxed(String::from("def")));
+    let v = b.to_value();
+    let b = b.unwrap();
+    assert_eq!(&b, v.get::<&MyBoxed>().unwrap().unwrap());
+    assert_eq!(&b, v.get_some::<&MyBoxed>().unwrap());
+
+    let b: Option<MyBoxed> = None;
+    let result = std::panic::catch_unwind(|| b.to_value());
+    assert!(result.is_err());
 }

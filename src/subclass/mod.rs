@@ -186,21 +186,9 @@
 //! use glib::subclass;
 //! use glib::subclass::prelude::*;
 //!
-//! #[derive(Clone, Debug, PartialEq, Eq)]
+//! #[derive(Clone, Debug, PartialEq, Eq, GBoxed)]
+//! #[gboxed(type_name = "MyBoxed")]
 //! struct MyBoxed(String);
-//!
-//! impl BoxedType for MyBoxed {
-//!     // This type name must be unique per process.
-//!     const NAME: &'static str = "MyBoxed";
-//!
-//!     // This macro defines a
-//!     //   fn get_type() -> glib::Type
-//!     // function
-//!     glib_boxed_type!();
-//! }
-//!
-//! // This macro derives some traits on the struct
-//! glib_boxed_derive_traits!(MyBoxed);
 //!
 //! pub fn main() {
 //!     assert_ne!(glib::Type::Invalid, MyBoxed::get_type());
