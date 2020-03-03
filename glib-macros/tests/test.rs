@@ -6,8 +6,6 @@ use ::glib_macros::{GBoxed, GEnum};
 use glib::prelude::*;
 use glib::subclass::prelude::*;
 use glib::translate::{FromGlib, ToGlib};
-#[macro_use]
-extern crate glib;
 
 #[test]
 fn derive_genum() {

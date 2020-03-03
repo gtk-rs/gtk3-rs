@@ -22,9 +22,68 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
     quote! {
         impl BoxedType for #name {
             const NAME: &'static str = #gtype_name;
-            glib_boxed_type!();
+
+            fn get_type() -> glib::Type {
+                static mut TYPE_: glib::Type = glib::Type::Invalid;
+                static ONCE: ::std::sync::Once = ::std::sync::Once::new();
+
+                ONCE.call_once(|| {
+                    let type_ = glib::subclass::register_boxed_type::<Self>();
+                    unsafe {
+                        TYPE_ = type_;
+                    }
+                });
+
+                unsafe { TYPE_ }
+            }
         }
 
-        glib_boxed_derive_traits!(#name);
+        impl glib::StaticType for #name {
+            fn static_type() -> glib::Type {
+                <#name as glib::subclass::boxed::BoxedType>::get_type()
+            }
+        }
+
+        impl glib::value::SetValue for #name {
+            unsafe fn set_value(value: &mut glib::value::Value, this: &Self) {
+                let ptr: *mut #name = Box::into_raw(Box::new(this.clone()));
+                glib::gobject_sys::g_value_take_boxed(
+                    glib::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
+                    ptr as *mut _,
+                );
+            }
+        }
+
+        impl glib::value::SetValueOptional for #name {
+            unsafe fn set_value_optional(value: &mut glib::value::Value, this: Option<&Self>) {
+                let this = this.expect("None not allowed");
+                let ptr: *mut #name = Box::into_raw(Box::new(this.clone()));
+                glib::gobject_sys::g_value_take_boxed(
+                    glib::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
+                    ptr as *mut _,
+                );
+            }
+        }
+
+        impl<'a> glib::value::FromValueOptional<'a> for &'a #name {
+            unsafe fn from_value_optional(value: &'a glib::value::Value) -> Option<Self> {
+                let ptr = glib::gobject_sys::g_value_get_boxed(
+                    glib::translate::ToGlibPtr::to_glib_none(value).0,
+                );
+                assert!(!ptr.is_null());
+                Some(&*(ptr as *mut #name))
+            }
+        }
+
+        impl<'a> glib::value::FromValue<'a> for &'a #name {
+            unsafe fn from_value(value: &'a glib::value::Value) -> Self {
+                let ptr = glib::gobject_sys::g_value_get_boxed(
+                    glib::translate::ToGlibPtr::to_glib_none(value).0,
+                );
+                assert!(!ptr.is_null());
+                &*(ptr as *mut #name)
+            }
+        }
+
     }
 }
