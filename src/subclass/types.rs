@@ -309,7 +309,7 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     /// Returns the implementation from an instance.
     ///
     /// Panics if called on an object of the wrong type.
-    fn from_instance<T: IsA<Self::ParentType>>(obj: &T) -> &Self {
+    fn from_instance<T: IsA<::Object>>(obj: &T) -> &Self {
         unsafe {
             let data = Self::type_data();
             let type_ = data.as_ref().get_type();
