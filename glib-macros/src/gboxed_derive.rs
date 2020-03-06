@@ -42,10 +42,10 @@ fn gen_ptr_to_option(name: &Ident, nullable: bool) -> TokenStream {
 
 fn gen_impl_from_value(name: &Ident) -> TokenStream {
     quote! {
-        impl<'a> glib::value::FromValue<'a> for &'a #name {
-            unsafe fn from_value(value: &'a glib::value::Value) -> Self {
-                let ptr = glib::gobject_sys::g_value_get_boxed(
-                    glib::translate::ToGlibPtr::to_glib_none(value).0,
+        impl<'a> ::glib::value::FromValue<'a> for &'a #name {
+            unsafe fn from_value(value: &'a ::glib::value::Value) -> Self {
+                let ptr = ::glib::gobject_sys::g_value_get_boxed(
+                    ::glib::translate::ToGlibPtr::to_glib_none(value).0,
                 );
                 assert!(!ptr.is_null());
                 &*(ptr as *mut #name)
@@ -82,12 +82,12 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
         impl BoxedType for #name {
             const NAME: &'static str = #gtype_name;
 
-            fn get_type() -> glib::Type {
-                static mut TYPE_: glib::Type = glib::Type::Invalid;
+            fn get_type() -> ::glib::Type {
+                static mut TYPE_: ::glib::Type = ::glib::Type::Invalid;
                 static ONCE: ::std::sync::Once = ::std::sync::Once::new();
 
                 ONCE.call_once(|| {
-                    let type_ = glib::subclass::register_boxed_type::<Self>();
+                    let type_ = ::glib::subclass::register_boxed_type::<Self>();
                     unsafe {
                         TYPE_ = type_;
                     }
@@ -97,36 +97,36 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
             }
         }
 
-        impl glib::StaticType for #name {
-            fn static_type() -> glib::Type {
-                <#name as glib::subclass::boxed::BoxedType>::get_type()
+        impl ::glib::StaticType for #name {
+            fn static_type() -> ::glib::Type {
+                <#name as ::glib::subclass::boxed::BoxedType>::get_type()
             }
         }
 
-        impl glib::value::SetValue for #name {
-            unsafe fn set_value(value: &mut glib::value::Value, this: &Self) {
+        impl ::glib::value::SetValue for #name {
+            unsafe fn set_value(value: &mut ::glib::value::Value, this: &Self) {
                 let ptr: *mut #name = Box::into_raw(Box::new(this.clone()));
-                glib::gobject_sys::g_value_take_boxed(
-                    glib::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
+                ::glib::gobject_sys::g_value_take_boxed(
+                    ::glib::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
                     ptr as *mut _,
                 );
             }
         }
 
-        impl glib::value::SetValueOptional for #name {
-            unsafe fn set_value_optional(value: &mut glib::value::Value, this: Option<&Self>) {
+        impl ::glib::value::SetValueOptional for #name {
+            unsafe fn set_value_optional(value: &mut ::glib::value::Value, this: Option<&Self>) {
                 let ptr: *mut #name = #option_to_ptr;
-                glib::gobject_sys::g_value_take_boxed(
-                    glib::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
+                ::glib::gobject_sys::g_value_take_boxed(
+                    ::glib::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
                     ptr as *mut _,
                 );
             }
         }
 
-        impl<'a> glib::value::FromValueOptional<'a> for &'a #name {
-            unsafe fn from_value_optional(value: &'a glib::value::Value) -> Option<Self> {
-                let ptr = glib::gobject_sys::g_value_get_boxed(
-                    glib::translate::ToGlibPtr::to_glib_none(value).0,
+        impl<'a> ::glib::value::FromValueOptional<'a> for &'a #name {
+            unsafe fn from_value_optional(value: &'a ::glib::value::Value) -> Option<Self> {
+                let ptr = ::glib::gobject_sys::g_value_get_boxed(
+                    ::glib::translate::ToGlibPtr::to_glib_none(value).0,
                 );
                 #ptr_to_option
             }
