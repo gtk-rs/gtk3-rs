@@ -82,3 +82,25 @@ fn derive_gboxed() {
     let result = std::panic::catch_unwind(|| b.to_value());
     assert!(result.is_err());
 }
+
+#[test]
+fn derive_gboxed_nullable() {
+    #[derive(Clone, Debug, PartialEq, Eq, GBoxed)]
+    #[gboxed(type_name = "MyNullableBoxed", nullable)]
+    struct MyNullableBoxed(String);
+
+    assert_eq!(MyNullableBoxed::get_type().name(), "MyNullableBoxed");
+
+    let b = MyNullableBoxed(String::from("abc"));
+    let v = b.to_value();
+    assert_eq!(&b, v.get::<&MyNullableBoxed>().unwrap().unwrap());
+
+    let b = Some(MyNullableBoxed(String::from("def")));
+    let v = b.to_value();
+    let b = b.unwrap();
+    assert_eq!(&b, v.get::<&MyNullableBoxed>().unwrap().unwrap());
+
+    let b: Option<MyNullableBoxed> = None;
+    let v = b.to_value();
+    assert_eq!(None, v.get::<&MyNullableBoxed>().unwrap());
+}

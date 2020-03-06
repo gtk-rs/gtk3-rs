@@ -54,7 +54,7 @@ pub fn parse_enum_attribute(meta: &NestedMeta) -> Result<EnumAttribute> {
     }
 }
 
-fn find_nested_meta<'a>(meta: &'a MetaList, name: &str) -> Option<&'a NestedMeta> {
+pub fn find_nested_meta<'a>(meta: &'a MetaList, name: &str) -> Option<&'a NestedMeta> {
     meta.nested.iter().find(|n| match n {
         NestedMeta::Meta(m) => m.path().is_ident(name),
         _ => false,
