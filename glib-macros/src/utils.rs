@@ -54,6 +54,13 @@ pub fn parse_enum_attribute(meta: &NestedMeta) -> Result<EnumAttribute> {
     }
 }
 
+fn find_nested_meta<'a>(meta: &'a MetaList, name: &str) -> Option<&'a NestedMeta> {
+    meta.nested.iter().find(|n| match n {
+        NestedMeta::Meta(m) => m.path().is_ident(name),
+        _ => false,
+    })
+}
+
 // Parse attribute such as:
 // #[genum(type_name = "TestAnimalType")]
 pub fn parse_type_name(input: &DeriveInput, attr_name: &str) -> Result<String> {
@@ -62,7 +69,7 @@ pub fn parse_type_name(input: &DeriveInput, attr_name: &str) -> Result<String> {
         _ => bail!("Missing '{}' attribute", attr_name),
     };
 
-    let meta = match meta.nested.first() {
+    let meta = match find_nested_meta(&meta, "type_name") {
         Some(meta) => meta,
         _ => bail!("Missing meta 'type_name'"),
     };
