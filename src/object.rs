@@ -382,7 +382,6 @@ impl<Super: IsA<Super>, Sub: IsA<Super>> CanDowncast<Sub> for Super {}
 // Manual implementation of glib_shared_wrapper! because of special cases
 pub struct ObjectRef {
     inner: ptr::NonNull<GObject>,
-    borrowed: bool,
 }
 
 impl Clone for ObjectRef {
@@ -390,7 +389,6 @@ impl Clone for ObjectRef {
         unsafe {
             ObjectRef {
                 inner: ptr::NonNull::new_unchecked(gobject_sys::g_object_ref(self.inner.as_ptr())),
-                borrowed: false,
             }
         }
     }
@@ -399,9 +397,7 @@ impl Clone for ObjectRef {
 impl Drop for ObjectRef {
     fn drop(&mut self) {
         unsafe {
-            if !self.borrowed {
-                gobject_sys::g_object_unref(self.inner.as_ptr());
-            }
+            gobject_sys::g_object_unref(self.inner.as_ptr());
         }
     }
 }
@@ -416,7 +412,6 @@ impl fmt::Debug for ObjectRef {
         f.debug_struct("ObjectRef")
             .field("inner", &self.inner)
             .field("type", &type_)
-            .field("borrowed", &self.borrowed)
             .finish()
     }
 }
@@ -549,7 +544,6 @@ impl FromGlibPtrNone<*mut GObject> for ObjectRef {
         // Attention: This takes ownership of floating references!
         ObjectRef {
             inner: ptr::NonNull::new_unchecked(gobject_sys::g_object_ref_sink(ptr)),
-            borrowed: false,
         }
     }
 }
@@ -571,7 +565,6 @@ impl FromGlibPtrFull<*mut GObject> for ObjectRef {
 
         ObjectRef {
             inner: ptr::NonNull::new_unchecked(ptr),
-            borrowed: false,
         }
     }
 }
@@ -584,7 +577,6 @@ impl FromGlibPtrBorrow<*mut GObject> for ObjectRef {
 
         Borrowed::new(ObjectRef {
             inner: ptr::NonNull::new_unchecked(ptr),
-            borrowed: true,
         })
     }
 }

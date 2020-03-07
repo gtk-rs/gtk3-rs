@@ -292,16 +292,13 @@ pub trait SharedMemoryManager<T> {
 /// Encapsulates memory management logic for shared types.
 pub struct Shared<T, MM: SharedMemoryManager<T>> {
     inner: ptr::NonNull<T>,
-    borrowed: bool,
     mm: PhantomData<MM>,
 }
 
 impl<T, MM: SharedMemoryManager<T>> Drop for Shared<T, MM> {
     fn drop(&mut self) {
-        if !self.borrowed {
-            unsafe {
-                MM::unref(self.inner.as_ptr());
-            }
+        unsafe {
+            MM::unref(self.inner.as_ptr());
         }
     }
 }
@@ -313,7 +310,6 @@ impl<T, MM: SharedMemoryManager<T>> Clone for Shared<T, MM> {
         }
         Shared {
             inner: self.inner,
-            borrowed: false,
             mm: PhantomData,
         }
     }
@@ -323,7 +319,6 @@ impl<T, MM: SharedMemoryManager<T>> fmt::Debug for Shared<T, MM> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.debug_struct("Shared")
             .field("inner", &self.inner)
-            .field("borrowed", &self.borrowed)
             .finish()
     }
 }
@@ -384,7 +379,6 @@ impl<T: 'static, MM: SharedMemoryManager<T>> FromGlibPtrNone<*mut T> for Shared<
         MM::ref_(ptr);
         Shared {
             inner: ptr::NonNull::new_unchecked(ptr),
-            borrowed: false,
             mm: PhantomData,
         }
     }
@@ -397,7 +391,6 @@ impl<T: 'static, MM: SharedMemoryManager<T>> FromGlibPtrNone<*const T> for Share
         MM::ref_(ptr as *mut _);
         Shared {
             inner: ptr::NonNull::new_unchecked(ptr as *mut _),
-            borrowed: false,
             mm: PhantomData,
         }
     }
@@ -409,7 +402,6 @@ impl<T: 'static, MM: SharedMemoryManager<T>> FromGlibPtrFull<*mut T> for Shared<
         assert!(!ptr.is_null());
         Shared {
             inner: ptr::NonNull::new_unchecked(ptr),
-            borrowed: false,
             mm: PhantomData,
         }
     }
@@ -419,12 +411,9 @@ impl<T: 'static, MM: SharedMemoryManager<T>> FromGlibPtrBorrow<*mut T> for Share
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut T) -> Borrowed<Self> {
         assert!(!ptr.is_null());
-        Borrowed::new(
-            Shared {
-                inner: ptr::NonNull::new_unchecked(ptr),
-                borrowed: true,
-                mm: PhantomData,
-            }
-        )
+        Borrowed::new(Shared {
+            inner: ptr::NonNull::new_unchecked(ptr),
+            mm: PhantomData,
+        })
     }
 }
