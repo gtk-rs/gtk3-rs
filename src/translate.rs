@@ -184,6 +184,45 @@ pub struct StashMut<'a, P: Copy, T: ?Sized>(pub P, pub <T as ToGlibPtrMut<'a, P>
 where
     T: ToGlibPtrMut<'a, P>;
 
+/// Wrapper around values representing borrowed C memory.
+///
+/// This is returned by `from_glib_borrow()` and ensures that the wrapped value
+/// is never dropped when going out of scope.
+///
+/// Borrowed values must never be passed by value or mutable reference to safe Rust code and must
+/// not leave the C scope in which they are valid.
+#[derive(Debug)]
+pub struct Borrowed<T>(mem::ManuallyDrop<T>);
+
+impl<T> Borrowed<T> {
+    /// Creates a new borrowed value.
+    pub fn new(val: T) -> Self {
+        Self(mem::ManuallyDrop::new(val))
+    }
+
+    /// Extracts the contained value.
+    ///
+    /// The returned value must never be dropped and instead has to be passed to `mem::forget()` or
+    /// be directly wrapped in `mem::ManuallyDrop` or another `Borrowed` wrapper.
+    pub unsafe fn into_inner(self) -> T {
+        mem::ManuallyDrop::into_inner(self.0)
+    }
+}
+
+impl<T> AsRef<T> for Borrowed<T> {
+    fn as_ref(&self) -> &T {
+        &*self.0
+    }
+}
+
+impl<T> std::ops::Deref for Borrowed<T> {
+    type Target = T;
+
+    fn deref(&self) -> &T {
+        &*self.0
+    }
+}
+
 /// Translate a simple type.
 pub trait ToGlib {
     type GlibType;
@@ -1235,7 +1274,7 @@ pub trait FromGlibPtrFull<P: Ptr>: Sized {
 ///
 /// For more information, refer to module level documentation.
 pub trait FromGlibPtrBorrow<P: Ptr>: Sized {
-    unsafe fn from_glib_borrow(_ptr: P) -> Self {
+    unsafe fn from_glib_borrow(_ptr: P) -> Borrowed<Self> {
         unimplemented!();
     }
 }
@@ -1263,7 +1302,7 @@ pub unsafe fn from_glib_full<P: Ptr, T: FromGlibPtrFull<P>>(ptr: P) -> T {
 /// See [`FromGlibPtrBorrow`](trait.FromGlibPtrBorrow.html).
 #[inline]
 #[allow(clippy::missing_safety_doc)]
-pub unsafe fn from_glib_borrow<P: Ptr, T: FromGlibPtrBorrow<P>>(ptr: P) -> T {
+pub unsafe fn from_glib_borrow<P: Ptr, T: FromGlibPtrBorrow<P>>(ptr: P) -> Borrowed<T> {
     FromGlibPtrBorrow::from_glib_borrow(ptr)
 }
 
@@ -1280,11 +1319,12 @@ impl<P: Ptr, T: FromGlibPtrNone<P>> FromGlibPtrNone<P> for Option<T> {
 
 impl<P: Ptr, T: FromGlibPtrBorrow<P>> FromGlibPtrBorrow<P> for Option<T> {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: P) -> Option<T> {
+    unsafe fn from_glib_borrow(ptr: P) -> Borrowed<Option<T>> {
         if ptr.is_null() {
-            None
+            Borrowed::new(None)
         } else {
-            Some(from_glib_borrow(ptr))
+            let val = T::from_glib_borrow(ptr);
+            Borrowed::new(Some(val.into_inner()))
         }
     }
 }

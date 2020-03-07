@@ -579,20 +579,20 @@ impl FromGlibPtrFull<*mut GObject> for ObjectRef {
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*mut GObject> for ObjectRef {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut GObject) -> Self {
+    unsafe fn from_glib_borrow(ptr: *mut GObject) -> Borrowed<Self> {
         assert!(!ptr.is_null());
 
-        ObjectRef {
+        Borrowed::new(ObjectRef {
             inner: ptr::NonNull::new_unchecked(ptr),
             borrowed: true,
-        }
+        })
     }
 }
 
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*const GObject> for ObjectRef {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *const GObject) -> Self {
+    unsafe fn from_glib_borrow(ptr: *const GObject) -> Borrowed<Self> {
         from_glib_borrow(ptr as *mut GObject)
     }
 }
@@ -898,10 +898,14 @@ macro_rules! glib_object_wrapper {
             #[inline]
             #[allow(clippy::cast_ptr_alignment)]
             #[allow(clippy::missing_safety_doc)]
-            unsafe fn from_glib_borrow(ptr: *mut $ffi_name) -> Self {
+            unsafe fn from_glib_borrow(ptr: *mut $ffi_name) -> $crate::translate::Borrowed<Self> {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
-                $name($crate::translate::from_glib_borrow(ptr as *mut _),
-                      ::std::marker::PhantomData)
+                $crate::translate::Borrowed::new(
+                    $name(
+                        $crate::translate::from_glib_borrow::<_, $crate::object::ObjectRef>(ptr as *mut _).into_inner(),
+                        ::std::marker::PhantomData,
+                    )
+                )
             }
         }
 
@@ -910,8 +914,8 @@ macro_rules! glib_object_wrapper {
             #[inline]
             #[allow(clippy::cast_ptr_alignment)]
             #[allow(clippy::missing_safety_doc)]
-            unsafe fn from_glib_borrow(ptr: *const $ffi_name) -> Self {
-                $crate::translate::from_glib_borrow(ptr as *mut $ffi_name)
+            unsafe fn from_glib_borrow(ptr: *const $ffi_name) -> $crate::translate::Borrowed<Self> {
+                $crate::translate::from_glib_borrow::<_, $name>(ptr as *mut $ffi_name)
             }
         }
 
@@ -1530,7 +1534,7 @@ impl<T: ObjectType> ObjectExt for T {
         {
             let f: &F = &*(f as *const F);
             f(
-                &Object::from_glib_borrow(this).unsafe_cast(),
+                Object::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(param_spec),
             )
         }

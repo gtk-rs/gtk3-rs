@@ -10,7 +10,7 @@ use glib_sys;
 use std::mem;
 use std::pin;
 use std::ptr;
-use translate::{from_glib_borrow, from_glib_full, mut_override, ToGlib};
+use translate::{from_glib_borrow, from_glib_full, mut_override, Borrowed, ToGlib};
 use ThreadGuard;
 
 use MainContext;
@@ -194,7 +194,7 @@ impl TaskSource {
 
     fn poll(&mut self) -> Poll<()> {
         let source = &self.source as *const _;
-        let executor: MainContext =
+        let executor: Borrowed<MainContext> =
             unsafe { from_glib_borrow(glib_sys::g_source_get_context(mut_override(source))) };
 
         assert!(

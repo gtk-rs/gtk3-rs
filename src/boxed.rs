@@ -182,8 +182,12 @@ macro_rules! glib_boxed_wrapper {
         impl $crate::translate::FromGlibPtrBorrow<*mut $ffi_name> for $name {
             #[inline]
             #[allow(clippy::missing_safety_doc)]
-            unsafe fn from_glib_borrow(ptr: *mut $ffi_name) -> Self {
-                $name($crate::translate::from_glib_borrow(ptr))
+            unsafe fn from_glib_borrow(ptr: *mut $ffi_name) -> $crate::translate::Borrowed<Self> {
+                $crate::translate::Borrowed::new(
+                    $name(
+                        $crate::translate::from_glib_borrow::<_, $crate::boxed::Boxed<_, _>>(ptr).into_inner()
+                    )
+                )
             }
         }
 
@@ -191,8 +195,8 @@ macro_rules! glib_boxed_wrapper {
         impl $crate::translate::FromGlibPtrBorrow<*const $ffi_name> for $name {
             #[inline]
             #[allow(clippy::missing_safety_doc)]
-            unsafe fn from_glib_borrow(ptr: *const $ffi_name) -> Self {
-                $crate::translate::from_glib_borrow(ptr as *mut $ffi_name)
+            unsafe fn from_glib_borrow(ptr: *const $ffi_name) -> $crate::translate::Borrowed<Self> {
+                $crate::translate::from_glib_borrow::<_, $name>(ptr as *mut $ffi_name)
             }
         }
 
@@ -479,12 +483,14 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> FromGlibPtrFull<*const T> for Boxed<
 
 impl<T: 'static, MM: BoxedMemoryManager<T>> FromGlibPtrBorrow<*mut T> for Boxed<T, MM> {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut T) -> Self {
+    unsafe fn from_glib_borrow(ptr: *mut T) -> Borrowed<Self> {
         assert!(!ptr.is_null());
-        Boxed {
-            inner: AnyBox::ForeignBorrowed(ptr::NonNull::new_unchecked(ptr)),
-            _dummy: PhantomData,
-        }
+        Borrowed::new(
+            Boxed {
+                inner: AnyBox::ForeignBorrowed(ptr::NonNull::new_unchecked(ptr)),
+                _dummy: PhantomData,
+            }
+        )
     }
 }
 

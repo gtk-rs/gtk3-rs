@@ -321,24 +321,24 @@ impl FromGlibPtrNone<*mut i8> for GString {
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*const c_char> for GString {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *const c_char) -> Self {
-        GString::new_borrowed(ptr)
+    unsafe fn from_glib_borrow(ptr: *const c_char) -> Borrowed<Self> {
+        Borrowed::new(GString::new_borrowed(ptr))
     }
 }
 
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*mut u8> for GString {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut u8) -> Self {
-        GString::new_borrowed(ptr as *const c_char)
+    unsafe fn from_glib_borrow(ptr: *mut u8) -> Borrowed<Self> {
+        Borrowed::new(GString::new_borrowed(ptr as *const c_char))
     }
 }
 
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*mut i8> for GString {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut i8) -> Self {
-        GString::new_borrowed(ptr as *const c_char)
+    unsafe fn from_glib_borrow(ptr: *mut i8) -> Borrowed<Self> {
+        Borrowed::new(GString::new_borrowed(ptr as *const c_char))
     }
 }
 

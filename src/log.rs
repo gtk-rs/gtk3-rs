@@ -128,8 +128,8 @@ pub fn log_set_handler<P: Fn(&str, LogLevel, &str) + Send + Sync + 'static>(
         message: *const libc::c_char,
         user_data: glib_sys::gpointer,
     ) {
-        let log_domain: GString = from_glib_borrow(log_domain);
-        let message: GString = from_glib_borrow(message);
+        let log_domain: Borrowed<GString> = from_glib_borrow(log_domain);
+        let message: Borrowed<GString> = from_glib_borrow(message);
         let callback: &P = &*(user_data as *mut _);
         (*callback)(log_domain.as_str(), from_glib(log_level), message.as_str());
     }
@@ -192,7 +192,7 @@ pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
             Some(ref handler) => Some(Arc::clone(handler)),
             None => None,
         } {
-            let string: GString = from_glib_borrow(string);
+            let string: Borrowed<GString> = from_glib_borrow(string);
             (*callback)(string.as_str())
         }
     }
@@ -223,7 +223,7 @@ pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
             Some(ref handler) => Some(Arc::clone(handler)),
             None => None,
         } {
-            let string: GString = from_glib_borrow(string);
+            let string: Borrowed<GString> = from_glib_borrow(string);
             (*callback)(string.as_str())
         }
     }
@@ -260,8 +260,8 @@ pub fn log_set_default_handler<P: Fn(&str, LogLevel, &str) + Send + Sync + 'stat
             Some(ref handler) => Some(Arc::clone(handler)),
             None => None,
         } {
-            let log_domain: GString = from_glib_borrow(log_domain);
-            let message: GString = from_glib_borrow(message);
+            let log_domain: Borrowed<GString> = from_glib_borrow(log_domain);
+            let message: Borrowed<GString> = from_glib_borrow(message);
             (*callback)(log_domain.as_str(), from_glib(log_levels), message.as_str());
         }
     }
