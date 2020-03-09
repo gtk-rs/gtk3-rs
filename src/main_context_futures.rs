@@ -10,7 +10,7 @@ use glib_sys;
 use std::mem;
 use std::pin;
 use std::ptr;
-use translate::{from_glib_full, from_glib_none, mut_override, ToGlib};
+use translate::{from_glib_borrow, from_glib_full, mut_override, ToGlib};
 use ThreadGuard;
 
 use MainContext;
@@ -48,8 +48,8 @@ impl Future for FutureWrapper {
 #[repr(C)]
 struct TaskSource {
     source: glib_sys::GSource,
-    future: Option<FutureWrapper>,
-    waker: Option<Waker>,
+    future: FutureWrapper,
+    waker: Waker,
 }
 
 #[allow(clippy::type_complexity)]
@@ -81,10 +81,10 @@ impl TaskSource {
 
         // This will panic if the future was a local future and is dropped from
         // a different thread than where it was created.
-        let _ = (*source).future.take();
+        ptr::drop_in_place(&mut (*source).future);
 
         // Drop the waker to unref the underlying GSource
-        let _ = (*source).waker.take();
+        ptr::drop_in_place(&mut (*source).waker);
     }
 }
 
@@ -172,11 +172,11 @@ impl TaskSource {
 
             {
                 let source = &mut *(source as *mut TaskSource);
-                ptr::write(&mut source.future, Some(future));
+                ptr::write(&mut source.future, future);
 
                 // This creates a new reference to the waker source.
                 let waker = Waker::from_raw(WakerSource::clone_raw(waker_source as *const ()));
-                ptr::write(&mut source.waker, Some(waker));
+                ptr::write(&mut source.waker, waker);
             }
 
             // Set ready time to 0 so that the source is immediately dispatched
@@ -194,41 +194,22 @@ impl TaskSource {
 
     fn poll(&mut self) -> Poll<()> {
         let source = &self.source as *const _;
-        let waker = self
-            .waker
-            .as_ref()
-            .expect("TaskSource polled after being finalized");
-        if let Some(ref mut future) = self.future {
-            let executor: MainContext =
-                unsafe { from_glib_none(glib_sys::g_source_get_context(mut_override(source))) };
+        let executor: MainContext =
+            unsafe { from_glib_borrow(glib_sys::g_source_get_context(mut_override(source))) };
 
-            assert!(
-                executor.is_owner(),
-                "Polling futures only allowed if the thread is owning the MainContext"
-            );
+        assert!(
+            executor.is_owner(),
+            "Polling futures only allowed if the thread is owning the MainContext"
+        );
 
-            let res = executor.with_thread_default(|| {
-                let enter = futures_executor::enter().unwrap();
-                let mut context = Context::from_waker(waker);
+        executor.with_thread_default(|| {
+            let _enter = futures_executor::enter().unwrap();
+            let mut context = Context::from_waker(&self.waker);
 
-                // This will panic if the future was a local future and is called from
-                // a different thread than where it was created.
-                let res = future.poll_unpin(&mut context);
-
-                drop(enter);
-
-                res
-            });
-
-            // If the future has resolved now drop it here already.
-            if res.is_ready() {
-                let _ = self.future.take();
-            }
-
-            res
-        } else {
-            Poll::Ready(())
-        }
+            // This will panic if the future was a local future and is called from
+            // a different thread than where it was created.
+            self.future.poll_unpin(&mut context)
+        })
     }
 }
 

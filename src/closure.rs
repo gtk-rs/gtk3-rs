@@ -53,7 +53,7 @@ impl Closure {
             F: Fn(&[Value]) -> Option<Value>,
         {
             let values = slice::from_raw_parts(param_values as *const _, n_param_values as usize);
-            let callback: Box<F> = Box::from_raw(marshal_data as *mut _);
+            let callback: &F = &*(marshal_data as *mut _);
             let result = callback(values);
             if !return_value.is_null() {
                 match result {
@@ -64,7 +64,6 @@ impl Closure {
                     }
                 }
             }
-            mem::forget(callback);
         }
 
         unsafe extern "C" fn finalize<F>(
