@@ -283,7 +283,7 @@ unsafe extern "C" fn finalize<T, F: FnMut(T) -> Continue + 'static>(
 /// See [`MainContext::channel()`] for how to create such a `Sender`.
 ///
 /// [`MainContext::channel()`]: struct.MainContext.html#method.channel
-pub struct Sender<T>(Option<Channel<T>>);
+pub struct Sender<T>(Channel<T>);
 
 impl<T> fmt::Debug for Sender<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
@@ -293,24 +293,20 @@ impl<T> fmt::Debug for Sender<T> {
 
 impl<T> Clone for Sender<T> {
     fn clone(&self) -> Sender<T> {
-        Sender::new(self.0.as_ref())
+        Sender::new(&self.0)
     }
 }
 
 impl<T> Sender<T> {
-    fn new(channel: Option<&Channel<T>>) -> Self {
-        if let Some(channel) = channel {
-            let mut inner = (channel.0).0.lock().unwrap();
-            inner.num_senders += 1;
-            Sender(Some(channel.clone()))
-        } else {
-            Sender(None)
-        }
+    fn new(channel: &Channel<T>) -> Self {
+        let mut inner = (channel.0).0.lock().unwrap();
+        inner.num_senders += 1;
+        Sender(channel.clone())
     }
 
     /// Sends a value to the channel.
     pub fn send(&self, t: T) -> Result<(), mpsc::SendError<T>> {
-        self.0.as_ref().expect("Sender with no channel").send(t)
+        self.0.send(t)
     }
 }
 
@@ -318,8 +314,7 @@ impl<T> Drop for Sender<T> {
     fn drop(&mut self) {
         // Decrease the number of senders and wake up the channel if this
         // was the last sender that was dropped.
-        let channel = self.0.take().expect("Sender with no channel");
-        let mut inner = (channel.0).0.lock().unwrap();
+        let mut inner = ((self.0).0).0.lock().unwrap();
         inner.num_senders -= 1;
         if inner.num_senders == 0 {
             inner.set_ready_time(0);
@@ -334,7 +329,7 @@ impl<T> Drop for Sender<T> {
 /// See [`MainContext::sync_channel()`] for how to create such a `SyncSender`.
 ///
 /// [`MainContext::sync_channel()`]: struct.MainContext.html#method.sync_channel
-pub struct SyncSender<T>(Option<Channel<T>>);
+pub struct SyncSender<T>(Channel<T>);
 
 impl<T> fmt::Debug for SyncSender<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
@@ -344,29 +339,25 @@ impl<T> fmt::Debug for SyncSender<T> {
 
 impl<T> Clone for SyncSender<T> {
     fn clone(&self) -> SyncSender<T> {
-        SyncSender::new(self.0.as_ref())
+        SyncSender::new(&self.0)
     }
 }
 
 impl<T> SyncSender<T> {
-    fn new(channel: Option<&Channel<T>>) -> Self {
-        if let Some(channel) = channel {
-            let mut inner = (channel.0).0.lock().unwrap();
-            inner.num_senders += 1;
-            SyncSender(Some(channel.clone()))
-        } else {
-            SyncSender(None)
-        }
+    fn new(channel: &Channel<T>) -> Self {
+        let mut inner = (channel.0).0.lock().unwrap();
+        inner.num_senders += 1;
+        SyncSender(channel.clone())
     }
 
     /// Sends a value to the channel and blocks if the channel is full.
     pub fn send(&self, t: T) -> Result<(), mpsc::SendError<T>> {
-        self.0.as_ref().expect("Sender with no channel").send(t)
+        self.0.send(t)
     }
 
     /// Sends a value to the channel.
     pub fn try_send(&self, t: T) -> Result<(), mpsc::TrySendError<T>> {
-        self.0.as_ref().expect("Sender with no channel").try_send(t)
+        self.0.try_send(t)
     }
 }
 
@@ -374,8 +365,7 @@ impl<T> Drop for SyncSender<T> {
     fn drop(&mut self) {
         // Decrease the number of senders and wake up the channel if this
         // was the last sender that was dropped.
-        let channel = self.0.take().expect("Sender with no channel");
-        let mut inner = (channel.0).0.lock().unwrap();
+        let mut inner = ((self.0).0).0.lock().unwrap();
         inner.num_senders -= 1;
         if inner.num_senders == 0 {
             inner.set_ready_time(0);
@@ -506,7 +496,7 @@ impl MainContext {
     pub fn channel<T>(priority: Priority) -> (Sender<T>, Receiver<T>) {
         let channel = Channel::new(None);
         let receiver = Receiver(Some(channel.clone()), priority);
-        let sender = Sender::new(Some(&channel));
+        let sender = Sender::new(&channel);
 
         (sender, receiver)
     }
@@ -528,7 +518,7 @@ impl MainContext {
     pub fn sync_channel<T>(priority: Priority, bound: usize) -> (SyncSender<T>, Receiver<T>) {
         let channel = Channel::new(Some(bound));
         let receiver = Receiver(Some(channel.clone()), priority);
-        let sender = SyncSender::new(Some(&channel));
+        let sender = SyncSender::new(&channel);
 
         (sender, receiver)
     }
