@@ -397,14 +397,24 @@ macro_rules! clone {
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move | $($arg:tt $(: $typ:ty)?),* | $body:expr ) => (
         clone!($($(@ $strength)? $($variables).+ $(as $rename)?),+ => $(@default-return $return_value,)? move |$($arg $(: $typ)?),*| { $body })
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, || $body:block ) => (
+    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, || $($body:tt)* ) => (
         // In case we have:
         // clone!(@weak foo => @default-return false, || {});
         compile_error!("Closure needs to be \"moved\" so please add `move` before closure");
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, | $($arg:tt $(: $typ:ty)?),* | $body:block ) => (
+    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, | $($arg:tt $(: $typ:ty)?),* | $($x:tt)* ) => (
         // In case we have:
         // clone!(@weak foo => @default-return false, |bla| {});
+        compile_error!("Closure needs to be \"moved\" so please add `move` before closure");
+    );
+    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => || $($x:tt)* ) => (
+        // In case we have:
+        // clone!(@weak foo => || {});
+        compile_error!("Closure needs to be \"moved\" so please add `move` before closure");
+    );
+    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => | $($arg:tt $(: $typ:ty)?),* | $($x:tt)* ) => (
+        // In case we have:
+        // clone!(@weak foo => |bla| {});
         compile_error!("Closure needs to be \"moved\" so please add `move` before closure");
     );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => default-return $($x:tt)+ ) => (
@@ -417,7 +427,7 @@ macro_rules! clone {
         // clone!(@weak foo => @default-return false move || {});
         compile_error!("Missing comma after `@default-return`'s value");
     );
-    ($($(@ $strength:ident)? $variables:expr),+ => $($_:tt)* ) => (
+    ($($(@ $strength:ident)? $variables:expr),+ => move $($_:tt)* ) => (
         compile_error!("Variables need to be valid identifiers, e.g. field accesses are not allowed as is, you must rename it!");
     );
 }
