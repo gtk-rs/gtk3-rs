@@ -9,10 +9,10 @@ pub mod output_stream;
 pub mod seekable;
 
 pub mod prelude {
-    pub use super::application::{ApplicationImpl, ArgumentList};
-    pub use super::input_stream::InputStreamImpl;
-    pub use super::io_stream::IOStreamImpl;
-    pub use super::output_stream::OutputStreamImpl;
+    pub use super::application::{ApplicationImpl, ApplicationImplExt, ArgumentList};
+    pub use super::input_stream::{InputStreamImpl, InputStreamImplExt};
+    pub use super::io_stream::{IOStreamImpl, IOStreamImplExt};
+    pub use super::output_stream::{OutputStreamImpl, OutputStreamImplExt};
     pub use super::seekable::SeekableImpl;
     pub use glib::subclass::prelude::*;
 }
