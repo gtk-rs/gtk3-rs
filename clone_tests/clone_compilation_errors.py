@@ -50,7 +50,7 @@ TESTS = [
     ("clone!(v => move || {})",
         "You need to specify if this is a weak or a strong clone."),
     ("clone!(@strong v => async move {println!(\"foo\");});",
-        "no rules expected the token `async`"),
+        "async blocks are not supported by the clone! macro"),
 ]
 
 
