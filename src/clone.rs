@@ -417,6 +417,9 @@ macro_rules! clone {
         // clone!(@weak foo => |bla| {});
         compile_error!("Closure needs to be \"moved\" so please add `move` before closure");
     );
+    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => async $($x:tt)+ ) => (
+        compile_error!("async blocks are not supported by the clone! macro");
+    );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => default-return $($x:tt)+ ) => (
         // In case we have:
         // clone!(@weak foo => default-return false, move || {});

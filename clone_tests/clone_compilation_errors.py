@@ -49,6 +49,8 @@ TESTS = [
         "Unknown keyword, only `weak` and `strong` are allowed"),
     ("clone!(v => move || {})",
         "You need to specify if this is a weak or a strong clone."),
+    ("clone!(@strong v => async move {println!(\"foo\");});",
+        "async blocks are not supported by the clone! macro"),
 ]
 
 
@@ -93,6 +95,8 @@ def run_test(code, expected_str):
             continue
     if compiler_message is None:
         return "Weird issue: no compiler-message found..."
+    if expected_str == "":
+        return "failed: `{}`".format(compiler_message)
     if expected_str not in compiler_message:
         return "`{}` not found in `{}`".format(expected_str, compiler_message)
     return None
