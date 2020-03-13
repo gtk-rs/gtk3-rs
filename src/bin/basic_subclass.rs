@@ -15,7 +15,7 @@ extern crate once_cell;
 use gio::prelude::*;
 use gtk::prelude::*;
 
-use gio::subclass::application::ApplicationImplExt;
+use gio::subclass::prelude::*;
 use gio::ApplicationFlags;
 use glib::subclass;
 use glib::subclass::prelude::*;
