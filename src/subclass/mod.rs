@@ -2,14 +2,17 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-pub mod application;
-pub mod input_stream;
-pub mod io_stream;
-pub mod output_stream;
-pub mod seekable;
+mod application;
+mod input_stream;
+mod io_stream;
+mod output_stream;
+mod seekable;
+
+pub use self::application::ArgumentList;
+pub use self::prelude::*;
 
 pub mod prelude {
-    pub use super::application::{ApplicationImpl, ApplicationImplExt, ArgumentList};
+    pub use super::application::{ApplicationImpl, ApplicationImplExt};
     pub use super::input_stream::{InputStreamImpl, InputStreamImplExt};
     pub use super::io_stream::{IOStreamImpl, IOStreamImplExt};
     pub use super::output_stream::{OutputStreamImpl, OutputStreamImplExt};
