@@ -40,12 +40,12 @@ impl Credentials {
     }
 
     #[cfg(any(unix, feature = "dox"))]
-    pub fn get_unix_user(&self) -> Result<(), glib::Error> {
+    pub fn get_unix_user(&self) -> Result<u32, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_credentials_get_unix_user(self.to_glib_none().0, &mut error);
+            let ret = gio_sys::g_credentials_get_unix_user(self.to_glib_none().0, &mut error);
             if error.is_null() {
-                Ok(())
+                Ok(ret)
             } else {
                 Err(from_glib_full(error))
             }

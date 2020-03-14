@@ -310,6 +310,8 @@ status = "generate"
     [[object.function]]
     name = "get_unix_user"
     cfg_condition = "unix"
+        [object.function.return]
+        use_return_for_result = true
     [[object.function]]
     name = "set_unix_user"
     cfg_condition = "unix"
