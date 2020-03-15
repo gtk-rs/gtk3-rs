@@ -16,10 +16,15 @@ use Error;
 use FileTest;
 use FormatSizeFlags;
 use GString;
+#[cfg(any(feature = "v2_50", feature = "dox"))]
+use LogField;
+use LogLevelFlags;
 use Pid;
 use Source;
 use SpawnFlags;
 use UserDirectory;
+#[cfg(any(feature = "v2_50", feature = "dox"))]
+use Variant;
 
 pub fn access<P: AsRef<std::path::Path>>(filename: P, mode: i32) -> i32 {
     unsafe { glib_sys::g_access(filename.as_ref().to_glib_none().0, mode) }
@@ -721,86 +726,81 @@ pub fn listenv() -> Vec<std::ffi::OsString> {
     unsafe { FromGlibPtrContainer::from_glib_full(glib_sys::g_listenv()) }
 }
 
-//pub fn log(log_domain: Option<&str>, log_level: /*Ignored*/LogLevelFlags, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-//    unsafe { TODO: call glib_sys:g_log() }
-//}
-
-//pub fn log_default_handler(log_domain: Option<&str>, log_level: /*Ignored*/LogLevelFlags, message: Option<&str>, unused_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-//    unsafe { TODO: call glib_sys:g_log_default_handler() }
-//}
-
 pub fn log_remove_handler(log_domain: &str, handler_id: u32) {
     unsafe {
         glib_sys::g_log_remove_handler(log_domain.to_glib_none().0, handler_id);
     }
 }
 
-//pub fn log_set_always_fatal(fatal_mask: /*Ignored*/LogLevelFlags) -> /*Ignored*/LogLevelFlags {
-//    unsafe { TODO: call glib_sys:g_log_set_always_fatal() }
-//}
+pub fn log_set_always_fatal(fatal_mask: LogLevelFlags) -> LogLevelFlags {
+    unsafe { from_glib(glib_sys::g_log_set_always_fatal(fatal_mask.to_glib())) }
+}
 
-//pub fn log_set_default_handler(log_func: /*Unimplemented*/Fn(&str, /*Ignored*/LogLevelFlags, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Fn(&str, /*Ignored*/LogLevelFlags, &str) {
-//    unsafe { TODO: call glib_sys:g_log_set_default_handler() }
-//}
+pub fn log_set_fatal_mask(log_domain: &str, fatal_mask: LogLevelFlags) -> LogLevelFlags {
+    unsafe {
+        from_glib(glib_sys::g_log_set_fatal_mask(
+            log_domain.to_glib_none().0,
+            fatal_mask.to_glib(),
+        ))
+    }
+}
 
-//pub fn log_set_fatal_mask(log_domain: &str, fatal_mask: /*Ignored*/LogLevelFlags) -> /*Ignored*/LogLevelFlags {
-//    unsafe { TODO: call glib_sys:g_log_set_fatal_mask() }
-//}
+#[cfg(any(feature = "v2_50", feature = "dox"))]
+pub fn log_structured_array(log_level: LogLevelFlags, fields: &[&LogField]) {
+    let n_fields = fields.len() as usize;
+    unsafe {
+        glib_sys::g_log_structured_array(log_level.to_glib(), fields.to_glib_none().0, n_fields);
+    }
+}
 
-//pub fn log_set_handler(log_domain: Option<&str>, log_levels: /*Ignored*/LogLevelFlags, log_func: /*Unimplemented*/Fn(&str, /*Ignored*/LogLevelFlags, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
-//    unsafe { TODO: call glib_sys:g_log_set_handler() }
-//}
-
-//#[cfg(any(feature = "v2_46", feature = "dox"))]
-//pub fn log_set_handler_full(log_domain: Option<&str>, log_levels: /*Ignored*/LogLevelFlags, log_func: /*Unimplemented*/Fn(&str, /*Ignored*/LogLevelFlags, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
-//    unsafe { TODO: call glib_sys:g_log_set_handler_full() }
-//}
-
-//#[cfg(any(feature = "v2_50", feature = "dox"))]
-//pub fn log_set_writer_func(func: /*Unimplemented*/Fn(/*Ignored*/LogLevelFlags, /*Ignored*/Vec<LogField>, usize) -> /*Ignored*/LogWriterOutput, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-//    unsafe { TODO: call glib_sys:g_log_set_writer_func() }
-//}
-
-//#[cfg(any(feature = "v2_50", feature = "dox"))]
-//pub fn log_structured(log_domain: &str, log_level: /*Ignored*/LogLevelFlags, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-//    unsafe { TODO: call glib_sys:g_log_structured() }
-//}
-
-//#[cfg(any(feature = "v2_50", feature = "dox"))]
-//pub fn log_structured_array(log_level: /*Ignored*/LogLevelFlags, fields: /*Ignored*/&[&LogField]) {
-//    unsafe { TODO: call glib_sys:g_log_structured_array() }
-//}
-
-//pub fn log_structured_standard(log_domain: &str, log_level: /*Ignored*/LogLevelFlags, file: &str, line: &str, func: &str, message_format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+//pub fn log_structured_standard(log_domain: &str, log_level: LogLevelFlags, file: &str, line: &str, func: &str, message_format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
 //    unsafe { TODO: call glib_sys:g_log_structured_standard() }
 //}
 
-//#[cfg(any(feature = "v2_50", feature = "dox"))]
-//pub fn log_variant(log_domain: Option<&str>, log_level: /*Ignored*/LogLevelFlags, fields: &Variant) {
-//    unsafe { TODO: call glib_sys:g_log_variant() }
-//}
+#[cfg(any(feature = "v2_50", feature = "dox"))]
+pub fn log_variant(log_domain: Option<&str>, log_level: LogLevelFlags, fields: &Variant) {
+    unsafe {
+        glib_sys::g_log_variant(
+            log_domain.to_glib_none().0,
+            log_level.to_glib(),
+            fields.to_glib_none().0,
+        );
+    }
+}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
-//pub fn log_writer_default(log_level: /*Ignored*/LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/LogWriterOutput {
+//pub fn log_writer_default(log_level: LogLevelFlags, fields: &[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> LogWriterOutput {
 //    unsafe { TODO: call glib_sys:g_log_writer_default() }
 //}
 
-//#[cfg(any(feature = "v2_50", feature = "dox"))]
-//pub fn log_writer_format_fields(log_level: /*Ignored*/LogLevelFlags, fields: /*Ignored*/&[&LogField], use_color: bool) -> Option<GString> {
-//    unsafe { TODO: call glib_sys:g_log_writer_format_fields() }
-//}
+#[cfg(any(feature = "v2_50", feature = "dox"))]
+pub fn log_writer_format_fields(
+    log_level: LogLevelFlags,
+    fields: &[&LogField],
+    use_color: bool,
+) -> Option<GString> {
+    let n_fields = fields.len() as usize;
+    unsafe {
+        from_glib_full(glib_sys::g_log_writer_format_fields(
+            log_level.to_glib(),
+            fields.to_glib_none().0,
+            n_fields,
+            use_color.to_glib(),
+        ))
+    }
+}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
-//pub fn log_writer_journald(log_level: /*Ignored*/LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/LogWriterOutput {
+//pub fn log_writer_journald(log_level: LogLevelFlags, fields: &[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> LogWriterOutput {
 //    unsafe { TODO: call glib_sys:g_log_writer_journald() }
 //}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
-//pub fn log_writer_standard_streams(log_level: /*Ignored*/LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/LogWriterOutput {
+//pub fn log_writer_standard_streams(log_level: LogLevelFlags, fields: &[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> LogWriterOutput {
 //    unsafe { TODO: call glib_sys:g_log_writer_standard_streams() }
 //}
 
-//pub fn logv(log_domain: Option<&str>, log_level: /*Ignored*/LogLevelFlags, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
+//pub fn logv(log_domain: Option<&str>, log_level: LogLevelFlags, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
 //    unsafe { TODO: call glib_sys:g_logv() }
 //}
 

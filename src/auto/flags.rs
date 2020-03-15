@@ -139,6 +139,36 @@ impl FromGlib<glib_sys::GKeyFileFlags> for KeyFileFlags {
 }
 
 bitflags! {
+    pub struct LogLevelFlags: u32 {
+        const FLAG_RECURSION = 1;
+        const FLAG_FATAL = 2;
+        const LEVEL_ERROR = 4;
+        const LEVEL_CRITICAL = 8;
+        const LEVEL_WARNING = 16;
+        const LEVEL_MESSAGE = 32;
+        const LEVEL_INFO = 64;
+        const LEVEL_DEBUG = 128;
+        const LEVEL_MASK = 4294967292;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for LogLevelFlags {
+    type GlibType = glib_sys::GLogLevelFlags;
+
+    fn to_glib(&self) -> glib_sys::GLogLevelFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<glib_sys::GLogLevelFlags> for LogLevelFlags {
+    fn from_glib(value: glib_sys::GLogLevelFlags) -> LogLevelFlags {
+        LogLevelFlags::from_bits_truncate(value)
+    }
+}
+
+bitflags! {
     pub struct OptionFlags: u32 {
         const NONE = 0;
         const HIDDEN = 1;

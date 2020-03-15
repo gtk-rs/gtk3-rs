@@ -314,6 +314,56 @@ impl ErrorDomain for KeyFileError {
     }
 }
 
+#[cfg(any(feature = "v2_50", feature = "dox"))]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+pub enum LogWriterOutput {
+    Handled,
+    Unhandled,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[cfg(any(feature = "v2_50", feature = "dox"))]
+impl fmt::Display for LogWriterOutput {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "LogWriterOutput::{}",
+            match *self {
+                LogWriterOutput::Handled => "Handled",
+                LogWriterOutput::Unhandled => "Unhandled",
+                _ => "Unknown",
+            }
+        )
+    }
+}
+
+#[cfg(any(feature = "v2_50", feature = "dox"))]
+#[doc(hidden)]
+impl ToGlib for LogWriterOutput {
+    type GlibType = glib_sys::GLogWriterOutput;
+
+    fn to_glib(&self) -> glib_sys::GLogWriterOutput {
+        match *self {
+            LogWriterOutput::Handled => glib_sys::G_LOG_WRITER_HANDLED,
+            LogWriterOutput::Unhandled => glib_sys::G_LOG_WRITER_UNHANDLED,
+            LogWriterOutput::__Unknown(value) => value,
+        }
+    }
+}
+
+#[cfg(any(feature = "v2_50", feature = "dox"))]
+#[doc(hidden)]
+impl FromGlib<glib_sys::GLogWriterOutput> for LogWriterOutput {
+    fn from_glib(value: glib_sys::GLogWriterOutput) -> Self {
+        match value {
+            1 => LogWriterOutput::Handled,
+            0 => LogWriterOutput::Unhandled,
+            value => LogWriterOutput::__Unknown(value),
+        }
+    }
+}
+
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum OptionArg {
     None,
