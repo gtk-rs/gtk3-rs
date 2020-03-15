@@ -181,6 +181,12 @@ mod param_spec;
 pub use param_spec::ParamSpec;
 mod quark;
 pub use quark::Quark;
+#[macro_use]
+mod log;
+pub use log::{
+    log_default_handler, log_set_default_handler, log_set_handler, log_set_handler_full,
+    log_set_writer_func, set_print_handler, set_printerr_handler, LogField, LogValue,
+};
 
 pub mod send_unique;
 pub use send_unique::{SendUnique, SendUniqueCell};
