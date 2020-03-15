@@ -16,6 +16,8 @@ generate = [
     "GLib.FormatSizeFlags",
     "GLib.KeyFileError",
     "GLib.KeyFileFlags",
+    "GLib.LogLevelFlags",
+    "GLib.LogWriterOutput",
     "GLib.OptionArg",
     "GLib.OptionFlags",
     "GLib.SeekType",
@@ -34,6 +36,7 @@ manual = [
     "GLib.Bytes",
     "GLib.ByteArray",
     "GLib.Error",
+    "GLib.LogField",
     "GLib.Variant",
     "GLib.VariantType",
     "GLib.UserDirectory",
@@ -346,6 +349,34 @@ status = "generate"
     [[object.function]]
     name = "spawn_async_with_pipes"
     # generates invalid FDs
+    ignore = true
+    [[object.function]]
+    name = "log_set_handler"
+    # from_glib_borrow on non-pointer objects
+    ignore = true
+    [[object.function]]
+    name = "log_default_handler"
+    # last argument is unused
+    ignore = true
+    [[object.function]]
+    name = "log_set_handler_full"
+    # from_glib_borrow on non-pointer objects
+    ignore = true
+    [[object.function]]
+    name = "log_set_writer_func"
+    # from_glib_borrow on non-pointer objects
+    ignore = true
+    [[object.function]]
+    name = "log_structured"
+    # implemented with a macro because of var args and weird arguments pairing
+    ignore = true
+    [[object.function]]
+    name = "log"
+    # implemented with a macro because of var args
+    ignore = true
+    [[object.function]]
+    name = "log_set_default_handler"
+    # It returned the old callback, which is problematic
     ignore = true
     [[object.constant]]
     pattern = "DIR_SEPARATOR(_S)?"
