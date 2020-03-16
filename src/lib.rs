@@ -183,9 +183,10 @@ mod quark;
 pub use quark::Quark;
 #[macro_use]
 mod log;
+#[cfg(any(feature = "v2_46", feature = "dox"))]
+pub use log::log_set_handler;
 pub use log::{
-    log_default_handler, log_set_default_handler, log_set_handler, log_set_handler_full,
-    log_set_writer_func, set_print_handler, set_printerr_handler, LogField, LogValue,
+    log_default_handler, log_set_default_handler, set_print_handler, set_printerr_handler,
 };
 
 pub mod send_unique;

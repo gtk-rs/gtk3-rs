@@ -36,7 +36,6 @@ manual = [
     "GLib.Bytes",
     "GLib.ByteArray",
     "GLib.Error",
-    "GLib.LogField",
     "GLib.Variant",
     "GLib.VariantType",
     "GLib.UserDirectory",
@@ -352,7 +351,7 @@ status = "generate"
     ignore = true
     [[object.function]]
     name = "log_set_handler"
-    # from_glib_borrow on non-pointer objects
+    # leaks closure
     ignore = true
     [[object.function]]
     name = "log_default_handler"
