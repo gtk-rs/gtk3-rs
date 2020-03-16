@@ -140,8 +140,9 @@ pub fn unset_printerr_handler() {
     unsafe { glib_sys::g_set_printerr_handler(None) };
 }
 
-static DEFAULT_HANDLER: Lazy<Mutex<Option<Box_<Box_<dyn Fn(&str, LogLevelFlags, &str) + Send + Sync + 'static>>>>> =
-    Lazy::new(|| Mutex::new(None));
+static DEFAULT_HANDLER: Lazy<
+    Mutex<Option<Box_<Box_<dyn Fn(&str, LogLevelFlags, &str) + Send + Sync + 'static>>>>,
+> = Lazy::new(|| Mutex::new(None));
 
 /// To set back the default print handler, use the [`log_unset_default_handler`] function.
 pub fn log_set_default_handler<P: Fn(&str, LogLevelFlags, &str) + Send + Sync + 'static>(
@@ -203,14 +204,14 @@ pub fn log_unset_default_handler() {
 /// ```no_run
 /// use glib::{LogLevelFlags, g_log};
 ///
-/// g_log!(None, LogLevelFlags::FLAG_RECURSION, "test");
-/// g_log!(Some("test"), LogLevelFlags::FLAG_FATAL, "test");
+/// g_log!("test", LogLevelFlags::FLAG_RECURSION, "test");
+/// g_log!("test", LogLevelFlags::FLAG_FATAL, "test");
 ///
 /// // You can also pass arguments like in format! or println!:
 /// let x = 12;
-/// g_log!(None, LogLevelFlags::FLAG_RECURSION, "test: {}", x);
-/// g_log!(Some("test"), LogLevelFlags::FLAG_RECURSION, "test: {}", x);
-/// g_log!(None, LogLevelFlags::FLAG_FATAL, "test: {} {}", x, "a");
+/// g_log!("test", LogLevelFlags::FLAG_RECURSION, "test: {}", x);
+/// g_log!("test", LogLevelFlags::FLAG_RECURSION, "test: {}", x);
+/// g_log!("test", LogLevelFlags::FLAG_FATAL, "test: {} {}", x, "a");
 /// ```
 #[macro_export]
 macro_rules! g_log {
@@ -218,7 +219,7 @@ macro_rules! g_log {
         use $crate::translate::{ToGlib, ToGlibPtr};
         use $crate::LogLevelFlags;
 
-        fn check_log_args(_log_domain: &Option<&str>, _log_level: &LogLevelFlags, _format: &str) {}
+        fn check_log_args(_log_domain: &str, _log_level: &LogLevelFlags, _format: &str) {}
 
         check_log_args(&$log_domain, &$log_level, $format);
         // the next line is used to enforce the type for the macro checker...
@@ -236,7 +237,7 @@ macro_rules! g_log {
         use $crate::translate::{ToGlib, ToGlibPtr};
         use $crate::LogLevelFlags;
 
-        fn check_log_args(_log_domain: &Option<&str>, _log_level: &LogLevelFlags, _format: &str) {}
+        fn check_log_args(_log_domain: &str, _log_level: &LogLevelFlags, _format: &str) {}
 
         check_log_args(&$log_domain, &$log_level, $format);
         // the next line is used to enforce the type for the macro checker...
@@ -287,11 +288,7 @@ macro_rules! g_log {
 //     }};
 // }
 
-pub fn log_default_handler(
-    log_domain: Option<&str>,
-    log_level: LogLevelFlags,
-    message: Option<&str>,
-) {
+pub fn log_default_handler(log_domain: &str, log_level: LogLevelFlags, message: Option<&str>) {
     unsafe {
         glib_sys::g_log_default_handler(
             log_domain.to_glib_none().0,
