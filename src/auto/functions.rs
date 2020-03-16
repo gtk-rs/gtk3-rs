@@ -724,12 +724,6 @@ pub fn listenv() -> Vec<std::ffi::OsString> {
     unsafe { FromGlibPtrContainer::from_glib_full(glib_sys::g_listenv()) }
 }
 
-pub fn log_remove_handler(log_domain: &str, handler_id: u32) {
-    unsafe {
-        glib_sys::g_log_remove_handler(log_domain.to_glib_none().0, handler_id);
-    }
-}
-
 pub fn log_set_always_fatal(fatal_mask: LogLevelFlags) -> LogLevelFlags {
     unsafe { from_glib(glib_sys::g_log_set_always_fatal(fatal_mask.to_glib())) }
 }

@@ -377,6 +377,10 @@ status = "generate"
     name = "log_set_default_handler"
     # It returned the old callback, which is problematic
     ignore = true
+    [[object.function]]
+    name = "log_remove_handler"
+    # Change handler_id parameter type to LogHandlerId
+    ignore = true
     [[object.constant]]
     pattern = "DIR_SEPARATOR(_S)?"
     #not cross-platform

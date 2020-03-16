@@ -186,8 +186,9 @@ mod log;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 pub use log::log_set_handler;
 pub use log::{
-    log_default_handler, log_set_default_handler, log_unset_default_handler, set_print_handler,
-    set_printerr_handler, unset_print_handler, unset_printerr_handler,
+    log_default_handler, log_remove_handler, log_set_default_handler, log_unset_default_handler,
+    set_print_handler, set_printerr_handler, unset_print_handler, unset_printerr_handler,
+    LogHandlerId,
 };
 
 pub mod send_unique;

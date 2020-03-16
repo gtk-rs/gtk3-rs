@@ -10,12 +10,30 @@ use translate::*;
 use GString;
 use LogLevelFlags;
 
+pub struct LogHandlerId(u32);
+
+#[doc(hidden)]
+impl FromGlib<u32> for LogHandlerId {
+    fn from_glib(value: u32) -> LogHandlerId {
+        LogHandlerId(value)
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for LogHandlerId {
+    type GlibType = u32;
+
+    fn to_glib(&self) -> u32 {
+        self.0
+    }
+}
+
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 pub fn log_set_handler<P: Fn(&str, &LogLevelFlags, &str) + Send + Sync + 'static>(
     log_domain: &str,
     log_levels: LogLevelFlags,
     log_func: P,
-) -> u32 {
+) -> LogHandlerId {
     let log_func_data: Box_<P> = Box_::new(log_func);
     unsafe extern "C" fn log_func_func<
         P: Fn(&str, &LogLevelFlags, &str) + Send + Sync + 'static,
@@ -40,13 +58,19 @@ pub fn log_set_handler<P: Fn(&str, &LogLevelFlags, &str) + Send + Sync + 'static
     let destroy_call4 = Some(destroy_func::<P> as _);
     let super_callback0: Box_<P> = log_func_data;
     unsafe {
-        glib_sys::g_log_set_handler_full(
+        from_glib(glib_sys::g_log_set_handler_full(
             log_domain.to_glib_none().0,
             log_levels.to_glib(),
             log_func,
             Box_::into_raw(super_callback0) as *mut _,
             destroy_call4,
-        )
+        ))
+    }
+}
+
+pub fn log_remove_handler(log_domain: &str, handler_id: LogHandlerId) {
+    unsafe {
+        glib_sys::g_log_remove_handler(log_domain.to_glib_none().0, handler_id.to_glib());
     }
 }
 
