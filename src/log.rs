@@ -12,7 +12,7 @@ use LogLevelFlags;
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 pub fn log_set_handler<P: Fn(&str, &LogLevelFlags, &str) + Send + Sync + 'static>(
-    log_domain: Option<&str>,
+    log_domain: &str,
     log_levels: LogLevelFlags,
     log_func: P,
 ) -> u32 {
@@ -53,7 +53,8 @@ pub fn log_set_handler<P: Fn(&str, &LogLevelFlags, &str) + Send + Sync + 'static
 static PRINT_HANDLER: Lazy<Mutex<Option<Box_<Box_<dyn Fn(&str) + Send + Sync + 'static>>>>> =
     Lazy::new(|| Mutex::new(None));
 
-pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: Option<P>) {
+/// To set back the default print handler, use the [`unset_print_handler`] function.
+pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
     unsafe extern "C" fn func_func(string: *const libc::c_char) {
         match PRINT_HANDLER.lock() {
             Ok(handler) => {
@@ -69,12 +70,7 @@ pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: Option<P>) {
             }
         }
     }
-    let callback = if func.is_some() {
-        Some(func_func as _)
-    } else {
-        None
-    };
-    let func = func.map(|f| Box_::new(Box_::new(f)));
+    let func = Some(Box_::new(Box_::new(func)));
     match PRINT_HANDLER.lock() {
         Ok(mut handler) => {
             *handler = unsafe { ::std::mem::transmute(func) };
@@ -83,13 +79,27 @@ pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: Option<P>) {
             // should we log something?
         }
     }
-    unsafe { glib_sys::g_set_printerr_handler(callback) };
+    unsafe { glib_sys::g_set_print_handler(Some(func_func as _)) };
+}
+
+/// To set the default print handler, use the [`set_print_handler`] function.
+pub fn unset_print_handler() {
+    match PRINT_HANDLER.lock() {
+        Ok(mut handler) => {
+            *handler = None;
+        }
+        Err(_) => {
+            // should we log something?
+        }
+    }
+    unsafe { glib_sys::g_set_print_handler(None) };
 }
 
 static PRINTERR_HANDLER: Lazy<Mutex<Option<Box_<Box_<dyn Fn(&str) + Send + Sync + 'static>>>>> =
     Lazy::new(|| Mutex::new(None));
 
-pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: Option<P>) {
+/// To set back the default print handler, use the [`unset_printerr_handler`] function.
+pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
     unsafe extern "C" fn func_func(string: *const libc::c_char) {
         match PRINTERR_HANDLER.lock() {
             Ok(handler) => {
@@ -105,12 +115,7 @@ pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: Option<P>
             }
         }
     }
-    let callback = if func.is_some() {
-        Some(func_func as _)
-    } else {
-        None
-    };
-    let func = func.map(|f| Box_::new(Box_::new(f)));
+    let func = Some(Box_::new(Box_::new(func)));
     match PRINTERR_HANDLER.lock() {
         Ok(mut handler) => {
             *handler = unsafe { ::std::mem::transmute(func) };
@@ -119,14 +124,28 @@ pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: Option<P>
             // should we log something?
         }
     }
-    unsafe { glib_sys::g_set_printerr_handler(callback) };
+    unsafe { glib_sys::g_set_printerr_handler(Some(func_func as _)) };
+}
+
+/// To set the default print handler, use the [`set_printerr_handler`] function.
+pub fn unset_printerr_handler() {
+    match PRINTERR_HANDLER.lock() {
+        Ok(mut handler) => {
+            *handler = None;
+        }
+        Err(_) => {
+            // should we log something?
+        }
+    }
+    unsafe { glib_sys::g_set_printerr_handler(None) };
 }
 
 static DEFAULT_HANDLER: Lazy<Mutex<Option<Box_<Box_<dyn Fn(&str, LogLevelFlags, &str) + Send + Sync + 'static>>>>> =
     Lazy::new(|| Mutex::new(None));
 
+/// To set back the default print handler, use the [`log_unset_default_handler`] function.
 pub fn log_set_default_handler<P: Fn(&str, LogLevelFlags, &str) + Send + Sync + 'static>(
-    log_func: Option<P>,
+    log_func: P,
 ) {
     unsafe extern "C" fn func_func(
         log_domain: *const libc::c_char,
@@ -150,12 +169,7 @@ pub fn log_set_default_handler<P: Fn(&str, LogLevelFlags, &str) + Send + Sync + 
             }
         }
     }
-    let callback = if log_func.is_some() {
-        Some(func_func as _)
-    } else {
-        None
-    };
-    let log_func = log_func.map(|f| Box_::new(Box_::new(f)));
+    let log_func = Some(Box_::new(Box_::new(log_func)));
     match DEFAULT_HANDLER.lock() {
         Ok(mut handler) => {
             *handler = unsafe { ::std::mem::transmute(log_func) };
@@ -164,7 +178,20 @@ pub fn log_set_default_handler<P: Fn(&str, LogLevelFlags, &str) + Send + Sync + 
             // should we log something?
         }
     }
-    unsafe { glib_sys::g_log_set_default_handler(callback, ::std::ptr::null_mut()) };
+    unsafe { glib_sys::g_log_set_default_handler(Some(func_func as _), ::std::ptr::null_mut()) };
+}
+
+/// To set the default print handler, use the [`log_set_default_handler`] function.
+pub fn log_unset_default_handler() {
+    match PRINTERR_HANDLER.lock() {
+        Ok(mut handler) => {
+            *handler = None;
+        }
+        Err(_) => {
+            // should we log something?
+        }
+    }
+    unsafe { glib_sys::g_log_set_default_handler(None, ::std::ptr::null_mut()) };
 }
 
 /// Macro used to log using GLib logging system. Is uses [g_log].
