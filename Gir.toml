@@ -381,6 +381,18 @@ status = "generate"
     name = "log_remove_handler"
     # Change handler_id parameter type to LogHandlerId
     ignore = true
+    [[object.function]]
+    name = "log_set_always_fatal"
+    # update of arguments and return type
+    ignore = true
+    [[object.function]]
+    name = "log_variant"
+    # usage of LogLevelFlags
+    ignore = true
+    [[object.function]]
+    name = "log_set_fatal_mask"
+    # update of arguments and return type
+    ignore = true
     [[object.constant]]
     pattern = "DIR_SEPARATOR(_S)?"
     #not cross-platform

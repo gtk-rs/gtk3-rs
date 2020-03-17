@@ -185,10 +185,12 @@ pub use quark::Quark;
 mod log;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 pub use log::log_set_handler;
+#[cfg(any(feature = "v2_50", feature = "dox"))]
+pub use log::log_variant;
 pub use log::{
-    log_default_handler, log_remove_handler, log_set_default_handler, log_unset_default_handler,
-    set_print_handler, set_printerr_handler, unset_print_handler, unset_printerr_handler,
-    LogHandlerId,
+    log_default_handler, log_remove_handler, log_set_always_fatal, log_set_default_handler,
+    log_set_fatal_mask, log_unset_default_handler, set_print_handler, set_printerr_handler,
+    unset_print_handler, unset_printerr_handler, LogFlag, LogHandlerId, LogLevel,
 };
 
 pub mod send_unique;

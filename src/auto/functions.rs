@@ -16,13 +16,10 @@ use Error;
 use FileTest;
 use FormatSizeFlags;
 use GString;
-use LogLevelFlags;
 use Pid;
 use Source;
 use SpawnFlags;
 use UserDirectory;
-#[cfg(any(feature = "v2_50", feature = "dox"))]
-use Variant;
 
 pub fn access<P: AsRef<std::path::Path>>(filename: P, mode: i32) -> i32 {
     unsafe { glib_sys::g_access(filename.as_ref().to_glib_none().0, mode) }
@@ -724,19 +721,6 @@ pub fn listenv() -> Vec<std::ffi::OsString> {
     unsafe { FromGlibPtrContainer::from_glib_full(glib_sys::g_listenv()) }
 }
 
-pub fn log_set_always_fatal(fatal_mask: LogLevelFlags) -> LogLevelFlags {
-    unsafe { from_glib(glib_sys::g_log_set_always_fatal(fatal_mask.to_glib())) }
-}
-
-pub fn log_set_fatal_mask(log_domain: &str, fatal_mask: LogLevelFlags) -> LogLevelFlags {
-    unsafe {
-        from_glib(glib_sys::g_log_set_fatal_mask(
-            log_domain.to_glib_none().0,
-            fatal_mask.to_glib(),
-        ))
-    }
-}
-
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
 //pub fn log_structured_array(log_level: LogLevelFlags, fields: /*Ignored*/&[&LogField]) {
 //    unsafe { TODO: call glib_sys:g_log_structured_array() }
@@ -745,17 +729,6 @@ pub fn log_set_fatal_mask(log_domain: &str, fatal_mask: LogLevelFlags) -> LogLev
 //pub fn log_structured_standard(log_domain: &str, log_level: LogLevelFlags, file: &str, line: &str, func: &str, message_format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
 //    unsafe { TODO: call glib_sys:g_log_structured_standard() }
 //}
-
-#[cfg(any(feature = "v2_50", feature = "dox"))]
-pub fn log_variant(log_domain: Option<&str>, log_level: LogLevelFlags, fields: &Variant) {
-    unsafe {
-        glib_sys::g_log_variant(
-            log_domain.to_glib_none().0,
-            log_level.to_glib(),
-            fields.to_glib_none().0,
-        );
-    }
-}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
 //pub fn log_writer_default(log_level: LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> LogWriterOutput {

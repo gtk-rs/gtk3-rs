@@ -9,7 +9,10 @@ use std::sync::Mutex;
 use translate::*;
 use GString;
 use LogLevelFlags;
+#[cfg(any(feature = "v2_50", feature = "dox"))]
+use Variant;
 
+#[derive(Debug)]
 pub struct LogHandlerId(u32);
 
 #[doc(hidden)]
@@ -28,15 +31,96 @@ impl ToGlib for LogHandlerId {
     }
 }
 
+#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+pub enum LogFlag {
+    None,
+    Recursion,
+    Fatal,
+}
+
+#[doc(hidden)]
+impl ToGlib for LogFlag {
+    type GlibType = u32;
+
+    fn to_glib(&self) -> u32 {
+        match *self {
+            LogFlag::None => 0,
+            LogFlag::Recursion => LogLevelFlags::FLAG_RECURSION.bits(),
+            LogFlag::Fatal => LogLevelFlags::FLAG_FATAL.bits(),
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<u32> for LogFlag {
+    fn from_glib(value: u32) -> LogFlag {
+        if value & LogLevelFlags::FLAG_RECURSION.bits() != 0 {
+            LogFlag::Recursion
+        } else if value & LogLevelFlags::FLAG_FATAL.bits() != 0 {
+            LogFlag::Fatal
+        } else {
+            LogFlag::None
+        }
+    }
+}
+
+#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+pub enum LogLevel {
+    Error,
+    Critical,
+    Warning,
+    Message,
+    Info,
+    Debug,
+}
+
+#[doc(hidden)]
+impl ToGlib for LogLevel {
+    type GlibType = u32;
+
+    fn to_glib(&self) -> u32 {
+        match *self {
+            LogLevel::Error => LogLevelFlags::LEVEL_ERROR.bits(),
+            LogLevel::Critical => LogLevelFlags::LEVEL_CRITICAL.bits(),
+            LogLevel::Warning => LogLevelFlags::LEVEL_WARNING.bits(),
+            LogLevel::Message => LogLevelFlags::LEVEL_MESSAGE.bits(),
+            LogLevel::Info => LogLevelFlags::LEVEL_INFO.bits(),
+            LogLevel::Debug => LogLevelFlags::LEVEL_DEBUG.bits(),
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<u32> for LogLevel {
+    fn from_glib(value: u32) -> LogLevel {
+        if value & LogLevelFlags::LEVEL_ERROR.bits() != 0 {
+            LogLevel::Error
+        } else if value & LogLevelFlags::LEVEL_CRITICAL.bits() != 0 {
+            LogLevel::Critical
+        } else if value & LogLevelFlags::LEVEL_WARNING.bits() != 0 {
+            LogLevel::Warning
+        } else if value & LogLevelFlags::LEVEL_MESSAGE.bits() != 0 {
+            LogLevel::Message
+        } else if value & LogLevelFlags::LEVEL_INFO.bits() != 0 {
+            LogLevel::Info
+        } else if value & LogLevelFlags::LEVEL_DEBUG.bits() != 0 {
+            LogLevel::Debug
+        } else {
+            panic!("Unknown log level: {}", value)
+        }
+    }
+}
+
 #[cfg(any(feature = "v2_46", feature = "dox"))]
-pub fn log_set_handler<P: Fn(&str, &LogLevelFlags, &str) + Send + Sync + 'static>(
+pub fn log_set_handler<P: Fn(&str, LogLevel, LogFlag, &str) + Send + Sync + 'static>(
     log_domain: &str,
-    log_levels: LogLevelFlags,
+    log_levels: LogLevel,
+    log_flag: LogFlag,
     log_func: P,
 ) -> LogHandlerId {
     let log_func_data: Box_<P> = Box_::new(log_func);
     unsafe extern "C" fn log_func_func<
-        P: Fn(&str, &LogLevelFlags, &str) + Send + Sync + 'static,
+        P: Fn(&str, LogLevel, LogFlag, &str) + Send + Sync + 'static,
     >(
         log_domain: *const libc::c_char,
         log_level: glib_sys::GLogLevelFlags,
@@ -44,13 +128,12 @@ pub fn log_set_handler<P: Fn(&str, &LogLevelFlags, &str) + Send + Sync + 'static
         user_data: glib_sys::gpointer,
     ) {
         let log_domain: GString = from_glib_borrow(log_domain);
-        let log_level = from_glib(log_level);
         let message: GString = from_glib_borrow(message);
         let callback: &P = &*(user_data as *mut _);
-        (*callback)(log_domain.as_str(), &log_level, message.as_str());
+        (*callback)(log_domain.as_str(), from_glib(log_level), from_glib(log_level), message.as_str());
     }
     let log_func = Some(log_func_func::<P> as _);
-    unsafe extern "C" fn destroy_func<P: Fn(&str, &LogLevelFlags, &str) + Send + Sync + 'static>(
+    unsafe extern "C" fn destroy_func<P: Fn(&str, LogLevel, LogFlag, &str) + Send + Sync + 'static>(
         data: glib_sys::gpointer,
     ) {
         let _callback: Box_<P> = Box_::from_raw(data as *mut _);
@@ -60,7 +143,7 @@ pub fn log_set_handler<P: Fn(&str, &LogLevelFlags, &str) + Send + Sync + 'static
     unsafe {
         from_glib(glib_sys::g_log_set_handler_full(
             log_domain.to_glib_none().0,
-            log_levels.to_glib(),
+            log_levels.to_glib() | log_flag.to_glib(),
             log_func,
             Box_::into_raw(super_callback0) as *mut _,
             destroy_call4,
@@ -71,6 +154,43 @@ pub fn log_set_handler<P: Fn(&str, &LogLevelFlags, &str) + Send + Sync + 'static
 pub fn log_remove_handler(log_domain: &str, handler_id: LogHandlerId) {
     unsafe {
         glib_sys::g_log_remove_handler(log_domain.to_glib_none().0, handler_id.to_glib());
+    }
+}
+
+pub fn log_set_always_fatal(
+    fatal_level: LogLevel,
+    fatal_flag: LogFlag,
+) -> (LogLevel, LogFlag) {
+    let ret = unsafe {
+        glib_sys::g_log_set_always_fatal(
+            fatal_level.to_glib() | fatal_flag.to_glib(),
+        )
+    };
+    (from_glib(ret), from_glib(ret))
+}
+
+pub fn log_set_fatal_mask(
+    log_domain: &str,
+    fatal_level: LogLevel,
+    fatal_flag: LogFlag,
+) -> (LogLevel, LogFlag) {
+    let ret = unsafe {
+        glib_sys::g_log_set_fatal_mask(
+            log_domain.to_glib_none().0,
+            fatal_level.to_glib() | fatal_flag.to_glib(),
+        )
+    };
+    (from_glib(ret), from_glib(ret))
+}
+
+#[cfg(any(feature = "v2_50", feature = "dox"))]
+pub fn log_variant(log_domain: Option<&str>, log_level: LogLevel, fields: &Variant) {
+    unsafe {
+        glib_sys::g_log_variant(
+            log_domain.to_glib_none().0,
+            log_level.to_glib(),
+            fields.to_glib_none().0,
+        );
     }
 }
 
@@ -165,11 +285,11 @@ pub fn unset_printerr_handler() {
 }
 
 static DEFAULT_HANDLER: Lazy<
-    Mutex<Option<Box_<Box_<dyn Fn(&str, LogLevelFlags, &str) + Send + Sync + 'static>>>>,
+    Mutex<Option<Box_<Box_<dyn Fn(&str, LogLevel, LogFlag, &str) + Send + Sync + 'static>>>>,
 > = Lazy::new(|| Mutex::new(None));
 
 /// To set back the default print handler, use the [`log_unset_default_handler`] function.
-pub fn log_set_default_handler<P: Fn(&str, LogLevelFlags, &str) + Send + Sync + 'static>(
+pub fn log_set_default_handler<P: Fn(&str, LogLevel, LogFlag, &str) + Send + Sync + 'static>(
     log_func: P,
 ) {
     unsafe extern "C" fn func_func(
@@ -182,9 +302,8 @@ pub fn log_set_default_handler<P: Fn(&str, LogLevelFlags, &str) + Send + Sync + 
             Ok(handler) => {
                 if let Some(ref handler) = *handler {
                     let log_domain: GString = from_glib_borrow(log_domain);
-                    let log_level = from_glib(log_level);
                     let message: GString = from_glib_borrow(message);
-                    (*handler)(log_domain.as_str(), log_level, message.as_str())
+                    (*handler)(log_domain.as_str(), from_glib(log_level), from_glib(log_level), message.as_str())
                 } else {
                     panic!("DEFAULT_HANDLER cannot be None!");
                 }
@@ -226,28 +345,28 @@ pub fn log_unset_default_handler() {
 /// Example:
 ///
 /// ```no_run
-/// use glib::{LogLevelFlags, g_log};
+/// use glib::{LogLevel, g_log};
 ///
-/// g_log!("test", LogLevelFlags::FLAG_RECURSION, "test");
-/// g_log!("test", LogLevelFlags::FLAG_FATAL, "test");
+/// g_log!("test", LogLevel::Debug, "test");
+/// g_log!("test", LogLevel::Message, "test");
 ///
 /// // You can also pass arguments like in format! or println!:
 /// let x = 12;
-/// g_log!("test", LogLevelFlags::FLAG_RECURSION, "test: {}", x);
-/// g_log!("test", LogLevelFlags::FLAG_RECURSION, "test: {}", x);
-/// g_log!("test", LogLevelFlags::FLAG_FATAL, "test: {} {}", x, "a");
+/// g_log!("test", LogLevel::Error, "test: {}", x);
+/// g_log!("test", LogLevel::Critical, "test: {}", x);
+/// g_log!("test", LogLevel::Warning, "test: {} {}", x, "a");
 /// ```
 #[macro_export]
 macro_rules! g_log {
     ($log_domain:expr, $log_level:expr, $format:expr) => {{
         use $crate::translate::{ToGlib, ToGlibPtr};
-        use $crate::LogLevelFlags;
+        use $crate::LogLevel;
 
-        fn check_log_args(_log_domain: &str, _log_level: &LogLevelFlags, _format: &str) {}
+        fn check_log_args(_log_domain: &str, _log_level: LogLevel, _format: &str) {}
 
-        check_log_args(&$log_domain, &$log_level, $format);
+        check_log_args(&$log_domain, $log_level, $format);
         // the next line is used to enforce the type for the macro checker...
-        let log_domain: Option<&str> = $log_domain;
+        let log_domain: &str = $log_domain;
         unsafe {
             $crate::glib_sys::g_log(
                 log_domain.to_glib_none().0,
@@ -259,13 +378,13 @@ macro_rules! g_log {
     }};
     ($log_domain:expr, $log_level:expr, $format:expr, $($arg:tt),*) => {{
         use $crate::translate::{ToGlib, ToGlibPtr};
-        use $crate::LogLevelFlags;
+        use $crate::LogLevel;
 
-        fn check_log_args(_log_domain: &str, _log_level: &LogLevelFlags, _format: &str) {}
+        fn check_log_args(_log_domain: &str, _log_level: LogLevel, _format: &str) {}
 
-        check_log_args(&$log_domain, &$log_level, $format);
+        check_log_args(&$log_domain, $log_level, $format);
         // the next line is used to enforce the type for the macro checker...
-        let log_domain: Option<&str> = $log_domain;
+        let log_domain: &str = $log_domain;
         unsafe {
             $crate::glib_sys::g_log(
                 log_domain.to_glib_none().0,
@@ -285,23 +404,23 @@ macro_rules! g_log {
 // /// Example:
 // ///
 // /// ```no_run
-// /// use glib::{LogLevelFlags, g_log_structured};
+// /// use glib::{LogLevel, g_log_structured};
 // ///
-// /// g_log_structured!("test", LogLevelFlags::FLAG_RECURSION, {"MESSAGE" => "tadam!"});
-// /// g_log_structured!("test", LogLevelFlags::FLAG_FATAL, {"MESSAGE" => "tadam!", "random" => "yes"});
+// /// g_log_structured!("test", LogLevel::Debug, {"MESSAGE" => "tadam!"});
+// /// g_log_structured!("test", LogLevel::Debug, {"MESSAGE" => "tadam!", "random" => "yes"});
 // /// ```
 // #[cfg(any(feature = "v2_50", feature = "dox"))]
 // #[macro_export]
 // macro_rules! g_log_structured {
 //     ($log_domain:expr, $log_level:expr, {$($key:expr => $value:expr),+}) => {{
 //         use $crate::translate::{Stash, ToGlib, ToGlibPtr};
-//         use $crate::LogLevelFlags;
+//         use $crate::LogLevel;
 //         use std::ffi::CString;
 
-//         fn check_log_args(_log_domain: &str, _log_level: &LogLevelFlags) {}
+//         fn check_log_args(_log_domain: &str, _log_level: LogLevel) {}
 //         fn check_key(key: &str) -> Stash<*const i8, str> { key.to_glib_none() }
 
-//         check_log_args(&$log_domain, &$log_level);
+//         check_log_args(&$log_domain, $log_level);
 //         unsafe {
 //             glib_sys::g_log_structured(
 //                 $log_domain.to_glib_none().0,
@@ -312,7 +431,7 @@ macro_rules! g_log {
 //     }};
 // }
 
-pub fn log_default_handler(log_domain: &str, log_level: LogLevelFlags, message: Option<&str>) {
+pub fn log_default_handler(log_domain: &str, log_level: LogLevel, message: Option<&str>) {
     unsafe {
         glib_sys::g_log_default_handler(
             log_domain.to_glib_none().0,
