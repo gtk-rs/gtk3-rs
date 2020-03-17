@@ -5,12 +5,10 @@
 use glib_sys;
 use once_cell::sync::Lazy;
 use std::boxed::Box as Box_;
-use std::sync::Mutex;
+use std::sync::{Arc, Mutex};
 use translate::*;
 use GString;
 use LogLevelFlags;
-#[cfg(any(feature = "v2_50", feature = "dox"))]
-use Variant;
 
 #[derive(Debug)]
 pub struct LogHandlerId(u32);
@@ -31,36 +29,26 @@ impl ToGlib for LogHandlerId {
     }
 }
 
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub enum LogFlag {
-    None,
-    Recursion,
-    Fatal,
-}
-
-#[doc(hidden)]
-impl ToGlib for LogFlag {
-    type GlibType = u32;
-
-    fn to_glib(&self) -> u32 {
-        match *self {
-            LogFlag::None => 0,
-            LogFlag::Recursion => LogLevelFlags::FLAG_RECURSION.bits(),
-            LogFlag::Fatal => LogLevelFlags::FLAG_FATAL.bits(),
-        }
+bitflags! {
+    pub struct LogFlags: u32 {
+        const FLAG_RECURSION = 1;
+        const FLAG_FATAL = 2;
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<u32> for LogFlag {
-    fn from_glib(value: u32) -> LogFlag {
-        if value & LogLevelFlags::FLAG_RECURSION.bits() != 0 {
-            LogFlag::Recursion
-        } else if value & LogLevelFlags::FLAG_FATAL.bits() != 0 {
-            LogFlag::Fatal
-        } else {
-            LogFlag::None
-        }
+impl ToGlib for LogFlags {
+    type GlibType = u32;
+
+    fn to_glib(&self) -> u32 {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<glib_sys::GLogLevelFlags> for LogFlags {
+    fn from_glib(value: glib_sys::GLogLevelFlags) -> LogFlags {
+        LogFlags::from_bits_truncate(value)
     }
 }
 
@@ -111,16 +99,43 @@ impl FromGlib<u32> for LogLevel {
     }
 }
 
+bitflags! {
+    pub struct LogLevels: u32 {
+        const LEVEL_ERROR = 4;
+        const LEVEL_CRITICAL = 8;
+        const LEVEL_WARNING = 16;
+        const LEVEL_MESSAGE = 32;
+        const LEVEL_INFO = 64;
+        const LEVEL_DEBUG = 128;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for LogLevels {
+    type GlibType = glib_sys::GLogLevelFlags;
+
+    fn to_glib(&self) -> glib_sys::GLogLevelFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<glib_sys::GLogLevelFlags> for LogLevels {
+    fn from_glib(value: glib_sys::GLogLevelFlags) -> LogLevels {
+        LogLevels::from_bits_truncate(value)
+    }
+}
+
 #[cfg(any(feature = "v2_46", feature = "dox"))]
-pub fn log_set_handler<P: Fn(&str, LogLevel, LogFlag, &str) + Send + Sync + 'static>(
+pub fn log_set_handler<P: Fn(&str, LogLevel, LogFlags, &str) + Send + Sync + 'static>(
     log_domain: &str,
-    log_levels: LogLevel,
-    log_flag: LogFlag,
+    log_levels: LogLevels,
+    log_flags: LogFlags,
     log_func: P,
 ) -> LogHandlerId {
     let log_func_data: Box_<P> = Box_::new(log_func);
     unsafe extern "C" fn log_func_func<
-        P: Fn(&str, LogLevel, LogFlag, &str) + Send + Sync + 'static,
+        P: Fn(&str, LogLevel, LogFlags, &str) + Send + Sync + 'static,
     >(
         log_domain: *const libc::c_char,
         log_level: glib_sys::GLogLevelFlags,
@@ -130,10 +145,17 @@ pub fn log_set_handler<P: Fn(&str, LogLevel, LogFlag, &str) + Send + Sync + 'sta
         let log_domain: GString = from_glib_borrow(log_domain);
         let message: GString = from_glib_borrow(message);
         let callback: &P = &*(user_data as *mut _);
-        (*callback)(log_domain.as_str(), from_glib(log_level), from_glib(log_level), message.as_str());
+        (*callback)(
+            log_domain.as_str(),
+            from_glib(log_level),
+            from_glib(log_level),
+            message.as_str(),
+        );
     }
     let log_func = Some(log_func_func::<P> as _);
-    unsafe extern "C" fn destroy_func<P: Fn(&str, LogLevel, LogFlag, &str) + Send + Sync + 'static>(
+    unsafe extern "C" fn destroy_func<
+        P: Fn(&str, LogLevel, LogFlags, &str) + Send + Sync + 'static,
+    >(
         data: glib_sys::gpointer,
     ) {
         let _callback: Box_<P> = Box_::from_raw(data as *mut _);
@@ -143,7 +165,7 @@ pub fn log_set_handler<P: Fn(&str, LogLevel, LogFlag, &str) + Send + Sync + 'sta
     unsafe {
         from_glib(glib_sys::g_log_set_handler_full(
             log_domain.to_glib_none().0,
-            log_levels.to_glib() | log_flag.to_glib(),
+            log_levels.to_glib() | log_flags.to_glib(),
             log_func,
             Box_::into_raw(super_callback0) as *mut _,
             destroy_call4,
@@ -157,64 +179,54 @@ pub fn log_remove_handler(log_domain: &str, handler_id: LogHandlerId) {
     }
 }
 
-pub fn log_set_always_fatal(
-    fatal_level: LogLevel,
-    fatal_flag: LogFlag,
-) -> (LogLevel, LogFlag) {
-    let ret = unsafe {
-        glib_sys::g_log_set_always_fatal(
-            fatal_level.to_glib() | fatal_flag.to_glib(),
-        )
-    };
-    (from_glib(ret), from_glib(ret))
+pub fn log_set_always_fatal(fatal_levels: LogLevels) -> LogLevels {
+    unsafe { from_glib(glib_sys::g_log_set_always_fatal(fatal_levels.to_glib())) }
 }
 
-pub fn log_set_fatal_mask(
-    log_domain: &str,
-    fatal_level: LogLevel,
-    fatal_flag: LogFlag,
-) -> (LogLevel, LogFlag) {
-    let ret = unsafe {
-        glib_sys::g_log_set_fatal_mask(
-            log_domain.to_glib_none().0,
-            fatal_level.to_glib() | fatal_flag.to_glib(),
-        )
-    };
-    (from_glib(ret), from_glib(ret))
-}
-
-#[cfg(any(feature = "v2_50", feature = "dox"))]
-pub fn log_variant(log_domain: Option<&str>, log_level: LogLevel, fields: &Variant) {
+pub fn log_set_fatal_mask(log_domain: &str, fatal_levels: LogLevels) -> LogLevels {
     unsafe {
-        glib_sys::g_log_variant(
+        from_glib(glib_sys::g_log_set_fatal_mask(
             log_domain.to_glib_none().0,
-            log_level.to_glib(),
-            fields.to_glib_none().0,
-        );
+            fatal_levels.to_glib(),
+        ))
     }
 }
 
-static PRINT_HANDLER: Lazy<Mutex<Option<Box_<Box_<dyn Fn(&str) + Send + Sync + 'static>>>>> =
+// #[cfg(any(feature = "v2_50", feature = "dox"))]
+// pub fn log_variant(log_domain: Option<&str>, log_level: LogLevel, fields: &Variant) {
+//     unsafe {
+//         glib_sys::g_log_variant(
+//             log_domain.to_glib_none().0,
+//             log_level.to_glib(),
+//             fields.to_glib_none().0,
+//         );
+//     }
+// }
+
+static PRINT_HANDLER: Lazy<Mutex<Option<Arc<Box_<Box_<dyn Fn(&str) + Send + Sync + 'static>>>>>> =
     Lazy::new(|| Mutex::new(None));
 
 /// To set back the default print handler, use the [`unset_print_handler`] function.
 pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
     unsafe extern "C" fn func_func(string: *const libc::c_char) {
-        match PRINT_HANDLER.lock() {
+        if let Some(callback) = match PRINT_HANDLER.lock() {
             Ok(handler) => {
                 if let Some(ref handler) = *handler {
-                    let string: GString = from_glib_borrow(string);
-                    (*handler)(string.as_str())
+                    Some(Arc::clone(handler))
                 } else {
                     panic!("PRINT_HANDLER cannot be None!");
                 }
             }
             Err(_) => {
                 // should we log something here?
+                None
             }
+        } {
+            let string: GString = from_glib_borrow(string);
+            (*callback)(string.as_str())
         }
     }
-    let func = Some(Box_::new(Box_::new(func)));
+    let func = Some(Arc::new(Box_::new(Box_::new(func))));
     match PRINT_HANDLER.lock() {
         Ok(mut handler) => {
             *handler = unsafe { ::std::mem::transmute(func) };
@@ -239,27 +251,31 @@ pub fn unset_print_handler() {
     unsafe { glib_sys::g_set_print_handler(None) };
 }
 
-static PRINTERR_HANDLER: Lazy<Mutex<Option<Box_<Box_<dyn Fn(&str) + Send + Sync + 'static>>>>> =
-    Lazy::new(|| Mutex::new(None));
+static PRINTERR_HANDLER: Lazy<
+    Mutex<Option<Arc<Box_<Box_<dyn Fn(&str) + Send + Sync + 'static>>>>>,
+> = Lazy::new(|| Mutex::new(None));
 
 /// To set back the default print handler, use the [`unset_printerr_handler`] function.
 pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
     unsafe extern "C" fn func_func(string: *const libc::c_char) {
-        match PRINTERR_HANDLER.lock() {
+        if let Some(callback) = match PRINTERR_HANDLER.lock() {
             Ok(handler) => {
                 if let Some(ref handler) = *handler {
-                    let string: GString = from_glib_borrow(string);
-                    (*handler)(string.as_str())
+                    Some(Arc::clone(handler))
                 } else {
                     panic!("PRINTERR_HANDLER cannot be None!");
                 }
             }
             Err(_) => {
                 // should we log something here?
+                None
             }
+        } {
+            let string: GString = from_glib_borrow(string);
+            (*callback)(string.as_str())
         }
     }
-    let func = Some(Box_::new(Box_::new(func)));
+    let func = Some(Arc::new(Box_::new(Box_::new(func))));
     match PRINTERR_HANDLER.lock() {
         Ok(mut handler) => {
             *handler = unsafe { ::std::mem::transmute(func) };
@@ -285,35 +301,43 @@ pub fn unset_printerr_handler() {
 }
 
 static DEFAULT_HANDLER: Lazy<
-    Mutex<Option<Box_<Box_<dyn Fn(&str, LogLevel, LogFlag, &str) + Send + Sync + 'static>>>>,
+    Mutex<Option<Arc<Box_<Box_<dyn Fn(&str, LogLevel, LogFlags, &str) + Send + Sync + 'static>>>>>,
 > = Lazy::new(|| Mutex::new(None));
 
 /// To set back the default print handler, use the [`log_unset_default_handler`] function.
-pub fn log_set_default_handler<P: Fn(&str, LogLevel, LogFlag, &str) + Send + Sync + 'static>(
+pub fn log_set_default_handler<P: Fn(&str, LogLevel, LogFlags, &str) + Send + Sync + 'static>(
     log_func: P,
 ) {
     unsafe extern "C" fn func_func(
         log_domain: *const libc::c_char,
-        log_level: glib_sys::GLogLevelFlags,
+        log_levels: glib_sys::GLogLevelFlags,
         message: *const libc::c_char,
         _user_data: glib_sys::gpointer,
     ) {
-        match DEFAULT_HANDLER.lock() {
+        if let Some(callback) = match DEFAULT_HANDLER.lock() {
             Ok(handler) => {
                 if let Some(ref handler) = *handler {
-                    let log_domain: GString = from_glib_borrow(log_domain);
-                    let message: GString = from_glib_borrow(message);
-                    (*handler)(log_domain.as_str(), from_glib(log_level), from_glib(log_level), message.as_str())
+                    Some(Arc::clone(handler))
                 } else {
                     panic!("DEFAULT_HANDLER cannot be None!");
                 }
             }
             Err(_) => {
                 // should we log something here?
+                None
             }
+        } {
+            let log_domain: GString = from_glib_borrow(log_domain);
+            let message: GString = from_glib_borrow(message);
+            (*callback)(
+                log_domain.as_str(),
+                from_glib(log_levels),
+                from_glib(log_levels),
+                message.as_str(),
+            )
         }
     }
-    let log_func = Some(Box_::new(Box_::new(log_func)));
+    let log_func = Some(Arc::new(Box_::new(Box_::new(log_func))));
     match DEFAULT_HANDLER.lock() {
         Ok(mut handler) => {
             *handler = unsafe { ::std::mem::transmute(log_func) };

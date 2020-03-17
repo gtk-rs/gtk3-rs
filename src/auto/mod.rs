@@ -28,8 +28,6 @@ pub use self::enums::ChecksumType;
 pub use self::enums::DateMonth;
 pub use self::enums::DateWeekday;
 pub use self::enums::KeyFileError;
-#[cfg(any(feature = "v2_50", feature = "dox"))]
-pub use self::enums::LogWriterOutput;
 pub use self::enums::OptionArg;
 pub use self::enums::SeekType;
 pub use self::enums::TimeType;

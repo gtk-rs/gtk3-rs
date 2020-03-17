@@ -731,7 +731,7 @@ pub fn listenv() -> Vec<std::ffi::OsString> {
 //}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
-//pub fn log_writer_default(log_level: LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> LogWriterOutput {
+//pub fn log_writer_default(log_level: LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/LogWriterOutput {
 //    unsafe { TODO: call glib_sys:g_log_writer_default() }
 //}
 
@@ -741,12 +741,12 @@ pub fn listenv() -> Vec<std::ffi::OsString> {
 //}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
-//pub fn log_writer_journald(log_level: LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> LogWriterOutput {
+//pub fn log_writer_journald(log_level: LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/LogWriterOutput {
 //    unsafe { TODO: call glib_sys:g_log_writer_journald() }
 //}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
-//pub fn log_writer_standard_streams(log_level: LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> LogWriterOutput {
+//pub fn log_writer_standard_streams(log_level: LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/LogWriterOutput {
 //    unsafe { TODO: call glib_sys:g_log_writer_standard_streams() }
 //}
 
