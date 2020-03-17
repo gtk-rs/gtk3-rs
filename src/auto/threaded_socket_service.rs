@@ -82,7 +82,7 @@ impl<O: IsA<ThreadedSocketService>> ThreadedSocketServiceExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &ThreadedSocketService::from_glib_borrow(this).unsafe_cast(),
+                &ThreadedSocketService::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(connection),
                 &from_glib_borrow(source_object),
             )

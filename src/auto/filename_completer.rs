@@ -82,7 +82,7 @@ impl<O: IsA<FilenameCompleter>> FilenameCompleterExt for O {
             P: IsA<FilenameCompleter>,
         {
             let f: &F = &*(f as *const F);
-            f(&FilenameCompleter::from_glib_borrow(this).unsafe_cast())
+            f(&FilenameCompleter::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

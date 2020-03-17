@@ -203,7 +203,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &NetworkMonitor::from_glib_borrow(this).unsafe_cast(),
+                &NetworkMonitor::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(network_available),
             )
         }
@@ -231,7 +231,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
             P: IsA<NetworkMonitor>,
         {
             let f: &F = &*(f as *const F);
-            f(&NetworkMonitor::from_glib_borrow(this).unsafe_cast())
+            f(&NetworkMonitor::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -258,7 +258,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
             P: IsA<NetworkMonitor>,
         {
             let f: &F = &*(f as *const F);
-            f(&NetworkMonitor::from_glib_borrow(this).unsafe_cast())
+            f(&NetworkMonitor::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -286,7 +286,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
             P: IsA<NetworkMonitor>,
         {
             let f: &F = &*(f as *const F);
-            f(&NetworkMonitor::from_glib_borrow(this).unsafe_cast())
+            f(&NetworkMonitor::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

@@ -308,7 +308,7 @@ where
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: Application = from_glib_borrow(ptr);
+    let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.activate(&wrap)
 }
@@ -321,7 +321,7 @@ unsafe extern "C" fn application_after_emit<T: ObjectSubclass>(
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: Application = from_glib_borrow(ptr);
+    let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.after_emit(&wrap, &from_glib_borrow(platform_data))
 }
@@ -333,7 +333,7 @@ unsafe extern "C" fn application_before_emit<T: ObjectSubclass>(
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: Application = from_glib_borrow(ptr);
+    let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.before_emit(&wrap, &from_glib_borrow(platform_data))
 }
@@ -346,7 +346,7 @@ where
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: Application = from_glib_borrow(ptr);
+    let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.command_line(&wrap, &from_glib_borrow(command_line))
 }
@@ -360,7 +360,7 @@ where
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: Application = from_glib_borrow(ptr);
+    let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     let mut args = ArgumentList::new(arguments);
     let res = imp.local_command_line(&wrap, &mut args);
@@ -384,7 +384,7 @@ unsafe extern "C" fn application_open<T: ObjectSubclass>(
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: Application = from_glib_borrow(ptr);
+    let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     let files: Vec<::File> = FromGlibContainer::from_glib_none_num(files, num_files as usize);
     imp.open(
@@ -399,7 +399,7 @@ where
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: Application = from_glib_borrow(ptr);
+    let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.quit_mainloop(&wrap)
 }
@@ -409,7 +409,7 @@ where
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: Application = from_glib_borrow(ptr);
+    let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.run_mainloop(&wrap)
 }
@@ -419,7 +419,7 @@ where
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: Application = from_glib_borrow(ptr);
+    let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.shutdown(&wrap)
 }
@@ -429,7 +429,7 @@ where
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: Application = from_glib_borrow(ptr);
+    let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.startup(&wrap)
 }

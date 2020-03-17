@@ -129,7 +129,7 @@ impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &AppLaunchContext::from_glib_borrow(this).unsafe_cast(),
+                &AppLaunchContext::from_glib_borrow(this).unsafe_cast_ref(),
                 &GString::from_glib_borrow(startup_notify_id),
             )
         }
@@ -158,7 +158,7 @@ impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &AppLaunchContext::from_glib_borrow(this).unsafe_cast(),
+                &AppLaunchContext::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(info),
                 &from_glib_borrow(platform_data),
             )

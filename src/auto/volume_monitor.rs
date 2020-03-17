@@ -121,7 +121,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(drive),
             )
         }
@@ -146,7 +146,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(drive),
             )
         }
@@ -171,7 +171,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(drive),
             )
         }
@@ -196,7 +196,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(drive),
             )
         }
@@ -221,7 +221,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(drive),
             )
         }
@@ -246,7 +246,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(mount),
             )
         }
@@ -271,7 +271,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(mount),
             )
         }
@@ -296,7 +296,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(mount),
             )
         }
@@ -321,7 +321,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(mount),
             )
         }
@@ -346,7 +346,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(volume),
             )
         }
@@ -371,7 +371,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(volume),
             )
         }
@@ -396,7 +396,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(volume),
             )
         }

@@ -294,7 +294,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             P: IsA<MountOperation>,
         {
             let f: &F = &*(f as *const F);
-            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -326,7 +326,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &MountOperation::from_glib_borrow(this).unsafe_cast(),
+                &MountOperation::from_glib_borrow(this).unsafe_cast_ref(),
                 &GString::from_glib_borrow(message),
                 &GString::from_glib_borrow(default_user),
                 &GString::from_glib_borrow(default_domain),
@@ -358,7 +358,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &MountOperation::from_glib_borrow(this).unsafe_cast(),
+                &MountOperation::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(result),
             )
         }
@@ -396,7 +396,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &MountOperation::from_glib_borrow(this).unsafe_cast(),
+                &MountOperation::from_glib_borrow(this).unsafe_cast_ref(),
                 &GString::from_glib_borrow(message),
                 time_left,
                 bytes_left,
@@ -424,7 +424,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             P: IsA<MountOperation>,
         {
             let f: &F = &*(f as *const F);
-            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -446,7 +446,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             P: IsA<MountOperation>,
         {
             let f: &F = &*(f as *const F);
-            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -468,7 +468,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             P: IsA<MountOperation>,
         {
             let f: &F = &*(f as *const F);
-            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -494,7 +494,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             P: IsA<MountOperation>,
         {
             let f: &F = &*(f as *const F);
-            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -522,7 +522,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             P: IsA<MountOperation>,
         {
             let f: &F = &*(f as *const F);
-            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -546,7 +546,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             P: IsA<MountOperation>,
         {
             let f: &F = &*(f as *const F);
-            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -571,7 +571,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             P: IsA<MountOperation>,
         {
             let f: &F = &*(f as *const F);
-            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -596,7 +596,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             P: IsA<MountOperation>,
         {
             let f: &F = &*(f as *const F);
-            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -618,7 +618,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             P: IsA<MountOperation>,
         {
             let f: &F = &*(f as *const F);
-            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

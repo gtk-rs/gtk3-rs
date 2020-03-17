@@ -348,7 +348,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
             let func: &RefCell<F> = &*(func as *const RefCell<F>);
             let mut func = func.borrow_mut();
             (&mut *func)(
-                &Socket::from_glib_borrow(socket).unsafe_cast(),
+                &Socket::from_glib_borrow(socket).unsafe_cast_ref(),
                 from_glib(condition),
             )
             .to_glib()

@@ -112,7 +112,7 @@ impl<O: IsA<Vfs>> VfsExt for O {
             user_data: glib_sys::gpointer,
         ) -> *mut gio_sys::GFile {
             let vfs = from_glib_borrow(vfs);
-            let identifier: GString = from_glib_borrow(identifier);
+            let identifier: Borrowed<GString> = from_glib_borrow(identifier);
             let callback: &Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>> =
                 &*(user_data as *mut _);
             let res = if let Some(ref callback) = *callback {
@@ -135,7 +135,7 @@ impl<O: IsA<Vfs>> VfsExt for O {
             user_data: glib_sys::gpointer,
         ) -> *mut gio_sys::GFile {
             let vfs = from_glib_borrow(vfs);
-            let identifier: GString = from_glib_borrow(identifier);
+            let identifier: Borrowed<GString> = from_glib_borrow(identifier);
             let callback: &Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>> =
                 &*(user_data as *mut _);
             let res = if let Some(ref callback) = *callback {

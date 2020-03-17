@@ -221,12 +221,14 @@ where
 
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: OutputStream = from_glib_borrow(ptr);
+    let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
 
     match imp.write(
         &wrap,
         slice::from_raw_parts(buffer as *const u8, count),
-        Option::<Cancellable>::from_glib_borrow(cancellable).as_ref(),
+        Option::<Cancellable>::from_glib_borrow(cancellable)
+            .as_ref()
+            .as_ref(),
     ) {
         Ok(res) => {
             assert!(res <= isize::MAX as usize);
@@ -251,11 +253,13 @@ where
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: OutputStream = from_glib_borrow(ptr);
+    let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
 
     match imp.close(
         &wrap,
-        Option::<Cancellable>::from_glib_borrow(cancellable).as_ref(),
+        Option::<Cancellable>::from_glib_borrow(cancellable)
+            .as_ref()
+            .as_ref(),
     ) {
         Ok(_) => glib_sys::GTRUE,
         Err(mut e) => {
@@ -276,11 +280,13 @@ where
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: OutputStream = from_glib_borrow(ptr);
+    let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
 
     match imp.flush(
         &wrap,
-        Option::<Cancellable>::from_glib_borrow(cancellable).as_ref(),
+        Option::<Cancellable>::from_glib_borrow(cancellable)
+            .as_ref()
+            .as_ref(),
     ) {
         Ok(_) => glib_sys::GTRUE,
         Err(mut e) => {
@@ -303,13 +309,15 @@ where
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: OutputStream = from_glib_borrow(ptr);
+    let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
 
     match imp.splice(
         &wrap,
         &from_glib_borrow(input_stream),
         from_glib(flags),
-        Option::<Cancellable>::from_glib_borrow(cancellable).as_ref(),
+        Option::<Cancellable>::from_glib_borrow(cancellable)
+            .as_ref()
+            .as_ref(),
     ) {
         Ok(res) => {
             use std::isize;

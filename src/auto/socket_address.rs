@@ -76,7 +76,7 @@ impl<O: IsA<SocketAddress>> SocketAddressExt for O {
             P: IsA<SocketAddress>,
         {
             let f: &F = &*(f as *const F);
-            f(&SocketAddress::from_glib_borrow(this).unsafe_cast())
+            f(&SocketAddress::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

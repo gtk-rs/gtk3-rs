@@ -290,7 +290,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &SocketListener::from_glib_borrow(this).unsafe_cast(),
+                &SocketListener::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(event),
                 &from_glib_borrow(socket),
             )
@@ -318,7 +318,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
             P: IsA<SocketListener>,
         {
             let f: &F = &*(f as *const F);
-            f(&SocketListener::from_glib_borrow(this).unsafe_cast())
+            f(&SocketListener::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

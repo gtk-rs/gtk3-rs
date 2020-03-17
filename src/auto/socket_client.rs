@@ -759,10 +759,12 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &SocketClient::from_glib_borrow(this).unsafe_cast(),
+                &SocketClient::from_glib_borrow(this).unsafe_cast_ref(),
                 from_glib(event),
                 &from_glib_borrow(connectable),
-                Option::<IOStream>::from_glib_borrow(connection).as_ref(),
+                Option::<IOStream>::from_glib_borrow(connection)
+                    .as_ref()
+                    .as_ref(),
             )
         }
         unsafe {
@@ -788,7 +790,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
             P: IsA<SocketClient>,
         {
             let f: &F = &*(f as *const F);
-            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -812,7 +814,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
             P: IsA<SocketClient>,
         {
             let f: &F = &*(f as *const F);
-            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -837,7 +839,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
             P: IsA<SocketClient>,
         {
             let f: &F = &*(f as *const F);
-            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -861,7 +863,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
             P: IsA<SocketClient>,
         {
             let f: &F = &*(f as *const F);
-            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -886,7 +888,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
             P: IsA<SocketClient>,
         {
             let f: &F = &*(f as *const F);
-            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -910,7 +912,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
             P: IsA<SocketClient>,
         {
             let f: &F = &*(f as *const F);
-            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -932,7 +934,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
             P: IsA<SocketClient>,
         {
             let f: &F = &*(f as *const F);
-            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -957,7 +959,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
             P: IsA<SocketClient>,
         {
             let f: &F = &*(f as *const F);
-            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -981,7 +983,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
             P: IsA<SocketClient>,
         {
             let f: &F = &*(f as *const F);
-            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

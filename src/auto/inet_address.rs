@@ -258,7 +258,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
             P: IsA<InetAddress>,
         {
             let f: &F = &*(f as *const F);
-            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -283,7 +283,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
             P: IsA<InetAddress>,
         {
             let f: &F = &*(f as *const F);
-            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -310,7 +310,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
             P: IsA<InetAddress>,
         {
             let f: &F = &*(f as *const F);
-            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -335,7 +335,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
             P: IsA<InetAddress>,
         {
             let f: &F = &*(f as *const F);
-            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -365,7 +365,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
             P: IsA<InetAddress>,
         {
             let f: &F = &*(f as *const F);
-            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -395,7 +395,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
             P: IsA<InetAddress>,
         {
             let f: &F = &*(f as *const F);
-            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -425,7 +425,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
             P: IsA<InetAddress>,
         {
             let f: &F = &*(f as *const F);
-            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -455,7 +455,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
             P: IsA<InetAddress>,
         {
             let f: &F = &*(f as *const F);
-            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -482,7 +482,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
             P: IsA<InetAddress>,
         {
             let f: &F = &*(f as *const F);
-            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -509,7 +509,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
             P: IsA<InetAddress>,
         {
             let f: &F = &*(f as *const F);
-            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

@@ -89,7 +89,9 @@ where
         &from_glib_borrow(seekable),
         offset,
         from_glib(type_),
-        Option::<Cancellable>::from_glib_borrow(cancellable).as_ref(),
+        Option::<Cancellable>::from_glib_borrow(cancellable)
+            .as_ref()
+            .as_ref(),
     ) {
         Ok(()) => glib_sys::GTRUE,
         Err(mut e) => {
@@ -127,7 +129,9 @@ where
     match imp.truncate(
         &from_glib_borrow(seekable),
         offset,
-        Option::<Cancellable>::from_glib_borrow(cancellable).as_ref(),
+        Option::<Cancellable>::from_glib_borrow(cancellable)
+            .as_ref()
+            .as_ref(),
     ) {
         Ok(()) => glib_sys::GTRUE,
         Err(mut e) => {

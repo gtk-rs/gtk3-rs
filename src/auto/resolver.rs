@@ -624,7 +624,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
             P: IsA<Resolver>,
         {
             let f: &F = &*(f as *const F);
-            f(&Resolver::from_glib_borrow(this).unsafe_cast())
+            f(&Resolver::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
