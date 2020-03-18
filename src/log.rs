@@ -226,10 +226,11 @@ pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
             (*callback)(string.as_str())
         }
     }
-    let func = Some(Arc::new(Box_::new(Box_::new(func))));
+    let func: Option<Arc<Box_<Box_<dyn Fn(&str) + Send + Sync + 'static>>>> =
+        Some(Arc::new(Box_::new(Box_::new(func))));
     match PRINT_HANDLER.lock() {
         Ok(mut handler) => {
-            *handler = unsafe { ::std::mem::transmute(func) };
+            *handler = func;
         }
         Err(_) => {
             // should we log something?
@@ -275,10 +276,11 @@ pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
             (*callback)(string.as_str())
         }
     }
-    let func = Some(Arc::new(Box_::new(Box_::new(func))));
+    let func: Option<Arc<Box_<Box_<dyn Fn(&str) + Send + Sync + 'static>>>> =
+        Some(Arc::new(Box_::new(Box_::new(func))));
     match PRINTERR_HANDLER.lock() {
         Ok(mut handler) => {
-            *handler = unsafe { ::std::mem::transmute(func) };
+            *handler = func;
         }
         Err(_) => {
             // should we log something?
@@ -337,10 +339,12 @@ pub fn log_set_default_handler<P: Fn(&str, LogLevel, LogFlags, &str) + Send + Sy
             )
         }
     }
-    let log_func = Some(Arc::new(Box_::new(Box_::new(log_func))));
+    let log_func: Option<
+        Arc<Box_<Box_<dyn Fn(&str, LogLevel, LogFlags, &str) + Send + Sync + 'static>>>,
+    > = Some(Arc::new(Box_::new(Box_::new(log_func))));
     match DEFAULT_HANDLER.lock() {
         Ok(mut handler) => {
-            *handler = unsafe { ::std::mem::transmute(log_func) };
+            *handler = log_func;
         }
         Err(_) => {
             // should we log something?
