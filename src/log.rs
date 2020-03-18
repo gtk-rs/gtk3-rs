@@ -296,7 +296,7 @@ pub fn log_default_handler(log_domain: &str, log_level: LogLevel, message: Optio
     }
 }
 
-/// Macro used to log using GLib logging system. Is uses [g_log].
+/// Macro used to log using GLib logging system. It uses [g_log].
 ///
 /// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
 ///
@@ -355,7 +355,193 @@ macro_rules! g_log {
     }};
 }
 
-// /// Macro used to log using GLib logging system. Is uses [g_log_structured][gls].
+/// Macro used to log using GLib logging system. It uses [g_log].
+///
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+///
+/// It is the same as calling the [`g_log!`] macro with [`LogLevel::Error`].
+///
+/// Example:
+///
+/// ```no_run
+/// use glib::g_error;
+///
+/// g_error!("test", "test");
+/// // Equivalent to:
+/// use glib::{g_log, LogLevel};
+/// g_log!("test", LogLevel::Error, "test");
+///
+/// // You can also pass arguments like in format! or println!:
+/// let x = 12;
+/// g_error!("test", "test: {}", x);
+/// g_error!("test", "test: {} {}", x, "a");
+/// ```
+#[macro_export]
+macro_rules! g_error {
+    ($log_domain:expr, $format:expr) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Error, $format);
+    }};
+    ($log_domain:expr, $format:expr, $($arg:tt),*) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Error, $format, $($arg),*);
+    }};
+}
+
+/// Macro used to log using GLib logging system. It uses [g_log].
+///
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+///
+/// It is the same as calling the [`g_log!`] macro with [`LogLevel::Critical`].
+///
+/// Example:
+///
+/// ```no_run
+/// use glib::g_critical;
+///
+/// g_critical!("test", "test");
+/// // Equivalent to:
+/// use glib::{g_log, LogLevel};
+/// g_log!("test", LogLevel::Critical, "test");
+///
+/// // You can also pass arguments like in format! or println!:
+/// let x = 12;
+/// g_critical!("test", "test: {}", x);
+/// g_critical!("test", "test: {} {}", x, "a");
+/// ```
+#[macro_export]
+macro_rules! g_critical {
+    ($log_domain:expr, $format:expr) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Critical, $format);
+    }};
+    ($log_domain:expr, $format:expr, $($arg:tt),*) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Critical, $format, $($arg),*);
+    }};
+}
+
+/// Macro used to log using GLib logging system. It uses [g_log].
+///
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+///
+/// It is the same as calling the [`g_log!`] macro with [`LogLevel::Warning`].
+///
+/// Example:
+///
+/// ```no_run
+/// use glib::g_warning;
+///
+/// g_warning!("test", "test");
+/// // Equivalent to:
+/// use glib::{g_log, LogLevel};
+/// g_log!("test", LogLevel::Warning, "test");
+///
+/// // You can also pass arguments like in format! or println!:
+/// let x = 12;
+/// g_warning!("test", "test: {}", x);
+/// g_warning!("test", "test: {} {}", x, "a");
+/// ```
+#[macro_export]
+macro_rules! g_warning {
+    ($log_domain:expr, $format:expr) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Warning, $format);
+    }};
+    ($log_domain:expr, $format:expr, $($arg:tt),*) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Warning, $format, $($arg),*);
+    }};
+}
+
+/// Macro used to log using GLib logging system. It uses [g_log].
+///
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+///
+/// It is the same as calling the [`g_log!`] macro with [`LogLevel::Message`].
+///
+/// Example:
+///
+/// ```no_run
+/// use glib::g_message;
+///
+/// g_message!("test", "test");
+/// // Equivalent to:
+/// use glib::{g_log, LogLevel};
+/// g_log!("test", LogLevel::Message, "test");
+///
+/// // You can also pass arguments like in format! or println!:
+/// let x = 12;
+/// g_message!("test", "test: {}", x);
+/// g_message!("test", "test: {} {}", x, "a");
+/// ```
+#[macro_export]
+macro_rules! g_message {
+    ($log_domain:expr, $format:expr) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Message, $format);
+    }};
+    ($log_domain:expr, $format:expr, $($arg:tt),*) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Message, $format, $($arg),*);
+    }};
+}
+
+/// Macro used to log using GLib logging system. It uses [g_log].
+///
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+///
+/// It is the same as calling the [`g_log!`] macro with [`LogLevel::Info`].
+///
+/// Example:
+///
+/// ```no_run
+/// use glib::g_info;
+///
+/// g_info!("test", "test");
+/// // Equivalent to:
+/// use glib::{g_log, LogLevel};
+/// g_log!("test", LogLevel::Info, "test");
+///
+/// // You can also pass arguments like in format! or println!:
+/// let x = 12;
+/// g_info!("test", "test: {}", x);
+/// g_info!("test", "test: {} {}", x, "a");
+/// ```
+#[macro_export]
+macro_rules! g_info {
+    ($log_domain:expr, $format:expr) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Info, $format);
+    }};
+    ($log_domain:expr, $format:expr, $($arg:tt),*) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Info, $format, $($arg),*);
+    }};
+}
+
+/// Macro used to log using GLib logging system. It uses [g_log].
+///
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+///
+/// It is the same as calling the [`g_log!`] macro with [`LogLevel::Debug`].
+///
+/// Example:
+///
+/// ```no_run
+/// use glib::g_debug;
+///
+/// g_debug!("test", "test");
+/// // Equivalent to:
+/// use glib::{g_log, LogLevel};
+/// g_log!("test", LogLevel::Debug, "test");
+///
+/// // You can also pass arguments like in format! or println!:
+/// let x = 12;
+/// g_debug!("test", "test: {}", x);
+/// g_debug!("test", "test: {} {}", x, "a");
+/// ```
+#[macro_export]
+macro_rules! g_debug {
+    ($log_domain:expr, $format:expr) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Debug, $format);
+    }};
+    ($log_domain:expr, $format:expr, $($arg:tt),*) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Debug, $format, $($arg),*);
+    }};
+}
+
+// /// Macro used to log using GLib logging system. It uses [g_log_structured][gls].
 // ///
 // /// [gls]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log-structured)
 // ///
