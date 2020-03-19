@@ -16,6 +16,7 @@ generate = [
     "GLib.FormatSizeFlags",
     "GLib.KeyFileError",
     "GLib.KeyFileFlags",
+    "GLib.LogLevelFlags",
     "GLib.OptionArg",
     "GLib.OptionFlags",
     "GLib.SeekType",
@@ -346,6 +347,50 @@ status = "generate"
     [[object.function]]
     name = "spawn_async_with_pipes"
     # generates invalid FDs
+    ignore = true
+    [[object.function]]
+    name = "log_set_handler"
+    # leaks closure
+    ignore = true
+    [[object.function]]
+    name = "log_default_handler"
+    # last argument is unused
+    ignore = true
+    [[object.function]]
+    name = "log_set_handler_full"
+    # from_glib_borrow on non-pointer objects
+    ignore = true
+    [[object.function]]
+    name = "log_set_writer_func"
+    # from_glib_borrow on non-pointer objects
+    ignore = true
+    [[object.function]]
+    name = "log_structured"
+    # implemented with a macro because of var args and weird arguments pairing
+    ignore = true
+    [[object.function]]
+    name = "log"
+    # implemented with a macro because of var args
+    ignore = true
+    [[object.function]]
+    name = "log_set_default_handler"
+    # It returned the old callback, which is problematic
+    ignore = true
+    [[object.function]]
+    name = "log_remove_handler"
+    # Change handler_id parameter type to LogHandlerId
+    ignore = true
+    [[object.function]]
+    name = "log_set_always_fatal"
+    # update of arguments and return type
+    ignore = true
+    [[object.function]]
+    name = "log_variant"
+    # usage of LogLevelFlags
+    ignore = true
+    [[object.function]]
+    name = "log_set_fatal_mask"
+    # update of arguments and return type
     ignore = true
     [[object.constant]]
     pattern = "DIR_SEPARATOR(_S)?"

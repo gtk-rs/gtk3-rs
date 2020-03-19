@@ -37,6 +37,7 @@ pub use self::flags::FileTest;
 pub use self::flags::FormatSizeFlags;
 pub use self::flags::IOCondition;
 pub use self::flags::KeyFileFlags;
+pub use self::flags::LogLevelFlags;
 pub use self::flags::OptionFlags;
 pub use self::flags::SpawnFlags;
 
