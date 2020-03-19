@@ -4,6 +4,7 @@
 
 use glib_sys;
 use once_cell::sync::Lazy;
+#[cfg(any(feature = "v2_46", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::sync::{Arc, Mutex};
 use translate::*;
@@ -181,7 +182,7 @@ pub fn log_set_fatal_mask(log_domain: &str, fatal_levels: LogLevels) -> LogLevel
 //     }
 // }
 
-static PRINT_HANDLER: Lazy<Mutex<Option<Arc<Box_<Box_<dyn Fn(&str) + Send + Sync + 'static>>>>>> =
+static PRINT_HANDLER: Lazy<Mutex<Option<Arc<dyn Fn(&str) + Send + Sync + 'static>>>> =
     Lazy::new(|| Mutex::new(None));
 
 /// To set back the default print handler, use the [`unset_print_handler`] function.
@@ -195,11 +196,9 @@ pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
             (*callback)(string.as_str())
         }
     }
-    let func: Option<Arc<Box_<Box_<dyn Fn(&str) + Send + Sync + 'static>>>> =
-        Some(Arc::new(Box_::new(Box_::new(func))));
     *PRINT_HANDLER
         .lock()
-        .expect("Failed to lock PRINT_HANDLER to change callback") = func;
+        .expect("Failed to lock PRINT_HANDLER to change callback") = Some(Arc::new(func));
     unsafe { glib_sys::g_set_print_handler(Some(func_func as _)) };
 }
 
@@ -211,9 +210,8 @@ pub fn unset_print_handler() {
     unsafe { glib_sys::g_set_print_handler(None) };
 }
 
-static PRINTERR_HANDLER: Lazy<
-    Mutex<Option<Arc<Box_<Box_<dyn Fn(&str) + Send + Sync + 'static>>>>>,
-> = Lazy::new(|| Mutex::new(None));
+static PRINTERR_HANDLER: Lazy<Mutex<Option<Arc<dyn Fn(&str) + Send + Sync + 'static>>>> =
+    Lazy::new(|| Mutex::new(None));
 
 /// To set back the default print handler, use the [`unset_printerr_handler`] function.
 pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
@@ -229,11 +227,9 @@ pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
             (*callback)(string.as_str())
         }
     }
-    let func: Option<Arc<Box_<Box_<dyn Fn(&str) + Send + Sync + 'static>>>> =
-        Some(Arc::new(Box_::new(Box_::new(func))));
     *PRINTERR_HANDLER
         .lock()
-        .expect("Failed to lock PRINTERR_HANDLER to change callback") = func;
+        .expect("Failed to lock PRINTERR_HANDLER to change callback") = Some(Arc::new(func));
     unsafe { glib_sys::g_set_printerr_handler(Some(func_func as _)) };
 }
 
@@ -246,7 +242,7 @@ pub fn unset_printerr_handler() {
 }
 
 static DEFAULT_HANDLER: Lazy<
-    Mutex<Option<Arc<Box_<Box_<dyn Fn(&str, LogLevel, &str) + Send + Sync + 'static>>>>>,
+    Mutex<Option<Arc<dyn Fn(&str, LogLevel, &str) + Send + Sync + 'static>>>,
 > = Lazy::new(|| Mutex::new(None));
 
 /// To set back the default print handler, use the [`log_unset_default_handler`] function.
@@ -266,14 +262,12 @@ pub fn log_set_default_handler<P: Fn(&str, LogLevel, &str) + Send + Sync + 'stat
         } {
             let log_domain: GString = from_glib_borrow(log_domain);
             let message: GString = from_glib_borrow(message);
-            (*callback)(log_domain.as_str(), from_glib(log_levels), message.as_str())
+            (*callback)(log_domain.as_str(), from_glib(log_levels), message.as_str());
         }
     }
-    let log_func: Option<Arc<Box_<Box_<dyn Fn(&str, LogLevel, &str) + Send + Sync + 'static>>>> =
-        Some(Arc::new(Box_::new(Box_::new(log_func))));
     *DEFAULT_HANDLER
         .lock()
-        .expect("Failed to lock DEFAULT_HANDLER to change callback") = log_func;
+        .expect("Failed to lock DEFAULT_HANDLER to change callback") = Some(Arc::new(log_func));
     unsafe { glib_sys::g_log_set_default_handler(Some(func_func as _), ::std::ptr::null_mut()) };
 }
 
@@ -325,12 +319,13 @@ macro_rules! g_log {
         check_log_args(&$log_domain, $log_level, $format);
         // the next line is used to enforce the type for the macro checker...
         let log_domain: &str = $log_domain;
+        let f = $format.replace("%", "%%");
         unsafe {
             $crate::glib_sys::g_log(
                 log_domain.to_glib_none().0,
                 $log_level.to_glib(),
                 // to prevent the glib formatter to look for arguments which don't exist
-                $format.replace("%", "%%").to_glib_none().0,
+                f.to_glib_none().0,
             );
         }
     }};
