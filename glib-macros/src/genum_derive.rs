@@ -1,3 +1,7 @@
+// Copyright 2020, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
 use anyhow::{bail, Result};
 use heck::{CamelCase, KebabCase, SnakeCase};
 use itertools::Itertools;
@@ -5,9 +9,11 @@ use proc_macro2::TokenStream;
 use proc_macro_error::abort_call_site;
 use quote::{format_ident, quote, quote_spanned};
 use syn::{
-    punctuated::Punctuated, spanned::Spanned, token::Comma, Attribute, Data, DeriveInput, Ident,
-    Lit, Meta, MetaList, NestedMeta, Variant,
+    punctuated::Punctuated, spanned::Spanned, token::Comma, Attribute, Data, Ident, NestedMeta,
+    Variant,
 };
+
+use crate::utils::{find_attribute_meta, parse_attribute, parse_type_name};
 
 // Generate i32 to enum mapping, used to implement glib::translate::FromGlib<i32>, such as:
 //   if value == Animal::Goat as i32 {
@@ -25,55 +31,6 @@ fn gen_from_glib(enum_name: &Ident, enum_variants: &Punctuated<Variant, Comma>) 
     });
     quote! {
         #(#recurse)*
-    }
-}
-
-// find the #[genum] attribute in @attrs
-fn find_genum_meta(attrs: &[Attribute]) -> Result<Option<MetaList>> {
-    let meta = match attrs.iter().find(|a| a.path.is_ident("genum")) {
-        Some(a) => a.parse_meta(),
-        _ => return Ok(None),
-    };
-    match meta? {
-        Meta::List(n) => Ok(Some(n)),
-        _ => bail!("wrong meta type"),
-    }
-}
-
-// parse a single meta like: ident = "value"
-fn parse_attribute(meta: &NestedMeta) -> Result<(String, String)> {
-    let meta = match &meta {
-        NestedMeta::Meta(m) => m,
-        _ => bail!("wrong meta type"),
-    };
-    let meta = match meta {
-        Meta::NameValue(n) => n,
-        _ => bail!("wrong meta type"),
-    };
-    let value = match &meta.lit {
-        Lit::Str(s) => s.value(),
-        _ => bail!("wrong meta type"),
-    };
-
-    let ident = match meta.path.get_ident() {
-        None => bail!("missing ident"),
-        Some(ident) => ident,
-    };
-
-    Ok((ident.to_string(), value))
-}
-
-#[derive(Debug)]
-enum EnumAttribute {
-    TypeName(String),
-}
-
-fn parse_enum_attribute(meta: &NestedMeta) -> Result<EnumAttribute> {
-    let (ident, v) = parse_attribute(meta)?;
-
-    match ident.as_ref() {
-        "type_name" => Ok(EnumAttribute::TypeName(v)),
-        s => bail!("Unknown enum meta {}", s),
     }
 }
 
@@ -96,7 +53,7 @@ fn parse_item_attribute(meta: &NestedMeta) -> Result<ItemAttribute> {
 // Parse optional enum item attributes such as:
 // #[genum(name = "My Name", nick = "my-nick")]
 fn parse_item_attributes(attrs: &[Attribute]) -> Result<Vec<ItemAttribute>> {
-    let meta = find_genum_meta(attrs)?;
+    let meta = find_attribute_meta(attrs, "genum")?;
 
     let v = match meta {
         Some(meta) => meta
@@ -166,24 +123,6 @@ fn gen_genum_values(
     )
 }
 
-// Parse enum attribute such as:
-// #[genum(type_name = "TestAnimalType")]
-fn parse_type_name(input: &DeriveInput) -> Result<String> {
-    let meta = match find_genum_meta(&input.attrs)? {
-        Some(meta) => meta,
-        _ => bail!("Missing 'genum' attribute"),
-    };
-
-    let meta = match meta.nested.first() {
-        Some(meta) => meta,
-        _ => bail!("Missing meta 'type_name'"),
-    };
-
-    match parse_enum_attribute(&meta)? {
-        EnumAttribute::TypeName(n) => Ok(n),
-    }
-}
-
 pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
     let name = &input.ident;
 
@@ -192,7 +131,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
         _ => abort_call_site!("GEnum only supports enums"),
     };
 
-    let gtype_name = match parse_type_name(&input) {
+    let gtype_name = match parse_type_name(&input, "genum") {
         Ok(v) => v,
         Err(e) => abort_call_site!(
             "{}: derive(GEnum) requires #[genum(type_name = \"EnumTypeName\")]",
@@ -212,44 +151,44 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
             }
         }
 
-        impl glib::translate::FromGlib<i32> for #name {
+        impl ::glib::translate::FromGlib<i32> for #name {
             fn from_glib(value: i32) -> Self {
                 #from_glib
                 unreachable!();
             }
         }
 
-        impl<'a> glib::value::FromValueOptional<'a> for #name {
-            unsafe fn from_value_optional(value: &glib::Value) -> Option<Self> {
-                Some(glib::value::FromValue::from_value(value))
+        impl<'a> ::glib::value::FromValueOptional<'a> for #name {
+            unsafe fn from_value_optional(value: &::glib::Value) -> Option<Self> {
+                Some(::glib::value::FromValue::from_value(value))
             }
         }
 
-        impl<'a> glib::value::FromValue<'a> for #name {
-            unsafe fn from_value(value: &glib::Value) -> Self {
-                glib::translate::from_glib(
+        impl<'a> ::glib::value::FromValue<'a> for #name {
+            unsafe fn from_value(value: &::glib::Value) -> Self {
+                ::glib::translate::from_glib(
                     gobject_sys::g_value_get_enum(
-                        glib::translate::ToGlibPtr::to_glib_none(value).0))
+                        ::glib::translate::ToGlibPtr::to_glib_none(value).0))
             }
         }
 
-        impl glib::value::SetValue for #name {
-            unsafe fn set_value(value: &mut glib::Value, this: &Self) {
+        impl ::glib::value::SetValue for #name {
+            unsafe fn set_value(value: &mut ::glib::Value, this: &Self) {
                 gobject_sys::g_value_set_enum(
-                    glib::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
-                    glib::translate::ToGlib::to_glib(this))
+                    ::glib::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
+                    ::glib::translate::ToGlib::to_glib(this))
             }
         }
 
         impl StaticType for #name {
-            fn static_type() -> glib::Type {
+            fn static_type() -> ::glib::Type {
                 #get_type()
             }
         }
 
-        fn #get_type() -> glib::Type {
+        fn #get_type() -> ::glib::Type {
             static ONCE: std::sync::Once = std::sync::Once::new();
-            static mut TYPE: glib::Type = glib::Type::Invalid;
+            static mut TYPE: ::glib::Type = ::glib::Type::Invalid;
 
             ONCE.call_once(|| {
                 static mut VALUES: [gobject_sys::GEnumValue; #nb_genum_values] = [
@@ -264,12 +203,12 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
                 let name = std::ffi::CString::new(#gtype_name).expect("CString::new failed");
                 unsafe {
                     let type_ = gobject_sys::g_enum_register_static(name.as_ptr(), VALUES.as_ptr());
-                    TYPE = glib::translate::from_glib(type_);
+                    TYPE = ::glib::translate::from_glib(type_);
                 }
             });
 
             unsafe {
-                assert_ne!(TYPE, glib::Type::Invalid);
+                assert_ne!(TYPE, ::glib::Type::Invalid);
                 TYPE
             }
         }

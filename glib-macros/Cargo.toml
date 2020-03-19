@@ -18,10 +18,11 @@ proc-macro-error = "0.4"
 proc-macro2 = "1.0"
 quote = "1.0"
 syn = "1.0"
+proc-macro-crate = "0.1"
 
 [lib]
 proc-macro = true
 
 [dev-dependencies]
-glib = { git = "https://github.com/gtk-rs/glib" }
+glib = { path = ".." }
 gobject-sys = { git = "https://github.com/gtk-rs/sys" }

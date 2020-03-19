@@ -2,8 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use ::glib_macros::GEnum;
+use ::glib_macros::{GBoxed, GEnum};
 use glib::prelude::*;
+use glib::subclass::prelude::*;
 use glib::translate::{FromGlib, ToGlib};
 
 #[test]
@@ -56,4 +57,50 @@ fn derive_genum() {
     assert_eq!(v.get_name(), "The Cat");
     assert_eq!(v.get_nick(), "chat");
     assert_eq!(e.get_value(2), None);
+}
+
+#[test]
+fn derive_gboxed() {
+    #[derive(Clone, Debug, PartialEq, Eq, GBoxed)]
+    #[gboxed(type_name = "MyBoxed")]
+    struct MyBoxed(String);
+
+    assert_eq!(MyBoxed::get_type().name(), "MyBoxed");
+
+    let b = MyBoxed(String::from("abc"));
+    let v = b.to_value();
+    assert_eq!(&b, v.get::<&MyBoxed>().unwrap().unwrap());
+    assert_eq!(&b, v.get_some::<&MyBoxed>().unwrap());
+
+    let b = Some(MyBoxed(String::from("def")));
+    let v = b.to_value();
+    let b = b.unwrap();
+    assert_eq!(&b, v.get::<&MyBoxed>().unwrap().unwrap());
+    assert_eq!(&b, v.get_some::<&MyBoxed>().unwrap());
+
+    let b: Option<MyBoxed> = None;
+    let result = std::panic::catch_unwind(|| b.to_value());
+    assert!(result.is_err());
+}
+
+#[test]
+fn derive_gboxed_nullable() {
+    #[derive(Clone, Debug, PartialEq, Eq, GBoxed)]
+    #[gboxed(type_name = "MyNullableBoxed", nullable)]
+    struct MyNullableBoxed(String);
+
+    assert_eq!(MyNullableBoxed::get_type().name(), "MyNullableBoxed");
+
+    let b = MyNullableBoxed(String::from("abc"));
+    let v = b.to_value();
+    assert_eq!(&b, v.get::<&MyNullableBoxed>().unwrap().unwrap());
+
+    let b = Some(MyNullableBoxed(String::from("def")));
+    let v = b.to_value();
+    let b = b.unwrap();
+    assert_eq!(&b, v.get::<&MyNullableBoxed>().unwrap().unwrap());
+
+    let b: Option<MyNullableBoxed> = None;
+    let v = b.to_value();
+    assert_eq!(None, v.get::<&MyNullableBoxed>().unwrap());
 }

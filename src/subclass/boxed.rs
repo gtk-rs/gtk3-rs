@@ -26,9 +26,9 @@ pub trait BoxedType: Clone + Sized + 'static {
 
     /// Returns the type ID.
     ///
-    /// This is usually defined via the [`glib_boxed_type!`] macro.
+    /// This is usually defined via the [`GBoxed!`] derive macro.
     ///
-    /// [`glib_boxed_type!`]: ../../macro.glib_boxed_type.html
+    /// [`GBoxed!`]: ../../derive.GBoxed.html
     fn get_type() -> ::Type;
 }
 
@@ -36,10 +36,10 @@ pub trait BoxedType: Clone + Sized + 'static {
 ///
 /// This must be called only once and will panic on a second call.
 ///
-/// See [`glib_boxed_type!`] for defining a function that ensures that
+/// See [`GBoxed!`] for defining a function that ensures that
 /// this is only called once and returns the type id.
 ///
-/// [`glib_boxed_type!`]: ../../macro.glib_boxed_type.html
+/// [`GBoxed!`]: ../../derive.GBoxed.html
 pub fn register_boxed_type<T: BoxedType>() -> ::Type {
     unsafe extern "C" fn boxed_copy<T: BoxedType>(v: glib_sys::gpointer) -> glib_sys::gpointer {
         let v = &*(v as *mut T);
@@ -70,92 +70,12 @@ pub fn register_boxed_type<T: BoxedType>() -> ::Type {
     }
 }
 
-#[macro_export]
-/// Macro for defining a `get_type` function.
-///
-/// This returns a `glib::Type` and registers `Self` via [`register_boxed_type`]
-/// the first time it is called.
-///
-/// [`register_boxed_type`]: subclass/boxed/fn.register_boxed_type.html
-macro_rules! glib_boxed_type {
-    () => {
-        fn get_type() -> $crate::Type {
-            static mut TYPE_: $crate::Type = $crate::Type::Invalid;
-            static ONCE: ::std::sync::Once = ::std::sync::Once::new();
-
-            ONCE.call_once(|| {
-                let type_ = $crate::subclass::register_boxed_type::<Self>();
-                unsafe {
-                    TYPE_ = type_;
-                }
-            });
-
-            unsafe { TYPE_ }
-        }
-    };
-}
-
-#[macro_export]
-/// Macro for deriving the `glib::Value` traits for a [`BoxedType`].
-///
-/// [`BoxedType`]: trait.BoxedType.html
-macro_rules! glib_boxed_derive_traits {
-    ($name:ident) => {
-        impl $crate::StaticType for $name {
-            fn static_type() -> $crate::Type {
-                <$name as $crate::subclass::boxed::BoxedType>::get_type()
-            }
-        }
-
-        impl $crate::value::SetValue for $name {
-            unsafe fn set_value(value: &mut $crate::value::Value, this: &Self) {
-                let ptr: *mut $name = Box::into_raw(Box::new(this.clone()));
-                $crate::gobject_sys::g_value_take_boxed(
-                    $crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
-                    ptr as *mut _,
-                );
-            }
-        }
-
-        impl $crate::value::SetValueOptional for $name {
-            unsafe fn set_value_optional(value: &mut $crate::value::Value, this: Option<&Self>) {
-                let this = this.expect("None not allowed");
-                let ptr: *mut $name = Box::into_raw(Box::new(this.clone()));
-                $crate::gobject_sys::g_value_take_boxed(
-                    $crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
-                    ptr as *mut _,
-                );
-            }
-        }
-
-        impl<'a> $crate::value::FromValueOptional<'a> for &'a $name {
-            unsafe fn from_value_optional(value: &'a $crate::value::Value) -> Option<Self> {
-                let ptr = $crate::gobject_sys::g_value_get_boxed(
-                    $crate::translate::ToGlibPtr::to_glib_none(value).0,
-                );
-                assert!(!ptr.is_null());
-                Some(&*(ptr as *mut $name))
-            }
-        }
-
-        impl<'a> $crate::value::FromValue<'a> for &'a $name {
-            unsafe fn from_value(value: &'a $crate::value::Value) -> Self {
-                let ptr = $crate::gobject_sys::g_value_get_boxed(
-                    $crate::translate::ToGlibPtr::to_glib_none(value).0,
-                );
-                assert!(!ptr.is_null());
-                &*(ptr as *mut $name)
-            }
-        }
-    };
-}
-
 /// Wrapper struct for storing any `BoxedType` in `glib::Value`.
 ///
-/// Instead of this the [`glib_boxed_derive_traits!`] macro can be used to
+/// Instead of this the [`GBoxed!`] derive macro can be used to
 /// directly implement the relevant traits on the type itself.
 ///
-/// [`glib_boxed_derive_traits!`]: ../../macro.glib_boxed_derive_traits.html
+/// [`GBoxed!`]: ../../derive.GBoxed.html
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct Boxed<T: BoxedType>(pub T);
 
@@ -213,17 +133,12 @@ impl<'a, T: BoxedType> FromValue<'a> for &'a Boxed<T> {
 #[cfg(test)]
 mod test {
     use super::*;
+    // GBoxed macro assumes 'glib' is in scope
+    use crate as glib;
 
-    #[derive(Clone, Debug, PartialEq, Eq)]
+    #[derive(Clone, Debug, PartialEq, Eq, glib::GBoxed)]
+    #[gboxed(type_name = "MyBoxed")]
     struct MyBoxed(String);
-
-    impl BoxedType for MyBoxed {
-        const NAME: &'static str = "MyBoxed";
-
-        glib_boxed_type!();
-    }
-
-    glib_boxed_derive_traits!(MyBoxed);
 
     #[test]
     fn test_register() {
