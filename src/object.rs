@@ -1270,11 +1270,7 @@ pub trait ObjectExt: ObjectType {
         value: &dyn ToValue,
     ) -> Result<(), BoolError>;
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
-    fn has_property<'a, N: Into<&'a str>>(
-        &self,
-        property_name: N,
-        type_: Option<Type>,
-    ) -> Result<(), BoolError>;
+    fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool;
     fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
     fn find_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<::ParamSpec>;
     fn list_properties(&self) -> Vec<::ParamSpec>;
@@ -1574,11 +1570,7 @@ impl<T: ObjectType> ObjectExt for T {
         }
     }
 
-    fn has_property<'a, N: Into<&'a str>>(
-        &self,
-        property_name: N,
-        type_: Option<Type>,
-    ) -> Result<(), BoolError> {
+    fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool {
         self.get_object_class().has_property(property_name, type_)
     }
 
@@ -1862,20 +1854,14 @@ impl ObjectClass {
         &self,
         property_name: N,
         type_: Option<Type>,
-    ) -> Result<(), BoolError> {
+    ) -> bool {
         let property_name = property_name.into();
         let ptype = self.get_property_type(property_name);
 
         match (ptype, type_) {
-            (None, _) => Err(glib_bool_error!("Invalid property name")),
-            (Some(_), None) => Ok(()),
-            (Some(ptype), Some(type_)) => {
-                if ptype == type_ {
-                    Ok(())
-                } else {
-                    Err(glib_bool_error!("Invalid property type"))
-                }
-            }
+            (None, _) => false,
+            (Some(_), None) => true,
+            (Some(ptype), Some(type_)) => ptype == type_,
         }
     }
 
