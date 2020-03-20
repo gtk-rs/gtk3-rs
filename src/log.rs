@@ -324,15 +324,13 @@ macro_rules! g_log {
         check_log_args(&$log_domain, $log_level, $format);
         // the next line is used to enforce the type for the macro checker...
         let log_domain: &str = $log_domain;
+        // to prevent the glib formatter to look for arguments which don't exist
         let f = $format.replace("%", "%%");
         unsafe {
             $crate::glib_sys::g_log(
-                // log_domain.to_glib_none().0,
-                b"domain\0".as_ptr() as *const _,
+                log_domain.to_glib_none().0,
                 $log_level.to_glib(),
-                // to prevent the glib formatter to look for arguments which don't exist
-                // f.to_glib_none().0,
-                b"\0".as_ptr() as *const _,
+                f.to_glib_none().0,
             );
         }
     }};
@@ -345,13 +343,13 @@ macro_rules! g_log {
         check_log_args(&$log_domain, $log_level, $format);
         // the next line is used to enforce the type for the macro checker...
         let log_domain: &str = $log_domain;
+        // to prevent the glib formatter to look for arguments which don't exist
+        let f = format!($format, $($arg),*).replace("%", "%%");
         unsafe {
             $crate::glib_sys::g_log(
                 log_domain.to_glib_none().0,
                 $log_level.to_glib(),
-                format!($format, $($arg),*)
-                    // to prevent the glib formatter to look for arguments which don't exist
-                    .replace("%", "%%").to_glib_none().0,
+                f.to_glib_none().0,
             );
         }
     }};
