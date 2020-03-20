@@ -276,7 +276,12 @@ pub fn log_unset_default_handler() {
     *DEFAULT_HANDLER
         .lock()
         .expect("Failed to lock DEFAULT_HANDLER to remove callback") = None;
-    unsafe { glib_sys::g_log_set_default_handler(None, ::std::ptr::null_mut()) };
+    unsafe {
+        glib_sys::g_log_set_default_handler(
+            Some(glib_sys::g_log_default_handler),
+            ::std::ptr::null_mut(),
+        )
+    };
 }
 
 pub fn log_default_handler(log_domain: &str, log_level: LogLevel, message: Option<&str>) {
@@ -322,10 +327,12 @@ macro_rules! g_log {
         let f = $format.replace("%", "%%");
         unsafe {
             $crate::glib_sys::g_log(
-                log_domain.to_glib_none().0,
+                // log_domain.to_glib_none().0,
+                b"domain\0".as_ptr() as *const _,
                 $log_level.to_glib(),
                 // to prevent the glib formatter to look for arguments which don't exist
-                f.to_glib_none().0,
+                // f.to_glib_none().0,
+                b"\0".as_ptr() as *const _,
             );
         }
     }};
