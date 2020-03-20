@@ -297,7 +297,7 @@ pub fn log_default_handler(log_domain: &str, log_level: LogLevel, message: Optio
 
 /// Macro used to log using GLib logging system. It uses [g_log].
 ///
-/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log
 ///
 /// Example:
 ///
@@ -357,7 +357,7 @@ macro_rules! g_log {
 
 /// Macro used to log using GLib logging system. It uses [g_log].
 ///
-/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log
 ///
 /// It is the same as calling the [`g_log!`] macro with [`LogLevel::Error`].
 ///
@@ -388,7 +388,7 @@ macro_rules! g_error {
 
 /// Macro used to log using GLib logging system. It uses [g_log].
 ///
-/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log
 ///
 /// It is the same as calling the [`g_log!`] macro with [`LogLevel::Critical`].
 ///
@@ -419,7 +419,7 @@ macro_rules! g_critical {
 
 /// Macro used to log using GLib logging system. It uses [g_log].
 ///
-/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log
 ///
 /// It is the same as calling the [`g_log!`] macro with [`LogLevel::Warning`].
 ///
@@ -450,7 +450,7 @@ macro_rules! g_warning {
 
 /// Macro used to log using GLib logging system. It uses [g_log].
 ///
-/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log
 ///
 /// It is the same as calling the [`g_log!`] macro with [`LogLevel::Message`].
 ///
@@ -481,7 +481,7 @@ macro_rules! g_message {
 
 /// Macro used to log using GLib logging system. It uses [g_log].
 ///
-/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log
 ///
 /// It is the same as calling the [`g_log!`] macro with [`LogLevel::Info`].
 ///
@@ -512,7 +512,7 @@ macro_rules! g_info {
 
 /// Macro used to log using GLib logging system. It uses [g_log].
 ///
-/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log
 ///
 /// It is the same as calling the [`g_log!`] macro with [`LogLevel::Debug`].
 ///
@@ -538,6 +538,83 @@ macro_rules! g_debug {
     }};
     ($log_domain:expr, $format:expr, $($arg:tt),*) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Debug, $format, $($arg),*);
+    }};
+}
+
+#[doc(hidden)]
+#[macro_export]
+macro_rules! g_print_inner {
+    ($func:ident, $format:expr) => {{
+        use $crate::translate::ToGlibPtr;
+
+        fn check_arg(_format: &str) {}
+
+        check_arg($format);
+        // to prevent the glib formatter to look for arguments which don't exist
+        let f = $format.replace("%", "%%");
+        unsafe {
+            $crate::glib_sys::$func(f.to_glib_none().0);
+        }
+    }};
+    ($func:ident, $format:expr, $($arg:tt),*) => {{
+        use $crate::translate::ToGlibPtr;
+
+        fn check_arg(_format: &str) {}
+
+        check_arg($format);
+        // to prevent the glib formatter to look for arguments which don't exist
+        let f = format!($format, $($arg),*).replace("%", "%%");
+        unsafe {
+            $crate::glib_sys::$func(f.to_glib_none().0);
+        }
+    }};
+}
+
+/// Macro used to print messages. It uses [g_print].
+///
+/// [g_print]: https://developer.gnome.org/glib/stable/glib-Warnings-and-Assertions.html#g-print
+///
+/// Example:
+///
+/// ```no_run
+/// use glib::g_print;
+///
+/// g_print!("test");
+/// let x = 12;
+/// g_print!("test: {}", x);
+/// g_print!("test: {} {}", x, "a");
+/// ```
+#[macro_export]
+macro_rules! g_print {
+    ($format:expr) => {{
+        $crate::g_print_inner!(g_print, $format);
+    }};
+    ($format:expr, $($arg:tt),*) => {{
+        $crate::g_print_inner!(g_print, $format, $($arg),*);
+    }};
+}
+
+/// Macro used to print error messages. It uses [g_printerr].
+///
+/// [g_printerr]: https://developer.gnome.org/glib/stable/glib-Warnings-and-Assertions.html#g-printerr
+///
+/// Example:
+///
+/// ```no_run
+/// use glib::g_printerr;
+///
+/// g_printerr!("test");
+/// let x = 12;
+/// g_printerr!("test: {}", x);
+/// g_printerr!("test: {} {}", x, "a");
+/// ```
+#[macro_export]
+macro_rules! g_printerr {
+    ($format:expr) => {{
+        $crate::g_print_inner!(g_printerr, $format);
+    }};
+    ($format:expr, $($arg:tt),*) => {{
+        $crate::g_print_inner!(g_printerr, $format, $($arg),*);
     }};
 }
 
