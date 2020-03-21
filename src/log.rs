@@ -115,7 +115,7 @@ fn to_log_flags(fatal: bool, recursion: bool) -> u32 {
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 pub fn log_set_handler<P: Fn(&str, LogLevel, &str) + Send + Sync + 'static>(
-    log_domain: &str,
+    log_domain: Option<&str>,
     log_levels: LogLevels,
     fatal: bool,
     recursion: bool,
@@ -152,7 +152,7 @@ pub fn log_set_handler<P: Fn(&str, LogLevel, &str) + Send + Sync + 'static>(
     }
 }
 
-pub fn log_remove_handler(log_domain: &str, handler_id: LogHandlerId) {
+pub fn log_remove_handler(log_domain: Option<&str>, handler_id: LogHandlerId) {
     unsafe {
         glib_sys::g_log_remove_handler(log_domain.to_glib_none().0, handler_id.to_glib());
     }
