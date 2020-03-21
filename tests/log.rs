@@ -31,6 +31,9 @@ fn assert_counts(
 
 #[test]
 fn check_log_handlers() {
+    // We set the fatal level explicitly in case it's set outside of the test.
+    log_set_fatal_mask("domain", LogLevels::LEVEL_ERROR);
+
     //
     // log_set_default_handler check part
     //
@@ -94,6 +97,11 @@ fn check_log_handlers() {
         assert_counts(&count, 0, 1, 0, 0, 0);
         g_debug!("domain", "hello");
         assert_counts(&count, 0, 1, 0, 0, 1);
+        // We check that only "domain" messages are calling our callback.
+        g_debug!("not-domain", "hello");
+        g_warning!("not-domain", "hello");
+        assert_counts(&count, 0, 1, 0, 0, 1);
+
         log_remove_handler("domain", handler_id);
         g_critical!("domain", "hello");
         g_message!("domain", "hello");
