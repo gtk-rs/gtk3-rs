@@ -4,6 +4,7 @@
 
 use glib_sys;
 use once_cell::sync::Lazy;
+#[cfg(any(feature = "v2_46", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::sync::{Arc, Mutex};
 use translate::*;
@@ -114,7 +115,7 @@ fn to_log_flags(fatal: bool, recursion: bool) -> u32 {
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 pub fn log_set_handler<P: Fn(&str, LogLevel, &str) + Send + Sync + 'static>(
-    log_domain: &str,
+    log_domain: Option<&str>,
     log_levels: LogLevels,
     fatal: bool,
     recursion: bool,
@@ -151,7 +152,7 @@ pub fn log_set_handler<P: Fn(&str, LogLevel, &str) + Send + Sync + 'static>(
     }
 }
 
-pub fn log_remove_handler(log_domain: &str, handler_id: LogHandlerId) {
+pub fn log_remove_handler(log_domain: Option<&str>, handler_id: LogHandlerId) {
     unsafe {
         glib_sys::g_log_remove_handler(log_domain.to_glib_none().0, handler_id.to_glib());
     }
@@ -181,7 +182,7 @@ pub fn log_set_fatal_mask(log_domain: &str, fatal_levels: LogLevels) -> LogLevel
 //     }
 // }
 
-static PRINT_HANDLER: Lazy<Mutex<Option<Arc<Box_<Box_<dyn Fn(&str) + Send + Sync + 'static>>>>>> =
+static PRINT_HANDLER: Lazy<Mutex<Option<Arc<dyn Fn(&str) + Send + Sync + 'static>>>> =
     Lazy::new(|| Mutex::new(None));
 
 /// To set back the default print handler, use the [`unset_print_handler`] function.
@@ -195,11 +196,9 @@ pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
             (*callback)(string.as_str())
         }
     }
-    let func: Option<Arc<Box_<Box_<dyn Fn(&str) + Send + Sync + 'static>>>> =
-        Some(Arc::new(Box_::new(Box_::new(func))));
     *PRINT_HANDLER
         .lock()
-        .expect("Failed to lock PRINT_HANDLER to change callback") = func;
+        .expect("Failed to lock PRINT_HANDLER to change callback") = Some(Arc::new(func));
     unsafe { glib_sys::g_set_print_handler(Some(func_func as _)) };
 }
 
@@ -211,9 +210,8 @@ pub fn unset_print_handler() {
     unsafe { glib_sys::g_set_print_handler(None) };
 }
 
-static PRINTERR_HANDLER: Lazy<
-    Mutex<Option<Arc<Box_<Box_<dyn Fn(&str) + Send + Sync + 'static>>>>>,
-> = Lazy::new(|| Mutex::new(None));
+static PRINTERR_HANDLER: Lazy<Mutex<Option<Arc<dyn Fn(&str) + Send + Sync + 'static>>>> =
+    Lazy::new(|| Mutex::new(None));
 
 /// To set back the default print handler, use the [`unset_printerr_handler`] function.
 pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
@@ -229,11 +227,9 @@ pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
             (*callback)(string.as_str())
         }
     }
-    let func: Option<Arc<Box_<Box_<dyn Fn(&str) + Send + Sync + 'static>>>> =
-        Some(Arc::new(Box_::new(Box_::new(func))));
     *PRINTERR_HANDLER
         .lock()
-        .expect("Failed to lock PRINTERR_HANDLER to change callback") = func;
+        .expect("Failed to lock PRINTERR_HANDLER to change callback") = Some(Arc::new(func));
     unsafe { glib_sys::g_set_printerr_handler(Some(func_func as _)) };
 }
 
@@ -246,7 +242,7 @@ pub fn unset_printerr_handler() {
 }
 
 static DEFAULT_HANDLER: Lazy<
-    Mutex<Option<Arc<Box_<Box_<dyn Fn(&str, LogLevel, &str) + Send + Sync + 'static>>>>>,
+    Mutex<Option<Arc<dyn Fn(&str, LogLevel, &str) + Send + Sync + 'static>>>,
 > = Lazy::new(|| Mutex::new(None));
 
 /// To set back the default print handler, use the [`log_unset_default_handler`] function.
@@ -266,14 +262,12 @@ pub fn log_set_default_handler<P: Fn(&str, LogLevel, &str) + Send + Sync + 'stat
         } {
             let log_domain: GString = from_glib_borrow(log_domain);
             let message: GString = from_glib_borrow(message);
-            (*callback)(log_domain.as_str(), from_glib(log_levels), message.as_str())
+            (*callback)(log_domain.as_str(), from_glib(log_levels), message.as_str());
         }
     }
-    let log_func: Option<Arc<Box_<Box_<dyn Fn(&str, LogLevel, &str) + Send + Sync + 'static>>>> =
-        Some(Arc::new(Box_::new(Box_::new(log_func))));
     *DEFAULT_HANDLER
         .lock()
-        .expect("Failed to lock DEFAULT_HANDLER to change callback") = log_func;
+        .expect("Failed to lock DEFAULT_HANDLER to change callback") = Some(Arc::new(log_func));
     unsafe { glib_sys::g_log_set_default_handler(Some(func_func as _), ::std::ptr::null_mut()) };
 }
 
@@ -282,7 +276,12 @@ pub fn log_unset_default_handler() {
     *DEFAULT_HANDLER
         .lock()
         .expect("Failed to lock DEFAULT_HANDLER to remove callback") = None;
-    unsafe { glib_sys::g_log_set_default_handler(None, ::std::ptr::null_mut()) };
+    unsafe {
+        glib_sys::g_log_set_default_handler(
+            Some(glib_sys::g_log_default_handler),
+            ::std::ptr::null_mut(),
+        )
+    };
 }
 
 pub fn log_default_handler(log_domain: &str, log_level: LogLevel, message: Option<&str>) {
@@ -298,7 +297,7 @@ pub fn log_default_handler(log_domain: &str, log_level: LogLevel, message: Optio
 
 /// Macro used to log using GLib logging system. It uses [g_log].
 ///
-/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log
 ///
 /// Example:
 ///
@@ -325,12 +324,13 @@ macro_rules! g_log {
         check_log_args(&$log_domain, $log_level, $format);
         // the next line is used to enforce the type for the macro checker...
         let log_domain: &str = $log_domain;
+        // to prevent the glib formatter to look for arguments which don't exist
+        let f = $format.replace("%", "%%");
         unsafe {
             $crate::glib_sys::g_log(
                 log_domain.to_glib_none().0,
                 $log_level.to_glib(),
-                // to prevent the glib formatter to look for arguments which don't exist
-                $format.replace("%", "%%").to_glib_none().0,
+                f.to_glib_none().0,
             );
         }
     }};
@@ -343,13 +343,13 @@ macro_rules! g_log {
         check_log_args(&$log_domain, $log_level, $format);
         // the next line is used to enforce the type for the macro checker...
         let log_domain: &str = $log_domain;
+        // to prevent the glib formatter to look for arguments which don't exist
+        let f = format!($format, $($arg),*).replace("%", "%%");
         unsafe {
             $crate::glib_sys::g_log(
                 log_domain.to_glib_none().0,
                 $log_level.to_glib(),
-                format!($format, $($arg),*)
-                    // to prevent the glib formatter to look for arguments which don't exist
-                    .replace("%", "%%").to_glib_none().0,
+                f.to_glib_none().0,
             );
         }
     }};
@@ -357,7 +357,7 @@ macro_rules! g_log {
 
 /// Macro used to log using GLib logging system. It uses [g_log].
 ///
-/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log
 ///
 /// It is the same as calling the [`g_log!`] macro with [`LogLevel::Error`].
 ///
@@ -388,7 +388,7 @@ macro_rules! g_error {
 
 /// Macro used to log using GLib logging system. It uses [g_log].
 ///
-/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log
 ///
 /// It is the same as calling the [`g_log!`] macro with [`LogLevel::Critical`].
 ///
@@ -419,7 +419,7 @@ macro_rules! g_critical {
 
 /// Macro used to log using GLib logging system. It uses [g_log].
 ///
-/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log
 ///
 /// It is the same as calling the [`g_log!`] macro with [`LogLevel::Warning`].
 ///
@@ -450,7 +450,7 @@ macro_rules! g_warning {
 
 /// Macro used to log using GLib logging system. It uses [g_log].
 ///
-/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log
 ///
 /// It is the same as calling the [`g_log!`] macro with [`LogLevel::Message`].
 ///
@@ -481,7 +481,7 @@ macro_rules! g_message {
 
 /// Macro used to log using GLib logging system. It uses [g_log].
 ///
-/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log
 ///
 /// It is the same as calling the [`g_log!`] macro with [`LogLevel::Info`].
 ///
@@ -512,7 +512,7 @@ macro_rules! g_info {
 
 /// Macro used to log using GLib logging system. It uses [g_log].
 ///
-/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log)
+/// [g_log]: https://developer.gnome.org/glib/stable/glib-Message-Logging.html#g-log
 ///
 /// It is the same as calling the [`g_log!`] macro with [`LogLevel::Debug`].
 ///
@@ -538,6 +538,83 @@ macro_rules! g_debug {
     }};
     ($log_domain:expr, $format:expr, $($arg:tt),*) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Debug, $format, $($arg),*);
+    }};
+}
+
+#[doc(hidden)]
+#[macro_export]
+macro_rules! g_print_inner {
+    ($func:ident, $format:expr) => {{
+        use $crate::translate::ToGlibPtr;
+
+        fn check_arg(_format: &str) {}
+
+        check_arg($format);
+        // to prevent the glib formatter to look for arguments which don't exist
+        let f = $format.replace("%", "%%");
+        unsafe {
+            $crate::glib_sys::$func(f.to_glib_none().0);
+        }
+    }};
+    ($func:ident, $format:expr, $($arg:tt),*) => {{
+        use $crate::translate::ToGlibPtr;
+
+        fn check_arg(_format: &str) {}
+
+        check_arg($format);
+        // to prevent the glib formatter to look for arguments which don't exist
+        let f = format!($format, $($arg),*).replace("%", "%%");
+        unsafe {
+            $crate::glib_sys::$func(f.to_glib_none().0);
+        }
+    }};
+}
+
+/// Macro used to print messages. It uses [g_print].
+///
+/// [g_print]: https://developer.gnome.org/glib/stable/glib-Warnings-and-Assertions.html#g-print
+///
+/// Example:
+///
+/// ```no_run
+/// use glib::g_print;
+///
+/// g_print!("test");
+/// let x = 12;
+/// g_print!("test: {}", x);
+/// g_print!("test: {} {}", x, "a");
+/// ```
+#[macro_export]
+macro_rules! g_print {
+    ($format:expr) => {{
+        $crate::g_print_inner!(g_print, $format);
+    }};
+    ($format:expr, $($arg:tt),*) => {{
+        $crate::g_print_inner!(g_print, $format, $($arg),*);
+    }};
+}
+
+/// Macro used to print error messages. It uses [g_printerr].
+///
+/// [g_printerr]: https://developer.gnome.org/glib/stable/glib-Warnings-and-Assertions.html#g-printerr
+///
+/// Example:
+///
+/// ```no_run
+/// use glib::g_printerr;
+///
+/// g_printerr!("test");
+/// let x = 12;
+/// g_printerr!("test: {}", x);
+/// g_printerr!("test: {} {}", x, "a");
+/// ```
+#[macro_export]
+macro_rules! g_printerr {
+    ($format:expr) => {{
+        $crate::g_print_inner!(g_printerr, $format);
+    }};
+    ($format:expr, $($arg:tt),*) => {{
+        $crate::g_print_inner!(g_printerr, $format, $($arg),*);
     }};
 }
 
