@@ -46,11 +46,15 @@ TESTS = [
     ("clone!(@weak v => @default-return false move || {})",
         "Missing comma after `@default-return`'s value"),
     ("clone!(@yolo v => move || {})",
-        "Unknown keyword, only `weak` and `strong` are allowed"),
+        "Unknown keyword \"yolo\", only `weak` and `strong` are allowed"),
     ("clone!(v => move || {})",
         "You need to specify if this is a weak or a strong clone."),
     ("clone!(@strong v => async move {println!(\"foo\");});",
         "async blocks are not supported by the clone! macro"),
+    ("clone!(@strong v => {println!(\"foo\");});",
+        "Missing `move` and closure declaration"),
+    ("clone!(@strong v, @default-return lol => move || {println!(\"foo\");});",
+        "Unknown keyword \"default\", only `weak` and `strong` are allowed"),
 ]
 
 

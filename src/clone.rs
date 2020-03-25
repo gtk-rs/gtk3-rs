@@ -94,10 +94,25 @@ macro_rules! to_type_before {
     (@weak $($variable:ident).+ as $rename:ident) => (
         let $rename = $crate::clone::Downgrade::downgrade(&$($variable).+);
     );
-    (@ $keyword:ident $($variable:ident).+ $(as $rename:ident)?) => (
+    // The two following cases are just here so "@strong" and "@weak" aren't detected as invalid
+    // when passing an expression (like "@default-return" => "-return" is the start of an expression
+    // there).
+    (@strong $variable:expr) => (
+        let $variable = $variable.clone();
+    );
+    (@weak $variable:expr) => (
+        let $variable = $crate::clone::Downgrade::downgrade(&$variable);
+    );
+    (@ $keyword:ident $($variable:tt)+) => (
         // In case we have:
         // clone!(@yolo v => move || {});
-        compile_error!("Unknown keyword, only `weak` and `strong` are allowed");
+        compile_error!(
+            concat!(
+                "Unknown keyword \"",
+                stringify!($keyword),
+                "\", only `weak` and `strong` are allowed",
+            ),
+        );
     );
 }
 
@@ -420,6 +435,9 @@ macro_rules! clone {
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => async $($x:tt)+ ) => (
         compile_error!("async blocks are not supported by the clone! macro");
     );
+    ($($(@ $strength:ident)? $variables:expr),+ => move || $($_:tt)* ) => (
+        $( $crate::to_type_before!($(@ $strength)? $variables); )*
+    );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => default-return $($x:tt)+ ) => (
         // In case we have:
         // clone!(@weak foo => default-return false, move || {});
@@ -430,8 +448,20 @@ macro_rules! clone {
         // clone!(@weak foo => @default-return false move || {});
         compile_error!("Missing comma after `@default-return`'s value");
     );
+    ($($(@ $strength:ident)? $variables:expr),+ => $_:expr) => (
+        // In case we have:
+        // clone!(@weak foo => move {});
+        compile_error!("Missing `move` and closure declaration");
+    );
+    ($($(@ $strength:ident)? $variables:expr),+ => $_:block) => (
+        // In case we have:
+        // clone!(@weak foo => move {println!("a");});
+        compile_error!("Missing `move` and closure declaration");
+    );
     ($($(@ $strength:ident)? $variables:expr),+ => move $($_:tt)* ) => (
-        compile_error!("Variables need to be valid identifiers, e.g. field accesses are not allowed as is, you must rename it!");
+        compile_error!(concat!("Variables need to be valid identifiers, e.g. field accesses are not allowed as is, you must rename it!", $(
+            $(stringify!($strength),)?
+            stringify!($variables),)+));
     );
 }
 
