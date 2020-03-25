@@ -306,35 +306,20 @@ pub fn log_default_handler(log_domain: &str, log_level: LogLevel, message: Optio
 ///
 /// g_log!("test", LogLevel::Debug, "test");
 /// g_log!("test", LogLevel::Message, "test");
+/// // trailing commas work as well:
+/// g_log!("test", LogLevel::Message, "test",);
 ///
 /// // You can also pass arguments like in format! or println!:
 /// let x = 12;
 /// g_log!("test", LogLevel::Error, "test: {}", x);
 /// g_log!("test", LogLevel::Critical, "test: {}", x);
 /// g_log!("test", LogLevel::Warning, "test: {} {}", x, "a");
+/// // trailing commas work as well:
+/// g_log!("test", LogLevel::Warning, "test: {} {}", x, "a",);
 /// ```
 #[macro_export]
 macro_rules! g_log {
-    ($log_domain:expr, $log_level:expr, $format:expr) => {{
-        use $crate::translate::{ToGlib, ToGlibPtr};
-        use $crate::LogLevel;
-
-        fn check_log_args(_log_domain: &str, _log_level: LogLevel, _format: &str) {}
-
-        check_log_args(&$log_domain, $log_level, $format);
-        // the next line is used to enforce the type for the macro checker...
-        let log_domain: &str = $log_domain;
-        // to prevent the glib formatter to look for arguments which don't exist
-        let f = $format.replace("%", "%%");
-        unsafe {
-            $crate::glib_sys::g_log(
-                log_domain.to_glib_none().0,
-                $log_level.to_glib(),
-                f.to_glib_none().0,
-            );
-        }
-    }};
-    ($log_domain:expr, $log_level:expr, $format:expr, $($arg:tt),*) => {{
+    ($log_domain:expr, $log_level:expr, $format:expr, $($arg:expr),* $(,)?) => {{
         use $crate::translate::{ToGlib, ToGlibPtr};
         use $crate::LogLevel;
 
@@ -345,6 +330,25 @@ macro_rules! g_log {
         let log_domain: &str = $log_domain;
         // to prevent the glib formatter to look for arguments which don't exist
         let f = format!($format, $($arg),*).replace("%", "%%");
+        unsafe {
+            $crate::glib_sys::g_log(
+                log_domain.to_glib_none().0,
+                $log_level.to_glib(),
+                f.to_glib_none().0,
+            );
+        }
+    }};
+    ($log_domain:expr, $log_level:expr, $format:expr $(,)?) => {{
+        use $crate::translate::{ToGlib, ToGlibPtr};
+        use $crate::LogLevel;
+
+        fn check_log_args(_log_domain: &str, _log_level: LogLevel, _format: &str) {}
+
+        check_log_args(&$log_domain, $log_level, $format);
+        // the next line is used to enforce the type for the macro checker...
+        let log_domain: &str = $log_domain;
+        // to prevent the glib formatter to look for arguments which don't exist
+        let f = $format.replace("%", "%%");
         unsafe {
             $crate::glib_sys::g_log(
                 log_domain.to_glib_none().0,
@@ -371,18 +375,23 @@ macro_rules! g_log {
 /// use glib::{g_log, LogLevel};
 /// g_log!("test", LogLevel::Error, "test");
 ///
+/// // trailing commas work as well:
+/// g_error!("test", "test",);
+///
 /// // You can also pass arguments like in format! or println!:
 /// let x = 12;
 /// g_error!("test", "test: {}", x);
 /// g_error!("test", "test: {} {}", x, "a");
+/// // trailing commas work as well:
+/// g_error!("test", "test: {} {}", x, "a",);
 /// ```
 #[macro_export]
 macro_rules! g_error {
-    ($log_domain:expr, $format:expr) => {{
-        $crate::g_log!($log_domain, $crate::LogLevel::Error, $format);
-    }};
-    ($log_domain:expr, $format:expr, $($arg:tt),*) => {{
+    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Error, $format, $($arg),*);
+    }};
+    ($log_domain:expr, $format:expr $(,)?) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Error, $format);
     }};
 }
 
@@ -402,18 +411,23 @@ macro_rules! g_error {
 /// use glib::{g_log, LogLevel};
 /// g_log!("test", LogLevel::Critical, "test");
 ///
+/// // trailing commas work as well:
+/// g_critical!("test", "test",);
+///
 /// // You can also pass arguments like in format! or println!:
 /// let x = 12;
 /// g_critical!("test", "test: {}", x);
 /// g_critical!("test", "test: {} {}", x, "a");
+/// // trailing commas work as well:
+/// g_critical!("test", "test: {} {}", x, "a",);
 /// ```
 #[macro_export]
 macro_rules! g_critical {
-    ($log_domain:expr, $format:expr) => {{
-        $crate::g_log!($log_domain, $crate::LogLevel::Critical, $format);
-    }};
-    ($log_domain:expr, $format:expr, $($arg:tt),*) => {{
+    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Critical, $format, $($arg),*);
+    }};
+    ($log_domain:expr, $format:expr $(,)?) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Critical, $format);
     }};
 }
 
@@ -433,18 +447,23 @@ macro_rules! g_critical {
 /// use glib::{g_log, LogLevel};
 /// g_log!("test", LogLevel::Warning, "test");
 ///
+/// // trailing commas work as well:
+/// g_warning!("test", "test",);
+///
 /// // You can also pass arguments like in format! or println!:
 /// let x = 12;
 /// g_warning!("test", "test: {}", x);
 /// g_warning!("test", "test: {} {}", x, "a");
+/// // trailing commas work as well:
+/// g_warning!("test", "test: {} {}", x, "a",);
 /// ```
 #[macro_export]
 macro_rules! g_warning {
-    ($log_domain:expr, $format:expr) => {{
-        $crate::g_log!($log_domain, $crate::LogLevel::Warning, $format);
-    }};
-    ($log_domain:expr, $format:expr, $($arg:tt),*) => {{
+    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Warning, $format, $($arg),*);
+    }};
+    ($log_domain:expr, $format:expr $(,)?) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Warning, $format);
     }};
 }
 
@@ -464,18 +483,23 @@ macro_rules! g_warning {
 /// use glib::{g_log, LogLevel};
 /// g_log!("test", LogLevel::Message, "test");
 ///
+/// // trailing commas work as well:
+/// g_message!("test", "test",);
+///
 /// // You can also pass arguments like in format! or println!:
 /// let x = 12;
 /// g_message!("test", "test: {}", x);
 /// g_message!("test", "test: {} {}", x, "a");
+/// // trailing commas work as well:
+/// g_message!("test", "test: {} {}", x, "a",);
 /// ```
 #[macro_export]
 macro_rules! g_message {
-    ($log_domain:expr, $format:expr) => {{
-        $crate::g_log!($log_domain, $crate::LogLevel::Message, $format);
-    }};
-    ($log_domain:expr, $format:expr, $($arg:tt),*) => {{
+    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Message, $format, $($arg),*);
+    }};
+    ($log_domain:expr, $format:expr $(,)?) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Message, $format);
     }};
 }
 
@@ -495,18 +519,23 @@ macro_rules! g_message {
 /// use glib::{g_log, LogLevel};
 /// g_log!("test", LogLevel::Info, "test");
 ///
+/// // trailing commas work as well:
+/// g_info!("test", "test",);
+///
 /// // You can also pass arguments like in format! or println!:
 /// let x = 12;
 /// g_info!("test", "test: {}", x);
 /// g_info!("test", "test: {} {}", x, "a");
+/// // trailing commas work as well:
+/// g_info!("test", "test: {} {}", x, "a",);
 /// ```
 #[macro_export]
 macro_rules! g_info {
-    ($log_domain:expr, $format:expr) => {{
-        $crate::g_log!($log_domain, $crate::LogLevel::Info, $format);
-    }};
-    ($log_domain:expr, $format:expr, $($arg:tt),*) => {{
+    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Info, $format, $($arg),*);
+    }};
+    ($log_domain:expr, $format:expr $(,)?) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Info, $format);
     }};
 }
 
@@ -526,18 +555,23 @@ macro_rules! g_info {
 /// use glib::{g_log, LogLevel};
 /// g_log!("test", LogLevel::Debug, "test");
 ///
+/// // trailing commas work as well:
+/// g_debug!("test", "test",);
+///
 /// // You can also pass arguments like in format! or println!:
 /// let x = 12;
 /// g_debug!("test", "test: {}", x);
 /// g_debug!("test", "test: {} {}", x, "a");
+/// // trailing commas work as well:
+/// g_debug!("test", "test: {} {}", x, "a",);
 /// ```
 #[macro_export]
 macro_rules! g_debug {
-    ($log_domain:expr, $format:expr) => {{
-        $crate::g_log!($log_domain, $crate::LogLevel::Debug, $format);
-    }};
-    ($log_domain:expr, $format:expr, $($arg:tt),*) => {{
+    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Debug, $format, $($arg),*);
+    }};
+    ($log_domain:expr, $format:expr $(,)?) => {{
+        $crate::g_log!($log_domain, $crate::LogLevel::Debug, $format);
     }};
 }
 
@@ -556,7 +590,7 @@ macro_rules! g_print_inner {
             $crate::glib_sys::$func(f.to_glib_none().0);
         }
     }};
-    ($func:ident, $format:expr, $($arg:tt),*) => {{
+    ($func:ident, $format:expr, $($arg:expr),*) => {{
         use $crate::translate::ToGlibPtr;
 
         fn check_arg(_format: &str) {}
@@ -580,17 +614,22 @@ macro_rules! g_print_inner {
 /// use glib::g_print;
 ///
 /// g_print!("test");
+/// // trailing commas work as well:
+/// g_print!("test",);
+///
 /// let x = 12;
 /// g_print!("test: {}", x);
 /// g_print!("test: {} {}", x, "a");
+/// // trailing commas work as well:
+/// g_print!("test: {} {}", x, "a",);
 /// ```
 #[macro_export]
 macro_rules! g_print {
-    ($format:expr) => {{
-        $crate::g_print_inner!(g_print, $format);
-    }};
-    ($format:expr, $($arg:tt),*) => {{
+    ($format:expr, $($arg:expr),* $(,)?) => {{
         $crate::g_print_inner!(g_print, $format, $($arg),*);
+    }};
+    ($format:expr $(,)?) => {{
+        $crate::g_print_inner!(g_print, $format);
     }};
 }
 
@@ -604,16 +643,21 @@ macro_rules! g_print {
 /// use glib::g_printerr;
 ///
 /// g_printerr!("test");
+/// // trailing commas work as well:
+/// g_printerr!("test",);
+///
 /// let x = 12;
 /// g_printerr!("test: {}", x);
 /// g_printerr!("test: {} {}", x, "a");
+/// // trailing commas work as well:
+/// g_printerr!("test: {} {}", x, "a",);
 /// ```
 #[macro_export]
 macro_rules! g_printerr {
-    ($format:expr) => {{
+    ($format:expr $(,)?) => {{
         $crate::g_print_inner!(g_printerr, $format);
     }};
-    ($format:expr, $($arg:tt),*) => {{
+    ($format:expr, $($arg:expr),* $(,)?) => {{
         $crate::g_print_inner!(g_printerr, $format, $($arg),*);
     }};
 }
