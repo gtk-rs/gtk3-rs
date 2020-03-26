@@ -122,26 +122,47 @@ macro_rules! to_type_after {
     (@default-panic, @weak $variable:ident) => {
         let $variable = match $crate::clone::Upgrade::upgrade(&$variable) {
             Some(val) => val,
-            None => panic!("failed to upgrade {}", stringify!($variable)),
+            None => panic!(
+                "failed to upgrade `{}` (if you don't want to panic, use @default-return)",
+                stringify!($variable)
+            ),
         };
     };
     (as $rename:ident @default-panic, @weak $($variable:ident).+) => {
         let $rename = match $crate::clone::Upgrade::upgrade(&$rename) {
             Some(val) => val,
-            None => panic!("failed to upgrade {}", stringify!($rename)),
+            None => panic!(
+                "failed to upgrade `{}` (if you don't want to panic, use @default-return)",
+                stringify!($rename)
+            ),
         };
     };
     ($(as $rename:ident)? @default-panic, @strong $($variable:ident).+) => {};
     (@weak $variable:ident , $return_value:expr) => {
         let $variable = match $crate::clone::Upgrade::upgrade(&$variable) {
             Some(val) => val,
-            None => return ($return_value)(),
+            None => {
+                $crate::g_debug!(
+                    $crate::CLONE_MACRO_LOG_DOMAIN,
+                    "Failed to upgrade {}",
+                    stringify!($variable)
+                );
+                return ($return_value)();
+            }
         };
     };
     (as $rename:ident @weak $($variable:ident).+ , $return_value:expr) => {
         let $rename = match $crate::clone::Upgrade::upgrade(&$rename) {
             Some(val) => val,
-            None => return ($return_value)(),
+            None => {
+                $crate::g_debug!(
+                    $crate::CLONE_MACRO_LOG_DOMAIN,
+                    "Failed to upgrade {} {}",
+                    stringify!($rename),
+                    "yolo",
+                );
+                return ($return_value)();
+            }
         };
     };
     ($(as $rename:ident)? @strong $($variable:ident).+ , $return_value:expr) => {};
@@ -168,6 +189,26 @@ macro_rules! to_return_value {
 /// If upgrading the weak reference to a strong reference inside the closure is failing, the
 /// closure is immediately returning an optional default return value. If none is provided, `()` is
 /// returned.
+///
+/// ### Debugging
+///
+/// In case something goes wrong inside the `clone!` macro, we use the [`g_debug`] macro. Meaning
+/// that if you want to see these debug messages, you'll have to set the `G_MESSAGES_DEBUG`
+/// environment variable when running your code (either in the code directly or when running the
+/// binary) to either "all" or [`CLONE_MACRO_LOG_DOMAIN`][crate::CLONE_MACRO_LOG_DOMAIN]:
+///
+/// ```rust
+/// use glib::CLONE_MACRO_LOG_DOMAIN;
+///
+/// ::std::env::set_var("G_MESSAGES_DEBUG", CLONE_MACRO_LOG_DOMAIN);
+/// ::std::env::set_var("G_MESSAGES_DEBUG", "all");
+/// ```
+///
+/// Or:
+///
+/// ```bash
+/// $ G_MESSAGES_DEBUG=all ./binary
+/// ```
 ///
 /// ### Passing a strong reference
 ///
