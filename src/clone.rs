@@ -195,16 +195,19 @@ macro_rules! to_return_value {
 /// In case something goes wrong inside the `clone!` macro, we use the [`g_debug`] macro. Meaning
 /// that if you want to see these debug messages, you'll have to set the `G_MESSAGES_DEBUG`
 /// environment variable when running your code (either in the code directly or when running the
-/// binary):
+/// binary) to either "all" or [`CLONE_MACRO_LOG_DOMAIN`][crate::CLONE_MACRO_LOG_DOMAIN]:
 ///
 /// ```rust
-/// ::std::env::set_var("G_MESSAGES_DEBUG", "1");
+/// use glib::CLONE_MACRO_LOG_DOMAIN;
+///
+/// ::std::env::set_var("G_MESSAGES_DEBUG", CLONE_MACRO_LOG_DOMAIN);
+/// ::std::env::set_var("G_MESSAGES_DEBUG", "all");
 /// ```
 ///
 /// Or:
 ///
 /// ```bash
-/// $ G_MESSAGES_DEBUG=1 ./binary
+/// $ G_MESSAGES_DEBUG=all ./binary
 /// ```
 ///
 /// ### Passing a strong reference
