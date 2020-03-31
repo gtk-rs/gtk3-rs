@@ -3,8 +3,8 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use proc_macro2::{Ident, Span, TokenStream};
-use proc_macro_error::abort_call_site;
 use proc_macro_crate::crate_name;
+use proc_macro_error::abort_call_site;
 use quote::quote;
 
 use crate::utils::{find_attribute_meta, find_nested_meta, parse_type_name};
@@ -68,11 +68,11 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
 
     let crate_name = match crate_name("glib") {
         Ok(x) => x,
-	Err(_) => {
+        Err(_) => {
             // In case we use it directly from glib itself (it cannot find glib as a dependency
-	    // in this case)
+            // in this case)
             "glib".to_owned()
-	}
+        }
     };
     let crate_ident = Ident::new(&crate_name, Span::call_site());
 
