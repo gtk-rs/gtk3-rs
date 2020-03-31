@@ -8,7 +8,7 @@ use proc_macro_error::abort_call_site;
 use quote::{format_ident, quote, quote_spanned};
 use syn::{punctuated::Punctuated, spanned::Spanned, token::Comma, Data, Ident, Variant};
 
-use crate::utils::{parse_item_attributes, parse_type_name, ItemAttribute};
+use crate::utils::{crate_ident_new, parse_item_attributes, parse_type_name, ItemAttribute};
 
 // Generate i32 to enum mapping, used to implement glib::translate::FromGlib<i32>, such as:
 //   if value == Animal::Goat as i32 {
@@ -85,6 +85,8 @@ fn gen_genum_values(
 pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
     let name = &input.ident;
 
+    let crate_ident = crate_ident_new();
+
     let enum_variants = match input.data {
         Data::Enum(ref e) => &e.variants,
         _ => abort_call_site!("GEnum only supports enums"),
@@ -102,7 +104,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
     let (genum_values, nb_genum_values) = gen_genum_values(name, enum_variants);
 
     quote! {
-        impl glib::translate::ToGlib for #name {
+        impl #crate_ident::translate::ToGlib for #name {
             type GlibType = i32;
 
             fn to_glib(&self) -> i32 {
@@ -110,44 +112,44 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
             }
         }
 
-        impl ::glib::translate::FromGlib<i32> for #name {
+        impl #crate_ident::translate::FromGlib<i32> for #name {
             fn from_glib(value: i32) -> Self {
                 #from_glib
                 unreachable!();
             }
         }
 
-        impl<'a> ::glib::value::FromValueOptional<'a> for #name {
-            unsafe fn from_value_optional(value: &::glib::Value) -> Option<Self> {
-                Some(::glib::value::FromValue::from_value(value))
+        impl<'a> #crate_ident::value::FromValueOptional<'a> for #name {
+            unsafe fn from_value_optional(value: &#crate_ident::Value) -> Option<Self> {
+                Some(#crate_ident::value::FromValue::from_value(value))
             }
         }
 
-        impl<'a> ::glib::value::FromValue<'a> for #name {
-            unsafe fn from_value(value: &::glib::Value) -> Self {
-                ::glib::translate::from_glib(
+        impl<'a> #crate_ident::value::FromValue<'a> for #name {
+            unsafe fn from_value(value: &#crate_ident::Value) -> Self {
+                #crate_ident::translate::from_glib(
                     gobject_sys::g_value_get_enum(
-                        ::glib::translate::ToGlibPtr::to_glib_none(value).0))
+                        #crate_ident::translate::ToGlibPtr::to_glib_none(value).0))
             }
         }
 
-        impl ::glib::value::SetValue for #name {
-            unsafe fn set_value(value: &mut ::glib::Value, this: &Self) {
+        impl #crate_ident::value::SetValue for #name {
+            unsafe fn set_value(value: &mut #crate_ident::Value, this: &Self) {
                 gobject_sys::g_value_set_enum(
-                    ::glib::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
-                    ::glib::translate::ToGlib::to_glib(this))
+                    #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
+                    #crate_ident::translate::ToGlib::to_glib(this))
             }
         }
 
         impl StaticType for #name {
-            fn static_type() -> ::glib::Type {
+            fn static_type() -> #crate_ident::Type {
                 #get_type()
             }
         }
 
-        fn #get_type() -> ::glib::Type {
+        fn #get_type() -> #crate_ident::Type {
             static ONCE: std::sync::Once = std::sync::Once::new();
-            static mut TYPE: ::glib::Type = ::glib::Type::Invalid;
+            static mut TYPE: #crate_ident::Type = #crate_ident::Type::Invalid;
 
             ONCE.call_once(|| {
                 static mut VALUES: [gobject_sys::GEnumValue; #nb_genum_values] = [
@@ -162,12 +164,12 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
                 let name = std::ffi::CString::new(#gtype_name).expect("CString::new failed");
                 unsafe {
                     let type_ = gobject_sys::g_enum_register_static(name.as_ptr(), VALUES.as_ptr());
-                    TYPE = ::glib::translate::from_glib(type_);
+                    TYPE = #crate_ident::translate::from_glib(type_);
                 }
             });
 
             unsafe {
-                assert_ne!(TYPE, ::glib::Type::Invalid);
+                assert_ne!(TYPE, #crate_ident::Type::Invalid);
                 TYPE
             }
         }
