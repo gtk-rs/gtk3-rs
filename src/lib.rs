@@ -77,8 +77,9 @@
 #![allow(clippy::doc_markdown)]
 #![allow(clippy::unreadable_literal)]
 
+#[doc(hidden)]
 #[macro_use]
-extern crate bitflags;
+pub extern crate bitflags;
 extern crate libc;
 extern crate once_cell;
 
@@ -88,7 +89,7 @@ pub extern crate glib_sys;
 pub extern crate gobject_sys;
 
 extern crate glib_macros;
-pub use glib_macros::{GBoxed, GEnum};
+pub use glib_macros::{gflags, GBoxed, GEnum};
 
 extern crate futures_channel;
 extern crate futures_core;

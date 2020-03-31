@@ -2,12 +2,11 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use proc_macro2::{Ident, Span, TokenStream};
+use proc_macro2::{Ident, TokenStream};
 use proc_macro_error::abort_call_site;
-use proc_macro_crate::crate_name;
 use quote::quote;
 
-use crate::utils::{find_attribute_meta, find_nested_meta, parse_type_name};
+use crate::utils::{crate_ident_new, find_attribute_meta, find_nested_meta, parse_type_name};
 
 fn gen_option_to_ptr(nullable: bool) -> TokenStream {
     if nullable {
@@ -66,15 +65,7 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
         ),
     };
 
-    let crate_name = match crate_name("glib") {
-        Ok(x) => x,
-	Err(_) => {
-            // In case we use it directly from glib itself (it cannot find glib as a dependency
-	    // in this case)
-            "glib".to_owned()
-	}
-    };
-    let crate_ident = Ident::new(&crate_name, Span::call_site());
+    let crate_ident = crate_ident_new();
 
     let meta = find_attribute_meta(&input.attrs, "gboxed")
         .unwrap()

@@ -38,8 +38,25 @@
 //!     }
 //! }
 //!
+//! #[gflags("MyFlags")]
+//! enum MyFlags {
+//!     #[gflags(name = "Flag A", nick = "nick-a")]
+//!     A = 0b00000001,
+//!     #[gflags(name = "Flag B")]
+//!     B = 0b00000010,
+//!     #[gflags(skip)]
+//!     AB = Self::A.bits() | Self::B.bits(),
+//!     C = 0b00000100,
+//! }
+//!
+//! impl Default for MyFlags {
+//!     fn default() -> Self {
+//!         MyFlags::A
+//!     }
+//! }
+//!
 //! // Static array for defining the properties of the new type.
-//! static PROPERTIES: [subclass::Property; 2] = [
+//! static PROPERTIES: [subclass::Property; 3] = [
 //!     subclass::Property("name", |name| {
 //!         glib::ParamSpec::string(
 //!             name,
@@ -55,7 +72,17 @@
 //!             "Animal",
 //!             "Animal",
 //!             Animal::static_type(),
-//!             Animal::Goat as i32,
+//!             Animal::default() as i32,
+//!             glib::ParamFlags::READWRITE,
+//!         )
+//!     }),
+//!     subclass::Property("flags", |name| {
+//!         glib::ParamSpec::flags(
+//!             name,
+//!             "Flags",
+//!             "Flags",
+//!             MyFlags::static_type(),
+//!             MyFlags::default().bits(),
 //!             glib::ParamFlags::READWRITE,
 //!         )
 //!     }),
@@ -67,6 +94,7 @@
 //! pub struct SimpleObject {
 //!     name: RefCell<Option<String>>,
 //!     animal: Cell<Animal>,
+//!     flags: Cell<MyFlags>,
 //! }
 //!
 //! // ObjectSubclass is the trait that defines the new type and
@@ -103,6 +131,7 @@
 //!         Self {
 //!             name: RefCell::new(None),
 //!             animal: Cell::new(Animal::default()),
+//!             flags: Cell::new(MyFlags::default()),
 //!         }
 //!     }
 //! }
@@ -130,6 +159,12 @@
 //!                     .expect("type conformity checked by `Object::set_property`");
 //!                 self.animal.replace(animal.unwrap());
 //!             },
+//!             subclass::Property("flags", ..) => {
+//!                 let flags = value
+//!                     .get()
+//!                     .expect("type conformity checked by `Object::set_property`");
+//!                 self.flags.replace(flags.unwrap());
+//!             },
 //!             _ => unimplemented!(),
 //!         }
 //!     }
@@ -142,6 +177,7 @@
 //!         match *prop {
 //!             subclass::Property("name", ..) => Ok(self.name.borrow().to_value()),
 //!             subclass::Property("animal", ..) => Ok(self.animal.get().to_value()),
+//!             subclass::Property("flags", ..) => Ok(self.flags.get().to_value()),
 //!             _ => unimplemented!(),
 //!         }
 //!     }
@@ -171,6 +207,10 @@
 //!     assert_eq!(obj.get_property("animal").unwrap().get::<Animal>(), Ok(Some(Animal::Goat)));
 //!     obj.set_property("animal", &Animal::Cat).unwrap();
 //!     assert_eq!(obj.get_property("animal").unwrap().get::<Animal>(), Ok(Some(Animal::Cat)));
+//!
+//!     assert_eq!(obj.get_property("flags").unwrap().get::<MyFlags>(), Ok(Some(MyFlags::A)));
+//!     obj.set_property("flags", &MyFlags::B).unwrap();
+//!     assert_eq!(obj.get_property("flags").unwrap().get::<MyFlags>(), Ok(Some(MyFlags::B)));
 //! }
 //! ```
 //!

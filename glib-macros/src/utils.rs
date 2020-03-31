@@ -3,6 +3,9 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use anyhow::{bail, Result};
+use itertools::Itertools;
+use proc_macro2::{Ident, Span};
+use proc_macro_crate::crate_name;
 use syn::{Attribute, DeriveInput, Lit, Meta, MetaList, NestedMeta};
 
 // find the #[@attr_name] attribute in @attrs
@@ -18,7 +21,7 @@ pub fn find_attribute_meta(attrs: &[Attribute], attr_name: &str) -> Result<Optio
 }
 
 // parse a single meta like: ident = "value"
-pub fn parse_attribute(meta: &NestedMeta) -> Result<(String, String)> {
+fn parse_attribute(meta: &NestedMeta) -> Result<(String, String)> {
     let meta = match &meta {
         NestedMeta::Meta(m) => m,
         _ => bail!("wrong meta type"),
@@ -77,4 +80,53 @@ pub fn parse_type_name(input: &DeriveInput, attr_name: &str) -> Result<String> {
     match parse_enum_attribute(&meta)? {
         EnumAttribute::TypeName(n) => Ok(n),
     }
+}
+
+#[derive(Debug)]
+pub enum ItemAttribute {
+    Name(String),
+    Nick(String),
+}
+
+fn parse_item_attribute(meta: &NestedMeta) -> Result<ItemAttribute> {
+    let (ident, v) = parse_attribute(meta)?;
+
+    match ident.as_ref() {
+        "name" => Ok(ItemAttribute::Name(v)),
+        "nick" => Ok(ItemAttribute::Nick(v)),
+        s => bail!("Unknown item meta {}", s),
+    }
+}
+
+// Parse optional enum item attributes such as:
+// #[genum(name = "My Name", nick = "my-nick")]
+pub fn parse_item_attributes(attr_name: &str, attrs: &[Attribute]) -> Result<Vec<ItemAttribute>> {
+    let meta = find_attribute_meta(attrs, attr_name)?;
+
+    let v = match meta {
+        Some(meta) => meta
+            .nested
+            .iter()
+            .map(|m| parse_item_attribute(&m))
+            .fold_results(Vec::new(), |mut v, a| {
+                v.push(a);
+                v
+            })?,
+        None => Vec::new(),
+    };
+
+    Ok(v)
+}
+
+pub fn crate_ident_new() -> Ident {
+    let crate_name = match crate_name("glib") {
+        Ok(x) => x,
+        Err(_) => {
+            // In case we use it directly from glib itself (it cannot find glib as a dependency
+            // in this case)
+            "glib".to_owned()
+        }
+    };
+
+    Ident::new(&crate_name, Span::call_site())
 }

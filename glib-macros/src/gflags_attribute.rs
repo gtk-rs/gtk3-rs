@@ -6,51 +6,47 @@ use heck::{CamelCase, KebabCase, SnakeCase};
 use proc_macro2::TokenStream;
 use proc_macro_error::abort_call_site;
 use quote::{format_ident, quote, quote_spanned};
-use syn::{punctuated::Punctuated, spanned::Spanned, token::Comma, Data, Ident, Variant};
+use syn::{
+    punctuated::Punctuated, spanned::Spanned, token::Comma, Attribute, Data, DeriveInput, Ident,
+    LitStr, Variant,
+};
 
-use crate::utils::{crate_ident_new, parse_item_attributes, parse_type_name, ItemAttribute};
+use crate::utils::{
+    crate_ident_new, find_attribute_meta, find_nested_meta, parse_item_attributes, ItemAttribute,
+};
 
-// Generate i32 to enum mapping, used to implement glib::translate::FromGlib<i32>, such as:
-//   if value == Animal::Goat as i32 {
-//       return Animal::Goat;
-//   }
-fn gen_from_glib(enum_name: &Ident, enum_variants: &Punctuated<Variant, Comma>) -> TokenStream {
-    // FIXME: can we express this with a match()?
-    let recurse = enum_variants.iter().map(|v| {
-        let name = &v.ident;
-        quote_spanned! {v.span()=>
-            if value == #enum_name::#name as i32 {
-                return #enum_name::#name;
-            }
-        }
-    });
-    quote! {
-        #(#recurse)*
+// Flag is not registered if it has the #[gflags(skip)] meta
+fn attribute_has_skip(attrs: &[Attribute]) -> bool {
+    let meta = find_attribute_meta(attrs, "gflags").unwrap();
+
+    match meta {
+        None => false,
+        Some(meta) => find_nested_meta(&meta, "skip").is_some(),
     }
 }
 
-// Generate gobject_sys::GEnumValue structs mapping the enum such as:
-//     gobject_sys::GEnumValue {
-//         value: Animal::Goat as i32,
-//         value_name: "Goat\0" as *const _ as *const _,
-//         value_nick: "goat\0" as *const _ as *const _,
+// Generate gobject_sys::GFlagsValue structs mapping the enum such as:
+//     gobject_sys::GFlagsValue {
+//         value: MyFlags::A.bits(),
+//         value_name: "The Name\0" as *const _ as *const _,
+//         value_nick: "nick\0" as *const _ as *const _,
 //     },
-fn gen_genum_values(
+fn gen_gflags_values(
     enum_name: &Ident,
     enum_variants: &Punctuated<Variant, Comma>,
 ) -> (TokenStream, usize) {
-    // start at one as GEnumValue array is null-terminated
+    // start at one as GFlagsValue array is null-terminated
     let mut n = 1;
-    let recurse = enum_variants.iter().map(|v| {
+    let recurse = enum_variants.iter().filter(|v| { !attribute_has_skip(&v.attrs) } ).map(|v| {
         let name = &v.ident;
         let mut value_name = name.to_string().to_camel_case();
         let mut value_nick = name.to_string().to_kebab_case();
 
-        let attrs = parse_item_attributes("genum", &v.attrs);
+        let attrs = parse_item_attributes("gflags", &v.attrs);
         let attrs = match attrs {
             Ok(attrs) => attrs,
             Err(e) => abort_call_site!(
-                "{}: GEnum enum supports only the following optional attributes: #[genum(name = \"The Cat\", nick = \"chat\")]",
+                "{}: gflags enum supports only the following optional attributes: #[gflags(name = \"The Name\", nick = \"the-nick\")] or #[gflags(skip)]",
                 e
             ),
         };
@@ -67,8 +63,8 @@ fn gen_genum_values(
 
         n += 1;
         quote_spanned! {v.span()=>
-            gobject_sys::GEnumValue {
-                value: #enum_name::#name as i32,
+            gobject_sys::GFlagsValue {
+                value: #enum_name::#name.bits(),
                 value_name: #value_name as *const _ as *const _,
                 value_nick: #value_nick as *const _ as *const _,
             },
@@ -82,40 +78,58 @@ fn gen_genum_values(
     )
 }
 
-pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
-    let name = &input.ident;
+fn gen_bitflags(
+    enum_name: &Ident,
+    enum_variants: &Punctuated<Variant, Comma>,
+    crate_ident: &Ident,
+) -> TokenStream {
+    let recurse = enum_variants.iter().map(|v| {
+        let name = &v.ident;
+        let disc = v.discriminant.as_ref().expect("missing discriminant");
+        let value = &disc.1;
 
+        quote_spanned! {v.span()=>
+            const #name = #value;
+        }
+    });
+
+    quote! {
+        #crate_ident::bitflags::bitflags! {
+            struct #enum_name: u32 {
+                #(#recurse)*
+            }
+        }
+    }
+}
+
+pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
+    let name = &input.ident;
     let crate_ident = crate_ident_new();
 
     let enum_variants = match input.data {
         Data::Enum(ref e) => &e.variants,
-        _ => abort_call_site!("GEnum only supports enums"),
+        _ => abort_call_site!("gflags only supports enums"),
     };
 
-    let gtype_name = match parse_type_name(&input, "genum") {
-        Ok(v) => v,
-        Err(e) => abort_call_site!(
-            "{}: derive(GEnum) requires #[genum(type_name = \"EnumTypeName\")]",
-            e
-        ),
-    };
+    let bitflags = gen_bitflags(name, enum_variants, &crate_ident);
+
     let get_type = format_ident!("{}_get_type", name.to_string().to_snake_case());
-    let from_glib = gen_from_glib(name, enum_variants);
-    let (genum_values, nb_genum_values) = gen_genum_values(name, enum_variants);
+    let (gflags_values, nb_gflags_values) = gen_gflags_values(name, enum_variants);
 
     quote! {
-        impl #crate_ident::translate::ToGlib for #name {
-            type GlibType = i32;
+        #bitflags
 
-            fn to_glib(&self) -> i32 {
-                *self as i32
+        impl #crate_ident::translate::ToGlib for #name {
+            type GlibType = u32;
+
+            fn to_glib(&self) -> u32 {
+                self.bits()
             }
         }
 
-        impl #crate_ident::translate::FromGlib<i32> for #name {
-            fn from_glib(value: i32) -> Self {
-                #from_glib
-                unreachable!();
+        impl #crate_ident::translate::FromGlib<u32> for #name {
+            fn from_glib(value: u32) -> Self {
+                #name::from_bits_truncate(value)
             }
         }
 
@@ -128,14 +142,14 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
         impl<'a> #crate_ident::value::FromValue<'a> for #name {
             unsafe fn from_value(value: &#crate_ident::Value) -> Self {
                 #crate_ident::translate::from_glib(
-                    gobject_sys::g_value_get_enum(
+                    gobject_sys::g_value_get_flags(
                         #crate_ident::translate::ToGlibPtr::to_glib_none(value).0))
             }
         }
 
         impl #crate_ident::value::SetValue for #name {
             unsafe fn set_value(value: &mut #crate_ident::Value, this: &Self) {
-                gobject_sys::g_value_set_enum(
+                gobject_sys::g_value_set_flags(
                     #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
                     #crate_ident::translate::ToGlib::to_glib(this))
             }
@@ -152,9 +166,9 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
             static mut TYPE: #crate_ident::Type = #crate_ident::Type::Invalid;
 
             ONCE.call_once(|| {
-                static mut VALUES: [gobject_sys::GEnumValue; #nb_genum_values] = [
-                    #genum_values
-                    gobject_sys::GEnumValue {
+                static mut VALUES: [gobject_sys::GFlagsValue; #nb_gflags_values] = [
+                    #gflags_values
+                    gobject_sys::GFlagsValue {
                         value: 0,
                         value_name: std::ptr::null(),
                         value_nick: std::ptr::null(),
@@ -163,7 +177,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
 
                 let name = std::ffi::CString::new(#gtype_name).expect("CString::new failed");
                 unsafe {
-                    let type_ = gobject_sys::g_enum_register_static(name.as_ptr(), VALUES.as_ptr());
+                    let type_ = gobject_sys::g_flags_register_static(name.as_ptr(), VALUES.as_ptr());
                     TYPE = #crate_ident::translate::from_glib(type_);
                 }
             });
