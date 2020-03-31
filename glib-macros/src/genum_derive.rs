@@ -2,18 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use anyhow::{bail, Result};
 use heck::{CamelCase, KebabCase, SnakeCase};
-use itertools::Itertools;
 use proc_macro2::TokenStream;
 use proc_macro_error::abort_call_site;
 use quote::{format_ident, quote, quote_spanned};
-use syn::{
-    punctuated::Punctuated, spanned::Spanned, token::Comma, Attribute, Data, Ident, NestedMeta,
-    Variant,
-};
+use syn::{punctuated::Punctuated, spanned::Spanned, token::Comma, Data, Ident, Variant};
 
-use crate::utils::{find_attribute_meta, parse_attribute, parse_type_name};
+use crate::utils::{parse_item_attributes, parse_type_name, ItemAttribute};
 
 // Generate i32 to enum mapping, used to implement glib::translate::FromGlib<i32>, such as:
 //   if value == Animal::Goat as i32 {
@@ -34,42 +29,6 @@ fn gen_from_glib(enum_name: &Ident, enum_variants: &Punctuated<Variant, Comma>) 
     }
 }
 
-#[derive(Debug)]
-enum ItemAttribute {
-    Name(String),
-    Nick(String),
-}
-
-fn parse_item_attribute(meta: &NestedMeta) -> Result<ItemAttribute> {
-    let (ident, v) = parse_attribute(meta)?;
-
-    match ident.as_ref() {
-        "name" => Ok(ItemAttribute::Name(v)),
-        "nick" => Ok(ItemAttribute::Nick(v)),
-        s => bail!("Unknown item meta {}", s),
-    }
-}
-
-// Parse optional enum item attributes such as:
-// #[genum(name = "My Name", nick = "my-nick")]
-fn parse_item_attributes(attrs: &[Attribute]) -> Result<Vec<ItemAttribute>> {
-    let meta = find_attribute_meta(attrs, "genum")?;
-
-    let v = match meta {
-        Some(meta) => meta
-            .nested
-            .iter()
-            .map(|m| parse_item_attribute(&m))
-            .fold_results(Vec::new(), |mut v, a| {
-                v.push(a);
-                v
-            })?,
-        None => Vec::new(),
-    };
-
-    Ok(v)
-}
-
 // Generate gobject_sys::GEnumValue structs mapping the enum such as:
 //     gobject_sys::GEnumValue {
 //         value: Animal::Goat as i32,
@@ -87,7 +46,7 @@ fn gen_genum_values(
         let mut value_name = name.to_string().to_camel_case();
         let mut value_nick = name.to_string().to_kebab_case();
 
-        let attrs = parse_item_attributes(&v.attrs);
+        let attrs = parse_item_attributes("genum", &v.attrs);
         let attrs = match attrs {
             Ok(attrs) => attrs,
             Err(e) => abort_call_site!(
