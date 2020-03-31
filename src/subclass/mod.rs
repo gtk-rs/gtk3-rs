@@ -72,7 +72,7 @@
 //!             "Animal",
 //!             "Animal",
 //!             Animal::static_type(),
-//!             Animal::Goat as i32,
+//!             Animal::default() as i32,
 //!             glib::ParamFlags::READWRITE,
 //!         )
 //!     }),
