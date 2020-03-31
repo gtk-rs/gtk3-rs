@@ -88,15 +88,21 @@ macro_rules! to_type_before {
     (@weak $variable:ident) => (
         let $variable = $crate::clone::Downgrade::downgrade(&$variable);
     );
+    (@weak-allow-none $variable:ident) => (
+        let $variable = $crate::clone::Downgrade::downgrade(&$variable);
+    );
     (@strong $($variable:ident).+ as $rename:ident) => (
         let $rename = $($variable).+.clone();
     );
     (@weak $($variable:ident).+ as $rename:ident) => (
         let $rename = $crate::clone::Downgrade::downgrade(&$($variable).+);
     );
-    // The two following cases are just here so "@strong" and "@weak" aren't detected as invalid
-    // when passing an expression (like "@default-return" => "-return" is the start of an expression
-    // there).
+    // The three following cases are just here so "@strong", "@weak-allow-none" and "@weak" aren't
+    // detected as invalid when passing an expression (like "@default-return" => "-return" is the
+    // start of an expression there).
+    (@weak-allow-none $variable:expr) => (
+        let $variable = $crate::clone::Downgrade::downgrade(&$variable);
+    );
     (@strong $variable:expr) => (
         let $variable = $variable.clone();
     );
@@ -110,7 +116,7 @@ macro_rules! to_type_before {
             concat!(
                 "Unknown keyword \"",
                 stringify!($keyword),
-                "\", only `weak` and `strong` are allowed",
+                "\", only `weak`, `weak-allow-none` and `strong` are allowed",
             ),
         );
     );
@@ -119,6 +125,12 @@ macro_rules! to_type_before {
 #[doc(hidden)]
 #[macro_export]
 macro_rules! to_type_after {
+    (@default-panic, @weak-allow-none $variable:ident) => {
+        let $variable = $crate::clone::Upgrade::upgrade(&$variable);
+    };
+    (as $rename:ident @default-panic, @weak-allow-none $($variable:ident).+) => {
+        let $rename = $crate::clone::Upgrade::upgrade(&$rename);
+    };
     (@default-panic, @weak $variable:ident) => {
         let $variable = match $crate::clone::Upgrade::upgrade(&$variable) {
             Some(val) => val,
@@ -138,6 +150,12 @@ macro_rules! to_type_after {
         };
     };
     ($(as $rename:ident)? @default-panic, @strong $($variable:ident).+) => {};
+    (@weak-allow-none $variable:ident , $return_value:expr) => {
+        let $variable = $crate::clone::Upgrade::upgrade(&$variable);
+    };
+    (as $rename:ident @weak-allow-none $($variable:ident).+ , $return_value:expr) => {
+        let $rename = $crate::clone::Upgrade::upgrade(&$rename);
+    };
     (@weak $variable:ident , $return_value:expr) => {
         let $variable = match $crate::clone::Upgrade::upgrade(&$variable) {
             Some(val) => val,
@@ -224,19 +242,41 @@ macro_rules! to_return_value {
 /// closure(2);
 /// ```
 ///
-/// ### Passing a strong and weak reference
+/// ### Passing a weak reference
 ///
 /// ```
 /// use glib::clone;
 /// use std::rc::Rc;
 ///
-/// let v = Rc::new(1);
 /// let u = Rc::new(2);
-/// let closure = clone!(@strong v, @weak u => move |x| {
-///     println!("v: {}, u: {}, x: {}", v, u, x);
+/// let closure = clone!(@weak u => move |x| {
+///     println!("u: {}, x: {}", u, x);
 /// });
 ///
 /// closure(3);
+/// ```
+///
+/// #### Allowing a nullable weak reference
+///
+/// In some cases, even if the weak references can't be retrieved, you might want to still have
+/// your closure called. In this case, you need to use `@weak-allow-none`:
+///
+/// ```
+/// use glib::clone;
+/// use std::rc::Rc;
+///
+/// let closure = {
+///     // This `Rc` won't be available in the closure because it's dropped at the end of the
+///     // current block
+///     let u = Rc::new(2);
+///     clone!(@weak-allow-none u => @default-return false, move |x| {
+///         // We need to use a Debug print for `u` because it'll be an `Option`.
+///         println!("u: {:?}, x: {}", u, x);
+///         true
+///     })
+/// };
+///
+/// assert_eq!(closure(3), true);
 /// ```
 ///
 /// ### Renaming variables
@@ -370,7 +410,6 @@ macro_rules! to_return_value {
 /// # struct Foo {
 /// #     v: Rc<usize>,
 /// # }
-///
 /// impl Foo {
 ///     fn foo(&self) {
 ///         let closure = clone!(@strong self.v as v => move |x| {
@@ -397,111 +436,116 @@ macro_rules! clone {
         // clone!(|a, b| {});
         compile_error!("If you have nothing to clone, no need to use this macro!")
     );
-    ($($(@ $strength:ident)? self),+ => $($_:tt)* ) => (
+    ($($(@weak-allow-none)? $(@weak)? $(@strong)? $($variables:ident).+ $(as $rename:ident)?,)* @default-return $($_:tt)*) => (
+        // In case we have:
+        // clone!(@strong v, @default-return lol => move || {println!(\"foo\");});
+        compile_error!("`@default-return` should be after `=>`");
+    );
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? self),+ => $($_:tt)* ) => (
         compile_error!("Can't use `self` as variable name. Try storing it in a temporary variable or rename it using `as`.");
     );
-    ($($(@ $strength:ident)? $up:ident.$($variables:ident).+),+ => $($_:tt)* ) => (
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $up:ident.$($variables:ident).+),+ => $($_:tt)* ) => (
         compile_error!("Field accesses are not allowed as is, you must rename it!");
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move || $body:block ) => (
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move || $body:block ) => (
         {
-            $( $crate::to_type_before!($(@ $strength)? $($variables).+ $(as $rename)?); )*
+            $( $crate::to_type_before!($(@ $strength$(-$var-$var2)?)? $($variables).+ $(as $rename)?); )*
             move || {
-                $( $crate::to_type_after!($(as $rename)? @default-panic, $(@ $strength)? $($variables).+);)*
+                $( $crate::to_type_after!($(as $rename)? @default-panic, $(@ $strength$(-$var-$var2)?)? $($variables).+);)*
                 $body
             }
         }
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move || $body:expr ) => (
-        clone!($($(@ $strength)? $($variables).+ $(as $rename)?),* => @default-panic, move || { $body })
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move || $body:expr ) => (
+        clone!($($(@ $strength$(-$var-$var2)?)? $($variables).+ $(as $rename)?),* => @default-panic, move || { $body })
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move || $body:block ) => (
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move || $body:block ) => (
         {
-            $( $crate::to_type_before!($(@ $strength)? $($variables).+ $(as $rename)?); )*
+            $( $crate::to_type_before!($(@ $strength$(-$var-$var2)?)? $($variables).+ $(as $rename)?); )*
             move || {
                 let _return_value = || $crate::to_return_value!($($return_value)?);
-                $( $crate::to_type_after!($(as $rename)? $(@ $strength)? $($variables).+, _return_value );)*
+                $( $crate::to_type_after!($(as $rename)? $(@ $strength$(-$var-$var2)?)? $($variables).+, _return_value );)*
                 $body
             }
         }
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move || $body:expr ) => (
-        clone!($($(@ $strength)? $($variables).+ $(as $rename)?),* => $(@default-return $return_value,)? move || { $body })
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move || $body:expr ) => (
+        clone!($($(@ $strength$(-$var-$var2)?)? $($variables).+ $(as $rename)?),* => $(@default-return $return_value,)? move || { $body })
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move | $($arg:tt $(: $typ:ty)?),* | $body:block ) => (
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move | $($arg:tt $(: $typ:ty)?),* | $body:block ) => (
         {
-            $( $crate::to_type_before!($(@ $strength)? $($variables).+ $(as $rename)?); )*
+            $( $crate::to_type_before!($(@ $strength$(-$var-$var2)?)? $($variables).+ $(as $rename)?); )*
             move |$($arg $(: $typ)?),*| {
-                $( $crate::to_type_after!($(as $rename)? @default-panic, $(@ $strength)? $($variables).+);)*
+                $( $crate::to_type_after!($(as $rename)? @default-panic, $(@ $strength$(-$var-$var2)?)? $($variables).+);)*
                 $body
             }
         }
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move | $($arg:tt $(: $typ:ty)?),* | $body:expr ) => (
-        clone!($($(@ $strength)? $($variables).+ $(as $rename)?),* => @default-panic, move |$($arg $(: $typ)?),*| { $body })
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move | $($arg:tt $(: $typ:ty)?),* | $body:expr ) => (
+        clone!($($(@ $strength$(-$var-$var2)?)? $($variables).+ $(as $rename)?),* => @default-panic, move |$($arg $(: $typ)?),*| { $body })
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move | $($arg:tt $(: $typ:ty)?),* | $body:block ) => (
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move | $($arg:tt $(: $typ:ty)?),* | $body:block ) => (
         {
-            $( $crate::to_type_before!($(@ $strength)? $($variables).+ $(as $rename)?); )*
+            $( $crate::to_type_before!($(@ $strength$(-$var-$var2)?)? $($variables).+ $(as $rename)?); )*
             move | $($arg $(: $typ)?),* | {
                 let _return_value = || $crate::to_return_value!($($return_value)?);
-                $( $crate::to_type_after!($(as $rename)? $(@ $strength)? $($variables).+, _return_value);)*
+                $( $crate::to_type_after!($(as $rename)? $(@ $strength$(-$var-$var2)?)? $($variables).+, _return_value);)*
                 $body
             }
         }
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move | $($arg:tt $(: $typ:ty)?),* | $body:expr ) => (
-        clone!($($(@ $strength)? $($variables).+ $(as $rename)?),+ => $(@default-return $return_value,)? move |$($arg $(: $typ)?),*| { $body })
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move | $($arg:tt $(: $typ:ty)?),* | $body:expr ) => (
+        clone!($($(@ $strength$(-$var-$var2)?)? $($variables).+ $(as $rename)?),+ => $(@default-return $return_value,)? move |$($arg $(: $typ)?),*| { $body })
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, || $($body:tt)* ) => (
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, || $($body:tt)* ) => (
         // In case we have:
         // clone!(@weak foo => @default-return false, || {});
         compile_error!("Closure needs to be \"moved\" so please add `move` before closure");
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, | $($arg:tt $(: $typ:ty)?),* | $($x:tt)* ) => (
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, | $($arg:tt $(: $typ:ty)?),* | $($x:tt)* ) => (
         // In case we have:
         // clone!(@weak foo => @default-return false, |bla| {});
         compile_error!("Closure needs to be \"moved\" so please add `move` before closure");
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => || $($x:tt)* ) => (
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => || $($x:tt)* ) => (
         // In case we have:
         // clone!(@weak foo => || {});
         compile_error!("Closure needs to be \"moved\" so please add `move` before closure");
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => | $($arg:tt $(: $typ:ty)?),* | $($x:tt)* ) => (
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => | $($arg:tt $(: $typ:ty)?),* | $($x:tt)* ) => (
         // In case we have:
         // clone!(@weak foo => |bla| {});
         compile_error!("Closure needs to be \"moved\" so please add `move` before closure");
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => async $($x:tt)+ ) => (
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => async $($x:tt)+ ) => (
         compile_error!("async blocks are not supported by the clone! macro");
     );
-    ($($(@ $strength:ident)? $variables:expr),+ => move || $($_:tt)* ) => (
-        $( $crate::to_type_before!($(@ $strength)? $variables); )*
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $variables:expr),+ => move || $($_:tt)* ) => (
+        $( $crate::to_type_before!($(@ $strength$(-$var-$var2)?)? $variables); )*
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => default-return $($x:tt)+ ) => (
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => default-return $($x:tt)+ ) => (
         // In case we have:
         // clone!(@weak foo => default-return false, move || {});
         compile_error!("Missing `@` before `default-return`");
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $($x:tt)+ ) => (
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $($x:tt)+ ) => (
         // In case we have:
         // clone!(@weak foo => @default-return false move || {});
         compile_error!("Missing comma after `@default-return`'s value");
     );
-    ($($(@ $strength:ident)? $variables:expr),+ => $_:expr) => (
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $variables:expr),+ => $_:expr) => (
         // In case we have:
         // clone!(@weak foo => move {});
         compile_error!("Missing `move` and closure declaration");
     );
-    ($($(@ $strength:ident)? $variables:expr),+ => $_:block) => (
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $variables:expr),+ => $_:block) => (
         // In case we have:
         // clone!(@weak foo => move {println!("a");});
         compile_error!("Missing `move` and closure declaration");
     );
-    ($($(@ $strength:ident)? $variables:expr),+ => move $($_:tt)* ) => (
+    ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $variables:expr),+ => move $($_:tt)* ) => (
         compile_error!(concat!("Variables need to be valid identifiers, e.g. field accesses are not allowed as is, you must rename it!", $(
-            $(stringify!($strength),)?
+            $(stringify!($strength),$("-", stringify!($var), "-", stringify!($var2),)?)?
             stringify!($variables),)+));
     );
 }
