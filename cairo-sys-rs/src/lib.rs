@@ -983,6 +983,7 @@ extern "C" {
         surface: *mut cairo_surface_t,
         mime_type: *const c_char,
     ) -> cairo_bool_t;
+    pub fn cairo_surface_get_device(surface: *mut cairo_surface_t) -> *mut cairo_device_t;
     pub fn cairo_surface_set_device_offset(
         surface: *mut cairo_surface_t,
         x_offset: c_double,
