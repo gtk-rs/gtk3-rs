@@ -173,8 +173,8 @@ impl FromGlibPtrNone<gdk_sys::GdkAtom> for Atom {
 
 impl FromGlibPtrBorrow<gdk_sys::GdkAtom> for Atom {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: gdk_sys::GdkAtom) -> Atom {
-        Atom(ptr)
+    unsafe fn from_glib_borrow(ptr: gdk_sys::GdkAtom) -> glib::translate::Borrowed<Atom> {
+        glib::translate::Borrowed::new(Atom(ptr))
     }
 }
 

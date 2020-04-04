@@ -96,15 +96,17 @@ impl FromGlibPtrNone<*mut gdk_sys::GdkRectangle> for Rectangle {
 
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*const gdk_sys::GdkRectangle> for Rectangle {
-    unsafe fn from_glib_borrow(ptr: *const gdk_sys::GdkRectangle) -> Self {
-        *(ptr as *const Rectangle)
+    unsafe fn from_glib_borrow(
+        ptr: *const gdk_sys::GdkRectangle,
+    ) -> glib::translate::Borrowed<Self> {
+        glib::translate::Borrowed::new(*(ptr as *const Rectangle))
     }
 }
 
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*mut gdk_sys::GdkRectangle> for Rectangle {
-    unsafe fn from_glib_borrow(ptr: *mut gdk_sys::GdkRectangle) -> Self {
-        *(ptr as *mut Rectangle)
+    unsafe fn from_glib_borrow(ptr: *mut gdk_sys::GdkRectangle) -> glib::translate::Borrowed<Self> {
+        glib::translate::Borrowed::new(*(ptr as *mut Rectangle))
     }
 }
 

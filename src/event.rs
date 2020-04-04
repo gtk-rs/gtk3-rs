@@ -412,8 +412,16 @@ macro_rules! event_wrapper {
 
         impl FromGlibPtrBorrow<*mut ::gdk_sys::$ffi_name> for $name {
             #[inline]
-            unsafe fn from_glib_borrow(ptr: *mut ::gdk_sys::$ffi_name) -> Self {
-                $name(from_glib_borrow(ptr as *mut ::gdk_sys::GdkEvent))
+            unsafe fn from_glib_borrow(
+                ptr: *mut ::gdk_sys::$ffi_name,
+            ) -> glib::translate::Borrowed<Self> {
+                glib::translate::Borrowed::new(
+                    <$name as ::event::FromEvent>::from(
+                        ::Event::from_glib_borrow(ptr as *mut ::gdk_sys::GdkEvent).into_inner(),
+                    )
+                    .map_err(std::mem::forget)
+                    .unwrap(),
+                )
             }
         }
 
@@ -485,5 +493,19 @@ macro_rules! event_subtype {
                 &mut self.0
             }
         }
+    }
+}
+
+impl FromEvent for Event {
+    #[inline]
+    fn is(_ev: &Event) -> bool {
+        skip_assert_initialized!();
+        true
+    }
+
+    #[inline]
+    fn from(ev: Event) -> Result<Self, Event> {
+        skip_assert_initialized!();
+        Ok(ev)
     }
 }

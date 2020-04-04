@@ -1837,7 +1837,12 @@ impl<O: IsA<Window>> WindowExt for O {
             P: IsA<Window>,
         {
             let f: &F = &*(f as *const F);
-            f(&Window::from_glib_borrow(this).unsafe_cast(), width, height).to_glib_full()
+            f(
+                &Window::from_glib_borrow(this).unsafe_cast_ref(),
+                width,
+                height,
+            )
+            .to_glib_full()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1878,7 +1883,7 @@ impl<O: IsA<Window>> WindowExt for O {
             P: IsA<Window>,
         {
             let f: &F = &*(f as *const F);
-            f(&Window::from_glib_borrow(this).unsafe_cast(), x, y) /*Not checked*/
+            f(&Window::from_glib_borrow(this).unsafe_cast_ref(), x, y) /*Not checked*/
                 .to_glib_none()
                 .0
         }
@@ -1909,7 +1914,7 @@ impl<O: IsA<Window>> WindowExt for O {
             P: IsA<Window>,
         {
             let f: &F = &*(f as *const F);
-            f(&Window::from_glib_borrow(this).unsafe_cast())
+            f(&Window::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
