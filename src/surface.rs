@@ -14,6 +14,7 @@ use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 
+use device::Device;
 use image_surface::ImageSurface;
 use rectangle::Rectangle;
 use rectangle_int::RectangleInt;
@@ -147,6 +148,19 @@ impl Surface {
         unsafe {
             let mime_type = CString::new(mime_type).unwrap();
             ffi::cairo_surface_supports_mime_type(self.0, mime_type.as_ptr()).as_bool()
+        }
+    }
+
+    pub fn get_device(&self) -> Option<Device> {
+        unsafe {
+            let device = ffi::cairo_surface_get_device(self.to_raw_none());
+            if device.is_null() {
+                None
+            } else {
+                Some(Device::from_raw_none(ffi::cairo_surface_get_device(
+                    self.to_raw_none(),
+                )))
+            }
         }
     }
 
