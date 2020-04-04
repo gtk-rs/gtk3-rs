@@ -24,7 +24,7 @@ glib_wrapper! {
 
 #[cfg(not(feature = "use_glib"))]
 #[derive(Debug)]
-pub struct ScaledFont(*mut ffi::cairo_scaled_font_t);
+pub struct ScaledFont(ptr::NonNull<ffi::cairo_scaled_font_t>);
 
 impl ScaledFont {
     pub fn new(
@@ -52,13 +52,13 @@ impl ScaledFont {
 
     #[cfg(not(feature = "use_glib"))]
     pub fn to_raw_none(&self) -> *mut ffi::cairo_scaled_font_t {
-        self.0
+        self.0.as_ptr()
     }
 
     #[cfg(not(feature = "use_glib"))]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_scaled_font_t) -> ScaledFont {
         assert!(!ptr.is_null());
-        ScaledFont(ptr)
+        ScaledFont(ptr::NonNull::new_unchecked(ptr))
     }
 
     #[cfg(feature = "use_glib")]
@@ -75,7 +75,7 @@ impl ScaledFont {
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_scaled_font_t) -> ScaledFont {
         assert!(!ptr.is_null());
         ffi::cairo_scaled_font_reference(ptr);
-        ScaledFont(ptr)
+        ScaledFont(ptr::NonNull::new_unchecked(ptr))
     }
 
     pub fn ensure_status(&self) {

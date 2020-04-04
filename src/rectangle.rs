@@ -58,8 +58,8 @@ impl FromGlibPtrNone<*const ffi::cairo_rectangle_t> for Rectangle {
 #[cfg(feature = "use_glib")]
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*mut ffi::cairo_rectangle_t> for Rectangle {
-    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_rectangle_t) -> Self {
-        *(ptr as *mut Rectangle)
+    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_rectangle_t) -> ::Borrowed<Self> {
+        ::Borrowed::new(*(ptr as *mut Rectangle))
     }
 }
 

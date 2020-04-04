@@ -3,6 +3,8 @@ use ffi;
 use glib::translate::*;
 use libc::c_char;
 use std::ffi::{CStr, CString};
+#[cfg(not(feature = "use_glib"))]
+use std::ptr;
 
 use enums::{FontSlant, FontType, FontWeight, FtSynthesize, Status};
 
@@ -20,7 +22,7 @@ glib_wrapper! {
 
 #[cfg(not(feature = "use_glib"))]
 #[derive(Debug)]
-pub struct FontFace(*mut ffi::cairo_font_face_t);
+pub struct FontFace(ptr::NonNull<ffi::cairo_font_face_t>);
 
 impl FontFace {
     pub fn toy_create(family: &str, slant: FontSlant, weight: FontWeight) -> FontFace {
@@ -44,7 +46,7 @@ impl FontFace {
     #[cfg(not(feature = "use_glib"))]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_face_t) -> FontFace {
         assert!(!ptr.is_null());
-        FontFace(ptr)
+        FontFace(ptr::NonNull::new_unchecked(ptr))
     }
 
     #[cfg(feature = "use_glib")]
@@ -55,7 +57,7 @@ impl FontFace {
     #[cfg(not(feature = "use_glib"))]
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_font_face_t) -> FontFace {
         assert!(!ptr.is_null());
-        FontFace(ptr)
+        FontFace(ptr::NonNull::new_unchecked(ptr))
     }
 
     #[cfg(feature = "use_glib")]
@@ -65,7 +67,7 @@ impl FontFace {
 
     #[cfg(not(feature = "use_glib"))]
     pub fn to_raw_none(&self) -> *mut ffi::cairo_font_face_t {
-        self.0
+        self.0.as_ptr()
     }
 
     pub fn toy_get_family(&self) -> Option<String> {

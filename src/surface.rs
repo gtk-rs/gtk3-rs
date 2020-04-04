@@ -20,28 +20,28 @@ use rectangle::Rectangle;
 use rectangle_int::RectangleInt;
 
 #[derive(Debug)]
-pub struct Surface(*mut ffi::cairo_surface_t, bool);
+pub struct Surface(ptr::NonNull<ffi::cairo_surface_t>);
 
 impl Surface {
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_surface_t) -> Surface {
         assert!(!ptr.is_null());
         ffi::cairo_surface_reference(ptr);
-        Surface(ptr, false)
+        Surface(ptr::NonNull::new_unchecked(ptr))
     }
 
-    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_surface_t) -> Surface {
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_surface_t) -> ::Borrowed<Surface> {
         assert!(!ptr.is_null());
-        Surface(ptr, true)
+        ::Borrowed::new(Surface(ptr::NonNull::new_unchecked(ptr)))
     }
 
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<Surface, Status> {
         assert!(!ptr.is_null());
         let status = Status::from(ffi::cairo_surface_status(ptr));
-        status.to_result(Surface(ptr, false))
+        status.to_result(Surface(ptr::NonNull::new_unchecked(ptr)))
     }
 
     pub fn to_raw_none(&self) -> *mut ffi::cairo_surface_t {
-        self.0
+        self.0.as_ptr()
     }
 
     pub fn create_similar(
@@ -52,7 +52,7 @@ impl Surface {
     ) -> Result<Surface, Status> {
         unsafe {
             Self::from_raw_full(ffi::cairo_surface_create_similar(
-                self.0,
+                self.0.as_ptr(),
                 content.into(),
                 width,
                 height,
@@ -63,7 +63,7 @@ impl Surface {
     pub fn create_for_rectangle(&self, bounds: Rectangle) -> Result<Surface, Status> {
         unsafe {
             Self::from_raw_full(ffi::cairo_surface_create_for_rectangle(
-                self.0,
+                self.0.as_ptr(),
                 bounds.x,
                 bounds.y,
                 bounds.width,
@@ -147,7 +147,7 @@ impl Surface {
     pub fn supports_mime_type(&self, mime_type: &str) -> bool {
         unsafe {
             let mime_type = CString::new(mime_type).unwrap();
-            ffi::cairo_surface_supports_mime_type(self.0, mime_type.as_ptr()).as_bool()
+            ffi::cairo_surface_supports_mime_type(self.0.as_ptr(), mime_type.as_ptr()).as_bool()
         }
     }
 
@@ -277,7 +277,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for Surface {
 #[cfg(feature = "use_glib")]
 impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for Surface {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> Surface {
+    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> ::Borrowed<Surface> {
         Self::from_raw_borrow(ptr)
     }
 }
@@ -299,16 +299,14 @@ gvalue_impl!(
 
 impl Clone for Surface {
     fn clone(&self) -> Surface {
-        unsafe { Self::from_raw_none(self.0) }
+        unsafe { Self::from_raw_none(self.0.as_ptr()) }
     }
 }
 
 impl Drop for Surface {
     fn drop(&mut self) {
-        if !self.1 {
-            unsafe {
-                ffi::cairo_surface_destroy(self.0);
-            }
+        unsafe {
+            ffi::cairo_surface_destroy(self.0.as_ptr());
         }
     }
 }
@@ -322,22 +320,22 @@ impl fmt::Display for Surface {
 impl Surface {
     pub fn flush(&self) {
         unsafe {
-            ffi::cairo_surface_flush(self.0);
+            ffi::cairo_surface_flush(self.0.as_ptr());
         }
     }
 
     pub fn finish(&self) {
         unsafe {
-            ffi::cairo_surface_finish(self.0);
+            ffi::cairo_surface_finish(self.0.as_ptr());
         }
     }
 
     pub fn get_type(&self) -> SurfaceType {
-        unsafe { SurfaceType::from(ffi::cairo_surface_get_type(self.0)) }
+        unsafe { SurfaceType::from(ffi::cairo_surface_get_type(self.0.as_ptr())) }
     }
 
     pub fn status(&self) -> Status {
-        unsafe { Status::from(ffi::cairo_surface_status(self.0)) }
+        unsafe { Status::from(ffi::cairo_surface_status(self.0.as_ptr())) }
     }
 }
 

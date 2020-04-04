@@ -8,6 +8,8 @@ use std::hash;
 use font::font_face::to_optional_string;
 #[cfg(any(feature = "v1_16", feature = "dox"))]
 use std::ffi::CString;
+#[cfg(not(feature = "use_glib"))]
+use std::ptr;
 
 use enums::{Antialias, HintMetrics, HintStyle, Status, SubpixelOrder};
 
@@ -30,7 +32,7 @@ glib_wrapper! {
 
 #[cfg(not(feature = "use_glib"))]
 #[derive(Debug)]
-pub struct FontOptions(*mut ffi::cairo_font_options_t);
+pub struct FontOptions(ptr::NonNull<ffi::cairo_font_options_t>);
 
 impl FontOptions {
     pub fn new() -> FontOptions {
@@ -48,7 +50,7 @@ impl FontOptions {
     #[cfg(not(feature = "use_glib"))]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_options_t) -> FontOptions {
         assert!(!ptr.is_null());
-        FontOptions(ptr)
+        FontOptions(ptr::NonNull::new_unchecked(ptr))
     }
 
     #[cfg(feature = "use_glib")]
@@ -58,7 +60,7 @@ impl FontOptions {
 
     #[cfg(not(feature = "use_glib"))]
     pub fn to_raw_none(&self) -> *mut ffi::cairo_font_options_t {
-        self.0
+        self.0.as_ptr()
     }
 
     pub fn ensure_status(&self) {

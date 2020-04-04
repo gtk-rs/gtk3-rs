@@ -7,12 +7,13 @@ use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use std::fmt;
+use std::ptr;
 use RectangleInt;
 
 use ffi::cairo_region_t;
 
 #[derive(Debug)]
-pub struct Region(*mut cairo_region_t, bool);
+pub struct Region(ptr::NonNull<cairo_region_t>);
 
 #[cfg(feature = "use_glib")]
 #[doc(hidden)]
@@ -21,12 +22,12 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_region_t> for &'a Region {
 
     #[inline]
     fn to_glib_none(&self) -> Stash<'a, *mut ffi::cairo_region_t, &'a Region> {
-        Stash(self.0, *self)
+        Stash(self.0.as_ptr(), *self)
     }
 
     #[inline]
     fn to_glib_full(&self) -> *mut ffi::cairo_region_t {
-        unsafe { ffi::cairo_region_reference(self.0) }
+        unsafe { ffi::cairo_region_reference(self.0.as_ptr()) }
     }
 }
 
@@ -39,7 +40,7 @@ impl<'a> ToGlibPtrMut<'a, *mut ffi::cairo_region_t> for Region {
     // references here
     #[inline]
     fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut ffi::cairo_region_t, Self> {
-        StashMut(self.0, self)
+        StashMut(self.0.as_ptr(), self)
     }
 }
 
@@ -56,7 +57,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_region_t> for Region {
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*mut ffi::cairo_region_t> for Region {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_region_t) -> Region {
+    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_region_t) -> ::Borrowed<Region> {
         Self::from_raw_borrow(ptr)
     }
 }
@@ -85,17 +86,15 @@ impl Clone for Region {
 
 impl Drop for Region {
     fn drop(&mut self) {
-        if !self.1 {
-            unsafe {
-                ffi::cairo_region_destroy(self.0);
-            }
+        unsafe {
+            ffi::cairo_region_destroy(self.0.as_ptr());
         }
     }
 }
 
 impl PartialEq for Region {
     fn eq(&self, other: &Region) -> bool {
-        unsafe { ffi::cairo_region_equal(self.0, other.0).as_bool() }
+        unsafe { ffi::cairo_region_equal(self.0.as_ptr(), other.0.as_ptr()).as_bool() }
     }
 }
 
@@ -106,23 +105,23 @@ impl Region {
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_region_t) -> Region {
         assert!(!ptr.is_null());
         ffi::cairo_region_reference(ptr);
-        Region(ptr, false)
+        Region(ptr::NonNull::new_unchecked(ptr))
     }
 
     #[inline]
-    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_region_t) -> Region {
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_region_t) -> ::Borrowed<Region> {
         assert!(!ptr.is_null());
-        Region(ptr, true)
+        ::Borrowed::new(Region(ptr::NonNull::new_unchecked(ptr)))
     }
 
     #[inline]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_region_t) -> Region {
         assert!(!ptr.is_null());
-        Region(ptr, false)
+        Region(ptr::NonNull::new_unchecked(ptr))
     }
 
     pub fn to_raw_none(&self) -> *mut ffi::cairo_region_t {
-        self.0
+        self.0.as_ptr()
     }
 
     pub fn create() -> Region {
@@ -143,97 +142,107 @@ impl Region {
     }
 
     pub fn copy(&self) -> Region {
-        unsafe { Self::from_raw_full(ffi::cairo_region_copy(self.0)) }
+        unsafe { Self::from_raw_full(ffi::cairo_region_copy(self.0.as_ptr())) }
     }
 
     pub fn status(&self) -> Status {
-        unsafe { Status::from(ffi::cairo_region_status(self.0)) }
+        unsafe { Status::from(ffi::cairo_region_status(self.0.as_ptr())) }
     }
 
     pub fn get_extents(&self, rectangle: &mut RectangleInt) {
-        unsafe { ffi::cairo_region_get_extents(self.0, rectangle.to_raw_none()) }
+        unsafe { ffi::cairo_region_get_extents(self.0.as_ptr(), rectangle.to_raw_none()) }
     }
 
     pub fn num_rectangles(&self) -> i32 {
-        unsafe { ffi::cairo_region_num_rectangles(self.0) }
+        unsafe { ffi::cairo_region_num_rectangles(self.0.as_ptr()) }
     }
 
     pub fn get_rectangle(&self, nth: i32) -> RectangleInt {
         unsafe {
             let rectangle: RectangleInt = ::std::mem::zeroed();
-            ffi::cairo_region_get_rectangle(self.0, nth, rectangle.to_raw_none());
+            ffi::cairo_region_get_rectangle(self.0.as_ptr(), nth, rectangle.to_raw_none());
             rectangle
         }
     }
 
     pub fn is_empty(&self) -> bool {
-        unsafe { ffi::cairo_region_is_empty(self.0).as_bool() }
+        unsafe { ffi::cairo_region_is_empty(self.0.as_ptr()).as_bool() }
     }
 
     pub fn contains_point(&self, x: i32, y: i32) -> bool {
-        unsafe { ffi::cairo_region_contains_point(self.0, x, y).as_bool() }
+        unsafe { ffi::cairo_region_contains_point(self.0.as_ptr(), x, y).as_bool() }
     }
 
     pub fn contains_rectangle(&self, rectangle: &RectangleInt) -> RegionOverlap {
         unsafe {
             RegionOverlap::from(ffi::cairo_region_contains_rectangle(
-                self.0,
+                self.0.as_ptr(),
                 rectangle.to_raw_none(),
             ))
         }
     }
 
     pub fn translate(&self, dx: i32, dy: i32) {
-        unsafe { ffi::cairo_region_translate(self.0, dx, dy) }
+        unsafe { ffi::cairo_region_translate(self.0.as_ptr(), dx, dy) }
     }
 
     pub fn intersect(&self, other: &Region) -> Status {
-        unsafe { Status::from(ffi::cairo_region_intersect(self.0, other.0)) }
+        unsafe {
+            Status::from(ffi::cairo_region_intersect(
+                self.0.as_ptr(),
+                other.0.as_ptr(),
+            ))
+        }
     }
 
     pub fn intersect_rectangle(&self, rectangle: &RectangleInt) -> Status {
         unsafe {
             Status::from(ffi::cairo_region_intersect_rectangle(
-                self.0,
+                self.0.as_ptr(),
                 rectangle.to_raw_none(),
             ))
         }
     }
 
     pub fn subtract(&self, other: &Region) -> Status {
-        unsafe { Status::from(ffi::cairo_region_subtract(self.0, other.0)) }
+        unsafe {
+            Status::from(ffi::cairo_region_subtract(
+                self.0.as_ptr(),
+                other.0.as_ptr(),
+            ))
+        }
     }
 
     pub fn subtract_rectangle(&self, rectangle: &RectangleInt) -> Status {
         unsafe {
             Status::from(ffi::cairo_region_subtract_rectangle(
-                self.0,
+                self.0.as_ptr(),
                 rectangle.to_raw_none(),
             ))
         }
     }
 
     pub fn union(&self, other: &Region) -> Status {
-        unsafe { Status::from(ffi::cairo_region_union(self.0, other.0)) }
+        unsafe { Status::from(ffi::cairo_region_union(self.0.as_ptr(), other.0.as_ptr())) }
     }
 
     pub fn union_rectangle(&self, rectangle: &RectangleInt) -> Status {
         unsafe {
             Status::from(ffi::cairo_region_union_rectangle(
-                self.0,
+                self.0.as_ptr(),
                 rectangle.to_raw_none(),
             ))
         }
     }
 
     pub fn xor(&self, other: &Region) -> Status {
-        unsafe { Status::from(ffi::cairo_region_xor(self.0, other.0)) }
+        unsafe { Status::from(ffi::cairo_region_xor(self.0.as_ptr(), other.0.as_ptr())) }
     }
 
     pub fn xor_rectangle(&self, rectangle: &RectangleInt) -> Status {
         unsafe {
             Status::from(ffi::cairo_region_xor_rectangle(
-                self.0,
+                self.0.as_ptr(),
                 rectangle.to_raw_none(),
             ))
         }
