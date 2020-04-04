@@ -157,9 +157,7 @@ impl Surface {
             if device.is_null() {
                 None
             } else {
-                Some(Device::from_raw_none(ffi::cairo_surface_get_device(
-                    self.to_raw_none(),
-                )))
+                Some(Device::from_raw_none(device))
             }
         }
     }
