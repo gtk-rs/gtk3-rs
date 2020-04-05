@@ -52,8 +52,12 @@ macro_rules! declare_surface {
         #[cfg(feature = "use_glib")]
         impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for $surf_name {
             #[inline]
-            unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> $surf_name {
-                Self::try_from(from_glib_borrow::<_, Surface>(ptr)).unwrap()
+            unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> ::Borrowed<$surf_name> {
+                let surface = from_glib_borrow::<_, Surface>(ptr);
+                let surface = Self::try_from(surface.into_inner())
+                    .map_err(std::mem::forget)
+                    .unwrap();
+                ::Borrowed::new(surface)
             }
         }
 

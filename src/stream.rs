@@ -10,6 +10,7 @@ use std::any::Any;
 use std::cell::{Cell, RefCell};
 use std::io;
 use std::panic::AssertUnwindSafe;
+use std::ptr;
 use std::rc::Rc;
 
 macro_rules! for_stream_constructors {
@@ -89,7 +90,12 @@ impl Surface {
         height: f64,
         stream: *mut W,
     ) -> Result<Self, Status> {
-        Self::_for_stream(constructor, width, height, RawStream(stream))
+        Self::_for_stream(
+            constructor,
+            width,
+            height,
+            RawStream(ptr::NonNull::new(stream).expect("NULL stream passed")),
+        )
     }
 
     /// Finish the surface, then remove and return the output stream if any.
@@ -239,17 +245,17 @@ extern "C" fn write_callback<W: io::Write + 'static>(
     Status::WriteError.into()
 }
 
-struct RawStream<W>(*mut W);
+struct RawStream<W>(ptr::NonNull<W>);
 
 impl<W: io::Write> io::Write for RawStream<W> {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
-        unsafe { (*self.0).write(buf) }
+        unsafe { (*self.0.as_ptr()).write(buf) }
     }
     fn write_all(&mut self, buf: &[u8]) -> io::Result<()> {
-        unsafe { (*self.0).write_all(buf) }
+        unsafe { (*self.0.as_ptr()).write_all(buf) }
     }
     fn flush(&mut self) -> io::Result<()> {
-        unsafe { (*self.0).flush() }
+        unsafe { (*self.0.as_ptr()).flush() }
     }
 }
 
