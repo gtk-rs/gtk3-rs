@@ -21,10 +21,12 @@ use gobject_sys;
 use value::{FromValueOptional, SetValue, SetValueOptional, Value};
 
 #[derive(Debug)]
-pub enum GString {
-    ForeignOwned(Option<CString>),
-    Borrowed(*const c_char, usize),
-    Owned(*mut c_char, usize),
+pub struct GString(Inner);
+
+#[derive(Debug)]
+enum Inner {
+    Native(Option<CString>),
+    Foreign(*mut c_char, usize),
 }
 
 unsafe impl Send for GString {}
@@ -33,27 +35,23 @@ unsafe impl Sync for GString {}
 impl GString {
     pub unsafe fn new(ptr: *mut c_char) -> Self {
         assert!(!ptr.is_null());
-        GString::Owned(ptr, libc::strlen(ptr))
+        GString(Inner::Foreign(ptr, libc::strlen(ptr)))
     }
 
-    pub unsafe fn new_borrowed(ptr: *const c_char) -> Self {
+    pub unsafe fn new_borrowed(ptr: *const c_char) -> Borrowed<Self> {
         assert!(!ptr.is_null());
-        GString::Borrowed(ptr, libc::strlen(ptr))
+        Borrowed::new(GString(Inner::Foreign(ptr as *mut _, libc::strlen(ptr))))
     }
 
     pub fn as_str(&self) -> &str {
         let cstr = match self {
-            GString::Borrowed(ptr, length) => unsafe {
+            GString(Inner::Foreign(ptr, length)) => unsafe {
                 let bytes = slice::from_raw_parts(*ptr as *const u8, length + 1);
                 CStr::from_bytes_with_nul_unchecked(bytes)
             },
-            GString::Owned(ptr, length) => unsafe {
-                let bytes = slice::from_raw_parts(*ptr as *const u8, length + 1);
-                CStr::from_bytes_with_nul_unchecked(bytes)
-            },
-            GString::ForeignOwned(cstring) => cstring
+            GString(Inner::Native(cstring)) => cstring
                 .as_ref()
-                .expect("ForeignOwned shouldn't be empty")
+                .expect("Native shouldn't be empty")
                 .as_c_str(),
         };
         cstr.to_str().unwrap()
@@ -62,7 +60,7 @@ impl GString {
 
 impl Drop for GString {
     fn drop(&mut self) {
-        if let GString::Owned(ptr, _len) = self {
+        if let GString(Inner::Foreign(ptr, _len)) = self {
             unsafe {
                 glib_sys::g_free(*ptr as *mut _);
             }
@@ -79,15 +77,12 @@ impl fmt::Display for GString {
 impl hash::Hash for GString {
     fn hash<H: hash::Hasher>(&self, state: &mut H) {
         let bytes = match self {
-            GString::Borrowed(ptr, length) => unsafe {
+            GString(Inner::Foreign(ptr, length)) => unsafe {
                 slice::from_raw_parts(*ptr as *const u8, length + 1)
             },
-            GString::Owned(ptr, length) => unsafe {
-                slice::from_raw_parts(*ptr as *const u8, length + 1)
-            },
-            GString::ForeignOwned(cstring) => cstring
+            GString(Inner::Native(cstring)) => cstring
                 .as_ref()
-                .expect("ForeignOwned shouldn't be empty")
+                .expect("Native shouldn't be empty")
                 .as_bytes(),
         };
         state.write(bytes);
@@ -203,10 +198,10 @@ impl Deref for GString {
 impl From<GString> for String {
     #[inline]
     fn from(mut s: GString) -> Self {
-        if let GString::ForeignOwned(ref mut cstring) = s {
+        if let GString(Inner::Native(ref mut cstring)) = s {
             if let Ok(s) = cstring
                 .take()
-                .expect("ForeignOwned shouldn't be empty")
+                .expect("Native shouldn't be empty")
                 .into_string()
             {
                 return s;
@@ -256,7 +251,7 @@ impl From<Vec<u8>> for GString {
 impl From<CString> for GString {
     #[inline]
     fn from(s: CString) -> Self {
-        GString::ForeignOwned(Some(s))
+        GString(Inner::Native(Some(s)))
     }
 }
 
@@ -321,7 +316,7 @@ impl FromGlibPtrNone<*mut i8> for GString {
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*const c_char> for GString {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *const c_char) -> Self {
+    unsafe fn from_glib_borrow(ptr: *const c_char) -> Borrowed<Self> {
         GString::new_borrowed(ptr)
     }
 }
@@ -329,7 +324,7 @@ impl FromGlibPtrBorrow<*const c_char> for GString {
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*mut u8> for GString {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut u8) -> Self {
+    unsafe fn from_glib_borrow(ptr: *mut u8) -> Borrowed<Self> {
         GString::new_borrowed(ptr as *const c_char)
     }
 }
@@ -337,7 +332,7 @@ impl FromGlibPtrBorrow<*mut u8> for GString {
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*mut i8> for GString {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut i8) -> Self {
+    unsafe fn from_glib_borrow(ptr: *mut i8) -> Borrowed<Self> {
         GString::new_borrowed(ptr as *const c_char)
     }
 }

@@ -382,7 +382,6 @@ impl<Super: IsA<Super>, Sub: IsA<Super>> CanDowncast<Sub> for Super {}
 // Manual implementation of glib_shared_wrapper! because of special cases
 pub struct ObjectRef {
     inner: ptr::NonNull<GObject>,
-    borrowed: bool,
 }
 
 impl Clone for ObjectRef {
@@ -390,7 +389,6 @@ impl Clone for ObjectRef {
         unsafe {
             ObjectRef {
                 inner: ptr::NonNull::new_unchecked(gobject_sys::g_object_ref(self.inner.as_ptr())),
-                borrowed: false,
             }
         }
     }
@@ -399,9 +397,7 @@ impl Clone for ObjectRef {
 impl Drop for ObjectRef {
     fn drop(&mut self) {
         unsafe {
-            if !self.borrowed {
-                gobject_sys::g_object_unref(self.inner.as_ptr());
-            }
+            gobject_sys::g_object_unref(self.inner.as_ptr());
         }
     }
 }
@@ -416,7 +412,6 @@ impl fmt::Debug for ObjectRef {
         f.debug_struct("ObjectRef")
             .field("inner", &self.inner)
             .field("type", &type_)
-            .field("borrowed", &self.borrowed)
             .finish()
     }
 }
@@ -549,7 +544,6 @@ impl FromGlibPtrNone<*mut GObject> for ObjectRef {
         // Attention: This takes ownership of floating references!
         ObjectRef {
             inner: ptr::NonNull::new_unchecked(gobject_sys::g_object_ref_sink(ptr)),
-            borrowed: false,
         }
     }
 }
@@ -571,7 +565,6 @@ impl FromGlibPtrFull<*mut GObject> for ObjectRef {
 
         ObjectRef {
             inner: ptr::NonNull::new_unchecked(ptr),
-            borrowed: false,
         }
     }
 }
@@ -579,20 +572,19 @@ impl FromGlibPtrFull<*mut GObject> for ObjectRef {
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*mut GObject> for ObjectRef {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut GObject) -> Self {
+    unsafe fn from_glib_borrow(ptr: *mut GObject) -> Borrowed<Self> {
         assert!(!ptr.is_null());
 
-        ObjectRef {
+        Borrowed::new(ObjectRef {
             inner: ptr::NonNull::new_unchecked(ptr),
-            borrowed: true,
-        }
+        })
     }
 }
 
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*const GObject> for ObjectRef {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *const GObject) -> Self {
+    unsafe fn from_glib_borrow(ptr: *const GObject) -> Borrowed<Self> {
         from_glib_borrow(ptr as *mut GObject)
     }
 }
@@ -898,10 +890,14 @@ macro_rules! glib_object_wrapper {
             #[inline]
             #[allow(clippy::cast_ptr_alignment)]
             #[allow(clippy::missing_safety_doc)]
-            unsafe fn from_glib_borrow(ptr: *mut $ffi_name) -> Self {
+            unsafe fn from_glib_borrow(ptr: *mut $ffi_name) -> $crate::translate::Borrowed<Self> {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
-                $name($crate::translate::from_glib_borrow(ptr as *mut _),
-                      ::std::marker::PhantomData)
+                $crate::translate::Borrowed::new(
+                    $name(
+                        $crate::translate::from_glib_borrow::<_, $crate::object::ObjectRef>(ptr as *mut _).into_inner(),
+                        ::std::marker::PhantomData,
+                    )
+                )
             }
         }
 
@@ -910,8 +906,8 @@ macro_rules! glib_object_wrapper {
             #[inline]
             #[allow(clippy::cast_ptr_alignment)]
             #[allow(clippy::missing_safety_doc)]
-            unsafe fn from_glib_borrow(ptr: *const $ffi_name) -> Self {
-                $crate::translate::from_glib_borrow(ptr as *mut $ffi_name)
+            unsafe fn from_glib_borrow(ptr: *const $ffi_name) -> $crate::translate::Borrowed<Self> {
+                $crate::translate::from_glib_borrow::<_, $name>(ptr as *mut $ffi_name)
             }
         }
 
@@ -1530,7 +1526,7 @@ impl<T: ObjectType> ObjectExt for T {
         {
             let f: &F = &*(f as *const F);
             f(
-                &Object::from_glib_borrow(this).unsafe_cast(),
+                Object::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(param_spec),
             )
         }
