@@ -154,7 +154,7 @@ impl<O: IsA<Value>> ValueExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &Value::from_glib_borrow(this).unsafe_cast(),
+                &Value::from_glib_borrow(this).unsafe_cast_ref(),
                 value,
                 &GString::from_glib_borrow(text),
             )

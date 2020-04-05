@@ -107,7 +107,7 @@ impl<O: IsA<Selection>> SelectionExt for O {
             P: IsA<Selection>,
         {
             let f: &F = &*(f as *const F);
-            f(&Selection::from_glib_borrow(this).unsafe_cast())
+            f(&Selection::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

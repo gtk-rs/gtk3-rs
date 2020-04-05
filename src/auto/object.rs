@@ -801,7 +801,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &Object::from_glib_borrow(this).unsafe_cast(),
+                &Object::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(arg1),
             )
         }
@@ -832,7 +832,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &Object::from_glib_borrow(this).unsafe_cast(),
+                &Object::from_glib_borrow(this).unsafe_cast_ref(),
                 arg1,
                 &from_glib_borrow(arg2),
             )
@@ -863,7 +863,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &Object::from_glib_borrow(this).unsafe_cast(),
+                &Object::from_glib_borrow(this).unsafe_cast_ref(),
                 &GString::from_glib_borrow(arg1),
                 from_glib(arg2),
             )
@@ -887,7 +887,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             P: IsA<Object>,
         {
             let f: &F = &*(f as *const F);
-            f(&Object::from_glib_borrow(this).unsafe_cast())
+            f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -914,7 +914,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             P: IsA<Object>,
         {
             let f: &F = &*(f as *const F);
-            f(&Object::from_glib_borrow(this).unsafe_cast())
+            f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -944,7 +944,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             P: IsA<Object>,
         {
             let f: &F = &*(f as *const F);
-            f(&Object::from_glib_borrow(this).unsafe_cast())
+            f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -971,7 +971,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             P: IsA<Object>,
         {
             let f: &F = &*(f as *const F);
-            f(&Object::from_glib_borrow(this).unsafe_cast())
+            f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -998,7 +998,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             P: IsA<Object>,
         {
             let f: &F = &*(f as *const F);
-            f(&Object::from_glib_borrow(this).unsafe_cast())
+            f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1025,7 +1025,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             P: IsA<Object>,
         {
             let f: &F = &*(f as *const F);
-            f(&Object::from_glib_borrow(this).unsafe_cast())
+            f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1052,7 +1052,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             P: IsA<Object>,
         {
             let f: &F = &*(f as *const F);
-            f(&Object::from_glib_borrow(this).unsafe_cast())
+            f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1079,7 +1079,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             P: IsA<Object>,
         {
             let f: &F = &*(f as *const F);
-            f(&Object::from_glib_borrow(this).unsafe_cast())
+            f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1106,7 +1106,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             P: IsA<Object>,
         {
             let f: &F = &*(f as *const F);
-            f(&Object::from_glib_borrow(this).unsafe_cast())
+            f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1136,7 +1136,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             P: IsA<Object>,
         {
             let f: &F = &*(f as *const F);
-            f(&Object::from_glib_borrow(this).unsafe_cast())
+            f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1166,7 +1166,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             P: IsA<Object>,
         {
             let f: &F = &*(f as *const F);
-            f(&Object::from_glib_borrow(this).unsafe_cast())
+            f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1196,7 +1196,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             P: IsA<Object>,
         {
             let f: &F = &*(f as *const F);
-            f(&Object::from_glib_borrow(this).unsafe_cast())
+            f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1226,7 +1226,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             P: IsA<Object>,
         {
             let f: &F = &*(f as *const F);
-            f(&Object::from_glib_borrow(this).unsafe_cast())
+            f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1253,7 +1253,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             P: IsA<Object>,
         {
             let f: &F = &*(f as *const F);
-            f(&Object::from_glib_borrow(this).unsafe_cast())
+            f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1280,7 +1280,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             P: IsA<Object>,
         {
             let f: &F = &*(f as *const F);
-            f(&Object::from_glib_borrow(this).unsafe_cast())
+            f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -1307,7 +1307,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
             P: IsA<Object>,
         {
             let f: &F = &*(f as *const F);
-            f(&Object::from_glib_borrow(this).unsafe_cast())
+            f(&Object::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
