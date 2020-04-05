@@ -75,7 +75,7 @@ impl<O: IsA<FilterOutputStream>> FilterOutputStreamExt for O {
             P: IsA<FilterOutputStream>,
         {
             let f: &F = &*(f as *const F);
-            f(&FilterOutputStream::from_glib_borrow(this).unsafe_cast())
+            f(&FilterOutputStream::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

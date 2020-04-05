@@ -168,7 +168,7 @@ impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
             P: IsA<ApplicationCommandLine>,
         {
             let f: &F = &*(f as *const F);
-            f(&ApplicationCommandLine::from_glib_borrow(this).unsafe_cast())
+            f(&ApplicationCommandLine::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

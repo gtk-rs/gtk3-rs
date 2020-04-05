@@ -88,7 +88,7 @@ impl<O: IsA<TlsFileDatabase>> TlsFileDatabaseExt for O {
             P: IsA<TlsFileDatabase>,
         {
             let f: &F = &*(f as *const F);
-            f(&TlsFileDatabase::from_glib_borrow(this).unsafe_cast())
+            f(&TlsFileDatabase::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

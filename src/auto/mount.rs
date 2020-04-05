@@ -504,7 +504,7 @@ impl<O: IsA<Mount>> MountExt for O {
             P: IsA<Mount>,
         {
             let f: &F = &*(f as *const F);
-            f(&Mount::from_glib_borrow(this).unsafe_cast())
+            f(&Mount::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -525,7 +525,7 @@ impl<O: IsA<Mount>> MountExt for O {
             P: IsA<Mount>,
         {
             let f: &F = &*(f as *const F);
-            f(&Mount::from_glib_borrow(this).unsafe_cast())
+            f(&Mount::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -546,7 +546,7 @@ impl<O: IsA<Mount>> MountExt for O {
             P: IsA<Mount>,
         {
             let f: &F = &*(f as *const F);
-            f(&Mount::from_glib_borrow(this).unsafe_cast())
+            f(&Mount::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

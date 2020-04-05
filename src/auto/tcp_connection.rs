@@ -66,7 +66,7 @@ impl<O: IsA<TcpConnection>> TcpConnectionExt for O {
             P: IsA<TcpConnection>,
         {
             let f: &F = &*(f as *const F);
-            f(&TcpConnection::from_glib_borrow(this).unsafe_cast())
+            f(&TcpConnection::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

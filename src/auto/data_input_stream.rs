@@ -310,7 +310,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
             P: IsA<DataInputStream>,
         {
             let f: &F = &*(f as *const F);
-            f(&DataInputStream::from_glib_borrow(this).unsafe_cast())
+            f(&DataInputStream::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -335,7 +335,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
             P: IsA<DataInputStream>,
         {
             let f: &F = &*(f as *const F);
-            f(&DataInputStream::from_glib_borrow(this).unsafe_cast())
+            f(&DataInputStream::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

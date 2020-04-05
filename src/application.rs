@@ -37,7 +37,7 @@ impl<O: IsA<Application>> ApplicationExtManual for O {
             let f: &F = &*(f as *const F);
             let files: Vec<File> = FromGlibContainer::from_glib_none_num(files, n_files as usize);
             f(
-                &Application::from_glib_borrow(this).unsafe_cast(),
+                &Application::from_glib_borrow(this).unsafe_cast_ref(),
                 &files,
                 &GString::from_glib_borrow(hint),
             )

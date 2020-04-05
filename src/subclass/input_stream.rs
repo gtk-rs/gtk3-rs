@@ -180,12 +180,14 @@ where
 
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: InputStream = from_glib_borrow(ptr);
+    let wrap: Borrowed<InputStream> = from_glib_borrow(ptr);
 
     match imp.read(
         &wrap,
         slice::from_raw_parts_mut(buffer as *mut u8, count),
-        Option::<Cancellable>::from_glib_borrow(cancellable).as_ref(),
+        Option::<Cancellable>::from_glib_borrow(cancellable)
+            .as_ref()
+            .as_ref(),
     ) {
         Ok(res) => {
             assert!(res <= isize::MAX as usize);
@@ -210,11 +212,13 @@ where
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: InputStream = from_glib_borrow(ptr);
+    let wrap: Borrowed<InputStream> = from_glib_borrow(ptr);
 
     match imp.close(
         &wrap,
-        Option::<Cancellable>::from_glib_borrow(cancellable).as_ref(),
+        Option::<Cancellable>::from_glib_borrow(cancellable)
+            .as_ref()
+            .as_ref(),
     ) {
         Ok(_) => glib_sys::GTRUE,
         Err(mut e) => {
@@ -240,12 +244,14 @@ where
 
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: InputStream = from_glib_borrow(ptr);
+    let wrap: Borrowed<InputStream> = from_glib_borrow(ptr);
 
     match imp.skip(
         &wrap,
         count,
-        Option::<Cancellable>::from_glib_borrow(cancellable).as_ref(),
+        Option::<Cancellable>::from_glib_borrow(cancellable)
+            .as_ref()
+            .as_ref(),
     ) {
         Ok(res) => {
             assert!(res <= isize::MAX as usize);

@@ -82,7 +82,9 @@ impl SimpleAction {
             let f: &F = &*(f as *const F);
             f(
                 &from_glib_borrow(this),
-                Option::<glib::Variant>::from_glib_borrow(parameter).as_ref(),
+                Option::<glib::Variant>::from_glib_borrow(parameter)
+                    .as_ref()
+                    .as_ref(),
             )
         }
         unsafe {
@@ -110,7 +112,9 @@ impl SimpleAction {
             let f: &F = &*(f as *const F);
             f(
                 &from_glib_borrow(this),
-                Option::<glib::Variant>::from_glib_borrow(value).as_ref(),
+                Option::<glib::Variant>::from_glib_borrow(value)
+                    .as_ref()
+                    .as_ref(),
             )
         }
         unsafe {

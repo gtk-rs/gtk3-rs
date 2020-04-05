@@ -199,7 +199,7 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &ActionGroup::from_glib_borrow(this).unsafe_cast(),
+                &ActionGroup::from_glib_borrow(this).unsafe_cast_ref(),
                 &GString::from_glib_borrow(action_name),
             )
         }
@@ -228,7 +228,7 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &ActionGroup::from_glib_borrow(this).unsafe_cast(),
+                &ActionGroup::from_glib_borrow(this).unsafe_cast_ref(),
                 &GString::from_glib_borrow(action_name),
                 from_glib(enabled),
             )
@@ -256,7 +256,7 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &ActionGroup::from_glib_borrow(this).unsafe_cast(),
+                &ActionGroup::from_glib_borrow(this).unsafe_cast_ref(),
                 &GString::from_glib_borrow(action_name),
             )
         }
@@ -288,7 +288,7 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &ActionGroup::from_glib_borrow(this).unsafe_cast(),
+                &ActionGroup::from_glib_borrow(this).unsafe_cast_ref(),
                 &GString::from_glib_borrow(action_name),
                 &from_glib_borrow(value),
             )

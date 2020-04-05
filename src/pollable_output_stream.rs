@@ -80,7 +80,8 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
         ) -> glib_sys::gboolean {
             let func: &RefCell<F> = &*(func as *const RefCell<F>);
             let mut func = func.borrow_mut();
-            (&mut *func)(&PollableOutputStream::from_glib_borrow(stream).unsafe_cast()).to_glib()
+            (&mut *func)(&PollableOutputStream::from_glib_borrow(stream).unsafe_cast_ref())
+                .to_glib()
         }
         unsafe extern "C" fn destroy_closure<O, F>(ptr: glib_sys::gpointer) {
             Box::<RefCell<F>>::from_raw(ptr as *mut _);

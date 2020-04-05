@@ -120,7 +120,7 @@ where
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: IOStream = from_glib_borrow(ptr);
+    let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
 
     let ret = imp.get_input_stream(&wrap);
 
@@ -157,7 +157,7 @@ where
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: IOStream = from_glib_borrow(ptr);
+    let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
 
     let ret = imp.get_output_stream(&wrap);
 
@@ -196,11 +196,13 @@ where
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap: IOStream = from_glib_borrow(ptr);
+    let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
 
     match imp.close(
         &wrap,
-        Option::<Cancellable>::from_glib_borrow(cancellable).as_ref(),
+        Option::<Cancellable>::from_glib_borrow(cancellable)
+            .as_ref()
+            .as_ref(),
     ) {
         Ok(_) => glib_sys::GTRUE,
         Err(mut e) => {

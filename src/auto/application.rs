@@ -547,7 +547,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
             P: IsA<Application>,
         {
             let f: &F = &*(f as *const F);
-            f(&Application::from_glib_borrow(this).unsafe_cast())
+            f(&Application::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -577,7 +577,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
         {
             let f: &F = &*(f as *const F);
             f(
-                &Application::from_glib_borrow(this).unsafe_cast(),
+                &Application::from_glib_borrow(this).unsafe_cast_ref(),
                 &from_glib_borrow(command_line),
             )
         }
@@ -606,7 +606,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
             P: IsA<Application>,
         {
             let f: &F = &*(f as *const F);
-            f(&Application::from_glib_borrow(this).unsafe_cast()).to_glib()
+            f(&Application::from_glib_borrow(this).unsafe_cast_ref()).to_glib()
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -627,7 +627,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
             P: IsA<Application>,
         {
             let f: &F = &*(f as *const F);
-            f(&Application::from_glib_borrow(this).unsafe_cast())
+            f(&Application::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -648,7 +648,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
             P: IsA<Application>,
         {
             let f: &F = &*(f as *const F);
-            f(&Application::from_glib_borrow(this).unsafe_cast())
+            f(&Application::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -673,7 +673,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
             P: IsA<Application>,
         {
             let f: &F = &*(f as *const F);
-            f(&Application::from_glib_borrow(this).unsafe_cast())
+            f(&Application::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -700,7 +700,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
             P: IsA<Application>,
         {
             let f: &F = &*(f as *const F);
-            f(&Application::from_glib_borrow(this).unsafe_cast())
+            f(&Application::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -724,7 +724,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
             P: IsA<Application>,
         {
             let f: &F = &*(f as *const F);
-            f(&Application::from_glib_borrow(this).unsafe_cast())
+            f(&Application::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -749,7 +749,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
             P: IsA<Application>,
         {
             let f: &F = &*(f as *const F);
-            f(&Application::from_glib_borrow(this).unsafe_cast())
+            f(&Application::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -774,7 +774,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
             P: IsA<Application>,
         {
             let f: &F = &*(f as *const F);
-            f(&Application::from_glib_borrow(this).unsafe_cast())
+            f(&Application::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -799,7 +799,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
             P: IsA<Application>,
         {
             let f: &F = &*(f as *const F);
-            f(&Application::from_glib_borrow(this).unsafe_cast())
+            f(&Application::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -823,7 +823,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
             P: IsA<Application>,
         {
             let f: &F = &*(f as *const F);
-            f(&Application::from_glib_borrow(this).unsafe_cast())
+            f(&Application::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -848,7 +848,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
             P: IsA<Application>,
         {
             let f: &F = &*(f as *const F);
-            f(&Application::from_glib_borrow(this).unsafe_cast())
+            f(&Application::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
