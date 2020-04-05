@@ -60,15 +60,17 @@ impl FromGlibPtrNone<*mut gdk_sys::GdkTimeCoord> for TimeCoord {
 
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*const gdk_sys::GdkTimeCoord> for TimeCoord {
-    unsafe fn from_glib_borrow(ptr: *const gdk_sys::GdkTimeCoord) -> Self {
-        (*(ptr as *const TimeCoord)).clone()
+    unsafe fn from_glib_borrow(
+        ptr: *const gdk_sys::GdkTimeCoord,
+    ) -> glib::translate::Borrowed<Self> {
+        glib::translate::Borrowed::new((*(ptr as *const TimeCoord)).clone())
     }
 }
 
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*mut gdk_sys::GdkTimeCoord> for TimeCoord {
-    unsafe fn from_glib_borrow(ptr: *mut gdk_sys::GdkTimeCoord) -> Self {
-        (*(ptr as *mut TimeCoord)).clone()
+    unsafe fn from_glib_borrow(ptr: *mut gdk_sys::GdkTimeCoord) -> glib::translate::Borrowed<Self> {
+        glib::translate::Borrowed::new((*(ptr as *mut TimeCoord)).clone())
     }
 }
 
