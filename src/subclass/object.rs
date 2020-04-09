@@ -85,8 +85,8 @@ unsafe extern "C" fn get_property<T: ObjectSubclass>(
             // a copy of the value when setting it on the destination just to
             // immediately free the original value afterwards.
             gobject_sys::g_value_unset(value);
+            let v = mem::ManuallyDrop::new(v);
             ptr::write(value, ptr::read(v.to_glib_none().0));
-            mem::forget(v);
         }
         Err(()) => eprintln!("Failed to get property"),
     }
