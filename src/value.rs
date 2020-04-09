@@ -269,8 +269,8 @@ impl Value {
     #[doc(hidden)]
     pub fn into_raw(self) -> gobject_sys::GValue {
         unsafe {
-            let ret = ptr::read(&self.0);
-            mem::forget(self);
+            let s = mem::ManuallyDrop::new(self);
+            let ret = ptr::read(&s.0);
             ret
         }
     }
