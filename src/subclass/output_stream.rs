@@ -235,9 +235,9 @@ where
             assert!(res <= count);
             res as isize
         }
-        Err(mut e) => {
+        Err(e) => {
+            let mut e = mem::ManuallyDrop::new(e);
             *err = e.to_glib_none_mut().0;
-            mem::forget(e);
             -1
         }
     }
@@ -262,9 +262,9 @@ where
             .as_ref(),
     ) {
         Ok(_) => glib_sys::GTRUE,
-        Err(mut e) => {
+        Err(e) => {
+            let mut e = mem::ManuallyDrop::new(e);
             *err = e.to_glib_none_mut().0;
-            mem::forget(e);
             glib_sys::GFALSE
         }
     }
@@ -289,9 +289,9 @@ where
             .as_ref(),
     ) {
         Ok(_) => glib_sys::GTRUE,
-        Err(mut e) => {
+        Err(e) => {
+            let mut e = mem::ManuallyDrop::new(e);
             *err = e.to_glib_none_mut().0;
-            mem::forget(e);
             glib_sys::GFALSE
         }
     }
@@ -324,9 +324,9 @@ where
             assert!(res <= isize::MAX as usize);
             res as isize
         }
-        Err(mut e) => {
+        Err(e) => {
+            let mut e = mem::ManuallyDrop::new(e);
             *err = e.to_glib_none_mut().0;
-            mem::forget(e);
             -1
         }
     }
