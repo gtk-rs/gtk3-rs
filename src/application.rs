@@ -7,7 +7,6 @@ use glib::GString;
 use glib_sys;
 use libc;
 use std::boxed::Box as Box_;
-use std::mem::transmute;
 use Application;
 use File;
 
@@ -47,7 +46,7 @@ impl<O: IsA<Application>> ApplicationExtManual for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"open\0".as_ptr() as *const _,
-                Some(transmute(open_trampoline::<Self, F> as usize)),
+                Some(*(&open_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
