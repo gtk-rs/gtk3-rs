@@ -19,8 +19,6 @@ use libc;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::fmt;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-use std::mem::transmute;
 use Atom;
 use Device;
 use DragAction;
@@ -147,7 +145,7 @@ impl DragContext {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"action-changed\0".as_ptr() as *const _,
-                Some(transmute(action_changed_trampoline::<F> as usize)),
+                Some(*(&action_changed_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -171,7 +169,7 @@ impl DragContext {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"cancel\0".as_ptr() as *const _,
-                Some(transmute(cancel_trampoline::<F> as usize)),
+                Some(*(&cancel_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -191,7 +189,7 @@ impl DragContext {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"dnd-finished\0".as_ptr() as *const _,
-                Some(transmute(dnd_finished_trampoline::<F> as usize)),
+                Some(*(&dnd_finished_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -215,7 +213,7 @@ impl DragContext {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"drop-performed\0".as_ptr() as *const _,
-                Some(transmute(drop_performed_trampoline::<F> as usize)),
+                Some(*(&drop_performed_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }

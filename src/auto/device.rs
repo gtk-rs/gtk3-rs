@@ -16,7 +16,6 @@ use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
-use std::mem::transmute;
 use std::ptr;
 use Atom;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
@@ -439,7 +438,7 @@ impl Device {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"changed\0".as_ptr() as *const _,
-                Some(transmute(changed_trampoline::<F> as usize)),
+                Some(*(&changed_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -463,7 +462,7 @@ impl Device {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"tool-changed\0".as_ptr() as *const _,
-                Some(transmute(tool_changed_trampoline::<F> as usize)),
+                Some(*(&tool_changed_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -486,7 +485,7 @@ impl Device {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::associated-device\0".as_ptr() as *const _,
-                Some(transmute(notify_associated_device_trampoline::<F> as usize)),
+                Some(*(&notify_associated_device_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -507,7 +506,7 @@ impl Device {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::axes\0".as_ptr() as *const _,
-                Some(transmute(notify_axes_trampoline::<F> as usize)),
+                Some(*(&notify_axes_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -530,7 +529,7 @@ impl Device {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::input-mode\0".as_ptr() as *const _,
-                Some(transmute(notify_input_mode_trampoline::<F> as usize)),
+                Some(*(&notify_input_mode_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -553,7 +552,7 @@ impl Device {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::n-axes\0".as_ptr() as *const _,
-                Some(transmute(notify_n_axes_trampoline::<F> as usize)),
+                Some(*(&notify_n_axes_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -574,7 +573,7 @@ impl Device {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::seat\0".as_ptr() as *const _,
-                Some(transmute(notify_seat_trampoline::<F> as usize)),
+                Some(*(&notify_seat_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -595,7 +594,7 @@ impl Device {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::tool\0".as_ptr() as *const _,
-                Some(transmute(notify_tool_trampoline::<F> as usize)),
+                Some(*(&notify_tool_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -615,7 +614,7 @@ impl Device {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::type\0".as_ptr() as *const _,
-                Some(transmute(notify_type_trampoline::<F> as usize)),
+                Some(*(&notify_type_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
