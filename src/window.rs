@@ -10,6 +10,7 @@ use glib::translate::*;
 use libc::{c_char, c_int};
 use std::ptr;
 use Cursor;
+use EventMask;
 use Visual;
 use Window;
 
@@ -17,7 +18,7 @@ use {WindowType, WindowTypeHint, WindowWindowClass};
 
 pub struct WindowAttr {
     pub title: Option<String>,
-    pub event_mask: i32,
+    pub event_mask: EventMask,
     pub x: Option<i32>,
     pub y: Option<i32>,
     pub width: i32,
@@ -35,7 +36,7 @@ impl Default for WindowAttr {
         skip_assert_initialized!();
         WindowAttr {
             title: None,
-            event_mask: 0,
+            event_mask: EventMask::empty(),
             x: None,
             y: None,
             width: 400,
@@ -94,7 +95,7 @@ impl<'a> ToGlibPtr<'a, *mut gdk_sys::GdkWindowAttr> for WindowAttr {
 
         let mut attrs = Box::new(gdk_sys::GdkWindowAttr {
             title: title.0 as *mut c_char,
-            event_mask: self.event_mask,
+            event_mask: self.event_mask.bits() as i32,
             x: self.x.unwrap_or(0),
             y: self.y.unwrap_or(0),
             width: self.width,
