@@ -81,7 +81,6 @@ pub use auto::*;
 
 pub mod prelude;
 
-#[allow(clippy::transmute_ptr_to_ref)]
 #[allow(clippy::cast_ptr_alignment)]
 mod auto;
 

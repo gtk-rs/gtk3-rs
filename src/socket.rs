@@ -8,7 +8,6 @@ use glib::object::{Cast, IsA};
 use glib::translate::*;
 use glib_sys;
 use std::cell::RefCell;
-use std::mem::transmute;
 #[cfg(all(not(unix), feature = "dox"))]
 use std::os::raw::c_int;
 #[cfg(all(not(windows), feature = "dox"))]
@@ -364,10 +363,9 @@ impl<O: IsA<Socket>> SocketExtManual for O {
                 condition.to_glib(),
                 gcancellable.0,
             );
-            let trampoline = trampoline::<O, F> as glib_sys::gpointer;
             glib_sys::g_source_set_callback(
                 source,
-                Some(transmute(trampoline)),
+                Some(*(&trampoline::<O, F> as *const _ as *const _)),
                 Box::into_raw(Box::new(RefCell::new(func))) as glib_sys::gpointer,
                 Some(destroy_closure::<O, F>),
             );

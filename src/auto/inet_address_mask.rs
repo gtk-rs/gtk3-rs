@@ -16,7 +16,6 @@ use glib_sys;
 use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem::transmute;
 use std::ptr;
 use InetAddress;
 use SocketFamily;
@@ -186,7 +185,7 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::address\0".as_ptr() as *const _,
-                Some(transmute(notify_address_trampoline::<Self, F> as usize)),
+                Some(*(&notify_address_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -211,7 +210,7 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::family\0".as_ptr() as *const _,
-                Some(transmute(notify_family_trampoline::<Self, F> as usize)),
+                Some(*(&notify_family_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -236,7 +235,7 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::length\0".as_ptr() as *const _,
-                Some(transmute(notify_length_trampoline::<Self, F> as usize)),
+                Some(*(&notify_length_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }

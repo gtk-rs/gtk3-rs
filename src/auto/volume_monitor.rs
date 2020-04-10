@@ -11,7 +11,6 @@ use glib::translate::*;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem::transmute;
 use Drive;
 use Mount;
 use Volume;
@@ -130,7 +129,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"drive-changed\0".as_ptr() as *const _,
-                Some(transmute(drive_changed_trampoline::<Self, F> as usize)),
+                Some(*(&drive_changed_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -155,7 +154,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"drive-connected\0".as_ptr() as *const _,
-                Some(transmute(drive_connected_trampoline::<Self, F> as usize)),
+                Some(*(&drive_connected_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -180,7 +179,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"drive-disconnected\0".as_ptr() as *const _,
-                Some(transmute(drive_disconnected_trampoline::<Self, F> as usize)),
+                Some(*(&drive_disconnected_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -205,7 +204,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"drive-eject-button\0".as_ptr() as *const _,
-                Some(transmute(drive_eject_button_trampoline::<Self, F> as usize)),
+                Some(*(&drive_eject_button_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -230,7 +229,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"drive-stop-button\0".as_ptr() as *const _,
-                Some(transmute(drive_stop_button_trampoline::<Self, F> as usize)),
+                Some(*(&drive_stop_button_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -255,7 +254,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"mount-added\0".as_ptr() as *const _,
-                Some(transmute(mount_added_trampoline::<Self, F> as usize)),
+                Some(*(&mount_added_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -280,7 +279,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"mount-changed\0".as_ptr() as *const _,
-                Some(transmute(mount_changed_trampoline::<Self, F> as usize)),
+                Some(*(&mount_changed_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -305,7 +304,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"mount-pre-unmount\0".as_ptr() as *const _,
-                Some(transmute(mount_pre_unmount_trampoline::<Self, F> as usize)),
+                Some(*(&mount_pre_unmount_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -330,7 +329,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"mount-removed\0".as_ptr() as *const _,
-                Some(transmute(mount_removed_trampoline::<Self, F> as usize)),
+                Some(*(&mount_removed_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -355,7 +354,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"volume-added\0".as_ptr() as *const _,
-                Some(transmute(volume_added_trampoline::<Self, F> as usize)),
+                Some(*(&volume_added_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -380,7 +379,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"volume-changed\0".as_ptr() as *const _,
-                Some(transmute(volume_changed_trampoline::<Self, F> as usize)),
+                Some(*(&volume_changed_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -405,7 +404,7 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"volume-removed\0".as_ptr() as *const _,
-                Some(transmute(volume_removed_trampoline::<Self, F> as usize)),
+                Some(*(&volume_removed_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }

@@ -13,7 +13,6 @@ use glib_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem::transmute;
 use AskPasswordFlags;
 use MountOperationResult;
 use PasswordSave;
@@ -301,7 +300,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"aborted\0".as_ptr() as *const _,
-                Some(transmute(aborted_trampoline::<Self, F> as usize)),
+                Some(*(&aborted_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -338,7 +337,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"ask-password\0".as_ptr() as *const _,
-                Some(transmute(ask_password_trampoline::<Self, F> as usize)),
+                Some(*(&ask_password_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -367,7 +366,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"reply\0".as_ptr() as *const _,
-                Some(transmute(reply_trampoline::<Self, F> as usize)),
+                Some(*(&reply_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -407,9 +406,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"show-unmount-progress\0".as_ptr() as *const _,
-                Some(transmute(
-                    show_unmount_progress_trampoline::<Self, F> as usize,
-                )),
+                Some(*(&show_unmount_progress_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -431,7 +428,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::anonymous\0".as_ptr() as *const _,
-                Some(transmute(notify_anonymous_trampoline::<Self, F> as usize)),
+                Some(*(&notify_anonymous_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -453,7 +450,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::choice\0".as_ptr() as *const _,
-                Some(transmute(notify_choice_trampoline::<Self, F> as usize)),
+                Some(*(&notify_choice_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -475,7 +472,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::domain\0".as_ptr() as *const _,
-                Some(transmute(notify_domain_trampoline::<Self, F> as usize)),
+                Some(*(&notify_domain_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -501,9 +498,10 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::is-tcrypt-hidden-volume\0".as_ptr() as *const _,
-                Some(transmute(
-                    notify_is_tcrypt_hidden_volume_trampoline::<Self, F> as usize,
-                )),
+                Some(
+                    *(&notify_is_tcrypt_hidden_volume_trampoline::<Self, F> as *const _
+                        as *const _),
+                ),
                 Box_::into_raw(f),
             )
         }
@@ -529,9 +527,10 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::is-tcrypt-system-volume\0".as_ptr() as *const _,
-                Some(transmute(
-                    notify_is_tcrypt_system_volume_trampoline::<Self, F> as usize,
-                )),
+                Some(
+                    *(&notify_is_tcrypt_system_volume_trampoline::<Self, F> as *const _
+                        as *const _),
+                ),
                 Box_::into_raw(f),
             )
         }
@@ -553,7 +552,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::password\0".as_ptr() as *const _,
-                Some(transmute(notify_password_trampoline::<Self, F> as usize)),
+                Some(*(&notify_password_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -578,9 +577,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::password-save\0".as_ptr() as *const _,
-                Some(transmute(
-                    notify_password_save_trampoline::<Self, F> as usize,
-                )),
+                Some(*(&notify_password_save_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -603,7 +600,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::pim\0".as_ptr() as *const _,
-                Some(transmute(notify_pim_trampoline::<Self, F> as usize)),
+                Some(*(&notify_pim_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -625,7 +622,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::username\0".as_ptr() as *const _,
-                Some(transmute(notify_username_trampoline::<Self, F> as usize)),
+                Some(*(&notify_username_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }

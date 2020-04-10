@@ -14,7 +14,6 @@ use glib_sys;
 use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem::transmute;
 use std::pin::Pin;
 use std::ptr;
 use Cancellable;
@@ -521,7 +520,7 @@ impl<O: IsA<Drive>> DriveExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"changed\0".as_ptr() as *const _,
-                Some(transmute(changed_trampoline::<Self, F> as usize)),
+                Some(*(&changed_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -542,7 +541,7 @@ impl<O: IsA<Drive>> DriveExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"disconnected\0".as_ptr() as *const _,
-                Some(transmute(disconnected_trampoline::<Self, F> as usize)),
+                Some(*(&disconnected_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -563,7 +562,7 @@ impl<O: IsA<Drive>> DriveExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"eject-button\0".as_ptr() as *const _,
-                Some(transmute(eject_button_trampoline::<Self, F> as usize)),
+                Some(*(&eject_button_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -584,7 +583,7 @@ impl<O: IsA<Drive>> DriveExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"stop-button\0".as_ptr() as *const _,
-                Some(transmute(stop_button_trampoline::<Self, F> as usize)),
+                Some(*(&stop_button_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
