@@ -6,7 +6,6 @@ use glib_sys::{self, gboolean, gpointer};
 #[cfg(all(not(unix), feature = "dox"))]
 use libc::c_int as RawFd;
 use std::cell::RefCell;
-use std::mem::transmute;
 use std::num::NonZeroU32;
 #[cfg(unix)]
 use std::os::unix::io::RawFd;
@@ -311,7 +310,7 @@ where
         from_glib(glib_sys::g_child_watch_add_full(
             glib_sys::G_PRIORITY_DEFAULT,
             pid.0,
-            Some(transmute(trampoline_child_watch::<F> as usize)),
+            Some(trampoline_child_watch::<F>),
             into_raw_child_watch(func),
             Some(destroy_closure_child_watch::<F>),
         ))
@@ -337,7 +336,7 @@ where
         from_glib(glib_sys::g_child_watch_add_full(
             glib_sys::G_PRIORITY_DEFAULT,
             pid.0,
-            Some(transmute(trampoline_child_watch::<F> as usize)),
+            Some(trampoline_child_watch::<F>),
             into_raw_child_watch(func),
             Some(destroy_closure_child_watch::<F>),
         ))
@@ -415,7 +414,7 @@ where
             glib_sys::G_PRIORITY_DEFAULT,
             fd,
             condition.to_glib(),
-            Some(transmute(trampoline_unix_fd::<F> as usize)),
+            Some(trampoline_unix_fd::<F>),
             into_raw_unix_fd(func),
             Some(destroy_closure_unix_fd::<F>),
         ))
@@ -447,7 +446,7 @@ where
             glib_sys::G_PRIORITY_DEFAULT,
             fd,
             condition.to_glib(),
-            Some(transmute(trampoline_unix_fd::<F> as usize)),
+            Some(trampoline_unix_fd::<F>),
             into_raw_unix_fd(func),
             Some(destroy_closure_unix_fd::<F>),
         ))
@@ -612,7 +611,7 @@ where
         let source = glib_sys::g_child_watch_source_new(pid.0);
         glib_sys::g_source_set_callback(
             source,
-            Some(transmute(trampoline_child_watch::<F> as usize)),
+            Some(*(&trampoline_child_watch::<F> as *const _ as *const _)),
             into_raw_child_watch(func),
             Some(destroy_closure_child_watch::<F>),
         );
@@ -679,7 +678,7 @@ where
         let source = glib_sys::g_unix_fd_source_new(fd, condition.to_glib());
         glib_sys::g_source_set_callback(
             source,
-            Some(transmute(trampoline_unix_fd::<F> as usize)),
+            Some(*(&trampoline_unix_fd::<F> as *const _ as *const _)),
             into_raw_unix_fd(func),
             Some(destroy_closure_unix_fd::<F>),
         );

@@ -343,7 +343,7 @@ pub trait Cast: ObjectType {
         if !self.is::<T>() {
             None
         } else {
-            // This transmute is safe because all our wrapper types have the
+            // This cast is safe because all our wrapper types have the
             // same representation except for the name and the phantom data
             // type. IsA<> is an unsafe trait that must only be implemented
             // if this is a valid wrapper type
@@ -364,7 +364,7 @@ pub trait Cast: ObjectType {
     /// Panics if compiled with `debug_assertions` and the instance doesn't implement `T`.
     unsafe fn unsafe_cast_ref<T: ObjectType>(&self) -> &T {
         debug_assert!(self.is::<T>());
-        // This transmute is safe because all our wrapper types have the
+        // This cast is safe because all our wrapper types have the
         // same representation except for the name and the phantom data
         // type. IsA<> is an unsafe trait that must only be implemented
         // if this is a valid wrapper type
@@ -1541,7 +1541,7 @@ impl<T: ObjectType> ObjectExt for T {
         ::signal::connect_raw(
             self.as_object_ref().to_glib_none().0,
             signal_name.as_ptr() as *const _,
-            Some(mem::transmute(notify_trampoline::<Self, F> as usize)),
+            Some(*(&notify_trampoline::<Self, F> as *const _ as *const _)),
             Box::into_raw(f),
         )
     }

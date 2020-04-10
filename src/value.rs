@@ -183,7 +183,7 @@ impl Value {
                 T::static_type().to_glib(),
             ));
             if ok {
-                // This transmute is safe because Value and TypedValue have the same
+                // This cast is safe because Value and TypedValue have the same
                 // representation: the only difference is the zero-sized phantom data
                 Some(&*(self as *const Value as *const TypedValue<T>))
             } else {
@@ -800,7 +800,7 @@ impl SendValue {
                 T::static_type().to_glib(),
             ));
             if ok {
-                // This transmute is safe because SendValue and TypedValue have the same
+                // This cast is safe because SendValue and TypedValue have the same
                 // representation: the only difference is the zero-sized phantom data
                 Some(&*(self as *const SendValue as *const TypedValue<T>))
             } else {
