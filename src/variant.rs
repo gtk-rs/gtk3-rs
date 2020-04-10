@@ -225,13 +225,8 @@ impl PartialOrd for Variant {
                 self.to_glib_none().0 as *const _,
                 other.to_glib_none().0 as *const _,
             );
-            if res < 0 {
-                Some(Ordering::Less)
-            } else if res > 0 {
-                Some(Ordering::Equal)
-            } else {
-                Some(Ordering::Greater)
-            }
+
+            Some(res.cmp(&0))
         }
     }
 }

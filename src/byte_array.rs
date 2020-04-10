@@ -49,10 +49,9 @@ impl ByteArray {
     pub fn into_gbytes(self) -> Bytes {
         unsafe {
             let s = mem::ManuallyDrop::new(self);
-            let ret = from_glib_full(glib_sys::g_byte_array_free_to_bytes(mut_override(
+            from_glib_full(glib_sys::g_byte_array_free_to_bytes(mut_override(
                 s.to_glib_none().0,
-            )));
-            ret
+            )))
         }
     }
 
