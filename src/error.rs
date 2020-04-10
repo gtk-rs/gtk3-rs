@@ -92,12 +92,6 @@ impl fmt::Display for Error {
     }
 }
 
-impl error::Error for Error {
-    fn description(&self) -> &str {
-        self.message()
-    }
-}
-
 impl fmt::Debug for Error {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.debug_struct("Error")
@@ -107,6 +101,8 @@ impl fmt::Debug for Error {
             .finish()
     }
 }
+
+impl error::Error for Error {}
 
 /// `GLib` error domain.
 ///
@@ -204,19 +200,11 @@ impl BoolError {
 
 impl fmt::Display for BoolError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "Error {:?} in {:?} at {}:{}",
-            self.message, self.function, self.filename, self.line
-        )
+        f.write_str(&self.message)
     }
 }
 
-impl error::Error for BoolError {
-    fn description(&self) -> &str {
-        self.message.as_ref()
-    }
-}
+impl error::Error for BoolError {}
 
 #[cfg(test)]
 mod tests {
@@ -224,18 +212,16 @@ mod tests {
 
     #[test]
     fn test_bool_error() {
-        use std::error::Error;
-
         let from_static_msg = glib_bool_error!("Static message");
-        assert_eq!(from_static_msg.description(), "Static message");
+        assert_eq!(from_static_msg.to_string(), "Static message");
 
         let from_dynamic_msg = glib_bool_error!("{} message", "Dynamic");
-        assert_eq!(from_dynamic_msg.description(), "Dynamic message");
+        assert_eq!(from_dynamic_msg.to_string(), "Dynamic message");
 
         let false_static_res = glib_result_from_gboolean!(glib_sys::GFALSE, "Static message");
         assert!(false_static_res.is_err());
         let static_err = false_static_res.err().unwrap();
-        assert_eq!(static_err.description(), "Static message");
+        assert_eq!(static_err.to_string(), "Static message");
 
         let true_static_res = glib_result_from_gboolean!(glib_sys::GTRUE, "Static message");
         assert!(true_static_res.is_ok());
@@ -244,7 +230,7 @@ mod tests {
             glib_result_from_gboolean!(glib_sys::GFALSE, "{} message", "Dynamic");
         assert!(false_dynamic_res.is_err());
         let dynamic_err = false_dynamic_res.err().unwrap();
-        assert_eq!(dynamic_err.description(), "Dynamic message");
+        assert_eq!(dynamic_err.to_string(), "Dynamic message");
 
         let true_dynamic_res = glib_result_from_gboolean!(glib_sys::GTRUE, "{} message", "Dynamic");
         assert!(true_dynamic_res.is_ok());
