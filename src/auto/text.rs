@@ -14,7 +14,6 @@ use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
-use std::mem::transmute;
 use CoordType;
 #[cfg(any(feature = "v2_32", feature = "dox"))]
 use ScrollType;
@@ -362,9 +361,7 @@ impl<O: IsA<Text>> TextExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"text-attributes-changed\0".as_ptr() as *const _,
-                Some(transmute(
-                    text_attributes_changed_trampoline::<Self, F> as usize,
-                )),
+                Some(*(&text_attributes_changed_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -386,7 +383,7 @@ impl<O: IsA<Text>> TextExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"text-caret-moved\0".as_ptr() as *const _,
-                Some(transmute(text_caret_moved_trampoline::<Self, F> as usize)),
+                Some(*(&text_caret_moved_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -415,7 +412,7 @@ impl<O: IsA<Text>> TextExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"text-insert\0".as_ptr() as *const _,
-                Some(transmute(text_insert_trampoline::<Self, F> as usize)),
+                Some(*(&text_insert_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -444,7 +441,7 @@ impl<O: IsA<Text>> TextExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"text-remove\0".as_ptr() as *const _,
-                Some(transmute(text_remove_trampoline::<Self, F> as usize)),
+                Some(*(&text_remove_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -465,9 +462,7 @@ impl<O: IsA<Text>> TextExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"text-selection-changed\0".as_ptr() as *const _,
-                Some(transmute(
-                    text_selection_changed_trampoline::<Self, F> as usize,
-                )),
+                Some(*(&text_selection_changed_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
