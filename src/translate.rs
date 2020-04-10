@@ -1170,13 +1170,7 @@ impl FromGlib<u32> for char {
 impl FromGlib<i32> for Ordering {
     #[inline]
     fn from_glib(val: i32) -> Ordering {
-        if val < 0 {
-            Ordering::Less
-        } else if val > 0 {
-            Ordering::Greater
-        } else {
-            Ordering::Equal
-        }
+        val.cmp(&0)
     }
 }
 
