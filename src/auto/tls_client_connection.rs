@@ -12,7 +12,6 @@ use glib::translate::*;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem::transmute;
 use std::ptr;
 use IOStream;
 use SocketConnectable;
@@ -172,9 +171,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accepted-cas\0".as_ptr() as *const _,
-                Some(transmute(
-                    notify_accepted_cas_trampoline::<Self, F> as usize,
-                )),
+                Some(*(&notify_accepted_cas_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -199,9 +196,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::server-identity\0".as_ptr() as *const _,
-                Some(transmute(
-                    notify_server_identity_trampoline::<Self, F> as usize,
-                )),
+                Some(*(&notify_server_identity_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -223,7 +218,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::use-ssl3\0".as_ptr() as *const _,
-                Some(transmute(notify_use_ssl3_trampoline::<Self, F> as usize)),
+                Some(*(&notify_use_ssl3_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -248,9 +243,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::validation-flags\0".as_ptr() as *const _,
-                Some(transmute(
-                    notify_validation_flags_trampoline::<Self, F> as usize,
-                )),
+                Some(*(&notify_validation_flags_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }

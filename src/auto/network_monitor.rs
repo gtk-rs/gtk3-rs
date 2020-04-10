@@ -13,7 +13,6 @@ use glib_sys;
 use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem::transmute;
 use std::pin::Pin;
 use std::ptr;
 use Cancellable;
@@ -212,7 +211,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"network-changed\0".as_ptr() as *const _,
-                Some(transmute(network_changed_trampoline::<Self, F> as usize)),
+                Some(*(&network_changed_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -238,9 +237,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::connectivity\0".as_ptr() as *const _,
-                Some(transmute(
-                    notify_connectivity_trampoline::<Self, F> as usize,
-                )),
+                Some(*(&notify_connectivity_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -265,9 +262,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::network-available\0".as_ptr() as *const _,
-                Some(transmute(
-                    notify_network_available_trampoline::<Self, F> as usize,
-                )),
+                Some(*(&notify_network_available_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -293,9 +288,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::network-metered\0".as_ptr() as *const _,
-                Some(transmute(
-                    notify_network_metered_trampoline::<Self, F> as usize,
-                )),
+                Some(*(&notify_network_metered_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }

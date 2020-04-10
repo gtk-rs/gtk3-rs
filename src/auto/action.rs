@@ -13,7 +13,6 @@ use glib::GString;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
@@ -169,7 +168,7 @@ impl<O: IsA<Action>> ActionExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::enabled\0".as_ptr() as *const _,
-                Some(transmute(notify_enabled_trampoline::<Self, F> as usize)),
+                Some(*(&notify_enabled_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -191,7 +190,7 @@ impl<O: IsA<Action>> ActionExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::name\0".as_ptr() as *const _,
-                Some(transmute(notify_name_trampoline::<Self, F> as usize)),
+                Some(*(&notify_name_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -216,9 +215,7 @@ impl<O: IsA<Action>> ActionExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::parameter-type\0".as_ptr() as *const _,
-                Some(transmute(
-                    notify_parameter_type_trampoline::<Self, F> as usize,
-                )),
+                Some(*(&notify_parameter_type_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -240,7 +237,7 @@ impl<O: IsA<Action>> ActionExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::state\0".as_ptr() as *const _,
-                Some(transmute(notify_state_trampoline::<Self, F> as usize)),
+                Some(*(&notify_state_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -262,7 +259,7 @@ impl<O: IsA<Action>> ActionExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::state-type\0".as_ptr() as *const _,
-                Some(transmute(notify_state_type_trampoline::<Self, F> as usize)),
+                Some(*(&notify_state_type_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }

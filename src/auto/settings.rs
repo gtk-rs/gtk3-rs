@@ -17,7 +17,6 @@ use gobject_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem::transmute;
 use Action;
 use SettingsBackend;
 use SettingsBindFlags;
@@ -687,7 +686,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"changed\0".as_ptr() as *const _,
-                Some(transmute(changed_trampoline::<Self, F> as usize)),
+                Some(*(&changed_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -716,9 +715,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"writable-change-event\0".as_ptr() as *const _,
-                Some(transmute(
-                    writable_change_event_trampoline::<Self, F> as usize,
-                )),
+                Some(*(&writable_change_event_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -743,7 +740,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"writable-changed\0".as_ptr() as *const _,
-                Some(transmute(writable_changed_trampoline::<Self, F> as usize)),
+                Some(*(&writable_changed_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -765,7 +762,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::delay-apply\0".as_ptr() as *const _,
-                Some(transmute(notify_delay_apply_trampoline::<Self, F> as usize)),
+                Some(*(&notify_delay_apply_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -790,9 +787,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::has-unapplied\0".as_ptr() as *const _,
-                Some(transmute(
-                    notify_has_unapplied_trampoline::<Self, F> as usize,
-                )),
+                Some(*(&notify_has_unapplied_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }

@@ -11,7 +11,6 @@ use glib::translate::*;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem::transmute;
 use IOStream;
 use SocketConnection;
 
@@ -73,9 +72,7 @@ impl<O: IsA<TcpConnection>> TcpConnectionExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::graceful-disconnect\0".as_ptr() as *const _,
-                Some(transmute(
-                    notify_graceful_disconnect_trampoline::<Self, F> as usize,
-                )),
+                Some(*(&notify_graceful_disconnect_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }

@@ -15,7 +15,6 @@ use glib_sys;
 use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem::transmute;
 use SocketConnection;
 use SocketListener;
 use SocketService;
@@ -93,7 +92,7 @@ impl<O: IsA<ThreadedSocketService>> ThreadedSocketServiceExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"run\0".as_ptr() as *const _,
-                Some(transmute(run_trampoline::<Self, F> as usize)),
+                Some(*(&run_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }

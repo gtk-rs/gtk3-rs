@@ -11,7 +11,6 @@ use glib::translate::*;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem::transmute;
 use Action;
 
 glib_wrapper! {
@@ -92,7 +91,7 @@ impl SimpleAction {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"activate\0".as_ptr() as *const _,
-                Some(transmute(activate_trampoline::<F> as usize)),
+                Some(*(&activate_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -122,7 +121,7 @@ impl SimpleAction {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"change-state\0".as_ptr() as *const _,
-                Some(transmute(change_state_trampoline::<F> as usize)),
+                Some(*(&change_state_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -145,7 +144,7 @@ impl SimpleAction {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::enabled\0".as_ptr() as *const _,
-                Some(transmute(notify_enabled_trampoline::<F> as usize)),
+                Some(*(&notify_enabled_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -168,7 +167,7 @@ impl SimpleAction {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::state-type\0".as_ptr() as *const _,
-                Some(transmute(notify_state_type_trampoline::<F> as usize)),
+                Some(*(&notify_state_type_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
