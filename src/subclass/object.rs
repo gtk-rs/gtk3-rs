@@ -346,7 +346,7 @@ mod test {
     use super::*;
     use prelude::*;
 
-    use std::{cell::RefCell, error::Error};
+    use std::cell::RefCell;
 
     // A dummy `Object` to test setting an `Object` property and returning an `Object` in signals
     pub struct ChildObject;
@@ -606,7 +606,7 @@ mod test {
             obj.set_property("test", &true)
                 .err()
                 .expect("set_property failed")
-                .description(),
+                .to_string(),
             "property not found",
         );
 
@@ -614,7 +614,7 @@ mod test {
             obj.set_property("constructed", &false)
                 .err()
                 .expect("Failed to set 'constructed' property")
-                .description(),
+                .to_string(),
             "property is not writable",
         );
 
@@ -622,7 +622,7 @@ mod test {
             obj.set_property("name", &false)
                 .err()
                 .expect("Failed to set 'name' property")
-                .description(),
+                .to_string(),
             "property can't be set from the given type (expected: gchararray, got: gboolean)",
         );
 
@@ -631,7 +631,7 @@ mod test {
             obj.set_property("child", &other_obj)
                 .err()
                 .expect("Failed to set 'child' property")
-                .description(),
+                .to_string(),
             "property can't be set from the given object type (expected: ChildObject, got: SimpleObject)",
         );
 

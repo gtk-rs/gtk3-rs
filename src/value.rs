@@ -119,11 +119,7 @@ impl fmt::Display for GetError {
     }
 }
 
-impl error::Error for GetError {
-    fn description(&self) -> &str {
-        "GetError: Value type mismatch"
-    }
-}
+impl error::Error for GetError {}
 
 /// A generic value capable of carrying various types.
 ///
