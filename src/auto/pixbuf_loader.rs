@@ -13,7 +13,6 @@ use glib_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem::transmute;
 use std::ptr;
 use Pixbuf;
 use PixbufAnimation;
@@ -195,7 +194,7 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"area-prepared\0".as_ptr() as *const _,
-                Some(transmute(area_prepared_trampoline::<Self, F> as usize)),
+                Some(*(&area_prepared_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -229,7 +228,7 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"area-updated\0".as_ptr() as *const _,
-                Some(transmute(area_updated_trampoline::<Self, F> as usize)),
+                Some(*(&area_updated_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -250,7 +249,7 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"closed\0".as_ptr() as *const _,
-                Some(transmute(closed_trampoline::<Self, F> as usize)),
+                Some(*(&closed_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -277,7 +276,7 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"size-prepared\0".as_ptr() as *const _,
-                Some(transmute(size_prepared_trampoline::<Self, F> as usize)),
+                Some(*(&size_prepared_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
