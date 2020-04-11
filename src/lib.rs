@@ -4,8 +4,6 @@
 
 #![allow(deprecated)]
 #![cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
-#![cfg_attr(feature = "cargo-clippy", allow(transmute_int_to_char))]
-#![cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ptr))]
 #![cfg_attr(feature = "cargo-clippy", allow(trivially_copy_pass_by_ref))]
 
 extern crate gdk_pixbuf;
@@ -28,7 +26,6 @@ mod rt;
 #[macro_use]
 mod event;
 
-#[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 #[cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
 #[cfg_attr(feature = "cargo-clippy", allow(unreadable_literal))]
 mod auto;

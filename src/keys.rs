@@ -6,7 +6,6 @@ use gdk_sys;
 use glib::translate::*;
 use glib::GString;
 use libc::c_uint;
-use std::mem::transmute;
 
 pub fn keyval_name(keyval: u32) -> Option<GString> {
     skip_assert_initialized!();
@@ -15,12 +14,5 @@ pub fn keyval_name(keyval: u32) -> Option<GString> {
 
 pub fn keyval_to_unicode(keyval: u32) -> Option<char> {
     skip_assert_initialized!();
-    unsafe {
-        let c: char = transmute(gdk_sys::gdk_keyval_to_unicode(keyval));
-        if c != '\0' {
-            Some(c)
-        } else {
-            None
-        }
-    }
+    unsafe { ::std::char::from_u32(gdk_sys::gdk_keyval_to_unicode(keyval)).filter(|x| *x != '\0') }
 }

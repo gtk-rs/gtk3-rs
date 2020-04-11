@@ -12,7 +12,6 @@ use pango;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
-use std::mem::transmute;
 use Display;
 use KeymapKey;
 use ModifierIntent;
@@ -143,7 +142,7 @@ impl Keymap {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"direction-changed\0".as_ptr() as *const _,
-                Some(transmute(direction_changed_trampoline::<F> as usize)),
+                Some(*(&direction_changed_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -162,7 +161,7 @@ impl Keymap {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"keys-changed\0".as_ptr() as *const _,
-                Some(transmute(keys_changed_trampoline::<F> as usize)),
+                Some(*(&keys_changed_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -181,7 +180,7 @@ impl Keymap {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"state-changed\0".as_ptr() as *const _,
-                Some(transmute(state_changed_trampoline::<F> as usize)),
+                Some(*(&state_changed_trampoline::<F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }

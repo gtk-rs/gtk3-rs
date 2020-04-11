@@ -350,7 +350,7 @@ impl Event {
     /// Tries to downcast to a specific event type.
     pub fn downcast_ref<T: FromEvent>(&self) -> Option<&T> {
         if T::is(self) {
-            unsafe { Some(mem::transmute::<&Event, &T>(self)) }
+            unsafe { Some(&*(self as *const _ as *const _)) }
         } else {
             None
         }
@@ -359,7 +359,7 @@ impl Event {
     /// Tries to downcast to a specific event type.
     pub fn downcast_mut<T: FromEvent>(&mut self) -> Option<&mut T> {
         if T::is(self) {
-            unsafe { Some(mem::transmute::<&mut Event, &mut T>(self)) }
+            unsafe { Some(&mut *(self as *mut _ as *mut _)) }
         } else {
             None
         }

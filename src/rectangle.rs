@@ -130,14 +130,14 @@ impl FromGlibPtrFull<*const gdk_sys::GdkRectangle> for Rectangle {
 
 impl AsRef<RectangleInt> for Rectangle {
     fn as_ref(&self) -> &RectangleInt {
-        unsafe { mem::transmute(self) }
+        unsafe { &*(self as *const _ as *const _) }
     }
 }
 
 impl From<RectangleInt> for Rectangle {
     fn from(r: RectangleInt) -> Rectangle {
         skip_assert_initialized!();
-        unsafe { mem::transmute(r) }
+        unsafe { *(&r as *const _ as *const _) }
     }
 }
 

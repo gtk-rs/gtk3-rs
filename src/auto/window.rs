@@ -18,7 +18,6 @@ use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
-use std::mem::transmute;
 use std::ptr;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 use AnchorHints;
@@ -1849,7 +1848,7 @@ impl<O: IsA<Window>> WindowExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"create-surface\0".as_ptr() as *const _,
-                Some(transmute(create_surface_trampoline::<Self, F> as usize)),
+                Some(*(&create_surface_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -1892,9 +1891,7 @@ impl<O: IsA<Window>> WindowExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"pick-embedded-child\0".as_ptr() as *const _,
-                Some(transmute(
-                    pick_embedded_child_trampoline::<Self, F> as usize,
-                )),
+                Some(*(&pick_embedded_child_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -1921,7 +1918,7 @@ impl<O: IsA<Window>> WindowExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::cursor\0".as_ptr() as *const _,
-                Some(transmute(notify_cursor_trampoline::<Self, F> as usize)),
+                Some(*(&notify_cursor_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
