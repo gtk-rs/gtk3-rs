@@ -15,7 +15,6 @@ use glib_sys;
 use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem::transmute;
 use Action;
 use Object;
 
@@ -135,7 +134,7 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"link-activated\0".as_ptr() as *const _,
-                Some(transmute(link_activated_trampoline::<Self, F> as usize)),
+                Some(*(&link_activated_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -157,7 +156,7 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::end-index\0".as_ptr() as *const _,
-                Some(transmute(notify_end_index_trampoline::<Self, F> as usize)),
+                Some(*(&notify_end_index_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -182,9 +181,7 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::number-of-anchors\0".as_ptr() as *const _,
-                Some(transmute(
-                    notify_number_of_anchors_trampoline::<Self, F> as usize,
-                )),
+                Some(*(&notify_number_of_anchors_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -206,7 +203,7 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::start-index\0".as_ptr() as *const _,
-                Some(transmute(notify_start_index_trampoline::<Self, F> as usize)),
+                Some(*(&notify_start_index_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }

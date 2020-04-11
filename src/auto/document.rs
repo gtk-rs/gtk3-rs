@@ -13,7 +13,6 @@ use glib_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem::transmute;
 
 glib_wrapper! {
     pub struct Document(Interface<atk_sys::AtkDocument>);
@@ -108,7 +107,7 @@ impl<O: IsA<Document>> DocumentExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"load-complete\0".as_ptr() as *const _,
-                Some(transmute(load_complete_trampoline::<Self, F> as usize)),
+                Some(*(&load_complete_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -129,7 +128,7 @@ impl<O: IsA<Document>> DocumentExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"load-stopped\0".as_ptr() as *const _,
-                Some(transmute(load_stopped_trampoline::<Self, F> as usize)),
+                Some(*(&load_stopped_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -154,7 +153,7 @@ impl<O: IsA<Document>> DocumentExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"page-changed\0".as_ptr() as *const _,
-                Some(transmute(page_changed_trampoline::<Self, F> as usize)),
+                Some(*(&page_changed_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
@@ -175,7 +174,7 @@ impl<O: IsA<Document>> DocumentExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"reload\0".as_ptr() as *const _,
-                Some(transmute(reload_trampoline::<Self, F> as usize)),
+                Some(*(&reload_trampoline::<Self, F> as *const _ as *const _)),
                 Box_::into_raw(f),
             )
         }
