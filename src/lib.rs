@@ -17,7 +17,6 @@ extern crate bitflags;
 extern crate libc;
 
 #[cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
-#[cfg_attr(feature = "cargo-clippy", allow(useless_transmute))]
 mod auto;
 
 pub use auto::functions::*;
