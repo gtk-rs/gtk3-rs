@@ -13,6 +13,7 @@ use glib_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 use AskPasswordFlags;
 use MountOperationResult;
 use PasswordSave;
@@ -300,7 +301,9 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"aborted\0".as_ptr() as *const _,
-                Some(*(&aborted_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    aborted_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -337,7 +340,9 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"ask-password\0".as_ptr() as *const _,
-                Some(*(&ask_password_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    ask_password_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -366,7 +371,9 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"reply\0".as_ptr() as *const _,
-                Some(*(&reply_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    reply_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -406,7 +413,9 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"show-unmount-progress\0".as_ptr() as *const _,
-                Some(*(&show_unmount_progress_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    show_unmount_progress_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -428,7 +437,9 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::anonymous\0".as_ptr() as *const _,
-                Some(*(&notify_anonymous_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_anonymous_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -450,7 +461,9 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::choice\0".as_ptr() as *const _,
-                Some(*(&notify_choice_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_choice_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -472,7 +485,9 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::domain\0".as_ptr() as *const _,
-                Some(*(&notify_domain_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_domain_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -498,10 +513,9 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::is-tcrypt-hidden-volume\0".as_ptr() as *const _,
-                Some(
-                    *(&notify_is_tcrypt_hidden_volume_trampoline::<Self, F> as *const _
-                        as *const _),
-                ),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_is_tcrypt_hidden_volume_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -527,10 +541,9 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::is-tcrypt-system-volume\0".as_ptr() as *const _,
-                Some(
-                    *(&notify_is_tcrypt_system_volume_trampoline::<Self, F> as *const _
-                        as *const _),
-                ),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_is_tcrypt_system_volume_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -552,7 +565,9 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::password\0".as_ptr() as *const _,
-                Some(*(&notify_password_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_password_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -577,7 +592,9 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::password-save\0".as_ptr() as *const _,
-                Some(*(&notify_password_save_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_password_save_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -600,7 +617,9 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::pim\0".as_ptr() as *const _,
-                Some(*(&notify_pim_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_pim_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -622,7 +641,9 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::username\0".as_ptr() as *const _,
-                Some(*(&notify_username_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_username_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }

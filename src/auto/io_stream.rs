@@ -15,6 +15,7 @@ use glib_sys;
 use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 use std::pin::Pin;
 use std::ptr;
 use Cancellable;
@@ -213,7 +214,9 @@ impl<O: IsA<IOStream>> IOStreamExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::closed\0".as_ptr() as *const _,
-                Some(*(&notify_closed_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_closed_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }

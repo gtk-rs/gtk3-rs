@@ -14,6 +14,7 @@ use glib_sys;
 use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 use Icon;
 
 glib_wrapper! {
@@ -99,7 +100,9 @@ impl ThemedIcon {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::names\0".as_ptr() as *const _,
-                Some(*(&notify_names_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_names_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }

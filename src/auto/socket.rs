@@ -17,6 +17,7 @@ use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
+use std::mem::transmute;
 use std::ptr;
 use Cancellable;
 use Credentials;
@@ -763,7 +764,9 @@ impl<O: IsA<Socket>> SocketExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::blocking\0".as_ptr() as *const _,
-                Some(*(&notify_blocking_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_blocking_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -788,7 +791,9 @@ impl<O: IsA<Socket>> SocketExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::broadcast\0".as_ptr() as *const _,
-                Some(*(&notify_broadcast_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_broadcast_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -813,7 +818,9 @@ impl<O: IsA<Socket>> SocketExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::keepalive\0".as_ptr() as *const _,
-                Some(*(&notify_keepalive_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_keepalive_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -838,7 +845,9 @@ impl<O: IsA<Socket>> SocketExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::listen-backlog\0".as_ptr() as *const _,
-                Some(*(&notify_listen_backlog_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_listen_backlog_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -863,7 +872,9 @@ impl<O: IsA<Socket>> SocketExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::local-address\0".as_ptr() as *const _,
-                Some(*(&notify_local_address_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_local_address_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -888,7 +899,9 @@ impl<O: IsA<Socket>> SocketExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::multicast-loopback\0".as_ptr() as *const _,
-                Some(*(&notify_multicast_loopback_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_multicast_loopback_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -913,7 +926,9 @@ impl<O: IsA<Socket>> SocketExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::multicast-ttl\0".as_ptr() as *const _,
-                Some(*(&notify_multicast_ttl_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_multicast_ttl_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -938,7 +953,9 @@ impl<O: IsA<Socket>> SocketExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::remote-address\0".as_ptr() as *const _,
-                Some(*(&notify_remote_address_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_remote_address_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -963,7 +980,9 @@ impl<O: IsA<Socket>> SocketExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::timeout\0".as_ptr() as *const _,
-                Some(*(&notify_timeout_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_timeout_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -985,7 +1004,9 @@ impl<O: IsA<Socket>> SocketExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::ttl\0".as_ptr() as *const _,
-                Some(*(&notify_ttl_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_ttl_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }

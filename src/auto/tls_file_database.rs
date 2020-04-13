@@ -17,6 +17,7 @@ use gobject_sys;
 use std;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 use std::ptr;
 use TlsDatabase;
 
@@ -94,7 +95,9 @@ impl<O: IsA<TlsFileDatabase>> TlsFileDatabaseExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::anchors\0".as_ptr() as *const _,
-                Some(*(&notify_anchors_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_anchors_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }

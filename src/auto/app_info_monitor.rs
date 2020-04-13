@@ -10,6 +10,7 @@ use glib::translate::*;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 
 glib_wrapper! {
     pub struct AppInfoMonitor(Object<gio_sys::GAppInfoMonitor, AppInfoMonitorClass>);
@@ -37,7 +38,9 @@ impl AppInfoMonitor {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"changed\0".as_ptr() as *const _,
-                Some(*(&changed_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    changed_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }

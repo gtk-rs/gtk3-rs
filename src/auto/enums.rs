@@ -16,6 +16,7 @@ use gobject_sys;
 use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum ConverterResult {
     Error,
     Converted,
@@ -94,6 +95,7 @@ impl SetValue for ConverterResult {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum CredentialsType {
     Invalid,
     LinuxUcred,
@@ -182,6 +184,7 @@ impl SetValue for CredentialsType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum DataStreamByteOrder {
     BigEndian,
     LittleEndian,
@@ -256,6 +259,7 @@ impl SetValue for DataStreamByteOrder {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum DataStreamNewlineType {
     Lf,
     Cr,
@@ -334,6 +338,7 @@ impl SetValue for DataStreamNewlineType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum DriveStartStopType {
     Unknown,
     Shutdown,
@@ -416,6 +421,7 @@ impl SetValue for DriveStartStopType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum EmblemOrigin {
     Unknown,
     Device,
@@ -494,6 +500,7 @@ impl SetValue for EmblemOrigin {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum FileAttributeStatus {
     Unset,
     Set,
@@ -568,6 +575,7 @@ impl SetValue for FileAttributeStatus {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum FileAttributeType {
     Invalid,
     String,
@@ -670,6 +678,7 @@ impl SetValue for FileAttributeType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum FileMonitorEvent {
     Changed,
     ChangesDoneHint,
@@ -776,6 +785,7 @@ impl SetValue for FileMonitorEvent {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum FileType {
     Unknown,
     Regular,
@@ -866,6 +876,7 @@ impl SetValue for FileType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum IOErrorEnum {
     Failed,
     NotFound,
@@ -1179,6 +1190,7 @@ impl SetValue for IOErrorEnum {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum MountOperationResult {
     Handled,
     Aborted,
@@ -1254,6 +1266,7 @@ impl SetValue for MountOperationResult {
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum NetworkConnectivity {
     Local,
     Limited,
@@ -1339,6 +1352,7 @@ impl SetValue for NetworkConnectivity {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum NotificationPriority {
     Normal,
     Low,
@@ -1417,6 +1431,7 @@ impl SetValue for NotificationPriority {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum PasswordSave {
     Never,
     ForSession,
@@ -1491,6 +1506,7 @@ impl SetValue for PasswordSave {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum ResolverRecordType {
     Srv,
     Mx,
@@ -1573,6 +1589,7 @@ impl SetValue for ResolverRecordType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum ResourceError {
     NotFound,
     Internal,
@@ -1661,6 +1678,7 @@ impl SetValue for ResourceError {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum SocketClientEvent {
     Resolving,
     Resolved,
@@ -1759,6 +1777,7 @@ impl SetValue for SocketClientEvent {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum SocketFamily {
     Invalid,
     Unix,
@@ -1838,6 +1857,7 @@ impl SetValue for SocketFamily {
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum SocketListenerEvent {
     Binding,
     Bound,
@@ -1923,6 +1943,7 @@ impl SetValue for SocketListenerEvent {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum SocketProtocol {
     Unknown,
     Default,
@@ -2005,6 +2026,7 @@ impl SetValue for SocketProtocol {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum SocketType {
     Invalid,
     Stream,
@@ -2083,6 +2105,7 @@ impl SetValue for SocketType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum TlsAuthenticationMode {
     None,
     Requested,
@@ -2157,6 +2180,7 @@ impl SetValue for TlsAuthenticationMode {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum TlsCertificateRequestFlags {
     None,
     #[doc(hidden)]
@@ -2223,6 +2247,7 @@ impl SetValue for TlsCertificateRequestFlags {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum TlsDatabaseLookupFlags {
     None,
     Keypair,
@@ -2293,6 +2318,7 @@ impl SetValue for TlsDatabaseLookupFlags {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum TlsInteractionResult {
     Unhandled,
     Handled,
@@ -2368,6 +2394,7 @@ impl SetValue for TlsInteractionResult {
 
 #[cfg_attr(feature = "v2_60", deprecated)]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum TlsRehandshakeMode {
     Never,
     Safely,
@@ -2449,6 +2476,7 @@ impl SetValue for TlsRehandshakeMode {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum UnixSocketAddressType {
     Invalid,
     Anonymous,
@@ -2531,6 +2559,7 @@ impl SetValue for UnixSocketAddressType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum ZlibCompressorFormat {
     Zlib,
     Gzip,

@@ -14,6 +14,7 @@ use glib_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 
 glib_wrapper! {
     pub struct ActionGroup(Interface<gio_sys::GActionGroup>);
@@ -207,7 +208,9 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"action-added\0".as_ptr() as *const _,
-                Some(*(&action_added_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    action_added_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -237,7 +240,9 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"action-enabled-changed\0".as_ptr() as *const _,
-                Some(*(&action_enabled_changed_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    action_enabled_changed_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -262,7 +267,9 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"action-removed\0".as_ptr() as *const _,
-                Some(*(&action_removed_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    action_removed_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -295,7 +302,9 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"action-state-changed\0".as_ptr() as *const _,
-                Some(*(&action_state_changed_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    action_state_changed_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }

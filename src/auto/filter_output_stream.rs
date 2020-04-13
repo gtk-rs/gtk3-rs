@@ -11,6 +11,7 @@ use glib::translate::*;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 use OutputStream;
 
 glib_wrapper! {
@@ -81,7 +82,9 @@ impl<O: IsA<FilterOutputStream>> FilterOutputStreamExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::close-base-stream\0".as_ptr() as *const _,
-                Some(*(&notify_close_base_stream_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_close_base_stream_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
