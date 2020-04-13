@@ -13,6 +13,7 @@ use glib_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 use std::ptr;
 use Pixbuf;
 use PixbufAnimation;
@@ -194,7 +195,9 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"area-prepared\0".as_ptr() as *const _,
-                Some(*(&area_prepared_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    area_prepared_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -228,7 +231,9 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"area-updated\0".as_ptr() as *const _,
-                Some(*(&area_updated_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    area_updated_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -249,7 +254,9 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"closed\0".as_ptr() as *const _,
-                Some(*(&closed_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    closed_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -276,7 +283,9 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"size-prepared\0".as_ptr() as *const _,
-                Some(*(&size_prepared_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    size_prepared_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
