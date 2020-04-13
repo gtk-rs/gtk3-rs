@@ -14,6 +14,7 @@ use gobject_sys;
 use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum CoordType {
     Screen,
     Window,
@@ -89,6 +90,7 @@ impl SetValue for CoordType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum Layer {
     Invalid,
     Background,
@@ -184,6 +186,7 @@ impl SetValue for Layer {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum RelationType {
     Null,
     ControlledBy,
@@ -335,6 +338,7 @@ impl SetValue for RelationType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum Role {
     Invalid,
     AcceleratorLabel,
@@ -903,6 +907,7 @@ impl SetValue for Role {
 
 #[cfg(any(feature = "v2_30", feature = "dox"))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum ScrollType {
     TopLeft,
     BottomRight,
@@ -1001,6 +1006,7 @@ impl SetValue for ScrollType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum StateType {
     Invalid,
     Active,
@@ -1240,6 +1246,7 @@ impl SetValue for StateType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum TextAttribute {
     Invalid,
     LeftMargin,
@@ -1419,6 +1426,7 @@ impl SetValue for TextAttribute {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum TextBoundary {
     Char,
     WordStart,
@@ -1510,6 +1518,7 @@ impl SetValue for TextBoundary {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum TextClipType {
     None,
     Min,
@@ -1589,6 +1598,7 @@ impl SetValue for TextClipType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum TextGranularity {
     Char,
     Word,
@@ -1672,6 +1682,7 @@ impl SetValue for TextGranularity {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum ValueType {
     VeryWeak,
     Weak,

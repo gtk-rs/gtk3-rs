@@ -15,6 +15,7 @@ use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
+use std::mem::transmute;
 use std::ptr;
 use Range;
 
@@ -163,7 +164,9 @@ impl<O: IsA<Value>> ValueExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"value-changed\0".as_ptr() as *const _,
-                Some(*(&value_changed_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    value_changed_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }

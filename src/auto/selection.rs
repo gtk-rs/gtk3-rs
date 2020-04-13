@@ -11,6 +11,7 @@ use glib::translate::*;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 use Object;
 
 glib_wrapper! {
@@ -113,7 +114,9 @@ impl<O: IsA<Selection>> SelectionExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"selection-changed\0".as_ptr() as *const _,
-                Some(*(&selection_changed_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    selection_changed_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }

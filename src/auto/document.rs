@@ -13,6 +13,7 @@ use glib_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 
 glib_wrapper! {
     pub struct Document(Interface<atk_sys::AtkDocument>);
@@ -107,7 +108,9 @@ impl<O: IsA<Document>> DocumentExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"load-complete\0".as_ptr() as *const _,
-                Some(*(&load_complete_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    load_complete_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -128,7 +131,9 @@ impl<O: IsA<Document>> DocumentExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"load-stopped\0".as_ptr() as *const _,
-                Some(*(&load_stopped_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    load_stopped_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -153,7 +158,9 @@ impl<O: IsA<Document>> DocumentExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"page-changed\0".as_ptr() as *const _,
-                Some(*(&page_changed_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    page_changed_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -174,7 +181,9 @@ impl<O: IsA<Document>> DocumentExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"reload\0".as_ptr() as *const _,
-                Some(*(&reload_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    reload_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
