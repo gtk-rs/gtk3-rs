@@ -13,6 +13,7 @@ use glib::ToValue;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 use FilterOutputStream;
 use OutputStream;
 use Seekable;
@@ -160,7 +161,9 @@ impl<O: IsA<BufferedOutputStream>> BufferedOutputStreamExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::auto-grow\0".as_ptr() as *const _,
-                Some(*(&notify_auto_grow_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_auto_grow_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -182,7 +185,9 @@ impl<O: IsA<BufferedOutputStream>> BufferedOutputStreamExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::buffer-size\0".as_ptr() as *const _,
-                Some(*(&notify_buffer_size_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_buffer_size_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }

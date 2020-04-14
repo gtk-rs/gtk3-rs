@@ -14,6 +14,7 @@ use glib::translate::*;
 use glib_sys;
 use std::cell::RefCell;
 use std::io;
+use std::mem::transmute;
 use std::pin::Pin;
 use Cancellable;
 use OutputStreamExt;
@@ -93,9 +94,13 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
                 gcancellable.0,
             );
 
+            let trampoline = trampoline::<Self, F> as glib_sys::gpointer;
             glib_sys::g_source_set_callback(
                 source,
-                Some(*(&trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<
+                    _,
+                    unsafe extern "C" fn(glib_sys::gpointer) -> glib_sys::gboolean,
+                >(trampoline)),
                 Box::into_raw(Box::new(RefCell::new(func))) as glib_sys::gpointer,
                 Some(destroy_closure::<Self, F>),
             );

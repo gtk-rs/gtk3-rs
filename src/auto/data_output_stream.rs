@@ -14,6 +14,7 @@ use glib::ToValue;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 use std::ptr;
 use Cancellable;
 use DataStreamByteOrder;
@@ -344,7 +345,9 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::byte-order\0".as_ptr() as *const _,
-                Some(*(&notify_byte_order_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_byte_order_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }

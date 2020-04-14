@@ -20,6 +20,8 @@ use libc;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::fmt;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+use std::mem::transmute;
 
 glib_wrapper! {
     pub struct ListModel(Interface<gio_sys::GListModel>);
@@ -121,7 +123,9 @@ impl<O: IsA<ListModel>> ListModelExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"items-changed\0".as_ptr() as *const _,
-                Some(*(&items_changed_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    items_changed_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
