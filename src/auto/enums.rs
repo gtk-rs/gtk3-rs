@@ -16,6 +16,7 @@ use gobject_sys;
 use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum AxisUse {
     Ignore,
     X,
@@ -123,6 +124,7 @@ impl SetValue for AxisUse {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum ByteOrder {
     LsbFirst,
     MsbFirst,
@@ -194,6 +196,7 @@ impl SetValue for ByteOrder {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum CrossingMode {
     Normal,
     Grab,
@@ -293,6 +296,7 @@ impl SetValue for CrossingMode {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum CursorType {
     XCursor,
     Arrow,
@@ -677,6 +681,7 @@ impl SetValue for CursorType {
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum DevicePadFeature {
     Button,
     Ring,
@@ -760,6 +765,7 @@ impl SetValue for DevicePadFeature {
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum DeviceToolType {
     Unknown,
     Pen,
@@ -862,6 +868,7 @@ impl SetValue for DeviceToolType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum DeviceType {
     Master,
     Slave,
@@ -938,6 +945,7 @@ impl SetValue for DeviceType {
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum DragCancelReason {
     NoTarget,
     UserCancelled,
@@ -1020,6 +1028,7 @@ impl SetValue for DragCancelReason {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum DragProtocol {
     None,
     Motif,
@@ -1115,6 +1124,7 @@ impl SetValue for DragProtocol {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum EventType {
     Nothing,
     Delete,
@@ -1378,6 +1388,7 @@ impl SetValue for EventType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum FullscreenMode {
     CurrentMonitor,
     AllMonitors,
@@ -1450,6 +1461,7 @@ impl SetValue for FullscreenMode {
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum GLError {
     NotAvailable,
     UnsupportedFormat,
@@ -1554,6 +1566,7 @@ impl SetValue for GLError {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum GrabOwnership {
     None,
     Window,
@@ -1629,6 +1642,7 @@ impl SetValue for GrabOwnership {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum GrabStatus {
     Success,
     AlreadyGrabbed,
@@ -1716,6 +1730,7 @@ impl SetValue for GrabStatus {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum Gravity {
     NorthWest,
     North,
@@ -1819,6 +1834,7 @@ impl SetValue for Gravity {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum InputMode {
     Disabled,
     Screen,
@@ -1894,6 +1910,7 @@ impl SetValue for InputMode {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum InputSource {
     Mouse,
     Pen,
@@ -1993,6 +2010,7 @@ impl SetValue for InputSource {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum ModifierIntent {
     PrimaryAccelerator,
     ContextMenu,
@@ -2084,6 +2102,7 @@ impl SetValue for ModifierIntent {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum NotifyType {
     Ancestor,
     Virtual,
@@ -2171,6 +2190,7 @@ impl SetValue for NotifyType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum OwnerChange {
     NewOwner,
     Destroy,
@@ -2246,6 +2266,7 @@ impl SetValue for OwnerChange {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum PropMode {
     Replace,
     Prepend,
@@ -2321,6 +2342,7 @@ impl SetValue for PropMode {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum PropertyState {
     NewValue,
     Delete,
@@ -2392,6 +2414,7 @@ impl SetValue for PropertyState {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum ScrollDirection {
     Up,
     Down,
@@ -2475,6 +2498,7 @@ impl SetValue for ScrollDirection {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum SettingAction {
     New,
     Changed,
@@ -2551,6 +2575,7 @@ impl SetValue for SettingAction {
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum SubpixelLayout {
     Unknown,
     None,
@@ -2645,6 +2670,7 @@ impl SetValue for SubpixelLayout {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum VisibilityState {
     Unobscured,
     Partial,
@@ -2720,6 +2746,7 @@ impl SetValue for VisibilityState {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum VisualType {
     StaticGray,
     Grayscale,
@@ -2807,6 +2834,7 @@ impl SetValue for VisualType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum WindowEdge {
     NorthWest,
     North,
@@ -2902,6 +2930,7 @@ impl SetValue for WindowEdge {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum WindowType {
     Root,
     Toplevel,
@@ -2993,6 +3022,7 @@ impl SetValue for WindowType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum WindowTypeHint {
     Normal,
     Dialog,
@@ -3112,6 +3142,7 @@ impl SetValue for WindowTypeHint {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum WindowWindowClass {
     InputOutput,
     InputOnly,

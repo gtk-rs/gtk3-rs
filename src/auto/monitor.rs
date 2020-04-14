@@ -15,6 +15,7 @@ use glib_sys;
 use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 use Display;
 use Rectangle;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
@@ -211,7 +212,9 @@ impl Monitor {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"invalidate\0".as_ptr() as *const _,
-                Some(*(&invalidate_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    invalidate_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -234,7 +237,9 @@ impl Monitor {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::geometry\0".as_ptr() as *const _,
-                Some(*(&notify_geometry_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_geometry_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -257,7 +262,9 @@ impl Monitor {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::height-mm\0".as_ptr() as *const _,
-                Some(*(&notify_height_mm_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_height_mm_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -281,7 +288,9 @@ impl Monitor {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::manufacturer\0".as_ptr() as *const _,
-                Some(*(&notify_manufacturer_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_manufacturer_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -305,7 +314,9 @@ impl Monitor {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::model\0".as_ptr() as *const _,
-                Some(*(&notify_model_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_model_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -328,7 +339,9 @@ impl Monitor {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::refresh-rate\0".as_ptr() as *const _,
-                Some(*(&notify_refresh_rate_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_refresh_rate_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -351,7 +364,9 @@ impl Monitor {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::scale-factor\0".as_ptr() as *const _,
-                Some(*(&notify_scale_factor_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_scale_factor_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -375,7 +390,9 @@ impl Monitor {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::subpixel-layout\0".as_ptr() as *const _,
-                Some(*(&notify_subpixel_layout_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_subpixel_layout_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -398,7 +415,9 @@ impl Monitor {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::width-mm\0".as_ptr() as *const _,
-                Some(*(&notify_width_mm_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_width_mm_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -421,7 +440,9 @@ impl Monitor {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::workarea\0".as_ptr() as *const _,
-                Some(*(&notify_workarea_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_workarea_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }

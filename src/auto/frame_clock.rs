@@ -10,6 +10,7 @@ use glib::translate::*;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 use FrameClockPhase;
 use FrameTimings;
 
@@ -82,7 +83,9 @@ impl FrameClock {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"after-paint\0".as_ptr() as *const _,
-                Some(*(&after_paint_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    after_paint_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -101,7 +104,9 @@ impl FrameClock {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"before-paint\0".as_ptr() as *const _,
-                Some(*(&before_paint_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    before_paint_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -120,7 +125,9 @@ impl FrameClock {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"flush-events\0".as_ptr() as *const _,
-                Some(*(&flush_events_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    flush_events_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -139,7 +146,9 @@ impl FrameClock {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"layout\0".as_ptr() as *const _,
-                Some(*(&layout_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    layout_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -158,7 +167,9 @@ impl FrameClock {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"paint\0".as_ptr() as *const _,
-                Some(*(&paint_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    paint_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -177,7 +188,9 @@ impl FrameClock {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"resume-events\0".as_ptr() as *const _,
-                Some(*(&resume_events_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    resume_events_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -196,7 +209,9 @@ impl FrameClock {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"update\0".as_ptr() as *const _,
-                Some(*(&update_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    update_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }

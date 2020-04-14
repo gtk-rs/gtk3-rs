@@ -10,6 +10,7 @@ use glib::translate::*;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 use Display;
 
 glib_wrapper! {
@@ -79,7 +80,9 @@ impl DisplayManager {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"display-opened\0".as_ptr() as *const _,
-                Some(*(&display_opened_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    display_opened_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -102,7 +105,9 @@ impl DisplayManager {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::default-display\0".as_ptr() as *const _,
-                Some(*(&notify_default_display_trampoline::<F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notify_default_display_trampoline::<F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
