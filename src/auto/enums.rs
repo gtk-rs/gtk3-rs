@@ -14,6 +14,7 @@ use pango_sys;
 use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum Alignment {
     Left,
     Center,
@@ -88,6 +89,7 @@ impl SetValue for Alignment {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum AttrType {
     Invalid,
     Language,
@@ -254,6 +256,7 @@ impl SetValue for AttrType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum BidiType {
     L,
     Lre,
@@ -392,6 +395,7 @@ impl SetValue for BidiType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum CoverageLevel {
     None,
     Fallback,
@@ -470,6 +474,7 @@ impl SetValue for CoverageLevel {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum Direction {
     Ltr,
     Rtl,
@@ -560,6 +565,7 @@ impl SetValue for Direction {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum EllipsizeMode {
     None,
     Start,
@@ -638,6 +644,7 @@ impl SetValue for EllipsizeMode {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum Gravity {
     South,
     East,
@@ -720,6 +727,7 @@ impl SetValue for Gravity {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum GravityHint {
     Natural,
     Strong,
@@ -794,6 +802,7 @@ impl SetValue for GravityHint {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum RenderPart {
     Foreground,
     Background,
@@ -872,6 +881,7 @@ impl SetValue for RenderPart {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum Script {
     InvalidCode,
     Common,
@@ -1406,6 +1416,7 @@ impl SetValue for Script {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum Stretch {
     UltraCondensed,
     ExtraCondensed,
@@ -1504,6 +1515,7 @@ impl SetValue for Stretch {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum Style {
     Normal,
     Oblique,
@@ -1578,6 +1590,7 @@ impl SetValue for Style {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum TabAlign {
     Left,
     #[doc(hidden)]
@@ -1644,6 +1657,7 @@ impl SetValue for TabAlign {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum Underline {
     None,
     Single,
@@ -1726,6 +1740,7 @@ impl SetValue for Underline {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum Variant {
     Normal,
     SmallCaps,
@@ -1796,6 +1811,7 @@ impl SetValue for Variant {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum Weight {
     Thin,
     Ultralight,
@@ -1906,6 +1922,7 @@ impl SetValue for Weight {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum WrapMode {
     Word,
     Char,
