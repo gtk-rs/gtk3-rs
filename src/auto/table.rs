@@ -13,6 +13,7 @@ use glib_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 use Object;
 
 glib_wrapper! {
@@ -327,7 +328,9 @@ impl<O: IsA<Table>> TableExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"column-deleted\0".as_ptr() as *const _,
-                Some(*(&column_deleted_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    column_deleted_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -350,7 +353,9 @@ impl<O: IsA<Table>> TableExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"column-inserted\0".as_ptr() as *const _,
-                Some(*(&column_inserted_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    column_inserted_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -371,7 +376,9 @@ impl<O: IsA<Table>> TableExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"column-reordered\0".as_ptr() as *const _,
-                Some(*(&column_reordered_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    column_reordered_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -392,7 +399,9 @@ impl<O: IsA<Table>> TableExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"model-changed\0".as_ptr() as *const _,
-                Some(*(&model_changed_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    model_changed_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -415,7 +424,9 @@ impl<O: IsA<Table>> TableExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"row-deleted\0".as_ptr() as *const _,
-                Some(*(&row_deleted_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    row_deleted_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -438,7 +449,9 @@ impl<O: IsA<Table>> TableExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"row-inserted\0".as_ptr() as *const _,
-                Some(*(&row_inserted_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    row_inserted_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -459,7 +472,9 @@ impl<O: IsA<Table>> TableExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"row-reordered\0".as_ptr() as *const _,
-                Some(*(&row_reordered_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    row_reordered_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }

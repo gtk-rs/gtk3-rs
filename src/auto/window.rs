@@ -11,6 +11,7 @@ use glib::translate::*;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem::transmute;
 use Object;
 
 glib_wrapper! {
@@ -59,7 +60,9 @@ impl<O: IsA<Window>> AtkWindowExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"activate\0".as_ptr() as *const _,
-                Some(*(&activate_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    activate_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -80,7 +83,9 @@ impl<O: IsA<Window>> AtkWindowExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"create\0".as_ptr() as *const _,
-                Some(*(&create_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    create_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -101,7 +106,9 @@ impl<O: IsA<Window>> AtkWindowExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"deactivate\0".as_ptr() as *const _,
-                Some(*(&deactivate_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    deactivate_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -122,7 +129,9 @@ impl<O: IsA<Window>> AtkWindowExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"destroy\0".as_ptr() as *const _,
-                Some(*(&destroy_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    destroy_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -143,7 +152,9 @@ impl<O: IsA<Window>> AtkWindowExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"maximize\0".as_ptr() as *const _,
-                Some(*(&maximize_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    maximize_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -164,7 +175,9 @@ impl<O: IsA<Window>> AtkWindowExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"minimize\0".as_ptr() as *const _,
-                Some(*(&minimize_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    minimize_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -185,7 +198,9 @@ impl<O: IsA<Window>> AtkWindowExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"move\0".as_ptr() as *const _,
-                Some(*(&move_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    move_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -206,7 +221,9 @@ impl<O: IsA<Window>> AtkWindowExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"resize\0".as_ptr() as *const _,
-                Some(*(&resize_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    resize_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -227,7 +244,9 @@ impl<O: IsA<Window>> AtkWindowExt for O {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"restore\0".as_ptr() as *const _,
-                Some(*(&restore_trampoline::<Self, F> as *const _ as *const _)),
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    restore_trampoline::<Self, F> as *const (),
+                )),
                 Box_::into_raw(f),
             )
         }
