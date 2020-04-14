@@ -28,6 +28,8 @@ extern crate futures_util;
 
 mod app_info;
 mod application;
+#[cfg(test)]
+mod cancellable;
 mod converter;
 mod data_input_stream;
 #[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
