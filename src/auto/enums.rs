@@ -16,6 +16,7 @@ use gobject_sys;
 use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum Colorspace {
     Rgb,
     #[doc(hidden)]
@@ -82,6 +83,7 @@ impl SetValue for Colorspace {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum InterpType {
     Nearest,
     Tiles,
@@ -160,6 +162,7 @@ impl SetValue for InterpType {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum PixbufAlphaMode {
     Bilevel,
     Full,
@@ -230,6 +233,7 @@ impl SetValue for PixbufAlphaMode {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum PixbufError {
     CorruptImage,
     InsufficientMemory,
@@ -347,6 +351,7 @@ impl SetValue for PixbufError {
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum PixbufRotation {
     None,
     Counterclockwise,
