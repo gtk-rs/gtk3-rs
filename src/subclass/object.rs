@@ -700,6 +700,23 @@ mod test {
         assert_eq!(value.get::<String>(), Ok(Some("return value".to_string())));
     }
 
+    #[test]
+    fn test_callback_validity() {
+        use std::sync::{Arc, Mutex};
+
+        let type_ = SimpleObject::get_type();
+        let obj = Object::new(type_, &[("name", &"old-name")]).expect("Object::new failed");
+
+        let name_changed_triggered = Arc::new(Mutex::new(false));
+        let name_changed_clone = name_changed_triggered.clone();
+
+        obj.connect_notify(Some("name"), move |_, _| {
+            *name_changed_clone.lock().expect("Failed to lock") = true;
+        });
+        obj.notify("name");
+        assert!(*name_changed_triggered.lock().expect("Failed to lock"));
+    }
+
     // Note: can't test type mismatch in signals since panics accross FFI boundaries
     // are UB. See https://github.com/gtk-rs/glib/issues/518
 
