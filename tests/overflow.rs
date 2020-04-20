@@ -39,3 +39,51 @@ fn new_from_mut_slice_doesnt_overflow() {
     let _pixbuf =
         Pixbuf::new_from_mut_slice(data, Colorspace::Rgb, true, 8, 21000, 29700, 21000 * 4);
 }
+
+#[test]
+#[should_panic]
+fn put_pixel_out_of_bounds_x_should_panic() {
+    let pixbuf = Pixbuf::new(Colorspace::Rgb, true, 8, 100, 200).unwrap();
+
+    pixbuf.put_pixel(100, 0, 0, 0, 0, 0);
+}
+
+#[test]
+#[should_panic]
+fn put_pixel_out_of_bounds_y_should_panic() {
+    let pixbuf = Pixbuf::new(Colorspace::Rgb, true, 8, 100, 200).unwrap();
+
+    pixbuf.put_pixel(0, 200, 0, 0, 0, 0);
+}
+
+#[test]
+#[should_panic]
+fn too_small_slice_should_panic() {
+    let data = vec![0u8; 100 * 99 * 4];
+
+    Pixbuf::new_from_mut_slice(data, Colorspace::Rgb, true, 8, 100, 100, 100 * 4);
+}
+
+#[test]
+fn last_row_with_incomplete_rowstride_works() {
+    // 1-pixel wide, RGB, 3 32-bit rows, no extra padding byte on the fourth row
+    let data = vec![0u8; 1 * 4 * 3 + 3];
+
+    Pixbuf::new_from_mut_slice(data, Colorspace::Rgb, false, 8, 1, 4, 4);
+}
+
+#[test]
+fn last_row_with_full_rowstride_works() {
+    // 1-pixel wide, RGB, 4 32-bit rows
+    let data = vec![0u8; 1 * 4 * 4];
+
+    Pixbuf::new_from_mut_slice(data, Colorspace::Rgb, false, 8, 1, 4, 4);
+}
+
+#[test]
+fn extra_data_after_last_row_works() {
+    // 1-pixel wide, RGB, 4 32-bit rows, plus some extra space
+    let data = vec![0u8; 1 * 4 * 4 + 42];
+
+    Pixbuf::new_from_mut_slice(data, Colorspace::Rgb, false, 8, 1, 4, 4);
+}

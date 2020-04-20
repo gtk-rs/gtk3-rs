@@ -34,10 +34,13 @@ impl Pixbuf {
         unsafe extern "C" fn destroy<T: AsMut<[u8]>>(_: *mut c_uchar, data: *mut c_void) {
             let _data: Box<T> = Box::from_raw(data as *mut T); // the data will be destroyed now
         }
-        assert!(width > 0);
-        assert!(height > 0);
-        assert!(row_stride > 0);
-        assert!(bits_per_sample == 8);
+        assert!(width > 0, "width must be greater than 0");
+        assert!(height > 0, "height must be greater than 0");
+        assert!(row_stride > 0, "row_stride must be greater than 0");
+        assert!(
+            bits_per_sample == 8,
+            "bits_per_sample == 8 is the only supported value"
+        );
 
         let width = width as usize;
         let height = height as usize;
@@ -51,7 +54,10 @@ impl Pixbuf {
 
         let ptr = {
             let data: &mut [u8] = (*data).as_mut();
-            assert!(data.len() == ((height - 1) * row_stride + last_row_len) as usize);
+            assert!(
+                data.len() >= ((height - 1) * row_stride + last_row_len) as usize,
+                "data.len() must fit the width, height, and row_stride"
+            );
             data.as_mut_ptr()
         };
 
@@ -273,7 +279,16 @@ impl Pixbuf {
         slice::from_raw_parts_mut(ptr, len as usize)
     }
 
-    pub fn put_pixel(&self, x: i32, y: i32, red: u8, green: u8, blue: u8, alpha: u8) {
+    pub fn put_pixel(&self, x: u32, y: u32, red: u8, green: u8, blue: u8, alpha: u8) {
+        assert!(
+            x < self.get_width() as u32,
+            "x must be less than the pixbuf's width"
+        );
+        assert!(
+            y < self.get_height() as u32,
+            "y must be less than the pixbuf's height"
+        );
+
         unsafe {
             let x = x as usize;
             let y = y as usize;
