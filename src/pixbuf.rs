@@ -34,8 +34,19 @@ impl Pixbuf {
         unsafe extern "C" fn destroy<T: AsMut<[u8]>>(_: *mut c_uchar, data: *mut c_void) {
             let _data: Box<T> = Box::from_raw(data as *mut T); // the data will be destroyed now
         }
+        assert!(width > 0, "width must be greater than 0");
+        assert!(height > 0, "height must be greater than 0");
+        assert!(row_stride > 0, "row_stride must be greater than 0");
+        assert!(
+            bits_per_sample == 8,
+            "bits_per_sample == 8 is the only supported value"
+        );
 
-        assert!(bits_per_sample == 8);
+        let width = width as usize;
+        let height = height as usize;
+        let row_stride = row_stride as usize;
+        let bits_per_sample = bits_per_sample as usize;
+
         let n_channels = if has_alpha { 4 } else { 3 };
         let last_row_len = width * ((n_channels * bits_per_sample + 7) / 8);
 
@@ -43,7 +54,10 @@ impl Pixbuf {
 
         let ptr = {
             let data: &mut [u8] = (*data).as_mut();
-            assert!(data.len() == ((height - 1) * row_stride + last_row_len) as usize);
+            assert!(
+                data.len() >= ((height - 1) * row_stride + last_row_len) as usize,
+                "data.len() must fit the width, height, and row_stride"
+            );
             data.as_mut_ptr()
         };
 
@@ -52,10 +66,10 @@ impl Pixbuf {
                 ptr,
                 colorspace.to_glib(),
                 has_alpha.to_glib(),
-                bits_per_sample,
-                width,
-                height,
-                row_stride,
+                bits_per_sample as i32,
+                width as i32,
+                height as i32,
+                row_stride as i32,
                 Some(destroy::<T>),
                 Box::into_raw(data) as *mut _,
             ))
@@ -265,13 +279,24 @@ impl Pixbuf {
         slice::from_raw_parts_mut(ptr, len as usize)
     }
 
-    pub fn put_pixel(&self, x: i32, y: i32, red: u8, green: u8, blue: u8, alpha: u8) {
+    pub fn put_pixel(&self, x: u32, y: u32, red: u8, green: u8, blue: u8, alpha: u8) {
+        assert!(
+            x < self.get_width() as u32,
+            "x must be less than the pixbuf's width"
+        );
+        assert!(
+            y < self.get_height() as u32,
+            "y must be less than the pixbuf's height"
+        );
+
         unsafe {
-            let n_channels = self.get_n_channels();
+            let x = x as usize;
+            let y = y as usize;
+            let n_channels = self.get_n_channels() as usize;
             assert!(n_channels == 3 || n_channels == 4);
-            let rowstride = self.get_rowstride();
+            let rowstride = self.get_rowstride() as usize;
             let pixels = self.get_pixels();
-            let pos = (y * rowstride + x * n_channels) as usize;
+            let pos = y * rowstride + x * n_channels;
 
             pixels[pos] = red;
             pixels[pos + 1] = green;
