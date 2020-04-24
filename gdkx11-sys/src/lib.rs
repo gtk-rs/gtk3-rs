@@ -18,7 +18,6 @@ extern crate libc;
 extern crate pango_sys as pango;
 // manual import
 extern crate x11;
-
 use x11::xlib;
 
 #[allow(unused_imports)]
