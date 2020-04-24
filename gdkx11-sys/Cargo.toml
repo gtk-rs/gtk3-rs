@@ -1,0 +1,51 @@
+[package]
+name = "gdkx11-sys"
+version = "0.0.1"
+links = "gdk_x11"
+build = "build.rs"
+[package.metadata.docs.rs]
+features = ["dox"]
+
+[lib]
+name = "gdk_x11_sys"
+
+[dependencies]
+libc = "0.2"
+x11 = "2.18"
+
+[dependencies.gdk-sys]
+git = "https://github.com/gtk-rs/sys"
+
+[dependencies.gdk-pixbuf-sys]
+git = "https://github.com/gtk-rs/sys"
+
+[dependencies.gio-sys]
+git = "https://github.com/gtk-rs/sys"
+
+[dependencies.glib-sys]
+git = "https://github.com/gtk-rs/sys"
+
+[dependencies.gobject-sys]
+git = "https://github.com/gtk-rs/sys"
+
+[dependencies.pango-sys]
+git = "https://github.com/gtk-rs/sys"
+
+[build-dependencies]
+pkg-config = "0.3.7"
+
+[dev-dependencies]
+shell-words = "0.1.0"
+tempfile = "3"
+
+[features]
+v3_2 = []
+v3_4 = ["v3_2"]
+v3_6 = ["v3_4"]
+v3_8 = ["v3_6"]
+v3_10 = ["v3_8"]
+v3_12 = ["v3_10"]
+v3_16 = ["v3_12"]
+v3_24 = ["v3_16"]
+v3_24_2 = ["v3_24"]
+dox = []
