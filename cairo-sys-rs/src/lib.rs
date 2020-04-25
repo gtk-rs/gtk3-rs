@@ -952,6 +952,13 @@ extern "C" {
     ) -> cairo_status_t;
     pub fn cairo_surface_get_reference_count(surface: *mut cairo_surface_t) -> c_uint;
     pub fn cairo_surface_mark_dirty(surface: *mut cairo_surface_t);
+    pub fn cairo_surface_mark_dirty_rectangle(
+        surface: *mut cairo_surface_t,
+        x: c_int,
+        y: c_int,
+        width: c_int,
+        height: c_int,
+    );
     pub fn cairo_surface_create_similar(
         surface: *mut cairo_surface_t,
         content: cairo_content_t,
