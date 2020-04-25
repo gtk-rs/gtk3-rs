@@ -15,7 +15,6 @@ install:
   - SET PATH=C:\Users\appveyor\.cargo\bin;C:\msys64\mingw%BITS%\bin;%PATH%;C:\msys64\usr\bin
   - rustc -Vv
   - cargo -Vv
-  - pacman -Sy
   - pacman --noconfirm -S mingw-w64-%ARCH%-gtk3
 
 build_script:
