@@ -245,6 +245,14 @@ impl Surface {
         }
     }
 
+    pub fn mark_dirty(&self) {
+        unsafe { ffi::cairo_surface_mark_dirty(self.to_raw_none()) }
+    }
+
+    pub fn mark_dirty_rectangle(&self, x: i32, y: i32, width: i32, height: i32) {
+        unsafe { ffi::cairo_surface_mark_dirty_rectangle(self.to_raw_none(), x, y, width, height) }
+    }
+
     user_data_methods! {
         ffi::cairo_surface_get_user_data,
         ffi::cairo_surface_set_user_data,

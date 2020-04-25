@@ -122,7 +122,7 @@ impl<'a> ImageSurfaceData<'a> {
 impl<'a> Drop for ImageSurfaceData<'a> {
     fn drop(&mut self) {
         if self.dirty {
-            unsafe { ffi::cairo_surface_mark_dirty(self.surface.to_raw_none()) }
+            self.surface.mark_dirty()
         }
     }
 }
