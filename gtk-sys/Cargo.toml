@@ -3,6 +3,12 @@ name = "gtk-sys"
 version = "0.9.2"
 links = "gtk"
 build = "build.rs"
+authors = ["The Gtk-rs Project Developers"]
+description = "FFI bindings to libgtk-3"
+homepage = "http://gtk-rs.org/"
+keywords = ["gtk", "ffi", "gtk-rs", "gnome"]
+license = "MIT"
+repository = "https://github.com/gtk-rs/sys"
 [package.metadata.docs.rs]
 features = ["dox"]
 
