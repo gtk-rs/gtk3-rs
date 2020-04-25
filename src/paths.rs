@@ -6,8 +6,8 @@ use enums::{PathDataType, Status};
 use ffi;
 use ffi::cairo_path_t;
 use std::fmt;
-use std::ptr;
 use std::iter::Iterator;
+use std::ptr;
 
 #[derive(Debug)]
 pub struct Path(ptr::NonNull<cairo_path_t>);
