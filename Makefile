@@ -15,10 +15,6 @@ libs : $(LIBS)
 		cd $$crate && cargo fmt && cd ..; \
 	done
 
-gdkx11-sys/src/lib.rs: conf/gir-gdkx11.toml $(GIR) $(GIR_FILES)
-	$(GIR) -c $< -o gdkx11-sys -d gir-files
-	python3 gdkx11-sys/add-import.py gdkx11-sys/src/lib.rs
-
 %-sys/src/lib.rs : conf/gir-%.toml $(GIR) $(GIR_FILES)
 	$(GIR) -c $< -o $(abspath $*-sys) -d gir-files
 

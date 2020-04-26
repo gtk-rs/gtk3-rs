@@ -16,9 +16,10 @@ extern crate glib_sys as glib;
 extern crate gobject_sys as gobject;
 extern crate libc;
 extern crate pango_sys as pango;
-// manual import
-extern crate x11;
-use x11::xlib;
+
+mod manual;
+
+pub use manual::*;
 
 #[allow(unused_imports)]
 use libc::{
