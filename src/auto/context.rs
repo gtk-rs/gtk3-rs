@@ -97,6 +97,15 @@ impl Context {
         }
     }
 
+    #[cfg(any(feature = "v1_44", feature = "dox"))]
+    pub fn get_round_glyph_positions(&self) -> bool {
+        unsafe {
+            from_glib(pango_sys::pango_context_get_round_glyph_positions(
+                self.to_glib_none().0,
+            ))
+        }
+    }
+
     pub fn get_serial(&self) -> u32 {
         unsafe { pango_sys::pango_context_get_serial(self.to_glib_none().0) }
     }
@@ -181,6 +190,16 @@ impl Context {
     pub fn set_matrix(&self, matrix: Option<&Matrix>) {
         unsafe {
             pango_sys::pango_context_set_matrix(self.to_glib_none().0, matrix.to_glib_none().0);
+        }
+    }
+
+    #[cfg(any(feature = "v1_44", feature = "dox"))]
+    pub fn set_round_glyph_positions(&self, round_positions: bool) {
+        unsafe {
+            pango_sys::pango_context_set_round_glyph_positions(
+                self.to_glib_none().0,
+                round_positions.to_glib(),
+            );
         }
     }
 }

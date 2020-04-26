@@ -5,6 +5,9 @@
 mod context;
 pub use self::context::{Context, ContextClass};
 
+mod coverage;
+pub use self::coverage::{Coverage, CoverageClass};
+
 mod engine_lang;
 pub use self::engine_lang::{EngineLang, EngineLangClass, NONE_ENGINE_LANG};
 
@@ -52,9 +55,6 @@ pub use self::attribute::Attribute;
 
 mod color;
 pub use self::color::Color;
-
-mod coverage;
-pub use self::coverage::Coverage;
 
 mod font_description;
 pub use self::font_description::FontDescription;

@@ -33,6 +33,16 @@ impl LayoutLine {
         }
     }
 
+    #[cfg(any(feature = "v1_44", feature = "dox"))]
+    pub fn get_height(&self) -> i32 {
+        unsafe {
+            let mut height = mem::MaybeUninit::uninit();
+            pango_sys::pango_layout_line_get_height(self.to_glib_none().0, height.as_mut_ptr());
+            let height = height.assume_init();
+            height
+        }
+    }
+
     pub fn get_pixel_extents(&self) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();

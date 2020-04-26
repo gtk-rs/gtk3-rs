@@ -85,7 +85,7 @@ impl LayoutIter {
 
     pub fn get_line(&mut self) -> Option<LayoutLine> {
         unsafe {
-            from_glib_full(pango_sys::pango_layout_iter_get_line(
+            from_glib_none(pango_sys::pango_layout_iter_get_line(
                 self.to_glib_none_mut().0,
             ))
         }

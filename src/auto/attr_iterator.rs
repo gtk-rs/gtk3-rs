@@ -15,13 +15,14 @@ glib_wrapper! {
     match fn {
         copy => |ptr| pango_sys::pango_attr_iterator_copy(mut_override(ptr)),
         free => |ptr| pango_sys::pango_attr_iterator_destroy(ptr),
+        get_type => || pango_sys::pango_attr_iterator_get_type(),
     }
 }
 
 impl AttrIterator {
     pub fn get(&mut self, type_: AttrType) -> Option<Attribute> {
         unsafe {
-            from_glib_none(pango_sys::pango_attr_iterator_get(
+            from_glib_full(pango_sys::pango_attr_iterator_get(
                 self.to_glib_none_mut().0,
                 type_.to_glib(),
             ))

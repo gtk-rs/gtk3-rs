@@ -13,6 +13,7 @@ glib_wrapper! {
     match fn {
         copy => |ptr| pango_sys::pango_attribute_copy(mut_override(ptr)),
         free => |ptr| pango_sys::pango_attribute_destroy(ptr),
+        get_type => || pango_sys::pango_attribute_get_type(),
     }
 }
 

@@ -146,6 +146,11 @@ impl Layout {
         }
     }
 
+    #[cfg(any(feature = "v1_44", feature = "dox"))]
+    pub fn get_line_spacing(&self) -> f32 {
+        unsafe { pango_sys::pango_layout_get_line_spacing(self.to_glib_none().0) }
+    }
+
     pub fn get_lines(&self) -> Vec<LayoutLine> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(pango_sys::pango_layout_get_lines(
@@ -359,6 +364,13 @@ impl Layout {
     pub fn set_justify(&self, justify: bool) {
         unsafe {
             pango_sys::pango_layout_set_justify(self.to_glib_none().0, justify.to_glib());
+        }
+    }
+
+    #[cfg(any(feature = "v1_44", feature = "dox"))]
+    pub fn set_line_spacing(&self, factor: f32) {
+        unsafe {
+            pango_sys::pango_layout_set_line_spacing(self.to_glib_none().0, factor);
         }
     }
 

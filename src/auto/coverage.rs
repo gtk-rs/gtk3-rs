@@ -4,21 +4,24 @@
 
 use glib::translate::*;
 use pango_sys;
+use std::fmt;
 use std::mem;
 use std::ptr;
 use CoverageLevel;
 
 glib_wrapper! {
-    #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct Coverage(Shared<pango_sys::PangoCoverage>);
+    pub struct Coverage(Object<pango_sys::PangoCoverage, CoverageClass>);
 
     match fn {
-        ref => |ptr| pango_sys::pango_coverage_ref(ptr),
-        unref => |ptr| pango_sys::pango_coverage_unref(ptr),
+        get_type => || pango_sys::pango_coverage_get_type(),
     }
 }
 
 impl Coverage {
+    pub fn new() -> Coverage {
+        unsafe { from_glib_full(pango_sys::pango_coverage_new()) }
+    }
+
     pub fn copy(&self) -> Option<Coverage> {
         unsafe { from_glib_full(pango_sys::pango_coverage_copy(self.to_glib_none().0)) }
     }
@@ -27,6 +30,7 @@ impl Coverage {
         unsafe { from_glib(pango_sys::pango_coverage_get(self.to_glib_none().0, index_)) }
     }
 
+    #[cfg_attr(feature = "v1_44", deprecated)]
     pub fn max(&self, other: &Coverage) {
         unsafe {
             pango_sys::pango_coverage_max(self.to_glib_none().0, other.to_glib_none().0);
@@ -39,6 +43,7 @@ impl Coverage {
         }
     }
 
+    #[cfg_attr(feature = "v1_44", deprecated)]
     pub fn to_bytes(&self) -> Vec<u8> {
         unsafe {
             let mut bytes = ptr::null_mut();
@@ -52,6 +57,7 @@ impl Coverage {
         }
     }
 
+    #[cfg_attr(feature = "v1_44", deprecated)]
     pub fn from_bytes(bytes: &[u8]) -> Option<Coverage> {
         let n_bytes = bytes.len() as i32;
         unsafe {
@@ -61,14 +67,16 @@ impl Coverage {
             ))
         }
     }
-
-    pub fn new() -> Coverage {
-        unsafe { from_glib_none(pango_sys::pango_coverage_new()) }
-    }
 }
 
 impl Default for Coverage {
     fn default() -> Self {
         Self::new()
+    }
+}
+
+impl fmt::Display for Coverage {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Coverage")
     }
 }

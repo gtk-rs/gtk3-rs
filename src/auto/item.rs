@@ -4,6 +4,8 @@
 
 use glib::translate::*;
 use pango_sys;
+#[cfg(any(feature = "v1_44", feature = "dox"))]
+use AttrIterator;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -19,6 +21,13 @@ glib_wrapper! {
 impl Item {
     pub fn new() -> Item {
         unsafe { from_glib_full(pango_sys::pango_item_new()) }
+    }
+
+    #[cfg(any(feature = "v1_44", feature = "dox"))]
+    pub fn apply_attrs(&mut self, iter: &mut AttrIterator) {
+        unsafe {
+            pango_sys::pango_item_apply_attrs(self.to_glib_none_mut().0, iter.to_glib_none_mut().0);
+        }
     }
 
     pub fn split(&mut self, split_index: i32, split_offset: i32) -> Option<Item> {

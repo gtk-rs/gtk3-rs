@@ -199,21 +199,21 @@ impl FontDescription {
     }
 
     #[cfg(any(feature = "v1_42", feature = "dox"))]
-    pub fn set_variations(&mut self, settings: &str) {
+    pub fn set_variations(&mut self, variations: &str) {
         unsafe {
             pango_sys::pango_font_description_set_variations(
                 self.to_glib_none_mut().0,
-                settings.to_glib_none().0,
+                variations.to_glib_none().0,
             );
         }
     }
 
     #[cfg(any(feature = "v1_42", feature = "dox"))]
-    pub fn set_variations_static(&mut self, settings: &str) {
+    pub fn set_variations_static(&mut self, variations: &str) {
         unsafe {
             pango_sys::pango_font_description_set_variations_static(
                 self.to_glib_none_mut().0,
-                settings.to_glib_none().0,
+                variations.to_glib_none().0,
             );
         }
     }

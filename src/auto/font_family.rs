@@ -26,6 +26,9 @@ pub trait FontFamilyExt: 'static {
 
     fn is_monospace(&self) -> bool;
 
+    #[cfg(any(feature = "v1_44", feature = "dox"))]
+    fn is_variable(&self) -> bool;
+
     fn list_faces(&self) -> Vec<FontFace>;
 }
 
@@ -41,6 +44,15 @@ impl<O: IsA<FontFamily>> FontFamilyExt for O {
     fn is_monospace(&self) -> bool {
         unsafe {
             from_glib(pango_sys::pango_font_family_is_monospace(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
+
+    #[cfg(any(feature = "v1_44", feature = "dox"))]
+    fn is_variable(&self) -> bool {
+        unsafe {
+            from_glib(pango_sys::pango_font_family_is_variable(
                 self.as_ref().to_glib_none().0,
             ))
         }
