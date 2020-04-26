@@ -3,6 +3,7 @@ name = "gdkx11-sys"
 version = "0.0.1"
 links = "gdk_x11"
 build = "build.rs"
+edition = "2018"
 [package.metadata.docs.rs]
 features = ["dox"]
 
