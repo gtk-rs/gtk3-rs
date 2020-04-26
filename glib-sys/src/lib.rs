@@ -31,6 +31,7 @@ pub type gpointer = *mut c_void;
 // Aliases
 pub type GDateDay = u8;
 pub type GDateYear = u16;
+pub type GMainContextPusher = c_void;
 pub type GMutexLocker = c_void;
 pub type GQuark = u32;
 pub type GRWLockReaderLocker = c_void;
@@ -662,6 +663,7 @@ pub const G_VARIANT_PARSE_ERROR_UNEXPECTED_TOKEN: GVariantParseError = 14;
 pub const G_VARIANT_PARSE_ERROR_UNKNOWN_KEYWORD: GVariantParseError = 15;
 pub const G_VARIANT_PARSE_ERROR_UNTERMINATED_STRING_CONSTANT: GVariantParseError = 16;
 pub const G_VARIANT_PARSE_ERROR_VALUE_EXPECTED: GVariantParseError = 17;
+pub const G_VARIANT_PARSE_ERROR_RECURSION: GVariantParseError = 18;
 
 // Constants
 pub const G_ASCII_DTOSTR_BUF_SIZE: c_int = 39;
@@ -679,8 +681,6 @@ pub const G_E: c_double = 2.718282;
 pub const G_HOOK_FLAG_USER_SHIFT: c_int = 4;
 pub const G_IEEE754_DOUBLE_BIAS: c_int = 1023;
 pub const G_IEEE754_FLOAT_BIAS: c_int = 127;
-pub const G_KEY_FILE_DESKTOP_ACTION_GROUP_PREFIX: *const c_char =
-    b"Desktop Action\0" as *const u8 as *const c_char;
 pub const G_KEY_FILE_DESKTOP_GROUP: *const c_char =
     b"Desktop Entry\0" as *const u8 as *const c_char;
 pub const G_KEY_FILE_DESKTOP_KEY_ACTIONS: *const c_char =
@@ -692,16 +692,10 @@ pub const G_KEY_FILE_DESKTOP_KEY_COMMENT: *const c_char =
 pub const G_KEY_FILE_DESKTOP_KEY_DBUS_ACTIVATABLE: *const c_char =
     b"DBusActivatable\0" as *const u8 as *const c_char;
 pub const G_KEY_FILE_DESKTOP_KEY_EXEC: *const c_char = b"Exec\0" as *const u8 as *const c_char;
-pub const G_KEY_FILE_DESKTOP_KEY_FULLNAME: *const c_char =
-    b"X-GNOME-FullName\0" as *const u8 as *const c_char;
 pub const G_KEY_FILE_DESKTOP_KEY_GENERIC_NAME: *const c_char =
     b"GenericName\0" as *const u8 as *const c_char;
-pub const G_KEY_FILE_DESKTOP_KEY_GETTEXT_DOMAIN: *const c_char =
-    b"X-GNOME-Gettext-Domain\0" as *const u8 as *const c_char;
 pub const G_KEY_FILE_DESKTOP_KEY_HIDDEN: *const c_char = b"Hidden\0" as *const u8 as *const c_char;
 pub const G_KEY_FILE_DESKTOP_KEY_ICON: *const c_char = b"Icon\0" as *const u8 as *const c_char;
-pub const G_KEY_FILE_DESKTOP_KEY_KEYWORDS: *const c_char =
-    b"Keywords\0" as *const u8 as *const c_char;
 pub const G_KEY_FILE_DESKTOP_KEY_MIME_TYPE: *const c_char =
     b"MimeType\0" as *const u8 as *const c_char;
 pub const G_KEY_FILE_DESKTOP_KEY_NAME: *const c_char = b"Name\0" as *const u8 as *const c_char;
@@ -1085,6 +1079,7 @@ pub type GRegexEvalCallback =
 pub type GScannerMsgFunc = Option<unsafe extern "C" fn(*mut GScanner, *mut c_char, gboolean)>;
 pub type GSequenceIterCompareFunc =
     Option<unsafe extern "C" fn(*mut GSequenceIter, *mut GSequenceIter, gpointer) -> c_int>;
+pub type GSourceDisposeFunc = Option<unsafe extern "C" fn(*mut GSource)>;
 pub type GSourceDummyMarshal = Option<unsafe extern "C" fn()>;
 pub type GSourceFunc = Option<unsafe extern "C" fn(gpointer) -> gboolean>;
 pub type GSpawnChildSetupFunc = Option<unsafe extern "C" fn(gpointer)>;
@@ -2286,6 +2281,8 @@ extern "C" {
         compare_func: GCompareDataFunc,
         user_data: gpointer,
     );
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
+    pub fn g_array_steal(array: *mut GArray, len: *mut size_t) -> gpointer;
     pub fn g_array_unref(array: *mut GArray);
 
     //=========================================================================
@@ -2583,6 +2580,8 @@ extern "C" {
         compare_func: GCompareDataFunc,
         user_data: gpointer,
     );
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
+    pub fn g_byte_array_steal(array: *mut GByteArray, len: *mut size_t) -> *mut u8;
     pub fn g_byte_array_unref(array: *mut GByteArray);
 
     //=========================================================================
@@ -3855,6 +3854,8 @@ extern "C" {
         compare_func: GCompareDataFunc,
         user_data: gpointer,
     );
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
+    pub fn g_ptr_array_steal(array: *mut GPtrArray, len: *mut size_t) -> *mut gpointer;
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     pub fn g_ptr_array_steal_index(array: *mut GPtrArray, index_: c_uint) -> gpointer;
     #[cfg(any(feature = "v2_58", feature = "dox"))]
@@ -4317,6 +4318,8 @@ extern "C" {
         callback_funcs: *mut GSourceCallbackFuncs,
     );
     pub fn g_source_set_can_recurse(source: *mut GSource, can_recurse: gboolean);
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
+    pub fn g_source_set_dispose_function(source: *mut GSource, dispose: GSourceDisposeFunc);
     pub fn g_source_set_funcs(source: *mut GSource, funcs: *mut GSourceFuncs);
     pub fn g_source_set_name(source: *mut GSource, name: *const c_char);
     pub fn g_source_set_priority(source: *mut GSource, priority: c_int);
@@ -5049,7 +5052,11 @@ extern "C" {
     pub fn g_clear_error(error: *mut *mut GError);
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     pub fn g_clear_handle_id(tag_ptr: *mut c_uint, clear_func: GClearHandleFunc);
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
+    pub fn g_clear_list(list_ptr: *mut *mut GList, destroy: GDestroyNotify);
     pub fn g_clear_pointer(pp: *mut gpointer, destroy: GDestroyNotify);
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
+    pub fn g_clear_slist(slist_ptr: *mut *mut GSList, destroy: GDestroyNotify);
     pub fn g_close(fd: c_int, error: *mut *mut GError) -> gboolean;
     pub fn g_compute_checksum_for_bytes(
         checksum_type: GChecksumType,
@@ -5317,6 +5324,8 @@ extern "C" {
     pub fn g_get_locale_variants(locale: *const c_char) -> *mut *mut c_char;
     pub fn g_get_monotonic_time() -> i64;
     pub fn g_get_num_processors() -> c_uint;
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
+    pub fn g_get_os_info(key_name: *const c_char) -> *mut c_char;
     pub fn g_get_prgname() -> *const c_char;
     #[cfg(any(windows, feature = "dox"))]
     pub fn g_get_real_name_utf8() -> *const c_char;
@@ -6069,6 +6078,11 @@ extern "C" {
         notify: GDestroyNotify,
     ) -> c_uint;
     pub fn g_unix_fd_source_new(fd: c_int, condition: GIOCondition) -> *mut GSource;
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
+    pub fn g_unix_get_passwd_entry(
+        user_name: *const c_char,
+        error: *mut *mut GError,
+    ) -> *mut passwd;
     pub fn g_unix_open_pipe(fds: *mut c_int, flags: c_int, error: *mut *mut GError) -> gboolean;
     pub fn g_unix_set_fd_nonblocking(
         fd: c_int,

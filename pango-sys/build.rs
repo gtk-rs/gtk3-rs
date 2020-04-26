@@ -31,7 +31,9 @@ fn main() {
 fn find() -> Result<(), Error> {
     let package_name = "pango";
     let shared_libs = ["pango-1.0"];
-    let version = if cfg!(feature = "v1_42") {
+    let version = if cfg!(feature = "v1_44") {
+        "1.44"
+    } else if cfg!(feature = "v1_42") {
         "1.42"
     } else if cfg!(feature = "v1_38") {
         "1.38"

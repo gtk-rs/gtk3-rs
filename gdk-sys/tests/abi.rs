@@ -3320,7 +3320,7 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) GDK_MAP", "14"),
     ("GDK_MAX_TIMECOORD_AXES", "128"),
     ("(guint) GDK_META_MASK", "268435456"),
-    ("GDK_MICRO_VERSION", "12"),
+    ("GDK_MICRO_VERSION", "18"),
     ("(gint) GDK_MIDDLEBUTTON", "82"),
     ("GDK_MINOR_VERSION", "24"),
     ("(guint) GDK_MOD1_MASK", "8"),

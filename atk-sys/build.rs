@@ -31,7 +31,9 @@ fn main() {
 fn find() -> Result<(), Error> {
     let package_name = "atk";
     let shared_libs = ["atk-1.0"];
-    let version = if cfg!(feature = "v2_34") {
+    let version = if cfg!(feature = "v2_35") {
+        "2.35"
+    } else if cfg!(feature = "v2_34") {
         "2.34"
     } else if cfg!(feature = "v2_32") {
         "2.32"
