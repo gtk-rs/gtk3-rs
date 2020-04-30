@@ -5,6 +5,8 @@
 #[allow(non_upper_case_globals)]
 pub mod key {
     use gdk_sys;
+    use glib::GString;
+    use keys;
 
     pub type Key = u32;
 
@@ -2280,4 +2282,19 @@ pub mod key {
     pub const Prev_VMode: Key = gdk_sys::GDK_KEY_Prev_VMode as u32;
     pub const LogWindowTree: Key = gdk_sys::GDK_KEY_LogWindowTree as u32;
     pub const LogGrabInfo: Key = gdk_sys::GDK_KEY_LogGrabInfo as u32;
+
+    pub trait Keys {
+        fn to_unicode(self) -> Option<char>;
+        fn name(self) -> Option<GString>;
+    }
+
+    impl Keys for Key {
+        fn to_unicode(self) -> Option<char> {
+            keys::keyval_to_unicode(self as u32)
+        }
+
+        fn name(self) -> Option<GString> {
+            keys::keyval_name(self as u32)
+        }
+    }
 }
