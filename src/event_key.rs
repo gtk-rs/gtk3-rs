@@ -21,7 +21,7 @@ impl EventKey {
     }
 
     pub fn get_keyval(&self) -> ::enums::key::Key {
-        self.as_ref().keyval as ::enums::key::Key
+        from_glib(self.as_ref().keyval)
     }
 
     pub fn get_length(&self) -> u32 {
