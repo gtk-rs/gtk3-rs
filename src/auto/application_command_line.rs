@@ -42,7 +42,7 @@ pub trait ApplicationCommandLineExt: 'static {
 
     fn get_is_remote(&self) -> bool;
 
-    //fn get_options_dict(&self) -> /*Ignored*/Option<glib::VariantDict>;
+    fn get_options_dict(&self) -> Option<glib::VariantDict>;
 
     fn get_platform_data(&self) -> Option<glib::Variant>;
 
@@ -113,9 +113,13 @@ impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
         }
     }
 
-    //fn get_options_dict(&self) -> /*Ignored*/Option<glib::VariantDict> {
-    //    unsafe { TODO: call gio_sys:g_application_command_line_get_options_dict() }
-    //}
+    fn get_options_dict(&self) -> Option<glib::VariantDict> {
+        unsafe {
+            from_glib_none(gio_sys::g_application_command_line_get_options_dict(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 
     fn get_platform_data(&self) -> Option<glib::Variant> {
         unsafe {
