@@ -154,6 +154,7 @@ manual = [
     "GLib.SpawnFlags",
     "GLib.TimeVal",
     "GLib.Variant",
+    "GLib.VariantDict",
     "GLib.VariantType",
     "GObject.Object",
     "GObject.Value",
