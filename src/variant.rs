@@ -12,7 +12,7 @@
 //!
 //! Although `GVariant` supports arbitrarily complex types, this binding is
 //! currently limited to the basic ones: `bool`, `u8`, `i16`, `u16`, `i32`,
-//! `u32`, `i64`, `u64`, `f64` and `&str`/`String`.
+//! `u32`, `i64`, `u64`, `f64`, `&str`/`String`, and [`VariantDict`](../struct.VariantDict.html).
 //!
 //! # Examples
 //!

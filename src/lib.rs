@@ -118,6 +118,7 @@ pub use time_val::{get_current_time, TimeVal};
 pub use types::{StaticType, Type};
 pub use value::{SendValue, ToSendValue, ToValue, TypedValue, Value};
 pub use variant::{StaticVariantType, ToVariant, Variant};
+pub use variant_dict::VariantDict;
 pub use variant_type::{VariantTy, VariantType};
 
 #[macro_use]
@@ -172,6 +173,7 @@ mod main_context;
 mod main_context_channel;
 pub mod value;
 pub mod variant;
+mod variant_dict;
 mod variant_type;
 pub use main_context_channel::{Receiver, Sender, SyncSender};
 mod date;
