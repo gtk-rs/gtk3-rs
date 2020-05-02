@@ -63,10 +63,11 @@ impl DataOutputStreamBuilder {
         if let Some(ref close_base_stream) = self.close_base_stream {
             properties.push(("close-base-stream", close_base_stream));
         }
-        glib::Object::new(DataOutputStream::static_type(), &properties)
+        let ret = glib::Object::new(DataOutputStream::static_type(), &properties)
             .expect("object new")
-            .downcast()
-            .expect("downcast")
+            .downcast::<DataOutputStream>()
+            .expect("downcast");
+        ret
     }
 
     pub fn byte_order(mut self, byte_order: DataStreamByteOrder) -> Self {

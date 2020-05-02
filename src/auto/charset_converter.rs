@@ -70,10 +70,11 @@ impl CharsetConverterBuilder {
         if let Some(ref use_fallback) = self.use_fallback {
             properties.push(("use-fallback", use_fallback));
         }
-        glib::Object::new(CharsetConverter::static_type(), &properties)
+        let ret = glib::Object::new(CharsetConverter::static_type(), &properties)
             .expect("object new")
-            .downcast()
-            .expect("downcast")
+            .downcast::<CharsetConverter>()
+            .expect("downcast");
+        ret
     }
 
     pub fn from_charset(mut self, from_charset: &str) -> Self {

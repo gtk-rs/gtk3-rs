@@ -74,10 +74,11 @@ impl BufferedOutputStreamBuilder {
         if let Some(ref close_base_stream) = self.close_base_stream {
             properties.push(("close-base-stream", close_base_stream));
         }
-        glib::Object::new(BufferedOutputStream::static_type(), &properties)
+        let ret = glib::Object::new(BufferedOutputStream::static_type(), &properties)
             .expect("object new")
-            .downcast()
-            .expect("downcast")
+            .downcast::<BufferedOutputStream>()
+            .expect("downcast");
+        ret
     }
 
     pub fn auto_grow(mut self, auto_grow: bool) -> Self {

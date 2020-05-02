@@ -76,10 +76,11 @@ impl BufferedInputStreamBuilder {
         if let Some(ref close_base_stream) = self.close_base_stream {
             properties.push(("close-base-stream", close_base_stream));
         }
-        glib::Object::new(BufferedInputStream::static_type(), &properties)
+        let ret = glib::Object::new(BufferedInputStream::static_type(), &properties)
             .expect("object new")
-            .downcast()
-            .expect("downcast")
+            .downcast::<BufferedInputStream>()
+            .expect("downcast");
+        ret
     }
 
     pub fn buffer_size(mut self, buffer_size: u32) -> Self {
