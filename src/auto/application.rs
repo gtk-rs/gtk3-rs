@@ -216,7 +216,10 @@ pub trait ApplicationExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
-    //fn connect_handle_local_options<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
+    fn connect_handle_local_options<F: Fn(&Self, &glib::VariantDict) -> i32 + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId;
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     fn connect_name_lost<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId;
@@ -596,9 +599,39 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    //fn connect_handle_local_options<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
-    //    Ignored options: GLib.VariantDict
-    //}
+    fn connect_handle_local_options<F: Fn(&Self, &glib::VariantDict) -> i32 + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn handle_local_options_trampoline<
+            P,
+            F: Fn(&P, &glib::VariantDict) -> i32 + 'static,
+        >(
+            this: *mut gio_sys::GApplication,
+            options: *mut glib_sys::GVariantDict,
+            f: glib_sys::gpointer,
+        ) -> libc::c_int
+        where
+            P: IsA<Application>,
+        {
+            let f: &F = &*(f as *const F);
+            f(
+                &Application::from_glib_borrow(this).unsafe_cast_ref(),
+                &from_glib_borrow(options),
+            )
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"handle-local-options\0".as_ptr() as *const _,
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    handle_local_options_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
+        }
+    }
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     fn connect_name_lost<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
