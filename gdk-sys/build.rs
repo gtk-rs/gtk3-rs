@@ -91,6 +91,9 @@ fn check_features() {
     // various backends that gdk was compiled for.
     // We extract that and create gdk_backend="x11" and the like
     // as configuration variables.
+    // In addition we publish this as a variable which cargo will
+    // provide to immediate dependents of this crate as an environment
+    // variable for their `build.rs` runs called DEP_GDK_BACKENDS
     // For reference, the backend set at time of writing consists of:
     // x11 win32 quartz broadway wayland
     if let Ok(targets) = pkg_config::get_variable(PKG_CONFIG_PACKAGE, "targets") {
