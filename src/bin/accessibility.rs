@@ -43,11 +43,7 @@ fn build_ui(application: &gtk::Application) {
     window.add(&vbox);
 
     button.connect_clicked(move |_| {
-        let value = label
-            .get_text()
-            .and_then(|s| u32::from_str_radix(&s, 10).ok())
-            .unwrap_or(0)
-            + 1;
+        let value = label.get_text().parse().unwrap_or(0) + 1;
         label.set_text(&value.to_string());
     });
 

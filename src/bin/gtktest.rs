@@ -60,9 +60,7 @@ fn build_ui(application: &gtk::Application) {
         .get_object("spin_button")
         .expect("Couldn't get spin_button");
     spin_button.connect_input(|spin_button| {
-        let text = spin_button
-            .get_text()
-            .expect("Couldn't get text from spin_button");
+        let text = spin_button.get_text();
         println!("spin_button_input: \"{}\"", text);
         match text.parse::<f64>() {
             Ok(value) if value >= 90. => {
@@ -181,7 +179,7 @@ fn build_ui(application: &gtk::Application) {
             let keystate = key.get_state();
 
             println!("key pressed: {} / {:?}", keyval, keystate);
-            println!("text: {}", entry.get_text().expect("Couldn't get text from entry"));
+            println!("text: {}", entry.get_text());
 
             if keystate.intersects(gdk::ModifierType::CONTROL_MASK) {
                 println!("You pressed Ctrl!");

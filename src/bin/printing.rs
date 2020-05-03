@@ -85,8 +85,8 @@ fn build_ui(application: &gtk::Application) {
         .expect("Couldn't get buttonprint");
 
     button_print.connect_clicked(clone!(@weak window => move |_| {
-        let text1 = entry1.get_text().expect("Couldn't get text1").to_string();
-        let text2 = entry2.get_text().expect("Couldn't get text2").to_string();
+        let text1 = entry1.get_text().to_string();
+        let text2 = entry2.get_text().to_string();
         print(&window, text1, text2);
     }));
 
