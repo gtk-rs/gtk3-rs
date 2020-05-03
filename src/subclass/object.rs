@@ -641,12 +641,13 @@ mod test {
 
     #[test]
     fn test_signals() {
-        use std::sync::{Arc, Mutex};
+        use std::sync::atomic::{AtomicBool, Ordering};
+        use std::sync::Arc;
 
         let type_ = SimpleObject::get_type();
         let obj = Object::new(type_, &[("name", &"old-name")]).expect("Object::new failed");
 
-        let name_changed_triggered = Arc::new(Mutex::new(false));
+        let name_changed_triggered = Arc::new(AtomicBool::new(false));
         let name_changed_clone = name_changed_triggered.clone();
         obj.connect("name-changed", false, move |args| {
             let _obj = args[0]
@@ -659,7 +660,7 @@ mod test {
                 .expect("Failed to get str from args[1]");
 
             assert_eq!(name, "new-name");
-            *name_changed_clone.lock().expect("Failed to lock") = true;
+            name_changed_clone.store(true, Ordering::Relaxed);
 
             None
         })
@@ -672,7 +673,7 @@ mod test {
                 .expect("Failed to get str from 'name' property"),
             Some("old-name")
         );
-        assert!(!*name_changed_triggered.lock().expect("Failed to lock"));
+        assert!(!name_changed_triggered.load(Ordering::Relaxed));
 
         let old_name = obj
             .emit("change-name", &[&"new-name"])
@@ -681,7 +682,7 @@ mod test {
             .get::<String>()
             .expect("Failed to get str from emit");
         assert_eq!(old_name, Some("old-name".to_string()));
-        assert!(*name_changed_triggered.lock().expect("Failed to lock"));
+        assert!(name_changed_triggered.load(Ordering::Relaxed));
     }
 
     #[test]
@@ -702,19 +703,20 @@ mod test {
 
     #[test]
     fn test_callback_validity() {
-        use std::sync::{Arc, Mutex};
+        use std::sync::atomic::{AtomicBool, Ordering};
+        use std::sync::Arc;
 
         let type_ = SimpleObject::get_type();
         let obj = Object::new(type_, &[("name", &"old-name")]).expect("Object::new failed");
 
-        let name_changed_triggered = Arc::new(Mutex::new(false));
+        let name_changed_triggered = Arc::new(AtomicBool::new(false));
         let name_changed_clone = name_changed_triggered.clone();
 
         obj.connect_notify(Some("name"), move |_, _| {
-            *name_changed_clone.lock().expect("Failed to lock") = true;
+            name_changed_clone.store(true, Ordering::Relaxed);
         });
         obj.notify("name");
-        assert!(*name_changed_triggered.lock().expect("Failed to lock"));
+        assert!(name_changed_triggered.load(Ordering::Relaxed));
     }
 
     // Note: can't test type mismatch in signals since panics accross FFI boundaries
