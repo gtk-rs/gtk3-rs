@@ -59,6 +59,12 @@ pub unsafe trait ObjectType:
 
 /// Unsafe variant of the `From` trait.
 pub trait UnsafeFrom<T> {
+    /// # Safety
+    ///
+    /// It is the responsibility of the caller to ensure *all* invariants of
+    /// the `T` hold before this is called, and that subsequent to conversion
+    /// to assume nothing other than the invariants of the output.  Implementors
+    /// of this must ensure that the invariants of the output type hold.
     unsafe fn unsafe_from(t: T) -> Self;
 }
 
@@ -353,7 +359,14 @@ pub trait Cast: ObjectType {
 
     /// Casts to `T` unconditionally.
     ///
+    /// # Panics
+    ///
     /// Panics if compiled with `debug_assertions` and the instance doesn't implement `T`.
+    ///
+    /// # Safety
+    ///
+    /// If not running with `debug_assertions` enabled, the caller is responsible
+    /// for ensuring that the instance implements `T`
     unsafe fn unsafe_cast<T: ObjectType>(self) -> T {
         debug_assert!(self.is::<T>());
         T::unsafe_from(self.into())
@@ -361,7 +374,14 @@ pub trait Cast: ObjectType {
 
     /// Casts to `&T` unconditionally.
     ///
+    /// # Panics
+    ///
     /// Panics if compiled with `debug_assertions` and the instance doesn't implement `T`.
+    ///
+    /// # Safety
+    ///
+    /// If not running with `debug_assertions` enabled, the caller is responsible
+    /// for ensuring that the instance implements `T`
     unsafe fn unsafe_cast_ref<T: ObjectType>(&self) -> &T {
         debug_assert!(self.is::<T>());
         // This cast is safe because all our wrapper types have the
