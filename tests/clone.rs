@@ -33,7 +33,8 @@ fn clone_and_references() {
         })
     };
 
-    assert_eq!(closure(), ());
+    closure();
+    assert_eq!(ref_state.borrow().started, true);
 }
 
 #[test]
@@ -68,7 +69,8 @@ fn renaming() {
         })
     };
 
-    assert_eq!(closure(), ());
+    closure();
+    assert_eq!(state.borrow().started, true);
 }
 
 #[test]
@@ -82,7 +84,7 @@ fn clone_closure() {
         })
     };
 
-    assert_eq!(closure(), ());
+    closure();
 
     assert_eq!(state.borrow().started, true);
     assert_eq!(state.borrow().count, 0);
@@ -98,7 +100,7 @@ fn clone_closure() {
         })
     };
 
-    assert_eq!(closure(), ());
+    closure();
 
     assert_eq!(state.borrow().count, 1);
     assert_eq!(state.borrow().started, true);
@@ -135,9 +137,7 @@ fn clone_panic() {
         closure(50);
     });
 
-    if result.is_ok() {
-        assert!(false, "should panic");
-    }
+    assert!(result.is_err());
 
     assert_eq!(state.lock().expect("Failed to lock state mutex").count, 20);
 }
