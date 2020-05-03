@@ -304,6 +304,7 @@ pub(crate) fn std_error_to_gio_error<T>(
         Err(err) => {
             use std::io::ErrorKind;
 
+            #[allow(clippy::wildcard_in_or_patterns)]
             match err.kind() {
                 ErrorKind::NotFound => Some(Err(glib::Error::new(
                     crate::IOErrorEnum::NotFound,

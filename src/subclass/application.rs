@@ -535,7 +535,7 @@ mod tests {
                 assert!(!a.starts_with("--local-"))
             }
 
-            return EXIT_STATUS;
+            EXIT_STATUS
         }
     }
 
