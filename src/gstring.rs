@@ -33,11 +33,37 @@ unsafe impl Send for GString {}
 unsafe impl Sync for GString {}
 
 impl GString {
+    /// Create a new GString from a glib-originated string, taking ownership.
+    ///
+    /// # Safety
+    ///
+    /// The provided string must be a valid C string (i.e. `'0'` terminated).
+    ///
+    /// The provided pointer must be allocated by glib such that `g_free(ptr)`
+    /// is valid, as the `GString` will call `g_free(ptr)` on drop.
+    ///
+    /// It is essential that noone else free this pointer as it owned by the
+    /// returned `GString`.
+    ///
+    /// The underlying string must not be mutated, in particular in terms of
+    /// length, underneath the `GString` instance.
     pub unsafe fn new(ptr: *mut c_char) -> Self {
         assert!(!ptr.is_null());
         GString(Inner::Foreign(ptr, libc::strlen(ptr)))
     }
 
+    /// Create a new GString from a glib-originated string, borrowing it rather
+    /// than taking ownership.
+    ///
+    /// # Safety
+    ///
+    /// The provided string must be a valid C string (i.e. `'0'` terminated).
+    ///
+    /// It is essential that noone else free this pointer as it owned by the
+    /// returned `GString` until the borrow is dropped.
+    ///
+    /// The underlying string must not be mutated, in particular in terms of
+    /// length, underneath the `GString` instance for the duration of the borrow.
     pub unsafe fn new_borrowed(ptr: *const c_char) -> Borrowed<Self> {
         assert!(!ptr.is_null());
         Borrowed::new(GString(Inner::Foreign(ptr as *mut _, libc::strlen(ptr))))
