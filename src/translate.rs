@@ -137,6 +137,7 @@ pub fn const_override<T>(ptr: *mut T) -> *const T {
 /// A trait for creating an uninitialized value. Handy for receiving outparams.
 pub trait Uninitialized {
     /// Returns an uninitialized value.
+    #[allow(clippy::missing_safety_doc)]
     unsafe fn uninitialized() -> Self;
 }
 
