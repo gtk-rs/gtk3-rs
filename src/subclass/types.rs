@@ -125,6 +125,11 @@ pub unsafe trait IsSubclassable<T: ObjectSubclass>: IsClassFor {
 /// Trait for implementable interfaces.
 pub unsafe trait IsImplementable<T: ObjectSubclass>: StaticType {
     /// Initializes the interface's virtual methods.
+    ///
+    /// # Safety
+    ///
+    /// It is the responsibility of the implementor of the interface to
+    /// correctly type the pointers when working on the vtables they point at.
     unsafe extern "C" fn interface_init(iface: glib_sys::gpointer, _iface_data: glib_sys::gpointer);
 }
 
