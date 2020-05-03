@@ -432,7 +432,7 @@ mod tests {
     fn test_string() {
         let s = String::from("this is a test");
         let v = Variant::from(s.clone());
-        assert_eq!(v.get(), Some(s.clone()));
+        assert_eq!(v.get(), Some(s));
     }
 
     #[test]
