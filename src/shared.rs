@@ -285,7 +285,17 @@ macro_rules! glib_shared_wrapper {
 }
 
 pub trait SharedMemoryManager<T> {
+    /// # Safety
+    ///
+    /// Callers are responsible for ensuring that a matching call to `unref`
+    /// is made at an appropriate time.
     unsafe fn ref_(ptr: *mut T);
+
+    /// # Safety
+    ///
+    /// Callers are responsible for ensuring that a matching call to `ref` was
+    /// made before this is called, and that the pointer is not used after the
+    /// `unref` call.
     unsafe fn unref(ptr: *mut T);
 }
 
