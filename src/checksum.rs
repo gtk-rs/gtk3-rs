@@ -49,22 +49,22 @@ mod tests {
     #[test]
     fn update() {
         let mut cs = Checksum::new(CS_TYPE);
-        cs.update("hello world!".as_bytes());
+        cs.update(b"hello world!");
         assert_eq!(cs.get_string().unwrap(), CS_VALUE);
     }
 
     #[test]
     fn update_multi_call() {
         let mut cs = Checksum::new(CS_TYPE);
-        cs.update("hello ".as_bytes());
-        cs.update("world!".as_bytes());
+        cs.update(b"hello ");
+        cs.update(b"world!");
         assert_eq!(cs.get_string().unwrap(), CS_VALUE);
     }
 
     #[test]
     fn get_digest() {
         let mut cs = Checksum::new(CS_TYPE);
-        cs.update("hello world!".as_bytes());
+        cs.update(b"hello world!");
         let vec = cs.get_digest();
         assert_eq!(vec, CS_SLICE);
     }
