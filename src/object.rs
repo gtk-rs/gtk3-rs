@@ -1313,6 +1313,7 @@ pub trait ObjectExt: ObjectType {
     where
         N: Into<&'a str>,
         F: Fn(&[Value]) -> Option<Value> + 'static;
+    #[allow(clippy::missing_safety_doc)]
     unsafe fn connect_unsafe<'a, N, F>(
         &self,
         signal_name: N,
@@ -1334,6 +1335,7 @@ pub trait ObjectExt: ObjectType {
         name: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
+    #[allow(clippy::missing_safety_doc)]
     unsafe fn connect_notify_unsafe<F: Fn(&Self, &::ParamSpec)>(
         &self,
         name: Option<&str>,

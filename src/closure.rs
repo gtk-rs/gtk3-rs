@@ -41,6 +41,7 @@ impl Closure {
         unsafe { Closure::new_unsafe(move |values| (callback.get_ref())(values)) }
     }
 
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn new_unsafe<F: Fn(&[Value]) -> Option<Value>>(callback: F) -> Self {
         unsafe extern "C" fn marshal<F>(
             _closure: *mut gobject_sys::GClosure,

@@ -97,6 +97,7 @@ impl ByteArray {
         }
     }
 
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn set_size(&self, size: usize) {
         glib_sys::g_byte_array_set_size(self.to_glib_none().0, size as u32);
     }
