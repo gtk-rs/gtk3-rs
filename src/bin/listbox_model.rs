@@ -151,10 +151,9 @@ fn build_ui(application: &gtk::Application) {
             content_area.add(&spin_button);
 
             dialog.connect_response(clone!(@weak model, @weak entry, @weak spin_button => move |dialog, resp| {
-                if let Some(text) = entry.get_text() {
-                    if !text.is_empty() && resp == ResponseType::Ok {
-                        model.append(&RowData::new(&text, spin_button.get_value() as u32));
-                    }
+                let text = entry.get_text();
+                if !text.is_empty() && resp == ResponseType::Ok {
+                    model.append(&RowData::new(&text, spin_button.get_value() as u32));
                 }
                 dialog.close();
             }));
