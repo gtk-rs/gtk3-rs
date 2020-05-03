@@ -75,7 +75,7 @@ impl Subprocess {
 
     pub fn communicate_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(glib::Bytes, glib::Bytes), glib::Error>) + Send + 'static,
+        Q: FnOnce(Result<(Option<glib::Bytes>, Option<glib::Bytes>), glib::Error>) + Send + 'static,
     >(
         &self,
         stdin_buf: Option<&glib::Bytes>,
@@ -84,7 +84,9 @@ impl Subprocess {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn communicate_async_trampoline<
-            Q: FnOnce(Result<(glib::Bytes, glib::Bytes), glib::Error>) + Send + 'static,
+            Q: FnOnce(Result<(Option<glib::Bytes>, Option<glib::Bytes>), glib::Error>)
+                + Send
+                + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -125,8 +127,9 @@ impl Subprocess {
         stdin_buf: Option<&glib::Bytes>,
     ) -> Pin<
         Box_<
-            dyn std::future::Future<Output = Result<(glib::Bytes, glib::Bytes), glib::Error>>
-                + 'static,
+            dyn std::future::Future<
+                    Output = Result<(Option<glib::Bytes>, Option<glib::Bytes>), glib::Error>,
+                > + 'static,
         >,
     > {
         let stdin_buf = stdin_buf.map(ToOwned::to_owned);

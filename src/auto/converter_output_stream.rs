@@ -60,10 +60,11 @@ impl ConverterOutputStreamBuilder {
         if let Some(ref close_base_stream) = self.close_base_stream {
             properties.push(("close-base-stream", close_base_stream));
         }
-        glib::Object::new(ConverterOutputStream::static_type(), &properties)
+        let ret = glib::Object::new(ConverterOutputStream::static_type(), &properties)
             .expect("object new")
-            .downcast()
-            .expect("downcast")
+            .downcast::<ConverterOutputStream>()
+            .expect("downcast");
+        ret
     }
 
     pub fn converter<P: IsA<Converter>>(mut self, converter: &P) -> Self {

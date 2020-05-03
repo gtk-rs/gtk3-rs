@@ -51,10 +51,11 @@ impl ListStoreBuilder {
                 properties.push(("item-type", item_type));
             }
         }
-        glib::Object::new(ListStore::static_type(), &properties)
+        let ret = glib::Object::new(ListStore::static_type(), &properties)
             .expect("object new")
-            .downcast()
-            .expect("downcast")
+            .downcast::<ListStore>()
+            .expect("downcast");
+        ret
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]

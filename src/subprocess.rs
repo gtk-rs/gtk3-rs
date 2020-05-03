@@ -12,7 +12,7 @@ use Subprocess;
 
 impl Subprocess {
     pub fn communicate_utf8_async<
-        R: FnOnce(Result<(GString, GString), glib::Error>) + Send + 'static,
+        R: FnOnce(Result<(Option<GString>, Option<GString>), glib::Error>) + Send + 'static,
         C: IsA<Cancellable>,
     >(
         &self,
@@ -25,7 +25,7 @@ impl Subprocess {
         let gcancellable = cancellable.to_glib_none();
         let user_data: Box<(R, *mut c_char)> = Box::new((callback, stdin_buf));
         unsafe extern "C" fn communicate_utf8_async_trampoline<
-            R: FnOnce(Result<(GString, GString), glib::Error>) + Send + 'static,
+            R: FnOnce(Result<(Option<GString>, Option<GString>), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -64,8 +64,13 @@ impl Subprocess {
     pub fn communicate_utf8_async_future(
         &self,
         stdin_buf: Option<String>,
-    ) -> Pin<Box<dyn std::future::Future<Output = Result<(GString, GString), glib::Error>> + 'static>>
-    {
+    ) -> Pin<
+        Box<
+            dyn std::future::Future<
+                    Output = Result<(Option<GString>, Option<GString>), glib::Error>,
+                > + 'static,
+        >,
+    > {
         Box::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             obj.communicate_utf8_async(stdin_buf, Some(&cancellable), move |res| {

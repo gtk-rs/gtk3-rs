@@ -276,7 +276,7 @@ pub trait FileExt: 'static {
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     fn load_bytes_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(glib::Bytes, GString), glib::Error>) + Send + 'static,
+        Q: FnOnce(Result<(glib::Bytes, Option<GString>), glib::Error>) + Send + 'static,
     >(
         &self,
         cancellable: Option<&P>,
@@ -288,7 +288,8 @@ pub trait FileExt: 'static {
         &self,
     ) -> Pin<
         Box_<
-            dyn std::future::Future<Output = Result<(glib::Bytes, GString), glib::Error>> + 'static,
+            dyn std::future::Future<Output = Result<(glib::Bytes, Option<GString>), glib::Error>>
+                + 'static,
         >,
     >;
 
@@ -1440,7 +1441,7 @@ impl<O: IsA<File>> FileExt for O {
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     fn load_bytes_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(glib::Bytes, GString), glib::Error>) + Send + 'static,
+        Q: FnOnce(Result<(glib::Bytes, Option<GString>), glib::Error>) + Send + 'static,
     >(
         &self,
         cancellable: Option<&P>,
@@ -1448,7 +1449,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn load_bytes_async_trampoline<
-            Q: FnOnce(Result<(glib::Bytes, GString), glib::Error>) + Send + 'static,
+            Q: FnOnce(Result<(glib::Bytes, Option<GString>), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -1486,7 +1487,8 @@ impl<O: IsA<File>> FileExt for O {
         &self,
     ) -> Pin<
         Box_<
-            dyn std::future::Future<Output = Result<(glib::Bytes, GString), glib::Error>> + 'static,
+            dyn std::future::Future<Output = Result<(glib::Bytes, Option<GString>), glib::Error>>
+                + 'static,
         >,
     > {
         Box_::pin(crate::GioFuture::new(self, move |obj, send| {
