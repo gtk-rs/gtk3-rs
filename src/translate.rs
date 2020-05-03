@@ -203,6 +203,8 @@ impl<T> Borrowed<T> {
 
     /// Extracts the contained value.
     ///
+    /// # Safety
+    ///
     /// The returned value must never be dropped and instead has to be passed to `mem::forget()` or
     /// be directly wrapped in `mem::ManuallyDrop` or another `Borrowed` wrapper.
     pub unsafe fn into_inner(self) -> T {
@@ -1220,6 +1222,9 @@ impl FromGlib<i32> for Option<u64> {
 /// This is suitable for floating references, which become strong references.
 /// It is also suitable for acquiring non-gobject values, like `gchar*`.
 ///
+/// <a name="safety_points"></a>
+/// # Safety
+///
 /// The implementation of this trait should acquire a reference to the value
 /// in a way appropriate to the type,
 /// e.g. by increasing the reference count or copying.
@@ -1228,6 +1233,9 @@ impl FromGlib<i32> for Option<u64> {
 ///
 /// For more information, refer to module level documentation.
 pub trait FromGlibPtrNone<P: Ptr>: Sized {
+    /// # Safety
+    ///
+    /// See trait level [notes on safety](#safety_points)
     unsafe fn from_glib_none(ptr: P) -> Self;
 }
 
@@ -1237,6 +1245,9 @@ pub trait FromGlibPtrNone<P: Ptr>: Sized {
 /// Because ownership can only be transferred if something is already referenced,
 /// this is unsuitable for floating references.
 ///
+/// <a name="safety_points"></a>
+/// # Safety
+///
 /// The implementation of this trait should not alter the reference count
 /// or make copies of the underlying value.
 /// Values obtained using this trait must be properly released on `drop()`
@@ -1244,6 +1255,9 @@ pub trait FromGlibPtrNone<P: Ptr>: Sized {
 ///
 /// For more information, refer to module level documentation.
 pub trait FromGlibPtrFull<P: Ptr>: Sized {
+    /// # Safety
+    ///
+    /// See trait level [notes on safety](#safety_points)
     unsafe fn from_glib_full(ptr: P) -> Self;
 }
 
@@ -1254,6 +1268,9 @@ pub trait FromGlibPtrFull<P: Ptr>: Sized {
 /// The obtained borrow must not be accessed outside of the scope of the callback,
 /// and called procedures must not store any references to the underlying data.
 /// Safe Rust code must never obtain a mutable Rust reference.
+///
+/// <a name="safety_points"></a>
+/// # Safety
 ///
 /// The implementation of this trait as well as the returned type
 /// must satisfy the same constraints together.
@@ -1269,6 +1286,9 @@ pub trait FromGlibPtrFull<P: Ptr>: Sized {
 ///
 /// For more information, refer to module level documentation.
 pub trait FromGlibPtrBorrow<P: Ptr>: Sized {
+    /// # Safety
+    ///
+    /// See trait level [notes on safety](#safety_points)
     unsafe fn from_glib_borrow(_ptr: P) -> Borrowed<Self> {
         unimplemented!();
     }
