@@ -349,7 +349,10 @@ mod tests {
 
                     futures_util::future::ok(())
                 })
-                .then(|res| futures_util::future::ready(res.unwrap())),
+                .then(|res| {
+                    assert!(res.is_ok());
+                    futures_util::future::ready(())
+                }),
         );
 
         thread::spawn(move || {
@@ -358,7 +361,7 @@ mod tests {
 
         o_sender.send(()).unwrap();
 
-        let _ = receiver.recv().unwrap();
+        receiver.recv().unwrap();
     }
 
     #[test]
