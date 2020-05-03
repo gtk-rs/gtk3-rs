@@ -476,7 +476,7 @@ mod tests {
 
     #[test]
     fn test_vec_u8_to_gstring() {
-        let v = "foo".as_bytes();
+        let v: &[u8] = b"foo";
         let s: GString = Vec::from(v).into();
         assert_eq!(s.as_str(), "foo");
     }
