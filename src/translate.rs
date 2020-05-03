@@ -137,6 +137,7 @@ pub fn const_override<T>(ptr: *mut T) -> *const T {
 /// A trait for creating an uninitialized value. Handy for receiving outparams.
 pub trait Uninitialized {
     /// Returns an uninitialized value.
+    #[allow(clippy::missing_safety_doc)]
     unsafe fn uninitialized() -> Self;
 }
 
@@ -201,6 +202,8 @@ impl<T> Borrowed<T> {
     }
 
     /// Extracts the contained value.
+    ///
+    /// # Safety
     ///
     /// The returned value must never be dropped and instead has to be passed to `mem::forget()` or
     /// be directly wrapped in `mem::ManuallyDrop` or another `Borrowed` wrapper.
@@ -1219,6 +1222,9 @@ impl FromGlib<i32> for Option<u64> {
 /// This is suitable for floating references, which become strong references.
 /// It is also suitable for acquiring non-gobject values, like `gchar*`.
 ///
+/// <a name="safety_points"></a>
+/// # Safety
+///
 /// The implementation of this trait should acquire a reference to the value
 /// in a way appropriate to the type,
 /// e.g. by increasing the reference count or copying.
@@ -1227,6 +1233,9 @@ impl FromGlib<i32> for Option<u64> {
 ///
 /// For more information, refer to module level documentation.
 pub trait FromGlibPtrNone<P: Ptr>: Sized {
+    /// # Safety
+    ///
+    /// See trait level [notes on safety](#safety_points)
     unsafe fn from_glib_none(ptr: P) -> Self;
 }
 
@@ -1236,6 +1245,9 @@ pub trait FromGlibPtrNone<P: Ptr>: Sized {
 /// Because ownership can only be transferred if something is already referenced,
 /// this is unsuitable for floating references.
 ///
+/// <a name="safety_points"></a>
+/// # Safety
+///
 /// The implementation of this trait should not alter the reference count
 /// or make copies of the underlying value.
 /// Values obtained using this trait must be properly released on `drop()`
@@ -1243,6 +1255,9 @@ pub trait FromGlibPtrNone<P: Ptr>: Sized {
 ///
 /// For more information, refer to module level documentation.
 pub trait FromGlibPtrFull<P: Ptr>: Sized {
+    /// # Safety
+    ///
+    /// See trait level [notes on safety](#safety_points)
     unsafe fn from_glib_full(ptr: P) -> Self;
 }
 
@@ -1253,6 +1268,9 @@ pub trait FromGlibPtrFull<P: Ptr>: Sized {
 /// The obtained borrow must not be accessed outside of the scope of the callback,
 /// and called procedures must not store any references to the underlying data.
 /// Safe Rust code must never obtain a mutable Rust reference.
+///
+/// <a name="safety_points"></a>
+/// # Safety
 ///
 /// The implementation of this trait as well as the returned type
 /// must satisfy the same constraints together.
@@ -1268,6 +1286,9 @@ pub trait FromGlibPtrFull<P: Ptr>: Sized {
 ///
 /// For more information, refer to module level documentation.
 pub trait FromGlibPtrBorrow<P: Ptr>: Sized {
+    /// # Safety
+    ///
+    /// See trait level [notes on safety](#safety_points)
     unsafe fn from_glib_borrow(_ptr: P) -> Borrowed<Self> {
         unimplemented!();
     }
@@ -1487,6 +1508,7 @@ impl FromGlibPtrFull<*mut c_char> for OsString {
 }
 
 /// Translate from a container.
+#[allow(clippy::missing_safety_doc)]
 pub trait FromGlibContainer<T, P: Ptr>: Sized {
     /// Transfer: none.
     ///
@@ -1505,6 +1527,7 @@ pub trait FromGlibContainer<T, P: Ptr>: Sized {
 }
 
 /// Translate from a container of pointers.
+#[allow(clippy::missing_safety_doc)]
 pub trait FromGlibPtrContainer<P: Ptr, PP: Ptr>: FromGlibContainer<P, PP> + Sized {
     /// Transfer: none.
     unsafe fn from_glib_none(ptr: PP) -> Self;
@@ -1529,6 +1552,7 @@ pub unsafe fn c_ptr_array_len<P: Ptr>(mut ptr: *const P) -> usize {
     len
 }
 
+#[allow(clippy::missing_safety_doc)]
 pub trait FromGlibContainerAsVec<T, P: Ptr>
 where
     Self: Sized,
@@ -1538,6 +1562,7 @@ where
     unsafe fn from_glib_full_num_as_vec(ptr: P, num: usize) -> Vec<Self>;
 }
 
+#[allow(clippy::missing_safety_doc)]
 pub trait FromGlibPtrArrayContainerAsVec<P: Ptr, PP: Ptr>: FromGlibContainerAsVec<P, PP>
 where
     Self: Sized,

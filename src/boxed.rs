@@ -368,6 +368,8 @@ impl<T> fmt::Debug for AnyBox<T> {
     }
 }
 
+// The safety docs really belong in the glib_wrapper!() macro for Boxed<T>
+#[allow(clippy::missing_safety_doc)]
 /// Memory management functions for a boxed type.
 pub trait BoxedMemoryManager<T>: 'static {
     /// Makes a copy.

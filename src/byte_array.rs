@@ -97,6 +97,7 @@ impl ByteArray {
         }
     }
 
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn set_size(&self, size: usize) {
         glib_sys::g_byte_array_set_size(self.to_glib_none().0, size as u32);
     }
@@ -244,9 +245,9 @@ mod tests {
         ba.remove_range(1, 2);
         ba.sort(|a, b| a.cmp(b));
         unsafe { ba.set_size(3) };
-        assert_eq!(ba, "aab".as_bytes());
+        assert_eq!(ba, b"aab" as &[u8]);
         let abc: &[u8] = b"abc";
-        assert_eq!(ByteArray::from(abc), "abc".as_bytes());
+        assert_eq!(ByteArray::from(abc), b"abc" as &[u8]);
     }
 
     #[test]

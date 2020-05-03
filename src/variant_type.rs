@@ -156,6 +156,11 @@ impl VariantTy {
     }
 
     /// Converts a type string into `&VariantTy` without any checks.
+    ///
+    /// # Safety
+    ///
+    /// The caller is responsible for passing in only a valid variant type string
+    /// which is already registered with the type system.
     pub unsafe fn from_str_unchecked(type_string: &str) -> &VariantTy {
         &*(type_string as *const str as *const VariantTy)
     }

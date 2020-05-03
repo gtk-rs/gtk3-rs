@@ -378,9 +378,7 @@ mod tests {
     fn test_timeout() {
         let c = MainContext::new();
 
-        let res = c.block_on(timeout_future(20));
-
-        assert_eq!(res, ());
+        c.block_on(timeout_future(20));
     }
 
     #[test]
@@ -405,18 +403,16 @@ mod tests {
 
         {
             let count = &mut count;
-            let res = c.block_on(
+            c.block_on(
                 interval_stream(20)
                     .take(2)
                     .for_each(|()| {
-                        *count = *count + 1;
+                        *count += 1;
 
                         futures_util::future::ready(())
                     })
                     .map(|_| ()),
             );
-
-            assert_eq!(res, ());
         }
 
         assert_eq!(count, 2);

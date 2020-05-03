@@ -893,6 +893,10 @@ impl ToValue for SendValue {
 ///
 /// Types that don't support a `None` value always return `Some`.
 pub trait FromValueOptional<'a>: StaticType + Sized {
+    /// # Safety
+    ///
+    /// The caller is responsible for ensuring the given `Value` is of a suitable
+    /// type for this conversion.
     unsafe fn from_value_optional(&'a Value) -> Option<Self>;
 }
 
@@ -900,6 +904,10 @@ pub trait FromValueOptional<'a>: StaticType + Sized {
 ///
 /// Only implemented for types that don't support a `None` value.
 pub trait FromValue<'a>: FromValueOptional<'a> {
+    /// # Safety
+    ///
+    /// The caller is responsible for ensuring the given `Value` is of a suitable
+    /// type for this conversion.
     unsafe fn from_value(&'a Value) -> Self;
 }
 
@@ -907,11 +915,19 @@ pub trait FromValue<'a>: FromValueOptional<'a> {
 ///
 /// Only implemented for types that support a `None` value.
 pub trait SetValueOptional: SetValue {
+    /// # Safety
+    ///
+    /// The caller is responsible for ensuring the given `Value` is of a suitable
+    /// type for this conversion.
     unsafe fn set_value_optional(&mut Value, Option<&Self>);
 }
 
 /// Sets a value.
 pub trait SetValue: StaticType {
+    /// # Safety
+    ///
+    /// The caller is responsible for ensuring the given `Value` is of a suitable
+    /// type for this conversion.
     unsafe fn set_value(&mut Value, &Self);
 }
 

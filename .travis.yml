@@ -108,3 +108,7 @@ script:
       cd checker && cargo build --release;
       cd .. && ./checker/target/release/checker .;
     fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$TRAVIS_RUST_VERSION" == "stable"] && [ "$GTK" == "3.24" ]; then
+      rustup component add clippy;
+      cargo clippy --tests -- -D warnings;
+    fi

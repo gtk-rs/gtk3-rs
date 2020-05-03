@@ -33,12 +33,38 @@ unsafe impl Send for GString {}
 unsafe impl Sync for GString {}
 
 impl GString {
-    pub unsafe fn new(ptr: *mut c_char) -> Self {
+    /// Create a new GString from a glib-originated string, taking ownership.
+    ///
+    /// # Safety
+    ///
+    /// The provided string must be a valid C string (i.e. `'0'` terminated).
+    ///
+    /// The provided pointer must be allocated by glib such that `g_free(ptr)`
+    /// is valid, as the `GString` will call `g_free(ptr)` on drop.
+    ///
+    /// It is essential that noone else free this pointer as it owned by the
+    /// returned `GString`.
+    ///
+    /// The underlying string must not be mutated, in particular in terms of
+    /// length, underneath the `GString` instance.
+    unsafe fn new(ptr: *mut c_char) -> Self {
         assert!(!ptr.is_null());
         GString(Inner::Foreign(ptr, libc::strlen(ptr)))
     }
 
-    pub unsafe fn new_borrowed(ptr: *const c_char) -> Borrowed<Self> {
+    /// Create a new GString from a glib-originated string, borrowing it rather
+    /// than taking ownership.
+    ///
+    /// # Safety
+    ///
+    /// The provided string must be a valid C string (i.e. `'0'` terminated).
+    ///
+    /// It is essential that noone else free this pointer as it owned by the
+    /// returned `GString` until the borrow is dropped.
+    ///
+    /// The underlying string must not be mutated, in particular in terms of
+    /// length, underneath the `GString` instance for the duration of the borrow.
+    unsafe fn new_borrowed(ptr: *const c_char) -> Borrowed<Self> {
         assert!(!ptr.is_null());
         Borrowed::new(GString(Inner::Foreign(ptr as *mut _, libc::strlen(ptr))))
     }
@@ -417,6 +443,7 @@ impl_from_glib_container_as_vec_string!(GString, *const c_char);
 impl_from_glib_container_as_vec_string!(GString, *mut c_char);
 
 #[cfg(test)]
+#[allow(clippy::blacklisted_name)]
 mod tests {
     use glib_sys;
     use gstring::GString;
@@ -475,7 +502,7 @@ mod tests {
 
     #[test]
     fn test_vec_u8_to_gstring() {
-        let v = "foo".as_bytes();
+        let v: &[u8] = b"foo";
         let s: GString = Vec::from(v).into();
         assert_eq!(s.as_str(), "foo");
     }

@@ -529,6 +529,7 @@ mod tests {
     use super::*;
     use std::cell::RefCell;
     use std::rc::Rc;
+    use std::sync::atomic::{AtomicBool, Ordering};
     use std::thread;
     use std::time;
     use MainLoop;
@@ -624,14 +625,14 @@ mod tests {
 
         let (sender, receiver) = MainContext::channel::<i32>(Priority::default());
 
-        struct Helper(Arc<Mutex<bool>>);
+        struct Helper(Arc<AtomicBool>);
         impl Drop for Helper {
             fn drop(&mut self) {
-                *self.0.lock().unwrap() = true;
+                self.0.store(true, Ordering::Relaxed);
             }
         }
 
-        let dropped = Arc::new(Mutex::new(false));
+        let dropped = Arc::new(AtomicBool::new(false));
         let helper = Helper(dropped.clone());
         let source_id = receiver.attach(Some(&c), move |_| {
             let _helper = &helper;
@@ -644,7 +645,7 @@ mod tests {
         // This should drop the closure
         drop(source);
 
-        assert_eq!(*dropped.lock().unwrap(), true);
+        assert!(dropped.load(Ordering::Relaxed));
         assert_eq!(sender.send(1), Err(mpsc::SendError(1)));
     }
 
@@ -688,7 +689,7 @@ mod tests {
         // Wait until the channel is full, and then another
         // 50ms to make sure the sender is blocked now and
         // can wake up properly once an item was consumed
-        let _ = wait_receiver.recv().unwrap();
+        assert!(wait_receiver.recv().is_ok());
         thread::sleep(time::Duration::from_millis(50));
         l.run();
 
@@ -731,7 +732,7 @@ mod tests {
             for i in 4.. {
                 // This will block at some point until the
                 // receiver is removed from the main context
-                if let Err(_) = sender.send(i) {
+                if sender.send(i).is_err() {
                     break;
                 }
             }
@@ -740,7 +741,7 @@ mod tests {
         // Wait until the channel is full, and then another
         // 50ms to make sure the sender is blocked now and
         // can wake up properly once an item was consumed
-        let _ = wait_receiver.recv().unwrap();
+        assert!(wait_receiver.recv().is_ok());
         thread::sleep(time::Duration::from_millis(50));
         l.run();
 
@@ -772,7 +773,7 @@ mod tests {
         // Wait until the channel is full, and then another
         // 50ms to make sure the sender is blocked now and
         // can wake up properly once an item was consumed
-        let _ = wait_receiver.recv().unwrap();
+        assert!(wait_receiver.recv().is_ok());
         thread::sleep(time::Duration::from_millis(50));
         drop(receiver);
         thread.join().unwrap();
@@ -802,7 +803,7 @@ mod tests {
         // Wait until the thread is started, then wait another 50ms and
         // during that time it must not have proceeded yet to send the
         // second item because we did not yet receive the first item.
-        let _ = wait_receiver.recv().unwrap();
+        assert!(wait_receiver.recv().is_ok());
         assert_eq!(
             wait_receiver.recv_timeout(time::Duration::from_millis(50)),
             Err(mpsc::RecvTimeoutError::Timeout)
@@ -814,7 +815,7 @@ mod tests {
         receiver.attach(Some(&c), move |item| {
             // We consumed one item so there should be one item on
             // the other receiver now.
-            let _ = wait_receiver.recv().unwrap();
+            assert!(wait_receiver.recv().is_ok());
             *sum_clone.borrow_mut() += item;
             if *sum_clone.borrow() == 6 {
                 // But as we didn't consume the next one yet, there must be no

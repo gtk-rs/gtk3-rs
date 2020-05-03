@@ -175,7 +175,7 @@ mod tests {
             let t = MainContext::get_thread_default().unwrap();
             assert!(is_same_context(&a, &t));
 
-            &b.with_thread_default(|| {
+            b.with_thread_default(|| {
                 let t = MainContext::get_thread_default().unwrap();
                 assert!(is_same_context(&b, &t));
             });
@@ -197,7 +197,7 @@ mod tests {
             assert!(is_same_context(&a, &t));
 
             let result = panic::catch_unwind(|| {
-                &b.with_thread_default(|| {
+                b.with_thread_default(|| {
                     panic!();
                 });
             });
