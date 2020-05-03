@@ -84,6 +84,7 @@ pub use auto::*;
 pub mod prelude;
 
 #[allow(clippy::cast_ptr_alignment)]
+#[allow(clippy::wrong_self_convention)]
 mod auto;
 
 mod gio_future;
