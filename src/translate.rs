@@ -1508,6 +1508,7 @@ impl FromGlibPtrFull<*mut c_char> for OsString {
 }
 
 /// Translate from a container.
+#[allow(clippy::missing_safety_doc)]
 pub trait FromGlibContainer<T, P: Ptr>: Sized {
     /// Transfer: none.
     ///
@@ -1526,6 +1527,7 @@ pub trait FromGlibContainer<T, P: Ptr>: Sized {
 }
 
 /// Translate from a container of pointers.
+#[allow(clippy::missing_safety_doc)]
 pub trait FromGlibPtrContainer<P: Ptr, PP: Ptr>: FromGlibContainer<P, PP> + Sized {
     /// Transfer: none.
     unsafe fn from_glib_none(ptr: PP) -> Self;
@@ -1550,6 +1552,7 @@ pub unsafe fn c_ptr_array_len<P: Ptr>(mut ptr: *const P) -> usize {
     len
 }
 
+#[allow(clippy::missing_safety_doc)]
 pub trait FromGlibContainerAsVec<T, P: Ptr>
 where
     Self: Sized,
@@ -1559,6 +1562,7 @@ where
     unsafe fn from_glib_full_num_as_vec(ptr: P, num: usize) -> Vec<Self>;
 }
 
+#[allow(clippy::missing_safety_doc)]
 pub trait FromGlibPtrArrayContainerAsVec<P: Ptr, PP: Ptr>: FromGlibContainerAsVec<P, PP>
 where
     Self: Sized,
