@@ -47,7 +47,7 @@ impl GString {
     ///
     /// The underlying string must not be mutated, in particular in terms of
     /// length, underneath the `GString` instance.
-    pub unsafe fn new(ptr: *mut c_char) -> Self {
+    unsafe fn new(ptr: *mut c_char) -> Self {
         assert!(!ptr.is_null());
         GString(Inner::Foreign(ptr, libc::strlen(ptr)))
     }
@@ -64,7 +64,7 @@ impl GString {
     ///
     /// The underlying string must not be mutated, in particular in terms of
     /// length, underneath the `GString` instance for the duration of the borrow.
-    pub unsafe fn new_borrowed(ptr: *const c_char) -> Borrowed<Self> {
+    unsafe fn new_borrowed(ptr: *const c_char) -> Borrowed<Self> {
         assert!(!ptr.is_null());
         Borrowed::new(GString(Inner::Foreign(ptr as *mut _, libc::strlen(ptr))))
     }
