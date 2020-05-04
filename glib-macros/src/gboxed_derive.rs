@@ -8,18 +8,12 @@ use quote::quote;
 
 use crate::utils::{crate_ident_new, find_attribute_meta, find_nested_meta, parse_type_name};
 
-fn gen_option_to_ptr(nullable: bool) -> TokenStream {
-    if nullable {
-        quote! {
-            match this {
-                Some(this) => Box::into_raw(Box::new(this.clone())),
-                None => std::ptr::null_mut(),
-            };
-        }
-    } else {
-        quote! {
-            Box::into_raw(Box::new(this.expect("None not allowed").clone()));
-        }
+fn gen_option_to_ptr() -> TokenStream {
+    quote! {
+        match this {
+            Some(this) => Box::into_raw(Box::new(this.clone())),
+            None => std::ptr::null_mut(),
+        };
     }
 }
 
@@ -54,6 +48,22 @@ fn gen_impl_from_value(name: &Ident, crate_ident: &Ident) -> TokenStream {
     }
 }
 
+fn gen_impl_set_value_optional(name: &Ident, crate_ident: &Ident) -> TokenStream {
+    let option_to_ptr = gen_option_to_ptr();
+
+    quote! {
+        impl #crate_ident::value::SetValueOptional for #name {
+            unsafe fn set_value_optional(value: &mut #crate_ident::value::Value, this: Option<&Self>) {
+                let ptr: *mut #name = #option_to_ptr;
+                #crate_ident::gobject_sys::g_value_take_boxed(
+                    #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
+                    ptr as *mut _,
+                );
+            }
+        }
+    }
+}
+
 pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
     let name = &input.ident;
 
@@ -72,10 +82,14 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
         .unwrap();
     let nullable = find_nested_meta(&meta, "nullable").is_some();
 
-    let option_to_ptr = gen_option_to_ptr(nullable);
     let ptr_to_option = gen_ptr_to_option(name, nullable);
     let impl_from_value = if !nullable {
         gen_impl_from_value(name, &crate_ident)
+    } else {
+        quote! {}
+    };
+    let impl_set_value_optional = if nullable {
+        gen_impl_set_value_optional(name, &crate_ident)
     } else {
         quote! {}
     };
@@ -115,15 +129,7 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
             }
         }
 
-        impl #crate_ident::value::SetValueOptional for #name {
-            unsafe fn set_value_optional(value: &mut #crate_ident::value::Value, this: Option<&Self>) {
-                let ptr: *mut #name = #option_to_ptr;
-                #crate_ident::gobject_sys::g_value_take_boxed(
-                    #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
-                    ptr as *mut _,
-                );
-            }
-        }
+        #impl_set_value_optional
 
         impl<'a> #crate_ident::value::FromValueOptional<'a> for &'a #name {
             unsafe fn from_value_optional(value: &'a #crate_ident::value::Value) -> Option<Self> {
