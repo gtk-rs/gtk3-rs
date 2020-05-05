@@ -15,7 +15,6 @@ use gtk::Orientation::Vertical;
 use gtk::{ApplicationWindow, Button, Label, PackType};
 
 use std::env::args;
-use std::str::FromStr;
 
 fn build_ui(application: &gtk::Application) {
     let vbox = gtk::Box::new(Vertical, 0);
@@ -37,7 +36,7 @@ fn build_ui(application: &gtk::Application) {
 
     minus_button.connect_clicked(clone!(@weak counter_label => move |_| {
         let nb = counter_label.get_text()
-            .and_then(|s| u32::from_str(&s).ok())
+            .parse()
             .unwrap_or(0);
         if nb > 0 {
             counter_label.set_text(&format!("{}", nb - 1));
@@ -45,7 +44,7 @@ fn build_ui(application: &gtk::Application) {
     }));
     plus_button.connect_clicked(clone!(@weak counter_label => move |_| {
         let nb = counter_label.get_text()
-            .and_then(|s| u32::from_str(&s).ok())
+            .parse()
             .unwrap_or(0);
         counter_label.set_text(&format!("{}", nb + 1));
     }));
