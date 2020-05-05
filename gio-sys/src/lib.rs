@@ -227,6 +227,7 @@ pub const G_IO_ERROR_PROXY_AUTH_FAILED: GIOErrorEnum = 41;
 pub const G_IO_ERROR_PROXY_NEED_AUTH: GIOErrorEnum = 42;
 pub const G_IO_ERROR_PROXY_NOT_ALLOWED: GIOErrorEnum = 43;
 pub const G_IO_ERROR_BROKEN_PIPE: GIOErrorEnum = 44;
+pub const G_IO_ERROR_CONNECTION_CLOSED: GIOErrorEnum = 44;
 pub const G_IO_ERROR_NOT_CONNECTED: GIOErrorEnum = 45;
 pub const G_IO_ERROR_MESSAGE_TOO_LARGE: GIOErrorEnum = 46;
 

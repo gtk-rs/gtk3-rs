@@ -183,9 +183,13 @@ pub const G_MARKUP_ERROR_MISSING_ATTRIBUTE: GMarkupError = 6;
 
 pub type GNormalizeMode = c_int;
 pub const G_NORMALIZE_DEFAULT: GNormalizeMode = 0;
+pub const G_NORMALIZE_NFD: GNormalizeMode = 0;
 pub const G_NORMALIZE_DEFAULT_COMPOSE: GNormalizeMode = 1;
+pub const G_NORMALIZE_NFC: GNormalizeMode = 1;
 pub const G_NORMALIZE_ALL: GNormalizeMode = 2;
+pub const G_NORMALIZE_NFKD: GNormalizeMode = 2;
 pub const G_NORMALIZE_ALL_COMPOSE: GNormalizeMode = 3;
+pub const G_NORMALIZE_NFKC: GNormalizeMode = 3;
 
 pub type GNumberParserError = c_int;
 pub const G_NUMBER_PARSER_ERROR_INVALID: GNumberParserError = 0;
@@ -296,6 +300,7 @@ pub const G_SPAWN_ERROR_CHDIR: GSpawnError = 2;
 pub const G_SPAWN_ERROR_ACCES: GSpawnError = 3;
 pub const G_SPAWN_ERROR_PERM: GSpawnError = 4;
 pub const G_SPAWN_ERROR_TOO_BIG: GSpawnError = 5;
+pub const G_SPAWN_ERROR_2BIG: GSpawnError = 5;
 pub const G_SPAWN_ERROR_NOEXEC: GSpawnError = 6;
 pub const G_SPAWN_ERROR_NAMETOOLONG: GSpawnError = 7;
 pub const G_SPAWN_ERROR_NOENT: GSpawnError = 8;

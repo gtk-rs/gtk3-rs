@@ -4,6 +4,7 @@ library = "Gdk"
 version = "3.0"
 min_cfg_version = "3.14"
 single_version_file = "."
+split_build_rs = true
 
 external_libraries = [
    "GLib",

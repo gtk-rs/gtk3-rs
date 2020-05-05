@@ -1,10 +1,10 @@
 dist: xenial
 language: rust
 rust:
+  - stable
   - nightly
   - beta
   - 1.40.0
-  - stable
 env:
   - GTK=3.14
   - GTK=3.24
