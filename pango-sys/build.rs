@@ -35,6 +35,8 @@ fn find() -> Result<(), Error> {
         "1.42"
     } else if cfg!(feature = "v1_38") {
         "1.38"
+    } else if cfg!(feature = "v1_36_7") {
+        "1.36.7"
     } else {
         "1.36"
     };
