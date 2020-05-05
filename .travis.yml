@@ -3,7 +3,7 @@ language: rust
 rust:
 - nightly
 - beta
-- 1.39.0 # stable
+- 1.41.0 # stable
 - stable
 env:
   - GTK=3.14
