@@ -71,16 +71,6 @@ fn derive_gboxed() {
     let v = b.to_value();
     assert_eq!(&b, v.get::<&MyBoxed>().unwrap().unwrap());
     assert_eq!(&b, v.get_some::<&MyBoxed>().unwrap());
-
-    let b = Some(MyBoxed(String::from("def")));
-    let v = b.to_value();
-    let b = b.unwrap();
-    assert_eq!(&b, v.get::<&MyBoxed>().unwrap().unwrap());
-    assert_eq!(&b, v.get_some::<&MyBoxed>().unwrap());
-
-    let b: Option<MyBoxed> = None;
-    let result = std::panic::catch_unwind(|| b.to_value());
-    assert!(result.is_err());
 }
 
 #[test]
