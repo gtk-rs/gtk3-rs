@@ -16,3 +16,50 @@ pub fn keyval_to_unicode(keyval: u32) -> Option<char> {
     skip_assert_initialized!();
     unsafe { ::std::char::from_u32(gdk_sys::gdk_keyval_to_unicode(keyval)).filter(|x| *x != '\0') }
 }
+
+#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct Key(u32);
+
+impl ::std::ops::Deref for Key {
+    type Target = u32;
+
+    fn deref(&self) -> &u32 {
+        &self.0
+    }
+}
+
+impl ::std::ops::DerefMut for Key {
+    fn deref_mut(&mut self) -> &mut u32 {
+        &mut self.0
+    }
+}
+
+impl FromGlib<u32> for Key {
+    fn from_glib(value: u32) -> Self {
+        Key(value)
+    }
+}
+
+impl ToGlib for Key {
+    type GlibType = u32;
+
+    fn to_glib(&self) -> u32 {
+        **self
+    }
+}
+
+impl Key {
+    pub fn to_unicode(&self) -> Option<char> {
+        keyval_to_unicode(**self)
+    }
+
+    pub fn name(&self) -> Option<GString> {
+        keyval_name(**self)
+    }
+}
+
+impl ::std::fmt::Display for Key {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        write!(f, "Key({})", self.0)
+    }
+}

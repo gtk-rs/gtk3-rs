@@ -6,7 +6,7 @@ fn check_event() {
     gdk::init();
     let base_ev = gdk::Event::new(gdk::EventType::KeyPress);
     let mut ev: gdk::EventKey = base_ev.downcast().unwrap();
-    ev.as_mut().keyval = *gdk::enums::key::A;
+    ev.as_mut().keyval = gdk::enums::key::A;
 
     let keyval = gdk::keyval_to_unicode(*ev.get_keyval());
     let keyval2 = ev.get_keyval().to_unicode();
