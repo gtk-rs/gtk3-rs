@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-pub fn version() -> &str {
+pub fn version() -> &'static str {
     if cfg!(feature = "v3_24") {
         "3.24"
     } else if cfg!(feature = "v3_22") {
@@ -15,5 +15,5 @@ pub fn version() -> &str {
         "3.16"
     } else {
         "3.14"
-    };
+    }
 }
