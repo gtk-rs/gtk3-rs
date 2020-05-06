@@ -35,8 +35,6 @@ pub mod prelude;
 pub use self::auto::functions::*;
 pub use auto::*;
 
-pub mod enums;
-
 mod atom;
 mod cairo_interaction;
 mod change_data;
@@ -77,7 +75,7 @@ mod functions;
 mod geometry;
 mod keymap;
 mod keymap_key;
-mod keys;
+pub mod keys;
 mod rectangle;
 mod rgba;
 mod screen;
