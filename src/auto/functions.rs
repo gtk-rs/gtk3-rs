@@ -1306,7 +1306,7 @@ pub fn uuid_string_is_valid(str: &str) -> bool {
 }
 
 #[cfg(any(feature = "v2_52", feature = "dox"))]
-pub fn uuid_string_random() -> Option<GString> {
+pub fn uuid_string_random() -> GString {
     unsafe { from_glib_full(glib_sys::g_uuid_string_random()) }
 }
 
