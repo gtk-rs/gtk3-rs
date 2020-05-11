@@ -23,11 +23,17 @@ fn main() {
         let _ = writeln!(io::stderr(), "{}", s);
         process::exit(1);
     }
+    // It's safe to assume we can call this because we found the library OK
+    // in find()
+    check_features();
 }
 
 #[cfg(not(feature = "dox"))]
+const PKG_CONFIG_PACKAGE: &str = "gdk-3.0";
+
+#[cfg(not(feature = "dox"))]
 fn find() -> Result<(), Error> {
-    let package_name = "gdk-3.0";
+    let package_name = PKG_CONFIG_PACKAGE;
     let shared_libs = ["gdk-3"];
     let version = build_version::version();
 
@@ -76,5 +82,24 @@ fn find() -> Result<(), Error> {
             Ok(())
         }
         Err(err) => Err(err),
+    }
+}
+
+#[cfg(not(feature = "dox"))]
+fn check_features() {
+    // The pkg-config file defines a `targets` variable listing the
+    // various backends that gdk was compiled for.
+    // We extract that and create gdk_backend="x11" and the like
+    // as configuration variables.
+    // In addition we publish this as a variable which cargo will
+    // provide to immediate dependents of this crate as an environment
+    // variable for their `build.rs` runs called DEP_GDK_BACKENDS
+    // For reference, the backend set at time of writing consists of:
+    // x11 win32 quartz broadway wayland
+    if let Ok(targets) = pkg_config::get_variable(PKG_CONFIG_PACKAGE, "targets") {
+        println!("cargo:backends={}", targets);
+        for target in targets.split_whitespace() {
+            println!("cargo:rustc-cfg=gdk_backend=\"{}\"", target);
+        }
     }
 }
