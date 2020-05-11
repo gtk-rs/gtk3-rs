@@ -4,14 +4,15 @@
 
 use glib::translate::*;
 use pango_sys;
+use std::ffi::CStr;
 use FontDescription;
 
 impl FontDescription {
-    pub fn set_family_static(&mut self, family: &'static str) {
+    pub fn set_family_static(&mut self, family: &'static CStr) {
         unsafe {
             pango_sys::pango_font_description_set_family_static(
                 self.to_glib_none_mut().0,
-                family.to_glib_none().0,
+                family.as_ptr(),
             );
         }
     }
