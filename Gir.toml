@@ -392,6 +392,10 @@ status = "generate"
     name = "log_set_fatal_mask"
     # update of arguments and return type
     ignore = true
+    [[object.function]]
+    name = "uuid_string_random"
+        [object.function.return]
+        nullable = false
     [[object.constant]]
     pattern = "DIR_SEPARATOR(_S)?"
     #not cross-platform
