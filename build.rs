@@ -2,7 +2,10 @@ fn main() {
     manage_docs();
 }
 
-#[cfg(any(feature = "embed-lgpl-docs", feature = "purge-lgpl-docs"))]
+#[cfg(all(
+    any(feature = "embed-lgpl-docs", feature = "purge-lgpl-docs"),
+    not(all(feature = "embed-lgpl-docs", feature = "purge-lgpl-docs"))
+))]
 fn manage_docs() {
     extern crate lgpl_docs;
     const PATH: &str = "src";
@@ -13,5 +16,8 @@ fn manage_docs() {
     }
 }
 
-#[cfg(not(any(feature = "embed-lgpl-docs", feature = "purge-lgpl-docs")))]
+#[cfg(any(
+    all(feature = "embed-lgpl-docs", feature = "purge-lgpl-docs"),
+    not(any(feature = "embed-lgpl-docs", feature = "purge-lgpl-docs"))
+))]
 fn manage_docs() {}
