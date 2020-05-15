@@ -44,7 +44,7 @@ mod inet_address;
 mod io_stream;
 pub use io_stream::IOStreamAsyncReadWrite;
 mod input_stream;
-pub use input_stream::InputStreamRead;
+pub use input_stream::{InputStreamAsyncBufRead, InputStreamRead};
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 mod list_store;
 mod memory_input_stream;
