@@ -60,3 +60,18 @@ gobject-sys = { git = "https://github.com/gtk-rs/sys" }
 gir-format-check = "^0.1"
 serial_test = "0.4"
 serial_test_derive = "0.4"
+
+[[test]]
+name = "futures"
+path = "tests/futures.rs"
+edition = "2018"
+
+# Defining one [[test]] disable test targets auto discovery
+# TODO: remove once crate has been ported to 2018 and tests/futures.rs removed
+[[test]]
+name = "std_io_copy"
+path = "tests/std_io_copy.rs"
+
+[[test]]
+name = "check_gir"
+path = "tests/check_gir.rs"
