@@ -1307,6 +1307,21 @@ pub trait ObjectExt: ObjectType {
     /// The caller is responsible for ensuring the returned value is of a suitable type
     unsafe fn steal_qdata<QD: 'static>(&self, key: Quark) -> Option<QD>;
 
+    /// # Safety
+    ///
+    /// This function doesn't store type information
+    unsafe fn set_data<QD: 'static>(&self, key: &str, value: QD);
+
+    /// # Safety
+    ///
+    /// The caller is responsible for ensuring the returned value is of a suitable type
+    unsafe fn get_data<QD: 'static>(&self, key: &str) -> Option<&QD>;
+
+    /// # Safety
+    ///
+    /// The caller is responsible for ensuring the returned value is of a suitable type
+    unsafe fn steal_data<QD: 'static>(&self, key: &str) -> Option<QD>;
+
     fn block_signal(&self, handler_id: &SignalHandlerId);
     fn unblock_signal(&self, handler_id: &SignalHandlerId);
     fn stop_signal_emission(&self, signal_name: &str);
@@ -1545,6 +1560,18 @@ impl<T: ObjectType> ObjectExt for T {
             let value: Box<QD> = Box::from_raw(ptr as *mut QD);
             Some(*value)
         }
+    }
+
+    unsafe fn set_data<QD: 'static>(&self, key: &str, value: QD) {
+        self.set_qdata::<QD>(Quark::from_string(key), value)
+    }
+
+    unsafe fn get_data<QD: 'static>(&self, key: &str) -> Option<&QD> {
+        self.get_qdata::<QD>(Quark::from_string(key))
+    }
+
+    unsafe fn steal_data<QD: 'static>(&self, key: &str) -> Option<QD> {
+        self.steal_qdata::<QD>(Quark::from_string(key))
     }
 
     fn block_signal(&self, handler_id: &SignalHandlerId) {
