@@ -6,6 +6,7 @@
 
 use glib_sys;
 use gobject_sys;
+use quark::Quark;
 use std::cmp;
 use std::fmt;
 use std::hash;
@@ -13,7 +14,6 @@ use std::marker::PhantomData;
 use std::mem;
 use std::ops;
 use std::ptr;
-use quark::Quark;
 use translate::*;
 use types::StaticType;
 
@@ -1538,10 +1538,8 @@ impl<T: ObjectType> ObjectExt for T {
     }
 
     unsafe fn get_qdata<QD: 'static>(&self, key: Quark) -> Option<&QD> {
-        let ptr = gobject_sys::g_object_get_qdata(
-            self.as_object_ref().to_glib_none().0,
-            key.to_glib(),
-        );
+        let ptr =
+            gobject_sys::g_object_get_qdata(self.as_object_ref().to_glib_none().0, key.to_glib());
         if ptr.is_null() {
             None
         } else {
@@ -1550,10 +1548,8 @@ impl<T: ObjectType> ObjectExt for T {
     }
 
     unsafe fn steal_qdata<QD: 'static>(&self, key: Quark) -> Option<QD> {
-        let ptr = gobject_sys::g_object_steal_qdata(
-            self.as_object_ref().to_glib_none().0,
-            key.to_glib(),
-        );
+        let ptr =
+            gobject_sys::g_object_steal_qdata(self.as_object_ref().to_glib_none().0, key.to_glib());
         if ptr.is_null() {
             None
         } else {
