@@ -13,6 +13,7 @@ use std::marker::PhantomData;
 use std::mem;
 use std::ops;
 use std::ptr;
+use quark::Quark;
 use translate::*;
 use types::StaticType;
 
@@ -1291,6 +1292,21 @@ pub trait ObjectExt: ObjectType {
     fn find_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<::ParamSpec>;
     fn list_properties(&self) -> Vec<::ParamSpec>;
 
+    /// # Safety
+    ///
+    /// This function doesn't store type information
+    unsafe fn set_qdata<QD: 'static>(&self, key: Quark, value: QD);
+
+    /// # Safety
+    ///
+    /// The caller is responsible for ensuring the returned value is of a suitable type
+    unsafe fn get_qdata<QD: 'static>(&self, key: Quark) -> Option<&QD>;
+
+    /// # Safety
+    ///
+    /// The caller is responsible for ensuring the returned value is of a suitable type
+    unsafe fn steal_qdata<QD: 'static>(&self, key: Quark) -> Option<QD>;
+
     fn block_signal(&self, handler_id: &SignalHandlerId);
     fn unblock_signal(&self, handler_id: &SignalHandlerId);
     fn stop_signal_emission(&self, signal_name: &str);
@@ -1487,6 +1503,47 @@ impl<T: ObjectType> ObjectExt for T {
             } else {
                 Ok(value)
             }
+        }
+    }
+
+    unsafe fn set_qdata<QD: 'static>(&self, key: Quark, value: QD) {
+        unsafe extern "C" fn drop_value<QD>(ptr: glib_sys::gpointer) {
+            debug_assert!(!ptr.is_null());
+            let value: Box<QD> = Box::from_raw(ptr as *mut QD);
+            drop(value)
+        }
+
+        let ptr = Box::into_raw(Box::new(value)) as glib_sys::gpointer;
+        gobject_sys::g_object_set_qdata_full(
+            self.as_object_ref().to_glib_none().0,
+            key.to_glib(),
+            ptr,
+            Some(drop_value::<QD>),
+        );
+    }
+
+    unsafe fn get_qdata<QD: 'static>(&self, key: Quark) -> Option<&QD> {
+        let ptr = gobject_sys::g_object_get_qdata(
+            self.as_object_ref().to_glib_none().0,
+            key.to_glib(),
+        );
+        if ptr.is_null() {
+            None
+        } else {
+            Some(&*(ptr as *const QD))
+        }
+    }
+
+    unsafe fn steal_qdata<QD: 'static>(&self, key: Quark) -> Option<QD> {
+        let ptr = gobject_sys::g_object_steal_qdata(
+            self.as_object_ref().to_glib_none().0,
+            key.to_glib(),
+        );
+        if ptr.is_null() {
+            None
+        } else {
+            let value: Box<QD> = Box::from_raw(ptr as *mut QD);
+            Some(*value)
         }
     }
 
