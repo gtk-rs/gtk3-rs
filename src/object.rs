@@ -1265,10 +1265,25 @@ impl Object {
             }
         }
 
+        let klass = ObjectClass::from_type(type_)
+            .ok_or_else(|| glib_bool_error!("Can't retrieve class for type '{}'", type_))?;
+        let pspecs = klass.list_properties();
+
         let params = properties
             .iter()
-            .map(|&(name, value)| (CString::new(name).unwrap(), value.to_value()))
-            .collect::<Vec<_>>();
+            .map(|&(name, value)| {
+                let pspec = pspecs
+                    .iter()
+                    .find(|p| p.get_name() == name)
+                    .ok_or_else(|| {
+                        glib_bool_error!("Can't find property '{}' for type '{}'", name, type_)
+                    })?;
+
+                let mut value = value.to_value();
+                validate_property_type(type_, &pspec, &mut value)?;
+                Ok((CString::new(name).unwrap(), value))
+            })
+            .collect::<Result<Vec<_>, _>>()?;
 
         let params_c = params
             .iter()
