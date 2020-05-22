@@ -1326,6 +1326,7 @@ pub trait ObjectExt: ObjectType {
         property_name: N,
         value: &dyn ToValue,
     ) -> Result<(), BoolError>;
+    fn set_properties(&self, property_values: &[(&str, &dyn ToValue)]) -> Result<(), BoolError>;
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool;
     fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
@@ -1442,6 +1443,40 @@ impl<T: ObjectType> ObjectExt for T {
             let klass = (*obj).g_type_instance.g_class as *const ObjectClass;
             &*klass
         }
+    }
+
+    fn set_properties(&self, property_values: &[(&str, &dyn ToValue)]) -> Result<(), BoolError> {
+        use std::ffi::CString;
+
+        let pspecs = self.list_properties();
+
+        let params = property_values
+            .iter()
+            .map(|&(name, value)| {
+                let pspec = pspecs
+                    .iter()
+                    .find(|p| p.get_name() == name)
+                    .ok_or_else(|| {
+                        glib_bool_error!("Can't find property '{}' for type '{}'", name, self.get_type())
+                    })?;
+
+                let mut value = value.to_value();
+                validate_property_type(self.get_type(), &pspec, &mut value)?;
+                Ok((CString::new(name).unwrap(), value))
+            })
+            .collect::<Result<Vec<_>, _>>()?;
+
+        for (name, value) in params {
+            unsafe {
+                gobject_sys::g_object_set_property(
+                    self.as_object_ref().to_glib_none().0,
+                    name.as_ptr(),
+                    value.to_glib_none().0,
+                );
+            }
+        }
+
+        Ok(())
     }
 
     fn set_property<'a, N: Into<&'a str>>(
