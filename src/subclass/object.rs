@@ -371,7 +371,7 @@ mod test {
         }
     }
 
-    static PROPERTIES: [Property; 3] = [
+    static PROPERTIES: [Property; 4] = [
         Property("name", |name| {
             ::ParamSpec::string(
                 name,
@@ -379,6 +379,15 @@ mod test {
                 "Name of this object",
                 None,
                 ::ParamFlags::READWRITE,
+            )
+        }),
+        Property("construct-name", |name| {
+            ::ParamSpec::string(
+                name,
+                "Construct Name",
+                "Construct Name of this object",
+                None,
+                ::ParamFlags::READWRITE | ::ParamFlags::CONSTRUCT_ONLY,
             )
         }),
         Property("constructed", |name| {
@@ -403,6 +412,7 @@ mod test {
 
     pub struct SimpleObject {
         name: RefCell<Option<String>>,
+        construct_name: RefCell<Option<String>>,
         constructed: RefCell<bool>,
     }
 
@@ -472,6 +482,7 @@ mod test {
         fn new() -> Self {
             Self {
                 name: RefCell::new(None),
+                construct_name: RefCell::new(None),
                 constructed: RefCell::new(false),
             }
         }
@@ -492,6 +503,12 @@ mod test {
                     obj.emit("name-changed", &[&*self.name.borrow()])
                         .expect("Failed to borrow name");
                 }
+                Property("construct-name", ..) => {
+                    let name = value
+                        .get()
+                        .expect("type conformity checked by 'Object::set_property'");
+                    self.construct_name.replace(name);
+                }
                 Property("child", ..) => {
                     // not stored, only used to test `set_property` with `Objects`
                 }
@@ -504,6 +521,7 @@ mod test {
 
             match *prop {
                 Property("name", ..) => Ok(self.name.borrow().to_value()),
+                Property("construct-name", ..) => Ok(self.construct_name.borrow().to_value()),
                 Property("constructed", ..) => Ok(self.constructed.borrow().to_value()),
                 _ => unimplemented!(),
             }
@@ -585,14 +603,41 @@ mod test {
 
     #[test]
     fn test_set_properties() {
-        let obj = Object::new(SimpleObject::get_type(), &[]).expect("Object::new failed");
+        let obj = Object::new(
+            SimpleObject::get_type(),
+            &[("construct-name", &"meh"), ("name", &"initial")],
+        )
+        .expect("Object::new failed");
 
-        assert!(obj
-            .get_property("name")
-            .expect("Failed to get 'name' property")
-            .get::<&str>()
-            .expect("Failed to get str from 'name' property")
-            .is_none());
+        assert_eq!(
+            obj.get_property("construct-name")
+                .expect("Failed to get 'construct-name' property")
+                .get::<&str>()
+                .expect("Failed to get str from 'construct-name' property"),
+            Some("meh")
+        );
+        assert_eq!(
+            obj.set_property("construct-name", &"test")
+                .err()
+                .expect("Failed to set 'construct-name' property")
+                .to_string(),
+            "property 'construct-name' of type 'SimpleObject' is not writable",
+        );
+        assert_eq!(
+            obj.get_property("construct-name")
+                .expect("Failed to get 'construct-name' property")
+                .get::<&str>()
+                .expect("Failed to get str from 'construct-name' property"),
+            Some("meh")
+        );
+
+        assert_eq!(
+            obj.get_property("name")
+                .expect("Failed to get 'name' property")
+                .get::<&str>()
+                .expect("Failed to get str from 'name' property"),
+            Some("initial")
+        );
         assert!(obj.set_property("name", &"test").is_ok());
         assert_eq!(
             obj.get_property("name")
@@ -607,7 +652,7 @@ mod test {
                 .err()
                 .expect("set_property failed")
                 .to_string(),
-            "property not found",
+            "property 'test' of type 'SimpleObject' not found",
         );
 
         assert_eq!(
@@ -615,7 +660,7 @@ mod test {
                 .err()
                 .expect("Failed to set 'constructed' property")
                 .to_string(),
-            "property is not writable",
+            "property 'constructed' of type 'SimpleObject' is not writable",
         );
 
         assert_eq!(
@@ -623,7 +668,7 @@ mod test {
                 .err()
                 .expect("Failed to set 'name' property")
                 .to_string(),
-            "property can't be set from the given type (expected: gchararray, got: gboolean)",
+            "property 'name' of type 'SimpleObject' can't be set from the given type (expected: 'gchararray', got: 'gboolean')",
         );
 
         let other_obj = Object::new(SimpleObject::get_type(), &[]).expect("Object::new failed");
@@ -632,7 +677,7 @@ mod test {
                 .err()
                 .expect("Failed to set 'child' property")
                 .to_string(),
-            "property can't be set from the given object type (expected: ChildObject, got: SimpleObject)",
+            "property 'child' of type 'SimpleObject' can't be set from the given object type (expected: 'ChildObject', got: 'SimpleObject')",
         );
 
         let child = Object::new(ChildObject::get_type(), &[]).expect("Object::new failed");

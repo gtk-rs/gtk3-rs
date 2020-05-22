@@ -1240,13 +1240,50 @@ impl Object {
         use std::ffi::CString;
 
         if !type_.is_a(&Object::static_type()) {
-            return Err(glib_bool_error!("Can't instantiate non-GObject objects"));
+            return Err(glib_bool_error!(
+                "Can't instantiate non-GObject type '{}'",
+                type_
+            ));
         }
+
+        unsafe {
+            if gobject_sys::g_type_test_flags(
+                type_.to_glib(),
+                gobject_sys::G_TYPE_FLAG_INSTANTIATABLE,
+            ) == glib_sys::GFALSE
+            {
+                return Err(glib_bool_error!("Can't instantiate type '{}'", type_));
+            }
+
+            if gobject_sys::g_type_test_flags(type_.to_glib(), gobject_sys::G_TYPE_FLAG_ABSTRACT)
+                != glib_sys::GFALSE
+            {
+                return Err(glib_bool_error!(
+                    "Can't instantiate abstract type '{}'",
+                    type_
+                ));
+            }
+        }
+
+        let klass = ObjectClass::from_type(type_)
+            .ok_or_else(|| glib_bool_error!("Can't retrieve class for type '{}'", type_))?;
+        let pspecs = klass.list_properties();
 
         let params = properties
             .iter()
-            .map(|&(name, value)| (CString::new(name).unwrap(), value.to_value()))
-            .collect::<Vec<_>>();
+            .map(|&(name, value)| {
+                let pspec = pspecs
+                    .iter()
+                    .find(|p| p.get_name() == name)
+                    .ok_or_else(|| {
+                        glib_bool_error!("Can't find property '{}' for type '{}'", name, type_)
+                    })?;
+
+                let mut value = value.to_value();
+                validate_property_type(type_, true, &pspec, &mut value)?;
+                Ok((CString::new(name).unwrap(), value))
+            })
+            .collect::<Result<Vec<_>, _>>()?;
 
         let params_c = params
             .iter()
@@ -1263,7 +1300,10 @@ impl Object {
                 mut_override(params_c.as_ptr()),
             );
             if ptr.is_null() {
-                Err(glib_bool_error!("Can't instantiate object"))
+                Err(glib_bool_error!(
+                    "Can't instantiate object for type '{}'",
+                    type_
+                ))
             } else if type_.is_a(&InitiallyUnowned::static_type()) {
                 // Attention: This takes ownership of the floating reference
                 Ok(from_glib_none(ptr))
@@ -1286,6 +1326,7 @@ pub trait ObjectExt: ObjectType {
         property_name: N,
         value: &dyn ToValue,
     ) -> Result<(), BoolError>;
+    fn set_properties(&self, property_values: &[(&str, &dyn ToValue)]) -> Result<(), BoolError>;
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool;
     fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
@@ -1404,6 +1445,44 @@ impl<T: ObjectType> ObjectExt for T {
         }
     }
 
+    fn set_properties(&self, property_values: &[(&str, &dyn ToValue)]) -> Result<(), BoolError> {
+        use std::ffi::CString;
+
+        let pspecs = self.list_properties();
+
+        let params = property_values
+            .iter()
+            .map(|&(name, value)| {
+                let pspec = pspecs
+                    .iter()
+                    .find(|p| p.get_name() == name)
+                    .ok_or_else(|| {
+                        glib_bool_error!(
+                            "Can't find property '{}' for type '{}'",
+                            name,
+                            self.get_type()
+                        )
+                    })?;
+
+                let mut value = value.to_value();
+                validate_property_type(self.get_type(), false, &pspec, &mut value)?;
+                Ok((CString::new(name).unwrap(), value))
+            })
+            .collect::<Result<Vec<_>, _>>()?;
+
+        for (name, value) in params {
+            unsafe {
+                gobject_sys::g_object_set_property(
+                    self.as_object_ref().to_glib_none().0,
+                    name.as_ptr(),
+                    value.to_glib_none().0,
+                );
+            }
+        }
+
+        Ok(())
+    }
+
     fn set_property<'a, N: Into<&'a str>>(
         &self,
         property_name: N,
@@ -1415,71 +1494,16 @@ impl<T: ObjectType> ObjectExt for T {
         let pspec = match self.find_property(property_name) {
             Some(pspec) => pspec,
             None => {
-                return Err(glib_bool_error!("property not found"));
+                return Err(glib_bool_error!(
+                    "property '{}' of type '{}' not found",
+                    property_name,
+                    self.get_type()
+                ));
             }
         };
 
-        if !pspec.get_flags().contains(::ParamFlags::WRITABLE)
-            || pspec.get_flags().contains(::ParamFlags::CONSTRUCT_ONLY)
-        {
-            return Err(glib_bool_error!("property is not writable"));
-        }
-
+        validate_property_type(self.get_type(), false, &pspec, &mut property_value)?;
         unsafe {
-            // While GLib actually allows all types that can somehow be transformed
-            // into the property type, we're more restrictive here to be consistent
-            // with Rust's type rules. We only allow the exact same type, or if the
-            // value type is a subtype of the property type
-            let valid_type: bool = from_glib(gobject_sys::g_type_check_value_holds(
-                mut_override(property_value.to_glib_none().0),
-                pspec.get_value_type().to_glib(),
-            ));
-
-            // If it's not directly a valid type but an object type, we check if the
-            // actual type of the contained object is compatible and if so create
-            // a properly type Value. This can happen if the type field in the
-            // Value is set to a more generic type than the contained value
-            if !valid_type && property_value.type_().is_a(&Object::static_type()) {
-                match property_value.get::<Object>() {
-                    Ok(Some(obj)) => {
-                        if obj.get_type().is_a(&pspec.get_value_type()) {
-                            property_value.0.g_type = pspec.get_value_type().to_glib();
-                        } else {
-                            return Err(glib_bool_error!(format!(
-                                concat!(
-                                    "property can't be set from the given object type ",
-                                    "(expected: {:?}, got: {:?})",
-                                ),
-                                pspec.get_value_type(),
-                                obj.get_type(),
-                            )));
-                        }
-                    }
-                    Ok(None) => {
-                        // If the value is None then the type is compatible too
-                        property_value.0.g_type = pspec.get_value_type().to_glib();
-                    }
-                    Err(_) => unreachable!("property_value type conformity already checked"),
-                }
-            } else if !valid_type {
-                return Err(glib_bool_error!(format!(
-                    "property can't be set from the given type (expected: {:?}, got: {:?})",
-                    pspec.get_value_type(),
-                    property_value.type_(),
-                )));
-            }
-
-            let changed: bool = from_glib(gobject_sys::g_param_value_validate(
-                pspec.to_glib_none().0,
-                property_value.to_glib_none_mut().0,
-            ));
-            let change_allowed = pspec.get_flags().contains(::ParamFlags::LAX_VALIDATION);
-            if changed && !change_allowed {
-                return Err(glib_bool_error!(
-                    "property can't be set from given value, it is invalid or out of range"
-                ));
-            }
-
             gobject_sys::g_object_set_property(
                 self.as_object_ref().to_glib_none().0,
                 property_name.to_glib_none().0,
@@ -1496,12 +1520,20 @@ impl<T: ObjectType> ObjectExt for T {
         let pspec = match self.find_property(property_name) {
             Some(pspec) => pspec,
             None => {
-                return Err(glib_bool_error!("property not found"));
+                return Err(glib_bool_error!(
+                    "property '{}' of type '{}' not found",
+                    property_name,
+                    self.get_type()
+                ));
             }
         };
 
         if !pspec.get_flags().contains(::ParamFlags::READABLE) {
-            return Err(glib_bool_error!("property is not readable"));
+            return Err(glib_bool_error!(
+                "property '{}' of type '{}' is not readable",
+                property_name,
+                self.get_type()
+            ));
         }
 
         unsafe {
@@ -1514,7 +1546,11 @@ impl<T: ObjectType> ObjectExt for T {
 
             // This can't really happen unless something goes wrong inside GObject
             if value.type_() == ::Type::Invalid {
-                Err(glib_bool_error!("Failed to get property value"))
+                Err(glib_bool_error!(
+                    "Failed to get property value for property '{}' of type '{}'",
+                    property_name,
+                    self.get_type()
+                ))
             } else {
                 Ok(value)
             }
@@ -1744,14 +1780,22 @@ impl<T: ObjectType> ObjectExt for T {
         ));
 
         if !found {
-            return Err(glib_bool_error!("Signal not found"));
+            return Err(glib_bool_error!(
+                "Signal '{}' of type '{}' not found",
+                signal_name,
+                type_
+            ));
         }
 
         let mut details = mem::MaybeUninit::zeroed();
         gobject_sys::g_signal_query(signal_id, details.as_mut_ptr());
         let details = details.assume_init();
         if details.signal_id != signal_id {
-            return Err(glib_bool_error!("Signal not found"));
+            return Err(glib_bool_error!(
+                "Signal '{}' of type '{}' not found",
+                signal_name,
+                type_
+            ));
         }
 
         // This is actually G_SIGNAL_TYPE_STATIC_SCOPE
@@ -1763,8 +1807,10 @@ impl<T: ObjectType> ObjectExt for T {
             if return_type == Type::Unit {
                 if let Some(ret) = ret {
                     panic!(
-                        "Signal required no return value but got value of type {}",
-                        ret.type_().name()
+                        "Signal '{}' of type '{}' required no return value but got value of type '{}'",
+                        signal_name,
+                        type_,
+                        ret.type_()
                     );
                 }
                 None
@@ -1786,8 +1832,14 @@ impl<T: ObjectType> ObjectExt for T {
                                     if obj.get_type().is_a(&return_type) {
                                         ret.0.g_type = return_type.to_glib();
                                     } else {
-                                        panic!("Signal required return value of type {} but got {} (actual {})",
-                                           return_type.name(), ret.type_().name(), obj.get_type().name());
+                                        panic!(
+                                            "Signal '{}' of type '{}' required return value of type '{}' but got '{}' (actual '{}')",
+                                            signal_name,
+                                            type_,
+                                            return_type,
+                                            ret.type_(),
+                                            obj.get_type()
+                                        );
                                     }
                                 }
                                 Ok(None) => {
@@ -1798,16 +1850,20 @@ impl<T: ObjectType> ObjectExt for T {
                             }
                         } else if !valid_type {
                             panic!(
-                                "Signal required return value of type {} but got {}",
-                                return_type.name(),
-                                ret.type_().name()
+                                "Signal '{}' of type '{}' required return value of type '{}' but got '{}'",
+                                signal_name,
+                                type_,
+                                return_type,
+                                ret.type_()
                             );
                         }
                         Some(ret)
                     }
                     None => {
                         panic!(
-                            "Signal required return value of type {} but got None",
+                            "Signal '{}' of type '{}' required return value of type '{}' but got None",
+                            signal_name,
+                            type_,
                             return_type.name()
                         );
                     }
@@ -1823,7 +1879,11 @@ impl<T: ObjectType> ObjectExt for T {
         );
 
         if handler == 0 {
-            Err(glib_bool_error!("Failed to connect to signal"))
+            Err(glib_bool_error!(
+                "Failed to connect to signal '{}' of type '{}'",
+                signal_name,
+                type_
+            ))
         } else {
             Ok(from_glib(handler))
         }
@@ -1850,25 +1910,50 @@ impl<T: ObjectType> ObjectExt for T {
             ));
 
             if !found {
-                return Err(glib_bool_error!("Signal not found"));
+                return Err(glib_bool_error!(
+                    "Signal '{}' of type '{}' not found",
+                    signal_name,
+                    type_
+                ));
             }
 
             let mut details = mem::MaybeUninit::zeroed();
             gobject_sys::g_signal_query(signal_id, details.as_mut_ptr());
             let details = details.assume_init();
             if details.signal_id != signal_id {
-                return Err(glib_bool_error!("Signal not found"));
+                return Err(glib_bool_error!(
+                    "Signal '{}' of type '{}' not found",
+                    signal_name,
+                    type_
+                ));
             }
 
             if details.n_params != args.len() as u32 {
-                return Err(glib_bool_error!("Incompatible number of arguments"));
+                return Err(
+                    glib_bool_error!(
+                        "Incompatible number of arguments for signal '{}' of type '{}' (expected {}, got {})",
+                        signal_name,
+                        type_,
+                        details.n_params,
+                        args.len(),
+                    )
+                );
             }
 
             for (i, item) in args.iter().enumerate() {
                 let arg_type =
                     *(details.param_types.add(i)) & (!gobject_sys::G_TYPE_FLAG_RESERVED_ID_BIT);
                 if arg_type != item.to_value_type().to_glib() {
-                    return Err(glib_bool_error!("Incompatible argument types"));
+                    return Err(
+                        glib_bool_error!(
+                            "Incompatible argument type in argument {} for signal '{}' of type '{}' (expected {}, got {})",
+                            i,
+                            signal_name,
+                            type_,
+                            arg_type,
+                            item.to_value_type(),
+                        )
+                    );
                 }
             }
 
@@ -1947,6 +2032,88 @@ impl<T: ObjectType> ObjectExt for T {
 
         unsafe { glib_sys::g_atomic_int_get(&(*ptr).ref_count as *const u32 as *const i32) as u32 }
     }
+}
+
+// Validate that the given property value has an acceptable type for the given property pspec
+// and if necessary update the value
+fn validate_property_type(
+    type_: Type,
+    allow_construct_only: bool,
+    pspec: &::ParamSpec,
+    property_value: &mut Value,
+) -> Result<(), BoolError> {
+    if !pspec.get_flags().contains(::ParamFlags::WRITABLE)
+        || (!allow_construct_only && pspec.get_flags().contains(::ParamFlags::CONSTRUCT_ONLY))
+    {
+        return Err(glib_bool_error!(
+            "property '{}' of type '{}' is not writable",
+            pspec.get_name(),
+            type_
+        ));
+    }
+
+    unsafe {
+        // While GLib actually allows all types that can somehow be transformed
+        // into the property type, we're more restrictive here to be consistent
+        // with Rust's type rules. We only allow the exact same type, or if the
+        // value type is a subtype of the property type
+        let valid_type: bool = from_glib(gobject_sys::g_type_check_value_holds(
+            mut_override(property_value.to_glib_none().0),
+            pspec.get_value_type().to_glib(),
+        ));
+
+        // If it's not directly a valid type but an object type, we check if the
+        // actual type of the contained object is compatible and if so create
+        // a properly typed Value. This can happen if the type field in the
+        // Value is set to a more generic type than the contained value
+        if !valid_type && property_value.type_().is_a(&Object::static_type()) {
+            match property_value.get::<Object>() {
+                Ok(Some(obj)) => {
+                    if obj.get_type().is_a(&pspec.get_value_type()) {
+                        property_value.0.g_type = pspec.get_value_type().to_glib();
+                    } else {
+                        return Err(
+                            glib_bool_error!(
+                                "property '{}' of type '{}' can't be set from the given object type (expected: '{}', got: '{}')",
+                                pspec.get_name(),
+                                type_,
+                                pspec.get_value_type(),
+                                obj.get_type(),
+                            )
+                        );
+                    }
+                }
+                Ok(None) => {
+                    // If the value is None then the type is compatible too
+                    property_value.0.g_type = pspec.get_value_type().to_glib();
+                }
+                Err(_) => unreachable!("property_value type conformity already checked"),
+            }
+        } else if !valid_type {
+            return Err(glib_bool_error!(format!(
+                "property '{}' of type '{}' can't be set from the given type (expected: '{}', got: '{}')",
+                pspec.get_name(),
+                type_,
+                pspec.get_value_type(),
+                property_value.type_(),
+            )));
+        }
+
+        let changed: bool = from_glib(gobject_sys::g_param_value_validate(
+            pspec.to_glib_none().0,
+            property_value.to_glib_none_mut().0,
+        ));
+        let change_allowed = pspec.get_flags().contains(::ParamFlags::LAX_VALIDATION);
+        if changed && !change_allowed {
+            return Err(glib_bool_error!(
+                "property '{}' of type '{}' can't be set from given value, it is invalid or out of range",
+                pspec.get_name(),
+                type_,
+            ));
+        }
+    }
+
+    Ok(())
 }
 
 impl ObjectClass {
