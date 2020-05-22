@@ -607,7 +607,7 @@ mod test {
                 .err()
                 .expect("set_property failed")
                 .to_string(),
-            "property not found",
+            "property 'test' of type 'SimpleObject' not found",
         );
 
         assert_eq!(
@@ -615,7 +615,7 @@ mod test {
                 .err()
                 .expect("Failed to set 'constructed' property")
                 .to_string(),
-            "property is not writable",
+            "property 'constructed' of type 'SimpleObject' is not writable",
         );
 
         assert_eq!(
@@ -623,7 +623,7 @@ mod test {
                 .err()
                 .expect("Failed to set 'name' property")
                 .to_string(),
-            "property can't be set from the given type (expected: gchararray, got: gboolean)",
+            "property 'name' of type 'SimpleObject' can't be set from the given type (expected: 'gchararray', got: 'gboolean')",
         );
 
         let other_obj = Object::new(SimpleObject::get_type(), &[]).expect("Object::new failed");
@@ -632,7 +632,7 @@ mod test {
                 .err()
                 .expect("Failed to set 'child' property")
                 .to_string(),
-            "property can't be set from the given object type (expected: ChildObject, got: SimpleObject)",
+            "property 'child' of type 'SimpleObject' can't be set from the given object type (expected: 'ChildObject', got: 'SimpleObject')",
         );
 
         let child = Object::new(ChildObject::get_type(), &[]).expect("Object::new failed");
