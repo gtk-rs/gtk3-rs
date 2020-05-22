@@ -3,6 +3,9 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use error::to_std_io_result;
+use futures_core::task::{Context, Poll};
+use futures_io::{AsyncBufRead, AsyncRead};
+use futures_util::future::FutureExt;
 use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
@@ -80,6 +83,13 @@ pub trait InputStreamExtManual: Sized {
         Self: IsA<InputStream>,
     {
         InputStreamRead(self)
+    }
+
+    fn into_async_buf_read(self, buffer_size: usize) -> InputStreamAsyncBufRead<Self>
+    where
+        Self: IsA<InputStream>,
+    {
+        InputStreamAsyncBufRead::new(self, buffer_size)
     }
 }
 
@@ -340,6 +350,227 @@ impl<T: IsA<InputStream> + IsA<Seekable>> io::Seek for InputStreamRead<T> {
         to_std_io_result(gio_result)
     }
 }
+
+enum State {
+    Waiting {
+        buffer: Vec<u8>,
+    },
+    Transitioning,
+    Reading {
+        pending: Pin<
+            Box<
+                dyn std::future::Future<Output = Result<(Vec<u8>, usize), (Vec<u8>, glib::Error)>>
+                    + 'static,
+            >,
+        >,
+    },
+    HasData {
+        buffer: Vec<u8>,
+        valid: (usize, usize), // first index is inclusive, second is exclusive
+    },
+    Failed(crate::IOErrorEnum),
+}
+
+impl State {
+    fn into_buffer(self) -> Vec<u8> {
+        match self {
+            State::Waiting { buffer } => buffer,
+            _ => panic!("Invalid state"),
+        }
+    }
+
+    fn get_pending(
+        &mut self,
+    ) -> &mut Pin<
+        Box<
+            dyn std::future::Future<Output = Result<(Vec<u8>, usize), (Vec<u8>, glib::Error)>>
+                + 'static,
+        >,
+    > {
+        match self {
+            State::Reading { ref mut pending } => pending,
+            _ => panic!("Invalid state"),
+        }
+    }
+}
+pub struct InputStreamAsyncBufRead<T: IsA<InputStream>> {
+    stream: T,
+    state: State,
+}
+
+impl<T: IsA<InputStream>> InputStreamAsyncBufRead<T> {
+    pub fn into_input_stream(self) -> T {
+        self.stream
+    }
+
+    pub fn input_stream(&self) -> &T {
+        &self.stream
+    }
+
+    fn new(stream: T, buffer_size: usize) -> Self {
+        let buffer = vec![0; buffer_size];
+
+        Self {
+            stream,
+            state: State::Waiting { buffer },
+        }
+    }
+    fn set_reading(
+        &mut self,
+    ) -> &mut Pin<
+        Box<
+            dyn std::future::Future<Output = Result<(Vec<u8>, usize), (Vec<u8>, glib::Error)>>
+                + 'static,
+        >,
+    > {
+        match self.state {
+            State::Waiting { .. } => {
+                let waiting = mem::replace(&mut self.state, State::Transitioning);
+                let buffer = waiting.into_buffer();
+                let pending = self
+                    .input_stream()
+                    .read_async_future(buffer, Priority::default());
+                self.state = State::Reading { pending };
+            }
+            State::Reading { .. } => {}
+            _ => panic!("Invalid state"),
+        };
+
+        self.state.get_pending()
+    }
+
+    fn get_data(&self) -> Poll<io::Result<&[u8]>> {
+        if let State::HasData {
+            ref buffer,
+            valid: (i, j),
+        } = self.state
+        {
+            return Poll::Ready(Ok(&buffer[i..j]));
+        }
+        panic!("Invalid state")
+    }
+
+    fn set_waiting(&mut self, buffer: Vec<u8>) {
+        match self.state {
+            State::Reading { .. } | State::Transitioning => self.state = State::Waiting { buffer },
+            _ => panic!("Invalid state"),
+        }
+    }
+
+    fn set_has_data(&mut self, buffer: Vec<u8>, valid: (usize, usize)) {
+        match self.state {
+            State::Reading { .. } | State::Transitioning { .. } => {
+                self.state = State::HasData { buffer, valid }
+            }
+            _ => panic!("Invalid state"),
+        }
+    }
+
+    fn poll_fill_buf(&mut self, cx: &mut Context) -> Poll<Result<&[u8], futures::io::Error>> {
+        match self.state {
+            State::Failed(kind) => Poll::Ready(Err(io::Error::new(
+                io::ErrorKind::from(kind),
+                BufReadError::Failed,
+            ))),
+            State::HasData { .. } => self.get_data(),
+            State::Transitioning => panic!("Invalid state"),
+            State::Waiting { .. } | State::Reading { .. } => {
+                let pending = self.set_reading();
+                match pending.poll_unpin(cx) {
+                    Poll::Ready(Ok((buffer, res))) => {
+                        if res == 0 {
+                            self.set_waiting(buffer);
+                            Poll::Ready(Ok(&[]))
+                        } else {
+                            self.set_has_data(buffer, (0, res));
+                            self.get_data()
+                        }
+                    }
+                    Poll::Ready(Err((_, err))) => {
+                        let kind = err.kind::<crate::IOErrorEnum>().unwrap();
+                        self.state = State::Failed(kind);
+                        Poll::Ready(Err(io::Error::new(io::ErrorKind::from(kind), err)))
+                    }
+                    Poll::Pending => Poll::Pending,
+                }
+            }
+        }
+    }
+
+    fn consume(&mut self, amt: usize) {
+        if amt == 0 {
+            return;
+        }
+
+        if let State::HasData { .. } = self.state {
+            let has_data = mem::replace(&mut self.state, State::Transitioning);
+            if let State::HasData {
+                buffer,
+                valid: (i, j),
+            } = has_data
+            {
+                let available = j - i;
+                if amt > available {
+                    panic!(
+                        "Cannot consume {} bytes as only {} are available",
+                        amt, available
+                    )
+                }
+                let remaining = available - amt;
+                if remaining == 0 {
+                    return self.set_waiting(buffer);
+                } else {
+                    return self.set_has_data(buffer, (i + amt, j));
+                }
+            }
+        }
+
+        panic!("Invalid state")
+    }
+}
+
+#[derive(thiserror::Error, Debug)]
+enum BufReadError {
+    #[error("Previous read operation failed")]
+    Failed,
+}
+
+impl<T: IsA<InputStream>> AsyncRead for InputStreamAsyncBufRead<T> {
+    fn poll_read(
+        self: Pin<&mut Self>,
+        cx: &mut Context,
+        out_buf: &mut [u8],
+    ) -> Poll<io::Result<usize>> {
+        let reader = self.get_mut();
+        let poll = reader.poll_fill_buf(cx);
+
+        let poll = poll.map_ok(|buffer| {
+            let copied = buffer.len().min(out_buf.len());
+            out_buf[..copied].copy_from_slice(&buffer[..copied]);
+            copied
+        });
+
+        if let Poll::Ready(Ok(consumed)) = poll {
+            reader.consume(consumed);
+        }
+        poll
+    }
+}
+
+impl<T: IsA<InputStream>> AsyncBufRead for InputStreamAsyncBufRead<T> {
+    fn poll_fill_buf(
+        self: Pin<&mut Self>,
+        cx: &mut Context,
+    ) -> Poll<Result<&[u8], futures::io::Error>> {
+        self.get_mut().poll_fill_buf(cx)
+    }
+
+    fn consume(self: Pin<&mut Self>, amt: usize) {
+        self.get_mut().consume(amt);
+    }
+}
+
+impl<T: IsA<InputStream>> Unpin for InputStreamAsyncBufRead<T> {}
 
 #[cfg(test)]
 mod tests {
