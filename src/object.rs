@@ -1419,67 +1419,8 @@ impl<T: ObjectType> ObjectExt for T {
             }
         };
 
-        if !pspec.get_flags().contains(::ParamFlags::WRITABLE)
-            || pspec.get_flags().contains(::ParamFlags::CONSTRUCT_ONLY)
-        {
-            return Err(glib_bool_error!("property is not writable"));
-        }
-
+        validate_property_type(self.get_type(), &pspec, &mut property_value)?;
         unsafe {
-            // While GLib actually allows all types that can somehow be transformed
-            // into the property type, we're more restrictive here to be consistent
-            // with Rust's type rules. We only allow the exact same type, or if the
-            // value type is a subtype of the property type
-            let valid_type: bool = from_glib(gobject_sys::g_type_check_value_holds(
-                mut_override(property_value.to_glib_none().0),
-                pspec.get_value_type().to_glib(),
-            ));
-
-            // If it's not directly a valid type but an object type, we check if the
-            // actual type of the contained object is compatible and if so create
-            // a properly type Value. This can happen if the type field in the
-            // Value is set to a more generic type than the contained value
-            if !valid_type && property_value.type_().is_a(&Object::static_type()) {
-                match property_value.get::<Object>() {
-                    Ok(Some(obj)) => {
-                        if obj.get_type().is_a(&pspec.get_value_type()) {
-                            property_value.0.g_type = pspec.get_value_type().to_glib();
-                        } else {
-                            return Err(glib_bool_error!(format!(
-                                concat!(
-                                    "property can't be set from the given object type ",
-                                    "(expected: {:?}, got: {:?})",
-                                ),
-                                pspec.get_value_type(),
-                                obj.get_type(),
-                            )));
-                        }
-                    }
-                    Ok(None) => {
-                        // If the value is None then the type is compatible too
-                        property_value.0.g_type = pspec.get_value_type().to_glib();
-                    }
-                    Err(_) => unreachable!("property_value type conformity already checked"),
-                }
-            } else if !valid_type {
-                return Err(glib_bool_error!(format!(
-                    "property can't be set from the given type (expected: {:?}, got: {:?})",
-                    pspec.get_value_type(),
-                    property_value.type_(),
-                )));
-            }
-
-            let changed: bool = from_glib(gobject_sys::g_param_value_validate(
-                pspec.to_glib_none().0,
-                property_value.to_glib_none_mut().0,
-            ));
-            let change_allowed = pspec.get_flags().contains(::ParamFlags::LAX_VALIDATION);
-            if changed && !change_allowed {
-                return Err(glib_bool_error!(
-                    "property can't be set from given value, it is invalid or out of range"
-                ));
-            }
-
             gobject_sys::g_object_set_property(
                 self.as_object_ref().to_glib_none().0,
                 property_name.to_glib_none().0,
@@ -1947,6 +1888,87 @@ impl<T: ObjectType> ObjectExt for T {
 
         unsafe { glib_sys::g_atomic_int_get(&(*ptr).ref_count as *const u32 as *const i32) as u32 }
     }
+}
+
+// Validate that the given property value has an acceptable type for the given property pspec
+// and if necessary update the value
+fn validate_property_type(
+    type_: Type,
+    pspec: &::ParamSpec,
+    property_value: &mut Value,
+) -> Result<(), BoolError> {
+    if !pspec.get_flags().contains(::ParamFlags::WRITABLE)
+        || pspec.get_flags().contains(::ParamFlags::CONSTRUCT_ONLY)
+    {
+        return Err(glib_bool_error!(
+            "property '{}' of type '{}' is not writable",
+            pspec.get_name(),
+            type_
+        ));
+    }
+
+    unsafe {
+        // While GLib actually allows all types that can somehow be transformed
+        // into the property type, we're more restrictive here to be consistent
+        // with Rust's type rules. We only allow the exact same type, or if the
+        // value type is a subtype of the property type
+        let valid_type: bool = from_glib(gobject_sys::g_type_check_value_holds(
+            mut_override(property_value.to_glib_none().0),
+            pspec.get_value_type().to_glib(),
+        ));
+
+        // If it's not directly a valid type but an object type, we check if the
+        // actual type of the contained object is compatible and if so create
+        // a properly typed Value. This can happen if the type field in the
+        // Value is set to a more generic type than the contained value
+        if !valid_type && property_value.type_().is_a(&Object::static_type()) {
+            match property_value.get::<Object>() {
+                Ok(Some(obj)) => {
+                    if obj.get_type().is_a(&pspec.get_value_type()) {
+                        property_value.0.g_type = pspec.get_value_type().to_glib();
+                    } else {
+                        return Err(
+                            glib_bool_error!(
+                                "property '{}' of type '{}' can't be set from the given object type (expected: '{}', got: '{}')",
+                                pspec.get_name(),
+                                type_,
+                                pspec.get_value_type(),
+                                obj.get_type(),
+                            )
+                        );
+                    }
+                }
+                Ok(None) => {
+                    // If the value is None then the type is compatible too
+                    property_value.0.g_type = pspec.get_value_type().to_glib();
+                }
+                Err(_) => unreachable!("property_value type conformity already checked"),
+            }
+        } else if !valid_type {
+            return Err(glib_bool_error!(format!(
+                "property '{}' of type '{}' can't be set from the given type (expected: '{}', got: '{}')",
+                pspec.get_name(),
+                type_,
+                pspec.get_value_type(),
+                property_value.type_(),
+            )));
+        }
+
+        let changed: bool = from_glib(gobject_sys::g_param_value_validate(
+            pspec.to_glib_none().0,
+            property_value.to_glib_none_mut().0,
+        ));
+        let change_allowed = pspec.get_flags().contains(::ParamFlags::LAX_VALIDATION);
+        if changed && !change_allowed {
+            return Err(glib_bool_error!(
+                "property '{}' of type '{}' can't be set from given value, it is invalid or out of range",
+                pspec.get_name(),
+                type_,
+            ));
+        }
+    }
+
+    Ok(())
 }
 
 impl ObjectClass {
