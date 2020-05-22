@@ -1280,7 +1280,7 @@ impl Object {
                     })?;
 
                 let mut value = value.to_value();
-                validate_property_type(type_, &pspec, &mut value)?;
+                validate_property_type(type_, true, &pspec, &mut value)?;
                 Ok((CString::new(name).unwrap(), value))
             })
             .collect::<Result<Vec<_>, _>>()?;
@@ -1457,11 +1457,15 @@ impl<T: ObjectType> ObjectExt for T {
                     .iter()
                     .find(|p| p.get_name() == name)
                     .ok_or_else(|| {
-                        glib_bool_error!("Can't find property '{}' for type '{}'", name, self.get_type())
+                        glib_bool_error!(
+                            "Can't find property '{}' for type '{}'",
+                            name,
+                            self.get_type()
+                        )
                     })?;
 
                 let mut value = value.to_value();
-                validate_property_type(self.get_type(), &pspec, &mut value)?;
+                validate_property_type(self.get_type(), false, &pspec, &mut value)?;
                 Ok((CString::new(name).unwrap(), value))
             })
             .collect::<Result<Vec<_>, _>>()?;
@@ -1498,7 +1502,7 @@ impl<T: ObjectType> ObjectExt for T {
             }
         };
 
-        validate_property_type(self.get_type(), &pspec, &mut property_value)?;
+        validate_property_type(self.get_type(), false, &pspec, &mut property_value)?;
         unsafe {
             gobject_sys::g_object_set_property(
                 self.as_object_ref().to_glib_none().0,
@@ -2034,11 +2038,12 @@ impl<T: ObjectType> ObjectExt for T {
 // and if necessary update the value
 fn validate_property_type(
     type_: Type,
+    allow_construct_only: bool,
     pspec: &::ParamSpec,
     property_value: &mut Value,
 ) -> Result<(), BoolError> {
     if !pspec.get_flags().contains(::ParamFlags::WRITABLE)
-        || pspec.get_flags().contains(::ParamFlags::CONSTRUCT_ONLY)
+        || (!allow_construct_only && pspec.get_flags().contains(::ParamFlags::CONSTRUCT_ONLY))
     {
         return Err(glib_bool_error!(
             "property '{}' of type '{}' is not writable",
