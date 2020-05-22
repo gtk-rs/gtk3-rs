@@ -1240,7 +1240,29 @@ impl Object {
         use std::ffi::CString;
 
         if !type_.is_a(&Object::static_type()) {
-            return Err(glib_bool_error!("Can't instantiate non-GObject objects"));
+            return Err(glib_bool_error!(
+                "Can't instantiate non-GObject type '{}'",
+                type_
+            ));
+        }
+
+        unsafe {
+            if gobject_sys::g_type_test_flags(
+                type_.to_glib(),
+                gobject_sys::G_TYPE_FLAG_INSTANTIATABLE,
+            ) == glib_sys::GFALSE
+            {
+                return Err(glib_bool_error!("Can't instantiate type '{}'", type_));
+            }
+
+            if gobject_sys::g_type_test_flags(type_.to_glib(), gobject_sys::G_TYPE_FLAG_ABSTRACT)
+                != glib_sys::GFALSE
+            {
+                return Err(glib_bool_error!(
+                    "Can't instantiate abstract type '{}'",
+                    type_
+                ));
+            }
         }
 
         let params = properties
@@ -1263,7 +1285,10 @@ impl Object {
                 mut_override(params_c.as_ptr()),
             );
             if ptr.is_null() {
-                Err(glib_bool_error!("Can't instantiate object"))
+                Err(glib_bool_error!(
+                    "Can't instantiate object for type '{}'",
+                    type_
+                ))
             } else if type_.is_a(&InitiallyUnowned::static_type()) {
                 // Attention: This takes ownership of the floating reference
                 Ok(from_glib_none(ptr))
