@@ -1455,7 +1455,11 @@ impl<T: ObjectType> ObjectExt for T {
         let pspec = match self.find_property(property_name) {
             Some(pspec) => pspec,
             None => {
-                return Err(glib_bool_error!("property not found"));
+                return Err(glib_bool_error!(
+                    "property '{}' of type '{}' not found",
+                    property_name,
+                    self.get_type()
+                ));
             }
         };
 
@@ -1477,12 +1481,20 @@ impl<T: ObjectType> ObjectExt for T {
         let pspec = match self.find_property(property_name) {
             Some(pspec) => pspec,
             None => {
-                return Err(glib_bool_error!("property not found"));
+                return Err(glib_bool_error!(
+                    "property '{}' of type '{}' not found",
+                    property_name,
+                    self.get_type()
+                ));
             }
         };
 
         if !pspec.get_flags().contains(::ParamFlags::READABLE) {
-            return Err(glib_bool_error!("property is not readable"));
+            return Err(glib_bool_error!(
+                "property '{}' of type '{}' is not readable",
+                property_name,
+                self.get_type()
+            ));
         }
 
         unsafe {
@@ -1495,7 +1507,11 @@ impl<T: ObjectType> ObjectExt for T {
 
             // This can't really happen unless something goes wrong inside GObject
             if value.type_() == ::Type::Invalid {
-                Err(glib_bool_error!("Failed to get property value"))
+                Err(glib_bool_error!(
+                    "Failed to get property value for property '{}' of type '{}'",
+                    property_name,
+                    self.get_type()
+                ))
             } else {
                 Ok(value)
             }
@@ -1725,14 +1741,22 @@ impl<T: ObjectType> ObjectExt for T {
         ));
 
         if !found {
-            return Err(glib_bool_error!("Signal not found"));
+            return Err(glib_bool_error!(
+                "Signal '{}' of type '{}' not found",
+                signal_name,
+                type_
+            ));
         }
 
         let mut details = mem::MaybeUninit::zeroed();
         gobject_sys::g_signal_query(signal_id, details.as_mut_ptr());
         let details = details.assume_init();
         if details.signal_id != signal_id {
-            return Err(glib_bool_error!("Signal not found"));
+            return Err(glib_bool_error!(
+                "Signal '{}' of type '{}' not found",
+                signal_name,
+                type_
+            ));
         }
 
         // This is actually G_SIGNAL_TYPE_STATIC_SCOPE
@@ -1744,8 +1768,10 @@ impl<T: ObjectType> ObjectExt for T {
             if return_type == Type::Unit {
                 if let Some(ret) = ret {
                     panic!(
-                        "Signal required no return value but got value of type {}",
-                        ret.type_().name()
+                        "Signal '{}' of type '{}' required no return value but got value of type '{}'",
+                        signal_name,
+                        type_,
+                        ret.type_()
                     );
                 }
                 None
@@ -1767,8 +1793,14 @@ impl<T: ObjectType> ObjectExt for T {
                                     if obj.get_type().is_a(&return_type) {
                                         ret.0.g_type = return_type.to_glib();
                                     } else {
-                                        panic!("Signal required return value of type {} but got {} (actual {})",
-                                           return_type.name(), ret.type_().name(), obj.get_type().name());
+                                        panic!(
+                                            "Signal '{}' of type '{}' required return value of type '{}' but got '{}' (actual '{}')",
+                                            signal_name,
+                                            type_,
+                                            return_type,
+                                            ret.type_(),
+                                            obj.get_type()
+                                        );
                                     }
                                 }
                                 Ok(None) => {
@@ -1779,16 +1811,20 @@ impl<T: ObjectType> ObjectExt for T {
                             }
                         } else if !valid_type {
                             panic!(
-                                "Signal required return value of type {} but got {}",
-                                return_type.name(),
-                                ret.type_().name()
+                                "Signal '{}' of type '{}' required return value of type '{}' but got '{}'",
+                                signal_name,
+                                type_,
+                                return_type,
+                                ret.type_()
                             );
                         }
                         Some(ret)
                     }
                     None => {
                         panic!(
-                            "Signal required return value of type {} but got None",
+                            "Signal '{}' of type '{}' required return value of type '{}' but got None",
+                            signal_name,
+                            type_,
                             return_type.name()
                         );
                     }
@@ -1804,7 +1840,11 @@ impl<T: ObjectType> ObjectExt for T {
         );
 
         if handler == 0 {
-            Err(glib_bool_error!("Failed to connect to signal"))
+            Err(glib_bool_error!(
+                "Failed to connect to signal '{}' of type '{}'",
+                signal_name,
+                type_
+            ))
         } else {
             Ok(from_glib(handler))
         }
@@ -1831,25 +1871,50 @@ impl<T: ObjectType> ObjectExt for T {
             ));
 
             if !found {
-                return Err(glib_bool_error!("Signal not found"));
+                return Err(glib_bool_error!(
+                    "Signal '{}' of type '{}' not found",
+                    signal_name,
+                    type_
+                ));
             }
 
             let mut details = mem::MaybeUninit::zeroed();
             gobject_sys::g_signal_query(signal_id, details.as_mut_ptr());
             let details = details.assume_init();
             if details.signal_id != signal_id {
-                return Err(glib_bool_error!("Signal not found"));
+                return Err(glib_bool_error!(
+                    "Signal '{}' of type '{}' not found",
+                    signal_name,
+                    type_
+                ));
             }
 
             if details.n_params != args.len() as u32 {
-                return Err(glib_bool_error!("Incompatible number of arguments"));
+                return Err(
+                    glib_bool_error!(
+                        "Incompatible number of arguments for signal '{}' of type '{}' (expected {}, got {})",
+                        signal_name,
+                        type_,
+                        details.n_params,
+                        args.len(),
+                    )
+                );
             }
 
             for (i, item) in args.iter().enumerate() {
                 let arg_type =
                     *(details.param_types.add(i)) & (!gobject_sys::G_TYPE_FLAG_RESERVED_ID_BIT);
                 if arg_type != item.to_value_type().to_glib() {
-                    return Err(glib_bool_error!("Incompatible argument types"));
+                    return Err(
+                        glib_bool_error!(
+                            "Incompatible argument type in argument {} for signal '{}' of type '{}' (expected {}, got {})",
+                            i,
+                            signal_name,
+                            type_,
+                            arg_type,
+                            item.to_value_type(),
+                        )
+                    );
                 }
             }
 
