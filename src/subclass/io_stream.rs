@@ -142,7 +142,7 @@ where
     gobject_sys::g_object_set_qdata_full(
         ptr as *mut _,
         INPUT_STREAM_QUARK.to_glib(),
-        ret.as_ptr() as *mut _,
+        gobject_sys::g_object_ref(ret.as_ptr() as *mut _) as *mut _,
         Some(unref),
     );
 
@@ -179,7 +179,7 @@ where
     gobject_sys::g_object_set_qdata_full(
         ptr as *mut _,
         OUTPUT_STREAM_QUARK.to_glib(),
-        ret.as_ptr() as *mut _,
+        gobject_sys::g_object_ref(ret.as_ptr() as *mut _) as *mut _,
         Some(unref),
     );
 
