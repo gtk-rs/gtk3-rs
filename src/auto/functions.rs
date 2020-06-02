@@ -14,7 +14,9 @@ use std::boxed::Box as Box_;
 use std::mem;
 use std::pin::Pin;
 use std::ptr;
+use BusType;
 use Cancellable;
+use DBusConnection;
 use File;
 use IOErrorEnum;
 use IOStream;
@@ -24,73 +26,89 @@ use Resource;
 use ResourceLookupFlags;
 use SettingsBackend;
 
-//pub fn bus_get<P: IsA<Cancellable>, Q: FnOnce(Result</*Ignored*/DBusConnection, glib::Error>) + Send + 'static>(bus_type: /*Ignored*/BusType, cancellable: Option<&P>, callback: Q) {
-//    unsafe { TODO: call gio_sys:g_bus_get() }
-//}
+pub fn bus_get<
+    P: IsA<Cancellable>,
+    Q: FnOnce(Result<DBusConnection, glib::Error>) + Send + 'static,
+>(
+    bus_type: BusType,
+    cancellable: Option<&P>,
+    callback: Q,
+) {
+    let user_data: Box_<Q> = Box_::new(callback);
+    unsafe extern "C" fn bus_get_trampoline<
+        Q: FnOnce(Result<DBusConnection, glib::Error>) + Send + 'static,
+    >(
+        _source_object: *mut gobject_sys::GObject,
+        res: *mut gio_sys::GAsyncResult,
+        user_data: glib_sys::gpointer,
+    ) {
+        let mut error = ptr::null_mut();
+        let ret = gio_sys::g_bus_get_finish(res, &mut error);
+        let result = if error.is_null() {
+            Ok(from_glib_full(ret))
+        } else {
+            Err(from_glib_full(error))
+        };
+        let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
+        callback(result);
+    }
+    let callback = bus_get_trampoline::<Q>;
+    unsafe {
+        gio_sys::g_bus_get(
+            bus_type.to_glib(),
+            cancellable.map(|p| p.as_ref()).to_glib_none().0,
+            Some(callback),
+            Box_::into_raw(user_data) as *mut _,
+        );
+    }
+}
 
-//
-//pub fn bus_get_future(bus_type: /*Ignored*/BusType) -> Pin<Box_<dyn std::future::Future<Output = Result</*Ignored*/DBusConnection, glib::Error>> + 'static>> {
+pub fn bus_get_future(
+    bus_type: BusType,
+) -> Pin<Box_<dyn std::future::Future<Output = Result<DBusConnection, glib::Error>> + 'static>> {
+    Box_::pin(crate::GioFuture::new(&(), move |_obj, send| {
+        let cancellable = Cancellable::new();
+        bus_get(bus_type, Some(&cancellable), move |res| {
+            send.resolve(res);
+        });
 
-//Box_::pin(crate::GioFuture::new(&(), move |_obj, send| {
-//    let cancellable = Cancellable::new();
-//    bus_get(
-//        bus_type,
-//        Some(&cancellable),
-//        move |res| {
-//            send.resolve(res);
-//        },
-//    );
+        cancellable
+    }))
+}
 
-//    cancellable
-//}))
-//}
+pub fn bus_get_sync<P: IsA<Cancellable>>(
+    bus_type: BusType,
+    cancellable: Option<&P>,
+) -> Result<DBusConnection, glib::Error> {
+    unsafe {
+        let mut error = ptr::null_mut();
+        let ret = gio_sys::g_bus_get_sync(
+            bus_type.to_glib(),
+            cancellable.map(|p| p.as_ref()).to_glib_none().0,
+            &mut error,
+        );
+        if error.is_null() {
+            Ok(from_glib_full(ret))
+        } else {
+            Err(from_glib_full(error))
+        }
+    }
+}
 
-//pub fn bus_get_sync<P: IsA<Cancellable>>(bus_type: /*Ignored*/BusType, cancellable: Option<&P>) -> Result</*Ignored*/DBusConnection, glib::Error> {
-//    unsafe { TODO: call gio_sys:g_bus_get_sync() }
-//}
-
-//pub fn bus_own_name(bus_type: /*Ignored*/BusType, name: &str, flags: /*Ignored*/BusNameOwnerFlags, bus_acquired_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str), name_acquired_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str), name_lost_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
+//pub fn bus_own_name(bus_type: BusType, name: &str, flags: BusNameOwnerFlags, bus_acquired_handler: Option<Box_<dyn Fn(&DBusConnection, &str) + 'static>>, name_acquired_handler: Option<Box_<dyn Fn(&DBusConnection, &str) + 'static>>, name_lost_handler: Option<Box_<dyn Fn(&DBusConnection, &str) + 'static>>) -> u32 {
 //    unsafe { TODO: call gio_sys:g_bus_own_name() }
 //}
 
-//pub fn bus_own_name_on_connection(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameOwnerFlags, name_acquired_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str), name_lost_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
+//pub fn bus_own_name_on_connection(connection: &DBusConnection, name: &str, flags: BusNameOwnerFlags, name_acquired_handler: Option<Box_<dyn Fn(&DBusConnection, &str) + 'static>>, name_lost_handler: Option<Box_<dyn Fn(&DBusConnection, &str) + 'static>>) -> u32 {
 //    unsafe { TODO: call gio_sys:g_bus_own_name_on_connection() }
 //}
 
-//pub fn bus_own_name_on_connection_with_closures(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameOwnerFlags, name_acquired_closure: /*Ignored*/Option<&glib::Closure>, name_lost_closure: /*Ignored*/Option<&glib::Closure>) -> u32 {
-//    unsafe { TODO: call gio_sys:g_bus_own_name_on_connection_with_closures() }
-//}
-
-//pub fn bus_own_name_with_closures(bus_type: /*Ignored*/BusType, name: &str, flags: /*Ignored*/BusNameOwnerFlags, bus_acquired_closure: /*Ignored*/Option<&glib::Closure>, name_acquired_closure: /*Ignored*/Option<&glib::Closure>, name_lost_closure: /*Ignored*/Option<&glib::Closure>) -> u32 {
-//    unsafe { TODO: call gio_sys:g_bus_own_name_with_closures() }
-//}
-
-pub fn bus_unown_name(owner_id: u32) {
-    unsafe {
-        gio_sys::g_bus_unown_name(owner_id);
-    }
-}
-
-pub fn bus_unwatch_name(watcher_id: u32) {
-    unsafe {
-        gio_sys::g_bus_unwatch_name(watcher_id);
-    }
-}
-
-//pub fn bus_watch_name(bus_type: /*Ignored*/BusType, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str, &str), name_vanished_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
+//pub fn bus_watch_name(bus_type: BusType, name: &str, flags: BusNameWatcherFlags, name_appeared_handler: Option<Box_<dyn Fn(&DBusConnection, &str, &str) + 'static>>, name_vanished_handler: Option<Box_<dyn Fn(&DBusConnection, &str) + 'static>>) -> u32 {
 //    unsafe { TODO: call gio_sys:g_bus_watch_name() }
 //}
 
-//pub fn bus_watch_name_on_connection(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str, &str), name_vanished_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
+//pub fn bus_watch_name_on_connection(connection: &DBusConnection, name: &str, flags: BusNameWatcherFlags, name_appeared_handler: Option<Box_<dyn Fn(&DBusConnection, &str, &str) + 'static>>, name_vanished_handler: Option<Box_<dyn Fn(&DBusConnection, &str) + 'static>>) -> u32 {
 //    unsafe { TODO: call gio_sys:g_bus_watch_name_on_connection() }
-//}
-
-//pub fn bus_watch_name_on_connection_with_closures(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_closure: /*Ignored*/Option<&glib::Closure>, name_vanished_closure: /*Ignored*/Option<&glib::Closure>) -> u32 {
-//    unsafe { TODO: call gio_sys:g_bus_watch_name_on_connection_with_closures() }
-//}
-
-//pub fn bus_watch_name_with_closures(bus_type: /*Ignored*/BusType, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_closure: /*Ignored*/Option<&glib::Closure>, name_vanished_closure: /*Ignored*/Option<&glib::Closure>) -> u32 {
-//    unsafe { TODO: call gio_sys:g_bus_watch_name_with_closures() }
 //}
 
 pub fn content_type_can_be_executable(type_: &str) -> bool {
@@ -224,9 +242,24 @@ pub fn dbus_address_escape_value(string: &str) -> Option<GString> {
     }
 }
 
-//pub fn dbus_address_get_for_bus_sync<P: IsA<Cancellable>>(bus_type: /*Ignored*/BusType, cancellable: Option<&P>) -> Result<GString, glib::Error> {
-//    unsafe { TODO: call gio_sys:g_dbus_address_get_for_bus_sync() }
-//}
+pub fn dbus_address_get_for_bus_sync<P: IsA<Cancellable>>(
+    bus_type: BusType,
+    cancellable: Option<&P>,
+) -> Result<GString, glib::Error> {
+    unsafe {
+        let mut error = ptr::null_mut();
+        let ret = gio_sys::g_dbus_address_get_for_bus_sync(
+            bus_type.to_glib(),
+            cancellable.map(|p| p.as_ref()).to_glib_none().0,
+            &mut error,
+        );
+        if error.is_null() {
+            Ok(from_glib_full(ret))
+        } else {
+            Err(from_glib_full(error))
+        }
+    }
+}
 
 pub fn dbus_address_get_stream<
     P: IsA<Cancellable>,

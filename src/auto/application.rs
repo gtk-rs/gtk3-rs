@@ -26,6 +26,7 @@ use ActionMap;
 use ApplicationCommandLine;
 use ApplicationFlags;
 use Cancellable;
+use DBusConnection;
 use File;
 use Notification;
 
@@ -148,7 +149,7 @@ pub trait ApplicationExt: 'static {
 
     fn get_application_id(&self) -> Option<GString>;
 
-    //fn get_dbus_connection(&self) -> /*Ignored*/Option<DBusConnection>;
+    fn get_dbus_connection(&self) -> Option<DBusConnection>;
 
     fn get_dbus_object_path(&self) -> Option<GString>;
 
@@ -316,9 +317,13 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    //fn get_dbus_connection(&self) -> /*Ignored*/Option<DBusConnection> {
-    //    unsafe { TODO: call gio_sys:g_application_get_dbus_connection() }
-    //}
+    fn get_dbus_connection(&self) -> Option<DBusConnection> {
+        unsafe {
+            from_glib_none(gio_sys::g_application_get_dbus_connection(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 
     fn get_dbus_object_path(&self) -> Option<GString> {
         unsafe {

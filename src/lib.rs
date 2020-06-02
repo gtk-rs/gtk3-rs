@@ -32,6 +32,15 @@ mod application;
 mod cancellable;
 mod converter;
 mod data_input_stream;
+mod dbus;
+pub use dbus::*;
+mod dbus_connection;
+pub use dbus_connection::{
+    ActionGroupExportId, FilterId, MenuModelExportId, RegistrationId, SignalSubscriptionId,
+    WatcherId,
+};
+mod dbus_message;
+mod dbus_method_invocation;
 #[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
 mod desktop_app_info;
 mod error;
@@ -62,6 +71,8 @@ mod socket_listener;
 mod subprocess;
 mod subprocess_launcher;
 mod threaded_socket_service;
+#[cfg(any(unix, feature = "dox"))]
+mod unix_fd_list;
 #[cfg(any(unix, feature = "dox"))]
 mod unix_input_stream;
 #[cfg(any(unix, feature = "dox"))]
