@@ -28,15 +28,6 @@ glib_wrapper! {
     }
 }
 
-impl ThreadedSocketService {
-    pub fn new(max_threads: i32) -> ThreadedSocketService {
-        unsafe {
-            SocketService::from_glib_full(gio_sys::g_threaded_socket_service_new(max_threads))
-                .unsafe_cast()
-        }
-    }
-}
-
 pub const NONE_THREADED_SOCKET_SERVICE: Option<&ThreadedSocketService> = None;
 
 pub trait ThreadedSocketServiceExt: 'static {

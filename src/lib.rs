@@ -61,6 +61,7 @@ mod socket;
 mod socket_listener;
 mod subprocess;
 mod subprocess_launcher;
+mod threaded_socket_service;
 #[cfg(any(unix, feature = "dox"))]
 mod unix_input_stream;
 #[cfg(any(unix, feature = "dox"))]
