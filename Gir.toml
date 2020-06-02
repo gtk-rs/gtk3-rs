@@ -102,7 +102,6 @@ generate = [
     "Gio.SrvTarget",
     "Gio.SubprocessFlags",
     "Gio.TcpConnection",
-    "Gio.ThreadedSocketService",
     "Gio.TlsAuthenticationMode",
     "Gio.TlsCertificate",
     "Gio.TlsCertificateFlags",
@@ -804,6 +803,15 @@ status = "generate"
     name = "names"
     # ConstructOnly
     generate = ["notify"]
+
+[[object]]
+name = "Gio.ThreadedSocketService"
+status = "generate"
+    [[object.signal]]
+    name = "run"
+        [[object.signal.parameter]]
+        name = "source_object"
+        nullable = true
 
 [[object]]
 name = "Gio.TlsPassword"
