@@ -807,6 +807,10 @@ status = "generate"
 [[object]]
 name = "Gio.ThreadedSocketService"
 status = "generate"
+    [[object.function]]
+    name = "new"
+    # Better to provide None than -1 when you don't want to specify the number of threads
+    ignore = true
     [[object.signal]]
     name = "run"
         [[object.signal.parameter]]
