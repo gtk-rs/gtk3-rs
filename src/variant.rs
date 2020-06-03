@@ -287,6 +287,12 @@ pub trait StaticVariantType {
     fn static_variant_type() -> Cow<'static, VariantTy>;
 }
 
+impl StaticVariantType for Variant {
+    fn static_variant_type() -> Cow<'static, VariantTy> {
+        unsafe { VariantTy::from_str_unchecked("v").into() }
+    }
+}
+
 impl<'a, T: ?Sized + ToVariant> ToVariant for &'a T {
     fn to_variant(&self) -> Variant {
         <T as ToVariant>::to_variant(self)
