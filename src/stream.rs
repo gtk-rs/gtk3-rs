@@ -4,7 +4,7 @@
 
 use error::Error;
 use ffi::{self, cairo_status_t};
-use {Status, Surface, UserDataKey};
+use {Surface, UserDataKey};
 
 use libc::{c_double, c_uchar, c_uint, c_void};
 use std::any::Any;
@@ -231,7 +231,7 @@ extern "C" fn write_callback<W: io::Write + 'static>(
             // we must conservatively assume that it can panic.
             let result = std::panic::catch_unwind(AssertUnwindSafe(|| stream.write_all(data)));
             match result {
-                Ok(Ok(())) => return Status::Success.into(),
+                Ok(Ok(())) => return ffi::STATUS_SUCCESS,
                 Ok(Err(error)) => {
                     *io_error = Some(error);
                 }
@@ -243,7 +243,7 @@ extern "C" fn write_callback<W: io::Write + 'static>(
     } else {
         env.saw_already_borrowed.set(true)
     }
-    Status::WriteError.into()
+    Error::WriteError.into()
 }
 
 struct RawStream<W>(ptr::NonNull<W>);

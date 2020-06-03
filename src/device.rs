@@ -5,7 +5,7 @@
 use std::ffi::CString;
 use std::path::Path;
 
-use enums::{Content, DeviceType, ScriptMode, Status};
+use enums::{Content, DeviceType, ScriptMode};
 use error::Error;
 use ffi;
 #[cfg(feature = "use_glib")]
@@ -14,6 +14,7 @@ use recording_surface::RecordingSurface;
 use std::fmt;
 use std::ptr;
 use surface::Surface;
+use utils::status_to_result;
 
 #[derive(Debug)]
 pub struct Device(ptr::NonNull<ffi::cairo_device_t>);
@@ -52,12 +53,11 @@ impl Device {
         }
     }
 
-    pub fn from_recording_surface(&self, surface: &RecordingSurface) -> Status {
+    pub fn from_recording_surface(&self, surface: &RecordingSurface) -> Result<(), Error> {
         unsafe {
-            Status::from(ffi::cairo_script_from_recording_surface(
-                self.to_raw_none(),
-                surface.to_raw_none(),
-            ))
+            let status =
+                ffi::cairo_script_from_recording_surface(self.to_raw_none(), surface.to_raw_none());
+            status_to_result(status, ())
         }
     }
 
@@ -104,10 +104,6 @@ impl Device {
         }
     }
 
-    pub fn status(&self) -> Status {
-        unsafe { Status::from(ffi::cairo_device_status(self.to_raw_none())) }
-    }
-
     pub fn finish(&self) {
         unsafe { ffi::cairo_device_finish(self.to_raw_none()) }
     }
@@ -121,8 +117,11 @@ impl Device {
     }
 
     // Maybe improve this API?
-    pub fn acquire(&self) -> Status {
-        unsafe { Status::from(ffi::cairo_device_acquire(self.to_raw_none())) }
+    pub fn acquire(&self) -> Result<(), Error> {
+        unsafe {
+            let status = ffi::cairo_device_acquire(self.to_raw_none());
+            status_to_result(status, ())
+        }
     }
 
     // Maybe improve this API?

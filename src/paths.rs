@@ -2,12 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use enums::{PathDataType, Status};
+use enums::PathDataType;
+use error::Error;
 use ffi;
 use ffi::cairo_path_t;
 use std::fmt;
 use std::iter::Iterator;
 use std::ptr;
+use utils::status_to_result;
 
 #[derive(Debug)]
 pub struct Path(ptr::NonNull<cairo_path_t>);
@@ -17,10 +19,10 @@ impl Path {
         self.0.as_ptr()
     }
 
-    pub fn ensure_status(&self) {
+    pub fn status(&self) -> Result<(), Error> {
         unsafe {
             let ptr: *mut cairo_path_t = self.as_ptr();
-            Status::from((*ptr).status).ensure_valid()
+            status_to_result((*ptr).status, ())
         }
     }
 

@@ -9,11 +9,12 @@ use std::ops::Deref;
 use std::ptr;
 use std::slice;
 
-use enums::{Content, Format, Status, SurfaceType};
+use enums::{Content, Format, SurfaceType};
 use error::Error;
 use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
+use utils::status_to_result;
 
 use device::Device;
 use image_surface::ImageSurface;
@@ -37,8 +38,8 @@ impl Surface {
 
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<Surface, Error> {
         assert!(!ptr.is_null());
-        let status = Status::from(ffi::cairo_surface_status(ptr));
-        status.to_result(Surface(ptr::NonNull::new_unchecked(ptr)))
+        let status = ffi::cairo_surface_status(ptr);
+        status_to_result(status, Surface(ptr::NonNull::new_unchecked(ptr)))
     }
 
     pub fn to_raw_none(&self) -> *mut ffi::cairo_surface_t {
@@ -132,17 +133,16 @@ impl Surface {
 
         let status = unsafe {
             let mime_type = CString::new(mime_type).unwrap();
-            Status::from(ffi::cairo_surface_set_mime_data(
+            ffi::cairo_surface_set_mime_data(
                 self.to_raw_none(),
                 mime_type.as_ptr(),
                 data,
                 size as c_ulong,
                 Some(unbox::<T>),
                 user_data as *mut _,
-            ))
+            )
         };
-
-        status.to_result(())
+        status_to_result(status, ())
     }
 
     pub fn supports_mime_type(&self, mime_type: &str) -> bool {
@@ -339,9 +339,9 @@ impl Surface {
     pub fn get_type(&self) -> SurfaceType {
         unsafe { SurfaceType::from(ffi::cairo_surface_get_type(self.0.as_ptr())) }
     }
-
-    pub fn status(&self) -> Status {
-        unsafe { Status::from(ffi::cairo_surface_status(self.0.as_ptr())) }
+    pub fn status(&self) -> Result<(), Error> {
+        let status = unsafe { ffi::cairo_surface_status(self.0.as_ptr()) };
+        status_to_result(status, ())
     }
 }
 

@@ -58,14 +58,14 @@ impl PdfSurface {
         unsafe {
             ffi::cairo_pdf_surface_restrict_to_version(self.0.to_raw_none(), version.into());
         }
-        self.status().to_result(())
+        self.status()
     }
 
     pub fn set_size(&self, width: f64, height: f64) -> Result<(), Error> {
         unsafe {
             ffi::cairo_pdf_surface_set_size(self.0.to_raw_none(), width, height);
         }
-        self.status().to_result(())
+        self.status()
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
@@ -78,7 +78,7 @@ impl PdfSurface {
                 value.as_ptr(),
             );
         }
-        self.status().to_result(())
+        self.status()
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
@@ -87,7 +87,7 @@ impl PdfSurface {
         unsafe {
             ffi::cairo_pdf_surface_set_page_label(self.0.to_raw_none(), label.as_ptr());
         }
-        self.status().to_result(())
+        self.status()
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
@@ -99,7 +99,7 @@ impl PdfSurface {
                 height as _,
             );
         }
-        self.status().to_result(())
+        self.status()
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
@@ -123,7 +123,8 @@ impl PdfSurface {
             ) as _
         };
 
-        self.status().to_result(res)
+        self.status()?;
+        Ok(res)
     }
 }
 

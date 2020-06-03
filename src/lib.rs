@@ -166,8 +166,7 @@ mod user_data;
 mod constants;
 pub use constants::*;
 mod utils;
-pub use utils::*;
-
+pub use utils::{debug_reset_static_data, get_version_string, Version};
 mod context;
 mod device;
 mod enums;

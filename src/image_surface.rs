@@ -68,8 +68,9 @@ impl ImageSurface {
             if ffi::cairo_surface_get_reference_count(self.to_raw_none()) > 1 {
                 return Err(BorrowError::NonExclusive);
             }
+
             self.flush();
-            if let Some(err) = self.status().to_result(()).err() {
+            if let Some(err) = self.status().err() {
                 return Err(BorrowError::from(err));
             }
             if ffi::cairo_image_surface_get_data(self.to_raw_none()).is_null() {

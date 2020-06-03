@@ -4,9 +4,10 @@ use glib::translate::*;
 use std::ffi::CString;
 use std::ptr;
 
-use enums::{FontType, Status};
+use enums::FontType;
 use ffi::{FontExtents, Glyph, TextCluster, TextExtents};
 use matrices::Matrix;
+use utils::status_to_result;
 
 use super::{FontFace, FontOptions};
 
@@ -41,7 +42,8 @@ impl ScaledFont {
                 options.to_raw_none(),
             ))
         };
-        scaled_font.ensure_status();
+        let status = unsafe { ffi::cairo_scaled_font_status(scaled_font.to_raw_none()) };
+        status_to_result(status, ()).expect("Cairo Error: failed to create a scaled font");
         scaled_font
     }
 
@@ -76,11 +78,6 @@ impl ScaledFont {
         assert!(!ptr.is_null());
         ffi::cairo_scaled_font_reference(ptr);
         ScaledFont(ptr::NonNull::new_unchecked(ptr))
-    }
-
-    pub fn ensure_status(&self) {
-        let status = unsafe { ffi::cairo_scaled_font_status(self.to_raw_none()) };
-        Status::from(status).ensure_valid()
     }
 
     pub fn get_type(&self) -> FontType {
@@ -171,8 +168,7 @@ impl ScaledFont {
                 &mut cluster_count,
                 &mut cluster_flags,
             );
-
-            Status::from(status).ensure_valid();
+            status_to_result(status, ()).expect("Cairo Error: failed to convert text to glyphs");
 
             let glyph_count = glyph_count as usize;
             let glyphs: Vec<Glyph> = {
