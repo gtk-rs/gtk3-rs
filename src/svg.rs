@@ -4,7 +4,8 @@
 
 #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
 use enums::SvgUnit;
-use enums::{Status, SurfaceType, SvgVersion};
+use enums::{SurfaceType, SvgVersion};
+use error::Error;
 use ffi;
 use std::convert::TryFrom;
 use std::ffi::{CStr, CString};
@@ -39,7 +40,7 @@ impl SvgSurface {
         width: f64,
         height: f64,
         path: Option<P>,
-    ) -> Result<SvgSurface, Status> {
+    ) -> Result<SvgSurface, Error> {
         #[cfg(not(windows))]
         let path = path.map(|p| {
             CString::new(p.as_ref().as_os_str().as_bytes()).expect("Invalid path with NULL bytes")

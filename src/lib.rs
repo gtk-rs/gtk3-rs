@@ -118,7 +118,7 @@ pub use device::Device;
 
 pub use enums::*;
 
-pub use error::{BorrowError, IoError};
+pub use error::{BorrowError, Error, IoError};
 
 pub use patterns::{
     Gradient, LinearGradient, Mesh, Pattern, RadialGradient, SolidPattern, SurfacePattern,

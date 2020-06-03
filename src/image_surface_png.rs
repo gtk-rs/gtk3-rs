@@ -127,9 +127,9 @@ impl ImageSurface {
         }
 
         match env.io_error {
-            None => match Status::from(status) {
-                Status::Success => Ok(()),
-                st => Err(IoError::Cairo(st.into())),
+            None => match Status::from(status).to_result(()) {
+                Err(err) => Err(IoError::Cairo(err)),
+                Ok(_) => Ok(()),
             },
             Some(err) => Err(IoError::Io(err)),
         }
@@ -203,7 +203,7 @@ mod tests {
         let mut r = IoErrorReader;
 
         match ImageSurface::create_from_png(&mut r) {
-            Err(IoError::Cairo(Status::ReadError)) => (),
+            Err(IoError::Cairo(Error::ReadError)) => (),
             _ => unreachable!(),
         }
     }

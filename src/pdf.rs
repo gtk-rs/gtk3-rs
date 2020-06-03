@@ -13,7 +13,8 @@ use std::ptr;
 
 #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
 use enums::{PdfMetadata, PdfOutline};
-use enums::{PdfVersion, Status, SurfaceType};
+use enums::{PdfVersion, SurfaceType};
+use error::Error;
 use ffi;
 use surface::Surface;
 
@@ -33,7 +34,7 @@ impl PdfVersion {
 declare_surface!(PdfSurface, SurfaceType::Pdf);
 
 impl PdfSurface {
-    pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Result<Self, Status> {
+    pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Result<Self, Error> {
         let path = path.as_ref().to_string_lossy().into_owned();
         let path = CString::new(path).unwrap();
 
@@ -53,14 +54,14 @@ impl PdfSurface {
         vers_slice.iter().map(|v| PdfVersion::from(*v))
     }
 
-    pub fn restrict(&self, version: PdfVersion) -> Result<(), Status> {
+    pub fn restrict(&self, version: PdfVersion) -> Result<(), Error> {
         unsafe {
             ffi::cairo_pdf_surface_restrict_to_version(self.0.to_raw_none(), version.into());
         }
         self.status().to_result(())
     }
 
-    pub fn set_size(&self, width: f64, height: f64) -> Result<(), Status> {
+    pub fn set_size(&self, width: f64, height: f64) -> Result<(), Error> {
         unsafe {
             ffi::cairo_pdf_surface_set_size(self.0.to_raw_none(), width, height);
         }
@@ -68,7 +69,7 @@ impl PdfSurface {
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
-    pub fn set_metadata(&self, metadata: PdfMetadata, value: &str) -> Result<(), Status> {
+    pub fn set_metadata(&self, metadata: PdfMetadata, value: &str) -> Result<(), Error> {
         let value = CString::new(value).unwrap();
         unsafe {
             ffi::cairo_pdf_surface_set_metadata(
@@ -81,7 +82,7 @@ impl PdfSurface {
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
-    pub fn set_page_label(&self, label: &str) -> Result<(), Status> {
+    pub fn set_page_label(&self, label: &str) -> Result<(), Error> {
         let label = CString::new(label).unwrap();
         unsafe {
             ffi::cairo_pdf_surface_set_page_label(self.0.to_raw_none(), label.as_ptr());
@@ -90,7 +91,7 @@ impl PdfSurface {
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
-    pub fn set_thumbnail_size(&self, width: i32, height: i32) -> Result<(), Status> {
+    pub fn set_thumbnail_size(&self, width: i32, height: i32) -> Result<(), Error> {
         unsafe {
             ffi::cairo_pdf_surface_set_thumbnail_size(
                 self.0.to_raw_none(),
@@ -108,7 +109,7 @@ impl PdfSurface {
         name: &str,
         link_attribs: &str,
         flags: PdfOutline,
-    ) -> Result<i32, Status> {
+    ) -> Result<i32, Error> {
         let name = CString::new(name).unwrap();
         let link_attribs = CString::new(link_attribs).unwrap();
 

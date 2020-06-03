@@ -6,6 +6,7 @@ use std::ffi::CString;
 use std::path::Path;
 
 use enums::{Content, DeviceType, ScriptMode, Status};
+use error::Error;
 use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
@@ -73,7 +74,7 @@ impl Device {
         content: Content,
         width: f64,
         height: f64,
-    ) -> Result<Surface, Status> {
+    ) -> Result<Surface, Error> {
         unsafe {
             Ok(Surface::from_raw_full(ffi::cairo_script_surface_create(
                 self.to_raw_none(),
@@ -84,7 +85,7 @@ impl Device {
         }
     }
 
-    pub fn surface_create_for_target(&self, target: &Surface) -> Result<Surface, Status> {
+    pub fn surface_create_for_target(&self, target: &Surface) -> Result<Surface, Error> {
         unsafe {
             Ok(Surface::from_raw_full(
                 ffi::cairo_script_surface_create_for_target(

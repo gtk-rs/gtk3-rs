@@ -10,6 +10,7 @@ use std::ptr;
 use std::slice;
 
 use enums::{Content, Format, Status, SurfaceType};
+use error::Error;
 use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
@@ -34,7 +35,7 @@ impl Surface {
         ::Borrowed::new(Surface(ptr::NonNull::new_unchecked(ptr)))
     }
 
-    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<Surface, Status> {
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<Surface, Error> {
         assert!(!ptr.is_null());
         let status = Status::from(ffi::cairo_surface_status(ptr));
         status.to_result(Surface(ptr::NonNull::new_unchecked(ptr)))
@@ -49,7 +50,7 @@ impl Surface {
         content: Content,
         width: i32,
         height: i32,
-    ) -> Result<Surface, Status> {
+    ) -> Result<Surface, Error> {
         unsafe {
             Self::from_raw_full(ffi::cairo_surface_create_similar(
                 self.0.as_ptr(),
@@ -60,7 +61,7 @@ impl Surface {
         }
     }
 
-    pub fn create_for_rectangle(&self, bounds: Rectangle) -> Result<Surface, Status> {
+    pub fn create_for_rectangle(&self, bounds: Rectangle) -> Result<Surface, Error> {
         unsafe {
             Self::from_raw_full(ffi::cairo_surface_create_for_rectangle(
                 self.0.as_ptr(),
@@ -115,7 +116,7 @@ impl Surface {
         &self,
         mime_type: &str,
         slice: T,
-    ) -> Result<(), Status> {
+    ) -> Result<(), Error> {
         let b = Box::new(slice);
         let (size, data) = {
             let slice = (*b).as_ref();
@@ -218,7 +219,7 @@ impl Surface {
         format: Format,
         width: i32,
         height: i32,
-    ) -> Result<Surface, Status> {
+    ) -> Result<Surface, Error> {
         unsafe {
             Self::from_raw_full(ffi::cairo_surface_create_similar_image(
                 self.to_raw_none(),
@@ -229,10 +230,7 @@ impl Surface {
         }
     }
 
-    pub fn map_to_image(
-        &self,
-        extents: Option<RectangleInt>,
-    ) -> Result<MappedImageSurface, Status> {
+    pub fn map_to_image(&self, extents: Option<RectangleInt>) -> Result<MappedImageSurface, Error> {
         unsafe {
             ImageSurface::from_raw_full(match extents {
                 Some(ref e) => ffi::cairo_surface_map_to_image(self.to_raw_none(), e.to_raw_none()),

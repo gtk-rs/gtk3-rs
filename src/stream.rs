@@ -2,6 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use error::Error;
 use ffi::{self, cairo_status_t};
 use {Status, Surface, UserDataKey};
 
@@ -25,7 +26,7 @@ macro_rules! for_stream_constructors {
             width: f64,
             height: f64,
             stream: W,
-        ) -> Result<Self, crate::enums::Status> {
+        ) -> Result<Self, crate::error::Error> {
             Ok(Self(Surface::_for_stream(
                 ffi::$constructor_ffi,
                 width,
@@ -50,7 +51,7 @@ macro_rules! for_stream_constructors {
             width: f64,
             height: f64,
             stream: *mut W,
-        ) -> Result<Self, crate::enums::Status> {
+        ) -> Result<Self, crate::error::Error> {
             Ok(Self(Surface::_for_raw_stream(
                 ffi::$constructor_ffi,
                 width,
@@ -67,7 +68,7 @@ impl Surface {
         width: f64,
         height: f64,
         stream: W,
-    ) -> Result<Self, Status> {
+    ) -> Result<Self, Error> {
         let env_rc = Rc::new(CallbackEnvironment {
             mutable: RefCell::new(MutableCallbackEnvironment {
                 stream: Some((Box::new(stream), None)),
@@ -89,7 +90,7 @@ impl Surface {
         width: f64,
         height: f64,
         stream: *mut W,
-    ) -> Result<Self, Status> {
+    ) -> Result<Self, Error> {
         Self::_for_stream(
             constructor,
             width,

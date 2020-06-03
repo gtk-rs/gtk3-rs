@@ -7,6 +7,7 @@ use std::fmt::{self, Debug, Error};
 use std::i32;
 use std::u32;
 
+use error;
 use ffi;
 
 #[cfg(feature = "use_glib")]
@@ -275,11 +276,52 @@ impl Status {
         }
     }
 
-    pub(crate) fn to_result<T>(self, obj: T) -> Result<T, Self> {
-        if self == Status::Success {
-            Ok(obj)
-        } else {
-            Err(self)
+    pub(crate) fn to_result<T>(self, obj: T) -> Result<T, error::Error> {
+        match self {
+            Status::Success => Ok(obj),
+            Status::NoMemory => Err(error::Error::NoMemory),
+            Status::InvalidRestore => Err(error::Error::InvalidRestore),
+            Status::InvalidPopGroup => Err(error::Error::InvalidPopGroup),
+            Status::NoCurrentPoint => Err(error::Error::NoCurrentPoint),
+            Status::InvalidMatrix => Err(error::Error::InvalidMatrix),
+            Status::InvalidStatus => Err(error::Error::InvalidStatus),
+            Status::NullPointer => Err(error::Error::NullPointer),
+            Status::InvalidString => Err(error::Error::InvalidString),
+            Status::InvalidPathData => Err(error::Error::InvalidPathData),
+            Status::ReadError => Err(error::Error::ReadError),
+            Status::WriteError => Err(error::Error::WriteError),
+            Status::SurfaceFinished => Err(error::Error::SurfaceFinished),
+            Status::SurfaceTypeMismatch => Err(error::Error::SurfaceTypeMismatch),
+            Status::PatternTypeMismatch => Err(error::Error::PatternTypeMismatch),
+            Status::InvalidContent => Err(error::Error::InvalidContent),
+            Status::InvalidFormat => Err(error::Error::InvalidFormat),
+            Status::InvalidVisual => Err(error::Error::InvalidVisual),
+            Status::FileNotFound => Err(error::Error::FileNotFound),
+            Status::InvalidDash => Err(error::Error::InvalidDash),
+            Status::InvalidDscComment => Err(error::Error::InvalidDscComment),
+            Status::InvalidIndex => Err(error::Error::InvalidIndex),
+            Status::ClipNotRepresentable => Err(error::Error::ClipNotRepresentable),
+            Status::TempFileError => Err(error::Error::TempFileError),
+            Status::InvalidStride => Err(error::Error::InvalidStride),
+            Status::FontTypeMismatch => Err(error::Error::FontTypeMismatch),
+            Status::UserFontImmutable => Err(error::Error::UserFontImmutable),
+            Status::UserFontError => Err(error::Error::UserFontError),
+            Status::NegativeCount => Err(error::Error::NegativeCount),
+            Status::InvalidClusters => Err(error::Error::InvalidClusters),
+            Status::InvalidSlant => Err(error::Error::InvalidSlant),
+            Status::InvalidWeight => Err(error::Error::InvalidWeight),
+            Status::InvalidSize => Err(error::Error::InvalidSize),
+            Status::UserFontNotImplemented => Err(error::Error::UserFontNotImplemented),
+            Status::DeviceTypeMismatch => Err(error::Error::DeviceTypeMismatch),
+            Status::DeviceError => Err(error::Error::DeviceError),
+            Status::InvalidMeshConstruction => Err(error::Error::InvalidMeshConstruction),
+            Status::DeviceFinished => Err(error::Error::DeviceFinished),
+            Status::JBig2GlobalMissing => Err(error::Error::JBig2GlobalMissing),
+            Status::PngError => Err(error::Error::PngError),
+            Status::FreetypeError => Err(error::Error::FreetypeError),
+            Status::Win32GdiError => Err(error::Error::Win32GdiError),
+            Status::LastStatus => Err(error::Error::LastStatus),
+            _ => Err(error::Error::Unknown),
         }
     }
 }

@@ -3,6 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use enums::Status;
+use error::Error;
 use ffi;
 use libc::c_double;
 
@@ -92,15 +93,11 @@ impl Matrix {
         Status::from(result).ensure_valid();
     }
 
-    pub fn try_invert(&self) -> Result<Matrix, Status> {
+    pub fn try_invert(&self) -> Result<Matrix, Error> {
         let mut matrix = *self;
 
-        let result = unsafe { Status::from(ffi::cairo_matrix_invert(matrix.mut_ptr())) };
-
-        match result {
-            Status::Success => Ok(matrix),
-            _ => Err(result),
-        }
+        let status = unsafe { Status::from(ffi::cairo_matrix_invert(matrix.mut_ptr())) };
+        status.to_result(matrix)
     }
 
     pub fn transform_distance(&self, _dx: f64, _dy: f64) -> (f64, f64) {

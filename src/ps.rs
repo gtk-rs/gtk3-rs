@@ -12,13 +12,12 @@ use std::path::Path;
 use std::ptr;
 
 use enums::{PsLevel, SurfaceType};
+use error::Error;
 use ffi;
 use surface::Surface;
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
-
-use Status;
 
 impl PsLevel {
     pub fn as_str(self) -> Option<&'static str> {
@@ -33,7 +32,7 @@ impl PsLevel {
 declare_surface!(PsSurface, SurfaceType::Ps);
 
 impl PsSurface {
-    pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Result<PsSurface, Status> {
+    pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Result<PsSurface, Error> {
         let path = path.as_ref().to_string_lossy().into_owned();
         let path = CString::new(path).unwrap();
 
