@@ -32,11 +32,7 @@ impl Win32Surface {
         }
     }
 
-    pub fn create_with_dib(
-        format: Format,
-        width: i32,
-        height: i32,
-    ) -> Result<Win32Surface, Error> {
+    pub fn create_with_dib(format: Format, width: i32, height: i32) -> Result<Win32Surface, Error> {
         unsafe {
             Self::from_raw_full(ffi::cairo_win32_surface_create_with_dib(
                 format.into(),
