@@ -82,7 +82,7 @@ impl Pattern {
         matrix
     }
 
-    pub fn status(&self) -> Result<(), Error> {
+    fn status(&self) -> Result<(), Error> {
         let status = unsafe { ffi::cairo_pattern_status(self.pointer) };
         status_to_result(status, ())
     }
@@ -478,7 +478,11 @@ impl Mesh {
                 patch_num as c_uint,
             ))
         };
-        path.status().expect("Cairo: Failed to get the mesh path");
+        let status = unsafe {
+            let ptr: *mut ffi::cairo_path_t = path.as_ptr();
+            (*ptr).status
+        };
+        status_to_result(status, ()).expect("Cairo: Failed to get the mesh path");
         path
     }
 }

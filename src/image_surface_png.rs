@@ -144,8 +144,8 @@ mod tests {
 
     // A reader that always returns an error
     impl Read for IoErrorReader {
-        fn read(&mut self, _: &mut [u8]) -> Result<usize, Error> {
-            Err(Error::new(ErrorKind::Other, "yikes!"))
+        fn read(&mut self, _: &mut [u8]) -> Result<usize, io::Error> {
+            Err(io::Error::new(ErrorKind::Other, "yikes!"))
         }
     }
 

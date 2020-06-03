@@ -339,6 +339,7 @@ impl Surface {
     pub fn get_type(&self) -> SurfaceType {
         unsafe { SurfaceType::from(ffi::cairo_surface_get_type(self.0.as_ptr())) }
     }
+
     pub fn status(&self) -> Result<(), Error> {
         let status = unsafe { ffi::cairo_surface_status(self.0.as_ptr()) };
         status_to_result(status, ())

@@ -155,7 +155,7 @@ impl Context {
         self.0.as_ptr()
     }
 
-    fn ensure_status(&self) -> Result<(), Error> {
+    fn status(&self) -> Result<(), Error> {
         let status = unsafe { ffi::cairo_status(self.0.as_ptr()) };
         status_to_result(status, ())
     }
@@ -166,12 +166,12 @@ impl Context {
 
     pub fn save(&self) {
         unsafe { ffi::cairo_save(self.0.as_ptr()) }
-        self.ensure_status().expect("Cairo: Failed to save")
+        self.status().expect("Cairo: Failed to save")
     }
 
     pub fn restore(&self) {
         unsafe { ffi::cairo_restore(self.0.as_ptr()) }
-        self.ensure_status().expect("Cairo: Failed to restore")
+        self.status().expect("Cairo: Failed to restore")
     }
 
     pub fn get_target(&self) -> Surface {
@@ -210,7 +210,7 @@ impl Context {
         unsafe {
             ffi::cairo_set_source(self.0.as_ptr(), source.to_raw_none());
         }
-        self.ensure_status().expect("Cairo: Failed to set source");
+        self.status().expect("Cairo: Failed to set source");
     }
 
     pub fn get_source(&self) -> Pattern {
@@ -225,8 +225,7 @@ impl Context {
 
     pub fn set_antialias(&self, antialias: Antialias) {
         unsafe { ffi::cairo_set_antialias(self.0.as_ptr(), antialias.into()) }
-        self.ensure_status()
-            .expect("Cairo: Failed to set antialias");
+        self.status().expect("Cairo: Failed to set antialias");
     }
 
     pub fn get_antialias(&self) -> Antialias {
@@ -242,7 +241,7 @@ impl Context {
                 offset,
             )
         }
-        self.ensure_status().expect("Cairo: Failed to set a dash"); //Possible invalid dashes value
+        self.status().expect("Cairo: Failed to set a dash"); //Possible invalid dashes value
     }
 
     pub fn get_dash_count(&self) -> i32 {
@@ -275,8 +274,7 @@ impl Context {
         unsafe {
             ffi::cairo_set_fill_rule(self.0.as_ptr(), fill_rule.into());
         }
-        self.ensure_status()
-            .expect("Cairo: Failed to set fill rule");
+        self.status().expect("Cairo: Failed to set fill rule");
     }
 
     pub fn get_fill_rule(&self) -> FillRule {
@@ -285,7 +283,7 @@ impl Context {
 
     pub fn set_line_cap(&self, arg: LineCap) {
         unsafe { ffi::cairo_set_line_cap(self.0.as_ptr(), arg.into()) }
-        self.ensure_status().expect("Cairo: Failed to set line cap");
+        self.status().expect("Cairo: Failed to set line cap");
     }
 
     pub fn get_line_cap(&self) -> LineCap {
@@ -294,8 +292,7 @@ impl Context {
 
     pub fn set_line_join(&self, arg: LineJoin) {
         unsafe { ffi::cairo_set_line_join(self.0.as_ptr(), arg.into()) }
-        self.ensure_status()
-            .expect("Cairo: Failed to set line join");
+        self.status().expect("Cairo: Failed to set line join");
     }
 
     pub fn get_line_join(&self) -> LineJoin {
@@ -304,8 +301,7 @@ impl Context {
 
     pub fn set_line_width(&self, arg: f64) {
         unsafe { ffi::cairo_set_line_width(self.0.as_ptr(), arg) }
-        self.ensure_status()
-            .expect("Cairo: Failed to set line width");
+        self.status().expect("Cairo: Failed to set line width");
     }
 
     pub fn get_line_width(&self) -> f64 {
@@ -314,8 +310,7 @@ impl Context {
 
     pub fn set_miter_limit(&self, arg: f64) {
         unsafe { ffi::cairo_set_miter_limit(self.0.as_ptr(), arg) }
-        self.ensure_status()
-            .expect("Cairo: Failed to set miter limit");
+        self.status().expect("Cairo: Failed to set miter limit");
     }
 
     pub fn get_miter_limit(&self) -> f64 {
@@ -334,8 +329,7 @@ impl Context {
 
     pub fn set_tolerance(&self, arg: f64) {
         unsafe { ffi::cairo_set_tolerance(self.0.as_ptr(), arg) }
-        self.ensure_status()
-            .expect("Cairo: Failed to set tolerance");
+        self.status().expect("Cairo: Failed to set tolerance");
     }
 
     pub fn get_tolerance(&self) -> f64 {
@@ -368,7 +362,7 @@ impl Context {
 
     pub fn reset_clip(&self) {
         unsafe { ffi::cairo_reset_clip(self.0.as_ptr()) }
-        self.ensure_status().expect("Cairo: Failed to reset clip");
+        self.status().expect("Cairo: Failed to reset clip");
     }
 
     pub fn copy_clip_rectangle_list(&self) -> RectangleList {

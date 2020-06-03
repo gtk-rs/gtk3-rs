@@ -3,13 +3,11 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use enums::PathDataType;
-use error::Error;
 use ffi;
 use ffi::cairo_path_t;
 use std::fmt;
 use std::iter::Iterator;
 use std::ptr;
-use utils::status_to_result;
 
 #[derive(Debug)]
 pub struct Path(ptr::NonNull<cairo_path_t>);
@@ -17,13 +15,6 @@ pub struct Path(ptr::NonNull<cairo_path_t>);
 impl Path {
     pub fn as_ptr(&self) -> *mut cairo_path_t {
         self.0.as_ptr()
-    }
-
-    pub fn status(&self) -> Result<(), Error> {
-        unsafe {
-            let ptr: *mut cairo_path_t = self.as_ptr();
-            status_to_result((*ptr).status, ())
-        }
     }
 
     pub unsafe fn from_raw_full(pointer: *mut cairo_path_t) -> Path {
