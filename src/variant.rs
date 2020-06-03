@@ -36,6 +36,11 @@
 //! // `get_str` tries to borrow a string slice.
 //! assert_eq!(hello.get_str(), Some("Hello!"));
 //! assert_eq!(num.get_str(), None);
+//!
+//! // Variant carrying a Variant
+//! let variant = Variant::new_variant(&hello);
+//! let variant = variant.get_variant().unwrap();
+//! assert_eq!(variant.get_str(), Some("Hello!"));
 //! ```
 
 use bytes::Bytes;
@@ -121,6 +126,20 @@ impl Variant {
     #[inline]
     pub fn get<T: FromVariant>(&self) -> Option<T> {
         T::from_variant(self)
+    }
+
+    /// Boxes value.
+    #[inline]
+    pub fn new_variant(value: &Variant) -> Self {
+        unsafe { from_glib_full(glib_sys::g_variant_new_variant(value.to_glib_full())) }
+    }
+
+    /// Unboxes self.
+    ///
+    /// Returns `Some` if self contains a `Variant`.
+    #[inline]
+    pub fn get_variant(&self) -> Option<Variant> {
+        unsafe { from_glib_none(glib_sys::g_variant_get_variant(self.to_glib_none().0)) }
     }
 
     /// Tries to extract a `&str`.
