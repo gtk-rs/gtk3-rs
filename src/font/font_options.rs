@@ -23,7 +23,7 @@ glib_wrapper! {
         copy => |ptr| {
             let ptr = ffi::cairo_font_options_copy(ptr);
             let status = ffi::cairo_font_options_status(ptr);
-            status_to_result(status, ()).expect("Failed to create a copy of FontOptions");
+            status_to_result(status, ()).expect("Cairo: Failed to create a copy of FontOptions");
             ptr
         },
         free => |ptr| ffi::cairo_font_options_destroy(ptr),
@@ -41,7 +41,7 @@ impl FontOptions {
             unsafe { FontOptions::from_raw_full(ffi::cairo_font_options_create()) };
 
         let status = unsafe { ffi::cairo_font_options_status(font_options.to_raw_none()) };
-        status_to_result(status, ()).expect("Cairo Error: Failed to create a font option");
+        status_to_result(status, ()).expect("Cairo: Failed to create a font option");
 
         font_options
     }

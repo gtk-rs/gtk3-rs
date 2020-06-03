@@ -466,7 +466,7 @@ impl Mesh {
         let mut count: c_uint = 0;
         unsafe {
             let status = ffi::cairo_mesh_pattern_get_patch_count(self.pointer, &mut count);
-            status_to_result(status, ()).expect("Cairo: Failed to get mesn patch count")
+            status_to_result(status, ()).expect("Cairo: Failed to get mesh patch count")
         }
         count as usize
     }
