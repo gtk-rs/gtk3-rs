@@ -1,55 +1,98 @@
 // Copyright 2016, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
-use std::fmt::{self, Debug};
+use std::fmt::Debug;
 
 use std::io;
 use thiserror::Error;
 
 #[derive(Error, Debug)]
 pub enum Error {
+    #[error("Cairo: No Memory")]
     NoMemory,
+    #[error("Cairo: Invalid Restore")]
     InvalidRestore,
+    #[error("Cairo: Invalid Pop Group")]
     InvalidPopGroup,
+    #[error("Cairo: No Current Point")]
     NoCurrentPoint,
+    #[error("Cairo: Invalid Matrix")]
     InvalidMatrix,
+    #[error("Cairo: Invalid Status")]
     InvalidStatus,
+    #[error("Cairo: Null Pointer")]
     NullPointer,
+    #[error("Cairo: Invalid String")]
     InvalidString,
+    #[error("Cairo: Invalid Path Data")]
     InvalidPathData,
+    #[error("Cairo : Read Error")]
     ReadError,
+    #[error("Cairo: Write Error")]
     WriteError,
+    #[error("Cairo: Surface Finishied")]
     SurfaceFinished,
+    #[error("Cairo: Surface Type Mismatch")]
     SurfaceTypeMismatch,
+    #[error("Cairo: Pattern Type Mismatch")]
     PatternTypeMismatch,
+    #[error("Cairo: Invalid Content")]
     InvalidContent,
+    #[error("Cairo: Invalid Format")]
     InvalidFormat,
+    #[error("Cairo: Invalid Visual")]
     InvalidVisual,
+    #[error("Cairo: File Not Found")]
     FileNotFound,
+    #[error("Cairo: Invalid Dash")]
     InvalidDash,
+    #[error("Cairo: Invalid Dash Comment")]
     InvalidDscComment,
+    #[error("Cairo: Invalid Index")]
     InvalidIndex,
+    #[error("Cairo: Clip Not Representable")]
     ClipNotRepresentable,
+    #[error("Cairo: Temp File Error")]
     TempFileError,
+    #[error("Cairo: Invalid Stride")]
     InvalidStride,
+    #[error("Cairo: Font Type Mismatch")]
     FontTypeMismatch,
+    #[error("Cairo: User Font Immutable")]
     UserFontImmutable,
+    #[error("Cairo: User Font Error")]
     UserFontError,
+    #[error("Cairo: Negative Count")]
     NegativeCount,
+    #[error("Cairo: Invalid Clusters")]
     InvalidClusters,
+    #[error("Cairo: Invalid Slant")]
     InvalidSlant,
+    #[error("Cairo: Invalid Weight")]
     InvalidWeight,
+    #[error("Cairo: Ivalid Size")]
     InvalidSize,
+    #[error("Cairo: User Font Not Implemented")]
     UserFontNotImplemented,
+    #[error("Cairo: Device Type Mismatch")]
     DeviceTypeMismatch,
+    #[error("Cairo: Device Error")]
     DeviceError,
+    #[error("Cairo: Invalid Mesh Construction")]
     InvalidMeshConstruction,
+    #[error("Cairo: Device Finished")]
     DeviceFinished,
+    #[error("Cairo: JBig2Global Missing")]
     JBig2GlobalMissing,
+    #[error("Cairo: PNG Error")]
     PngError,
+    #[error("Cairo: Freetype Error")]
     FreetypeError,
+    #[error("Cairo: Win32Gdi Error")]
     Win32GdiError,
+    #[error("Cairo: LastStatus")]
     LastStatus,
+    #[error("Cairo: Uknown {0}")]
     __Unknown(i32),
 }
 #[doc(hidden)]
@@ -151,60 +194,6 @@ impl From<ffi::cairo_status_t> for Error {
             ffi::STATUS_LAST_STATUS => Error::LastStatus,
             value => Error::__Unknown(value),
         }
-    }
-}
-
-impl fmt::Display for Error {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "Error::{}",
-            match *self {
-                Error::NoMemory => "NoMemory",
-                Error::InvalidRestore => "InvalidRestore",
-                Error::InvalidPopGroup => "InvalidPopGroup",
-                Error::NoCurrentPoint => "NoCurrentPoint",
-                Error::InvalidMatrix => "InvalidMatrix",
-                Error::InvalidStatus => "InvalidStatus",
-                Error::NullPointer => "NullPointer",
-                Error::InvalidString => "InvalidString",
-                Error::InvalidPathData => "InvalidPathData",
-                Error::ReadError => "ReadError",
-                Error::WriteError => "WriteError",
-                Error::SurfaceFinished => "SurfaceFinished",
-                Error::SurfaceTypeMismatch => "SurfaceTypeMismatch",
-                Error::PatternTypeMismatch => "PatternTypeMismatch",
-                Error::InvalidContent => "InvalidContent",
-                Error::InvalidFormat => "InvalidFormat",
-                Error::InvalidVisual => "InvalidVisual",
-                Error::FileNotFound => "FileNotFound",
-                Error::InvalidDash => "InvalidDash",
-                Error::InvalidDscComment => "InvalidDscComment",
-                Error::InvalidIndex => "InvalidIndex",
-                Error::ClipNotRepresentable => "ClipNotRepresentable",
-                Error::TempFileError => "TempFileError",
-                Error::InvalidStride => "InvalidStride",
-                Error::FontTypeMismatch => "FontTypeMismatch",
-                Error::UserFontImmutable => "UserFontImmutable",
-                Error::UserFontError => "UserFontError",
-                Error::NegativeCount => "NegativeCount",
-                Error::InvalidClusters => "InvalidClusters",
-                Error::InvalidSlant => "InvalidSlant",
-                Error::InvalidWeight => "InvalidWeight",
-                Error::InvalidSize => "InvalidSize",
-                Error::UserFontNotImplemented => "UserFontNotImplemented",
-                Error::DeviceTypeMismatch => "DeviceTypeMismatch",
-                Error::DeviceError => "DeviceError",
-                Error::InvalidMeshConstruction => "InvalidMeshConstruction",
-                Error::DeviceFinished => "DeviceFinished",
-                Error::JBig2GlobalMissing => "JBig2GlobalMissing",
-                Error::PngError => "PngError",
-                Error::FreetypeError => "FreetypeError",
-                Error::Win32GdiError => "Win32GdiError",
-                Error::LastStatus => "LastStatus",
-                _ => "Unknown",
-            }
-        )
     }
 }
 
