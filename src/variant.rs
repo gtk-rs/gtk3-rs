@@ -142,6 +142,25 @@ impl Variant {
         unsafe { from_glib_none(glib_sys::g_variant_get_variant(self.to_glib_none().0)) }
     }
 
+    /// Reads a child item out of a container `Variant` instance.
+    ///
+    /// # Panics
+    ///
+    /// * if `self` is not a container type.
+    /// * if given `index` is larger than number of children.
+    pub fn get_child_value(&self, index: usize) -> Variant {
+        assert!(index < self.n_children());
+        let ty = self.type_().to_str();
+        assert!(ty.starts_with("a") || ty.starts_with("{") || ty.starts_with("("));
+
+        unsafe {
+            from_glib_none(glib_sys::g_variant_get_child_value(
+                self.to_glib_none().0,
+                index,
+            ))
+        }
+    }
+
     /// Tries to extract a `&str`.
     ///
     /// Returns `Some` if the variant has a string type (`s`, `o` or `g` type
@@ -197,6 +216,20 @@ impl Variant {
     /// Returns the serialised form of a GVariant instance.
     pub fn get_data_as_bytes(&self) -> Bytes {
         unsafe { from_glib_full(glib_sys::g_variant_get_data_as_bytes(self.to_glib_none().0)) }
+    }
+
+    /// Determines the number of children in a container GVariant instance.
+    pub fn n_children(&self) -> usize {
+        let type_ = self.type_().to_str();
+        assert!(
+            type_.starts_with("a")
+                || type_.starts_with("m")
+                || type_.starts_with("(")
+                || type_.starts_with("{")
+                || type_.starts_with("v")
+        );
+
+        unsafe { glib_sys::g_variant_n_children(self.to_glib_none().0) }
     }
 }
 
