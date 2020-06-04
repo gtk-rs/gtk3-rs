@@ -17,6 +17,15 @@ use surface::Surface;
 use utils::status_to_result;
 
 #[derive(Debug)]
+pub struct DeviceAcquireGuard<'a>(&'a Device);
+
+impl<'a> Drop for DeviceAcquireGuard<'a> {
+    fn drop(&mut self) {
+        self.0.release();
+    }
+}
+
+#[derive(Debug)]
 pub struct Device(ptr::NonNull<ffi::cairo_device_t>);
 
 impl Device {
@@ -116,16 +125,15 @@ impl Device {
         unsafe { DeviceType::from(ffi::cairo_device_get_type(self.to_raw_none())) }
     }
 
-    // Maybe improve this API?
-    pub fn acquire(&self) -> Result<(), Error> {
+    pub fn acquire(&self) -> Result<DeviceAcquireGuard, Error> {
         unsafe {
             let status = ffi::cairo_device_acquire(self.to_raw_none());
-            status_to_result(status)
+            status_to_result(status)?;
         }
+        Ok(DeviceAcquireGuard { 0: self })
     }
 
-    // Maybe improve this API?
-    pub fn release(&self) {
+    fn release(&self) {
         unsafe { ffi::cairo_device_release(self.to_raw_none()) }
     }
 
