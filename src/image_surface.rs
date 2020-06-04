@@ -72,7 +72,7 @@ impl ImageSurface {
 
             self.flush();
             let status = ffi::cairo_surface_status(self.to_raw_none());
-            if let Some(err) = status_to_result(status, ()).err() {
+            if let Some(err) = status_to_result(status).err() {
                 return Err(BorrowError::from(err));
             }
             if ffi::cairo_image_surface_get_data(self.to_raw_none()).is_null() {

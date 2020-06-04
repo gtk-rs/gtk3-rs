@@ -57,7 +57,7 @@ impl Device {
         unsafe {
             let status =
                 ffi::cairo_script_from_recording_surface(self.to_raw_none(), surface.to_raw_none());
-            status_to_result(status, ())
+            status_to_result(status)
         }
     }
 
@@ -120,7 +120,7 @@ impl Device {
     pub fn acquire(&self) -> Result<(), Error> {
         unsafe {
             let status = ffi::cairo_device_acquire(self.to_raw_none());
-            status_to_result(status, ())
+            status_to_result(status)
         }
     }
 

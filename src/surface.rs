@@ -39,7 +39,8 @@ impl Surface {
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<Surface, Error> {
         assert!(!ptr.is_null());
         let status = ffi::cairo_surface_status(ptr);
-        status_to_result(status, Surface(ptr::NonNull::new_unchecked(ptr)))
+        status_to_result(status)?;
+        Ok(Surface(ptr::NonNull::new_unchecked(ptr)))
     }
 
     pub fn to_raw_none(&self) -> *mut ffi::cairo_surface_t {
@@ -142,7 +143,7 @@ impl Surface {
                 user_data as *mut _,
             )
         };
-        status_to_result(status, ())
+        status_to_result(status)
     }
 
     pub fn supports_mime_type(&self, mime_type: &str) -> bool {

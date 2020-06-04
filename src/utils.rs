@@ -11,9 +11,9 @@ pub unsafe fn debug_reset_static_data() {
     ffi::cairo_debug_reset_static_data()
 }
 
-pub fn status_to_result<T>(status: ffi::cairo_status_t, obj: T) -> Result<T, Error> {
+pub fn status_to_result(status: ffi::cairo_status_t) -> Result<(), Error> {
     match status {
-        ffi::STATUS_SUCCESS => Ok(obj),
+        ffi::STATUS_SUCCESS => Ok(()),
         err => Err(err.into()),
     }
 }

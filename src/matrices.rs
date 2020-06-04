@@ -90,14 +90,15 @@ impl Matrix {
 
     pub fn invert(&mut self) {
         let status = unsafe { ffi::cairo_matrix_invert(self.mut_ptr()) };
-        status_to_result(status, ()).expect("Failed to invert matrix");
+        status_to_result(status).expect("Failed to invert matrix");
     }
 
     pub fn try_invert(&self) -> Result<Matrix, Error> {
         let mut matrix = *self;
 
         let status = unsafe { ffi::cairo_matrix_invert(matrix.mut_ptr()) };
-        status_to_result(status, matrix)
+        status_to_result(status)?;
+        Ok(matrix)
     }
 
     pub fn transform_distance(&self, _dx: f64, _dy: f64) -> (f64, f64) {

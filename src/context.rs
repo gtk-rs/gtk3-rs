@@ -157,7 +157,7 @@ impl Context {
 
     fn status(&self) -> Result<(), Error> {
         let status = unsafe { ffi::cairo_status(self.0.as_ptr()) };
-        status_to_result(status, ())
+        status_to_result(status)
     }
 
     pub fn new(target: &Surface) -> Context {
@@ -369,7 +369,7 @@ impl Context {
         unsafe {
             let rectangle_list = ffi::cairo_copy_clip_rectangle_list(self.0.as_ptr());
 
-            status_to_result((*rectangle_list).status, ()).expect("Failed to copy rectangle list");
+            status_to_result((*rectangle_list).status).expect("Failed to copy rectangle list");
 
             RectangleList {
                 ptr: rectangle_list,

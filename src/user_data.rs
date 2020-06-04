@@ -56,7 +56,7 @@ macro_rules! user_data_methods {
             let status = unsafe {
                 $ffi_set_user_data(self.to_raw_none(), &key.ffi, ptr, Some(destructor::<T>))
             };
-            crate::utils::status_to_result(status, ()).expect("Failed to set user data");
+            crate::utils::status_to_result(status).expect("Failed to set user data");
         }
 
         /// Return the user data previously attached to `self` with the given `key`, if any.
@@ -121,7 +121,7 @@ macro_rules! user_data_methods {
             let status = unsafe {
                 $ffi_set_user_data(self.to_raw_none(), &key.ffi, std::ptr::null_mut(), None)
             };
-            crate::utils::status_to_result(status, ()).expect("Failed to remove user data");
+            crate::utils::status_to_result(status).expect("Failed to remove user data");
         }
     };
 }

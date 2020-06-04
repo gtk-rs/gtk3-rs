@@ -187,7 +187,7 @@ impl Region {
     pub fn intersect(&self, other: &Region) -> Result<(), Error> {
         unsafe {
             let status = ffi::cairo_region_intersect(self.0.as_ptr(), other.0.as_ptr());
-            status_to_result(status, ())
+            status_to_result(status)
         }
     }
 
@@ -195,14 +195,14 @@ impl Region {
         unsafe {
             let status =
                 ffi::cairo_region_intersect_rectangle(self.0.as_ptr(), rectangle.to_raw_none());
-            status_to_result(status, ())
+            status_to_result(status)
         }
     }
 
     pub fn subtract(&self, other: &Region) -> Result<(), Error> {
         unsafe {
             let status = ffi::cairo_region_subtract(self.0.as_ptr(), other.0.as_ptr());
-            status_to_result(status, ())
+            status_to_result(status)
         }
     }
 
@@ -210,14 +210,14 @@ impl Region {
         unsafe {
             let status =
                 ffi::cairo_region_subtract_rectangle(self.0.as_ptr(), rectangle.to_raw_none());
-            status_to_result(status, ())
+            status_to_result(status)
         }
     }
 
     pub fn union(&self, other: &Region) -> Result<(), Error> {
         unsafe {
             let status = ffi::cairo_region_union(self.0.as_ptr(), other.0.as_ptr());
-            status_to_result(status, ())
+            status_to_result(status)
         }
     }
 
@@ -225,21 +225,21 @@ impl Region {
         unsafe {
             let status =
                 ffi::cairo_region_union_rectangle(self.0.as_ptr(), rectangle.to_raw_none());
-            status_to_result(status, ())
+            status_to_result(status)
         }
     }
 
     pub fn xor(&self, other: &Region) -> Result<(), Error> {
         unsafe {
             let status = ffi::cairo_region_xor(self.0.as_ptr(), other.0.as_ptr());
-            status_to_result(status, ())
+            status_to_result(status)
         }
     }
 
     pub fn xor_rectangle(&self, rectangle: &RectangleInt) -> Result<(), Error> {
         unsafe {
             let status = ffi::cairo_region_xor_rectangle(self.0.as_ptr(), rectangle.to_raw_none());
-            status_to_result(status, ())
+            status_to_result(status)
         }
     }
 }

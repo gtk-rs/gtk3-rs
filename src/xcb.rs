@@ -326,7 +326,7 @@ impl XCBSurface {
 
     fn status(&self) -> Result<(), Error> {
         let status = unsafe { ffi::cairo_surface_status(self.to_raw_none()) };
-        status_to_result(status, ())
+        status_to_result(status)
     }
 
     pub fn set_size(&self, width: i32, height: i32) -> Result<(), Error> {

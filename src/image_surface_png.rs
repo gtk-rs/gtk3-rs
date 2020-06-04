@@ -125,7 +125,7 @@ impl ImageSurface {
         }
 
         match env.io_error {
-            None => match status_to_result(status, ()) {
+            None => match status_to_result(status) {
                 Err(err) => Err(IoError::Cairo(err)),
                 Ok(_) => Ok(()),
             },

@@ -36,7 +36,7 @@ impl FontFace {
             ))
         };
         let status = unsafe { ffi::cairo_font_face_status(font_face.to_raw_none()) };
-        status_to_result(status, ()).expect("Failed to create a FontFace");
+        status_to_result(status).expect("Failed to create a FontFace");
         font_face
     }
 
