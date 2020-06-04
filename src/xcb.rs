@@ -11,8 +11,9 @@ use std::fmt;
 use std::ops::Deref;
 use std::ptr;
 
-use enums::Status;
+use error::Error;
 use surface::Surface;
+use utils::status_to_result;
 
 #[derive(Debug)]
 pub struct XCBDrawable(pub u32);
@@ -269,7 +270,7 @@ impl XCBSurface {
         visual: &XCBVisualType,
         width: i32,
         height: i32,
-    ) -> Result<Self, Status> {
+    ) -> Result<Self, Error> {
         unsafe {
             Ok(Self::from_raw_full(ffi::cairo_xcb_surface_create(
                 connection.to_raw_none(),
@@ -287,7 +288,7 @@ impl XCBSurface {
         bitmap: &XCBPixmap,
         width: i32,
         height: i32,
-    ) -> Result<Self, Status> {
+    ) -> Result<Self, Error> {
         unsafe {
             Ok(Self(Surface::from_raw_full(
                 ffi::cairo_xcb_surface_create_for_bitmap(
@@ -308,7 +309,7 @@ impl XCBSurface {
         format: &XCBRenderPictFormInfo,
         width: i32,
         height: i32,
-    ) -> Result<Self, Status> {
+    ) -> Result<Self, Error> {
         unsafe {
             Ok(Self(Surface::from_raw_full(
                 ffi::cairo_xcb_surface_create_with_xrender_format(
@@ -323,9 +324,14 @@ impl XCBSurface {
         }
     }
 
-    pub fn set_size(&self, width: i32, height: i32) -> Result<(), Status> {
+    fn status(&self) -> Result<(), Error> {
+        let status = unsafe { ffi::cairo_surface_status(self.to_raw_none()) };
+        status_to_result(status)
+    }
+
+    pub fn set_size(&self, width: i32, height: i32) -> Result<(), Error> {
         unsafe { ffi::cairo_xcb_surface_set_size(self.to_raw_none(), width, height) }
-        self.status().to_result(())
+        self.status()
     }
 
     pub fn set_drawable(
@@ -333,7 +339,7 @@ impl XCBSurface {
         drawable: &XCBDrawable,
         width: i32,
         height: i32,
-    ) -> Result<(), Status> {
+    ) -> Result<(), Error> {
         unsafe {
             ffi::cairo_xcb_surface_set_drawable(
                 self.to_raw_none(),
@@ -342,7 +348,7 @@ impl XCBSurface {
                 height,
             )
         }
-        self.status().to_result(())
+        self.status()
     }
 }
 

@@ -9,10 +9,12 @@ use std::ops::Deref;
 use std::ptr;
 use std::slice;
 
-use enums::{Content, Format, Status, SurfaceType};
+use enums::{Content, Format, SurfaceType};
+use error::Error;
 use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
+use utils::status_to_result;
 
 use device::Device;
 use image_surface::ImageSurface;
@@ -34,10 +36,11 @@ impl Surface {
         ::Borrowed::new(Surface(ptr::NonNull::new_unchecked(ptr)))
     }
 
-    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<Surface, Status> {
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<Surface, Error> {
         assert!(!ptr.is_null());
-        let status = Status::from(ffi::cairo_surface_status(ptr));
-        status.to_result(Surface(ptr::NonNull::new_unchecked(ptr)))
+        let status = ffi::cairo_surface_status(ptr);
+        status_to_result(status)?;
+        Ok(Surface(ptr::NonNull::new_unchecked(ptr)))
     }
 
     pub fn to_raw_none(&self) -> *mut ffi::cairo_surface_t {
@@ -49,7 +52,7 @@ impl Surface {
         content: Content,
         width: i32,
         height: i32,
-    ) -> Result<Surface, Status> {
+    ) -> Result<Surface, Error> {
         unsafe {
             Self::from_raw_full(ffi::cairo_surface_create_similar(
                 self.0.as_ptr(),
@@ -60,7 +63,7 @@ impl Surface {
         }
     }
 
-    pub fn create_for_rectangle(&self, bounds: Rectangle) -> Result<Surface, Status> {
+    pub fn create_for_rectangle(&self, bounds: Rectangle) -> Result<Surface, Error> {
         unsafe {
             Self::from_raw_full(ffi::cairo_surface_create_for_rectangle(
                 self.0.as_ptr(),
@@ -115,7 +118,7 @@ impl Surface {
         &self,
         mime_type: &str,
         slice: T,
-    ) -> Result<(), Status> {
+    ) -> Result<(), Error> {
         let b = Box::new(slice);
         let (size, data) = {
             let slice = (*b).as_ref();
@@ -131,17 +134,16 @@ impl Surface {
 
         let status = unsafe {
             let mime_type = CString::new(mime_type).unwrap();
-            Status::from(ffi::cairo_surface_set_mime_data(
+            ffi::cairo_surface_set_mime_data(
                 self.to_raw_none(),
                 mime_type.as_ptr(),
                 data,
                 size as c_ulong,
                 Some(unbox::<T>),
                 user_data as *mut _,
-            ))
+            )
         };
-
-        status.to_result(())
+        status_to_result(status)
     }
 
     pub fn supports_mime_type(&self, mime_type: &str) -> bool {
@@ -218,7 +220,7 @@ impl Surface {
         format: Format,
         width: i32,
         height: i32,
-    ) -> Result<Surface, Status> {
+    ) -> Result<Surface, Error> {
         unsafe {
             Self::from_raw_full(ffi::cairo_surface_create_similar_image(
                 self.to_raw_none(),
@@ -229,10 +231,7 @@ impl Surface {
         }
     }
 
-    pub fn map_to_image(
-        &self,
-        extents: Option<RectangleInt>,
-    ) -> Result<MappedImageSurface, Status> {
+    pub fn map_to_image(&self, extents: Option<RectangleInt>) -> Result<MappedImageSurface, Error> {
         unsafe {
             ImageSurface::from_raw_full(match extents {
                 Some(ref e) => ffi::cairo_surface_map_to_image(self.to_raw_none(), e.to_raw_none()),
@@ -340,10 +339,6 @@ impl Surface {
 
     pub fn get_type(&self) -> SurfaceType {
         unsafe { SurfaceType::from(ffi::cairo_surface_get_type(self.0.as_ptr())) }
-    }
-
-    pub fn status(&self) -> Status {
-        unsafe { Status::from(ffi::cairo_surface_status(self.0.as_ptr())) }
     }
 }
 

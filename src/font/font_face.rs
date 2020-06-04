@@ -6,7 +6,8 @@ use std::ffi::{CStr, CString};
 #[cfg(not(feature = "use_glib"))]
 use std::ptr;
 
-use enums::{FontSlant, FontType, FontWeight, FtSynthesize, Status};
+use enums::{FontSlant, FontType, FontWeight, FtSynthesize};
+use utils::status_to_result;
 
 #[cfg(feature = "use_glib")]
 glib_wrapper! {
@@ -34,7 +35,8 @@ impl FontFace {
                 weight.into(),
             ))
         };
-        font_face.ensure_status();
+        let status = unsafe { ffi::cairo_font_face_status(font_face.to_raw_none()) };
+        status_to_result(status).expect("Failed to create a FontFace");
         font_face
     }
 
@@ -80,11 +82,6 @@ impl FontFace {
 
     pub fn toy_get_weight(&self) -> FontWeight {
         unsafe { FontWeight::from(ffi::cairo_toy_font_face_get_weight(self.to_raw_none())) }
-    }
-
-    pub fn ensure_status(&self) {
-        let status = unsafe { ffi::cairo_font_face_status(self.to_raw_none()) };
-        Status::from(status).ensure_valid()
     }
 
     pub fn get_type(&self) -> FontType {

@@ -3,20 +3,20 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use std::any::Any;
-use std::io::{Error, Read, Write};
+use std::io::{self, Read, Write};
 use std::panic::AssertUnwindSafe;
 use std::slice;
+use utils::status_to_result;
 
 use libc::{c_uint, c_void};
 
-use enums::Status;
-use error::IoError;
+use error::{Error, IoError};
 use ffi::{self, cairo_status_t};
 use ImageSurface;
 
 struct ReadEnv<'a, R: 'a + Read> {
     reader: &'a mut R,
-    io_error: Option<Error>,
+    io_error: Option<io::Error>,
     unwind_payload: Option<Box<dyn Any + Send + 'static>>,
 }
 
@@ -29,28 +29,27 @@ unsafe extern "C" fn read_func<R: Read>(
 
     // Don’t attempt another read if a previous one errored or panicked:
     if read_env.io_error.is_some() || read_env.unwind_payload.is_some() {
-        return Status::ReadError.into();
+        return Error::ReadError.into();
     }
 
     let buffer = slice::from_raw_parts_mut(data, len as usize);
     let result = std::panic::catch_unwind(AssertUnwindSafe(|| read_env.reader.read_exact(buffer)));
     match result {
-        Ok(Ok(())) => Status::Success,
+        Ok(Ok(())) => ffi::STATUS_SUCCESS,
         Ok(Err(error)) => {
             read_env.io_error = Some(error);
-            Status::ReadError
+            Error::ReadError.into()
         }
         Err(payload) => {
             read_env.unwind_payload = Some(payload);
-            Status::ReadError
+            Error::ReadError.into()
         }
     }
-    .into()
 }
 
 struct WriteEnv<'a, W: 'a + Write> {
     writer: &'a mut W,
-    io_error: Option<Error>,
+    io_error: Option<io::Error>,
     unwind_payload: Option<Box<dyn Any + Send + 'static>>,
 }
 
@@ -63,23 +62,22 @@ unsafe extern "C" fn write_func<W: Write>(
 
     // Don’t attempt another write if a previous one errored or panicked:
     if write_env.io_error.is_some() || write_env.unwind_payload.is_some() {
-        return Status::WriteError.into();
+        return Error::WriteError.into();
     }
 
     let buffer = slice::from_raw_parts(data, len as usize);
     let result = std::panic::catch_unwind(AssertUnwindSafe(|| write_env.writer.write_all(buffer)));
     match result {
-        Ok(Ok(())) => Status::Success,
+        Ok(Ok(())) => ffi::STATUS_SUCCESS,
         Ok(Err(error)) => {
             write_env.io_error = Some(error);
-            Status::WriteError
+            Error::WriteError.into()
         }
         Err(payload) => {
             write_env.unwind_payload = Some(payload);
-            Status::WriteError
+            Error::WriteError.into()
         }
     }
-    .into()
 }
 
 impl ImageSurface {
@@ -127,9 +125,9 @@ impl ImageSurface {
         }
 
         match env.io_error {
-            None => match Status::from(status) {
-                Status::Success => Ok(()),
-                st => Err(IoError::Cairo(st.into())),
+            None => match status_to_result(status) {
+                Err(err) => Err(IoError::Cairo(err)),
+                Ok(_) => Ok(()),
             },
             Some(err) => Err(IoError::Io(err)),
         }
@@ -146,8 +144,8 @@ mod tests {
 
     // A reader that always returns an error
     impl Read for IoErrorReader {
-        fn read(&mut self, _: &mut [u8]) -> Result<usize, Error> {
-            Err(Error::new(ErrorKind::Other, "yikes!"))
+        fn read(&mut self, _: &mut [u8]) -> Result<usize, io::Error> {
+            Err(io::Error::new(ErrorKind::Other, "yikes!"))
         }
     }
 
@@ -203,7 +201,7 @@ mod tests {
         let mut r = IoErrorReader;
 
         match ImageSurface::create_from_png(&mut r) {
-            Err(IoError::Cairo(Status::ReadError)) => (),
+            Err(IoError::Cairo(Error::ReadError)) => (),
             _ => unreachable!(),
         }
     }

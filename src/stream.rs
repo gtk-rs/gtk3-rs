@@ -2,8 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use error::Error;
 use ffi::{self, cairo_status_t};
-use {Status, Surface, UserDataKey};
+use {Surface, UserDataKey};
 
 use libc::{c_double, c_uchar, c_uint, c_void};
 use std::any::Any;
@@ -25,7 +26,7 @@ macro_rules! for_stream_constructors {
             width: f64,
             height: f64,
             stream: W,
-        ) -> Result<Self, crate::enums::Status> {
+        ) -> Result<Self, crate::error::Error> {
             Ok(Self(Surface::_for_stream(
                 ffi::$constructor_ffi,
                 width,
@@ -50,7 +51,7 @@ macro_rules! for_stream_constructors {
             width: f64,
             height: f64,
             stream: *mut W,
-        ) -> Result<Self, crate::enums::Status> {
+        ) -> Result<Self, crate::error::Error> {
             Ok(Self(Surface::_for_raw_stream(
                 ffi::$constructor_ffi,
                 width,
@@ -67,7 +68,7 @@ impl Surface {
         width: f64,
         height: f64,
         stream: W,
-    ) -> Result<Self, Status> {
+    ) -> Result<Self, Error> {
         let env_rc = Rc::new(CallbackEnvironment {
             mutable: RefCell::new(MutableCallbackEnvironment {
                 stream: Some((Box::new(stream), None)),
@@ -89,7 +90,7 @@ impl Surface {
         width: f64,
         height: f64,
         stream: *mut W,
-    ) -> Result<Self, Status> {
+    ) -> Result<Self, Error> {
         Self::_for_stream(
             constructor,
             width,
@@ -230,7 +231,7 @@ extern "C" fn write_callback<W: io::Write + 'static>(
             // we must conservatively assume that it can panic.
             let result = std::panic::catch_unwind(AssertUnwindSafe(|| stream.write_all(data)));
             match result {
-                Ok(Ok(())) => return Status::Success.into(),
+                Ok(Ok(())) => return ffi::STATUS_SUCCESS,
                 Ok(Err(error)) => {
                     *io_error = Some(error);
                 }
@@ -242,7 +243,7 @@ extern "C" fn write_callback<W: io::Write + 'static>(
     } else {
         env.saw_already_borrowed.set(true)
     }
-    Status::WriteError.into()
+    Error::WriteError.into()
 }
 
 struct RawStream<W>(ptr::NonNull<W>);

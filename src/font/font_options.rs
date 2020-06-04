@@ -11,7 +11,8 @@ use std::ffi::CString;
 #[cfg(not(feature = "use_glib"))]
 use std::ptr;
 
-use enums::{Antialias, HintMetrics, HintStyle, Status, SubpixelOrder};
+use enums::{Antialias, HintMetrics, HintStyle, SubpixelOrder};
+use utils::status_to_result;
 
 #[cfg(feature = "use_glib")]
 glib_wrapper! {
@@ -22,7 +23,7 @@ glib_wrapper! {
         copy => |ptr| {
             let ptr = ffi::cairo_font_options_copy(ptr);
             let status = ffi::cairo_font_options_status(ptr);
-            Status::from(status).ensure_valid();
+            status_to_result(status).expect("Failed to create a copy of FontOptions");
             ptr
         },
         free => |ptr| ffi::cairo_font_options_destroy(ptr),
@@ -38,7 +39,10 @@ impl FontOptions {
     pub fn new() -> FontOptions {
         let font_options: FontOptions =
             unsafe { FontOptions::from_raw_full(ffi::cairo_font_options_create()) };
-        font_options.ensure_status();
+
+        let status = unsafe { ffi::cairo_font_options_status(font_options.to_raw_none()) };
+        status_to_result(status).expect("Failed to create a font option");
+
         font_options
     }
 
@@ -61,11 +65,6 @@ impl FontOptions {
     #[cfg(not(feature = "use_glib"))]
     pub fn to_raw_none(&self) -> *mut ffi::cairo_font_options_t {
         self.0.as_ptr()
-    }
-
-    pub fn ensure_status(&self) {
-        let status = unsafe { ffi::cairo_font_options_status(self.to_raw_none()) };
-        Status::from(status).ensure_valid()
     }
 
     pub fn merge(&mut self, other: &FontOptions) {

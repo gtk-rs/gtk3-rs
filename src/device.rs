@@ -5,7 +5,8 @@
 use std::ffi::CString;
 use std::path::Path;
 
-use enums::{Content, DeviceType, ScriptMode, Status};
+use enums::{Content, DeviceType, ScriptMode};
+use error::Error;
 use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
@@ -13,6 +14,16 @@ use recording_surface::RecordingSurface;
 use std::fmt;
 use std::ptr;
 use surface::Surface;
+use utils::status_to_result;
+
+#[derive(Debug)]
+pub struct DeviceAcquireGuard<'a>(&'a Device);
+
+impl<'a> Drop for DeviceAcquireGuard<'a> {
+    fn drop(&mut self) {
+        self.0.release();
+    }
+}
 
 #[derive(Debug)]
 pub struct Device(ptr::NonNull<ffi::cairo_device_t>);
@@ -51,12 +62,11 @@ impl Device {
         }
     }
 
-    pub fn from_recording_surface(&self, surface: &RecordingSurface) -> Status {
+    pub fn from_recording_surface(&self, surface: &RecordingSurface) -> Result<(), Error> {
         unsafe {
-            Status::from(ffi::cairo_script_from_recording_surface(
-                self.to_raw_none(),
-                surface.to_raw_none(),
-            ))
+            let status =
+                ffi::cairo_script_from_recording_surface(self.to_raw_none(), surface.to_raw_none());
+            status_to_result(status)
         }
     }
 
@@ -73,7 +83,7 @@ impl Device {
         content: Content,
         width: f64,
         height: f64,
-    ) -> Result<Surface, Status> {
+    ) -> Result<Surface, Error> {
         unsafe {
             Ok(Surface::from_raw_full(ffi::cairo_script_surface_create(
                 self.to_raw_none(),
@@ -84,7 +94,7 @@ impl Device {
         }
     }
 
-    pub fn surface_create_for_target(&self, target: &Surface) -> Result<Surface, Status> {
+    pub fn surface_create_for_target(&self, target: &Surface) -> Result<Surface, Error> {
         unsafe {
             Ok(Surface::from_raw_full(
                 ffi::cairo_script_surface_create_for_target(
@@ -103,10 +113,6 @@ impl Device {
         }
     }
 
-    pub fn status(&self) -> Status {
-        unsafe { Status::from(ffi::cairo_device_status(self.to_raw_none())) }
-    }
-
     pub fn finish(&self) {
         unsafe { ffi::cairo_device_finish(self.to_raw_none()) }
     }
@@ -119,13 +125,15 @@ impl Device {
         unsafe { DeviceType::from(ffi::cairo_device_get_type(self.to_raw_none())) }
     }
 
-    // Maybe improve this API?
-    pub fn acquire(&self) -> Status {
-        unsafe { Status::from(ffi::cairo_device_acquire(self.to_raw_none())) }
+    pub fn acquire(&self) -> Result<DeviceAcquireGuard, Error> {
+        unsafe {
+            let status = ffi::cairo_device_acquire(self.to_raw_none());
+            status_to_result(status)?;
+        }
+        Ok(DeviceAcquireGuard { 0: self })
     }
 
-    // Maybe improve this API?
-    pub fn release(&self) {
+    fn release(&self) {
         unsafe { ffi::cairo_device_release(self.to_raw_none()) }
     }
 

@@ -6,7 +6,8 @@ use std::convert::TryFrom;
 use std::fmt;
 use std::ops::Deref;
 
-use enums::{Content, Status, SurfaceType};
+use enums::{Content, SurfaceType};
+use error::Error;
 use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
@@ -19,7 +20,7 @@ impl RecordingSurface {
     pub fn create<T: Into<Option<Rectangle>>>(
         content: Content,
         extends: T,
-    ) -> Result<RecordingSurface, Status> {
+    ) -> Result<RecordingSurface, Error> {
         unsafe {
             let extends = extends.into();
             let extends = match extends {

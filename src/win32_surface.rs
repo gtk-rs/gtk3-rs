@@ -9,21 +9,21 @@ use std::fmt;
 use std::ops::Deref;
 
 use enums::{Format, SurfaceType};
+use error::Error;
 use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use surface::Surface;
-use Status;
 
 declare_surface!(Win32Surface, SurfaceType::Win32);
 
 impl Win32Surface {
-    pub fn create(hdc: winapi::HDC) -> Result<Win32Surface, Status> {
+    pub fn create(hdc: winapi::HDC) -> Result<Win32Surface, Error> {
         unsafe { Self::from_raw_full(ffi::cairo_win32_surface_create(hdc)) }
     }
 
     #[cfg(any(all(windows, feature = "v1_14"), feature = "dox"))]
-    pub fn create_with_format(hdc: winapi::HDC, format: Format) -> Result<Win32Surface, Status> {
+    pub fn create_with_format(hdc: winapi::HDC, format: Format) -> Result<Win32Surface, Error> {
         unsafe {
             Self::from_raw_full(ffi::cairo_win32_surface_create_with_format(
                 hdc,
@@ -32,11 +32,7 @@ impl Win32Surface {
         }
     }
 
-    pub fn create_with_dib(
-        format: Format,
-        width: i32,
-        height: i32,
-    ) -> Result<Win32Surface, Status> {
+    pub fn create_with_dib(format: Format, width: i32, height: i32) -> Result<Win32Surface, Error> {
         unsafe {
             Self::from_raw_full(ffi::cairo_win32_surface_create_with_dib(
                 format.into(),
@@ -51,7 +47,7 @@ impl Win32Surface {
         format: Format,
         width: i32,
         height: i32,
-    ) -> Result<Win32Surface, Status> {
+    ) -> Result<Win32Surface, Error> {
         unsafe {
             Self::from_raw_full(ffi::cairo_win32_surface_create_with_ddb(
                 hdc,
@@ -62,7 +58,7 @@ impl Win32Surface {
         }
     }
 
-    pub fn printing_surface_create(hdc: winapi::HDC) -> Result<Win32Surface, Status> {
+    pub fn printing_surface_create(hdc: winapi::HDC) -> Result<Win32Surface, Error> {
         unsafe { Self::from_raw_full(ffi::cairo_win32_printing_surface_create(hdc)) }
     }
 }

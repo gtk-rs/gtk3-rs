@@ -2,12 +2,20 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use error::Error;
 use ffi;
 use std::ffi::CStr;
 use std::fmt;
 
 pub unsafe fn debug_reset_static_data() {
     ffi::cairo_debug_reset_static_data()
+}
+
+pub fn status_to_result(status: ffi::cairo_status_t) -> Result<(), Error> {
+    match status {
+        ffi::STATUS_SUCCESS => Ok(()),
+        err => Err(err.into()),
+    }
 }
 
 pub fn get_version_string() -> &'static str {

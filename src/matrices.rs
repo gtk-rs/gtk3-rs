@@ -2,9 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use enums::Status;
+use error::Error;
 use ffi;
 use libc::c_double;
+use utils::status_to_result;
 
 #[repr(C)]
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -88,19 +89,16 @@ impl Matrix {
     }
 
     pub fn invert(&mut self) {
-        let result = unsafe { ffi::cairo_matrix_invert(self.mut_ptr()) };
-        Status::from(result).ensure_valid();
+        let status = unsafe { ffi::cairo_matrix_invert(self.mut_ptr()) };
+        status_to_result(status).expect("Failed to invert matrix");
     }
 
-    pub fn try_invert(&self) -> Result<Matrix, Status> {
+    pub fn try_invert(&self) -> Result<Matrix, Error> {
         let mut matrix = *self;
 
-        let result = unsafe { Status::from(ffi::cairo_matrix_invert(matrix.mut_ptr())) };
-
-        match result {
-            Status::Success => Ok(matrix),
-            _ => Err(result),
-        }
+        let status = unsafe { ffi::cairo_matrix_invert(matrix.mut_ptr()) };
+        status_to_result(status)?;
+        Ok(matrix)
     }
 
     pub fn transform_distance(&self, _dx: f64, _dy: f64) -> (f64, f64) {
