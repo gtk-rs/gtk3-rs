@@ -155,7 +155,7 @@ impl Context {
         self.0.as_ptr()
     }
 
-    fn status(&self) -> Result<(), Error> {
+    pub(crate) fn status(&self) -> Result<(), Error> {
         let status = unsafe { ffi::cairo_status(self.0.as_ptr()) };
         status_to_result(status)
     }
