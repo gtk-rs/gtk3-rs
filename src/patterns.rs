@@ -182,7 +182,7 @@ impl SolidPattern {
                 &mut blue,
                 &mut alpha,
             );
-            status_to_result(status, ()).expect("Cairo: Failed to get_rgba");
+            status_to_result(status, ()).expect("Failed to get_rgba");
 
             (red, green, blue, alpha)
         }
@@ -208,7 +208,7 @@ impl Gradient {
             let mut count = 0;
             let status = ffi::cairo_pattern_get_color_stop_count(self.pointer, &mut count);
 
-            status_to_result(status, ()).expect("Cairo: Failed to get_color_stop_count");
+            status_to_result(status, ()).expect("Failed to get_color_stop_count");
             count as isize
         }
     }
@@ -230,7 +230,7 @@ impl Gradient {
                 &mut blue,
                 &mut alpha,
             );
-            status_to_result(status, ()).expect("Cairo: Failed to get_color_stop_rgba");
+            status_to_result(status, ()).expect("Failed to get_color_stop_rgba");
             (offset, red, green, blue, alpha)
         }
     }
@@ -285,7 +285,7 @@ impl LinearGradient {
                 &mut x1,
                 &mut y1,
             );
-            status_to_result(status, ()).expect("Cairo: Failed to get linear points");
+            status_to_result(status, ()).expect("Failed to get linear points");
             (x0, y0, x1, y1)
         }
     }
@@ -320,7 +320,7 @@ impl RadialGradient {
                 &mut y1,
                 &mut r1,
             );
-            status_to_result(status, ()).expect("Cairo: Failed to get radial circles");
+            status_to_result(status, ()).expect("Failed to get radial circles");
             (x0, y0, r0, x1, y1, r1)
         }
     }
@@ -341,7 +341,7 @@ impl SurfacePattern {
         unsafe {
             let mut surface_ptr: *mut cairo_surface_t = ptr::null_mut();
             let status = ffi::cairo_pattern_get_surface(self.pointer, &mut surface_ptr);
-            status_to_result(status, ()).expect("Cairo: Failed to get the surface");
+            status_to_result(status, ()).expect("Failed to get the surface");
             Surface::from_raw_none(surface_ptr)
         }
     }
@@ -356,32 +356,32 @@ impl Mesh {
 
     pub fn begin_patch(&self) {
         unsafe { ffi::cairo_mesh_pattern_begin_patch(self.pointer) }
-        self.status().expect("Cairo: Failed to begin_patch");
+        self.status().expect("Failed to begin_patch");
     }
 
     pub fn end_patch(&self) {
         unsafe { ffi::cairo_mesh_pattern_end_patch(self.pointer) }
-        self.status().expect("Cairo: Failed to end_patch");
+        self.status().expect("Failed to end_patch");
     }
 
     pub fn move_to(&self, x: f64, y: f64) {
         unsafe { ffi::cairo_mesh_pattern_move_to(self.pointer, x, y) }
-        self.status().expect("Cairo: Failed to move to");
+        self.status().expect("Failed to move to");
     }
 
     pub fn line_to(&self, x: f64, y: f64) {
         unsafe { ffi::cairo_mesh_pattern_line_to(self.pointer, x, y) }
-        self.status().expect("Cairo: Failed to line to");
+        self.status().expect("Failed to line to");
     }
 
     pub fn curve_to(&self, x1: f64, y1: f64, x2: f64, y2: f64, x3: f64, y3: f64) {
         unsafe { ffi::cairo_mesh_pattern_curve_to(self.pointer, x1, y1, x2, y2, x3, y3) }
-        self.status().expect("Cairo: Failed to curve to");
+        self.status().expect("Failed to curve to");
     }
 
     pub fn set_control_point(&self, corner: MeshCorner, x: f64, y: f64) {
         unsafe { ffi::cairo_mesh_pattern_set_control_point(self.pointer, corner.into(), x, y) }
-        self.status().expect("Cairo: Failed to set control point");
+        self.status().expect("Failed to set control point");
     }
 
     pub fn get_control_point(&self, patch_num: usize, corner: MeshCorner) -> (f64, f64) {
@@ -397,7 +397,7 @@ impl Mesh {
                 &mut y,
             )
         };
-        status_to_result(status, ()).expect("Cairo: Failed to get control point");
+        status_to_result(status, ()).expect("Failed to get control point");
         (x, y)
     }
 
@@ -411,8 +411,7 @@ impl Mesh {
                 blue,
             )
         }
-        self.status()
-            .expect("Cairo: Failed to set corner color rgb");
+        self.status().expect("Failed to set corner color rgb");
     }
 
     pub fn set_corner_color_rgba(
@@ -433,8 +432,7 @@ impl Mesh {
                 alpha,
             )
         }
-        self.status()
-            .expect("Cairo: Failed to set corner color rgba");
+        self.status().expect("Failed to set corner color rgba");
     }
 
     pub fn get_corner_color_rgba(
@@ -458,7 +456,7 @@ impl Mesh {
                 &mut alpha,
             )
         };
-        status_to_result(status, ()).expect("Cairo: Failed to get mesh corner color");
+        status_to_result(status, ()).expect("Failed to get mesh corner color");
         (red, green, blue, alpha)
     }
 
@@ -466,7 +464,7 @@ impl Mesh {
         let mut count: c_uint = 0;
         unsafe {
             let status = ffi::cairo_mesh_pattern_get_patch_count(self.pointer, &mut count);
-            status_to_result(status, ()).expect("Cairo: Failed to get mesh patch count")
+            status_to_result(status, ()).expect("Failed to get mesh patch count")
         }
         count as usize
     }
@@ -482,7 +480,7 @@ impl Mesh {
             let ptr: *mut ffi::cairo_path_t = path.as_ptr();
             (*ptr).status
         };
-        status_to_result(status, ()).expect("Cairo: Failed to get the mesh path");
+        status_to_result(status, ()).expect("Failed to get the mesh path");
         path
     }
 }

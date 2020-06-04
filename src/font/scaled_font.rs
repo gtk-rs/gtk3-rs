@@ -43,7 +43,7 @@ impl ScaledFont {
             ))
         };
         let status = unsafe { ffi::cairo_scaled_font_status(scaled_font.to_raw_none()) };
-        status_to_result(status, ()).expect("Cairo: Failed to create a scaled font");
+        status_to_result(status, ()).expect("Failed to create a scaled font");
         scaled_font
     }
 
@@ -168,7 +168,7 @@ impl ScaledFont {
                 &mut cluster_count,
                 &mut cluster_flags,
             );
-            status_to_result(status, ()).expect("Cairo: Failed to convert text to glyphs");
+            status_to_result(status, ()).expect("Failed to convert text to glyphs");
 
             let glyph_count = glyph_count as usize;
             let glyphs: Vec<Glyph> = {

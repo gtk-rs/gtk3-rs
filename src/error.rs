@@ -7,92 +7,94 @@ use std::io;
 use thiserror::Error;
 
 #[derive(Error, Debug)]
+#[non_exhaustive]
 pub enum Error {
-    #[error("Cairo: No Memory")]
+    #[error("No Memory")]
     NoMemory,
-    #[error("Cairo: Invalid Restore")]
+    #[error("Invalid Restore")]
     InvalidRestore,
-    #[error("Cairo: Invalid Pop Group")]
+    #[error("Invalid Pop Group")]
     InvalidPopGroup,
-    #[error("Cairo: No Current Point")]
+    #[error("No Current Point")]
     NoCurrentPoint,
-    #[error("Cairo: Invalid Matrix")]
+    #[error("Invalid Matrix")]
     InvalidMatrix,
-    #[error("Cairo: Invalid Status")]
+    #[error("Invalid Status")]
     InvalidStatus,
-    #[error("Cairo: Null Pointer")]
+    #[error("Null Pointer")]
     NullPointer,
-    #[error("Cairo: Invalid String")]
+    #[error("Invalid String")]
     InvalidString,
-    #[error("Cairo: Invalid Path Data")]
+    #[error("Invalid Path Data")]
     InvalidPathData,
     #[error("Cairo : Read Error")]
     ReadError,
-    #[error("Cairo: Write Error")]
+    #[error("Write Error")]
     WriteError,
-    #[error("Cairo: Surface Finishied")]
+    #[error("Surface Finishied")]
     SurfaceFinished,
-    #[error("Cairo: Surface Type Mismatch")]
+    #[error("Surface Type Mismatch")]
     SurfaceTypeMismatch,
-    #[error("Cairo: Pattern Type Mismatch")]
+    #[error("Pattern Type Mismatch")]
     PatternTypeMismatch,
-    #[error("Cairo: Invalid Content")]
+    #[error("Invalid Content")]
     InvalidContent,
-    #[error("Cairo: Invalid Format")]
+    #[error("Invalid Format")]
     InvalidFormat,
-    #[error("Cairo: Invalid Visual")]
+    #[error("Invalid Visual")]
     InvalidVisual,
-    #[error("Cairo: File Not Found")]
+    #[error("File Not Found")]
     FileNotFound,
-    #[error("Cairo: Invalid Dash")]
+    #[error("Invalid Dash")]
     InvalidDash,
-    #[error("Cairo: Invalid Dash Comment")]
+    #[error("Invalid Dash Comment")]
     InvalidDscComment,
-    #[error("Cairo: Invalid Index")]
+    #[error("Invalid Index")]
     InvalidIndex,
-    #[error("Cairo: Clip Not Representable")]
+    #[error("Clip Not Representable")]
     ClipNotRepresentable,
-    #[error("Cairo: Temp File Error")]
+    #[error("Temp File Error")]
     TempFileError,
-    #[error("Cairo: Invalid Stride")]
+    #[error("Invalid Stride")]
     InvalidStride,
-    #[error("Cairo: Font Type Mismatch")]
+    #[error("Font Type Mismatch")]
     FontTypeMismatch,
-    #[error("Cairo: User Font Immutable")]
+    #[error("User Font Immutable")]
     UserFontImmutable,
-    #[error("Cairo: User Font Error")]
+    #[error("User Font Error")]
     UserFontError,
-    #[error("Cairo: Negative Count")]
+    #[error("Negative Count")]
     NegativeCount,
-    #[error("Cairo: Invalid Clusters")]
+    #[error("Invalid Clusters")]
     InvalidClusters,
-    #[error("Cairo: Invalid Slant")]
+    #[error("Invalid Slant")]
     InvalidSlant,
-    #[error("Cairo: Invalid Weight")]
+    #[error("Invalid Weight")]
     InvalidWeight,
-    #[error("Cairo: Ivalid Size")]
+    #[error("Ivalid Size")]
     InvalidSize,
-    #[error("Cairo: User Font Not Implemented")]
+    #[error("User Font Not Implemented")]
     UserFontNotImplemented,
-    #[error("Cairo: Device Type Mismatch")]
+    #[error("Device Type Mismatch")]
     DeviceTypeMismatch,
-    #[error("Cairo: Device Error")]
+    #[error("Device Error")]
     DeviceError,
-    #[error("Cairo: Invalid Mesh Construction")]
+    #[error("Invalid Mesh Construction")]
     InvalidMeshConstruction,
-    #[error("Cairo: Device Finished")]
+    #[error("Device Finished")]
     DeviceFinished,
-    #[error("Cairo: JBig2Global Missing")]
+    #[error("JBig2Global Missing")]
     JBig2GlobalMissing,
-    #[error("Cairo: PNG Error")]
+    #[error("PNG Error")]
     PngError,
-    #[error("Cairo: Freetype Error")]
+    #[error("Freetype Error")]
     FreetypeError,
-    #[error("Cairo: Win32Gdi Error")]
+    #[error("Win32Gdi Error")]
     Win32GdiError,
-    #[error("Cairo: LastStatus")]
+    #[error("LastStatus")]
     LastStatus,
-    #[error("Cairo: Uknown {0}")]
+    #[error("Unknown {0}")]
+    #[doc(hidden)]
     __Unknown(i32),
 }
 #[doc(hidden)]
