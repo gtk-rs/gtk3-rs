@@ -1,0 +1,57 @@
+[options]
+girs_dir = "gir-files"
+library = "GdkX11"
+version = "3.0"
+min_cfg_version = "3.0"
+target_path = "."
+work_mode = "normal"
+single_version_file = true
+generate_safety_asserts = true
+deprecate_by_min_version = true
+
+generate = [
+  "GdkX11.X11AppLaunchContext",
+  "GdkX11.X11Cursor",
+  "GdkX11.X11DeviceCore",
+  "GdkX11.X11DeviceXI2",
+  "GdkX11.X11DeviceManagerCore",
+  "GdkX11.X11DeviceManagerXI2",
+  "GdkX11.X11Display",
+  "GdkX11.X11DisplayManager",
+  "GdkX11.X11DragContext",
+  "GdkX11.X11GLContext",
+  "GdkX11.X11Keymap",
+  "GdkX11.X11Monitor",
+  "GdkX11.X11Screen",
+  "GdkX11.X11Visual",
+  "GdkX11.X11Window"
+]
+
+builders = [
+  "GdkX11.X11DeviceManagerXI2Builder",
+  "GdkX11.X11DeviceXI2Builder"
+]
+
+ignore = [
+]
+
+manual = [
+  "Gdk.AppLaunchContext",
+  "Gdk.Cursor",
+  "Gdk.Device",
+  "Gdk.DeviceManager",
+  "Gdk.Display",
+  "Gdk.DisplayManager",
+  "Gdk.DragContext",
+  "Gdk.GLContext",
+  "Gdk.Keymap",
+  "Gdk.Monitor",
+  "Gdk.Screen",
+  "Gdk.Visual",
+  "Gdk.Window",
+  "Gio.AppLaunchContext"
+]
+
+[[object]]
+name = "Gdk.*"
+status = "generate"
