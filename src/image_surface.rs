@@ -75,7 +75,8 @@ impl ImageSurface {
             if let Some(err) = status_to_result(status).err() {
                 return Err(BorrowError::from(err));
             }
-            if ffi::cairo_image_surface_get_data(self.to_raw_none()).is_null() {
+            if ffi::cairo_image_surface_get_data(self.to_raw_none()).is_null() || is_finished(self)
+            {
                 return Err(BorrowError::from(Error::SurfaceFinished));
             }
             Ok(ImageSurfaceData::new(self))
@@ -150,6 +151,14 @@ impl<'a> fmt::Display for ImageSurfaceData<'a> {
     }
 }
 
+// Workaround for cairo not having a direct way to check if the surface is finished.
+// See: https://gitlab.freedesktop.org/cairo/cairo/-/issues/406
+fn is_finished(surface: &ImageSurface) -> bool {
+    use super::Context;
+    let ctxt = Context::new(surface);
+    ctxt.status().is_err()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -173,5 +182,14 @@ mod tests {
 
         let result = ImageSurface::create_for_data(vec![0u8; 40 * 10], Format::ARgb32, 10, 10, 40);
         assert!(result.is_ok());
+    }
+
+    #[test]
+    fn no_crash_after_finish() {
+        let mut surf = ImageSurface::create(Format::ARgb32, 1024, 1024).unwrap();
+
+        surf.finish();
+
+        assert!(surf.get_data().is_err());
     }
 }
