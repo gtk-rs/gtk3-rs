@@ -168,6 +168,102 @@ impl SetValue for AskPasswordFlags {
 }
 
 bitflags! {
+    pub struct BusNameOwnerFlags: u32 {
+        const NONE = 0;
+        const ALLOW_REPLACEMENT = 1;
+        const REPLACE = 2;
+        const DO_NOT_QUEUE = 4;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for BusNameOwnerFlags {
+    type GlibType = gio_sys::GBusNameOwnerFlags;
+
+    fn to_glib(&self) -> gio_sys::GBusNameOwnerFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<gio_sys::GBusNameOwnerFlags> for BusNameOwnerFlags {
+    fn from_glib(value: gio_sys::GBusNameOwnerFlags) -> BusNameOwnerFlags {
+        BusNameOwnerFlags::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for BusNameOwnerFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_bus_name_owner_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for BusNameOwnerFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for BusNameOwnerFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for BusNameOwnerFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+bitflags! {
+    pub struct BusNameWatcherFlags: u32 {
+        const NONE = 0;
+        const AUTO_START = 1;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for BusNameWatcherFlags {
+    type GlibType = gio_sys::GBusNameWatcherFlags;
+
+    fn to_glib(&self) -> gio_sys::GBusNameWatcherFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<gio_sys::GBusNameWatcherFlags> for BusNameWatcherFlags {
+    fn from_glib(value: gio_sys::GBusNameWatcherFlags) -> BusNameWatcherFlags {
+        BusNameWatcherFlags::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for BusNameWatcherFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_bus_name_watcher_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for BusNameWatcherFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for BusNameWatcherFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for BusNameWatcherFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+bitflags! {
     pub struct ConverterFlags: u32 {
         const NONE = 0;
         const INPUT_AT_END = 1;
@@ -210,6 +306,443 @@ impl<'a> FromValue<'a> for ConverterFlags {
 }
 
 impl SetValue for ConverterFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+bitflags! {
+    pub struct DBusCallFlags: u32 {
+        const NONE = 0;
+        const NO_AUTO_START = 1;
+        const ALLOW_INTERACTIVE_AUTHORIZATION = 2;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for DBusCallFlags {
+    type GlibType = gio_sys::GDBusCallFlags;
+
+    fn to_glib(&self) -> gio_sys::GDBusCallFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<gio_sys::GDBusCallFlags> for DBusCallFlags {
+    fn from_glib(value: gio_sys::GDBusCallFlags) -> DBusCallFlags {
+        DBusCallFlags::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for DBusCallFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_dbus_call_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for DBusCallFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for DBusCallFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for DBusCallFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+bitflags! {
+    pub struct DBusCapabilityFlags: u32 {
+        const NONE = 0;
+        const UNIX_FD_PASSING = 1;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for DBusCapabilityFlags {
+    type GlibType = gio_sys::GDBusCapabilityFlags;
+
+    fn to_glib(&self) -> gio_sys::GDBusCapabilityFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<gio_sys::GDBusCapabilityFlags> for DBusCapabilityFlags {
+    fn from_glib(value: gio_sys::GDBusCapabilityFlags) -> DBusCapabilityFlags {
+        DBusCapabilityFlags::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for DBusCapabilityFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_dbus_capability_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for DBusCapabilityFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for DBusCapabilityFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for DBusCapabilityFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+bitflags! {
+    pub struct DBusConnectionFlags: u32 {
+        const NONE = 0;
+        const AUTHENTICATION_CLIENT = 1;
+        const AUTHENTICATION_SERVER = 2;
+        const AUTHENTICATION_ALLOW_ANONYMOUS = 4;
+        const MESSAGE_BUS_CONNECTION = 8;
+        const DELAY_MESSAGE_PROCESSING = 16;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for DBusConnectionFlags {
+    type GlibType = gio_sys::GDBusConnectionFlags;
+
+    fn to_glib(&self) -> gio_sys::GDBusConnectionFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<gio_sys::GDBusConnectionFlags> for DBusConnectionFlags {
+    fn from_glib(value: gio_sys::GDBusConnectionFlags) -> DBusConnectionFlags {
+        DBusConnectionFlags::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for DBusConnectionFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_dbus_connection_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for DBusConnectionFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for DBusConnectionFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for DBusConnectionFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+bitflags! {
+    pub struct DBusInterfaceSkeletonFlags: u32 {
+        const NONE = 0;
+        const HANDLE_METHOD_INVOCATIONS_IN_THREAD = 1;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for DBusInterfaceSkeletonFlags {
+    type GlibType = gio_sys::GDBusInterfaceSkeletonFlags;
+
+    fn to_glib(&self) -> gio_sys::GDBusInterfaceSkeletonFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<gio_sys::GDBusInterfaceSkeletonFlags> for DBusInterfaceSkeletonFlags {
+    fn from_glib(value: gio_sys::GDBusInterfaceSkeletonFlags) -> DBusInterfaceSkeletonFlags {
+        DBusInterfaceSkeletonFlags::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for DBusInterfaceSkeletonFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_dbus_interface_skeleton_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for DBusInterfaceSkeletonFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for DBusInterfaceSkeletonFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for DBusInterfaceSkeletonFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+bitflags! {
+    pub struct DBusMessageFlags: u32 {
+        const NONE = 0;
+        const NO_REPLY_EXPECTED = 1;
+        const NO_AUTO_START = 2;
+        const ALLOW_INTERACTIVE_AUTHORIZATION = 4;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for DBusMessageFlags {
+    type GlibType = gio_sys::GDBusMessageFlags;
+
+    fn to_glib(&self) -> gio_sys::GDBusMessageFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<gio_sys::GDBusMessageFlags> for DBusMessageFlags {
+    fn from_glib(value: gio_sys::GDBusMessageFlags) -> DBusMessageFlags {
+        DBusMessageFlags::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for DBusMessageFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_dbus_message_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for DBusMessageFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for DBusMessageFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for DBusMessageFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+bitflags! {
+    pub struct DBusProxyFlags: u32 {
+        const NONE = 0;
+        const DO_NOT_LOAD_PROPERTIES = 1;
+        const DO_NOT_CONNECT_SIGNALS = 2;
+        const DO_NOT_AUTO_START = 4;
+        const GET_INVALIDATED_PROPERTIES = 8;
+        const DO_NOT_AUTO_START_AT_CONSTRUCTION = 16;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for DBusProxyFlags {
+    type GlibType = gio_sys::GDBusProxyFlags;
+
+    fn to_glib(&self) -> gio_sys::GDBusProxyFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<gio_sys::GDBusProxyFlags> for DBusProxyFlags {
+    fn from_glib(value: gio_sys::GDBusProxyFlags) -> DBusProxyFlags {
+        DBusProxyFlags::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for DBusProxyFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_dbus_proxy_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for DBusProxyFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for DBusProxyFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for DBusProxyFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+bitflags! {
+    pub struct DBusSendMessageFlags: u32 {
+        const NONE = 0;
+        const PRESERVE_SERIAL = 1;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for DBusSendMessageFlags {
+    type GlibType = gio_sys::GDBusSendMessageFlags;
+
+    fn to_glib(&self) -> gio_sys::GDBusSendMessageFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<gio_sys::GDBusSendMessageFlags> for DBusSendMessageFlags {
+    fn from_glib(value: gio_sys::GDBusSendMessageFlags) -> DBusSendMessageFlags {
+        DBusSendMessageFlags::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for DBusSendMessageFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_dbus_send_message_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for DBusSendMessageFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for DBusSendMessageFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for DBusSendMessageFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+bitflags! {
+    pub struct DBusServerFlags: u32 {
+        const NONE = 0;
+        const RUN_IN_THREAD = 1;
+        const AUTHENTICATION_ALLOW_ANONYMOUS = 2;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for DBusServerFlags {
+    type GlibType = gio_sys::GDBusServerFlags;
+
+    fn to_glib(&self) -> gio_sys::GDBusServerFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<gio_sys::GDBusServerFlags> for DBusServerFlags {
+    fn from_glib(value: gio_sys::GDBusServerFlags) -> DBusServerFlags {
+        DBusServerFlags::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for DBusServerFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_dbus_server_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for DBusServerFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for DBusServerFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for DBusServerFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+bitflags! {
+    pub struct DBusSignalFlags: u32 {
+        const NONE = 0;
+        const NO_MATCH_RULE = 1;
+        const MATCH_ARG0_NAMESPACE = 2;
+        const MATCH_ARG0_PATH = 4;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for DBusSignalFlags {
+    type GlibType = gio_sys::GDBusSignalFlags;
+
+    fn to_glib(&self) -> gio_sys::GDBusSignalFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<gio_sys::GDBusSignalFlags> for DBusSignalFlags {
+    fn from_glib(value: gio_sys::GDBusSignalFlags) -> DBusSignalFlags {
+        DBusSignalFlags::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for DBusSignalFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_dbus_signal_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for DBusSignalFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for DBusSignalFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for DBusSignalFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
     }

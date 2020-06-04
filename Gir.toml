@@ -16,6 +16,9 @@ generate = [
     "Gio.ApplicationFlags",
     "Gio.AskPasswordFlags",
     "Gio.BufferedOutputStream",
+    "Gio.BusNameOwnerFlags",
+    "Gio.BusNameWatcherFlags",
+    "Gio.BusType",
     "Gio.CharsetConverter",
     "Gio.ConverterFlags",
     "Gio.ConverterInputStream",
@@ -25,6 +28,32 @@ generate = [
     "Gio.DataOutputStream",
     "Gio.DataStreamByteOrder",
     "Gio.DataStreamNewlineType",
+    "Gio.DBusArgInfo",
+    "Gio.DBusAuthObserver",
+    "Gio.DBusCallFlags",
+    "Gio.DBusCapabilityFlags",
+    "Gio.DBusConnectionFlags",
+    "Gio.DBusInterfaceGetPropertyFunc",
+    "Gio.DBusInterfaceMethodCallFunc",
+    "Gio.DBusInterfaceSetPropertyFunc",
+    "Gio.DBusInterfaceSkeleton",
+    "Gio.DBusInterfaceSkeletonFlags",
+    "Gio.DBusMenuModel",
+    "Gio.DBusMessageByteOrder",
+    "Gio.DBusMessageFilterFunction",
+    "Gio.DBusMessageFlags",
+    "Gio.DBusMessageHeaderField",
+    "Gio.DBusMessageType",
+    "Gio.DBusMethodInfo",
+    "Gio.DBusNodeInfo",
+    "Gio.DBusObject",
+    "Gio.DBusPropertyInfo",
+    "Gio.DBusProxyFlags",
+    "Gio.DBusSendMessageFlags",
+    "Gio.DBusServer",
+    "Gio.DBusServerFlags",
+    "Gio.DBusSignalFlags",
+    "Gio.DBusSignalInfo",
     "Gio.Drive",
     "Gio.DriveStartFlags",
     "Gio.DriveStartStopType",
@@ -151,10 +180,12 @@ manual = [
     "GLib.SeekType",
     "GLib.Source",
     "GLib.SpawnFlags",
+    "GLib.String",
     "GLib.TimeVal",
     "GLib.Variant",
     "GLib.VariantDict",
     "GLib.VariantType",
+    "GObject.Closure",
     "GObject.Object",
     "GObject.Value",
 ]
@@ -181,6 +212,18 @@ status = "generate"
     [[object.function]]
     pattern = "unix_mount.+"
     #impl UnixMountEntry
+    ignore = true
+    [[object.function]]
+    pattern = ".+_with_closures"
+    #wrapped with proper types manually
+    ignore = true
+    [[object.function]]
+    name = "bus_unown_name"
+    #wrapped with newtype manually
+    ignore = true
+    [[object.function]]
+    name = "bus_unwatch_name"
+    #wrapped with newtype manually
     ignore = true
 
 [[object]]
@@ -358,6 +401,103 @@ status = "generate"
     #nullable return value and redundant length
     #return vec of u8
     ignore = true
+
+[[object]]
+name = "Gio.DBusConnection"
+status = "generate"
+    [[object.function]]
+    pattern = ".+_unix_fd.+"
+    cfg_condition = "unix"
+    [[object.function]]
+    pattern = ".*subtree.*"
+    # no closure based way to create subtrees
+    ignore = true
+    [[object.function]]
+    pattern = "register_object_with_closures"
+    #wrapped with proper types manually
+    ignore = true
+    [[object.function]]
+    name = "unregister_object"
+    #wrapped with newtype manually
+    ignore = true
+    [[object.function]]
+    pattern = ".*action_group.*"
+    #wrapped with newtype manually
+    ignore = true
+    [[object.function]]
+    pattern = ".*menu_model.*"
+    #wrapped with newtype manually
+    ignore = true
+    [[object.function]]
+    pattern = ".*filter.*"
+    #wrapped with newtype manually
+    ignore = true
+    [[object.function]]
+    pattern = "signal_.*subscribe"
+    #wrapped with newtype manually
+    ignore = true
+
+[[object]]
+name = "Gio.DBusInterface"
+status = "generate"
+    [[object.function]]
+    name = "get_object"
+    # returns non-thread-safe reference
+    ignore = true
+    [[object.function]]
+    name = "dup_object"
+    rename = "get"
+
+[[object]]
+name = "Gio.DBusInterfaceInfo"
+status = "generate"
+    [[object.function]]
+    pattern = "cache_.+"
+    # should have a Drop wrapper
+    ignore = true
+
+[[object]]
+name = "Gio.DBusMessage"
+status = "generate"
+generate_display_trait = false
+    [[object.function]]
+    name = "get_header_fields"
+    #return vec of u8
+    ignore = true
+    [[object.function]]
+    pattern = ".+_unix_fd.+"
+    cfg_condition = "unix"
+
+[[object]]
+name = "Gio.DBusMethodInvocation"
+status = "generate"
+    [[object.function]]
+    name = "take_error"
+    # wrong mutability
+    ignore = true
+    [[object.function]]
+    pattern = ".+_unix_fd.+"
+    cfg_condition = "unix"
+    [[object.function]]
+    name = "return_gerror"
+    # no need to borrow
+    ignore = true
+    [[object.function]]
+    name = "return_error_literal"
+    # glib::ErrorDomain
+    ignore = true
+
+
+[[object]]
+name = "Gio.DBusProxy"
+status = "generate"
+    [[object.signal]]
+    pattern = ".+"
+    # libc::c_char vs str
+    ignore = true
+    [[object.function]]
+    pattern = ".+_unix_fd.+"
+    cfg_condition = "unix"
 
 [[object]]
 name = "Gio.DesktopAppInfo"
@@ -829,6 +969,42 @@ status = "generate"
     # missing (element-type guint8) annotation
     name = "set_value"
     ignore = true
+
+[[object]]
+name = "Gio.UnixFDList"
+status = "generate"
+cfg_condition = "unix"
+manual_traits = ["UnixFDListExtManual"]
+    [[object.function]]
+    name = "new_from_array"
+    # has to use RawFd
+    ignore = true
+
+    [[object.function]]
+    name = "append"
+    # has to use RawFd
+    ignore = true
+    doc_trait_name = "UnixFDListExtManual"
+
+    [[object.function]]
+    name = "get"
+    # has to use RawFd
+    ignore = true
+    doc_trait_name = "UnixFDListExtManual"
+
+    [[object.function]]
+    name = "peek_fds"
+    # has to use RawFd
+    ignore = true
+    doc_trait_name = "UnixFDListExtManual"
+
+    [[object.function]]
+    name = "steal_fds"
+    # has to use RawFd
+    ignore = true
+    doc_trait_name = "UnixFDListExtManual"
+
+
 
 [[object]]
 name = "Gio.UnixInputStream"

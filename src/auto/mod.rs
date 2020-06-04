@@ -87,6 +87,42 @@ pub use self::converter_output_stream::{
 mod credentials;
 pub use self::credentials::{Credentials, CredentialsClass};
 
+mod dbus_auth_observer;
+pub use self::dbus_auth_observer::{DBusAuthObserver, DBusAuthObserverClass};
+
+mod dbus_connection;
+pub use self::dbus_connection::{DBusConnection, DBusConnectionClass};
+
+mod dbus_interface;
+pub use self::dbus_interface::DBusInterfaceExt;
+pub use self::dbus_interface::{DBusInterface, NONE_DBUS_INTERFACE};
+
+mod dbus_interface_skeleton;
+pub use self::dbus_interface_skeleton::DBusInterfaceSkeletonExt;
+pub use self::dbus_interface_skeleton::{
+    DBusInterfaceSkeleton, DBusInterfaceSkeletonClass, NONE_DBUS_INTERFACE_SKELETON,
+};
+
+mod dbus_menu_model;
+pub use self::dbus_menu_model::{DBusMenuModel, DBusMenuModelClass};
+
+mod dbus_message;
+pub use self::dbus_message::{DBusMessage, DBusMessageClass};
+
+mod dbus_method_invocation;
+pub use self::dbus_method_invocation::{DBusMethodInvocation, DBusMethodInvocationClass};
+
+mod dbus_object;
+pub use self::dbus_object::DBusObjectExt;
+pub use self::dbus_object::{DBusObject, NONE_DBUS_OBJECT};
+
+mod dbus_proxy;
+pub use self::dbus_proxy::DBusProxyExt;
+pub use self::dbus_proxy::{DBusProxy, DBusProxyClass, NONE_DBUS_PROXY};
+
+mod dbus_server;
+pub use self::dbus_server::{DBusServer, DBusServerClass};
+
 mod data_input_stream;
 pub use self::data_input_stream::DataInputStreamBuilder;
 pub use self::data_input_stream::DataInputStreamExt;
@@ -423,6 +459,13 @@ pub use self::tls_server_connection::TlsServerConnectionExt;
 pub use self::tls_server_connection::{TlsServerConnection, NONE_TLS_SERVER_CONNECTION};
 
 #[cfg(any(unix, feature = "dox"))]
+mod unix_fd_list;
+#[cfg(any(unix, feature = "dox"))]
+pub use self::unix_fd_list::UnixFDListExt;
+#[cfg(any(unix, feature = "dox"))]
+pub use self::unix_fd_list::{UnixFDList, UnixFDListClass, NONE_UNIX_FD_LIST};
+
+#[cfg(any(unix, feature = "dox"))]
 mod unix_input_stream;
 #[cfg(any(unix, feature = "dox"))]
 pub use self::unix_input_stream::UnixInputStreamExt;
@@ -469,6 +512,24 @@ pub use self::zlib_decompressor::{
     ZlibDecompressor, ZlibDecompressorClass, NONE_ZLIB_DECOMPRESSOR,
 };
 
+mod dbus_arg_info;
+pub use self::dbus_arg_info::DBusArgInfo;
+
+mod dbus_interface_info;
+pub use self::dbus_interface_info::DBusInterfaceInfo;
+
+mod dbus_method_info;
+pub use self::dbus_method_info::DBusMethodInfo;
+
+mod dbus_node_info;
+pub use self::dbus_node_info::DBusNodeInfo;
+
+mod dbus_property_info;
+pub use self::dbus_property_info::DBusPropertyInfo;
+
+mod dbus_signal_info;
+pub use self::dbus_signal_info::DBusSignalInfo;
+
 mod file_attribute_matcher;
 pub use self::file_attribute_matcher::FileAttributeMatcher;
 
@@ -502,8 +563,12 @@ mod unix_mount_point;
 pub use self::unix_mount_point::UnixMountPoint;
 
 mod enums;
+pub use self::enums::BusType;
 pub use self::enums::ConverterResult;
 pub use self::enums::CredentialsType;
+pub use self::enums::DBusMessageByteOrder;
+pub use self::enums::DBusMessageHeaderField;
+pub use self::enums::DBusMessageType;
 pub use self::enums::DataStreamByteOrder;
 pub use self::enums::DataStreamNewlineType;
 pub use self::enums::DriveStartStopType;
@@ -538,7 +603,18 @@ mod flags;
 pub use self::flags::AppInfoCreateFlags;
 pub use self::flags::ApplicationFlags;
 pub use self::flags::AskPasswordFlags;
+pub use self::flags::BusNameOwnerFlags;
+pub use self::flags::BusNameWatcherFlags;
 pub use self::flags::ConverterFlags;
+pub use self::flags::DBusCallFlags;
+pub use self::flags::DBusCapabilityFlags;
+pub use self::flags::DBusConnectionFlags;
+pub use self::flags::DBusInterfaceSkeletonFlags;
+pub use self::flags::DBusMessageFlags;
+pub use self::flags::DBusProxyFlags;
+pub use self::flags::DBusSendMessageFlags;
+pub use self::flags::DBusServerFlags;
+pub use self::flags::DBusSignalFlags;
 pub use self::flags::DriveStartFlags;
 pub use self::flags::FileCopyFlags;
 pub use self::flags::FileCreateFlags;
@@ -690,6 +766,10 @@ pub mod traits {
     pub use super::ConverterExt;
     pub use super::ConverterInputStreamExt;
     pub use super::ConverterOutputStreamExt;
+    pub use super::DBusInterfaceExt;
+    pub use super::DBusInterfaceSkeletonExt;
+    pub use super::DBusObjectExt;
+    pub use super::DBusProxyExt;
     pub use super::DataInputStreamExt;
     pub use super::DataOutputStreamExt;
     #[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
@@ -756,6 +836,8 @@ pub mod traits {
     pub use super::TlsInteractionExt;
     pub use super::TlsPasswordExt;
     pub use super::TlsServerConnectionExt;
+    #[cfg(any(unix, feature = "dox"))]
+    pub use super::UnixFDListExt;
     #[cfg(any(unix, feature = "dox"))]
     pub use super::UnixInputStreamExt;
     #[cfg(any(unix, feature = "dox"))]
