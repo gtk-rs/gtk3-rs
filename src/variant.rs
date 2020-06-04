@@ -41,6 +41,13 @@
 //! let variant = Variant::new_variant(&hello);
 //! let variant = variant.get_variant().unwrap();
 //! assert_eq!(variant.get_str(), Some("Hello!"));
+//!
+//! // Variant carrying an array
+//! let array = [Variant::from("Hello"), Variant::from("there!")];
+//! let variant = Variant::new_array::<&str>(&array);
+//! assert_eq!(variant.n_children(), 2);
+//! assert_eq!(variant.get_child_value(0).get_str(), Some("Hello"));
+//! assert_eq!(variant.get_child_value(1).get_str(), Some("there!"));
 //! ```
 
 use bytes::Bytes;
@@ -179,6 +186,24 @@ impl Variant {
                 }
                 _ => None,
             }
+        }
+    }
+
+    /// Creates a new GVariant array from children.
+    ///
+    /// All children must be of type `T`.
+    pub fn new_array<T: StaticVariantType>(children: &[Variant]) -> Self {
+        let type_ = T::static_variant_type();
+
+        for child in children {
+            assert_eq!(type_, child.type_());
+        }
+        unsafe {
+            from_glib_none(glib_sys::g_variant_new_array(
+                type_.as_ptr() as *const _,
+                children.to_glib_none().0,
+                children.len(),
+            ))
         }
     }
 
