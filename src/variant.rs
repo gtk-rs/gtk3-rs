@@ -45,7 +45,7 @@ use gstring::GString;
 use std::borrow::Cow;
 use std::cmp::{Eq, Ordering, PartialEq, PartialOrd};
 use std::fmt;
-use std::hash::{Hash, Hasher};
+use std::hash::{BuildHasher, Hash, Hasher};
 use std::slice;
 use std::str;
 use translate::*;
@@ -54,6 +54,7 @@ use StaticType;
 use Type;
 use Value;
 use VariantTy;
+use VariantType;
 
 glib_wrapper! {
     /// A generic immutable value capable of carrying various types.
@@ -378,10 +379,82 @@ impl<T: ToVariant> From<T> for Variant {
     }
 }
 
+impl<T: StaticVariantType> StaticVariantType for [T] {
+    fn static_variant_type() -> Cow<'static, VariantTy> {
+        let child_type = T::static_variant_type();
+        let signature = format!("a{}", child_type.to_str());
+
+        VariantType::new(&signature)
+            .expect("incorrect signature")
+            .into()
+    }
+}
+
+impl<T: StaticVariantType> StaticVariantType for Vec<T> {
+    fn static_variant_type() -> Cow<'static, VariantTy> {
+        <[T]>::static_variant_type()
+    }
+}
+
+impl<K: StaticVariantType, V: StaticVariantType, H: BuildHasher + Default> StaticVariantType
+    for HashMap<K, V, H>
+{
+    fn static_variant_type() -> Cow<'static, VariantTy> {
+        let key_type = K::static_variant_type();
+        let value_type = V::static_variant_type();
+        let signature = format!("a{{{}{}}}", key_type.to_str(), value_type.to_str());
+
+        VariantType::new(&signature)
+            .expect("incorrect signature")
+            .into()
+    }
+}
+
+macro_rules! tuple_impls {
+    ($($len:expr => ($($n:tt $name:ident)+))+) => {
+        $(
+            impl<$($name),+> StaticVariantType for ($($name,)+)
+            where
+                $($name: StaticVariantType,)+
+            {
+                fn static_variant_type() -> Cow<'static, VariantTy> {
+                    let mut signature = String::with_capacity(255);
+                    signature.push('(');
+                    $(
+                        signature.push_str($name::static_variant_type().to_str());
+                    )+
+                    signature.push(')');
+
+                    VariantType::new(&signature).expect("incorrect signature").into()
+                }
+            }
+        )+
+    }
+}
+
+tuple_impls! {
+    1 => (0 T0)
+    2 => (0 T0 1 T1)
+    3 => (0 T0 1 T1 2 T2)
+    4 => (0 T0 1 T1 2 T2 3 T3)
+    5 => (0 T0 1 T1 2 T2 3 T3 4 T4)
+    6 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5)
+    7 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6)
+    8 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7)
+    9 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7 8 T8)
+    10 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7 8 T8 9 T9)
+    11 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7 8 T8 9 T9 10 T10)
+    12 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7 8 T8 9 T9 10 T10 11 T11)
+    13 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7 8 T8 9 T9 10 T10 11 T11 12 T12)
+    14 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7 8 T8 9 T9 10 T10 11 T11 12 T12 13 T13)
+    15 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7 8 T8 9 T9 10 T10 11 T11 12 T12 13 T13 14 T14)
+    16 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7 8 T8 9 T9 10 T10 11 T11 12 T12 13 T13 14 T14 15 T15)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::collections::HashSet;
+    use std::collections::{HashMap, HashSet};
 
     macro_rules! unsigned {
         ($name:ident, $ty:ident) => {
@@ -453,5 +526,20 @@ mod tests {
         set.insert(v1);
         assert!(set.contains(&v2));
         assert!(!set.contains(&v3));
+
+        assert_eq!(
+            <HashMap<&str, (&str, u8, u32)>>::static_variant_type().to_str(),
+            "a{s(syu)}"
+        );
+    }
+
+    #[test]
+    fn test_array() {
+        // Test just the signature for now.
+        assert_eq!(<Vec<&str>>::static_variant_type().to_str(), "as");
+        assert_eq!(
+            <Vec<(&str, u8, u32)>>::static_variant_type().to_str(),
+            "a(syu)"
+        );
     }
 }
