@@ -9,7 +9,6 @@ use std::boxed::Box as Box_;
 use std::mem;
 use std::ptr;
 use translate::*;
-use types;
 use Bytes;
 use ChecksumType;
 use Error;
@@ -1308,10 +1307,6 @@ pub fn uuid_string_is_valid(str: &str) -> bool {
 #[cfg(any(feature = "v2_52", feature = "dox"))]
 pub fn uuid_string_random() -> GString {
     unsafe { from_glib_full(glib_sys::g_uuid_string_random()) }
-}
-
-pub fn variant_get_gtype() -> types::Type {
-    unsafe { from_glib(glib_sys::g_variant_get_gtype()) }
 }
 
 //pub fn vasprintf(string: &str, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> i32 {
