@@ -21,6 +21,7 @@ addons:
     packages:
     - libgtk-3-dev
     - libmount-dev
+    - xvfb
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
@@ -34,7 +35,8 @@ script:
       make regen_check;
     fi
   - cargo doc --features "dox,embed-lgpl-docs"
-  - cargo test --features "$FEATURES,embed-lgpl-docs"
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then xvfb-run cargo test --features "$FEATURES,embed-lgpl-docs"; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then cargo test --features "$FEATURES,embed-lgpl-docs"; fi
   # catch any sneaked in lgpl docs
   - cargo build --features "$FEATURES,purge-lgpl-docs" --jobs 1
   - git diff -R --exit-code

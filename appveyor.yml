@@ -17,8 +17,8 @@ install:
 
 build_script:
   - cargo doc --features "dox"
-  - cargo test
-  - cargo test --features v3_24
+  - IF "%BITS%" == "64" cargo test
+  - IF "%BITS%" == "64" cargo test --features v3_24
   - cargo doc --features "dox"
   - mkdir .cargo
   - echo paths = ["."] > .cargo\config
