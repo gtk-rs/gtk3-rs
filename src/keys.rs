@@ -36,6 +36,7 @@ impl ::std::ops::DerefMut for Key {
 
 impl FromGlib<u32> for Key {
     fn from_glib(value: u32) -> Self {
+        skip_assert_initialized!();
         Key(value)
     }
 }
