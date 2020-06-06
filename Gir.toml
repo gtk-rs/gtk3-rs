@@ -432,6 +432,10 @@ status = "generate"
     pattern = "POLLFD_FORMAT"
     #for C printf
     ignore = true
+    [[object.function]]
+    name = "variant_get_gtype"
+    # get_type() function that should be used in StaticType impl instead
+    ignore = true
 
 [[object]]
 name = "GLib.Checksum"
