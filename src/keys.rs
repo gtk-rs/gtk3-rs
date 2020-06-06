@@ -962,7 +962,8 @@ pub mod constants {
     pub const Serbian_nje: Key = Key(gdk_sys::GDK_KEY_Serbian_nje as u32);
     pub const Serbian_tshe: Key = Key(gdk_sys::GDK_KEY_Serbian_tshe as u32);
     pub const Macedonia_kje: Key = Key(gdk_sys::GDK_KEY_Macedonia_kje as u32);
-    pub const Ukrainian_ghe_with_upturn: Key = Key(gdk_sys::GDK_KEY_Ukrainian_ghe_with_upturn as u32);
+    pub const Ukrainian_ghe_with_upturn: Key =
+        Key(gdk_sys::GDK_KEY_Ukrainian_ghe_with_upturn as u32);
     pub const Byelorussian_shortu: Key = Key(gdk_sys::GDK_KEY_Byelorussian_shortu as u32);
     pub const Cyrillic_dzhe: Key = Key(gdk_sys::GDK_KEY_Cyrillic_dzhe as u32);
     pub const Serbian_dze: Key = Key(gdk_sys::GDK_KEY_Serbian_dze as u32);
@@ -985,7 +986,8 @@ pub mod constants {
     pub const Serbian_NJE: Key = Key(gdk_sys::GDK_KEY_Serbian_NJE as u32);
     pub const Serbian_TSHE: Key = Key(gdk_sys::GDK_KEY_Serbian_TSHE as u32);
     pub const Macedonia_KJE: Key = Key(gdk_sys::GDK_KEY_Macedonia_KJE as u32);
-    pub const Ukrainian_GHE_WITH_UPTURN: Key = Key(gdk_sys::GDK_KEY_Ukrainian_GHE_WITH_UPTURN as u32);
+    pub const Ukrainian_GHE_WITH_UPTURN: Key =
+        Key(gdk_sys::GDK_KEY_Ukrainian_GHE_WITH_UPTURN as u32);
     pub const Byelorussian_SHORTU: Key = Key(gdk_sys::GDK_KEY_Byelorussian_SHORTU as u32);
     pub const Cyrillic_DZHE: Key = Key(gdk_sys::GDK_KEY_Cyrillic_DZHE as u32);
     pub const Serbian_DZE: Key = Key(gdk_sys::GDK_KEY_Serbian_DZE as u32);
@@ -1147,8 +1149,10 @@ pub mod constants {
     pub const rightmiddlecurlybrace: Key = Key(gdk_sys::GDK_KEY_rightmiddlecurlybrace as u32);
     pub const topleftsummation: Key = Key(gdk_sys::GDK_KEY_topleftsummation as u32);
     pub const botleftsummation: Key = Key(gdk_sys::GDK_KEY_botleftsummation as u32);
-    pub const topvertsummationconnector: Key = Key(gdk_sys::GDK_KEY_topvertsummationconnector as u32);
-    pub const botvertsummationconnector: Key = Key(gdk_sys::GDK_KEY_botvertsummationconnector as u32);
+    pub const topvertsummationconnector: Key =
+        Key(gdk_sys::GDK_KEY_topvertsummationconnector as u32);
+    pub const botvertsummationconnector: Key =
+        Key(gdk_sys::GDK_KEY_botvertsummationconnector as u32);
     pub const toprightsummation: Key = Key(gdk_sys::GDK_KEY_toprightsummation as u32);
     pub const botrightsummation: Key = Key(gdk_sys::GDK_KEY_botrightsummation as u32);
     pub const rightmiddlesummation: Key = Key(gdk_sys::GDK_KEY_rightmiddlesummation as u32);
@@ -1528,12 +1532,14 @@ pub mod constants {
     pub const Hangul_SunkyeongeumPieub: Key = Key(gdk_sys::GDK_KEY_Hangul_SunkyeongeumPieub as u32);
     pub const Hangul_PanSios: Key = Key(gdk_sys::GDK_KEY_Hangul_PanSios as u32);
     pub const Hangul_KkogjiDalrinIeung: Key = Key(gdk_sys::GDK_KEY_Hangul_KkogjiDalrinIeung as u32);
-    pub const Hangul_SunkyeongeumPhieuf: Key = Key(gdk_sys::GDK_KEY_Hangul_SunkyeongeumPhieuf as u32);
+    pub const Hangul_SunkyeongeumPhieuf: Key =
+        Key(gdk_sys::GDK_KEY_Hangul_SunkyeongeumPhieuf as u32);
     pub const Hangul_YeorinHieuh: Key = Key(gdk_sys::GDK_KEY_Hangul_YeorinHieuh as u32);
     pub const Hangul_AraeA: Key = Key(gdk_sys::GDK_KEY_Hangul_AraeA as u32);
     pub const Hangul_AraeAE: Key = Key(gdk_sys::GDK_KEY_Hangul_AraeAE as u32);
     pub const Hangul_J_PanSios: Key = Key(gdk_sys::GDK_KEY_Hangul_J_PanSios as u32);
-    pub const Hangul_J_KkogjiDalrinIeung: Key = Key(gdk_sys::GDK_KEY_Hangul_J_KkogjiDalrinIeung as u32);
+    pub const Hangul_J_KkogjiDalrinIeung: Key =
+        Key(gdk_sys::GDK_KEY_Hangul_J_KkogjiDalrinIeung as u32);
     pub const Hangul_J_YeorinHieuh: Key = Key(gdk_sys::GDK_KEY_Hangul_J_YeorinHieuh as u32);
     pub const Korean_Won: Key = Key(gdk_sys::GDK_KEY_Korean_Won as u32);
     pub const Armenian_ligature_ew: Key = Key(gdk_sys::GDK_KEY_Armenian_ligature_ew as u32);
