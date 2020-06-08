@@ -1984,8 +1984,6 @@ extern "C" {
     pub fn atk_plug_get_type() -> GType;
     pub fn atk_plug_new() -> *mut AtkObject;
     pub fn atk_plug_get_id(plug: *mut AtkPlug) -> *mut c_char;
-    #[cfg(any(feature = "v2_35", feature = "dox"))]
-    pub fn atk_plug_set_child(plug: *mut AtkPlug, child: *mut AtkObject);
 
     //=========================================================================
     // AtkRegistry
