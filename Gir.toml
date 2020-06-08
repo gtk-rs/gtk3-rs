@@ -82,6 +82,8 @@ generate = [
     "Gio.IOStreamSpliceFlags",
     "Gio.ListModel",
     "Gio.LoadableIcon",
+    "Gio.MemoryMonitor",
+    "Gio.MemoryMonitorWarningLevel",
     "Gio.Menu",
     "Gio.MenuAttributeIter",
     "Gio.MenuItem",

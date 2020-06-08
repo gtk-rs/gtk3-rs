@@ -255,6 +255,13 @@ pub use self::memory_input_stream::{
     MemoryInputStream, MemoryInputStreamClass, NONE_MEMORY_INPUT_STREAM,
 };
 
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+mod memory_monitor;
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+pub use self::memory_monitor::MemoryMonitorExt;
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+pub use self::memory_monitor::{MemoryMonitor, NONE_MEMORY_MONITOR};
+
 mod memory_output_stream;
 pub use self::memory_output_stream::MemoryOutputStreamExt;
 pub use self::memory_output_stream::{
@@ -578,6 +585,8 @@ pub use self::enums::FileAttributeType;
 pub use self::enums::FileMonitorEvent;
 pub use self::enums::FileType;
 pub use self::enums::IOErrorEnum;
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+pub use self::enums::MemoryMonitorWarningLevel;
 pub use self::enums::MountOperationResult;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 pub use self::enums::NetworkConnectivity;
@@ -799,6 +808,8 @@ pub mod traits {
     pub use super::ListStoreExt;
     pub use super::LoadableIconExt;
     pub use super::MemoryInputStreamExt;
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
+    pub use super::MemoryMonitorExt;
     pub use super::MemoryOutputStreamExt;
     pub use super::MenuAttributeIterExt;
     pub use super::MenuLinkIterExt;
