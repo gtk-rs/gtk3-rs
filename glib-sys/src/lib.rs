@@ -6079,6 +6079,7 @@ extern "C" {
     ) -> c_uint;
     pub fn g_unix_fd_source_new(fd: c_int, condition: GIOCondition) -> *mut GSource;
     #[cfg(any(feature = "v2_64", feature = "dox"))]
+    #[cfg(any(unix, feature = "dox"))]
     pub fn g_unix_get_passwd_entry(
         user_name: *const c_char,
         error: *mut *mut GError,
