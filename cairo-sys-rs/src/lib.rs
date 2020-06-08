@@ -740,13 +740,17 @@ extern "C" {
     pub fn cairo_glyph_free(glyphs: *mut Glyph);
     pub fn cairo_text_cluster_allocate(num_clusters: c_int) -> *mut TextCluster;
     pub fn cairo_text_cluster_free(clusters: *mut TextCluster);
+
+    #[cfg(any(feature = "freetype", feature = "dox"))]
     pub fn cairo_ft_font_face_get_synthesize(
         font_face: *mut cairo_font_face_t,
     ) -> cairo_ft_synthesize_t;
+    #[cfg(any(feature = "freetype", feature = "dox"))]
     pub fn cairo_ft_font_face_set_synthesize(
         font_face: *mut cairo_font_face_t,
         synth_flags: cairo_ft_synthesize_t,
     );
+    #[cfg(any(feature = "freetype", feature = "dox"))]
     pub fn cairo_ft_font_face_unset_synthesize(
         font_face: *mut cairo_font_face_t,
         synth_flags: cairo_ft_synthesize_t,

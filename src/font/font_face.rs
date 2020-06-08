@@ -6,7 +6,11 @@ use std::ffi::{CStr, CString};
 #[cfg(not(feature = "use_glib"))]
 use std::ptr;
 
-use enums::{FontSlant, FontType, FontWeight, FtSynthesize};
+use enums::{FontSlant, FontType, FontWeight};
+
+#[cfg(any(feature = "freetype", feature = "dox"))]
+use enums::FtSynthesize;
+
 use utils::status_to_result;
 
 #[cfg(feature = "use_glib")]
@@ -92,14 +96,17 @@ impl FontFace {
         unsafe { ffi::cairo_font_face_get_reference_count(self.to_raw_none()) as usize }
     }
 
+    #[cfg(any(feature = "freetype", feature = "dox"))]
     pub fn get_synthesize(&self) -> FtSynthesize {
         unsafe { FtSynthesize::from(ffi::cairo_ft_font_face_get_synthesize(self.to_raw_none())) }
     }
 
+    #[cfg(any(feature = "freetype", feature = "dox"))]
     pub fn set_synthesize(&self, synth_flags: FtSynthesize) {
         unsafe { ffi::cairo_ft_font_face_set_synthesize(self.to_raw_none(), synth_flags.into()) }
     }
 
+    #[cfg(any(feature = "freetype", feature = "dox"))]
     pub fn unset_synthesize(&self, synth_flags: FtSynthesize) {
         unsafe { ffi::cairo_ft_font_face_unset_synthesize(self.to_raw_none(), synth_flags.into()) }
     }
