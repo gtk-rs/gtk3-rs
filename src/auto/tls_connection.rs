@@ -131,6 +131,7 @@ pub trait TlsConnectionExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[cfg_attr(feature = "v2_60", deprecated)]
     fn connect_property_rehandshake_mode_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,

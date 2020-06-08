@@ -726,6 +726,8 @@ pub use self::constants::FILE_ATTRIBUTE_UNIX_MODE;
 pub use self::constants::FILE_ATTRIBUTE_UNIX_NLINK;
 pub use self::constants::FILE_ATTRIBUTE_UNIX_RDEV;
 pub use self::constants::FILE_ATTRIBUTE_UNIX_UID;
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+pub use self::constants::MEMORY_MONITOR_EXTENSION_POINT_NAME;
 pub use self::constants::MENU_ATTRIBUTE_ACTION;
 pub use self::constants::MENU_ATTRIBUTE_ACTION_NAMESPACE;
 pub use self::constants::MENU_ATTRIBUTE_ICON;

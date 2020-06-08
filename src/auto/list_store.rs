@@ -5,16 +5,14 @@
 use gio_sys;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 use glib;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
 use glib::object::Cast;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
 use glib::object::IsA;
 use glib::translate::*;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
 use glib::StaticType;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
 use glib::ToValue;
 use std::fmt;
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+use std::mem;
 use ListModel;
 
 glib_wrapper! {
@@ -71,6 +69,12 @@ pub trait ListStoreExt: 'static {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn append<P: IsA<glib::Object>>(&self, item: &P);
 
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
+    fn find<P: IsA<glib::Object>>(&self, item: &P) -> Option<u32>;
+
+    //#[cfg(any(feature = "v2_64", feature = "dox"))]
+    //fn find_with_equal_func<P: IsA<glib::Object>>(&self, item: &P, equal_func: /*Unimplemented*/FnMut(/*Unimplemented*/Option<Fundamental: Pointer>, /*Unimplemented*/Option<Fundamental: Pointer>) -> bool) -> Option<u32>;
+
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn insert<P: IsA<glib::Object>>(&self, position: u32, item: &P);
 
@@ -94,6 +98,29 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
             );
         }
     }
+
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
+    fn find<P: IsA<glib::Object>>(&self, item: &P) -> Option<u32> {
+        unsafe {
+            let mut position = mem::MaybeUninit::uninit();
+            let ret = from_glib(gio_sys::g_list_store_find(
+                self.as_ref().to_glib_none().0,
+                item.as_ref().to_glib_none().0,
+                position.as_mut_ptr(),
+            ));
+            let position = position.assume_init();
+            if ret {
+                Some(position)
+            } else {
+                None
+            }
+        }
+    }
+
+    //#[cfg(any(feature = "v2_64", feature = "dox"))]
+    //fn find_with_equal_func<P: IsA<glib::Object>>(&self, item: &P, equal_func: /*Unimplemented*/FnMut(/*Unimplemented*/Option<Fundamental: Pointer>, /*Unimplemented*/Option<Fundamental: Pointer>) -> bool) -> Option<u32> {
+    //    unsafe { TODO: call gio_sys:g_list_store_find_with_equal_func() }
+    //}
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn insert<P: IsA<glib::Object>>(&self, position: u32, item: &P) {

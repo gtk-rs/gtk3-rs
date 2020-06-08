@@ -514,6 +514,13 @@ pub static FILE_ATTRIBUTE_UNIX_UID: once_cell::sync::Lazy<&'static str> =
             .to_str()
             .unwrap()
     });
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+pub static MEMORY_MONITOR_EXTENSION_POINT_NAME: once_cell::sync::Lazy<&'static str> =
+    once_cell::sync::Lazy::new(|| unsafe {
+        CStr::from_ptr(gio_sys::G_MEMORY_MONITOR_EXTENSION_POINT_NAME)
+            .to_str()
+            .unwrap()
+    });
 pub static MENU_ATTRIBUTE_ACTION: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(gio_sys::G_MENU_ATTRIBUTE_ACTION)
