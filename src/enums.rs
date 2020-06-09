@@ -46,6 +46,7 @@ macro_rules! gvalue_impl {
 }
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum Antialias {
     Default,
 
@@ -117,6 +118,7 @@ impl fmt::Display for Antialias {
 gvalue_impl!(Antialias, ffi::gobject::cairo_gobject_antialias_get_type);
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum FillRule {
     Winding,
     EvenOdd,
@@ -164,6 +166,7 @@ impl fmt::Display for FillRule {
 gvalue_impl!(FillRule, ffi::gobject::cairo_gobject_fill_rule_get_type);
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum LineCap {
     Butt,
     Round,
@@ -215,6 +218,7 @@ impl fmt::Display for LineCap {
 gvalue_impl!(LineCap, ffi::gobject::cairo_gobject_line_cap_get_type);
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum LineJoin {
     Miter,
     Round,
@@ -266,6 +270,7 @@ impl fmt::Display for LineJoin {
 gvalue_impl!(LineJoin, ffi::gobject::cairo_gobject_line_join_get_type);
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum Operator {
     Clear,
 
@@ -425,6 +430,7 @@ impl fmt::Display for Operator {
 gvalue_impl!(Operator, ffi::gobject::cairo_gobject_operator_get_type);
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum PathDataType {
     MoveTo,
     LineTo,
@@ -483,6 +489,7 @@ gvalue_impl!(
 );
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum Content {
     Color,
     Alpha,
@@ -534,6 +541,7 @@ impl fmt::Display for Content {
 gvalue_impl!(Content, ffi::gobject::cairo_gobject_content_get_type);
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum Extend {
     None,
     Repeat,
@@ -589,6 +597,7 @@ impl fmt::Display for Extend {
 gvalue_impl!(Extend, ffi::gobject::cairo_gobject_extend_get_type);
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum Filter {
     Fast,
     Good,
@@ -652,6 +661,7 @@ impl fmt::Display for Filter {
 gvalue_impl!(Filter, ffi::gobject::cairo_gobject_filter_get_type);
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum PatternType {
     Solid,
     Surface,
@@ -718,6 +728,7 @@ gvalue_impl!(
 );
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum FontSlant {
     Normal,
     Italic,
@@ -769,6 +780,7 @@ impl fmt::Display for FontSlant {
 gvalue_impl!(FontSlant, ffi::gobject::cairo_gobject_font_slant_get_type);
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum FontWeight {
     Normal,
     Bold,
@@ -816,6 +828,7 @@ impl fmt::Display for FontWeight {
 gvalue_impl!(FontWeight, ffi::gobject::cairo_gobject_font_weight_get_type);
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum TextClusterFlags {
     None,
     Backward,
@@ -866,6 +879,7 @@ gvalue_impl!(
 );
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum FontType {
     FontTypeToy,
     FontTypeFt,
@@ -925,6 +939,7 @@ impl fmt::Display for FontType {
 gvalue_impl!(FontType, ffi::gobject::cairo_gobject_font_type_get_type);
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum SubpixelOrder {
     Default,
     Rgb,
@@ -987,6 +1002,7 @@ gvalue_impl!(
 );
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum HintStyle {
     Default,
     None,
@@ -1046,6 +1062,7 @@ impl fmt::Display for HintStyle {
 gvalue_impl!(HintStyle, ffi::gobject::cairo_gobject_hint_style_get_type);
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum HintMetrics {
     Default,
     Off,
@@ -1100,6 +1117,7 @@ gvalue_impl!(
 );
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[non_exhaustive]
 pub enum SurfaceType {
     Image,
     Pdf,
@@ -1243,6 +1261,7 @@ gvalue_impl!(
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
+#[non_exhaustive]
 pub enum SvgUnit {
     User,
     Em,
@@ -1322,6 +1341,7 @@ impl fmt::Display for SvgUnit {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[non_exhaustive]
 pub enum Format {
     Invalid,
     ARgb32,
@@ -1403,6 +1423,7 @@ impl Format {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[non_exhaustive]
 pub enum RegionOverlap {
     In,
     Out,
@@ -1466,6 +1487,7 @@ bitflags! {
 
 #[cfg(any(feature = "pdf", feature = "dox"))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[non_exhaustive]
 pub enum PdfMetadata {
     Title,
     Author,
@@ -1534,6 +1556,7 @@ impl fmt::Display for PdfMetadata {
 
 #[cfg(any(feature = "pdf", feature = "dox"))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[non_exhaustive]
 pub enum PdfVersion {
     _1_4,
     _1_5,
@@ -1582,6 +1605,7 @@ impl fmt::Display for PdfVersion {
 
 #[cfg(any(feature = "svg", feature = "dox"))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[non_exhaustive]
 pub enum SvgVersion {
     _1_1,
     _1_2,
@@ -1630,6 +1654,7 @@ impl fmt::Display for SvgVersion {
 
 #[cfg(any(feature = "ps", feature = "dox"))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[non_exhaustive]
 pub enum PsLevel {
     _2,
     _3,
@@ -1677,6 +1702,7 @@ impl fmt::Display for PsLevel {
 }
 
 #[derive(Clone, PartialEq, PartialOrd, Copy, Debug)]
+#[non_exhaustive]
 pub enum MeshCorner {
     MeshCorner0,
     MeshCorner1,
@@ -1730,6 +1756,7 @@ impl fmt::Display for MeshCorner {
 
 #[cfg(any(feature = "freetype", feature = "dox"))]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum FtSynthesize {
     Bold,
     Oblique,
@@ -1777,6 +1804,7 @@ impl fmt::Display for FtSynthesize {
 }
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum ScriptMode {
     Ascii,
     Binary,
@@ -1821,6 +1849,7 @@ impl fmt::Display for ScriptMode {
 }
 
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+#[non_exhaustive]
 pub enum DeviceType {
     Ascii,
     Binary,
