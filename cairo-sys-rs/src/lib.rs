@@ -53,6 +53,7 @@ pub type cairo_operator_t = c_int;
 pub type cairo_pattern_type_t = c_int;
 pub type cairo_path_data_type_t = c_int;
 pub type cairo_region_overlap_t = c_int;
+#[cfg(any(feature = "script", feature = "dox"))]
 pub type cairo_script_mode_t = c_int;
 pub type cairo_status_t = c_int;
 pub type cairo_subpixel_order_t = c_int;
@@ -1367,27 +1368,35 @@ extern "C" {
     pub fn cairo_quartz_surface_get_cg_context(surface: *mut cairo_surface_t) -> CGContextRef;
 
     // CAIRO SCRIPT
+    #[cfg(any(feature = "script", feature = "dox"))]
     pub fn cairo_script_create(filename: *const c_char) -> *mut cairo_device_t;
+    #[cfg(any(feature = "script", feature = "dox"))]
     pub fn cairo_script_create_for_stream(
         write_func: cairo_write_func_t,
         closure: *mut c_void,
     ) -> cairo_status_t;
+    #[cfg(any(feature = "script", feature = "dox"))]
     pub fn cairo_script_from_recording_surface(
         script: *mut cairo_device_t,
         surface: *mut cairo_surface_t,
     ) -> cairo_status_t;
+    #[cfg(any(feature = "script", feature = "dox"))]
     pub fn cairo_script_get_mode(script: *mut cairo_device_t) -> cairo_script_mode_t;
+    #[cfg(any(feature = "script", feature = "dox"))]
     pub fn cairo_script_set_mode(script: *mut cairo_device_t, mode: cairo_script_mode_t);
+    #[cfg(any(feature = "script", feature = "dox"))]
     pub fn cairo_script_surface_create(
         script: *mut cairo_device_t,
         content: cairo_content_t,
         width: c_double,
         height: c_double,
     ) -> *mut cairo_surface_t;
+    #[cfg(any(feature = "script", feature = "dox"))]
     pub fn cairo_script_surface_create_for_target(
         script: *mut cairo_device_t,
         target: *mut cairo_surface_t,
     ) -> *mut cairo_surface_t;
+    #[cfg(any(feature = "script", feature = "dox"))]
     pub fn cairo_script_write_comment(
         script: *mut cairo_device_t,
         comment: *const c_char,

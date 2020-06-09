@@ -1803,6 +1803,7 @@ impl fmt::Display for FtSynthesize {
     }
 }
 
+#[cfg(any(feature = "script", feature = "dox"))]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
 #[non_exhaustive]
 pub enum ScriptMode {
@@ -1812,6 +1813,7 @@ pub enum ScriptMode {
     __Unknown(i32),
 }
 
+#[cfg(any(feature = "script", feature = "dox"))]
 #[doc(hidden)]
 impl Into<ffi::cairo_script_mode_t> for ScriptMode {
     fn into(self) -> ffi::cairo_script_mode_t {
@@ -1823,6 +1825,7 @@ impl Into<ffi::cairo_script_mode_t> for ScriptMode {
     }
 }
 
+#[cfg(any(feature = "script", feature = "dox"))]
 #[doc(hidden)]
 impl From<ffi::cairo_script_mode_t> for ScriptMode {
     fn from(value: ffi::cairo_script_mode_t) -> Self {
@@ -1834,6 +1837,7 @@ impl From<ffi::cairo_script_mode_t> for ScriptMode {
     }
 }
 
+#[cfg(any(feature = "script", feature = "dox"))]
 impl fmt::Display for ScriptMode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(

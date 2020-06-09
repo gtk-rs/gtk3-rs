@@ -5,7 +5,10 @@
 use std::ffi::CString;
 use std::path::Path;
 
-use enums::{Content, DeviceType, ScriptMode};
+#[cfg(any(feature = "script", feature = "dox"))]
+use enums::ScriptMode;
+use enums::{Content, DeviceType};
+
 use error::Error;
 use ffi;
 #[cfg(feature = "use_glib")]
@@ -49,6 +52,7 @@ impl Device {
         self.0.as_ptr()
     }
 
+    #[cfg(any(feature = "script", feature = "dox"))]
     pub fn create<P: AsRef<Path>>(filename: P) -> Option<Device> {
         unsafe {
             let filename = filename.as_ref().to_string_lossy().into_owned();
@@ -62,6 +66,7 @@ impl Device {
         }
     }
 
+    #[cfg(any(feature = "script", feature = "dox"))]
     pub fn from_recording_surface(&self, surface: &RecordingSurface) -> Result<(), Error> {
         unsafe {
             let status =
@@ -70,14 +75,17 @@ impl Device {
         }
     }
 
+    #[cfg(any(feature = "script", feature = "dox"))]
     pub fn get_mode(&self) -> ScriptMode {
         unsafe { ScriptMode::from(ffi::cairo_script_get_mode(self.to_raw_none())) }
     }
 
+    #[cfg(any(feature = "script", feature = "dox"))]
     pub fn set_mode(&self, mode: ScriptMode) {
         unsafe { ffi::cairo_script_set_mode(self.to_raw_none(), mode.into()) }
     }
 
+    #[cfg(any(feature = "script", feature = "dox"))]
     pub fn surface_create(
         &self,
         content: Content,
@@ -94,6 +102,7 @@ impl Device {
         }
     }
 
+    #[cfg(any(feature = "script", feature = "dox"))]
     pub fn surface_create_for_target(&self, target: &Surface) -> Result<Surface, Error> {
         unsafe {
             Ok(Surface::from_raw_full(
@@ -105,6 +114,7 @@ impl Device {
         }
     }
 
+    #[cfg(any(feature = "script", feature = "dox"))]
     pub fn write_comment(&self, comment: &str) {
         unsafe {
             let len = comment.len();
