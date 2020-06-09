@@ -17,6 +17,12 @@ pub static CSET_a_2_z: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(glib_sys::G_CSET_a_2_z).to_str().unwrap()
     });
+pub static KEY_FILE_DESKTOP_ACTION_GROUP_PREFIX: once_cell::sync::Lazy<&'static str> =
+    once_cell::sync::Lazy::new(|| unsafe {
+        CStr::from_ptr(glib_sys::G_KEY_FILE_DESKTOP_ACTION_GROUP_PREFIX)
+            .to_str()
+            .unwrap()
+    });
 pub static KEY_FILE_DESKTOP_GROUP: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(glib_sys::G_KEY_FILE_DESKTOP_GROUP)
@@ -53,9 +59,21 @@ pub static KEY_FILE_DESKTOP_KEY_EXEC: once_cell::sync::Lazy<&'static str> =
             .to_str()
             .unwrap()
     });
+pub static KEY_FILE_DESKTOP_KEY_FULLNAME: once_cell::sync::Lazy<&'static str> =
+    once_cell::sync::Lazy::new(|| unsafe {
+        CStr::from_ptr(glib_sys::G_KEY_FILE_DESKTOP_KEY_FULLNAME)
+            .to_str()
+            .unwrap()
+    });
 pub static KEY_FILE_DESKTOP_KEY_GENERIC_NAME: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(glib_sys::G_KEY_FILE_DESKTOP_KEY_GENERIC_NAME)
+            .to_str()
+            .unwrap()
+    });
+pub static KEY_FILE_DESKTOP_KEY_GETTEXT_DOMAIN: once_cell::sync::Lazy<&'static str> =
+    once_cell::sync::Lazy::new(|| unsafe {
+        CStr::from_ptr(glib_sys::G_KEY_FILE_DESKTOP_KEY_GETTEXT_DOMAIN)
             .to_str()
             .unwrap()
     });
@@ -68,6 +86,12 @@ pub static KEY_FILE_DESKTOP_KEY_HIDDEN: once_cell::sync::Lazy<&'static str> =
 pub static KEY_FILE_DESKTOP_KEY_ICON: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(glib_sys::G_KEY_FILE_DESKTOP_KEY_ICON)
+            .to_str()
+            .unwrap()
+    });
+pub static KEY_FILE_DESKTOP_KEY_KEYWORDS: once_cell::sync::Lazy<&'static str> =
+    once_cell::sync::Lazy::new(|| unsafe {
+        CStr::from_ptr(glib_sys::G_KEY_FILE_DESKTOP_KEY_KEYWORDS)
             .to_str()
             .unwrap()
     });
