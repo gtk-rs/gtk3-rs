@@ -28,7 +28,6 @@ generate = [
     # "Pango.ScriptForLang",
     # "Pango.ScriptIter",
     "Pango.Alignment",
-    "Pango.Attribute",
     "Pango.AttrType",
     "Pango.BidiType",
     "Pango.Color",
@@ -115,11 +114,21 @@ status = "generate"
     ignore = true
 
 [[object]]
+name = "Pango.Attribute"
+status = "generate"
+    [[object.function]]
+    name = "get_type"
+    version = "1.44"
+
+[[object]]
 name = "Pango.AttrIterator"
 status = "generate"
     [[object.function]]
     name = "get_font"
     ignore = true
+    [[object.function]]
+    name = "get_type"
+    version = "1.44"
 
 [[object]]
 name = "Pango.AttrList"
@@ -160,6 +169,9 @@ status = "generate"
     name = "new"
         [object.function.return]
         nullable = false
+    [[object.function]]
+    name = "get_type"
+    version = "1.44"
 
 [[object]]
 name = "Pango.Font"
