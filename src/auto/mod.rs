@@ -53,9 +53,6 @@ pub use self::attribute::Attribute;
 mod color;
 pub use self::color::Color;
 
-mod coverage;
-pub use self::coverage::Coverage;
-
 mod font_description;
 pub use self::font_description::FontDescription;
 

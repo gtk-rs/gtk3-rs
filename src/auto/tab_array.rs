@@ -28,7 +28,7 @@ impl TabArray {
         }
     }
 
-    //pub fn new_with_positions(size: i32, positions_in_pixels: bool, first_alignment: TabAlign, first_position: i32, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> TabArray {
+    //pub fn with_positions(size: i32, positions_in_pixels: bool, first_alignment: TabAlign, first_position: i32, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> TabArray {
     //    unsafe { TODO: call pango_sys:pango_tab_array_new_with_positions() }
     //}
 

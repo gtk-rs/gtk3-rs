@@ -21,19 +21,10 @@ use Style;
 use Variant;
 use Weight;
 
+//#[cfg_attr(feature = "v1_44", deprecated)]
 //pub fn break_(text: &str, analysis: &mut Analysis, attrs: /*Ignored*/&[&LogAttr]) {
 //    unsafe { TODO: call pango_sys:pango_break() }
 //}
-
-#[cfg_attr(feature = "v1_38", deprecated)]
-pub fn config_key_get(key: &str) -> Option<GString> {
-    unsafe { from_glib_full(pango_sys::pango_config_key_get(key.to_glib_none().0)) }
-}
-
-#[cfg_attr(feature = "v1_38", deprecated)]
-pub fn config_key_get_system(key: &str) -> Option<GString> {
-    unsafe { from_glib_full(pango_sys::pango_config_key_get_system(key.to_glib_none().0)) }
-}
 
 //pub fn default_break(text: &str, analysis: Option<&mut Analysis>, attrs: /*Ignored*/&mut LogAttr, attrs_len: i32) {
 //    unsafe { TODO: call pango_sys:pango_default_break() }
@@ -80,19 +71,9 @@ pub fn find_paragraph_boundary(text: &str) -> (i32, i32) {
     }
 }
 
-#[cfg_attr(feature = "v1_38", deprecated)]
-pub fn get_lib_subdirectory() -> Option<GString> {
-    unsafe { from_glib_none(pango_sys::pango_get_lib_subdirectory()) }
-}
-
 //pub fn get_log_attrs(text: &str, level: i32, language: &mut Language, log_attrs: /*Ignored*/&[&LogAttr]) {
 //    unsafe { TODO: call pango_sys:pango_get_log_attrs() }
 //}
-
-#[cfg_attr(feature = "v1_38", deprecated)]
-pub fn get_sysconf_subdirectory() -> Option<GString> {
-    unsafe { from_glib_none(pango_sys::pango_get_sysconf_subdirectory()) }
-}
 
 pub fn is_zero_width(ch: char) -> bool {
     unsafe { from_glib(pango_sys::pango_is_zero_width(ch.to_glib())) }
@@ -285,7 +266,7 @@ pub fn quantize_line_geometry(thickness: &mut i32, position: &mut i32) {
 }
 
 //#[cfg_attr(feature = "v1_38", deprecated)]
-//pub fn read_line(stream: /*Unimplemented*/Option<Fundamental: Pointer>, str: /*Ignored*/glib::String) -> i32 {
+//pub fn read_line(stream: /*Unimplemented*/Option<Fundamental: Pointer>, str: /*Ignored*/&mut glib::String) -> i32 {
 //    unsafe { TODO: call pango_sys:pango_read_line() }
 //}
 
@@ -295,12 +276,12 @@ pub fn quantize_line_geometry(thickness: &mut i32, position: &mut i32) {
 //}
 
 //#[cfg_attr(feature = "v1_38", deprecated)]
-//pub fn scan_string(pos: /*Unimplemented*/GString, out: /*Ignored*/glib::String) -> bool {
+//pub fn scan_string(pos: /*Unimplemented*/GString, out: /*Ignored*/&mut glib::String) -> bool {
 //    unsafe { TODO: call pango_sys:pango_scan_string() }
 //}
 
 //#[cfg_attr(feature = "v1_38", deprecated)]
-//pub fn scan_word(pos: /*Unimplemented*/GString, out: /*Ignored*/glib::String) -> bool {
+//pub fn scan_word(pos: /*Unimplemented*/GString, out: /*Ignored*/&mut glib::String) -> bool {
 //    unsafe { TODO: call pango_sys:pango_scan_word() }
 //}
 
@@ -316,6 +297,11 @@ pub fn shape(text: &str, analysis: &Analysis, glyphs: &mut GlyphString) {
     }
 }
 
+//#[cfg(any(feature = "v1_44", feature = "dox"))]
+//pub fn shape_with_flags(item_text: &str, paragraph_text: Option<&str>, analysis: &Analysis, glyphs: &mut GlyphString, flags: /*Ignored*/ShapeFlags) {
+//    unsafe { TODO: call pango_sys:pango_shape_with_flags() }
+//}
+
 //#[cfg_attr(feature = "v1_38", deprecated)]
 //pub fn skip_space(pos: /*Unimplemented*/GString) -> bool {
 //    unsafe { TODO: call pango_sys:pango_skip_space() }
@@ -327,6 +313,11 @@ pub fn split_file_list(str: &str) -> Vec<GString> {
         FromGlibPtrContainer::from_glib_full(pango_sys::pango_split_file_list(str.to_glib_none().0))
     }
 }
+
+//#[cfg(any(feature = "v1_44", feature = "dox"))]
+//pub fn tailor_break(text: &str, analysis: &mut Analysis, offset: i32, log_attrs: /*Ignored*/&[&LogAttr]) {
+//    unsafe { TODO: call pango_sys:pango_tailor_break() }
+//}
 
 #[cfg_attr(feature = "v1_38", deprecated)]
 pub fn trim_string(str: &str) -> Option<GString> {

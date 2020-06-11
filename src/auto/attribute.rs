@@ -6,6 +6,19 @@ use glib::translate::*;
 use pango_sys;
 use AttrClass;
 
+#[cfg(any(feature = "v1_44", feature = "dox"))]
+glib_wrapper! {
+    #[derive(Debug, PartialOrd, Ord, Hash)]
+    pub struct Attribute(Boxed<pango_sys::PangoAttribute>);
+
+    match fn {
+        copy => |ptr| pango_sys::pango_attribute_copy(mut_override(ptr)),
+        free => |ptr| pango_sys::pango_attribute_destroy(ptr),
+        get_type => || pango_sys::pango_attribute_get_type(),
+    }
+}
+
+#[cfg(not(any(feature = "v1_44", feature = "dox")))]
 glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
     pub struct Attribute(Boxed<pango_sys::PangoAttribute>);
