@@ -138,3 +138,10 @@ status = "manual"
 [[object]]
 name = "GLib.PollFD"
 status = "manual"
+
+[[object]]
+name = "GLib.OptionGroup"
+status = "generate"
+    [[object.function]]
+    name = "get_type"
+    version = "2.44"

@@ -16,3 +16,13 @@ external_libraries = [
 
 ignore = [
 ]
+
+[[object]]
+name = "GdkX11.X11GLContext"
+status = "generate"
+version = "3.16"
+
+[[object]]
+name = "GdkX11.X11Monitor"
+status = "generate"
+version = "3.22"

@@ -33,3 +33,43 @@ status = "generate"
     [[object.member]]
     name = "event_last"
     alias = true
+
+[[object]]
+name = "Gdk.GLContext"
+status = "generate"
+version = "3.16"
+
+[[object]]
+name = "Gdk.Seat"
+status = "generate"
+version = "3.20"
+
+[[object]]
+name = "Gdk.TouchpadGesturePhase"
+status = "generate"
+version = "3.18"
+
+[[object]]
+name = "Gdk.Monitor"
+status = "generate"
+version = "3.22"
+
+[[object]]
+name = "Gdk.DevicePadFeature"
+status = "generate"
+version = "3.22"
+
+[[object]]
+name = "Gdk.DevicePad"
+status = "generate"
+version = "3.22"
+
+[[object]]
+name = "Gdk.DeviceTool"
+status = "generate"
+version = "3.22"
+
+[[object]]
+name = "Gdk.DrawingContext"
+status = "generate"
+version = "3.22"
