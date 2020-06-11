@@ -71,6 +71,7 @@ manual = [
     "GLib.Error",
     "Pango.Analysis",
     "Pango.AttrClass",
+    "Pango.Coverage",
     "Pango.Language",
     "Pango.Rectangle",
 ]
@@ -161,17 +162,6 @@ status = "generate"
         [[object.function.parameter]]
         name = "language"
         const = true
-
-[[object]]
-name = "Pango.Coverage"
-status = "generate"
-    [[object.function]]
-    name = "new"
-        [object.function.return]
-        nullable = false
-    [[object.function]]
-    name = "get_type"
-    version = "1.44"
 
 [[object]]
 name = "Pango.Font"
