@@ -200,8 +200,18 @@ pub fn clear_error() -> Result<(), Error> {
 //    unsafe { TODO: call glib_sys:g_clear_handle_id() }
 //}
 
+//#[cfg(any(feature = "v2_64", feature = "dox"))]
+//pub fn clear_list(list_ptr: /*Unimplemented*/&[&Fundamental: Pointer]) {
+//    unsafe { TODO: call glib_sys:g_clear_list() }
+//}
+
 //pub fn clear_pointer(pp: /*Unimplemented*/Fundamental: Pointer) {
 //    unsafe { TODO: call glib_sys:g_clear_pointer() }
+//}
+
+//#[cfg(any(feature = "v2_64", feature = "dox"))]
+//pub fn clear_slist(slist_ptr: /*Unimplemented*/&[&Fundamental: Pointer]) {
+//    unsafe { TODO: call glib_sys:g_clear_slist() }
 //}
 
 pub fn compute_checksum_for_bytes(checksum_type: ChecksumType, data: &Bytes) -> Option<GString> {
@@ -618,6 +628,11 @@ pub fn get_monotonic_time() -> i64 {
 
 pub fn get_num_processors() -> u32 {
     unsafe { glib_sys::g_get_num_processors() }
+}
+
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+pub fn get_os_info(key_name: &str) -> Option<GString> {
+    unsafe { from_glib_full(glib_sys::g_get_os_info(key_name.to_glib_none().0)) }
 }
 
 pub fn get_real_time() -> i64 {
@@ -1235,6 +1250,12 @@ pub fn stpcpy(dest: &str, src: &str) -> Option<GString> {
 
 //pub fn unicode_script_to_iso15924(script: /*Ignored*/UnicodeScript) -> u32 {
 //    unsafe { TODO: call glib_sys:g_unicode_script_to_iso15924() }
+//}
+
+//#[cfg(any(unix, feature = "dox"))]
+//#[cfg(any(feature = "v2_64", feature = "dox"))]
+//pub fn unix_get_passwd_entry(user_name: &str) -> Result</*Unimplemented*/Option<Fundamental: Pointer>, Error> {
+//    unsafe { TODO: call glib_sys:g_unix_get_passwd_entry() }
 //}
 
 pub fn unlink<P: AsRef<std::path::Path>>(filename: P) -> i32 {
