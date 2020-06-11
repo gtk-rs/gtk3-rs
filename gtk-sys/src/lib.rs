@@ -265,6 +265,7 @@ pub const GTK_INPUT_PURPOSE_EMAIL: GtkInputPurpose = 6;
 pub const GTK_INPUT_PURPOSE_NAME: GtkInputPurpose = 7;
 pub const GTK_INPUT_PURPOSE_PASSWORD: GtkInputPurpose = 8;
 pub const GTK_INPUT_PURPOSE_PIN: GtkInputPurpose = 9;
+pub const GTK_INPUT_PURPOSE_TERMINAL: GtkInputPurpose = 10;
 
 pub type GtkJustification = c_int;
 pub const GTK_JUSTIFY_LEFT: GtkJustification = 0;
@@ -18773,9 +18774,9 @@ extern "C" {
         response_id: GtkResponseType,
     ) -> *mut GtkWidget;
     pub fn gtk_dialog_add_buttons(dialog: *mut GtkDialog, first_button_text: *const c_char, ...);
-    pub fn gtk_dialog_get_action_area(dialog: *mut GtkDialog) -> *mut GtkWidget;
+    pub fn gtk_dialog_get_action_area(dialog: *mut GtkDialog) -> *mut GtkBox;
     pub fn gtk_dialog_get_content_area(dialog: *mut GtkDialog) -> *mut GtkBox;
-    pub fn gtk_dialog_get_header_bar(dialog: *mut GtkDialog) -> *mut GtkWidget;
+    pub fn gtk_dialog_get_header_bar(dialog: *mut GtkDialog) -> *mut GtkHeaderBar;
     pub fn gtk_dialog_get_response_for_widget(
         dialog: *mut GtkDialog,
         widget: *mut GtkWidget,
@@ -20497,8 +20498,8 @@ extern "C" {
         first_button_text: *const c_char,
         ...
     );
-    pub fn gtk_info_bar_get_action_area(info_bar: *mut GtkInfoBar) -> *mut GtkWidget;
-    pub fn gtk_info_bar_get_content_area(info_bar: *mut GtkInfoBar) -> *mut GtkWidget;
+    pub fn gtk_info_bar_get_action_area(info_bar: *mut GtkInfoBar) -> *mut GtkBox;
+    pub fn gtk_info_bar_get_content_area(info_bar: *mut GtkInfoBar) -> *mut GtkBox;
     pub fn gtk_info_bar_get_message_type(info_bar: *mut GtkInfoBar) -> GtkMessageType;
     #[cfg(any(feature = "v3_22_29", feature = "dox"))]
     pub fn gtk_info_bar_get_revealed(info_bar: *mut GtkInfoBar) -> gboolean;
@@ -24333,6 +24334,9 @@ extern "C" {
     // GtkTreeModelSort
     //=========================================================================
     pub fn gtk_tree_model_sort_get_type() -> GType;
+    pub fn gtk_tree_model_sort_new_with_model(
+        child_model: *mut GtkTreeModel,
+    ) -> *mut GtkTreeModelSort;
     pub fn gtk_tree_model_sort_clear_cache(tree_model_sort: *mut GtkTreeModelSort);
     pub fn gtk_tree_model_sort_convert_child_iter_to_iter(
         tree_model_sort: *mut GtkTreeModelSort,
@@ -26707,7 +26711,6 @@ extern "C" {
         new_order: *mut c_int,
         length: c_int,
     );
-    pub fn gtk_tree_model_sort_new_with_model(child_model: *mut GtkTreeModel) -> *mut GtkTreeModel;
     pub fn gtk_tree_model_unref_node(tree_model: *mut GtkTreeModel, iter: *mut GtkTreeIter);
 
     //=========================================================================

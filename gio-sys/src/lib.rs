@@ -235,6 +235,11 @@ pub type GIOModuleScopeFlags = c_int;
 pub const G_IO_MODULE_SCOPE_NONE: GIOModuleScopeFlags = 0;
 pub const G_IO_MODULE_SCOPE_BLOCK_DUPLICATES: GIOModuleScopeFlags = 1;
 
+pub type GMemoryMonitorWarningLevel = c_int;
+pub const G_MEMORY_MONITOR_WARNING_LEVEL_LOW: GMemoryMonitorWarningLevel = 50;
+pub const G_MEMORY_MONITOR_WARNING_LEVEL_MEDIUM: GMemoryMonitorWarningLevel = 100;
+pub const G_MEMORY_MONITOR_WARNING_LEVEL_CRITICAL: GMemoryMonitorWarningLevel = 255;
+
 pub type GMountOperationResult = c_int;
 pub const G_MOUNT_OPERATION_HANDLED: GMountOperationResult = 0;
 pub const G_MOUNT_OPERATION_ABORTED: GMountOperationResult = 1;
@@ -524,6 +529,8 @@ pub const G_FILE_ATTRIBUTE_UNIX_NLINK: *const c_char =
     b"unix::nlink\0" as *const u8 as *const c_char;
 pub const G_FILE_ATTRIBUTE_UNIX_RDEV: *const c_char = b"unix::rdev\0" as *const u8 as *const c_char;
 pub const G_FILE_ATTRIBUTE_UNIX_UID: *const c_char = b"unix::uid\0" as *const u8 as *const c_char;
+pub const G_MEMORY_MONITOR_EXTENSION_POINT_NAME: *const c_char =
+    b"gio-memory-monitor\0" as *const u8 as *const c_char;
 pub const G_MENU_ATTRIBUTE_ACTION: *const c_char = b"action\0" as *const u8 as *const c_char;
 pub const G_MENU_ATTRIBUTE_ACTION_NAMESPACE: *const c_char =
     b"action-namespace\0" as *const u8 as *const c_char;
@@ -4181,6 +4188,22 @@ impl ::std::fmt::Debug for GMemoryInputStreamClass {
 pub struct _GMemoryInputStreamPrivate(c_void);
 
 pub type GMemoryInputStreamPrivate = *mut _GMemoryInputStreamPrivate;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct GMemoryMonitorInterface {
+    pub g_iface: gobject::GTypeInterface,
+    pub low_memory_warning:
+        Option<unsafe extern "C" fn(*mut GMemoryMonitor, GMemoryMonitorWarningLevel)>,
+}
+
+impl ::std::fmt::Debug for GMemoryMonitorInterface {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("GMemoryMonitorInterface @ {:?}", self as *const _))
+            .field("low_memory_warning", &self.low_memory_warning)
+            .finish()
+    }
+}
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8580,6 +8603,15 @@ impl ::std::fmt::Debug for GLoadableIcon {
 }
 
 #[repr(C)]
+pub struct GMemoryMonitor(c_void);
+
+impl ::std::fmt::Debug for GMemoryMonitor {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        write!(f, "GMemoryMonitor @ {:?}", self as *const _)
+    }
+}
+
+#[repr(C)]
 pub struct GMount(c_void);
 
 impl ::std::fmt::Debug for GMount {
@@ -8829,6 +8861,11 @@ extern "C" {
     // GIOModuleScopeFlags
     //=========================================================================
     pub fn g_io_module_scope_flags_get_type() -> GType;
+
+    //=========================================================================
+    // GMemoryMonitorWarningLevel
+    //=========================================================================
+    pub fn g_memory_monitor_warning_level_get_type() -> GType;
 
     //=========================================================================
     // GMountOperationResult
@@ -11574,6 +11611,19 @@ extern "C" {
     pub fn g_list_store_new(item_type: GType) -> *mut GListStore;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub fn g_list_store_append(store: *mut GListStore, item: *mut gobject::GObject);
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
+    pub fn g_list_store_find(
+        store: *mut GListStore,
+        item: *mut gobject::GObject,
+        position: *mut c_uint,
+    ) -> gboolean;
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
+    pub fn g_list_store_find_with_equal_func(
+        store: *mut GListStore,
+        item: *mut gobject::GObject,
+        equal_func: glib::GEqualFunc,
+        position: *mut c_uint,
+    ) -> gboolean;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub fn g_list_store_insert(
         store: *mut GListStore,
@@ -13457,6 +13507,12 @@ extern "C" {
     pub fn g_task_propagate_boolean(task: *mut GTask, error: *mut *mut glib::GError) -> gboolean;
     pub fn g_task_propagate_int(task: *mut GTask, error: *mut *mut glib::GError) -> ssize_t;
     pub fn g_task_propagate_pointer(task: *mut GTask, error: *mut *mut glib::GError) -> gpointer;
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
+    pub fn g_task_propagate_value(
+        task: *mut GTask,
+        value: *mut gobject::GValue,
+        error: *mut *mut glib::GError,
+    ) -> gboolean;
     pub fn g_task_return_boolean(task: *mut GTask, result: gboolean);
     pub fn g_task_return_error(task: *mut GTask, error: *mut glib::GError);
     pub fn g_task_return_error_if_cancelled(task: *mut GTask) -> gboolean;
@@ -13473,6 +13529,8 @@ extern "C" {
         result: gpointer,
         result_destroy: glib::GDestroyNotify,
     );
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
+    pub fn g_task_return_value(task: *mut GTask, result: *mut gobject::GValue);
     pub fn g_task_run_in_thread(task: *mut GTask, task_func: GTaskThreadFunc);
     pub fn g_task_run_in_thread_sync(task: *mut GTask, task_func: GTaskThreadFunc);
     pub fn g_task_set_check_cancellable(task: *mut GTask, check_cancellable: gboolean);
@@ -15510,6 +15568,13 @@ extern "C" {
         type_: *mut *mut c_char,
         error: *mut *mut glib::GError,
     ) -> *mut GInputStream;
+
+    //=========================================================================
+    // GMemoryMonitor
+    //=========================================================================
+    pub fn g_memory_monitor_get_type() -> GType;
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
+    pub fn g_memory_monitor_dup_default() -> *mut GMemoryMonitor;
 
     //=========================================================================
     // GMount

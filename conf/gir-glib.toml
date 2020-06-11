@@ -110,6 +110,9 @@ status = "generate"
     [[object.function]]
     name = "find_program_in_path"
     is_windows_utf8 = true
+    [[object.function]]
+    name = "unix_get_passwd_entry"
+    cfg_condition = "unix"
 
 [[object]]
 name = "GLib.Dir"

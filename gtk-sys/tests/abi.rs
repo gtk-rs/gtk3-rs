@@ -4986,6 +4986,7 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) GTK_INPUT_PURPOSE_PASSWORD", "8"),
     ("(gint) GTK_INPUT_PURPOSE_PHONE", "4"),
     ("(gint) GTK_INPUT_PURPOSE_PIN", "9"),
+    ("(gint) GTK_INPUT_PURPOSE_TERMINAL", "10"),
     ("(gint) GTK_INPUT_PURPOSE_URL", "5"),
     ("(guint) GTK_JUNCTION_BOTTOM", "12"),
     ("(guint) GTK_JUNCTION_CORNER_BOTTOMLEFT", "4"),

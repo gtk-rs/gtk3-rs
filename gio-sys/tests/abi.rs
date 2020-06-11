@@ -1268,6 +1268,20 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         },
     ),
     (
+        "GMemoryMonitorInterface",
+        Layout {
+            size: size_of::<GMemoryMonitorInterface>(),
+            alignment: align_of::<GMemoryMonitorInterface>(),
+        },
+    ),
+    (
+        "GMemoryMonitorWarningLevel",
+        Layout {
+            size: size_of::<GMemoryMonitorWarningLevel>(),
+            alignment: align_of::<GMemoryMonitorWarningLevel>(),
+        },
+    ),
+    (
         "GMemoryOutputStream",
         Layout {
             size: size_of::<GMemoryOutputStream>(),
@@ -2712,6 +2726,13 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(guint) G_IO_STREAM_SPLICE_CLOSE_STREAM2", "2"),
     ("(guint) G_IO_STREAM_SPLICE_NONE", "0"),
     ("(guint) G_IO_STREAM_SPLICE_WAIT_FOR_BOTH", "4"),
+    (
+        "G_MEMORY_MONITOR_EXTENSION_POINT_NAME",
+        "gio-memory-monitor",
+    ),
+    ("(gint) G_MEMORY_MONITOR_WARNING_LEVEL_CRITICAL", "255"),
+    ("(gint) G_MEMORY_MONITOR_WARNING_LEVEL_LOW", "50"),
+    ("(gint) G_MEMORY_MONITOR_WARNING_LEVEL_MEDIUM", "100"),
     ("G_MENU_ATTRIBUTE_ACTION", "action"),
     ("G_MENU_ATTRIBUTE_ACTION_NAMESPACE", "action-namespace"),
     ("G_MENU_ATTRIBUTE_ICON", "icon"),

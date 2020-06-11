@@ -2332,7 +2332,7 @@ extern "C" {
         dest_value: *mut GValue,
         strict_validation: gboolean,
     ) -> gboolean;
-    pub fn g_param_value_defaults(pspec: *mut GParamSpec, value: *mut GValue) -> gboolean;
+    pub fn g_param_value_defaults(pspec: *mut GParamSpec, value: *const GValue) -> gboolean;
     pub fn g_param_value_set_default(pspec: *mut GParamSpec, value: *mut GValue);
     pub fn g_param_value_validate(pspec: *mut GParamSpec, value: *mut GValue) -> gboolean;
     pub fn g_param_values_cmp(

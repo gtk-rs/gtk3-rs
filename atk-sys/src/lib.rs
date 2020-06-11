@@ -968,7 +968,7 @@ impl ::std::fmt::Debug for AtkSelectionIface {
 #[derive(Copy, Clone)]
 pub struct AtkSocketClass {
     pub parent_class: AtkObjectClass,
-    pub embed: Option<unsafe extern "C" fn(*mut AtkSocket, *mut c_char)>,
+    pub embed: Option<unsafe extern "C" fn(*mut AtkSocket, *const c_char)>,
 }
 
 impl ::std::fmt::Debug for AtkSocketClass {
@@ -2050,7 +2050,7 @@ extern "C" {
     //=========================================================================
     pub fn atk_socket_get_type() -> GType;
     pub fn atk_socket_new() -> *mut AtkObject;
-    pub fn atk_socket_embed(obj: *mut AtkSocket, plug_id: *mut c_char);
+    pub fn atk_socket_embed(obj: *mut AtkSocket, plug_id: *const c_char);
     pub fn atk_socket_is_occupied(obj: *mut AtkSocket) -> gboolean;
 
     //=========================================================================

@@ -3,7 +3,22 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 #[allow(unused_imports)]
-use libc::{c_int, c_ushort, c_void};
+use libc::{c_char, c_int, c_ushort, c_void};
+
+#[cfg(unix)]
+pub use libc::passwd;
+
+#[cfg(all(not(unix), feature = "dox"))]
+#[repr(C)]
+pub struct passwd {
+    pw_name: *mut c_char,
+    pw_passwd: *mut c_char,
+    pw_uid: u32,
+    pw_gid: u32,
+    pw_gecos: *mut c_char,
+    pw_dir: *mut c_char,
+    pw_shell: *mut c_char,
+}
 
 #[cfg(windows)]
 pub type GPid = *mut c_void;
