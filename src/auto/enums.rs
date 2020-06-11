@@ -1527,6 +1527,89 @@ impl SetValue for IOErrorEnum {
     }
 }
 
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
+pub enum MemoryMonitorWarningLevel {
+    Low,
+    Medium,
+    Critical,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+impl fmt::Display for MemoryMonitorWarningLevel {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "MemoryMonitorWarningLevel::{}",
+            match *self {
+                MemoryMonitorWarningLevel::Low => "Low",
+                MemoryMonitorWarningLevel::Medium => "Medium",
+                MemoryMonitorWarningLevel::Critical => "Critical",
+                _ => "Unknown",
+            }
+        )
+    }
+}
+
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+#[doc(hidden)]
+impl ToGlib for MemoryMonitorWarningLevel {
+    type GlibType = gio_sys::GMemoryMonitorWarningLevel;
+
+    fn to_glib(&self) -> gio_sys::GMemoryMonitorWarningLevel {
+        match *self {
+            MemoryMonitorWarningLevel::Low => gio_sys::G_MEMORY_MONITOR_WARNING_LEVEL_LOW,
+            MemoryMonitorWarningLevel::Medium => gio_sys::G_MEMORY_MONITOR_WARNING_LEVEL_MEDIUM,
+            MemoryMonitorWarningLevel::Critical => gio_sys::G_MEMORY_MONITOR_WARNING_LEVEL_CRITICAL,
+            MemoryMonitorWarningLevel::__Unknown(value) => value,
+        }
+    }
+}
+
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+#[doc(hidden)]
+impl FromGlib<gio_sys::GMemoryMonitorWarningLevel> for MemoryMonitorWarningLevel {
+    fn from_glib(value: gio_sys::GMemoryMonitorWarningLevel) -> Self {
+        match value {
+            50 => MemoryMonitorWarningLevel::Low,
+            100 => MemoryMonitorWarningLevel::Medium,
+            255 => MemoryMonitorWarningLevel::Critical,
+            value => MemoryMonitorWarningLevel::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+impl StaticType for MemoryMonitorWarningLevel {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_memory_monitor_warning_level_get_type()) }
+    }
+}
+
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+impl<'a> FromValueOptional<'a> for MemoryMonitorWarningLevel {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+impl<'a> FromValue<'a> for MemoryMonitorWarningLevel {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+impl SetValue for MemoryMonitorWarningLevel {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum MountOperationResult {

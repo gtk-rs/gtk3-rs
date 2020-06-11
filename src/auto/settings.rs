@@ -665,7 +665,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     }
 
     //fn connect_change_event<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
-    //    Unimplemented keys: *.CArray TypeId { ns_id: 2, id: 4 }
+    //    Unimplemented keys: *.CArray TypeId { ns_id: 2, id: 5 }
     //}
 
     fn connect_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
