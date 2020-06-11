@@ -15194,6 +15194,7 @@ extern "C" {
     //=========================================================================
     // GtkButtonRole
     //=========================================================================
+    #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gtk_button_role_get_type() -> GType;
 
     //=========================================================================
@@ -15382,6 +15383,7 @@ extern "C" {
     //=========================================================================
     // GtkPadActionType
     //=========================================================================
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gtk_pad_action_type_get_type() -> GType;
 
     //=========================================================================
@@ -15417,6 +15419,7 @@ extern "C" {
     //=========================================================================
     // GtkPopoverConstraint
     //=========================================================================
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gtk_popover_constraint_get_type() -> GType;
 
     //=========================================================================
@@ -15540,6 +15543,7 @@ extern "C" {
     //=========================================================================
     // GtkShortcutType
     //=========================================================================
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gtk_shortcut_type_get_type() -> GType;
 
     //=========================================================================
@@ -15590,6 +15594,7 @@ extern "C" {
     //=========================================================================
     // GtkTextExtendSelection
     //=========================================================================
+    #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gtk_text_extend_selection_get_type() -> GType;
 
     //=========================================================================
@@ -15695,6 +15700,7 @@ extern "C" {
     //=========================================================================
     // GtkEventControllerScrollFlags
     //=========================================================================
+    #[cfg(any(feature = "v3_24", feature = "dox"))]
     pub fn gtk_event_controller_scroll_flags_get_type() -> GType;
 
     //=========================================================================
@@ -15705,6 +15711,7 @@ extern "C" {
     //=========================================================================
     // GtkFontChooserLevel
     //=========================================================================
+    #[cfg(any(feature = "v3_24", feature = "dox"))]
     pub fn gtk_font_chooser_level_get_type() -> GType;
 
     //=========================================================================
@@ -15750,6 +15757,7 @@ extern "C" {
     //=========================================================================
     // GtkStyleContextPrintFlags
     //=========================================================================
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gtk_style_context_print_flags_get_type() -> GType;
 
     //=========================================================================
@@ -19130,17 +19138,22 @@ extern "C" {
     //=========================================================================
     // GtkEventControllerKey
     //=========================================================================
+    #[cfg(any(feature = "v3_24", feature = "dox"))]
     pub fn gtk_event_controller_key_get_type() -> GType;
+    #[cfg(any(feature = "v3_24", feature = "dox"))]
     pub fn gtk_event_controller_key_new(widget: *mut GtkWidget) -> *mut GtkEventController;
+    #[cfg(any(feature = "v3_24", feature = "dox"))]
     pub fn gtk_event_controller_key_forward(
         controller: *mut GtkEventControllerKey,
         widget: *mut GtkWidget,
     ) -> gboolean;
+    #[cfg(any(feature = "v3_24", feature = "dox"))]
     pub fn gtk_event_controller_key_get_group(controller: *mut GtkEventControllerKey) -> c_uint;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     pub fn gtk_event_controller_key_get_im_context(
         controller: *mut GtkEventControllerKey,
     ) -> *mut GtkIMContext;
+    #[cfg(any(feature = "v3_24", feature = "dox"))]
     pub fn gtk_event_controller_key_set_im_context(
         controller: *mut GtkEventControllerKey,
         im_context: *mut GtkIMContext,
@@ -19149,6 +19162,7 @@ extern "C" {
     //=========================================================================
     // GtkEventControllerMotion
     //=========================================================================
+    #[cfg(any(feature = "v3_24", feature = "dox"))]
     pub fn gtk_event_controller_motion_get_type() -> GType;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     pub fn gtk_event_controller_motion_new(widget: *mut GtkWidget) -> *mut GtkEventController;
@@ -19156,6 +19170,7 @@ extern "C" {
     //=========================================================================
     // GtkEventControllerScroll
     //=========================================================================
+    #[cfg(any(feature = "v3_24", feature = "dox"))]
     pub fn gtk_event_controller_scroll_get_type() -> GType;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     pub fn gtk_event_controller_scroll_new(
@@ -19242,6 +19257,7 @@ extern "C" {
     //=========================================================================
     // GtkFileChooserNative
     //=========================================================================
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gtk_file_chooser_native_get_type() -> GType;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gtk_file_chooser_native_new(
@@ -19510,6 +19526,7 @@ extern "C" {
     //=========================================================================
     // GtkGLArea
     //=========================================================================
+    #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gtk_gl_area_get_type() -> GType;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gtk_gl_area_new() -> *mut GtkWidget;
@@ -19879,6 +19896,7 @@ extern "C" {
     //=========================================================================
     // GtkHeaderBarAccessible
     //=========================================================================
+    #[cfg(any(feature = "v3_24_11", feature = "dox"))]
     pub fn gtk_header_bar_accessible_get_type() -> GType;
 
     //=========================================================================
@@ -21123,6 +21141,7 @@ extern "C" {
     //=========================================================================
     // GtkModelButton
     //=========================================================================
+    #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gtk_model_button_get_type() -> GType;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gtk_model_button_new() -> *mut GtkWidget;
@@ -21141,6 +21160,7 @@ extern "C" {
     //=========================================================================
     // GtkNativeDialog
     //=========================================================================
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gtk_native_dialog_get_type() -> GType;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gtk_native_dialog_destroy(self_: *mut GtkNativeDialog);
@@ -21387,6 +21407,7 @@ extern "C" {
     //=========================================================================
     // GtkPadController
     //=========================================================================
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gtk_pad_controller_get_type() -> GType;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gtk_pad_controller_new(
@@ -21672,6 +21693,7 @@ extern "C" {
     //=========================================================================
     // GtkPopoverMenu
     //=========================================================================
+    #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gtk_popover_menu_get_type() -> GType;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gtk_popover_menu_new() -> *mut GtkWidget;
@@ -22650,6 +22672,7 @@ extern "C" {
     //=========================================================================
     // GtkShortcutLabel
     //=========================================================================
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gtk_shortcut_label_get_type() -> GType;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gtk_shortcut_label_new(accelerator: *const c_char) -> *mut GtkWidget;
@@ -22671,21 +22694,25 @@ extern "C" {
     //=========================================================================
     // GtkShortcutsGroup
     //=========================================================================
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gtk_shortcuts_group_get_type() -> GType;
 
     //=========================================================================
     // GtkShortcutsSection
     //=========================================================================
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gtk_shortcuts_section_get_type() -> GType;
 
     //=========================================================================
     // GtkShortcutsShortcut
     //=========================================================================
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gtk_shortcuts_shortcut_get_type() -> GType;
 
     //=========================================================================
     // GtkShortcutsWindow
     //=========================================================================
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gtk_shortcuts_window_get_type() -> GType;
 
     //=========================================================================
@@ -22843,11 +22870,13 @@ extern "C" {
     //=========================================================================
     // GtkStackAccessible
     //=========================================================================
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gtk_stack_accessible_get_type() -> GType;
 
     //=========================================================================
     // GtkStackSidebar
     //=========================================================================
+    #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gtk_stack_sidebar_get_type() -> GType;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gtk_stack_sidebar_new() -> *mut GtkWidget;

@@ -4101,11 +4101,13 @@ extern "C" {
     //=========================================================================
     // GdkDevicePadFeature
     //=========================================================================
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_device_pad_feature_get_type() -> GType;
 
     //=========================================================================
     // GdkDeviceToolType
     //=========================================================================
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_device_tool_type_get_type() -> GType;
 
     //=========================================================================
@@ -4116,6 +4118,7 @@ extern "C" {
     //=========================================================================
     // GdkDragCancelReason
     //=========================================================================
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gdk_drag_cancel_reason_get_type() -> GType;
 
     //=========================================================================
@@ -4141,7 +4144,9 @@ extern "C" {
     //=========================================================================
     // GdkGLError
     //=========================================================================
+    #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gdk_gl_error_get_type() -> GType;
+    #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gdk_gl_error_quark() -> glib::GQuark;
 
     //=========================================================================
@@ -4212,11 +4217,13 @@ extern "C" {
     //=========================================================================
     // GdkSubpixelLayout
     //=========================================================================
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_subpixel_layout_get_type() -> GType;
 
     //=========================================================================
     // GdkTouchpadGesturePhase
     //=========================================================================
+    #[cfg(any(feature = "v3_18", feature = "dox"))]
     pub fn gdk_touchpad_gesture_phase_get_type() -> GType;
 
     //=========================================================================
@@ -4252,11 +4259,13 @@ extern "C" {
     //=========================================================================
     // GdkAnchorHints
     //=========================================================================
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_anchor_hints_get_type() -> GType;
 
     //=========================================================================
     // GdkAxisFlags
     //=========================================================================
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_axis_flags_get_type() -> GType;
 
     //=========================================================================
@@ -4282,6 +4291,7 @@ extern "C" {
     //=========================================================================
     // GdkSeatCapabilities
     //=========================================================================
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gdk_seat_capabilities_get_type() -> GType;
 
     //=========================================================================
@@ -4621,6 +4631,7 @@ extern "C" {
     //=========================================================================
     // GdkDeviceTool
     //=========================================================================
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_device_tool_get_type() -> GType;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_device_tool_get_hardware_id(tool: *mut GdkDeviceTool) -> u64;
@@ -4774,6 +4785,7 @@ extern "C" {
     //=========================================================================
     // GdkDrawingContext
     //=========================================================================
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_drawing_context_get_type() -> GType;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_drawing_context_get_cairo_context(
@@ -4818,6 +4830,7 @@ extern "C" {
     //=========================================================================
     // GdkGLContext
     //=========================================================================
+    #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gdk_gl_context_get_type() -> GType;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gdk_gl_context_clear_current();
@@ -4919,6 +4932,7 @@ extern "C" {
     //=========================================================================
     // GdkMonitor
     //=========================================================================
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_monitor_get_type() -> GType;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_monitor_get_display(monitor: *mut GdkMonitor) -> *mut GdkDisplay;
@@ -4926,7 +4940,9 @@ extern "C" {
     pub fn gdk_monitor_get_geometry(monitor: *mut GdkMonitor, geometry: *mut GdkRectangle);
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_monitor_get_height_mm(monitor: *mut GdkMonitor) -> c_int;
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_monitor_get_manufacturer(monitor: *mut GdkMonitor) -> *const c_char;
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_monitor_get_model(monitor: *mut GdkMonitor) -> *const c_char;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_monitor_get_refresh_rate(monitor: *mut GdkMonitor) -> c_int;
@@ -5008,9 +5024,11 @@ extern "C" {
     //=========================================================================
     // GdkSeat
     //=========================================================================
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gdk_seat_get_type() -> GType;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gdk_seat_get_capabilities(seat: *mut GdkSeat) -> GdkSeatCapabilities;
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gdk_seat_get_display(seat: *mut GdkSeat) -> *mut GdkDisplay;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gdk_seat_get_keyboard(seat: *mut GdkSeat) -> *mut GdkDevice;
@@ -5455,6 +5473,7 @@ extern "C" {
     //=========================================================================
     // GdkDevicePad
     //=========================================================================
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_device_pad_get_type() -> GType;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_device_pad_get_feature_group(
