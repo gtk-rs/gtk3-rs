@@ -45,7 +45,7 @@ fn build_ui(application: &gtk::Application) {
         gtk::get_minor_version()
     );
     let glade_src = include_str!("gtktest.glade");
-    let builder = Builder::new_from_string(glade_src);
+    let builder = Builder::from_string(glade_src);
 
     let spinner: Spinner = builder.get_object("spinner").expect("Couldn't get spinner");
     spinner.start();
@@ -83,7 +83,7 @@ fn build_ui(application: &gtk::Application) {
     let entry: Entry = builder.get_object("entry").expect("Couldn't get entry");
 
     button.connect_clicked(clone!(@weak window, @weak entry => move |_| {
-        let dialog = Dialog::new_with_buttons(Some("Hello!"),
+        let dialog = Dialog::with_buttons(Some("Hello!"),
                                               Some(&window),
                                               gtk::DialogFlags::MODAL,
                                               &[("No", ResponseType::No),

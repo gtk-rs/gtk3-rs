@@ -43,7 +43,7 @@ fn build_ui(application: &gtk::Application) {
     vbox.add(&sw);
 
     let model = Rc::new(create_model());
-    let treeview = gtk::TreeView::new_with_model(&*model);
+    let treeview = gtk::TreeView::with_model(&*model);
     treeview.set_vexpand(true);
     treeview.set_search_column(Columns::Description as i32);
 

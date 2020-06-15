@@ -14,7 +14,7 @@ use std::env::args;
 
 fn build_ui(application: &gtk::Application) {
     // Configure button as drag source for text
-    let button = gtk::Button::new_with_label("Drag here");
+    let button = gtk::Button::with_label("Drag here");
     let targets = vec![
         gtk::TargetEntry::new("STRING", gtk::TargetFlags::SAME_APP, 0),
         gtk::TargetEntry::new("text/plain", gtk::TargetFlags::SAME_APP, 0),

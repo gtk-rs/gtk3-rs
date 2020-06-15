@@ -74,7 +74,7 @@ fn print(window: &gtk::Window, value1: String, value2: String) {
 
 fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("printing.glade");
-    let builder = gtk::Builder::new_from_string(glade_src);
+    let builder = gtk::Builder::from_string(glade_src);
 
     let window: gtk::Window = builder.get_object("window").expect("Couldn't get window");
     window.set_application(Some(application));

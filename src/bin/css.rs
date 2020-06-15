@@ -52,7 +52,7 @@ fn build_ui(application: &gtk::Application) {
     // The container container.
     let vbox = gtk::Box::new(gtk::Orientation::Vertical, 0);
 
-    let label = gtk::Button::new_with_label("hover me!");
+    let label = gtk::Button::with_label("hover me!");
     // We need to name it in order to be able to use its name as a CSS label to
     // apply CSS on it.
     gtk::WidgetExt::set_widget_name(&label, "label1");

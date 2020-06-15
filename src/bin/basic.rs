@@ -20,7 +20,7 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(350, 70);
 
-    let button = gtk::Button::new_with_label("Click me!");
+    let button = gtk::Button::with_label("Click me!");
 
     window.add(&button);
 

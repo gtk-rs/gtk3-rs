@@ -37,18 +37,18 @@ fn build_ui(application: &gtk::Application) {
     let grid = gtk::Grid::new();
     grid.set_row_homogeneous(true);
     grid.set_column_homogeneous(true);
-    let button_a1 = gtk::ToggleButton::new_with_label("A1");
+    let button_a1 = gtk::ToggleButton::with_label("A1");
     grid.attach(&button_a1, 0, 0, 1, 1);
-    let button_a2 = gtk::ToggleButton::new_with_label("A2");
+    let button_a2 = gtk::ToggleButton::with_label("A2");
     grid.attach(&button_a2, 1, 0, 1, 1);
-    let button_b1 = gtk::ToggleButton::new_with_label("B1");
+    let button_b1 = gtk::ToggleButton::with_label("B1");
     grid.attach(&button_b1, 0, 1, 1, 1);
-    let button_b2 = gtk::ToggleButton::new_with_label("B2");
+    let button_b2 = gtk::ToggleButton::with_label("B2");
     grid.attach(&button_b2, 1, 1, 1, 1);
 
     // Add in the action buttons
-    let copy_button = gtk::Button::new_with_mnemonic("_Copy");
-    let paste_button = gtk::Button::new_with_mnemonic("_Paste");
+    let copy_button = gtk::Button::with_mnemonic("_Copy");
+    let paste_button = gtk::Button::with_mnemonic("_Paste");
     let button_box = gtk::ButtonBox::new(gtk::Orientation::Horizontal);
     button_box.set_layout(gtk::ButtonBoxStyle::End);
     button_box.pack_start(&copy_button, false, false, 0);
