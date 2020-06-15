@@ -46,7 +46,7 @@ impl InetAddressMask {
         }
     }
 
-    pub fn new_from_string(mask_string: &str) -> Result<InetAddressMask, glib::Error> {
+    pub fn from_string(mask_string: &str) -> Result<InetAddressMask, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_inet_address_mask_new_from_string(

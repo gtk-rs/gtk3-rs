@@ -29,7 +29,7 @@ impl DesktopAppInfo {
         unsafe { from_glib_full(gio_sys::g_desktop_app_info_new(desktop_id.to_glib_none().0)) }
     }
 
-    pub fn new_from_filename<P: AsRef<std::path::Path>>(filename: P) -> Option<DesktopAppInfo> {
+    pub fn from_filename<P: AsRef<std::path::Path>>(filename: P) -> Option<DesktopAppInfo> {
         unsafe {
             from_glib_full(gio_sys::g_desktop_app_info_new_from_filename(
                 filename.as_ref().to_glib_none().0,
@@ -37,7 +37,7 @@ impl DesktopAppInfo {
         }
     }
 
-    pub fn new_from_keyfile(key_file: &glib::KeyFile) -> Option<DesktopAppInfo> {
+    pub fn from_keyfile(key_file: &glib::KeyFile) -> Option<DesktopAppInfo> {
         unsafe {
             from_glib_full(gio_sys::g_desktop_app_info_new_from_keyfile(
                 key_file.to_glib_none().0,

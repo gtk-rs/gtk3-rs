@@ -37,7 +37,7 @@ impl DBusMessage {
         unsafe { from_glib_full(gio_sys::g_dbus_message_new()) }
     }
 
-    pub fn new_from_blob(
+    pub fn from_blob(
         blob: &[u8],
         capabilities: DBusCapabilityFlags,
     ) -> Result<DBusMessage, glib::Error> {

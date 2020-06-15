@@ -28,7 +28,7 @@ impl InetAddress {
         unsafe { from_glib_full(gio_sys::g_inet_address_new_any(family.to_glib())) }
     }
 
-    pub fn new_from_string(string: &str) -> InetAddress {
+    pub fn from_string(string: &str) -> InetAddress {
         unsafe {
             from_glib_full(gio_sys::g_inet_address_new_from_string(
                 string.to_glib_none().0,

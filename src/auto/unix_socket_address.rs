@@ -26,7 +26,7 @@ impl UnixSocketAddress {
     //    unsafe { TODO: call gio_sys:g_unix_socket_address_new_abstract() }
     //}
 
-    //pub fn new_with_type(path: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 10 }, type_: UnixSocketAddressType) -> UnixSocketAddress {
+    //pub fn with_type(path: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 10 }, type_: UnixSocketAddressType) -> UnixSocketAddress {
     //    unsafe { TODO: call gio_sys:g_unix_socket_address_new_with_type() }
     //}
 

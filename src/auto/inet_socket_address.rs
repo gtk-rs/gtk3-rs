@@ -30,7 +30,7 @@ impl InetSocketAddress {
         }
     }
 
-    pub fn new_from_string(address: &str, port: u32) -> InetSocketAddress {
+    pub fn from_string(address: &str, port: u32) -> InetSocketAddress {
         unsafe {
             SocketAddress::from_glib_full(gio_sys::g_inet_socket_address_new_from_string(
                 address.to_glib_none().0,
