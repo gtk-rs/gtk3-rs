@@ -31,18 +31,18 @@ fn build_ui(application: &gtk::Application) {
     let accel_group = AccelGroup::new();
     window.add_accel_group(&accel_group);
     let menu_bar = MenuBar::new();
-    let file = MenuItem::new_with_label("File");
-    let about = MenuItem::new_with_label("About");
-    let quit = MenuItem::new_with_label("Quit");
+    let file = MenuItem::with_label("File");
+    let about = MenuItem::with_label("About");
+    let quit = MenuItem::with_label("Quit");
     let file_item = MenuItem::new();
     let file_box = gtk::Box::new(gtk::Orientation::Horizontal, 0);
-    let file_image = Image::new_from_file("resources/file.png");
+    let file_image = Image::from_file("resources/file.png");
     let file_label = Label::new(Some("File"));
     let folder_item = MenuItem::new();
     let folder_box = gtk::Box::new(gtk::Orientation::Horizontal, 0);
-    let folder_image = Image::new_from_icon_name(Some("folder-music-symbolic"), IconSize::Menu);
+    let folder_image = Image::from_icon_name(Some("folder-music-symbolic"), IconSize::Menu);
     let folder_label = Label::new(Some("Folder"));
-    let check_item = CheckMenuItem::new_with_label("Click me!");
+    let check_item = CheckMenuItem::with_label("Click me!");
 
     file_box.pack_start(&file_image, false, false, 0);
     file_box.pack_start(&file_label, true, true, 0);
@@ -60,11 +60,11 @@ fn build_ui(application: &gtk::Application) {
 
     let other_menu = Menu::new();
     let sub_other_menu = Menu::new();
-    let other = MenuItem::new_with_label("Another");
-    let sub_other = MenuItem::new_with_label("Sub another");
-    let sub_other2 = MenuItem::new_with_label("Sub another 2");
-    let sub_sub_other2 = MenuItem::new_with_label("Sub sub another 2");
-    let sub_sub_other2_2 = MenuItem::new_with_label("Sub sub another2 2");
+    let other = MenuItem::with_label("Another");
+    let sub_other = MenuItem::with_label("Sub another");
+    let sub_other2 = MenuItem::with_label("Sub another 2");
+    let sub_sub_other2 = MenuItem::with_label("Sub sub another 2");
+    let sub_sub_other2_2 = MenuItem::with_label("Sub sub another2 2");
 
     sub_other_menu.append(&sub_sub_other2);
     sub_other_menu.append(&sub_sub_other2_2);

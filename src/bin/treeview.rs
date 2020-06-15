@@ -67,7 +67,7 @@ fn build_ui(application: &gtk::Application) {
     let renderer2 = CellRendererText::new();
     col.pack_start(&renderer2, true);
     col.add_attribute(&renderer2, "text", 1);
-    let image = Pixbuf::new_from_file("./resources/eye.png")
+    let image = Pixbuf::from_file("./resources/eye.png")
         .or_else(|err| {
             let mut msg = err.to_string();
             if err.kind() == Some(glib::FileError::Noent) {

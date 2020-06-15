@@ -41,7 +41,7 @@ fn main() {
             window.set_title("First GTK+ Program");
             window.set_default_size(350, 70);
 
-            let button = Button::new_with_label("Click me!");
+            let button = Button::with_label("Click me!");
             button.connect_clicked(clone!(@weak state, @weak state2 => move |_| {
                 let mut state = state.borrow_mut();
                 let mut state2 = state2.borrow_mut();

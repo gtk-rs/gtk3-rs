@@ -26,7 +26,7 @@ fn build_ui(application: &gtk::Application) {
 
     let fixed = Fixed::new();
     window.add(&fixed);
-    let button = Button::new_with_label("Dummy");
+    let button = Button::with_label("Dummy");
     button.set_size_request(100, 30);
     fixed.add(&button);
 

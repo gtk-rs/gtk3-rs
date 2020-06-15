@@ -32,7 +32,7 @@ fn create_sub_window(
         }),
     );
 
-    let button = gtk::Button::new_with_label(&format!("Notify main window with id {}!", id));
+    let button = gtk::Button::with_label(&format!("Notify main window with id {}!", id));
     button.connect_clicked(clone!(@weak main_window_entry => move |_| {
         // When the button is clicked, let's write it on the main window's entry!
         main_window_entry.get_buffer().set_text(&format!("sub window {} clicked", id));
@@ -88,7 +88,7 @@ fn build_ui(application: &gtk::Application) {
     entry.set_placeholder_text(Some("Events notification will be sent here"));
 
     // Now let's create a button to create a looooot of new windows!
-    let button = gtk::Button::new_with_label("Create new window");
+    let button = gtk::Button::with_label("Create new window");
     button.connect_clicked(
         clone!(@weak windows_title_entry, @weak entry, @weak application => move |_| {
             let new_id = generate_new_id(&windows.borrow());

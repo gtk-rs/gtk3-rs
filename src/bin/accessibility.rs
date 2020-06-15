@@ -20,7 +20,7 @@ fn build_ui(application: &gtk::Application) {
     window.set_title("Accessibility");
     window.set_position(gtk::WindowPosition::Center);
 
-    let button = gtk::Button::new_with_label("Click me!");
+    let button = gtk::Button::with_label("Click me!");
     let label = gtk::Label::new(Some("0"));
     let vbox = gtk::Box::new(gtk::Orientation::Vertical, 0);
 

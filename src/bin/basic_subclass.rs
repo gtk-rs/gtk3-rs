@@ -69,7 +69,7 @@ impl ObjectImpl for SimpleWindowPrivate {
         let self_ = obj.downcast_ref::<SimpleWindow>().unwrap();
 
         let headerbar = gtk::HeaderBar::new();
-        let increment = gtk::Button::new_with_label("Increment!");
+        let increment = gtk::Button::with_label("Increment!");
         let label = gtk::Label::new(Some("Press the Increment Button!"));
 
         headerbar.set_title(Some("Hello World!"));

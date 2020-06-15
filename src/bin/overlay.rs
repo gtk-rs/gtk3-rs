@@ -61,9 +61,9 @@ fn build_ui(application: &gtk::Application) {
 
     let hbox = gtk::Box::new(gtk::Orientation::Horizontal, 0);
 
-    let but1 = gtk::Button::new_with_label("Click me!");
-    let but2 = gtk::Button::new_with_label("Or me!");
-    let but3 = gtk::Button::new_with_label("Why not me?");
+    let but1 = gtk::Button::with_label("Click me!");
+    let but2 = gtk::Button::with_label("Or me!");
+    let but3 = gtk::Button::with_label("Why not me?");
 
     // When a button is clicked on, we set its label to the overlay label.
     let overlay_text_weak = overlay_text.downgrade();
