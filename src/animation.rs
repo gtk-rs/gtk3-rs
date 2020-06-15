@@ -60,7 +60,7 @@ glib_wrapper! {
 }
 
 impl PixbufAnimation {
-    pub fn new_from_file<T: AsRef<Path>>(file: T) -> Result<PixbufAnimation, Error> {
+    pub fn from_file<T: AsRef<Path>>(file: T) -> Result<PixbufAnimation, Error> {
         #[cfg(not(windows))]
         use gdk_pixbuf_sys::gdk_pixbuf_animation_new_from_file;
         #[cfg(windows)]
@@ -78,7 +78,7 @@ impl PixbufAnimation {
         }
     }
 
-    pub fn new_from_resource(resource_path: &str) -> Result<PixbufAnimation, Error> {
+    pub fn from_resource(resource_path: &str) -> Result<PixbufAnimation, Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ptr = gdk_pixbuf_sys::gdk_pixbuf_animation_new_from_resource(
