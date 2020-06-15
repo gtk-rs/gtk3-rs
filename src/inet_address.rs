@@ -21,7 +21,7 @@ impl<'a> InetAddressBytes<'a> {
 }
 
 impl InetAddress {
-    pub fn new_from_bytes(inet_address_bytes: InetAddressBytes) -> Self {
+    pub fn from_bytes(inet_address_bytes: InetAddressBytes) -> Self {
         use self::InetAddressBytes::*;
 
         let bytes = inet_address_bytes.deref();

@@ -11,7 +11,7 @@ use std::ptr;
 use Resource;
 
 impl Resource {
-    pub fn new_from_data(data: &glib::Bytes) -> Result<Resource, glib::Error> {
+    pub fn from_data(data: &glib::Bytes) -> Result<Resource, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
 

@@ -585,7 +585,7 @@ mod tests {
     fn read_all_async() {
         let ret = run_async(|tx, l| {
             let b = Bytes::from_owned(vec![1, 2, 3]);
-            let strm = MemoryInputStream::new_from_bytes(&b);
+            let strm = MemoryInputStream::from_bytes(&b);
 
             let buf = vec![0; 10];
             strm.read_all_async(
@@ -610,7 +610,7 @@ mod tests {
     #[test]
     fn read_all() {
         let b = Bytes::from_owned(vec![1, 2, 3]);
-        let strm = MemoryInputStream::new_from_bytes(&b);
+        let strm = MemoryInputStream::from_bytes(&b);
         let mut buf = vec![0; 10];
 
         let ret = strm.read_all(&mut buf, ::NONE_CANCELLABLE).unwrap();
@@ -625,7 +625,7 @@ mod tests {
     #[test]
     fn read() {
         let b = Bytes::from_owned(vec![1, 2, 3]);
-        let strm = MemoryInputStream::new_from_bytes(&b);
+        let strm = MemoryInputStream::from_bytes(&b);
         let mut buf = vec![0; 10];
 
         let ret = strm.read(&mut buf, ::NONE_CANCELLABLE);
@@ -640,7 +640,7 @@ mod tests {
     fn read_async() {
         let ret = run_async(|tx, l| {
             let b = Bytes::from_owned(vec![1, 2, 3]);
-            let strm = MemoryInputStream::new_from_bytes(&b);
+            let strm = MemoryInputStream::from_bytes(&b);
 
             let buf = vec![0; 10];
             strm.read_async(
@@ -665,7 +665,7 @@ mod tests {
     fn read_bytes_async() {
         let ret = run_async(|tx, l| {
             let b = Bytes::from_owned(vec![1, 2, 3]);
-            let strm = MemoryInputStream::new_from_bytes(&b);
+            let strm = MemoryInputStream::from_bytes(&b);
 
             strm.read_bytes_async(
                 10,
@@ -686,7 +686,7 @@ mod tests {
     fn skip_async() {
         let ret = run_async(|tx, l| {
             let b = Bytes::from_owned(vec![1, 2, 3]);
-            let strm = MemoryInputStream::new_from_bytes(&b);
+            let strm = MemoryInputStream::from_bytes(&b);
 
             strm.skip_async(
                 10,
@@ -706,7 +706,7 @@ mod tests {
     #[test]
     fn std_io_read() {
         let b = Bytes::from_owned(vec![1, 2, 3]);
-        let mut read = MemoryInputStream::new_from_bytes(&b).into_read();
+        let mut read = MemoryInputStream::from_bytes(&b).into_read();
         let mut buf = [0u8; 10];
 
         let ret = read.read(&mut buf);
@@ -720,7 +720,7 @@ mod tests {
     #[test]
     fn into_input_stream() {
         let b = Bytes::from_owned(vec![1, 2, 3]);
-        let stream = MemoryInputStream::new_from_bytes(&b);
+        let stream = MemoryInputStream::from_bytes(&b);
         let stream_clone = stream.clone();
         let stream = stream.into_read().into_input_stream();
 

@@ -21,9 +21,9 @@ mod tests {
     }
 
     #[test]
-    fn new_from_bytes() {
+    fn from_bytes() {
         let b = Bytes::from_owned(vec![1, 2, 3]);
-        let strm = MemoryInputStream::new_from_bytes(&b);
+        let strm = MemoryInputStream::from_bytes(&b);
         let mut buf = vec![0; 10];
         let ret = strm.read(&mut buf, ::NONE_CANCELLABLE).unwrap();
         assert_eq!(ret, 3);
@@ -59,7 +59,7 @@ mod tests {
 
         let buf = vec![0; 10];
         let b = glib::Bytes::from_owned(vec![1, 2, 3]);
-        let strm = MemoryInputStream::new_from_bytes(&b);
+        let strm = MemoryInputStream::from_bytes(&b);
 
         let res = c
             .block_on(
