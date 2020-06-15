@@ -518,7 +518,7 @@ impl FlagsClass {
             return None;
         }
 
-        Some(FlagsBuilder::new_with_value(self, value))
+        Some(FlagsBuilder::with_value(self, value))
     }
 }
 
@@ -623,7 +623,7 @@ impl<'a> FlagsBuilder<'a> {
         FlagsBuilder(flags_class, Some(value))
     }
 
-    fn new_with_value(flags_class: &FlagsClass, value: Value) -> FlagsBuilder {
+    fn with_value(flags_class: &FlagsClass, value: Value) -> FlagsBuilder {
         FlagsBuilder(flags_class, Some(value))
     }
 

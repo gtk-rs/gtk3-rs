@@ -144,7 +144,7 @@ impl Variant {
     }
 
     /// Constructs a new serialised-mode GVariant instance.
-    pub fn new_from_bytes<T: StaticVariantType>(bytes: &Bytes) -> Self {
+    pub fn from_bytes<T: StaticVariantType>(bytes: &Bytes) -> Self {
         unsafe {
             from_glib_none(glib_sys::g_variant_new_from_bytes(
                 T::static_variant_type().as_ptr() as *const _,
@@ -156,7 +156,7 @@ impl Variant {
 
     /// Constructs a new serialised-mode GVariant instance.
     ///
-    /// This is the same as `new_from_bytes`, except that checks on the passed
+    /// This is the same as `from_bytes`, except that checks on the passed
     /// data are skipped.
     ///
     /// You should not use this function on data from external sources.
@@ -166,7 +166,7 @@ impl Variant {
     /// Since the data is not validated, this is potentially dangerous if called
     /// on bytes which are not guaranteed to have come from serialising another
     /// Variant.  The caller is responsible for ensuring bad data is not passed in.
-    pub unsafe fn new_from_bytes_trusted<T: StaticVariantType>(bytes: &Bytes) -> Self {
+    pub unsafe fn from_bytes_trusted<T: StaticVariantType>(bytes: &Bytes) -> Self {
         from_glib_none(glib_sys::g_variant_new_from_bytes(
             T::static_variant_type().as_ptr() as *const _,
             bytes.to_glib_none().0,
