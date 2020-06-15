@@ -33,7 +33,9 @@ pub use self::x11_display_manager::{X11DisplayManager, X11DisplayManagerClass};
 mod x11_drag_context;
 pub use self::x11_drag_context::{X11DragContext, X11DragContextClass};
 
+#[cfg(any(feature = "v3_16", feature = "dox"))]
 mod x11gl_context;
+#[cfg(any(feature = "v3_16", feature = "dox"))]
 pub use self::x11gl_context::{X11GLContext, X11GLContextClass};
 
 #[cfg(any(feature = "v3_6", feature = "dox"))]
@@ -41,7 +43,9 @@ mod x11_keymap;
 #[cfg(any(feature = "v3_6", feature = "dox"))]
 pub use self::x11_keymap::{X11Keymap, X11KeymapClass};
 
+#[cfg(any(feature = "v3_22", feature = "dox"))]
 mod x11_monitor;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
 pub use self::x11_monitor::{X11Monitor, X11MonitorClass};
 
 mod x11_screen;

@@ -4,13 +4,11 @@
 
 use gdk;
 use gdk_x11_sys;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::translate::*;
 use glib::StaticType;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
 use glib::ToValue;
 use glib::Value;
 use gobject_sys;

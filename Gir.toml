@@ -19,9 +19,7 @@ generate = [
   "GdkX11.X11Display",
   "GdkX11.X11DisplayManager",
   "GdkX11.X11DragContext",
-  "GdkX11.X11GLContext",
   "GdkX11.X11Keymap",
-  "GdkX11.X11Monitor",
   "GdkX11.X11Screen",
   "GdkX11.X11Visual",
   "GdkX11.X11Window"
@@ -55,3 +53,13 @@ manual = [
 [[object]]
 name = "Gdk.*"
 status = "generate"
+
+[[object]]
+name = "GdkX11.X11GLContext"
+status = "generate"
+version = "3.16"
+
+[[object]]
+name = "GdkX11.X11Monitor"
+status = "generate"
+version = "3.22"

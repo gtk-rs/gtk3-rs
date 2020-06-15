@@ -2,6 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+#![allow(deprecated)]
 #![cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
 
 #[macro_use]
@@ -22,6 +23,9 @@ extern crate bitflags;
 
 extern crate fragile;
 
+#[macro_use]
+#[cfg(any(feature = "v3_16", feature = "dox"))]
+mod rt;
 mod auto;
 
 pub use auto::*;
