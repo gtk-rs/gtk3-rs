@@ -47,7 +47,13 @@ manual = [
   "Gdk.Screen",
   "Gdk.Visual",
   "Gdk.Window",
-  "Gio.AppLaunchContext"
+  "Gio.AppLaunchContext",
+  "xlib.Cursor",
+  # "xlib.Screen",
+  # "xlib.Display",
+  "xlib.VisualID",
+  "xlib.XID",
+  "xlib.Window"
 ]
 
 [[object]]

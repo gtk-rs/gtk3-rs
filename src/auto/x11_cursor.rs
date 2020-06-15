@@ -6,6 +6,7 @@ use gdk;
 use gdk_x11_sys;
 use glib::translate::*;
 use std::fmt;
+use xlib;
 
 glib_wrapper! {
     pub struct X11Cursor(Object<gdk_x11_sys::GdkX11Cursor, gdk_x11_sys::GdkX11CursorClass, X11CursorClass>) @extends gdk::Cursor;
@@ -16,9 +17,9 @@ glib_wrapper! {
 }
 
 impl X11Cursor {
-    //pub fn get_xcursor(&self) -> /*Ignored*/xlib::Cursor {
-    //    unsafe { TODO: call gdk_x11_sys:gdk_x11_cursor_get_xcursor() }
-    //}
+    pub fn get_xcursor(&self) -> xlib::Cursor {
+        unsafe { gdk_x11_sys::gdk_x11_cursor_get_xcursor(self.to_glib_none().0) }
+    }
 
     //pub fn get_xdisplay(&self) -> /*Ignored*/Option<xlib::Display> {
     //    unsafe { TODO: call gdk_x11_sys:gdk_x11_cursor_get_xdisplay() }

@@ -4,8 +4,10 @@
 
 use gdk;
 use gdk_x11_sys;
+use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
+use xlib;
 
 glib_wrapper! {
     pub struct X11Monitor(Object<gdk_x11_sys::GdkX11Monitor, gdk_x11_sys::GdkX11MonitorClass, X11MonitorClass>) @extends gdk::Monitor;
@@ -16,9 +18,10 @@ glib_wrapper! {
 }
 
 impl X11Monitor {
-    //pub fn get_output<P: IsA<gdk::Monitor>>(monitor: &P) -> /*Ignored*/xlib::XID {
-    //    unsafe { TODO: call gdk_x11_sys:gdk_x11_monitor_get_output() }
-    //}
+    pub fn get_output<P: IsA<gdk::Monitor>>(monitor: &P) -> xlib::XID {
+        assert_initialized_main_thread!();
+        unsafe { gdk_x11_sys::gdk_x11_monitor_get_output(monitor.as_ref().to_glib_none().0) }
+    }
 }
 
 impl fmt::Display for X11Monitor {

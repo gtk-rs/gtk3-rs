@@ -45,6 +45,7 @@ features = ["dox", "embed-lgpl-docs"]
 [dependencies]
 libc = "0.2"
 bitflags = "1.0"
+x11 = "2.18"
 
 [dependencies.fragile]
 version = "0.3"

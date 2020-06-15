@@ -18,13 +18,15 @@ extern crate gobject_sys;
 extern crate pango;
 
 extern crate libc;
+extern crate x11;
 #[macro_use]
 extern crate bitflags;
+
+pub(crate) use x11::xlib;
 
 extern crate fragile;
 
 #[macro_use]
-#[cfg(any(feature = "v3_16", feature = "dox"))]
 mod rt;
 mod auto;
 

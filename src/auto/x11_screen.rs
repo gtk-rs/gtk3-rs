@@ -13,6 +13,8 @@ use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
+use xlib;
+use X11Visual;
 
 glib_wrapper! {
     pub struct X11Screen(Object<gdk_x11_sys::GdkX11Screen, gdk_x11_sys::GdkX11ScreenClass, X11ScreenClass>) @extends gdk::Screen;
@@ -28,9 +30,11 @@ impl X11Screen {
         unsafe { gdk_x11_sys::gdk_x11_screen_get_current_desktop(self.to_glib_none().0) }
     }
 
-    //pub fn get_monitor_output(&self, monitor_num: i32) -> /*Ignored*/xlib::XID {
-    //    unsafe { TODO: call gdk_x11_sys:gdk_x11_screen_get_monitor_output() }
-    //}
+    pub fn get_monitor_output(&self, monitor_num: i32) -> xlib::XID {
+        unsafe {
+            gdk_x11_sys::gdk_x11_screen_get_monitor_output(self.to_glib_none().0, monitor_num)
+        }
+    }
 
     #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn get_number_of_desktops(&self) -> u32 {
@@ -53,9 +57,14 @@ impl X11Screen {
     //    unsafe { TODO: call gdk_x11_sys:gdk_x11_screen_get_xscreen() }
     //}
 
-    //pub fn lookup_visual(&self, xvisualid: /*Ignored*/xlib::VisualID) -> Option<X11Visual> {
-    //    unsafe { TODO: call gdk_x11_sys:gdk_x11_screen_lookup_visual() }
-    //}
+    pub fn lookup_visual(&self, xvisualid: xlib::VisualID) -> Option<X11Visual> {
+        unsafe {
+            from_glib_none(gdk_x11_sys::gdk_x11_screen_lookup_visual(
+                self.to_glib_none().0,
+                xvisualid,
+            ))
+        }
+    }
 
     //pub fn supports_net_wm_hint(&self, property: /*Ignored*/&gdk::Atom) -> bool {
     //    unsafe { TODO: call gdk_x11_sys:gdk_x11_screen_supports_net_wm_hint() }

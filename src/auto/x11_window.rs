@@ -4,8 +4,11 @@
 
 use gdk;
 use gdk_x11_sys;
+use glib::object::Cast;
 use glib::translate::*;
 use std::fmt;
+use xlib;
+use X11Display;
 
 glib_wrapper! {
     pub struct X11Window(Object<gdk_x11_sys::GdkX11Window, gdk_x11_sys::GdkX11WindowClass, X11WindowClass>) @extends gdk::Window;
@@ -16,18 +19,25 @@ glib_wrapper! {
 }
 
 impl X11Window {
-    //pub fn foreign_new_for_display(display: &X11Display, window: /*Ignored*/xlib::Window) -> X11Window {
-    //    unsafe { TODO: call gdk_x11_sys:gdk_x11_window_foreign_new_for_display() }
-    //}
+    pub fn foreign_new_for_display(display: &X11Display, window: xlib::Window) -> X11Window {
+        skip_assert_initialized!();
+        unsafe {
+            gdk::Window::from_glib_full(gdk_x11_sys::gdk_x11_window_foreign_new_for_display(
+                display.to_glib_none().0,
+                window,
+            ))
+            .unsafe_cast()
+        }
+    }
 
     #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn get_desktop(&self) -> u32 {
         unsafe { gdk_x11_sys::gdk_x11_window_get_desktop(self.to_glib_none().0) }
     }
 
-    //pub fn get_xid(&self) -> /*Ignored*/xlib::Window {
-    //    unsafe { TODO: call gdk_x11_sys:gdk_x11_window_get_xid() }
-    //}
+    pub fn get_xid(&self) -> xlib::Window {
+        unsafe { gdk_x11_sys::gdk_x11_window_get_xid(self.to_glib_none().0) }
+    }
 
     pub fn move_to_current_desktop(&self) {
         unsafe {
@@ -103,9 +113,15 @@ impl X11Window {
         }
     }
 
-    //pub fn lookup_for_display(display: &X11Display, window: /*Ignored*/xlib::Window) -> Option<X11Window> {
-    //    unsafe { TODO: call gdk_x11_sys:gdk_x11_window_lookup_for_display() }
-    //}
+    pub fn lookup_for_display(display: &X11Display, window: xlib::Window) -> Option<X11Window> {
+        skip_assert_initialized!();
+        unsafe {
+            from_glib_none(gdk_x11_sys::gdk_x11_window_lookup_for_display(
+                display.to_glib_none().0,
+                window,
+            ))
+        }
+    }
 }
 
 impl fmt::Display for X11Window {
