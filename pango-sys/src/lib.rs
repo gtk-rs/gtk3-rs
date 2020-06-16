@@ -1564,11 +1564,13 @@ extern "C" {
     //=========================================================================
     // PangoShapeFlags
     //=========================================================================
+    #[cfg(any(feature = "v1_44", feature = "dox"))]
     pub fn pango_shape_flags_get_type() -> GType;
 
     //=========================================================================
     // PangoShowFlags
     //=========================================================================
+    #[cfg(any(feature = "v1_44", feature = "dox"))]
     pub fn pango_show_flags_get_type() -> GType;
 
     //=========================================================================
@@ -1585,6 +1587,7 @@ extern "C" {
     //=========================================================================
     // PangoAttrIterator
     //=========================================================================
+    #[cfg(any(feature = "v1_44", feature = "dox"))]
     pub fn pango_attr_iterator_get_type() -> GType;
     pub fn pango_attr_iterator_copy(iterator: *mut PangoAttrIterator) -> *mut PangoAttrIterator;
     pub fn pango_attr_iterator_destroy(iterator: *mut PangoAttrIterator);
@@ -1663,6 +1666,7 @@ extern "C" {
     //=========================================================================
     // PangoAttribute
     //=========================================================================
+    #[cfg(any(feature = "v1_44", feature = "dox"))]
     pub fn pango_attribute_get_type() -> GType;
     pub fn pango_attribute_copy(attr: *const PangoAttribute) -> *mut PangoAttribute;
     pub fn pango_attribute_destroy(attr: *mut PangoAttribute);
@@ -2057,6 +2061,7 @@ extern "C" {
     //=========================================================================
     // PangoScriptIter
     //=========================================================================
+    #[cfg(any(feature = "v1_44", feature = "dox"))]
     pub fn pango_script_iter_get_type() -> GType;
     pub fn pango_script_iter_new(text: *const c_char, length: c_int) -> *mut PangoScriptIter;
     pub fn pango_script_iter_free(iter: *mut PangoScriptIter);
@@ -2163,6 +2168,7 @@ extern "C" {
     //=========================================================================
     // PangoCoverage
     //=========================================================================
+    #[cfg(any(feature = "v1_44", feature = "dox"))]
     pub fn pango_coverage_get_type() -> GType;
     pub fn pango_coverage_new() -> *mut PangoCoverage;
     pub fn pango_coverage_from_bytes(bytes: *mut u8, n_bytes: c_int) -> *mut PangoCoverage;

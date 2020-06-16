@@ -324,7 +324,6 @@ extern "C" {
         display: *mut GdkX11Display,
         startup_id: *const c_char,
     );
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn gdk_x11_display_set_window_scale(display: *mut GdkX11Display, scale: c_int);
     pub fn gdk_x11_display_string_to_compound_text(
         display: *mut GdkX11Display,
@@ -365,34 +364,33 @@ extern "C" {
     //=========================================================================
     // GdkX11GLContext
     //=========================================================================
+    #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gdk_x11_gl_context_get_type() -> GType;
 
     //=========================================================================
     // GdkX11Keymap
     //=========================================================================
     pub fn gdk_x11_keymap_get_type() -> GType;
-    #[cfg(any(feature = "v3_6", feature = "dox"))]
     pub fn gdk_x11_keymap_get_group_for_state(keymap: *mut GdkX11Keymap, state: c_uint) -> c_int;
-    #[cfg(any(feature = "v3_6", feature = "dox"))]
     pub fn gdk_x11_keymap_key_is_modifier(keymap: *mut GdkX11Keymap, keycode: c_uint) -> gboolean;
 
     //=========================================================================
     // GdkX11Monitor
     //=========================================================================
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_x11_monitor_get_type() -> GType;
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_x11_monitor_get_output(monitor: *mut gdk::GdkMonitor) -> xlib::XID;
 
     //=========================================================================
     // GdkX11Screen
     //=========================================================================
     pub fn gdk_x11_screen_get_type() -> GType;
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn gdk_x11_screen_get_current_desktop(screen: *mut GdkX11Screen) -> u32;
     pub fn gdk_x11_screen_get_monitor_output(
         screen: *mut GdkX11Screen,
         monitor_num: c_int,
     ) -> xlib::XID;
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn gdk_x11_screen_get_number_of_desktops(screen: *mut GdkX11Screen) -> u32;
     pub fn gdk_x11_screen_get_screen_number(screen: *mut GdkX11Screen) -> c_int;
     pub fn gdk_x11_screen_get_window_manager_name(screen: *mut GdkX11Screen) -> *const c_char;
@@ -424,13 +422,10 @@ extern "C" {
         display: *mut GdkX11Display,
         window: xlib::Window,
     ) -> *mut GdkX11Window;
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn gdk_x11_window_get_desktop(window: *mut GdkX11Window) -> u32;
     pub fn gdk_x11_window_get_xid(window: *mut GdkX11Window) -> xlib::Window;
     pub fn gdk_x11_window_move_to_current_desktop(window: *mut GdkX11Window);
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn gdk_x11_window_move_to_desktop(window: *mut GdkX11Window, desktop: u32);
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn gdk_x11_window_set_frame_extents(
         window: *mut GdkX11Window,
         left: c_int,
@@ -438,20 +433,16 @@ extern "C" {
         top: c_int,
         bottom: c_int,
     );
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     pub fn gdk_x11_window_set_frame_sync_enabled(
         window: *mut GdkX11Window,
         frame_sync_enabled: gboolean,
     );
-    #[cfg(any(feature = "v3_4", feature = "dox"))]
     pub fn gdk_x11_window_set_hide_titlebar_when_maximized(
         window: *mut GdkX11Window,
         hide_titlebar_when_maximized: gboolean,
     );
-    #[cfg(any(feature = "v3_2", feature = "dox"))]
     pub fn gdk_x11_window_set_theme_variant(window: *mut GdkX11Window, variant: *mut c_char);
     pub fn gdk_x11_window_set_user_time(window: *mut GdkX11Window, timestamp: u32);
-    #[cfg(any(feature = "v3_4", feature = "dox"))]
     pub fn gdk_x11_window_set_utf8_property(
         window: *mut GdkX11Window,
         name: *const c_char,
@@ -466,9 +457,7 @@ extern "C" {
         display: *mut GdkX11Display,
         atom: gdk::GdkAtom,
     ) -> xlib::Atom;
-    #[cfg(any(feature = "v3_2", feature = "dox"))]
     pub fn gdk_x11_device_get_id(device: *mut GdkX11DeviceCore) -> c_int;
-    #[cfg(any(feature = "v3_2", feature = "dox"))]
     pub fn gdk_x11_device_manager_lookup(
         device_manager: *mut GdkX11DeviceManagerCore,
         device_id: c_int,

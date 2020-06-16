@@ -8865,6 +8865,7 @@ extern "C" {
     //=========================================================================
     // GMemoryMonitorWarningLevel
     //=========================================================================
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
     pub fn g_memory_monitor_warning_level_get_type() -> GType;
 
     //=========================================================================
@@ -8875,6 +8876,7 @@ extern "C" {
     //=========================================================================
     // GNetworkConnectivity
     //=========================================================================
+    #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub fn g_network_connectivity_get_type() -> GType;
 
     //=========================================================================
@@ -8890,6 +8892,7 @@ extern "C" {
     //=========================================================================
     // GPollableReturn
     //=========================================================================
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
     pub fn g_pollable_return_get_type() -> GType;
 
     //=========================================================================
@@ -8922,6 +8925,7 @@ extern "C" {
     //=========================================================================
     // GSocketListenerEvent
     //=========================================================================
+    #[cfg(any(feature = "v2_46", feature = "dox"))]
     pub fn g_socket_listener_event_get_type() -> GType;
 
     //=========================================================================
@@ -9123,6 +9127,7 @@ extern "C" {
     //=========================================================================
     // GResolverNameLookupFlags
     //=========================================================================
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
     pub fn g_resolver_name_lookup_flags_get_type() -> GType;
 
     //=========================================================================
@@ -9501,11 +9506,13 @@ extern "C" {
     //=========================================================================
     // GUnixMountEntry
     //=========================================================================
+    #[cfg(any(feature = "v2_54", feature = "dox"))]
     pub fn g_unix_mount_entry_get_type() -> GType;
 
     //=========================================================================
     // GUnixMountPoint
     //=========================================================================
+    #[cfg(any(feature = "v2_54", feature = "dox"))]
     pub fn g_unix_mount_point_get_type() -> GType;
     pub fn g_unix_mount_point_compare(
         mount1: *mut GUnixMountPoint,
@@ -11606,6 +11613,7 @@ extern "C" {
     //=========================================================================
     // GListStore
     //=========================================================================
+    #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub fn g_list_store_get_type() -> GType;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub fn g_list_store_new(item_type: GType) -> *mut GListStore;
@@ -11900,6 +11908,7 @@ extern "C" {
     //=========================================================================
     // GNativeSocketAddress
     //=========================================================================
+    #[cfg(any(feature = "v2_46", feature = "dox"))]
     pub fn g_native_socket_address_get_type() -> GType;
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     pub fn g_native_socket_address_new(native: gpointer, len: size_t) -> *mut GSocketAddress;
@@ -12717,6 +12726,7 @@ extern "C" {
     //=========================================================================
     // GSimpleIOStream
     //=========================================================================
+    #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub fn g_simple_io_stream_get_type() -> GType;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub fn g_simple_io_stream_new(
@@ -14421,6 +14431,7 @@ extern "C" {
     //=========================================================================
     // GDatagramBased
     //=========================================================================
+    #[cfg(any(feature = "v2_48", feature = "dox"))]
     pub fn g_datagram_based_get_type() -> GType;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     pub fn g_datagram_based_condition_check(
@@ -14560,6 +14571,7 @@ extern "C" {
     //=========================================================================
     // GDtlsClientConnection
     //=========================================================================
+    #[cfg(any(feature = "v2_48", feature = "dox"))]
     pub fn g_dtls_client_connection_get_type() -> GType;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     pub fn g_dtls_client_connection_new(
@@ -14593,6 +14605,7 @@ extern "C" {
     //=========================================================================
     // GDtlsConnection
     //=========================================================================
+    #[cfg(any(feature = "v2_48", feature = "dox"))]
     pub fn g_dtls_connection_get_type() -> GType;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     pub fn g_dtls_connection_close(
@@ -14717,6 +14730,7 @@ extern "C" {
     //=========================================================================
     // GDtlsServerConnection
     //=========================================================================
+    #[cfg(any(feature = "v2_48", feature = "dox"))]
     pub fn g_dtls_server_connection_get_type() -> GType;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     pub fn g_dtls_server_connection_new(
@@ -15524,6 +15538,7 @@ extern "C" {
     //=========================================================================
     // GListModel
     //=========================================================================
+    #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub fn g_list_model_get_type() -> GType;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub fn g_list_model_get_item(list: *mut GListModel, position: c_uint) -> gpointer;
@@ -15572,6 +15587,7 @@ extern "C" {
     //=========================================================================
     // GMemoryMonitor
     //=========================================================================
+    #[cfg(any(feature = "v2_64", feature = "dox"))]
     pub fn g_memory_monitor_get_type() -> GType;
     #[cfg(any(feature = "v2_64", feature = "dox"))]
     pub fn g_memory_monitor_dup_default() -> *mut GMemoryMonitor;

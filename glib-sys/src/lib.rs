@@ -3746,6 +3746,7 @@ extern "C" {
     //=========================================================================
     // GOptionGroup
     //=========================================================================
+    #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub fn g_option_group_get_type() -> GType;
     pub fn g_option_group_new(
         name: *const c_char,

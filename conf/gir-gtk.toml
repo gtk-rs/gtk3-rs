@@ -27,3 +27,103 @@ ignore = [
 	"Gtk.MICRO_VERSION",
 	"Gtk.MINOR_VERSION",
 ]
+
+[[object]]
+name = "Gtk.ButtonRole"
+status = "generate"
+version = "3.16"
+
+[[object]]
+name = "Gtk.FileChooserNative"
+status = "generate"
+version = "3.20"
+
+[[object]]
+name = "Gtk.ModelButton"
+status = "generate"
+version = "3.16"
+
+[[object]]
+name = "Gtk.NativeDialog"
+status = "generate"
+version = "3.20"
+
+[[object]]
+name = "Gtk.PopoverMenu"
+status = "generate"
+version = "3.16"
+
+[[object]]
+name = "Gtk.ShortcutsGroup"
+status = "generate"
+version = "3.20"
+
+[[object]]
+name = "Gtk.ShortcutsSection"
+status = "generate"
+version = "3.20"
+
+[[object]]
+name = "Gtk.ShortcutsShortcut"
+status = "generate"
+version = "3.20"
+
+[[object]]
+name = "Gtk.ShortcutsWindow"
+status = "generate"
+version = "3.20"
+
+[[object]]
+name = "Gtk.StyleContextPrintFlags"
+status = "generate"
+version = "3.20"
+
+[[object]]
+name = "Gtk.EventControllerKey"
+status = "generate"
+version = "3.24"
+
+[[object]]
+name = "Gtk.EventControllerMotion"
+status = "generate"
+version = "3.24"
+
+[[object]]
+name = "Gtk.EventControllerScroll"
+status = "generate"
+version = "3.24"
+
+[[object]]
+name = "Gtk.FontChooserLevel"
+status = "generate"
+version = "3.24"
+
+[[object]]
+name = "Gtk.GestureStyle"
+status = "generate"
+version = "3.24"
+
+[[object]]
+name = "Gtk.HeaderBarAccessible"
+status = "generate"
+version = "3.24.11"
+
+[[object]]
+name = "Gtk.PadActionType"
+status = "generate"
+version = "3.22"
+
+[[object]]
+name = "Gtk.PadController"
+status = "generate"
+version = "3.22"
+
+[[object]]
+name = "Gtk.ShortcutLabel"
+status = "generate"
+version = "3.22"
+
+[[object]]
+name = "Gtk.StackAccessible"
+status = "generate"
+version = "3.22"

@@ -2,7 +2,7 @@
 work_mode = "sys"
 library = "GdkX11"
 version = "3.0"
-min_cfg_version = "3.0"
+min_cfg_version = "3.14"
 single_version_file = "."
 
 external_libraries = [
@@ -16,3 +16,13 @@ external_libraries = [
 
 ignore = [
 ]
+
+[[object]]
+name = "GdkX11.X11GLContext"
+status = "generate"
+version = "3.16"
+
+[[object]]
+name = "GdkX11.X11Monitor"
+status = "generate"
+version = "3.22"
