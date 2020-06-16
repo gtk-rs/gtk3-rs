@@ -50,7 +50,7 @@ impl Settings {
         }
     }
 
-    pub fn new_with_backend<P: IsA<SettingsBackend>>(schema_id: &str, backend: &P) -> Settings {
+    pub fn with_backend<P: IsA<SettingsBackend>>(schema_id: &str, backend: &P) -> Settings {
         unsafe {
             from_glib_full(gio_sys::g_settings_new_with_backend(
                 schema_id.to_glib_none().0,
@@ -59,7 +59,7 @@ impl Settings {
         }
     }
 
-    pub fn new_with_backend_and_path<P: IsA<SettingsBackend>>(
+    pub fn with_backend_and_path<P: IsA<SettingsBackend>>(
         schema_id: &str,
         backend: &P,
         path: &str,
@@ -73,7 +73,7 @@ impl Settings {
         }
     }
 
-    pub fn new_with_path(schema_id: &str, path: &str) -> Settings {
+    pub fn with_path(schema_id: &str, path: &str) -> Settings {
         unsafe {
             from_glib_full(gio_sys::g_settings_new_with_path(
                 schema_id.to_glib_none().0,

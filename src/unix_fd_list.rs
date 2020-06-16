@@ -14,7 +14,7 @@ use std::os::unix::io::{AsRawFd, IntoRawFd, RawFd};
 use socket::{AsRawFd, IntoRawFd, RawFd};
 
 impl UnixFDList {
-    pub fn new_from_array<T>(fds: T) -> UnixFDList
+    pub fn from_array<T>(fds: T) -> UnixFDList
     where
         T: IntoIterator,
         T::Item: IntoRawFd,

@@ -22,7 +22,7 @@ impl Emblem {
         unsafe { from_glib_full(gio_sys::g_emblem_new(icon.as_ref().to_glib_none().0)) }
     }
 
-    pub fn new_with_origin<P: IsA<Icon>>(icon: &P, origin: EmblemOrigin) -> Emblem {
+    pub fn with_origin<P: IsA<Icon>>(icon: &P, origin: EmblemOrigin) -> Emblem {
         unsafe {
             from_glib_full(gio_sys::g_emblem_new_with_origin(
                 icon.as_ref().to_glib_none().0,

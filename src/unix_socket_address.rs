@@ -46,7 +46,7 @@ impl UnixSocketAddress {
         }
     }
 
-    pub fn new_with_type(address_type: UnixSocketAddressPath) -> Self {
+    pub fn with_type(address_type: UnixSocketAddressPath) -> Self {
         use self::UnixSocketAddressPath::*;
 
         let type_ = address_type.to_type();

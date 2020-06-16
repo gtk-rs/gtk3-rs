@@ -30,7 +30,7 @@ impl ThemedIcon {
         unsafe { from_glib_full(gio_sys::g_themed_icon_new(iconname.to_glib_none().0)) }
     }
 
-    pub fn new_from_names(iconnames: &[&str]) -> ThemedIcon {
+    pub fn from_names(iconnames: &[&str]) -> ThemedIcon {
         let len = iconnames.len() as i32;
         unsafe {
             from_glib_full(gio_sys::g_themed_icon_new_from_names(
@@ -40,7 +40,7 @@ impl ThemedIcon {
         }
     }
 
-    pub fn new_with_default_fallbacks(iconname: &str) -> ThemedIcon {
+    pub fn with_default_fallbacks(iconname: &str) -> ThemedIcon {
         unsafe {
             from_glib_full(gio_sys::g_themed_icon_new_with_default_fallbacks(
                 iconname.to_glib_none().0,

@@ -24,7 +24,7 @@ glib_wrapper! {
 }
 
 impl SocketAddress {
-    //pub fn new_from_native(native: /*Unimplemented*/Fundamental: Pointer, len: usize) -> SocketAddress {
+    //pub fn from_native(native: /*Unimplemented*/Fundamental: Pointer, len: usize) -> SocketAddress {
     //    unsafe { TODO: call gio_sys:g_socket_address_new_from_native() }
     //}
 }

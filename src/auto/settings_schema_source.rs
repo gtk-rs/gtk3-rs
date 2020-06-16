@@ -22,7 +22,7 @@ glib_wrapper! {
 }
 
 impl SettingsSchemaSource {
-    pub fn new_from_directory<P: AsRef<std::path::Path>>(
+    pub fn from_directory<P: AsRef<std::path::Path>>(
         directory: P,
         parent: Option<&SettingsSchemaSource>,
         trusted: bool,

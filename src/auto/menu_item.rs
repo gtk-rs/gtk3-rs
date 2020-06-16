@@ -28,7 +28,7 @@ impl MenuItem {
         }
     }
 
-    pub fn new_from_model<P: IsA<MenuModel>>(model: &P, item_index: i32) -> MenuItem {
+    pub fn from_model<P: IsA<MenuModel>>(model: &P, item_index: i32) -> MenuItem {
         unsafe {
             from_glib_full(gio_sys::g_menu_item_new_from_model(
                 model.as_ref().to_glib_none().0,

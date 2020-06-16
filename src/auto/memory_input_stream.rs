@@ -25,7 +25,7 @@ impl MemoryInputStream {
         unsafe { InputStream::from_glib_full(gio_sys::g_memory_input_stream_new()).unsafe_cast() }
     }
 
-    pub fn new_from_bytes(bytes: &glib::Bytes) -> MemoryInputStream {
+    pub fn from_bytes(bytes: &glib::Bytes) -> MemoryInputStream {
         unsafe {
             InputStream::from_glib_full(gio_sys::g_memory_input_stream_new_from_bytes(
                 bytes.to_glib_none().0,

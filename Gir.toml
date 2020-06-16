@@ -80,7 +80,6 @@ generate = [
     "Gio.Icon",
     "Gio.IOErrorEnum",
     "Gio.IOStreamSpliceFlags",
-    "Gio.ListModel",
     "Gio.LoadableIcon",
     "Gio.MemoryMonitor",
     "Gio.MemoryMonitorWarningLevel",
@@ -651,8 +650,15 @@ manual_traits = ["IOStreamExtManual"]
     ignore = true
 
 [[object]]
+name = "Gio.ListModel"
+status = "generate"
+version = "2.44"
+generate_builder = true
+
+[[object]]
 name = "Gio.ListStore"
 status = "generate"
+version = "2.44"
 generate_builder = true
 manual_traits = ["ListStoreExtManual"]
     [[object.function]]
