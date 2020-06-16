@@ -36,7 +36,7 @@ impl Cursor {
         }
     }
 
-    pub fn new_from_name(display: &Display, name: &str) -> Option<Cursor> {
+    pub fn from_name(display: &Display, name: &str) -> Option<Cursor> {
         skip_assert_initialized!();
         unsafe {
             from_glib_full(gdk_sys::gdk_cursor_new_from_name(
@@ -46,12 +46,7 @@ impl Cursor {
         }
     }
 
-    pub fn new_from_pixbuf(
-        display: &Display,
-        pixbuf: &gdk_pixbuf::Pixbuf,
-        x: i32,
-        y: i32,
-    ) -> Cursor {
+    pub fn from_pixbuf(display: &Display, pixbuf: &gdk_pixbuf::Pixbuf, x: i32, y: i32) -> Cursor {
         skip_assert_initialized!();
         unsafe {
             from_glib_full(gdk_sys::gdk_cursor_new_from_pixbuf(
@@ -63,7 +58,7 @@ impl Cursor {
         }
     }
 
-    pub fn new_from_surface(display: &Display, surface: &cairo::Surface, x: f64, y: f64) -> Cursor {
+    pub fn from_surface(display: &Display, surface: &cairo::Surface, x: f64, y: f64) -> Cursor {
         skip_assert_initialized!();
         unsafe {
             from_glib_full(gdk_sys::gdk_cursor_new_from_surface(
