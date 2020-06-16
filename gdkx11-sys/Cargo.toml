@@ -32,6 +32,11 @@ git = "https://github.com/gtk-rs/sys"
 [dependencies.pango-sys]
 git = "https://github.com/gtk-rs/sys"
 
+[dependencies.cairo]
+package = "cairo-sys-rs"
+git = "https://github.com/gtk-rs/cairo"
+optional = true
+
 [build-dependencies]
 pkg-config = "0.3.7"
 
@@ -42,5 +47,5 @@ tempfile = "3"
 [features]
 v3_16 = []
 v3_24 = ["v3_16"]
-v3_24_2 = ["v3_24"]
+v3_24_2 = ["v3_24", "cairo"]
 dox = []

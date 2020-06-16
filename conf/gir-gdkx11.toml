@@ -17,6 +17,12 @@ external_libraries = [
 ignore = [
 ]
 
+[[feature_dependencies]]
+version = "3.24.2"
+dependencies = [
+  "cairo"
+]
+
 [[object]]
 name = "GdkX11.X11GLContext"
 status = "generate"
