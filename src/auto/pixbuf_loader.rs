@@ -32,7 +32,7 @@ impl PixbufLoader {
         unsafe { from_glib_full(gdk_pixbuf_sys::gdk_pixbuf_loader_new()) }
     }
 
-    pub fn new_with_mime_type(mime_type: &str) -> Result<PixbufLoader, glib::Error> {
+    pub fn with_mime_type(mime_type: &str) -> Result<PixbufLoader, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gdk_pixbuf_sys::gdk_pixbuf_loader_new_with_mime_type(
@@ -47,7 +47,7 @@ impl PixbufLoader {
         }
     }
 
-    pub fn new_with_type(image_type: &str) -> Result<PixbufLoader, glib::Error> {
+    pub fn with_type(image_type: &str) -> Result<PixbufLoader, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gdk_pixbuf_sys::gdk_pixbuf_loader_new_with_type(

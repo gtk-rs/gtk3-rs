@@ -47,7 +47,7 @@ impl Pixbuf {
     }
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
-    pub fn new_from_bytes(
+    pub fn from_bytes(
         data: &glib::Bytes,
         colorspace: Colorspace,
         has_alpha: bool,
@@ -69,12 +69,12 @@ impl Pixbuf {
         }
     }
 
-    //pub fn new_from_data(data: &[u8], colorspace: Colorspace, has_alpha: bool, bits_per_sample: i32, width: i32, height: i32, rowstride: i32, destroy_fn: Option<Box_<dyn FnOnce(&Vec<u8>) + 'static>>) -> Pixbuf {
+    //pub fn from_data(data: &[u8], colorspace: Colorspace, has_alpha: bool, bits_per_sample: i32, width: i32, height: i32, rowstride: i32, destroy_fn: Option<Box_<dyn FnOnce(&Vec<u8>) + 'static>>) -> Pixbuf {
     //    unsafe { TODO: call gdk_pixbuf_sys:gdk_pixbuf_new_from_data() }
     //}
 
     #[cfg_attr(feature = "v2_32", deprecated)]
-    pub fn new_from_inline(data: &[u8], copy_pixels: bool) -> Result<Pixbuf, glib::Error> {
+    pub fn from_inline(data: &[u8], copy_pixels: bool) -> Result<Pixbuf, glib::Error> {
         let data_length = data.len() as i32;
         unsafe {
             let mut error = ptr::null_mut();
@@ -92,7 +92,7 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_resource(resource_path: &str) -> Result<Pixbuf, glib::Error> {
+    pub fn from_resource(resource_path: &str) -> Result<Pixbuf, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gdk_pixbuf_sys::gdk_pixbuf_new_from_resource(
@@ -107,7 +107,7 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_resource_at_scale(
+    pub fn from_resource_at_scale(
         resource_path: &str,
         width: i32,
         height: i32,
@@ -130,7 +130,7 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_stream<P: IsA<gio::InputStream>, Q: IsA<gio::Cancellable>>(
+    pub fn from_stream<P: IsA<gio::InputStream>, Q: IsA<gio::Cancellable>>(
         stream: &P,
         cancellable: Option<&Q>,
     ) -> Result<Pixbuf, glib::Error> {
@@ -149,7 +149,7 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_stream_at_scale<P: IsA<gio::InputStream>, Q: IsA<gio::Cancellable>>(
+    pub fn from_stream_at_scale<P: IsA<gio::InputStream>, Q: IsA<gio::Cancellable>>(
         stream: &P,
         width: i32,
         height: i32,
@@ -174,7 +174,7 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_xpm_data(data: &[&str]) -> Pixbuf {
+    pub fn from_xpm_data(data: &[&str]) -> Pixbuf {
         unsafe {
             from_glib_full(gdk_pixbuf_sys::gdk_pixbuf_new_from_xpm_data(
                 data.to_glib_none().0,

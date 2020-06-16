@@ -22,7 +22,7 @@ use std::future::Future;
 use {Colorspace, Pixbuf, PixbufFormat};
 
 impl Pixbuf {
-    pub fn new_from_mut_slice<T: AsMut<[u8]>>(
+    pub fn from_mut_slice<T: AsMut<[u8]>>(
         data: T,
         colorspace: Colorspace,
         has_alpha: bool,
@@ -76,7 +76,7 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_file<T: AsRef<Path>>(filename: T) -> Result<Pixbuf, Error> {
+    pub fn from_file<T: AsRef<Path>>(filename: T) -> Result<Pixbuf, Error> {
         #[cfg(not(windows))]
         use gdk_pixbuf_sys::gdk_pixbuf_new_from_file;
         #[cfg(windows)]
@@ -93,7 +93,7 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_file_at_size<T: AsRef<Path>>(
+    pub fn from_file_at_size<T: AsRef<Path>>(
         filename: T,
         width: i32,
         height: i32,
@@ -119,7 +119,7 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_file_at_scale<T: AsRef<Path>>(
+    pub fn from_file_at_scale<T: AsRef<Path>>(
         filename: T,
         width: i32,
         height: i32,
@@ -147,7 +147,7 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_stream_async<
+    pub fn from_stream_async<
         'a,
         P: IsA<gio::InputStream>,
         Q: IsA<gio::Cancellable>,
@@ -159,7 +159,7 @@ impl Pixbuf {
     ) {
         let cancellable = cancellable.map(|p| p.as_ref());
         let user_data: Box<R> = Box::new(callback);
-        unsafe extern "C" fn new_from_stream_async_trampoline<
+        unsafe extern "C" fn from_stream_async_trampoline<
             R: FnOnce(Result<Pixbuf, Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
@@ -176,7 +176,7 @@ impl Pixbuf {
             let callback: Box<R> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = new_from_stream_async_trampoline::<R>;
+        let callback = from_stream_async_trampoline::<R>;
         unsafe {
             gdk_pixbuf_sys::gdk_pixbuf_new_from_stream_async(
                 stream.as_ref().to_glib_none().0,
@@ -187,13 +187,13 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_stream_async_future<P: IsA<gio::InputStream> + Clone + 'static>(
+    pub fn from_stream_async_future<P: IsA<gio::InputStream> + Clone + 'static>(
         stream: &P,
     ) -> Pin<Box<dyn Future<Output = Result<Pixbuf, Error>> + 'static>> {
         let stream = stream.clone();
         Box::pin(gio::GioFuture::new(&(), move |_obj, send| {
             let cancellable = gio::Cancellable::new();
-            Self::new_from_stream_async(&stream, Some(&cancellable), move |res| {
+            Self::from_stream_async(&stream, Some(&cancellable), move |res| {
                 send.resolve(res);
             });
 
@@ -201,7 +201,7 @@ impl Pixbuf {
         }))
     }
 
-    pub fn new_from_stream_at_scale_async<
+    pub fn from_stream_at_scale_async<
         'a,
         P: IsA<gio::InputStream>,
         Q: IsA<gio::Cancellable>,
@@ -216,7 +216,7 @@ impl Pixbuf {
     ) {
         let cancellable = cancellable.map(|p| p.as_ref());
         let user_data: Box<R> = Box::new(callback);
-        unsafe extern "C" fn new_from_stream_at_scale_async_trampoline<
+        unsafe extern "C" fn from_stream_at_scale_async_trampoline<
             R: FnOnce(Result<Pixbuf, Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
@@ -233,7 +233,7 @@ impl Pixbuf {
             let callback: Box<R> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = new_from_stream_at_scale_async_trampoline::<R>;
+        let callback = from_stream_at_scale_async_trampoline::<R>;
         unsafe {
             gdk_pixbuf_sys::gdk_pixbuf_new_from_stream_at_scale_async(
                 stream.as_ref().to_glib_none().0,
@@ -247,7 +247,7 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_stream_at_scale_async_future<P: IsA<gio::InputStream> + Clone + 'static>(
+    pub fn from_stream_at_scale_async_future<P: IsA<gio::InputStream> + Clone + 'static>(
         stream: &P,
         width: i32,
         height: i32,
@@ -256,7 +256,7 @@ impl Pixbuf {
         let stream = stream.clone();
         Box::pin(gio::GioFuture::new(&(), move |_obj, send| {
             let cancellable = gio::Cancellable::new();
-            Self::new_from_stream_at_scale_async(
+            Self::from_stream_at_scale_async(
                 &stream,
                 width,
                 height,
