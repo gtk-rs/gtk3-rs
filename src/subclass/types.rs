@@ -352,7 +352,7 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     /// are initialized, and should return a new instance of the subclass
     /// private struct.
     ///
-    /// Optional, either implement this or `new_with_class()`.
+    /// Optional, either implement this or `with_class()`.
     fn new() -> Self {
         unimplemented!();
     }
@@ -367,7 +367,7 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     /// to itself for providing additional context.
     ///
     /// Optional, either implement this or `new()`.
-    fn new_with_class(_klass: &Self::Class) -> Self {
+    fn with_class(_klass: &Self::Class) -> Self {
         Self::new()
     }
 }
@@ -426,7 +426,7 @@ unsafe extern "C" fn instance_init<T: ObjectSubclass>(
 
     let klass = &*(klass as *const T::Class);
 
-    let imp = T::new_with_class(klass);
+    let imp = T::with_class(klass);
 
     ptr::write(imp_storage, imp);
 }

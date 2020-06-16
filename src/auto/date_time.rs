@@ -46,7 +46,7 @@ impl DateTime {
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
-    pub fn new_from_iso8601(text: &str, default_tz: Option<&TimeZone>) -> Option<DateTime> {
+    pub fn from_iso8601(text: &str, default_tz: Option<&TimeZone>) -> Option<DateTime> {
         unsafe {
             from_glib_full(glib_sys::g_date_time_new_from_iso8601(
                 text.to_glib_none().0,
@@ -56,20 +56,20 @@ impl DateTime {
     }
 
     //#[cfg_attr(feature = "v2_62", deprecated)]
-    //pub fn new_from_timeval_local(tv: /*Ignored*/&TimeVal) -> DateTime {
+    //pub fn from_timeval_local(tv: /*Ignored*/&TimeVal) -> DateTime {
     //    unsafe { TODO: call glib_sys:g_date_time_new_from_timeval_local() }
     //}
 
     //#[cfg_attr(feature = "v2_62", deprecated)]
-    //pub fn new_from_timeval_utc(tv: /*Ignored*/&TimeVal) -> DateTime {
+    //pub fn from_timeval_utc(tv: /*Ignored*/&TimeVal) -> DateTime {
     //    unsafe { TODO: call glib_sys:g_date_time_new_from_timeval_utc() }
     //}
 
-    pub fn new_from_unix_local(t: i64) -> DateTime {
+    pub fn from_unix_local(t: i64) -> DateTime {
         unsafe { from_glib_full(glib_sys::g_date_time_new_from_unix_local(t)) }
     }
 
-    pub fn new_from_unix_utc(t: i64) -> DateTime {
+    pub fn from_unix_utc(t: i64) -> DateTime {
         unsafe { from_glib_full(glib_sys::g_date_time_new_from_unix_utc(t)) }
     }
 
