@@ -64,6 +64,16 @@ impl ImageSurface {
         result
     }
 
+    /// Get the pixel data of the image surface, for direct inspection or modification.
+    ///
+    /// Unlike the C API, this method calls `flush` on the surface.
+    ///
+    /// Returns an error if [`finish`] was called on this surface, or if the surface is being
+    /// referenced by a [`Context`](struct.Context.html). See [`with_data`] if you need to access
+    /// the data on an image surface that is being referenced by a `Context`.
+    ///
+    /// [`finish`]: struct.Surface.html#method.finish
+    /// [`with_data`]: struct.ImageSurface.html#method.with_data
     pub fn get_data(&mut self) -> Result<ImageSurfaceData, BorrowError> {
         unsafe {
             if ffi::cairo_surface_get_reference_count(self.to_raw_none()) > 1 {
@@ -81,6 +91,29 @@ impl ImageSurface {
             }
             Ok(ImageSurfaceData::new(self))
         }
+    }
+
+    /// Call the provided function with access to the pixel data of this image.
+    ///
+    /// Unlike [`get_data`], this can succeed even if there is a [`Context`](struct.Context.html)
+    /// referencing this image.
+    ///
+    /// [`get_data`]: struct.ImageSurface.html#method.get_data
+    pub fn with_data<F: FnOnce(&[u8])>(&self, f: F) -> Result<(), BorrowError> {
+        self.flush();
+        unsafe {
+            let status = ffi::cairo_surface_status(self.to_raw_none());
+            if let Some(err) = status_to_result(status).err() {
+                return Err(BorrowError::from(err));
+            }
+            let ptr = ffi::cairo_image_surface_get_data(self.to_raw_none());
+            if ptr.is_null() || is_finished(self) {
+                return Err(BorrowError::from(Error::SurfaceFinished));
+            }
+            let len = self.get_height() as usize * self.get_stride() as usize;
+            f(slice::from_raw_parts(ptr, len));
+        }
+        Ok(())
     }
 
     pub fn get_format(&self) -> Format {
