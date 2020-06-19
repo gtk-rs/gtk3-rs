@@ -83,6 +83,23 @@ impl ImageSurface {
         }
     }
 
+    pub fn with_data<F: FnOnce(&[u8])>(&self, f: F) -> Result<(), BorrowError> {
+        self.flush();
+        unsafe {
+            let status = ffi::cairo_surface_status(self.to_raw_none());
+            if let Some(err) = status_to_result(status).err() {
+                return Err(BorrowError::from(err));
+            }
+            let ptr = ffi::cairo_image_surface_get_data(self.to_raw_none());
+            if ptr.is_null() || is_finished(self) {
+                return Err(BorrowError::from(Error::SurfaceFinished));
+            }
+            let len = self.get_height() as usize * self.get_stride() as usize;
+            f(slice::from_raw_parts(ptr, len));
+        }
+        Ok(())
+    }
+
     pub fn get_format(&self) -> Format {
         unsafe { Format::from(ffi::cairo_image_surface_get_format(self.to_raw_none())) }
     }
