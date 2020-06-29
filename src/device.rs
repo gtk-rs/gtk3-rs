@@ -2,22 +2,29 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::ffi::CString;
-use std::path::Path;
-
-#[cfg(any(feature = "script", feature = "dox"))]
-use enums::ScriptMode;
-use enums::{Content, DeviceType};
-
+use enums::DeviceType;
 use error::Error;
 use ffi;
-#[cfg(feature = "use_glib")]
-use glib::translate::*;
-use recording_surface::RecordingSurface;
+use utils::status_to_result;
+
 use std::fmt;
 use std::ptr;
+
+#[cfg(feature = "use_glib")]
+use glib::translate::*;
+
+#[cfg(any(feature = "script", feature = "dox"))]
+use enums::Content;
+#[cfg(any(feature = "script", feature = "dox"))]
+use enums::ScriptMode;
+#[cfg(any(feature = "script", feature = "dox"))]
+use recording_surface::RecordingSurface;
+#[cfg(any(feature = "script", feature = "dox"))]
+use std::ffi::CString;
+#[cfg(any(feature = "script", feature = "dox"))]
+use std::path::Path;
+#[cfg(any(feature = "script", feature = "dox"))]
 use surface::Surface;
-use utils::status_to_result;
 
 #[derive(Debug)]
 pub struct DeviceAcquireGuard<'a>(&'a Device);
