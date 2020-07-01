@@ -472,19 +472,6 @@ where
     unsafe {
         use std::ffi::CString;
 
-        let type_info = gobject_sys::GTypeInfo {
-            class_size: mem::size_of::<T::Class>() as u16,
-            base_init: None,
-            base_finalize: None,
-            class_init: Some(class_init::<T>),
-            class_finalize: None,
-            class_data: ptr::null_mut(),
-            instance_size: mem::size_of::<T::Instance>() as u16,
-            n_preallocs: 0,
-            instance_init: Some(instance_init::<T>),
-            value_table: ptr::null(),
-        };
-
         let type_name = CString::new(T::NAME).unwrap();
         if gobject_sys::g_type_from_name(type_name.as_ptr()) != gobject_sys::G_TYPE_INVALID {
             panic!(
@@ -493,10 +480,13 @@ where
             );
         }
 
-        let type_ = from_glib(gobject_sys::g_type_register_static(
+        let type_ = from_glib(gobject_sys::g_type_register_static_simple(
             <T::ParentType as StaticType>::static_type().to_glib(),
             type_name.as_ptr(),
-            &type_info,
+            mem::size_of::<T::Class>() as u32,
+            Some(class_init::<T>),
+            mem::size_of::<T::Instance>() as u32,
+            Some(instance_init::<T>),
             if T::ABSTRACT {
                 gobject_sys::G_TYPE_FLAG_ABSTRACT
             } else {
