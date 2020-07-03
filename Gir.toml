@@ -15,17 +15,12 @@ generate = [
     "Gio.AppInfoCreateFlags",
     "Gio.ApplicationFlags",
     "Gio.AskPasswordFlags",
-    "Gio.BufferedOutputStream",
     "Gio.BusNameOwnerFlags",
     "Gio.BusNameWatcherFlags",
     "Gio.BusType",
-    "Gio.CharsetConverter",
     "Gio.ConverterFlags",
-    "Gio.ConverterInputStream",
-    "Gio.ConverterOutputStream",
     "Gio.ConverterResult",
     "Gio.CredentialsType",
-    "Gio.DataOutputStream",
     "Gio.DataStreamByteOrder",
     "Gio.DataStreamNewlineType",
     "Gio.DBusArgInfo",
@@ -151,16 +146,6 @@ generate = [
     "Gio.ZlibCompressor",
     "Gio.ZlibCompressorFormat",
     "Gio.ZlibDecompressor",
-]
-
-builders = [
-    "Gio.BufferedInputStream",
-    "Gio.BufferedOutputStream",
-    "Gio.CharsetConverterBuilder",
-    "Gio.ConverterInputStreamBuilder",
-    "Gio.ConverterOutputStreamBuilder",
-    "Gio.DataInputStreamBuilder",
-    "Gio.DataOutputStreamBuilder",
 ]
 
 ignore = [
@@ -311,10 +296,16 @@ status = "generate"
 [[object]]
 name = "Gio.BufferedInputStream"
 status = "generate"
+generate_builder = true
     [[object.function]]
     name = "peek"
     #have almost same peek_buffer
     ignore = true
+
+[[object]]
+name = "Gio.BufferedOutputStream"
+status = "generate"
+generate_builder = true
 
 [[object]]
 name = "Gio.BytesIcon"
@@ -337,6 +328,11 @@ concurrency = "send+sync"
     ignore = true
 
 [[object]]
+name = "Gio.CharsetConverter"
+status = "generate"
+generate_builder = true
+
+[[object]]
 name = "Gio.Converter"
 status = "generate"
 manual_traits = ["ConverterExtManual"]
@@ -344,6 +340,16 @@ manual_traits = ["ConverterExtManual"]
     name = "convert"
     ignore = true
     doc_trait_name = "ConverterExtManual"
+
+[[object]]
+name = "Gio.ConverterInputStream"
+status = "generate"
+generate_builder = true
+
+[[object]]
+name = "Gio.ConverterOutputStream"
+status = "generate"
+generate_builder = true
 
 [[object]]
 name = "Gio.Credentials"
@@ -364,6 +370,7 @@ status = "generate"
 name = "Gio.DataInputStream"
 manual_traits = ["DataInputStreamExtManual"]
 status = "generate"
+generate_builder = true
     [[object.function]]
     name = "read_line"
     #return vec of u8
@@ -402,6 +409,11 @@ status = "generate"
     #nullable return value and redundant length
     #return vec of u8
     ignore = true
+
+[[object]]
+name = "Gio.DataOutputStream"
+status = "generate"
+generate_builder = true
 
 [[object]]
 name = "Gio.DBusConnection"
