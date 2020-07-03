@@ -17,11 +17,9 @@ pub use self::x11_device_manager_core::{
 };
 
 mod x11_device_manager_xi2;
-pub use self::x11_device_manager_xi2::X11DeviceManagerXI2Builder;
 pub use self::x11_device_manager_xi2::{X11DeviceManagerXI2, X11DeviceManagerXI2Class};
 
 mod x11_device_xi2;
-pub use self::x11_device_xi2::X11DeviceXI2Builder;
 pub use self::x11_device_xi2::{X11DeviceXI2, X11DeviceXI2Class};
 
 mod x11_display;
