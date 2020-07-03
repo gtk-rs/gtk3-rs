@@ -4,12 +4,9 @@
 
 use gdk;
 use gdk_x11_sys;
-use glib::object::Cast;
-use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::translate::*;
 use glib::StaticType;
-use glib::ToValue;
 use glib::Value;
 use gobject_sys;
 use std::fmt;
@@ -67,61 +64,6 @@ impl X11DeviceManagerXI2 {
                 .expect("Return Value for property `opcode` getter")
                 .unwrap()
         }
-    }
-}
-
-#[derive(Clone, Default)]
-pub struct X11DeviceManagerXI2Builder {
-    major: Option<i32>,
-    minor: Option<i32>,
-    opcode: Option<i32>,
-    display: Option<gdk::Display>,
-}
-
-impl X11DeviceManagerXI2Builder {
-    pub fn new() -> Self {
-        Self::default()
-    }
-
-    pub fn build(self) -> X11DeviceManagerXI2 {
-        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        if let Some(ref major) = self.major {
-            properties.push(("major", major));
-        }
-        if let Some(ref minor) = self.minor {
-            properties.push(("minor", minor));
-        }
-        if let Some(ref opcode) = self.opcode {
-            properties.push(("opcode", opcode));
-        }
-        if let Some(ref display) = self.display {
-            properties.push(("display", display));
-        }
-        let ret = glib::Object::new(X11DeviceManagerXI2::static_type(), &properties)
-            .expect("object new")
-            .downcast::<X11DeviceManagerXI2>()
-            .expect("downcast");
-        ret
-    }
-
-    pub fn major(mut self, major: i32) -> Self {
-        self.major = Some(major);
-        self
-    }
-
-    pub fn minor(mut self, minor: i32) -> Self {
-        self.minor = Some(minor);
-        self
-    }
-
-    pub fn opcode(mut self, opcode: i32) -> Self {
-        self.opcode = Some(opcode);
-        self
-    }
-
-    pub fn display<P: IsA<gdk::Display>>(mut self, display: &P) -> Self {
-        self.display = Some(display.clone().upcast());
-        self
     }
 }
 
