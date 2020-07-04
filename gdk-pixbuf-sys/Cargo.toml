@@ -37,9 +37,11 @@ license = "MIT"
 links = "gdk_pixbuf"
 name = "gdk-pixbuf-sys"
 repository = "https://github.com/gtk-rs/sys"
-version = "0.9.1"
+version = "0.10.0"
+
 [package.metadata.docs.rs]
 features = ["dox"]
+
 [package.metadata.system-deps.gdk_pixbuf_2_0]
 name = "gdk-pixbuf-2.0"
 version = "2.30"

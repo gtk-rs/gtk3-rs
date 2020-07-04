@@ -48,9 +48,11 @@ license = "MIT"
 links = "gdk"
 name = "gdk-sys"
 repository = "https://github.com/gtk-rs/sys"
-version = "0.9.1"
+version = "0.10.0"
+
 [package.metadata.docs.rs]
 features = ["dox"]
+
 [package.metadata.system-deps.gdk_3_0]
 name = "gdk-3.0"
 version = "3.14"

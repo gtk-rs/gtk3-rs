@@ -35,9 +35,11 @@ license = "MIT"
 links = "glib"
 name = "glib-sys"
 repository = "https://github.com/gtk-rs/sys"
-version = "0.9.1"
+version = "0.10.0"
+
 [package.metadata.docs.rs]
 features = ["dox"]
+
 [package.metadata.system-deps.glib_2_0]
 name = "glib-2.0"
 version = "2.42"
