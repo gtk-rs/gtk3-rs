@@ -25,7 +25,6 @@ glib_wrapper! {
 }
 
 impl X11Screen {
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn get_current_desktop(&self) -> u32 {
         unsafe { gdk_x11_sys::gdk_x11_screen_get_current_desktop(self.to_glib_none().0) }
     }
@@ -36,7 +35,6 @@ impl X11Screen {
         }
     }
 
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn get_number_of_desktops(&self) -> u32 {
         unsafe { gdk_x11_sys::gdk_x11_screen_get_number_of_desktops(self.to_glib_none().0) }
     }

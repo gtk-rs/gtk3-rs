@@ -30,7 +30,6 @@ impl X11Window {
         }
     }
 
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn get_desktop(&self) -> u32 {
         unsafe { gdk_x11_sys::gdk_x11_window_get_desktop(self.to_glib_none().0) }
     }
@@ -45,28 +44,12 @@ impl X11Window {
         }
     }
 
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn move_to_desktop(&self, desktop: u32) {
         unsafe {
             gdk_x11_sys::gdk_x11_window_move_to_desktop(self.to_glib_none().0, desktop);
         }
     }
 
-    #[cfg_attr(feature = "v3_12", deprecated)]
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
-    pub fn set_frame_extents(&self, left: i32, right: i32, top: i32, bottom: i32) {
-        unsafe {
-            gdk_x11_sys::gdk_x11_window_set_frame_extents(
-                self.to_glib_none().0,
-                left,
-                right,
-                top,
-                bottom,
-            );
-        }
-    }
-
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     pub fn set_frame_sync_enabled(&self, frame_sync_enabled: bool) {
         unsafe {
             gdk_x11_sys::gdk_x11_window_set_frame_sync_enabled(
@@ -76,7 +59,6 @@ impl X11Window {
         }
     }
 
-    #[cfg(any(feature = "v3_4", feature = "dox"))]
     pub fn set_hide_titlebar_when_maximized(&self, hide_titlebar_when_maximized: bool) {
         unsafe {
             gdk_x11_sys::gdk_x11_window_set_hide_titlebar_when_maximized(
@@ -86,7 +68,6 @@ impl X11Window {
         }
     }
 
-    #[cfg(any(feature = "v3_2", feature = "dox"))]
     pub fn set_theme_variant(&self, variant: &str) {
         unsafe {
             gdk_x11_sys::gdk_x11_window_set_theme_variant(
@@ -102,7 +83,6 @@ impl X11Window {
         }
     }
 
-    #[cfg(any(feature = "v3_4", feature = "dox"))]
     pub fn set_utf8_property(&self, name: &str, value: Option<&str>) {
         unsafe {
             gdk_x11_sys::gdk_x11_window_set_utf8_property(

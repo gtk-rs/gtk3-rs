@@ -24,8 +24,6 @@ extern crate bitflags;
 
 pub(crate) use x11::xlib;
 
-extern crate fragile;
-
 #[macro_use]
 mod rt;
 mod auto;

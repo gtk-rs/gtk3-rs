@@ -82,7 +82,6 @@ impl X11Display {
         }
     }
 
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn set_window_scale(&self, scale: i32) {
         unsafe {
             gdk_x11_sys::gdk_x11_display_set_window_scale(self.to_glib_none().0, scale);
