@@ -1,4 +1,10 @@
 [package]
+authors = ["The Gtk-rs Project Developers"]
+description = "FFI binding for libgdkx11"
+homepage = "http://gtk-rs.org/"
+keywords = ["gdkx11", "ffi", "gtk-rs", "gnome"]
+license = "MIT"
+repository = "https://github.com/gtk-rs/sys"
 name = "gdkx11-sys"
 version = "0.10.0"
 links = "gdk_x11"
