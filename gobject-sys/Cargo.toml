@@ -32,9 +32,11 @@ license = "MIT"
 links = "gobject"
 name = "gobject-sys"
 repository = "https://github.com/gtk-rs/sys"
-version = "0.9.1"
+version = "0.10.0"
+
 [package.metadata.docs.rs]
 features = ["dox"]
+
 [package.metadata.system-deps.gobject_2_0]
 name = "gobject-2.0"
 version = "2.42"

@@ -33,9 +33,11 @@ license = "MIT"
 links = "atk"
 name = "atk-sys"
 repository = "https://github.com/gtk-rs/sys"
-version = "0.9.1"
+version = "0.10.0"
+
 [package.metadata.docs.rs]
 features = ["dox"]
+
 [package.metadata.system-deps.atk]
 name = "atk"
 version = "2.14"

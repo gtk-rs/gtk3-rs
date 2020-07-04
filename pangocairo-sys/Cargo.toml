@@ -33,11 +33,14 @@ license = "MIT"
 links = "pango_cairo"
 name = "pangocairo-sys"
 repository = "https://github.com/gtk-rs/sys"
-version = "0.10.1"
+version = "0.11.0"
+
 [package.metadata.docs.rs]
 features = ["dox"]
+
 [package.metadata.system-deps.pangocairo]
 name = "pangocairo"
 version = "1.36"
 
 [package.metadata.system-deps.pangocairo.feature-versions]
+
