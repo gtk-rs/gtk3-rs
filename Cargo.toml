@@ -6,7 +6,7 @@ authors = ["The Gtk-rs Project Developers"]
 keywords = ["glib", "gio", "gtk-rs", "gnome"]
 readme = "README.md"
 documentation = "http://gtk-rs.org/docs/gio/"
-version = "0.8.1"
+version = "0.9.0"
 description = "Rust bindings for the Gio library"
 repository = "https://github.com/gtk-rs/gio"
 build = "build.rs"
@@ -69,9 +69,9 @@ serial_test_derive = "0.4"
 name = "futures"
 path = "tests/futures.rs"
 edition = "2018"
+# Defining one [[test]] disable test targets auto discovery = 
+# TODO: remove once crate has been ported to 2018 and tests/futures.rs removed = 
 
-# Defining one [[test]] disable test targets auto discovery
-# TODO: remove once crate has been ported to 2018 and tests/futures.rs removed
 [[test]]
 name = "std_io_copy"
 path = "tests/std_io_copy.rs"
