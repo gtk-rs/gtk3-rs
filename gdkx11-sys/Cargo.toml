@@ -1,6 +1,6 @@
 [package]
 name = "gdkx11-sys"
-version = "0.1.0"
+version = "0.10.0"
 links = "gdk_x11"
 build = "build.rs"
 edition = "2018"
