@@ -6,6 +6,9 @@ GIR_FILES = gir-files/GdkX11-3.0.gir
 gir : src/auto/mod.rs
 	cargo fmt
 
+doc: $(GIR) $(GIR_FILES)
+        $(GIR) -m doc -c Gir.toml
+
 not_bound: $(GIR) $(GIR_FILES)
 	$(GIR) -m not_bound -c Gir.toml
 
