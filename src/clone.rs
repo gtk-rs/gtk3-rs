@@ -457,7 +457,7 @@ macro_rules! clone {
         }
     );
     ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move || $body:expr ) => (
-        clone!($($(@ $strength$(-$var-$var2)?)? $($variables).+ $(as $rename)?),* => @default-panic, move || { $body })
+        $crate::clone!($($(@ $strength$(-$var-$var2)?)? $($variables).+ $(as $rename)?),* => @default-panic, move || { $body })
     );
     ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move || $body:block ) => (
         {
@@ -470,7 +470,7 @@ macro_rules! clone {
         }
     );
     ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move || $body:expr ) => (
-        clone!($($(@ $strength$(-$var-$var2)?)? $($variables).+ $(as $rename)?),* => $(@default-return $return_value,)? move || { $body })
+        $crate::clone!($($(@ $strength$(-$var-$var2)?)? $($variables).+ $(as $rename)?),* => $(@default-return $return_value,)? move || { $body })
     );
     ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move | $($arg:tt $(: $typ:ty)?),* | $body:block ) => (
         {
@@ -482,7 +482,7 @@ macro_rules! clone {
         }
     );
     ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move | $($arg:tt $(: $typ:ty)?),* | $body:expr ) => (
-        clone!($($(@ $strength$(-$var-$var2)?)? $($variables).+ $(as $rename)?),* => @default-panic, move |$($arg $(: $typ)?),*| { $body })
+        $crate::clone!($($(@ $strength$(-$var-$var2)?)? $($variables).+ $(as $rename)?),* => @default-panic, move |$($arg $(: $typ)?),*| { $body })
     );
     ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move | $($arg:tt $(: $typ:ty)?),* | $body:block ) => (
         {
@@ -495,7 +495,7 @@ macro_rules! clone {
         }
     );
     ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move | $($arg:tt $(: $typ:ty)?),* | $body:expr ) => (
-        clone!($($(@ $strength$(-$var-$var2)?)? $($variables).+ $(as $rename)?),+ => $(@default-return $return_value,)? move |$($arg $(: $typ)?),*| { $body })
+        $crate::clone!($($(@ $strength$(-$var-$var2)?)? $($variables).+ $(as $rename)?),+ => $(@default-return $return_value,)? move |$($arg $(: $typ)?),*| { $body })
     );
     ($($(@ $strength:ident$(-$var:ident-$var2:ident)?)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, || $($body:tt)* ) => (
         // In case we have:
