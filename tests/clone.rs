@@ -141,3 +141,32 @@ fn clone_panic() {
 
     assert_eq!(state.lock().expect("Failed to lock state mutex").count, 20);
 }
+
+#[test]
+fn clone_import_rename() {
+    import_rename::test();
+}
+
+mod import_rename {
+    use glib::clone as clone_g;
+
+    #[allow(unused_macros)]
+    macro_rules! clone {
+        ($($anything:tt)*) => {
+            |_, _| panic!("The clone! macro doesn't support renaming")
+        };
+    }
+
+    #[allow(unused_variables)]
+    pub fn test() {
+        let n = 2;
+
+        let closure: Box<dyn Fn(u32, u32)> = Box::new(clone_g!(
+            @strong n
+            => move |_, _|
+            println!("The clone! macro does support renaming")
+        ));
+
+        closure(0, 0);
+    }
+}
