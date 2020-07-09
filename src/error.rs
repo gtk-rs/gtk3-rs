@@ -6,7 +6,7 @@ use std::fmt::Debug;
 use std::io;
 use thiserror::Error;
 
-#[derive(Error, Debug, Clone, PartialEq, PartialOrd, Copy, Eq)]
+#[derive(Error, Debug, Clone, PartialEq, Copy, Eq)]
 #[non_exhaustive]
 pub enum Error {
     #[error("No Memory")]
