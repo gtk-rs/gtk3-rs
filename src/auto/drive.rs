@@ -66,17 +66,17 @@ pub trait DriveExt: 'static {
 
     fn enumerate_identifiers(&self) -> Vec<GString>;
 
-    fn get_icon(&self) -> Option<Icon>;
+    fn get_icon(&self) -> Icon;
 
     fn get_identifier(&self, kind: &str) -> Option<GString>;
 
-    fn get_name(&self) -> Option<GString>;
+    fn get_name(&self) -> GString;
 
     fn get_sort_key(&self) -> Option<GString>;
 
     fn get_start_stop_type(&self) -> DriveStartStopType;
 
-    fn get_symbolic_icon(&self) -> Option<Icon>;
+    fn get_symbolic_icon(&self) -> Icon;
 
     fn get_volumes(&self) -> Vec<Volume>;
 
@@ -250,7 +250,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
     }
 
-    fn get_icon(&self) -> Option<Icon> {
+    fn get_icon(&self) -> Icon {
         unsafe { from_glib_full(gio_sys::g_drive_get_icon(self.as_ref().to_glib_none().0)) }
     }
 
@@ -263,7 +263,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
     }
 
-    fn get_name(&self) -> Option<GString> {
+    fn get_name(&self) -> GString {
         unsafe { from_glib_full(gio_sys::g_drive_get_name(self.as_ref().to_glib_none().0)) }
     }
 
@@ -283,7 +283,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
     }
 
-    fn get_symbolic_icon(&self) -> Option<Icon> {
+    fn get_symbolic_icon(&self) -> Icon {
         unsafe {
             from_glib_full(gio_sys::g_drive_get_symbolic_icon(
                 self.as_ref().to_glib_none().0,
