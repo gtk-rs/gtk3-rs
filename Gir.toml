@@ -49,7 +49,6 @@ generate = [
     "Gio.DBusServerFlags",
     "Gio.DBusSignalFlags",
     "Gio.DBusSignalInfo",
-    "Gio.Drive",
     "Gio.DriveStartFlags",
     "Gio.DriveStartStopType",
     "Gio.Emblem",
@@ -83,7 +82,6 @@ generate = [
     "Gio.MenuItem",
     "Gio.MenuLinkIter",
     "Gio.MenuModel",
-    "Gio.Mount",
     "Gio.MountMountFlags",
     "Gio.MountOperation",
     "Gio.MountOperationResult",
@@ -142,7 +140,6 @@ generate = [
     "Gio.TlsPasswordFlags",
     "Gio.TlsRehandshakeMode",
     "Gio.TlsServerConnection",
-    "Gio.Volume",
     "Gio.ZlibCompressor",
     "Gio.ZlibCompressorFormat",
     "Gio.ZlibDecompressor",
@@ -526,6 +523,22 @@ cfg_condition = "all(not(windows),not(target_os = \"macos\"))"
     ignore = true
 
 [[object]]
+name = "Gio.Drive"
+status = "generate"
+    [[object.function]]
+    name = "get_icon"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_name"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_symbolic_icon"
+        [object.function.return]
+        nullable = false
+
+[[object]]
 name = "Gio.File"
 status = "generate"
 concurrency = "send+sync"
@@ -729,6 +742,31 @@ status = "generate"
     name = "realloc-function"
     #unsupported memory allocators
     ignore = true
+
+[[object]]
+name = "Gio.Mount"
+status = "generate"
+    [[object.function]]
+    name = "get_default_location"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_icon"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_name"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_root"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_symbolic_icon"
+        [object.function.return]
+        nullable = false
+
 [[object]]
 name = "Gio.NetworkAddress"
 status = "generate"
@@ -1151,6 +1189,22 @@ cfg_condition = "unix"
 name = "Gio.Vfs"
 status = "generate"
 concurrency = "send+sync"
+
+[[object]]
+name = "Gio.Volume"
+status = "generate"
+    [[object.function]]
+    name = "get_icon"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_name"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_symbolic_icon"
+        [object.function.return]
+        nullable = false
 
 [[object]]
 name = "Gio.VolumeMonitor"
