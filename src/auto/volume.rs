@@ -65,17 +65,17 @@ pub trait VolumeExt: 'static {
 
     fn get_drive(&self) -> Option<Drive>;
 
-    fn get_icon(&self) -> Option<Icon>;
+    fn get_icon(&self) -> Icon;
 
     fn get_identifier(&self, kind: &str) -> Option<GString>;
 
     fn get_mount(&self) -> Option<Mount>;
 
-    fn get_name(&self) -> Option<GString>;
+    fn get_name(&self) -> GString;
 
     fn get_sort_key(&self) -> Option<GString>;
 
-    fn get_symbolic_icon(&self) -> Option<Icon>;
+    fn get_symbolic_icon(&self) -> Icon;
 
     fn get_uuid(&self) -> Option<GString>;
 
@@ -200,7 +200,7 @@ impl<O: IsA<Volume>> VolumeExt for O {
         unsafe { from_glib_full(gio_sys::g_volume_get_drive(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_icon(&self) -> Option<Icon> {
+    fn get_icon(&self) -> Icon {
         unsafe { from_glib_full(gio_sys::g_volume_get_icon(self.as_ref().to_glib_none().0)) }
     }
 
@@ -217,7 +217,7 @@ impl<O: IsA<Volume>> VolumeExt for O {
         unsafe { from_glib_full(gio_sys::g_volume_get_mount(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_name(&self) -> Option<GString> {
+    fn get_name(&self) -> GString {
         unsafe { from_glib_full(gio_sys::g_volume_get_name(self.as_ref().to_glib_none().0)) }
     }
 
@@ -229,7 +229,7 @@ impl<O: IsA<Volume>> VolumeExt for O {
         }
     }
 
-    fn get_symbolic_icon(&self) -> Option<Icon> {
+    fn get_symbolic_icon(&self) -> Icon {
         unsafe {
             from_glib_full(gio_sys::g_volume_get_symbolic_icon(
                 self.as_ref().to_glib_none().0,

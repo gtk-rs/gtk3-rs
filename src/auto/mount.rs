@@ -59,19 +59,19 @@ pub trait MountExt: 'static {
         mount_operation: Option<&P>,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
-    fn get_default_location(&self) -> Option<File>;
+    fn get_default_location(&self) -> File;
 
     fn get_drive(&self) -> Option<Drive>;
 
-    fn get_icon(&self) -> Option<Icon>;
+    fn get_icon(&self) -> Icon;
 
-    fn get_name(&self) -> Option<GString>;
+    fn get_name(&self) -> GString;
 
-    fn get_root(&self) -> Option<File>;
+    fn get_root(&self) -> File;
 
     fn get_sort_key(&self) -> Option<GString>;
 
-    fn get_symbolic_icon(&self) -> Option<Icon>;
+    fn get_symbolic_icon(&self) -> Icon;
 
     fn get_uuid(&self) -> Option<GString>;
 
@@ -223,7 +223,7 @@ impl<O: IsA<Mount>> MountExt for O {
         }))
     }
 
-    fn get_default_location(&self) -> Option<File> {
+    fn get_default_location(&self) -> File {
         unsafe {
             from_glib_full(gio_sys::g_mount_get_default_location(
                 self.as_ref().to_glib_none().0,
@@ -235,15 +235,15 @@ impl<O: IsA<Mount>> MountExt for O {
         unsafe { from_glib_full(gio_sys::g_mount_get_drive(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_icon(&self) -> Option<Icon> {
+    fn get_icon(&self) -> Icon {
         unsafe { from_glib_full(gio_sys::g_mount_get_icon(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_name(&self) -> Option<GString> {
+    fn get_name(&self) -> GString {
         unsafe { from_glib_full(gio_sys::g_mount_get_name(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_root(&self) -> Option<File> {
+    fn get_root(&self) -> File {
         unsafe { from_glib_full(gio_sys::g_mount_get_root(self.as_ref().to_glib_none().0)) }
     }
 
@@ -255,7 +255,7 @@ impl<O: IsA<Mount>> MountExt for O {
         }
     }
 
-    fn get_symbolic_icon(&self) -> Option<Icon> {
+    fn get_symbolic_icon(&self) -> Icon {
         unsafe {
             from_glib_full(gio_sys::g_mount_get_symbolic_icon(
                 self.as_ref().to_glib_none().0,
