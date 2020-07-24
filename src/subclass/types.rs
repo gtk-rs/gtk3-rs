@@ -4,7 +4,6 @@
 
 //! Module that contains the basic infrastructure for subclassing `GObject`.
 
-use super::object::ObjectImpl;
 use glib_sys;
 use gobject_sys;
 use object::{ObjectExt, ObjectType};
@@ -233,7 +232,7 @@ macro_rules! glib_object_subclass {
 /// with the type system.
 ///
 /// [`register_type`]: fn.register_type.html
-pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
+pub trait ObjectSubclass: Sized + 'static {
     /// `GObject` type name.
     ///
     /// This must be unique in the whole process.
