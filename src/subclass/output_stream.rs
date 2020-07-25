@@ -19,7 +19,7 @@ use OutputStreamSpliceFlags;
 use std::mem;
 use std::ptr;
 
-pub trait OutputStreamImpl: OutputStreamImplExt + Send + 'static {
+pub trait OutputStreamImpl: ObjectImpl + OutputStreamImplExt + Send {
     fn write(
         &self,
         stream: &OutputStream,
@@ -77,7 +77,7 @@ pub trait OutputStreamImplExt {
     ) -> Result<usize, Error>;
 }
 
-impl<T: OutputStreamImpl + ObjectImpl> OutputStreamImplExt for T {
+impl<T: OutputStreamImpl> OutputStreamImplExt for T {
     fn parent_write(
         &self,
         stream: &OutputStream,
@@ -85,7 +85,7 @@ impl<T: OutputStreamImpl + ObjectImpl> OutputStreamImplExt for T {
         cancellable: Option<&Cancellable>,
     ) -> Result<usize, Error> {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GOutputStreamClass;
             let f = (*parent_class)
                 .write_fn
@@ -115,7 +115,7 @@ impl<T: OutputStreamImpl + ObjectImpl> OutputStreamImplExt for T {
         cancellable: Option<&Cancellable>,
     ) -> Result<(), Error> {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GOutputStreamClass;
             let mut err = ptr::null_mut();
             if let Some(f) = (*parent_class).close_fn {
@@ -140,7 +140,7 @@ impl<T: OutputStreamImpl + ObjectImpl> OutputStreamImplExt for T {
         cancellable: Option<&Cancellable>,
     ) -> Result<(), Error> {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GOutputStreamClass;
             let mut err = ptr::null_mut();
             if let Some(f) = (*parent_class).flush {
@@ -167,7 +167,7 @@ impl<T: OutputStreamImpl + ObjectImpl> OutputStreamImplExt for T {
         cancellable: Option<&Cancellable>,
     ) -> Result<usize, Error> {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GOutputStreamClass;
             let mut err = ptr::null_mut();
             let f = (*parent_class)
@@ -191,7 +191,7 @@ impl<T: OutputStreamImpl + ObjectImpl> OutputStreamImplExt for T {
     }
 }
 
-unsafe impl<T: ObjectSubclass + OutputStreamImpl> IsSubclassable<T> for OutputStreamClass {
+unsafe impl<T: OutputStreamImpl> IsSubclassable<T> for OutputStreamClass {
     fn override_vfuncs(&mut self) {
         <glib::ObjectClass as IsSubclassable<T>>::override_vfuncs(self);
         unsafe {
@@ -204,16 +204,13 @@ unsafe impl<T: ObjectSubclass + OutputStreamImpl> IsSubclassable<T> for OutputSt
     }
 }
 
-unsafe extern "C" fn stream_write<T: ObjectSubclass>(
+unsafe extern "C" fn stream_write<T: OutputStreamImpl>(
     ptr: *mut gio_sys::GOutputStream,
     buffer: *mut u8,
     count: usize,
     cancellable: *mut gio_sys::GCancellable,
     err: *mut *mut glib_sys::GError,
-) -> isize
-where
-    T: OutputStreamImpl,
-{
+) -> isize {
     use std::isize;
     use std::slice;
 
@@ -243,14 +240,11 @@ where
     }
 }
 
-unsafe extern "C" fn stream_close<T: ObjectSubclass>(
+unsafe extern "C" fn stream_close<T: OutputStreamImpl>(
     ptr: *mut gio_sys::GOutputStream,
     cancellable: *mut gio_sys::GCancellable,
     err: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean
-where
-    T: OutputStreamImpl,
-{
+) -> glib_sys::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
@@ -270,14 +264,11 @@ where
     }
 }
 
-unsafe extern "C" fn stream_flush<T: ObjectSubclass>(
+unsafe extern "C" fn stream_flush<T: OutputStreamImpl>(
     ptr: *mut gio_sys::GOutputStream,
     cancellable: *mut gio_sys::GCancellable,
     err: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean
-where
-    T: OutputStreamImpl,
-{
+) -> glib_sys::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
@@ -297,16 +288,13 @@ where
     }
 }
 
-unsafe extern "C" fn stream_splice<T: ObjectSubclass>(
+unsafe extern "C" fn stream_splice<T: OutputStreamImpl>(
     ptr: *mut gio_sys::GOutputStream,
     input_stream: *mut gio_sys::GInputStream,
     flags: gio_sys::GOutputStreamSpliceFlags,
     cancellable: *mut gio_sys::GCancellable,
     err: *mut *mut glib_sys::GError,
-) -> isize
-where
-    T: OutputStreamImpl,
-{
+) -> isize {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
@@ -359,9 +347,7 @@ mod tests {
         }
     }
 
-    impl ObjectImpl for SimpleOutputStream {
-        glib_object_impl!();
-    }
+    impl ObjectImpl for SimpleOutputStream {}
 
     impl OutputStreamImpl for SimpleOutputStream {
         fn write(

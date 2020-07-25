@@ -16,7 +16,7 @@ use std::mem;
 use Cancellable;
 use Seekable;
 
-pub trait SeekableImpl: ObjectImpl + Send + 'static {
+pub trait SeekableImpl: ObjectImpl + Send {
     fn tell(&self, seekable: &Seekable) -> i64;
     fn can_seek(&self, seekable: &Seekable) -> bool;
     fn seek(
@@ -35,7 +35,7 @@ pub trait SeekableImpl: ObjectImpl + Send + 'static {
     ) -> Result<(), Error>;
 }
 
-unsafe impl<T: ObjectSubclass + SeekableImpl> IsImplementable<T> for Seekable {
+unsafe impl<T: SeekableImpl> IsImplementable<T> for Seekable {
     unsafe extern "C" fn interface_init(
         iface: glib_sys::gpointer,
         _iface_data: glib_sys::gpointer,
@@ -50,38 +50,29 @@ unsafe impl<T: ObjectSubclass + SeekableImpl> IsImplementable<T> for Seekable {
     }
 }
 
-unsafe extern "C" fn seekable_tell<T: ObjectSubclass>(seekable: *mut gio_sys::GSeekable) -> i64
-where
-    T: SeekableImpl,
-{
+unsafe extern "C" fn seekable_tell<T: SeekableImpl>(seekable: *mut gio_sys::GSeekable) -> i64 {
     let instance = &*(seekable as *mut T::Instance);
     let imp = instance.get_impl();
 
     imp.tell(&from_glib_borrow(seekable))
 }
 
-unsafe extern "C" fn seekable_can_seek<T: ObjectSubclass>(
+unsafe extern "C" fn seekable_can_seek<T: SeekableImpl>(
     seekable: *mut gio_sys::GSeekable,
-) -> glib_sys::gboolean
-where
-    T: SeekableImpl,
-{
+) -> glib_sys::gboolean {
     let instance = &*(seekable as *mut T::Instance);
     let imp = instance.get_impl();
 
     imp.can_seek(&from_glib_borrow(seekable)).to_glib()
 }
 
-unsafe extern "C" fn seekable_seek<T: ObjectSubclass>(
+unsafe extern "C" fn seekable_seek<T: SeekableImpl>(
     seekable: *mut gio_sys::GSeekable,
     offset: i64,
     type_: glib_sys::GSeekType,
     cancellable: *mut gio_sys::GCancellable,
     err: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean
-where
-    T: SeekableImpl,
-{
+) -> glib_sys::gboolean {
     let instance = &*(seekable as *mut T::Instance);
     let imp = instance.get_impl();
 
@@ -102,27 +93,21 @@ where
     }
 }
 
-unsafe extern "C" fn seekable_can_truncate<T: ObjectSubclass>(
+unsafe extern "C" fn seekable_can_truncate<T: SeekableImpl>(
     seekable: *mut gio_sys::GSeekable,
-) -> glib_sys::gboolean
-where
-    T: SeekableImpl,
-{
+) -> glib_sys::gboolean {
     let instance = &*(seekable as *mut T::Instance);
     let imp = instance.get_impl();
 
     imp.can_truncate(&from_glib_borrow(seekable)).to_glib()
 }
 
-unsafe extern "C" fn seekable_truncate<T: ObjectSubclass>(
+unsafe extern "C" fn seekable_truncate<T: SeekableImpl>(
     seekable: *mut gio_sys::GSeekable,
     offset: i64,
     cancellable: *mut gio_sys::GCancellable,
     err: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean
-where
-    T: SeekableImpl,
-{
+) -> glib_sys::gboolean {
     let instance = &*(seekable as *mut T::Instance);
     let imp = instance.get_impl();
 

@@ -20,7 +20,7 @@ use std::ptr;
 
 use once_cell::sync::Lazy;
 
-pub trait IOStreamImpl: IOStreamImplExt + Send + 'static {
+pub trait IOStreamImpl: ObjectImpl + IOStreamImplExt + Send {
     fn get_input_stream(&self, stream: &IOStream) -> crate::InputStream {
         self.parent_get_input_stream(stream)
     }
@@ -46,10 +46,10 @@ pub trait IOStreamImplExt {
     ) -> Result<(), Error>;
 }
 
-impl<T: IOStreamImpl + ObjectImpl> IOStreamImplExt for T {
+impl<T: IOStreamImpl> IOStreamImplExt for T {
     fn parent_get_input_stream(&self, stream: &IOStream) -> crate::InputStream {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GIOStreamClass;
             let f = (*parent_class)
                 .get_input_stream
@@ -60,7 +60,7 @@ impl<T: IOStreamImpl + ObjectImpl> IOStreamImplExt for T {
 
     fn parent_get_output_stream(&self, stream: &IOStream) -> crate::OutputStream {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GIOStreamClass;
             let f = (*parent_class)
                 .get_output_stream
@@ -75,7 +75,7 @@ impl<T: IOStreamImpl + ObjectImpl> IOStreamImplExt for T {
         cancellable: Option<&Cancellable>,
     ) -> Result<(), Error> {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GIOStreamClass;
             let mut err = ptr::null_mut();
             if let Some(f) = (*parent_class).close_fn {
@@ -95,7 +95,7 @@ impl<T: IOStreamImpl + ObjectImpl> IOStreamImplExt for T {
     }
 }
 
-unsafe impl<T: ObjectSubclass + IOStreamImpl> IsSubclassable<T> for IOStreamClass {
+unsafe impl<T: IOStreamImpl> IsSubclassable<T> for IOStreamClass {
     fn override_vfuncs(&mut self) {
         <glib::ObjectClass as IsSubclassable<T>>::override_vfuncs(self);
         unsafe {
@@ -112,12 +112,9 @@ static OUTPUT_STREAM_QUARK: Lazy<glib::Quark> =
 static INPUT_STREAM_QUARK: Lazy<glib::Quark> =
     Lazy::new(|| glib::Quark::from_string("gtk-rs-subclass-input-stream"));
 
-unsafe extern "C" fn stream_get_input_stream<T: ObjectSubclass>(
+unsafe extern "C" fn stream_get_input_stream<T: IOStreamImpl>(
     ptr: *mut gio_sys::GIOStream,
-) -> *mut gio_sys::GInputStream
-where
-    T: IOStreamImpl,
-{
+) -> *mut gio_sys::GInputStream {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
@@ -149,12 +146,9 @@ where
     ret.to_glib_none().0
 }
 
-unsafe extern "C" fn stream_get_output_stream<T: ObjectSubclass>(
+unsafe extern "C" fn stream_get_output_stream<T: IOStreamImpl>(
     ptr: *mut gio_sys::GIOStream,
-) -> *mut gio_sys::GOutputStream
-where
-    T: IOStreamImpl,
-{
+) -> *mut gio_sys::GOutputStream {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
@@ -186,14 +180,11 @@ where
     ret.to_glib_none().0
 }
 
-unsafe extern "C" fn stream_close<T: ObjectSubclass>(
+unsafe extern "C" fn stream_close<T: IOStreamImpl>(
     ptr: *mut gio_sys::GIOStream,
     cancellable: *mut gio_sys::GCancellable,
     err: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean
-where
-    T: IOStreamImpl,
-{
+) -> glib_sys::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
