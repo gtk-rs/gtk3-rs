@@ -44,9 +44,7 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for ReadInputStream {
-        glib_object_impl!();
-    }
+    impl ObjectImpl for ReadInputStream {}
 
     impl InputStreamImpl for ReadInputStream {
         fn read(

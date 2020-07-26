@@ -17,7 +17,7 @@ use InputStreamClass;
 use std::mem;
 use std::ptr;
 
-pub trait InputStreamImpl: InputStreamImplExt + Send + 'static {
+pub trait InputStreamImpl: ObjectImpl + InputStreamImplExt + Send {
     fn read(
         &self,
         stream: &InputStream,
@@ -63,7 +63,7 @@ pub trait InputStreamImplExt {
     ) -> Result<usize, Error>;
 }
 
-impl<T: InputStreamImpl + ObjectImpl> InputStreamImplExt for T {
+impl<T: InputStreamImpl> InputStreamImplExt for T {
     fn parent_read(
         &self,
         stream: &InputStream,
@@ -71,7 +71,7 @@ impl<T: InputStreamImpl + ObjectImpl> InputStreamImplExt for T {
         cancellable: Option<&Cancellable>,
     ) -> Result<usize, Error> {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GInputStreamClass;
             let f = (*parent_class)
                 .read_fn
@@ -101,7 +101,7 @@ impl<T: InputStreamImpl + ObjectImpl> InputStreamImplExt for T {
         cancellable: Option<&Cancellable>,
     ) -> Result<(), Error> {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GInputStreamClass;
             let mut err = ptr::null_mut();
             if let Some(f) = (*parent_class).close_fn {
@@ -127,7 +127,7 @@ impl<T: InputStreamImpl + ObjectImpl> InputStreamImplExt for T {
         cancellable: Option<&Cancellable>,
     ) -> Result<usize, Error> {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GInputStreamClass;
             let mut err = ptr::null_mut();
             let f = (*parent_class)
@@ -151,7 +151,7 @@ impl<T: InputStreamImpl + ObjectImpl> InputStreamImplExt for T {
     }
 }
 
-unsafe impl<T: ObjectSubclass + InputStreamImpl> IsSubclassable<T> for InputStreamClass {
+unsafe impl<T: InputStreamImpl> IsSubclassable<T> for InputStreamClass {
     fn override_vfuncs(&mut self) {
         <glib::ObjectClass as IsSubclassable<T>>::override_vfuncs(self);
         unsafe {
@@ -163,16 +163,13 @@ unsafe impl<T: ObjectSubclass + InputStreamImpl> IsSubclassable<T> for InputStre
     }
 }
 
-unsafe extern "C" fn stream_read<T: ObjectSubclass>(
+unsafe extern "C" fn stream_read<T: InputStreamImpl>(
     ptr: *mut gio_sys::GInputStream,
     buffer: glib_sys::gpointer,
     count: usize,
     cancellable: *mut gio_sys::GCancellable,
     err: *mut *mut glib_sys::GError,
-) -> isize
-where
-    T: InputStreamImpl,
-{
+) -> isize {
     use std::isize;
     use std::slice;
 
@@ -202,14 +199,11 @@ where
     }
 }
 
-unsafe extern "C" fn stream_close<T: ObjectSubclass>(
+unsafe extern "C" fn stream_close<T: InputStreamImpl>(
     ptr: *mut gio_sys::GInputStream,
     cancellable: *mut gio_sys::GCancellable,
     err: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean
-where
-    T: InputStreamImpl,
-{
+) -> glib_sys::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<InputStream> = from_glib_borrow(ptr);
@@ -229,15 +223,12 @@ where
     }
 }
 
-unsafe extern "C" fn stream_skip<T: ObjectSubclass>(
+unsafe extern "C" fn stream_skip<T: InputStreamImpl>(
     ptr: *mut gio_sys::GInputStream,
     count: usize,
     cancellable: *mut gio_sys::GCancellable,
     err: *mut *mut glib_sys::GError,
-) -> isize
-where
-    T: InputStreamImpl,
-{
+) -> isize {
     use std::isize;
 
     assert!(count <= isize::MAX as usize);
@@ -299,9 +290,7 @@ mod tests {
         }
     }
 
-    impl ObjectImpl for SimpleInputStream {
-        glib_object_impl!();
-    }
+    impl ObjectImpl for SimpleInputStream {}
 
     impl InputStreamImpl for SimpleInputStream {
         fn read(

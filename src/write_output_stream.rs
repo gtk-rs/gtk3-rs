@@ -46,9 +46,7 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for WriteOutputStream {
-        glib_object_impl!();
-    }
+    impl ObjectImpl for WriteOutputStream {}
 
     impl OutputStreamImpl for WriteOutputStream {
         fn write(

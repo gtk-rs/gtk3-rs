@@ -77,7 +77,7 @@ impl convert::Into<Vec<OsString>> for ArgumentList {
     }
 }
 
-pub trait ApplicationImpl: ApplicationImplExt + 'static {
+pub trait ApplicationImpl: ObjectImpl + ApplicationImplExt {
     fn activate(&self, application: &Application) {
         self.parent_activate(application)
     }
@@ -153,10 +153,10 @@ pub trait ApplicationImplExt {
     fn parent_handle_local_options(&self, application: &Application, options: &VariantDict) -> i32;
 }
 
-impl<T: ApplicationImpl + ObjectImpl> ApplicationImplExt for T {
+impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_activate(&self, application: &Application) {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
             let f = (*parent_class)
                 .activate
@@ -167,7 +167,7 @@ impl<T: ApplicationImpl + ObjectImpl> ApplicationImplExt for T {
 
     fn parent_after_emit(&self, application: &Application, platform_data: &glib::Variant) {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
             let f = (*parent_class)
                 .after_emit
@@ -178,7 +178,7 @@ impl<T: ApplicationImpl + ObjectImpl> ApplicationImplExt for T {
 
     fn parent_before_emit(&self, application: &Application, platform_data: &glib::Variant) {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
             let f = (*parent_class)
                 .before_emit
@@ -193,7 +193,7 @@ impl<T: ApplicationImpl + ObjectImpl> ApplicationImplExt for T {
         command_line: &::ApplicationCommandLine,
     ) -> i32 {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
             let f = (*parent_class)
                 .command_line
@@ -208,7 +208,7 @@ impl<T: ApplicationImpl + ObjectImpl> ApplicationImplExt for T {
         arguments: &mut ArgumentList,
     ) -> Option<i32> {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
             let f = (*parent_class)
                 .local_command_line
@@ -231,7 +231,7 @@ impl<T: ApplicationImpl + ObjectImpl> ApplicationImplExt for T {
 
     fn parent_open(&self, application: &Application, files: &[::File], hint: &str) {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
             let f = (*parent_class)
                 .open
@@ -247,7 +247,7 @@ impl<T: ApplicationImpl + ObjectImpl> ApplicationImplExt for T {
 
     fn parent_quit_mainloop(&self, application: &Application) {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
             let f = (*parent_class)
                 .quit_mainloop
@@ -258,7 +258,7 @@ impl<T: ApplicationImpl + ObjectImpl> ApplicationImplExt for T {
 
     fn parent_run_mainloop(&self, application: &Application) {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
             let f = (*parent_class)
                 .run_mainloop
@@ -269,7 +269,7 @@ impl<T: ApplicationImpl + ObjectImpl> ApplicationImplExt for T {
 
     fn parent_shutdown(&self, application: &Application) {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
             let f = (*parent_class)
                 .shutdown
@@ -280,7 +280,7 @@ impl<T: ApplicationImpl + ObjectImpl> ApplicationImplExt for T {
 
     fn parent_startup(&self, application: &Application) {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
             let f = (*parent_class)
                 .startup
@@ -291,7 +291,7 @@ impl<T: ApplicationImpl + ObjectImpl> ApplicationImplExt for T {
 
     fn parent_handle_local_options(&self, application: &Application, options: &VariantDict) -> i32 {
         unsafe {
-            let data = self.get_type_data();
+            let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
             if let Some(f) = (*parent_class).handle_local_options {
                 f(application.to_glib_none().0, options.to_glib_none().0)
@@ -303,7 +303,7 @@ impl<T: ApplicationImpl + ObjectImpl> ApplicationImplExt for T {
     }
 }
 
-unsafe impl<T: ObjectSubclass + ApplicationImpl> IsSubclassable<T> for ApplicationClass {
+unsafe impl<T: ApplicationImpl> IsSubclassable<T> for ApplicationClass {
     fn override_vfuncs(&mut self) {
         <glib::ObjectClass as IsSubclassable<T>>::override_vfuncs(self);
         unsafe {
@@ -323,10 +323,7 @@ unsafe impl<T: ObjectSubclass + ApplicationImpl> IsSubclassable<T> for Applicati
     }
 }
 
-unsafe extern "C" fn application_activate<T: ObjectSubclass>(ptr: *mut gio_sys::GApplication)
-where
-    T: ApplicationImpl,
-{
+unsafe extern "C" fn application_activate<T: ApplicationImpl>(ptr: *mut gio_sys::GApplication) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
@@ -334,51 +331,41 @@ where
     imp.activate(&wrap)
 }
 
-unsafe extern "C" fn application_after_emit<T: ObjectSubclass>(
+unsafe extern "C" fn application_after_emit<T: ApplicationImpl>(
     ptr: *mut gio_sys::GApplication,
     platform_data: *mut glib_sys::GVariant,
-) where
-    T: ApplicationImpl,
-{
+) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.after_emit(&wrap, &from_glib_borrow(platform_data))
 }
-unsafe extern "C" fn application_before_emit<T: ObjectSubclass>(
+unsafe extern "C" fn application_before_emit<T: ApplicationImpl>(
     ptr: *mut gio_sys::GApplication,
     platform_data: *mut glib_sys::GVariant,
-) where
-    T: ApplicationImpl,
-{
+) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.before_emit(&wrap, &from_glib_borrow(platform_data))
 }
-unsafe extern "C" fn application_command_line<T: ObjectSubclass>(
+unsafe extern "C" fn application_command_line<T: ApplicationImpl>(
     ptr: *mut gio_sys::GApplication,
     command_line: *mut gio_sys::GApplicationCommandLine,
-) -> i32
-where
-    T: ApplicationImpl,
-{
+) -> i32 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.command_line(&wrap, &from_glib_borrow(command_line))
 }
-unsafe extern "C" fn application_local_command_line<T: ObjectSubclass>(
+unsafe extern "C" fn application_local_command_line<T: ApplicationImpl>(
     ptr: *mut gio_sys::GApplication,
     arguments: *mut *mut *mut c_char,
     exit_status: *mut i32,
-) -> glib_sys::gboolean
-where
-    T: ApplicationImpl,
-{
+) -> glib_sys::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
@@ -395,14 +382,12 @@ where
         None => glib_sys::GFALSE,
     }
 }
-unsafe extern "C" fn application_open<T: ObjectSubclass>(
+unsafe extern "C" fn application_open<T: ApplicationImpl>(
     ptr: *mut gio_sys::GApplication,
     files: *mut *mut gio_sys::GFile,
     num_files: i32,
     hint: *const c_char,
-) where
-    T: ApplicationImpl,
-{
+) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
@@ -414,40 +399,30 @@ unsafe extern "C" fn application_open<T: ObjectSubclass>(
         &glib::GString::from_glib_borrow(hint),
     )
 }
-unsafe extern "C" fn application_quit_mainloop<T: ObjectSubclass>(ptr: *mut gio_sys::GApplication)
-where
-    T: ApplicationImpl,
-{
+unsafe extern "C" fn application_quit_mainloop<T: ApplicationImpl>(
+    ptr: *mut gio_sys::GApplication,
+) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.quit_mainloop(&wrap)
 }
-unsafe extern "C" fn application_run_mainloop<T: ObjectSubclass>(ptr: *mut gio_sys::GApplication)
-where
-    T: ApplicationImpl,
-{
+unsafe extern "C" fn application_run_mainloop<T: ApplicationImpl>(ptr: *mut gio_sys::GApplication) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.run_mainloop(&wrap)
 }
-unsafe extern "C" fn application_shutdown<T: ObjectSubclass>(ptr: *mut gio_sys::GApplication)
-where
-    T: ApplicationImpl,
-{
+unsafe extern "C" fn application_shutdown<T: ApplicationImpl>(ptr: *mut gio_sys::GApplication) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.shutdown(&wrap)
 }
-unsafe extern "C" fn application_startup<T: ObjectSubclass>(ptr: *mut gio_sys::GApplication)
-where
-    T: ApplicationImpl,
-{
+unsafe extern "C" fn application_startup<T: ApplicationImpl>(ptr: *mut gio_sys::GApplication) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
@@ -455,13 +430,10 @@ where
     imp.startup(&wrap)
 }
 
-unsafe extern "C" fn application_handle_local_options<T: ObjectSubclass>(
+unsafe extern "C" fn application_handle_local_options<T: ApplicationImpl>(
     ptr: *mut gio_sys::GApplication,
     options: *mut glib_sys::GVariantDict,
-) -> c_int
-where
-    T: ApplicationImpl,
-{
+) -> c_int {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
@@ -493,9 +465,7 @@ mod tests {
         }
     }
 
-    impl ObjectImpl for SimpleApplication {
-        glib_object_impl!();
-    }
+    impl ObjectImpl for SimpleApplication {}
 
     impl ApplicationImpl for SimpleApplication {
         fn local_command_line(
