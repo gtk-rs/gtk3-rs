@@ -138,9 +138,6 @@
 //!
 //! // Trait that is used to override virtual methods of glib::Object.
 //! impl ObjectImpl for SimpleObject {
-//!     // This macro defines some boilerplate.
-//!     glib_object_impl!();
-//!
 //!     // Called whenever a property is set on this instance. The id
 //!     // is the same as the index of the property in the PROPERTIES array.
 //!     fn set_property(&self, _obj: &glib::Object, id: usize, value: &glib::Value) {
