@@ -23,6 +23,27 @@ pub use functions::*;
 
 pub use pango_sys::PANGO_SCALE as SCALE;
 
+/// The scale factor for three shrinking steps (1 / (1.2 * 1.2 * 1.2)).
+pub const SCALE_XX_SMALL: f64 = 0.5787037037037;
+
+/// The scale factor for two shrinking steps (1 / (1.2 * 1.2)).
+pub const SCALE_X_SMALL: f64 = 0.6944444444444;
+
+/// The scale factor for one shrinking step (1 / 1.2).
+pub const SCALE_SMALL: f64 = 0.8333333333333;
+
+/// The scale factor for normal size (1.0).
+pub const SCALE_MEDIUM: f64 = 1.0;
+
+/// The scale factor for one magnification step (1.2).
+pub const SCALE_LARGE: f64 = 1.2;
+
+/// The scale factor for two magnification steps (1.2 * 1.2).
+pub const SCALE_X_LARGE: f64 = 1.44;
+
+/// The scale factor for three magnification steps (1.2 * 1.2 * 1.2).
+pub const SCALE_XX_LARGE: f64 = 1.728;
+
 pub mod prelude;
 
 pub mod analysis;
