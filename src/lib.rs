@@ -147,3 +147,12 @@ pub use window::WindowAttr;
 pub type key = i32;
 
 pub use self::keys::{keyval_name, keyval_to_unicode};
+
+/// The primary button. This is typically the left mouse button, or the right button in a left-handed setup.
+pub const BUTTON_PRIMARY: u32 = gdk_sys::GDK_BUTTON_PRIMARY as u32;
+
+/// The middle button.
+pub const BUTTON_MIDDLE: u32 = gdk_sys::GDK_BUTTON_MIDDLE as u32;
+
+/// The secondary button. This is typically the right mouse button, or the left button in a left-handed setup.
+pub const BUTTON_SECONDARY: u32 = gdk_sys::GDK_BUTTON_SECONDARY as u32;
