@@ -6,7 +6,6 @@ use InetAddressExt;
 use SocketFamily;
 
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
-use std::slice::from_raw_parts;
 
 #[derive(Debug)]
 pub enum InetAddressBytes<'a> {
@@ -58,6 +57,31 @@ impl<O: IsA<InetAddress>> InetAddressExtManual for O {
                 Some(InetAddressBytes::V6(&*(bytes as *const [u8; 16])))
             } else {
                 None
+            }
+        }
+    }
+}
+
+impl From<IpAddr> for InetAddress {
+    fn from(addr: IpAddr) -> Self {
+        match addr {
+            IpAddr::V4(v4) => InetAddress::from_bytes(InetAddressBytes::V4(&v4.octets())),
+            IpAddr::V6(v6) => InetAddress::from_bytes(InetAddressBytes::V6(&v6.octets())),
+        }
+    }
+}
+
+impl Into<IpAddr> for InetAddress {
+    fn into(self) -> IpAddr {
+        let size = self.get_native_size();
+        unsafe {
+            let bytes = gio_sys::g_inet_address_to_bytes(self.to_glib_none().0);
+            if size == 4 {
+                IpAddr::V4(Ipv4Addr::from(*(bytes as *const [u8; 4])))
+            } else if size == 16 {
+                IpAddr::V6(Ipv6Addr::from(*(bytes as *const [u16; 8])))
+            } else {
+                panic!("Unknown IP kind");
             }
         }
     }
