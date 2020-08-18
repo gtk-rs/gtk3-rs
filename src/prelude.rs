@@ -18,6 +18,7 @@ pub use data_input_stream::DataInputStreamExtManual;
 #[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
 pub use desktop_app_info::DesktopAppInfoExtManual;
 pub use file::FileExtManual;
+pub use inet_address::InetAddressExtManual;
 pub use input_stream::InputStreamExtManual;
 pub use io_stream::IOStreamExtManual;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
