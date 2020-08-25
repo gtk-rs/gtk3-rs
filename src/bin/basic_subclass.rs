@@ -58,8 +58,6 @@ impl ObjectSubclass for SimpleWindowPrivate {
 }
 
 impl ObjectImpl for SimpleWindowPrivate {
-    glib_object_impl!();
-
     // Here we are overriding the glib::Objcet::contructed
     // method. Its what gets called when we create our Object
     // and where we can initialize things.
@@ -153,9 +151,7 @@ impl ObjectSubclass for SimpleApplicationPrivate {
     }
 }
 
-impl ObjectImpl for SimpleApplicationPrivate {
-    glib_object_impl!();
-}
+impl ObjectImpl for SimpleApplicationPrivate {}
 
 // When our application starts, the `startup` signal will be fired.
 // This gives us a chance to perform initialisation tasks that are not directly

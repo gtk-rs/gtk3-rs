@@ -285,8 +285,6 @@ mod row_data {
         // This maps between the GObject properties and our internal storage of the
         // corresponding values of the properties.
         impl ObjectImpl for RowData {
-            glib_object_impl!();
-
             fn set_property(&self, _obj: &glib::Object, id: usize, value: &glib::Value) {
                 let prop = &PROPERTIES[id];
 
