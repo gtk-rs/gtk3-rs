@@ -101,7 +101,9 @@ fn main() {
     quit.connect_activate(clone!(@weak application => move |_action, _parameter| {
         application.quit();
     }));
-    application.set_accels_for_action("app.quit", &["<Primary>Q"]);
+    application.connect_startup(|application| {
+        application.set_accels_for_action("app.quit", &["<Primary>Q"]);
+    });
     application.add_action(&quit);
 
     // Run the application
