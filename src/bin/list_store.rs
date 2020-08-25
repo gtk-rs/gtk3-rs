@@ -1,4 +1,5 @@
 extern crate gio;
+extern crate glib;
 extern crate gtk;
 
 use gio::prelude::*;
@@ -54,7 +55,7 @@ fn build_ui(application: &gtk::Application) {
     window.show_all();
 
     let model = model.clone();
-    timeout_add(80, move || spinner_timeout(&model));
+    glib::timeout_add_local(80, move || spinner_timeout(&model));
 }
 
 struct Data {
