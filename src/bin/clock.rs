@@ -1,10 +1,11 @@
 //! # Clock Sample
 //!
-//! This sample demonstrates how to use gtk::timeout_add_seconds to run
+//! This sample demonstrates how to use glib::timeout_add_seconds_local to run
 //! a periodic task, implementing a clock in this example.
 
 extern crate chrono;
 extern crate gio;
+extern crate glib;
 extern crate gtk;
 
 use chrono::Local;
@@ -41,7 +42,7 @@ fn build_ui(application: &gtk::Application) {
     };
 
     // executes the closure once every second
-    gtk::timeout_add_seconds(1, tick);
+    glib::timeout_add_seconds_local(1, tick);
 }
 
 fn main() {
