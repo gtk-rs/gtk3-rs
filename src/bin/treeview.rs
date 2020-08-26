@@ -77,7 +77,7 @@ fn build_ui(application: &gtk::Application) {
                 );
             }
 
-            gtk::idle_add(
+            glib::idle_add_local(
                 clone!(@weak window => @default-return glib::Continue(false), move || {
                     let dialog = MessageDialog::new(Some(&window), DialogFlags::MODAL,
                         MessageType::Error, ButtonsType::Ok, &msg);
