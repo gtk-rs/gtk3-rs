@@ -1110,13 +1110,13 @@ macro_rules! glib_object_wrapper {
     };
 
     (@munch_impls $name:ident, $super_name:path, $($implements:tt)*) => {
-        glib_object_wrapper!(@munch_impls $name, $super_name);
-        glib_object_wrapper!(@munch_impls $name, $($implements)*);
+        $crate::glib_object_wrapper!(@munch_impls $name, $super_name);
+        $crate::glib_object_wrapper!(@munch_impls $name, $($implements)*);
     };
 
     // If there is no parent class, i.e. only glib::Object
     (@munch_first_impl $name:ident, $rust_class_name:ident, ) => {
-        glib_object_wrapper!(@munch_impls $name, );
+        $crate::glib_object_wrapper!(@munch_impls $name, );
 
         impl ::std::ops::Deref for $rust_class_name {
             type Target = <$crate::object::Object as $crate::object::ObjectType>::RustClassType;
@@ -1135,7 +1135,7 @@ macro_rules! glib_object_wrapper {
 
     // If there is only one parent class
     (@munch_first_impl $name:ident, $rust_class_name:ident, $super_name:path) => {
-        glib_object_wrapper!(@munch_impls $name, $super_name);
+        $crate::glib_object_wrapper!(@munch_impls $name, $super_name);
 
         impl ::std::ops::Deref for $rust_class_name {
             type Target = <$super_name as $crate::object::ObjectType>::RustClassType;
@@ -1154,7 +1154,7 @@ macro_rules! glib_object_wrapper {
 
     // If there is more than one parent class
     (@munch_first_impl $name:ident, $rust_class_name:ident, $super_name:path, $($implements:tt)*) => {
-        glib_object_wrapper!(@munch_impls $name, $super_name);
+        $crate::glib_object_wrapper!(@munch_impls $name, $super_name);
 
         impl ::std::ops::Deref for $rust_class_name {
             type Target = <$super_name as $crate::object::ObjectType>::RustClassType;
@@ -1170,7 +1170,7 @@ macro_rules! glib_object_wrapper {
             }
         }
 
-        glib_object_wrapper!(@munch_impls $name, $($implements)*);
+        $crate::glib_object_wrapper!(@munch_impls $name, $($implements)*);
     };
 
     (@class_impl $name:ident, $ffi_class_name:path, $rust_class_name:ident) => {
@@ -1189,18 +1189,18 @@ macro_rules! glib_object_wrapper {
     // This case is only for glib::Object itself below. All other cases have glib::Object in its
     // parent class list
     (@object [$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:ident, @get_type $get_type_expr:expr) => {
-        glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+        $crate::glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
             @get_type $get_type_expr);
-        glib_object_wrapper!(@class_impl $name, $ffi_class_name, $rust_class_name);
+        $crate::glib_object_wrapper!(@class_impl $name, $ffi_class_name, $rust_class_name);
     };
 
     (@object [$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:ident,
         @get_type $get_type_expr:expr, @extends [$($extends:tt)*], @implements [$($implements:tt)*]) => {
-        glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+        $crate::glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
             @get_type $get_type_expr);
-        glib_object_wrapper!(@munch_first_impl $name, $rust_class_name, $($extends)*);
-        glib_object_wrapper!(@munch_impls $name, $($implements)*);
-        glib_object_wrapper!(@class_impl $name, $ffi_class_name, $rust_class_name);
+        $crate::glib_object_wrapper!(@munch_first_impl $name, $rust_class_name, $($extends)*);
+        $crate::glib_object_wrapper!(@munch_impls $name, $($implements)*);
+        $crate::glib_object_wrapper!(@class_impl $name, $ffi_class_name, $rust_class_name);
 
         #[doc(hidden)]
         impl AsRef<$crate::object::Object> for $name {
@@ -1214,9 +1214,9 @@ macro_rules! glib_object_wrapper {
     };
 
     (@interface [$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr, @requires [$($requires:tt)*]) => {
-        glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $crate::wrapper::Void,
+        $crate::glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $crate::wrapper::Void,
             @get_type $get_type_expr);
-        glib_object_wrapper!(@munch_impls $name, $($requires)*);
+        $crate::glib_object_wrapper!(@munch_impls $name, $($requires)*);
 
         #[doc(hidden)]
         impl AsRef<$crate::object::Object> for $name {
