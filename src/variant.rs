@@ -18,7 +18,7 @@
 //!
 //! ```
 //! use glib::prelude::*; // or `use gtk::prelude::*;`
-//! use glib::Variant;
+//! use glib::{Variant, FromVariant, ToVariant};
 //!
 //! // Using the `ToVariant` trait.
 //! let num = 10.to_variant();
@@ -48,6 +48,12 @@
 //! assert_eq!(variant.n_children(), 2);
 //! assert_eq!(variant.get_child_value(0).get_str(), Some("Hello"));
 //! assert_eq!(variant.get_child_value(1).get_str(), Some("there!"));
+//!
+//! // You can also convert from and to a Vec
+//! let array = vec!["Hello", "there!"].to_variant();
+//! assert_eq!(variant.n_children(), 2);
+//! let vec = <Vec<String>>::from_variant(&array).unwrap();
+//! assert_eq!(vec[0], "Hello");
 //! ```
 
 use bytes::Bytes;
@@ -470,6 +476,31 @@ impl<T: StaticVariantType> StaticVariantType for [T] {
         VariantType::new(&signature)
             .expect("incorrect signature")
             .into()
+    }
+}
+
+impl<T: FromVariant> FromVariant for Vec<T> {
+    fn from_variant(variant: &Variant) -> Option<Self> {
+        let mut vec = Vec::with_capacity(variant.n_children());
+
+        for i in 0..variant.n_children() {
+            match variant.get_child_value(i).get() {
+                Some(child) => vec.push(child),
+                None => return None,
+            }
+        }
+
+        Some(vec)
+    }
+}
+
+impl<T: StaticVariantType + ToVariant> ToVariant for Vec<T> {
+    fn to_variant(&self) -> Variant {
+        let mut vec = Vec::with_capacity(self.len());
+        for child in self {
+            vec.push(child.to_variant());
+        }
+        Variant::new_array::<T>(&vec)
     }
 }
 
