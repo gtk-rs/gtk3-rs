@@ -117,7 +117,7 @@ pub use enums::{EnumClass, EnumValue, FlagsBuilder, FlagsClass, FlagsValue, User
 pub use time_val::{get_current_time, TimeVal};
 pub use types::{StaticType, Type};
 pub use value::{SendValue, ToSendValue, ToValue, TypedValue, Value};
-pub use variant::{StaticVariantType, ToVariant, Variant};
+pub use variant::{FromVariant, StaticVariantType, ToVariant, Variant};
 pub use variant_dict::VariantDict;
 pub use variant_type::{VariantTy, VariantType};
 
