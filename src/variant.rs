@@ -62,6 +62,7 @@ use gobject_sys;
 use gstring::GString;
 use std::borrow::Cow;
 use std::cmp::{Eq, Ordering, PartialEq, PartialOrd};
+use std::collections::HashMap;
 use std::fmt;
 use std::hash::{BuildHasher, Hash, Hasher};
 use std::slice;
@@ -510,8 +511,99 @@ impl<T: StaticVariantType> StaticVariantType for Vec<T> {
     }
 }
 
-impl<K: StaticVariantType, V: StaticVariantType, H: BuildHasher + Default> StaticVariantType
-    for HashMap<K, V, H>
+/// A Dictionary entry.
+///
+/// While GVariant format allows a dictionary entry to be an independent type, typically you'll need
+/// to use this in a dictionary, which is simply an array of dictionary entries. The following code
+/// creates a dictionary:
+///
+/// ```
+///# use glib::prelude::*; // or `use gtk::prelude::*;`
+/// use glib::{Variant, FromVariant, ToVariant};
+/// use glib::variant::DictEntry;
+///
+/// let entries = vec![
+///     DictEntry::new("uuid", 1000u32).to_variant(),
+///     DictEntry::new("guid", 1001u32).to_variant(),
+/// ];
+/// let dict = Variant::new_array::<DictEntry<&str, u32>>(&entries);
+/// assert_eq!(dict.n_children(), 2);
+/// assert_eq!(dict.type_().to_str(), "a{su}");
+/// ```
+pub struct DictEntry<K, V> {
+    key: K,
+    value: V,
+}
+
+impl<K, V> DictEntry<K, V>
+where
+    K: StaticVariantType + ToVariant + Eq + Hash,
+    V: StaticVariantType + ToVariant,
+{
+    pub fn new(key: K, value: V) -> Self {
+        DictEntry { key, value }
+    }
+
+    pub fn key(&self) -> &K {
+        &self.key
+    }
+
+    pub fn value(&self) -> &V {
+        &self.value
+    }
+}
+
+impl<K, V> FromVariant for DictEntry<K, V>
+where
+    K: FromVariant + Eq + Hash,
+    V: FromVariant,
+{
+    fn from_variant(variant: &Variant) -> Option<Self> {
+        let key = match variant.get_child_value(0).get() {
+            Some(key) => key,
+            None => return None,
+        };
+        let value = match variant.get_child_value(1).get() {
+            Some(value) => value,
+            None => return None,
+        };
+
+        Some(DictEntry { key, value })
+    }
+}
+
+impl<K, V> ToVariant for DictEntry<K, V>
+where
+    K: StaticVariantType + ToVariant + Eq + Hash,
+    V: StaticVariantType + ToVariant,
+{
+    fn to_variant(&self) -> Variant {
+        unsafe {
+            from_glib_none(glib_sys::g_variant_new_dict_entry(
+                self.key.to_variant().to_glib_none().0,
+                self.value.to_variant().to_glib_none().0,
+            ))
+        }
+    }
+}
+
+impl<K: StaticVariantType, V: StaticVariantType> StaticVariantType for DictEntry<K, V> {
+    fn static_variant_type() -> Cow<'static, VariantTy> {
+        let key_type = K::static_variant_type();
+        let value_type = V::static_variant_type();
+        let signature = format!("{{{}{}}}", key_type.to_str(), value_type.to_str());
+
+        VariantType::new(&signature)
+            .expect("incorrect signature")
+            .into()
+    }
+}
+
+impl<K, V, H> StaticVariantType for HashMap<K, V, H>
+where
+    K: StaticVariantType,
+    V: StaticVariantType,
+    H: BuildHasher + Default,
 {
     fn static_variant_type() -> Cow<'static, VariantTy> {
         let key_type = K::static_variant_type();
