@@ -65,6 +65,15 @@
 //! let map: HashMap<u16, String> = HashMap::from_variant(&variant).unwrap();
 //! assert_eq!(map[&1], "hi");
 //! assert_eq!(map[&2], "there");
+//!
+//! // And conversion to and from tuples.
+//! let variant = ("hello", 42u16, vec![ "there", "you" ],).to_variant();
+//! assert_eq!(variant.n_children(), 3);
+//! assert_eq!(variant.type_().to_str(), "(sqas)");
+//! let tuple = <(String, u16, Vec<String>)>::from_variant(&variant).unwrap();
+//! assert_eq!(tuple.0, "hello");
+//! assert_eq!(tuple.1, 42);
+//! assert_eq!(tuple.2, &[ "there", "you"]);
 //! ```
 
 use bytes::Bytes;
@@ -219,6 +228,16 @@ impl Variant {
         unsafe {
             from_glib_none(glib_sys::g_variant_new_array(
                 type_.as_ptr() as *const _,
+                children.to_glib_none().0,
+                children.len(),
+            ))
+        }
+    }
+
+    /// Creates a new GVariant tuple from children.
+    pub fn new_tuple(children: &[Variant]) -> Self {
+        unsafe {
+            from_glib_none(glib_sys::g_variant_new_tuple(
                 children.to_glib_none().0,
                 children.len(),
             ))
@@ -685,6 +704,36 @@ macro_rules! tuple_impls {
                     signature.push(')');
 
                     VariantType::new(&signature).expect("incorrect signature").into()
+                }
+            }
+
+            impl<$($name),+> FromVariant for ($($name,)+)
+            where
+                $($name: FromVariant,)+
+            {
+                fn from_variant(variant: &Variant) -> Option<Self> {
+                    Some((
+                        $(
+                            match $name::from_variant(&variant.get_child_value($n)) {
+                                Some(field) => field,
+                                None => return None,
+                            },
+                        )+
+                    ))
+                }
+            }
+
+            impl<$($name),+> ToVariant for ($($name,)+)
+            where
+                $($name: ToVariant,)+
+            {
+                fn to_variant(&self) -> Variant {
+                    let mut fields = Vec::with_capacity($len);
+                    $(
+                        let field = self.$n.to_variant();
+                        fields.push(field);
+                    )+
+                    Variant::new_tuple(&fields)
                 }
             }
         )+
