@@ -19,6 +19,7 @@
 //! ```
 //! use glib::prelude::*; // or `use gtk::prelude::*;`
 //! use glib::{Variant, FromVariant, ToVariant};
+//! use std::collections::HashMap;
 //!
 //! // Using the `ToVariant` trait.
 //! let num = 10.to_variant();
@@ -54,6 +55,16 @@
 //! assert_eq!(variant.n_children(), 2);
 //! let vec = <Vec<String>>::from_variant(&array).unwrap();
 //! assert_eq!(vec[0], "Hello");
+//!
+//! // Conversion to and from HashMap is also possible
+//! let mut map: HashMap<u16, &str> = HashMap::new();
+//! map.insert(1, "hi");
+//! map.insert(2, "there");
+//! let variant = map.to_variant();
+//! assert_eq!(variant.n_children(), 2);
+//! let map: HashMap<u16, String> = HashMap::from_variant(&variant).unwrap();
+//! assert_eq!(map[&1], "hi");
+//! assert_eq!(map[&2], "there");
 //! ```
 
 use bytes::Bytes;
@@ -508,6 +519,48 @@ impl<T: StaticVariantType + ToVariant> ToVariant for Vec<T> {
 impl<T: StaticVariantType> StaticVariantType for Vec<T> {
     fn static_variant_type() -> Cow<'static, VariantTy> {
         <[T]>::static_variant_type()
+    }
+}
+
+impl<K, V, H> FromVariant for HashMap<K, V, H>
+where
+    K: FromVariant + Eq + Hash,
+    V: FromVariant,
+    H: BuildHasher + Default,
+{
+    fn from_variant(variant: &Variant) -> Option<Self> {
+        let mut map = HashMap::default();
+
+        for i in 0..variant.n_children() {
+            let entry = variant.get_child_value(i);
+            let key = match entry.get_child_value(0).get() {
+                Some(key) => key,
+                None => return None,
+            };
+            let val = match entry.get_child_value(1).get() {
+                Some(val) => val,
+                None => return None,
+            };
+
+            map.insert(key, val);
+        }
+
+        Some(map)
+    }
+}
+
+impl<K, V> ToVariant for HashMap<K, V>
+where
+    K: StaticVariantType + ToVariant + Eq + Hash,
+    V: StaticVariantType + ToVariant,
+{
+    fn to_variant(&self) -> Variant {
+        let mut vec = Vec::with_capacity(self.len());
+        for (key, value) in self {
+            let entry = DictEntry::new(key, value).to_variant();
+            vec.push(entry);
+        }
+        Variant::new_array::<DictEntry<K, V>>(&vec)
     }
 }
 
