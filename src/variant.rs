@@ -74,6 +74,17 @@
 //! assert_eq!(tuple.0, "hello");
 //! assert_eq!(tuple.1, 42);
 //! assert_eq!(tuple.2, &[ "there", "you"]);
+//!
+//! // `Option` is supported as well, through maybe types
+//! let variant = Some("hello").to_variant();
+//! assert_eq!(variant.n_children(), 1);
+//! let mut s = <Option<String>>::from_variant(&variant).unwrap();
+//! assert_eq!(s.unwrap(), "hello");
+//! s = None;
+//! let variant = s.to_variant();
+//! assert_eq!(variant.n_children(), 0);
+//! let s = <Option<String>>::from_variant(&variant).unwrap();
+//! assert!(s.is_none());
 //! ```
 
 use bytes::Bytes;
@@ -240,6 +251,25 @@ impl Variant {
             from_glib_none(glib_sys::g_variant_new_tuple(
                 children.to_glib_none().0,
                 children.len(),
+            ))
+        }
+    }
+
+    /// Creates a new maybe Variant.
+    pub fn new_maybe<T: StaticVariantType>(child: Option<&Variant>) -> Self {
+        let type_ = T::static_variant_type();
+        let ptr = match child {
+            Some(child) => {
+                assert_eq!(type_, child.type_());
+
+                child.to_glib_none().0
+            }
+            None => std::ptr::null(),
+        };
+        unsafe {
+            from_glib_none(glib_sys::g_variant_new_maybe(
+                type_.as_ptr() as *const _,
+                ptr as *mut glib_sys::GVariant,
             ))
         }
     }
@@ -496,6 +526,42 @@ impl ToVariant for str {
 impl<T: ToVariant> From<T> for Variant {
     fn from(value: T) -> Variant {
         value.to_variant()
+    }
+}
+
+impl<T: StaticVariantType> StaticVariantType for Option<T> {
+    fn static_variant_type() -> Cow<'static, VariantTy> {
+        let child_type = T::static_variant_type();
+        let signature = format!("m{}", child_type.to_str());
+
+        VariantType::new(&signature)
+            .expect("incorrect signature")
+            .into()
+    }
+}
+
+impl<T: StaticVariantType + ToVariant> ToVariant for Option<T> {
+    fn to_variant(&self) -> Variant {
+        Variant::new_maybe::<T>(self.as_ref().map(|m| m.to_variant()).as_ref())
+    }
+}
+
+impl<T: StaticVariantType + FromVariant> FromVariant for Option<T> {
+    fn from_variant(variant: &Variant) -> Option<Self> {
+        unsafe {
+            if variant.is::<Self>() {
+                let c_child = glib_sys::g_variant_get_maybe(variant.to_glib_none().0);
+                if !c_child.is_null() {
+                    let child: Variant = from_glib_full(c_child);
+
+                    Some(T::from_variant(&child))
+                } else {
+                    Some(None)
+                }
+            } else {
+                None
+            }
+        }
     }
 }
 
