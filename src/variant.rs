@@ -18,7 +18,8 @@
 //!
 //! ```
 //! use glib::prelude::*; // or `use gtk::prelude::*;`
-//! use glib::Variant;
+//! use glib::{Variant, FromVariant, ToVariant};
+//! use std::collections::HashMap;
 //!
 //! // Using the `ToVariant` trait.
 //! let num = 10.to_variant();
@@ -36,6 +37,54 @@
 //! // `get_str` tries to borrow a string slice.
 //! assert_eq!(hello.get_str(), Some("Hello!"));
 //! assert_eq!(num.get_str(), None);
+//!
+//! // Variant carrying a Variant
+//! let variant = Variant::new_variant(&hello);
+//! let variant = variant.get_variant().unwrap();
+//! assert_eq!(variant.get_str(), Some("Hello!"));
+//!
+//! // Variant carrying an array
+//! let array = [Variant::from("Hello"), Variant::from("there!")];
+//! let variant = Variant::new_array::<&str>(&array);
+//! assert_eq!(variant.n_children(), 2);
+//! assert_eq!(variant.get_child_value(0).get_str(), Some("Hello"));
+//! assert_eq!(variant.get_child_value(1).get_str(), Some("there!"));
+//!
+//! // You can also convert from and to a Vec
+//! let array = vec!["Hello", "there!"].to_variant();
+//! assert_eq!(variant.n_children(), 2);
+//! let vec = <Vec<String>>::from_variant(&array).unwrap();
+//! assert_eq!(vec[0], "Hello");
+//!
+//! // Conversion to and from HashMap is also possible
+//! let mut map: HashMap<u16, &str> = HashMap::new();
+//! map.insert(1, "hi");
+//! map.insert(2, "there");
+//! let variant = map.to_variant();
+//! assert_eq!(variant.n_children(), 2);
+//! let map: HashMap<u16, String> = HashMap::from_variant(&variant).unwrap();
+//! assert_eq!(map[&1], "hi");
+//! assert_eq!(map[&2], "there");
+//!
+//! // And conversion to and from tuples.
+//! let variant = ("hello", 42u16, vec![ "there", "you" ],).to_variant();
+//! assert_eq!(variant.n_children(), 3);
+//! assert_eq!(variant.type_().to_str(), "(sqas)");
+//! let tuple = <(String, u16, Vec<String>)>::from_variant(&variant).unwrap();
+//! assert_eq!(tuple.0, "hello");
+//! assert_eq!(tuple.1, 42);
+//! assert_eq!(tuple.2, &[ "there", "you"]);
+//!
+//! // `Option` is supported as well, through maybe types
+//! let variant = Some("hello").to_variant();
+//! assert_eq!(variant.n_children(), 1);
+//! let mut s = <Option<String>>::from_variant(&variant).unwrap();
+//! assert_eq!(s.unwrap(), "hello");
+//! s = None;
+//! let variant = s.to_variant();
+//! assert_eq!(variant.n_children(), 0);
+//! let s = <Option<String>>::from_variant(&variant).unwrap();
+//! assert!(s.is_none());
 //! ```
 
 use bytes::Bytes;
@@ -44,8 +93,9 @@ use gobject_sys;
 use gstring::GString;
 use std::borrow::Cow;
 use std::cmp::{Eq, Ordering, PartialEq, PartialOrd};
+use std::collections::HashMap;
 use std::fmt;
-use std::hash::{Hash, Hasher};
+use std::hash::{BuildHasher, Hash, Hasher};
 use std::slice;
 use std::str;
 use translate::*;
@@ -54,6 +104,7 @@ use StaticType;
 use Type;
 use Value;
 use VariantTy;
+use VariantType;
 
 glib_wrapper! {
     /// A generic immutable value capable of carrying various types.
@@ -122,6 +173,39 @@ impl Variant {
         T::from_variant(self)
     }
 
+    /// Boxes value.
+    #[inline]
+    pub fn new_variant(value: &Variant) -> Self {
+        unsafe { from_glib_full(glib_sys::g_variant_new_variant(value.to_glib_full())) }
+    }
+
+    /// Unboxes self.
+    ///
+    /// Returns `Some` if self contains a `Variant`.
+    #[inline]
+    pub fn get_variant(&self) -> Option<Variant> {
+        unsafe { from_glib_none(glib_sys::g_variant_get_variant(self.to_glib_none().0)) }
+    }
+
+    /// Reads a child item out of a container `Variant` instance.
+    ///
+    /// # Panics
+    ///
+    /// * if `self` is not a container type.
+    /// * if given `index` is larger than number of children.
+    pub fn get_child_value(&self, index: usize) -> Variant {
+        assert!(index < self.n_children());
+        let ty = self.type_().to_str();
+        assert!(ty.starts_with("a") || ty.starts_with("{") || ty.starts_with("("));
+
+        unsafe {
+            from_glib_none(glib_sys::g_variant_get_child_value(
+                self.to_glib_none().0,
+                index,
+            ))
+        }
+    }
+
     /// Tries to extract a `&str`.
     ///
     /// Returns `Some` if the variant has a string type (`s`, `o` or `g` type
@@ -140,6 +224,53 @@ impl Variant {
                 }
                 _ => None,
             }
+        }
+    }
+
+    /// Creates a new GVariant array from children.
+    ///
+    /// All children must be of type `T`.
+    pub fn new_array<T: StaticVariantType>(children: &[Variant]) -> Self {
+        let type_ = T::static_variant_type();
+
+        for child in children {
+            assert_eq!(type_, child.type_());
+        }
+        unsafe {
+            from_glib_none(glib_sys::g_variant_new_array(
+                type_.as_ptr() as *const _,
+                children.to_glib_none().0,
+                children.len(),
+            ))
+        }
+    }
+
+    /// Creates a new GVariant tuple from children.
+    pub fn new_tuple(children: &[Variant]) -> Self {
+        unsafe {
+            from_glib_none(glib_sys::g_variant_new_tuple(
+                children.to_glib_none().0,
+                children.len(),
+            ))
+        }
+    }
+
+    /// Creates a new maybe Variant.
+    pub fn new_maybe<T: StaticVariantType>(child: Option<&Variant>) -> Self {
+        let type_ = T::static_variant_type();
+        let ptr = match child {
+            Some(child) => {
+                assert_eq!(type_, child.type_());
+
+                child.to_glib_none().0
+            }
+            None => std::ptr::null(),
+        };
+        unsafe {
+            from_glib_none(glib_sys::g_variant_new_maybe(
+                type_.as_ptr() as *const _,
+                ptr as *mut glib_sys::GVariant,
+            ))
         }
     }
 
@@ -177,6 +308,20 @@ impl Variant {
     /// Returns the serialised form of a GVariant instance.
     pub fn get_data_as_bytes(&self) -> Bytes {
         unsafe { from_glib_full(glib_sys::g_variant_get_data_as_bytes(self.to_glib_none().0)) }
+    }
+
+    /// Determines the number of children in a container GVariant instance.
+    pub fn n_children(&self) -> usize {
+        let type_ = self.type_().to_str();
+        assert!(
+            type_.starts_with("a")
+                || type_.starts_with("m")
+                || type_.starts_with("(")
+                || type_.starts_with("{")
+                || type_.starts_with("v")
+        );
+
+        unsafe { glib_sys::g_variant_n_children(self.to_glib_none().0) }
     }
 }
 
@@ -265,6 +410,12 @@ pub trait FromVariant: Sized + StaticVariantType {
 pub trait StaticVariantType {
     /// Returns the `VariantType` corresponding to `Self`.
     fn static_variant_type() -> Cow<'static, VariantTy>;
+}
+
+impl StaticVariantType for Variant {
+    fn static_variant_type() -> Cow<'static, VariantTy> {
+        unsafe { VariantTy::from_str_unchecked("v").into() }
+    }
 }
 
 impl<'a, T: ?Sized + ToVariant> ToVariant for &'a T {
@@ -378,10 +529,306 @@ impl<T: ToVariant> From<T> for Variant {
     }
 }
 
+impl<T: StaticVariantType> StaticVariantType for Option<T> {
+    fn static_variant_type() -> Cow<'static, VariantTy> {
+        let child_type = T::static_variant_type();
+        let signature = format!("m{}", child_type.to_str());
+
+        VariantType::new(&signature)
+            .expect("incorrect signature")
+            .into()
+    }
+}
+
+impl<T: StaticVariantType + ToVariant> ToVariant for Option<T> {
+    fn to_variant(&self) -> Variant {
+        Variant::new_maybe::<T>(self.as_ref().map(|m| m.to_variant()).as_ref())
+    }
+}
+
+impl<T: StaticVariantType + FromVariant> FromVariant for Option<T> {
+    fn from_variant(variant: &Variant) -> Option<Self> {
+        unsafe {
+            if variant.is::<Self>() {
+                let c_child = glib_sys::g_variant_get_maybe(variant.to_glib_none().0);
+                if !c_child.is_null() {
+                    let child: Variant = from_glib_full(c_child);
+
+                    Some(T::from_variant(&child))
+                } else {
+                    Some(None)
+                }
+            } else {
+                None
+            }
+        }
+    }
+}
+
+impl<T: StaticVariantType> StaticVariantType for [T] {
+    fn static_variant_type() -> Cow<'static, VariantTy> {
+        let child_type = T::static_variant_type();
+        let signature = format!("a{}", child_type.to_str());
+
+        VariantType::new(&signature)
+            .expect("incorrect signature")
+            .into()
+    }
+}
+
+impl<T: FromVariant> FromVariant for Vec<T> {
+    fn from_variant(variant: &Variant) -> Option<Self> {
+        let mut vec = Vec::with_capacity(variant.n_children());
+
+        for i in 0..variant.n_children() {
+            match variant.get_child_value(i).get() {
+                Some(child) => vec.push(child),
+                None => return None,
+            }
+        }
+
+        Some(vec)
+    }
+}
+
+impl<T: StaticVariantType + ToVariant> ToVariant for Vec<T> {
+    fn to_variant(&self) -> Variant {
+        let mut vec = Vec::with_capacity(self.len());
+        for child in self {
+            vec.push(child.to_variant());
+        }
+        Variant::new_array::<T>(&vec)
+    }
+}
+
+impl<T: StaticVariantType> StaticVariantType for Vec<T> {
+    fn static_variant_type() -> Cow<'static, VariantTy> {
+        <[T]>::static_variant_type()
+    }
+}
+
+impl<K, V, H> FromVariant for HashMap<K, V, H>
+where
+    K: FromVariant + Eq + Hash,
+    V: FromVariant,
+    H: BuildHasher + Default,
+{
+    fn from_variant(variant: &Variant) -> Option<Self> {
+        let mut map = HashMap::default();
+
+        for i in 0..variant.n_children() {
+            let entry = variant.get_child_value(i);
+            let key = match entry.get_child_value(0).get() {
+                Some(key) => key,
+                None => return None,
+            };
+            let val = match entry.get_child_value(1).get() {
+                Some(val) => val,
+                None => return None,
+            };
+
+            map.insert(key, val);
+        }
+
+        Some(map)
+    }
+}
+
+impl<K, V> ToVariant for HashMap<K, V>
+where
+    K: StaticVariantType + ToVariant + Eq + Hash,
+    V: StaticVariantType + ToVariant,
+{
+    fn to_variant(&self) -> Variant {
+        let mut vec = Vec::with_capacity(self.len());
+        for (key, value) in self {
+            let entry = DictEntry::new(key, value).to_variant();
+            vec.push(entry);
+        }
+        Variant::new_array::<DictEntry<K, V>>(&vec)
+    }
+}
+
+/// A Dictionary entry.
+///
+/// While GVariant format allows a dictionary entry to be an independent type, typically you'll need
+/// to use this in a dictionary, which is simply an array of dictionary entries. The following code
+/// creates a dictionary:
+///
+/// ```
+///# use glib::prelude::*; // or `use gtk::prelude::*;`
+/// use glib::{Variant, FromVariant, ToVariant};
+/// use glib::variant::DictEntry;
+///
+/// let entries = vec![
+///     DictEntry::new("uuid", 1000u32).to_variant(),
+///     DictEntry::new("guid", 1001u32).to_variant(),
+/// ];
+/// let dict = Variant::new_array::<DictEntry<&str, u32>>(&entries);
+/// assert_eq!(dict.n_children(), 2);
+/// assert_eq!(dict.type_().to_str(), "a{su}");
+/// ```
+pub struct DictEntry<K, V> {
+    key: K,
+    value: V,
+}
+
+impl<K, V> DictEntry<K, V>
+where
+    K: StaticVariantType + ToVariant + Eq + Hash,
+    V: StaticVariantType + ToVariant,
+{
+    pub fn new(key: K, value: V) -> Self {
+        DictEntry { key, value }
+    }
+
+    pub fn key(&self) -> &K {
+        &self.key
+    }
+
+    pub fn value(&self) -> &V {
+        &self.value
+    }
+}
+
+impl<K, V> FromVariant for DictEntry<K, V>
+where
+    K: FromVariant + Eq + Hash,
+    V: FromVariant,
+{
+    fn from_variant(variant: &Variant) -> Option<Self> {
+        let key = match variant.get_child_value(0).get() {
+            Some(key) => key,
+            None => return None,
+        };
+        let value = match variant.get_child_value(1).get() {
+            Some(value) => value,
+            None => return None,
+        };
+
+        Some(DictEntry { key, value })
+    }
+}
+
+impl<K, V> ToVariant for DictEntry<K, V>
+where
+    K: StaticVariantType + ToVariant + Eq + Hash,
+    V: StaticVariantType + ToVariant,
+{
+    fn to_variant(&self) -> Variant {
+        unsafe {
+            from_glib_none(glib_sys::g_variant_new_dict_entry(
+                self.key.to_variant().to_glib_none().0,
+                self.value.to_variant().to_glib_none().0,
+            ))
+        }
+    }
+}
+
+impl<K: StaticVariantType, V: StaticVariantType> StaticVariantType for DictEntry<K, V> {
+    fn static_variant_type() -> Cow<'static, VariantTy> {
+        let key_type = K::static_variant_type();
+        let value_type = V::static_variant_type();
+        let signature = format!("{{{}{}}}", key_type.to_str(), value_type.to_str());
+
+        VariantType::new(&signature)
+            .expect("incorrect signature")
+            .into()
+    }
+}
+
+impl<K, V, H> StaticVariantType for HashMap<K, V, H>
+where
+    K: StaticVariantType,
+    V: StaticVariantType,
+    H: BuildHasher + Default,
+{
+    fn static_variant_type() -> Cow<'static, VariantTy> {
+        let key_type = K::static_variant_type();
+        let value_type = V::static_variant_type();
+        let signature = format!("a{{{}{}}}", key_type.to_str(), value_type.to_str());
+
+        VariantType::new(&signature)
+            .expect("incorrect signature")
+            .into()
+    }
+}
+
+macro_rules! tuple_impls {
+    ($($len:expr => ($($n:tt $name:ident)+))+) => {
+        $(
+            impl<$($name),+> StaticVariantType for ($($name,)+)
+            where
+                $($name: StaticVariantType,)+
+            {
+                fn static_variant_type() -> Cow<'static, VariantTy> {
+                    let mut signature = String::with_capacity(255);
+                    signature.push('(');
+                    $(
+                        signature.push_str($name::static_variant_type().to_str());
+                    )+
+                    signature.push(')');
+
+                    VariantType::new(&signature).expect("incorrect signature").into()
+                }
+            }
+
+            impl<$($name),+> FromVariant for ($($name,)+)
+            where
+                $($name: FromVariant,)+
+            {
+                fn from_variant(variant: &Variant) -> Option<Self> {
+                    Some((
+                        $(
+                            match $name::from_variant(&variant.get_child_value($n)) {
+                                Some(field) => field,
+                                None => return None,
+                            },
+                        )+
+                    ))
+                }
+            }
+
+            impl<$($name),+> ToVariant for ($($name,)+)
+            where
+                $($name: ToVariant,)+
+            {
+                fn to_variant(&self) -> Variant {
+                    let mut fields = Vec::with_capacity($len);
+                    $(
+                        let field = self.$n.to_variant();
+                        fields.push(field);
+                    )+
+                    Variant::new_tuple(&fields)
+                }
+            }
+        )+
+    }
+}
+
+tuple_impls! {
+    1 => (0 T0)
+    2 => (0 T0 1 T1)
+    3 => (0 T0 1 T1 2 T2)
+    4 => (0 T0 1 T1 2 T2 3 T3)
+    5 => (0 T0 1 T1 2 T2 3 T3 4 T4)
+    6 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5)
+    7 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6)
+    8 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7)
+    9 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7 8 T8)
+    10 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7 8 T8 9 T9)
+    11 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7 8 T8 9 T9 10 T10)
+    12 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7 8 T8 9 T9 10 T10 11 T11)
+    13 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7 8 T8 9 T9 10 T10 11 T11 12 T12)
+    14 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7 8 T8 9 T9 10 T10 11 T11 12 T12 13 T13)
+    15 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7 8 T8 9 T9 10 T10 11 T11 12 T12 13 T13 14 T14)
+    16 => (0 T0 1 T1 2 T2 3 T3 4 T4 5 T5 6 T6 7 T7 8 T8 9 T9 10 T10 11 T11 12 T12 13 T13 14 T14 15 T15)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::collections::HashSet;
+    use std::collections::{HashMap, HashSet};
 
     macro_rules! unsigned {
         ($name:ident, $ty:ident) => {
@@ -453,5 +900,20 @@ mod tests {
         set.insert(v1);
         assert!(set.contains(&v2));
         assert!(!set.contains(&v3));
+
+        assert_eq!(
+            <HashMap<&str, (&str, u8, u32)>>::static_variant_type().to_str(),
+            "a{s(syu)}"
+        );
+    }
+
+    #[test]
+    fn test_array() {
+        // Test just the signature for now.
+        assert_eq!(<Vec<&str>>::static_variant_type().to_str(), "as");
+        assert_eq!(
+            <Vec<(&str, u8, u32)>>::static_variant_type().to_str(),
+            "a(syu)"
+        );
     }
 }
