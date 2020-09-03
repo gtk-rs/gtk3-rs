@@ -176,7 +176,7 @@ impl Variant {
     /// Boxes value.
     #[inline]
     pub fn new_variant(value: &Variant) -> Self {
-        unsafe { from_glib_full(glib_sys::g_variant_new_variant(value.to_glib_full())) }
+        unsafe { from_glib_none(glib_sys::g_variant_new_variant(value.to_glib_none().0)) }
     }
 
     /// Unboxes self.
