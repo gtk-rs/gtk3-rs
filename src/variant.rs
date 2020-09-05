@@ -196,7 +196,13 @@ impl Variant {
     pub fn get_child_value(&self, index: usize) -> Variant {
         assert!(index < self.n_children());
         let ty = self.type_().to_str();
-        assert!(ty.starts_with("a") || ty.starts_with("{") || ty.starts_with("("));
+        assert!(
+            ty.starts_with("a")
+                || ty.starts_with("{")
+                || ty.starts_with("(")
+                || ty.starts_with("m")
+                || ty == "v"
+        );
 
         unsafe {
             from_glib_none(glib_sys::g_variant_get_child_value(
