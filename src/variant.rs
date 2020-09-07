@@ -103,6 +103,7 @@ use value;
 use StaticType;
 use Type;
 use Value;
+use VariantIter;
 use VariantTy;
 use VariantType;
 
@@ -328,6 +329,20 @@ impl Variant {
         );
 
         unsafe { glib_sys::g_variant_n_children(self.to_glib_none().0) }
+    }
+
+    /// Create an iterator over items in the variant.
+    pub fn iter(&self) -> VariantIter {
+        let type_ = self.type_().to_str();
+        assert!(
+            type_.starts_with("a")
+                || type_.starts_with("m")
+                || type_.starts_with("(")
+                || type_.starts_with("{")
+                || type_.starts_with("v")
+        );
+
+        VariantIter::new(self.clone())
     }
 }
 

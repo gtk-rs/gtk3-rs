@@ -119,6 +119,7 @@ pub use types::{StaticType, Type};
 pub use value::{SendValue, ToSendValue, ToValue, TypedValue, Value};
 pub use variant::{FromVariant, StaticVariantType, ToVariant, Variant};
 pub use variant_dict::VariantDict;
+pub use variant_iter::VariantIter;
 pub use variant_type::{VariantTy, VariantType};
 
 #[macro_use]
@@ -174,6 +175,7 @@ mod main_context_channel;
 pub mod value;
 pub mod variant;
 mod variant_dict;
+mod variant_iter;
 mod variant_type;
 pub use main_context_channel::{Receiver, Sender, SyncSender};
 mod date;
