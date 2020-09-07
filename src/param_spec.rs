@@ -47,11 +47,9 @@ impl ParamSpec {
         }
     }
 
-    pub fn get_default_value(&self) -> Option<Value> {
+    pub fn get_default_value(&self) -> &Value {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_get_default_value(
-                self.to_glib_none().0,
-            ))
+            &*(gobject_sys::g_param_spec_get_default_value(self.to_glib_none().0) as *const ::Value)
         }
     }
 
