@@ -217,24 +217,24 @@ mod test {
     #[test]
     fn create_roundtrip() {
         let dict = VariantDict::default();
-        let var: Variant = dict.into();
+        let var: Variant = dict.to_variant();
         let _dict2: VariantDict = var.into();
     }
 
     #[test]
     fn create_populate_destroy() {
         let dict = VariantDict::default();
-        dict.insert_value("one", &(1u8.into()));
-        assert_eq!(dict.lookup_value("one", None), Some(1u8.into()));
+        dict.insert_value("one", &(1u8.to_variant()));
+        assert_eq!(dict.lookup_value("one", None), Some(1u8.to_variant()));
     }
 
     #[test]
     fn create_populate_roundtrip() {
         let dict = VariantDict::default();
-        dict.insert_value("one", &(1u8.into()));
-        let var: Variant = dict.into();
+        dict.insert_value("one", &(1u8.to_variant()));
+        let var: Variant = dict.to_variant();
         let dict = VariantDict::from_variant(&var).expect("Not a dict?");
-        assert_eq!(dict.lookup_value("one", None), Some(1u8.into()));
+        assert_eq!(dict.lookup_value("one", None), Some(1u8.to_variant()));
     }
 
     #[test]

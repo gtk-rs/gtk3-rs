@@ -31,10 +31,8 @@
 //! assert_eq!(num.get::<i32>(), Some(10));
 //! assert_eq!(num.get::<u32>(), None);
 //!
-//! // `Variant` implements `From`
-//! let hello = Variant::from("Hello!");
-//!
 //! // `get_str` tries to borrow a string slice.
+//! let hello = "Hello!".to_variant();
 //! assert_eq!(hello.get_str(), Some("Hello!"));
 //! assert_eq!(num.get_str(), None);
 //!
@@ -44,7 +42,7 @@
 //! assert_eq!(variant.get_str(), Some("Hello!"));
 //!
 //! // Variant carrying an array
-//! let array = [Variant::from("Hello"), Variant::from("there!")];
+//! let array = ["Hello".to_variant(), "there!".to_variant()];
 //! let variant = Variant::array::<&str>(&array);
 //! assert_eq!(variant.n_children(), 2);
 //! assert_eq!(variant.get_child_value(0).get_str(), Some("Hello"));
@@ -544,12 +542,6 @@ impl ToVariant for str {
     }
 }
 
-impl<T: ToVariant> From<T> for Variant {
-    fn from(value: T) -> Variant {
-        value.to_variant()
-    }
-}
-
 impl<T: StaticVariantType> StaticVariantType for Option<T> {
     fn static_variant_type() -> Cow<'static, VariantTy> {
         let child_type = T::static_variant_type();
@@ -746,6 +738,18 @@ where
     }
 }
 
+impl ToVariant for Variant {
+    fn to_variant(&self) -> Variant {
+        Variant::variant(self)
+    }
+}
+
+impl FromVariant for Variant {
+    fn from_variant(variant: &Variant) -> Option<Self> {
+        variant.get_variant()
+    }
+}
+
 impl<K: StaticVariantType, V: StaticVariantType> StaticVariantType for DictEntry<K, V> {
     fn static_variant_type() -> Cow<'static, VariantTy> {
         let key_type = K::static_variant_type();
@@ -857,7 +861,7 @@ mod tests {
             fn $name() {
                 let mut n = $ty::max_value();
                 while n > 0 {
-                    let v = Variant::from(n);
+                    let v = n.to_variant();
                     assert_eq!(v.get(), Some(n));
                     n /= 2;
                 }
@@ -871,9 +875,9 @@ mod tests {
             fn $name() {
                 let mut n = $ty::max_value();
                 while n > 0 {
-                    let v = Variant::from(n);
+                    let v = n.to_variant();
                     assert_eq!(v.get(), Some(n));
-                    let v = Variant::from(-n);
+                    let v = (-n).to_variant();
                     assert_eq!(v.get(), Some(-n));
                     n /= 2;
                 }
@@ -892,31 +896,31 @@ mod tests {
     #[test]
     fn test_str() {
         let s = "this is a test";
-        let v = Variant::from(s);
+        let v = s.to_variant();
         assert_eq!(v.get_str(), Some(s));
     }
 
     #[test]
     fn test_string() {
         let s = String::from("this is a test");
-        let v = Variant::from(s.clone());
+        let v = s.clone().to_variant();
         assert_eq!(v.get(), Some(s));
     }
 
     #[test]
     fn test_eq() {
-        let v1 = Variant::from("this is a test");
-        let v2 = Variant::from("this is a test");
-        let v3 = Variant::from("test");
+        let v1 = "this is a test".to_variant();
+        let v2 = "this is a test".to_variant();
+        let v3 = "test".to_variant();
         assert_eq!(v1, v2);
         assert!(v1 != v3);
     }
 
     #[test]
     fn test_hash() {
-        let v1 = Variant::from("this is a test");
-        let v2 = Variant::from("this is a test");
-        let v3 = Variant::from("test");
+        let v1 = "this is a test".to_variant();
+        let v2 = "this is a test".to_variant();
+        let v3 = "test".to_variant();
         let mut set = HashSet::new();
         set.insert(v1);
         assert!(set.contains(&v2));
