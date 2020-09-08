@@ -10,6 +10,8 @@ use translate::*;
 use ParamFlags;
 use Value;
 
+use std::ffi::CStr;
+
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ParamSpec(Shared<gobject_sys::GParamSpec>);
@@ -37,20 +39,26 @@ impl ParamSpec {
         unsafe { from_glib((*self.to_glib_none().0).flags) }
     }
 
-    pub fn get_blurb(&self) -> String {
-        unsafe { from_glib_none(gobject_sys::g_param_spec_get_blurb(self.to_glib_none().0)) }
-    }
-
-    pub fn get_default_value(&self) -> Option<Value> {
+    pub fn get_blurb(&self) -> &str {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_get_default_value(
-                self.to_glib_none().0,
-            ))
+            CStr::from_ptr(gobject_sys::g_param_spec_get_blurb(self.to_glib_none().0))
+                .to_str()
+                .unwrap()
         }
     }
 
-    pub fn get_name(&self) -> String {
-        unsafe { from_glib_none(gobject_sys::g_param_spec_get_name(self.to_glib_none().0)) }
+    pub fn get_default_value(&self) -> &Value {
+        unsafe {
+            &*(gobject_sys::g_param_spec_get_default_value(self.to_glib_none().0) as *const ::Value)
+        }
+    }
+
+    pub fn get_name<'a>(&self) -> &'a str {
+        unsafe {
+            CStr::from_ptr(gobject_sys::g_param_spec_get_name(self.to_glib_none().0))
+                .to_str()
+                .unwrap()
+        }
     }
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
@@ -62,8 +70,12 @@ impl ParamSpec {
         }
     }
 
-    pub fn get_nick(&self) -> String {
-        unsafe { from_glib_none(gobject_sys::g_param_spec_get_nick(self.to_glib_none().0)) }
+    pub fn get_nick(&self) -> &str {
+        unsafe {
+            CStr::from_ptr(gobject_sys::g_param_spec_get_nick(self.to_glib_none().0))
+                .to_str()
+                .unwrap()
+        }
     }
 
     //pub fn get_qdata(&self, quark: /*Ignored*/glib::Quark) -> /*Unimplemented*/Option<Fundamental: Pointer> {
