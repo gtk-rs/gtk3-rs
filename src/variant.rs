@@ -194,14 +194,7 @@ impl Variant {
     /// * if given `index` is larger than number of children.
     pub fn get_child_value(&self, index: usize) -> Variant {
         assert!(index < self.n_children());
-        let ty = self.type_().to_str();
-        assert!(
-            ty.starts_with("a")
-                || ty.starts_with("{")
-                || ty.starts_with("(")
-                || ty.starts_with("m")
-                || ty == "v"
-        );
+        assert!(self.is_container());
 
         unsafe {
             from_glib_none(glib_sys::g_variant_get_child_value(
@@ -317,30 +310,21 @@ impl Variant {
 
     /// Determines the number of children in a container GVariant instance.
     pub fn n_children(&self) -> usize {
-        let type_ = self.type_().to_str();
-        assert!(
-            type_.starts_with("a")
-                || type_.starts_with("m")
-                || type_.starts_with("(")
-                || type_.starts_with("{")
-                || type_.starts_with("v")
-        );
+        assert!(self.is_container());
 
         unsafe { glib_sys::g_variant_n_children(self.to_glib_none().0) }
     }
 
     /// Create an iterator over items in the variant.
     pub fn iter(&self) -> VariantIter {
-        let type_ = self.type_().to_str();
-        assert!(
-            type_.starts_with("a")
-                || type_.starts_with("m")
-                || type_.starts_with("(")
-                || type_.starts_with("{")
-                || type_.starts_with("v")
-        );
+        assert!(self.is_container());
 
         VariantIter::new(self.clone())
+    }
+
+    /// Variant has a container type.
+    pub fn is_container(&self) -> bool {
+        unsafe { glib_sys::g_variant_is_container(self.to_glib_none().0) != glib_sys::GFALSE }
     }
 }
 
@@ -391,7 +375,7 @@ impl PartialOrd for Variant {
                 return None;
             }
 
-            if glib_sys::g_variant_is_container(self.to_glib_none().0) != glib_sys::GFALSE {
+            if self.is_container() {
                 return None;
             }
 
