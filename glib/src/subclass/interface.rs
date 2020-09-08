@@ -1,9 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use super::{InitializingType, Property};
+use super::InitializingType;
 use crate::translate::*;
-use crate::{IsA, Object, ObjectExt, SignalFlags, StaticType, Type, Value};
-use std::borrow::Borrow;
+use crate::{IsA, Object, ObjectExt, ParamSpec, SignalFlags, StaticType, Type, Value};
 use std::marker;
 use std::mem;
 
@@ -86,12 +85,18 @@ pub trait ObjectInterface: Sized + 'static {
     ///
     /// This is called after `type_init` and before the first implementor
     /// of the interface is created. Interfaces can use this to do interface-
-    /// specific initialization, e.g. for installing properties or signals
-    /// on the interface, and for setting default implementations of interface
-    /// functions.
+    /// specific initialization, e.g. for installing signals on the interface,
+    /// and for setting default implementations of interface functions.
     ///
     /// Optional
     fn interface_init(&mut self) {}
+
+    /// Properties installed for this interface.
+    ///
+    /// All implementors of the interface must provide these properties.
+    fn properties() -> Vec<ParamSpec> {
+        vec![]
+    }
 }
 
 pub trait ObjectInterfaceExt: ObjectInterface {
@@ -107,26 +112,6 @@ pub trait ObjectInterfaceExt: ObjectInterface {
                 gobject_ffi::g_type_interface_peek(klass as *mut _, Self::get_type().to_glib());
             assert!(!interface.is_null());
             &*(interface as *const Self)
-        }
-    }
-
-    /// Install properties on the interface.
-    ///
-    /// All implementors of the interface must provide these properties.
-    fn install_properties<'a, T: Borrow<Property<'a>>>(&mut self, properties: &[T]) {
-        if properties.is_empty() {
-            return;
-        }
-
-        for property in properties {
-            let property = property.borrow();
-            let pspec = (property.1)(property.0);
-            unsafe {
-                gobject_ffi::g_object_interface_install_property(
-                    self as *mut Self as *mut _,
-                    pspec.to_glib_none().0,
-                );
-            }
         }
     }
 
@@ -249,6 +234,15 @@ unsafe extern "C" fn interface_init<T: ObjectInterface>(
     _klass_data: ffi::gpointer,
 ) {
     let iface = &mut *(klass as *mut T);
+
+    let pspecs = <T as ObjectInterface>::properties();
+    for pspec in pspecs {
+        gobject_ffi::g_object_interface_install_property(
+            iface as *mut T as *mut _,
+            pspec.to_glib_none().0,
+        );
+    }
+
     iface.interface_init();
 }
 

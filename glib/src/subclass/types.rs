@@ -338,8 +338,8 @@ pub trait ObjectSubclass: Sized + 'static {
     ///
     /// This is called after `type_init` and before the first instance
     /// of the subclass is created. Subclasses can use this to do class-
-    /// specific initialization, e.g. for installing properties or signals
-    /// on the class or calling class methods.
+    /// specific initialization, e.g. for registering signals on the class
+    /// or calling class methods.
     ///
     /// Optional
     fn class_init(_klass: &mut Self::Class) {}
