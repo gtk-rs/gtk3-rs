@@ -7,11 +7,15 @@
 use gobject_sys;
 use libc;
 use translate::*;
+use value;
 use ParamFlags;
+use StaticType;
+use Type;
 use Value;
 
 use std::ffi::CStr;
 
+// Can't use get_type here as this is not a boxed type but another fundamental type
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ParamSpec(Shared<gobject_sys::GParamSpec>);
@@ -19,7 +23,36 @@ glib_wrapper! {
     match fn {
         ref => |ptr| gobject_sys::g_param_spec_ref_sink(ptr),
         unref => |ptr| gobject_sys::g_param_spec_unref(ptr),
-        get_type => || gobject_sys::G_TYPE_PARAM,
+    }
+}
+
+impl StaticType for ParamSpec {
+    fn static_type() -> Type {
+        from_glib(gobject_sys::G_TYPE_PARAM)
+    }
+}
+
+#[doc(hidden)]
+impl<'a> value::FromValueOptional<'a> for ParamSpec {
+    #[allow(clippy::missing_safety_doc)]
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        from_glib_full(gobject_sys::g_value_dup_param(value.to_glib_none().0))
+    }
+}
+
+#[doc(hidden)]
+impl value::SetValue for ParamSpec {
+    #[allow(clippy::missing_safety_doc)]
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0)
+    }
+}
+
+#[doc(hidden)]
+impl value::SetValueOptional for ParamSpec {
+    #[allow(clippy::missing_safety_doc)]
+    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
+        gobject_sys::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0)
     }
 }
 
