@@ -2157,7 +2157,7 @@ impl ObjectClass {
 
             let props =
                 gobject_sys::g_object_class_list_properties(klass as *mut _, &mut n_properties);
-            FromGlibContainer::from_glib_none_num(props, n_properties as usize)
+            FromGlibContainer::from_glib_container_num(props, n_properties as usize)
         }
     }
 }
