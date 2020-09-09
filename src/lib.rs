@@ -183,7 +183,7 @@ pub use date::Date;
 mod value_array;
 pub use value_array::ValueArray;
 mod param_spec;
-pub use param_spec::ParamSpec;
+pub use param_spec::*;
 mod quark;
 pub use quark::Quark;
 #[macro_use]
