@@ -13,6 +13,10 @@ extern crate glib_sys as glib;
 extern crate gobject_sys as gobject;
 extern crate libc;
 
+mod manual;
+
+pub use manual::*;
+
 #[allow(unused_imports)]
 use libc::{
     c_char, c_double, c_float, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void,
@@ -293,12 +297,6 @@ pub const G_SOCKET_CLIENT_PROXY_NEGOTIATED: GSocketClientEvent = 5;
 pub const G_SOCKET_CLIENT_TLS_HANDSHAKING: GSocketClientEvent = 6;
 pub const G_SOCKET_CLIENT_TLS_HANDSHAKED: GSocketClientEvent = 7;
 pub const G_SOCKET_CLIENT_COMPLETE: GSocketClientEvent = 8;
-
-pub type GSocketFamily = c_int;
-pub const G_SOCKET_FAMILY_INVALID: GSocketFamily = 0;
-pub const G_SOCKET_FAMILY_UNIX: GSocketFamily = 1;
-pub const G_SOCKET_FAMILY_IPV4: GSocketFamily = 2;
-pub const G_SOCKET_FAMILY_IPV6: GSocketFamily = 10;
 
 pub type GSocketListenerEvent = c_int;
 pub const G_SOCKET_LISTENER_BINDING: GSocketListenerEvent = 0;
