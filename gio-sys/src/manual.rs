@@ -8,7 +8,7 @@ use libc as af_constants;
 use winapi::shared::ws2def as af_constants;
 
 pub type GSocketFamily = libc::c_int;
-pub const G_SOCKET_FAMILY_INVALID: super::GSocketFamily = af_constants::AF_UNSPEC;
-pub const G_SOCKET_FAMILY_UNIX: super::GSocketFamily = af_constants::AF_UNIX;
-pub const G_SOCKET_FAMILY_IPV4: super::GSocketFamily = af_constants::AF_INET;
-pub const G_SOCKET_FAMILY_IPV6: super::GSocketFamily = af_constants::AF_INET6;
+pub const G_SOCKET_FAMILY_INVALID: GSocketFamily = af_constants::AF_UNSPEC;
+pub const G_SOCKET_FAMILY_UNIX: GSocketFamily = af_constants::AF_UNIX;
+pub const G_SOCKET_FAMILY_IPV4: GSocketFamily = af_constants::AF_INET;
+pub const G_SOCKET_FAMILY_IPV6: GSocketFamily = af_constants::AF_INET6;
