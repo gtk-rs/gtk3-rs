@@ -373,13 +373,14 @@ pub fn unix_signal_stream_with_priority(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::time::Duration;
     use std::thread;
 
     #[test]
     fn test_timeout() {
         let c = MainContext::new();
 
-        c.block_on(timeout_future(20));
+        c.block_on(timeout_future(Duration::from_millis(20)));
     }
 
     #[test]
@@ -388,7 +389,7 @@ mod tests {
         let l = ::MainLoop::new(Some(&c), false);
 
         let l_clone = l.clone();
-        c.spawn(timeout_future(20).then(move |()| {
+        c.spawn(timeout_future(Duration::from_millis(20)).then(move |()| {
             l_clone.quit();
             futures_util::future::ready(())
         }));
@@ -405,7 +406,7 @@ mod tests {
         {
             let count = &mut count;
             c.block_on(
-                interval_stream(20)
+                interval_stream(Duration::from_millis(20))
                     .take(2)
                     .for_each(|()| {
                         *count += 1;
@@ -423,7 +424,7 @@ mod tests {
     fn test_timeout_and_channel() {
         let c = MainContext::default();
 
-        let res = c.block_on(timeout_future(20).then(|()| {
+        let res = c.block_on(timeout_future(Duration::from_millis(20)).then(|()| {
             let (sender, receiver) = oneshot::channel();
 
             thread::spawn(move || {
