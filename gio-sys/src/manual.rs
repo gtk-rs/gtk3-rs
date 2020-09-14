@@ -5,7 +5,9 @@
 #[cfg(not(target_family = "windows"))]
 use libc as af_constants;
 #[cfg(target_family = "windows")]
-use winapi::shared::ws2def as af_constants;
+extern crate winapi;
+#[cfg(target_family = "windows")]
+use self::winapi::shared::ws2def as af_constants;
 
 pub type GSocketFamily = libc::c_int;
 pub const G_SOCKET_FAMILY_INVALID: GSocketFamily = af_constants::AF_UNSPEC;
