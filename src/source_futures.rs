@@ -12,6 +12,7 @@ use futures_util::stream::StreamExt;
 use std::marker::Unpin;
 use std::pin;
 use std::pin::Pin;
+use std::time::Duration;
 
 use Continue;
 use MainContext;
@@ -108,7 +109,7 @@ impl<T, F> Drop for SourceFuture<T, F> {
 /// Create a `Future` that will resolve after the given number of milliseconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn timeout_future(value: u32) -> Pin<Box<dyn Future<Output = ()> + Send + 'static>> {
+pub fn timeout_future(value: Duration) -> Pin<Box<dyn Future<Output = ()> + Send + 'static>> {
     timeout_future_with_priority(::PRIORITY_DEFAULT, value)
 }
 
@@ -117,7 +118,7 @@ pub fn timeout_future(value: u32) -> Pin<Box<dyn Future<Output = ()> + Send + 's
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn timeout_future_with_priority(
     priority: Priority,
-    value: u32,
+    value: Duration,
 ) -> Pin<Box<dyn Future<Output = ()> + Send + 'static>> {
     Box::pin(SourceFuture::new(move |send| {
         let mut send = Some(send);
@@ -295,7 +296,7 @@ impl<T, F> Drop for SourceStream<T, F> {
 /// Create a `Stream` that will provide a value every given number of milliseconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn interval_stream(value: u32) -> Pin<Box<dyn Stream<Item = ()> + Send + 'static>> {
+pub fn interval_stream(value: Duration) -> Pin<Box<dyn Stream<Item = ()> + Send + 'static>> {
     interval_stream_with_priority(::PRIORITY_DEFAULT, value)
 }
 
@@ -304,7 +305,7 @@ pub fn interval_stream(value: u32) -> Pin<Box<dyn Stream<Item = ()> + Send + 'st
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn interval_stream_with_priority(
     priority: Priority,
-    value: u32,
+    value: Duration,
 ) -> Pin<Box<dyn Stream<Item = ()> + Send + 'static>> {
     Box::pin(SourceStream::new(move |send| {
         ::timeout_source_new(value, None, priority, move || {

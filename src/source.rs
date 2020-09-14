@@ -10,6 +10,7 @@ use std::mem::transmute;
 use std::num::NonZeroU32;
 #[cfg(unix)]
 use std::os::unix::io::RawFd;
+use std::time::Duration;
 use translate::{from_glib, from_glib_full, FromGlib, ToGlib, ToGlibPtr};
 #[cfg(any(unix, feature = "dox"))]
 use IOCondition;
@@ -197,14 +198,14 @@ where
 ///
 /// The default main loop almost always is the main loop of the main thread.
 /// Thus the closure is called on the main thread.
-pub fn timeout_add<F>(interval: u32, func: F) -> SourceId
+pub fn timeout_add<F>(interval: Duration, func: F) -> SourceId
 where
     F: FnMut() -> Continue + Send + 'static,
 {
     unsafe {
         from_glib(glib_sys::g_timeout_add_full(
             glib_sys::G_PRIORITY_DEFAULT,
-            interval,
+            interval.as_millis() as _,
             Some(trampoline::<F>),
             into_raw(func),
             Some(destroy_closure::<F>),
@@ -228,7 +229,7 @@ where
 ///
 /// This function panics if called from a different thread than the one that
 /// owns the main context.
-pub fn timeout_add_local<F>(interval: u32, func: F) -> SourceId
+pub fn timeout_add_local<F>(interval: Duration, func: F) -> SourceId
 where
     F: FnMut() -> Continue + 'static,
 {
@@ -236,7 +237,7 @@ where
         assert!(MainContext::default().is_owner());
         from_glib(glib_sys::g_timeout_add_full(
             glib_sys::G_PRIORITY_DEFAULT,
-            interval,
+            interval.as_millis() as _,
             Some(trampoline::<F>),
             into_raw(func),
             Some(destroy_closure::<F>),
@@ -536,7 +537,7 @@ where
 /// be delayed by other events. Prefer `timeout_add_seconds` when millisecond
 /// precision is not necessary.
 pub fn timeout_source_new<F>(
-    interval: u32,
+    interval: Duration,
     name: Option<&str>,
     priority: Priority,
     func: F,
@@ -545,7 +546,7 @@ where
     F: FnMut() -> Continue + Send + 'static,
 {
     unsafe {
-        let source = glib_sys::g_timeout_source_new(interval);
+        let source = glib_sys::g_timeout_source_new(interval.as_millis() as _);
         glib_sys::g_source_set_callback(
             source,
             Some(trampoline::<F>),
