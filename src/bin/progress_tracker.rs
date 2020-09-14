@@ -90,7 +90,7 @@ impl Application {
                                 .set_visible_child(&widgets.complete_view.container);
 
                             let widgets = widgets.clone();
-                            glib::timeout_add_local(1500, move || {
+                            glib::timeout_add_local(Duration::from_millis(1500), move || {
                                 widgets.main_view.progress.set_fraction(0.0);
                                 widgets
                                     .view_stack
