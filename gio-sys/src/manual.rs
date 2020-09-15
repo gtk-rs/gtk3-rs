@@ -29,7 +29,6 @@ mod windows_constants {
 
 #[cfg(not(target_family = "windows"))]
 mod libc_constants {
-
     pub const G_SOCKET_FAMILY_INVALID: super::GSocketFamily = libc::AF_UNSPEC;
     pub const G_SOCKET_FAMILY_UNIX: super::GSocketFamily = libc::AF_UNIX;
     pub const G_SOCKET_FAMILY_IPV4: super::GSocketFamily = libc::AF_INET;
