@@ -9,9 +9,9 @@ path = "../glib-sys"
 
 [dependencies.gobject-sys]
 path = "../gobject-sys"
-
-[target.'cfg(windows)'.dependencies]
-winapi = { version = "0.3.9", features = ["ws2def"] }
+[target."cfg(windows)".dependencies.winapi]
+version = "0.3.9"
+features = ["ws2def"]
 
 [dev-dependencies]
 shell-words = "0.1.0"

@@ -42,3 +42,7 @@ version = "2.46"
 [[object]]
 name = "Gio.SocketFamily"
 status = "manual"
+
+[[object]]
+name = "Gio.SocketMsgFlags"
+status = "manual"

@@ -749,12 +749,6 @@ pub const G_SETTINGS_BIND_NO_SENSITIVITY: GSettingsBindFlags = 4;
 pub const G_SETTINGS_BIND_GET_NO_CHANGES: GSettingsBindFlags = 8;
 pub const G_SETTINGS_BIND_INVERT_BOOLEAN: GSettingsBindFlags = 16;
 
-pub type GSocketMsgFlags = c_uint;
-pub const G_SOCKET_MSG_NONE: GSocketMsgFlags = 0;
-pub const G_SOCKET_MSG_OOB: GSocketMsgFlags = 1;
-pub const G_SOCKET_MSG_PEEK: GSocketMsgFlags = 2;
-pub const G_SOCKET_MSG_DONTROUTE: GSocketMsgFlags = 4;
-
 pub type GSubprocessFlags = c_uint;
 pub const G_SUBPROCESS_FLAGS_NONE: GSubprocessFlags = 0;
 pub const G_SUBPROCESS_FLAGS_STDIN_PIPE: GSubprocessFlags = 1;
