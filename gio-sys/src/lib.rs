@@ -13,6 +13,10 @@ extern crate glib_sys as glib;
 extern crate gobject_sys as gobject;
 extern crate libc;
 
+mod manual;
+
+pub use manual::*;
+
 #[allow(unused_imports)]
 use libc::{
     c_char, c_double, c_float, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void,
@@ -293,12 +297,6 @@ pub const G_SOCKET_CLIENT_PROXY_NEGOTIATED: GSocketClientEvent = 5;
 pub const G_SOCKET_CLIENT_TLS_HANDSHAKING: GSocketClientEvent = 6;
 pub const G_SOCKET_CLIENT_TLS_HANDSHAKED: GSocketClientEvent = 7;
 pub const G_SOCKET_CLIENT_COMPLETE: GSocketClientEvent = 8;
-
-pub type GSocketFamily = c_int;
-pub const G_SOCKET_FAMILY_INVALID: GSocketFamily = 0;
-pub const G_SOCKET_FAMILY_UNIX: GSocketFamily = 1;
-pub const G_SOCKET_FAMILY_IPV4: GSocketFamily = 2;
-pub const G_SOCKET_FAMILY_IPV6: GSocketFamily = 10;
 
 pub type GSocketListenerEvent = c_int;
 pub const G_SOCKET_LISTENER_BINDING: GSocketListenerEvent = 0;
@@ -750,12 +748,6 @@ pub const G_SETTINGS_BIND_SET: GSettingsBindFlags = 2;
 pub const G_SETTINGS_BIND_NO_SENSITIVITY: GSettingsBindFlags = 4;
 pub const G_SETTINGS_BIND_GET_NO_CHANGES: GSettingsBindFlags = 8;
 pub const G_SETTINGS_BIND_INVERT_BOOLEAN: GSettingsBindFlags = 16;
-
-pub type GSocketMsgFlags = c_uint;
-pub const G_SOCKET_MSG_NONE: GSocketMsgFlags = 0;
-pub const G_SOCKET_MSG_OOB: GSocketMsgFlags = 1;
-pub const G_SOCKET_MSG_PEEK: GSocketMsgFlags = 2;
-pub const G_SOCKET_MSG_DONTROUTE: GSocketMsgFlags = 4;
 
 pub type GSubprocessFlags = c_uint;
 pub const G_SUBPROCESS_FLAGS_NONE: GSubprocessFlags = 0;

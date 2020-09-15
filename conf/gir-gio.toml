@@ -38,3 +38,11 @@ version = "2.44"
 name = "Gio.NativeSocketAddress"
 status = "generate"
 version = "2.46"
+
+[[object]]
+name = "Gio.SocketFamily"
+status = "manual"
+
+[[object]]
+name = "Gio.SocketMsgFlags"
+status = "manual"
