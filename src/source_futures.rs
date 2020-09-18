@@ -373,8 +373,8 @@ pub fn unix_signal_stream_with_priority(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::time::Duration;
     use std::thread;
+    use std::time::Duration;
 
     #[test]
     fn test_timeout() {

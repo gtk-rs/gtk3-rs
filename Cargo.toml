@@ -32,6 +32,7 @@ futures-channel = "0.3"
 glib-sys = { git = "https://github.com/gtk-rs/sys" }
 gobject-sys = { git = "https://github.com/gtk-rs/sys" }
 glib-macros = { path = "glib-macros" }
+log = { version = "0.4", optional = true }
 
 [dev-dependencies]
 tempfile = "3"
@@ -48,7 +49,7 @@ v2_58 = ["v2_56", "glib-sys/v2_58", "gobject-sys/v2_58"]
 v2_60 = ["v2_58", "glib-sys/v2_60"]
 v2_62 = ["v2_60", "glib-sys/v2_62", "gobject-sys/v2_62"]
 v2_64 = ["v2_62", "glib-sys/v2_64"]
-dox = ["glib-sys/dox", "gobject-sys/dox"]
+dox = ["glib-sys/dox", "gobject-sys/dox", "log"]
 
 [package.metadata.docs.rs]
 features = ["dox"]
