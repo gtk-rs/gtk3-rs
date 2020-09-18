@@ -7,7 +7,10 @@ use gdk_pixbuf_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::{Error, TimeVal};
+use std::future::Future;
+use std::io::Read;
 use std::path::Path;
+use std::pin::Pin;
 use std::ptr;
 
 glib_wrapper! {
@@ -91,6 +94,93 @@ impl PixbufAnimation {
                 Err(from_glib_full(error))
             }
         }
+    }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a `Pixbuf` from a type implementing `Read` (like `File`).
+    ///
+    /// ```no_run
+    /// use std::fs::File;
+    /// use gdk_pixbuf::PixbufAnimation;
+    ///
+    /// let f = File::open("some_file").expect("failed to open animation");
+    /// let pixbuf = PixbufAnimation::from_read(f).expect("failed to load animation");
+    /// ```
+    pub fn from_read<R: Read + Send + 'static>(r: R) -> Result<PixbufAnimation, Error> {
+        PixbufAnimation::from_stream(&gio::ReadInputStream::new(r), None::<&gio::Cancellable>)
+    }
+
+    pub fn from_stream<P: IsA<gio::InputStream>, Q: IsA<gio::Cancellable>>(
+        stream: &P,
+        cancellable: Option<&Q>,
+    ) -> Result<PixbufAnimation, glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = gdk_pixbuf_sys::gdk_pixbuf_animation_new_from_stream(
+                stream.as_ref().to_glib_none().0,
+                cancellable.map(|p| p.as_ref()).to_glib_none().0,
+                &mut error,
+            );
+            if error.is_null() {
+                Ok(from_glib_full(ret))
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
+
+    pub fn from_stream_async<
+        'a,
+        P: IsA<gio::InputStream>,
+        Q: IsA<gio::Cancellable>,
+        R: FnOnce(Result<PixbufAnimation, Error>) + Send + 'static,
+    >(
+        stream: &P,
+        cancellable: Option<&Q>,
+        callback: R,
+    ) {
+        let cancellable = cancellable.map(|p| p.as_ref());
+        let user_data: Box<R> = Box::new(callback);
+        unsafe extern "C" fn from_stream_async_trampoline<
+            R: FnOnce(Result<PixbufAnimation, Error>) + Send + 'static,
+        >(
+            _source_object: *mut gobject_sys::GObject,
+            res: *mut gio_sys::GAsyncResult,
+            user_data: glib_sys::gpointer,
+        ) {
+            let mut error = ptr::null_mut();
+            let ptr = gdk_pixbuf_sys::gdk_pixbuf_animation_new_from_stream_finish(res, &mut error);
+            let result = if error.is_null() {
+                Ok(from_glib_full(ptr))
+            } else {
+                Err(from_glib_full(error))
+            };
+            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            callback(result);
+        }
+        let callback = from_stream_async_trampoline::<R>;
+        unsafe {
+            gdk_pixbuf_sys::gdk_pixbuf_animation_new_from_stream_async(
+                stream.as_ref().to_glib_none().0,
+                cancellable.to_glib_none().0,
+                Some(callback),
+                Box::into_raw(user_data) as *mut _,
+            );
+        }
+    }
+
+    pub fn from_stream_async_future<P: IsA<gio::InputStream> + Clone + 'static>(
+        stream: &P,
+    ) -> Pin<Box<dyn Future<Output = Result<PixbufAnimation, Error>> + 'static>> {
+        let stream = stream.clone();
+        Box::pin(gio::GioFuture::new(&(), move |_obj, send| {
+            let cancellable = gio::Cancellable::new();
+            Self::from_stream_async(&stream, Some(&cancellable), move |res| {
+                send.resolve(res);
+            });
+
+            cancellable
+        }))
     }
 }
 
