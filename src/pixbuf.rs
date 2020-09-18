@@ -11,6 +11,7 @@ use glib::Error;
 use glib_sys;
 use gobject_sys;
 use libc::{c_uchar, c_void};
+use std::io::Read;
 use std::mem;
 use std::path::Path;
 use std::pin::Pin;
@@ -74,6 +75,20 @@ impl Pixbuf {
                 Box::into_raw(data) as *mut _,
             ))
         }
+    }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a `Pixbuf` from a type implementing `Read` (like `File`).
+    ///
+    /// ```no_run
+    /// use std::fs::File;
+    /// use gdk_pixbuf::Pixbuf;
+    ///
+    /// let f = File::open("some_file.png").expect("failed to open image");
+    /// let pixbuf = Pixbuf::from_read(f).expect("failed to load image");
+    /// ```
+    pub fn from_read<R: Read + Send + 'static>(r: R) -> Result<Pixbuf, Error> {
+        Pixbuf::from_stream(&gio::ReadInputStream::new(r), None::<&gio::Cancellable>)
     }
 
     pub fn from_file<T: AsRef<Path>>(filename: T) -> Result<Pixbuf, Error> {
