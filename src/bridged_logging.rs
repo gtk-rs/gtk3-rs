@@ -185,3 +185,133 @@ impl rs_log::Log for GlibLogger {
 
     fn flush(&self) {}
 }
+
+/// A macro which behaves exactly as `log::error!` except that it sets the
+/// current log target to the contents of a `G_LOG_DOMAIN` constant (and fails
+/// to build if not defined).
+///
+/// In order to use this macro, `glib` must be built with the `log_macros`
+/// feature enabled and the [`GlibLogger`](struct.GlibLogger.html) must have been
+/// initialized using [`GlibLoggerDomain::CrateTarget`](enum.GlibLoggerDomain.html).
+///
+/// ```no_run
+/// #[macro_use] extern crate glib;
+///
+/// static G_LOG_DOMAIN: &str = "my-domain";
+///
+/// error!("This will be logged under 'my-domain'");
+/// ```
+#[macro_export]
+#[cfg(any(feature = "dox", feature = "log_macros"))]
+macro_rules! error {
+    (target: $target:expr, $($arg:tt)+) => (
+        log::log!(target: $target, log::Level::Error, $($arg)+);
+    );
+    ($($arg:tt)+) => (
+        log::log!(target: G_LOG_DOMAIN, log::Level::Error, $($arg)+);
+    )
+}
+
+/// A macro which behaves exactly as `log::warn!` except that it sets the
+/// current log target to the contents of a `G_LOG_DOMAIN` constant (and fails
+/// to build if not defined).
+///
+/// In order to use this macro, `glib` must be built with the `log_macros`
+/// feature enabled and the [`GlibLogger`](struct.GlibLogger.html) must have been
+/// initialized using [`GlibLoggerDomain::CrateTarget`](enum.GlibLoggerDomain.html).
+///
+/// ```no_run
+/// #[macro_use] extern crate glib;
+///
+/// static G_LOG_DOMAIN: &str = "my-domain";
+///
+/// warn!("This will be logged under 'my-domain'");
+/// ```
+#[macro_export]
+#[cfg(any(feature = "dox", feature = "log_macros"))]
+macro_rules! warn {
+    (target: $target:expr, $($arg:tt)+) => (
+        log::log!(target: $target, log::Level::Warn, $($arg)+);
+    );
+    ($($arg:tt)+) => (
+        log::log!(target: G_LOG_DOMAIN, log::Level::Warn, $($arg)+);
+    )
+}
+
+/// A macro which behaves exactly as `log::info!` except that it sets the
+/// current log target to the contents of a `G_LOG_DOMAIN` constant (and fails
+/// to build if not defined).
+///
+/// In order to use this macro, `glib` must be built with the `log_macros`
+/// feature enabled and the [`GlibLogger`](struct.GlibLogger.html) must have been
+/// initialized using [`GlibLoggerDomain::CrateTarget`](enum.GlibLoggerDomain.html).
+///
+/// ```no_run
+/// #[macro_use] extern crate glib;
+///
+/// static G_LOG_DOMAIN: &str = "my-domain";
+///
+/// info!("This will be logged under 'my-domain'");
+/// ```
+#[macro_export]
+#[cfg(any(feature = "dox", feature = "log_macros"))]
+macro_rules! info {
+    (target: $target:expr, $($arg:tt)+) => (
+        log::log!(target: $target, log::Level::Info, $($arg)+);
+    );
+    ($($arg:tt)+) => (
+        log::log!(target: G_LOG_DOMAIN, log::Level::Info, $($arg)+);
+    )
+}
+
+/// A macro which behaves exactly as `log::debug!` except that it sets the
+/// current log target to the contents of a `G_LOG_DOMAIN` constant (and fails
+/// to build if not defined).
+///
+/// In order to use this macro, `glib` must be built with the `log_macros`
+/// feature enabled and the [`GlibLogger`](struct.GlibLogger.html) must have been
+/// initialized using [`GlibLoggerDomain::CrateTarget`](enum.GlibLoggerDomain.html).
+///
+/// ```no_run
+/// #[macro_use] extern crate glib;
+///
+/// static G_LOG_DOMAIN: &str = "my-domain";
+///
+/// debug!("This will be logged under 'my-domain'");
+/// ```
+#[macro_export]
+#[cfg(any(feature = "dox", feature = "log_macros"))]
+macro_rules! debug {
+    (target: $target:expr, $($arg:tt)+) => (
+        log::log!(target: $target, log::Level::Debug, $($arg)+);
+    );
+    ($($arg:tt)+) => (
+        log::log!(target: G_LOG_DOMAIN, log::Level::Debug, $($arg)+);
+    )
+}
+
+/// A macro which behaves exactly as `log::trace!` except that it sets the
+/// current log target to the contents of a `G_LOG_DOMAIN` constant (and fails
+/// to build if not defined).
+///
+/// In order to use this macro, `glib` must be built with the `log_macros`
+/// feature enabled and the [`GlibLogger`](struct.GlibLogger.html) must have been
+/// initialized using [`GlibLoggerDomain::CrateTarget`](enum.GlibLoggerDomain.html).
+///
+/// ```no_run
+/// #[macro_use] extern crate glib;
+///
+/// static G_LOG_DOMAIN: &str = "my-domain";
+///
+/// trace!("This will be logged under 'my-domain'");
+/// ```
+#[macro_export]
+#[cfg(any(feature = "dox", feature = "log_macros"))]
+macro_rules! trace {
+    (target: $target:expr, $($arg:tt)+) => (
+        log::log!(target: $target, log::Level::Trace, $($arg)+);
+    );
+    ($($arg:tt)+) => (
+        log::log!(target: G_LOG_DOMAIN, log::Level::Trace, $($arg)+);
+    )
+}

@@ -7,25 +7,25 @@ matrix:
       env: GTK=3.14 FEATURES=
     - os: linux
       rust: nightly
-      env: GTK=3.24 FEATURES="v2_48 log"
+      env: GTK=3.24 FEATURES="v2_48 log_macros"
     - os: linux
       rust: beta
       env: GTK=3.14 FEATURES=
     - os: linux
       rust: beta
-      env: GTK=3.24 FEATURES="v2_48 log"
+      env: GTK=3.24 FEATURES="v2_48 log_macros"
     - os: linux
       rust: 1.40.0
       env: GTK=3.14 FEATURES=
     - os: linux
       rust: 1.40.0
-      env: GTK=3.24 FEATURES="v2_48 log"
+      env: GTK=3.24 FEATURES="v2_48 log_macros"
     - os: linux
       rust: stable
       env: GTK=3.14 FEATURES=
     - os: linux
       rust: stable
-      env: GTK=3.24 FEATURES="v2_48 log"
+      env: GTK=3.24 FEATURES="v2_48 log_macros"
     - os: osx
       rust: nightly
       env: GTK=3.14 FEATURES=
@@ -55,7 +55,7 @@ matrix:
       env: GTK=3.14 FEATURES= ARM=1 OTHER_TARGET="--target armv7-unknown-linux-gnueabihf"
     - os: linux
       rust: nightly
-      env: GTK=3.24 FEATURES="v2_48 log" ARM=1 OTHER_TARGET="--target armv7-unknown-linux-gnueabihf"
+      env: GTK=3.24 FEATURES="v2_48 log_macros" ARM=1 OTHER_TARGET="--target armv7-unknown-linux-gnueabihf"
 addons:
   apt:
     packages:

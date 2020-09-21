@@ -200,6 +200,7 @@ pub use log::{
 };
 
 #[cfg(any(feature = "log", feature = "dox"))]
+#[macro_use]
 mod bridged_logging;
 #[cfg(any(feature = "log", feature = "dox"))]
 pub use bridged_logging::{GlibLogger, GlibLoggerDomain, GlibLoggerFormat};
