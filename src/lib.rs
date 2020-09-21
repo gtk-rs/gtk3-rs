@@ -190,6 +190,7 @@ pub use quark::Quark;
 mod log;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 pub use log::log_set_handler;
+
 // #[cfg(any(feature = "v2_50", feature = "dox"))]
 // pub use log::log_variant;
 pub use log::{
@@ -197,6 +198,12 @@ pub use log::{
     log_set_fatal_mask, log_unset_default_handler, set_print_handler, set_printerr_handler,
     unset_print_handler, unset_printerr_handler, LogHandlerId, LogLevel, LogLevels,
 };
+
+#[cfg(any(feature = "log", feature = "dox"))]
+#[macro_use]
+mod bridged_logging;
+#[cfg(any(feature = "log", feature = "dox"))]
+pub use bridged_logging::{GlibLogger, GlibLoggerDomain, GlibLoggerFormat};
 
 pub mod send_unique;
 pub use send_unique::{SendUnique, SendUniqueCell};
