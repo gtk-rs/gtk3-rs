@@ -7,16 +7,6 @@ use glib::translate::*;
 use glib::GString;
 use libc::c_uint;
 
-pub fn keyval_name(keyval: u32) -> Option<GString> {
-    skip_assert_initialized!();
-    unsafe { from_glib_none(gdk_sys::gdk_keyval_name(keyval as c_uint)) }
-}
-
-pub fn keyval_to_unicode(keyval: u32) -> Option<char> {
-    skip_assert_initialized!();
-    unsafe { ::std::char::from_u32(gdk_sys::gdk_keyval_to_unicode(keyval)).filter(|x| *x != '\0') }
-}
-
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Key(u32);
 
@@ -31,6 +21,13 @@ impl ::std::ops::Deref for Key {
 impl ::std::ops::DerefMut for Key {
     fn deref_mut(&mut self) -> &mut u32 {
         &mut self.0
+    }
+}
+
+impl ::std::convert::From<u32> for Key {
+    fn from(value: u32) -> Self {
+        skip_assert_initialized!();
+        Key(value)
     }
 }
 
@@ -51,11 +48,35 @@ impl ToGlib for Key {
 
 impl Key {
     pub fn to_unicode(&self) -> Option<char> {
-        keyval_to_unicode(**self)
+        skip_assert_initialized!();
+        unsafe {
+            ::std::char::from_u32(gdk_sys::gdk_keyval_to_unicode(**self)).filter(|x| *x != '\0')
+        }
     }
 
     pub fn name(&self) -> Option<GString> {
-        keyval_name(**self)
+        skip_assert_initialized!();
+        unsafe { from_glib_none(gdk_sys::gdk_keyval_name(**self as c_uint)) }
+    }
+
+    pub fn is_upper(&self) -> bool {
+        skip_assert_initialized!();
+        unsafe { from_glib(gdk_sys::gdk_keyval_is_upper(**self)) }
+    }
+
+    pub fn is_lower(&self) -> bool {
+        skip_assert_initialized!();
+        unsafe { from_glib(gdk_sys::gdk_keyval_is_lower(**self)) }
+    }
+
+    pub fn to_upper(&self) -> Self {
+        skip_assert_initialized!();
+        unsafe { gdk_sys::gdk_keyval_to_upper(**self) }.into()
+    }
+
+    pub fn to_lower(&self) -> Self {
+        skip_assert_initialized!();
+        unsafe { gdk_sys::gdk_keyval_to_lower(**self) }.into()
     }
 }
 
