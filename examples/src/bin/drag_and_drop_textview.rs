@@ -1,11 +1,6 @@
 //! More complex drag and drop example
 //!
 //! Displays a list of filenames when they're dropped on the textview widget.
-
-extern crate gdk;
-extern crate gio;
-extern crate gtk;
-
 use std::env::args;
 
 use gdk::DragAction;

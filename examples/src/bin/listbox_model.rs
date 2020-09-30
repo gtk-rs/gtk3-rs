@@ -10,14 +10,9 @@
 //!
 //! In addition it is possible to add new rows and delete old ones.
 
-#[macro_use]
-extern crate glib;
-extern crate gio;
-extern crate gtk;
-
 use gio::prelude::*;
+use glib::{clone, glib_object_subclass, glib_wrapper};
 use gtk::prelude::*;
-
 use gtk::ResponseType;
 
 use std::env::args;

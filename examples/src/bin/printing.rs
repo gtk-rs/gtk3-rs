@@ -4,13 +4,6 @@
 //! shows a print dialog and prints both texts one below
 //! the other.
 
-extern crate cairo;
-extern crate gio;
-extern crate glib;
-extern crate gtk;
-extern crate pango;
-extern crate pangocairo;
-
 use gio::prelude::*;
 use glib::clone;
 use gtk::prelude::*;

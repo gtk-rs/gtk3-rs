@@ -3,11 +3,6 @@
 //! This sample demonstrates how to use glib::timeout_add_seconds_local to run
 //! a periodic task, implementing a clock in this example.
 
-extern crate chrono;
-extern crate gio;
-extern crate glib;
-extern crate gtk;
-
 use chrono::Local;
 use gio::prelude::*;
 use gtk::prelude::*;

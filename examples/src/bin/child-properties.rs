@@ -3,11 +3,6 @@
 //! This sample demonstrates how to set child properties.
 
 #![crate_type = "bin"]
-
-extern crate gio;
-extern crate glib;
-extern crate gtk;
-
 use gio::prelude::*;
 use glib::clone;
 use gtk::prelude::*;

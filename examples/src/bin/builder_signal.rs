@@ -2,10 +2,6 @@
 //!
 //! This sample demonstrates how to handle signals in builder
 
-extern crate gio;
-extern crate glib;
-extern crate gtk;
-
 use gio::prelude::*;
 use glib::clone;
 use gtk::prelude::*;

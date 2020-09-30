@@ -2,11 +2,6 @@
 //!
 //! This sample demonstrates how to create a "system" menu bar. It should always be preferred
 //! over the `gtk::MenuBar` since it adapts to the targetted system.
-
-extern crate gio;
-extern crate glib;
-extern crate gtk;
-
 use gio::prelude::*;
 use glib::clone;
 use gtk::prelude::*;

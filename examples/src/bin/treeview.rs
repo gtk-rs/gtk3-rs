@@ -2,11 +2,6 @@
 //!
 //! This sample demonstrates how to create a `TreeView` with either a `ListStore` or `TreeStore`.
 
-extern crate gdk_pixbuf;
-extern crate gio;
-extern crate glib;
-extern crate gtk;
-
 use gdk_pixbuf::Pixbuf;
 use gio::prelude::*;
 use glib::clone;

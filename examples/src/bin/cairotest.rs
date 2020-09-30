@@ -1,7 +1,3 @@
-extern crate cairo;
-extern crate gio;
-extern crate gtk;
-
 use std::env::args;
 use std::f64::consts::PI;
 

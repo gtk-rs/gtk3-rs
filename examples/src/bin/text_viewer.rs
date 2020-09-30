@@ -2,10 +2,6 @@
 //!
 //! A simple text file viewer
 
-extern crate gio;
-extern crate glib;
-extern crate gtk;
-
 use std::env::args;
 use std::fs::File;
 use std::io::prelude::*;

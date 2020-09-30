@@ -3,6 +3,7 @@ name = "gtk-rs-examples"
 version = "0.0.1"
 authors = ["The Gtk-rs Project Developers"]
 autobins = false
+edition = "2018"
 
 [dependencies]
 chrono = "0.4"
@@ -94,7 +95,6 @@ name = "clone_macro"
 
 [[bin]]
 name = "communication_thread"
-edition = "2018"
 
 [[bin]]
 name = "css"
@@ -110,7 +110,6 @@ name = "gio_futures"
 
 [[bin]]
 name = "gio_futures_await"
-edition = "2018"
 
 [[bin]]
 name = "grid"
@@ -180,4 +179,3 @@ name = "printing"
 [[bin]]
 name = "gio_async_tls"
 required-features = ["async-tls"]
-edition = "2018"

@@ -3,11 +3,6 @@
 //! This example demonstrates how to build a list of items and use them
 //! to autocomplete a field as the user types in something.
 
-extern crate gdk;
-extern crate gio;
-extern crate glib;
-extern crate gtk;
-
 use gio::prelude::*;
 use glib::clone;
 use gtk::prelude::*;

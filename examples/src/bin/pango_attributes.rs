@@ -2,10 +2,6 @@
 //!
 //! This sample demonstrates how to use various attributes on labels text.
 
-extern crate gio;
-extern crate gtk;
-extern crate pango;
-
 use gio::prelude::*;
 use gtk::prelude::*;
 

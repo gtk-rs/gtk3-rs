@@ -2,10 +2,6 @@
 //!
 //! This sample demonstrates how to use the `TreeModelSort` widget.
 
-extern crate gdk;
-extern crate gio;
-extern crate gtk;
-
 use gio::prelude::*;
 use gtk::prelude::*;
 use std::env::args;

@@ -1,9 +1,6 @@
 //! Simple clipboard example
 //!
 //! From https://developer.gnome.org/gtkmm-tutorial/stable/sec-clipboard-examples.html.en
-extern crate gdk;
-extern crate gio;
-extern crate gtk;
 
 use std::cell::RefCell;
 use std::env::args;
