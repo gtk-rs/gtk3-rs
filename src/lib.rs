@@ -146,8 +146,6 @@ pub use window::WindowAttr;
 #[allow(non_camel_case_types)]
 pub type key = i32;
 
-pub use self::keys::{keyval_name, keyval_to_unicode};
-
 /// The primary button. This is typically the left mouse button, or the right button in a left-handed setup.
 pub const BUTTON_PRIMARY: u32 = gdk_sys::GDK_BUTTON_PRIMARY as u32;
 
