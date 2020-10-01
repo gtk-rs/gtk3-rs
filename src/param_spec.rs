@@ -611,6 +611,7 @@ pub trait ParamSpecType:
 {
 }
 
+#[link(name = "gobject-2.0")]
 extern "C" {
     pub static g_param_spec_types: *const glib_sys::GType;
 }
