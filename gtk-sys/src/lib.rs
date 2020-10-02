@@ -15148,6 +15148,8 @@ impl ::std::fmt::Debug for GtkTreeSortable {
     }
 }
 
+#[link(name = "gtk-3")]
+#[link(name = "gdk-3")]
 extern "C" {
 
     //=========================================================================

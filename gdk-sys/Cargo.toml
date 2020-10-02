@@ -24,7 +24,7 @@ path = "../gobject-sys"
 path = "../pango-sys"
 
 [dev-dependencies]
-shell-words = "0.1.0"
+shell-words = "1.0.0"
 tempfile = "3"
 
 [features]
@@ -49,10 +49,8 @@ links = "gdk"
 name = "gdk-sys"
 repository = "https://github.com/gtk-rs/sys"
 version = "0.10.0"
-
 [package.metadata.docs.rs]
 features = ["dox"]
-
 [package.metadata.system-deps.gdk_3_0]
 name = "gdk-3.0"
 version = "3.14"

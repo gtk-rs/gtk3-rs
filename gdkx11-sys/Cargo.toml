@@ -55,11 +55,11 @@ optional = true
 system-deps = "1.3"
 
 [dev-dependencies]
-shell-words = "0.1.0"
+shell-words = "1.0.0"
 tempfile = "3"
 
 [features]
 v3_16 = []
 v3_24 = ["v3_16"]
 v3_24_2 = ["v3_24", "cairo"]
-dox = ["v3_24_2", "cairo"]
+dox = []
