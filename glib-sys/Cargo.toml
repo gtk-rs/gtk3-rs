@@ -32,7 +32,7 @@ description = "FFI bindings to libglib-2.0"
 homepage = "http://gtk-rs.org/"
 keywords = ["glib", "ffi", "gtk-rs", "gnome"]
 license = "MIT"
-links = "glib"
+links = "glib-2.0"
 name = "glib-sys"
 repository = "https://github.com/gtk-rs/sys"
 version = "0.10.0"
@@ -54,3 +54,14 @@ v2_58 = "2.58"
 v2_60 = "2.60"
 v2_62 = "2.62"
 v2_64 = "2.64"
+
+[package.metadata.system-deps.gobject_2_0]
+name = "gobject-2.0"
+version = "2.42"
+
+[package.metadata.system-deps.gobject_2_0.feature-versions]
+v2_44 = "2.44"
+v2_46 = "2.46"
+v2_54 = "2.54"
+v2_58 = "2.58"
+v2_62 = "2.62"
