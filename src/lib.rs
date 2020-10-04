@@ -1,11 +1,11 @@
 // Copyright 2013-2016, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
-// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+// Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 //! # Cairo bindings
 //!
 //! This library contains safe Rust bindings for [Cairo](https://www.cairographics.org/).
-//! It is a part of [Gtk-rs](http://gtk-rs.org/).
+//! It is a part of [Gtk-rs](https://gtk-rs.org/).
 //!
 //! ## Crate features
 //!

@@ -1,6 +1,6 @@
 // Copyright 2013-2015, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
-// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+// Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 use enums::MeshCorner;
 use enums::{Extend, Filter, PatternType};
@@ -15,7 +15,7 @@ use std::ptr;
 use utils::status_to_result;
 use {Matrix, Path, Surface};
 
-// See http://cairographics.org/manual/bindings-patterns.html for more info
+// See https://cairographics.org/manual/bindings-patterns.html for more info
 #[derive(Debug)]
 pub struct Pattern {
     pointer: *mut cairo_pattern_t,
