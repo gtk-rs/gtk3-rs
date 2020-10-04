@@ -164,6 +164,7 @@ impl ::std::fmt::Debug for GdkPixbufSimpleAnimIter {
     }
 }
 
+#[link(name = "gdk_pixbuf-2.0")]
 extern "C" {
 
     //=========================================================================

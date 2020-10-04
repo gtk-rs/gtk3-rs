@@ -9,13 +9,12 @@ path = "../glib-sys"
 
 [dependencies.gobject-sys]
 path = "../gobject-sys"
-
 [target."cfg(windows)".dependencies.winapi]
 version = "0.3.9"
 features = ["ws2def", "winsock2"]
 
 [dev-dependencies]
-shell-words = "0.1.0"
+shell-words = "1.0.0"
 tempfile = "3"
 
 [features]
@@ -42,7 +41,7 @@ description = "FFI bindings to libgio-2.0"
 homepage = "http://gtk-rs.org/"
 keywords = ["gio", "ffi", "gtk-rs", "gnome"]
 license = "MIT"
-links = "gio"
+links = "gio-2.0"
 name = "gio-sys"
 repository = "https://github.com/gtk-rs/sys"
 version = "0.10.0"
