@@ -1,11 +1,11 @@
 [package]
 name = "gdk-pixbuf"
 license = "MIT"
-homepage = "http://gtk-rs.org/"
+homepage = "https://gtk-rs.org/"
 authors = ["The Gtk-rs Project Developers"]
 keywords = ["gdk-pixbuf", "gtk-rs", "gnome"]
 readme = "README.md"
-documentation = "http://gtk-rs.org/docs/gdk_pixbuf/"
+documentation = "https://gtk-rs.org/docs/gdk_pixbuf/"
 version = "0.9.0"
 description = "Rust bindings for the GdkPixbuf library"
 repository = "https://github.com/gtk-rs/gdk-pixbuf"
