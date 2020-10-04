@@ -1,6 +1,6 @@
 // Copyright 2020, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
-// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+// Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 // This is similar to the GVariantIter provided by glib, but that would
 // introduce a heap allocation and doesn't provide a way to determine how
