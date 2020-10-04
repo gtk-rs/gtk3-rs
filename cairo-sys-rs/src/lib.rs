@@ -1,6 +1,6 @@
 // Copyright 2013-2019, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
-// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+// Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 #![allow(non_camel_case_types)]
 #![cfg_attr(feature = "cargo-clippy", allow(unreadable_literal, write_literal))]
