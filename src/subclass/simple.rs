@@ -1,6 +1,6 @@
 // Copyright 2017-2018, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
-// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+// Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 //! This module contains simple instance and class structs to be used for
 //! `GObject` subclasses that don't require any additional data in these

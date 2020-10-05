@@ -1,7 +1,7 @@
 [package]
 name = "glib-macros"
-documentation = "http://gtk-rs.org/docs/glib-macros/"
-homepage = "http://gtk-rs.org/"
+documentation = "https://gtk-rs.org/docs/glib-macros/"
+homepage = "https://gtk-rs.org/"
 authors = ["The Gtk-rs Project Developers"]
 description = "Rust bindings for the GLib library, proc macros crate"
 version = "0.10.0"
