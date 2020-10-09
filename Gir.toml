@@ -143,6 +143,9 @@ status = "generate"
     [[object.function]]
     name = "insert_before"
     ignore = true
+    [[object.function]]
+    name = "equal"
+    ignore = true
 
 [[object]]
 name = "Pango.Context"

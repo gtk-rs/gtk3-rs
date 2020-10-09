@@ -120,6 +120,8 @@ pub enum AttrType {
     AllowBreaks,
     Show,
     InsertHyphens,
+    Overline,
+    OverlineColor,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -159,6 +161,8 @@ impl fmt::Display for AttrType {
                 AttrType::AllowBreaks => "AllowBreaks",
                 AttrType::Show => "Show",
                 AttrType::InsertHyphens => "InsertHyphens",
+                AttrType::Overline => "Overline",
+                AttrType::OverlineColor => "OverlineColor",
                 _ => "Unknown",
             }
         )
@@ -200,6 +204,8 @@ impl ToGlib for AttrType {
             AttrType::AllowBreaks => pango_sys::PANGO_ATTR_ALLOW_BREAKS,
             AttrType::Show => pango_sys::PANGO_ATTR_SHOW,
             AttrType::InsertHyphens => pango_sys::PANGO_ATTR_INSERT_HYPHENS,
+            AttrType::Overline => pango_sys::PANGO_ATTR_OVERLINE,
+            AttrType::OverlineColor => pango_sys::PANGO_ATTR_OVERLINE_COLOR,
             AttrType::__Unknown(value) => value,
         }
     }
@@ -238,6 +244,8 @@ impl FromGlib<pango_sys::PangoAttrType> for AttrType {
             26 => AttrType::AllowBreaks,
             27 => AttrType::Show,
             28 => AttrType::InsertHyphens,
+            29 => AttrType::Overline,
+            30 => AttrType::OverlineColor,
             value => AttrType::__Unknown(value),
         }
     }
@@ -828,6 +836,7 @@ pub enum RenderPart {
     Background,
     Underline,
     Strikethrough,
+    Overline,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -842,6 +851,7 @@ impl fmt::Display for RenderPart {
                 RenderPart::Background => "Background",
                 RenderPart::Underline => "Underline",
                 RenderPart::Strikethrough => "Strikethrough",
+                RenderPart::Overline => "Overline",
                 _ => "Unknown",
             }
         )
@@ -858,6 +868,7 @@ impl ToGlib for RenderPart {
             RenderPart::Background => pango_sys::PANGO_RENDER_PART_BACKGROUND,
             RenderPart::Underline => pango_sys::PANGO_RENDER_PART_UNDERLINE,
             RenderPart::Strikethrough => pango_sys::PANGO_RENDER_PART_STRIKETHROUGH,
+            RenderPart::Overline => pango_sys::PANGO_RENDER_PART_OVERLINE,
             RenderPart::__Unknown(value) => value,
         }
     }
@@ -871,6 +882,7 @@ impl FromGlib<pango_sys::PangoRenderPart> for RenderPart {
             1 => RenderPart::Background,
             2 => RenderPart::Underline,
             3 => RenderPart::Strikethrough,
+            4 => RenderPart::Overline,
             value => RenderPart::__Unknown(value),
         }
     }
@@ -1684,6 +1696,9 @@ pub enum Underline {
     Double,
     Low,
     Error,
+    SingleLine,
+    DoubleLine,
+    ErrorLine,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -1699,6 +1714,9 @@ impl fmt::Display for Underline {
                 Underline::Double => "Double",
                 Underline::Low => "Low",
                 Underline::Error => "Error",
+                Underline::SingleLine => "SingleLine",
+                Underline::DoubleLine => "DoubleLine",
+                Underline::ErrorLine => "ErrorLine",
                 _ => "Unknown",
             }
         )
@@ -1716,6 +1734,9 @@ impl ToGlib for Underline {
             Underline::Double => pango_sys::PANGO_UNDERLINE_DOUBLE,
             Underline::Low => pango_sys::PANGO_UNDERLINE_LOW,
             Underline::Error => pango_sys::PANGO_UNDERLINE_ERROR,
+            Underline::SingleLine => pango_sys::PANGO_UNDERLINE_SINGLE_LINE,
+            Underline::DoubleLine => pango_sys::PANGO_UNDERLINE_DOUBLE_LINE,
+            Underline::ErrorLine => pango_sys::PANGO_UNDERLINE_ERROR_LINE,
             Underline::__Unknown(value) => value,
         }
     }
@@ -1730,6 +1751,9 @@ impl FromGlib<pango_sys::PangoUnderline> for Underline {
             2 => Underline::Double,
             3 => Underline::Low,
             4 => Underline::Error,
+            5 => Underline::SingleLine,
+            6 => Underline::DoubleLine,
+            7 => Underline::ErrorLine,
             value => Underline::__Unknown(value),
         }
     }

@@ -10,6 +10,8 @@ use std::mem;
 use Alignment;
 use AttrList;
 use Context;
+#[cfg(any(feature = "v1_46", feature = "dox"))]
+use Direction;
 use EllipsizeMode;
 use FontDescription;
 use LayoutIter;
@@ -80,6 +82,16 @@ impl Layout {
                 weak_pos.to_glib_none_mut().0,
             );
             (strong_pos, weak_pos)
+        }
+    }
+
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    pub fn get_direction(&self, index: i32) -> Direction {
+        unsafe {
+            from_glib(pango_sys::pango_layout_get_direction(
+                self.to_glib_none().0,
+                index,
+            ))
         }
     }
 

@@ -6,6 +6,8 @@ use glib::translate::*;
 use glib::GString;
 use pango_sys;
 use std::fmt;
+#[cfg(any(feature = "v1_46", feature = "dox"))]
+use std::mem;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -25,6 +27,24 @@ impl Color {
                 self.to_glib_none_mut().0,
                 spec.to_glib_none().0,
             ))
+        }
+    }
+
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    pub fn parse_with_alpha(&mut self, spec: &str) -> Option<u16> {
+        unsafe {
+            let mut alpha = mem::MaybeUninit::uninit();
+            let ret = from_glib(pango_sys::pango_color_parse_with_alpha(
+                self.to_glib_none_mut().0,
+                alpha.as_mut_ptr(),
+                spec.to_glib_none().0,
+            ));
+            let alpha = alpha.assume_init();
+            if ret {
+                Some(alpha)
+            } else {
+                None
+            }
         }
     }
 

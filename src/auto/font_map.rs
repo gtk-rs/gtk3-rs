@@ -30,6 +30,9 @@ pub trait FontMapExt: 'static {
 
     fn create_context(&self) -> Option<Context>;
 
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    fn get_family(&self, name: &str) -> Option<FontFamily>;
+
     fn get_serial(&self) -> u32;
 
     fn list_families(&self) -> Vec<FontFamily>;
@@ -55,6 +58,16 @@ impl<O: IsA<FontMap>> FontMapExt for O {
         unsafe {
             from_glib_full(pango_sys::pango_font_map_create_context(
                 self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
+
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    fn get_family(&self, name: &str) -> Option<FontFamily> {
+        unsafe {
+            from_glib_none(pango_sys::pango_font_map_get_family(
+                self.as_ref().to_glib_none().0,
+                name.to_glib_none().0,
             ))
         }
     }

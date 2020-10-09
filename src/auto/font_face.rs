@@ -10,6 +10,8 @@ use std::fmt;
 use std::mem;
 use std::ptr;
 use FontDescription;
+#[cfg(any(feature = "v1_46", feature = "dox"))]
+use FontFamily;
 
 glib_wrapper! {
     pub struct FontFace(Object<pango_sys::PangoFontFace, pango_sys::PangoFontFaceClass, FontFaceClass>);
@@ -25,6 +27,9 @@ pub trait FontFaceExt: 'static {
     fn describe(&self) -> Option<FontDescription>;
 
     fn get_face_name(&self) -> Option<GString>;
+
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    fn get_family(&self) -> Option<FontFamily>;
 
     fn is_synthesized(&self) -> bool;
 
@@ -43,6 +48,15 @@ impl<O: IsA<FontFace>> FontFaceExt for O {
     fn get_face_name(&self) -> Option<GString> {
         unsafe {
             from_glib_none(pango_sys::pango_font_face_get_face_name(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
+
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    fn get_family(&self) -> Option<FontFamily> {
+        unsafe {
+            from_glib_none(pango_sys::pango_font_face_get_family(
                 self.as_ref().to_glib_none().0,
             ))
         }
