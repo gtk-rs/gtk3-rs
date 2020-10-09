@@ -13,6 +13,7 @@ generate = [
     "GLib.DateMonth",
     "GLib.DateWeekday",
     "GLib.DateYear",
+    "GLib.FileSetContentsFlags",
     "GLib.FormatSizeFlags",
     "GLib.KeyFileError",
     "GLib.KeyFileFlags",
@@ -26,6 +27,11 @@ generate = [
     "GLib.TimeSpan",
     "GLib.FileTest",
     "GLib.IOCondition",
+    "GLib.UriFlags",
+    "GLib.UriHideFlags",
+    "GLib.UriParamsFlags",
+    "GLib.UriError",
+    "GLib.UriParamsIter",
 ]
 
 ignore = [
@@ -602,3 +608,9 @@ concurrency = "send+sync"
     name = "adjust_time"
     # in-out parameter
     ignore = true
+
+
+[[object]]
+name = "GLib.Uri"
+status = "generate"
+concurrency = "send+sync"

@@ -12,6 +12,34 @@ use value::Value;
 use StaticType;
 use Type;
 
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+bitflags! {
+    pub struct FileSetContentsFlags: u32 {
+        const NONE = 0;
+        const CONSISTENT = 1;
+        const DURABLE = 2;
+        const ONLY_EXISTING = 4;
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[doc(hidden)]
+impl ToGlib for FileSetContentsFlags {
+    type GlibType = glib_sys::GFileSetContentsFlags;
+
+    fn to_glib(&self) -> glib_sys::GFileSetContentsFlags {
+        self.bits()
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[doc(hidden)]
+impl FromGlib<glib_sys::GFileSetContentsFlags> for FileSetContentsFlags {
+    fn from_glib(value: glib_sys::GFileSetContentsFlags) -> FileSetContentsFlags {
+        FileSetContentsFlags::from_bits_truncate(value)
+    }
+}
+
 bitflags! {
     pub struct FileTest: u32 {
         const IS_REGULAR = 1;
@@ -225,5 +253,96 @@ impl ToGlib for SpawnFlags {
 impl FromGlib<glib_sys::GSpawnFlags> for SpawnFlags {
     fn from_glib(value: glib_sys::GSpawnFlags) -> SpawnFlags {
         SpawnFlags::from_bits_truncate(value)
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+bitflags! {
+    pub struct UriFlags: u32 {
+        const NONE = 0;
+        const PARSE_RELAXED = 1;
+        const HAS_PASSWORD = 2;
+        const HAS_AUTH_PARAMS = 4;
+        const ENCODED = 8;
+        const NON_DNS = 16;
+        const ENCODED_QUERY = 32;
+        const ENCODED_PATH = 64;
+        const ENCODED_FRAGMENT = 128;
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[doc(hidden)]
+impl ToGlib for UriFlags {
+    type GlibType = glib_sys::GUriFlags;
+
+    fn to_glib(&self) -> glib_sys::GUriFlags {
+        self.bits()
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[doc(hidden)]
+impl FromGlib<glib_sys::GUriFlags> for UriFlags {
+    fn from_glib(value: glib_sys::GUriFlags) -> UriFlags {
+        UriFlags::from_bits_truncate(value)
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+bitflags! {
+    pub struct UriHideFlags: u32 {
+        const NONE = 0;
+        const USERINFO = 1;
+        const PASSWORD = 2;
+        const AUTH_PARAMS = 4;
+        const QUERY = 8;
+        const FRAGMENT = 16;
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[doc(hidden)]
+impl ToGlib for UriHideFlags {
+    type GlibType = glib_sys::GUriHideFlags;
+
+    fn to_glib(&self) -> glib_sys::GUriHideFlags {
+        self.bits()
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[doc(hidden)]
+impl FromGlib<glib_sys::GUriHideFlags> for UriHideFlags {
+    fn from_glib(value: glib_sys::GUriHideFlags) -> UriHideFlags {
+        UriHideFlags::from_bits_truncate(value)
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+bitflags! {
+    pub struct UriParamsFlags: u32 {
+        const NONE = 0;
+        const CASE_INSENSITIVE = 1;
+        const WWW_FORM = 2;
+        const PARSE_RELAXED = 4;
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[doc(hidden)]
+impl ToGlib for UriParamsFlags {
+    type GlibType = glib_sys::GUriParamsFlags;
+
+    fn to_glib(&self) -> glib_sys::GUriParamsFlags {
+        self.bits()
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[doc(hidden)]
+impl FromGlib<glib_sys::GUriParamsFlags> for UriParamsFlags {
+    fn from_glib(value: glib_sys::GUriParamsFlags) -> UriParamsFlags {
+        UriParamsFlags::from_bits_truncate(value)
     }
 }

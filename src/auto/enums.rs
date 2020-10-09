@@ -494,3 +494,113 @@ impl FromGlib<glib_sys::GTimeType> for TimeType {
         }
     }
 }
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
+pub enum UriError {
+    Failed,
+    BadScheme,
+    BadUser,
+    BadPassword,
+    BadAuthParams,
+    BadHost,
+    BadPort,
+    BadPath,
+    BadQuery,
+    BadFragment,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+impl fmt::Display for UriError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "UriError::{}",
+            match *self {
+                UriError::Failed => "Failed",
+                UriError::BadScheme => "BadScheme",
+                UriError::BadUser => "BadUser",
+                UriError::BadPassword => "BadPassword",
+                UriError::BadAuthParams => "BadAuthParams",
+                UriError::BadHost => "BadHost",
+                UriError::BadPort => "BadPort",
+                UriError::BadPath => "BadPath",
+                UriError::BadQuery => "BadQuery",
+                UriError::BadFragment => "BadFragment",
+                _ => "Unknown",
+            }
+        )
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[doc(hidden)]
+impl ToGlib for UriError {
+    type GlibType = glib_sys::GUriError;
+
+    fn to_glib(&self) -> glib_sys::GUriError {
+        match *self {
+            UriError::Failed => glib_sys::G_URI_ERROR_FAILED,
+            UriError::BadScheme => glib_sys::G_URI_ERROR_BAD_SCHEME,
+            UriError::BadUser => glib_sys::G_URI_ERROR_BAD_USER,
+            UriError::BadPassword => glib_sys::G_URI_ERROR_BAD_PASSWORD,
+            UriError::BadAuthParams => glib_sys::G_URI_ERROR_BAD_AUTH_PARAMS,
+            UriError::BadHost => glib_sys::G_URI_ERROR_BAD_HOST,
+            UriError::BadPort => glib_sys::G_URI_ERROR_BAD_PORT,
+            UriError::BadPath => glib_sys::G_URI_ERROR_BAD_PATH,
+            UriError::BadQuery => glib_sys::G_URI_ERROR_BAD_QUERY,
+            UriError::BadFragment => glib_sys::G_URI_ERROR_BAD_FRAGMENT,
+            UriError::__Unknown(value) => value,
+        }
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[doc(hidden)]
+impl FromGlib<glib_sys::GUriError> for UriError {
+    fn from_glib(value: glib_sys::GUriError) -> Self {
+        match value {
+            0 => UriError::Failed,
+            1 => UriError::BadScheme,
+            2 => UriError::BadUser,
+            3 => UriError::BadPassword,
+            4 => UriError::BadAuthParams,
+            5 => UriError::BadHost,
+            6 => UriError::BadPort,
+            7 => UriError::BadPath,
+            8 => UriError::BadQuery,
+            9 => UriError::BadFragment,
+            value => UriError::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+impl ErrorDomain for UriError {
+    fn domain() -> Quark {
+        unsafe { from_glib(glib_sys::g_uri_quark()) }
+    }
+
+    fn code(self) -> i32 {
+        self.to_glib()
+    }
+
+    fn from(code: i32) -> Option<Self> {
+        match code {
+            0 => Some(UriError::Failed),
+            1 => Some(UriError::BadScheme),
+            2 => Some(UriError::BadUser),
+            3 => Some(UriError::BadPassword),
+            4 => Some(UriError::BadAuthParams),
+            5 => Some(UriError::BadHost),
+            6 => Some(UriError::BadPort),
+            7 => Some(UriError::BadPath),
+            8 => Some(UriError::BadQuery),
+            9 => Some(UriError::BadFragment),
+            _ => Some(UriError::Failed),
+        }
+    }
+}

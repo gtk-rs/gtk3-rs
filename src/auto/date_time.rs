@@ -31,7 +31,7 @@ impl DateTime {
         hour: i32,
         minute: i32,
         seconds: f64,
-    ) -> DateTime {
+    ) -> Option<DateTime> {
         unsafe {
             from_glib_full(glib_sys::g_date_time_new(
                 tz.to_glib_none().0,
@@ -56,20 +56,20 @@ impl DateTime {
     }
 
     //#[cfg_attr(feature = "v2_62", deprecated)]
-    //pub fn from_timeval_local(tv: /*Ignored*/&TimeVal) -> DateTime {
+    //pub fn from_timeval_local(tv: /*Ignored*/&TimeVal) -> Option<DateTime> {
     //    unsafe { TODO: call glib_sys:g_date_time_new_from_timeval_local() }
     //}
 
     //#[cfg_attr(feature = "v2_62", deprecated)]
-    //pub fn from_timeval_utc(tv: /*Ignored*/&TimeVal) -> DateTime {
+    //pub fn from_timeval_utc(tv: /*Ignored*/&TimeVal) -> Option<DateTime> {
     //    unsafe { TODO: call glib_sys:g_date_time_new_from_timeval_utc() }
     //}
 
-    pub fn from_unix_local(t: i64) -> DateTime {
+    pub fn from_unix_local(t: i64) -> Option<DateTime> {
         unsafe { from_glib_full(glib_sys::g_date_time_new_from_unix_local(t)) }
     }
 
-    pub fn from_unix_utc(t: i64) -> DateTime {
+    pub fn from_unix_utc(t: i64) -> Option<DateTime> {
         unsafe { from_glib_full(glib_sys::g_date_time_new_from_unix_utc(t)) }
     }
 
@@ -80,7 +80,7 @@ impl DateTime {
         hour: i32,
         minute: i32,
         seconds: f64,
-    ) -> DateTime {
+    ) -> Option<DateTime> {
         unsafe {
             from_glib_full(glib_sys::g_date_time_new_local(
                 year, month, day, hour, minute, seconds,
@@ -88,15 +88,15 @@ impl DateTime {
         }
     }
 
-    pub fn new_now(tz: &TimeZone) -> DateTime {
+    pub fn new_now(tz: &TimeZone) -> Option<DateTime> {
         unsafe { from_glib_full(glib_sys::g_date_time_new_now(tz.to_glib_none().0)) }
     }
 
-    pub fn new_now_local() -> DateTime {
+    pub fn new_now_local() -> Option<DateTime> {
         unsafe { from_glib_full(glib_sys::g_date_time_new_now_local()) }
     }
 
-    pub fn new_now_utc() -> DateTime {
+    pub fn new_now_utc() -> Option<DateTime> {
         unsafe { from_glib_full(glib_sys::g_date_time_new_now_utc()) }
     }
 
@@ -107,7 +107,7 @@ impl DateTime {
         hour: i32,
         minute: i32,
         seconds: f64,
-    ) -> DateTime {
+    ) -> Option<DateTime> {
         unsafe {
             from_glib_full(glib_sys::g_date_time_new_utc(
                 year, month, day, hour, minute, seconds,
