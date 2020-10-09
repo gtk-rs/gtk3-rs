@@ -63,6 +63,8 @@ pub const PANGO_ATTR_BACKGROUND_ALPHA: PangoAttrType = 25;
 pub const PANGO_ATTR_ALLOW_BREAKS: PangoAttrType = 26;
 pub const PANGO_ATTR_SHOW: PangoAttrType = 27;
 pub const PANGO_ATTR_INSERT_HYPHENS: PangoAttrType = 28;
+pub const PANGO_ATTR_OVERLINE: PangoAttrType = 29;
+pub const PANGO_ATTR_OVERLINE_COLOR: PangoAttrType = 30;
 
 pub type PangoBidiType = c_int;
 pub const PANGO_BIDI_TYPE_L: PangoBidiType = 0;
@@ -118,11 +120,16 @@ pub const PANGO_GRAVITY_HINT_NATURAL: PangoGravityHint = 0;
 pub const PANGO_GRAVITY_HINT_STRONG: PangoGravityHint = 1;
 pub const PANGO_GRAVITY_HINT_LINE: PangoGravityHint = 2;
 
+pub type PangoOverline = c_int;
+pub const PANGO_OVERLINE_NONE: PangoOverline = 0;
+pub const PANGO_OVERLINE_SINGLE: PangoOverline = 1;
+
 pub type PangoRenderPart = c_int;
 pub const PANGO_RENDER_PART_FOREGROUND: PangoRenderPart = 0;
 pub const PANGO_RENDER_PART_BACKGROUND: PangoRenderPart = 1;
 pub const PANGO_RENDER_PART_UNDERLINE: PangoRenderPart = 2;
 pub const PANGO_RENDER_PART_STRIKETHROUGH: PangoRenderPart = 3;
+pub const PANGO_RENDER_PART_OVERLINE: PangoRenderPart = 4;
 
 pub type PangoScript = c_int;
 pub const PANGO_SCRIPT_INVALID_CODE: PangoScript = -1;
@@ -269,6 +276,9 @@ pub const PANGO_UNDERLINE_SINGLE: PangoUnderline = 1;
 pub const PANGO_UNDERLINE_DOUBLE: PangoUnderline = 2;
 pub const PANGO_UNDERLINE_LOW: PangoUnderline = 3;
 pub const PANGO_UNDERLINE_ERROR: PangoUnderline = 4;
+pub const PANGO_UNDERLINE_SINGLE_LINE: PangoUnderline = 5;
+pub const PANGO_UNDERLINE_DOUBLE_LINE: PangoUnderline = 6;
+pub const PANGO_UNDERLINE_ERROR_LINE: PangoUnderline = 7;
 
 pub type PangoVariant = c_int;
 pub const PANGO_VARIANT_NORMAL: PangoVariant = 0;
@@ -771,6 +781,7 @@ pub struct PangoFontFaceClass {
     pub describe: Option<unsafe extern "C" fn(*mut PangoFontFace) -> *mut PangoFontDescription>,
     pub list_sizes: Option<unsafe extern "C" fn(*mut PangoFontFace, *mut *mut c_int, *mut c_int)>,
     pub is_synthesized: Option<unsafe extern "C" fn(*mut PangoFontFace) -> gboolean>,
+    pub get_family: Option<unsafe extern "C" fn(*mut PangoFontFace) -> *mut PangoFontFamily>,
     pub _pango_reserved3: Option<unsafe extern "C" fn()>,
     pub _pango_reserved4: Option<unsafe extern "C" fn()>,
 }
@@ -783,6 +794,7 @@ impl ::std::fmt::Debug for PangoFontFaceClass {
             .field("describe", &self.describe)
             .field("list_sizes", &self.list_sizes)
             .field("is_synthesized", &self.is_synthesized)
+            .field("get_family", &self.get_family)
             .field("_pango_reserved3", &self._pango_reserved3)
             .field("_pango_reserved4", &self._pango_reserved4)
             .finish()
@@ -799,8 +811,9 @@ pub struct PangoFontFamilyClass {
     pub get_name: Option<unsafe extern "C" fn(*mut PangoFontFamily) -> *const c_char>,
     pub is_monospace: Option<unsafe extern "C" fn(*mut PangoFontFamily) -> gboolean>,
     pub is_variable: Option<unsafe extern "C" fn(*mut PangoFontFamily) -> gboolean>,
+    pub get_face:
+        Option<unsafe extern "C" fn(*mut PangoFontFamily, *const c_char) -> *mut PangoFontFace>,
     pub _pango_reserved2: Option<unsafe extern "C" fn()>,
-    pub _pango_reserved3: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for PangoFontFamilyClass {
@@ -811,8 +824,8 @@ impl ::std::fmt::Debug for PangoFontFamilyClass {
             .field("get_name", &self.get_name)
             .field("is_monospace", &self.is_monospace)
             .field("is_variable", &self.is_variable)
+            .field("get_face", &self.get_face)
             .field("_pango_reserved2", &self._pango_reserved2)
-            .field("_pango_reserved3", &self._pango_reserved3)
             .finish()
     }
 }
@@ -841,8 +854,10 @@ pub struct PangoFontMapClass {
     pub shape_engine_type: *const c_char,
     pub get_serial: Option<unsafe extern "C" fn(*mut PangoFontMap) -> c_uint>,
     pub changed: Option<unsafe extern "C" fn(*mut PangoFontMap)>,
-    pub _pango_reserved1: Option<unsafe extern "C" fn()>,
-    pub _pango_reserved2: Option<unsafe extern "C" fn()>,
+    pub get_family:
+        Option<unsafe extern "C" fn(*mut PangoFontMap, *const c_char) -> *mut PangoFontFamily>,
+    pub get_face:
+        Option<unsafe extern "C" fn(*mut PangoFontMap, *mut PangoFont) -> *mut PangoFontFace>,
 }
 
 impl ::std::fmt::Debug for PangoFontMapClass {
@@ -855,8 +870,8 @@ impl ::std::fmt::Debug for PangoFontMapClass {
             .field("shape_engine_type", &self.shape_engine_type)
             .field("get_serial", &self.get_serial)
             .field("changed", &self.changed)
-            .field("_pango_reserved1", &self._pango_reserved1)
-            .field("_pango_reserved2", &self._pango_reserved2)
+            .field("get_family", &self.get_family)
+            .field("get_face", &self.get_face)
             .finish()
     }
 }
@@ -1511,6 +1526,12 @@ extern "C" {
     pub fn pango_gravity_hint_get_type() -> GType;
 
     //=========================================================================
+    // PangoOverline
+    //=========================================================================
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    pub fn pango_overline_get_type() -> GType;
+
+    //=========================================================================
     // PangoRenderPart
     //=========================================================================
     pub fn pango_render_part_get_type() -> GType;
@@ -1622,6 +1643,11 @@ extern "C" {
     pub fn pango_attr_list_new() -> *mut PangoAttrList;
     pub fn pango_attr_list_change(list: *mut PangoAttrList, attr: *mut PangoAttribute);
     pub fn pango_attr_list_copy(list: *mut PangoAttrList) -> *mut PangoAttrList;
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    pub fn pango_attr_list_equal(
+        list: *mut PangoAttrList,
+        other_list: *mut PangoAttrList,
+    ) -> gboolean;
     pub fn pango_attr_list_filter(
         list: *mut PangoAttrList,
         func: PangoAttrFilterFunc,
@@ -1684,6 +1710,12 @@ extern "C" {
     pub fn pango_color_copy(src: *const PangoColor) -> *mut PangoColor;
     pub fn pango_color_free(color: *mut PangoColor);
     pub fn pango_color_parse(color: *mut PangoColor, spec: *const c_char) -> gboolean;
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    pub fn pango_color_parse_with_alpha(
+        color: *mut PangoColor,
+        alpha: *mut u16,
+        spec: *const c_char,
+    ) -> gboolean;
     pub fn pango_color_to_string(color: *const PangoColor) -> *mut c_char;
 
     //=========================================================================
@@ -2222,6 +2254,8 @@ extern "C" {
         font: *mut PangoFont,
         language: *mut PangoLanguage,
     ) -> *mut PangoCoverage;
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    pub fn pango_font_get_face(font: *mut PangoFont) -> *mut PangoFontFace;
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     pub fn pango_font_get_features(
         font: *mut PangoFont,
@@ -2251,6 +2285,8 @@ extern "C" {
     pub fn pango_font_face_get_type() -> GType;
     pub fn pango_font_face_describe(face: *mut PangoFontFace) -> *mut PangoFontDescription;
     pub fn pango_font_face_get_face_name(face: *mut PangoFontFace) -> *const c_char;
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    pub fn pango_font_face_get_family(face: *mut PangoFontFace) -> *mut PangoFontFamily;
     pub fn pango_font_face_is_synthesized(face: *mut PangoFontFace) -> gboolean;
     pub fn pango_font_face_list_sizes(
         face: *mut PangoFontFace,
@@ -2262,6 +2298,11 @@ extern "C" {
     // PangoFontFamily
     //=========================================================================
     pub fn pango_font_family_get_type() -> GType;
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    pub fn pango_font_family_get_face(
+        family: *mut PangoFontFamily,
+        name: *const c_char,
+    ) -> *mut PangoFontFace;
     pub fn pango_font_family_get_name(family: *mut PangoFontFamily) -> *const c_char;
     pub fn pango_font_family_is_monospace(family: *mut PangoFontFamily) -> gboolean;
     #[cfg(any(feature = "v1_44", feature = "dox"))]
@@ -2278,6 +2319,11 @@ extern "C" {
     pub fn pango_font_map_get_type() -> GType;
     pub fn pango_font_map_changed(fontmap: *mut PangoFontMap);
     pub fn pango_font_map_create_context(fontmap: *mut PangoFontMap) -> *mut PangoContext;
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    pub fn pango_font_map_get_family(
+        fontmap: *mut PangoFontMap,
+        name: *const c_char,
+    ) -> *mut PangoFontFamily;
     pub fn pango_font_map_get_serial(fontmap: *mut PangoFontMap) -> c_uint;
     pub fn pango_font_map_list_families(
         fontmap: *mut PangoFontMap,
@@ -2335,6 +2381,8 @@ extern "C" {
         strong_pos: *mut PangoRectangle,
         weak_pos: *mut PangoRectangle,
     );
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    pub fn pango_layout_get_direction(layout: *mut PangoLayout, index: c_int) -> PangoDirection;
     pub fn pango_layout_get_ellipsize(layout: *mut PangoLayout) -> PangoEllipsizeMode;
     pub fn pango_layout_get_extents(
         layout: *mut PangoLayout,
@@ -2549,6 +2597,10 @@ extern "C" {
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     pub fn pango_attr_insert_hyphens_new(insert_hyphens: gboolean) -> *mut PangoAttribute;
     pub fn pango_attr_letter_spacing_new(letter_spacing: c_int) -> *mut PangoAttribute;
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    pub fn pango_attr_overline_color_new(red: u16, green: u16, blue: u16) -> *mut PangoAttribute;
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    pub fn pango_attr_overline_new(overline: PangoOverline) -> *mut PangoAttribute;
     pub fn pango_attr_rise_new(rise: c_int) -> *mut PangoAttribute;
     pub fn pango_attr_scale_new(scale_factor: c_double) -> *mut PangoAttribute;
     #[cfg(any(feature = "v1_44", feature = "dox"))]

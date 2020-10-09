@@ -293,6 +293,9 @@ pub const GTK_LICENSE_LGPL_2_1_ONLY: GtkLicense = 11;
 pub const GTK_LICENSE_LGPL_3_0_ONLY: GtkLicense = 12;
 pub const GTK_LICENSE_AGPL_3_0: GtkLicense = 13;
 pub const GTK_LICENSE_AGPL_3_0_ONLY: GtkLicense = 14;
+pub const GTK_LICENSE_BSD_3: GtkLicense = 15;
+pub const GTK_LICENSE_APACHE_2_0: GtkLicense = 16;
+pub const GTK_LICENSE_MPL_2_0: GtkLicense = 17;
 
 pub type GtkMenuDirectionType = c_int;
 pub const GTK_MENU_DIR_PARENT: GtkMenuDirectionType = 0;

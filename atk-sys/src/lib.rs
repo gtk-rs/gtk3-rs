@@ -197,7 +197,9 @@ pub const ATK_ROLE_SUPERSCRIPT: AtkRole = 121;
 pub const ATK_ROLE_FOOTNOTE: AtkRole = 122;
 pub const ATK_ROLE_CONTENT_DELETION: AtkRole = 123;
 pub const ATK_ROLE_CONTENT_INSERTION: AtkRole = 124;
-pub const ATK_ROLE_LAST_DEFINED: AtkRole = 125;
+pub const ATK_ROLE_MARK: AtkRole = 125;
+pub const ATK_ROLE_SUGGESTION: AtkRole = 126;
+pub const ATK_ROLE_LAST_DEFINED: AtkRole = 127;
 
 pub type AtkScrollType = c_int;
 pub const ATK_SCROLL_TOP_LEFT: AtkScrollType = 0;
@@ -283,7 +285,8 @@ pub const ATK_TEXT_ATTR_JUSTIFICATION: AtkTextAttribute = 24;
 pub const ATK_TEXT_ATTR_STRETCH: AtkTextAttribute = 25;
 pub const ATK_TEXT_ATTR_VARIANT: AtkTextAttribute = 26;
 pub const ATK_TEXT_ATTR_STYLE: AtkTextAttribute = 27;
-pub const ATK_TEXT_ATTR_LAST_DEFINED: AtkTextAttribute = 28;
+pub const ATK_TEXT_ATTR_TEXT_POSITION: AtkTextAttribute = 28;
+pub const ATK_TEXT_ATTR_LAST_DEFINED: AtkTextAttribute = 29;
 
 pub type AtkTextBoundary = c_int;
 pub const ATK_TEXT_BOUNDARY_CHAR: AtkTextBoundary = 0;

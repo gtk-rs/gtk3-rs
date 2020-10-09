@@ -580,6 +580,10 @@ pub const G_UNICODE_SCRIPT_ELYMAIC: GUnicodeScript = 149;
 pub const G_UNICODE_SCRIPT_NANDINAGARI: GUnicodeScript = 150;
 pub const G_UNICODE_SCRIPT_NYIAKENG_PUACHUE_HMONG: GUnicodeScript = 151;
 pub const G_UNICODE_SCRIPT_WANCHO: GUnicodeScript = 152;
+pub const G_UNICODE_SCRIPT_CHORASMIAN: GUnicodeScript = 153;
+pub const G_UNICODE_SCRIPT_DIVES_AKURU: GUnicodeScript = 154;
+pub const G_UNICODE_SCRIPT_KHITAN_SMALL_SCRIPT: GUnicodeScript = 155;
+pub const G_UNICODE_SCRIPT_YEZIDI: GUnicodeScript = 156;
 
 pub type GUnicodeType = c_int;
 pub const G_UNICODE_CONTROL: GUnicodeType = 0;
@@ -612,6 +616,18 @@ pub const G_UNICODE_OTHER_SYMBOL: GUnicodeType = 26;
 pub const G_UNICODE_LINE_SEPARATOR: GUnicodeType = 27;
 pub const G_UNICODE_PARAGRAPH_SEPARATOR: GUnicodeType = 28;
 pub const G_UNICODE_SPACE_SEPARATOR: GUnicodeType = 29;
+
+pub type GUriError = c_int;
+pub const G_URI_ERROR_FAILED: GUriError = 0;
+pub const G_URI_ERROR_BAD_SCHEME: GUriError = 1;
+pub const G_URI_ERROR_BAD_USER: GUriError = 2;
+pub const G_URI_ERROR_BAD_PASSWORD: GUriError = 3;
+pub const G_URI_ERROR_BAD_AUTH_PARAMS: GUriError = 4;
+pub const G_URI_ERROR_BAD_HOST: GUriError = 5;
+pub const G_URI_ERROR_BAD_PORT: GUriError = 6;
+pub const G_URI_ERROR_BAD_PATH: GUriError = 7;
+pub const G_URI_ERROR_BAD_QUERY: GUriError = 8;
+pub const G_URI_ERROR_BAD_FRAGMENT: GUriError = 9;
 
 pub type GUserDirectory = c_int;
 pub const G_USER_DIRECTORY_DESKTOP: GUserDirectory = 0;
@@ -779,6 +795,12 @@ pub const G_ASCII_SPACE: GAsciiType = 256;
 pub const G_ASCII_UPPER: GAsciiType = 512;
 pub const G_ASCII_XDIGIT: GAsciiType = 1024;
 
+pub type GFileSetContentsFlags = c_uint;
+pub const G_FILE_SET_CONTENTS_NONE: GFileSetContentsFlags = 0;
+pub const G_FILE_SET_CONTENTS_CONSISTENT: GFileSetContentsFlags = 1;
+pub const G_FILE_SET_CONTENTS_DURABLE: GFileSetContentsFlags = 2;
+pub const G_FILE_SET_CONTENTS_ONLY_EXISTING: GFileSetContentsFlags = 4;
+
 pub type GFileTest = c_uint;
 pub const G_FILE_TEST_IS_REGULAR: GFileTest = 1;
 pub const G_FILE_TEST_IS_SYMLINK: GFileTest = 2;
@@ -922,6 +944,31 @@ pub const G_TRAVERSE_ALL: GTraverseFlags = 3;
 pub const G_TRAVERSE_MASK: GTraverseFlags = 3;
 pub const G_TRAVERSE_LEAFS: GTraverseFlags = 1;
 pub const G_TRAVERSE_NON_LEAFS: GTraverseFlags = 2;
+
+pub type GUriFlags = c_uint;
+pub const G_URI_FLAGS_NONE: GUriFlags = 0;
+pub const G_URI_FLAGS_PARSE_RELAXED: GUriFlags = 1;
+pub const G_URI_FLAGS_HAS_PASSWORD: GUriFlags = 2;
+pub const G_URI_FLAGS_HAS_AUTH_PARAMS: GUriFlags = 4;
+pub const G_URI_FLAGS_ENCODED: GUriFlags = 8;
+pub const G_URI_FLAGS_NON_DNS: GUriFlags = 16;
+pub const G_URI_FLAGS_ENCODED_QUERY: GUriFlags = 32;
+pub const G_URI_FLAGS_ENCODED_PATH: GUriFlags = 64;
+pub const G_URI_FLAGS_ENCODED_FRAGMENT: GUriFlags = 128;
+
+pub type GUriHideFlags = c_uint;
+pub const G_URI_HIDE_NONE: GUriHideFlags = 0;
+pub const G_URI_HIDE_USERINFO: GUriHideFlags = 1;
+pub const G_URI_HIDE_PASSWORD: GUriHideFlags = 2;
+pub const G_URI_HIDE_AUTH_PARAMS: GUriHideFlags = 4;
+pub const G_URI_HIDE_QUERY: GUriHideFlags = 8;
+pub const G_URI_HIDE_FRAGMENT: GUriHideFlags = 16;
+
+pub type GUriParamsFlags = c_uint;
+pub const G_URI_PARAMS_NONE: GUriParamsFlags = 0;
+pub const G_URI_PARAMS_CASE_INSENSITIVE: GUriParamsFlags = 1;
+pub const G_URI_PARAMS_WWW_FORM: GUriParamsFlags = 2;
+pub const G_URI_PARAMS_PARSE_RELAXED: GUriParamsFlags = 4;
 
 // Unions
 #[repr(C)]
@@ -2118,6 +2165,32 @@ pub struct _GTree(c_void);
 pub type GTree = *mut _GTree;
 
 #[repr(C)]
+pub struct GUri(c_void);
+
+impl ::std::fmt::Debug for GUri {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("GUri @ {:?}", self as *const _))
+            .finish()
+    }
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct GUriParamsIter {
+    pub dummy0: c_int,
+    pub dummy1: gpointer,
+    pub dummy2: gpointer,
+    pub dummy3: [u8; 256],
+}
+
+impl ::std::fmt::Debug for GUriParamsIter {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("GUriParamsIter @ {:?}", self as *const _))
+            .finish()
+    }
+}
+
+#[repr(C)]
 pub struct GVariant(c_void);
 
 impl ::std::fmt::Debug for GVariant {
@@ -2360,6 +2433,12 @@ extern "C" {
         uri: *const c_char,
         error: *mut *mut GError,
     ) -> c_long;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_bookmark_file_get_added_date_time(
+        bookmark: *mut GBookmarkFile,
+        uri: *const c_char,
+        error: *mut *mut GError,
+    ) -> *mut GDateTime;
     pub fn g_bookmark_file_get_app_info(
         bookmark: *mut GBookmarkFile,
         uri: *const c_char,
@@ -2367,6 +2446,16 @@ extern "C" {
         exec: *mut *mut c_char,
         count: *mut c_uint,
         stamp: *mut c_long,
+        error: *mut *mut GError,
+    ) -> gboolean;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_bookmark_file_get_application_info(
+        bookmark: *mut GBookmarkFile,
+        uri: *const c_char,
+        name: *const c_char,
+        exec: *mut *mut c_char,
+        count: *mut c_uint,
+        stamp: *mut *mut GDateTime,
         error: *mut *mut GError,
     ) -> gboolean;
     pub fn g_bookmark_file_get_applications(
@@ -2408,6 +2497,12 @@ extern "C" {
         uri: *const c_char,
         error: *mut *mut GError,
     ) -> c_long;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_bookmark_file_get_modified_date_time(
+        bookmark: *mut GBookmarkFile,
+        uri: *const c_char,
+        error: *mut *mut GError,
+    ) -> *mut GDateTime;
     pub fn g_bookmark_file_get_size(bookmark: *mut GBookmarkFile) -> c_int;
     pub fn g_bookmark_file_get_title(
         bookmark: *mut GBookmarkFile,
@@ -2423,6 +2518,12 @@ extern "C" {
         uri: *const c_char,
         error: *mut *mut GError,
     ) -> c_long;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_bookmark_file_get_visited_date_time(
+        bookmark: *mut GBookmarkFile,
+        uri: *const c_char,
+        error: *mut *mut GError,
+    ) -> *mut GDateTime;
     pub fn g_bookmark_file_has_application(
         bookmark: *mut GBookmarkFile,
         uri: *const c_char,
@@ -2481,6 +2582,12 @@ extern "C" {
         uri: *const c_char,
         added: c_long,
     );
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_bookmark_file_set_added_date_time(
+        bookmark: *mut GBookmarkFile,
+        uri: *const c_char,
+        added: *mut GDateTime,
+    );
     pub fn g_bookmark_file_set_app_info(
         bookmark: *mut GBookmarkFile,
         uri: *const c_char,
@@ -2488,6 +2595,16 @@ extern "C" {
         exec: *const c_char,
         count: c_int,
         stamp: c_long,
+        error: *mut *mut GError,
+    ) -> gboolean;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_bookmark_file_set_application_info(
+        bookmark: *mut GBookmarkFile,
+        uri: *const c_char,
+        name: *const c_char,
+        exec: *const c_char,
+        count: c_int,
+        stamp: *mut GDateTime,
         error: *mut *mut GError,
     ) -> gboolean;
     pub fn g_bookmark_file_set_description(
@@ -2522,6 +2639,12 @@ extern "C" {
         uri: *const c_char,
         modified: c_long,
     );
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_bookmark_file_set_modified_date_time(
+        bookmark: *mut GBookmarkFile,
+        uri: *const c_char,
+        modified: *mut GDateTime,
+    );
     pub fn g_bookmark_file_set_title(
         bookmark: *mut GBookmarkFile,
         uri: *const c_char,
@@ -2531,6 +2654,12 @@ extern "C" {
         bookmark: *mut GBookmarkFile,
         uri: *const c_char,
         visited: c_long,
+    );
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_bookmark_file_set_visited_date_time(
+        bookmark: *mut GBookmarkFile,
+        uri: *const c_char,
+        visited: *mut GDateTime,
     );
     pub fn g_bookmark_file_to_data(
         bookmark: *mut GBookmarkFile,
@@ -4583,6 +4712,213 @@ extern "C" {
     ) -> *mut GTree;
 
     //=========================================================================
+    // GUri
+    //=========================================================================
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_get_type() -> GType;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_get_auth_params(uri: *mut GUri) -> *const c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_get_flags(uri: *mut GUri) -> GUriFlags;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_get_fragment(uri: *mut GUri) -> *const c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_get_host(uri: *mut GUri) -> *const c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_get_password(uri: *mut GUri) -> *const c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_get_path(uri: *mut GUri) -> *const c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_get_port(uri: *mut GUri) -> c_int;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_get_query(uri: *mut GUri) -> *const c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_get_scheme(uri: *mut GUri) -> *const c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_get_user(uri: *mut GUri) -> *const c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_get_userinfo(uri: *mut GUri) -> *const c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_parse_relative(
+        base_uri: *mut GUri,
+        uri_ref: *const c_char,
+        flags: GUriFlags,
+        error: *mut *mut GError,
+    ) -> *mut GUri;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_ref(uri: *mut GUri) -> *mut GUri;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_to_string(uri: *mut GUri) -> *mut c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_to_string_partial(uri: *mut GUri, flags: GUriHideFlags) -> *mut c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_unref(uri: *mut GUri);
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_build(
+        flags: GUriFlags,
+        scheme: *const c_char,
+        userinfo: *const c_char,
+        host: *const c_char,
+        port: c_int,
+        path: *const c_char,
+        query: *const c_char,
+        fragment: *const c_char,
+    ) -> *mut GUri;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_build_with_user(
+        flags: GUriFlags,
+        scheme: *const c_char,
+        user: *const c_char,
+        password: *const c_char,
+        auth_params: *const c_char,
+        host: *const c_char,
+        port: c_int,
+        path: *const c_char,
+        query: *const c_char,
+        fragment: *const c_char,
+    ) -> *mut GUri;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_error_quark() -> GQuark;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_escape_bytes(
+        unescaped: *const u8,
+        length: size_t,
+        reserved_chars_allowed: *const c_char,
+    ) -> *mut c_char;
+    pub fn g_uri_escape_string(
+        unescaped: *const c_char,
+        reserved_chars_allowed: *const c_char,
+        allow_utf8: gboolean,
+    ) -> *mut c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_is_valid(
+        uri_string: *const c_char,
+        flags: GUriFlags,
+        error: *mut *mut GError,
+    ) -> gboolean;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_join(
+        flags: GUriFlags,
+        scheme: *const c_char,
+        userinfo: *const c_char,
+        host: *const c_char,
+        port: c_int,
+        path: *const c_char,
+        query: *const c_char,
+        fragment: *const c_char,
+    ) -> *mut c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_join_with_user(
+        flags: GUriFlags,
+        scheme: *const c_char,
+        user: *const c_char,
+        password: *const c_char,
+        auth_params: *const c_char,
+        host: *const c_char,
+        port: c_int,
+        path: *const c_char,
+        query: *const c_char,
+        fragment: *const c_char,
+    ) -> *mut c_char;
+    pub fn g_uri_list_extract_uris(uri_list: *const c_char) -> *mut *mut c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_parse(
+        uri_string: *const c_char,
+        flags: GUriFlags,
+        error: *mut *mut GError,
+    ) -> *mut GUri;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_parse_params(
+        params: *const c_char,
+        length: ssize_t,
+        separators: *const c_char,
+        flags: GUriParamsFlags,
+        error: *mut *mut GError,
+    ) -> *mut GHashTable;
+    pub fn g_uri_parse_scheme(uri: *const c_char) -> *mut c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_peek_scheme(uri: *const c_char) -> *const c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_resolve_relative(
+        base_uri_string: *const c_char,
+        uri_ref: *const c_char,
+        flags: GUriFlags,
+        error: *mut *mut GError,
+    ) -> *mut c_char;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_split(
+        uri_ref: *const c_char,
+        flags: GUriFlags,
+        scheme: *mut *mut c_char,
+        userinfo: *mut *mut c_char,
+        host: *mut *mut c_char,
+        port: *mut c_int,
+        path: *mut *mut c_char,
+        query: *mut *mut c_char,
+        fragment: *mut *mut c_char,
+        error: *mut *mut GError,
+    ) -> gboolean;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_split_network(
+        uri_string: *const c_char,
+        flags: GUriFlags,
+        scheme: *mut *mut c_char,
+        host: *mut *mut c_char,
+        port: *mut c_int,
+        error: *mut *mut GError,
+    ) -> gboolean;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_split_with_user(
+        uri_ref: *const c_char,
+        flags: GUriFlags,
+        scheme: *mut *mut c_char,
+        user: *mut *mut c_char,
+        password: *mut *mut c_char,
+        auth_params: *mut *mut c_char,
+        host: *mut *mut c_char,
+        port: *mut c_int,
+        path: *mut *mut c_char,
+        query: *mut *mut c_char,
+        fragment: *mut *mut c_char,
+        error: *mut *mut GError,
+    ) -> gboolean;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_unescape_bytes(
+        escaped_string: *const c_char,
+        length: ssize_t,
+        illegal_characters: *const c_char,
+        error: *mut *mut GError,
+    ) -> *mut GBytes;
+    pub fn g_uri_unescape_segment(
+        escaped_string: *const c_char,
+        escaped_string_end: *const c_char,
+        illegal_characters: *const c_char,
+    ) -> *mut c_char;
+    pub fn g_uri_unescape_string(
+        escaped_string: *const c_char,
+        illegal_characters: *const c_char,
+    ) -> *mut c_char;
+
+    //=========================================================================
+    // GUriParamsIter
+    //=========================================================================
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_params_iter_init(
+        iter: *mut GUriParamsIter,
+        params: *const c_char,
+        length: ssize_t,
+        separators: *const c_char,
+        flags: GUriParamsFlags,
+    );
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_uri_params_iter_next(
+        iter: *mut GUriParamsIter,
+        attribute: *mut *mut c_char,
+        value: *mut *mut c_char,
+        error: *mut *mut GError,
+    ) -> gboolean;
+
+    //=========================================================================
     // GVariant
     //=========================================================================
     pub fn g_variant_new(format_string: *const c_char, ...) -> *mut GVariant;
@@ -5238,6 +5574,15 @@ extern "C" {
         filename: *const c_char,
         contents: *const u8,
         length: ssize_t,
+        error: *mut *mut GError,
+    ) -> gboolean;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_file_set_contents_full(
+        filename: *const c_char,
+        contents: *const u8,
+        length: ssize_t,
+        flags: GFileSetContentsFlags,
+        mode: c_int,
         error: *mut *mut GError,
     ) -> gboolean;
     #[cfg(any(windows, feature = "dox"))]
@@ -6106,22 +6451,6 @@ extern "C" {
     #[cfg(any(windows, feature = "dox"))]
     pub fn g_unsetenv_utf8(variable: *const c_char);
     pub fn g_unsetenv(variable: *const c_char);
-    pub fn g_uri_escape_string(
-        unescaped: *const c_char,
-        reserved_chars_allowed: *const c_char,
-        allow_utf8: gboolean,
-    ) -> *mut c_char;
-    pub fn g_uri_list_extract_uris(uri_list: *const c_char) -> *mut *mut c_char;
-    pub fn g_uri_parse_scheme(uri: *const c_char) -> *mut c_char;
-    pub fn g_uri_unescape_segment(
-        escaped_string: *const c_char,
-        escaped_string_end: *const c_char,
-        illegal_characters: *const c_char,
-    ) -> *mut c_char;
-    pub fn g_uri_unescape_string(
-        escaped_string: *const c_char,
-        illegal_characters: *const c_char,
-    ) -> *mut c_char;
     pub fn g_usleep(microseconds: c_ulong);
     pub fn g_utf16_to_ucs4(
         str: *const u16,
