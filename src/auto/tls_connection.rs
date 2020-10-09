@@ -24,6 +24,8 @@ use Cancellable;
 use IOStream;
 use TlsCertificate;
 use TlsCertificateFlags;
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+use TlsChannelBindingType;
 use TlsDatabase;
 use TlsInteraction;
 use TlsRehandshakeMode;
@@ -46,6 +48,12 @@ pub trait TlsConnectionExt: 'static {
     ) -> bool;
 
     fn get_certificate(&self) -> Option<TlsCertificate>;
+
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    fn get_channel_binding_data(
+        &self,
+        type_: TlsChannelBindingType,
+    ) -> Result<glib::ByteArray, glib::Error>;
 
     fn get_database(&self) -> Option<TlsDatabase>;
 
@@ -82,7 +90,7 @@ pub trait TlsConnectionExt: 'static {
 
     fn set_certificate<P: IsA<TlsCertificate>>(&self, certificate: &P);
 
-    fn set_database<P: IsA<TlsDatabase>>(&self, database: &P);
+    fn set_database<P: IsA<TlsDatabase>>(&self, database: Option<&P>);
 
     fn set_interaction<P: IsA<TlsInteraction>>(&self, interaction: Option<&P>);
 
@@ -163,6 +171,28 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
             from_glib_none(gio_sys::g_tls_connection_get_certificate(
                 self.as_ref().to_glib_none().0,
             ))
+        }
+    }
+
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    fn get_channel_binding_data(
+        &self,
+        type_: TlsChannelBindingType,
+    ) -> Result<glib::ByteArray, glib::Error> {
+        unsafe {
+            let mut data = ptr::null_mut();
+            let mut error = ptr::null_mut();
+            let _ = gio_sys::g_tls_connection_get_channel_binding_data(
+                self.as_ref().to_glib_none().0,
+                type_.to_glib(),
+                &mut data,
+                &mut error,
+            );
+            if error.is_null() {
+                Ok(from_glib_none(data))
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
@@ -312,11 +342,11 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn set_database<P: IsA<TlsDatabase>>(&self, database: &P) {
+    fn set_database<P: IsA<TlsDatabase>>(&self, database: Option<&P>) {
         unsafe {
             gio_sys::g_tls_connection_set_database(
                 self.as_ref().to_glib_none().0,
-                database.as_ref().to_glib_none().0,
+                database.map(|p| p.as_ref()).to_glib_none().0,
             );
         }
     }

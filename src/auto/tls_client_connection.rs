@@ -54,7 +54,7 @@ pub trait TlsClientConnectionExt: 'static {
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     fn copy_session_state<P: IsA<TlsClientConnection>>(&self, source: &P);
 
-    //fn get_accepted_cas(&self) -> /*Ignored*/Vec<glib::ByteArray>;
+    fn get_accepted_cas(&self) -> Vec<glib::ByteArray>;
 
     fn get_server_identity(&self) -> Option<SocketConnectable>;
 
@@ -98,9 +98,13 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
         }
     }
 
-    //fn get_accepted_cas(&self) -> /*Ignored*/Vec<glib::ByteArray> {
-    //    unsafe { TODO: call gio_sys:g_tls_client_connection_get_accepted_cas() }
-    //}
+    fn get_accepted_cas(&self) -> Vec<glib::ByteArray> {
+        unsafe {
+            FromGlibPtrContainer::from_glib_full(gio_sys::g_tls_client_connection_get_accepted_cas(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 
     fn get_server_identity(&self) -> Option<SocketConnectable> {
         unsafe {

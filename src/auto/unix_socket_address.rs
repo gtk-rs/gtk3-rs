@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use gio_sys;
+use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
@@ -49,7 +50,7 @@ pub trait UnixSocketAddressExt: 'static {
 
     fn get_property_abstract(&self) -> bool;
 
-    //fn get_property_path_as_array(&self) -> /*Ignored*/Option<glib::ByteArray>;
+    fn get_property_path_as_array(&self) -> Option<glib::ByteArray>;
 }
 
 impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExt for O {
@@ -88,13 +89,19 @@ impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExt for O {
         }
     }
 
-    //fn get_property_path_as_array(&self) -> /*Ignored*/Option<glib::ByteArray> {
-    //    unsafe {
-    //        let mut value = Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-    //        gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"path-as-array\0".as_ptr() as *const _, value.to_glib_none_mut().0);
-    //        value.get().expect("Return Value for property `path-as-array` getter")
-    //    }
-    //}
+    fn get_property_path_as_array(&self) -> Option<glib::ByteArray> {
+        unsafe {
+            let mut value = Value::from_type(<glib::ByteArray as StaticType>::static_type());
+            gobject_sys::g_object_get_property(
+                self.to_glib_none().0 as *mut gobject_sys::GObject,
+                b"path-as-array\0".as_ptr() as *const _,
+                value.to_glib_none_mut().0,
+            );
+            value
+                .get()
+                .expect("Return Value for property `path-as-array` getter")
+        }
+    }
 }
 
 impl fmt::Display for UnixSocketAddress {

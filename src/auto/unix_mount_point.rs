@@ -11,6 +11,8 @@ use gobject_sys;
 #[cfg(any(feature = "v2_54", feature = "dox"))]
 use std;
 use std::cmp;
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+use std::mem;
 #[cfg(any(feature = "v2_54", feature = "dox"))]
 use Icon;
 
@@ -132,6 +134,19 @@ impl UnixMountPoint {
             from_glib(gio_sys::g_unix_mount_point_is_user_mountable(mut_override(
                 self.to_glib_none().0,
             )))
+        }
+    }
+
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn at<P: AsRef<std::path::Path>>(mount_path: P) -> (Option<UnixMountPoint>, u64) {
+        unsafe {
+            let mut time_read = mem::MaybeUninit::uninit();
+            let ret = from_glib_full(gio_sys::g_unix_mount_point_at(
+                mount_path.as_ref().to_glib_none().0,
+                time_read.as_mut_ptr(),
+            ));
+            let time_read = time_read.assume_init();
+            (ret, time_read)
         }
     }
 }

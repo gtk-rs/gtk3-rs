@@ -129,6 +129,7 @@ generate = [
     "Gio.TlsCertificate",
     "Gio.TlsCertificateFlags",
     "Gio.TlsCertificateRequestFlags",
+    "Gio.TlsChannelBindingType",
     "Gio.TlsClientConnection",
     "Gio.TlsConnection",
     "Gio.TlsDatabase",
@@ -149,6 +150,7 @@ ignore = [
 ]
 
 manual = [
+    "GLib.ByteArray",
     "GLib.Bytes",
     "GLib.DateTime",
     "GLib.Error",
