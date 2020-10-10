@@ -9,6 +9,8 @@ use std::ptr;
 use Analysis;
 use GlyphString;
 use Item;
+#[cfg(any(feature = "v1_44", feature = "dox"))]
+use ShapeFlags;
 
 pub fn reorder_items(logical_items: &[&Item]) -> Vec<Item> {
     unsafe {
@@ -46,6 +48,29 @@ pub fn shape_full(
             paragraph_length,
             analysis.to_glib_none().0,
             glyphs.to_glib_none_mut().0,
+        );
+    }
+}
+
+#[cfg(any(feature = "v1_44", feature = "dox"))]
+pub fn shape_with_flags(
+    item_text: &str,
+    paragraph_text: Option<&str>,
+    analysis: &Analysis,
+    glyphs: &mut GlyphString,
+    flags: ShapeFlags,
+) {
+    let item_length = item_text.len() as i32;
+    let paragraph_length = paragraph_text.map(|t| t.len() as i32).unwrap_or_default();
+    unsafe {
+        pango_sys::pango_shape_with_flags(
+            item_text.to_glib_none().0,
+            item_length,
+            paragraph_text.to_glib_none().0,
+            paragraph_length,
+            analysis.to_glib_none().0,
+            glyphs.to_glib_none_mut().0,
+            flags.to_glib(),
         );
     }
 }

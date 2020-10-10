@@ -829,6 +829,85 @@ impl SetValue for GravityHint {
     }
 }
 
+#[cfg(any(feature = "v1_46", feature = "dox"))]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
+pub enum Overline {
+    None,
+    Single,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[cfg(any(feature = "v1_46", feature = "dox"))]
+impl fmt::Display for Overline {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "Overline::{}",
+            match *self {
+                Overline::None => "None",
+                Overline::Single => "Single",
+                _ => "Unknown",
+            }
+        )
+    }
+}
+
+#[cfg(any(feature = "v1_46", feature = "dox"))]
+#[doc(hidden)]
+impl ToGlib for Overline {
+    type GlibType = pango_sys::PangoOverline;
+
+    fn to_glib(&self) -> pango_sys::PangoOverline {
+        match *self {
+            Overline::None => pango_sys::PANGO_OVERLINE_NONE,
+            Overline::Single => pango_sys::PANGO_OVERLINE_SINGLE,
+            Overline::__Unknown(value) => value,
+        }
+    }
+}
+
+#[cfg(any(feature = "v1_46", feature = "dox"))]
+#[doc(hidden)]
+impl FromGlib<pango_sys::PangoOverline> for Overline {
+    fn from_glib(value: pango_sys::PangoOverline) -> Self {
+        match value {
+            0 => Overline::None,
+            1 => Overline::Single,
+            value => Overline::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(any(feature = "v1_46", feature = "dox"))]
+impl StaticType for Overline {
+    fn static_type() -> Type {
+        unsafe { from_glib(pango_sys::pango_overline_get_type()) }
+    }
+}
+
+#[cfg(any(feature = "v1_46", feature = "dox"))]
+impl<'a> FromValueOptional<'a> for Overline {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+#[cfg(any(feature = "v1_46", feature = "dox"))]
+impl<'a> FromValue<'a> for Overline {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+#[cfg(any(feature = "v1_46", feature = "dox"))]
+impl SetValue for Overline {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum RenderPart {

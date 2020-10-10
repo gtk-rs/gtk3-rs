@@ -54,6 +54,7 @@ generate = [
     "Pango.LayoutLine",
     "Pango.LayoutRun",
     "Pango.Matrix",
+    "Pango.Overline",
     "Pango.Renderer",
     "Pango.RenderPart",
     "Pango.Script",
@@ -113,6 +114,10 @@ status = "generate"
     name = "shape_full"
     # invalid length computation on Stash instead of str
     ignore = true
+    [[object.function]]
+    name = "shape_with_flags"
+    # ivanlid length computation on a Option<str>, it should fallback to 0.
+    ignore = true
 
 [[object]]
 name = "Pango.Attribute"
@@ -135,7 +140,7 @@ status = "generate"
 name = "Pango.AttrList"
 status = "generate"
     [[object.derive]]
-    name = "Debug, PartialOrd, Ord, Hash"
+    name = "Debug"
     [[object.function]]
     name = "change"
     ignore = true
@@ -228,3 +233,13 @@ status = "generate"
         [[object.function.parameter]]
         name = "tabs"
         const = true
+
+[[object]]
+name = "Pango.ShapeFlags"
+version = "1.44"
+status = "generate"
+
+[[object]]
+name = "Pango.ShowFlags"
+version = "1.44"
+status = "generate"
