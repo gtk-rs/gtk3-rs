@@ -1975,6 +1975,20 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         },
     ),
     (
+        "GTlsChannelBindingError",
+        Layout {
+            size: size_of::<GTlsChannelBindingError>(),
+            alignment: align_of::<GTlsChannelBindingError>(),
+        },
+    ),
+    (
+        "GTlsChannelBindingType",
+        Layout {
+            size: size_of::<GTlsChannelBindingType>(),
+            alignment: align_of::<GTlsChannelBindingType>(),
+        },
+    ),
+    (
         "GTlsClientConnectionInterface",
         Layout {
             size: size_of::<GTlsClientConnectionInterface>(),
@@ -2297,6 +2311,7 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) G_CONVERTER_FLUSHED", "3"),
     ("(guint) G_CONVERTER_INPUT_AT_END", "1"),
     ("(guint) G_CONVERTER_NO_FLAGS", "0"),
+    ("(gint) G_CREDENTIALS_TYPE_APPLE_XUCRED", "6"),
     ("(gint) G_CREDENTIALS_TYPE_FREEBSD_CMSGCRED", "2"),
     ("(gint) G_CREDENTIALS_TYPE_INVALID", "0"),
     ("(gint) G_CREDENTIALS_TYPE_LINUX_UCRED", "1"),
@@ -2855,6 +2870,13 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(guint) G_TLS_CERTIFICATE_REVOKED", "16"),
     ("(guint) G_TLS_CERTIFICATE_UNKNOWN_CA", "1"),
     ("(guint) G_TLS_CERTIFICATE_VALIDATE_ALL", "127"),
+    ("(gint) G_TLS_CHANNEL_BINDING_ERROR_GENERAL_ERROR", "4"),
+    ("(gint) G_TLS_CHANNEL_BINDING_ERROR_INVALID_STATE", "1"),
+    ("(gint) G_TLS_CHANNEL_BINDING_ERROR_NOT_AVAILABLE", "2"),
+    ("(gint) G_TLS_CHANNEL_BINDING_ERROR_NOT_IMPLEMENTED", "0"),
+    ("(gint) G_TLS_CHANNEL_BINDING_ERROR_NOT_SUPPORTED", "3"),
+    ("(gint) G_TLS_CHANNEL_BINDING_TLS_SERVER_END_POINT", "1"),
+    ("(gint) G_TLS_CHANNEL_BINDING_TLS_UNIQUE", "0"),
     ("(gint) G_TLS_DATABASE_LOOKUP_KEYPAIR", "1"),
     ("(gint) G_TLS_DATABASE_LOOKUP_NONE", "0"),
     (

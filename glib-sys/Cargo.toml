@@ -21,6 +21,7 @@ v2_60 = ["v2_58"]
 v2_62 = ["v2_60"]
 v2_64 = ["v2_62"]
 dox = []
+v2_66 = ["v2_64"]
 
 [lib]
 name = "glib_sys"
@@ -54,6 +55,7 @@ v2_58 = "2.58"
 v2_60 = "2.60"
 v2_62 = "2.62"
 v2_64 = "2.64"
+v2_66 = "2.66"
 
 [package.metadata.system-deps.gobject_2_0]
 name = "gobject-2.0"

@@ -61,6 +61,7 @@ pub const G_TYPE_RESERVED_BSE_LAST: c_int = 48;
 pub const G_TYPE_RESERVED_GLIB_FIRST: c_int = 22;
 pub const G_TYPE_RESERVED_GLIB_LAST: c_int = 31;
 pub const G_TYPE_RESERVED_USER_FIRST: c_int = 49;
+pub const G_VALUE_INTERNED_STRING: c_int = 268435456;
 pub const G_VALUE_NOCOPY_CONTENTS: c_int = 134217728;
 
 // Flags
@@ -1765,6 +1766,8 @@ extern "C" {
     pub fn g_value_set_instance(value: *mut GValue, instance: gpointer);
     pub fn g_value_set_int(value: *mut GValue, v_int: c_int);
     pub fn g_value_set_int64(value: *mut GValue, v_int64: i64);
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_value_set_interned_string(value: *mut GValue, v_string: *const c_char);
     pub fn g_value_set_long(value: *mut GValue, v_long: c_long);
     pub fn g_value_set_object(value: *mut GValue, v_object: *mut GObject);
     pub fn g_value_set_object_take_ownership(value: *mut GValue, v_object: gpointer);
@@ -2015,6 +2018,8 @@ extern "C" {
         blurb: *const c_char,
         flags: GParamFlags,
     ) -> *mut GParamSpec;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_param_spec_is_valid_name(name: *const c_char) -> gboolean;
     pub fn g_param_spec_get_blurb(pspec: *mut GParamSpec) -> *const c_char;
     pub fn g_param_spec_get_default_value(pspec: *mut GParamSpec) -> *const GValue;
     pub fn g_param_spec_get_name(pspec: *mut GParamSpec) -> *const c_char;
@@ -2451,6 +2456,8 @@ extern "C" {
         detail: glib::GQuark,
         may_be_blocked: gboolean,
     ) -> gboolean;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_signal_is_valid_name(name: *const c_char) -> gboolean;
     pub fn g_signal_list_ids(itype: GType, n_ids: *mut c_uint) -> *mut c_uint;
     pub fn g_signal_lookup(name: *const c_char, itype: GType) -> c_uint;
     pub fn g_signal_name(signal_id: c_uint) -> *const c_char;

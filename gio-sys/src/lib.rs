@@ -46,6 +46,7 @@ pub const G_CREDENTIALS_TYPE_FREEBSD_CMSGCRED: GCredentialsType = 2;
 pub const G_CREDENTIALS_TYPE_OPENBSD_SOCKPEERCRED: GCredentialsType = 3;
 pub const G_CREDENTIALS_TYPE_SOLARIS_UCRED: GCredentialsType = 4;
 pub const G_CREDENTIALS_TYPE_NETBSD_UNPCBID: GCredentialsType = 5;
+pub const G_CREDENTIALS_TYPE_APPLE_XUCRED: GCredentialsType = 6;
 
 pub type GDBusError = c_int;
 pub const G_DBUS_ERROR_FAILED: GDBusError = 0;
@@ -324,6 +325,17 @@ pub const G_TLS_AUTHENTICATION_REQUIRED: GTlsAuthenticationMode = 2;
 
 pub type GTlsCertificateRequestFlags = c_int;
 pub const G_TLS_CERTIFICATE_REQUEST_NONE: GTlsCertificateRequestFlags = 0;
+
+pub type GTlsChannelBindingError = c_int;
+pub const G_TLS_CHANNEL_BINDING_ERROR_NOT_IMPLEMENTED: GTlsChannelBindingError = 0;
+pub const G_TLS_CHANNEL_BINDING_ERROR_INVALID_STATE: GTlsChannelBindingError = 1;
+pub const G_TLS_CHANNEL_BINDING_ERROR_NOT_AVAILABLE: GTlsChannelBindingError = 2;
+pub const G_TLS_CHANNEL_BINDING_ERROR_NOT_SUPPORTED: GTlsChannelBindingError = 3;
+pub const G_TLS_CHANNEL_BINDING_ERROR_GENERAL_ERROR: GTlsChannelBindingError = 4;
+
+pub type GTlsChannelBindingType = c_int;
+pub const G_TLS_CHANNEL_BINDING_TLS_UNIQUE: GTlsChannelBindingType = 0;
+pub const G_TLS_CHANNEL_BINDING_TLS_SERVER_END_POINT: GTlsChannelBindingType = 1;
 
 pub type GTlsDatabaseLookupFlags = c_int;
 pub const G_TLS_DATABASE_LOOKUP_NONE: GTlsDatabaseLookupFlags = 0;
@@ -2414,6 +2426,14 @@ pub struct GDtlsConnectionInterface {
         Option<unsafe extern "C" fn(*mut GDtlsConnection, *const *const c_char)>,
     pub get_negotiated_protocol:
         Option<unsafe extern "C" fn(*mut GDtlsConnection) -> *const c_char>,
+    pub get_binding_data: Option<
+        unsafe extern "C" fn(
+            *mut GDtlsConnection,
+            GTlsChannelBindingType,
+            *mut glib::GByteArray,
+            *mut *mut glib::GError,
+        ) -> gboolean,
+    >,
 }
 
 impl ::std::fmt::Debug for GDtlsConnectionInterface {
@@ -2432,6 +2452,7 @@ impl ::std::fmt::Debug for GDtlsConnectionInterface {
         .field("shutdown_finish", &self.shutdown_finish)
         .field("set_advertised_protocols", &self.set_advertised_protocols)
         .field("get_negotiated_protocol", &self.get_negotiated_protocol)
+        .field("get_binding_data", &self.get_binding_data)
         .finish()
     }
 }
@@ -6150,7 +6171,15 @@ pub struct GTlsConnectionClass {
             *mut *mut glib::GError,
         ) -> gboolean,
     >,
-    pub padding: [gpointer; 8],
+    pub get_binding_data: Option<
+        unsafe extern "C" fn(
+            *mut GTlsConnection,
+            GTlsChannelBindingType,
+            *mut glib::GByteArray,
+            *mut *mut glib::GError,
+        ) -> gboolean,
+    >,
+    pub padding: [gpointer; 7],
 }
 
 impl ::std::fmt::Debug for GTlsConnectionClass {
@@ -6161,6 +6190,7 @@ impl ::std::fmt::Debug for GTlsConnectionClass {
             .field("handshake", &self.handshake)
             .field("handshake_async", &self.handshake_async)
             .field("handshake_finish", &self.handshake_finish)
+            .field("get_binding_data", &self.get_binding_data)
             .finish()
     }
 }
@@ -8942,6 +8972,20 @@ extern "C" {
     pub fn g_tls_certificate_request_flags_get_type() -> GType;
 
     //=========================================================================
+    // GTlsChannelBindingError
+    //=========================================================================
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_tls_channel_binding_error_get_type() -> GType;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_tls_channel_binding_error_quark() -> glib::GQuark;
+
+    //=========================================================================
+    // GTlsChannelBindingType
+    //=========================================================================
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_tls_channel_binding_type_get_type() -> GType;
+
+    //=========================================================================
     // GTlsDatabaseLookupFlags
     //=========================================================================
     pub fn g_tls_database_lookup_flags_get_type() -> GType;
@@ -9525,6 +9569,11 @@ extern "C" {
     pub fn g_unix_mount_point_is_loopback(mount_point: *mut GUnixMountPoint) -> gboolean;
     pub fn g_unix_mount_point_is_readonly(mount_point: *mut GUnixMountPoint) -> gboolean;
     pub fn g_unix_mount_point_is_user_mountable(mount_point: *mut GUnixMountPoint) -> gboolean;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_unix_mount_point_at(
+        mount_path: *const c_char,
+        time_read: *mut u64,
+    ) -> *mut GUnixMountPoint;
 
     //=========================================================================
     // GAppInfoMonitor
@@ -13646,6 +13695,13 @@ extern "C" {
         errors: GTlsCertificateFlags,
     ) -> gboolean;
     pub fn g_tls_connection_get_certificate(conn: *mut GTlsConnection) -> *mut GTlsCertificate;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_tls_connection_get_channel_binding_data(
+        conn: *mut GTlsConnection,
+        type_: GTlsChannelBindingType,
+        data: *mut glib::GByteArray,
+        error: *mut *mut glib::GError,
+    ) -> gboolean;
     pub fn g_tls_connection_get_database(conn: *mut GTlsConnection) -> *mut GTlsDatabase;
     pub fn g_tls_connection_get_interaction(conn: *mut GTlsConnection) -> *mut GTlsInteraction;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
@@ -14628,6 +14684,13 @@ extern "C" {
     ) -> gboolean;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     pub fn g_dtls_connection_get_certificate(conn: *mut GDtlsConnection) -> *mut GTlsCertificate;
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    pub fn g_dtls_connection_get_channel_binding_data(
+        conn: *mut GDtlsConnection,
+        type_: GTlsChannelBindingType,
+        data: *mut glib::GByteArray,
+        error: *mut *mut glib::GError,
+    ) -> gboolean;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     pub fn g_dtls_connection_get_database(conn: *mut GDtlsConnection) -> *mut GTlsDatabase;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
