@@ -7,6 +7,7 @@ use graphene_sys;
 use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 pub enum EulerOrder {
     Default,
     Xyz,
