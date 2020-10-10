@@ -108,3 +108,5 @@ mod read_input_stream;
 pub use read_input_stream::ReadInputStream;
 mod write_output_stream;
 pub use write_output_stream::WriteOutputStream;
+mod tls_connection;
+pub use tls_connection::TlsConnectionManualExt;

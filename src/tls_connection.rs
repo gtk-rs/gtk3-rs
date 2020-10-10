@@ -1,0 +1,40 @@
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+use auto::TlsChannelBindingType;
+use auto::TlsConnection;
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+use glib::translate::*;
+use glib::IsA;
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+use std::ptr;
+
+pub trait TlsConnectionManualExt {
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    fn get_channel_binding_data(
+        &self,
+        type_: TlsChannelBindingType,
+    ) -> Result<glib::ByteArray, glib::Error>;
+}
+
+impl<O: IsA<TlsConnection>> TlsConnectionManualExt for O {
+    #[cfg(any(feature = "v2_66", feature = "dox"))]
+    fn get_channel_binding_data(
+        &self,
+        type_: TlsChannelBindingType,
+    ) -> Result<glib::ByteArray, glib::Error> {
+        unsafe {
+            let data = ptr::null_mut();
+            let mut error = ptr::null_mut();
+            let _ = gio_sys::g_tls_connection_get_channel_binding_data(
+                self.to_glib_none().0,
+                type_.to_glib(),
+                data,
+                &mut error,
+            );
+            if error.is_null() {
+                Ok(from_glib_none(data))
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
+}
