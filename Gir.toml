@@ -134,6 +134,8 @@ status = "generate"
 [[object]]
 name = "Pango.AttrList"
 status = "generate"
+    [[object.derive]]
+    name = "Debug, PartialOrd, Ord, Hash"
     [[object.function]]
     name = "change"
     ignore = true
