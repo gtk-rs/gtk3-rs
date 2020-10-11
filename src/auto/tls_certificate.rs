@@ -104,7 +104,7 @@ pub trait TlsCertificateExt: 'static {
         trusted_ca: Option<&Q>,
     ) -> TlsCertificateFlags;
 
-    //fn get_property_certificate(&self) -> /*Ignored*/Option<glib::ByteArray>;
+    fn get_property_certificate(&self) -> Option<glib::ByteArray>;
 
     fn get_property_certificate_pem(&self) -> Option<GString>;
 }
@@ -141,13 +141,19 @@ impl<O: IsA<TlsCertificate>> TlsCertificateExt for O {
         }
     }
 
-    //fn get_property_certificate(&self) -> /*Ignored*/Option<glib::ByteArray> {
-    //    unsafe {
-    //        let mut value = Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-    //        gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"certificate\0".as_ptr() as *const _, value.to_glib_none_mut().0);
-    //        value.get().expect("Return Value for property `certificate` getter")
-    //    }
-    //}
+    fn get_property_certificate(&self) -> Option<glib::ByteArray> {
+        unsafe {
+            let mut value = Value::from_type(<glib::ByteArray as StaticType>::static_type());
+            gobject_sys::g_object_get_property(
+                self.to_glib_none().0 as *mut gobject_sys::GObject,
+                b"certificate\0".as_ptr() as *const _,
+                value.to_glib_none_mut().0,
+            );
+            value
+                .get()
+                .expect("Return Value for property `certificate` getter")
+        }
+    }
 
     fn get_property_certificate_pem(&self) -> Option<GString> {
         unsafe {

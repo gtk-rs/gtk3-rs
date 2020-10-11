@@ -129,8 +129,8 @@ generate = [
     "Gio.TlsCertificate",
     "Gio.TlsCertificateFlags",
     "Gio.TlsCertificateRequestFlags",
+    "Gio.TlsChannelBindingType",
     "Gio.TlsClientConnection",
-    "Gio.TlsConnection",
     "Gio.TlsDatabase",
     "Gio.TlsDatabaseLookupFlags",
     "Gio.TlsDatabaseVerifyFlags",
@@ -149,6 +149,7 @@ ignore = [
 ]
 
 manual = [
+    "GLib.ByteArray",
     "GLib.Bytes",
     "GLib.DateTime",
     "GLib.Error",
@@ -1014,6 +1015,15 @@ status = "generate"
         [[object.signal.parameter]]
         name = "source_object"
         nullable = true
+
+[[object]]
+name = "Gio.TlsConnection"
+status = "generate"
+manual_traits = ["TlsConnectionExtManual"]
+    [[object.function]]
+    name = "get_channel_binding_data"
+    # Gir confuses the mutability of the data
+    ignore = true
 
 [[object]]
 name = "Gio.TlsPassword"

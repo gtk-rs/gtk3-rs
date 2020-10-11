@@ -602,6 +602,8 @@ pub use self::enums::SocketProtocol;
 pub use self::enums::SocketType;
 pub use self::enums::TlsAuthenticationMode;
 pub use self::enums::TlsCertificateRequestFlags;
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+pub use self::enums::TlsChannelBindingType;
 pub use self::enums::TlsDatabaseLookupFlags;
 pub use self::enums::TlsInteractionResult;
 pub use self::enums::TlsRehandshakeMode;

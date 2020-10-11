@@ -182,6 +182,7 @@ pub enum CredentialsType {
     OpenbsdSockpeercred,
     SolarisUcred,
     NetbsdUnpcbid,
+    AppleXucred,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -198,6 +199,7 @@ impl fmt::Display for CredentialsType {
                 CredentialsType::OpenbsdSockpeercred => "OpenbsdSockpeercred",
                 CredentialsType::SolarisUcred => "SolarisUcred",
                 CredentialsType::NetbsdUnpcbid => "NetbsdUnpcbid",
+                CredentialsType::AppleXucred => "AppleXucred",
                 _ => "Unknown",
             }
         )
@@ -218,6 +220,7 @@ impl ToGlib for CredentialsType {
             }
             CredentialsType::SolarisUcred => gio_sys::G_CREDENTIALS_TYPE_SOLARIS_UCRED,
             CredentialsType::NetbsdUnpcbid => gio_sys::G_CREDENTIALS_TYPE_NETBSD_UNPCBID,
+            CredentialsType::AppleXucred => gio_sys::G_CREDENTIALS_TYPE_APPLE_XUCRED,
             CredentialsType::__Unknown(value) => value,
         }
     }
@@ -233,6 +236,7 @@ impl FromGlib<gio_sys::GCredentialsType> for CredentialsType {
             3 => CredentialsType::OpenbsdSockpeercred,
             4 => CredentialsType::SolarisUcred,
             5 => CredentialsType::NetbsdUnpcbid,
+            6 => CredentialsType::AppleXucred,
             value => CredentialsType::__Unknown(value),
         }
     }
@@ -2662,6 +2666,87 @@ impl<'a> FromValue<'a> for TlsCertificateRequestFlags {
 }
 
 impl SetValue for TlsCertificateRequestFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
+pub enum TlsChannelBindingType {
+    Unique,
+    ServerEndPoint,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+impl fmt::Display for TlsChannelBindingType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "TlsChannelBindingType::{}",
+            match *self {
+                TlsChannelBindingType::Unique => "Unique",
+                TlsChannelBindingType::ServerEndPoint => "ServerEndPoint",
+                _ => "Unknown",
+            }
+        )
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[doc(hidden)]
+impl ToGlib for TlsChannelBindingType {
+    type GlibType = gio_sys::GTlsChannelBindingType;
+
+    fn to_glib(&self) -> gio_sys::GTlsChannelBindingType {
+        match *self {
+            TlsChannelBindingType::Unique => gio_sys::G_TLS_CHANNEL_BINDING_TLS_UNIQUE,
+            TlsChannelBindingType::ServerEndPoint => {
+                gio_sys::G_TLS_CHANNEL_BINDING_TLS_SERVER_END_POINT
+            }
+            TlsChannelBindingType::__Unknown(value) => value,
+        }
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[doc(hidden)]
+impl FromGlib<gio_sys::GTlsChannelBindingType> for TlsChannelBindingType {
+    fn from_glib(value: gio_sys::GTlsChannelBindingType) -> Self {
+        match value {
+            0 => TlsChannelBindingType::Unique,
+            1 => TlsChannelBindingType::ServerEndPoint,
+            value => TlsChannelBindingType::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+impl StaticType for TlsChannelBindingType {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_tls_channel_binding_type_get_type()) }
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+impl<'a> FromValueOptional<'a> for TlsChannelBindingType {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+impl<'a> FromValue<'a> for TlsChannelBindingType {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+impl SetValue for TlsChannelBindingType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }

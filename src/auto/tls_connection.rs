@@ -82,7 +82,7 @@ pub trait TlsConnectionExt: 'static {
 
     fn set_certificate<P: IsA<TlsCertificate>>(&self, certificate: &P);
 
-    fn set_database<P: IsA<TlsDatabase>>(&self, database: &P);
+    fn set_database<P: IsA<TlsDatabase>>(&self, database: Option<&P>);
 
     fn set_interaction<P: IsA<TlsInteraction>>(&self, interaction: Option<&P>);
 
@@ -312,11 +312,11 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn set_database<P: IsA<TlsDatabase>>(&self, database: &P) {
+    fn set_database<P: IsA<TlsDatabase>>(&self, database: Option<&P>) {
         unsafe {
             gio_sys::g_tls_connection_set_database(
                 self.as_ref().to_glib_none().0,
-                database.as_ref().to_glib_none().0,
+                database.map(|p| p.as_ref()).to_glib_none().0,
             );
         }
     }
