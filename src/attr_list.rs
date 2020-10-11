@@ -19,6 +19,16 @@ impl AttrList {
         }
     }
 
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    fn equal(&self, other_list: &AttrList) -> bool {
+        unsafe {
+            from_glib(pango_sys::pango_attr_list_equal(
+                self.to_glib_none().0,
+                other_list.to_glib_none().0,
+            ))
+        }
+    }
+
     pub fn insert(&self, attr: Attribute) {
         unsafe {
             pango_sys::pango_attr_list_insert(
@@ -39,3 +49,14 @@ impl AttrList {
         }
     }
 }
+
+#[cfg(any(feature = "v1_46", feature = "dox"))]
+impl PartialEq for AttrList {
+    #[inline]
+    fn eq(&self, other: &Self) -> bool {
+        self.equal(other)
+    }
+}
+
+#[cfg(any(feature = "v1_46", feature = "dox"))]
+impl Eq for AttrList {}

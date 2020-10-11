@@ -92,6 +92,8 @@ pub use self::enums::Direction;
 pub use self::enums::EllipsizeMode;
 pub use self::enums::Gravity;
 pub use self::enums::GravityHint;
+#[cfg(any(feature = "v1_46", feature = "dox"))]
+pub use self::enums::Overline;
 pub use self::enums::RenderPart;
 pub use self::enums::Script;
 pub use self::enums::Stretch;
@@ -104,6 +106,10 @@ pub use self::enums::WrapMode;
 
 mod flags;
 pub use self::flags::FontMask;
+#[cfg(any(feature = "v1_44", feature = "dox"))]
+pub use self::flags::ShapeFlags;
+#[cfg(any(feature = "v1_44", feature = "dox"))]
+pub use self::flags::ShowFlags;
 
 mod alias;
 pub use self::alias::Glyph;

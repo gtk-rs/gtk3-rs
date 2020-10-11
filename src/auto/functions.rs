@@ -297,11 +297,6 @@ pub fn shape(text: &str, analysis: &Analysis, glyphs: &mut GlyphString) {
     }
 }
 
-//#[cfg(any(feature = "v1_44", feature = "dox"))]
-//pub fn shape_with_flags(item_text: &str, paragraph_text: Option<&str>, analysis: &Analysis, glyphs: &mut GlyphString, flags: /*Ignored*/ShapeFlags) {
-//    unsafe { TODO: call pango_sys:pango_shape_with_flags() }
-//}
-
 //#[cfg_attr(feature = "v1_38", deprecated)]
 //pub fn skip_space(pos: /*Unimplemented*/GString) -> bool {
 //    unsafe { TODO: call pango_sys:pango_skip_space() }

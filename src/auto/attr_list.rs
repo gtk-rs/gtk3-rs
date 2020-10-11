@@ -8,7 +8,7 @@ use AttrIterator;
 use Attribute;
 
 glib_wrapper! {
-    #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Debug)]
     pub struct AttrList(Shared<pango_sys::PangoAttrList>);
 
     match fn {

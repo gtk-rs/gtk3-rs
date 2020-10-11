@@ -22,6 +22,9 @@ glib_wrapper! {
 pub const NONE_FONT_FAMILY: Option<&FontFamily> = None;
 
 pub trait FontFamilyExt: 'static {
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    fn get_face(&self, name: Option<&str>) -> Option<FontFace>;
+
     fn get_name(&self) -> Option<GString>;
 
     fn is_monospace(&self) -> bool;
@@ -33,6 +36,16 @@ pub trait FontFamilyExt: 'static {
 }
 
 impl<O: IsA<FontFamily>> FontFamilyExt for O {
+    #[cfg(any(feature = "v1_46", feature = "dox"))]
+    fn get_face(&self, name: Option<&str>) -> Option<FontFace> {
+        unsafe {
+            from_glib_none(pango_sys::pango_font_family_get_face(
+                self.as_ref().to_glib_none().0,
+                name.to_glib_none().0,
+            ))
+        }
+    }
+
     fn get_name(&self) -> Option<GString> {
         unsafe {
             from_glib_none(pango_sys::pango_font_family_get_name(
