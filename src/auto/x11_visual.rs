@@ -6,7 +6,6 @@ use gdk;
 use gdk_x11_sys;
 use glib::translate::*;
 use std::fmt;
-use xlib;
 
 glib_wrapper! {
     pub struct X11Visual(Object<gdk_x11_sys::GdkX11Visual, gdk_x11_sys::GdkX11VisualClass, X11VisualClass>) @extends gdk::Visual;
@@ -16,15 +15,7 @@ glib_wrapper! {
     }
 }
 
-impl X11Visual {
-    pub fn get_xvisual(&self) -> Option<xlib::Visual> {
-        unsafe {
-            from_glib_none(gdk_x11_sys::gdk_x11_visual_get_xvisual(
-                self.to_glib_none().0,
-            ))
-        }
-    }
-}
+impl X11Visual {}
 
 impl fmt::Display for X11Visual {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

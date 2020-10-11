@@ -51,14 +51,6 @@ impl X11Screen {
         }
     }
 
-    pub fn get_xscreen(&self) -> Option<xlib::Screen> {
-        unsafe {
-            from_glib_none(gdk_x11_sys::gdk_x11_screen_get_xscreen(
-                self.to_glib_none().0,
-            ))
-        }
-    }
-
     pub fn lookup_visual(&self, xvisualid: xlib::VisualID) -> Option<X11Visual> {
         unsafe {
             from_glib_none(gdk_x11_sys::gdk_x11_screen_lookup_visual(
