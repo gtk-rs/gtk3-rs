@@ -21,9 +21,13 @@ impl X11Cursor {
         unsafe { gdk_x11_sys::gdk_x11_cursor_get_xcursor(self.to_glib_none().0) }
     }
 
-    //pub fn get_xdisplay(&self) -> /*Ignored*/Option<xlib::Display> {
-    //    unsafe { TODO: call gdk_x11_sys:gdk_x11_cursor_get_xdisplay() }
-    //}
+    pub fn get_xdisplay(&self) -> Option<xlib::Display> {
+        unsafe {
+            from_glib_none(gdk_x11_sys::gdk_x11_cursor_get_xdisplay(
+                self.to_glib_none().0,
+            ))
+        }
+    }
 }
 
 impl fmt::Display for X11Cursor {
