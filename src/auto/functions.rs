@@ -12,7 +12,7 @@ pub fn context_get_resolution(context: &pango::Context) -> f64 {
     unsafe { pango_cairo_sys::pango_cairo_context_get_resolution(context.to_glib_none().0) }
 }
 
-//pub fn context_get_shape_renderer(context: &pango::Context, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Fn(&cairo::Context, /*Ignored*/pango::AttrShape, bool, /*Unimplemented*/Option<Fundamental: Pointer>) {
+//pub fn context_get_shape_renderer(context: &pango::Context, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Fn(&cairo::Context, /*Ignored*/pango::AttrShape, bool) {
 //    unsafe { TODO: call pango_cairo_sys:pango_cairo_context_get_shape_renderer() }
 //}
 
@@ -31,7 +31,7 @@ pub fn context_set_resolution(context: &pango::Context, dpi: f64) {
     }
 }
 
-//pub fn context_set_shape_renderer(context: &pango::Context, func: /*Unimplemented*/Fn(&cairo::Context, /*Ignored*/pango::AttrShape, bool, /*Unimplemented*/Option<Fundamental: Pointer>), data: /*Unimplemented*/Option<Fundamental: Pointer>) {
+//pub fn context_set_shape_renderer(context: &pango::Context, func: /*Unimplemented*/Fn(&cairo::Context, /*Ignored*/pango::AttrShape, bool), data: /*Unimplemented*/Option<Fundamental: Pointer>) {
 //    unsafe { TODO: call pango_cairo_sys:pango_cairo_context_set_shape_renderer() }
 //}
 
