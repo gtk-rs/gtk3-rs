@@ -13,6 +13,7 @@ use std::hash;
 use std::marker::PhantomData;
 use std::mem;
 use std::ops;
+use std::pin::Pin;
 use std::ptr;
 use translate::*;
 use types::StaticType;
@@ -2005,7 +2006,7 @@ impl<T: ObjectType> ObjectExt for T {
 
     fn downgrade(&self) -> WeakRef<T> {
         unsafe {
-            let w = WeakRef(Box::new(mem::zeroed()), PhantomData);
+            let w = WeakRef(Box::pin(mem::zeroed()), PhantomData);
             gobject_sys::g_weak_ref_init(
                 mut_override(&*w.0),
                 self.as_object_ref().to_glib_none().0,
@@ -2171,20 +2172,23 @@ glib_wrapper! {
 }
 
 #[derive(Debug)]
-pub struct WeakRef<T: ObjectType>(Box<gobject_sys::GWeakRef>, PhantomData<*const T>);
+pub struct WeakRef<T: ObjectType>(Pin<Box<gobject_sys::GWeakRef>>, PhantomData<*mut T>);
 
 impl<T: ObjectType> WeakRef<T> {
     pub fn new() -> WeakRef<T> {
         unsafe {
-            let w = WeakRef(Box::new(mem::zeroed()), PhantomData);
-            gobject_sys::g_weak_ref_init(mut_override(&*w.0), ptr::null_mut());
+            let mut w = WeakRef(Box::pin(mem::zeroed()), PhantomData);
+            gobject_sys::g_weak_ref_init(
+                Pin::as_mut(&mut w.0).get_unchecked_mut(),
+                ptr::null_mut(),
+            );
             w
         }
     }
 
     pub fn upgrade(&self) -> Option<T> {
         unsafe {
-            let ptr = gobject_sys::g_weak_ref_get(mut_override(&*self.0));
+            let ptr = gobject_sys::g_weak_ref_get(mut_override(Pin::as_ref(&self.0).get_ref()));
             if ptr.is_null() {
                 None
             } else {
@@ -2198,7 +2202,7 @@ impl<T: ObjectType> WeakRef<T> {
 impl<T: ObjectType> Drop for WeakRef<T> {
     fn drop(&mut self) {
         unsafe {
-            gobject_sys::g_weak_ref_clear(mut_override(&*self.0));
+            gobject_sys::g_weak_ref_clear(Pin::as_mut(&mut self.0).get_unchecked_mut());
         }
     }
 }
@@ -2206,13 +2210,13 @@ impl<T: ObjectType> Drop for WeakRef<T> {
 impl<T: ObjectType> Clone for WeakRef<T> {
     fn clone(&self) -> Self {
         unsafe {
-            let c = WeakRef(Box::new(mem::zeroed()), PhantomData);
+            let o = self.upgrade();
 
-            let o = gobject_sys::g_weak_ref_get(mut_override(&*self.0));
-            gobject_sys::g_weak_ref_init(mut_override(&*c.0), o);
-            if !o.is_null() {
-                gobject_sys::g_object_unref(o);
-            }
+            let mut c = WeakRef(Box::pin(mem::zeroed()), PhantomData);
+            gobject_sys::g_weak_ref_init(
+                Pin::as_mut(&mut c.0).get_unchecked_mut(),
+                o.to_glib_none().0 as *mut gobject_sys::GObject,
+            );
 
             c
         }
