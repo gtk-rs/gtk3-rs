@@ -581,7 +581,7 @@ impl FromGlib<glib_sys::GUriError> for UriError {
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 impl ErrorDomain for UriError {
     fn domain() -> Quark {
-        unsafe { from_glib(glib_sys::g_uri_quark()) }
+        unsafe { from_glib(glib_sys::g_uri_error_quark()) }
     }
 
     fn code(self) -> i32 {
