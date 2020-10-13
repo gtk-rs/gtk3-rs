@@ -7,7 +7,6 @@ license = "MIT"
 repository = "https://github.com/gtk-rs/sys"
 name = "gdkx11-sys"
 version = "0.10.0"
-links = "gdk-3"
 build = "build.rs"
 edition = "2018"
 [package.metadata.docs.rs]
