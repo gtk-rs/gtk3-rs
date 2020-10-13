@@ -577,6 +577,7 @@ mod test {
         // itself. No private/impl data is allocated for zero-sized types.
         let imp = ChildObject::from_instance(&obj);
         assert_eq!(imp as *const _ as *const (), obj.as_ptr() as *const _);
+        assert_eq!(obj, imp.get_instance());
     }
 
     #[test]
