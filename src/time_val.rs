@@ -4,7 +4,7 @@
 
 use glib_sys;
 use std::mem;
-use translate::{StashMut, ToGlibPtrMut, Uninitialized};
+use translate::{Stash, StashMut, ToGlibPtr, ToGlibPtrMut, Uninitialized};
 
 pub use glib_sys::GTimeVal as TimeVal;
 
@@ -13,6 +13,15 @@ pub fn get_current_time() -> TimeVal {
         let mut ret = mem::MaybeUninit::uninit();
         glib_sys::g_get_current_time(ret.as_mut_ptr());
         ret.assume_init()
+    }
+}
+
+#[doc(hidden)]
+impl<'a> ToGlibPtr<'a, *const glib_sys::GTimeVal> for TimeVal {
+    type Storage = &'a Self;
+
+    fn to_glib_none(&'a self) -> Stash<'a, *const glib_sys::GTimeVal, Self> {
+        Stash(self as *const _, self)
     }
 }
 
