@@ -200,10 +200,13 @@ pub use log::{
 };
 
 #[cfg(any(feature = "log", feature = "dox"))]
+extern crate log as rs_log;
+
+#[cfg(any(feature = "log", feature = "dox"))]
 #[macro_use]
 mod bridged_logging;
 #[cfg(any(feature = "log", feature = "dox"))]
-pub use bridged_logging::{GlibLogger, GlibLoggerDomain, GlibLoggerFormat};
+pub use bridged_logging::{rust_log_handler, GlibLogger, GlibLoggerDomain, GlibLoggerFormat};
 
 pub mod send_unique;
 pub use send_unique::{SendUnique, SendUniqueCell};
