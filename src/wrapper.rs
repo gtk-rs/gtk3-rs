@@ -335,7 +335,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name, @get_type $get_type_expr, @extends [], @implements []);
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, (), $rust_class_name, @get_type $get_type_expr, @extends [], @implements []);
     };
 
     // Object, class struct, no parents or interfaces
@@ -359,7 +359,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, (), $rust_class_name,
             @get_type $get_type_expr, @extends [$($extends),+], @implements []);
     };
 
@@ -385,7 +385,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, (), $rust_class_name,
             @get_type $get_type_expr, @extends [], @implements [$($implements),+]);
     };
 
@@ -411,7 +411,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, (), $rust_class_name,
             @get_type $get_type_expr, @extends [$($extends),+], @implements [$($implements),+]);
     };
 
@@ -452,6 +452,3 @@ macro_rules! glib_wrapper {
         $crate::glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, @get_type $get_type_expr, @requires [$($requires),+]);
     };
 }
-
-// So we can refer to the empty type by a path
-pub type Void = ();
