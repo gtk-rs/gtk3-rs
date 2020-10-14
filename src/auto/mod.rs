@@ -5,6 +5,10 @@
 mod pixbuf;
 pub use self::pixbuf::{Pixbuf, PixbufClass};
 
+mod pixbuf_animation;
+pub use self::pixbuf_animation::PixbufAnimationExt;
+pub use self::pixbuf_animation::{PixbufAnimation, PixbufAnimationClass, NONE_PIXBUF_ANIMATION};
+
 mod pixbuf_loader;
 pub use self::pixbuf_loader::PixbufLoaderExt;
 pub use self::pixbuf_loader::{PixbufLoader, PixbufLoaderClass, NONE_PIXBUF_LOADER};
@@ -24,5 +28,6 @@ pub use self::enums::PixbufRotation;
 
 #[doc(hidden)]
 pub mod traits {
+    pub use super::PixbufAnimationExt;
     pub use super::PixbufLoaderExt;
 }

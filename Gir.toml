@@ -19,7 +19,6 @@ generate = [
 ]
 
 manual = [
-    "GdkPixbuf.PixbufAnimation",
     "GdkPixbuf.PixbufAnimationIter",
     "Gio.AsyncReadyCallback",
     "Gio.Cancellable",
@@ -93,6 +92,14 @@ status = "generate"
     [[object.function]]
     name = "save_to_streamv_async"
     # manual complex param
+    ignore = true
+
+[[object]]
+name = "GdkPixbuf.PixbufAnimation"
+status = "generate"
+    [[object.function]]
+    name = "get_iter"
+    # TimeVal misses memory management functions
     ignore = true
 
 [[object]]
