@@ -297,7 +297,6 @@ pub trait ObjectSubclass: Sized + 'static {
             assert_ne!(type_, Type::Invalid);
 
             let offset = -data.as_ref().private_offset;
-            assert_ne!(offset, 0);
 
             let ptr = self as *const Self as *const u8;
             let ptr = ptr.offset(offset);
