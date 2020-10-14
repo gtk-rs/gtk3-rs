@@ -718,7 +718,7 @@ macro_rules! glib_weak_impl {
 /// ObjectType implementations for Object types. See `glib_wrapper!`.
 #[macro_export]
 macro_rules! glib_object_wrapper {
-    (@generic_impl [$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:path, @get_type $get_type_expr:expr) => {
+    (@generic_impl [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty, $rust_class_name:path, @get_type $get_type_expr:expr) => {
         $(#[$attr])*
         // Always derive Hash/Ord (and below impl Debug, PartialEq, Eq, PartialOrd) for object
         // types. Due to inheritance and up/downcasting we must implement these by pointer or
@@ -1174,7 +1174,7 @@ macro_rules! glib_object_wrapper {
         $crate::glib_object_wrapper!(@munch_impls $name, $($implements)*);
     };
 
-    (@class_impl $name:ident, $ffi_class_name:path, $rust_class_name:ident) => {
+    (@class_impl $name:ident, $ffi_class_name:ty, $rust_class_name:ident) => {
         #[repr(C)]
         #[derive(Debug)]
         pub struct $rust_class_name($ffi_class_name);
@@ -1189,13 +1189,13 @@ macro_rules! glib_object_wrapper {
 
     // This case is only for glib::Object itself below. All other cases have glib::Object in its
     // parent class list
-    (@object [$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:ident, @get_type $get_type_expr:expr) => {
+    (@object [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty, $rust_class_name:ident, @get_type $get_type_expr:expr) => {
         $crate::glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
             @get_type $get_type_expr);
         $crate::glib_object_wrapper!(@class_impl $name, $ffi_class_name, $rust_class_name);
     };
 
-    (@object [$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:ident,
+    (@object [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty, $rust_class_name:ident,
         @get_type $get_type_expr:expr, @extends [$($extends:tt)*], @implements [$($implements:tt)*]) => {
         $crate::glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
             @get_type $get_type_expr);
@@ -1214,7 +1214,7 @@ macro_rules! glib_object_wrapper {
         unsafe impl $crate::object::IsA<$crate::object::Object> for $name { }
     };
 
-    (@interface [$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr, @requires [$($requires:tt)*]) => {
+    (@interface [$($attr:meta)*] $name:ident, $ffi_name:ty, @get_type $get_type_expr:expr, @requires [$($requires:tt)*]) => {
         $crate::glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $crate::wrapper::Void,
             @get_type $get_type_expr);
         $crate::glib_object_wrapper!(@munch_impls $name, $($requires)*);

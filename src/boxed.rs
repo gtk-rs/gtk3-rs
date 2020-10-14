@@ -16,7 +16,7 @@ use translate::*;
 /// Wrapper implementations for Boxed types. See `glib_wrapper!`.
 #[macro_export]
 macro_rules! glib_boxed_wrapper {
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, @copy $copy_arg:ident $copy_expr:expr,
+    ([$($attr:meta)*] $name:ident, $ffi_name:ty, @copy $copy_arg:ident $copy_expr:expr,
      @free $free_arg:ident $free_expr:expr, @init $init_arg:ident $init_expr:expr, @clear $clear_arg:ident $clear_expr:expr,
      @get_type $get_type_expr:expr) => {
         glib_boxed_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name);
@@ -25,27 +25,27 @@ macro_rules! glib_boxed_wrapper {
         glib_boxed_wrapper!(@value_impl $name, $ffi_name, @get_type $get_type_expr);
     };
 
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, @copy $copy_arg:ident $copy_expr:expr,
+    ([$($attr:meta)*] $name:ident, $ffi_name:ty, @copy $copy_arg:ident $copy_expr:expr,
      @free $free_arg:ident $free_expr:expr, @init $init_arg:ident $init_expr:expr, @clear $clear_arg:ident $clear_expr:expr) => {
         glib_boxed_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name);
         glib_boxed_wrapper!(@memory_manager_impl $name, $ffi_name, @copy $copy_arg $copy_expr, @free $free_arg $free_expr,
                             @init $init_arg $init_expr, @clear $clear_arg $clear_expr);
     };
 
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, @copy $copy_arg:ident $copy_expr:expr,
+    ([$($attr:meta)*] $name:ident, $ffi_name:ty, @copy $copy_arg:ident $copy_expr:expr,
      @free $free_arg:ident $free_expr:expr) => {
         glib_boxed_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name);
         glib_boxed_wrapper!(@memory_manager_impl $name, $ffi_name, @copy $copy_arg $copy_expr, @free $free_arg $free_expr);
     };
 
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, @copy $copy_arg:ident $copy_expr:expr,
+    ([$($attr:meta)*] $name:ident, $ffi_name:ty, @copy $copy_arg:ident $copy_expr:expr,
      @free $free_arg:ident $free_expr:expr, @get_type $get_type_expr:expr) => {
         glib_boxed_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name);
         glib_boxed_wrapper!(@memory_manager_impl $name, $ffi_name, @copy $copy_arg $copy_expr, @free $free_arg $free_expr);
         glib_boxed_wrapper!(@value_impl $name, $ffi_name, @get_type $get_type_expr);
     };
 
-    (@generic_impl [$($attr:meta)*] $name:ident, $ffi_name:path) => {
+    (@generic_impl [$($attr:meta)*] $name:ident, $ffi_name:ty) => {
         $(#[$attr])*
         #[derive(Clone)]
         pub struct $name($crate::boxed::Boxed<$ffi_name, MemoryManager>);
@@ -256,7 +256,7 @@ macro_rules! glib_boxed_wrapper {
         }
     };
 
-    (@value_impl $name:ident, $ffi_name:path, @get_type $get_type_expr:expr) => {
+    (@value_impl $name:ident, $ffi_name:ty, @get_type $get_type_expr:expr) => {
         impl $crate::types::StaticType for $name {
             fn static_type() -> $crate::types::Type {
                 #[allow(unused_unsafe)]
@@ -289,7 +289,7 @@ macro_rules! glib_boxed_wrapper {
         }
     };
 
-    (@memory_manager_impl $name:ident, $ffi_name:path, @copy $copy_arg:ident $copy_expr:expr, @free $free_arg:ident $free_expr:expr) => {
+    (@memory_manager_impl $name:ident, $ffi_name:ty, @copy $copy_arg:ident $copy_expr:expr, @free $free_arg:ident $free_expr:expr) => {
         #[doc(hidden)]
         pub enum MemoryManager {}
 
@@ -316,7 +316,7 @@ macro_rules! glib_boxed_wrapper {
         }
     };
 
-    (@memory_manager_impl $name:ident, $ffi_name:path, @copy $copy_arg:ident $copy_expr:expr, @free $free_arg:ident $free_expr:expr,
+    (@memory_manager_impl $name:ident, $ffi_name:ty, @copy $copy_arg:ident $copy_expr:expr, @free $free_arg:ident $free_expr:expr,
          @init $init_arg:ident $init_expr:expr, @clear $clear_arg:ident $clear_expr:expr) => {
         #[doc(hidden)]
         pub struct MemoryManager;
