@@ -758,7 +758,7 @@ macro_rules! glib_object_wrapper {
             }
 
             fn as_ptr(&self) -> *mut Self::GlibType {
-                self.0.to_glib_none().0 as *mut _
+                $crate::translate::ToGlibPtr::to_glib_none(&self.0).0 as *mut _
             }
         }
 
@@ -1072,7 +1072,7 @@ macro_rules! glib_object_wrapper {
                 }
 
                 // And take the reference to the object from above to pass it to the caller
-                Option::<$name>::from_glib_full(obj as *mut $ffi_name).map(|o| $crate::object::Cast::unsafe_cast(o))
+                <Option::<$name> as $crate::translate::FromGlibPtrFull<*mut $ffi_name>>::from_glib_full(obj as *mut $ffi_name).map(|o| $crate::object::Cast::unsafe_cast(o))
             }
         }
 
