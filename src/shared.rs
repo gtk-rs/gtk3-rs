@@ -14,7 +14,7 @@ use translate::*;
 /// Wrapper implementations for shared types. See `glib_wrapper!`.
 #[macro_export]
 macro_rules! glib_shared_wrapper {
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, @ref $ref_arg:ident $ref_expr:expr,
+    ([$($attr:meta)*] $name:ident, $ffi_name:ty, @ref $ref_arg:ident $ref_expr:expr,
      @unref $unref_arg:ident $unref_expr:expr,
      @get_type $get_type_expr:expr) => {
         glib_shared_wrapper!([$($attr)*] $name, $ffi_name, @ref $ref_arg $ref_expr,
@@ -52,7 +52,7 @@ macro_rules! glib_shared_wrapper {
         }
     };
 
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, @ref $ref_arg:ident $ref_expr:expr,
+    ([$($attr:meta)*] $name:ident, $ffi_name:ty, @ref $ref_arg:ident $ref_expr:expr,
      @unref $unref_arg:ident $unref_expr:expr) => {
         $(#[$attr])*
         #[derive(Clone)]

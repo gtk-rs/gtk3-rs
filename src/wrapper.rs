@@ -240,7 +240,7 @@ macro_rules! glib_wrapper {
 
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Boxed<$ffi_name:path>);
+        pub struct $name:ident(Boxed<$ffi_name:ty>);
 
         match fn {
             copy => |$copy_arg:ident| $copy_expr:expr,
@@ -253,7 +253,7 @@ macro_rules! glib_wrapper {
 
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Boxed<$ffi_name:path>);
+        pub struct $name:ident(Boxed<$ffi_name:ty>);
 
         match fn {
             copy => |$copy_arg:ident| $copy_expr:expr,
@@ -267,7 +267,7 @@ macro_rules! glib_wrapper {
 
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Boxed<$ffi_name:path>);
+        pub struct $name:ident(Boxed<$ffi_name:ty>);
 
         match fn {
             copy => |$copy_arg:ident| $copy_expr:expr,
@@ -282,7 +282,7 @@ macro_rules! glib_wrapper {
 
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Boxed<$ffi_name:path>);
+        pub struct $name:ident(Boxed<$ffi_name:ty>);
 
         match fn {
             copy => |$copy_arg:ident| $copy_expr:expr,
@@ -301,7 +301,7 @@ macro_rules! glib_wrapper {
 
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Shared<$ffi_name:path>);
+        pub struct $name:ident(Shared<$ffi_name:ty>);
 
         match fn {
             ref => |$ref_arg:ident| $ref_expr:expr,
@@ -314,7 +314,7 @@ macro_rules! glib_wrapper {
 
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Shared<$ffi_name:path>);
+        pub struct $name:ident(Shared<$ffi_name:ty>);
 
         match fn {
             ref => |$ref_arg:ident| $ref_expr:expr,
@@ -329,19 +329,19 @@ macro_rules! glib_wrapper {
     // Object, no class struct, no parents or interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path, $rust_class_name:ident>);
+        pub struct $name:ident(Object<$ffi_name:ty, $rust_class_name:ident>);
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name, @get_type $get_type_expr, @extends [], @implements []);
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, (), $rust_class_name, @get_type $get_type_expr, @extends [], @implements []);
     };
 
     // Object, class struct, no parents or interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path, $rust_class_name:ident>);
+        pub struct $name:ident(Object<$ffi_name:ty, $ffi_class_name:ty, $rust_class_name:ident>);
 
         match fn {
             get_type => || $get_type_expr:expr,
@@ -353,20 +353,20 @@ macro_rules! glib_wrapper {
     // Object, no class struct, parents, no interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path, $rust_class_name:ident>) @extends $($extends:path),+;
+        pub struct $name:ident(Object<$ffi_name:ty, $rust_class_name:ident>) @extends $($extends:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, (), $rust_class_name,
             @get_type $get_type_expr, @extends [$($extends),+], @implements []);
     };
 
     // Object, class struct, parents, no interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path, $rust_class_name:ident>) @extends $($extends:path),+;
+        pub struct $name:ident(Object<$ffi_name:ty, $ffi_class_name:ty, $rust_class_name:ident>) @extends $($extends:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
@@ -379,20 +379,20 @@ macro_rules! glib_wrapper {
     // Object, no class struct, no parents, interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path, $rust_class_name:ident>) @implements $($implements:path),+;
+        pub struct $name:ident(Object<$ffi_name:ty, $rust_class_name:ident>) @implements $($implements:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, (), $rust_class_name,
             @get_type $get_type_expr, @extends [], @implements [$($implements),+]);
     };
 
     // Object, class struct, no parents, interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path, $rust_class_name:ident>) @implements $($implements:path),+;
+        pub struct $name:ident(Object<$ffi_name:ty, $ffi_class_name:ty, $rust_class_name:ident>) @implements $($implements:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
@@ -405,20 +405,20 @@ macro_rules! glib_wrapper {
     // Object, no class struct, parents and interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path, $rust_class_name:ident>) @extends $($extends:path),+, @implements $($implements:path),+;
+        pub struct $name:ident(Object<$ffi_name:ty, $rust_class_name:ident>) @extends $($extends:path),+, @implements $($implements:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, (), $rust_class_name,
             @get_type $get_type_expr, @extends [$($extends),+], @implements [$($implements),+]);
     };
 
     // Object, class struct, parents and interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path, $rust_class_name:ident>) @extends $($extends:path),+, @implements $($implements:path),+;
+        pub struct $name:ident(Object<$ffi_name:ty, $ffi_class_name:ty, $rust_class_name:ident>) @extends $($extends:path),+, @implements $($implements:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
@@ -431,7 +431,7 @@ macro_rules! glib_wrapper {
     // Interface, no prerequisites
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Interface<$ffi_name:path>);
+        pub struct $name:ident(Interface<$ffi_name:ty>);
 
         match fn {
             get_type => || $get_type_expr:expr,
@@ -443,7 +443,7 @@ macro_rules! glib_wrapper {
     // Interface, prerequisites
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Interface<$ffi_name:path>) @requires $($requires:path),+;
+        pub struct $name:ident(Interface<$ffi_name:ty>) @requires $($requires:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
@@ -452,6 +452,3 @@ macro_rules! glib_wrapper {
         $crate::glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, @get_type $get_type_expr, @requires [$($requires),+]);
     };
 }
-
-// So we can refer to the empty type by a path
-pub type Void = ();
