@@ -91,7 +91,7 @@
 //! // This is the struct containing all state carried with
 //! // the new type. Generally this has to make use of
 //! // interior mutability.
-//! pub struct SimpleObject {
+//! pub struct SimpleObjectPrivate {
 //!     name: RefCell<Option<String>>,
 //!     animal: Cell<Animal>,
 //!     flags: Cell<MyFlags>,
@@ -100,7 +100,7 @@
 //! // ObjectSubclass is the trait that defines the new type and
 //! // contains all information needed by the GObject type system,
 //! // including the new type's name, parent type, etc.
-//! impl ObjectSubclass for SimpleObject {
+//! impl ObjectSubclass for SimpleObjectPrivate {
 //!     // This type name must be unique per process.
 //!     const NAME: &'static str = "SimpleObject";
 //!
@@ -137,7 +137,7 @@
 //! }
 //!
 //! // Trait that is used to override virtual methods of glib::Object.
-//! impl ObjectImpl for SimpleObject {
+//! impl ObjectImpl for SimpleObjectPrivate {
 //!     // Called whenever a property is set on this instance. The id
 //!     // is the same as the index of the property in the PROPERTIES array.
 //!     fn set_property(&self, _obj: &glib::Object, id: usize, value: &glib::Value) {
@@ -189,9 +189,23 @@
 //!     }
 //! }
 //!
-//! pub fn main() {
+//! // Optionally, define a wrapper type to make it more ergonomic to use from Rust
+//! glib_wrapper! {
+//!     pub struct SimpleObject(ObjectSubclass<SimpleObjectPrivate, SimpleObjectClass>);
+//! }
+//!
+//! impl SimpleObject {
 //!     // Create an object instance of the new type.
-//!     let obj = glib::Object::new(SimpleObject::get_type(), &[]).unwrap();
+//!     pub fn new() -> Self {
+//!         glib::Object::new(Self::static_type(), &[])
+//!             .unwrap()
+//!             .downcast()
+//!             .unwrap()
+//!     }
+//! }
+//!
+//! pub fn main() {
+//!     let obj = SimpleObject::new();
 //!
 //!     // Get the name property and change its value.
 //!     assert_eq!(obj.get_property("name").unwrap().get::<&str>(), Ok(None));

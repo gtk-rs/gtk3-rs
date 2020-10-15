@@ -428,6 +428,47 @@ macro_rules! glib_wrapper {
             @get_type $get_type_expr, @extends [$($extends),+], @implements [$($implements),+]);
     };
 
+    // ObjectSubclass, no parents or interfaces
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(ObjectSubclass<$subclass:ty, $rust_class_name:ident>);
+    ) => {
+        use glib::translate::ToGlib;
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class, $rust_class_name,
+            @get_type $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclass>::get_type()),
+            @extends [], @implements []);
+    };
+
+    // ObjectSubclass, no parents, interfaces
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(ObjectSubclass<$subclass:ty, $rust_class_name:ident>) @implements $($implements:path),+;
+    ) => {
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class, $rust_class_name,
+            @get_type $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclass>::get_type()),
+            @extends [], @implements [$($implements),+]);
+    };
+
+    // ObjectSubclass, parents, no interfaces
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(ObjectSubclass<$subclass:ty, $rust_class_name:ident>) @extends $($extends:path),+;
+    ) => {
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class, $rust_class_name,
+            @get_type $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclass>::get_type()),
+            @extends [$($extends),+], @implements []);
+    };
+
+    // ObjectSubclass, parents and interfaces
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(ObjectSubclass<$subclass:ty, $rust_class_name:ident>) @extends $($extends:path),+, @implements $($implements:path),+;
+    ) => {
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class, $rust_class_name,
+            @get_type $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclass>::get_type()),
+            @extends [$($extends),+], @implements [$($implements),+]);
+    };
+
     // Interface, no prerequisites
     (
         $(#[$attr:meta])*
