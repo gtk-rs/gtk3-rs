@@ -617,3 +617,31 @@ concurrency = "send+sync"
     [[object.function]]
     name = "error_quark"
     ignore = true # see issue #697
+    [[object.function]]
+    name = "join"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "join_with_user"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "build"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "build_with_user"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "to_string_partial"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "escape_bytes"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "escape_string"
+        [object.function.return]
+        nullable = false

@@ -110,7 +110,7 @@ impl Uri {
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
-    pub fn to_string_partial(&self, flags: UriHideFlags) -> Option<GString> {
+    pub fn to_string_partial(&self, flags: UriHideFlags) -> GString {
         unsafe {
             from_glib_full(glib_sys::g_uri_to_string_partial(
                 self.to_glib_none().0,
@@ -129,7 +129,7 @@ impl Uri {
         path: &str,
         query: Option<&str>,
         fragment: Option<&str>,
-    ) -> Option<Uri> {
+    ) -> Uri {
         unsafe {
             from_glib_full(glib_sys::g_uri_build(
                 flags.to_glib(),
@@ -156,7 +156,7 @@ impl Uri {
         path: &str,
         query: Option<&str>,
         fragment: Option<&str>,
-    ) -> Option<Uri> {
+    ) -> Uri {
         unsafe {
             from_glib_full(glib_sys::g_uri_build_with_user(
                 flags.to_glib(),
@@ -174,7 +174,7 @@ impl Uri {
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
-    pub fn escape_bytes(unescaped: &[u8], reserved_chars_allowed: Option<&str>) -> Option<GString> {
+    pub fn escape_bytes(unescaped: &[u8], reserved_chars_allowed: Option<&str>) -> GString {
         let length = unescaped.len() as usize;
         unsafe {
             from_glib_full(glib_sys::g_uri_escape_bytes(
@@ -189,7 +189,7 @@ impl Uri {
         unescaped: &str,
         reserved_chars_allowed: Option<&str>,
         allow_utf8: bool,
-    ) -> Option<GString> {
+    ) -> GString {
         unsafe {
             from_glib_full(glib_sys::g_uri_escape_string(
                 unescaped.to_glib_none().0,
@@ -223,7 +223,7 @@ impl Uri {
         path: &str,
         query: Option<&str>,
         fragment: Option<&str>,
-    ) -> Option<GString> {
+    ) -> GString {
         unsafe {
             from_glib_full(glib_sys::g_uri_join(
                 flags.to_glib(),
@@ -250,7 +250,7 @@ impl Uri {
         path: &str,
         query: Option<&str>,
         fragment: Option<&str>,
-    ) -> Option<GString> {
+    ) -> GString {
         unsafe {
             from_glib_full(glib_sys::g_uri_join_with_user(
                 flags.to_glib(),
