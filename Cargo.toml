@@ -1,11 +1,11 @@
 [package]
 name = "gio"
 license = "MIT"
-homepage = "http://gtk-rs.org/"
+homepage = "https://gtk-rs.org/"
 authors = ["The Gtk-rs Project Developers"]
 keywords = ["glib", "gio", "gtk-rs", "gnome"]
 readme = "README.md"
-documentation = "http://gtk-rs.org/docs/gio/"
+documentation = "https://gtk-rs.org/docs/gio/"
 version = "0.9.0"
 description = "Rust bindings for the Gio library"
 repository = "https://github.com/gtk-rs/gio"
