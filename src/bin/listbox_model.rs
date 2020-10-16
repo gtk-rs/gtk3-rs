@@ -213,7 +213,6 @@ mod row_data {
 
     use glib::subclass;
     use glib::subclass::prelude::*;
-    use glib::translate::*;
 
     // Implementation sub-module of the GObject
     mod imp {
@@ -320,11 +319,7 @@ mod row_data {
     // Public part of the RowData type. This behaves like a normal gtk-rs-style GObject
     // binding
     glib_wrapper! {
-        pub struct RowData(Object<subclass::simple::InstanceStruct<imp::RowData>, subclass::simple::ClassStruct<imp::RowData>, RowDataClass>);
-
-        match fn {
-            get_type => || imp::RowData::get_type().to_glib(),
-        }
+        pub struct RowData(ObjectSubclass<imp::RowData, RowDataClass>);
     }
 
     // Constructor for new instances. This simply calls glib::Object::new() with
