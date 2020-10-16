@@ -14,7 +14,6 @@ use Bytes;
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 use Error;
 use GString;
-use Quark;
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 use UriFlags;
 #[cfg(any(feature = "v2_66", feature = "dox"))]
@@ -172,10 +171,6 @@ impl Uri {
                 fragment.to_glib_none().0,
             ))
         }
-    }
-
-    pub fn error_quark() -> Quark {
-        unsafe { from_glib(glib_sys::g_uri_error_quark()) }
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]

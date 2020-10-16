@@ -27,10 +27,10 @@ generate = [
     "GLib.TimeSpan",
     "GLib.FileTest",
     "GLib.IOCondition",
+    "GLib.UriError",
     "GLib.UriFlags",
     "GLib.UriHideFlags",
     "GLib.UriParamsFlags",
-    "GLib.UriError",
     "GLib.UriParamsIter",
 ]
 
@@ -614,3 +614,6 @@ concurrency = "send+sync"
 name = "GLib.Uri"
 status = "generate"
 concurrency = "send+sync"
+    [[object.function]]
+    name = "error_quark"
+    ignore = true # see issue #697
