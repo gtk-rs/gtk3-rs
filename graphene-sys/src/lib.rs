@@ -333,6 +333,7 @@ impl ::std::fmt::Debug for graphene_vec4_t {
     }
 }
 
+#[link(name = "graphene-1.0")]
 extern "C" {
 
     //=========================================================================
