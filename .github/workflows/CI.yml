@@ -9,6 +9,8 @@ jobs:
   check:
     name: Rust project
     runs-on: ubuntu-20.04
+    container:
+      image: fedora:latest
     strategy:
       matrix:
         rust:
@@ -17,7 +19,7 @@ jobs:
           - nightly
           - "1.40.0"
     steps:
-      - run: sudo apt install -y libgraphene-1.0-dev
+      - run: sudo dnf install -y gtk4-devel gcc graphene-devel git
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
         with:
@@ -39,6 +41,14 @@ jobs:
           command: build
           args: --features "purge-lgpl-docs"
       - run: git diff -R --exit-code
+      - uses: actions/checkout@v2
+        with:
+          repository: gtk-rs/examples4
+          ref: master
+          path: examples4
+      - name: Examples
+        working-directory: examples4
+        run: cargo check
 
   fmt:
     name: Rustfmt
