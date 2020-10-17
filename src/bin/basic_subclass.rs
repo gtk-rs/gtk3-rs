@@ -18,7 +18,6 @@ use gtk::prelude::*;
 use gio::subclass::prelude::*;
 use gio::ApplicationFlags;
 use glib::subclass;
-use glib::translate::*;
 use gtk::subclass::prelude::*;
 
 use once_cell::unsync::OnceCell;
@@ -31,94 +30,91 @@ struct WindowWidgets {
     label: gtk::Label,
 }
 
-// This is the private part of our `SimpleWindow` object.
-// Its where state and widgets are stored when they don't
-// need to be publicly accesible.
-#[derive(Debug)]
-pub struct SimpleWindowPrivate {
-    widgets: OnceCell<WindowWidgets>,
-    counter: Cell<u64>,
-}
+mod imp_win {
+    use super::*;
 
-impl ObjectSubclass for SimpleWindowPrivate {
-    const NAME: &'static str = "SimpleWindowPrivate";
-    type ParentType = gtk::ApplicationWindow;
-    type Instance = subclass::simple::InstanceStruct<Self>;
-    type Class = subclass::simple::ClassStruct<Self>;
+    // This is the private part of our `SimpleWindow` object.
+    // Its where state and widgets are stored when they don't
+    // need to be publicly accesible.
+    #[derive(Debug)]
+    pub struct SimpleWindow {
+        widgets: OnceCell<WindowWidgets>,
+        counter: Cell<u64>,
+    }
 
-    glib_object_subclass!();
+    impl ObjectSubclass for SimpleWindow {
+        const NAME: &'static str = "SimpleWindow";
+        type ParentType = gtk::ApplicationWindow;
+        type Instance = subclass::simple::InstanceStruct<Self>;
+        type Class = subclass::simple::ClassStruct<Self>;
 
-    fn new() -> Self {
-        Self {
-            widgets: OnceCell::new(),
-            counter: Cell::new(0),
+        glib_object_subclass!();
+
+        fn new() -> Self {
+            Self {
+                widgets: OnceCell::new(),
+                counter: Cell::new(0),
+            }
         }
     }
-}
 
-impl ObjectImpl for SimpleWindowPrivate {
-    // Here we are overriding the glib::Objcet::contructed
-    // method. Its what gets called when we create our Object
-    // and where we can initialize things.
-    fn constructed(&self, obj: &glib::Object) {
-        self.parent_constructed(obj);
+    impl ObjectImpl for SimpleWindow {
+        // Here we are overriding the glib::Objcet::contructed
+        // method. Its what gets called when we create our Object
+        // and where we can initialize things.
+        fn constructed(&self, obj: &glib::Object) {
+            self.parent_constructed(obj);
 
-        let self_ = obj.downcast_ref::<SimpleWindow>().unwrap();
+            let self_ = obj.downcast_ref::<super::SimpleWindow>().unwrap();
 
-        let headerbar = gtk::HeaderBar::new();
-        let increment = gtk::Button::with_label("Increment!");
-        let label = gtk::Label::new(Some("Press the Increment Button!"));
+            let headerbar = gtk::HeaderBar::new();
+            let increment = gtk::Button::with_label("Increment!");
+            let label = gtk::Label::new(Some("Press the Increment Button!"));
 
-        headerbar.set_title(Some("Hello World!"));
-        headerbar.set_show_close_button(true);
-        headerbar.pack_start(&increment);
+            headerbar.set_title(Some("Hello World!"));
+            headerbar.set_show_close_button(true);
+            headerbar.pack_start(&increment);
 
-        // Connect our method `on_increment_clicked` to be called
-        // when the increment button is clicked.
-        increment.connect_clicked(clone!(@weak self_ => move |_| {
-            let priv_ = SimpleWindowPrivate::from_instance(&self_);
-            priv_.on_increment_clicked();
-        }));
+            // Connect our method `on_increment_clicked` to be called
+            // when the increment button is clicked.
+            increment.connect_clicked(clone!(@weak self_ => move |_| {
+                let priv_ = SimpleWindow::from_instance(&self_);
+                priv_.on_increment_clicked();
+            }));
 
-        self_.add(&label);
-        self_.set_titlebar(Some(&headerbar));
-        self_.set_default_size(640, 480);
+            self_.add(&label);
+            self_.set_titlebar(Some(&headerbar));
+            self_.set_default_size(640, 480);
 
-        self.widgets
-            .set(WindowWidgets {
-                headerbar,
-                label,
-                increment,
-            })
-            .expect("Failed to initialize window state");
+            self.widgets
+                .set(WindowWidgets {
+                    headerbar,
+                    label,
+                    increment,
+                })
+                .expect("Failed to initialize window state");
+        }
     }
-}
 
-impl SimpleWindowPrivate {
-    fn on_increment_clicked(&self) {
-        self.counter.set(self.counter.get() + 1);
-        let w = self.widgets.get().unwrap();
-        w.label
-            .set_text(&format!("Counter is {}", self.counter.get()));
+    impl SimpleWindow {
+        fn on_increment_clicked(&self) {
+            self.counter.set(self.counter.get() + 1);
+            let w = self.widgets.get().unwrap();
+            w.label
+                .set_text(&format!("Counter is {}", self.counter.get()));
+        }
     }
-}
 
-impl WidgetImpl for SimpleWindowPrivate {}
-impl ContainerImpl for SimpleWindowPrivate {}
-impl BinImpl for SimpleWindowPrivate {}
-impl WindowImpl for SimpleWindowPrivate {}
-impl ApplicationWindowImpl for SimpleWindowPrivate {}
+    impl WidgetImpl for SimpleWindow {}
+    impl ContainerImpl for SimpleWindow {}
+    impl BinImpl for SimpleWindow {}
+    impl WindowImpl for SimpleWindow {}
+    impl ApplicationWindowImpl for SimpleWindow {}
+}
 
 glib_wrapper! {
-    pub struct SimpleWindow(
-        Object<subclass::simple::InstanceStruct<SimpleWindowPrivate>,
-        subclass::simple::ClassStruct<SimpleWindowPrivate>,
-        SimpleAppWindowClass>)
+    pub struct SimpleWindow(ObjectSubclass<imp_win::SimpleWindow, SimpleWindowClass>)
         @extends gtk::Widget, gtk::Container, gtk::Bin, gtk::Window, gtk::ApplicationWindow;
-
-    match fn {
-        get_type => || SimpleWindowPrivate::get_type().to_glib(),
-    }
 }
 
 impl SimpleWindow {
@@ -130,79 +126,76 @@ impl SimpleWindow {
     }
 }
 
-#[derive(Debug)]
-pub struct SimpleApplicationPrivate {
-    window: OnceCell<SimpleWindow>,
-}
+mod imp_app {
+    use super::*;
 
-impl ObjectSubclass for SimpleApplicationPrivate {
-    const NAME: &'static str = "SimpleApplicationPrivate";
-    type ParentType = gtk::Application;
-    type Instance = subclass::simple::InstanceStruct<Self>;
-    type Class = subclass::simple::ClassStruct<Self>;
+    #[derive(Debug)]
+    pub struct SimpleApplication {
+        window: OnceCell<SimpleWindow>,
+    }
 
-    glib_object_subclass!();
+    impl ObjectSubclass for SimpleApplication {
+        const NAME: &'static str = "SimpleApplication";
+        type ParentType = gtk::Application;
+        type Instance = subclass::simple::InstanceStruct<Self>;
+        type Class = subclass::simple::ClassStruct<Self>;
 
-    fn new() -> Self {
-        Self {
-            window: OnceCell::new(),
+        glib_object_subclass!();
+
+        fn new() -> Self {
+            Self {
+                window: OnceCell::new(),
+            }
         }
     }
-}
 
-impl ObjectImpl for SimpleApplicationPrivate {}
+    impl ObjectImpl for SimpleApplication {}
 
-// When our application starts, the `startup` signal will be fired.
-// This gives us a chance to perform initialisation tasks that are not directly
-// related to showing a new window. After this, depending on how
-// the application is started, either `activate` or `open` will be called next.
-impl ApplicationImpl for SimpleApplicationPrivate {
-    // `gio::Application::activate` is what gets called when the
-    // application is launched by the desktop environment and
-    // aksed to present itself.
-    fn activate(&self, app: &gio::Application) {
-        let app = app.downcast_ref::<gtk::Application>().unwrap();
-        let priv_ = SimpleApplicationPrivate::from_instance(app);
-        let window = priv_
-            .window
-            .get()
-            .expect("Should always be initiliazed in gio_application_startup");
-        window.show_all();
-        window.present();
+    // When our application starts, the `startup` signal will be fired.
+    // This gives us a chance to perform initialisation tasks that are not directly
+    // related to showing a new window. After this, depending on how
+    // the application is started, either `activate` or `open` will be called next.
+    impl ApplicationImpl for SimpleApplication {
+        // `gio::Application::activate` is what gets called when the
+        // application is launched by the desktop environment and
+        // aksed to present itself.
+        fn activate(&self, app: &gio::Application) {
+            let app = app.downcast_ref::<gtk::Application>().unwrap();
+            let priv_ = SimpleApplication::from_instance(app);
+            let window = priv_
+                .window
+                .get()
+                .expect("Should always be initiliazed in gio_application_startup");
+            window.show_all();
+            window.present();
+        }
+
+        // `gio::Application` is bit special. It does not get initialized
+        // when `new` is called and the object created, but rather
+        // once the `startup` signal is emitted and the `gio::Application::startup`
+        // is called.
+        //
+        // Due to this, we create and initialize the `SimpleWindow` widget
+        // here. Widgets can't be created before `startup` has been called.
+        fn startup(&self, app: &gio::Application) {
+            self.parent_startup(app);
+
+            let app = app.downcast_ref::<gtk::Application>().unwrap();
+            let priv_ = SimpleApplication::from_instance(app);
+            let window = SimpleWindow::new(&app);
+            priv_
+                .window
+                .set(window)
+                .expect("Failed to initialize application window");
+        }
     }
 
-    // `gio::Application` is bit special. It does not get initialized
-    // when `new` is called and the object created, but rather
-    // once the `startup` signal is emitted and the `gio::Application::startup`
-    // is called.
-    //
-    // Due to this, we create and initialize the `SimpleWindow` widget
-    // here. Widgets can't be created before `startup` has been called.
-    fn startup(&self, app: &gio::Application) {
-        self.parent_startup(app);
-
-        let app = app.downcast_ref::<gtk::Application>().unwrap();
-        let priv_ = SimpleApplicationPrivate::from_instance(app);
-        let window = SimpleWindow::new(&app);
-        priv_
-            .window
-            .set(window)
-            .expect("Failed to initialize application window");
-    }
+    impl GtkApplicationImpl for SimpleApplication {}
 }
-
-impl GtkApplicationImpl for SimpleApplicationPrivate {}
 
 glib_wrapper! {
-    pub struct SimpleApplication(
-        Object<subclass::simple::InstanceStruct<SimpleApplicationPrivate>,
-        subclass::simple::ClassStruct<SimpleApplicationPrivate>,
-        SimpleApplicationClass>)
+    pub struct SimpleApplication(ObjectSubclass<imp_app::SimpleApplication, SimpleApplicationClass>)
         @extends gio::Application, gtk::Application;
-
-    match fn {
-        get_type => || SimpleApplicationPrivate::get_type().to_glib(),
-    }
 }
 
 impl SimpleApplication {
