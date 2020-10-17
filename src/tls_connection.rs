@@ -25,7 +25,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionManualExt for O {
             let data = ptr::null_mut();
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_tls_connection_get_channel_binding_data(
-                self.to_glib_none().0,
+                self.as_ptr() as *mut _,
                 type_.to_glib(),
                 data,
                 &mut error,
