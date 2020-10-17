@@ -1,4 +1,4 @@
-# graphene [![Build Status](https://travis-ci.org/gtk-rs/graphene.png?branch=master)](https://travis-ci.org/gtk-rs/graphene)
+# graphene ![CI](https://github.com/gtk-rs/graphene/workflows/CI/badge.svg)
 
 Graphene bindings for Rust.
 
