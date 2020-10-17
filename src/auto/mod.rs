@@ -23,6 +23,11 @@ pub use self::source::Source;
 mod time_zone;
 pub use self::time_zone::TimeZone;
 
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+mod uri;
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+pub use self::uri::Uri;
+
 mod enums;
 pub use self::enums::ChecksumType;
 pub use self::enums::DateMonth;
@@ -31,8 +36,12 @@ pub use self::enums::KeyFileError;
 pub use self::enums::OptionArg;
 pub use self::enums::SeekType;
 pub use self::enums::TimeType;
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+pub use self::enums::UriError;
 
 mod flags;
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+pub use self::flags::FileSetContentsFlags;
 pub use self::flags::FileTest;
 pub use self::flags::FormatSizeFlags;
 pub use self::flags::IOCondition;
@@ -40,6 +49,12 @@ pub use self::flags::KeyFileFlags;
 pub use self::flags::LogLevelFlags;
 pub use self::flags::OptionFlags;
 pub use self::flags::SpawnFlags;
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+pub use self::flags::UriFlags;
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+pub use self::flags::UriHideFlags;
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+pub use self::flags::UriParamsFlags;
 
 mod alias;
 pub use self::alias::DateDay;

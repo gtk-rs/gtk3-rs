@@ -49,6 +49,7 @@ v2_58 = ["v2_56", "glib-sys/v2_58", "gobject-sys/v2_58"]
 v2_60 = ["v2_58", "glib-sys/v2_60"]
 v2_62 = ["v2_60", "glib-sys/v2_62", "gobject-sys/v2_62"]
 v2_64 = ["v2_62", "glib-sys/v2_64"]
+v2_66 = ["v2_64", "glib-sys/v2_66"]
 log_macros = ["log"]
 dox = ["glib-sys/dox", "gobject-sys/dox", "log_macros"]
 

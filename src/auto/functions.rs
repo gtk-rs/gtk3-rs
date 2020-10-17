@@ -12,6 +12,8 @@ use translate::*;
 use Bytes;
 use ChecksumType;
 use Error;
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+use FileSetContentsFlags;
 use FileTest;
 use FormatSizeFlags;
 use GString;
@@ -504,6 +506,32 @@ pub fn file_set_contents<P: AsRef<std::path::Path>>(
             filename.as_ref().to_glib_none().0,
             contents.to_glib_none().0,
             length,
+            &mut error,
+        );
+        if error.is_null() {
+            Ok(())
+        } else {
+            Err(from_glib_full(error))
+        }
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+pub fn file_set_contents_full<P: AsRef<std::path::Path>>(
+    filename: P,
+    contents: &[u8],
+    flags: FileSetContentsFlags,
+    mode: i32,
+) -> Result<(), Error> {
+    let length = contents.len() as isize;
+    unsafe {
+        let mut error = ptr::null_mut();
+        let _ = glib_sys::g_file_set_contents_full(
+            filename.as_ref().to_glib_none().0,
+            contents.to_glib_none().0,
+            length,
+            flags.to_glib(),
+            mode,
             &mut error,
         );
         if error.is_null() {
@@ -1260,58 +1288,6 @@ pub fn stpcpy(dest: &str, src: &str) -> Option<GString> {
 
 pub fn unlink<P: AsRef<std::path::Path>>(filename: P) -> i32 {
     unsafe { glib_sys::g_unlink(filename.as_ref().to_glib_none().0) }
-}
-
-pub fn uri_escape_string(
-    unescaped: &str,
-    reserved_chars_allowed: Option<&str>,
-    allow_utf8: bool,
-) -> Option<GString> {
-    unsafe {
-        from_glib_full(glib_sys::g_uri_escape_string(
-            unescaped.to_glib_none().0,
-            reserved_chars_allowed.to_glib_none().0,
-            allow_utf8.to_glib(),
-        ))
-    }
-}
-
-pub fn uri_list_extract_uris(uri_list: &str) -> Vec<GString> {
-    unsafe {
-        FromGlibPtrContainer::from_glib_full(glib_sys::g_uri_list_extract_uris(
-            uri_list.to_glib_none().0,
-        ))
-    }
-}
-
-pub fn uri_parse_scheme(uri: &str) -> Option<GString> {
-    unsafe { from_glib_full(glib_sys::g_uri_parse_scheme(uri.to_glib_none().0)) }
-}
-
-pub fn uri_unescape_segment(
-    escaped_string: Option<&str>,
-    escaped_string_end: Option<&str>,
-    illegal_characters: Option<&str>,
-) -> Option<GString> {
-    unsafe {
-        from_glib_full(glib_sys::g_uri_unescape_segment(
-            escaped_string.to_glib_none().0,
-            escaped_string_end.to_glib_none().0,
-            illegal_characters.to_glib_none().0,
-        ))
-    }
-}
-
-pub fn uri_unescape_string(
-    escaped_string: &str,
-    illegal_characters: Option<&str>,
-) -> Option<GString> {
-    unsafe {
-        from_glib_full(glib_sys::g_uri_unescape_string(
-            escaped_string.to_glib_none().0,
-            illegal_characters.to_glib_none().0,
-        ))
-    }
 }
 
 pub fn usleep(microseconds: libc::c_ulong) {
