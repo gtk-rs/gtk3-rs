@@ -41,14 +41,14 @@ jobs:
           command: build
           args: --features "purge-lgpl-docs"
       - run: git diff -R --exit-code
-      - uses: actions/checkout@v2
-        with:
-          repository: gtk-rs/examples4
-          ref: master
-          path: examples4
-      - name: Examples
-        working-directory: examples4
-        run: cargo check
+      # - uses: actions/checkout@v2
+      #   with:
+      #     repository: gtk-rs/examples4
+      #     ref: master
+      #     path: examples4
+      # - name: Examples
+      #   working-directory: examples4
+      #   run: cargo check
 
   fmt:
     name: Rustfmt
