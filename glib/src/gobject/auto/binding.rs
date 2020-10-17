@@ -26,7 +26,7 @@ impl Binding {
         unsafe { from_glib_none(gobject_sys::g_binding_get_source(self.to_glib_none().0)) }
     }
 
-    pub fn get_source_property(&self) -> Option<GString> {
+    pub fn get_source_property(&self) -> GString {
         unsafe {
             from_glib_none(gobject_sys::g_binding_get_source_property(
                 self.to_glib_none().0,
@@ -38,7 +38,7 @@ impl Binding {
         unsafe { from_glib_none(gobject_sys::g_binding_get_target(self.to_glib_none().0)) }
     }
 
-    pub fn get_target_property(&self) -> Option<GString> {
+    pub fn get_target_property(&self) -> GString {
         unsafe {
             from_glib_none(gobject_sys::g_binding_get_target_property(
                 self.to_glib_none().0,

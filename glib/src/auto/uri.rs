@@ -47,7 +47,7 @@ impl Uri {
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
-    pub fn get_host(&self) -> Option<GString> {
+    pub fn get_host(&self) -> GString {
         unsafe { from_glib_none(glib_sys::g_uri_get_host(self.to_glib_none().0)) }
     }
 
@@ -57,7 +57,7 @@ impl Uri {
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
-    pub fn get_path(&self) -> Option<GString> {
+    pub fn get_path(&self) -> GString {
         unsafe { from_glib_none(glib_sys::g_uri_get_path(self.to_glib_none().0)) }
     }
 
@@ -72,7 +72,7 @@ impl Uri {
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
-    pub fn get_scheme(&self) -> Option<GString> {
+    pub fn get_scheme(&self) -> GString {
         unsafe { from_glib_none(glib_sys::g_uri_get_scheme(self.to_glib_none().0)) }
     }
 

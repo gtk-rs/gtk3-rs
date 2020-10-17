@@ -36,7 +36,7 @@ impl Source {
     //    unsafe { TODO: call glib_sys:g_source_add_poll() }
     //}
 
-    //pub fn add_unix_fd(&self, fd: i32, events: IOCondition) -> /*Unimplemented*/Option<Fundamental: Pointer> {
+    //pub fn add_unix_fd(&self, fd: i32, events: IOCondition) -> /*Unimplemented*/Fundamental: Pointer {
     //    unsafe { TODO: call glib_sys:g_source_add_unix_fd() }
     //}
 

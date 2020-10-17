@@ -103,7 +103,7 @@ pub fn base64_decode(text: &str) -> Vec<u8> {
 //    unsafe { TODO: call glib_sys:g_base64_decode_step() }
 //}
 
-pub fn base64_encode(data: &[u8]) -> Option<GString> {
+pub fn base64_encode(data: &[u8]) -> GString {
     let len = data.len() as usize;
     unsafe { from_glib_full(glib_sys::g_base64_encode(data.to_glib_none().0, len)) }
 }
@@ -128,24 +128,24 @@ pub fn bit_storage(number: libc::c_ulong) -> u32 {
     unsafe { glib_sys::g_bit_storage(number) }
 }
 
-//pub fn build_filename<P: AsRef<std::path::Path>>(first_element: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<std::path::PathBuf> {
+//pub fn build_filename<P: AsRef<std::path::Path>>(first_element: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> std::path::PathBuf {
 //    unsafe { TODO: call glib_sys:g_build_filename() }
 //}
 
 //#[cfg(any(feature = "v2_56", feature = "dox"))]
-//pub fn build_filename_valist<P: AsRef<std::path::Path>>(first_element: P, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<std::path::PathBuf> {
+//pub fn build_filename_valist<P: AsRef<std::path::Path>>(first_element: P, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> std::path::PathBuf {
 //    unsafe { TODO: call glib_sys:g_build_filename_valist() }
 //}
 
-pub fn build_filenamev(args: &[&std::path::Path]) -> Option<std::path::PathBuf> {
+pub fn build_filenamev(args: &[&std::path::Path]) -> std::path::PathBuf {
     unsafe { from_glib_full(glib_sys::g_build_filenamev(args.to_glib_none().0)) }
 }
 
-//pub fn build_path<P: AsRef<std::path::Path>, Q: AsRef<std::path::Path>>(separator: P, first_element: Q, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<std::path::PathBuf> {
+//pub fn build_path<P: AsRef<std::path::Path>, Q: AsRef<std::path::Path>>(separator: P, first_element: Q, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> std::path::PathBuf {
 //    unsafe { TODO: call glib_sys:g_build_path() }
 //}
 
-pub fn build_pathv(separator: &str, args: &[&std::path::Path]) -> Option<std::path::PathBuf> {
+pub fn build_pathv(separator: &str, args: &[&std::path::Path]) -> std::path::PathBuf {
     unsafe {
         from_glib_full(glib_sys::g_build_pathv(
             separator.to_glib_none().0,
@@ -158,7 +158,7 @@ pub fn build_pathv(separator: &str, args: &[&std::path::Path]) -> Option<std::pa
 pub fn canonicalize_filename<P: AsRef<std::path::Path>, Q: AsRef<std::path::Path>>(
     filename: P,
     relative_to: Q,
-) -> Option<std::path::PathBuf> {
+) -> std::path::PathBuf {
     unsafe {
         from_glib_full(glib_sys::g_canonicalize_filename(
             filename.as_ref().to_glib_none().0,
@@ -171,11 +171,7 @@ pub fn chdir<P: AsRef<std::path::Path>>(path: P) -> i32 {
     unsafe { glib_sys::g_chdir(path.as_ref().to_glib_none().0) }
 }
 
-pub fn check_version(
-    required_major: u32,
-    required_minor: u32,
-    required_micro: u32,
-) -> Option<GString> {
+pub fn check_version(required_major: u32, required_minor: u32, required_micro: u32) -> GString {
     unsafe {
         from_glib_none(glib_sys::glib_check_version(
             required_major,
@@ -198,7 +194,7 @@ pub fn clear_error() -> Result<(), Error> {
 }
 
 //#[cfg(any(feature = "v2_56", feature = "dox"))]
-//pub fn clear_handle_id<P: Fn(u32) + Send + Sync + 'static>(tag_ptr: u32, clear_func: P) {
+//pub fn clear_handle_id<P: Fn(u32) + 'static>(tag_ptr: u32, clear_func: P) {
 //    unsafe { TODO: call glib_sys:g_clear_handle_id() }
 //}
 
@@ -216,7 +212,7 @@ pub fn clear_error() -> Result<(), Error> {
 //    unsafe { TODO: call glib_sys:g_clear_slist() }
 //}
 
-pub fn compute_checksum_for_bytes(checksum_type: ChecksumType, data: &Bytes) -> Option<GString> {
+pub fn compute_checksum_for_bytes(checksum_type: ChecksumType, data: &Bytes) -> GString {
     unsafe {
         from_glib_full(glib_sys::g_compute_checksum_for_bytes(
             checksum_type.to_glib(),
@@ -225,7 +221,7 @@ pub fn compute_checksum_for_bytes(checksum_type: ChecksumType, data: &Bytes) -> 
     }
 }
 
-pub fn compute_checksum_for_data(checksum_type: ChecksumType, data: &[u8]) -> Option<GString> {
+pub fn compute_checksum_for_data(checksum_type: ChecksumType, data: &[u8]) -> GString {
     let length = data.len() as usize;
     unsafe {
         from_glib_full(glib_sys::g_compute_checksum_for_data(
@@ -236,7 +232,7 @@ pub fn compute_checksum_for_data(checksum_type: ChecksumType, data: &[u8]) -> Op
     }
 }
 
-pub fn compute_checksum_for_string(checksum_type: ChecksumType, str: &str) -> Option<GString> {
+pub fn compute_checksum_for_string(checksum_type: ChecksumType, str: &str) -> GString {
     let length = str.len() as isize;
     unsafe {
         from_glib_full(glib_sys::g_compute_checksum_for_string(
@@ -248,11 +244,7 @@ pub fn compute_checksum_for_string(checksum_type: ChecksumType, str: &str) -> Op
 }
 
 #[cfg(any(feature = "v2_50", feature = "dox"))]
-pub fn compute_hmac_for_bytes(
-    digest_type: ChecksumType,
-    key: &Bytes,
-    data: &Bytes,
-) -> Option<GString> {
+pub fn compute_hmac_for_bytes(digest_type: ChecksumType, key: &Bytes, data: &Bytes) -> GString {
     unsafe {
         from_glib_full(glib_sys::g_compute_hmac_for_bytes(
             digest_type.to_glib(),
@@ -262,11 +254,7 @@ pub fn compute_hmac_for_bytes(
     }
 }
 
-pub fn compute_hmac_for_data(
-    digest_type: ChecksumType,
-    key: &[u8],
-    data: &[u8],
-) -> Option<GString> {
+pub fn compute_hmac_for_data(digest_type: ChecksumType, key: &[u8], data: &[u8]) -> GString {
     let key_len = key.len() as usize;
     let length = data.len() as usize;
     unsafe {
@@ -280,11 +268,7 @@ pub fn compute_hmac_for_data(
     }
 }
 
-pub fn compute_hmac_for_string(
-    digest_type: ChecksumType,
-    key: &[u8],
-    str: &str,
-) -> Option<GString> {
+pub fn compute_hmac_for_string(digest_type: ChecksumType, key: &[u8], str: &str) -> GString {
     let key_len = key.len() as usize;
     let length = str.len() as isize;
     unsafe {
@@ -370,7 +354,7 @@ pub fn compute_hmac_for_string(
 //    unsafe { TODO: call glib_sys:g_dataset_id_set_data_full() }
 //}
 
-pub fn dcgettext(domain: Option<&str>, msgid: &str, category: i32) -> Option<GString> {
+pub fn dcgettext(domain: Option<&str>, msgid: &str, category: i32) -> GString {
     unsafe {
         from_glib_none(glib_sys::g_dcgettext(
             domain.to_glib_none().0,
@@ -380,7 +364,7 @@ pub fn dcgettext(domain: Option<&str>, msgid: &str, category: i32) -> Option<GSt
     }
 }
 
-pub fn dgettext(domain: Option<&str>, msgid: &str) -> Option<GString> {
+pub fn dgettext(domain: Option<&str>, msgid: &str) -> GString {
     unsafe {
         from_glib_none(glib_sys::g_dgettext(
             domain.to_glib_none().0,
@@ -402,7 +386,7 @@ pub fn dngettext(
     msgid: &str,
     msgid_plural: &str,
     n: libc::c_ulong,
-) -> Option<GString> {
+) -> GString {
     unsafe {
         from_glib_none(glib_sys::g_dngettext(
             domain.to_glib_none().0,
@@ -421,7 +405,7 @@ pub fn dngettext(
 //    unsafe { TODO: call glib_sys:g_double_hash() }
 //}
 
-pub fn dpgettext(domain: Option<&str>, msgctxtid: &str, msgidoffset: usize) -> Option<GString> {
+pub fn dpgettext(domain: Option<&str>, msgctxtid: &str, msgidoffset: usize) -> GString {
     unsafe {
         from_glib_none(glib_sys::g_dpgettext(
             domain.to_glib_none().0,
@@ -431,7 +415,7 @@ pub fn dpgettext(domain: Option<&str>, msgctxtid: &str, msgidoffset: usize) -> O
     }
 }
 
-pub fn dpgettext2(domain: Option<&str>, context: &str, msgid: &str) -> Option<GString> {
+pub fn dpgettext2(domain: Option<&str>, context: &str, msgid: &str) -> GString {
     unsafe {
         from_glib_none(glib_sys::g_dpgettext2(
             domain.to_glib_none().0,
@@ -551,7 +535,7 @@ pub fn file_test<P: AsRef<std::path::Path>>(filename: P, test: FileTest) -> bool
     }
 }
 
-pub fn filename_display_basename<P: AsRef<std::path::Path>>(filename: P) -> Option<GString> {
+pub fn filename_display_basename<P: AsRef<std::path::Path>>(filename: P) -> GString {
     unsafe {
         from_glib_full(glib_sys::g_filename_display_basename(
             filename.as_ref().to_glib_none().0,
@@ -559,7 +543,7 @@ pub fn filename_display_basename<P: AsRef<std::path::Path>>(filename: P) -> Opti
     }
 }
 
-pub fn filename_display_name<P: AsRef<std::path::Path>>(filename: P) -> Option<GString> {
+pub fn filename_display_name<P: AsRef<std::path::Path>>(filename: P) -> GString {
     unsafe {
         from_glib_full(glib_sys::g_filename_display_name(
             filename.as_ref().to_glib_none().0,
@@ -567,11 +551,11 @@ pub fn filename_display_name<P: AsRef<std::path::Path>>(filename: P) -> Option<G
     }
 }
 
-pub fn format_size(size: u64) -> Option<GString> {
+pub fn format_size(size: u64) -> GString {
     unsafe { from_glib_full(glib_sys::g_format_size(size)) }
 }
 
-pub fn format_size_full(size: u64, flags: FormatSizeFlags) -> Option<GString> {
+pub fn format_size_full(size: u64, flags: FormatSizeFlags) -> GString {
     unsafe { from_glib_full(glib_sys::g_format_size_full(size, flags.to_glib())) }
 }
 
@@ -599,7 +583,7 @@ pub fn get_charset() -> Option<GString> {
     }
 }
 
-pub fn get_codeset() -> Option<GString> {
+pub fn get_codeset() -> GString {
     unsafe { from_glib_full(glib_sys::g_get_codeset()) }
 }
 
@@ -625,7 +609,7 @@ pub fn get_environ() -> Vec<std::ffi::OsString> {
     unsafe { FromGlibPtrContainer::from_glib_full(glib_sys::g_get_environ()) }
 }
 
-pub fn get_host_name() -> Option<GString> {
+pub fn get_host_name() -> GString {
     unsafe { from_glib_none(glib_sys::g_get_host_name()) }
 }
 
@@ -675,23 +659,23 @@ pub fn get_system_data_dirs() -> Vec<std::path::PathBuf> {
     unsafe { FromGlibPtrContainer::from_glib_none(glib_sys::g_get_system_data_dirs()) }
 }
 
-pub fn get_user_cache_dir() -> Option<std::path::PathBuf> {
+pub fn get_user_cache_dir() -> std::path::PathBuf {
     unsafe { from_glib_none(glib_sys::g_get_user_cache_dir()) }
 }
 
-pub fn get_user_config_dir() -> Option<std::path::PathBuf> {
+pub fn get_user_config_dir() -> std::path::PathBuf {
     unsafe { from_glib_none(glib_sys::g_get_user_config_dir()) }
 }
 
-pub fn get_user_data_dir() -> Option<std::path::PathBuf> {
+pub fn get_user_data_dir() -> std::path::PathBuf {
     unsafe { from_glib_none(glib_sys::g_get_user_data_dir()) }
 }
 
-pub fn get_user_runtime_dir() -> Option<std::path::PathBuf> {
+pub fn get_user_runtime_dir() -> std::path::PathBuf {
     unsafe { from_glib_none(glib_sys::g_get_user_runtime_dir()) }
 }
 
-pub fn get_user_special_dir(directory: UserDirectory) -> Option<std::path::PathBuf> {
+pub fn get_user_special_dir(directory: UserDirectory) -> std::path::PathBuf {
     unsafe { from_glib_none(glib_sys::g_get_user_special_dir(directory.to_glib())) }
 }
 
@@ -715,11 +699,11 @@ pub fn hostname_is_non_ascii(hostname: &str) -> bool {
     unsafe { from_glib(glib_sys::g_hostname_is_non_ascii(hostname.to_glib_none().0)) }
 }
 
-pub fn hostname_to_ascii(hostname: &str) -> Option<GString> {
+pub fn hostname_to_ascii(hostname: &str) -> GString {
     unsafe { from_glib_full(glib_sys::g_hostname_to_ascii(hostname.to_glib_none().0)) }
 }
 
-pub fn hostname_to_unicode(hostname: &str) -> Option<GString> {
+pub fn hostname_to_unicode(hostname: &str) -> GString {
     unsafe { from_glib_full(glib_sys::g_hostname_to_unicode(hostname.to_glib_none().0)) }
 }
 
@@ -755,7 +739,7 @@ pub fn hostname_to_unicode(hostname: &str) -> Option<GString> {
 //    unsafe { TODO: call glib_sys:g_io_add_watch_full() }
 //}
 
-//pub fn io_create_watch(channel: /*Ignored*/&IOChannel, condition: IOCondition) -> Option<Source> {
+//pub fn io_create_watch(channel: /*Ignored*/&IOChannel, condition: IOCondition) -> Source {
 //    unsafe { TODO: call glib_sys:g_io_create_watch() }
 //}
 
@@ -778,7 +762,7 @@ pub fn listenv() -> Vec<std::ffi::OsString> {
 //}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
-//pub fn log_writer_format_fields(log_level: LogLevelFlags, fields: /*Ignored*/&[&LogField], use_color: bool) -> Option<GString> {
+//pub fn log_writer_format_fields(log_level: LogLevelFlags, fields: /*Ignored*/&[&LogField], use_color: bool) -> GString {
 //    unsafe { TODO: call glib_sys:g_log_writer_format_fields() }
 //}
 
@@ -796,7 +780,7 @@ pub fn listenv() -> Vec<std::ffi::OsString> {
 //    unsafe { TODO: call glib_sys:g_logv() }
 //}
 
-pub fn main_current_source() -> Option<Source> {
+pub fn main_current_source() -> Source {
     unsafe { from_glib_none(glib_sys::g_main_current_source()) }
 }
 
@@ -834,11 +818,11 @@ pub fn markup_escape_text(text: &str) -> GString {
     }
 }
 
-//pub fn markup_printf_escaped(format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<GString> {
+//pub fn markup_printf_escaped(format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> GString {
 //    unsafe { TODO: call glib_sys:g_markup_printf_escaped() }
 //}
 
-//pub fn markup_vprintf_escaped(format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<GString> {
+//pub fn markup_vprintf_escaped(format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> GString {
 //    unsafe { TODO: call glib_sys:g_markup_vprintf_escaped() }
 //}
 
@@ -904,7 +888,7 @@ pub fn on_error_stack_trace(prg_name: &str) {
 //    unsafe { TODO: call glib_sys:g_parse_debug_string() }
 //}
 
-pub fn path_get_basename<P: AsRef<std::path::Path>>(file_name: P) -> Option<std::path::PathBuf> {
+pub fn path_get_basename<P: AsRef<std::path::Path>>(file_name: P) -> std::path::PathBuf {
     unsafe {
         from_glib_full(glib_sys::g_path_get_basename(
             file_name.as_ref().to_glib_none().0,
@@ -912,7 +896,7 @@ pub fn path_get_basename<P: AsRef<std::path::Path>>(file_name: P) -> Option<std:
     }
 }
 
-pub fn path_get_dirname<P: AsRef<std::path::Path>>(file_name: P) -> Option<std::path::PathBuf> {
+pub fn path_get_dirname<P: AsRef<std::path::Path>>(file_name: P) -> std::path::PathBuf {
     unsafe {
         from_glib_full(glib_sys::g_path_get_dirname(
             file_name.as_ref().to_glib_none().0,
@@ -1061,11 +1045,11 @@ pub fn set_application_name(application_name: &str) {
 //    unsafe { TODO: call glib_sys:g_set_error() }
 //}
 
-//pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) -> Option<Box_<dyn Fn(&str) + 'static>> {
+//pub fn set_print_handler<P: Fn(&str) + 'static>(func: P) -> Fn(&str) + 'static {
 //    unsafe { TODO: call glib_sys:g_set_print_handler() }
 //}
 
-//pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) -> Option<Box_<dyn Fn(&str) + 'static>> {
+//pub fn set_printerr_handler<P: Fn(&str) + 'static>(func: P) -> Fn(&str) + 'static {
 //    unsafe { TODO: call glib_sys:g_set_printerr_handler() }
 //}
 
@@ -1093,7 +1077,7 @@ pub fn shell_parse_argv<P: AsRef<std::ffi::OsStr>>(
     }
 }
 
-pub fn shell_quote<P: AsRef<std::ffi::OsStr>>(unquoted_string: P) -> Option<std::ffi::OsString> {
+pub fn shell_quote<P: AsRef<std::ffi::OsStr>>(unquoted_string: P) -> std::ffi::OsString {
     unsafe {
         from_glib_full(glib_sys::g_shell_quote(
             unquoted_string.as_ref().to_glib_none().0,
@@ -1239,7 +1223,7 @@ pub fn spawn_command_line_async<P: AsRef<std::ffi::OsStr>>(command_line: P) -> R
 //    unsafe { TODO: call glib_sys:g_sprintf() }
 //}
 
-pub fn stpcpy(dest: &str, src: &str) -> Option<GString> {
+pub fn stpcpy(dest: &str, src: &str) -> GString {
     unsafe {
         from_glib_full(glib_sys::g_stpcpy(
             dest.to_glib_none().0,
