@@ -1,7 +1,7 @@
 [package]
 name = "pango"
-documentation = "http://gtk-rs.org/docs/pango/"
-homepage = "http://gtk-rs.org/"
+documentation = "https://gtk-rs.org/docs/pango/"
+homepage = "https://gtk-rs.org/"
 authors = ["The Gtk-rs Project Developers"]
 keywords = ["pango", "gtk-rs", "gnome"]
 readme = "README.md"
