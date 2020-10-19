@@ -8,7 +8,7 @@ use std::ptr;
 
 use enums::{FontSlant, FontType, FontWeight};
 
-#[cfg(any(feature = "use_freetype", feature = "dox"))]
+#[cfg(any(feature = "freetype", feature = "dox"))]
 use enums::FtSynthesize;
 
 use utils::status_to_result;
@@ -45,8 +45,8 @@ impl FontFace {
     }
 
     // Safety: the FT_Face must be valid and not be freed until the `FontFace` is dropped.
-    #[cfg(any(feature = "use_freetype", feature = "dox"))]
-    pub unsafe fn create_from_ft(face: freetype::freetype::FT_Face) -> FontFace {
+    #[cfg(any(feature = "freetype", feature = "dox"))]
+    pub unsafe fn create_from_ft(face: freetype_crate::freetype::FT_Face) -> FontFace {
         let font_face = FontFace::from_raw_full(ffi::cairo_ft_font_face_create_for_ft_face(
             face as *mut _,
             0,
@@ -57,9 +57,9 @@ impl FontFace {
     }
 
     // Safety: the FT_Face must be valid and not be freed until the `FontFace` is dropped.
-    #[cfg(any(feature = "use_freetype", feature = "dox"))]
+    #[cfg(any(feature = "freetype", feature = "dox"))]
     pub unsafe fn create_from_ft_with_flags(
-        face: freetype::freetype::FT_Face,
+        face: freetype_crate::freetype::FT_Face,
         load_flags: c_int,
     ) -> FontFace {
         let font_face = FontFace::from_raw_full(ffi::cairo_ft_font_face_create_for_ft_face(
@@ -123,17 +123,17 @@ impl FontFace {
         unsafe { ffi::cairo_font_face_get_reference_count(self.to_raw_none()) as usize }
     }
 
-    #[cfg(any(feature = "use_freetype", feature = "dox"))]
+    #[cfg(any(feature = "freetype", feature = "dox"))]
     pub fn get_synthesize(&self) -> FtSynthesize {
         unsafe { FtSynthesize::from(ffi::cairo_ft_font_face_get_synthesize(self.to_raw_none())) }
     }
 
-    #[cfg(any(feature = "use_freetype", feature = "dox"))]
+    #[cfg(any(feature = "freetype", feature = "dox"))]
     pub fn set_synthesize(&self, synth_flags: FtSynthesize) {
         unsafe { ffi::cairo_ft_font_face_set_synthesize(self.to_raw_none(), synth_flags.into()) }
     }
 
-    #[cfg(any(feature = "use_freetype", feature = "dox"))]
+    #[cfg(any(feature = "freetype", feature = "dox"))]
     pub fn unset_synthesize(&self, synth_flags: FtSynthesize) {
         unsafe { ffi::cairo_ft_font_face_unset_synthesize(self.to_raw_none(), synth_flags.into()) }
     }
