@@ -114,7 +114,6 @@ use std::ffi::CStr;
 pub use string::String;
 
 pub use enums::{EnumClass, EnumValue, FlagsBuilder, FlagsClass, FlagsValue, UserDirectory};
-pub use time_val::{get_current_time, TimeVal};
 pub use types::{StaticType, Type};
 pub use value::{SendValue, ToSendValue, ToValue, TypedValue, Value};
 pub use variant::{FromVariant, StaticVariantType, ToVariant, Variant};
@@ -162,7 +161,6 @@ pub mod prelude;
 pub mod signal;
 pub mod source;
 pub use source::*;
-mod time_val;
 #[macro_use]
 pub mod translate;
 mod gstring;
