@@ -753,16 +753,6 @@ impl<T: ?Sized + SetValue> ToValue for T {
     }
 }
 
-impl ToValue for Value {
-    fn to_value(&self) -> Value {
-        self.clone()
-    }
-
-    fn to_value_type(&self) -> Type {
-        self.type_()
-    }
-}
-
 /// A version of [`Value`](struct.Value.html) for storing `Send` types, that implements Send
 /// itself.
 ///
@@ -870,22 +860,6 @@ impl<T: SetValueOptional + Send + ToValue> ToSendValue for Option<T> {
 impl<T: ?Sized + SetValue + Send + ToValue> ToSendValue for T {
     fn to_send_value(&self) -> SendValue {
         SendValue(self.to_value())
-    }
-}
-
-impl ToSendValue for SendValue {
-    fn to_send_value(&self) -> SendValue {
-        self.clone()
-    }
-}
-
-impl ToValue for SendValue {
-    fn to_value(&self) -> Value {
-        self.0.clone()
-    }
-
-    fn to_value_type(&self) -> Type {
-        self.type_()
     }
 }
 
