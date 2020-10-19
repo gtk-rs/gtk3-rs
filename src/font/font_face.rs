@@ -123,11 +123,7 @@ impl FontFace {
         unsafe { ffi::cairo_font_face_get_reference_count(self.to_raw_none()) as usize }
     }
 
-    #[cfg(any(
-        feature = "use_
-            reetype",
-        feature = "dox"
-    ))]
+    #[cfg(any(feature = "use_freetype", feature = "dox"))]
     pub fn get_synthesize(&self) -> FtSynthesize {
         unsafe { FtSynthesize::from(ffi::cairo_ft_font_face_get_synthesize(self.to_raw_none())) }
     }
