@@ -1899,65 +1899,6 @@ impl<T: ObjectType> ObjectExt for T {
         unsafe {
             let type_ = self.get_type();
 
-            let mut signal_id = 0;
-            let mut signal_detail = 0;
-
-            let found: bool = from_glib(gobject_sys::g_signal_parse_name(
-                signal_name.to_glib_none().0,
-                type_.to_glib(),
-                &mut signal_id,
-                &mut signal_detail,
-                true.to_glib(),
-            ));
-
-            if !found {
-                return Err(glib_bool_error!(
-                    "Signal '{}' of type '{}' not found",
-                    signal_name,
-                    type_
-                ));
-            }
-
-            let mut details = mem::MaybeUninit::zeroed();
-            gobject_sys::g_signal_query(signal_id, details.as_mut_ptr());
-            let details = details.assume_init();
-            if details.signal_id != signal_id {
-                return Err(glib_bool_error!(
-                    "Signal '{}' of type '{}' not found",
-                    signal_name,
-                    type_
-                ));
-            }
-
-            if details.n_params != args.len() as u32 {
-                return Err(
-                    glib_bool_error!(
-                        "Incompatible number of arguments for signal '{}' of type '{}' (expected {}, got {})",
-                        signal_name,
-                        type_,
-                        details.n_params,
-                        args.len(),
-                    )
-                );
-            }
-
-            for (i, item) in args.iter().enumerate() {
-                let arg_type =
-                    *(details.param_types.add(i)) & (!gobject_sys::G_TYPE_FLAG_RESERVED_ID_BIT);
-                if arg_type != item.to_value_type().to_glib() {
-                    return Err(
-                        glib_bool_error!(
-                            "Incompatible argument type in argument {} for signal '{}' of type '{}' (expected {}, got {})",
-                            i,
-                            signal_name,
-                            type_,
-                            arg_type,
-                            item.to_value_type(),
-                        )
-                    );
-                }
-            }
-
             let mut v_args: Vec<Value>;
             let mut s_args: [Value; 10] = mem::zeroed();
             let self_v = {
@@ -1974,19 +1915,22 @@ impl<T: ObjectType> ObjectExt for T {
                 for (i, arg) in args.iter().enumerate() {
                     s_args[i + 1] = arg.to_value();
                 }
-                &s_args[0..=args.len()]
+                &mut s_args[0..=args.len()]
             } else {
                 v_args = Vec::with_capacity(args.len() + 1);
                 v_args.push(self_v);
                 for arg in args {
                     v_args.push(arg.to_value());
                 }
-                v_args.as_slice()
+                v_args.as_mut_slice()
             };
 
+            let (signal_id, signal_detail, return_type) =
+                validate_signal_arguments(type_, signal_name, &mut args[1..])?;
+
             let mut return_value = Value::uninitialized();
-            if details.return_type != gobject_sys::G_TYPE_NONE {
-                gobject_sys::g_value_init(return_value.to_glib_none_mut().0, details.return_type);
+            if return_type != Type::Unit {
+                gobject_sys::g_value_init(return_value.to_glib_none_mut().0, return_type.to_glib());
             }
 
             gobject_sys::g_signal_emitv(
@@ -2115,6 +2059,103 @@ fn validate_property_type(
     }
 
     Ok(())
+}
+
+fn validate_signal_arguments(
+    type_: Type,
+    signal_name: &str,
+    args: &mut [Value],
+) -> Result<(u32, u32, Type), ::BoolError> {
+    let mut signal_id = 0;
+    let mut signal_detail = 0;
+
+    let found: bool = unsafe {
+        from_glib(gobject_sys::g_signal_parse_name(
+            signal_name.to_glib_none().0,
+            type_.to_glib(),
+            &mut signal_id,
+            &mut signal_detail,
+            true.to_glib(),
+        ))
+    };
+
+    if !found {
+        return Err(glib_bool_error!(
+            "Signal '{}' of type '{}' not found",
+            signal_name,
+            type_
+        ));
+    }
+
+    let details = unsafe {
+        let mut details = mem::MaybeUninit::zeroed();
+        gobject_sys::g_signal_query(signal_id, details.as_mut_ptr());
+        details.assume_init()
+    };
+
+    if details.signal_id != signal_id {
+        return Err(glib_bool_error!(
+            "Signal '{}' of type '{}' not found",
+            signal_name,
+            type_
+        ));
+    }
+
+    if details.n_params != args.len() as u32 {
+        return Err(glib_bool_error!(
+            "Incompatible number of arguments for signal '{}' of type '{}' (expected {}, got {})",
+            signal_name,
+            type_,
+            details.n_params,
+            args.len(),
+        ));
+    }
+
+    let param_types =
+        unsafe { std::slice::from_raw_parts(details.param_types, details.n_params as usize) };
+
+    for (i, (arg, param_type)) in
+        Iterator::zip(args.iter_mut(), param_types.iter().copied().map(from_glib)).enumerate()
+    {
+        if arg.type_().is_a(&Object::static_type()) {
+            match arg.get::<Object>() {
+                Ok(Some(obj)) => {
+                    if obj.get_type().is_a(&param_type) {
+                        arg.0.g_type = param_type.to_glib();
+                    } else {
+                        return Err(
+                            glib_bool_error!(
+                                "Incompatible argument type in argument {} for signal '{}' of type '{}' (expected {}, got {})",
+                                i,
+                                signal_name,
+                                type_,
+                                param_type,
+                                arg.type_(),
+                            )
+                        );
+                    }
+                }
+                Ok(None) => {
+                    // If the value is None then the type is compatible too
+                    arg.0.g_type = param_type.to_glib();
+                }
+                Err(_) => unreachable!("property_value type conformity already checked"),
+            }
+        } else if param_type != arg.type_() {
+            return Err(
+                glib_bool_error!(
+                    "Incompatible argument type in argument {} for signal '{}' of type '{}' (expected {}, got {})",
+                    i,
+                    signal_name,
+                    type_,
+                    param_type,
+                    arg.type_(),
+                )
+            );
+        }
+    }
+
+    Ok((signal_id, signal_detail, from_glib(details.return_type)))
 }
 
 impl ObjectClass {
