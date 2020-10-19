@@ -59,7 +59,6 @@ generate = [
     "Gio.FileCopyFlags",
     "Gio.FileCreateFlags",
     "Gio.FileIcon",
-    "Gio.FileInfo",
     "Gio.FileInputStream",
     "Gio.FileIOStream",
     "Gio.FileMeasureFlags",
@@ -165,7 +164,6 @@ manual = [
     "GLib.Source",
     "GLib.SpawnFlags",
     "GLib.String",
-    "GLib.TimeVal",
     "GLib.Variant",
     "GLib.VariantDict",
     "GLib.VariantType",
@@ -610,6 +608,18 @@ status = "generate"
     [[object.function]]
     name = "iterate"
     # better with rust iterators
+    ignore = true
+
+[[object]]
+name = "Gio.FileInfo"
+status = "generate"
+    [[object.function]]
+    name = "get_modification_time"
+    # use SystemTime
+    ignore = true
+    [[object.function]]
+    name = "set_modification_time"
+    # use SystemTime
     ignore = true
 
 [[object]]

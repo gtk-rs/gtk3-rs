@@ -209,18 +209,6 @@ impl FileInfo {
         }
     }
 
-    #[cfg_attr(feature = "v2_62", deprecated)]
-    pub fn get_modification_time(&self) -> glib::TimeVal {
-        unsafe {
-            let mut result = glib::TimeVal::uninitialized();
-            gio_sys::g_file_info_get_modification_time(
-                self.to_glib_none().0,
-                result.to_glib_none_mut().0,
-            );
-            result
-        }
-    }
-
     pub fn get_name(&self) -> Option<std::path::PathBuf> {
         unsafe { from_glib_none(gio_sys::g_file_info_get_name(self.to_glib_none().0)) }
     }
@@ -449,16 +437,6 @@ impl FileInfo {
             gio_sys::g_file_info_set_modification_date_time(
                 self.to_glib_none().0,
                 mtime.to_glib_none().0,
-            );
-        }
-    }
-
-    #[cfg_attr(feature = "v2_62", deprecated)]
-    pub fn set_modification_time(&self, mtime: &mut glib::TimeVal) {
-        unsafe {
-            gio_sys::g_file_info_set_modification_time(
-                self.to_glib_none().0,
-                mtime.to_glib_none_mut().0,
             );
         }
     }
