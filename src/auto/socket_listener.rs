@@ -16,6 +16,7 @@ use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use Socket;
@@ -54,10 +55,47 @@ pub trait SocketListenerExt: 'static {
         cancellable: Option<&P>,
     ) -> Result<(SocketConnection, Option<glib::Object>), glib::Error>;
 
+    fn accept_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<(SocketConnection, Option<glib::Object>), glib::Error>) + Send + 'static,
+    >(
+        &self,
+        cancellable: Option<&P>,
+        callback: Q,
+    );
+
+    fn accept_async_future(
+        &self,
+    ) -> Pin<
+        Box_<
+            dyn std::future::Future<
+                    Output = Result<(SocketConnection, Option<glib::Object>), glib::Error>,
+                > + 'static,
+        >,
+    >;
+
     fn accept_socket<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
     ) -> Result<(Socket, Option<glib::Object>), glib::Error>;
+
+    fn accept_socket_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<(Socket, Option<glib::Object>), glib::Error>) + Send + 'static,
+    >(
+        &self,
+        cancellable: Option<&P>,
+        callback: Q,
+    );
+
+    fn accept_socket_async_future(
+        &self,
+    ) -> Pin<
+        Box_<
+            dyn std::future::Future<Output = Result<(Socket, Option<glib::Object>), glib::Error>>
+                + 'static,
+        >,
+    >;
 
     fn add_address<P: IsA<SocketAddress>, Q: IsA<glib::Object>>(
         &self,
@@ -126,6 +164,68 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         }
     }
 
+    fn accept_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<(SocketConnection, Option<glib::Object>), glib::Error>) + Send + 'static,
+    >(
+        &self,
+        cancellable: Option<&P>,
+        callback: Q,
+    ) {
+        let user_data: Box_<Q> = Box_::new(callback);
+        unsafe extern "C" fn accept_async_trampoline<
+            Q: FnOnce(Result<(SocketConnection, Option<glib::Object>), glib::Error>) + Send + 'static,
+        >(
+            _source_object: *mut gobject_sys::GObject,
+            res: *mut gio_sys::GAsyncResult,
+            user_data: glib_sys::gpointer,
+        ) {
+            let mut error = ptr::null_mut();
+            let mut source_object = ptr::null_mut();
+            let ret = gio_sys::g_socket_listener_accept_finish(
+                _source_object as *mut _,
+                res,
+                &mut source_object,
+                &mut error,
+            );
+            let result = if error.is_null() {
+                Ok((from_glib_full(ret), from_glib_none(source_object)))
+            } else {
+                Err(from_glib_full(error))
+            };
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
+            callback(result);
+        }
+        let callback = accept_async_trampoline::<Q>;
+        unsafe {
+            gio_sys::g_socket_listener_accept_async(
+                self.as_ref().to_glib_none().0,
+                cancellable.map(|p| p.as_ref()).to_glib_none().0,
+                Some(callback),
+                Box_::into_raw(user_data) as *mut _,
+            );
+        }
+    }
+
+    fn accept_async_future(
+        &self,
+    ) -> Pin<
+        Box_<
+            dyn std::future::Future<
+                    Output = Result<(SocketConnection, Option<glib::Object>), glib::Error>,
+                > + 'static,
+        >,
+    > {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            obj.accept_async(Some(&cancellable), move |res| {
+                send.resolve(res);
+            });
+
+            cancellable
+        }))
+    }
+
     fn accept_socket<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
@@ -145,6 +245,67 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
                 Err(from_glib_full(error))
             }
         }
+    }
+
+    fn accept_socket_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<(Socket, Option<glib::Object>), glib::Error>) + Send + 'static,
+    >(
+        &self,
+        cancellable: Option<&P>,
+        callback: Q,
+    ) {
+        let user_data: Box_<Q> = Box_::new(callback);
+        unsafe extern "C" fn accept_socket_async_trampoline<
+            Q: FnOnce(Result<(Socket, Option<glib::Object>), glib::Error>) + Send + 'static,
+        >(
+            _source_object: *mut gobject_sys::GObject,
+            res: *mut gio_sys::GAsyncResult,
+            user_data: glib_sys::gpointer,
+        ) {
+            let mut error = ptr::null_mut();
+            let mut source_object = ptr::null_mut();
+            let ret = gio_sys::g_socket_listener_accept_socket_finish(
+                _source_object as *mut _,
+                res,
+                &mut source_object,
+                &mut error,
+            );
+            let result = if error.is_null() {
+                Ok((from_glib_full(ret), from_glib_none(source_object)))
+            } else {
+                Err(from_glib_full(error))
+            };
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
+            callback(result);
+        }
+        let callback = accept_socket_async_trampoline::<Q>;
+        unsafe {
+            gio_sys::g_socket_listener_accept_socket_async(
+                self.as_ref().to_glib_none().0,
+                cancellable.map(|p| p.as_ref()).to_glib_none().0,
+                Some(callback),
+                Box_::into_raw(user_data) as *mut _,
+            );
+        }
+    }
+
+    fn accept_socket_async_future(
+        &self,
+    ) -> Pin<
+        Box_<
+            dyn std::future::Future<Output = Result<(Socket, Option<glib::Object>), glib::Error>>
+                + 'static,
+        >,
+    > {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            obj.accept_socket_async(Some(&cancellable), move |res| {
+                send.resolve(res);
+            });
+
+            cancellable
+        }))
     }
 
     fn add_address<P: IsA<SocketAddress>, Q: IsA<glib::Object>>(

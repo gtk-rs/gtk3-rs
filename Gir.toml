@@ -118,6 +118,7 @@ generate = [
     "Gio.SocketConnectable",
     "Gio.SocketConnection",
     "Gio.SocketFamily",
+    "Gio.SocketListener",
     "Gio.SocketListenerEvent",
     "Gio.SocketProtocol",
     "Gio.SocketService",
@@ -934,22 +935,6 @@ status = "generate"
 concurrency = "send+sync"
 
 [[object]]
-name = "Gio.SocketListener"
-status = "generate"
-manual_traits = ["SocketListenerExtManual"]
-    [[object.function]]
-    name = "accept_socket_async"
-    # finish function misses nullable return annotation
-    ignore = true
-    doc_trait_name = "SocketListenerExtManual"
-
-    [[object.function]]
-    name = "accept_async"
-    # finish function misses nullable return annotation
-    ignore = true
-    doc_trait_name = "SocketListenerExtManual"
-
-[[object]]
 name = "Gio.Subprocess"
 status = "generate"
     [[object.function]]
@@ -1010,11 +995,6 @@ status = "generate"
     name = "new"
     # Better to provide None than -1 when you don't want to specify the number of threads
     ignore = true
-    [[object.signal]]
-    name = "run"
-        [[object.signal.parameter]]
-        name = "source_object"
-        nullable = true
 
 [[object]]
 name = "Gio.TlsConnection"

@@ -67,7 +67,6 @@ pub use pollable_output_stream::OutputStreamAsyncWrite;
 mod resource;
 mod settings;
 mod socket;
-mod socket_listener;
 mod subprocess;
 mod subprocess_launcher;
 mod threaded_socket_service;
