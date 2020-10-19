@@ -2,8 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-extern crate log as rs_log;
-
+use crate::log as glib_log;
 use glib_sys;
 use translate::*;
 
@@ -47,6 +46,16 @@ pub enum GlibLoggerDomain {
 /// In order to use this type, `glib` must be built with the `log` feature
 /// enabled.
 ///
+/// Use this if you want to use glib as the main logging output in your application,
+/// and want to route all logging happening through the log crate to glib logging.
+/// If you want the opposite, see
+/// [`rust_log_handler`](fn.rust_log_handler.html).
+///
+/// NOTE: This should never be used when
+/// [`rust_log_handler`](fn.rust_log_handler.html) has
+/// been registered as a default glib log handler, otherwise a stack overflow
+/// will occur.
+///
 /// Example:
 ///
 /// ```no_run
@@ -70,6 +79,8 @@ pub struct GlibLogger {
 
 impl GlibLogger {
     /// Creates a new instance of [`GlibLogger`](struct.GlibLogger.html).
+    /// See documentation of [`GlibLogger`](struct.GlibLogger.html) for more
+    /// information.
     ///
     /// Example:
     ///
@@ -184,6 +195,33 @@ impl rs_log::Log for GlibLogger {
     }
 
     fn flush(&self) {}
+}
+
+/// Provides a glib log handler which routes all logging messages to the
+/// [`log crate`](https://crates.io/crates/log).
+///
+/// In order to use this function, `glib` must be built with the `log` feature
+/// enabled.
+///
+/// Use this function if you want to use the log crate as the main logging
+/// output in your application, and want to route all logging happening in
+/// glib to the log crate. If you want the opposite, use [`GlibLogger`](struct.GlibLogger.html).
+///
+/// NOTE: This should never be used when [`GlibLogger`](struct.GlibLogger.html) is
+/// registered as a logger, otherwise a stack overflow will occur.
+///
+/// ```no_run
+/// glib::log_set_default_handler(glib::rust_log_handler);
+/// ```
+pub fn rust_log_handler(domain: &str, level: glib_log::LogLevel, message: &str) {
+    let level = match level {
+        glib_log::LogLevel::Error | glib_log::LogLevel::Critical => log::Level::Error,
+        glib_log::LogLevel::Warning => log::Level::Warn,
+        glib_log::LogLevel::Message | glib_log::LogLevel::Info => log::Level::Info,
+        glib_log::LogLevel::Debug => log::Level::Debug,
+    };
+
+    rs_log::log!(target: domain, level, "{}", message);
 }
 
 /// A macro which behaves exactly as `log::error!` except that it sets the
