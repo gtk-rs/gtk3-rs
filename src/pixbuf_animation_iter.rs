@@ -7,6 +7,8 @@ use gdk_pixbuf_sys;
 use glib::translate::*;
 use glib::TimeVal;
 
+use std::time::SystemTime;
+
 glib_wrapper! {
     pub struct PixbufAnimationIter(Object<gdk_pixbuf_sys::GdkPixbufAnimationIter, PixbufAnimationIterClass>);
 
@@ -16,11 +18,18 @@ glib_wrapper! {
 }
 
 impl PixbufAnimationIter {
-    pub fn advance(&self, start_time: TimeVal) -> bool {
+    pub fn advance(&self, start_time: SystemTime) -> bool {
+        let diff = start_time
+            .duration_since(SystemTime::UNIX_EPOCH)
+            .expect("failed to convert time");
+
         unsafe {
             from_glib(gdk_pixbuf_sys::gdk_pixbuf_animation_iter_advance(
                 self.to_glib_none().0,
-                &start_time as *const _,
+                &TimeVal {
+                    tv_sec: diff.as_secs() as _,
+                    tv_usec: diff.subsec_micros() as _,
+                },
             ))
         }
     }

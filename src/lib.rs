@@ -16,9 +16,9 @@ extern crate libc;
 
 mod auto;
 
+mod pixbuf;
 mod pixbuf_animation;
 mod pixbuf_animation_iter;
-mod pixbuf;
 pub mod prelude;
 
 pub use auto::*;
