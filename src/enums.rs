@@ -1754,7 +1754,7 @@ impl fmt::Display for MeshCorner {
     }
 }
 
-#[cfg(any(feature = "freetype", feature = "dox"))]
+#[cfg(any(feature = "use_freetype", feature = "dox"))]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
 #[non_exhaustive]
 pub enum FtSynthesize {
@@ -1764,7 +1764,7 @@ pub enum FtSynthesize {
     __Unknown(u32),
 }
 
-#[cfg(any(feature = "freetype", feature = "dox"))]
+#[cfg(any(feature = "use_freetype", feature = "dox"))]
 #[doc(hidden)]
 impl Into<ffi::cairo_ft_synthesize_t> for FtSynthesize {
     fn into(self) -> ffi::cairo_ft_synthesize_t {
@@ -1776,7 +1776,7 @@ impl Into<ffi::cairo_ft_synthesize_t> for FtSynthesize {
     }
 }
 
-#[cfg(any(feature = "freetype", feature = "dox"))]
+#[cfg(any(feature = "use_freetype", feature = "dox"))]
 #[doc(hidden)]
 impl From<ffi::cairo_ft_synthesize_t> for FtSynthesize {
     fn from(value: ffi::cairo_ft_synthesize_t) -> Self {
@@ -1788,7 +1788,7 @@ impl From<ffi::cairo_ft_synthesize_t> for FtSynthesize {
     }
 }
 
-#[cfg(any(feature = "freetype", feature = "dox"))]
+#[cfg(any(feature = "use_freetype", feature = "dox"))]
 impl fmt::Display for FtSynthesize {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
