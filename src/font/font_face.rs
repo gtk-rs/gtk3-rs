@@ -44,12 +44,6 @@ impl FontFace {
         font_face
     }
 
-    // Safety: the FT_Face must be valid and not be freed until the `FontFace` is dropped.
-    #[cfg(any(feature = "freetype", feature = "dox"))]
-    pub unsafe fn create_from_ft(face: ffi::FT_Face) -> FontFace {
-        FontFace::from_raw_full(ffi::cairo_ft_font_face_create_for_ft_face(face, 0))
-    }
-
     #[cfg(feature = "use_glib")]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_face_t) -> FontFace {
         from_glib_full(ptr)
