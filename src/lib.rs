@@ -82,6 +82,7 @@
 pub extern crate bitflags;
 extern crate libc;
 extern crate once_cell;
+extern crate smallvec;
 
 #[doc(hidden)]
 pub extern crate glib_sys;

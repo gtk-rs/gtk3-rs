@@ -94,23 +94,15 @@ impl Closure {
         from_glib_none(closure)
     }
 
-    #[allow(clippy::redundant_closure)]
     pub fn invoke(&self, values: &[&dyn ToValue]) -> Option<Value> {
-        let mut result = unsafe { Value::uninitialized() };
+        let values = values
+            .iter()
+            .copied()
+            .map(ToValue::to_value)
+            .collect::<smallvec::SmallVec<[_; 10]>>();
 
-        let v_args: Vec<Value>;
-        let mut s_args: [Value; 10] = unsafe { mem::zeroed() };
-        let values = if values.len() <= 10 {
-            for (i, arg) in values.iter().enumerate() {
-                s_args[i] = arg.to_value();
-            }
-            &s_args[0..values.len()]
-        } else {
-            v_args = values.iter().map(|v| v.to_value()).collect();
-            v_args.as_slice()
-        };
-
-        unsafe {
+        let result = unsafe {
+            let mut result = Value::uninitialized();
             gobject_sys::g_closure_invoke(
                 self.to_glib_none().0 as *mut _,
                 result.to_glib_none_mut().0,
@@ -118,7 +110,10 @@ impl Closure {
                 mut_override(values.as_ptr()) as *mut gobject_sys::GValue,
                 ptr::null_mut(),
             );
-        }
+
+            result
+        };
+
         if result.type_() == Type::Invalid {
             None
         } else {

@@ -1284,7 +1284,7 @@ impl Object {
                 validate_property_type(type_, true, &pspec, &mut value)?;
                 Ok((CString::new(name).unwrap(), value))
             })
-            .collect::<Result<Vec<_>, _>>()?;
+            .collect::<Result<smallvec::SmallVec<[_; 10]>, _>>()?;
 
         let params_c = params
             .iter()
@@ -1292,7 +1292,7 @@ impl Object {
                 name: name.as_ptr(),
                 value: unsafe { *value.to_glib_none().0 },
             })
-            .collect::<Vec<_>>();
+            .collect::<smallvec::SmallVec<[_; 10]>>();
 
         unsafe {
             let ptr = gobject_sys::g_object_newv(
@@ -1899,8 +1899,6 @@ impl<T: ObjectType> ObjectExt for T {
         unsafe {
             let type_ = self.get_type();
 
-            let mut v_args: Vec<Value>;
-            let mut s_args: [Value; 10] = mem::zeroed();
             let self_v = {
                 let mut v = Value::uninitialized();
                 gobject_sys::g_value_init(v.to_glib_none_mut().0, self.get_type().to_glib());
@@ -1910,20 +1908,12 @@ impl<T: ObjectType> ObjectExt for T {
                 );
                 v
             };
-            let args = if args.len() < 10 {
-                s_args[0] = self_v;
-                for (i, arg) in args.iter().enumerate() {
-                    s_args[i + 1] = arg.to_value();
-                }
-                &mut s_args[0..=args.len()]
-            } else {
-                v_args = Vec::with_capacity(args.len() + 1);
-                v_args.push(self_v);
-                for arg in args {
-                    v_args.push(arg.to_value());
-                }
-                v_args.as_mut_slice()
-            };
+
+            let mut args = Iterator::chain(
+                std::iter::once(self_v),
+                args.iter().copied().map(ToValue::to_value),
+            )
+            .collect::<smallvec::SmallVec<[_; 10]>>();
 
             let (signal_id, signal_detail, return_type) =
                 validate_signal_arguments(type_, signal_name, &mut args[1..])?;
