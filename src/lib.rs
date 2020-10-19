@@ -16,10 +16,11 @@ extern crate libc;
 
 mod auto;
 
-mod animation;
 mod pixbuf;
+mod pixbuf_animation;
+mod pixbuf_animation_iter;
 pub mod prelude;
 
 pub use auto::*;
 
-pub use self::animation::{PixbufAnimation, PixbufAnimationExt, PixbufAnimationIter};
+pub use self::pixbuf_animation_iter::PixbufAnimationIter;

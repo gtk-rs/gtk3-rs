@@ -3,4 +3,4 @@
 pub use auto::traits::*;
 #[doc(hidden)]
 pub use glib::prelude::*;
-pub use PixbufAnimationExt;
+pub use pixbuf_animation::PixbufAnimationExtManual;
