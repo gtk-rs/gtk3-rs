@@ -48,6 +48,7 @@ mod file;
 mod file_attribute_matcher;
 pub use file_attribute_matcher::FileAttributematcherIter;
 mod file_enumerator;
+mod file_info;
 mod flags;
 mod inet_address;
 mod io_stream;
