@@ -5,7 +5,6 @@
 use super::Pixbuf;
 use gdk_pixbuf_sys;
 use glib::translate::*;
-use glib::TimeVal;
 
 use std::time::SystemTime;
 
@@ -26,7 +25,7 @@ impl PixbufAnimationIter {
         unsafe {
             from_glib(gdk_pixbuf_sys::gdk_pixbuf_animation_iter_advance(
                 self.to_glib_none().0,
-                &TimeVal {
+                &glib_sys::GTimeVal {
                     tv_sec: diff.as_secs() as _,
                     tv_usec: diff.subsec_micros() as _,
                 },

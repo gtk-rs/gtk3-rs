@@ -4,7 +4,6 @@
 
 use glib::object::IsA;
 use glib::translate::*;
-use glib::TimeVal;
 use PixbufAnimation;
 use PixbufAnimationIter;
 
@@ -20,7 +19,7 @@ impl<T: IsA<PixbufAnimation>> PixbufAnimationExtManual for T {
             let diff = s
                 .duration_since(SystemTime::UNIX_EPOCH)
                 .expect("failed to convert time");
-            TimeVal {
+            glib_sys::GTimeVal {
                 tv_sec: diff.as_secs() as _,
                 tv_usec: diff.subsec_micros() as _,
             }
