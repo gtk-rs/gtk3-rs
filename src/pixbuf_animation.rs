@@ -7,6 +7,7 @@ use glib::translate::*;
 use PixbufAnimation;
 use PixbufAnimationIter;
 
+use std::ptr;
 use std::time::SystemTime;
 
 pub trait PixbufAnimationExtManual {
@@ -28,7 +29,10 @@ impl<T: IsA<PixbufAnimation>> PixbufAnimationExtManual for T {
         unsafe {
             from_glib_full(gdk_pixbuf_sys::gdk_pixbuf_animation_get_iter(
                 self.as_ref().to_glib_none().0,
-                start_time.as_ref().to_glib_none().0,
+                start_time
+                    .as_ref()
+                    .map(|t| t as *const glib_sys::GTimeVal)
+                    .unwrap_or(ptr::null()),
             ))
         }
     }
