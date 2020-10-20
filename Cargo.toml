@@ -33,6 +33,7 @@ glib-sys = { git = "https://github.com/gtk-rs/sys" }
 gobject-sys = { git = "https://github.com/gtk-rs/sys" }
 glib-macros = { path = "glib-macros" }
 log = { version = "0.4", optional = true }
+smallvec = "1.0"
 
 [dev-dependencies]
 tempfile = "3"

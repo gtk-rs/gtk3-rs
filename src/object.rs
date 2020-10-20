@@ -1240,31 +1240,31 @@ impl Object {
     pub fn new(type_: Type, properties: &[(&str, &dyn ToValue)]) -> Result<Object, BoolError> {
         use std::ffi::CString;
 
-        if !type_.is_a(&Object::static_type()) {
-            return Err(glib_bool_error!(
-                "Can't instantiate non-GObject type '{}'",
-                type_
-            ));
-        }
+        let klass = ObjectClass::from_type(type_)
+            .ok_or_else(|| glib_bool_error!("Can't retrieve class for type '{}'", type_))?;
+        let pspecs = klass.list_properties();
 
-        unsafe {
-            if gobject_sys::g_type_test_flags(
-                type_.to_glib(),
-                gobject_sys::G_TYPE_FLAG_INSTANTIATABLE,
-            ) == glib_sys::GFALSE
-            {
-                return Err(glib_bool_error!("Can't instantiate type '{}'", type_));
-            }
+        let params = properties
+            .iter()
+            .map(|(name, value)| {
+                let pspec = pspecs
+                    .iter()
+                    .find(|p| p.get_name() == *name)
+                    .ok_or_else(|| {
+                        glib_bool_error!("Can't find property '{}' for type '{}'", name, type_)
+                    })?;
 
-            if gobject_sys::g_type_test_flags(type_.to_glib(), gobject_sys::G_TYPE_FLAG_ABSTRACT)
-                != glib_sys::GFALSE
-            {
-                return Err(glib_bool_error!(
-                    "Can't instantiate abstract type '{}'",
-                    type_
-                ));
-            }
-        }
+                let mut value = value.to_value();
+                validate_property_type(type_, true, &pspec, &mut value)?;
+                Ok((CString::new(*name).unwrap(), value))
+            })
+            .collect::<Result<smallvec::SmallVec<[_; 10]>, _>>()?;
+
+        unsafe { Object::new_internal(type_, &params) }
+    }
+
+    pub fn new_generic(type_: Type, properties: &[(&str, Value)]) -> Result<Object, BoolError> {
+        use std::ffi::CString;
 
         let klass = ObjectClass::from_type(type_)
             .ok_or_else(|| glib_bool_error!("Can't retrieve class for type '{}'", type_))?;
@@ -1272,45 +1272,72 @@ impl Object {
 
         let params = properties
             .iter()
-            .map(|&(name, value)| {
+            .map(|(name, value)| {
                 let pspec = pspecs
                     .iter()
-                    .find(|p| p.get_name() == name)
+                    .find(|p| p.get_name() == *name)
                     .ok_or_else(|| {
                         glib_bool_error!("Can't find property '{}' for type '{}'", name, type_)
                     })?;
 
-                let mut value = value.to_value();
+                let mut value = value.clone();
                 validate_property_type(type_, true, &pspec, &mut value)?;
-                Ok((CString::new(name).unwrap(), value))
+                Ok((CString::new(*name).unwrap(), value))
             })
-            .collect::<Result<Vec<_>, _>>()?;
+            .collect::<Result<smallvec::SmallVec<[_; 10]>, _>>()?;
+
+        unsafe { Object::new_internal(type_, &params) }
+    }
+
+    unsafe fn new_internal(
+        type_: Type,
+        params: &[(std::ffi::CString, Value)],
+    ) -> Result<Object, BoolError> {
+        if !type_.is_a(&Object::static_type()) {
+            return Err(glib_bool_error!(
+                "Can't instantiate non-GObject type '{}'",
+                type_
+            ));
+        }
+
+        if gobject_sys::g_type_test_flags(type_.to_glib(), gobject_sys::G_TYPE_FLAG_INSTANTIATABLE)
+            == glib_sys::GFALSE
+        {
+            return Err(glib_bool_error!("Can't instantiate type '{}'", type_));
+        }
+
+        if gobject_sys::g_type_test_flags(type_.to_glib(), gobject_sys::G_TYPE_FLAG_ABSTRACT)
+            != glib_sys::GFALSE
+        {
+            return Err(glib_bool_error!(
+                "Can't instantiate abstract type '{}'",
+                type_
+            ));
+        }
 
         let params_c = params
             .iter()
             .map(|&(ref name, ref value)| gobject_sys::GParameter {
                 name: name.as_ptr(),
-                value: unsafe { *value.to_glib_none().0 },
+                value: *value.to_glib_none().0,
             })
-            .collect::<Vec<_>>();
+            .collect::<smallvec::SmallVec<[_; 10]>>();
 
-        unsafe {
-            let ptr = gobject_sys::g_object_newv(
-                type_.to_glib(),
-                params_c.len() as u32,
-                mut_override(params_c.as_ptr()),
-            );
-            if ptr.is_null() {
-                Err(glib_bool_error!(
-                    "Can't instantiate object for type '{}'",
-                    type_
-                ))
-            } else if type_.is_a(&InitiallyUnowned::static_type()) {
-                // Attention: This takes ownership of the floating reference
-                Ok(from_glib_none(ptr))
-            } else {
-                Ok(from_glib_full(ptr))
-            }
+        let ptr = gobject_sys::g_object_newv(
+            type_.to_glib(),
+            params_c.len() as u32,
+            mut_override(params_c.as_ptr()),
+        );
+        if ptr.is_null() {
+            Err(glib_bool_error!(
+                "Can't instantiate object for type '{}'",
+                type_
+            ))
+        } else if type_.is_a(&InitiallyUnowned::static_type()) {
+            // Attention: This takes ownership of the floating reference
+            Ok(from_glib_none(ptr))
+        } else {
+            Ok(from_glib_full(ptr))
         }
     }
 }
@@ -1322,12 +1349,18 @@ pub trait ObjectExt: ObjectType {
     fn get_type(&self) -> Type;
     fn get_object_class(&self) -> &ObjectClass;
 
-    fn set_property<'a, N: Into<&'a str>>(
+    fn set_property<'a, N: Into<&'a str>, V: ToValue>(
         &self,
         property_name: N,
-        value: &dyn ToValue,
+        value: &V,
+    ) -> Result<(), BoolError>;
+    fn set_property_generic<'a, N: Into<&'a str>>(
+        &self,
+        property_name: N,
+        value: &Value,
     ) -> Result<(), BoolError>;
     fn set_properties(&self, property_values: &[(&str, &dyn ToValue)]) -> Result<(), BoolError>;
+    fn set_properties_generic(&self, property_values: &[(&str, Value)]) -> Result<(), BoolError>;
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool;
     fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
@@ -1401,6 +1434,11 @@ pub trait ObjectExt: ObjectType {
         signal_name: N,
         args: &[&dyn ToValue],
     ) -> Result<Option<Value>, BoolError>;
+    fn emit_generic<'a, N: Into<&'a str>>(
+        &self,
+        signal_name: N,
+        args: &[Value],
+    ) -> Result<Option<Value>, BoolError>;
     fn disconnect(&self, handler_id: SignalHandlerId);
 
     fn connect_notify<F: Fn(&Self, &::ParamSpec) + Send + Sync + 'static>(
@@ -1469,7 +1507,7 @@ impl<T: ObjectType> ObjectExt for T {
                 validate_property_type(self.get_type(), false, &pspec, &mut value)?;
                 Ok((CString::new(name).unwrap(), value))
             })
-            .collect::<Result<Vec<_>, _>>()?;
+            .collect::<Result<smallvec::SmallVec<[_; 10]>, _>>()?;
 
         for (name, value) in params {
             unsafe {
@@ -1484,13 +1522,50 @@ impl<T: ObjectType> ObjectExt for T {
         Ok(())
     }
 
-    fn set_property<'a, N: Into<&'a str>>(
+    fn set_properties_generic(&self, property_values: &[(&str, Value)]) -> Result<(), BoolError> {
+        use std::ffi::CString;
+
+        let pspecs = self.list_properties();
+
+        let params = property_values
+            .iter()
+            .map(|(name, value)| {
+                let pspec = pspecs
+                    .iter()
+                    .find(|p| p.get_name() == *name)
+                    .ok_or_else(|| {
+                        glib_bool_error!(
+                            "Can't find property '{}' for type '{}'",
+                            name,
+                            self.get_type()
+                        )
+                    })?;
+
+                let mut value = value.clone();
+                validate_property_type(self.get_type(), false, &pspec, &mut value)?;
+                Ok((CString::new(*name).unwrap(), value))
+            })
+            .collect::<Result<smallvec::SmallVec<[_; 10]>, _>>()?;
+
+        for (name, value) in params {
+            unsafe {
+                gobject_sys::g_object_set_property(
+                    self.as_object_ref().to_glib_none().0,
+                    name.as_ptr(),
+                    value.to_glib_none().0,
+                );
+            }
+        }
+
+        Ok(())
+    }
+
+    fn set_property<'a, N: Into<&'a str>, V: ToValue>(
         &self,
         property_name: N,
-        value: &dyn ToValue,
+        value: &V,
     ) -> Result<(), BoolError> {
         let property_name = property_name.into();
-        let mut property_value = value.to_value();
 
         let pspec = match self.find_property(property_name) {
             Some(pspec) => pspec,
@@ -1503,6 +1578,38 @@ impl<T: ObjectType> ObjectExt for T {
             }
         };
 
+        let mut property_value = value.to_value();
+        validate_property_type(self.get_type(), false, &pspec, &mut property_value)?;
+        unsafe {
+            gobject_sys::g_object_set_property(
+                self.as_object_ref().to_glib_none().0,
+                property_name.to_glib_none().0,
+                property_value.to_glib_none().0,
+            );
+        }
+
+        Ok(())
+    }
+
+    fn set_property_generic<'a, N: Into<&'a str>>(
+        &self,
+        property_name: N,
+        value: &Value,
+    ) -> Result<(), BoolError> {
+        let property_name = property_name.into();
+
+        let pspec = match self.find_property(property_name) {
+            Some(pspec) => pspec,
+            None => {
+                return Err(glib_bool_error!(
+                    "property '{}' of type '{}' not found",
+                    property_name,
+                    self.get_type()
+                ));
+            }
+        };
+
+        let mut property_value = value.clone();
         validate_property_type(self.get_type(), false, &pspec, &mut property_value)?;
         unsafe {
             gobject_sys::g_object_set_property(
@@ -1899,67 +2006,6 @@ impl<T: ObjectType> ObjectExt for T {
         unsafe {
             let type_ = self.get_type();
 
-            let mut signal_id = 0;
-            let mut signal_detail = 0;
-
-            let found: bool = from_glib(gobject_sys::g_signal_parse_name(
-                signal_name.to_glib_none().0,
-                type_.to_glib(),
-                &mut signal_id,
-                &mut signal_detail,
-                true.to_glib(),
-            ));
-
-            if !found {
-                return Err(glib_bool_error!(
-                    "Signal '{}' of type '{}' not found",
-                    signal_name,
-                    type_
-                ));
-            }
-
-            let mut details = mem::MaybeUninit::zeroed();
-            gobject_sys::g_signal_query(signal_id, details.as_mut_ptr());
-            let details = details.assume_init();
-            if details.signal_id != signal_id {
-                return Err(glib_bool_error!(
-                    "Signal '{}' of type '{}' not found",
-                    signal_name,
-                    type_
-                ));
-            }
-
-            if details.n_params != args.len() as u32 {
-                return Err(
-                    glib_bool_error!(
-                        "Incompatible number of arguments for signal '{}' of type '{}' (expected {}, got {})",
-                        signal_name,
-                        type_,
-                        details.n_params,
-                        args.len(),
-                    )
-                );
-            }
-
-            for (i, item) in args.iter().enumerate() {
-                let arg_type =
-                    *(details.param_types.add(i)) & (!gobject_sys::G_TYPE_FLAG_RESERVED_ID_BIT);
-                if arg_type != item.to_value_type().to_glib() {
-                    return Err(
-                        glib_bool_error!(
-                            "Incompatible argument type in argument {} for signal '{}' of type '{}' (expected {}, got {})",
-                            i,
-                            signal_name,
-                            type_,
-                            arg_type,
-                            item.to_value_type(),
-                        )
-                    );
-                }
-            }
-
-            let mut v_args: Vec<Value>;
-            let mut s_args: [Value; 10] = mem::zeroed();
             let self_v = {
                 let mut v = Value::uninitialized();
                 gobject_sys::g_value_init(v.to_glib_none_mut().0, self.get_type().to_glib());
@@ -1969,24 +2015,64 @@ impl<T: ObjectType> ObjectExt for T {
                 );
                 v
             };
-            let args = if args.len() < 10 {
-                s_args[0] = self_v;
-                for (i, arg) in args.iter().enumerate() {
-                    s_args[i + 1] = arg.to_value();
-                }
-                &s_args[0..=args.len()]
-            } else {
-                v_args = Vec::with_capacity(args.len() + 1);
-                v_args.push(self_v);
-                for arg in args {
-                    v_args.push(arg.to_value());
-                }
-                v_args.as_slice()
-            };
+
+            let mut args = Iterator::chain(
+                std::iter::once(self_v),
+                args.iter().copied().map(ToValue::to_value),
+            )
+            .collect::<smallvec::SmallVec<[_; 10]>>();
+
+            let (signal_id, signal_detail, return_type) =
+                validate_signal_arguments(type_, signal_name, &mut args[1..])?;
 
             let mut return_value = Value::uninitialized();
-            if details.return_type != gobject_sys::G_TYPE_NONE {
-                gobject_sys::g_value_init(return_value.to_glib_none_mut().0, details.return_type);
+            if return_type != Type::Unit {
+                gobject_sys::g_value_init(return_value.to_glib_none_mut().0, return_type.to_glib());
+            }
+
+            gobject_sys::g_signal_emitv(
+                mut_override(args.as_ptr()) as *mut gobject_sys::GValue,
+                signal_id,
+                signal_detail,
+                return_value.to_glib_none_mut().0,
+            );
+
+            if return_value.type_() != Type::Unit && return_value.type_() != Type::Invalid {
+                Ok(Some(return_value))
+            } else {
+                Ok(None)
+            }
+        }
+    }
+
+    fn emit_generic<'a, N: Into<&'a str>>(
+        &self,
+        signal_name: N,
+        args: &[Value],
+    ) -> Result<Option<Value>, BoolError> {
+        let signal_name: &str = signal_name.into();
+        unsafe {
+            let type_ = self.get_type();
+
+            let self_v = {
+                let mut v = Value::uninitialized();
+                gobject_sys::g_value_init(v.to_glib_none_mut().0, self.get_type().to_glib());
+                gobject_sys::g_value_set_object(
+                    v.to_glib_none_mut().0,
+                    self.as_object_ref().to_glib_none().0,
+                );
+                v
+            };
+
+            let mut args = Iterator::chain(std::iter::once(self_v), args.iter().cloned())
+                .collect::<smallvec::SmallVec<[_; 10]>>();
+
+            let (signal_id, signal_detail, return_type) =
+                validate_signal_arguments(type_, signal_name, &mut args[1..])?;
+
+            let mut return_value = Value::uninitialized();
+            if return_type != Type::Unit {
+                gobject_sys::g_value_init(return_value.to_glib_none_mut().0, return_type.to_glib());
             }
 
             gobject_sys::g_signal_emitv(
@@ -2115,6 +2201,103 @@ fn validate_property_type(
     }
 
     Ok(())
+}
+
+fn validate_signal_arguments(
+    type_: Type,
+    signal_name: &str,
+    args: &mut [Value],
+) -> Result<(u32, u32, Type), ::BoolError> {
+    let mut signal_id = 0;
+    let mut signal_detail = 0;
+
+    let found: bool = unsafe {
+        from_glib(gobject_sys::g_signal_parse_name(
+            signal_name.to_glib_none().0,
+            type_.to_glib(),
+            &mut signal_id,
+            &mut signal_detail,
+            true.to_glib(),
+        ))
+    };
+
+    if !found {
+        return Err(glib_bool_error!(
+            "Signal '{}' of type '{}' not found",
+            signal_name,
+            type_
+        ));
+    }
+
+    let details = unsafe {
+        let mut details = mem::MaybeUninit::zeroed();
+        gobject_sys::g_signal_query(signal_id, details.as_mut_ptr());
+        details.assume_init()
+    };
+
+    if details.signal_id != signal_id {
+        return Err(glib_bool_error!(
+            "Signal '{}' of type '{}' not found",
+            signal_name,
+            type_
+        ));
+    }
+
+    if details.n_params != args.len() as u32 {
+        return Err(glib_bool_error!(
+            "Incompatible number of arguments for signal '{}' of type '{}' (expected {}, got {})",
+            signal_name,
+            type_,
+            details.n_params,
+            args.len(),
+        ));
+    }
+
+    let param_types =
+        unsafe { std::slice::from_raw_parts(details.param_types, details.n_params as usize) };
+
+    for (i, (arg, param_type)) in
+        Iterator::zip(args.iter_mut(), param_types.iter().copied().map(from_glib)).enumerate()
+    {
+        if arg.type_().is_a(&Object::static_type()) {
+            match arg.get::<Object>() {
+                Ok(Some(obj)) => {
+                    if obj.get_type().is_a(&param_type) {
+                        arg.0.g_type = param_type.to_glib();
+                    } else {
+                        return Err(
+                            glib_bool_error!(
+                                "Incompatible argument type in argument {} for signal '{}' of type '{}' (expected {}, got {})",
+                                i,
+                                signal_name,
+                                type_,
+                                param_type,
+                                arg.type_(),
+                            )
+                        );
+                    }
+                }
+                Ok(None) => {
+                    // If the value is None then the type is compatible too
+                    arg.0.g_type = param_type.to_glib();
+                }
+                Err(_) => unreachable!("property_value type conformity already checked"),
+            }
+        } else if param_type != arg.type_() {
+            return Err(
+                glib_bool_error!(
+                    "Incompatible argument type in argument {} for signal '{}' of type '{}' (expected {}, got {})",
+                    i,
+                    signal_name,
+                    type_,
+                    param_type,
+                    arg.type_(),
+                )
+            );
+        }
+    }
+
+    Ok((signal_id, signal_detail, from_glib(details.return_type)))
 }
 
 impl ObjectClass {
