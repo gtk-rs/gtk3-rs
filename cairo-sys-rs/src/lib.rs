@@ -753,7 +753,8 @@ extern "C" {
         load_flags: c_int,
     ) -> *mut cairo_font_face_t;
     #[cfg(any(feature = "freetype", feature = "dox"))]
-    pub fn cairo_ft_font_face_create_for_pattern(pattern: *mut FcPattern) -> *mut cairo_font_face_t;
+    pub fn cairo_ft_font_face_create_for_pattern(pattern: *mut FcPattern)
+        -> *mut cairo_font_face_t;
     #[cfg(any(feature = "freetype", feature = "dox"))]
     pub fn cairo_ft_font_option_substitute(
         options: *const cairo_font_options_t,
