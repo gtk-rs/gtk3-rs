@@ -2,8 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-//! General — Library initialization and miscellaneous functions
-
 use std::cell::Cell;
 use std::sync::atomic::{AtomicBool, Ordering, ATOMIC_BOOL_INIT};
 
@@ -13,7 +11,6 @@ thread_local! {
 
 static INITIALIZED: AtomicBool = ATOMIC_BOOL_INIT;
 
-/// Asserts that this is the main thread and either `gdk::init` or `gtk::init` has been called.
 macro_rules! assert_initialized_main_thread {
     () => {
         if !::rt::is_initialized_main_thread() {
