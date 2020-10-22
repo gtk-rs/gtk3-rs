@@ -1,0 +1,79 @@
+on:
+  push:
+    # branches: [master]
+  pull_request:
+
+name: CI
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rust:
+          - stable
+          - beta
+          - nightly
+          - "1.40.0"
+        features:
+          - ''
+          - 'v3_22'
+    steps:
+      - run: sudo apt-get install libgtk-3-dev git -y
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.rust }}
+          override: true
+      - uses: actions-rs/cargo@v1
+        name: "Docs"
+        with:
+          command: doc
+          args: --features "dox,embed-lgpl-docs"
+      - uses: actions-rs/cargo@v1
+        name: "Test"
+        with:
+          command: test
+          args: --features "${{ matrix.features }},embed-lgpl-docs"
+      - uses: actions-rs/cargo@v1
+        name: "Build"
+        with:
+          command: build
+          args: --features "${{ matrix.features }},purge-lgpl-docs"
+      - run: git diff -R --exit-code
+      - uses: actions/checkout@v2
+        with:
+          repository: gtk-rs/examples
+          ref: master
+          path: examples
+      - name: Examples
+        working-directory: examples
+        run: ./build_travis.sh
+
+  fmt:
+    name: Regen Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - run: rustup component add rustfmt
+      - run: make regen_check
+
+  checker:
+    name: gtk-rs checker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          repository: gtk-rs/checker
+          ref: master
+          path: checker
+      - working-directory: checker
+        run: cargo build --release
+      - run: "./checker/target/release/checker ."
+      - run: "./checker/check_init_asserts"
