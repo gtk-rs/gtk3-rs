@@ -24,6 +24,11 @@ extern crate bitflags;
 
 pub(crate) use x11::xlib;
 
+// gdkx11 has no runtime to initialize
+macro_rules! assert_initialized_main_thread {
+    () => {};
+}
+
 #[macro_use]
 mod rt;
 mod auto;
