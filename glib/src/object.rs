@@ -725,7 +725,7 @@ macro_rules! glib_object_wrapper {
         // otherwise they would potentially give differeny results for the same object depending on
         // the type we currently know for it
         #[derive(Clone, Hash, Ord)]
-        pub struct $name($crate::object::ObjectRef, ::std::marker::PhantomData<$ffi_name>);
+        pub struct $name($crate::object::ObjectRef);
 
         #[doc(hidden)]
         impl Into<$crate::object::ObjectRef> for $name {
@@ -738,7 +738,7 @@ macro_rules! glib_object_wrapper {
         impl $crate::object::UnsafeFrom<$crate::object::ObjectRef> for $name {
             #[allow(clippy::missing_safety_doc)]
             unsafe fn unsafe_from(t: $crate::object::ObjectRef) -> Self {
-                $name(t, ::std::marker::PhantomData)
+                $name(t)
             }
         }
 
@@ -881,7 +881,7 @@ macro_rules! glib_object_wrapper {
             #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_none(ptr: *mut $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
-                $name($crate::translate::from_glib_none(ptr as *mut _), ::std::marker::PhantomData)
+                $name($crate::translate::from_glib_none(ptr as *mut _))
             }
         }
 
@@ -892,7 +892,7 @@ macro_rules! glib_object_wrapper {
             #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_none(ptr: *const $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
-                $name($crate::translate::from_glib_none(ptr as *mut _), ::std::marker::PhantomData)
+                $name($crate::translate::from_glib_none(ptr as *mut _))
             }
         }
 
@@ -903,7 +903,7 @@ macro_rules! glib_object_wrapper {
             #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_full(ptr: *mut $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
-                $name($crate::translate::from_glib_full(ptr as *mut _), ::std::marker::PhantomData)
+                $name($crate::translate::from_glib_full(ptr as *mut _))
             }
         }
 
@@ -916,8 +916,7 @@ macro_rules! glib_object_wrapper {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
                 $crate::translate::Borrowed::new(
                     $name(
-                        $crate::translate::from_glib_borrow::<_, $crate::object::ObjectRef>(ptr as *mut _).into_inner(),
-                        ::std::marker::PhantomData,
+                        $crate::translate::from_glib_borrow::<_, $crate::object::ObjectRef>(ptr as *mut _).into_inner()
                     )
                 )
             }
