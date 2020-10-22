@@ -13,9 +13,7 @@ generate = [
   "GdkX11.X11AppLaunchContext",
   "GdkX11.X11Cursor",
   "GdkX11.X11DeviceCore",
-  "GdkX11.X11DeviceXI2",
   "GdkX11.X11DeviceManagerCore",
-  "GdkX11.X11DeviceManagerXI2",
   "GdkX11.X11Display",
   "GdkX11.X11DisplayManager",
   "GdkX11.X11DragContext",
@@ -25,16 +23,12 @@ generate = [
   "GdkX11.X11Window"
 ]
 
-builders = [
-  "GdkX11.X11DeviceManagerXI2Builder",
-  "GdkX11.X11DeviceXI2Builder"
-]
-
 ignore = [
 ]
 
 manual = [
   "Gdk.AppLaunchContext",
+  "Gdk.Atom",
   "Gdk.Cursor",
   "Gdk.Device",
   "Gdk.DeviceManager",
@@ -48,17 +42,29 @@ manual = [
   "Gdk.Visual",
   "Gdk.Window",
   "Gio.AppLaunchContext",
+  "xlib.Atom",
   "xlib.Cursor",
-  # "xlib.Screen",
-  # "xlib.Display",
+  "xlib.Display",
+  "xlib.Screen",
+  "xlib.Visual",
   "xlib.VisualID",
+  "xlib.Window",
   "xlib.XID",
-  "xlib.Window"
 ]
 
 [[object]]
-name = "Gdk.*"
+name = "GdkX11.*"
 status = "generate"
+
+[[object]]
+name = "GdkX11.X11DeviceXI2"
+status = "generate"
+generate_builder = true
+
+[[object]]
+name = "GdkX11.X11DeviceManagerXI2"
+status = "generate"
+generate_builder = true
 
 [[object]]
 name = "GdkX11.X11GLContext"

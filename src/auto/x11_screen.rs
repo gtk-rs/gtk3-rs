@@ -51,9 +51,13 @@ impl X11Screen {
         }
     }
 
-    //pub fn get_xscreen(&self) -> /*Ignored*/Option<xlib::Screen> {
-    //    unsafe { TODO: call gdk_x11_sys:gdk_x11_screen_get_xscreen() }
-    //}
+    pub fn get_xscreen(&self) -> Option<xlib::Screen> {
+        unsafe {
+            from_glib_none(gdk_x11_sys::gdk_x11_screen_get_xscreen(
+                self.to_glib_none().0,
+            ))
+        }
+    }
 
     pub fn lookup_visual(&self, xvisualid: xlib::VisualID) -> Option<X11Visual> {
         unsafe {
@@ -64,9 +68,14 @@ impl X11Screen {
         }
     }
 
-    //pub fn supports_net_wm_hint(&self, property: /*Ignored*/&gdk::Atom) -> bool {
-    //    unsafe { TODO: call gdk_x11_sys:gdk_x11_screen_supports_net_wm_hint() }
-    //}
+    pub fn supports_net_wm_hint(&self, property: &gdk::Atom) -> bool {
+        unsafe {
+            from_glib(gdk_x11_sys::gdk_x11_screen_supports_net_wm_hint(
+                self.to_glib_none().0,
+                property.to_glib_none().0,
+            ))
+        }
+    }
 
     pub fn connect_window_manager_changed<F: Fn(&X11Screen) + 'static>(
         &self,

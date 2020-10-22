@@ -4,9 +4,12 @@
 
 use gdk;
 use gdk_x11_sys;
+use glib::object::Cast;
+use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::translate::*;
 use glib::StaticType;
+use glib::ToValue;
 use glib::Value;
 use gobject_sys;
 use std::fmt;
@@ -33,6 +36,116 @@ impl X11DeviceXI2 {
                 .expect("Return Value for property `device-id` getter")
                 .unwrap()
         }
+    }
+}
+
+#[derive(Clone, Default)]
+pub struct X11DeviceXI2Builder {
+    device_id: Option<i32>,
+    device_manager: Option<gdk::DeviceManager>,
+    display: Option<gdk::Display>,
+    has_cursor: Option<bool>,
+    //input-mode: /*Unknown type*/,
+    //input-source: /*Unknown type*/,
+    name: Option<String>,
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
+    num_touches: Option<u32>,
+    #[cfg(any(feature = "v3_16", feature = "dox"))]
+    product_id: Option<String>,
+    //seat: /*Unknown type*/,
+    //type: /*Unknown type*/,
+    #[cfg(any(feature = "v3_16", feature = "dox"))]
+    vendor_id: Option<String>,
+}
+
+impl X11DeviceXI2Builder {
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    pub fn build(self) -> X11DeviceXI2 {
+        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
+        if let Some(ref device_id) = self.device_id {
+            properties.push(("device-id", device_id));
+        }
+        if let Some(ref device_manager) = self.device_manager {
+            properties.push(("device-manager", device_manager));
+        }
+        if let Some(ref display) = self.display {
+            properties.push(("display", display));
+        }
+        if let Some(ref has_cursor) = self.has_cursor {
+            properties.push(("has-cursor", has_cursor));
+        }
+        if let Some(ref name) = self.name {
+            properties.push(("name", name));
+        }
+        #[cfg(any(feature = "v3_20", feature = "dox"))]
+        {
+            if let Some(ref num_touches) = self.num_touches {
+                properties.push(("num-touches", num_touches));
+            }
+        }
+        #[cfg(any(feature = "v3_16", feature = "dox"))]
+        {
+            if let Some(ref product_id) = self.product_id {
+                properties.push(("product-id", product_id));
+            }
+        }
+        #[cfg(any(feature = "v3_16", feature = "dox"))]
+        {
+            if let Some(ref vendor_id) = self.vendor_id {
+                properties.push(("vendor-id", vendor_id));
+            }
+        }
+        let ret = glib::Object::new(X11DeviceXI2::static_type(), &properties)
+            .expect("object new")
+            .downcast::<X11DeviceXI2>()
+            .expect("downcast");
+        ret
+    }
+
+    pub fn device_id(mut self, device_id: i32) -> Self {
+        self.device_id = Some(device_id);
+        self
+    }
+
+    pub fn device_manager<P: IsA<gdk::DeviceManager>>(mut self, device_manager: &P) -> Self {
+        self.device_manager = Some(device_manager.clone().upcast());
+        self
+    }
+
+    pub fn display<P: IsA<gdk::Display>>(mut self, display: &P) -> Self {
+        self.display = Some(display.clone().upcast());
+        self
+    }
+
+    pub fn has_cursor(mut self, has_cursor: bool) -> Self {
+        self.has_cursor = Some(has_cursor);
+        self
+    }
+
+    pub fn name(mut self, name: &str) -> Self {
+        self.name = Some(name.to_string());
+        self
+    }
+
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
+    pub fn num_touches(mut self, num_touches: u32) -> Self {
+        self.num_touches = Some(num_touches);
+        self
+    }
+
+    #[cfg(any(feature = "v3_16", feature = "dox"))]
+    pub fn product_id(mut self, product_id: &str) -> Self {
+        self.product_id = Some(product_id.to_string());
+        self
+    }
+
+    #[cfg(any(feature = "v3_16", feature = "dox"))]
+    pub fn vendor_id(mut self, vendor_id: &str) -> Self {
+        self.vendor_id = Some(vendor_id.to_string());
+        self
     }
 }
 

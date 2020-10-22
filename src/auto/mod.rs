@@ -17,9 +17,11 @@ pub use self::x11_device_manager_core::{
 };
 
 mod x11_device_manager_xi2;
+pub use self::x11_device_manager_xi2::X11DeviceManagerXI2Builder;
 pub use self::x11_device_manager_xi2::{X11DeviceManagerXI2, X11DeviceManagerXI2Class};
 
 mod x11_device_xi2;
+pub use self::x11_device_xi2::X11DeviceXI2Builder;
 pub use self::x11_device_xi2::{X11DeviceXI2, X11DeviceXI2Class};
 
 mod x11_display;
@@ -52,6 +54,8 @@ pub use self::x11_visual::{X11Visual, X11VisualClass};
 
 mod x11_window;
 pub use self::x11_window::{X11Window, X11WindowClass};
+
+pub mod functions;
 
 #[doc(hidden)]
 pub mod traits {}
