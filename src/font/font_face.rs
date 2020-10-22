@@ -1,7 +1,7 @@
 use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
-use libc::c_char;
+use libc::{c_char, c_int};
 use std::ffi::{CStr, CString};
 #[cfg(not(feature = "use_glib"))]
 use std::ptr;
@@ -39,6 +39,33 @@ impl FontFace {
                 weight.into(),
             ))
         };
+        let status = unsafe { ffi::cairo_font_face_status(font_face.to_raw_none()) };
+        status_to_result(status).expect("Failed to create a FontFace");
+        font_face
+    }
+
+    // Safety: the FT_Face must be valid and not be freed until the `FontFace` is dropped.
+    #[cfg(any(feature = "freetype", feature = "dox"))]
+    pub unsafe fn create_from_ft(face: freetype_crate::freetype::FT_Face) -> FontFace {
+        let font_face = FontFace::from_raw_full(ffi::cairo_ft_font_face_create_for_ft_face(
+            face as *mut _,
+            0,
+        ));
+        let status = unsafe { ffi::cairo_font_face_status(font_face.to_raw_none()) };
+        status_to_result(status).expect("Failed to create a FontFace");
+        font_face
+    }
+
+    // Safety: the FT_Face must be valid and not be freed until the `FontFace` is dropped.
+    #[cfg(any(feature = "freetype", feature = "dox"))]
+    pub unsafe fn create_from_ft_with_flags(
+        face: freetype_crate::freetype::FT_Face,
+        load_flags: c_int,
+    ) -> FontFace {
+        let font_face = FontFace::from_raw_full(ffi::cairo_ft_font_face_create_for_ft_face(
+            face as *mut _,
+            load_flags,
+        ));
         let status = unsafe { ffi::cairo_font_face_status(font_face.to_raw_none()) };
         status_to_result(status).expect("Failed to create a FontFace");
         font_face

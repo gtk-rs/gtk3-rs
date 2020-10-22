@@ -275,6 +275,11 @@ pub type cairo_read_func_t =
 pub type cairo_write_func_t =
     Option<unsafe extern "C" fn(*mut c_void, *mut c_uchar, c_uint) -> cairo_status_t>;
 
+#[cfg(any(feature = "freetype", feature = "dox"))]
+pub type FT_Face = *mut c_void;
+#[cfg(any(feature = "freetype", feature = "dox"))]
+pub type FcPattern = c_void;
+
 extern "C" {
     // CAIRO CONTEXT
     pub fn cairo_create(target: *mut cairo_surface_t) -> *mut cairo_t;
@@ -742,6 +747,23 @@ extern "C" {
     pub fn cairo_text_cluster_allocate(num_clusters: c_int) -> *mut TextCluster;
     pub fn cairo_text_cluster_free(clusters: *mut TextCluster);
 
+    #[cfg(any(feature = "freetype", feature = "dox"))]
+    pub fn cairo_ft_font_face_create_for_ft_face(
+        face: FT_Face,
+        load_flags: c_int,
+    ) -> *mut cairo_font_face_t;
+    #[cfg(any(feature = "freetype", feature = "dox"))]
+    pub fn cairo_ft_font_face_create_for_pattern(pattern: *mut FcPattern)
+        -> *mut cairo_font_face_t;
+    #[cfg(any(feature = "freetype", feature = "dox"))]
+    pub fn cairo_ft_font_option_substitute(
+        options: *const cairo_font_options_t,
+        pattern: *mut FcPattern,
+    );
+    #[cfg(any(feature = "freetype", feature = "dox"))]
+    pub fn cairo_ft_scaled_font_lock_face(scaled_font: *mut cairo_scaled_font_t) -> FT_Face;
+    #[cfg(any(feature = "freetype", feature = "dox"))]
+    pub fn cairo_ft_scaled_font_unlock_face(scaled_font: *mut cairo_scaled_font_t);
     #[cfg(any(feature = "freetype", feature = "dox"))]
     pub fn cairo_ft_font_face_get_synthesize(
         font_face: *mut cairo_font_face_t,
