@@ -11,7 +11,6 @@ use glib::GString;
 use std::fmt;
 use std::mem;
 use std::ptr;
-use xlib;
 
 glib_wrapper! {
     pub struct X11Display(Object<gdk_x11_sys::GdkX11Display, gdk_x11_sys::GdkX11DisplayClass, X11DisplayClass>) @extends gdk::Display;
@@ -52,14 +51,6 @@ impl X11Display {
 
     pub fn get_user_time(&self) -> u32 {
         unsafe { gdk_x11_sys::gdk_x11_display_get_user_time(self.to_glib_none().0) }
-    }
-
-    pub fn get_xdisplay(&self) -> Option<xlib::Display> {
-        unsafe {
-            from_glib_none(gdk_x11_sys::gdk_x11_display_get_xdisplay(
-                self.to_glib_none().0,
-            ))
-        }
     }
 
     pub fn grab(&self) {
@@ -113,26 +104,6 @@ impl X11Display {
                 encoding,
                 format,
                 FromGlibContainer::from_glib_full_num(ctext, length.assume_init() as usize),
-            )
-        }
-    }
-
-    pub fn text_property_to_text_list(
-        &self,
-        encoding: &gdk::Atom,
-        format: i32,
-        text: u8,
-        length: i32,
-        list: &str,
-    ) -> i32 {
-        unsafe {
-            gdk_x11_sys::gdk_x11_display_text_property_to_text_list(
-                self.to_glib_none().0,
-                encoding.to_glib_none().0,
-                format,
-                text,
-                length,
-                list.to_glib_none().0,
             )
         }
     }

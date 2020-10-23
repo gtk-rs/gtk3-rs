@@ -11,15 +11,11 @@ deprecate_by_min_version = true
 
 generate = [
   "GdkX11.X11AppLaunchContext",
-  "GdkX11.X11Cursor",
   "GdkX11.X11DeviceCore",
   "GdkX11.X11DeviceManagerCore",
-  "GdkX11.X11Display",
   "GdkX11.X11DisplayManager",
   "GdkX11.X11DragContext",
   "GdkX11.X11Keymap",
-  "GdkX11.X11Screen",
-  "GdkX11.X11Visual",
   "GdkX11.X11Window"
 ]
 
@@ -55,6 +51,30 @@ manual = [
 [[object]]
 name = "GdkX11.*"
 status = "generate"
+  [[object.function]]
+  name = "x11_free_compound_text"
+  # manual, wrong annotations
+  ignore = true
+  [[object.function]]
+  name = "x11_free_text_list"
+  # manual, wrong annotations
+  ignore = true
+  [[object.function]]
+  name = "x11_get_default_xdisplay"
+  # manual, as xlib::Display doesn't implement glib traits
+  ignore = true
+  [[object.function]]
+  name = "x11_lookup_xdisplay"
+  # manual, as xlib::Display doesn't implement glib traits
+  ignore = true
+
+[[object]]
+name = "GdkX11.X11Cursor"
+status = "generate"
+  [[object.function]]
+  name = "get_xdisplay"
+  # manual, as xlib::Display doesn't implement glib traits
+  ignore = true
 
 [[object]]
 name = "GdkX11.X11DeviceXI2"
@@ -67,6 +87,18 @@ status = "generate"
 generate_builder = true
 
 [[object]]
+name = "GdkX11.X11Display"
+status = "generate"
+  [[object.function]]
+  name = "get_xdisplay"
+  # manual, as xlib::Display doesn't implement glib traits
+  ignore = true
+  [[object.function]]
+  name = "text_property_to_text_list"
+  # manual, the annotations are wrong
+  ignore = true
+
+[[object]]
 name = "GdkX11.X11GLContext"
 status = "generate"
 version = "3.16"
@@ -75,3 +107,19 @@ version = "3.16"
 name = "GdkX11.X11Monitor"
 status = "generate"
 version = "3.22"
+
+[[object]]
+name = "GdkX11.X11Screen"
+status = "generate"
+  [[object.function]]
+  name = "get_xscreen"
+  # manual, as xlib::Screen doesn't implement glib traits
+  ignore = true
+
+[[object]]
+name = "GdkX11.X11Visual"
+status = "generate"
+  [[object.function]]
+  name = "get_xvisual"
+  # manual, as xlib::Visual doesn't implement glib traits
+  ignore = true

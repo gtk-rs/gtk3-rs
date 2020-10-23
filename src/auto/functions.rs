@@ -46,20 +46,6 @@ pub fn x11_device_manager_lookup<P: IsA<X11DeviceManagerCore>>(
     }
 }
 
-pub fn x11_free_compound_text(ctext: u8) {
-    assert_initialized_main_thread!();
-    unsafe {
-        gdk_x11_sys::gdk_x11_free_compound_text(ctext);
-    }
-}
-
-pub fn x11_free_text_list(list: &str) {
-    assert_initialized_main_thread!();
-    unsafe {
-        gdk_x11_sys::gdk_x11_free_text_list(list.to_glib_none().0);
-    }
-}
-
 pub fn x11_get_default_root_xwindow() -> xlib::Window {
     assert_initialized_main_thread!();
     unsafe { gdk_x11_sys::gdk_x11_get_default_root_xwindow() }
@@ -68,11 +54,6 @@ pub fn x11_get_default_root_xwindow() -> xlib::Window {
 pub fn x11_get_default_screen() -> i32 {
     assert_initialized_main_thread!();
     unsafe { gdk_x11_sys::gdk_x11_get_default_screen() }
-}
-
-pub fn x11_get_default_xdisplay() -> Option<xlib::Display> {
-    assert_initialized_main_thread!();
-    unsafe { from_glib_none(gdk_x11_sys::gdk_x11_get_default_xdisplay()) }
 }
 
 //#[cfg_attr(feature = "v3_24", deprecated)]
@@ -120,15 +101,6 @@ pub fn x11_grab_server() {
     assert_initialized_main_thread!();
     unsafe {
         gdk_x11_sys::gdk_x11_grab_server();
-    }
-}
-
-pub fn x11_lookup_xdisplay(xdisplay: &mut xlib::Display) -> Option<X11Display> {
-    assert_initialized_main_thread!();
-    unsafe {
-        from_glib_none(gdk_x11_sys::gdk_x11_lookup_xdisplay(
-            xdisplay.to_glib_none_mut().0,
-        ))
     }
 }
 
