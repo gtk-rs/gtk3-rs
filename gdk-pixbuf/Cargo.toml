@@ -1,0 +1,51 @@
+[package]
+name = "gdk-pixbuf"
+license = "MIT"
+homepage = "https://gtk-rs.org/"
+authors = ["The Gtk-rs Project Developers"]
+keywords = ["gdk-pixbuf", "gtk-rs", "gnome"]
+readme = "README.md"
+documentation = "https://gtk-rs.org/docs/gdk_pixbuf/"
+version = "0.9.0"
+description = "Rust bindings for the GdkPixbuf library"
+repository = "https://github.com/gtk-rs/gdk-pixbuf"
+build = "build.rs"
+exclude = [
+    "gir-files/*",
+]
+
+[badges]
+appveyor = { repository = "GuillaumeGomez/gdk-pixbuf", service = "github" }
+travis-ci = { repository = "gtk-rs/gdk-pixbuf" }
+
+[lib]
+name = "gdk_pixbuf"
+
+[features]
+v2_32 = ["gdk-pixbuf-sys/v2_32"]
+v2_36 = ["v2_32", "gdk-pixbuf-sys/v2_36"]
+v2_36_8 = ["v2_36", "gdk-pixbuf-sys/v2_36_8"]
+v2_40 = ["v2_36_8", "gdk-pixbuf-sys/v2_40"]
+dox = ["glib/dox", "gdk-pixbuf-sys/dox"]
+purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
+embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
+
+[package.metadata.docs.rs]
+features = ["dox", "embed-lgpl-docs"]
+
+[build-dependencies.gtk-rs-lgpl-docs]
+version = "0.1"
+optional = true
+git = "https://github.com/gtk-rs/lgpl-docs"
+
+[dependencies]
+libc = "0.2"
+gdk-pixbuf-sys = { git = "https://github.com/gtk-rs/sys" }
+glib = { git = "https://github.com/gtk-rs/glib" }
+glib-sys = { git = "https://github.com/gtk-rs/sys" }
+gobject-sys = { git = "https://github.com/gtk-rs/sys" }
+gio-sys = { git = "https://github.com/gtk-rs/sys" }
+gio = { git = "https://github.com/gtk-rs/gio" }
+
+[dev-dependencies]
+gir-format-check = "^0.1"

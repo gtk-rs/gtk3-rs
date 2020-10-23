@@ -1,0 +1,117 @@
+[options]
+girs_dir = "gir-files"
+library = "GdkPixbuf"
+version = "2.0"
+min_cfg_version = "2.30"
+target_path = "."
+work_mode = "normal"
+single_version_file = true
+deprecate_by_min_version = true
+
+generate = [
+    "GdkPixbuf.Colorspace",
+    "GdkPixbuf.InterpType",
+    "GdkPixbuf.PixbufAlphaMode",
+    "GdkPixbuf.PixbufError",
+    "GdkPixbuf.PixbufLoader",
+    "GdkPixbuf.PixbufRotation",
+    "GdkPixbuf.PixbufSimpleAnim",
+]
+
+manual = [
+    "GdkPixbuf.PixbufAnimationIter",
+    "Gio.AsyncReadyCallback",
+    "Gio.Cancellable",
+    "Gio.Icon",
+    "Gio.InputStream",
+    "Gio.LoadableIcon",
+    "Gio.OutputStream",
+    "GLib.Bytes",
+    "GLib.Error",
+]
+
+[[object]]
+name = "GdkPixbuf.Pixbuf"
+status = "generate"
+    [[object.function]]
+    name = "get_pixels"
+    #manual array without length
+    ignore = true
+    [[object.function]]
+    name = "get_pixels_with_length"
+    #manual as get_pixels
+    ignore = true
+    [[object.function]]
+    name = "read_pixels"
+    #unimplementable, use get_pixels instead
+    ignore = true
+    [[object.function]]
+    name = "new_from_file"
+    #manual is_windows_utf8
+    ignore = true
+    [[object.function]]
+    name = "new"
+        [object.function.return]
+        nullable = true
+    [[object.function]]
+    name = "new_from_file_at_size"
+    #manual is_windows_utf8
+    ignore = true
+    [[object.function]]
+    name = "new_from_file_at_scale"
+    #manual is_windows_utf8
+    ignore = true
+    [[object.function]]
+    name = "new_from_stream_async"
+    # wrong async return
+    ignore = true
+    [[object.function]]
+    name = "new_from_stream_at_scale_async"
+    # wrong return and don't generated
+    ignore = true
+    [[object.function]]
+    name = "get_file_info"
+    # wrong return
+    ignore = true
+    [[object.function]]
+    name = "get_file_info_async"
+    # wrong async return
+    ignore = true
+    [[object.function]]
+    name = "save_to_bufferv"
+    # manual complex param
+    ignore = true
+    [[object.function]]
+    name = "save_to_streamv"
+    # manual complex param
+    ignore = true
+    [[object.function]]
+    name = "savev"
+    # manual complex param
+    ignore = true
+    [[object.function]]
+    name = "save_to_streamv_async"
+    # manual complex param
+    ignore = true
+
+[[object]]
+name = "GdkPixbuf.PixbufAnimation"
+status = "generate"
+    [[object.function]]
+    name = "get_iter"
+    # TimeVal misses memory management functions
+    ignore = true
+
+[[object]]
+name = "GdkPixbuf.PixbufFormat"
+status = "generate"
+    [[object.function]]
+    pattern = "get_.+"
+        [[object.function.parameter]]
+        name = "format"
+        const = true
+    [[object.function]]
+    pattern = "is_.+"
+        [[object.function.parameter]]
+        name = "format"
+        const = true
