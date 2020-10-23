@@ -11,10 +11,10 @@ external_libraries = [
 ]
 
 ignore = [
-	"Atk.BINARY_AGE",
-	"Atk.INTERFACE_AGE",
-	"Atk.MAJOR_VERSION",
-	"Atk.MICRO_VERSION",
-	"Atk.MINOR_VERSION",
-	"Atk.VERSION_MIN_REQUIRED",
+    "Atk.BINARY_AGE",
+    "Atk.INTERFACE_AGE",
+    "Atk.MAJOR_VERSION",
+    "Atk.MICRO_VERSION",
+    "Atk.MINOR_VERSION",
+    "Atk.VERSION_MIN_REQUIRED",
 ]
