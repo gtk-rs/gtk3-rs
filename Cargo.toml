@@ -1,0 +1,30 @@
+[workspace]
+members = [
+  "atk",
+  "atk/sys",
+  "cairo",
+  "cairo/sys",
+  "gdk",
+  "gdk/sys",
+  "gdk-pixbuf",
+  "gdk-pixbuf/sys",
+  "gdkx11",
+  "gdkx11/sys",
+  "gio",
+  "gio/sys",
+  "glib",
+  "glib/gobject-sys",
+  "glib/sys",
+  "glib-macros",
+  "graphene",
+  "graphene/sys",
+  "gtk",
+  "gtk/sys",
+  "examples",
+  "pango",
+  "pango/sys",
+  "pangocairo",
+  "pangocairo/sys",
+]
+
+exclude = ["gir"]
