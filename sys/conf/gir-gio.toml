@@ -1,0 +1,48 @@
+[options]
+work_mode = "sys"
+library = "Gio"
+version = "2.0"
+min_cfg_version = "2.42"
+single_version_file = "."
+
+external_libraries = [
+   "GLib",
+   "GObject",
+]
+
+[[object]]
+name = "Gio.UnixMountEntry"
+status = "generate"
+    [[object.function]]
+    name = "get_type"
+    version = "2.54"
+
+[[object]]
+name = "Gio.UnixMountPoint"
+status = "generate"
+    [[object.function]]
+    name = "get_type"
+    version = "2.54"
+
+[[object]]
+name = "Gio.ListStore"
+status = "generate"
+version = "2.44"
+
+[[object]]
+name = "Gio.ListModel"
+status = "generate"
+version = "2.44"
+
+[[object]]
+name = "Gio.NativeSocketAddress"
+status = "generate"
+version = "2.46"
+
+[[object]]
+name = "Gio.SocketFamily"
+status = "manual"
+
+[[object]]
+name = "Gio.SocketMsgFlags"
+status = "manual"

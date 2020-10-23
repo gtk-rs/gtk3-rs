@@ -1,0 +1,63 @@
+[build-dependencies]
+pkg-config = "0.3.7"
+system-deps = "1.3"
+
+[dependencies]
+libc = "0.2"
+
+[dependencies.cairo-sys-rs]
+git = "https://github.com/gtk-rs/cairo"
+
+[dependencies.gdk-pixbuf-sys]
+path = "../gdk-pixbuf-sys"
+
+[dependencies.gio-sys]
+path = "../gio-sys"
+
+[dependencies.glib-sys]
+path = "../glib-sys"
+
+[dependencies.gobject-sys]
+path = "../gobject-sys"
+
+[dependencies.pango-sys]
+path = "../pango-sys"
+
+[dev-dependencies]
+shell-words = "1.0.0"
+tempfile = "3"
+
+[features]
+v3_16 = []
+v3_18 = ["v3_16"]
+v3_20 = ["v3_18"]
+v3_22 = ["v3_20"]
+v3_24 = ["v3_22"]
+dox = []
+
+[lib]
+name = "gdk_sys"
+
+[package]
+authors = ["The Gtk-rs Project Developers"]
+build = "build.rs"
+description = "FFI bindings to libgdk-3"
+homepage = "http://gtk-rs.org/"
+keywords = ["gdk", "ffi", "gtk-rs", "gnome"]
+license = "MIT"
+links = "gdk-3"
+name = "gdk-sys"
+repository = "https://github.com/gtk-rs/sys"
+version = "0.10.0"
+[package.metadata.docs.rs]
+features = ["dox"]
+[package.metadata.system-deps.gdk_3_0]
+name = "gdk-3.0"
+version = "3.14"
+
+[package.metadata.system-deps.gdk_3_0.feature-versions]
+v3_16 = "3.16"
+v3_18 = "3.18"
+v3_20 = "3.20"
+v3_22 = "3.22"
+v3_24 = "3.24"

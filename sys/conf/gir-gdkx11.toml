@@ -1,0 +1,34 @@
+[options]
+work_mode = "sys"
+library = "GdkX11"
+version = "3.0"
+min_cfg_version = "3.14"
+single_version_file = "."
+
+external_libraries = [
+   "Gdk",
+   "GdkPixbuf",
+   "Gio",
+   "GLib",
+   "GObject",
+   "Pango"
+]
+
+ignore = [
+]
+
+[[feature_dependencies]]
+version = "3.24.2"
+dependencies = [
+  "cairo"
+]
+
+[[object]]
+name = "GdkX11.X11GLContext"
+status = "generate"
+version = "3.16"
+
+[[object]]
+name = "GdkX11.X11Monitor"
+status = "generate"
+version = "3.22"

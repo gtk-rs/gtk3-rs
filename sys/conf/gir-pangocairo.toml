@@ -1,0 +1,12 @@
+[options]
+work_mode = "sys"
+library = "PangoCairo"
+version = "1.0"
+min_cfg_version = "1.36"
+single_version_file = "."
+
+external_libraries = [
+    "GLib",
+    "Pango",
+    "Cairo",
+]
