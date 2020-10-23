@@ -33,7 +33,7 @@ license = "MIT"
 links = "graphene"
 name = "graphene-sys"
 repository = "https://github.com/gtk-rs/gtk-rs"
-version = "0.1.0"
+version = "0.13.0"
 link = "graphene-1.0"
 [package.metadata.docs.rs]
 features = ["dox"]
