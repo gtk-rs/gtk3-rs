@@ -7,16 +7,12 @@ keywords = ["pango", "cairo", "gtk-rs", "gnome"]
 readme = "README.md"
 version = "0.10.0"
 description = "Rust bindings for the PangoCairo library"
-repository = "https://github.com/gtk-rs/pangocairo"
+repository = "https://github.com/gtk-rs/gtk-rs"
 license = "MIT"
 build = "build.rs"
 exclude = [
     "gir-files/*",
 ]
-
-[badges]
-appveyor = { repository = "GuillaumeGomez/pangocairo", service = "github" }
-travis-ci = { repository = "gtk-rs/pangocairo" }
 
 [features]
 dox = ["glib/dox", "pango/dox", "cairo-rs/dox"]
@@ -34,14 +30,14 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 [dependencies]
 libc = "0.2"
 bitflags = "1.0"
-glib-sys = { git = "https://github.com/gtk-rs/sys" }
-gobject-sys = { git = "https://github.com/gtk-rs/sys" }
-pango-sys = { git = "https://github.com/gtk-rs/sys" }
-cairo-sys-rs = { git = "https://github.com/gtk-rs/cairo" }
-pangocairo-sys = { git = "https://github.com/gtk-rs/sys" }
-glib = { git = "https://github.com/gtk-rs/glib" }
-pango = { git = "https://github.com/gtk-rs/pango" }
-cairo-rs = { git = "https://github.com/gtk-rs/cairo" }
+glib-sys = { path = "../glib/sys" }
+gobject-sys = { path = "../glib/gobject-sys" }
+pango-sys = { path = "../pango/sys" }
+cairo-sys-rs = { path = "../cairo/sys" }
+pangocairo-sys = { path = "../pangocairo/sys" }
+glib = { path = "../glib" }
+pango = { path = "../pango" }
+cairo-rs = { path = "../cairo" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"

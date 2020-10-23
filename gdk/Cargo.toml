@@ -8,7 +8,7 @@ readme = "README.md"
 documentation = "https://gtk-rs.org/docs/gdk/"
 version = "0.13.0"
 description = "Rust bindings for the GDK 3 library"
-repository = "https://github.com/gtk-rs/gdk"
+repository = "https://github.com/gtk-rs/gtk-rs"
 build = "build.rs"
 exclude = [
     "gir-files/*",
@@ -38,16 +38,16 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 [dependencies]
 libc = "0.2"
 bitflags = "1.0"
-glib-sys = { git = "https://github.com/gtk-rs/sys" }
-gdk-sys = { git = "https://github.com/gtk-rs/sys" }
-gio-sys = { git = "https://github.com/gtk-rs/sys" }
-gobject-sys = { git = "https://github.com/gtk-rs/sys" }
-cairo-sys-rs = { git = "https://github.com/gtk-rs/cairo" }
-cairo-rs = { git = "https://github.com/gtk-rs/cairo" }
-gdk-pixbuf = { git = "https://github.com/gtk-rs/gdk-pixbuf" }
-gio = { git = "https://github.com/gtk-rs/gio" }
-glib = { git = "https://github.com/gtk-rs/glib" }
-pango = { git = "https://github.com/gtk-rs/pango" }
+glib-sys = { path = "../glib/sys" }
+gdk-sys = { path = "../gdk/sys" }
+gio-sys = { path = "../gio/sys" }
+gobject-sys = { path = "../glib/gobject-sys" }
+cairo-sys-rs = { path = "../cairo/sys" }
+cairo-rs = { path = "../cairo" }
+gdk-pixbuf = { path = "../gdk-pixbuf" }
+gio = { path = "../gio" }
+glib = { path = "../glib" }
+pango = { path = "../pango" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"

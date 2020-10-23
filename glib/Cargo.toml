@@ -7,15 +7,11 @@ description = "Rust bindings for the GLib library"
 readme = "README.md"
 version = "0.10.0"
 keywords = ["glib", "gtk-rs", "gnome", "GUI"]
-repository = "https://github.com/gtk-rs/glib"
+repository = "https://github.com/gtk-rs/gtk-rs"
 license = "MIT"
 exclude = [
     "gir-files/*",
 ]
-
-[badges]
-appveyor = { repository = "GuillaumeGomez/glib", service = "github" }
-travis-ci = { repository = "gtk-rs/glib" }
 
 [lib]
 name = "glib"
@@ -29,9 +25,9 @@ futures-task = "0.3"
 futures-executor = "0.3"
 futures-util = "0.3"
 futures-channel = "0.3"
-glib-sys = { git = "https://github.com/gtk-rs/sys" }
-gobject-sys = { git = "https://github.com/gtk-rs/sys" }
-glib-macros = { path = "glib-macros" }
+glib-sys = { path = "sys" }
+gobject-sys = { path = "gobject-sys" }
+glib-macros = { path = "../glib-macros" }
 log = { version = "0.4", optional = true }
 smallvec = "1.0"
 

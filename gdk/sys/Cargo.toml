@@ -6,22 +6,22 @@ system-deps = "1.3"
 libc = "0.2"
 
 [dependencies.cairo-sys-rs]
-git = "https://github.com/gtk-rs/cairo"
+path = "../../cairo/sys"
 
 [dependencies.gdk-pixbuf-sys]
-path = "../gdk-pixbuf-sys"
+path = "../../gdk-pixbuf/sys"
 
 [dependencies.gio-sys]
-path = "../gio-sys"
+path = "../../gio/sys"
 
 [dependencies.glib-sys]
-path = "../glib-sys"
+path = "../../glib/sys"
 
 [dependencies.gobject-sys]
-path = "../gobject-sys"
+path = "../../glib/gobject-sys"
 
 [dependencies.pango-sys]
-path = "../pango-sys"
+path = "../../pango/sys"
 
 [dev-dependencies]
 shell-words = "1.0.0"
@@ -47,7 +47,7 @@ keywords = ["gdk", "ffi", "gtk-rs", "gnome"]
 license = "MIT"
 links = "gdk-3"
 name = "gdk-sys"
-repository = "https://github.com/gtk-rs/sys"
+repository = "https://github.com/gtk-rs/gtk-rs"
 version = "0.10.0"
 [package.metadata.docs.rs]
 features = ["dox"]

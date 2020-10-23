@@ -35,7 +35,7 @@ keywords = ["glib", "ffi", "gtk-rs", "gnome"]
 license = "MIT"
 links = "glib-2.0"
 name = "glib-sys"
-repository = "https://github.com/gtk-rs/sys"
+repository = "https://github.com/gtk-rs/gtk-rs"
 version = "0.10.0"
 [package.metadata.docs.rs]
 features = ["dox"]

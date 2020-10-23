@@ -6,7 +6,7 @@ authors = ["The Gtk-rs Project Developers"]
 description = "Rust bindings for the GLib library, proc macros crate"
 version = "0.10.0"
 keywords = ["glib", "gtk-rs", "gnome", "GUI"]
-repository = "https://github.com/gtk-rs/glib"
+repository = "https://github.com/gtk-rs/gtk-rs"
 license = "MIT"
 edition = "2018"
 
@@ -24,5 +24,5 @@ proc-macro-crate = "0.1"
 proc-macro = true
 
 [dev-dependencies]
-glib = { path = ".." }
-gobject-sys = { git = "https://github.com/gtk-rs/sys" }
+glib = { path = "../glib" }
+gobject-sys = { path = "../glib/gobject-sys" }

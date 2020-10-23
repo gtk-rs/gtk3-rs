@@ -7,7 +7,7 @@ homepage = "https://gtk-rs.org/"
 description = "FFI bindings to libcairo"
 version = "0.10.0"
 keywords = ["cairo", "ffi", "gtk-rs", "gnome"]
-repository = "https://github.com/gtk-rs/cairo"
+repository = "https://github.com/gtk-rs/gtk-rs"
 build = "build.rs"
 
 [package.metadata.system-deps."cairo"]
@@ -50,7 +50,7 @@ libc = "0.2"
 
 [dependencies.glib-sys]
 optional = true
-git = "https://github.com/gtk-rs/sys"
+path = "../../glib/sys"
 
 [dependencies.x11]
 optional = true

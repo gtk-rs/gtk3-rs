@@ -8,15 +8,11 @@ readme = "README.md"
 documentation = "https://gtk-rs.org/docs/gdk_pixbuf/"
 version = "0.9.0"
 description = "Rust bindings for the GdkPixbuf library"
-repository = "https://github.com/gtk-rs/gdk-pixbuf"
+repository = "https://github.com/gtk-rs/gtk-rs"
 build = "build.rs"
 exclude = [
     "gir-files/*",
 ]
-
-[badges]
-appveyor = { repository = "GuillaumeGomez/gdk-pixbuf", service = "github" }
-travis-ci = { repository = "gtk-rs/gdk-pixbuf" }
 
 [lib]
 name = "gdk_pixbuf"
@@ -40,12 +36,12 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 
 [dependencies]
 libc = "0.2"
-gdk-pixbuf-sys = { git = "https://github.com/gtk-rs/sys" }
-glib = { git = "https://github.com/gtk-rs/glib" }
-glib-sys = { git = "https://github.com/gtk-rs/sys" }
-gobject-sys = { git = "https://github.com/gtk-rs/sys" }
-gio-sys = { git = "https://github.com/gtk-rs/sys" }
-gio = { git = "https://github.com/gtk-rs/gio" }
+gdk-pixbuf-sys = { path = "sys" }
+glib = { path = "../glib" }
+glib-sys = { path = "../glib/sys" }
+gobject-sys = { path = "../glib/gobject-sys" }
+gio-sys = { path = "../gio/sys" }
+gio = { path = "../gio" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"

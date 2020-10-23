@@ -4,7 +4,7 @@ description = "FFI binding for libgdkx11"
 homepage = "http://gtk-rs.org/"
 keywords = ["gdkx11", "ffi", "gtk-rs", "gnome"]
 license = "MIT"
-repository = "https://github.com/gtk-rs/sys"
+repository = "https://github.com/gtk-rs/gtk-rs"
 name = "gdkx11-sys"
 version = "0.10.0"
 build = "build.rs"
@@ -28,26 +28,26 @@ libc = "0.2"
 x11 = "2.18"
 
 [dependencies.gdk-sys]
-git = "https://github.com/gtk-rs/sys"
+path = "../../gdk/sys"
 
 [dependencies.gdk-pixbuf-sys]
-git = "https://github.com/gtk-rs/sys"
+path = "../../gdk-pixbuf/sys"
 
 [dependencies.gio-sys]
-git = "https://github.com/gtk-rs/sys"
+path = "../../gio/sys"
 
 [dependencies.glib-sys]
-git = "https://github.com/gtk-rs/sys"
+path = "../../glib/sys"
 
 [dependencies.gobject-sys]
-git = "https://github.com/gtk-rs/sys"
+path = "../../glib/gobject-sys"
 
 [dependencies.pango-sys]
-git = "https://github.com/gtk-rs/sys"
+path = "../../pango/sys"
 
 [dependencies.cairo]
 package = "cairo-sys-rs"
-git = "https://github.com/gtk-rs/cairo"
+path = "../../cairo/sys"
 optional = true
 
 [build-dependencies]

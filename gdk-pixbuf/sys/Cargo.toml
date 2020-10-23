@@ -5,13 +5,13 @@ system-deps = "1.3"
 libc = "0.2"
 
 [dependencies.gio-sys]
-path = "../gio-sys"
+path = "../../gio/sys"
 
 [dependencies.glib-sys]
-path = "../glib-sys"
+path = "../../glib/sys"
 
 [dependencies.gobject-sys]
-path = "../gobject-sys"
+path = "../../glib/gobject-sys"
 
 [dev-dependencies]
 shell-words = "1.0.0"
@@ -36,7 +36,7 @@ keywords = ["gdk-pixbuf", "ffi", "gtk-rs", "gnome"]
 license = "MIT"
 links = "gdk_pixbuf-2.0"
 name = "gdk-pixbuf-sys"
-repository = "https://github.com/gtk-rs/sys"
+repository = "https://github.com/gtk-rs/gtk-rs"
 version = "0.10.0"
 [package.metadata.docs.rs]
 features = ["dox"]

@@ -8,7 +8,7 @@ readme = "README.md"
 documentation = "https://gtk-rs.org/docs/cairo/"
 version = "0.9.0"
 description = "Rust bindings for the Cairo library"
-repository = "https://github.com/gtk-rs/cairo"
+repository = "https://github.com/gtk-rs/gtk-rs"
 build = "build.rs"
 
 [badges]
@@ -45,19 +45,19 @@ optional = true
 git = "https://github.com/gtk-rs/lgpl-docs"
 
 [dependencies.cairo-sys-rs]
-path = "cairo-sys-rs"
+path = "sys"
 
 [dependencies.glib]
 optional = true
-git = "https://github.com/gtk-rs/glib"
+path = "../glib"
 
 [dependencies.glib-sys]
 optional = true
-git = "https://github.com/gtk-rs/sys"
+path = "../glib/sys"
 
 [dependencies.gobject-sys]
 optional = true
-git = "https://github.com/gtk-rs/sys"
+path = "../glib/gobject-sys"
 
 [dependencies.freetype-crate]
 package = "freetype"

@@ -10,38 +10,38 @@ futures = "0.3"
 once_cell = "1.2.0"
 
 [dependencies.atk]
-git = "https://github.com/gtk-rs/atk"
+git = "../atk"
 
 [dependencies.glib-sys]
-git = "https://github.com/gtk-rs/sys"
+git = "../glib/sys"
 
 [dependencies.gobject-sys]
-git = "https://github.com/gtk-rs/sys"
+git = "../glib/gobject-sys"
 
 [dependencies.glib]
-git = "https://github.com/gtk-rs/glib"
+git = "../glib"
 
 [dependencies.gio]
-git = "https://github.com/gtk-rs/gio"
+git = "../gio"
 
 [dependencies.cairo-rs]
-git = "https://github.com/gtk-rs/cairo"
+git = "../cairo"
 features = ["png"]
 
 [dependencies.pango]
-git = "https://github.com/gtk-rs/pango"
+git = "../pango"
 
 [dependencies.gdk-pixbuf]
-git = "https://github.com/gtk-rs/gdk-pixbuf"
+git = "../gdk-pixbuf"
 
 [dependencies.gdk]
-git = "https://github.com/gtk-rs/gdk"
+git = "../gdk"
 
 [dependencies.gtk]
-git = "https://github.com/gtk-rs/gtk"
+git = "../gtk"
 
 [dependencies.pangocairo]
-git = "https://github.com/gtk-rs/pangocairo"
+git = "../pangocairo"
 
 [dependencies.async-tls]
 version = "0.6"
