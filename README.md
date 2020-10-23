@@ -6,6 +6,11 @@ You can find more about it on <https://gtk-rs.org>.
 This repository contains all the "core" crates of the gtk-rs organization. For more
 information about each crate, please refer to their `README.md` file in their directory.
 
+## Documentation
+
+You can see the all the released crates' documentation in
+[one place](https://gtk-rs.org/docs-src/).
+
 ## Regenerating
 
 To regenerate crates using [gir], please use the `generator.py`
@@ -16,6 +21,11 @@ $ python3 generator.py
 ```
 
 ## Development
+
+This repository is mostly split into two branches: `master` and `crate`.
+`master` contains the not yet released code and is where new developments
+are happening. `crate` contains the last release source code and isn't supposed to
+be updated.
 
 This repository is structured as follows:
 
