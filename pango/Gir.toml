@@ -1,0 +1,245 @@
+[options]
+girs_dir = "gir-files"
+library = "Pango"
+version = "1.0"
+target_path = "."
+work_mode = "normal"
+generate_safety_asserts = false
+min_cfg_version = "1.36"
+single_version_file = true
+deprecate_by_min_version = true
+
+generate = [
+    # "Pango.AttrColor",
+    # "Pango.AttrFloat",
+    # "Pango.AttrFontDesc",
+    # "Pango.AttrFontFeatures",
+    # "Pango.AttrInt",
+    # "Pango.AttrLanguage",
+    # "Pango.AttrShape",
+    # "Pango.AttrSize",
+    # "Pango.AttrString",
+    # "Pango.GlyphGeometry",
+    # "Pango.GlyphInfo",
+    # "Pango.GlyphVisAttr",
+    # "Pango.LogAttr",
+    # "Pango.Map",
+    # "Pango.MapEntry",
+    # "Pango.ScriptForLang",
+    # "Pango.ScriptIter",
+    "Pango.Alignment",
+    "Pango.AttrType",
+    "Pango.BidiType",
+    "Pango.Color",
+    "Pango.CoverageLevel",
+    "Pango.Direction",
+    "Pango.EllipsizeMode",
+    "Pango.EngineLang",
+    "Pango.EngineShape",
+    "Pango.FontFace",
+    "Pango.FontFamily",
+    "Pango.FontMask",
+    "Pango.FontMetrics",
+    "Pango.Fontset",
+    "Pango.FontsetSimple",
+    "Pango.Glyph",
+    "Pango.GlyphItem",
+    "Pango.GlyphItemIter",
+    "Pango.GlyphString",
+    "Pango.GlyphUnit",
+    "Pango.Gravity",
+    "Pango.GravityHint",
+    "Pango.Item",
+    "Pango.LayoutIter",
+    "Pango.LayoutLine",
+    "Pango.LayoutRun",
+    "Pango.Matrix",
+    "Pango.Overline",
+    "Pango.Renderer",
+    "Pango.RenderPart",
+    "Pango.Script",
+    "Pango.Stretch",
+    "Pango.Style",
+    "Pango.TabAlign",
+    "Pango.TabArray",
+    "Pango.Underline",
+    "Pango.Variant",
+    "Pango.Weight",
+    "Pango.WrapMode",
+]
+
+manual = [
+    "GLib.Error",
+    "Pango.Analysis",
+    "Pango.AttrClass",
+    "Pango.Coverage",
+    "Pango.Language",
+    "Pango.Rectangle",
+]
+
+[[object]]
+name = "Pango.*"
+status = "generate"
+    [[object.function]]
+    name = "extents_to_pixels"
+        [[object.function.parameter]]
+        pattern = ".+"
+        const = true
+    [[object.function]]
+    name = "get_mirror_char"
+    #out param
+    ignore = true
+    [[object.function]]
+    name = "log2vis_get_embedding_levels"
+    #out param
+    ignore = true
+    [[object.function]]
+    pattern = "attr_.+"
+    #moved to Attribute
+    ignore = true
+    [[object.function]]
+    name = "itemize"
+        [[object.function.parameter]]
+        name = "cached_iter"
+        const = true
+    [[object.function]]
+    name = "itemize_with_base_dir"
+        [[object.function.parameter]]
+        name = "cached_iter"
+        const = true
+    [[object.function]]
+    name = "reorder_items"
+    ignore = true
+    [[object.function]]
+    name = "shape_full"
+    # invalid length computation on Stash instead of str
+    ignore = true
+    [[object.function]]
+    name = "shape_with_flags"
+    # ivanlid length computation on a Option<str>, it should fallback to 0.
+    ignore = true
+
+[[object]]
+name = "Pango.Attribute"
+status = "generate"
+    [[object.function]]
+    name = "get_type"
+    version = "1.44"
+
+[[object]]
+name = "Pango.AttrIterator"
+status = "generate"
+    [[object.function]]
+    name = "get_font"
+    ignore = true
+    [[object.function]]
+    name = "get_type"
+    version = "1.44"
+
+[[object]]
+name = "Pango.AttrList"
+status = "generate"
+    [[object.derive]]
+    name = "Debug"
+    [[object.function]]
+    name = "change"
+    ignore = true
+    [[object.function]]
+    name = "insert"
+    ignore = true
+    [[object.function]]
+    name = "insert_before"
+    ignore = true
+    [[object.function]]
+    name = "equal"
+    ignore = true
+
+[[object]]
+name = "Pango.Context"
+status = "generate"
+    [[object.function]]
+    name = "get_metrics"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+    [[object.function]]
+    name = "load_fontset"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+    [[object.function]]
+    name = "set_language"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+
+[[object]]
+name = "Pango.Font"
+status = "generate"
+    [[object.function]]
+    name = "descriptions_free"
+    ignore = true
+    [[object.function]]
+    name = "get_metrics"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+    [[object.function]]
+    name = "find_shaper"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+    [[object.function]]
+    name = "get_coverage"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+
+[[object]]
+name = "Pango.FontDescription"
+status = "generate"
+    [[object.function]]
+    name = "from_string"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "set_family_static"
+    ignore = true
+    [[object.function]]
+    name = "copy_static"
+    ignore = true
+    [[object.function]]
+    name = "merge_static"
+    ignore = true
+
+[[object]]
+name = "Pango.FontMap"
+status = "generate"
+    [[object.function]]
+    name = "load_fontset"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+
+[[object]]
+name = "Pango.Layout"
+status = "generate"
+    [[object.function]]
+    name = "xy_to_index"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "set_tabs"
+        [[object.function.parameter]]
+        name = "tabs"
+        const = true
+
+[[object]]
+name = "Pango.ShapeFlags"
+version = "1.44"
+status = "generate"
+
+[[object]]
+name = "Pango.ShowFlags"
+version = "1.44"
+status = "generate"
