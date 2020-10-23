@@ -1,0 +1,589 @@
+[options]
+girs_dir = "gir-files"
+library = "Graphene"
+version = "1.0"
+min_cfg_version = "1.9.2"
+target_path = "."
+work_mode = "normal"
+generate_safety_asserts = true
+single_version_file = true
+deprecate_by_min_version = true
+
+generate = [
+    "Graphene.EulerOrder",
+]
+
+[[object]]
+name = "Graphene.*"
+status = "generate"
+    [[object.constant]]
+    name = "SIMD_S"
+    ignore = true
+
+[[object]]
+name = "Graphene.Box"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_box"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    # array with size
+    name = "init_from_points"
+    ignore = true
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_vec3"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    # array with size
+    name = "init_from_vectors"
+    ignore = true
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "zero"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "one"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "minus_one"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "one_minus_one"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "empty"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "infinite"
+        [object.function.return]
+        nullable = false
+
+[[object]]
+name = "Graphene.Euler"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_with_order"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_matrix"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_quaternion"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_vec3"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_euler"
+        [object.function.return]
+        type = "none"
+
+[[object]]
+name = "Graphene.Frustum"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_frustum"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_matrix"
+        [object.function.return]
+        type = "none"
+
+[[object]]
+name = "Graphene.Matrix"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init_identity"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_float"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_vec4"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_matrix"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_2d"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_perspective"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_ortho"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_look_at"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_frustum"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_scale"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_translate"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_rotate"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_skew"
+        [object.function.return]
+        type = "none"
+
+[[object]]
+name = "Graphene.Plane"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_plane"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_point"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_points"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_vec4"
+        [object.function.return]
+        type = "none"
+
+[[object]]
+name = "Graphene.Point"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_point"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_vec2"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "zero"
+        [object.function.return]
+        nullable = false
+
+[[object]]
+name = "Graphene.Point3D"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_point"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_vec3"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "zero"
+        [object.function.return]
+        nullable = false
+
+[[object]]
+name = "Graphene.Quad"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_rect"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_points"
+        [object.function.return]
+        type = "none"
+
+[[object]]
+name = "Graphene.Quaternion"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_identity"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_quaternion"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_vec4"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_matrix"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_angles"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_radians"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_angle_vec3"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_euler"
+        [object.function.return]
+        type = "none"
+
+[[object]]
+name = "Graphene.Ray"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_ray"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_vec3"
+        [object.function.return]
+        type = "none"
+
+[[object]]
+name = "Graphene.Rect"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_rect"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "zero"
+        [object.function.return]
+        nullable = false
+
+[[object]]
+# missing memory management functions
+name = "Graphene.Simd4F"
+status = "ignore"
+
+[[object]]
+# missing memory management functions
+name = "Graphene.Simd4X4F"
+status = "ignore"
+
+[[object]]
+name = "Graphene.Size"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_size"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "zero"
+        [object.function.return]
+        nullable = false
+
+[[object]]
+name = "Graphene.Sphere"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    # array with size
+    name = "init_from_points"
+    ignore = true
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    # array with size
+    name = "init_from_vectors"
+    ignore = true
+        [object.function.return]
+        type = "none"
+
+[[object]]
+name = "Graphene.Triangle"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init_from_point3d"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_vec3"
+        [object.function.return]
+        type = "none"
+
+[[object]]
+name = "Graphene.Vec2"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_vec2"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "one"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "x_axis"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "y_axis"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "zero"
+        [object.function.return]
+        nullable = false
+
+[[object]]
+name = "Graphene.Vec3"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_vec3"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "one"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "x_axis"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "y_axis"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "z_axis"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "zero"
+        [object.function.return]
+        nullable = false
+
+[[object]]
+name = "Graphene.Vec4"
+status = "generate"
+init_function_expression = "|_ptr| ()"
+clear_function_expression = "|_ptr| ()"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_vec2"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_vec3"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_vec4"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "one"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "w_axis"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "x_axis"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "y_axis"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "z_axis"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "zero"
+        [object.function.return]
+        nullable = false
