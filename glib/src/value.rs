@@ -133,8 +133,8 @@ impl error::Error for GetError {}
 ///
 /// See the [module documentation](index.html) for more details.
 // TODO: Should use impl !Send for Value {} once stable
-#[repr(C)]
-pub struct Value(pub(crate) gobject_sys::GValue, PhantomData<*const c_void>);
+#[repr(transparent)]
+pub struct Value(pub(crate) gobject_sys::GValue);
 
 impl Value {
     /// Creates a new `Value` that is initialized with `type_`
