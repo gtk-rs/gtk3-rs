@@ -19,7 +19,7 @@ use {Closure, IsA, IsClassFor, SignalFlags, StaticType, Type, Value};
 /// This allows running additional type-setup functions, e.g. for implementing
 /// interfaces on the type.
 #[derive(Debug, PartialEq, Eq)]
-pub struct InitializingType<T>(pub(crate) Type, pub(crate) marker::PhantomData<T>);
+pub struct InitializingType<T>(pub(crate) Type, pub(crate) marker::PhantomData<*const T>);
 
 impl<T: ObjectSubclass> InitializingType<T> {
     /// Adds an interface implementation for `I` to the type.
