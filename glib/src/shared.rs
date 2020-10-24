@@ -56,12 +56,10 @@ macro_rules! glib_shared_wrapper {
      @unref $unref_arg:ident $unref_expr:expr) => {
         $(#[$attr])*
         #[derive(Clone)]
-        pub struct $name($crate::shared::Shared<$ffi_name, MemoryManager>);
+        pub struct $name($crate::shared::Shared<$ffi_name, $name>);
 
         #[doc(hidden)]
-        pub enum MemoryManager {}
-
-        impl $crate::shared::SharedMemoryManager<$ffi_name> for MemoryManager {
+        impl $crate::shared::SharedMemoryManager<$ffi_name> for $name {
             #[inline]
             unsafe fn ref_($ref_arg: *mut $ffi_name) {
                 $ref_expr;
@@ -80,7 +78,7 @@ macro_rules! glib_shared_wrapper {
 
         #[doc(hidden)]
         impl<'a> $crate::translate::ToGlibPtr<'a, *mut $ffi_name> for $name {
-            type Storage = &'a $crate::shared::Shared<$ffi_name, MemoryManager>;
+            type Storage = &'a $crate::shared::Shared<$ffi_name, $name>;
 
             #[inline]
             fn to_glib_none(&'a self) -> $crate::translate::Stash<'a, *mut $ffi_name, Self> {
@@ -302,7 +300,7 @@ pub trait SharedMemoryManager<T> {
 /// Encapsulates memory management logic for shared types.
 pub struct Shared<T, MM: SharedMemoryManager<T>> {
     inner: ptr::NonNull<T>,
-    mm: PhantomData<MM>,
+    mm: PhantomData<*const MM>,
 }
 
 impl<T, MM: SharedMemoryManager<T>> Drop for Shared<T, MM> {

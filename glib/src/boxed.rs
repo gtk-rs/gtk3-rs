@@ -48,7 +48,7 @@ macro_rules! glib_boxed_wrapper {
     (@generic_impl [$($attr:meta)*] $name:ident, $ffi_name:ty) => {
         $(#[$attr])*
         #[derive(Clone)]
-        pub struct $name($crate::boxed::Boxed<$ffi_name, MemoryManager>);
+        pub struct $name($crate::boxed::Boxed<$ffi_name, $name>);
         #[doc(hidden)]
         impl $crate::translate::GlibPtrDefault for $name {
             type GlibType = *mut $ffi_name;
@@ -56,7 +56,7 @@ macro_rules! glib_boxed_wrapper {
 
         #[doc(hidden)]
         impl<'a> $crate::translate::ToGlibPtr<'a, *const $ffi_name> for $name {
-            type Storage = &'a $crate::boxed::Boxed<$ffi_name, MemoryManager>;
+            type Storage = &'a $crate::boxed::Boxed<$ffi_name, $name>;
 
             #[inline]
             fn to_glib_none(&'a self) -> $crate::translate::Stash<'a, *const $ffi_name, Self> {
@@ -72,7 +72,7 @@ macro_rules! glib_boxed_wrapper {
 
         #[doc(hidden)]
         impl<'a> $crate::translate::ToGlibPtrMut<'a, *mut $ffi_name> for $name {
-            type Storage = &'a mut $crate::boxed::Boxed<$ffi_name, MemoryManager>;
+            type Storage = &'a mut $crate::boxed::Boxed<$ffi_name, $name>;
 
             #[inline]
             fn to_glib_none_mut(&'a mut self) -> $crate::translate::StashMut<'a, *mut $ffi_name, Self> {
@@ -291,9 +291,7 @@ macro_rules! glib_boxed_wrapper {
 
     (@memory_manager_impl $name:ident, $ffi_name:ty, @copy $copy_arg:ident $copy_expr:expr, @free $free_arg:ident $free_expr:expr) => {
         #[doc(hidden)]
-        pub enum MemoryManager {}
-
-        impl $crate::boxed::BoxedMemoryManager<$ffi_name> for MemoryManager {
+        impl $crate::boxed::BoxedMemoryManager<$ffi_name> for $name {
             #[inline]
             unsafe fn copy($copy_arg: *const $ffi_name) -> *mut $ffi_name {
                 $copy_expr
@@ -319,9 +317,7 @@ macro_rules! glib_boxed_wrapper {
     (@memory_manager_impl $name:ident, $ffi_name:ty, @copy $copy_arg:ident $copy_expr:expr, @free $free_arg:ident $free_expr:expr,
          @init $init_arg:ident $init_expr:expr, @clear $clear_arg:ident $clear_expr:expr) => {
         #[doc(hidden)]
-        pub struct MemoryManager;
-
-        impl $crate::boxed::BoxedMemoryManager<$ffi_name> for MemoryManager {
+        impl $crate::boxed::BoxedMemoryManager<$ffi_name> for $name {
             #[inline]
             unsafe fn copy($copy_arg: *const $ffi_name) -> *mut $ffi_name {
                 $copy_expr
@@ -385,7 +381,7 @@ pub trait BoxedMemoryManager<T>: 'static {
 /// Encapsulates memory management logic for boxed types.
 pub struct Boxed<T: 'static, MM: BoxedMemoryManager<T>> {
     inner: AnyBox<T>,
-    _dummy: PhantomData<MM>,
+    _dummy: PhantomData<*mut MM>,
 }
 
 impl<T: 'static, MM: BoxedMemoryManager<T>> Uninitialized for Boxed<T, MM> {
