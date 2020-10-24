@@ -724,7 +724,7 @@ macro_rules! glib_object_wrapper {
         // types. Due to inheritance and up/downcasting we must implement these by pointer or
         // otherwise they would potentially give differeny results for the same object depending on
         // the type we currently know for it
-        #[derive(Clone, Hash, PartialOrd, Ord, PartialEq, Eq, Debug)]
+        #[derive(Clone, Hash, Ord, Eq, Debug)]
         pub struct $name($crate::object::ObjectRef);
 
         #[doc(hidden)]
@@ -1031,6 +1031,20 @@ macro_rules! glib_object_wrapper {
             fn static_type() -> $crate::types::Type {
                 #[allow(unused_unsafe)]
                 unsafe { $crate::translate::from_glib($get_type_expr) }
+            }
+        }
+
+        impl<T: $crate::object::ObjectType> ::std::cmp::PartialEq<T> for $name {
+            #[inline]
+            fn eq(&self, other: &T) -> bool {
+                ::std::cmp::PartialEq::eq(&self.0, $crate::object::ObjectType::as_object_ref(other))
+            }
+        }
+
+        impl<T: $crate::object::ObjectType> ::std::cmp::PartialOrd<T> for $name {
+            #[inline]
+            fn partial_cmp(&self, other: &T) -> Option<::std::cmp::Ordering> {
+                ::std::cmp::PartialOrd::partial_cmp(&self.0, $crate::object::ObjectType::as_object_ref(other))
             }
         }
 
