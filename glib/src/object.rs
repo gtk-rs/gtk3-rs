@@ -1150,7 +1150,7 @@ macro_rules! glib_object_wrapper {
     };
 
     (@class_impl $name:ident, $ffi_class_name:ty, $rust_class_name:ident) => {
-        #[repr(C)]
+        #[repr(transparent)]
         #[derive(Debug)]
         pub struct $rust_class_name($ffi_class_name);
 
