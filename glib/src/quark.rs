@@ -8,7 +8,7 @@ use std::fmt;
 use translate::*;
 
 #[derive(Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
-#[repr(C)]
+#[repr(transparent)]
 pub struct Quark(glib_sys::GQuark);
 
 impl Quark {

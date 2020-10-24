@@ -335,7 +335,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, (), $rust_class_name, @get_type $get_type_expr, @extends [], @implements []);
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, ::std::os::raw::c_void, $rust_class_name, @get_type $get_type_expr, @extends [], @implements []);
     };
 
     // Object, class struct, no parents or interfaces
@@ -359,7 +359,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, (), $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, ::std::os::raw::c_void, $rust_class_name,
             @get_type $get_type_expr, @extends [$($extends),+], @implements []);
     };
 
@@ -385,7 +385,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, (), $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, ::std::os::raw::c_void, $rust_class_name,
             @get_type $get_type_expr, @extends [], @implements [$($implements),+]);
     };
 
@@ -411,7 +411,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, (), $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, ::std::os::raw::c_void, $rust_class_name,
             @get_type $get_type_expr, @extends [$($extends),+], @implements [$($implements),+]);
     };
 

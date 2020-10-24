@@ -28,6 +28,7 @@ use SpawnFlags;
 
 #[cfg(any(feature = "v2_58", feature = "dox"))]
 #[cfg(not(windows))]
+#[allow(clippy::too_many_arguments)]
 pub fn spawn_async_with_fds<P: AsRef<std::path::Path>, T: AsRawFd, U: AsRawFd, V: AsRawFd>(
     working_directory: P,
     argv: &[&str],

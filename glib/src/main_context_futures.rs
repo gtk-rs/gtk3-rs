@@ -44,7 +44,6 @@ impl Future for FutureWrapper {
 //
 // The WakerSource is set up as a child source of the TaskSource, i.e.
 // whenever it is ready also the TaskSource is ready.
-#[allow(clippy::type_complexity)]
 #[repr(C)]
 struct TaskSource {
     source: glib_sys::GSource,
@@ -52,7 +51,6 @@ struct TaskSource {
     waker: Waker,
 }
 
-#[allow(clippy::type_complexity)]
 #[repr(C)]
 struct WakerSource {
     source: glib_sys::GSource,

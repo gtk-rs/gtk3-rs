@@ -19,7 +19,7 @@ use {Closure, IsA, IsClassFor, SignalFlags, StaticType, Type, Value};
 /// This allows running additional type-setup functions, e.g. for implementing
 /// interfaces on the type.
 #[derive(Debug, PartialEq, Eq)]
-pub struct InitializingType<T>(pub(crate) Type, pub(crate) marker::PhantomData<T>);
+pub struct InitializingType<T>(pub(crate) Type, pub(crate) marker::PhantomData<*const T>);
 
 impl<T: ObjectSubclass> InitializingType<T> {
     /// Adds an interface implementation for `I` to the type.
@@ -531,7 +531,7 @@ pub(crate) unsafe fn add_signal(
     );
 }
 
-#[repr(C)]
+#[repr(transparent)]
 pub struct SignalInvocationHint(gobject_sys::GSignalInvocationHint);
 
 impl SignalInvocationHint {
@@ -577,7 +577,7 @@ pub(crate) unsafe fn add_signal_with_accumulator<F>(
     ) -> glib_sys::gboolean {
         let accumulator: &F = &*(data as *const &F);
         accumulator(
-            &SignalInvocationHint(*ihint),
+            &*(ihint as *const SignalInvocationHint),
             &mut *(return_accu as *mut Value),
             &*(handler_return as *const Value),
         )

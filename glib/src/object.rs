@@ -724,8 +724,8 @@ macro_rules! glib_object_wrapper {
         // types. Due to inheritance and up/downcasting we must implement these by pointer or
         // otherwise they would potentially give differeny results for the same object depending on
         // the type we currently know for it
-        #[derive(Clone, Hash, Ord)]
-        pub struct $name($crate::object::ObjectRef, ::std::marker::PhantomData<$ffi_name>);
+        #[derive(Clone, Hash, PartialOrd, Ord, PartialEq, Eq, Debug)]
+        pub struct $name($crate::object::ObjectRef);
 
         #[doc(hidden)]
         impl Into<$crate::object::ObjectRef> for $name {
@@ -738,7 +738,7 @@ macro_rules! glib_object_wrapper {
         impl $crate::object::UnsafeFrom<$crate::object::ObjectRef> for $name {
             #[allow(clippy::missing_safety_doc)]
             unsafe fn unsafe_from(t: $crate::object::ObjectRef) -> Self {
-                $name(t, ::std::marker::PhantomData)
+                $name(t)
             }
         }
 
@@ -881,7 +881,7 @@ macro_rules! glib_object_wrapper {
             #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_none(ptr: *mut $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
-                $name($crate::translate::from_glib_none(ptr as *mut _), ::std::marker::PhantomData)
+                $name($crate::translate::from_glib_none(ptr as *mut _))
             }
         }
 
@@ -892,7 +892,7 @@ macro_rules! glib_object_wrapper {
             #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_none(ptr: *const $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
-                $name($crate::translate::from_glib_none(ptr as *mut _), ::std::marker::PhantomData)
+                $name($crate::translate::from_glib_none(ptr as *mut _))
             }
         }
 
@@ -903,7 +903,7 @@ macro_rules! glib_object_wrapper {
             #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_full(ptr: *mut $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
-                $name($crate::translate::from_glib_full(ptr as *mut _), ::std::marker::PhantomData)
+                $name($crate::translate::from_glib_full(ptr as *mut _))
             }
         }
 
@@ -916,8 +916,7 @@ macro_rules! glib_object_wrapper {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
                 $crate::translate::Borrowed::new(
                     $name(
-                        $crate::translate::from_glib_borrow::<_, $crate::object::ObjectRef>(ptr as *mut _).into_inner(),
-                        ::std::marker::PhantomData,
+                        $crate::translate::from_glib_borrow::<_, $crate::object::ObjectRef>(ptr as *mut _).into_inner()
                     )
                 )
             }
@@ -1032,30 +1031,6 @@ macro_rules! glib_object_wrapper {
             fn static_type() -> $crate::types::Type {
                 #[allow(unused_unsafe)]
                 unsafe { $crate::translate::from_glib($get_type_expr) }
-            }
-        }
-
-        impl<T: $crate::object::ObjectType> ::std::cmp::PartialEq<T> for $name {
-            #[inline]
-            fn eq(&self, other: &T) -> bool {
-                $crate::translate::ToGlibPtr::to_glib_none(&self.0).0 == $crate::translate::ToGlibPtr::to_glib_none($crate::object::ObjectType::as_object_ref(other)).0
-            }
-        }
-
-        impl ::std::cmp::Eq for $name { }
-
-        impl<T: $crate::object::ObjectType> ::std::cmp::PartialOrd<T> for $name {
-            #[inline]
-            fn partial_cmp(&self, other: &T) -> Option<::std::cmp::Ordering> {
-                $crate::translate::ToGlibPtr::to_glib_none(&self.0).0.partial_cmp(&$crate::translate::ToGlibPtr::to_glib_none($crate::object::ObjectType::as_object_ref(other)).0)
-            }
-        }
-
-        impl ::std::fmt::Debug for $name {
-            fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-                f.debug_struct(stringify!($name))
-                    .field("inner", &self.0)
-                    .finish()
             }
         }
 
@@ -1175,7 +1150,7 @@ macro_rules! glib_object_wrapper {
     };
 
     (@class_impl $name:ident, $ffi_class_name:ty, $rust_class_name:ident) => {
-        #[repr(C)]
+        #[repr(transparent)]
         #[derive(Debug)]
         pub struct $rust_class_name($ffi_class_name);
 

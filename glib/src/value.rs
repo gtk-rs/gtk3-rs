@@ -133,8 +133,8 @@ impl error::Error for GetError {}
 ///
 /// See the [module documentation](index.html) for more details.
 // TODO: Should use impl !Send for Value {} once stable
-#[repr(C)]
-pub struct Value(pub(crate) gobject_sys::GValue, PhantomData<*const c_void>);
+#[repr(transparent)]
+pub struct Value(pub(crate) gobject_sys::GValue);
 
 impl Value {
     /// Creates a new `Value` that is initialized with `type_`
@@ -592,7 +592,7 @@ impl Drop for ValueArray {
 ///
 /// See the [module documentation](index.html) for more details.
 #[derive(Clone)]
-#[repr(C)]
+#[repr(transparent)]
 pub struct TypedValue<T>(Value, PhantomData<*const T>);
 
 impl<'a, T: FromValueOptional<'a> + SetValue> TypedValue<T> {
@@ -758,7 +758,7 @@ impl<T: ?Sized + SetValue> ToValue for T {
 ///
 /// See the [module documentation](index.html) for more details.
 #[derive(Clone)]
-#[repr(C)]
+#[repr(transparent)]
 pub struct SendValue(Value);
 
 unsafe impl Send for SendValue {}

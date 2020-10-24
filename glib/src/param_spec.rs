@@ -618,89 +618,82 @@ extern "C" {
 
 macro_rules! define_param_spec {
     ($rust_type:ident, $ffi_type:path, $mod_name:ident, $rust_type_offset:expr) => {
-        mod $mod_name {
-            use super::*;
+        // Can't use get_type here as this is not a boxed type but another fundamental type
+        glib_wrapper! {
+            #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+            pub struct $rust_type(Shared<$ffi_type>);
 
-            // Can't use get_type here as this is not a boxed type but another fundamental type
-            glib_wrapper! {
-                #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-                pub struct $rust_type(Shared<$ffi_type>);
-
-                match fn {
-                    ref => |ptr| gobject_sys::g_param_spec_ref_sink(ptr as *mut gobject_sys::GParamSpec) as *mut $ffi_type,
-                    unref => |ptr| gobject_sys::g_param_spec_unref(ptr as *mut gobject_sys::GParamSpec),
-                }
+            match fn {
+                ref => |ptr| gobject_sys::g_param_spec_ref_sink(ptr as *mut gobject_sys::GParamSpec) as *mut $ffi_type,
+                unref => |ptr| gobject_sys::g_param_spec_unref(ptr as *mut gobject_sys::GParamSpec),
             }
+        }
 
-            impl StaticType for $rust_type {
-                fn static_type() -> Type {
-                    unsafe {
-                        from_glib(*g_param_spec_types.add($rust_type_offset))
-                    }
-                }
-            }
-
-            #[doc(hidden)]
-            impl<'a> value::FromValueOptional<'a> for $rust_type {
-                #[allow(clippy::missing_safety_doc)]
-                unsafe fn from_value_optional(value: &Value) -> Option<Self> {
-                    from_glib_full(gobject_sys::g_value_dup_param(value.to_glib_none().0) as *mut $ffi_type)
-                }
-            }
-
-            #[doc(hidden)]
-            impl value::SetValue for $rust_type {
-                #[allow(clippy::missing_safety_doc)]
-                unsafe fn set_value(value: &mut Value, this: &Self) {
-                    gobject_sys::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0 as *mut gobject_sys::GParamSpec)
-                }
-            }
-
-            #[doc(hidden)]
-            impl value::SetValueOptional for $rust_type {
-                #[allow(clippy::missing_safety_doc)]
-                unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-                    gobject_sys::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0 as *mut gobject_sys::GParamSpec)
-                }
-            }
-
-            unsafe impl Send for $rust_type {}
-            unsafe impl Sync for $rust_type {}
-
-            impl std::ops::Deref for $rust_type {
-                type Target = ParamSpec;
-
-                fn deref(&self) -> &Self::Target {
-                    unsafe {
-                        &*(self as *const $rust_type as *const ParamSpec)
-                    }
-                }
-            }
-
-            impl ParamSpecType for $rust_type {}
-
-            #[doc(hidden)]
-            impl FromGlibPtrFull<*mut gobject_sys::GParamSpec> for $rust_type {
-                unsafe fn from_glib_full(ptr: *mut gobject_sys::GParamSpec) -> Self {
-                    from_glib_full(ptr as *mut $ffi_type)
-                }
-            }
-
-            impl $rust_type {
-                pub fn upcast(self) -> ParamSpec {
-                    unsafe {
-                        from_glib_full(self.to_glib_full() as *mut gobject_sys::GParamSpec)
-                    }
-                }
-
-                pub fn upcast_ref(&self) -> &ParamSpec {
-                    &*self
+        impl StaticType for $rust_type {
+            fn static_type() -> Type {
+                unsafe {
+                    from_glib(*g_param_spec_types.add($rust_type_offset))
                 }
             }
         }
 
-        pub use self::$mod_name::$rust_type;
+        #[doc(hidden)]
+        impl<'a> value::FromValueOptional<'a> for $rust_type {
+            #[allow(clippy::missing_safety_doc)]
+            unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+                from_glib_full(gobject_sys::g_value_dup_param(value.to_glib_none().0) as *mut $ffi_type)
+            }
+        }
 
+        #[doc(hidden)]
+        impl value::SetValue for $rust_type {
+            #[allow(clippy::missing_safety_doc)]
+            unsafe fn set_value(value: &mut Value, this: &Self) {
+                gobject_sys::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0 as *mut gobject_sys::GParamSpec)
+            }
+        }
+
+        #[doc(hidden)]
+        impl value::SetValueOptional for $rust_type {
+            #[allow(clippy::missing_safety_doc)]
+            unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
+                gobject_sys::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0 as *mut gobject_sys::GParamSpec)
+            }
+        }
+
+        unsafe impl Send for $rust_type {}
+        unsafe impl Sync for $rust_type {}
+
+        impl std::ops::Deref for $rust_type {
+            type Target = ParamSpec;
+
+            fn deref(&self) -> &Self::Target {
+                unsafe {
+                    &*(self as *const $rust_type as *const ParamSpec)
+                }
+            }
+        }
+
+        impl ParamSpecType for $rust_type {}
+
+        #[doc(hidden)]
+        impl FromGlibPtrFull<*mut gobject_sys::GParamSpec> for $rust_type {
+            unsafe fn from_glib_full(ptr: *mut gobject_sys::GParamSpec) -> Self {
+                from_glib_full(ptr as *mut $ffi_type)
+            }
+        }
+
+        impl $rust_type {
+            pub fn upcast(self) -> ParamSpec {
+                unsafe {
+                    from_glib_full(self.to_glib_full() as *mut gobject_sys::GParamSpec)
+                }
+            }
+
+            pub fn upcast_ref(&self) -> &ParamSpec {
+                &*self
+            }
+        }
     };
 }
 

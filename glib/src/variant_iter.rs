@@ -77,7 +77,7 @@ mod tests {
 
     #[test]
     fn test_variant_iter_array() {
-        let v = Variant::array::<String>(&vec![
+        let v = Variant::array::<String>(&[
             "foo".to_string().to_variant(),
             "bar".to_string().to_variant(),
         ]);
@@ -87,7 +87,7 @@ mod tests {
 
     #[test]
     fn test_variant_iter_tuple() {
-        let v = Variant::tuple(&vec![
+        let v = Variant::tuple(&[
             "foo".to_string().to_variant(),
             "bar".to_string().to_variant(),
         ]);
