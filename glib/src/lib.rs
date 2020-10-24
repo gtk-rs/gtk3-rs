@@ -140,6 +140,7 @@ pub use auto::*;
 #[allow(clippy::let_and_return)]
 #[allow(clippy::let_unit_value)]
 #[allow(clippy::too_many_arguments)]
+#[allow(clippy::type_complexity)]
 #[allow(non_upper_case_globals)]
 mod auto;
 
