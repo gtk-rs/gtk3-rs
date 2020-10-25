@@ -10,6 +10,8 @@ use StaticType;
 use Type;
 use Value;
 
+use std::char::CharTryFromError;
+use std::convert::TryFrom;
 use std::ffi::CStr;
 
 // Can't use get_type here as this is not a boxed type but another fundamental type
@@ -826,7 +828,7 @@ define_param_spec!(
     9
 );
 
-define_param_spec_default!(ParamSpecUnichar, char, |x| from_glib(x));
+define_param_spec_default!(ParamSpecUnichar, Result<char, CharTryFromError>, TryFrom::try_from);
 
 define_param_spec!(
     ParamSpecEnum,
