@@ -31,6 +31,23 @@ impl ImageSurface {
         }
     }
 
+    /**
+     * Creates an image surface for the provided pixel data.
+     * The pointer `data` is the beginning of the underlying slice,
+     * and at least `width * stride` succeeding bytes should be allocated.
+     * Additionally, `data` must live longer than any reference to the returned surface.
+     */
+    pub unsafe fn create_for_data_unsafe(
+        data: *mut u8,
+        format: Format,
+        width: i32,
+        height: i32,
+        stride: i32,
+    ) -> Result<ImageSurface, Error> {
+        let data = std::slice::from_raw_parts_mut(data, (stride * height) as usize);
+        Self::create_for_data(data, format, width, height, stride)
+    }
+
     pub fn create_for_data<D: AsMut<[u8]> + 'static>(
         data: D,
         format: Format,
