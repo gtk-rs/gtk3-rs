@@ -562,6 +562,7 @@ impl FromGlibPtrNone<*mut GObject> for ObjectRef {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut GObject) -> Self {
         assert!(!ptr.is_null());
+        assert_ne!((*ptr).ref_count, 0);
 
         // Attention: This takes ownership of floating references!
         ObjectRef {
@@ -584,6 +585,7 @@ impl FromGlibPtrFull<*mut GObject> for ObjectRef {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut GObject) -> Self {
         assert!(!ptr.is_null());
+        assert_ne!((*ptr).ref_count, 0);
 
         ObjectRef {
             inner: ptr::NonNull::new_unchecked(ptr),
@@ -596,6 +598,7 @@ impl FromGlibPtrBorrow<*mut GObject> for ObjectRef {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut GObject) -> Borrowed<Self> {
         assert!(!ptr.is_null());
+        assert_ne!((*ptr).ref_count, 0);
 
         Borrowed::new(ObjectRef {
             inner: ptr::NonNull::new_unchecked(ptr),
@@ -1057,6 +1060,7 @@ macro_rules! glib_object_wrapper {
                 // Attention: Don't use from_glib_none() here because we don't want to steal any
                 // floating references that might be owned by someone else.
                 if !obj.is_null() {
+                    assert_ne!((*obj).ref_count, 0);
                     $crate::gobject_sys::g_object_ref(obj);
                 }
 
