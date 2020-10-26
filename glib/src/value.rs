@@ -871,7 +871,7 @@ pub trait FromValueOptional<'a>: StaticType + Sized {
     ///
     /// The caller is responsible for ensuring the given `Value` is of a suitable
     /// type for this conversion.
-    unsafe fn from_value_optional(&'a Value) -> Option<Self>;
+    unsafe fn from_value_optional(value: &'a Value) -> Option<Self>;
 }
 
 /// Extracts a value.
@@ -882,7 +882,7 @@ pub trait FromValue<'a>: FromValueOptional<'a> {
     ///
     /// The caller is responsible for ensuring the given `Value` is of a suitable
     /// type for this conversion.
-    unsafe fn from_value(&'a Value) -> Self;
+    unsafe fn from_value(value: &'a Value) -> Self;
 }
 
 /// Sets a value.
@@ -893,7 +893,7 @@ pub trait SetValueOptional: SetValue {
     ///
     /// The caller is responsible for ensuring the given `Value` is of a suitable
     /// type for this conversion.
-    unsafe fn set_value_optional(&mut Value, Option<&Self>);
+    unsafe fn set_value_optional(value: &mut Value, new_value: Option<&Self>);
 }
 
 /// Sets a value.
@@ -902,7 +902,7 @@ pub trait SetValue: StaticType {
     ///
     /// The caller is responsible for ensuring the given `Value` is of a suitable
     /// type for this conversion.
-    unsafe fn set_value(&mut Value, &Self);
+    unsafe fn set_value(value: &mut Value, new_value: &Self);
 }
 
 impl<'a> FromValueOptional<'a> for String {
