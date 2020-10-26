@@ -302,6 +302,11 @@ pub trait ObjectSubclass: Sized + 'static {
             let ptr = ptr.offset(offset);
             let ptr = ptr as *mut u8 as *mut <Self::ParentType as ObjectType>::GlibType;
 
+            // The object might just be finalized, and in that case it's unsafe to access
+            // it and use any API on it. This can only happen from inside the Drop impl
+            // of Self.
+            assert_ne!((*(ptr as *mut gobject_sys::GObject)).ref_count, 0);
+
             // Don't steal floating reference here via from_glib_none() but
             // preserve it if needed by reffing manually.
             gobject_sys::g_object_ref(ptr as *mut gobject_sys::GObject);
