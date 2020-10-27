@@ -31,6 +31,7 @@ impl ImageSurface {
         }
     }
 
+    // rustdoc-stripper-ignore-next
     /// Creates an image surface for the provided pixel data.
     /// - The pointer `data` is the beginning of the underlying slice,
     ///   and at least `width * stride` succeeding bytes should be allocated.
