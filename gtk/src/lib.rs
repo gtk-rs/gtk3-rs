@@ -217,6 +217,7 @@ mod color_chooser;
 mod combo_box;
 mod dialog;
 mod drag_context;
+mod entry;
 mod entry_buffer;
 mod entry_completion;
 mod enums;

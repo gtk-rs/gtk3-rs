@@ -19,6 +19,7 @@ pub use color_chooser::ColorChooserExtManual;
 pub use combo_box::ComboBoxExtManual;
 pub use dialog::DialogExtManual;
 pub use drag_context::DragContextExtManual;
+pub use entry::EntryExtManual;
 pub use entry_completion::EntryCompletionExtManual;
 pub use fixed::FixedExtManual;
 #[cfg(any(feature = "v3_18", feature = "dox"))]
