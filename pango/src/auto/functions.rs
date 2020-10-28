@@ -183,7 +183,8 @@ pub fn parse_markup(
             Ok((
                 from_glib_full(attr_list),
                 from_glib_full(text),
-                from_glib(accel_char),
+                std::convert::TryFrom::try_from(accel_char)
+                    .expect("conversion from an invalid Unicode value attempted"),
             ))
         } else {
             Err(from_glib_full(error))

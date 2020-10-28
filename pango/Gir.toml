@@ -131,7 +131,7 @@ name = "Pango.AttrIterator"
 status = "generate"
     [[object.function]]
     name = "get_font"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "get_type"
     version = "1.44"
@@ -143,16 +143,16 @@ status = "generate"
     name = "Debug"
     [[object.function]]
     name = "change"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "insert"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "insert_before"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "equal"
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Pango.Context"
