@@ -327,12 +327,12 @@ manual_traits = ["AccelGroupExtManual"]
     ignore = true
     [[object.function]]
     name = "connect"
-    # Manual, more convenient implementation
-    ignore = true
+    # More convenient implementation
+    manual = true
     [[object.function]]
     name = "connect_by_path"
-    # Manual, more convenient implementation
-    ignore = true
+    # More convenient implementation
+    manual = true
 
 [[object]]
 name = "Gtk.AccelLabel"
@@ -482,8 +482,8 @@ manual_traits = ["BuilderExtManual"]
     doc_trait_name = "BuilderExtManual"
     [[object.function]]
     name = "connect_signals_full"
-    #manual: connect object and swapped signal not supported
-    ignore = true
+    # Connect object and swapped signal not supported
+    manual = true
     [[object.function]]
     name = "get_object"
     #downcast
@@ -732,11 +732,11 @@ manual_traits = ["ColorButtonExtManual"]
     doc_trait_name = "ColorButtonExtManual"
     [[object.function]]
     name = "get_color"
-    ignore = true
+    manual = true
     doc_trait_name = "ColorButtonExtManual"
     [[object.function]]
     name = "set_color"
-    ignore = true
+    manual = true
     doc_trait_name = "ColorButtonExtManual"
 
 [[object]]
@@ -746,7 +746,7 @@ manual_traits = ["ColorChooserExtManual"]
     [[object.function]]
     name = "add_palette"
     #array with size
-    ignore = true
+    manual = true
     doc_trait_name = "ColorChooserExtManual"
 
 [[object]]
@@ -771,11 +771,11 @@ manual_traits = ["ComboBoxExtManual"]
         const = true
     [[object.function]]
     name = "set_active"
-    ignore = true
+    manual = true
     doc_trait_name = "ComboBoxExtManual"
     [[object.function]]
     name = "get_active"
-    ignore = true
+    manual = true
     doc_trait_name = "ComboBoxExtManual"
     [[object.property]]
     name = "active"
@@ -844,14 +844,15 @@ manual_traits = ["EditableSignals"]
 name = "Gtk.Entry"
 status = "generate"
 generate_builder = true
+manual_traits = ["EntryExtManual"]
     [[object.function]]
     name = "get_buffer"
         [object.function.return]
         nullable = false
     [[object.function]]
     name = "get_invisible_char"
-        [object.function.return]
-        nullable = true
+    manual = true
+    doc_trait_name = "EntryExtManual"
     [[object.function]]
     name = "get_text"
         [object.function.return]
@@ -898,7 +899,7 @@ manual_traits = ["EntryCompletionExtManual"]
     inhibit = true
     [[object.function]]
     name = "get_entry"
-    ignore = true
+    manual = true
     doc_trait_name = "EntryCompletionExtManual"
 
 [[object]]
@@ -1097,8 +1098,7 @@ version = "3.24"
 manual_traits = ["GestureStylusExtManual"]
     [[object.function]]
     name = "get_axes"
-    # generated manually
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gtk.GestureSwipe"
@@ -1265,7 +1265,7 @@ generate_builder = true
 manual_traits = ["IMContextSimpleExtManual"]
     [[object.function]]
     name = "add_compose_file"
-    ignore = true
+    manual = true
     doc_trait_name = "IMContextSimpleExtManual"
     [[object.function]]
     name = "add_table"
@@ -1307,7 +1307,7 @@ generate_builder = true
 manual_traits = ["InvisibleExtManual"]
     [[object.function]]
     name = "get_screen"
-    ignore = true
+    manual = true
     doc_trait_name = "InvisibleExtManual"
 
 [[object]]
@@ -1393,11 +1393,11 @@ manual_traits = ["GtkListStoreExtManual"]
         const = true
     [[object.function]]
     name = "reorder"
-    ignore = true
+    manual = true
     doc_trait_name = "GtkListStoreExtManual"
     [[object.function]]
     name = "set_value"
-    ignore = true
+    manual = true
     doc_trait_name = "GtkListStoreExtManual"
 
 [[object]]
@@ -1495,55 +1495,55 @@ manual_traits = ["NotebookExtManual"]
     # The following functions need integer type adjustments
     [[object.function]]
     name = "append_page"
-    ignore = true
+    manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.function]]
     name = "append_page_menu"
-    ignore = true
+    manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.function]]
     name = "get_current_page"
-    ignore = true
+    manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.function]]
     name = "get_n_pages"
-    ignore = true
+    manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.function]]
     name = "get_nth_page"
-    ignore = true
+    manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.function]]
     name = "insert_page"
-    ignore = true
+    manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.function]]
     name = "insert_page_menu"
-    ignore = true
+    manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.function]]
     name = "page_num"
-    ignore = true
+    manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.function]]
     name = "prepend_page"
-    ignore = true
+    manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.function]]
     name = "prepend_page_menu"
-    ignore = true
+    manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.function]]
     name = "remove_page"
-    ignore = true
+    manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.function]]
     name = "reorder_child"
-    ignore = true
+    manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.function]]
     name = "set_current_page"
-    ignore = true
+    manual = true
     doc_trait_name = "NotebookExtManual"
     [[object.child_prop]]
     name = "detachable"
@@ -1605,7 +1605,7 @@ generate_builder = true
 version = "3.22"
     [[object.function]]
     name = "set_action_entries"
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gtk.PageSetup"
@@ -1714,7 +1714,7 @@ status = "generate"
         nullable = false
     [[object.function]]
     name = "set_page_ranges"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "set_paper_size"
         [[object.function.parameter]]
@@ -1737,13 +1737,13 @@ generate_builder = true
         nullable = false
     [[object.function]]
     name = "new"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "new_with_label"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "new_with_mnemonic"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "set_group"
     ignore = true
@@ -1762,13 +1762,13 @@ generate_builder = true
         nullable = false
     [[object.function]]
     name = "new"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "new_with_label"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "new_with_mnemonic"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "set_group"
     ignore = true
@@ -1787,10 +1787,10 @@ generate_builder = true
         nullable = false
     [[object.function]]
     name = "new"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "new_from_stock"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "set_group"
     ignore = true
@@ -1924,7 +1924,7 @@ status = "generate"
     [[object.function]]
     name = "get_data"
     #array without length
-    ignore = true
+    manual = true
     [[object.function]]
     name = "get_data_with_length"
     ignore = true
@@ -2099,7 +2099,7 @@ status = "generate"
     [[object.function]]
     name = "new"
     #array with size
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gtk.TextBuffer"
@@ -2162,11 +2162,10 @@ clear_function_expression = "|_ptr| ()"
 
     [[object.function]]
     name = "get_attributes"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "get_char"
-        [object.function.return]
-        nullable = true
+    manual = true
 
 [[object]]
 name = "Gtk.TextMark"
@@ -2419,7 +2418,7 @@ status = "generate"
         const = true
     [[object.function]]
     name = "get_indices"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "to_string"
         [[object.function.parameter]]
@@ -2497,17 +2496,17 @@ status = "generate"
 manual_traits = ["TreeSortableExtManual"]
     [[object.function]]
     pattern = "[gs]et_sort_column_id"
-    ignore = true
+    manual = true
     doc_trait_name = "TreeSortableExtManual"
     [[object.function]]
     pattern = "set_sort_func"
     # return type u32 -> Ordering
-    ignore = true
+    manual = true
     doc_trait_name = "TreeSortableExtManual"
     [[object.function]]
     pattern = "set_default_sort_func"
     # return type u32 -> Ordering
-    ignore = true
+    manual = true
     doc_trait_name = "TreeSortableExtManual"
 
 [[object]]
@@ -2542,11 +2541,11 @@ manual_traits = ["TreeStoreExtManual"]
         const = true
     [[object.function]]
     name = "reorder"
-    ignore = true
+    manual = true
     doc_trait_name = "TreeStoreExtManual"
     [[object.function]]
     name = "set_value"
-    ignore = true
+    manual = true
     doc_trait_name = "TreeStoreExtManual"
     [[object.function]]
     name = "swap"
@@ -2617,12 +2616,12 @@ manual_traits = ["WidgetExtManual"]
     [[object.function]]
     name = "drag_dest_set"
     #array with size
-    ignore = true
+    manual = true
     doc_trait_name = "WidgetExtManual"
     [[object.function]]
     name = "drag_source_set"
     #array with size
-    ignore = true
+    manual = true
     doc_trait_name = "WidgetExtManual"
     [[object.function]]
     name = "enable_model_drag_source"
@@ -2640,7 +2639,7 @@ manual_traits = ["WidgetExtManual"]
         nullable = false
     [[object.function]]
     name = "intersect"
-    ignore = true
+    manual = true
     doc_trait_name = "WidgetExtManual"
     [[object.function]]
     name = "override_font"
@@ -2658,22 +2657,22 @@ manual_traits = ["WidgetExtManual"]
         nullable = false
     [[object.function]]
     name = "add_tick_callback"
-    ignore = true
+    manual = true
     doc_trait_name = "WidgetExtManual"
     [[object.function]]
     name = "remove_tick_callback"
     ignore = true
     [[object.function]]
     name = "add_events"
-    ignore = true
+    manual = true
     doc_trait_name = "WidgetExtManual"
     [[object.function]]
     name = "get_events"
-    ignore = true
+    manual = true
     doc_trait_name = "WidgetExtManual"
     [[object.function]]
     name = "set_events"
-    ignore = true
+    manual = true
     doc_trait_name = "WidgetExtManual"
     [[object.function]]
     name = "get_style_context"
@@ -2687,7 +2686,7 @@ manual_traits = ["WidgetExtManual"]
     [[object.function]]
     name = "hide_on_delete"
     # return Inhibit instead of bool
-    ignore = true
+    manual = true
     doc_trait_name = "WidgetExtManual"
     [[object.signal]]
     name = "button-press-event"
@@ -2822,7 +2821,7 @@ manual_traits = ["WidgetExtManual"]
     [[object.function]]
     name = "destroy"
     # needs to be marked as unsafe
-    ignore = true
+    manual = true
     [[object.function]]
     name = "create_pango_context"
         [object.function.return]
@@ -2858,7 +2857,7 @@ manual_traits = ["GtkWindowExtManual"]
         const = true
     [[object.function]]
     name = "present"
-    ignore = true
+    manual = true
     doc_trait_name = "GtkWindowExtManual"
     [[object.function]]
     name = "set_geometry_hints"
