@@ -126,6 +126,7 @@ generate = [
     "Gio.SubprocessFlags",
     "Gio.TcpConnection",
     "Gio.TlsAuthenticationMode",
+    "Gio.TlsBackend",
     "Gio.TlsCertificate",
     "Gio.TlsCertificateFlags",
     "Gio.TlsCertificateRequestFlags",

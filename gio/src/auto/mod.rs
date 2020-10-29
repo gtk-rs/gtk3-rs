@@ -433,6 +433,10 @@ pub use self::threaded_socket_service::{
     ThreadedSocketService, ThreadedSocketServiceClass, NONE_THREADED_SOCKET_SERVICE,
 };
 
+mod tls_backend;
+pub use self::tls_backend::TlsBackendExt;
+pub use self::tls_backend::{TlsBackend, NONE_TLS_BACKEND};
+
 mod tls_certificate;
 pub use self::tls_certificate::TlsCertificateExt;
 pub use self::tls_certificate::{TlsCertificate, TlsCertificateClass, NONE_TLS_CERTIFICATE};
@@ -843,6 +847,7 @@ pub mod traits {
     pub use super::SocketServiceExt;
     pub use super::TcpConnectionExt;
     pub use super::ThreadedSocketServiceExt;
+    pub use super::TlsBackendExt;
     pub use super::TlsCertificateExt;
     pub use super::TlsClientConnectionExt;
     pub use super::TlsConnectionExt;
