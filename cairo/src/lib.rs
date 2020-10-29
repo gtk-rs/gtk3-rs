@@ -40,7 +40,7 @@
 //!
 //! * **win32-surface** - Microsoft Windows surface support
 
-extern crate cairo_sys as ffi;
+pub extern crate cairo_sys as ffi;
 extern crate libc;
 extern crate thiserror;
 
