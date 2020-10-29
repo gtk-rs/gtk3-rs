@@ -465,6 +465,8 @@ pub enum Role {
     Footnote,
     ContentDeletion,
     ContentInsertion,
+    Mark,
+    Suggestion,
     LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
@@ -601,6 +603,8 @@ impl fmt::Display for Role {
                 Role::Footnote => "Footnote",
                 Role::ContentDeletion => "ContentDeletion",
                 Role::ContentInsertion => "ContentInsertion",
+                Role::Mark => "Mark",
+                Role::Suggestion => "Suggestion",
                 Role::LastDefined => "LastDefined",
                 _ => "Unknown",
             }
@@ -739,6 +743,8 @@ impl ToGlib for Role {
             Role::Footnote => atk_sys::ATK_ROLE_FOOTNOTE,
             Role::ContentDeletion => atk_sys::ATK_ROLE_CONTENT_DELETION,
             Role::ContentInsertion => atk_sys::ATK_ROLE_CONTENT_INSERTION,
+            Role::Mark => atk_sys::ATK_ROLE_MARK,
+            Role::Suggestion => atk_sys::ATK_ROLE_SUGGESTION,
             Role::LastDefined => atk_sys::ATK_ROLE_LAST_DEFINED,
             Role::__Unknown(value) => value,
         }
@@ -875,7 +881,9 @@ impl FromGlib<atk_sys::AtkRole> for Role {
             122 => Role::Footnote,
             123 => Role::ContentDeletion,
             124 => Role::ContentInsertion,
-            125 => Role::LastDefined,
+            125 => Role::Mark,
+            126 => Role::Suggestion,
+            127 => Role::LastDefined,
             value => Role::__Unknown(value),
         }
     }
@@ -1276,6 +1284,7 @@ pub enum TextAttribute {
     Stretch,
     Variant,
     Style,
+    TextPosition,
     LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1315,6 +1324,7 @@ impl fmt::Display for TextAttribute {
                 TextAttribute::Stretch => "Stretch",
                 TextAttribute::Variant => "Variant",
                 TextAttribute::Style => "Style",
+                TextAttribute::TextPosition => "TextPosition",
                 TextAttribute::LastDefined => "LastDefined",
                 _ => "Unknown",
             }
@@ -1356,6 +1366,7 @@ impl ToGlib for TextAttribute {
             TextAttribute::Stretch => atk_sys::ATK_TEXT_ATTR_STRETCH,
             TextAttribute::Variant => atk_sys::ATK_TEXT_ATTR_VARIANT,
             TextAttribute::Style => atk_sys::ATK_TEXT_ATTR_STYLE,
+            TextAttribute::TextPosition => atk_sys::ATK_TEXT_ATTR_TEXT_POSITION,
             TextAttribute::LastDefined => atk_sys::ATK_TEXT_ATTR_LAST_DEFINED,
             TextAttribute::__Unknown(value) => value,
         }
@@ -1395,7 +1406,8 @@ impl FromGlib<atk_sys::AtkTextAttribute> for TextAttribute {
             25 => TextAttribute::Stretch,
             26 => TextAttribute::Variant,
             27 => TextAttribute::Style,
-            28 => TextAttribute::LastDefined,
+            28 => TextAttribute::TextPosition,
+            29 => TextAttribute::LastDefined,
             value => TextAttribute::__Unknown(value),
         }
     }

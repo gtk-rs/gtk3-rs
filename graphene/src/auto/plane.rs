@@ -5,6 +5,8 @@
 use glib::translate::*;
 use gobject_sys;
 use graphene_sys;
+#[cfg(any(feature = "v1_10", feature = "dox"))]
+use Matrix;
 use Point3D;
 use Vec3;
 use Vec4;
@@ -114,6 +116,20 @@ impl Plane {
         unsafe {
             let mut res = Plane::uninitialized();
             graphene_sys::graphene_plane_normalize(self.to_glib_none().0, res.to_glib_none_mut().0);
+            res
+        }
+    }
+
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn transform(&self, matrix: &Matrix, normal_matrix: Option<&Matrix>) -> Plane {
+        unsafe {
+            let mut res = Plane::uninitialized();
+            graphene_sys::graphene_plane_transform(
+                self.to_glib_none().0,
+                matrix.to_glib_none().0,
+                normal_matrix.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }

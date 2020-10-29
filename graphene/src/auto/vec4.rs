@@ -131,6 +131,20 @@ impl Vec4 {
         }
     }
 
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn interpolate(&self, v2: &Vec4, factor: f64) -> Vec4 {
+        unsafe {
+            let mut res = Vec4::uninitialized();
+            graphene_sys::graphene_vec4_interpolate(
+                self.to_glib_none().0,
+                v2.to_glib_none().0,
+                factor,
+                res.to_glib_none_mut().0,
+            );
+            res
+        }
+    }
+
     pub fn length(&self) -> f32 {
         unsafe { graphene_sys::graphene_vec4_length(self.to_glib_none().0) }
     }
