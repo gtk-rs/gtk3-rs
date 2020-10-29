@@ -42,7 +42,7 @@ impl TimeZone {
         }
     }
 
-    pub fn get_abbreviation(&self, interval: i32) -> Option<GString> {
+    pub fn get_abbreviation(&self, interval: i32) -> GString {
         unsafe {
             from_glib_none(glib_sys::g_time_zone_get_abbreviation(
                 self.to_glib_none().0,
@@ -52,7 +52,7 @@ impl TimeZone {
     }
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
-    pub fn get_identifier(&self) -> Option<GString> {
+    pub fn get_identifier(&self) -> GString {
         unsafe { from_glib_none(glib_sys::g_time_zone_get_identifier(self.to_glib_none().0)) }
     }
 

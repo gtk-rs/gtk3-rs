@@ -31,6 +31,28 @@ impl ImageSurface {
         }
     }
 
+    // rustdoc-stripper-ignore-next
+    /// Creates an image surface for the provided pixel data.
+    /// - The pointer `data` is the beginning of the underlying slice,
+    ///   and at least `width * stride` succeeding bytes should be allocated.
+    /// - `data` must live longer than any reference to the returned surface.
+    /// - You have to free `data` by yourself.
+    pub unsafe fn create_for_data_unsafe(
+        data: *mut u8,
+        format: Format,
+        width: i32,
+        height: i32,
+        stride: i32,
+    ) -> Result<ImageSurface, Error> {
+        ImageSurface::from_raw_full(ffi::cairo_image_surface_create_for_data(
+            data,
+            format.into(),
+            width,
+            height,
+            stride,
+        ))
+    }
+
     pub fn create_for_data<D: AsMut<[u8]> + 'static>(
         data: D,
         format: Format,

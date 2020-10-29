@@ -562,6 +562,7 @@ impl FromGlibPtrNone<*mut GObject> for ObjectRef {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut GObject) -> Self {
         assert!(!ptr.is_null());
+        assert_ne!((*ptr).ref_count, 0);
 
         // Attention: This takes ownership of floating references!
         ObjectRef {
@@ -584,6 +585,7 @@ impl FromGlibPtrFull<*mut GObject> for ObjectRef {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut GObject) -> Self {
         assert!(!ptr.is_null());
+        assert_ne!((*ptr).ref_count, 0);
 
         ObjectRef {
             inner: ptr::NonNull::new_unchecked(ptr),
@@ -596,6 +598,7 @@ impl FromGlibPtrBorrow<*mut GObject> for ObjectRef {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut GObject) -> Borrowed<Self> {
         assert!(!ptr.is_null());
+        assert_ne!((*ptr).ref_count, 0);
 
         Borrowed::new(ObjectRef {
             inner: ptr::NonNull::new_unchecked(ptr),
@@ -724,7 +727,7 @@ macro_rules! glib_object_wrapper {
         // types. Due to inheritance and up/downcasting we must implement these by pointer or
         // otherwise they would potentially give differeny results for the same object depending on
         // the type we currently know for it
-        #[derive(Clone, Hash, PartialOrd, Ord, PartialEq, Eq, Debug)]
+        #[derive(Clone, Hash, Ord, Eq, Debug)]
         pub struct $name($crate::object::ObjectRef);
 
         #[doc(hidden)]
@@ -1034,6 +1037,20 @@ macro_rules! glib_object_wrapper {
             }
         }
 
+        impl<T: $crate::object::ObjectType> ::std::cmp::PartialEq<T> for $name {
+            #[inline]
+            fn eq(&self, other: &T) -> bool {
+                ::std::cmp::PartialEq::eq(&self.0, $crate::object::ObjectType::as_object_ref(other))
+            }
+        }
+
+        impl<T: $crate::object::ObjectType> ::std::cmp::PartialOrd<T> for $name {
+            #[inline]
+            fn partial_cmp(&self, other: &T) -> Option<::std::cmp::Ordering> {
+                ::std::cmp::PartialOrd::partial_cmp(&self.0, $crate::object::ObjectType::as_object_ref(other))
+            }
+        }
+
         #[doc(hidden)]
         impl<'a> $crate::value::FromValueOptional<'a> for $name {
             #[allow(clippy::missing_safety_doc)]
@@ -1043,6 +1060,7 @@ macro_rules! glib_object_wrapper {
                 // Attention: Don't use from_glib_none() here because we don't want to steal any
                 // floating references that might be owned by someone else.
                 if !obj.is_null() {
+                    assert_ne!((*obj).ref_count, 0);
                     $crate::gobject_sys::g_object_ref(obj);
                 }
 

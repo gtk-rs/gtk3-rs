@@ -39,11 +39,11 @@ impl MainContext {
         }
     }
 
-    //pub fn find_source_by_funcs_user_data(&self, funcs: /*Ignored*/&mut SourceFuncs, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Option<Source> {
+    //pub fn find_source_by_funcs_user_data(&self, funcs: /*Ignored*/&mut SourceFuncs, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Source {
     //    unsafe { TODO: call glib_sys:g_main_context_find_source_by_funcs_user_data() }
     //}
 
-    //pub fn find_source_by_user_data(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Option<Source> {
+    //pub fn find_source_by_user_data(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Source {
     //    unsafe { TODO: call glib_sys:g_main_context_find_source_by_user_data() }
     //}
 

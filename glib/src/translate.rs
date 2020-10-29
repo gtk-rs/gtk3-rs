@@ -2205,14 +2205,14 @@ mod tests {
         // gives us useful results
         let dir_1 = tmp_dir.path().join("abcd");
         fs::create_dir(&dir_1).unwrap();
-        assert_eq!(::path_get_basename(&dir_1), Some("abcd".into()));
+        assert_eq!(::path_get_basename(&dir_1), Path::new("abcd"));
         assert_eq!(
             ::path_get_basename(dir_1.canonicalize().unwrap()),
-            Some("abcd".into())
+            Path::new("abcd")
         );
         assert_eq!(
             ::path_get_dirname(dir_1.canonicalize().unwrap()),
-            Some(tmp_dir.path().into())
+            tmp_dir.path()
         );
         assert!(::file_test(&dir_1, ::FileTest::EXISTS | ::FileTest::IS_DIR));
         assert!(::file_test(
@@ -2223,14 +2223,14 @@ mod tests {
         // And test with some non-ASCII characters
         let dir_2 = tmp_dir.as_ref().join("øäöü");
         fs::create_dir(&dir_2).unwrap();
-        assert_eq!(::path_get_basename(&dir_2), Some("øäöü".into()));
+        assert_eq!(::path_get_basename(&dir_2), Path::new("øäöü"));
         assert_eq!(
             ::path_get_basename(dir_2.canonicalize().unwrap()),
-            Some("øäöü".into())
+            Path::new("øäöü")
         );
         assert_eq!(
             ::path_get_dirname(dir_2.canonicalize().unwrap()),
-            Some(tmp_dir.path().into())
+            tmp_dir.path()
         );
         assert!(::file_test(&dir_2, ::FileTest::EXISTS | ::FileTest::IS_DIR));
         assert!(::file_test(
@@ -2249,15 +2249,12 @@ mod tests {
         // gives us useful results
         let dir_1 = tmp_dir.join("abcd");
         fs::create_dir(&dir_1).unwrap();
-        assert_eq!(::path_get_basename(&dir_1), Some("abcd".into()));
+        assert_eq!(::path_get_basename(&dir_1), Path::from("abcd"));
         assert_eq!(
             ::path_get_basename(dir_1.canonicalize().unwrap()),
-            Some("abcd".into())
+            Path::from("abcd")
         );
-        assert_eq!(
-            ::path_get_dirname(dir_1.canonicalize().unwrap()),
-            Some(tmp_dir)
-        );
+        assert_eq!(::path_get_dirname(dir_1.canonicalize().unwrap()), tmp_dir);
         assert!(::file_test(&dir_1, ::FileTest::EXISTS | ::FileTest::IS_DIR));
         assert!(::file_test(
             &dir_1.canonicalize().unwrap(),

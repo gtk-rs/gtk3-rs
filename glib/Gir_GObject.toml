@@ -8,6 +8,7 @@ auto_path = "src/gobject/auto"
 work_mode = "normal"
 single_version_file = true
 deprecate_by_min_version = true
+trust_return_value_nullability = true
 
 generate = [
     "GObject.BindingFlags",
@@ -28,6 +29,16 @@ name = "GObject.Binding"
 status = "generate"
 trait = false
 concurrency = "send+sync"
+       # Fixed in GLib 2.66.2
+       [[object.function]]
+       name = "get_source"
+           [object.function.return]
+           nullable = true
+       # Fixed in GLib 2.66.2
+       [[object.function]]
+       name = "get_target"
+           [object.function.return]
+           nullable = true
 
 [[object]]
 name = "GObject.*"
