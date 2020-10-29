@@ -122,6 +122,32 @@ impl Triangle {
         }
     }
 
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn get_uv(
+        &self,
+        p: Option<&Point3D>,
+        uv_a: &Vec2,
+        uv_b: &Vec2,
+        uv_c: &Vec2,
+    ) -> Option<Vec2> {
+        unsafe {
+            let mut res = Vec2::uninitialized();
+            let ret = from_glib(graphene_sys::graphene_triangle_get_uv(
+                self.to_glib_none().0,
+                p.to_glib_none().0,
+                uv_a.to_glib_none().0,
+                uv_b.to_glib_none().0,
+                uv_c.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            ));
+            if ret {
+                Some(res)
+            } else {
+                None
+            }
+        }
+    }
+
     pub fn get_vertices(&self) -> (Vec3, Vec3, Vec3) {
         unsafe {
             let mut a = Vec3::uninitialized();
@@ -136,6 +162,11 @@ impl Triangle {
             (a, b, c)
         }
     }
+
+    //#[cfg(any(feature = "v1_10", feature = "dox"))]
+    //pub fn init_from_float(&mut self, a: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 3, b: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 3, c: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 3) -> Option<Triangle> {
+    //    unsafe { TODO: call graphene_sys:graphene_triangle_init_from_float() }
+    //}
 
     pub fn init_from_point3d(
         &mut self,

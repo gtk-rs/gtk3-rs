@@ -5,8 +5,14 @@
 use glib::translate::*;
 use gobject_sys;
 use graphene_sys;
+#[cfg(any(feature = "v1_10", feature = "dox"))]
+use Box;
 use Plane;
 use Point3D;
+#[cfg(any(feature = "v1_10", feature = "dox"))]
+use Sphere;
+#[cfg(any(feature = "v1_10", feature = "dox"))]
+use Triangle;
 use Vec3;
 
 glib_wrapper! {
@@ -122,6 +128,51 @@ impl Ray {
                 origin.to_glib_none().0,
                 direction.to_glib_none().0,
             );
+        }
+    }
+
+    //#[cfg(any(feature = "v1_10", feature = "dox"))]
+    //pub fn intersect_box(&self, b: &Box) -> (/*Ignored*/RayIntersectionKind, f32) {
+    //    unsafe { TODO: call graphene_sys:graphene_ray_intersect_box() }
+    //}
+
+    //#[cfg(any(feature = "v1_10", feature = "dox"))]
+    //pub fn intersect_sphere(&self, s: &Sphere) -> (/*Ignored*/RayIntersectionKind, f32) {
+    //    unsafe { TODO: call graphene_sys:graphene_ray_intersect_sphere() }
+    //}
+
+    //#[cfg(any(feature = "v1_10", feature = "dox"))]
+    //pub fn intersect_triangle(&self, t: &Triangle) -> (/*Ignored*/RayIntersectionKind, f32) {
+    //    unsafe { TODO: call graphene_sys:graphene_ray_intersect_triangle() }
+    //}
+
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn intersects_box(&self, b: &Box) -> bool {
+        unsafe {
+            from_glib(graphene_sys::graphene_ray_intersects_box(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+            ))
+        }
+    }
+
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn intersects_sphere(&self, s: &Sphere) -> bool {
+        unsafe {
+            from_glib(graphene_sys::graphene_ray_intersects_sphere(
+                self.to_glib_none().0,
+                s.to_glib_none().0,
+            ))
+        }
+    }
+
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn intersects_triangle(&self, t: &Triangle) -> bool {
+        unsafe {
+            from_glib(graphene_sys::graphene_ray_intersects_triangle(
+                self.to_glib_none().0,
+                t.to_glib_none().0,
+            ))
         }
     }
 }

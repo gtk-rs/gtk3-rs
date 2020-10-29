@@ -1519,6 +1519,7 @@ impl FromGlib<gdk_sys::GdkGLError> for GLError {
 impl ErrorDomain for GLError {
     fn domain() -> Quark {
         skip_assert_initialized!();
+
         unsafe { from_glib(gdk_sys::gdk_gl_error_quark()) }
     }
 

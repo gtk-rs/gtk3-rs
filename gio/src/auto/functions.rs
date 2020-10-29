@@ -399,10 +399,6 @@ pub fn io_error_from_errno(err_no: i32) -> IOErrorEnum {
     unsafe { from_glib(gio_sys::g_io_error_from_errno(err_no)) }
 }
 
-pub fn io_error_quark() -> glib::Quark {
-    unsafe { from_glib(gio_sys::g_io_error_quark()) }
-}
-
 //pub fn io_modules_load_all_in_directory<P: AsRef<std::path::Path>>(dirname: P) -> /*Ignored*/Vec<IOModule> {
 //    unsafe { TODO: call gio_sys:g_io_modules_load_all_in_directory() }
 //}

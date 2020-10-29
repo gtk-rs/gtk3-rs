@@ -33,6 +33,21 @@ impl Euler {
         }
     }
 
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn get_alpha(&self) -> f32 {
+        unsafe { graphene_sys::graphene_euler_get_alpha(self.to_glib_none().0) }
+    }
+
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn get_beta(&self) -> f32 {
+        unsafe { graphene_sys::graphene_euler_get_beta(self.to_glib_none().0) }
+    }
+
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn get_gamma(&self) -> f32 {
+        unsafe { graphene_sys::graphene_euler_get_gamma(self.to_glib_none().0) }
+    }
+
     pub fn get_order(&self) -> EulerOrder {
         unsafe {
             from_glib(graphene_sys::graphene_euler_get_order(
@@ -88,6 +103,25 @@ impl Euler {
         }
     }
 
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn init_from_radians(
+        &mut self,
+        x: f32,
+        y: f32,
+        z: f32,
+        order: EulerOrder,
+    ) -> Option<Euler> {
+        unsafe {
+            from_glib_none(graphene_sys::graphene_euler_init_from_radians(
+                self.to_glib_none_mut().0,
+                x,
+                y,
+                z,
+                order.to_glib(),
+            ))
+        }
+    }
+
     pub fn init_from_vec3(&mut self, v: Option<&Vec3>, order: EulerOrder) {
         unsafe {
             graphene_sys::graphene_euler_init_from_vec3(
@@ -126,6 +160,18 @@ impl Euler {
         unsafe {
             let mut res = Matrix::uninitialized();
             graphene_sys::graphene_euler_to_matrix(self.to_glib_none().0, res.to_glib_none_mut().0);
+            res
+        }
+    }
+
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn to_quaternion(&self) -> Quaternion {
+        unsafe {
+            let mut res = Quaternion::uninitialized();
+            graphene_sys::graphene_euler_to_quaternion(
+                self.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }

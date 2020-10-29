@@ -356,10 +356,7 @@ pub fn print_run_page_setup_dialog<P: IsA<Window>>(
     }
 }
 
-pub fn print_run_page_setup_dialog_async<
-    P: IsA<Window>,
-    Q: FnOnce(&PageSetup) + Send + Sync + 'static,
->(
+pub fn print_run_page_setup_dialog_async<P: IsA<Window>, Q: FnOnce(&PageSetup) + 'static>(
     parent: Option<&P>,
     page_setup: Option<&PageSetup>,
     settings: &PrintSettings,
@@ -367,10 +364,7 @@ pub fn print_run_page_setup_dialog_async<
 ) {
     skip_assert_initialized!();
     let done_cb_data: Box_<Q> = Box_::new(done_cb);
-    unsafe extern "C" fn done_cb_func<
-        P: IsA<Window>,
-        Q: FnOnce(&PageSetup) + Send + Sync + 'static,
-    >(
+    unsafe extern "C" fn done_cb_func<P: IsA<Window>, Q: FnOnce(&PageSetup) + 'static>(
         page_setup: *mut gtk_sys::GtkPageSetup,
         data: glib_sys::gpointer,
     ) {

@@ -25,6 +25,19 @@ glib_wrapper! {
 }
 
 impl Quaternion {
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn add(&self, b: &Quaternion) -> Quaternion {
+        unsafe {
+            let mut res = Quaternion::uninitialized();
+            graphene_sys::graphene_quaternion_add(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
+            res
+        }
+    }
+
     pub fn dot(&self, b: &Quaternion) -> f32 {
         unsafe { graphene_sys::graphene_quaternion_dot(self.to_glib_none().0, b.to_glib_none().0) }
     }
@@ -129,11 +142,37 @@ impl Quaternion {
         }
     }
 
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn multiply(&self, b: &Quaternion) -> Quaternion {
+        unsafe {
+            let mut res = Quaternion::uninitialized();
+            graphene_sys::graphene_quaternion_multiply(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
+            res
+        }
+    }
+
     pub fn normalize(&self) -> Quaternion {
         unsafe {
             let mut res = Quaternion::uninitialized();
             graphene_sys::graphene_quaternion_normalize(
                 self.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
+            res
+        }
+    }
+
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn scale(&self, factor: f32) -> Quaternion {
+        unsafe {
+            let mut res = Quaternion::uninitialized();
+            graphene_sys::graphene_quaternion_scale(
+                self.to_glib_none().0,
+                factor,
                 res.to_glib_none_mut().0,
             );
             res

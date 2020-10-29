@@ -32,6 +32,29 @@ glib_wrapper! {
 }
 
 impl Matrix {
+    pub fn decompose(&self) -> Option<(Vec3, Vec3, Quaternion, Vec3, Vec4)> {
+        unsafe {
+            let mut translate = Vec3::uninitialized();
+            let mut scale = Vec3::uninitialized();
+            let mut rotate = Quaternion::uninitialized();
+            let mut shear = Vec3::uninitialized();
+            let mut perspective = Vec4::uninitialized();
+            let ret = from_glib(graphene_sys::graphene_matrix_decompose(
+                self.to_glib_none().0,
+                translate.to_glib_none_mut().0,
+                scale.to_glib_none_mut().0,
+                rotate.to_glib_none_mut().0,
+                shear.to_glib_none_mut().0,
+                perspective.to_glib_none_mut().0,
+            ));
+            if ret {
+                Some((translate, scale, rotate, shear, perspective))
+            } else {
+                None
+            }
+        }
+    }
+
     pub fn determinant(&self) -> f32 {
         unsafe { graphene_sys::graphene_matrix_determinant(self.to_glib_none().0) }
     }

@@ -31,6 +31,35 @@ pub const GRAPHENE_EULER_ORDER_ZXY: graphene_euler_order_t = 2;
 pub const GRAPHENE_EULER_ORDER_XZY: graphene_euler_order_t = 3;
 pub const GRAPHENE_EULER_ORDER_YXZ: graphene_euler_order_t = 4;
 pub const GRAPHENE_EULER_ORDER_ZYX: graphene_euler_order_t = 5;
+pub const GRAPHENE_EULER_ORDER_SXYZ: graphene_euler_order_t = 6;
+pub const GRAPHENE_EULER_ORDER_SXYX: graphene_euler_order_t = 7;
+pub const GRAPHENE_EULER_ORDER_SXZY: graphene_euler_order_t = 8;
+pub const GRAPHENE_EULER_ORDER_SXZX: graphene_euler_order_t = 9;
+pub const GRAPHENE_EULER_ORDER_SYZX: graphene_euler_order_t = 10;
+pub const GRAPHENE_EULER_ORDER_SYZY: graphene_euler_order_t = 11;
+pub const GRAPHENE_EULER_ORDER_SYXZ: graphene_euler_order_t = 12;
+pub const GRAPHENE_EULER_ORDER_SYXY: graphene_euler_order_t = 13;
+pub const GRAPHENE_EULER_ORDER_SZXY: graphene_euler_order_t = 14;
+pub const GRAPHENE_EULER_ORDER_SZXZ: graphene_euler_order_t = 15;
+pub const GRAPHENE_EULER_ORDER_SZYX: graphene_euler_order_t = 16;
+pub const GRAPHENE_EULER_ORDER_SZYZ: graphene_euler_order_t = 17;
+pub const GRAPHENE_EULER_ORDER_RZYX: graphene_euler_order_t = 18;
+pub const GRAPHENE_EULER_ORDER_RXYX: graphene_euler_order_t = 19;
+pub const GRAPHENE_EULER_ORDER_RYZX: graphene_euler_order_t = 20;
+pub const GRAPHENE_EULER_ORDER_RXZX: graphene_euler_order_t = 21;
+pub const GRAPHENE_EULER_ORDER_RXZY: graphene_euler_order_t = 22;
+pub const GRAPHENE_EULER_ORDER_RYZY: graphene_euler_order_t = 23;
+pub const GRAPHENE_EULER_ORDER_RZXY: graphene_euler_order_t = 24;
+pub const GRAPHENE_EULER_ORDER_RYXY: graphene_euler_order_t = 25;
+pub const GRAPHENE_EULER_ORDER_RYXZ: graphene_euler_order_t = 26;
+pub const GRAPHENE_EULER_ORDER_RZXZ: graphene_euler_order_t = 27;
+pub const GRAPHENE_EULER_ORDER_RXYZ: graphene_euler_order_t = 28;
+pub const GRAPHENE_EULER_ORDER_RZYZ: graphene_euler_order_t = 29;
+
+pub type graphene_ray_intersection_kind_t = c_int;
+pub const GRAPHENE_RAY_INTERSECTION_KIND_NONE: graphene_ray_intersection_kind_t = 0;
+pub const GRAPHENE_RAY_INTERSECTION_KIND_ENTER: graphene_ray_intersection_kind_t = 1;
+pub const GRAPHENE_RAY_INTERSECTION_KIND_LEAVE: graphene_ray_intersection_kind_t = 2;
 
 // Constants
 pub const GRAPHENE_HAS_GCC: c_int = 1;
@@ -430,6 +459,12 @@ extern "C" {
     pub fn graphene_euler_equal(a: *const graphene_euler_t, b: *const graphene_euler_t)
         -> gboolean;
     pub fn graphene_euler_free(e: *mut graphene_euler_t);
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_euler_get_alpha(e: *const graphene_euler_t) -> c_float;
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_euler_get_beta(e: *const graphene_euler_t) -> c_float;
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_euler_get_gamma(e: *const graphene_euler_t) -> c_float;
     pub fn graphene_euler_get_order(e: *const graphene_euler_t) -> graphene_euler_order_t;
     pub fn graphene_euler_get_x(e: *const graphene_euler_t) -> c_float;
     pub fn graphene_euler_get_y(e: *const graphene_euler_t) -> c_float;
@@ -454,6 +489,14 @@ extern "C" {
         q: *const graphene_quaternion_t,
         order: graphene_euler_order_t,
     ) -> *mut graphene_euler_t;
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_euler_init_from_radians(
+        e: *mut graphene_euler_t,
+        x: c_float,
+        y: c_float,
+        z: c_float,
+        order: graphene_euler_order_t,
+    ) -> *mut graphene_euler_t;
     pub fn graphene_euler_init_from_vec3(
         e: *mut graphene_euler_t,
         v: *const graphene_vec3_t,
@@ -472,6 +515,11 @@ extern "C" {
         res: *mut graphene_euler_t,
     );
     pub fn graphene_euler_to_matrix(e: *const graphene_euler_t, res: *mut graphene_matrix_t);
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_euler_to_quaternion(
+        e: *const graphene_euler_t,
+        res: *mut graphene_quaternion_t,
+    );
     pub fn graphene_euler_to_vec3(e: *const graphene_euler_t, res: *mut graphene_vec3_t);
 
     //=========================================================================
@@ -523,6 +571,14 @@ extern "C" {
     //=========================================================================
     pub fn graphene_matrix_get_type() -> GType;
     pub fn graphene_matrix_alloc() -> *mut graphene_matrix_t;
+    pub fn graphene_matrix_decompose(
+        m: *const graphene_matrix_t,
+        translate: *mut graphene_vec3_t,
+        scale: *mut graphene_vec3_t,
+        rotate: *mut graphene_quaternion_t,
+        shear: *mut graphene_vec3_t,
+        perspective: *mut graphene_vec4_t,
+    ) -> gboolean;
     pub fn graphene_matrix_determinant(m: *const graphene_matrix_t) -> c_float;
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     pub fn graphene_matrix_equal(
@@ -815,6 +871,13 @@ extern "C" {
     ) -> *mut graphene_plane_t;
     pub fn graphene_plane_negate(p: *const graphene_plane_t, res: *mut graphene_plane_t);
     pub fn graphene_plane_normalize(p: *const graphene_plane_t, res: *mut graphene_plane_t);
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_plane_transform(
+        p: *const graphene_plane_t,
+        matrix: *const graphene_matrix_t,
+        normal_matrix: *const graphene_matrix_t,
+        res: *mut graphene_plane_t,
+    );
 
     //=========================================================================
     // graphene_point3d_t
@@ -959,6 +1022,12 @@ extern "C" {
     //=========================================================================
     pub fn graphene_quaternion_get_type() -> GType;
     pub fn graphene_quaternion_alloc() -> *mut graphene_quaternion_t;
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_quaternion_add(
+        a: *const graphene_quaternion_t,
+        b: *const graphene_quaternion_t,
+        res: *mut graphene_quaternion_t,
+    );
     pub fn graphene_quaternion_dot(
         a: *const graphene_quaternion_t,
         b: *const graphene_quaternion_t,
@@ -1015,8 +1084,20 @@ extern "C" {
         q: *const graphene_quaternion_t,
         res: *mut graphene_quaternion_t,
     );
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_quaternion_multiply(
+        a: *const graphene_quaternion_t,
+        b: *const graphene_quaternion_t,
+        res: *mut graphene_quaternion_t,
+    );
     pub fn graphene_quaternion_normalize(
         q: *const graphene_quaternion_t,
+        res: *mut graphene_quaternion_t,
+    );
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_quaternion_scale(
+        q: *const graphene_quaternion_t,
+        factor: c_float,
         res: *mut graphene_quaternion_t,
     );
     pub fn graphene_quaternion_slerp(
@@ -1089,6 +1170,39 @@ extern "C" {
         origin: *const graphene_vec3_t,
         direction: *const graphene_vec3_t,
     ) -> *mut graphene_ray_t;
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_ray_intersect_box(
+        r: *const graphene_ray_t,
+        b: *const graphene_box_t,
+        t_out: *mut c_float,
+    ) -> graphene_ray_intersection_kind_t;
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_ray_intersect_sphere(
+        r: *const graphene_ray_t,
+        s: *const graphene_sphere_t,
+        t_out: *mut c_float,
+    ) -> graphene_ray_intersection_kind_t;
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_ray_intersect_triangle(
+        r: *const graphene_ray_t,
+        t: *const graphene_triangle_t,
+        t_out: *mut c_float,
+    ) -> graphene_ray_intersection_kind_t;
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_ray_intersects_box(
+        r: *const graphene_ray_t,
+        b: *const graphene_box_t,
+    ) -> gboolean;
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_ray_intersects_sphere(
+        r: *const graphene_ray_t,
+        s: *const graphene_sphere_t,
+    ) -> gboolean;
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_ray_intersects_triangle(
+        r: *const graphene_ray_t,
+        t: *const graphene_triangle_t,
+    ) -> gboolean;
 
     //=========================================================================
     // graphene_rect_t
@@ -1109,6 +1223,8 @@ extern "C" {
         res: *mut graphene_rect_t,
     );
     pub fn graphene_rect_free(r: *mut graphene_rect_t);
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_rect_get_area(r: *const graphene_rect_t) -> c_float;
     pub fn graphene_rect_get_bottom_left(r: *const graphene_rect_t, p: *mut graphene_point_t);
     pub fn graphene_rect_get_bottom_right(r: *const graphene_rect_t, p: *mut graphene_point_t);
     pub fn graphene_rect_get_center(r: *const graphene_rect_t, p: *mut graphene_point_t);
@@ -1169,6 +1285,8 @@ extern "C" {
         res: *mut graphene_rect_t,
     );
     pub fn graphene_rect_round(r: *const graphene_rect_t, res: *mut graphene_rect_t);
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_rect_round_extents(r: *const graphene_rect_t, res: *mut graphene_rect_t);
     pub fn graphene_rect_round_to_pixel(r: *mut graphene_rect_t) -> *mut graphene_rect_t;
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     pub fn graphene_rect_scale(
@@ -1295,12 +1413,28 @@ extern "C" {
         b: *mut graphene_point3d_t,
         c: *mut graphene_point3d_t,
     );
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_triangle_get_uv(
+        t: *const graphene_triangle_t,
+        p: *const graphene_point3d_t,
+        uv_a: *const graphene_vec2_t,
+        uv_b: *const graphene_vec2_t,
+        uv_c: *const graphene_vec2_t,
+        res: *mut graphene_vec2_t,
+    ) -> gboolean;
     pub fn graphene_triangle_get_vertices(
         t: *const graphene_triangle_t,
         a: *mut graphene_vec3_t,
         b: *mut graphene_vec3_t,
         c: *mut graphene_vec3_t,
     );
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_triangle_init_from_float(
+        t: *mut graphene_triangle_t,
+        a: *const [c_float; 3],
+        b: *const [c_float; 3],
+        c: *const [c_float; 3],
+    ) -> *mut graphene_triangle_t;
     pub fn graphene_triangle_init_from_point3d(
         t: *mut graphene_triangle_t,
         a: *const graphene_point3d_t,
@@ -1347,6 +1481,13 @@ extern "C" {
         v: *mut graphene_vec2_t,
         src: *const graphene_vec2_t,
     ) -> *mut graphene_vec2_t;
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_vec2_interpolate(
+        v1: *const graphene_vec2_t,
+        v2: *const graphene_vec2_t,
+        factor: c_double,
+        res: *mut graphene_vec2_t,
+    );
     pub fn graphene_vec2_length(v: *const graphene_vec2_t) -> c_float;
     pub fn graphene_vec2_max(
         a: *const graphene_vec2_t,
@@ -1431,6 +1572,13 @@ extern "C" {
         v: *mut graphene_vec3_t,
         src: *const graphene_vec3_t,
     ) -> *mut graphene_vec3_t;
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_vec3_interpolate(
+        v1: *const graphene_vec3_t,
+        v2: *const graphene_vec3_t,
+        factor: c_double,
+        res: *mut graphene_vec3_t,
+    );
     pub fn graphene_vec3_length(v: *const graphene_vec3_t) -> c_float;
     pub fn graphene_vec3_max(
         a: *const graphene_vec3_t,
@@ -1521,6 +1669,13 @@ extern "C" {
         v: *mut graphene_vec4_t,
         src: *const graphene_vec4_t,
     ) -> *mut graphene_vec4_t;
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn graphene_vec4_interpolate(
+        v1: *const graphene_vec4_t,
+        v2: *const graphene_vec4_t,
+        factor: c_double,
+        res: *mut graphene_vec4_t,
+    );
     pub fn graphene_vec4_length(v: *const graphene_vec4_t) -> c_float;
     pub fn graphene_vec4_max(
         a: *const graphene_vec4_t,
