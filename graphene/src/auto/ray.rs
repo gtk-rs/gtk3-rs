@@ -6,9 +6,13 @@ use glib::translate::*;
 use gobject_sys;
 use graphene_sys;
 #[cfg(any(feature = "v1_10", feature = "dox"))]
+use std::mem;
+#[cfg(any(feature = "v1_10", feature = "dox"))]
 use Box;
 use Plane;
 use Point3D;
+#[cfg(any(feature = "v1_10", feature = "dox"))]
+use RayIntersectionKind;
 #[cfg(any(feature = "v1_10", feature = "dox"))]
 use Sphere;
 #[cfg(any(feature = "v1_10", feature = "dox"))]
@@ -131,20 +135,47 @@ impl Ray {
         }
     }
 
-    //#[cfg(any(feature = "v1_10", feature = "dox"))]
-    //pub fn intersect_box(&self, b: &Box) -> (/*Ignored*/RayIntersectionKind, f32) {
-    //    unsafe { TODO: call graphene_sys:graphene_ray_intersect_box() }
-    //}
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn intersect_box(&self, b: &Box) -> (RayIntersectionKind, f32) {
+        unsafe {
+            let mut t_out = mem::MaybeUninit::uninit();
+            let ret = from_glib(graphene_sys::graphene_ray_intersect_box(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                t_out.as_mut_ptr(),
+            ));
+            let t_out = t_out.assume_init();
+            (ret, t_out)
+        }
+    }
 
-    //#[cfg(any(feature = "v1_10", feature = "dox"))]
-    //pub fn intersect_sphere(&self, s: &Sphere) -> (/*Ignored*/RayIntersectionKind, f32) {
-    //    unsafe { TODO: call graphene_sys:graphene_ray_intersect_sphere() }
-    //}
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn intersect_sphere(&self, s: &Sphere) -> (RayIntersectionKind, f32) {
+        unsafe {
+            let mut t_out = mem::MaybeUninit::uninit();
+            let ret = from_glib(graphene_sys::graphene_ray_intersect_sphere(
+                self.to_glib_none().0,
+                s.to_glib_none().0,
+                t_out.as_mut_ptr(),
+            ));
+            let t_out = t_out.assume_init();
+            (ret, t_out)
+        }
+    }
 
-    //#[cfg(any(feature = "v1_10", feature = "dox"))]
-    //pub fn intersect_triangle(&self, t: &Triangle) -> (/*Ignored*/RayIntersectionKind, f32) {
-    //    unsafe { TODO: call graphene_sys:graphene_ray_intersect_triangle() }
-    //}
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn intersect_triangle(&self, t: &Triangle) -> (RayIntersectionKind, f32) {
+        unsafe {
+            let mut t_out = mem::MaybeUninit::uninit();
+            let ret = from_glib(graphene_sys::graphene_ray_intersect_triangle(
+                self.to_glib_none().0,
+                t.to_glib_none().0,
+                t_out.as_mut_ptr(),
+            ));
+            let t_out = t_out.assume_init();
+            (ret, t_out)
+        }
+    }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     pub fn intersects_box(&self, b: &Box) -> bool {

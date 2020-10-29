@@ -169,3 +169,59 @@ impl FromGlib<graphene_sys::graphene_euler_order_t> for EulerOrder {
         }
     }
 }
+
+#[cfg(any(feature = "v1_10", feature = "dox"))]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
+pub enum RayIntersectionKind {
+    None,
+    Enter,
+    Leave,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[cfg(any(feature = "v1_10", feature = "dox"))]
+impl fmt::Display for RayIntersectionKind {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "RayIntersectionKind::{}",
+            match *self {
+                RayIntersectionKind::None => "None",
+                RayIntersectionKind::Enter => "Enter",
+                RayIntersectionKind::Leave => "Leave",
+                _ => "Unknown",
+            }
+        )
+    }
+}
+
+#[cfg(any(feature = "v1_10", feature = "dox"))]
+#[doc(hidden)]
+impl ToGlib for RayIntersectionKind {
+    type GlibType = graphene_sys::graphene_ray_intersection_kind_t;
+
+    fn to_glib(&self) -> graphene_sys::graphene_ray_intersection_kind_t {
+        match *self {
+            RayIntersectionKind::None => graphene_sys::GRAPHENE_RAY_INTERSECTION_KIND_NONE,
+            RayIntersectionKind::Enter => graphene_sys::GRAPHENE_RAY_INTERSECTION_KIND_ENTER,
+            RayIntersectionKind::Leave => graphene_sys::GRAPHENE_RAY_INTERSECTION_KIND_LEAVE,
+            RayIntersectionKind::__Unknown(value) => value,
+        }
+    }
+}
+
+#[cfg(any(feature = "v1_10", feature = "dox"))]
+#[doc(hidden)]
+impl FromGlib<graphene_sys::graphene_ray_intersection_kind_t> for RayIntersectionKind {
+    fn from_glib(value: graphene_sys::graphene_ray_intersection_kind_t) -> Self {
+        skip_assert_initialized!();
+        match value {
+            0 => RayIntersectionKind::None,
+            1 => RayIntersectionKind::Enter,
+            2 => RayIntersectionKind::Leave,
+            value => RayIntersectionKind::__Unknown(value),
+        }
+    }
+}
