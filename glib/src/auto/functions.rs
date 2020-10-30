@@ -571,18 +571,6 @@ pub fn get_application_name() -> Option<GString> {
     unsafe { from_glib_none(glib_sys::g_get_application_name()) }
 }
 
-pub fn get_charset() -> Option<GString> {
-    unsafe {
-        let mut charset = ptr::null();
-        let ret = from_glib(glib_sys::g_get_charset(&mut charset));
-        if ret {
-            Some(from_glib_none(charset))
-        } else {
-            None
-        }
-    }
-}
-
 pub fn get_codeset() -> GString {
     unsafe { from_glib_full(glib_sys::g_get_codeset()) }
 }

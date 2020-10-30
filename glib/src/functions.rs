@@ -1,4 +1,3 @@
-#[cfg(not(windows))]
 use glib_sys;
 #[cfg(any(feature = "v2_58", feature = "dox"))]
 #[cfg(not(windows))]
@@ -15,12 +14,11 @@ use std::os::unix::io::FromRawFd;
 // #[cfg(windows)]
 // #[cfg(any(feature = "v2_58", feature = "dox"))]
 // use std::os::windows::io::AsRawHandle;
-#[cfg(not(windows))]
 use std::ptr;
-#[cfg(not(windows))]
 use translate::*;
 #[cfg(not(windows))]
 use Error;
+use GString;
 #[cfg(not(windows))]
 use Pid;
 #[cfg(not(windows))]
@@ -210,5 +208,18 @@ pub fn spawn_async_with_pipes<
         } else {
             Err(from_glib_full(error))
         }
+    }
+}
+
+/// Obtain the character set for the current locale.
+///
+/// This returns whether the locale's encoding is UTF-8, and the current
+/// charset if available.
+pub fn get_charset() -> (bool, Option<GString>) {
+    unsafe {
+        let mut out_charset = ptr::null();
+        let is_utf8 = from_glib(glib_sys::g_get_charset(&mut out_charset));
+        let charset = from_glib_none(out_charset);
+        (is_utf8, charset)
     }
 }

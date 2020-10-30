@@ -259,6 +259,10 @@ status = "generate"
     # unusable
     ignore = true
     [[object.function]]
+    name = "get_charset"
+    # boolean return value
+    ignore = true
+    [[object.function]]
     name = "get_environ"
         [object.function.return]
         string_type = "os_string"
