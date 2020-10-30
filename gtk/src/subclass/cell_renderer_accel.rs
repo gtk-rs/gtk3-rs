@@ -9,8 +9,7 @@ use glib::GString;
 
 use super::cell_renderer_text::CellRendererTextImpl;
 use CellRendererAccel;
-use CellRendererAccelClass;
-use CellRendererTextClass;
+use CellRendererText;
 
 pub trait CellRendererAccelImpl: CellRendererAccelImplExt + CellRendererTextImpl {
     fn accel_edited(
@@ -78,11 +77,11 @@ impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
     }
 }
 
-unsafe impl<T: CellRendererAccelImpl> IsSubclassable<T> for CellRendererAccelClass {
-    fn override_vfuncs(&mut self) {
-        <CellRendererTextClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: CellRendererAccelImpl> IsSubclassable<T> for CellRendererAccel {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <CellRendererText as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(self as *mut Self as *mut gtk_sys::GtkCellRendererAccelClass);
+            let klass = &mut *(class as *mut _ as *mut gtk_sys::GtkCellRendererAccelClass);
             klass.accel_edited = Some(cell_renderer_accel_edited::<T>);
             klass.accel_cleared = Some(cell_renderer_accel_cleared::<T>);
         }

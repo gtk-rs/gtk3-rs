@@ -303,11 +303,11 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     }
 }
 
-unsafe impl<T: ApplicationImpl> IsSubclassable<T> for ApplicationClass {
-    fn override_vfuncs(&mut self) {
-        <glib::ObjectClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: ApplicationImpl> IsSubclassable<T> for Application {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <glib::Object as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(self as *mut Self as *mut gio_sys::GApplicationClass);
+            let klass = &mut *(class as *mut _ as *mut gio_sys::GApplicationClass);
             klass.activate = Some(application_activate::<T>);
             klass.after_emit = Some(application_after_emit::<T>);
             klass.before_emit = Some(application_before_emit::<T>);

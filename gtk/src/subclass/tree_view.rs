@@ -1,13 +1,13 @@
 use glib::subclass::prelude::*;
 
 use super::container::ContainerImpl;
-use ContainerClass;
-use TreeViewClass;
+use Container;
+use TreeView;
 
 pub trait TreeViewImpl: ContainerImpl {}
 
-unsafe impl<T: ContainerImpl> IsSubclassable<T> for TreeViewClass {
-    fn override_vfuncs(&mut self) {
-        <ContainerClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: ContainerImpl> IsSubclassable<T> for TreeView {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <Container as IsSubclassable<T>>::override_vfuncs(class);
     }
 }

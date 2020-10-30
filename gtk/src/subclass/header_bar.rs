@@ -1,13 +1,13 @@
 use glib::subclass::prelude::*;
 
 use super::container::ContainerImpl;
-use ContainerClass;
-use HeaderBarClass;
+use Container;
+use HeaderBar;
 
 pub trait HeaderBarImpl: ContainerImpl {}
 
-unsafe impl<T: HeaderBarImpl> IsSubclassable<T> for HeaderBarClass {
-    fn override_vfuncs(&mut self) {
-        <ContainerClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: HeaderBarImpl> IsSubclassable<T> for HeaderBar {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <Container as IsSubclassable<T>>::override_vfuncs(class);
     }
 }

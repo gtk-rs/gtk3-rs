@@ -2,9 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use BinClass;
+use Bin;
 use ListBoxRow;
-use ListBoxRowClass;
 
 use glib::subclass::prelude::*;
 use glib::translate::*;
@@ -21,11 +20,11 @@ pub trait ListBoxRowImplExt {
     fn list_box_row_activate(&self, list_box_row: &ListBoxRow);
 }
 
-unsafe impl<T: ListBoxRowImpl> IsSubclassable<T> for ListBoxRowClass {
-    fn override_vfuncs(&mut self) {
-        <BinClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: ListBoxRowImpl> IsSubclassable<T> for ListBoxRow {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <Bin as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(self as *mut Self as *mut gtk_sys::GtkListBoxRowClass);
+            let klass = &mut *(class as *mut _ as *mut gtk_sys::GtkListBoxRowClass);
             klass.activate = Some(list_box_row_activate::<T>);
         }
     }

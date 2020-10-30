@@ -12,7 +12,7 @@ use std::marker;
 use std::mem;
 use std::ptr;
 use translate::*;
-use {Closure, IsA, IsClassFor, SignalFlags, StaticType, Type, Value};
+use {Closure, IsA, SignalFlags, StaticType, Type, Value};
 
 /// A newly registered `glib::Type` that is currently still being initialized.
 ///
@@ -102,23 +102,22 @@ pub unsafe trait ClassStruct: Sized + 'static {
     /// This is automatically called during type initialization.
     fn override_vfuncs(&mut self)
     where
-        <<Self::Type as ObjectSubclass>::ParentType as ObjectType>::RustClassType:
-            IsSubclassable<Self::Type>,
+        <Self::Type as ObjectSubclass>::ParentType: IsSubclassable<Self::Type>,
     {
         unsafe {
             let base = &mut *(self as *mut _
-                as *mut <<Self::Type as ObjectSubclass>::ParentType as ObjectType>::RustClassType);
-            base.override_vfuncs();
+                as *mut ::object::Class<<Self::Type as ObjectSubclass>::ParentType>);
+            <<Self::Type as ObjectSubclass>::ParentType as IsSubclassable<Self::Type>>::override_vfuncs(base);
         }
     }
 }
 
 /// Trait for subclassable class structs.
-pub unsafe trait IsSubclassable<T: ObjectSubclass>: IsClassFor {
+pub unsafe trait IsSubclassable<T: ObjectSubclass>: ObjectType {
     /// Override the virtual methods of this class for the given subclass.
     ///
     /// This is automatically called during type initialization.
-    fn override_vfuncs(&mut self);
+    fn override_vfuncs(class: &mut ::object::Class<Self>);
 }
 
 /// Trait for implementable interfaces.
@@ -379,7 +378,7 @@ unsafe extern "C" fn class_init<T: ObjectSubclass>(
     klass: glib_sys::gpointer,
     _klass_data: glib_sys::gpointer,
 ) where
-    <<T as ObjectSubclass>::ParentType as ObjectType>::RustClassType: IsSubclassable<T>,
+    <T as ObjectSubclass>::ParentType: IsSubclassable<T>,
 {
     let mut data = T::type_data();
 
@@ -460,7 +459,7 @@ unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_sys::GObject)
 /// [`glib_object_subclass!`]: ../../macro.glib_object_subclass.html
 pub fn register_type<T: ObjectSubclass>() -> Type
 where
-    <<T as ObjectSubclass>::ParentType as ObjectType>::RustClassType: IsSubclassable<T>,
+    <T as ObjectSubclass>::ParentType: IsSubclassable<T>,
 {
     // GLib aligns the type private data to two gsizes so we can't safely store any type there that
     // requires a bigger alignment.

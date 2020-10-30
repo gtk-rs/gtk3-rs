@@ -113,7 +113,7 @@ mod imp_win {
 }
 
 glib_wrapper! {
-    pub struct SimpleWindow(ObjectSubclass<imp_win::SimpleWindow, SimpleWindowClass>)
+    pub struct SimpleWindow(ObjectSubclass<imp_win::SimpleWindow>)
         @extends gtk::Widget, gtk::Container, gtk::Bin, gtk::Window, gtk::ApplicationWindow;
 }
 

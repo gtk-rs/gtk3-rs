@@ -5,7 +5,6 @@ use glib::translate::*;
 use glib::subclass::prelude::*;
 
 use Application;
-use ApplicationClass;
 use Window;
 
 pub trait GtkApplicationImpl:
@@ -49,8 +48,8 @@ impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {
     }
 }
 
-unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for ApplicationClass {
-    fn override_vfuncs(&mut self) {
+unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
         unsafe extern "C" fn application_window_added<T: GtkApplicationImpl>(
             ptr: *mut gtk_sys::GtkApplication,
             wptr: *mut gtk_sys::GtkWindow,
@@ -82,13 +81,13 @@ unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for ApplicationClass {
             imp.startup(&wrap)
         }
 
-        <gio::ApplicationClass as IsSubclassable<T>>::override_vfuncs(self);
+        <gio::Application as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(self as *mut Self as *mut gtk_sys::GtkApplicationClass);
+            let klass = &mut *(class as *mut _ as *mut gtk_sys::GtkApplicationClass);
             klass.window_added = Some(application_window_added::<T>);
             klass.window_removed = Some(application_window_removed::<T>);
             // Chain our startup handler in here
-            let klass = &mut *(self as *mut Self as *mut gio_sys::GApplicationClass);
+            let klass = &mut *(class as *mut _ as *mut gio_sys::GApplicationClass);
             klass.startup = Some(application_startup::<T>);
         }
     }

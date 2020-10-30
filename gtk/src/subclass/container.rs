@@ -6,9 +6,7 @@ use glib::subclass::prelude::*;
 
 use super::widget::WidgetImpl;
 use Container;
-use ContainerClass;
 use Widget;
-use WidgetClass;
 use WidgetPath;
 
 pub trait ContainerImpl: ContainerImplExt + WidgetImpl {
@@ -131,11 +129,11 @@ impl<T: ContainerImpl> ContainerImplExt for T {
     }
 }
 
-unsafe impl<T: ContainerImpl> IsSubclassable<T> for ContainerClass {
-    fn override_vfuncs(&mut self) {
-        <WidgetClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: ContainerImpl> IsSubclassable<T> for Container {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <Widget as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(self as *mut Self as *mut gtk_sys::GtkContainerClass);
+            let klass = &mut *(class as *mut _ as *mut gtk_sys::GtkContainerClass);
             klass.add = Some(container_add::<T>);
             klass.remove = Some(container_remove::<T>);
             klass.check_resize = Some(container_check_resize::<T>);

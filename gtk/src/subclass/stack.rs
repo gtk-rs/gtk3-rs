@@ -1,13 +1,13 @@
 use glib::subclass::prelude::*;
 
 use super::container::ContainerImpl;
-use ContainerClass;
-use StackClass;
+use Container;
+use Stack;
 
 pub trait StackImpl: ContainerImpl {}
 
-unsafe impl<T: ContainerImpl> IsSubclassable<T> for StackClass {
-    fn override_vfuncs(&mut self) {
-        <ContainerClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: ContainerImpl> IsSubclassable<T> for Stack {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <Container as IsSubclassable<T>>::override_vfuncs(class);
     }
 }

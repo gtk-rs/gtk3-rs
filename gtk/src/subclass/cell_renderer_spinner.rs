@@ -1,13 +1,13 @@
 use glib::subclass::prelude::*;
 
 use super::cell_renderer::CellRendererImpl;
-use CellRendererClass;
-use CellRendererSpinnerClass;
+use CellRenderer;
+use CellRendererSpinner;
 
 pub trait CellRendererSpinnerImpl: CellRendererImpl {}
 
-unsafe impl<T: CellRendererSpinnerImpl> IsSubclassable<T> for CellRendererSpinnerClass {
-    fn override_vfuncs(&mut self) {
-        <CellRendererClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: CellRendererSpinnerImpl> IsSubclassable<T> for CellRendererSpinner {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <CellRenderer as IsSubclassable<T>>::override_vfuncs(class);
     }
 }

@@ -319,7 +319,7 @@ mod row_data {
     // Public part of the RowData type. This behaves like a normal gtk-rs-style GObject
     // binding
     glib_wrapper! {
-        pub struct RowData(ObjectSubclass<imp::RowData, RowDataClass>);
+        pub struct RowData(ObjectSubclass<imp::RowData>);
     }
 
     // Constructor for new instances. This simply calls glib::Object::new() with

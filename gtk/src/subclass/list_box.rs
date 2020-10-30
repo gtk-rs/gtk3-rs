@@ -10,9 +10,8 @@ use super::{container::ContainerImpl, widget::WidgetImpl};
 
 use libc::c_int;
 
-use ContainerClass;
+use Container;
 use ListBox;
-use ListBoxClass;
 use ListBoxRow;
 use MovementStep;
 
@@ -146,11 +145,11 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
     }
 }
 
-unsafe impl<T: ListBoxImpl> IsSubclassable<T> for ListBoxClass {
-    fn override_vfuncs(&mut self) {
-        <ContainerClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: ListBoxImpl> IsSubclassable<T> for ListBox {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <Container as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(self as *mut Self as *mut gtk_sys::GtkListBoxClass);
+            let klass = &mut *(class as *mut _ as *mut gtk_sys::GtkListBoxClass);
             klass.activate_cursor_row = Some(list_box_activate_cursor_row::<T>);
             klass.move_cursor = Some(list_box_move_cursor::<T>);
             klass.row_activated = Some(list_box_row_activated::<T>);

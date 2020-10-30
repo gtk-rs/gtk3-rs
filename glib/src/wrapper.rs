@@ -329,144 +329,156 @@ macro_rules! glib_wrapper {
     // Object, no class struct, no parents or interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:ty, $rust_class_name:ident>);
+        pub struct $name:ident(Object<$ffi_name:ty $(, $rust_class_name:ident)?>);
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, ::std::os::raw::c_void, $rust_class_name, @get_type $get_type_expr, @extends [], @implements []);
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, ::std::os::raw::c_void, @get_type $get_type_expr, @extends [], @implements []);
+        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
     };
 
     // Object, class struct, no parents or interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:ty, $ffi_class_name:ty, $rust_class_name:ident>);
+        pub struct $name:ident(Object<$ffi_name:ty, $ffi_class_name:ty $(, $rust_class_name:ident)?>);
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name, @get_type $get_type_expr, @extends [], @implements []);
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, @get_type $get_type_expr, @extends [], @implements []);
+        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
     };
 
     // Object, no class struct, parents, no interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:ty, $rust_class_name:ident>) @extends $($extends:path),+;
+        pub struct $name:ident(Object<$ffi_name:ty $(, $rust_class_name:ident)?>) @extends $($extends:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, ::std::os::raw::c_void, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, ::std::os::raw::c_void,
             @get_type $get_type_expr, @extends [$($extends),+], @implements []);
+        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
     };
 
     // Object, class struct, parents, no interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:ty, $ffi_class_name:ty, $rust_class_name:ident>) @extends $($extends:path),+;
+        pub struct $name:ident(Object<$ffi_name:ty, $ffi_class_name:ty $(, $rust_class_name:ident)?>) @extends $($extends:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name,
             @get_type $get_type_expr, @extends [$($extends),+], @implements []);
+        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
     };
 
     // Object, no class struct, no parents, interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:ty, $rust_class_name:ident>) @implements $($implements:path),+;
+        pub struct $name:ident(Object<$ffi_name:ty $(, $rust_class_name:ident)?>) @implements $($implements:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, ::std::os::raw::c_void, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, ::std::os::raw::c_void,
             @get_type $get_type_expr, @extends [], @implements [$($implements),+]);
+        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
     };
 
     // Object, class struct, no parents, interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:ty, $ffi_class_name:ty, $rust_class_name:ident>) @implements $($implements:path),+;
+        pub struct $name:ident(Object<$ffi_name:ty, $ffi_class_name:ty $(, $rust_class_name:ident)?>) @implements $($implements:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name,
             @get_type $get_type_expr, @extends [], @implements [$($implements),+]);
+        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
     };
 
     // Object, no class struct, parents and interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:ty, $rust_class_name:ident>) @extends $($extends:path),+, @implements $($implements:path),+;
+        pub struct $name:ident(Object<$ffi_name:ty $(, $rust_class_name:ident)?>) @extends $($extends:path),+, @implements $($implements:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, ::std::os::raw::c_void, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, ::std::os::raw::c_void,
             @get_type $get_type_expr, @extends [$($extends),+], @implements [$($implements),+]);
+        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
     };
 
     // Object, class struct, parents and interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:ty, $ffi_class_name:ty, $rust_class_name:ident>) @extends $($extends:path),+, @implements $($implements:path),+;
+        pub struct $name:ident(Object<$ffi_name:ty, $ffi_class_name:ty $(, $rust_class_name:ident)?>) @extends $($extends:path),+, @implements $($implements:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name,
             @get_type $get_type_expr, @extends [$($extends),+], @implements [$($implements),+]);
+        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
     };
 
     // ObjectSubclass, no parents or interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(ObjectSubclass<$subclass:ty, $rust_class_name:ident>);
+        pub struct $name:ident(ObjectSubclass<$subclass:ty $(, $rust_class_name:ident)?>);
     ) => {
         use glib::translate::ToGlib;
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class,
             @get_type $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclass>::get_type()),
             @extends [], @implements []);
+        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
     };
 
     // ObjectSubclass, no parents, interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(ObjectSubclass<$subclass:ty, $rust_class_name:ident>) @implements $($implements:path),+;
+        pub struct $name:ident(ObjectSubclass<$subclass:ty $(, $rust_class_name:ident)?>) @implements $($implements:path),+;
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class,
             @get_type $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclass>::get_type()),
             @extends [], @implements [$($implements),+]);
+        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
     };
 
     // ObjectSubclass, parents, no interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(ObjectSubclass<$subclass:ty, $rust_class_name:ident>) @extends $($extends:path),+;
+        pub struct $name:ident(ObjectSubclass<$subclass:ty $(, $rust_class_name:ident)?>) @extends $($extends:path),+;
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class,
             @get_type $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclass>::get_type()),
             @extends [$($extends),+], @implements []);
+        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
     };
 
     // ObjectSubclass, parents and interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(ObjectSubclass<$subclass:ty, $rust_class_name:ident>) @extends $($extends:path),+, @implements $($implements:path),+;
+        pub struct $name:ident(ObjectSubclass<$subclass:ty $(, $rust_class_name:ident)?>) @extends $($extends:path),+, @implements $($implements:path),+;
     ) => {
-        $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class,
             @get_type $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclass>::get_type()),
             @extends [$($extends),+], @implements [$($implements),+]);
+        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
     };
 
     // Interface, no prerequisites

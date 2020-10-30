@@ -52,8 +52,6 @@ pub unsafe trait ObjectType:
     type GlibType: 'static;
     /// type of the FFI Class structure.
     type GlibClassType: 'static;
-    /// type of the Rust Class structure.
-    type RustClassType: 'static;
 
     fn as_object_ref(&self) -> &ObjectRef;
     fn as_ptr(&self) -> *mut Self::GlibType;
@@ -83,108 +81,18 @@ pub trait UnsafeFrom<T> {
 /// implementations exist.
 pub unsafe trait IsA<T: ObjectType>: ObjectType + AsRef<T> + 'static {}
 
-/// Trait for mapping a class struct type to its corresponding instance type.
-pub unsafe trait IsClassFor: Sized + 'static {
-    /// Corresponding Rust instance type for this class.
-    type Instance: ObjectType;
-
-    /// Get the type id for this class.
-    fn get_type(&self) -> Type {
-        unsafe {
-            let klass = self as *const _ as *const gobject_sys::GTypeClass;
-            from_glib((*klass).g_type)
-        }
-    }
-
-    /// Casts this class to a reference to a parent type's class.
-    fn upcast_ref<U: IsClassFor>(&self) -> &U
-    where
-        Self::Instance: IsA<U::Instance>,
-        U::Instance: ObjectType,
-    {
-        unsafe {
-            let klass = self as *const _ as *const U;
-            &*klass
-        }
-    }
-
-    /// Casts this class to a mutable reference to a parent type's class.
-    fn upcast_ref_mut<U: IsClassFor>(&mut self) -> &mut U
-    where
-        Self::Instance: IsA<U::Instance>,
-        U::Instance: ObjectType,
-    {
-        unsafe {
-            let klass = self as *mut _ as *mut U;
-            &mut *klass
-        }
-    }
-
-    /// Casts this class to a reference to a child type's class or
-    /// fails if this class is not implementing the child class.
-    fn downcast_ref<U: IsClassFor>(&self) -> Option<&U>
-    where
-        U::Instance: IsA<Self::Instance>,
-        Self::Instance: ObjectType,
-    {
-        if !self.get_type().is_a(&U::Instance::static_type()) {
-            return None;
-        }
-
-        unsafe {
-            let klass = self as *const _ as *const U;
-            Some(&*klass)
-        }
-    }
-
-    /// Casts this class to a mutable reference to a child type's class or
-    /// fails if this class is not implementing the child class.
-    fn downcast_ref_mut<U: IsClassFor>(&mut self) -> Option<&mut U>
-    where
-        U::Instance: IsA<Self::Instance>,
-        Self::Instance: ObjectType,
-    {
-        if !self.get_type().is_a(&U::Instance::static_type()) {
-            return None;
-        }
-
-        unsafe {
-            let klass = self as *mut _ as *mut U;
-            Some(&mut *klass)
-        }
-    }
-
-    /// Gets the class struct corresponding to `type_`.
-    ///
-    /// This will return `None` if `type_` is not a subclass of `Self`.
-    fn from_type(type_: Type) -> Option<ClassRef<Self>> {
-        if !type_.is_a(&Self::Instance::static_type()) {
-            return None;
-        }
-
-        unsafe {
-            let ptr = gobject_sys::g_type_class_ref(type_.to_glib());
-            if ptr.is_null() {
-                None
-            } else {
-                Some(ClassRef(ptr::NonNull::new_unchecked(ptr as *mut Self)))
-            }
-        }
-    }
-}
-
 #[derive(Debug)]
-pub struct ClassRef<T: IsClassFor>(ptr::NonNull<T>);
+pub struct ClassRef<T: ObjectType>(ptr::NonNull<Class<T>>);
 
-impl<T: IsClassFor> ops::Deref for ClassRef<T> {
-    type Target = T;
+impl<T: ObjectType> ops::Deref for ClassRef<T> {
+    type Target = Class<T>;
 
-    fn deref(&self) -> &T {
+    fn deref(&self) -> &Class<T> {
         unsafe { self.0.as_ref() }
     }
 }
 
-impl<T: IsClassFor> Drop for ClassRef<T> {
+impl<T: ObjectType> Drop for ClassRef<T> {
     fn drop(&mut self) {
         unsafe {
             gobject_sys::g_type_class_unref(self.0.as_ptr() as *mut _);
@@ -192,8 +100,8 @@ impl<T: IsClassFor> Drop for ClassRef<T> {
     }
 }
 
-unsafe impl<T: IsClassFor> Send for ClassRef<T> {}
-unsafe impl<T: IsClassFor> Sync for ClassRef<T> {}
+unsafe impl<T: ObjectType> Send for ClassRef<T> {}
+unsafe impl<T: ObjectType> Sync for ClassRef<T> {}
 
 /// Upcasting and downcasting support.
 ///
@@ -721,7 +629,7 @@ macro_rules! glib_weak_impl {
 /// ObjectType implementations for Object types. See `glib_wrapper!`.
 #[macro_export]
 macro_rules! glib_object_wrapper {
-    (@generic_impl [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty, $rust_class_name:ty, @get_type $get_type_expr:expr) => {
+    (@generic_impl [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty, @get_type $get_type_expr:expr) => {
         $(#[$attr])*
         // Always derive Hash/Ord (and below impl Debug, PartialEq, Eq, PartialOrd) for object
         // types. Due to inheritance and up/downcasting we must implement these by pointer or
@@ -754,7 +662,6 @@ macro_rules! glib_object_wrapper {
         unsafe impl $crate::object::ObjectType for $name {
             type GlibType = $ffi_name;
             type GlibClassType = $ffi_class_name;
-            type RustClassType = $rust_class_name;
 
             fn as_object_ref(&self) -> &$crate::object::ObjectRef {
                 &self.0
@@ -1109,92 +1016,43 @@ macro_rules! glib_object_wrapper {
     };
 
     // If there is no parent class, i.e. only glib::Object
-    (@munch_first_impl $name:ident, $rust_class_name:ident, ) => {
+    (@munch_first_impl $name:ident, ) => {
         $crate::glib_object_wrapper!(@munch_impls $name, );
-
-        impl ::std::ops::Deref for $rust_class_name {
-            type Target = <$crate::object::Object as $crate::object::ObjectType>::RustClassType;
-
-            fn deref(&self) -> &Self::Target {
-                $crate::object::IsClassFor::upcast_ref(self)
-            }
-        }
-
-        impl ::std::ops::DerefMut for $rust_class_name {
-            fn deref_mut(&mut self) -> &mut Self::Target {
-                $crate::object::IsClassFor::upcast_ref_mut(self)
-            }
+        unsafe impl $crate::object::ParentClassIs for $name {
+            type Parent = $crate::object::Object;
         }
     };
 
     // If there is only one parent class
-    (@munch_first_impl $name:ident, $rust_class_name:ident, $super_name:path) => {
+    (@munch_first_impl $name:ident, $super_name:path) => {
         $crate::glib_object_wrapper!(@munch_impls $name, $super_name);
-
-        impl ::std::ops::Deref for $rust_class_name {
-            type Target = <$super_name as $crate::object::ObjectType>::RustClassType;
-
-            fn deref(&self) -> &Self::Target {
-                $crate::object::IsClassFor::upcast_ref(self)
-            }
-        }
-
-        impl ::std::ops::DerefMut for $rust_class_name {
-            fn deref_mut(&mut self) -> &mut Self::Target {
-                $crate::object::IsClassFor::upcast_ref_mut(self)
-            }
+        unsafe impl $crate::object::ParentClassIs for $name {
+            type Parent = $super_name;
         }
     };
 
     // If there is more than one parent class
-    (@munch_first_impl $name:ident, $rust_class_name:ident, $super_name:path, $($implements:tt)*) => {
+    (@munch_first_impl $name:ident, $super_name:path, $($implements:tt)*) => {
         $crate::glib_object_wrapper!(@munch_impls $name, $super_name);
-
-        impl ::std::ops::Deref for $rust_class_name {
-            type Target = <$super_name as $crate::object::ObjectType>::RustClassType;
-
-            fn deref(&self) -> &Self::Target {
-                $crate::object::IsClassFor::upcast_ref(self)
-            }
+        unsafe impl $crate::object::ParentClassIs for $name {
+            type Parent = $super_name;
         }
-
-        impl ::std::ops::DerefMut for $rust_class_name {
-            fn deref_mut(&mut self) -> &mut Self::Target {
-                $crate::object::IsClassFor::upcast_ref_mut(self)
-            }
-        }
-
         $crate::glib_object_wrapper!(@munch_impls $name, $($implements)*);
-    };
-
-    (@class_impl $name:ident, $ffi_class_name:ty, $rust_class_name:ident) => {
-        #[repr(transparent)]
-        #[derive(Debug)]
-        pub struct $rust_class_name($ffi_class_name);
-
-        unsafe impl $crate::object::IsClassFor for $rust_class_name {
-            type Instance = $name;
-        }
-
-        unsafe impl Send for $rust_class_name { }
-        unsafe impl Sync for $rust_class_name { }
     };
 
     // This case is only for glib::Object itself below. All other cases have glib::Object in its
     // parent class list
-    (@object [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty, $rust_class_name:ident, @get_type $get_type_expr:expr) => {
-        $crate::glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+    (@object [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty, @get_type $get_type_expr:expr) => {
+        $crate::glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name,
             @get_type $get_type_expr);
-        $crate::glib_object_wrapper!(@class_impl $name, $ffi_class_name, $rust_class_name);
     };
 
-    (@object [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty, $rust_class_name:ident,
+    (@object [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty,
         @get_type $get_type_expr:expr, @extends [$($extends:tt)*], @implements [$($implements:tt)*]) => {
-        $crate::glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+        $crate::glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name,
             @get_type $get_type_expr);
-        $crate::glib_object_wrapper!(@munch_first_impl $name, $rust_class_name, $($extends)*);
+        $crate::glib_object_wrapper!(@munch_first_impl $name, $($extends)*);
         $crate::glib_object_wrapper!(@munch_impls $name, $($implements)*);
-        $crate::glib_object_wrapper!(@class_impl $name, $ffi_class_name, $rust_class_name);
 
         #[doc(hidden)]
         impl AsRef<$crate::object::Object> for $name {
@@ -1208,7 +1066,7 @@ macro_rules! glib_object_wrapper {
     };
 
     (@interface [$($attr:meta)*] $name:ident, $ffi_name:ty, @get_type $get_type_expr:expr, @requires [$($requires:tt)*]) => {
-        $crate::glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, (), (),
+        $crate::glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, (),
             @get_type $get_type_expr);
         $crate::glib_object_wrapper!(@munch_impls $name, $($requires)*);
 
@@ -1226,8 +1084,9 @@ macro_rules! glib_object_wrapper {
 
 glib_object_wrapper!(@object
     [doc = "The base class in the object hierarchy."]
-    Object, GObject, GObjectClass, ObjectClass, @get_type gobject_sys::g_object_get_type()
+    Object, GObject, GObjectClass, @get_type gobject_sys::g_object_get_type()
 );
+pub type ObjectClass = Class<Object>;
 
 impl Object {
     pub fn new(type_: Type, properties: &[(&str, &dyn ToValue)]) -> Result<Object, BoolError> {
@@ -2567,6 +2426,119 @@ impl<'a> BindingBuilder<'a> {
                 self.transform_to.to_glib_none().0,
                 self.transform_from.to_glib_none().0,
             ))
+        }
+    }
+}
+
+#[repr(transparent)]
+pub struct Class<T: ObjectType>(T::GlibClassType);
+
+impl<T: ObjectType> Class<T> {
+    /// Get the type id for this class.
+    pub fn get_type(&self) -> Type {
+        unsafe {
+            let klass = self as *const _ as *const gobject_sys::GTypeClass;
+            from_glib((*klass).g_type)
+        }
+    }
+
+    /// Casts this class to a reference to a parent type's class.
+    pub fn upcast_ref<U: ObjectType>(&self) -> &Class<U>
+    where
+        T: IsA<U>,
+    {
+        unsafe {
+            let klass = self as *const _ as *const Class<U>;
+            &*klass
+        }
+    }
+
+    /// Casts this class to a mutable reference to a parent type's class.
+    pub fn upcast_ref_mut<U: ObjectType>(&mut self) -> &mut Class<U>
+    where
+        T: IsA<U>,
+    {
+        unsafe {
+            let klass = self as *mut _ as *mut Class<U>;
+            &mut *klass
+        }
+    }
+
+    /// Casts this class to a reference to a child type's class or
+    /// fails if this class is not implementing the child class.
+    pub fn downcast_ref<U: ObjectType>(&self) -> Option<&Class<U>>
+    where
+        U: IsA<T>,
+    {
+        if !self.get_type().is_a(&U::static_type()) {
+            return None;
+        }
+
+        unsafe {
+            let klass = self as *const _ as *const Class<U>;
+            Some(&*klass)
+        }
+    }
+
+    /// Casts this class to a mutable reference to a child type's class or
+    /// fails if this class is not implementing the child class.
+    pub fn downcast_ref_mut<U: ObjectType>(&mut self) -> Option<&mut Class<U>>
+    where
+        U: IsA<T>,
+    {
+        if !self.get_type().is_a(&U::static_type()) {
+            return None;
+        }
+
+        unsafe {
+            let klass = self as *mut _ as *mut Class<U>;
+            Some(&mut *klass)
+        }
+    }
+
+    /// Gets the class struct corresponding to `type_`.
+    ///
+    /// This will return `None` if `type_` is not a subclass of `Self`.
+    pub fn from_type(type_: Type) -> Option<ClassRef<T>> {
+        if !type_.is_a(&T::static_type()) {
+            return None;
+        }
+
+        unsafe {
+            let ptr = gobject_sys::g_type_class_ref(type_.to_glib());
+            if ptr.is_null() {
+                None
+            } else {
+                Some(ClassRef(ptr::NonNull::new_unchecked(ptr as *mut Self)))
+            }
+        }
+    }
+}
+
+unsafe impl<T: ObjectType> Send for Class<T> {}
+unsafe impl<T: ObjectType> Sync for Class<T> {}
+
+// This should require Self: IsA<Self::Super>, but that seems to cause a cycle error
+pub unsafe trait ParentClassIs: ObjectType {
+    type Parent: ObjectType;
+}
+
+impl<T: ParentClassIs> ops::Deref for Class<T> {
+    type Target = Class<T::Parent>;
+
+    fn deref(&self) -> &Self::Target {
+        unsafe {
+            let klass = self as *const _ as *const Self::Target;
+            &*klass
+        }
+    }
+}
+
+impl<T: ParentClassIs> ops::DerefMut for Class<T> {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        unsafe {
+            let klass = self as *mut _ as *mut Self::Target;
+            &mut *klass
         }
     }
 }

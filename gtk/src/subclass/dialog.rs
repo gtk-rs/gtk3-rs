@@ -6,9 +6,8 @@ use glib::subclass::prelude::*;
 
 use super::window::WindowImpl;
 use Dialog;
-use DialogClass;
 use ResponseType;
-use WindowClass;
+use Window;
 
 pub trait DialogImpl: DialogImplExt + WindowImpl {
     fn response(&self, dialog: &Dialog, response: ResponseType) {
@@ -47,11 +46,11 @@ impl<T: DialogImpl> DialogImplExt for T {
     }
 }
 
-unsafe impl<T: DialogImpl> IsSubclassable<T> for DialogClass {
-    fn override_vfuncs(&mut self) {
-        <WindowClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: DialogImpl> IsSubclassable<T> for Dialog {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <Window as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(self as *mut Self as *mut gtk_sys::GtkDialogClass);
+            let klass = &mut *(class as *mut _ as *mut gtk_sys::GtkDialogClass);
             klass.response = Some(dialog_response::<T>);
             klass.close = Some(dialog_close::<T>);
         }

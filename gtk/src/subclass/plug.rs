@@ -8,8 +8,7 @@ use glib::translate::*;
 
 use super::window::WindowImpl;
 use Plug;
-use PlugClass;
-use WindowClass;
+use Window;
 
 pub trait PlugImpl: PlugImplExt + WindowImpl {
     fn embedded(&self, plug: &Plug) {
@@ -33,11 +32,11 @@ impl<T: PlugImpl> PlugImplExt for T {
     }
 }
 
-unsafe impl<T: PlugImpl> IsSubclassable<T> for PlugClass {
-    fn override_vfuncs(&mut self) {
-        <WindowClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: PlugImpl> IsSubclassable<T> for Plug {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <Window as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(self as *mut Self as *mut gtk_sys::GtkPlugClass);
+            let klass = &mut *(class as *mut _ as *mut gtk_sys::GtkPlugClass);
             klass.embedded = Some(plug_embedded::<T>);
         }
     }
