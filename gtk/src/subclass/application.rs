@@ -83,11 +83,11 @@ unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
 
         <gio::Application as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(class as *mut _ as *mut gtk_sys::GtkApplicationClass);
+            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkApplicationClass);
             klass.window_added = Some(application_window_added::<T>);
             klass.window_removed = Some(application_window_removed::<T>);
             // Chain our startup handler in here
-            let klass = &mut *(class as *mut _ as *mut gio_sys::GApplicationClass);
+            let klass = &mut class.as_mut().parent_class;
             klass.startup = Some(application_startup::<T>);
         }
     }

@@ -99,7 +99,7 @@ unsafe impl<T: IOStreamImpl> IsSubclassable<T> for IOStream {
     fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
         <glib::Object as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(class as *mut _ as *mut gio_sys::GIOStreamClass);
+            let klass = &mut *(class.as_mut() as *mut gio_sys::GIOStreamClass);
             klass.get_input_stream = Some(stream_get_input_stream::<T>);
             klass.get_output_stream = Some(stream_get_output_stream::<T>);
             klass.close_fn = Some(stream_close::<T>);

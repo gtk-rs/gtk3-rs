@@ -2518,6 +2518,18 @@ impl<T: ObjectType> Class<T> {
 unsafe impl<T: ObjectType> Send for Class<T> {}
 unsafe impl<T: ObjectType> Sync for Class<T> {}
 
+impl<T: ObjectType> AsRef<T::GlibClassType> for Class<T> {
+    fn as_ref(&self) -> &T::GlibClassType {
+        &self.0
+    }
+}
+
+impl<T: ObjectType> AsMut<T::GlibClassType> for Class<T> {
+    fn as_mut(&mut self) -> &mut T::GlibClassType {
+        &mut self.0
+    }
+}
+
 // This should require Self: IsA<Self::Super>, but that seems to cause a cycle error
 pub unsafe trait ParentClassIs: ObjectType {
     type Parent: ObjectType;

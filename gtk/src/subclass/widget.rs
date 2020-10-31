@@ -918,7 +918,7 @@ unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
     fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
         <Object as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(class as *mut _ as *mut gtk_sys::GtkWidgetClass);
+            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkWidgetClass);
             klass.adjust_baseline_allocation = Some(widget_adjust_baseline_allocation::<T>);
             klass.adjust_baseline_request = Some(widget_adjust_baseline_request::<T>);
             klass.adjust_size_allocation = Some(widget_adjust_size_allocation::<T>);

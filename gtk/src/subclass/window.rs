@@ -97,7 +97,7 @@ unsafe impl<T: WindowImpl> IsSubclassable<T> for Window {
     fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
         <Bin as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(class as *mut _ as *mut gtk_sys::GtkWindowClass);
+            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkWindowClass);
             klass.set_focus = Some(window_set_focus::<T>);
             klass.activate_focus = Some(window_activate_focus::<T>);
             klass.activate_default = Some(window_activate_default::<T>);

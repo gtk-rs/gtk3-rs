@@ -143,7 +143,7 @@ unsafe impl<T: IconViewImpl> IsSubclassable<T> for IconView {
     fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
         <Container as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(class as *mut _ as *mut gtk_sys::GtkIconViewClass);
+            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkIconViewClass);
             klass.item_activated = Some(icon_view_item_activated::<T>);
             klass.selection_changed = Some(icon_view_selection_changed::<T>);
             klass.select_all = Some(icon_view_select_all::<T>);

@@ -37,7 +37,7 @@ unsafe impl<T: CellRendererToggleImpl> IsSubclassable<T> for CellRendererToggle 
     fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
         <CellRenderer as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(class as *mut _ as *mut gtk_sys::GtkCellRendererToggleClass);
+            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkCellRendererToggleClass);
             klass.toggled = Some(cell_renderer_toggle_toggled::<T>);
         }
     }

@@ -439,7 +439,7 @@ unsafe impl<T: CellRendererImpl> IsSubclassable<T> for CellRenderer {
     fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
         <Object as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(class as *mut _ as *mut gtk_sys::GtkCellRendererClass);
+            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkCellRendererClass);
             klass.get_request_mode = Some(cell_renderer_get_request_mode::<T>);
             klass.get_preferred_width = Some(cell_renderer_get_preferred_width::<T>);
             klass.get_preferred_height_for_width =

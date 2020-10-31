@@ -24,7 +24,7 @@ unsafe impl<T: ListBoxRowImpl> IsSubclassable<T> for ListBoxRow {
     fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
         <Bin as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(class as *mut _ as *mut gtk_sys::GtkListBoxRowClass);
+            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkListBoxRowClass);
             klass.activate = Some(list_box_row_activate::<T>);
         }
     }

@@ -149,7 +149,7 @@ unsafe impl<T: ListBoxImpl> IsSubclassable<T> for ListBox {
     fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
         <Container as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(class as *mut _ as *mut gtk_sys::GtkListBoxClass);
+            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkListBoxClass);
             klass.activate_cursor_row = Some(list_box_activate_cursor_row::<T>);
             klass.move_cursor = Some(list_box_move_cursor::<T>);
             klass.row_activated = Some(list_box_row_activated::<T>);
