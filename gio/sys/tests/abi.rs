@@ -14,8 +14,8 @@ use std::process::Command;
 use std::str;
 use tempfile::Builder;
 
-static PACKAGES: &[&str] = &["gio-2.0"];
-static PACKAGES_FALLBACK: &[&str] = &["gio-2.0-unix", "glib-2.0"];
+static PACKAGES_UNIX: &[&str] = &["gio-2.0", "gio-unix-2.0"];
+static PACKAGES_WINDOWS: &[&str] = &["gio-2.0"];
 
 #[derive(Clone, Debug)]
 struct Compiler {
@@ -132,10 +132,13 @@ fn cross_validate_constants_with_c() {
         .prefix("abi")
         .tempdir()
         .expect("temporary directory");
-    let cc = match Compiler::new(PACKAGES) {
-        Ok(cc) => Ok(cc),
-	Err(_) => Compiler::new(PACKAGES_FALLBACK),
-    }.expect("configured compiler");
+
+    let cc = if cfg!(target_family = "windows") {
+        Compiler::new(PACKAGES_WINDOWS)
+    } else {
+        Compiler::new(PACKAGES_UNIX)
+    }
+    .expect("configured compiler");
 
     assert_eq!(
         "1",
@@ -175,10 +178,13 @@ fn cross_validate_layout_with_c() {
         .prefix("abi")
         .tempdir()
         .expect("temporary directory");
-    let cc = match Compiler::new(PACKAGES) {
-        Ok(cc) => Ok(cc),
-	Err(_) => Compiler::new(PACKAGES_FALLBACK),
-    }.expect("configured compiler");
+
+    let cc = if cfg!(target_family = "windows") {
+        Compiler::new(PACKAGES_WINDOWS)
+    } else {
+        Compiler::new(PACKAGES_UNIX)
+    }
+    .expect("configured compiler");
 
     assert_eq!(
         Layout {
