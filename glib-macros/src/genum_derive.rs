@@ -143,7 +143,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
             }
         }
 
-        impl StaticType for #name {
+        impl #crate_ident::StaticType for #name {
             fn static_type() -> #crate_ident::Type {
                 #get_type()
             }
