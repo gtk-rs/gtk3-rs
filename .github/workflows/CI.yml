@@ -1,0 +1,132 @@
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+name: CI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:20.10
+    strategy:
+      matrix:
+        rust:
+          - stable
+          - beta
+          - nightly
+          - "1.40.0"
+    steps:
+      - run: apt-get update -y
+      - run: apt-get install -y libgtk-3-dev libglib2.0-dev libgraphene-1.0-dev git xvfb curl libcairo-gobject2 libcairo2-dev
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.rust }}
+          override: true
+      # atk
+      - name: "atk: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path atk/Cargo.toml --all-features
+      - name: "atk-sys: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path atk/sys/Cargo.toml --all-features
+      - name: "atk: build"
+        run: cargo build --manifest-path atk/Cargo.toml --all-features
+      # cairo
+      - name: "cairo: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path cairo/Cargo.toml --features "png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface"
+      - name: "cairo-sys: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path cairo/sys/Cargo.toml --features "png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface"
+      - name: "cairo: build"
+        run: cargo build --manifest-path cairo/Cargo.toml --features "png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface"
+      # gdk
+      - name: "gdk: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path gdk/Cargo.toml --features v3_24
+      - name: "gdk: build"
+        run: cargo build --manifest-path gdk/Cargo.toml --features v3_24
+      # gdk-pixbuf
+      - name: "gdk-pixbuf: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path gdk-pixbuf/Cargo.toml --all-features
+      - name: "gdk-pixbuf-sys: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path gdk-pixbuf/sys/Cargo.toml --all-features
+      - name: "gdk-pixbuf: build"
+        run: cargo build --manifest-path gdk-pixbuf/Cargo.toml --all-features
+      # gdkx11
+      - name: "gdkx11: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path gdkx11/Cargo.toml --all-features
+      - name: "gdkx11-sys: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path gdkx11/sys/Cargo.toml --all-features
+      - name: "gdkx11: build"
+        run: cargo build --manifest-path gdkx11/Cargo.toml --all-features
+      # gio
+      - name: "gio: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path gio/Cargo.toml --all-features
+      - name: "gio: build"
+        run: cargo build --manifest-path gio/Cargo.toml --all-features
+      # glib
+      - name: "glib: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path glib/Cargo.toml --all-features
+      - name: "glib: build"
+        run: cargo build --manifest-path glib/Cargo.toml --all-features
+      # glib-macros
+      - name: "glib-macros: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path glib-macros/Cargo.toml
+      - name: "glib-macros: build"
+        run: cargo build --manifest-path glib-macros/Cargo.toml
+      # graphene
+      - name: "graphene: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path graphene/Cargo.toml --all-features
+      - name: "graphene: build"
+        run: cargo build --manifest-path graphene/Cargo.toml --all-features
+      # gtk
+      - name: "gtk: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path gtk/Cargo.toml --all-features
+      - name: "gtk: build"
+        run: cargo build --manifest-path gtk/Cargo.toml --all-features
+      # pango
+      - name: "pango: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path pango/Cargo.toml --all-features
+      - name: "pango: build"
+        run: cargo build --manifest-path pango/Cargo.toml --all-features
+      # pangocairo
+      - name: "pangocairo: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path pangocairo/Cargo.toml --all-features
+      - name: "pangocairo-sys: tests"
+        run: xvfb-run --auto-servernum cargo test --manifest-path pangocairo/sys/Cargo.toml --all-features
+      - name: "pangocairo: build"
+        run: cargo build --manifest-path pangocairo/Cargo.toml --all-features
+      # examples
+      - name: "examples"
+        run: cargo build --manifest-path examples/Cargo.toml --bins --examples --all-features
+
+      - uses: bcomnes/cleanup-xvfb@v1
+
+  fmt:
+    name: rust fmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - run: rustup component add rustfmt
+      - uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+          args: --all -- --check
+
+  checker:
+    name: gtk-rs checker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: gtk-rs/checker
+          ref: master
+          path: checker
+      - working-directory: checker
+        run: cargo build --release
+      - run: "./checker/target/release/checker ."
+      - run: "./checker/check_init_asserts"

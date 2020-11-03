@@ -27,4 +27,4 @@ members = [
   "pangocairo/sys",
 ]
 
-exclude = ["gir"]
+exclude = ["gir", "checker"]
