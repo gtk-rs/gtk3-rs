@@ -220,7 +220,7 @@ status = "generate"
     ignore = true # cannot be used as is
     [[object.function]]
     name = "get_history"
-    ignore = true # need to call "free_history" function by hand
+    manual = true # need to call "free_history" function by hand
     [[object.property]]
     name = "tool"
     version = "3.22"
@@ -302,7 +302,7 @@ status = "generate"
     [[object.function]]
     name = "get_refresh_info"
     #wrong gir: no out parameters
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gdk.FrameTimings"
@@ -311,15 +311,15 @@ version = "3.8"
     [[object.function]]
     name = "get_predicted_presentation_time"
     # Use an `Option` for the return value
-    ignore = true
+    manual = true
     [[object.function]]
     name = "get_presentation_time"
     # Use an `Option` for the return value
-    ignore = true
+    manual = true
     [[object.function]]
     name = "get_refresh_interval"
     # Use an `Option` for the return value
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gdk.Keymap"
@@ -327,19 +327,19 @@ status = "generate"
     [[object.function]]
     name = "get_entries_for_keycode"
     # Invalid generation of Vec<KeymapKey>
-    ignore = true
+    manual = true
     [[object.function]]
     name = "get_entries_for_keyval"
     # Invalid generation of Vec<KeymapKey>
-    ignore = true
+    manual = true
     [[object.function]]
     name = "add_virtual_modifiers"
     # Invalid usage of "&mut ModifierType"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "map_virtual_modifiers"
     # Invalid usage of "&mut ModifierType"
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gdk.Monitor"
@@ -368,11 +368,11 @@ status = "generate"
         nullable = false
     [[object.function]]
     name = "get_font_options"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "get_setting"
     # bool return value signals success
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gdk.Seat"
@@ -401,14 +401,14 @@ status = "generate"
 manual_traits = ["WindowExtManual"]
     [[object.function]]
     name = "new"
-    ignore = true
+    manual = true
     [[object.function]]
     pattern = "[gs]et_background_pattern"
-    ignore = true
+    manual = true
     doc_trait_name = "WindowExtManual"
     [[object.function]]
     pattern = "[gs]et_user_data"
-    ignore = true
+    manual = true
     doc_trait_name = "WindowExtManual"
     [[object.function]]
     name = "get_effective_toplevel"
@@ -440,7 +440,7 @@ manual_traits = ["WindowExtManual"]
     version = "3.18"
     [[object.function]]
     name = "create_similar_surface"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "set_opaque_region"
         [[object.function.parameter]]
