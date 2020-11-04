@@ -573,14 +573,6 @@ impl Pixbuf {
         }
     }
 
-    //pub fn get_property_pixels(&self) -> /*Unimplemented*/Fundamental: Pointer {
-    //    unsafe {
-    //        let mut value = Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-    //        gobject_sys::g_object_get_property(self.as_ptr() as *mut gobject_sys::GObject, b"pixels\0".as_ptr() as *const _, value.to_glib_none_mut().0);
-    //        value.get().expect("Return Value for property `pixels` getter").unwrap()
-    //    }
-    //}
-
     #[cfg(any(feature = "v2_36_8", feature = "dox"))]
     pub fn calculate_rowstride(
         colorspace: Colorspace,
