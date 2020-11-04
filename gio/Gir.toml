@@ -229,7 +229,7 @@ manual_traits = ["AppInfoExtManual"]
     [[object.function]]
     name = "launch_uris_async"
     #in array of strings
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gio.AppInfoMonitor"
@@ -262,11 +262,11 @@ manual_traits = ["ApplicationExtManual"]
 generate_builder = true
     [[object.signal]]
     name = "open"
-    ignore = true
+    manual = true
     doc_trait_name = "ApplicationExtManual"
     [[object.function]]
     name = "run"
-    ignore = true
+    manual = true
     doc_trait_name = "ApplicationExtManual"
 
 [[object]]
@@ -336,7 +336,7 @@ status = "generate"
 manual_traits = ["ConverterExtManual"]
     [[object.function]]
     name = "convert"
-    ignore = true
+    manual = true
     doc_trait_name = "ConverterExtManual"
 
 [[object]]
@@ -372,41 +372,41 @@ generate_builder = true
     [[object.function]]
     name = "read_line"
     #return vec of u8
-    ignore = true
+    manual = true
 
     [[object.function]]
     name = "read_line_utf8"
     #redudant length returned
-    ignore = true
+    manual = true
 
     [[object.function]]
     name = "read_line_async"
     #return vec of u8
-    ignore = true
+    manual = true
 
     [[object.function]]
     name = "read_until"
     #nullable return value and redundant length
     #return vec of u8
-    ignore = true
+    manual = true
 
     [[object.function]]
     name = "read_until_async"
     #nullable return value and redundant length
     #return vec of u8
-    ignore = true
+    manual = true
 
     [[object.function]]
     name = "read_upto"
     #nullable return value and redundant length
     #return vec of u8
-    ignore = true
+    manual = true
 
     [[object.function]]
     name = "read_upto_async"
     #nullable return value and redundant length
     #return vec of u8
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gio.DataOutputStream"
@@ -426,27 +426,27 @@ status = "generate"
     [[object.function]]
     pattern = "register_object_with_closures"
     #wrapped with proper types manually
-    ignore = true
+    manual = true
     [[object.function]]
     name = "unregister_object"
     #wrapped with newtype manually
-    ignore = true
+    manual = true
     [[object.function]]
     pattern = ".*action_group.*"
     #wrapped with newtype manually
-    ignore = true
+    manual = true
     [[object.function]]
     pattern = ".*menu_model.*"
     #wrapped with newtype manually
-    ignore = true
+    manual = true
     [[object.function]]
     pattern = ".*filter.*"
     #wrapped with newtype manually
-    ignore = true
+    manual = true
     [[object.function]]
     pattern = "signal_.*subscribe"
     #wrapped with newtype manually
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gio.DBusInterface"
@@ -492,11 +492,11 @@ status = "generate"
     [[object.function]]
     name = "return_gerror"
     # no need to borrow
-    ignore = true
+    manual = true
     [[object.function]]
     name = "return_error_literal"
     # glib::ErrorDomain
-    ignore = true
+    manual = true
 
 
 [[object]]
@@ -517,11 +517,11 @@ cfg_condition = "all(not(windows),not(target_os = \"macos\"))"
     [[object.function]]
     name = "search"
     # returns vec of string
-    ignore = true
+    manual = true
     [[object.function]]
     name = "launch_uris_as_manager_with_fds"
     # has to use RawFd / SOCKET
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gio.Drive"
@@ -580,7 +580,7 @@ manual_traits = ["FileExtManual"]
     [[object.function]]
     name = "replace_contents_async"
     # AsRef
-    ignore = true
+    manual = true
     doc_trait_name = "FileExtManual"
     [[object.function]]
     name = "get_uri_scheme"
@@ -618,11 +618,11 @@ status = "generate"
     [[object.function]]
     name = "get_modification_time"
     # use SystemTime
-    ignore = true
+    manual = true
     [[object.function]]
     name = "set_modification_time"
     # use SystemTime
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gio.FilterOutputStream"
@@ -648,12 +648,12 @@ concurrency = "send+sync"
     [[object.function]]
     name = "new_from_bytes"
     # broken and needs some closer integration with the corresponding std types
-    ignore = true
+    manual = true
 
     [[object.function]]
     name = "to_bytes"
     # broken and needs some closer integration with the corresponding std types
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gio.InetSocketAddress"
@@ -667,7 +667,7 @@ manual_traits = ["InputStreamExtManual"]
     [[object.function]]
     pattern = "read(_all)?(_async)?"
     #mutable buffer
-    ignore = true
+    manual = true
     doc_trait_name = "InputStreamExtManual"
 
 [[object]]
@@ -681,11 +681,11 @@ manual_traits = ["IOStreamExtManual"]
     [[object.property]]
     name = "input-stream"
     #readonly
-    ignore = true
+    manual = true
     [[object.property]]
     name = "output-stream"
     #readonly
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gio.ListModel"
@@ -701,11 +701,11 @@ generate_builder = true
 manual_traits = ["ListStoreExtManual"]
     [[object.function]]
     name = "insert_sorted"
-    ignore = true
+    manual = true
     doc_trait_name = "ListStoreExtManual"
     [[object.function]]
     name = "sort"
-    ignore = true
+    manual = true
     doc_trait_name = "ListStoreExtManual"
 
 [[object]]
@@ -796,17 +796,17 @@ manual_traits = ["OutputStreamExtManual"]
     [[object.function]]
     name = "write_async"
     #AsRef<u8>
-    ignore = true
+    manual = true
     doc_trait_name = "OutputStreamExtManual"
     [[object.function]]
     name = "write_all_async"
     #AsRef<u8>
-    ignore = true
+    manual = true
     doc_trait_name = "OutputStreamExtManual"
     [[object.function]]
     name = "write_all"
     # special return value
-    ignore = true
+    manual = true
     doc_trait_name = "OutputStreamExtManual"
 
 [[object]]
@@ -816,12 +816,12 @@ manual_traits = ["PollableInputStreamExtManual"]
     [[object.function]]
     name = "create_source"
     # manual source implementation
-    ignore = true
+    manual = true
     doc_trait_name = "PollableInputStreamExtManual"
     [[object.function]]
     name = "read_nonblocking"
     # wrong mutability
-    ignore = true
+    manual = true
     doc_trait_name = "PollableInputStreamExtManual"
 
 [[object]]
@@ -831,7 +831,7 @@ manual_traits = ["PollableOutputStreamExtManual"]
     [[object.function]]
     name = "create_source"
     # manual source implementation
-    ignore = true
+    manual = true
     doc_trait_name = "PollableOutputStreamExtManual"
 
 [[object]]
@@ -854,7 +854,7 @@ status = "generate"
     name = "new_from_data"
     # Requires special alignment, see
     # https://bugzilla.gnome.org/show_bug.cgi?id=790030
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gio.Settings"
@@ -908,13 +908,13 @@ manual_traits = ["SocketExtManual"]
     [[object.function]]
     name = "new_from_fd"
     # has to use RawFd / SOCKET
-    ignore = true
+    manual = true
     doc_trait_name = "SocketExtManual"
 
     [[object.function]]
     name = "get_fd"
     # has to use RawFd / SOCKET
-    ignore = true
+    manual = true
     doc_trait_name = "SocketExtManual"
 
     [[object.property]]
@@ -931,13 +931,13 @@ manual_traits = ["SocketExtManual"]
     [[object.function]]
     pattern = "receive.*"
     # &[u8]
-    ignore = true
+    manual = true
     doc_trait_name = "SocketExtManual"
 
     [[object.function]]
     pattern = "send.*"
     # &[u8]
-    ignore = true
+    manual = true
     doc_trait_name = "SocketExtManual"
 
 [[object]]
@@ -955,7 +955,7 @@ status = "generate"
         string_type = "os_string"
     [[object.function]]
     name = "communicate_utf8_async"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "send_signal"
     cfg_condition = "not(windows)"
@@ -983,7 +983,7 @@ status = "generate"
         string_type = "os_string"
     [[object.function]]
     pattern = "take_.*"
-    ignore = true
+    manual = true
     [[object.function]]
     pattern = "set_std.*file_path"
     cfg_condition = "unix"
@@ -1005,7 +1005,7 @@ status = "generate"
     [[object.function]]
     name = "new"
     # Better to provide None than -1 when you don't want to specify the number of threads
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gio.TlsConnection"
@@ -1014,7 +1014,7 @@ manual_traits = ["TlsConnectionExtManual"]
     [[object.function]]
     name = "get_channel_binding_data"
     # Gir confuses the mutability of the data
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Gio.TlsPassword"
@@ -1037,30 +1037,30 @@ manual_traits = ["UnixFDListExtManual"]
     [[object.function]]
     name = "new_from_array"
     # has to use RawFd
-    ignore = true
+    manual = true
 
     [[object.function]]
     name = "append"
     # has to use RawFd
-    ignore = true
+    manual = true
     doc_trait_name = "UnixFDListExtManual"
 
     [[object.function]]
     name = "get"
     # has to use RawFd
-    ignore = true
+    manual = true
     doc_trait_name = "UnixFDListExtManual"
 
     [[object.function]]
     name = "peek_fds"
     # has to use RawFd
-    ignore = true
+    manual = true
     doc_trait_name = "UnixFDListExtManual"
 
     [[object.function]]
     name = "steal_fds"
     # has to use RawFd
-    ignore = true
+    manual = true
     doc_trait_name = "UnixFDListExtManual"
 
 
@@ -1073,18 +1073,18 @@ manual_traits = ["UnixInputStreamExtManual"]
     [[object.function]]
     name = "new"
     # has to use RawFd
-    ignore = true
+    manual = true
 
     [[object.function]]
     name = "set_close_fd"
     # Can cause file descriptor leaks
-    ignore = true
+    manual = true
     doc_trait_name = "UnixInputStreamExtManual"
 
     [[object.function]]
     name = "get_fd"
     # has to use RawFd
-    ignore = true
+    manual = true
     doc_trait_name = "UnixInputStreamExtManual"
 
     [[object.property]]
@@ -1141,18 +1141,18 @@ manual_traits = ["UnixOutputStreamExtManual"]
     [[object.function]]
     name = "new"
     # has to use RawFd
-    ignore = true
+    manual = true
 
     [[object.function]]
     name = "set_close_fd"
     # Can cause file descriptor leaks
-    ignore = true
+    manual = true
     doc_trait_name = "UnixOutputStreamExtManual"
 
     [[object.function]]
     name = "get_fd"
     # has to use RawFd
-    ignore = true
+    manual = true
     doc_trait_name = "UnixOutputStreamExtManual"
 
     [[object.property]]
@@ -1172,10 +1172,10 @@ cfg_condition = "unix"
 manual_traits = ["UnixSocketAddressExtManual"]
     [[object.function]]
     name = "new"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "get_path"
-    ignore = true
+    manual = true
     doc_trait_name = "UnixSocketAddressExtManual"
     [[object.property]]
     name = "path"
