@@ -1,13 +1,13 @@
 use glib::subclass::prelude::*;
 
 use super::widget::WidgetImpl;
-use DrawingAreaClass;
-use WidgetClass;
+use DrawingArea;
+use Widget;
 
 pub trait DrawingAreaImpl: WidgetImpl {}
 
-unsafe impl<T: DrawingAreaImpl> IsSubclassable<T> for DrawingAreaClass {
-    fn override_vfuncs(&mut self) {
-        <WidgetClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: DrawingAreaImpl> IsSubclassable<T> for DrawingArea {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <Widget as IsSubclassable<T>>::override_vfuncs(class);
     }
 }

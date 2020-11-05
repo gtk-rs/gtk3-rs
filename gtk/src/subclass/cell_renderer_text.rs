@@ -7,9 +7,8 @@ use glib::translate::*;
 use glib::GString;
 
 use super::cell_renderer::CellRendererImpl;
-use CellRendererClass;
+use CellRenderer;
 use CellRendererText;
-use CellRendererTextClass;
 
 pub trait CellRendererTextImpl: CellRendererTextImplExt + CellRendererImpl {
     fn edited(&self, renderer: &CellRendererText, path: &str, new_text: &str) {
@@ -38,11 +37,11 @@ impl<T: CellRendererTextImpl> CellRendererTextImplExt for T {
     }
 }
 
-unsafe impl<T: CellRendererTextImpl> IsSubclassable<T> for CellRendererTextClass {
-    fn override_vfuncs(&mut self) {
-        <CellRendererClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: CellRendererTextImpl> IsSubclassable<T> for CellRendererText {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <CellRenderer as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(self as *mut Self as *mut gtk_sys::GtkCellRendererTextClass);
+            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkCellRendererTextClass);
             klass.edited = Some(cell_renderer_text_edited::<T>);
         }
     }

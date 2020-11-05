@@ -6,7 +6,7 @@ use std::mem;
 use glib::translate::*;
 
 use glib::subclass::prelude::*;
-use glib::ObjectClass;
+use glib::Object;
 
 use crate::DragResult;
 use crate::Inhibit;
@@ -18,7 +18,6 @@ use cairo_sys;
 use Allocation;
 use SizeRequestMode;
 use Widget;
-use WidgetClass;
 use WidgetExt;
 
 pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
@@ -915,11 +914,11 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     }
 }
 
-unsafe impl<T: WidgetImpl> IsSubclassable<T> for WidgetClass {
-    fn override_vfuncs(&mut self) {
-        <ObjectClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <Object as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(self as *mut Self as *mut gtk_sys::GtkWidgetClass);
+            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkWidgetClass);
             klass.adjust_baseline_allocation = Some(widget_adjust_baseline_allocation::<T>);
             klass.adjust_baseline_request = Some(widget_adjust_baseline_request::<T>);
             klass.adjust_size_allocation = Some(widget_adjust_size_allocation::<T>);

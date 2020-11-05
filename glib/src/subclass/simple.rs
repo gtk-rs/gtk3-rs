@@ -56,7 +56,7 @@ unsafe impl<T: ObjectSubclass> super::types::ClassStruct for ClassStruct<T> {
 }
 
 impl<T: ObjectSubclass> ops::Deref for ClassStruct<T> {
-    type Target = <<T as ObjectSubclass>::ParentType as ObjectType>::RustClassType;
+    type Target = ::object::Class<<T as ObjectSubclass>::ParentType>;
 
     fn deref(&self) -> &Self::Target {
         unsafe { &*(self as *const _ as *const Self::Target) }

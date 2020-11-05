@@ -1,13 +1,13 @@
 use glib::subclass::prelude::*;
 
 use super::cell_renderer::CellRendererImpl;
-use CellRendererClass;
-use CellRendererPixbufClass;
+use CellRenderer;
+use CellRendererPixbuf;
 
 pub trait CellRendererPixbufImpl: CellRendererImpl {}
 
-unsafe impl<T: CellRendererPixbufImpl> IsSubclassable<T> for CellRendererPixbufClass {
-    fn override_vfuncs(&mut self) {
-        <CellRendererClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: CellRendererPixbufImpl> IsSubclassable<T> for CellRendererPixbuf {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <CellRenderer as IsSubclassable<T>>::override_vfuncs(class);
     }
 }

@@ -8,9 +8,8 @@ use glib::translate::*;
 
 use super::container::ContainerImpl;
 use crate::Inhibit;
-use ContainerClass;
+use Container;
 use Socket;
-use SocketClass;
 
 pub trait SocketImpl: SocketImplExt + ContainerImpl {
     fn plug_added(&self, socket: &Socket) {
@@ -51,11 +50,11 @@ impl<T: SocketImpl> SocketImplExt for T {
     }
 }
 
-unsafe impl<T: SocketImpl> IsSubclassable<T> for SocketClass {
-    fn override_vfuncs(&mut self) {
-        <ContainerClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: SocketImpl> IsSubclassable<T> for Socket {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <Container as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(self as *mut Self as *mut gtk_sys::GtkSocketClass);
+            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkSocketClass);
             klass.plug_added = Some(socket_plug_added::<T>);
             klass.plug_removed = Some(socket_plug_removed::<T>);
         }

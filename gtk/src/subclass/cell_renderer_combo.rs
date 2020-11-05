@@ -1,13 +1,13 @@
 use glib::subclass::prelude::*;
 
 use super::cell_renderer_text::CellRendererTextImpl;
-use CellRendererComboClass;
-use CellRendererTextClass;
+use CellRendererCombo;
+use CellRendererText;
 
 pub trait CellRendererComboImpl: CellRendererTextImpl {}
 
-unsafe impl<T: CellRendererComboImpl> IsSubclassable<T> for CellRendererComboClass {
-    fn override_vfuncs(&mut self) {
-        <CellRendererTextClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: CellRendererComboImpl> IsSubclassable<T> for CellRendererCombo {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <CellRendererText as IsSubclassable<T>>::override_vfuncs(class);
     }
 }

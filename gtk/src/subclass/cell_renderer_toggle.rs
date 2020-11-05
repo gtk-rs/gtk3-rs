@@ -7,9 +7,8 @@ use glib::translate::*;
 use glib::GString;
 
 use super::cell_renderer::CellRendererImpl;
-use CellRendererClass;
+use CellRenderer;
 use CellRendererToggle;
-use CellRendererToggleClass;
 
 pub trait CellRendererToggleImpl: CellRendererToggleImplExt + CellRendererImpl {
     fn toggled(&self, renderer: &CellRendererToggle, path: &str) {
@@ -34,11 +33,11 @@ impl<T: CellRendererToggleImpl> CellRendererToggleImplExt for T {
     }
 }
 
-unsafe impl<T: CellRendererToggleImpl> IsSubclassable<T> for CellRendererToggleClass {
-    fn override_vfuncs(&mut self) {
-        <CellRendererClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: CellRendererToggleImpl> IsSubclassable<T> for CellRendererToggle {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <CellRenderer as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(self as *mut Self as *mut gtk_sys::GtkCellRendererToggleClass);
+            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkCellRendererToggleClass);
             klass.toggled = Some(cell_renderer_toggle_toggled::<T>);
         }
     }

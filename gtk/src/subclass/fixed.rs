@@ -5,13 +5,13 @@
 use glib::subclass::prelude::*;
 
 use super::container::ContainerImpl;
-use ContainerClass;
-use FixedClass;
+use Container;
+use Fixed;
 
 pub trait FixedImpl: ContainerImpl {}
 
-unsafe impl<T: FixedImpl> IsSubclassable<T> for FixedClass {
-    fn override_vfuncs(&mut self) {
-        <ContainerClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: FixedImpl> IsSubclassable<T> for Fixed {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <Container as IsSubclassable<T>>::override_vfuncs(class);
     }
 }

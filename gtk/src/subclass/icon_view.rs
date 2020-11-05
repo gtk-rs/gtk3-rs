@@ -7,9 +7,8 @@ use glib::subclass::prelude::*;
 use glib::translate::*;
 
 use super::container::ContainerImpl;
-use ContainerClass;
+use Container;
 use IconView;
-use IconViewClass;
 use MovementStep;
 use TreePath;
 
@@ -140,11 +139,11 @@ impl<T: IconViewImpl> IconViewImplExt for T {
     }
 }
 
-unsafe impl<T: IconViewImpl> IsSubclassable<T> for IconViewClass {
-    fn override_vfuncs(&mut self) {
-        <ContainerClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: IconViewImpl> IsSubclassable<T> for IconView {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <Container as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(self as *mut Self as *mut gtk_sys::GtkIconViewClass);
+            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkIconViewClass);
             klass.item_activated = Some(icon_view_item_activated::<T>);
             klass.selection_changed = Some(icon_view_selection_changed::<T>);
             klass.select_all = Some(icon_view_select_all::<T>);

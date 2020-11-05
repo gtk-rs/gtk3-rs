@@ -195,7 +195,7 @@
 //!
 //! // Optionally, define a wrapper type to make it more ergonomic to use from Rust
 //! glib_wrapper! {
-//!     pub struct SimpleObject(ObjectSubclass<imp::SimpleObject, SimpleObjectClass>);
+//!     pub struct SimpleObject(ObjectSubclass<imp::SimpleObject>);
 //! }
 //!
 //! impl SimpleObject {

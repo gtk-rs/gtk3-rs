@@ -5,10 +5,9 @@ use glib::translate::*;
 use glib::subclass::prelude::*;
 
 use super::bin::BinImpl;
-use BinClass;
+use Bin;
 use Widget;
 use Window;
-use WindowClass;
 
 pub trait WindowImpl: WindowImplExt + BinImpl {
     fn set_focus(&self, window: &Window, focus: Option<&Widget>) {
@@ -94,11 +93,11 @@ impl<T: WindowImpl> WindowImplExt for T {
     }
 }
 
-unsafe impl<T: WindowImpl> IsSubclassable<T> for WindowClass {
-    fn override_vfuncs(&mut self) {
-        <BinClass as IsSubclassable<T>>::override_vfuncs(self);
+unsafe impl<T: WindowImpl> IsSubclassable<T> for Window {
+    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+        <Bin as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
-            let klass = &mut *(self as *mut Self as *mut gtk_sys::GtkWindowClass);
+            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkWindowClass);
             klass.set_focus = Some(window_set_focus::<T>);
             klass.activate_focus = Some(window_activate_focus::<T>);
             klass.activate_default = Some(window_activate_default::<T>);
