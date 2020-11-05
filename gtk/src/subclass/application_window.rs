@@ -7,7 +7,7 @@ use Window;
 pub trait ApplicationWindowImpl: WindowImpl {}
 
 unsafe impl<T: ApplicationWindowImpl> IsSubclassable<T> for ApplicationWindow {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <Window as IsSubclassable<T>>::override_vfuncs(class);
     }
 }

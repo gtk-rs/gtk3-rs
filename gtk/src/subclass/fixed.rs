@@ -11,7 +11,7 @@ use Fixed;
 pub trait FixedImpl: ContainerImpl {}
 
 unsafe impl<T: FixedImpl> IsSubclassable<T> for Fixed {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <Container as IsSubclassable<T>>::override_vfuncs(class);
     }
 }

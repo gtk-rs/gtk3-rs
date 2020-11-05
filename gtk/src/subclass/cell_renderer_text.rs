@@ -38,12 +38,11 @@ impl<T: CellRendererTextImpl> CellRendererTextImplExt for T {
 }
 
 unsafe impl<T: CellRendererTextImpl> IsSubclassable<T> for CellRendererText {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <CellRenderer as IsSubclassable<T>>::override_vfuncs(class);
-        unsafe {
-            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkCellRendererTextClass);
-            klass.edited = Some(cell_renderer_text_edited::<T>);
-        }
+
+        let klass = class.as_mut();
+        klass.edited = Some(cell_renderer_text_edited::<T>);
     }
 }
 

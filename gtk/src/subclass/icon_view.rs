@@ -140,19 +140,18 @@ impl<T: IconViewImpl> IconViewImplExt for T {
 }
 
 unsafe impl<T: IconViewImpl> IsSubclassable<T> for IconView {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <Container as IsSubclassable<T>>::override_vfuncs(class);
-        unsafe {
-            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkIconViewClass);
-            klass.item_activated = Some(icon_view_item_activated::<T>);
-            klass.selection_changed = Some(icon_view_selection_changed::<T>);
-            klass.select_all = Some(icon_view_select_all::<T>);
-            klass.unselect_all = Some(icon_view_unselect_all::<T>);
-            klass.select_cursor_item = Some(icon_view_select_cursor_item::<T>);
-            klass.toggle_cursor_item = Some(icon_view_toggle_cursor_item::<T>);
-            klass.move_cursor = Some(icon_view_move_cursor::<T>);
-            klass.activate_cursor_item = Some(icon_view_activate_cursor_item::<T>);
-        }
+
+        let klass = class.as_mut();
+        klass.item_activated = Some(icon_view_item_activated::<T>);
+        klass.selection_changed = Some(icon_view_selection_changed::<T>);
+        klass.select_all = Some(icon_view_select_all::<T>);
+        klass.unselect_all = Some(icon_view_unselect_all::<T>);
+        klass.select_cursor_item = Some(icon_view_select_cursor_item::<T>);
+        klass.toggle_cursor_item = Some(icon_view_toggle_cursor_item::<T>);
+        klass.move_cursor = Some(icon_view_move_cursor::<T>);
+        klass.activate_cursor_item = Some(icon_view_activate_cursor_item::<T>);
     }
 }
 

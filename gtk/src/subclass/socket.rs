@@ -51,13 +51,12 @@ impl<T: SocketImpl> SocketImplExt for T {
 }
 
 unsafe impl<T: SocketImpl> IsSubclassable<T> for Socket {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <Container as IsSubclassable<T>>::override_vfuncs(class);
-        unsafe {
-            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkSocketClass);
-            klass.plug_added = Some(socket_plug_added::<T>);
-            klass.plug_removed = Some(socket_plug_removed::<T>);
-        }
+
+        let klass = class.as_mut();
+        klass.plug_added = Some(socket_plug_added::<T>);
+        klass.plug_removed = Some(socket_plug_removed::<T>);
     }
 }
 

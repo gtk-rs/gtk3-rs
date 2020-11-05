@@ -7,7 +7,7 @@ use CellRendererSpinner;
 pub trait CellRendererSpinnerImpl: CellRendererImpl {}
 
 unsafe impl<T: CellRendererSpinnerImpl> IsSubclassable<T> for CellRendererSpinner {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <CellRenderer as IsSubclassable<T>>::override_vfuncs(class);
     }
 }

@@ -105,8 +105,8 @@ pub unsafe trait ClassStruct: Sized + 'static {
         <Self::Type as ObjectSubclass>::ParentType: IsSubclassable<Self::Type>,
     {
         unsafe {
-            let base = &mut *(self as *mut _
-                as *mut ::object::Class<<Self::Type as ObjectSubclass>::ParentType>);
+            let base =
+                &mut *(self as *mut _ as *mut ::Class<<Self::Type as ObjectSubclass>::ParentType>);
             <<Self::Type as ObjectSubclass>::ParentType as IsSubclassable<Self::Type>>::override_vfuncs(base);
         }
     }
@@ -117,7 +117,7 @@ pub unsafe trait IsSubclassable<T: ObjectSubclass>: ObjectType {
     /// Override the virtual methods of this class for the given subclass.
     ///
     /// This is automatically called during type initialization.
-    fn override_vfuncs(class: &mut ::object::Class<Self>);
+    fn override_vfuncs(class: &mut ::Class<Self>);
 }
 
 /// Trait for implementable interfaces.

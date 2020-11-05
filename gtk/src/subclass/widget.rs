@@ -915,51 +915,50 @@ impl<T: WidgetImpl> WidgetImplExt for T {
 }
 
 unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <Object as IsSubclassable<T>>::override_vfuncs(class);
-        unsafe {
-            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkWidgetClass);
-            klass.adjust_baseline_allocation = Some(widget_adjust_baseline_allocation::<T>);
-            klass.adjust_baseline_request = Some(widget_adjust_baseline_request::<T>);
-            klass.adjust_size_allocation = Some(widget_adjust_size_allocation::<T>);
-            klass.adjust_size_request = Some(widget_adjust_size_request::<T>);
-            klass.button_press_event = Some(widget_button_press_event::<T>);
-            klass.button_release_event = Some(widget_button_release_event::<T>);
-            // klass.can_activate_accel = Some(widget_can_activate_accel::<T>);
-            klass.child_notify = Some(widget_child_notify::<T>);
-            klass.composited_changed = Some(widget_composited_changed::<T>);
-            klass.compute_expand = Some(widget_compute_expand::<T>);
-            klass.configure_event = Some(widget_configure_event::<T>);
-            klass.damage_event = Some(widget_damage_event::<T>);
-            klass.delete_event = Some(widget_delete_event::<T>);
-            klass.destroy = Some(widget_destroy::<T>);
-            klass.destroy_event = Some(widget_destroy_event::<T>);
-            klass.direction_changed = Some(widget_direction_changed::<T>);
-            klass.dispatch_child_properties_changed =
-                Some(widget_dispatch_child_properties_changed::<T>);
-            klass.drag_begin = Some(widget_drag_begin::<T>);
-            klass.drag_data_delete = Some(widget_drag_data_delete::<T>);
-            klass.drag_data_get = Some(widget_drag_data_get::<T>);
-            klass.drag_data_received = Some(widget_drag_data_received::<T>);
-            klass.drag_drop = Some(widget_drag_drop::<T>);
-            klass.drag_end = Some(widget_drag_end::<T>);
-            klass.drag_failed = Some(widget_drag_failed::<T>);
-            klass.drag_leave = Some(widget_drag_leave::<T>);
-            klass.drag_motion = Some(widget_drag_motion::<T>);
-            klass.draw = Some(widget_draw::<T>);
-            klass.get_request_mode = Some(widget_get_request_mode::<T>);
-            klass.get_preferred_width = Some(widget_get_preferred_width::<T>);
-            klass.get_preferred_height_for_width = Some(widget_get_preferred_height_for_width::<T>);
-            klass.get_preferred_height = Some(widget_get_preferred_height::<T>);
-            klass.get_preferred_width_for_height = Some(widget_get_preferred_width_for_height::<T>);
-            klass.size_allocate = Some(widget_size_allocate::<T>);
-            klass.realize = Some(widget_realize::<T>);
-            klass.unrealize = Some(widget_unrealize::<T>);
-            klass.map = Some(widget_map::<T>);
-            klass.unmap = Some(widget_unmap::<T>);
-            klass.motion_notify_event = Some(widget_motion_notify_event::<T>);
-            klass.scroll_event = Some(widget_scroll_event::<T>);
-        }
+
+        let klass = class.as_mut();
+        klass.adjust_baseline_allocation = Some(widget_adjust_baseline_allocation::<T>);
+        klass.adjust_baseline_request = Some(widget_adjust_baseline_request::<T>);
+        klass.adjust_size_allocation = Some(widget_adjust_size_allocation::<T>);
+        klass.adjust_size_request = Some(widget_adjust_size_request::<T>);
+        klass.button_press_event = Some(widget_button_press_event::<T>);
+        klass.button_release_event = Some(widget_button_release_event::<T>);
+        // klass.can_activate_accel = Some(widget_can_activate_accel::<T>);
+        klass.child_notify = Some(widget_child_notify::<T>);
+        klass.composited_changed = Some(widget_composited_changed::<T>);
+        klass.compute_expand = Some(widget_compute_expand::<T>);
+        klass.configure_event = Some(widget_configure_event::<T>);
+        klass.damage_event = Some(widget_damage_event::<T>);
+        klass.delete_event = Some(widget_delete_event::<T>);
+        klass.destroy = Some(widget_destroy::<T>);
+        klass.destroy_event = Some(widget_destroy_event::<T>);
+        klass.direction_changed = Some(widget_direction_changed::<T>);
+        klass.dispatch_child_properties_changed =
+            Some(widget_dispatch_child_properties_changed::<T>);
+        klass.drag_begin = Some(widget_drag_begin::<T>);
+        klass.drag_data_delete = Some(widget_drag_data_delete::<T>);
+        klass.drag_data_get = Some(widget_drag_data_get::<T>);
+        klass.drag_data_received = Some(widget_drag_data_received::<T>);
+        klass.drag_drop = Some(widget_drag_drop::<T>);
+        klass.drag_end = Some(widget_drag_end::<T>);
+        klass.drag_failed = Some(widget_drag_failed::<T>);
+        klass.drag_leave = Some(widget_drag_leave::<T>);
+        klass.drag_motion = Some(widget_drag_motion::<T>);
+        klass.draw = Some(widget_draw::<T>);
+        klass.get_request_mode = Some(widget_get_request_mode::<T>);
+        klass.get_preferred_width = Some(widget_get_preferred_width::<T>);
+        klass.get_preferred_height_for_width = Some(widget_get_preferred_height_for_width::<T>);
+        klass.get_preferred_height = Some(widget_get_preferred_height::<T>);
+        klass.get_preferred_width_for_height = Some(widget_get_preferred_width_for_height::<T>);
+        klass.size_allocate = Some(widget_size_allocate::<T>);
+        klass.realize = Some(widget_realize::<T>);
+        klass.unrealize = Some(widget_unrealize::<T>);
+        klass.map = Some(widget_map::<T>);
+        klass.unmap = Some(widget_unmap::<T>);
+        klass.motion_notify_event = Some(widget_motion_notify_event::<T>);
+        klass.scroll_event = Some(widget_scroll_event::<T>);
     }
 }
 

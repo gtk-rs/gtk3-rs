@@ -13,7 +13,6 @@ use glib::Error;
 use Cancellable;
 use InputStream;
 use OutputStream;
-use OutputStreamClass;
 use OutputStreamSpliceFlags;
 
 use std::mem;
@@ -192,15 +191,14 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
 }
 
 unsafe impl<T: OutputStreamImpl> IsSubclassable<T> for OutputStream {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <glib::Object as IsSubclassable<T>>::override_vfuncs(class);
-        unsafe {
-            let klass = &mut *(class.as_mut() as *mut gio_sys::GOutputStreamClass);
-            klass.write_fn = Some(stream_write::<T>);
-            klass.close_fn = Some(stream_close::<T>);
-            klass.flush = Some(stream_flush::<T>);
-            klass.splice = Some(stream_splice::<T>);
-        }
+
+        let klass = class.as_mut();
+        klass.write_fn = Some(stream_write::<T>);
+        klass.close_fn = Some(stream_close::<T>);
+        klass.flush = Some(stream_flush::<T>);
+        klass.splice = Some(stream_splice::<T>);
     }
 }
 

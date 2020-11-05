@@ -12,7 +12,6 @@ use glib::Error;
 
 use Cancellable;
 use InputStream;
-use InputStreamClass;
 
 use std::mem;
 use std::ptr;
@@ -152,14 +151,13 @@ impl<T: InputStreamImpl> InputStreamImplExt for T {
 }
 
 unsafe impl<T: InputStreamImpl> IsSubclassable<T> for InputStream {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <glib::Object as IsSubclassable<T>>::override_vfuncs(class);
-        unsafe {
-            let klass = &mut *(class.as_mut() as *mut gio_sys::GInputStreamClass);
-            klass.read_fn = Some(stream_read::<T>);
-            klass.close_fn = Some(stream_close::<T>);
-            klass.skip = Some(stream_skip::<T>);
-        }
+
+        let klass = class.as_mut();
+        klass.read_fn = Some(stream_read::<T>);
+        klass.close_fn = Some(stream_close::<T>);
+        klass.skip = Some(stream_skip::<T>);
     }
 }
 
