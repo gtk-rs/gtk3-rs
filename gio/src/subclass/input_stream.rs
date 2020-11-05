@@ -12,7 +12,6 @@ use glib::Error;
 
 use Cancellable;
 use InputStream;
-use InputStreamClass;
 
 use std::mem;
 use std::ptr;

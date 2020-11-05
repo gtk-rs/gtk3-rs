@@ -13,7 +13,6 @@ use glib::Error;
 
 use Cancellable;
 use IOStream;
-use IOStreamClass;
 
 use std::mem;
 use std::ptr;

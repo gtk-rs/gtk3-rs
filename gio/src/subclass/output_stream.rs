@@ -13,7 +13,6 @@ use glib::Error;
 use Cancellable;
 use InputStream;
 use OutputStream;
-use OutputStreamClass;
 use OutputStreamSpliceFlags;
 
 use std::mem;

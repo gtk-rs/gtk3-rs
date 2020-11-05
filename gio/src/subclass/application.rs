@@ -12,7 +12,6 @@ use glib::subclass::prelude::*;
 use glib::VariantDict;
 
 use Application;
-use ApplicationClass;
 
 use libc::{c_char, c_int, c_void};
 use std::convert;

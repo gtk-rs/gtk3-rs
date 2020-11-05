@@ -3,14 +3,9 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 use gio_sys;
-use glib;
-use glib::object::IsA;
 use glib::translate::*;
 use glib_sys;
-use gobject_sys;
 use std::mem;
-use std::pin::Pin;
-use std::ptr;
 use std::time::{Duration, SystemTime};
 use FileInfo;
 
