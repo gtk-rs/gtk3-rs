@@ -915,7 +915,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
 }
 
 unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <Object as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
             let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkWidgetClass);

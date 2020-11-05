@@ -49,7 +49,7 @@ impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {
 }
 
 unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         unsafe extern "C" fn application_window_added<T: GtkApplicationImpl>(
             ptr: *mut gtk_sys::GtkApplication,
             wptr: *mut gtk_sys::GtkWindow,

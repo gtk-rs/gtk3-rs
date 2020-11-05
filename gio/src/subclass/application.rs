@@ -304,7 +304,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
 }
 
 unsafe impl<T: ApplicationImpl> IsSubclassable<T> for Application {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <glib::Object as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
             let klass = &mut *(class.as_mut() as *mut gio_sys::GApplicationClass);

@@ -33,7 +33,7 @@ impl<T: PlugImpl> PlugImplExt for T {
 }
 
 unsafe impl<T: PlugImpl> IsSubclassable<T> for Plug {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <Window as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
             let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkPlugClass);

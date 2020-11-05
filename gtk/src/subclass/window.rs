@@ -94,7 +94,7 @@ impl<T: WindowImpl> WindowImplExt for T {
 }
 
 unsafe impl<T: WindowImpl> IsSubclassable<T> for Window {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <Bin as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
             let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkWindowClass);

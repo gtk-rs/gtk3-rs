@@ -336,7 +336,7 @@ macro_rules! glib_wrapper {
         }
     ) => {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, ::std::os::raw::c_void, @get_type $get_type_expr, @extends [], @implements []);
-        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
+        $( pub type $rust_class_name = $crate::Class<$name>; )?
     };
 
     // Object, class struct, no parents or interfaces
@@ -349,7 +349,7 @@ macro_rules! glib_wrapper {
         }
     ) => {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, @get_type $get_type_expr, @extends [], @implements []);
-        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
+        $( pub type $rust_class_name = $crate::Class<$name>; )?
     };
 
     // Object, no class struct, parents, no interfaces
@@ -363,7 +363,7 @@ macro_rules! glib_wrapper {
     ) => {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, ::std::os::raw::c_void,
             @get_type $get_type_expr, @extends [$($extends),+], @implements []);
-        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
+        $( pub type $rust_class_name = $crate::Class<$name>; )?
     };
 
     // Object, class struct, parents, no interfaces
@@ -377,7 +377,7 @@ macro_rules! glib_wrapper {
     ) => {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name,
             @get_type $get_type_expr, @extends [$($extends),+], @implements []);
-        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
+        $( pub type $rust_class_name = $crate::Class<$name>; )?
     };
 
     // Object, no class struct, no parents, interfaces
@@ -391,7 +391,7 @@ macro_rules! glib_wrapper {
     ) => {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, ::std::os::raw::c_void,
             @get_type $get_type_expr, @extends [], @implements [$($implements),+]);
-        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
+        $( pub type $rust_class_name = $crate::Class<$name>; )?
     };
 
     // Object, class struct, no parents, interfaces
@@ -405,7 +405,7 @@ macro_rules! glib_wrapper {
     ) => {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name,
             @get_type $get_type_expr, @extends [], @implements [$($implements),+]);
-        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
+        $( pub type $rust_class_name = $crate::Class<$name>; )?
     };
 
     // Object, no class struct, parents and interfaces
@@ -419,7 +419,7 @@ macro_rules! glib_wrapper {
     ) => {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, ::std::os::raw::c_void,
             @get_type $get_type_expr, @extends [$($extends),+], @implements [$($implements),+]);
-        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
+        $( pub type $rust_class_name = $crate::Class<$name>; )?
     };
 
     // Object, class struct, parents and interfaces
@@ -433,7 +433,7 @@ macro_rules! glib_wrapper {
     ) => {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name,
             @get_type $get_type_expr, @extends [$($extends),+], @implements [$($implements),+]);
-        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
+        $( pub type $rust_class_name = $crate::Class<$name>; )?
     };
 
     // ObjectSubclass, no parents or interfaces
@@ -445,7 +445,7 @@ macro_rules! glib_wrapper {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class,
             @get_type $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclass>::get_type()),
             @extends [], @implements []);
-        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
+        $( pub type $rust_class_name = $crate::Class<$name>; )?
     };
 
     // ObjectSubclass, no parents, interfaces
@@ -456,7 +456,7 @@ macro_rules! glib_wrapper {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class,
             @get_type $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclass>::get_type()),
             @extends [], @implements [$($implements),+]);
-        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
+        $( pub type $rust_class_name = $crate::Class<$name>; )?
     };
 
     // ObjectSubclass, parents, no interfaces
@@ -467,7 +467,7 @@ macro_rules! glib_wrapper {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class,
             @get_type $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclass>::get_type()),
             @extends [$($extends),+], @implements []);
-        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
+        $( pub type $rust_class_name = $crate::Class<$name>; )?
     };
 
     // ObjectSubclass, parents and interfaces
@@ -478,7 +478,7 @@ macro_rules! glib_wrapper {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class,
             @get_type $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclass>::get_type()),
             @extends [$($extends),+], @implements [$($implements),+]);
-        $( pub type $rust_class_name = $crate::object::Class<$name>; )?
+        $( pub type $rust_class_name = $crate::Class<$name>; )?
     };
 
     // Interface, no prerequisites

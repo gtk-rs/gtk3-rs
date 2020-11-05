@@ -130,7 +130,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
 }
 
 unsafe impl<T: ContainerImpl> IsSubclassable<T> for Container {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <Widget as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
             let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkContainerClass);

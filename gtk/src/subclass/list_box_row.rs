@@ -21,7 +21,7 @@ pub trait ListBoxRowImplExt {
 }
 
 unsafe impl<T: ListBoxRowImpl> IsSubclassable<T> for ListBoxRow {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <Bin as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
             let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkListBoxRowClass);

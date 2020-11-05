@@ -47,7 +47,7 @@ impl<T: DialogImpl> DialogImplExt for T {
 }
 
 unsafe impl<T: DialogImpl> IsSubclassable<T> for Dialog {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <Window as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
             let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkDialogClass);

@@ -152,7 +152,7 @@ impl<T: InputStreamImpl> InputStreamImplExt for T {
 }
 
 unsafe impl<T: InputStreamImpl> IsSubclassable<T> for InputStream {
-    fn override_vfuncs(class: &mut ::glib::object::Class<Self>) {
+    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <glib::Object as IsSubclassable<T>>::override_vfuncs(class);
         unsafe {
             let klass = &mut *(class.as_mut() as *mut gio_sys::GInputStreamClass);
