@@ -271,12 +271,10 @@ unsafe impl ObjectClassSubclassExt for ObjectClass {}
 
 unsafe impl<T: ObjectImpl> IsSubclassable<T> for Object {
     fn override_vfuncs(class: &mut ::Class<Self>) {
-        unsafe {
-            let klass = &mut *(class.as_mut() as *mut gobject_sys::GObjectClass);
-            klass.set_property = Some(set_property::<T>);
-            klass.get_property = Some(get_property::<T>);
-            klass.constructed = Some(constructed::<T>);
-        }
+        let klass = class.as_mut();
+        klass.set_property = Some(set_property::<T>);
+        klass.get_property = Some(get_property::<T>);
+        klass.constructed = Some(constructed::<T>);
     }
 }
 

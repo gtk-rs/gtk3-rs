@@ -305,20 +305,19 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
 unsafe impl<T: ApplicationImpl> IsSubclassable<T> for Application {
     fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <glib::Object as IsSubclassable<T>>::override_vfuncs(class);
-        unsafe {
-            let klass = &mut *(class.as_mut() as *mut gio_sys::GApplicationClass);
-            klass.activate = Some(application_activate::<T>);
-            klass.after_emit = Some(application_after_emit::<T>);
-            klass.before_emit = Some(application_before_emit::<T>);
-            klass.command_line = Some(application_command_line::<T>);
-            klass.local_command_line = Some(application_local_command_line::<T>);
-            klass.open = Some(application_open::<T>);
-            klass.quit_mainloop = Some(application_quit_mainloop::<T>);
-            klass.run_mainloop = Some(application_run_mainloop::<T>);
-            klass.shutdown = Some(application_shutdown::<T>);
-            klass.startup = Some(application_startup::<T>);
-            klass.handle_local_options = Some(application_handle_local_options::<T>);
-        }
+
+        let klass = class.as_mut();
+        klass.activate = Some(application_activate::<T>);
+        klass.after_emit = Some(application_after_emit::<T>);
+        klass.before_emit = Some(application_before_emit::<T>);
+        klass.command_line = Some(application_command_line::<T>);
+        klass.local_command_line = Some(application_local_command_line::<T>);
+        klass.open = Some(application_open::<T>);
+        klass.quit_mainloop = Some(application_quit_mainloop::<T>);
+        klass.run_mainloop = Some(application_run_mainloop::<T>);
+        klass.shutdown = Some(application_shutdown::<T>);
+        klass.startup = Some(application_startup::<T>);
+        klass.handle_local_options = Some(application_handle_local_options::<T>);
     }
 }
 

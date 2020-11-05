@@ -438,22 +438,21 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
 unsafe impl<T: CellRendererImpl> IsSubclassable<T> for CellRenderer {
     fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <Object as IsSubclassable<T>>::override_vfuncs(class);
-        unsafe {
-            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkCellRendererClass);
-            klass.get_request_mode = Some(cell_renderer_get_request_mode::<T>);
-            klass.get_preferred_width = Some(cell_renderer_get_preferred_width::<T>);
-            klass.get_preferred_height_for_width =
-                Some(cell_renderer_get_preferred_height_for_width::<T>);
-            klass.get_preferred_height = Some(cell_renderer_get_preferred_height::<T>);
-            klass.get_preferred_width_for_height =
-                Some(cell_renderer_get_preferred_width_for_height::<T>);
-            klass.get_aligned_area = Some(cell_renderer_get_aligned_area::<T>);
-            klass.render = Some(cell_renderer_render::<T>);
-            klass.activate = Some(cell_renderer_activate::<T>);
-            klass.start_editing = Some(cell_renderer_start_editing::<T>);
-            klass.editing_started = Some(cell_renderer_editing_started::<T>);
-            klass.editing_canceled = Some(cell_renderer_editing_canceled::<T>);
-        }
+
+        let klass = class.as_mut();
+        klass.get_request_mode = Some(cell_renderer_get_request_mode::<T>);
+        klass.get_preferred_width = Some(cell_renderer_get_preferred_width::<T>);
+        klass.get_preferred_height_for_width =
+            Some(cell_renderer_get_preferred_height_for_width::<T>);
+        klass.get_preferred_height = Some(cell_renderer_get_preferred_height::<T>);
+        klass.get_preferred_width_for_height =
+            Some(cell_renderer_get_preferred_width_for_height::<T>);
+        klass.get_aligned_area = Some(cell_renderer_get_aligned_area::<T>);
+        klass.render = Some(cell_renderer_render::<T>);
+        klass.activate = Some(cell_renderer_activate::<T>);
+        klass.start_editing = Some(cell_renderer_start_editing::<T>);
+        klass.editing_started = Some(cell_renderer_editing_started::<T>);
+        klass.editing_canceled = Some(cell_renderer_editing_canceled::<T>);
     }
 }
 

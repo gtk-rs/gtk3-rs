@@ -148,17 +148,16 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
 unsafe impl<T: ListBoxImpl> IsSubclassable<T> for ListBox {
     fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <Container as IsSubclassable<T>>::override_vfuncs(class);
-        unsafe {
-            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkListBoxClass);
-            klass.activate_cursor_row = Some(list_box_activate_cursor_row::<T>);
-            klass.move_cursor = Some(list_box_move_cursor::<T>);
-            klass.row_activated = Some(list_box_row_activated::<T>);
-            klass.row_selected = Some(list_box_row_selected::<T>);
-            klass.select_all = Some(list_box_select_all::<T>);
-            klass.selected_rows_changed = Some(list_box_selected_rows_changed::<T>);
-            klass.toggle_cursor_row = Some(list_box_toggle_cursor_row::<T>);
-            klass.unselect_all = Some(list_box_unselect_all::<T>);
-        }
+
+        let klass = class.as_mut();
+        klass.activate_cursor_row = Some(list_box_activate_cursor_row::<T>);
+        klass.move_cursor = Some(list_box_move_cursor::<T>);
+        klass.row_activated = Some(list_box_row_activated::<T>);
+        klass.row_selected = Some(list_box_row_selected::<T>);
+        klass.select_all = Some(list_box_select_all::<T>);
+        klass.selected_rows_changed = Some(list_box_selected_rows_changed::<T>);
+        klass.toggle_cursor_row = Some(list_box_toggle_cursor_row::<T>);
+        klass.unselect_all = Some(list_box_unselect_all::<T>);
     }
 }
 

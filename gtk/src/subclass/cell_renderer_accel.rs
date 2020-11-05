@@ -80,11 +80,10 @@ impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
 unsafe impl<T: CellRendererAccelImpl> IsSubclassable<T> for CellRendererAccel {
     fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         <CellRendererText as IsSubclassable<T>>::override_vfuncs(class);
-        unsafe {
-            let klass = &mut *(class.as_mut() as *mut gtk_sys::GtkCellRendererAccelClass);
-            klass.accel_edited = Some(cell_renderer_accel_edited::<T>);
-            klass.accel_cleared = Some(cell_renderer_accel_cleared::<T>);
-        }
+
+        let klass = class.as_mut();
+        klass.accel_edited = Some(cell_renderer_accel_edited::<T>);
+        klass.accel_cleared = Some(cell_renderer_accel_cleared::<T>);
     }
 }
 
