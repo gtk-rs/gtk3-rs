@@ -51,7 +51,7 @@ impl FontFace {
             face as *mut _,
             0,
         ));
-        let status = unsafe { ffi::cairo_font_face_status(font_face.to_raw_none()) };
+        let status = ffi::cairo_font_face_status(font_face.to_raw_none());
         status_to_result(status).expect("Failed to create a FontFace");
         font_face
     }
@@ -66,7 +66,7 @@ impl FontFace {
             face as *mut _,
             load_flags,
         ));
-        let status = unsafe { ffi::cairo_font_face_status(font_face.to_raw_none()) };
+        let status = ffi::cairo_font_face_status(font_face.to_raw_none());
         status_to_result(status).expect("Failed to create a FontFace");
         font_face
     }
