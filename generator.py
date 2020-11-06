@@ -109,6 +109,7 @@ def print_help():
     print("  --gir-files [PATH]    Sets the path of the gir-files folder")
     print("                        (`gir-files` by default)")
     print("  --yes                 Always answer `yes` to any question asked by the script")
+    print("  --no-fmt              If set, this script won't run `cargo fmt`")
 
 
 def parse_args(args):
@@ -116,6 +117,7 @@ def parse_args(args):
         "gir_path": None,
         "gir_files": None,
         "yes": False,
+        "run_fmt": True,
     }
     i = 0
 
@@ -144,6 +146,8 @@ def parse_args(args):
             conf["gir_files"] = args[i]
         elif arg == "--yes":
             conf["yes"] = True
+        elif arg == "--no-fmt":
+            conf["run_fmt"] = False
         else:
             print("Unknown argument `{}`.".format(arg))
             return None
@@ -170,7 +174,7 @@ def main():
     print('=> Regenerating crates...')
     if not regen_crates(".", conf):
         return 1
-    if not run_command(['cargo', 'fmt']):
+    if conf["run_fmt"] is True and not run_command(['cargo', 'fmt']):
         return 1
     print('<= Done!')
     print("Don't forget to check if everything has been correctly generated!")
