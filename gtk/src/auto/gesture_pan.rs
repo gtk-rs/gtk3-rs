@@ -27,7 +27,7 @@ use PropagationPhase;
 use Widget;
 
 glib_wrapper! {
-    pub struct GesturePan(Object<gtk_sys::GtkGesturePan, gtk_sys::GtkGesturePanClass, GesturePanClass>) @extends GestureDrag, GestureSingle, Gesture, EventController;
+    pub struct GesturePan(Object<gtk_sys::GtkGesturePan, gtk_sys::GtkGesturePanClass>) @extends GestureDrag, GestureSingle, Gesture, EventController;
 
     match fn {
         get_type => || gtk_sys::gtk_gesture_pan_get_type(),

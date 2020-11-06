@@ -9,7 +9,7 @@ use std::fmt;
 use StateType;
 
 glib_wrapper! {
-    pub struct StateSet(Object<atk_sys::AtkStateSet, atk_sys::AtkStateSetClass, StateSetClass>);
+    pub struct StateSet(Object<atk_sys::AtkStateSet, atk_sys::AtkStateSetClass>);
 
     match fn {
         get_type => || atk_sys::atk_state_set_get_type(),

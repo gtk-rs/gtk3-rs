@@ -13,7 +13,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct AppInfoMonitor(Object<gio_sys::GAppInfoMonitor, AppInfoMonitorClass>);
+    pub struct AppInfoMonitor(Object<gio_sys::GAppInfoMonitor>);
 
     match fn {
         get_type => || gio_sys::g_app_info_monitor_get_type(),

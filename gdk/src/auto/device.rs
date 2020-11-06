@@ -40,7 +40,7 @@ use Seat;
 use Window;
 
 glib_wrapper! {
-    pub struct Device(Object<gdk_sys::GdkDevice, DeviceClass>);
+    pub struct Device(Object<gdk_sys::GdkDevice>);
 
     match fn {
         get_type => || gdk_sys::gdk_device_get_type(),

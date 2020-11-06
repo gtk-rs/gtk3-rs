@@ -25,7 +25,7 @@ use DBusMessageType;
 use UnixFDList;
 
 glib_wrapper! {
-    pub struct DBusMessage(Object<gio_sys::GDBusMessage, DBusMessageClass>);
+    pub struct DBusMessage(Object<gio_sys::GDBusMessage>);
 
     match fn {
         get_type => || gio_sys::g_dbus_message_get_type(),

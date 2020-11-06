@@ -8,7 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct X11DisplayManager(Object<gdk_x11_sys::GdkX11DisplayManager, gdk_x11_sys::GdkX11DisplayManagerClass, X11DisplayManagerClass>) @extends gdk::DisplayManager;
+    pub struct X11DisplayManager(Object<gdk_x11_sys::GdkX11DisplayManager, gdk_x11_sys::GdkX11DisplayManagerClass>) @extends gdk::DisplayManager;
 
     match fn {
         get_type => || gdk_x11_sys::gdk_x11_display_manager_get_type(),

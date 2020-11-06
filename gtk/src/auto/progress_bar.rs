@@ -25,7 +25,7 @@ use Orientation;
 use Widget;
 
 glib_wrapper! {
-    pub struct ProgressBar(Object<gtk_sys::GtkProgressBar, gtk_sys::GtkProgressBarClass, ProgressBarClass>) @extends Widget, @implements Buildable, Orientable;
+    pub struct ProgressBar(Object<gtk_sys::GtkProgressBar, gtk_sys::GtkProgressBarClass>) @extends Widget, @implements Buildable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_progress_bar_get_type(),

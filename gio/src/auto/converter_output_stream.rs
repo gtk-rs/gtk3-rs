@@ -15,7 +15,7 @@ use OutputStream;
 use PollableOutputStream;
 
 glib_wrapper! {
-    pub struct ConverterOutputStream(Object<gio_sys::GConverterOutputStream, gio_sys::GConverterOutputStreamClass, ConverterOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements PollableOutputStream;
+    pub struct ConverterOutputStream(Object<gio_sys::GConverterOutputStream, gio_sys::GConverterOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements PollableOutputStream;
 
     match fn {
         get_type => || gio_sys::g_converter_output_stream_get_type(),

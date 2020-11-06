@@ -22,7 +22,7 @@ use std::mem::transmute;
 use Action;
 
 glib_wrapper! {
-    pub struct PropertyAction(Object<gio_sys::GPropertyAction, PropertyActionClass>) @implements Action;
+    pub struct PropertyAction(Object<gio_sys::GPropertyAction>) @implements Action;
 
     match fn {
         get_type => || gio_sys::g_property_action_get_type(),

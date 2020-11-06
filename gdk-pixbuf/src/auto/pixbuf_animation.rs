@@ -18,7 +18,7 @@ use std::ptr;
 use Pixbuf;
 
 glib_wrapper! {
-    pub struct PixbufAnimation(Object<gdk_pixbuf_sys::GdkPixbufAnimation, PixbufAnimationClass>);
+    pub struct PixbufAnimation(Object<gdk_pixbuf_sys::GdkPixbufAnimation>);
 
     match fn {
         get_type => || gdk_pixbuf_sys::gdk_pixbuf_animation_get_type(),

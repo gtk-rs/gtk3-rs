@@ -35,7 +35,7 @@ use ScaleButton;
 use Widget;
 
 glib_wrapper! {
-    pub struct VolumeButton(Object<gtk_sys::GtkVolumeButton, gtk_sys::GtkVolumeButtonClass, VolumeButtonClass>) @extends ScaleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable, Orientable;
+    pub struct VolumeButton(Object<gtk_sys::GtkVolumeButton, gtk_sys::GtkVolumeButtonClass>) @extends ScaleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_volume_button_get_type(),

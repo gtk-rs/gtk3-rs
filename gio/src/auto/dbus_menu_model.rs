@@ -9,7 +9,7 @@ use DBusConnection;
 use MenuModel;
 
 glib_wrapper! {
-    pub struct DBusMenuModel(Object<gio_sys::GDBusMenuModel, DBusMenuModelClass>) @extends MenuModel;
+    pub struct DBusMenuModel(Object<gio_sys::GDBusMenuModel>) @extends MenuModel;
 
     match fn {
         get_type => || gio_sys::g_dbus_menu_model_get_type(),

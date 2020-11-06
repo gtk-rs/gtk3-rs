@@ -17,7 +17,7 @@ use Display;
 use Window;
 
 glib_wrapper! {
-    pub struct GLContext(Object<gdk_sys::GdkGLContext, GLContextClass>);
+    pub struct GLContext(Object<gdk_sys::GdkGLContext>);
 
     match fn {
         get_type => || gdk_sys::gdk_gl_context_get_type(),

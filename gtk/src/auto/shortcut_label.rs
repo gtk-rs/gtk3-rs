@@ -35,7 +35,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct ShortcutLabel(Object<gtk_sys::GtkShortcutLabel, gtk_sys::GtkShortcutLabelClass, ShortcutLabelClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
+    pub struct ShortcutLabel(Object<gtk_sys::GtkShortcutLabel, gtk_sys::GtkShortcutLabelClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_shortcut_label_get_type(),

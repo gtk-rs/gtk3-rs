@@ -11,7 +11,7 @@ use std::fmt;
 use Window;
 
 glib_wrapper! {
-    pub struct DrawingContext(Object<gdk_sys::GdkDrawingContext, gdk_sys::GdkDrawingContextClass, DrawingContextClass>);
+    pub struct DrawingContext(Object<gdk_sys::GdkDrawingContext, gdk_sys::GdkDrawingContextClass>);
 
     match fn {
         get_type => || gdk_sys::gdk_drawing_context_get_type(),

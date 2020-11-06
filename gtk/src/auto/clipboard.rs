@@ -17,7 +17,7 @@ use SelectionData;
 use TextBuffer;
 
 glib_wrapper! {
-    pub struct Clipboard(Object<gtk_sys::GtkClipboard, ClipboardClass>);
+    pub struct Clipboard(Object<gtk_sys::GtkClipboard>);
 
     match fn {
         get_type => || gtk_sys::gtk_clipboard_get_type(),

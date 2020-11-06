@@ -16,7 +16,7 @@ use std::mem::transmute;
 use TlsPasswordFlags;
 
 glib_wrapper! {
-    pub struct TlsPassword(Object<gio_sys::GTlsPassword, gio_sys::GTlsPasswordClass, TlsPasswordClass>);
+    pub struct TlsPassword(Object<gio_sys::GTlsPassword, gio_sys::GTlsPasswordClass>);
 
     match fn {
         get_type => || gio_sys::g_tls_password_get_type(),

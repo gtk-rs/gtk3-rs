@@ -28,7 +28,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct RadioMenuItem(Object<gtk_sys::GtkRadioMenuItem, gtk_sys::GtkRadioMenuItemClass, RadioMenuItemClass>) @extends CheckMenuItem, MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
+    pub struct RadioMenuItem(Object<gtk_sys::GtkRadioMenuItem, gtk_sys::GtkRadioMenuItemClass>) @extends CheckMenuItem, MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_radio_menu_item_get_type(),

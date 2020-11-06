@@ -10,7 +10,7 @@ use std::fmt;
 use Object;
 
 glib_wrapper! {
-    pub struct ObjectFactory(Object<atk_sys::AtkObjectFactory, atk_sys::AtkObjectFactoryClass, ObjectFactoryClass>);
+    pub struct ObjectFactory(Object<atk_sys::AtkObjectFactory, atk_sys::AtkObjectFactoryClass>);
 
     match fn {
         get_type => || atk_sys::atk_object_factory_get_type(),

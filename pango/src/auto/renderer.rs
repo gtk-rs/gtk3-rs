@@ -17,7 +17,7 @@ use Matrix;
 use RenderPart;
 
 glib_wrapper! {
-    pub struct Renderer(Object<pango_sys::PangoRenderer, pango_sys::PangoRendererClass, RendererClass>);
+    pub struct Renderer(Object<pango_sys::PangoRenderer, pango_sys::PangoRendererClass>);
 
     match fn {
         get_type => || pango_sys::pango_renderer_get_type(),

@@ -15,7 +15,7 @@ use SocketConnectable;
 use UnixSocketAddressType;
 
 glib_wrapper! {
-    pub struct UnixSocketAddress(Object<gio_sys::GUnixSocketAddress, gio_sys::GUnixSocketAddressClass, UnixSocketAddressClass>) @extends SocketAddress, @implements SocketConnectable;
+    pub struct UnixSocketAddress(Object<gio_sys::GUnixSocketAddress, gio_sys::GUnixSocketAddressClass>) @extends SocketAddress, @implements SocketConnectable;
 
     match fn {
         get_type => || gio_sys::g_unix_socket_address_get_type(),

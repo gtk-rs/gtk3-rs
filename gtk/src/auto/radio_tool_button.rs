@@ -24,7 +24,7 @@ use ToolItem;
 use Widget;
 
 glib_wrapper! {
-    pub struct RadioToolButton(Object<gtk_sys::GtkRadioToolButton, gtk_sys::GtkRadioToolButtonClass, RadioToolButtonClass>) @extends ToggleToolButton, ToolButton, ToolItem, Bin, Container, Widget, @implements Buildable, Actionable;
+    pub struct RadioToolButton(Object<gtk_sys::GtkRadioToolButton, gtk_sys::GtkRadioToolButtonClass>) @extends ToggleToolButton, ToolButton, ToolItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_radio_tool_button_get_type(),

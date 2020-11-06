@@ -33,7 +33,7 @@ use WindowPosition;
 use WindowType;
 
 glib_wrapper! {
-    pub struct ShortcutsWindow(Object<gtk_sys::GtkShortcutsWindow, gtk_sys::GtkShortcutsWindowClass, ShortcutsWindowClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
+    pub struct ShortcutsWindow(Object<gtk_sys::GtkShortcutsWindow, gtk_sys::GtkShortcutsWindowClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_shortcuts_window_get_type(),

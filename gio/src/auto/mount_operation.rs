@@ -19,7 +19,7 @@ use MountOperationResult;
 use PasswordSave;
 
 glib_wrapper! {
-    pub struct MountOperation(Object<gio_sys::GMountOperation, gio_sys::GMountOperationClass, MountOperationClass>);
+    pub struct MountOperation(Object<gio_sys::GMountOperation, gio_sys::GMountOperationClass>);
 
     match fn {
         get_type => || gio_sys::g_mount_operation_get_type(),

@@ -34,7 +34,7 @@ use Container;
 use Widget;
 
 glib_wrapper! {
-    pub struct GLArea(Object<gtk_sys::GtkGLArea, gtk_sys::GtkGLAreaClass, GLAreaClass>) @extends Widget, @implements Buildable;
+    pub struct GLArea(Object<gtk_sys::GtkGLArea, gtk_sys::GtkGLAreaClass>) @extends Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_gl_area_get_type(),

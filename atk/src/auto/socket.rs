@@ -11,7 +11,7 @@ use Component;
 use Object;
 
 glib_wrapper! {
-    pub struct Socket(Object<atk_sys::AtkSocket, atk_sys::AtkSocketClass, SocketClass>) @extends Object, @implements Component;
+    pub struct Socket(Object<atk_sys::AtkSocket, atk_sys::AtkSocketClass>) @extends Object, @implements Component;
 
     match fn {
         get_type => || atk_sys::atk_socket_get_type(),

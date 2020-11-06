@@ -16,7 +16,7 @@ use Container;
 use Widget;
 
 glib_wrapper! {
-    pub struct DrawingArea(Object<gtk_sys::GtkDrawingArea, gtk_sys::GtkDrawingAreaClass, DrawingAreaClass>) @extends Widget, @implements Buildable;
+    pub struct DrawingArea(Object<gtk_sys::GtkDrawingArea, gtk_sys::GtkDrawingAreaClass>) @extends Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_drawing_area_get_type(),

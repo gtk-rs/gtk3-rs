@@ -2007,7 +2007,6 @@ pub enum IMPreeditStyle {
     __Unknown(i32),
 }
 
-#[deprecated]
 impl fmt::Display for IMPreeditStyle {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -2023,7 +2022,6 @@ impl fmt::Display for IMPreeditStyle {
     }
 }
 
-#[deprecated]
 #[doc(hidden)]
 impl ToGlib for IMPreeditStyle {
     type GlibType = gtk_sys::GtkIMPreeditStyle;
@@ -2038,7 +2036,6 @@ impl ToGlib for IMPreeditStyle {
     }
 }
 
-#[deprecated]
 #[doc(hidden)]
 impl FromGlib<gtk_sys::GtkIMPreeditStyle> for IMPreeditStyle {
     fn from_glib(value: gtk_sys::GtkIMPreeditStyle) -> Self {
@@ -2052,28 +2049,24 @@ impl FromGlib<gtk_sys::GtkIMPreeditStyle> for IMPreeditStyle {
     }
 }
 
-#[deprecated]
 impl StaticType for IMPreeditStyle {
     fn static_type() -> Type {
         unsafe { from_glib(gtk_sys::gtk_im_preedit_style_get_type()) }
     }
 }
 
-#[deprecated]
 impl<'a> FromValueOptional<'a> for IMPreeditStyle {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[deprecated]
 impl<'a> FromValue<'a> for IMPreeditStyle {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
-#[deprecated]
 impl SetValue for IMPreeditStyle {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
@@ -2091,7 +2084,6 @@ pub enum IMStatusStyle {
     __Unknown(i32),
 }
 
-#[deprecated]
 impl fmt::Display for IMStatusStyle {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -2107,7 +2099,6 @@ impl fmt::Display for IMStatusStyle {
     }
 }
 
-#[deprecated]
 #[doc(hidden)]
 impl ToGlib for IMStatusStyle {
     type GlibType = gtk_sys::GtkIMStatusStyle;
@@ -2122,7 +2113,6 @@ impl ToGlib for IMStatusStyle {
     }
 }
 
-#[deprecated]
 #[doc(hidden)]
 impl FromGlib<gtk_sys::GtkIMStatusStyle> for IMStatusStyle {
     fn from_glib(value: gtk_sys::GtkIMStatusStyle) -> Self {
@@ -2136,28 +2126,24 @@ impl FromGlib<gtk_sys::GtkIMStatusStyle> for IMStatusStyle {
     }
 }
 
-#[deprecated]
 impl StaticType for IMStatusStyle {
     fn static_type() -> Type {
         unsafe { from_glib(gtk_sys::gtk_im_status_style_get_type()) }
     }
 }
 
-#[deprecated]
 impl<'a> FromValueOptional<'a> for IMStatusStyle {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[deprecated]
 impl<'a> FromValue<'a> for IMStatusStyle {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
-#[deprecated]
 impl SetValue for IMStatusStyle {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
@@ -6556,7 +6542,6 @@ pub enum StateType {
     __Unknown(i32),
 }
 
-#[deprecated]
 impl fmt::Display for StateType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -6576,7 +6561,6 @@ impl fmt::Display for StateType {
     }
 }
 
-#[deprecated]
 #[doc(hidden)]
 impl ToGlib for StateType {
     type GlibType = gtk_sys::GtkStateType;
@@ -6595,7 +6579,6 @@ impl ToGlib for StateType {
     }
 }
 
-#[deprecated]
 #[doc(hidden)]
 impl FromGlib<gtk_sys::GtkStateType> for StateType {
     fn from_glib(value: gtk_sys::GtkStateType) -> Self {
@@ -6613,28 +6596,24 @@ impl FromGlib<gtk_sys::GtkStateType> for StateType {
     }
 }
 
-#[deprecated]
 impl StaticType for StateType {
     fn static_type() -> Type {
         unsafe { from_glib(gtk_sys::gtk_state_type_get_type()) }
     }
 }
 
-#[deprecated]
 impl<'a> FromValueOptional<'a> for StateType {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[deprecated]
 impl<'a> FromValue<'a> for StateType {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
-#[deprecated]
 impl SetValue for StateType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())

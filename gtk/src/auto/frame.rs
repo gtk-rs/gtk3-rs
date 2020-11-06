@@ -28,7 +28,7 @@ use ShadowType;
 use Widget;
 
 glib_wrapper! {
-    pub struct Frame(Object<gtk_sys::GtkFrame, gtk_sys::GtkFrameClass, FrameClass>) @extends Bin, Container, Widget, @implements Buildable;
+    pub struct Frame(Object<gtk_sys::GtkFrame, gtk_sys::GtkFrameClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_frame_get_type(),

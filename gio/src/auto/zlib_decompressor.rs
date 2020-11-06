@@ -20,7 +20,7 @@ use FileInfo;
 use ZlibCompressorFormat;
 
 glib_wrapper! {
-    pub struct ZlibDecompressor(Object<gio_sys::GZlibDecompressor, gio_sys::GZlibDecompressorClass, ZlibDecompressorClass>) @implements Converter;
+    pub struct ZlibDecompressor(Object<gio_sys::GZlibDecompressor, gio_sys::GZlibDecompressorClass>) @implements Converter;
 
     match fn {
         get_type => || gio_sys::g_zlib_decompressor_get_type(),

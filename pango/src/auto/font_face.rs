@@ -14,7 +14,7 @@ use FontDescription;
 use FontFamily;
 
 glib_wrapper! {
-    pub struct FontFace(Object<pango_sys::PangoFontFace, pango_sys::PangoFontFaceClass, FontFaceClass>);
+    pub struct FontFace(Object<pango_sys::PangoFontFace, pango_sys::PangoFontFaceClass>);
 
     match fn {
         get_type => || pango_sys::pango_font_face_get_type(),

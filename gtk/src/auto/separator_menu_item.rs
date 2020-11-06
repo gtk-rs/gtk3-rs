@@ -22,7 +22,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct SeparatorMenuItem(Object<gtk_sys::GtkSeparatorMenuItem, gtk_sys::GtkSeparatorMenuItemClass, SeparatorMenuItemClass>) @extends MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
+    pub struct SeparatorMenuItem(Object<gtk_sys::GtkSeparatorMenuItem, gtk_sys::GtkSeparatorMenuItemClass>) @extends MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_separator_menu_item_get_type(),

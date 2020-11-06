@@ -33,7 +33,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct ShortcutsSection(Object<gtk_sys::GtkShortcutsSection, gtk_sys::GtkShortcutsSectionClass, ShortcutsSectionClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
+    pub struct ShortcutsSection(Object<gtk_sys::GtkShortcutsSection, gtk_sys::GtkShortcutsSectionClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_shortcuts_section_get_type(),

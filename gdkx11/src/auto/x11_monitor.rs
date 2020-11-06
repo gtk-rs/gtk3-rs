@@ -10,7 +10,7 @@ use std::fmt;
 use xlib;
 
 glib_wrapper! {
-    pub struct X11Monitor(Object<gdk_x11_sys::GdkX11Monitor, gdk_x11_sys::GdkX11MonitorClass, X11MonitorClass>) @extends gdk::Monitor;
+    pub struct X11Monitor(Object<gdk_x11_sys::GdkX11Monitor, gdk_x11_sys::GdkX11MonitorClass>) @extends gdk::Monitor;
 
     match fn {
         get_type => || gdk_x11_sys::gdk_x11_monitor_get_type(),

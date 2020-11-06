@@ -32,7 +32,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct LockButton(Object<gtk_sys::GtkLockButton, gtk_sys::GtkLockButtonClass, LockButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable;
+    pub struct LockButton(Object<gtk_sys::GtkLockButton, gtk_sys::GtkLockButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_lock_button_get_type(),

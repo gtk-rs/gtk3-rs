@@ -18,7 +18,7 @@ use Orientation;
 use Widget;
 
 glib_wrapper! {
-    pub struct Separator(Object<gtk_sys::GtkSeparator, gtk_sys::GtkSeparatorClass, SeparatorClass>) @extends Widget, @implements Buildable, Orientable;
+    pub struct Separator(Object<gtk_sys::GtkSeparator, gtk_sys::GtkSeparatorClass>) @extends Widget, @implements Buildable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_separator_get_type(),

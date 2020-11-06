@@ -30,7 +30,7 @@ use DragProtocol;
 use Window;
 
 glib_wrapper! {
-    pub struct DragContext(Object<gdk_sys::GdkDragContext, DragContextClass>);
+    pub struct DragContext(Object<gdk_sys::GdkDragContext>);
 
     match fn {
         get_type => || gdk_sys::gdk_drag_context_get_type(),

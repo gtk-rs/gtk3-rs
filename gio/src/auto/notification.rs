@@ -11,7 +11,7 @@ use Icon;
 use NotificationPriority;
 
 glib_wrapper! {
-    pub struct Notification(Object<gio_sys::GNotification, NotificationClass>);
+    pub struct Notification(Object<gio_sys::GNotification>);
 
     match fn {
         get_type => || gio_sys::g_notification_get_type(),

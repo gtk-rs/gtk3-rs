@@ -19,7 +19,7 @@ use OutputStream;
 use Seekable;
 
 glib_wrapper! {
-    pub struct BufferedOutputStream(Object<gio_sys::GBufferedOutputStream, gio_sys::GBufferedOutputStreamClass, BufferedOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements Seekable;
+    pub struct BufferedOutputStream(Object<gio_sys::GBufferedOutputStream, gio_sys::GBufferedOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements Seekable;
 
     match fn {
         get_type => || gio_sys::g_buffered_output_stream_get_type(),

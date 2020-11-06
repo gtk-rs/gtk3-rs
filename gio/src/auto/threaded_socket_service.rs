@@ -21,7 +21,7 @@ use SocketListener;
 use SocketService;
 
 glib_wrapper! {
-    pub struct ThreadedSocketService(Object<gio_sys::GThreadedSocketService, gio_sys::GThreadedSocketServiceClass, ThreadedSocketServiceClass>) @extends SocketService, SocketListener;
+    pub struct ThreadedSocketService(Object<gio_sys::GThreadedSocketService, gio_sys::GThreadedSocketServiceClass>) @extends SocketService, SocketListener;
 
     match fn {
         get_type => || gio_sys::g_threaded_socket_service_get_type(),

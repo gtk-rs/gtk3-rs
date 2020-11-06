@@ -17,7 +17,7 @@ use AppInfo;
 use AppLaunchContext;
 
 glib_wrapper! {
-    pub struct DesktopAppInfo(Object<gio_sys::GDesktopAppInfo, gio_sys::GDesktopAppInfoClass, DesktopAppInfoClass>) @implements AppInfo;
+    pub struct DesktopAppInfo(Object<gio_sys::GDesktopAppInfo, gio_sys::GDesktopAppInfoClass>) @implements AppInfo;
 
     match fn {
         get_type => || gio_sys::g_desktop_app_info_get_type(),

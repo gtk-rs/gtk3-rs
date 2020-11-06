@@ -29,7 +29,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct LinkButton(Object<gtk_sys::GtkLinkButton, gtk_sys::GtkLinkButtonClass, LinkButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable;
+    pub struct LinkButton(Object<gtk_sys::GtkLinkButton, gtk_sys::GtkLinkButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_link_button_get_type(),

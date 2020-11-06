@@ -10,7 +10,7 @@ use EmblemOrigin;
 use Icon;
 
 glib_wrapper! {
-    pub struct Emblem(Object<gio_sys::GEmblem, gio_sys::GEmblemClass, EmblemClass>) @implements Icon;
+    pub struct Emblem(Object<gio_sys::GEmblem, gio_sys::GEmblemClass>) @implements Icon;
 
     match fn {
         get_type => || gio_sys::g_emblem_get_type(),

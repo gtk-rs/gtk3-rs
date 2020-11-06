@@ -37,7 +37,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct ScaleButton(Object<gtk_sys::GtkScaleButton, gtk_sys::GtkScaleButtonClass, ScaleButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable, Orientable;
+    pub struct ScaleButton(Object<gtk_sys::GtkScaleButton, gtk_sys::GtkScaleButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_scale_button_get_type(),

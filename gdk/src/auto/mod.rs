@@ -3,16 +3,16 @@
 // DO NOT EDIT
 
 mod app_launch_context;
-pub use self::app_launch_context::{AppLaunchContext, AppLaunchContextClass};
+pub use self::app_launch_context::AppLaunchContext;
 
 mod cursor;
-pub use self::cursor::{Cursor, CursorClass};
+pub use self::cursor::Cursor;
 
 mod device;
-pub use self::device::{Device, DeviceClass};
+pub use self::device::Device;
 
 mod device_manager;
-pub use self::device_manager::{DeviceManager, DeviceManagerClass};
+pub use self::device_manager::DeviceManager;
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 mod device_pad;
@@ -24,52 +24,52 @@ pub use self::device_pad::{DevicePad, NONE_DEVICE_PAD};
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 mod device_tool;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-pub use self::device_tool::{DeviceTool, DeviceToolClass};
+pub use self::device_tool::DeviceTool;
 
 mod display;
-pub use self::display::{Display, DisplayClass};
+pub use self::display::Display;
 
 mod display_manager;
-pub use self::display_manager::{DisplayManager, DisplayManagerClass};
+pub use self::display_manager::DisplayManager;
 
 mod drag_context;
-pub use self::drag_context::{DragContext, DragContextClass};
+pub use self::drag_context::DragContext;
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 mod drawing_context;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-pub use self::drawing_context::{DrawingContext, DrawingContextClass};
+pub use self::drawing_context::DrawingContext;
 
 mod frame_clock;
-pub use self::frame_clock::{FrameClock, FrameClockClass};
+pub use self::frame_clock::FrameClock;
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 mod gl_context;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
-pub use self::gl_context::{GLContext, GLContextClass};
+pub use self::gl_context::GLContext;
 
 mod keymap;
-pub use self::keymap::{Keymap, KeymapClass};
+pub use self::keymap::Keymap;
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 mod monitor;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-pub use self::monitor::{Monitor, MonitorClass};
+pub use self::monitor::Monitor;
 
 mod screen;
-pub use self::screen::{Screen, ScreenClass};
+pub use self::screen::Screen;
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 mod seat;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
-pub use self::seat::{Seat, SeatClass};
+pub use self::seat::Seat;
 
 mod visual;
-pub use self::visual::{Visual, VisualClass};
+pub use self::visual::Visual;
 
 mod window;
 pub use self::window::WindowExt;
-pub use self::window::{Window, WindowClass, NONE_WINDOW};
+pub use self::window::{Window, NONE_WINDOW};
 
 mod event_sequence;
 pub use self::event_sequence::EventSequence;

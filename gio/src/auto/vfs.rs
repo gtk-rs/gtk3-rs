@@ -12,7 +12,7 @@ use std::fmt;
 use File;
 
 glib_wrapper! {
-    pub struct Vfs(Object<gio_sys::GVfs, gio_sys::GVfsClass, VfsClass>);
+    pub struct Vfs(Object<gio_sys::GVfs, gio_sys::GVfsClass>);
 
     match fn {
         get_type => || gio_sys::g_vfs_get_type(),

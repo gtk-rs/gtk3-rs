@@ -11,7 +11,7 @@ use Fontset;
 use Language;
 
 glib_wrapper! {
-    pub struct FontsetSimple(Object<pango_sys::PangoFontsetSimple, pango_sys::PangoFontsetSimpleClass, FontsetSimpleClass>) @extends Fontset;
+    pub struct FontsetSimple(Object<pango_sys::PangoFontsetSimple, pango_sys::PangoFontsetSimpleClass>) @extends Fontset;
 
     match fn {
         get_type => || pango_sys::pango_fontset_simple_get_type(),

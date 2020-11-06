@@ -27,7 +27,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct CheckMenuItem(Object<gtk_sys::GtkCheckMenuItem, gtk_sys::GtkCheckMenuItemClass, CheckMenuItemClass>) @extends MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
+    pub struct CheckMenuItem(Object<gtk_sys::GtkCheckMenuItem, gtk_sys::GtkCheckMenuItemClass>) @extends MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_check_menu_item_get_type(),

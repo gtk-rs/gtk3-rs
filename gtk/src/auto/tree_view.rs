@@ -45,7 +45,7 @@ use TreeViewGridLines;
 use Widget;
 
 glib_wrapper! {
-    pub struct TreeView(Object<gtk_sys::GtkTreeView, gtk_sys::GtkTreeViewClass, TreeViewClass>) @extends Container, Widget, @implements Buildable, Scrollable;
+    pub struct TreeView(Object<gtk_sys::GtkTreeView, gtk_sys::GtkTreeViewClass>) @extends Container, Widget, @implements Buildable, Scrollable;
 
     match fn {
         get_type => || gtk_sys::gtk_tree_view_get_type(),

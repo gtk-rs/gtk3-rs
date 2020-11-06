@@ -29,7 +29,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct RecentChooserMenu(Object<gtk_sys::GtkRecentChooserMenu, gtk_sys::GtkRecentChooserMenuClass, RecentChooserMenuClass>) @extends Menu, MenuShell, Container, Widget, @implements Buildable, RecentChooser;
+    pub struct RecentChooserMenu(Object<gtk_sys::GtkRecentChooserMenu, gtk_sys::GtkRecentChooserMenuClass>) @extends Menu, MenuShell, Container, Widget, @implements Buildable, RecentChooser;
 
     match fn {
         get_type => || gtk_sys::gtk_recent_chooser_menu_get_type(),

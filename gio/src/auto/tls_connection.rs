@@ -29,7 +29,7 @@ use TlsInteraction;
 use TlsRehandshakeMode;
 
 glib_wrapper! {
-    pub struct TlsConnection(Object<gio_sys::GTlsConnection, gio_sys::GTlsConnectionClass, TlsConnectionClass>) @extends IOStream;
+    pub struct TlsConnection(Object<gio_sys::GTlsConnection, gio_sys::GTlsConnectionClass>) @extends IOStream;
 
     match fn {
         get_type => || gio_sys::g_tls_connection_get_type(),

@@ -15,7 +15,7 @@ use std::mem::transmute;
 use Action;
 
 glib_wrapper! {
-    pub struct SimpleAction(Object<gio_sys::GSimpleAction, SimpleActionClass>) @implements Action;
+    pub struct SimpleAction(Object<gio_sys::GSimpleAction>) @implements Action;
 
     match fn {
         get_type => || gio_sys::g_simple_action_get_type(),

@@ -7,7 +7,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct Util(Object<atk_sys::AtkUtil, atk_sys::AtkUtilClass, UtilClass>);
+    pub struct Util(Object<atk_sys::AtkUtil, atk_sys::AtkUtilClass>);
 
     match fn {
         get_type => || atk_sys::atk_util_get_type(),

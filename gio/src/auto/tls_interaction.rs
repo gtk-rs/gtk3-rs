@@ -19,7 +19,7 @@ use TlsInteractionResult;
 use TlsPassword;
 
 glib_wrapper! {
-    pub struct TlsInteraction(Object<gio_sys::GTlsInteraction, gio_sys::GTlsInteractionClass, TlsInteractionClass>);
+    pub struct TlsInteraction(Object<gio_sys::GTlsInteraction, gio_sys::GTlsInteractionClass>);
 
     match fn {
         get_type => || gio_sys::g_tls_interaction_get_type(),

@@ -20,7 +20,7 @@ use PixbufFormat;
 use PixbufRotation;
 
 glib_wrapper! {
-    pub struct Pixbuf(Object<gdk_pixbuf_sys::GdkPixbuf, PixbufClass>) @implements gio::Icon, gio::LoadableIcon;
+    pub struct Pixbuf(Object<gdk_pixbuf_sys::GdkPixbuf>) @implements gio::Icon, gio::LoadableIcon;
 
     match fn {
         get_type => || gdk_pixbuf_sys::gdk_pixbuf_get_type(),

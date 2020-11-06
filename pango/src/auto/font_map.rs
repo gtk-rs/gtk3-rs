@@ -16,7 +16,7 @@ use Fontset;
 use Language;
 
 glib_wrapper! {
-    pub struct FontMap(Object<pango_sys::PangoFontMap, pango_sys::PangoFontMapClass, FontMapClass>);
+    pub struct FontMap(Object<pango_sys::PangoFontMap, pango_sys::PangoFontMapClass>);
 
     match fn {
         get_type => || pango_sys::pango_font_map_get_type(),

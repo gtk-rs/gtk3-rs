@@ -22,7 +22,7 @@ use SocketConnection;
 use SocketListener;
 
 glib_wrapper! {
-    pub struct SocketService(Object<gio_sys::GSocketService, gio_sys::GSocketServiceClass, SocketServiceClass>) @extends SocketListener;
+    pub struct SocketService(Object<gio_sys::GSocketService, gio_sys::GSocketServiceClass>) @extends SocketListener;
 
     match fn {
         get_type => || gio_sys::g_socket_service_get_type(),

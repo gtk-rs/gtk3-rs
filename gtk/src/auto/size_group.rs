@@ -19,7 +19,7 @@ use SizeGroupMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct SizeGroup(Object<gtk_sys::GtkSizeGroup, gtk_sys::GtkSizeGroupClass, SizeGroupClass>) @implements Buildable;
+    pub struct SizeGroup(Object<gtk_sys::GtkSizeGroup, gtk_sys::GtkSizeGroupClass>) @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_size_group_get_type(),

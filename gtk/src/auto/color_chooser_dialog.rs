@@ -32,7 +32,7 @@ use WindowPosition;
 use WindowType;
 
 glib_wrapper! {
-    pub struct ColorChooserDialog(Object<gtk_sys::GtkColorChooserDialog, gtk_sys::GtkColorChooserDialogClass, ColorChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, ColorChooser;
+    pub struct ColorChooserDialog(Object<gtk_sys::GtkColorChooserDialog, gtk_sys::GtkColorChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, ColorChooser;
 
     match fn {
         get_type => || gtk_sys::gtk_color_chooser_dialog_get_type(),

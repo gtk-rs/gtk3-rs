@@ -23,7 +23,7 @@ use Value;
 use Window;
 
 glib_wrapper! {
-    pub struct NoOpObject(Object<atk_sys::AtkNoOpObject, atk_sys::AtkNoOpObjectClass, NoOpObjectClass>) @extends Object, @implements Action, Component, Document, EditableText, Hypertext, Image, Selection, Table, TableCell, Text, Value, Window;
+    pub struct NoOpObject(Object<atk_sys::AtkNoOpObject, atk_sys::AtkNoOpObjectClass>) @extends Object, @implements Action, Component, Document, EditableText, Hypertext, Image, Selection, Table, TableCell, Text, Value, Window;
 
     match fn {
         get_type => || atk_sys::atk_no_op_object_get_type(),

@@ -13,7 +13,7 @@ use std::mem;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct X11Display(Object<gdk_x11_sys::GdkX11Display, gdk_x11_sys::GdkX11DisplayClass, X11DisplayClass>) @extends gdk::Display;
+    pub struct X11Display(Object<gdk_x11_sys::GdkX11Display, gdk_x11_sys::GdkX11DisplayClass>) @extends gdk::Display;
 
     match fn {
         get_type => || gdk_x11_sys::gdk_x11_display_get_type(),

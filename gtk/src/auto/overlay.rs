@@ -19,7 +19,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct Overlay(Object<gtk_sys::GtkOverlay, gtk_sys::GtkOverlayClass, OverlayClass>) @extends Bin, Container, Widget, @implements Buildable;
+    pub struct Overlay(Object<gtk_sys::GtkOverlay, gtk_sys::GtkOverlayClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_overlay_get_type(),

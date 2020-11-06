@@ -28,7 +28,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct Box(Object<gtk_sys::GtkBox, gtk_sys::GtkBoxClass, BoxClass>) @extends Container, Widget, @implements Buildable, Orientable;
+    pub struct Box(Object<gtk_sys::GtkBox, gtk_sys::GtkBoxClass>) @extends Container, Widget, @implements Buildable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_box_get_type(),

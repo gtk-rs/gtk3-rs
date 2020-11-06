@@ -29,7 +29,7 @@ use ToolbarStyle;
 use Widget;
 
 glib_wrapper! {
-    pub struct ToolItem(Object<gtk_sys::GtkToolItem, gtk_sys::GtkToolItemClass, ToolItemClass>) @extends Bin, Container, Widget, @implements Buildable;
+    pub struct ToolItem(Object<gtk_sys::GtkToolItem, gtk_sys::GtkToolItemClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_tool_item_get_type(),

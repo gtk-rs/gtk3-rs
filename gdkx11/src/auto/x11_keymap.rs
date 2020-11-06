@@ -8,7 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct X11Keymap(Object<gdk_x11_sys::GdkX11Keymap, gdk_x11_sys::GdkX11KeymapClass, X11KeymapClass>) @extends gdk::Keymap;
+    pub struct X11Keymap(Object<gdk_x11_sys::GdkX11Keymap, gdk_x11_sys::GdkX11KeymapClass>) @extends gdk::Keymap;
 
     match fn {
         get_type => || gdk_x11_sys::gdk_x11_keymap_get_type(),

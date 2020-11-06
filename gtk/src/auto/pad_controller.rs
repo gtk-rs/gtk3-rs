@@ -23,7 +23,7 @@ use Widget;
 use Window;
 
 glib_wrapper! {
-    pub struct PadController(Object<gtk_sys::GtkPadController, gtk_sys::GtkPadControllerClass, PadControllerClass>) @extends EventController;
+    pub struct PadController(Object<gtk_sys::GtkPadController, gtk_sys::GtkPadControllerClass>) @extends EventController;
 
     match fn {
         get_type => || gtk_sys::gtk_pad_controller_get_type(),

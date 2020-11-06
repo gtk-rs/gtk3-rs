@@ -27,7 +27,7 @@ use ShadowType;
 use Widget;
 
 glib_wrapper! {
-    pub struct Viewport(Object<gtk_sys::GtkViewport, gtk_sys::GtkViewportClass, ViewportClass>) @extends Bin, Container, Widget, @implements Buildable, Scrollable;
+    pub struct Viewport(Object<gtk_sys::GtkViewport, gtk_sys::GtkViewportClass>) @extends Bin, Container, Widget, @implements Buildable, Scrollable;
 
     match fn {
         get_type => || gtk_sys::gtk_viewport_get_type(),

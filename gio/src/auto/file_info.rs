@@ -16,7 +16,7 @@ use FileType;
 use Icon;
 
 glib_wrapper! {
-    pub struct FileInfo(Object<gio_sys::GFileInfo, gio_sys::GFileInfoClass, FileInfoClass>);
+    pub struct FileInfo(Object<gio_sys::GFileInfo, gio_sys::GFileInfoClass>);
 
     match fn {
         get_type => || gio_sys::g_file_info_get_type(),

@@ -30,7 +30,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct FontChooserWidget(Object<gtk_sys::GtkFontChooserWidget, gtk_sys::GtkFontChooserWidgetClass, FontChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, FontChooser;
+    pub struct FontChooserWidget(Object<gtk_sys::GtkFontChooserWidget, gtk_sys::GtkFontChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, FontChooser;
 
     match fn {
         get_type => || gtk_sys::gtk_font_chooser_widget_get_type(),

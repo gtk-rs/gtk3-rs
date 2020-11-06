@@ -27,7 +27,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct ListBoxRow(Object<gtk_sys::GtkListBoxRow, gtk_sys::GtkListBoxRowClass, ListBoxRowClass>) @extends Bin, Container, Widget, @implements Buildable, Actionable;
+    pub struct ListBoxRow(Object<gtk_sys::GtkListBoxRow, gtk_sys::GtkListBoxRowClass>) @extends Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_list_box_row_get_type(),

@@ -10,7 +10,7 @@ use Buildable;
 use RecentFilterFlags;
 
 glib_wrapper! {
-    pub struct RecentFilter(Object<gtk_sys::GtkRecentFilter, RecentFilterClass>) @implements Buildable;
+    pub struct RecentFilter(Object<gtk_sys::GtkRecentFilter>) @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_recent_filter_get_type(),

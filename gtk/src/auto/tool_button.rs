@@ -29,7 +29,7 @@ use ToolItem;
 use Widget;
 
 glib_wrapper! {
-    pub struct ToolButton(Object<gtk_sys::GtkToolButton, gtk_sys::GtkToolButtonClass, ToolButtonClass>) @extends ToolItem, Bin, Container, Widget, @implements Buildable, Actionable;
+    pub struct ToolButton(Object<gtk_sys::GtkToolButton, gtk_sys::GtkToolButtonClass>) @extends ToolItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_tool_button_get_type(),

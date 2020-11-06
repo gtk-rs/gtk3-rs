@@ -15,7 +15,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct FilenameCompleter(Object<gio_sys::GFilenameCompleter, gio_sys::GFilenameCompleterClass, FilenameCompleterClass>);
+    pub struct FilenameCompleter(Object<gio_sys::GFilenameCompleter, gio_sys::GFilenameCompleterClass>);
 
     match fn {
         get_type => || gio_sys::g_filename_completer_get_type(),

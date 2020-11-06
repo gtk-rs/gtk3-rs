@@ -31,7 +31,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct MenuItem(Object<gtk_sys::GtkMenuItem, gtk_sys::GtkMenuItemClass, MenuItemClass>) @extends Bin, Container, Widget, @implements Buildable, Actionable;
+    pub struct MenuItem(Object<gtk_sys::GtkMenuItem, gtk_sys::GtkMenuItemClass>) @extends Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_menu_item_get_type(),

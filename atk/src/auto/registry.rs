@@ -10,7 +10,7 @@ use std::fmt;
 use ObjectFactory;
 
 glib_wrapper! {
-    pub struct Registry(Object<atk_sys::AtkRegistry, atk_sys::AtkRegistryClass, RegistryClass>);
+    pub struct Registry(Object<atk_sys::AtkRegistry, atk_sys::AtkRegistryClass>);
 
     match fn {
         get_type => || atk_sys::atk_registry_get_type(),

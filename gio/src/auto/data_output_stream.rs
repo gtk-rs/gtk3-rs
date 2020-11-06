@@ -23,7 +23,7 @@ use OutputStream;
 use Seekable;
 
 glib_wrapper! {
-    pub struct DataOutputStream(Object<gio_sys::GDataOutputStream, gio_sys::GDataOutputStreamClass, DataOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements Seekable;
+    pub struct DataOutputStream(Object<gio_sys::GDataOutputStream, gio_sys::GDataOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements Seekable;
 
     match fn {
         get_type => || gio_sys::g_data_output_stream_get_type(),

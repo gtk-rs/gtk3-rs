@@ -34,7 +34,7 @@ use Misc;
 use Widget;
 
 glib_wrapper! {
-    pub struct Image(Object<gtk_sys::GtkImage, gtk_sys::GtkImageClass, ImageClass>) @extends Misc, Widget, @implements Buildable;
+    pub struct Image(Object<gtk_sys::GtkImage, gtk_sys::GtkImageClass>) @extends Misc, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_image_get_type(),

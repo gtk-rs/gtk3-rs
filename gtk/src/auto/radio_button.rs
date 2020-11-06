@@ -30,7 +30,7 @@ use ToggleButton;
 use Widget;
 
 glib_wrapper! {
-    pub struct RadioButton(Object<gtk_sys::GtkRadioButton, gtk_sys::GtkRadioButtonClass, RadioButtonClass>) @extends CheckButton, ToggleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable;
+    pub struct RadioButton(Object<gtk_sys::GtkRadioButton, gtk_sys::GtkRadioButtonClass>) @extends CheckButton, ToggleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_radio_button_get_type(),

@@ -15,7 +15,7 @@ use std::mem::transmute;
 use OutputStream;
 
 glib_wrapper! {
-    pub struct FilterOutputStream(Object<gio_sys::GFilterOutputStream, gio_sys::GFilterOutputStreamClass, FilterOutputStreamClass>) @extends OutputStream;
+    pub struct FilterOutputStream(Object<gio_sys::GFilterOutputStream, gio_sys::GFilterOutputStreamClass>) @extends OutputStream;
 
     match fn {
         get_type => || gio_sys::g_filter_output_stream_get_type(),

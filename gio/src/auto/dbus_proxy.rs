@@ -30,7 +30,7 @@ use DBusProxyFlags;
 use UnixFDList;
 
 glib_wrapper! {
-    pub struct DBusProxy(Object<gio_sys::GDBusProxy, gio_sys::GDBusProxyClass, DBusProxyClass>) @implements DBusInterface;
+    pub struct DBusProxy(Object<gio_sys::GDBusProxy, gio_sys::GDBusProxyClass>) @implements DBusInterface;
 
     match fn {
         get_type => || gio_sys::g_dbus_proxy_get_type(),

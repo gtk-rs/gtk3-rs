@@ -27,7 +27,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct Popover(Object<gtk_sys::GtkPopover, gtk_sys::GtkPopoverClass, PopoverClass>) @extends Bin, Container, Widget, @implements Buildable;
+    pub struct Popover(Object<gtk_sys::GtkPopover, gtk_sys::GtkPopoverClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_popover_get_type(),

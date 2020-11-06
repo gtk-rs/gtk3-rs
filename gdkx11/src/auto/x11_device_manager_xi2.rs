@@ -16,7 +16,7 @@ use std::fmt;
 use X11DeviceManagerCore;
 
 glib_wrapper! {
-    pub struct X11DeviceManagerXI2(Object<gdk_x11_sys::GdkX11DeviceManagerXI2, gdk_x11_sys::GdkX11DeviceManagerXI2Class, X11DeviceManagerXI2Class>) @extends X11DeviceManagerCore, gdk::DeviceManager;
+    pub struct X11DeviceManagerXI2(Object<gdk_x11_sys::GdkX11DeviceManagerXI2, gdk_x11_sys::GdkX11DeviceManagerXI2Class>) @extends X11DeviceManagerCore, gdk::DeviceManager;
 
     match fn {
         get_type => || gdk_x11_sys::gdk_x11_device_manager_xi2_get_type(),

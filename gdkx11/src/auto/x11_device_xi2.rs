@@ -15,7 +15,7 @@ use gobject_sys;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct X11DeviceXI2(Object<gdk_x11_sys::GdkX11DeviceXI2, gdk_x11_sys::GdkX11DeviceXI2Class, X11DeviceXI2Class>) @extends gdk::Device;
+    pub struct X11DeviceXI2(Object<gdk_x11_sys::GdkX11DeviceXI2, gdk_x11_sys::GdkX11DeviceXI2Class>) @extends gdk::Device;
 
     match fn {
         get_type => || gdk_x11_sys::gdk_x11_device_xi2_get_type(),

@@ -23,7 +23,7 @@ use InputStream;
 use OutputStream;
 
 glib_wrapper! {
-    pub struct IOStream(Object<gio_sys::GIOStream, gio_sys::GIOStreamClass, IOStreamClass>);
+    pub struct IOStream(Object<gio_sys::GIOStream, gio_sys::GIOStreamClass>);
 
     match fn {
         get_type => || gio_sys::g_io_stream_get_type(),

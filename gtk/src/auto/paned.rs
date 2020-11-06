@@ -29,7 +29,7 @@ use ScrollType;
 use Widget;
 
 glib_wrapper! {
-    pub struct Paned(Object<gtk_sys::GtkPaned, gtk_sys::GtkPanedClass, PanedClass>) @extends Container, Widget, @implements Buildable, Orientable;
+    pub struct Paned(Object<gtk_sys::GtkPaned, gtk_sys::GtkPanedClass>) @extends Container, Widget, @implements Buildable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_paned_get_type(),

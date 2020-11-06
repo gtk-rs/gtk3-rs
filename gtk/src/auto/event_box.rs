@@ -23,7 +23,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct EventBox(Object<gtk_sys::GtkEventBox, gtk_sys::GtkEventBoxClass, EventBoxClass>) @extends Bin, Container, Widget, @implements Buildable;
+    pub struct EventBox(Object<gtk_sys::GtkEventBox, gtk_sys::GtkEventBoxClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_event_box_get_type(),

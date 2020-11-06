@@ -23,7 +23,7 @@ use EventControllerScrollFlags;
 use Widget;
 
 glib_wrapper! {
-    pub struct EventControllerScroll(Object<gtk_sys::GtkEventControllerScroll, gtk_sys::GtkEventControllerScrollClass, EventControllerScrollClass>) @extends EventController;
+    pub struct EventControllerScroll(Object<gtk_sys::GtkEventControllerScroll, gtk_sys::GtkEventControllerScrollClass>) @extends EventController;
 
     match fn {
         get_type => || gtk_sys::gtk_event_controller_scroll_get_type(),

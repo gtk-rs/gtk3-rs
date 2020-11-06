@@ -24,7 +24,7 @@ use WindowPosition;
 use WindowType;
 
 glib_wrapper! {
-    pub struct OffscreenWindow(Object<gtk_sys::GtkOffscreenWindow, gtk_sys::GtkOffscreenWindowClass, OffscreenWindowClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
+    pub struct OffscreenWindow(Object<gtk_sys::GtkOffscreenWindow, gtk_sys::GtkOffscreenWindowClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_offscreen_window_get_type(),

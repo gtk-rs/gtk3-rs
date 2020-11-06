@@ -11,7 +11,7 @@ use std::fmt;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct MenuAttributeIter(Object<gio_sys::GMenuAttributeIter, gio_sys::GMenuAttributeIterClass, MenuAttributeIterClass>);
+    pub struct MenuAttributeIter(Object<gio_sys::GMenuAttributeIter, gio_sys::GMenuAttributeIterClass>);
 
     match fn {
         get_type => || gio_sys::g_menu_attribute_iter_get_type(),

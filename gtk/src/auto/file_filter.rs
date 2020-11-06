@@ -12,7 +12,7 @@ use Buildable;
 use FileFilterFlags;
 
 glib_wrapper! {
-    pub struct FileFilter(Object<gtk_sys::GtkFileFilter, FileFilterClass>) @implements Buildable;
+    pub struct FileFilter(Object<gtk_sys::GtkFileFilter>) @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_file_filter_get_type(),

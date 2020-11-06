@@ -28,7 +28,7 @@ use ToolShell;
 use Widget;
 
 glib_wrapper! {
-    pub struct ToolItemGroup(Object<gtk_sys::GtkToolItemGroup, gtk_sys::GtkToolItemGroupClass, ToolItemGroupClass>) @extends Container, Widget, @implements Buildable, ToolShell;
+    pub struct ToolItemGroup(Object<gtk_sys::GtkToolItemGroup, gtk_sys::GtkToolItemGroupClass>) @extends Container, Widget, @implements Buildable, ToolShell;
 
     match fn {
         get_type => || gtk_sys::gtk_tool_item_group_get_type(),

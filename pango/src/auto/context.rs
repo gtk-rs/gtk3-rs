@@ -21,7 +21,7 @@ use Language;
 use Matrix;
 
 glib_wrapper! {
-    pub struct Context(Object<pango_sys::PangoContext, pango_sys::PangoContextClass, ContextClass>);
+    pub struct Context(Object<pango_sys::PangoContext, pango_sys::PangoContextClass>);
 
     match fn {
         get_type => || pango_sys::pango_context_get_type(),

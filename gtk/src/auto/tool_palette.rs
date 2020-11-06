@@ -37,7 +37,7 @@ use ToolbarStyle;
 use Widget;
 
 glib_wrapper! {
-    pub struct ToolPalette(Object<gtk_sys::GtkToolPalette, gtk_sys::GtkToolPaletteClass, ToolPaletteClass>) @extends Container, Widget, @implements Buildable, Orientable, Scrollable;
+    pub struct ToolPalette(Object<gtk_sys::GtkToolPalette, gtk_sys::GtkToolPaletteClass>) @extends Container, Widget, @implements Buildable, Orientable, Scrollable;
 
     match fn {
         get_type => || gtk_sys::gtk_tool_palette_get_type(),

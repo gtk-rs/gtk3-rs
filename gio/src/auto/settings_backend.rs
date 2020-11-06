@@ -8,7 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct SettingsBackend(Object<gio_sys::GSettingsBackend, gio_sys::GSettingsBackendClass, SettingsBackendClass>);
+    pub struct SettingsBackend(Object<gio_sys::GSettingsBackend, gio_sys::GSettingsBackendClass>);
 
     match fn {
         get_type => || gio_sys::g_settings_backend_get_type(),

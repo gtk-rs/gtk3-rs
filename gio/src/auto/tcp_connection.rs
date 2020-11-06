@@ -16,7 +16,7 @@ use IOStream;
 use SocketConnection;
 
 glib_wrapper! {
-    pub struct TcpConnection(Object<gio_sys::GTcpConnection, gio_sys::GTcpConnectionClass, TcpConnectionClass>) @extends SocketConnection, IOStream;
+    pub struct TcpConnection(Object<gio_sys::GTcpConnection, gio_sys::GTcpConnectionClass>) @extends SocketConnection, IOStream;
 
     match fn {
         get_type => || gio_sys::g_tcp_connection_get_type(),

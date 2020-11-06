@@ -11,7 +11,7 @@ use StateFlags;
 use StyleProvider;
 
 glib_wrapper! {
-    pub struct StyleProperties(Object<gtk_sys::GtkStyleProperties, gtk_sys::GtkStylePropertiesClass, StylePropertiesClass>) @implements StyleProvider;
+    pub struct StyleProperties(Object<gtk_sys::GtkStyleProperties, gtk_sys::GtkStylePropertiesClass>) @implements StyleProvider;
 
     match fn {
         get_type => || gtk_sys::gtk_style_properties_get_type(),
@@ -26,7 +26,6 @@ impl StyleProperties {
     }
 }
 
-#[cfg_attr(feature = "v3_16", deprecated)]
 impl Default for StyleProperties {
     fn default() -> Self {
         Self::new()

@@ -51,7 +51,7 @@ use WidgetPath;
 use Window;
 
 glib_wrapper! {
-    pub struct Widget(Object<gtk_sys::GtkWidget, gtk_sys::GtkWidgetClass, WidgetClass>) @implements Buildable;
+    pub struct Widget(Object<gtk_sys::GtkWidget, gtk_sys::GtkWidgetClass>) @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_widget_get_type(),

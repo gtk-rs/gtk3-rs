@@ -11,7 +11,7 @@ use Icon;
 use LoadableIcon;
 
 glib_wrapper! {
-    pub struct FileIcon(Object<gio_sys::GFileIcon, gio_sys::GFileIconClass, FileIconClass>) @implements Icon, LoadableIcon;
+    pub struct FileIcon(Object<gio_sys::GFileIcon, gio_sys::GFileIconClass>) @implements Icon, LoadableIcon;
 
     match fn {
         get_type => || gio_sys::g_file_icon_get_type(),

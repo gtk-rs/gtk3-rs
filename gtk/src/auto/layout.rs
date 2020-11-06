@@ -28,7 +28,7 @@ use ScrollablePolicy;
 use Widget;
 
 glib_wrapper! {
-    pub struct Layout(Object<gtk_sys::GtkLayout, gtk_sys::GtkLayoutClass, LayoutClass>) @extends Container, Widget, @implements Buildable, Scrollable;
+    pub struct Layout(Object<gtk_sys::GtkLayout, gtk_sys::GtkLayoutClass>) @extends Container, Widget, @implements Buildable, Scrollable;
 
     match fn {
         get_type => || gtk_sys::gtk_layout_get_type(),

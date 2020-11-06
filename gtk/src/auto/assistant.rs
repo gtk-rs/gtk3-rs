@@ -34,7 +34,7 @@ use WindowPosition;
 use WindowType;
 
 glib_wrapper! {
-    pub struct Assistant(Object<gtk_sys::GtkAssistant, gtk_sys::GtkAssistantClass, AssistantClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
+    pub struct Assistant(Object<gtk_sys::GtkAssistant, gtk_sys::GtkAssistantClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_assistant_get_type(),

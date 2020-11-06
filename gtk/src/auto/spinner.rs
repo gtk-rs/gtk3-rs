@@ -23,7 +23,7 @@ use Container;
 use Widget;
 
 glib_wrapper! {
-    pub struct Spinner(Object<gtk_sys::GtkSpinner, gtk_sys::GtkSpinnerClass, SpinnerClass>) @extends Widget, @implements Buildable;
+    pub struct Spinner(Object<gtk_sys::GtkSpinner, gtk_sys::GtkSpinnerClass>) @extends Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_spinner_get_type(),

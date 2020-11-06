@@ -19,7 +19,7 @@ use std::ptr;
 use Cancellable;
 
 glib_wrapper! {
-    pub struct Permission(Object<gio_sys::GPermission, gio_sys::GPermissionClass, PermissionClass>);
+    pub struct Permission(Object<gio_sys::GPermission, gio_sys::GPermissionClass>);
 
     match fn {
         get_type => || gio_sys::g_permission_get_type(),

@@ -8,7 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct X11DeviceManagerCore(Object<gdk_x11_sys::GdkX11DeviceManagerCore, gdk_x11_sys::GdkX11DeviceManagerCoreClass, X11DeviceManagerCoreClass>) @extends gdk::DeviceManager;
+    pub struct X11DeviceManagerCore(Object<gdk_x11_sys::GdkX11DeviceManagerCore, gdk_x11_sys::GdkX11DeviceManagerCoreClass>) @extends gdk::DeviceManager;
 
     match fn {
         get_type => || gdk_x11_sys::gdk_x11_device_manager_core_get_type(),

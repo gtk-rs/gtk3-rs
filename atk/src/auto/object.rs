@@ -26,7 +26,7 @@ use State;
 use StateSet;
 
 glib_wrapper! {
-    pub struct Object(Object<atk_sys::AtkObject, atk_sys::AtkObjectClass, ObjectClass>);
+    pub struct Object(Object<atk_sys::AtkObject, atk_sys::AtkObjectClass>);
 
     match fn {
         get_type => || atk_sys::atk_object_get_type(),

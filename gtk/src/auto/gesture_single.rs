@@ -17,7 +17,7 @@ use EventController;
 use Gesture;
 
 glib_wrapper! {
-    pub struct GestureSingle(Object<gtk_sys::GtkGestureSingle, gtk_sys::GtkGestureSingleClass, GestureSingleClass>) @extends Gesture, EventController;
+    pub struct GestureSingle(Object<gtk_sys::GtkGestureSingle, gtk_sys::GtkGestureSingleClass>) @extends Gesture, EventController;
 
     match fn {
         get_type => || gtk_sys::gtk_gesture_single_get_type(),

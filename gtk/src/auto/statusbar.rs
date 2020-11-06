@@ -28,7 +28,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct Statusbar(Object<gtk_sys::GtkStatusbar, gtk_sys::GtkStatusbarClass, StatusbarClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
+    pub struct Statusbar(Object<gtk_sys::GtkStatusbar, gtk_sys::GtkStatusbarClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_statusbar_get_type(),

@@ -33,7 +33,7 @@ use ToggleButton;
 use Widget;
 
 glib_wrapper! {
-    pub struct MenuButton(Object<gtk_sys::GtkMenuButton, gtk_sys::GtkMenuButtonClass, MenuButtonClass>) @extends ToggleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable;
+    pub struct MenuButton(Object<gtk_sys::GtkMenuButton, gtk_sys::GtkMenuButtonClass>) @extends ToggleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_menu_button_get_type(),

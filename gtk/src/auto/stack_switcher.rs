@@ -31,7 +31,7 @@ use Stack;
 use Widget;
 
 glib_wrapper! {
-    pub struct StackSwitcher(Object<gtk_sys::GtkStackSwitcher, gtk_sys::GtkStackSwitcherClass, StackSwitcherClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
+    pub struct StackSwitcher(Object<gtk_sys::GtkStackSwitcher, gtk_sys::GtkStackSwitcherClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_stack_switcher_get_type(),

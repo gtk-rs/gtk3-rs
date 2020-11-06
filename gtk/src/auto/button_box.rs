@@ -29,7 +29,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct ButtonBox(Object<gtk_sys::GtkButtonBox, gtk_sys::GtkButtonBoxClass, ButtonBoxClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
+    pub struct ButtonBox(Object<gtk_sys::GtkButtonBox, gtk_sys::GtkButtonBoxClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_button_box_get_type(),

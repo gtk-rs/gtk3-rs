@@ -13,7 +13,7 @@ use Emblem;
 use Icon;
 
 glib_wrapper! {
-    pub struct EmblemedIcon(Object<gio_sys::GEmblemedIcon, gio_sys::GEmblemedIconClass, EmblemedIconClass>) @implements Icon;
+    pub struct EmblemedIcon(Object<gio_sys::GEmblemedIcon, gio_sys::GEmblemedIconClass>) @implements Icon;
 
     match fn {
         get_type => || gio_sys::g_emblemed_icon_get_type(),

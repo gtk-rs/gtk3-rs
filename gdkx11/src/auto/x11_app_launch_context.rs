@@ -9,7 +9,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct X11AppLaunchContext(Object<gdk_x11_sys::GdkX11AppLaunchContext, gdk_x11_sys::GdkX11AppLaunchContextClass, X11AppLaunchContextClass>) @extends gdk::AppLaunchContext, gio::AppLaunchContext;
+    pub struct X11AppLaunchContext(Object<gdk_x11_sys::GdkX11AppLaunchContext, gdk_x11_sys::GdkX11AppLaunchContextClass>) @extends gdk::AppLaunchContext, gio::AppLaunchContext;
 
     match fn {
         get_type => || gdk_x11_sys::gdk_x11_app_launch_context_get_type(),

@@ -9,7 +9,7 @@ use std::fmt;
 use Permission;
 
 glib_wrapper! {
-    pub struct SimplePermission(Object<gio_sys::GSimplePermission, SimplePermissionClass>) @extends Permission;
+    pub struct SimplePermission(Object<gio_sys::GSimplePermission>) @extends Permission;
 
     match fn {
         get_type => || gio_sys::g_simple_permission_get_type(),

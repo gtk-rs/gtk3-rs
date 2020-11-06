@@ -26,7 +26,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct FlowBoxChild(Object<gtk_sys::GtkFlowBoxChild, gtk_sys::GtkFlowBoxChildClass, FlowBoxChildClass>) @extends Bin, Container, Widget, @implements Buildable;
+    pub struct FlowBoxChild(Object<gtk_sys::GtkFlowBoxChild, gtk_sys::GtkFlowBoxChildClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_flow_box_child_get_type(),

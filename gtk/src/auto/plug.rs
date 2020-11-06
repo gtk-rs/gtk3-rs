@@ -29,7 +29,7 @@ use WindowPosition;
 use WindowType;
 
 glib_wrapper! {
-    pub struct Plug(Object<gtk_sys::GtkPlug, gtk_sys::GtkPlugClass, PlugClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
+    pub struct Plug(Object<gtk_sys::GtkPlug, gtk_sys::GtkPlugClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_plug_get_type(),

@@ -11,7 +11,7 @@ use Icon;
 use MenuModel;
 
 glib_wrapper! {
-    pub struct MenuItem(Object<gio_sys::GMenuItem, MenuItemClass>);
+    pub struct MenuItem(Object<gio_sys::GMenuItem>);
 
     match fn {
         get_type => || gio_sys::g_menu_item_get_type(),

@@ -20,7 +20,7 @@ use SocketFamily;
 use SocketType;
 
 glib_wrapper! {
-    pub struct SocketConnection(Object<gio_sys::GSocketConnection, gio_sys::GSocketConnectionClass, SocketConnectionClass>) @extends IOStream;
+    pub struct SocketConnection(Object<gio_sys::GSocketConnection, gio_sys::GSocketConnectionClass>) @extends IOStream;
 
     match fn {
         get_type => || gio_sys::g_socket_connection_get_type(),

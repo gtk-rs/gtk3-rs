@@ -10,7 +10,7 @@ use std::fmt;
 use Object;
 
 glib_wrapper! {
-    pub struct GObjectAccessible(Object<atk_sys::AtkGObjectAccessible, atk_sys::AtkGObjectAccessibleClass, GObjectAccessibleClass>) @extends Object;
+    pub struct GObjectAccessible(Object<atk_sys::AtkGObjectAccessible, atk_sys::AtkGObjectAccessibleClass>) @extends Object;
 
     match fn {
         get_type => || atk_sys::atk_gobject_accessible_get_type(),

@@ -34,7 +34,7 @@ use SelectionMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct FlowBox(Object<gtk_sys::GtkFlowBox, gtk_sys::GtkFlowBoxClass, FlowBoxClass>) @extends Container, Widget, @implements Buildable, Orientable;
+    pub struct FlowBox(Object<gtk_sys::GtkFlowBox, gtk_sys::GtkFlowBoxClass>) @extends Container, Widget, @implements Buildable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_flow_box_get_type(),

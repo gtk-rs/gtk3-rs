@@ -19,7 +19,7 @@ use ModifierIntent;
 use ModifierType;
 
 glib_wrapper! {
-    pub struct Keymap(Object<gdk_sys::GdkKeymap, KeymapClass>);
+    pub struct Keymap(Object<gdk_sys::GdkKeymap>);
 
     match fn {
         get_type => || gdk_sys::gdk_keymap_get_type(),

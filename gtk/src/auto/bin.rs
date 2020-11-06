@@ -11,7 +11,7 @@ use Container;
 use Widget;
 
 glib_wrapper! {
-    pub struct Bin(Object<gtk_sys::GtkBin, gtk_sys::GtkBinClass, BinClass>) @extends Container, Widget, @implements Buildable;
+    pub struct Bin(Object<gtk_sys::GtkBin, gtk_sys::GtkBinClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_bin_get_type(),

@@ -17,7 +17,7 @@ use DBusPropertyInfo;
 use UnixFDList;
 
 glib_wrapper! {
-    pub struct DBusMethodInvocation(Object<gio_sys::GDBusMethodInvocation, DBusMethodInvocationClass>);
+    pub struct DBusMethodInvocation(Object<gio_sys::GDBusMethodInvocation>);
 
     match fn {
         get_type => || gio_sys::g_dbus_method_invocation_get_type(),

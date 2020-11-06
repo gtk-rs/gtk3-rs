@@ -7,7 +7,7 @@ use pango_sys;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct EngineLang(Object<pango_sys::PangoEngineLang, pango_sys::PangoEngineLangClass, EngineLangClass>);
+    pub struct EngineLang(Object<pango_sys::PangoEngineLang, pango_sys::PangoEngineLangClass>);
 
     match fn {
         get_type => || pango_sys::pango_engine_lang_get_type(),

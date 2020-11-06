@@ -17,7 +17,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct Cancellable(Object<gio_sys::GCancellable, gio_sys::GCancellableClass, CancellableClass>);
+    pub struct Cancellable(Object<gio_sys::GCancellable, gio_sys::GCancellableClass>);
 
     match fn {
         get_type => || gio_sys::g_cancellable_get_type(),

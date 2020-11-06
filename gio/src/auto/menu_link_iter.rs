@@ -11,7 +11,7 @@ use std::ptr;
 use MenuModel;
 
 glib_wrapper! {
-    pub struct MenuLinkIter(Object<gio_sys::GMenuLinkIter, gio_sys::GMenuLinkIterClass, MenuLinkIterClass>);
+    pub struct MenuLinkIter(Object<gio_sys::GMenuLinkIter, gio_sys::GMenuLinkIterClass>);
 
     match fn {
         get_type => || gio_sys::g_menu_link_iter_get_type(),

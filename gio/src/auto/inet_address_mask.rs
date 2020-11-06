@@ -22,7 +22,7 @@ use InetAddress;
 use SocketFamily;
 
 glib_wrapper! {
-    pub struct InetAddressMask(Object<gio_sys::GInetAddressMask, gio_sys::GInetAddressMaskClass, InetAddressMaskClass>);
+    pub struct InetAddressMask(Object<gio_sys::GInetAddressMask, gio_sys::GInetAddressMaskClass>);
 
     match fn {
         get_type => || gio_sys::g_inet_address_mask_get_type(),

@@ -47,7 +47,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct ModelButton(Object<gtk_sys::GtkModelButton, ModelButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable;
+    pub struct ModelButton(Object<gtk_sys::GtkModelButton>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_model_button_get_type(),

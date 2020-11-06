@@ -20,7 +20,7 @@ use AppInfo;
 use File;
 
 glib_wrapper! {
-    pub struct AppLaunchContext(Object<gio_sys::GAppLaunchContext, gio_sys::GAppLaunchContextClass, AppLaunchContextClass>);
+    pub struct AppLaunchContext(Object<gio_sys::GAppLaunchContext, gio_sys::GAppLaunchContextClass>);
 
     match fn {
         get_type => || gio_sys::g_app_launch_context_get_type(),

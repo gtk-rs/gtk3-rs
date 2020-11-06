@@ -19,7 +19,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct AccelGroup(Object<gtk_sys::GtkAccelGroup, gtk_sys::GtkAccelGroupClass, AccelGroupClass>);
+    pub struct AccelGroup(Object<gtk_sys::GtkAccelGroup, gtk_sys::GtkAccelGroupClass>);
 
     match fn {
         get_type => || gtk_sys::gtk_accel_group_get_type(),

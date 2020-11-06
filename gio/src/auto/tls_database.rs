@@ -22,7 +22,7 @@ use TlsDatabaseVerifyFlags;
 use TlsInteraction;
 
 glib_wrapper! {
-    pub struct TlsDatabase(Object<gio_sys::GTlsDatabase, gio_sys::GTlsDatabaseClass, TlsDatabaseClass>);
+    pub struct TlsDatabase(Object<gio_sys::GTlsDatabase, gio_sys::GTlsDatabaseClass>);
 
     match fn {
         get_type => || gio_sys::g_tls_database_get_type(),
