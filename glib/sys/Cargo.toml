@@ -83,9 +83,17 @@ version = "2.66"
 name = "gobject-2.0"
 version = "2.42"
 
-[package.metadata.system-deps.gobject_2_0.feature-versions]
-v2_44 = "2.44"
-v2_46 = "2.46"
-v2_54 = "2.54"
-v2_58 = "2.58"
-v2_62 = "2.62"
+[package.metadata.system-deps.gobject_2_0.v2_44]
+version = "2.44"
+
+[package.metadata.system-deps.gobject_2_0.v2_46]
+version = "2.46"
+
+[package.metadata.system-deps.gobject_2_0.v2_54]
+version = "2.54"
+
+[package.metadata.system-deps.gobject_2_0.v2_58]
+version = "2.58"
+
+[package.metadata.system-deps.gobject_2_0.v2_62]
+version = "2.62"
