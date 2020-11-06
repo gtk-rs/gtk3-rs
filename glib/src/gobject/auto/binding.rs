@@ -10,7 +10,7 @@ use GString;
 use Object;
 
 glib_wrapper! {
-    pub struct Binding(Object<gobject_sys::GBinding, BindingClass>);
+    pub struct Binding(Object<gobject_sys::GBinding>);
 
     match fn {
         get_type => || gobject_sys::g_binding_get_type(),

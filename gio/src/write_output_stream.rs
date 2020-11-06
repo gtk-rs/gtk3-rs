@@ -7,7 +7,6 @@ use crate::subclass::prelude::*;
 use crate::OutputStream;
 use glib;
 use glib::subclass;
-use glib::translate::*;
 
 use std::any::Any;
 use std::io::{Seek, Write};
@@ -192,11 +191,7 @@ mod imp {
 }
 
 glib_wrapper! {
-    pub struct WriteOutputStream(Object<subclass::simple::InstanceStruct<imp::WriteOutputStream>, subclass::simple::ClassStruct<imp::WriteOutputStream>, WriteOutputStreamClass>) @extends crate::OutputStream, @implements crate::Seekable;
-
-    match fn {
-        get_type => || imp::WriteOutputStream::get_type().to_glib(),
-    }
+    pub struct WriteOutputStream(ObjectSubclass<imp::WriteOutputStream>) @extends crate::OutputStream, @implements crate::Seekable;
 }
 
 impl WriteOutputStream {

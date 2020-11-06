@@ -2199,7 +2199,7 @@ impl ObjectClass {
 }
 
 glib_wrapper! {
-    pub struct InitiallyUnowned(Object<gobject_sys::GInitiallyUnowned, gobject_sys::GInitiallyUnownedClass, InitiallyUnownedClass>);
+    pub struct InitiallyUnowned(Object<gobject_sys::GInitiallyUnowned, gobject_sys::GInitiallyUnownedClass>);
 
     match fn {
         get_type => || gobject_sys::g_initially_unowned_get_type(),

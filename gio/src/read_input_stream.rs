@@ -7,7 +7,6 @@ use crate::subclass::prelude::*;
 use crate::InputStream;
 use glib;
 use glib::subclass;
-use glib::translate::*;
 
 use std::any::Any;
 use std::io::{Read, Seek};
@@ -165,11 +164,7 @@ mod imp {
 }
 
 glib_wrapper! {
-    pub struct ReadInputStream(Object<subclass::simple::InstanceStruct<imp::ReadInputStream>, subclass::simple::ClassStruct<imp::ReadInputStream>, ReadInputStreamClass>) @extends crate::InputStream, @implements crate::Seekable;
-
-    match fn {
-        get_type => || imp::ReadInputStream::get_type().to_glib(),
-    }
+    pub struct ReadInputStream(ObjectSubclass<imp::ReadInputStream>) @extends crate::InputStream, @implements crate::Seekable;
 }
 
 impl ReadInputStream {

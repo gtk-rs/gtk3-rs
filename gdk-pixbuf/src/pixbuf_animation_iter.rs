@@ -9,7 +9,7 @@ use glib::translate::*;
 use std::time::SystemTime;
 
 glib_wrapper! {
-    pub struct PixbufAnimationIter(Object<gdk_pixbuf_sys::GdkPixbufAnimationIter, PixbufAnimationIterClass>);
+    pub struct PixbufAnimationIter(Object<gdk_pixbuf_sys::GdkPixbufAnimationIter>);
 
     match fn {
         get_type => || gdk_pixbuf_sys::gdk_pixbuf_animation_iter_get_type(),
