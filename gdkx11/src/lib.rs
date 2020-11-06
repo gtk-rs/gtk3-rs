@@ -19,8 +19,6 @@ extern crate pango;
 
 extern crate libc;
 extern crate x11;
-#[macro_use]
-extern crate bitflags;
 
 pub(crate) use x11::xlib;
 
