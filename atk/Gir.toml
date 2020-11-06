@@ -77,7 +77,7 @@ manual_traits = ["EditableTextExtManual"]
     [[object.function]]
     name = "insert_text"
     # Expected pointer, received integer
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Atk.Image"
@@ -110,10 +110,10 @@ status = "generate"
 manual_traits = ["TableExtManual"]
     [[object.function]]
     name = "get_selected_columns"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "get_selected_rows"
-    ignore = true
+    manual = true
 
 [[object]]
 name = "Atk.Text"

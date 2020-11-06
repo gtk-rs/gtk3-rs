@@ -409,7 +409,8 @@ impl Layout {
                 accel_char.as_mut_ptr(),
             );
             let accel_char = accel_char.assume_init();
-            from_glib(accel_char)
+            std::convert::TryFrom::try_from(accel_char)
+                .expect("conversion from an invalid Unicode value attempted")
         }
     }
 

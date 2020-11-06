@@ -41,7 +41,7 @@ clear_function_expression = "|_ptr| ()"
     [[object.function]]
     # array with size
     name = "init_from_points"
-    ignore = true
+    manual = true
         [object.function.return]
         type = "none"
     [[object.function]]
@@ -51,7 +51,7 @@ clear_function_expression = "|_ptr| ()"
     [[object.function]]
     # array with size
     name = "init_from_vectors"
-    ignore = true
+    manual = true
         [object.function.return]
         type = "none"
     [[object.function]]
@@ -439,13 +439,13 @@ clear_function_expression = "|_ptr| ()"
     [[object.function]]
     # array with size
     name = "init_from_points"
-    ignore = true
+    manual = true
         [object.function.return]
         type = "none"
     [[object.function]]
     # array with size
     name = "init_from_vectors"
-    ignore = true
+    manual = true
         [object.function.return]
         type = "none"
 

@@ -199,14 +199,6 @@ impl Screen {
         }
     }
 
-    //pub fn get_property_font_options(&self) -> /*Unimplemented*/Fundamental: Pointer {
-    //    unsafe {
-    //        let mut value = Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-    //        gobject_sys::g_object_get_property(self.as_ptr() as *mut gobject_sys::GObject, b"font-options\0".as_ptr() as *const _, value.to_glib_none_mut().0);
-    //        value.get().expect("Return Value for property `font-options` getter").unwrap()
-    //    }
-    //}
-
     pub fn get_default() -> Option<Screen> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(gdk_sys::gdk_screen_get_default()) }

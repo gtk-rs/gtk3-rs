@@ -36,7 +36,7 @@ status = "generate"
     [[object.function]]
     name = "get_pixels"
     #manual array without length
-    ignore = true
+    manual = true
     [[object.function]]
     name = "get_pixels_with_length"
     #manual as get_pixels
@@ -48,7 +48,7 @@ status = "generate"
     [[object.function]]
     name = "new_from_file"
     #manual is_windows_utf8
-    ignore = true
+    manual = true
     [[object.function]]
     name = "new"
         [object.function.return]
@@ -56,43 +56,43 @@ status = "generate"
     [[object.function]]
     name = "new_from_file_at_size"
     #manual is_windows_utf8
-    ignore = true
+    manual = true
     [[object.function]]
     name = "new_from_file_at_scale"
     #manual is_windows_utf8
-    ignore = true
+    manual = true
     [[object.function]]
     name = "new_from_stream_async"
     # wrong async return
-    ignore = true
+    manual = true
     [[object.function]]
     name = "new_from_stream_at_scale_async"
     # wrong return and don't generated
-    ignore = true
+    manual = true
     [[object.function]]
     name = "get_file_info"
     # wrong return
-    ignore = true
+    manual = true
     [[object.function]]
     name = "get_file_info_async"
     # wrong async return
-    ignore = true
+    manual = true
     [[object.function]]
     name = "save_to_bufferv"
     # manual complex param
-    ignore = true
+    manual = true
     [[object.function]]
     name = "save_to_streamv"
     # manual complex param
-    ignore = true
+    manual = true
     [[object.function]]
     name = "savev"
     # manual complex param
-    ignore = true
+    manual = true
     [[object.function]]
     name = "save_to_streamv_async"
     # manual complex param
-    ignore = true
+    manual = true
 
 [[object]]
 name = "GdkPixbuf.PixbufAnimation"
@@ -100,7 +100,7 @@ status = "generate"
     [[object.function]]
     name = "get_iter"
     # TimeVal misses memory management functions
-    ignore = true
+    manual = true
 
 [[object]]
 name = "GdkPixbuf.PixbufFormat"

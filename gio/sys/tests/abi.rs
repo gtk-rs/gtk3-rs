@@ -14,8 +14,7 @@ use std::process::Command;
 use std::str;
 use tempfile::Builder;
 
-static PACKAGES_UNIX: &[&str] = &["gio-2.0", "gio-unix-2.0"];
-static PACKAGES_WINDOWS: &[&str] = &["gio-2.0"];
+static PACKAGES: &[&str] = &["gio-2.0"];
 
 #[derive(Clone, Debug)]
 struct Compiler {
@@ -23,14 +22,14 @@ struct Compiler {
 }
 
 impl Compiler {
-    pub fn new(packages: &[&str]) -> Result<Compiler, Box<dyn Error>> {
+    pub fn new() -> Result<Compiler, Box<dyn Error>> {
         let mut args = get_var("CC", "cc")?;
         args.push("-Wno-deprecated-declarations".to_owned());
         // For %z support in printf when using MinGW.
         args.push("-D__USE_MINGW_ANSI_STDIO".to_owned());
         args.extend(get_var("CFLAGS", "")?);
         args.extend(get_var("CPPFLAGS", "")?);
-        args.extend(pkg_config_cflags(packages)?);
+        args.extend(pkg_config_cflags(PACKAGES)?);
         Ok(Compiler { args })
     }
 
@@ -132,13 +131,7 @@ fn cross_validate_constants_with_c() {
         .prefix("abi")
         .tempdir()
         .expect("temporary directory");
-
-    let cc = if cfg!(target_family = "windows") {
-        Compiler::new(PACKAGES_WINDOWS)
-    } else {
-        Compiler::new(PACKAGES_UNIX)
-    }
-    .expect("configured compiler");
+    let cc = Compiler::new().expect("configured compiler");
 
     assert_eq!(
         "1",
@@ -178,13 +171,7 @@ fn cross_validate_layout_with_c() {
         .prefix("abi")
         .tempdir()
         .expect("temporary directory");
-
-    let cc = if cfg!(target_family = "windows") {
-        Compiler::new(PACKAGES_WINDOWS)
-    } else {
-        Compiler::new(PACKAGES_UNIX)
-    }
-    .expect("configured compiler");
+    let cc = Compiler::new().expect("configured compiler");
 
     assert_eq!(
         Layout {

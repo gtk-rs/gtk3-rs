@@ -447,11 +447,11 @@ concurrency = "send+sync"
     [[object.function]]
     name = "get_digest"
     #wrong array definition
-    ignore = true
+    manual = true
     [[object.function]]
     name = "get_string"
     #consume
-    ignore = true
+    manual = true
 
 [[object]]
 name = "GLib.ChecksumType"
@@ -468,14 +468,14 @@ name = "GLib.KeyFile"
 status = "generate"
        [[object.function]]
        name = "load_from_data_dirs"
-       ignore = true
+       manual = true
        [[object.function]]
        name = "load_from_dirs"
-       ignore = true
+       manual = true
        [[object.function]]
        name = "save_to_file"
        # file parameter needs to be a PathBuf
-       ignore = true
+       manual = true
        [[object.function]]
        name = "set_locale_string_list"
        #[&str] to *mut i8
@@ -486,8 +486,7 @@ status = "generate"
        ignore = true
        [[object.function]]
        name = "to_data"
-       #manual
-       ignore = true
+       manual = true
        [[object.function]]
        name = "set_double_list"
        #wrong array type
@@ -499,31 +498,31 @@ status = "generate"
        [[object.function]]
        name = "get_boolean"
        #boolean return value needs to be returned
-       ignore = true
+       manual = true
        [[object.function]]
        name = "has_key"
        #boolean return value needs to be returned
-       ignore = true
+       manual = true
        [[object.function]]
        name = "get_boolean_list"
        #boolean array needs to be converted to Vec<bool>
-       ignore = true
+       manual = true
        [[object.function]]
        name = "get_string"
        # can return an error but still a value to be freed
-       ignore = true
+       manual = true
        [[object.function]]
        name = "get_string_list"
        # can return an error but still a value to be freed
-       ignore = true
+       manual = true
        [[object.function]]
        name = "get_locale_string"
        # can return an error but still a value to be freed
-       ignore = true
+       manual = true
        [[object.function]]
        name = "get_locale_string_list"
        # can return an error but still a value to be freed
-       ignore = true
+       manual = true
 
        # Fixed in GLib 2.66.2
        [[object.function]]
@@ -543,16 +542,16 @@ concurrency = "send+sync"
        [[object.function]]
        name = "prepare"
        # out parameter not marked as such
-       ignore = true
+       manual = true
 
        [[object.function]]
        name = "find_source_by_id"
        # source id is a newtype
-       ignore = true
+       manual = true
 
        [[object.function]]
        name = "invoke"
-       ignore = true
+       manual = true
        [[object.function]]
        name = "invoke_full"
        ignore = true

@@ -194,7 +194,7 @@ pub fn clear_error() -> Result<(), Error> {
 }
 
 //#[cfg(any(feature = "v2_56", feature = "dox"))]
-//pub fn clear_handle_id<P: Fn(u32) + 'static>(tag_ptr: u32, clear_func: P) {
+//pub fn clear_handle_id<P: Fn(u32) + Send + Sync + 'static>(tag_ptr: u32, clear_func: P) {
 //    unsafe { TODO: call glib_sys:g_clear_handle_id() }
 //}
 
@@ -1033,11 +1033,11 @@ pub fn set_application_name(application_name: &str) {
 //    unsafe { TODO: call glib_sys:g_set_error() }
 //}
 
-//pub fn set_print_handler<P: Fn(&str) + 'static>(func: P) -> Fn(&str) + 'static {
+//pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) -> Fn(&str) + 'static {
 //    unsafe { TODO: call glib_sys:g_set_print_handler() }
 //}
 
-//pub fn set_printerr_handler<P: Fn(&str) + 'static>(func: P) -> Fn(&str) + 'static {
+//pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) -> Fn(&str) + 'static {
 //    unsafe { TODO: call glib_sys:g_set_printerr_handler() }
 //}
 

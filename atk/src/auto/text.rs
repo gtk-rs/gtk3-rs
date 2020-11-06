@@ -145,10 +145,11 @@ impl<O: IsA<Text>> TextExt for O {
 
     fn get_character_at_offset(&self, offset: i32) -> char {
         unsafe {
-            from_glib(atk_sys::atk_text_get_character_at_offset(
+            std::convert::TryFrom::try_from(atk_sys::atk_text_get_character_at_offset(
                 self.as_ref().to_glib_none().0,
                 offset,
             ))
+            .expect("conversion from an invalid Unicode value attempted")
         }
     }
 
