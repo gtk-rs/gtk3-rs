@@ -16,6 +16,7 @@ extern crate once_cell;
 
 #[cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
 #[cfg_attr(feature = "cargo-clippy", allow(should_implement_trait))]
+#[allow(unused_imports)]
 mod auto;
 pub use auto::functions::*;
 pub use auto::*;

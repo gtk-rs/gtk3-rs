@@ -142,6 +142,7 @@ pub use auto::*;
 #[allow(clippy::too_many_arguments)]
 #[allow(clippy::type_complexity)]
 #[allow(non_upper_case_globals)]
+#[allow(unused_imports)]
 mod auto;
 
 pub use gobject::*;

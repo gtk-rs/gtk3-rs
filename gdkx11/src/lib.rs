@@ -19,13 +19,12 @@ extern crate pango;
 
 extern crate libc;
 extern crate x11;
-#[macro_use]
-extern crate bitflags;
 
 pub(crate) use x11::xlib;
 
 #[macro_use]
 mod rt;
+#[allow(unused_imports)]
 mod auto;
 
 pub use auto::*;
