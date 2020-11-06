@@ -138,7 +138,7 @@ def parse_args(args):
             if i >= len(args):
                 print("Expected argument after `--gir-files` option...")
                 return None
-            if not isfolder(args[i]):
+            if not isdir(args[i]):
                 print("`{}` folder doesn't exist. Aborting...".format(args[i]))
                 return None
             conf["gir_files"] = args[i]
