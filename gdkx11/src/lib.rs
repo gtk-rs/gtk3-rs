@@ -26,6 +26,7 @@ pub(crate) use x11::xlib;
 
 #[macro_use]
 mod rt;
+#[allow(unused_imports)]
 mod auto;
 
 pub use auto::*;

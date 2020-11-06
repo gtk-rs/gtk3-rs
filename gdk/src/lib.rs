@@ -28,6 +28,7 @@ mod event;
 
 #[cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
 #[cfg_attr(feature = "cargo-clippy", allow(unreadable_literal))]
+#[allow(unused_imports)]
 mod auto;
 
 pub mod prelude;

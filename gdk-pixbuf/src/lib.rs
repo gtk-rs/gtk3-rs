@@ -14,6 +14,7 @@ extern crate glib;
 extern crate gio;
 extern crate libc;
 
+#[allow(unused_imports)]
 mod auto;
 
 mod pixbuf;

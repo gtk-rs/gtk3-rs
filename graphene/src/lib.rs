@@ -28,6 +28,7 @@ macro_rules! skip_assert_initialized {
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 #[cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
 #[cfg_attr(feature = "cargo-clippy", allow(unreadable_literal))]
+#[allow(unused_imports)]
 mod auto;
 
 pub mod prelude;

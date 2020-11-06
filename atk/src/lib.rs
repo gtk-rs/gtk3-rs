@@ -32,6 +32,7 @@ mod rt;
 #[cfg_attr(feature = "cargo-clippy", allow(let_and_return))]
 #[cfg_attr(feature = "cargo-clippy", allow(many_single_char_names))]
 #[cfg_attr(feature = "cargo-clippy", allow(wrong_self_convention))]
+#[allow(unused_imports)]
 mod auto;
 
 pub use auto::*;

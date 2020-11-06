@@ -97,6 +97,7 @@ pub mod prelude;
 
 #[allow(clippy::cast_ptr_alignment)]
 #[allow(clippy::wrong_self_convention)]
+#[allow(unused_imports)]
 mod auto;
 
 mod gio_future;
