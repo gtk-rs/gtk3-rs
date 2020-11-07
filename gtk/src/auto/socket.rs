@@ -23,7 +23,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct Socket(Object<gtk_sys::GtkSocket, gtk_sys::GtkSocketClass, SocketClass>) @extends Container, Widget, @implements Buildable;
+    pub struct Socket(Object<gtk_sys::GtkSocket, gtk_sys::GtkSocketClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_socket_get_type(),

@@ -21,7 +21,7 @@ use Container;
 use Widget;
 
 glib_wrapper! {
-    pub struct Invisible(Object<gtk_sys::GtkInvisible, gtk_sys::GtkInvisibleClass, InvisibleClass>) @extends Widget, @implements Buildable;
+    pub struct Invisible(Object<gtk_sys::GtkInvisible, gtk_sys::GtkInvisibleClass>) @extends Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_invisible_get_type(),

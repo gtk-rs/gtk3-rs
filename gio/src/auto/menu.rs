@@ -10,7 +10,7 @@ use MenuItem;
 use MenuModel;
 
 glib_wrapper! {
-    pub struct Menu(Object<gio_sys::GMenu, MenuClass>) @extends MenuModel;
+    pub struct Menu(Object<gio_sys::GMenu>) @extends MenuModel;
 
     match fn {
         get_type => || gio_sys::g_menu_get_type(),

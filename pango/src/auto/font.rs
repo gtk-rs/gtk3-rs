@@ -18,7 +18,7 @@ use Language;
 use Rectangle;
 
 glib_wrapper! {
-    pub struct Font(Object<pango_sys::PangoFont, pango_sys::PangoFontClass, FontClass>);
+    pub struct Font(Object<pango_sys::PangoFont, pango_sys::PangoFontClass>);
 
     match fn {
         get_type => || pango_sys::pango_font_get_type(),

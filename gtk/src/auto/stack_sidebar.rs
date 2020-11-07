@@ -27,7 +27,7 @@ use Stack;
 use Widget;
 
 glib_wrapper! {
-    pub struct StackSidebar(Object<gtk_sys::GtkStackSidebar, gtk_sys::GtkStackSidebarClass, StackSidebarClass>) @extends Bin, Container, Widget, @implements Buildable;
+    pub struct StackSidebar(Object<gtk_sys::GtkStackSidebar, gtk_sys::GtkStackSidebarClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_stack_sidebar_get_type(),

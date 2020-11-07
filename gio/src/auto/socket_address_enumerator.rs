@@ -16,7 +16,7 @@ use Cancellable;
 use SocketAddress;
 
 glib_wrapper! {
-    pub struct SocketAddressEnumerator(Object<gio_sys::GSocketAddressEnumerator, gio_sys::GSocketAddressEnumeratorClass, SocketAddressEnumeratorClass>);
+    pub struct SocketAddressEnumerator(Object<gio_sys::GSocketAddressEnumerator, gio_sys::GSocketAddressEnumeratorClass>);
 
     match fn {
         get_type => || gio_sys::g_socket_address_enumerator_get_type(),

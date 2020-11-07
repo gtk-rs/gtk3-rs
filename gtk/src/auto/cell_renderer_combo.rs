@@ -28,7 +28,7 @@ use TreeModel;
 use TreePath;
 
 glib_wrapper! {
-    pub struct CellRendererCombo(Object<gtk_sys::GtkCellRendererCombo, gtk_sys::GtkCellRendererComboClass, CellRendererComboClass>) @extends CellRendererText, CellRenderer;
+    pub struct CellRendererCombo(Object<gtk_sys::GtkCellRendererCombo, gtk_sys::GtkCellRendererComboClass>) @extends CellRendererText, CellRenderer;
 
     match fn {
         get_type => || gtk_sys::gtk_cell_renderer_combo_get_type(),

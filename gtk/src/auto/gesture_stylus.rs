@@ -27,7 +27,7 @@ use GestureSingle;
 use Widget;
 
 glib_wrapper! {
-    pub struct GestureStylus(Object<gtk_sys::GtkGestureStylus, gtk_sys::GtkGestureStylusClass, GestureStylusClass>) @extends GestureSingle, Gesture, EventController;
+    pub struct GestureStylus(Object<gtk_sys::GtkGestureStylus, gtk_sys::GtkGestureStylusClass>) @extends GestureSingle, Gesture, EventController;
 
     match fn {
         get_type => || gtk_sys::gtk_gesture_stylus_get_type(),

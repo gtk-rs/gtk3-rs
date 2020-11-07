@@ -16,7 +16,7 @@ use std::mem::transmute;
 use SocketConnectable;
 
 glib_wrapper! {
-    pub struct NetworkService(Object<gio_sys::GNetworkService, gio_sys::GNetworkServiceClass, NetworkServiceClass>) @implements SocketConnectable;
+    pub struct NetworkService(Object<gio_sys::GNetworkService, gio_sys::GNetworkServiceClass>) @implements SocketConnectable;
 
     match fn {
         get_type => || gio_sys::g_network_service_get_type(),

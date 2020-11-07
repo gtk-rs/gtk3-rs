@@ -40,7 +40,7 @@ use SpinType;
 use Widget;
 
 glib_wrapper! {
-    pub struct SpinButton(Object<gtk_sys::GtkSpinButton, gtk_sys::GtkSpinButtonClass, SpinButtonClass>) @extends Entry, Widget, @implements Buildable, CellEditable, Editable, Orientable;
+    pub struct SpinButton(Object<gtk_sys::GtkSpinButton, gtk_sys::GtkSpinButtonClass>) @extends Entry, Widget, @implements Buildable, CellEditable, Editable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_spin_button_get_type(),

@@ -17,7 +17,7 @@ use Mount;
 use Volume;
 
 glib_wrapper! {
-    pub struct VolumeMonitor(Object<gio_sys::GVolumeMonitor, gio_sys::GVolumeMonitorClass, VolumeMonitorClass>);
+    pub struct VolumeMonitor(Object<gio_sys::GVolumeMonitor, gio_sys::GVolumeMonitorClass>);
 
     match fn {
         get_type => || gio_sys::g_volume_monitor_get_type(),

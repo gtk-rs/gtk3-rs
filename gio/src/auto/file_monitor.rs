@@ -19,7 +19,7 @@ use File;
 use FileMonitorEvent;
 
 glib_wrapper! {
-    pub struct FileMonitor(Object<gio_sys::GFileMonitor, gio_sys::GFileMonitorClass, FileMonitorClass>);
+    pub struct FileMonitor(Object<gio_sys::GFileMonitor, gio_sys::GFileMonitorClass>);
 
     match fn {
         get_type => || gio_sys::g_file_monitor_get_type(),

@@ -11,7 +11,7 @@ use CoverageLevel;
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
 glib_wrapper! {
-    pub struct Coverage(Object<pango_sys::PangoCoverage, CoverageClass>);
+    pub struct Coverage(Object<pango_sys::PangoCoverage>);
 
     match fn {
         get_type => || pango_sys::pango_coverage_get_type(),

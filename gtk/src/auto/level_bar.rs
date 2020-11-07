@@ -27,7 +27,7 @@ use Orientation;
 use Widget;
 
 glib_wrapper! {
-    pub struct LevelBar(Object<gtk_sys::GtkLevelBar, gtk_sys::GtkLevelBarClass, LevelBarClass>) @extends Widget, @implements Buildable, Orientable;
+    pub struct LevelBar(Object<gtk_sys::GtkLevelBar, gtk_sys::GtkLevelBarClass>) @extends Widget, @implements Buildable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_level_bar_get_type(),

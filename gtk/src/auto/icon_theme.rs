@@ -24,7 +24,7 @@ use IconInfo;
 use IconLookupFlags;
 
 glib_wrapper! {
-    pub struct IconTheme(Object<gtk_sys::GtkIconTheme, gtk_sys::GtkIconThemeClass, IconThemeClass>);
+    pub struct IconTheme(Object<gtk_sys::GtkIconTheme, gtk_sys::GtkIconThemeClass>);
 
     match fn {
         get_type => || gtk_sys::gtk_icon_theme_get_type(),

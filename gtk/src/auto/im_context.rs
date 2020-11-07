@@ -25,7 +25,7 @@ use InputHints;
 use InputPurpose;
 
 glib_wrapper! {
-    pub struct IMContext(Object<gtk_sys::GtkIMContext, gtk_sys::GtkIMContextClass, IMContextClass>);
+    pub struct IMContext(Object<gtk_sys::GtkIMContext, gtk_sys::GtkIMContextClass>);
 
     match fn {
         get_type => || gtk_sys::gtk_im_context_get_type(),

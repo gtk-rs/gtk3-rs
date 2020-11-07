@@ -27,7 +27,7 @@ use ToolItem;
 use Widget;
 
 glib_wrapper! {
-    pub struct ToggleToolButton(Object<gtk_sys::GtkToggleToolButton, gtk_sys::GtkToggleToolButtonClass, ToggleToolButtonClass>) @extends ToolButton, ToolItem, Bin, Container, Widget, @implements Buildable, Actionable;
+    pub struct ToggleToolButton(Object<gtk_sys::GtkToggleToolButton, gtk_sys::GtkToggleToolButtonClass>) @extends ToolButton, ToolItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_toggle_tool_button_get_type(),

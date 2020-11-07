@@ -32,7 +32,7 @@ use ResponseType;
 use Widget;
 
 glib_wrapper! {
-    pub struct InfoBar(Object<gtk_sys::GtkInfoBar, gtk_sys::GtkInfoBarClass, InfoBarClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
+    pub struct InfoBar(Object<gtk_sys::GtkInfoBar, gtk_sys::GtkInfoBarClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_info_bar_get_type(),

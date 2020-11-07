@@ -9,7 +9,7 @@ use ActionGroup;
 use ActionMap;
 
 glib_wrapper! {
-    pub struct SimpleActionGroup(Object<gio_sys::GSimpleActionGroup, gio_sys::GSimpleActionGroupClass, SimpleActionGroupClass>) @implements ActionGroup, ActionMap;
+    pub struct SimpleActionGroup(Object<gio_sys::GSimpleActionGroup, gio_sys::GSimpleActionGroupClass>) @implements ActionGroup, ActionMap;
 
     match fn {
         get_type => || gio_sys::g_simple_action_group_get_type(),

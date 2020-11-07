@@ -18,7 +18,7 @@ use Credentials;
 use IOStream;
 
 glib_wrapper! {
-    pub struct DBusAuthObserver(Object<gio_sys::GDBusAuthObserver, DBusAuthObserverClass>);
+    pub struct DBusAuthObserver(Object<gio_sys::GDBusAuthObserver>);
 
     match fn {
         get_type => || gio_sys::g_dbus_auth_observer_get_type(),

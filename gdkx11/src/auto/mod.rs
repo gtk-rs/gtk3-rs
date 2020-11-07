@@ -3,57 +3,55 @@
 // DO NOT EDIT
 
 mod x11_app_launch_context;
-pub use self::x11_app_launch_context::{X11AppLaunchContext, X11AppLaunchContextClass};
+pub use self::x11_app_launch_context::X11AppLaunchContext;
 
 mod x11_cursor;
-pub use self::x11_cursor::{X11Cursor, X11CursorClass};
+pub use self::x11_cursor::X11Cursor;
 
 mod x11_device_core;
-pub use self::x11_device_core::{X11DeviceCore, X11DeviceCoreClass};
+pub use self::x11_device_core::X11DeviceCore;
 
 mod x11_device_manager_core;
-pub use self::x11_device_manager_core::{
-    X11DeviceManagerCore, X11DeviceManagerCoreClass, NONE_X11_DEVICE_MANAGER_CORE,
-};
+pub use self::x11_device_manager_core::{X11DeviceManagerCore, NONE_X11_DEVICE_MANAGER_CORE};
 
 mod x11_device_manager_xi2;
+pub use self::x11_device_manager_xi2::X11DeviceManagerXI2;
 pub use self::x11_device_manager_xi2::X11DeviceManagerXI2Builder;
-pub use self::x11_device_manager_xi2::{X11DeviceManagerXI2, X11DeviceManagerXI2Class};
 
 mod x11_device_xi2;
+pub use self::x11_device_xi2::X11DeviceXI2;
 pub use self::x11_device_xi2::X11DeviceXI2Builder;
-pub use self::x11_device_xi2::{X11DeviceXI2, X11DeviceXI2Class};
 
 mod x11_display;
-pub use self::x11_display::{X11Display, X11DisplayClass};
+pub use self::x11_display::X11Display;
 
 mod x11_display_manager;
-pub use self::x11_display_manager::{X11DisplayManager, X11DisplayManagerClass};
+pub use self::x11_display_manager::X11DisplayManager;
 
 mod x11_drag_context;
-pub use self::x11_drag_context::{X11DragContext, X11DragContextClass};
+pub use self::x11_drag_context::X11DragContext;
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 mod x11gl_context;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
-pub use self::x11gl_context::{X11GLContext, X11GLContextClass};
+pub use self::x11gl_context::X11GLContext;
 
 mod x11_keymap;
-pub use self::x11_keymap::{X11Keymap, X11KeymapClass};
+pub use self::x11_keymap::X11Keymap;
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 mod x11_monitor;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-pub use self::x11_monitor::{X11Monitor, X11MonitorClass};
+pub use self::x11_monitor::X11Monitor;
 
 mod x11_screen;
-pub use self::x11_screen::{X11Screen, X11ScreenClass};
+pub use self::x11_screen::X11Screen;
 
 mod x11_visual;
-pub use self::x11_visual::{X11Visual, X11VisualClass};
+pub use self::x11_visual::X11Visual;
 
 mod x11_window;
-pub use self::x11_window::{X11Window, X11WindowClass};
+pub use self::x11_window::X11Window;
 
 pub mod functions;
 

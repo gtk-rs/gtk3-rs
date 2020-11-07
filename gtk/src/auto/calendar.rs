@@ -25,7 +25,7 @@ use Container;
 use Widget;
 
 glib_wrapper! {
-    pub struct Calendar(Object<gtk_sys::GtkCalendar, gtk_sys::GtkCalendarClass, CalendarClass>) @extends Widget, @implements Buildable;
+    pub struct Calendar(Object<gtk_sys::GtkCalendar, gtk_sys::GtkCalendarClass>) @extends Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_calendar_get_type(),

@@ -15,7 +15,7 @@ use Pixbuf;
 use PixbufAnimation;
 
 glib_wrapper! {
-    pub struct PixbufSimpleAnim(Object<gdk_pixbuf_sys::GdkPixbufSimpleAnim, gdk_pixbuf_sys::GdkPixbufSimpleAnimClass, PixbufSimpleAnimClass>) @extends PixbufAnimation;
+    pub struct PixbufSimpleAnim(Object<gdk_pixbuf_sys::GdkPixbufSimpleAnim, gdk_pixbuf_sys::GdkPixbufSimpleAnimClass>) @extends PixbufAnimation;
 
     match fn {
         get_type => || gdk_pixbuf_sys::gdk_pixbuf_simple_anim_get_type(),

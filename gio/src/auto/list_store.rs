@@ -16,7 +16,7 @@ use std::mem;
 use ListModel;
 
 glib_wrapper! {
-    pub struct ListStore(Object<gio_sys::GListStore, gio_sys::GListStoreClass, ListStoreClass>) @implements ListModel;
+    pub struct ListStore(Object<gio_sys::GListStore, gio_sys::GListStoreClass>) @implements ListModel;
 
     match fn {
         get_type => || gio_sys::g_list_store_get_type(),

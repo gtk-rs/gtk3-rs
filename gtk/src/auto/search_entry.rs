@@ -38,7 +38,7 @@ use ShadowType;
 use Widget;
 
 glib_wrapper! {
-    pub struct SearchEntry(Object<gtk_sys::GtkSearchEntry, gtk_sys::GtkSearchEntryClass, SearchEntryClass>) @extends Entry, Widget, @implements Buildable, CellEditable, Editable;
+    pub struct SearchEntry(Object<gtk_sys::GtkSearchEntry, gtk_sys::GtkSearchEntryClass>) @extends Entry, Widget, @implements Buildable, CellEditable, Editable;
 
     match fn {
         get_type => || gtk_sys::gtk_search_entry_get_type(),

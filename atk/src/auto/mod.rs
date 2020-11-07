@@ -20,13 +20,11 @@ pub use self::editable_text::{EditableText, NONE_EDITABLE_TEXT};
 
 mod gobject_accessible;
 pub use self::gobject_accessible::GObjectAccessibleExt;
-pub use self::gobject_accessible::{
-    GObjectAccessible, GObjectAccessibleClass, NONE_GOBJECT_ACCESSIBLE,
-};
+pub use self::gobject_accessible::{GObjectAccessible, NONE_GOBJECT_ACCESSIBLE};
 
 mod hyperlink;
 pub use self::hyperlink::HyperlinkExt;
-pub use self::hyperlink::{Hyperlink, HyperlinkClass, NONE_HYPERLINK};
+pub use self::hyperlink::{Hyperlink, NONE_HYPERLINK};
 
 mod hyperlink_impl;
 pub use self::hyperlink_impl::HyperlinkImplExt;
@@ -42,39 +40,37 @@ pub use self::image::{Image, NONE_IMAGE};
 
 mod misc;
 pub use self::misc::AtkMiscExt;
-pub use self::misc::{Misc, MiscClass, NONE_MISC};
+pub use self::misc::{Misc, NONE_MISC};
 
 mod no_op_object;
-pub use self::no_op_object::{NoOpObject, NoOpObjectClass, NONE_NO_OP_OBJECT};
+pub use self::no_op_object::{NoOpObject, NONE_NO_OP_OBJECT};
 
 mod no_op_object_factory;
-pub use self::no_op_object_factory::{
-    NoOpObjectFactory, NoOpObjectFactoryClass, NONE_NO_OP_OBJECT_FACTORY,
-};
+pub use self::no_op_object_factory::{NoOpObjectFactory, NONE_NO_OP_OBJECT_FACTORY};
 
 mod object;
 pub use self::object::AtkObjectExt;
-pub use self::object::{Object, ObjectClass, NONE_OBJECT};
+pub use self::object::{Object, NONE_OBJECT};
 
 mod object_factory;
 pub use self::object_factory::ObjectFactoryExt;
-pub use self::object_factory::{ObjectFactory, ObjectFactoryClass, NONE_OBJECT_FACTORY};
+pub use self::object_factory::{ObjectFactory, NONE_OBJECT_FACTORY};
 
 mod plug;
 pub use self::plug::AtkPlugExt;
-pub use self::plug::{Plug, PlugClass, NONE_PLUG};
+pub use self::plug::{Plug, NONE_PLUG};
 
 mod registry;
 pub use self::registry::RegistryExt;
-pub use self::registry::{Registry, RegistryClass, NONE_REGISTRY};
+pub use self::registry::{Registry, NONE_REGISTRY};
 
 mod relation;
 pub use self::relation::RelationExt;
-pub use self::relation::{Relation, RelationClass, NONE_RELATION};
+pub use self::relation::{Relation, NONE_RELATION};
 
 mod relation_set;
 pub use self::relation_set::RelationSetExt;
-pub use self::relation_set::{RelationSet, RelationSetClass, NONE_RELATION_SET};
+pub use self::relation_set::{RelationSet, NONE_RELATION_SET};
 
 mod selection;
 pub use self::selection::SelectionExt;
@@ -82,11 +78,11 @@ pub use self::selection::{Selection, NONE_SELECTION};
 
 mod socket;
 pub use self::socket::AtkSocketExt;
-pub use self::socket::{Socket, SocketClass, NONE_SOCKET};
+pub use self::socket::{Socket, NONE_SOCKET};
 
 mod state_set;
 pub use self::state_set::StateSetExt;
-pub use self::state_set::{StateSet, StateSetClass, NONE_STATE_SET};
+pub use self::state_set::{StateSet, NONE_STATE_SET};
 
 mod streamable_content;
 pub use self::streamable_content::StreamableContentExt;
@@ -105,7 +101,7 @@ pub use self::text::TextExt;
 pub use self::text::{Text, NONE_TEXT};
 
 mod util;
-pub use self::util::{Util, UtilClass, NONE_UTIL};
+pub use self::util::{Util, NONE_UTIL};
 
 mod value;
 pub use self::value::ValueExt;

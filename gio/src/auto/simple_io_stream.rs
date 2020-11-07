@@ -16,7 +16,7 @@ use InputStream;
 use OutputStream;
 
 glib_wrapper! {
-    pub struct SimpleIOStream(Object<gio_sys::GSimpleIOStream, SimpleIOStreamClass>) @extends IOStream;
+    pub struct SimpleIOStream(Object<gio_sys::GSimpleIOStream>) @extends IOStream;
 
     match fn {
         get_type => || gio_sys::g_simple_io_stream_get_type(),

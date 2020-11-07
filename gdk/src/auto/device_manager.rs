@@ -16,7 +16,7 @@ use DeviceType;
 use Display;
 
 glib_wrapper! {
-    pub struct DeviceManager(Object<gdk_sys::GdkDeviceManager, DeviceManagerClass>);
+    pub struct DeviceManager(Object<gdk_sys::GdkDeviceManager>);
 
     match fn {
         get_type => || gdk_sys::gdk_device_manager_get_type(),

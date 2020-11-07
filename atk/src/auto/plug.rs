@@ -12,7 +12,7 @@ use Component;
 use Object;
 
 glib_wrapper! {
-    pub struct Plug(Object<atk_sys::AtkPlug, atk_sys::AtkPlugClass, PlugClass>) @extends Object, @implements Component;
+    pub struct Plug(Object<atk_sys::AtkPlug, atk_sys::AtkPlugClass>) @extends Object, @implements Component;
 
     match fn {
         get_type => || atk_sys::atk_plug_get_type(),

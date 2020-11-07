@@ -27,7 +27,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct Expander(Object<gtk_sys::GtkExpander, gtk_sys::GtkExpanderClass, ExpanderClass>) @extends Bin, Container, Widget, @implements Buildable;
+    pub struct Expander(Object<gtk_sys::GtkExpander, gtk_sys::GtkExpanderClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_expander_get_type(),

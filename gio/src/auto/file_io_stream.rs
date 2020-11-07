@@ -19,7 +19,7 @@ use IOStream;
 use Seekable;
 
 glib_wrapper! {
-    pub struct FileIOStream(Object<gio_sys::GFileIOStream, gio_sys::GFileIOStreamClass, FileIOStreamClass>) @extends IOStream, @implements Seekable;
+    pub struct FileIOStream(Object<gio_sys::GFileIOStream, gio_sys::GFileIOStreamClass>) @extends IOStream, @implements Seekable;
 
     match fn {
         get_type => || gio_sys::g_file_io_stream_get_type(),

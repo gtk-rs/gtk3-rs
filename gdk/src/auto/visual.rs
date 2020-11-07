@@ -11,7 +11,7 @@ use Screen;
 use VisualType;
 
 glib_wrapper! {
-    pub struct Visual(Object<gdk_sys::GdkVisual, VisualClass>);
+    pub struct Visual(Object<gdk_sys::GdkVisual>);
 
     match fn {
         get_type => || gdk_sys::gdk_visual_get_type(),

@@ -10,7 +10,7 @@ use std::fmt;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct Credentials(Object<gio_sys::GCredentials, gio_sys::GCredentialsClass, CredentialsClass>);
+    pub struct Credentials(Object<gio_sys::GCredentials, gio_sys::GCredentialsClass>);
 
     match fn {
         get_type => || gio_sys::g_credentials_get_type(),

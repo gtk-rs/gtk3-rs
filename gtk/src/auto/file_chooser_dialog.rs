@@ -27,7 +27,7 @@ use WindowPosition;
 use WindowType;
 
 glib_wrapper! {
-    pub struct FileChooserDialog(Object<gtk_sys::GtkFileChooserDialog, gtk_sys::GtkFileChooserDialogClass, FileChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, FileChooser;
+    pub struct FileChooserDialog(Object<gtk_sys::GtkFileChooserDialog, gtk_sys::GtkFileChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, FileChooser;
 
     match fn {
         get_type => || gtk_sys::gtk_file_chooser_dialog_get_type(),

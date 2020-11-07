@@ -8,7 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct X11GLContext(Object<gdk_x11_sys::GdkX11GLContext, gdk_x11_sys::GdkX11GLContextClass, X11GLContextClass>) @extends gdk::GLContext;
+    pub struct X11GLContext(Object<gdk_x11_sys::GdkX11GLContext, gdk_x11_sys::GdkX11GLContextClass>) @extends gdk::GLContext;
 
     match fn {
         get_type => || gdk_x11_sys::gdk_x11_gl_context_get_type(),

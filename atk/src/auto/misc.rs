@@ -8,7 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct Misc(Object<atk_sys::AtkMisc, atk_sys::AtkMiscClass, MiscClass>);
+    pub struct Misc(Object<atk_sys::AtkMisc, atk_sys::AtkMiscClass>);
 
     match fn {
         get_type => || atk_sys::atk_misc_get_type(),

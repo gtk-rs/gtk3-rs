@@ -33,7 +33,7 @@ use IOStream;
 use UnixFDList;
 
 glib_wrapper! {
-    pub struct DBusConnection(Object<gio_sys::GDBusConnection, DBusConnectionClass>);
+    pub struct DBusConnection(Object<gio_sys::GDBusConnection>);
 
     match fn {
         get_type => || gio_sys::g_dbus_connection_get_type(),

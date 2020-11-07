@@ -44,7 +44,7 @@ use TreePath;
 use Widget;
 
 glib_wrapper! {
-    pub struct IconView(Object<gtk_sys::GtkIconView, gtk_sys::GtkIconViewClass, IconViewClass>) @extends Container, Widget, @implements Buildable, CellLayout, Scrollable;
+    pub struct IconView(Object<gtk_sys::GtkIconView, gtk_sys::GtkIconViewClass>) @extends Container, Widget, @implements Buildable, CellLayout, Scrollable;
 
     match fn {
         get_type => || gtk_sys::gtk_icon_view_get_type(),

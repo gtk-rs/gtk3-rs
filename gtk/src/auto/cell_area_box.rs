@@ -22,7 +22,7 @@ use Orientable;
 use Orientation;
 
 glib_wrapper! {
-    pub struct CellAreaBox(Object<gtk_sys::GtkCellAreaBox, gtk_sys::GtkCellAreaBoxClass, CellAreaBoxClass>) @extends CellArea, @implements Buildable, CellLayout, Orientable;
+    pub struct CellAreaBox(Object<gtk_sys::GtkCellAreaBox, gtk_sys::GtkCellAreaBoxClass>) @extends CellArea, @implements Buildable, CellLayout, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_cell_area_box_get_type(),

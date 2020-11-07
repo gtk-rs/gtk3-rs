@@ -21,7 +21,7 @@ use SensitivityType;
 use Widget;
 
 glib_wrapper! {
-    pub struct Scrollbar(Object<gtk_sys::GtkScrollbar, gtk_sys::GtkScrollbarClass, ScrollbarClass>) @extends Range, Widget, @implements Buildable, Orientable;
+    pub struct Scrollbar(Object<gtk_sys::GtkScrollbar, gtk_sys::GtkScrollbarClass>) @extends Range, Widget, @implements Buildable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_scrollbar_get_type(),

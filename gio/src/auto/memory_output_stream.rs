@@ -18,7 +18,7 @@ use PollableOutputStream;
 use Seekable;
 
 glib_wrapper! {
-    pub struct MemoryOutputStream(Object<gio_sys::GMemoryOutputStream, gio_sys::GMemoryOutputStreamClass, MemoryOutputStreamClass>) @extends OutputStream, @implements PollableOutputStream, Seekable;
+    pub struct MemoryOutputStream(Object<gio_sys::GMemoryOutputStream, gio_sys::GMemoryOutputStreamClass>) @extends OutputStream, @implements PollableOutputStream, Seekable;
 
     match fn {
         get_type => || gio_sys::g_memory_output_stream_get_type(),

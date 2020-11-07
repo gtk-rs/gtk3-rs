@@ -25,7 +25,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct RecentChooserWidget(Object<gtk_sys::GtkRecentChooserWidget, gtk_sys::GtkRecentChooserWidgetClass, RecentChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, RecentChooser;
+    pub struct RecentChooserWidget(Object<gtk_sys::GtkRecentChooserWidget, gtk_sys::GtkRecentChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, RecentChooser;
 
     match fn {
         get_type => || gtk_sys::gtk_recent_chooser_widget_get_type(),

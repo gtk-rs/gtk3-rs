@@ -13,7 +13,7 @@ use PollableInputStream;
 use Seekable;
 
 glib_wrapper! {
-    pub struct MemoryInputStream(Object<gio_sys::GMemoryInputStream, gio_sys::GMemoryInputStreamClass, MemoryInputStreamClass>) @extends InputStream, @implements PollableInputStream, Seekable;
+    pub struct MemoryInputStream(Object<gio_sys::GMemoryInputStream, gio_sys::GMemoryInputStreamClass>) @extends InputStream, @implements PollableInputStream, Seekable;
 
     match fn {
         get_type => || gio_sys::g_memory_input_stream_get_type(),

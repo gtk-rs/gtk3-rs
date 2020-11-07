@@ -10,7 +10,7 @@ use Font;
 use FontMetrics;
 
 glib_wrapper! {
-    pub struct Fontset(Object<pango_sys::PangoFontset, pango_sys::PangoFontsetClass, FontsetClass>);
+    pub struct Fontset(Object<pango_sys::PangoFontset, pango_sys::PangoFontsetClass>);
 
     match fn {
         get_type => || pango_sys::pango_fontset_get_type(),

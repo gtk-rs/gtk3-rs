@@ -9,7 +9,7 @@ use Buildable;
 use Widget;
 
 glib_wrapper! {
-    pub struct Misc(Object<gtk_sys::GtkMisc, gtk_sys::GtkMiscClass, MiscClass>) @extends Widget, @implements Buildable;
+    pub struct Misc(Object<gtk_sys::GtkMisc, gtk_sys::GtkMiscClass>) @extends Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_misc_get_type(),

@@ -35,7 +35,7 @@ use TextDirection;
 use Widget;
 
 glib_wrapper! {
-    pub struct ShortcutsShortcut(Object<gtk_sys::GtkShortcutsShortcut, gtk_sys::GtkShortcutsShortcutClass, ShortcutsShortcutClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
+    pub struct ShortcutsShortcut(Object<gtk_sys::GtkShortcutsShortcut, gtk_sys::GtkShortcutsShortcutClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_shortcuts_shortcut_get_type(),

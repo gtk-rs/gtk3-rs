@@ -14,7 +14,7 @@ use Subprocess;
 use SubprocessFlags;
 
 glib_wrapper! {
-    pub struct SubprocessLauncher(Object<gio_sys::GSubprocessLauncher, SubprocessLauncherClass>);
+    pub struct SubprocessLauncher(Object<gio_sys::GSubprocessLauncher>);
 
     match fn {
         get_type => || gio_sys::g_subprocess_launcher_get_type(),

@@ -15,7 +15,7 @@ use std::ptr;
 use Cancellable;
 
 glib_wrapper! {
-    pub struct InputStream(Object<gio_sys::GInputStream, gio_sys::GInputStreamClass, InputStreamClass>);
+    pub struct InputStream(Object<gio_sys::GInputStream, gio_sys::GInputStreamClass>);
 
     match fn {
         get_type => || gio_sys::g_input_stream_get_type(),

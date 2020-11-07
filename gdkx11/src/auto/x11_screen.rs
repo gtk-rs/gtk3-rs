@@ -17,7 +17,7 @@ use xlib;
 use X11Visual;
 
 glib_wrapper! {
-    pub struct X11Screen(Object<gdk_x11_sys::GdkX11Screen, gdk_x11_sys::GdkX11ScreenClass, X11ScreenClass>) @extends gdk::Screen;
+    pub struct X11Screen(Object<gdk_x11_sys::GdkX11Screen, gdk_x11_sys::GdkX11ScreenClass>) @extends gdk::Screen;
 
     match fn {
         get_type => || gdk_x11_sys::gdk_x11_screen_get_type(),

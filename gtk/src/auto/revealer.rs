@@ -24,7 +24,7 @@ use RevealerTransitionType;
 use Widget;
 
 glib_wrapper! {
-    pub struct Revealer(Object<gtk_sys::GtkRevealer, gtk_sys::GtkRevealerClass, RevealerClass>) @extends Bin, Container, Widget, @implements Buildable;
+    pub struct Revealer(Object<gtk_sys::GtkRevealer, gtk_sys::GtkRevealerClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_revealer_get_type(),

@@ -25,7 +25,7 @@ use ResolverRecordType;
 use SrvTarget;
 
 glib_wrapper! {
-    pub struct Resolver(Object<gio_sys::GResolver, gio_sys::GResolverClass, ResolverClass>);
+    pub struct Resolver(Object<gio_sys::GResolver, gio_sys::GResolverClass>);
 
     match fn {
         get_type => || gio_sys::g_resolver_get_type(),

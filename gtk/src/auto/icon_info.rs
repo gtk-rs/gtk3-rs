@@ -23,7 +23,7 @@ use IconTheme;
 use StyleContext;
 
 glib_wrapper! {
-    pub struct IconInfo(Object<gtk_sys::GtkIconInfo, gtk_sys::GtkIconInfoClass, IconInfoClass>);
+    pub struct IconInfo(Object<gtk_sys::GtkIconInfo, gtk_sys::GtkIconInfoClass>);
 
     match fn {
         get_type => || gtk_sys::gtk_icon_info_get_type(),

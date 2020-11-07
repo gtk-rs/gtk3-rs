@@ -30,7 +30,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct ToggleButton(Object<gtk_sys::GtkToggleButton, gtk_sys::GtkToggleButtonClass, ToggleButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable;
+    pub struct ToggleButton(Object<gtk_sys::GtkToggleButton, gtk_sys::GtkToggleButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_toggle_button_get_type(),

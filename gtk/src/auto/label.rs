@@ -33,7 +33,7 @@ use MovementStep;
 use Widget;
 
 glib_wrapper! {
-    pub struct Label(Object<gtk_sys::GtkLabel, gtk_sys::GtkLabelClass, LabelClass>) @extends Misc, Widget, @implements Buildable;
+    pub struct Label(Object<gtk_sys::GtkLabel, gtk_sys::GtkLabelClass>) @extends Misc, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_label_get_type(),

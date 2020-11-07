@@ -19,7 +19,7 @@ use OutputStream;
 use Seekable;
 
 glib_wrapper! {
-    pub struct FileOutputStream(Object<gio_sys::GFileOutputStream, gio_sys::GFileOutputStreamClass, FileOutputStreamClass>) @extends OutputStream, @implements Seekable;
+    pub struct FileOutputStream(Object<gio_sys::GFileOutputStream, gio_sys::GFileOutputStreamClass>) @extends OutputStream, @implements Seekable;
 
     match fn {
         get_type => || gio_sys::g_file_output_stream_get_type(),

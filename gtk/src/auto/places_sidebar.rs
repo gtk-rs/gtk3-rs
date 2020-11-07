@@ -36,7 +36,7 @@ use ShadowType;
 use Widget;
 
 glib_wrapper! {
-    pub struct PlacesSidebar(Object<gtk_sys::GtkPlacesSidebar, gtk_sys::GtkPlacesSidebarClass, PlacesSidebarClass>) @extends ScrolledWindow, Bin, Container, Widget, @implements Buildable;
+    pub struct PlacesSidebar(Object<gtk_sys::GtkPlacesSidebar, gtk_sys::GtkPlacesSidebarClass>) @extends ScrolledWindow, Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_places_sidebar_get_type(),

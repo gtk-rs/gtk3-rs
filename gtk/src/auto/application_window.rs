@@ -31,7 +31,7 @@ use WindowPosition;
 use WindowType;
 
 glib_wrapper! {
-    pub struct ApplicationWindow(Object<gtk_sys::GtkApplicationWindow, gtk_sys::GtkApplicationWindowClass, ApplicationWindowClass>) @extends Window, Bin, Container, Widget, @implements Buildable, gio::ActionGroup, gio::ActionMap;
+    pub struct ApplicationWindow(Object<gtk_sys::GtkApplicationWindow, gtk_sys::GtkApplicationWindowClass>) @extends Window, Bin, Container, Widget, @implements Buildable, gio::ActionGroup, gio::ActionMap;
 
     match fn {
         get_type => || gtk_sys::gtk_application_window_get_type(),

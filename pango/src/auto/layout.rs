@@ -21,7 +21,7 @@ use TabArray;
 use WrapMode;
 
 glib_wrapper! {
-    pub struct Layout(Object<pango_sys::PangoLayout, pango_sys::PangoLayoutClass, LayoutClass>);
+    pub struct Layout(Object<pango_sys::PangoLayout, pango_sys::PangoLayoutClass>);
 
     match fn {
         get_type => || pango_sys::pango_layout_get_type(),

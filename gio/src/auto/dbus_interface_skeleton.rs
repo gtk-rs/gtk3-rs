@@ -24,7 +24,7 @@ use DBusInterfaceSkeletonFlags;
 use DBusMethodInvocation;
 
 glib_wrapper! {
-    pub struct DBusInterfaceSkeleton(Object<gio_sys::GDBusInterfaceSkeleton, gio_sys::GDBusInterfaceSkeletonClass, DBusInterfaceSkeletonClass>) @implements DBusInterface;
+    pub struct DBusInterfaceSkeleton(Object<gio_sys::GDBusInterfaceSkeleton, gio_sys::GDBusInterfaceSkeletonClass>) @implements DBusInterface;
 
     match fn {
         get_type => || gio_sys::g_dbus_interface_skeleton_get_type(),

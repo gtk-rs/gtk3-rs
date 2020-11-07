@@ -10,7 +10,7 @@ use Icon;
 use LoadableIcon;
 
 glib_wrapper! {
-    pub struct BytesIcon(Object<gio_sys::GBytesIcon, BytesIconClass>) @implements Icon, LoadableIcon;
+    pub struct BytesIcon(Object<gio_sys::GBytesIcon>) @implements Icon, LoadableIcon;
 
     match fn {
         get_type => || gio_sys::g_bytes_icon_get_type(),

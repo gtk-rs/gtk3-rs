@@ -302,7 +302,6 @@ pub enum BidiType {
     __Unknown(i32),
 }
 
-#[cfg_attr(feature = "v1_44", deprecated)]
 impl fmt::Display for BidiType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -334,7 +333,6 @@ impl fmt::Display for BidiType {
     }
 }
 
-#[cfg_attr(feature = "v1_44", deprecated)]
 #[doc(hidden)]
 impl ToGlib for BidiType {
     type GlibType = pango_sys::PangoBidiType;
@@ -365,7 +363,6 @@ impl ToGlib for BidiType {
     }
 }
 
-#[cfg_attr(feature = "v1_44", deprecated)]
 #[doc(hidden)]
 impl FromGlib<pango_sys::PangoBidiType> for BidiType {
     fn from_glib(value: pango_sys::PangoBidiType) -> Self {
@@ -394,28 +391,24 @@ impl FromGlib<pango_sys::PangoBidiType> for BidiType {
     }
 }
 
-#[cfg_attr(feature = "v1_44", deprecated)]
 impl StaticType for BidiType {
     fn static_type() -> Type {
         unsafe { from_glib(pango_sys::pango_bidi_type_get_type()) }
     }
 }
 
-#[cfg_attr(feature = "v1_44", deprecated)]
 impl<'a> FromValueOptional<'a> for BidiType {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg_attr(feature = "v1_44", deprecated)]
 impl<'a> FromValue<'a> for BidiType {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
-#[cfg_attr(feature = "v1_44", deprecated)]
 impl SetValue for BidiType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())

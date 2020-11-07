@@ -20,7 +20,7 @@ use OutputStream;
 use SubprocessFlags;
 
 glib_wrapper! {
-    pub struct Subprocess(Object<gio_sys::GSubprocess, SubprocessClass>);
+    pub struct Subprocess(Object<gio_sys::GSubprocess>);
 
     match fn {
         get_type => || gio_sys::g_subprocess_get_type(),

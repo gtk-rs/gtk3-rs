@@ -17,7 +17,7 @@ use InputStream;
 use OutputStreamSpliceFlags;
 
 glib_wrapper! {
-    pub struct OutputStream(Object<gio_sys::GOutputStream, gio_sys::GOutputStreamClass, OutputStreamClass>);
+    pub struct OutputStream(Object<gio_sys::GOutputStream, gio_sys::GOutputStreamClass>);
 
     match fn {
         get_type => || gio_sys::g_output_stream_get_type(),

@@ -30,7 +30,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct PopoverMenu(Object<gtk_sys::GtkPopoverMenu, gtk_sys::GtkPopoverMenuClass, PopoverMenuClass>) @extends Popover, Bin, Container, Widget, @implements Buildable;
+    pub struct PopoverMenu(Object<gtk_sys::GtkPopoverMenu, gtk_sys::GtkPopoverMenuClass>) @extends Popover, Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_popover_menu_get_type(),

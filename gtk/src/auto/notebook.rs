@@ -32,7 +32,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct Notebook(Object<gtk_sys::GtkNotebook, gtk_sys::GtkNotebookClass, NotebookClass>) @extends Container, Widget, @implements Buildable;
+    pub struct Notebook(Object<gtk_sys::GtkNotebook, gtk_sys::GtkNotebookClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_notebook_get_type(),

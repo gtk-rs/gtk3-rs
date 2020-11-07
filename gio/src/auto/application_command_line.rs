@@ -20,7 +20,7 @@ use File;
 use InputStream;
 
 glib_wrapper! {
-    pub struct ApplicationCommandLine(Object<gio_sys::GApplicationCommandLine, gio_sys::GApplicationCommandLineClass, ApplicationCommandLineClass>);
+    pub struct ApplicationCommandLine(Object<gio_sys::GApplicationCommandLine, gio_sys::GApplicationCommandLineClass>);
 
     match fn {
         get_type => || gio_sys::g_application_command_line_get_type(),

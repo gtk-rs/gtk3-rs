@@ -16,7 +16,7 @@ use SocketConnectable;
 use SocketFamily;
 
 glib_wrapper! {
-    pub struct SocketAddress(Object<gio_sys::GSocketAddress, gio_sys::GSocketAddressClass, SocketAddressClass>) @implements SocketConnectable;
+    pub struct SocketAddress(Object<gio_sys::GSocketAddress, gio_sys::GSocketAddressClass>) @implements SocketConnectable;
 
     match fn {
         get_type => || gio_sys::g_socket_address_get_type(),

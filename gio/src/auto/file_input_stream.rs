@@ -18,7 +18,7 @@ use InputStream;
 use Seekable;
 
 glib_wrapper! {
-    pub struct FileInputStream(Object<gio_sys::GFileInputStream, gio_sys::GFileInputStreamClass, FileInputStreamClass>) @extends InputStream, @implements Seekable;
+    pub struct FileInputStream(Object<gio_sys::GFileInputStream, gio_sys::GFileInputStreamClass>) @extends InputStream, @implements Seekable;
 
     match fn {
         get_type => || gio_sys::g_file_input_stream_get_type(),

@@ -32,7 +32,7 @@ use WindowPosition;
 use WindowType;
 
 glib_wrapper! {
-    pub struct AboutDialog(Object<gtk_sys::GtkAboutDialog, gtk_sys::GtkAboutDialogClass, AboutDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable;
+    pub struct AboutDialog(Object<gtk_sys::GtkAboutDialog, gtk_sys::GtkAboutDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_about_dialog_get_type(),

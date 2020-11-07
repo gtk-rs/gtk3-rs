@@ -194,7 +194,7 @@ mod imp_app {
 }
 
 glib_wrapper! {
-    pub struct SimpleApplication(ObjectSubclass<imp_app::SimpleApplication, SimpleApplicationClass>)
+    pub struct SimpleApplication(ObjectSubclass<imp_app::SimpleApplication>)
         @extends gio::Application, gtk::Application;
 }
 

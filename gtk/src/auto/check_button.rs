@@ -24,7 +24,7 @@ use ToggleButton;
 use Widget;
 
 glib_wrapper! {
-    pub struct CheckButton(Object<gtk_sys::GtkCheckButton, gtk_sys::GtkCheckButtonClass, CheckButtonClass>) @extends ToggleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable;
+    pub struct CheckButton(Object<gtk_sys::GtkCheckButton, gtk_sys::GtkCheckButtonClass>) @extends ToggleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_check_button_get_type(),

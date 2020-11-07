@@ -20,7 +20,7 @@ use TreePath;
 use TreeView;
 
 glib_wrapper! {
-    pub struct TreeSelection(Object<gtk_sys::GtkTreeSelection, gtk_sys::GtkTreeSelectionClass, TreeSelectionClass>);
+    pub struct TreeSelection(Object<gtk_sys::GtkTreeSelection, gtk_sys::GtkTreeSelectionClass>);
 
     match fn {
         get_type => || gtk_sys::gtk_tree_selection_get_type(),

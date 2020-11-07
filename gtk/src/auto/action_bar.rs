@@ -20,7 +20,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct ActionBar(Object<gtk_sys::GtkActionBar, gtk_sys::GtkActionBarClass, ActionBarClass>) @extends Bin, Container, Widget, @implements Buildable;
+    pub struct ActionBar(Object<gtk_sys::GtkActionBar, gtk_sys::GtkActionBarClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_action_bar_get_type(),

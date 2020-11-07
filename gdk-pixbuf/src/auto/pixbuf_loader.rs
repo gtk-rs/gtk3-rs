@@ -20,7 +20,7 @@ use PixbufAnimation;
 use PixbufFormat;
 
 glib_wrapper! {
-    pub struct PixbufLoader(Object<gdk_pixbuf_sys::GdkPixbufLoader, gdk_pixbuf_sys::GdkPixbufLoaderClass, PixbufLoaderClass>);
+    pub struct PixbufLoader(Object<gdk_pixbuf_sys::GdkPixbufLoader, gdk_pixbuf_sys::GdkPixbufLoaderClass>);
 
     match fn {
         get_type => || gdk_pixbuf_sys::gdk_pixbuf_loader_get_type(),

@@ -26,7 +26,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct SearchBar(Object<gtk_sys::GtkSearchBar, gtk_sys::GtkSearchBarClass, SearchBarClass>) @extends Bin, Container, Widget, @implements Buildable;
+    pub struct SearchBar(Object<gtk_sys::GtkSearchBar, gtk_sys::GtkSearchBarClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_search_bar_get_type(),

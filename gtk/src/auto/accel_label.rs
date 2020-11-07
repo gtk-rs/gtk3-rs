@@ -29,7 +29,7 @@ use Misc;
 use Widget;
 
 glib_wrapper! {
-    pub struct AccelLabel(Object<gtk_sys::GtkAccelLabel, gtk_sys::GtkAccelLabelClass, AccelLabelClass>) @extends Label, Misc, Widget, @implements Buildable;
+    pub struct AccelLabel(Object<gtk_sys::GtkAccelLabel, gtk_sys::GtkAccelLabelClass>) @extends Label, Misc, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_accel_label_get_type(),

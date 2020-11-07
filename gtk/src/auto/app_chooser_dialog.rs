@@ -35,7 +35,7 @@ use WindowPosition;
 use WindowType;
 
 glib_wrapper! {
-    pub struct AppChooserDialog(Object<gtk_sys::GtkAppChooserDialog, gtk_sys::GtkAppChooserDialogClass, AppChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, AppChooser;
+    pub struct AppChooserDialog(Object<gtk_sys::GtkAppChooserDialog, gtk_sys::GtkAppChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, AppChooser;
 
     match fn {
         get_type => || gtk_sys::gtk_app_chooser_dialog_get_type(),

@@ -11,7 +11,7 @@ use Relation;
 use RelationType;
 
 glib_wrapper! {
-    pub struct RelationSet(Object<atk_sys::AtkRelationSet, atk_sys::AtkRelationSetClass, RelationSetClass>);
+    pub struct RelationSet(Object<atk_sys::AtkRelationSet, atk_sys::AtkRelationSetClass>);
 
     match fn {
         get_type => || atk_sys::atk_relation_set_get_type(),

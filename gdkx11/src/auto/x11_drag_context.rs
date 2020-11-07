@@ -8,7 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct X11DragContext(Object<gdk_x11_sys::GdkX11DragContext, gdk_x11_sys::GdkX11DragContextClass, X11DragContextClass>) @extends gdk::DragContext;
+    pub struct X11DragContext(Object<gdk_x11_sys::GdkX11DragContext, gdk_x11_sys::GdkX11DragContextClass>) @extends gdk::DragContext;
 
     match fn {
         get_type => || gdk_x11_sys::gdk_x11_drag_context_get_type(),

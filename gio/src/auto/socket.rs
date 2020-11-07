@@ -29,7 +29,7 @@ use SocketProtocol;
 use SocketType;
 
 glib_wrapper! {
-    pub struct Socket(Object<gio_sys::GSocket, gio_sys::GSocketClass, SocketClass>);
+    pub struct Socket(Object<gio_sys::GSocket, gio_sys::GSocketClass>);
 
     match fn {
         get_type => || gio_sys::g_socket_get_type(),

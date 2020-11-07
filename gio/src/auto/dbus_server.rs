@@ -24,7 +24,7 @@ use DBusConnection;
 use DBusServerFlags;
 
 glib_wrapper! {
-    pub struct DBusServer(Object<gio_sys::GDBusServer, DBusServerClass>);
+    pub struct DBusServer(Object<gio_sys::GDBusServer>);
 
     match fn {
         get_type => || gio_sys::g_dbus_server_get_type(),

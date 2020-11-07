@@ -33,7 +33,7 @@ use ToolbarStyle;
 use Widget;
 
 glib_wrapper! {
-    pub struct Toolbar(Object<gtk_sys::GtkToolbar, gtk_sys::GtkToolbarClass, ToolbarClass>) @extends Container, Widget, @implements Buildable, Orientable, ToolShell;
+    pub struct Toolbar(Object<gtk_sys::GtkToolbar, gtk_sys::GtkToolbarClass>) @extends Container, Widget, @implements Buildable, Orientable, ToolShell;
 
     match fn {
         get_type => || gtk_sys::gtk_toolbar_get_type(),

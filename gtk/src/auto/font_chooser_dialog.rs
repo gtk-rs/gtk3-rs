@@ -28,7 +28,7 @@ use WindowPosition;
 use WindowType;
 
 glib_wrapper! {
-    pub struct FontChooserDialog(Object<gtk_sys::GtkFontChooserDialog, gtk_sys::GtkFontChooserDialogClass, FontChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, FontChooser;
+    pub struct FontChooserDialog(Object<gtk_sys::GtkFontChooserDialog, gtk_sys::GtkFontChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, FontChooser;
 
     match fn {
         get_type => || gtk_sys::gtk_font_chooser_dialog_get_type(),

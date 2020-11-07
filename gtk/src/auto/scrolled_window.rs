@@ -36,7 +36,7 @@ use ShadowType;
 use Widget;
 
 glib_wrapper! {
-    pub struct ScrolledWindow(Object<gtk_sys::GtkScrolledWindow, gtk_sys::GtkScrolledWindowClass, ScrolledWindowClass>) @extends Bin, Container, Widget, @implements Buildable;
+    pub struct ScrolledWindow(Object<gtk_sys::GtkScrolledWindow, gtk_sys::GtkScrolledWindowClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_scrolled_window_get_type(),

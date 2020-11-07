@@ -17,7 +17,7 @@ use File;
 use FileInfo;
 
 glib_wrapper! {
-    pub struct FileEnumerator(Object<gio_sys::GFileEnumerator, gio_sys::GFileEnumeratorClass, FileEnumeratorClass>);
+    pub struct FileEnumerator(Object<gio_sys::GFileEnumerator, gio_sys::GFileEnumeratorClass>);
 
     match fn {
         get_type => || gio_sys::g_file_enumerator_get_type(),

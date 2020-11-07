@@ -13,7 +13,7 @@ use std::fmt;
 use std::mem;
 use std::ptr;
 use translate::*;
-use {Object, ObjectClass, ObjectType, SignalFlags, Type, Value};
+use {Object, ObjectType, SignalFlags, Type, Value};
 
 /// Trait for implementors of `glib::Object` subclasses.
 ///
@@ -267,7 +267,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     }
 }
 
-unsafe impl ObjectClassSubclassExt for ObjectClass {}
+unsafe impl ObjectClassSubclassExt for ::Class<Object> {}
 
 unsafe impl<T: ObjectImpl> IsSubclassable<T> for Object {
     fn override_vfuncs(class: &mut ::Class<Self>) {

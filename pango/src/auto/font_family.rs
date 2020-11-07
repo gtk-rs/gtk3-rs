@@ -12,7 +12,7 @@ use std::ptr;
 use FontFace;
 
 glib_wrapper! {
-    pub struct FontFamily(Object<pango_sys::PangoFontFamily, pango_sys::PangoFontFamilyClass, FontFamilyClass>);
+    pub struct FontFamily(Object<pango_sys::PangoFontFamily, pango_sys::PangoFontFamilyClass>);
 
     match fn {
         get_type => || pango_sys::pango_font_family_get_type(),

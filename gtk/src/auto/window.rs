@@ -37,7 +37,7 @@ use WindowPosition;
 use WindowType;
 
 glib_wrapper! {
-    pub struct Window(Object<gtk_sys::GtkWindow, gtk_sys::GtkWindowClass, WindowClass>) @extends Bin, Container, Widget, @implements Buildable;
+    pub struct Window(Object<gtk_sys::GtkWindow, gtk_sys::GtkWindowClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_window_get_type(),

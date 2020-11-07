@@ -37,7 +37,7 @@ use TreeModel;
 use Widget;
 
 glib_wrapper! {
-    pub struct ComboBox(Object<gtk_sys::GtkComboBox, gtk_sys::GtkComboBoxClass, ComboBoxClass>) @extends Bin, Container, Widget, @implements Buildable, CellEditable, CellLayout;
+    pub struct ComboBox(Object<gtk_sys::GtkComboBox, gtk_sys::GtkComboBoxClass>) @extends Bin, Container, Widget, @implements Buildable, CellEditable, CellLayout;
 
     match fn {
         get_type => || gtk_sys::gtk_combo_box_get_type(),

@@ -30,7 +30,7 @@ use TreeViewColumnSizing;
 use Widget;
 
 glib_wrapper! {
-    pub struct TreeViewColumn(Object<gtk_sys::GtkTreeViewColumn, gtk_sys::GtkTreeViewColumnClass, TreeViewColumnClass>) @implements Buildable, CellLayout;
+    pub struct TreeViewColumn(Object<gtk_sys::GtkTreeViewColumn, gtk_sys::GtkTreeViewColumnClass>) @implements Buildable, CellLayout;
 
     match fn {
         get_type => || gtk_sys::gtk_tree_view_column_get_type(),

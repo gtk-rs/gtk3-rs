@@ -28,7 +28,7 @@ use SocketProtocol;
 use SocketType;
 
 glib_wrapper! {
-    pub struct SocketListener(Object<gio_sys::GSocketListener, gio_sys::GSocketListenerClass, SocketListenerClass>);
+    pub struct SocketListener(Object<gio_sys::GSocketListener, gio_sys::GSocketListenerClass>);
 
     match fn {
         get_type => || gio_sys::g_socket_listener_get_type(),

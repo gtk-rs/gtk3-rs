@@ -29,7 +29,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct ColorChooserWidget(Object<gtk_sys::GtkColorChooserWidget, gtk_sys::GtkColorChooserWidgetClass, ColorChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, ColorChooser;
+    pub struct ColorChooserWidget(Object<gtk_sys::GtkColorChooserWidget, gtk_sys::GtkColorChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, ColorChooser;
 
     match fn {
         get_type => || gtk_sys::gtk_color_chooser_widget_get_type(),

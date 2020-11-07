@@ -22,7 +22,7 @@ use std::ptr;
 use Converter;
 
 glib_wrapper! {
-    pub struct CharsetConverter(Object<gio_sys::GCharsetConverter, gio_sys::GCharsetConverterClass, CharsetConverterClass>) @implements Converter;
+    pub struct CharsetConverter(Object<gio_sys::GCharsetConverter, gio_sys::GCharsetConverterClass>) @implements Converter;
 
     match fn {
         get_type => || gio_sys::g_charset_converter_get_type(),

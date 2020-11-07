@@ -28,7 +28,7 @@ use WindowPosition;
 use WindowType;
 
 glib_wrapper! {
-    pub struct RecentChooserDialog(Object<gtk_sys::GtkRecentChooserDialog, gtk_sys::GtkRecentChooserDialogClass, RecentChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, RecentChooser;
+    pub struct RecentChooserDialog(Object<gtk_sys::GtkRecentChooserDialog, gtk_sys::GtkRecentChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, RecentChooser;
 
     match fn {
         get_type => || gtk_sys::gtk_recent_chooser_dialog_get_type(),

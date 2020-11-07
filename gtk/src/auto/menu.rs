@@ -33,7 +33,7 @@ use ScrollType;
 use Widget;
 
 glib_wrapper! {
-    pub struct Menu(Object<gtk_sys::GtkMenu, gtk_sys::GtkMenuClass, MenuClass>) @extends MenuShell, Container, Widget, @implements Buildable;
+    pub struct Menu(Object<gtk_sys::GtkMenu, gtk_sys::GtkMenuClass>) @extends MenuShell, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_menu_get_type(),

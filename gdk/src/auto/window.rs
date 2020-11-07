@@ -52,7 +52,7 @@ use WindowTypeHint;
 use RGBA;
 
 glib_wrapper! {
-    pub struct Window(Object<gdk_sys::GdkWindow, gdk_sys::GdkWindowClass, WindowClass>);
+    pub struct Window(Object<gdk_sys::GdkWindow, gdk_sys::GdkWindowClass>);
 
     match fn {
         get_type => || gdk_sys::gdk_window_get_type(),

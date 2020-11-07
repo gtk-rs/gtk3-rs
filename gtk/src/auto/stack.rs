@@ -26,7 +26,7 @@ use StackTransitionType;
 use Widget;
 
 glib_wrapper! {
-    pub struct Stack(Object<gtk_sys::GtkStack, gtk_sys::GtkStackClass, StackClass>) @extends Container, Widget, @implements Buildable;
+    pub struct Stack(Object<gtk_sys::GtkStack, gtk_sys::GtkStackClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_stack_get_type(),

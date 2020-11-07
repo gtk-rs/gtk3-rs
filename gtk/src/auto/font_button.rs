@@ -33,7 +33,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct FontButton(Object<gtk_sys::GtkFontButton, gtk_sys::GtkFontButtonClass, FontButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable, FontChooser;
+    pub struct FontButton(Object<gtk_sys::GtkFontButton, gtk_sys::GtkFontButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable, FontChooser;
 
     match fn {
         get_type => || gtk_sys::gtk_font_button_get_type(),

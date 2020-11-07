@@ -31,7 +31,7 @@ use SocketType;
 use TlsCertificateFlags;
 
 glib_wrapper! {
-    pub struct SocketClient(Object<gio_sys::GSocketClient, gio_sys::GSocketClientClass, SocketClientClass>);
+    pub struct SocketClient(Object<gio_sys::GSocketClient, gio_sys::GSocketClientClass>);
 
     match fn {
         get_type => || gio_sys::g_socket_client_get_type(),

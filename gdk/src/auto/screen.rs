@@ -20,7 +20,7 @@ use Visual;
 use Window;
 
 glib_wrapper! {
-    pub struct Screen(Object<gdk_sys::GdkScreen, ScreenClass>);
+    pub struct Screen(Object<gdk_sys::GdkScreen>);
 
     match fn {
         get_type => || gdk_sys::gdk_screen_get_type(),

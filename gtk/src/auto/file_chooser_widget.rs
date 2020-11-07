@@ -35,7 +35,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct FileChooserWidget(Object<gtk_sys::GtkFileChooserWidget, gtk_sys::GtkFileChooserWidgetClass, FileChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, FileChooser;
+    pub struct FileChooserWidget(Object<gtk_sys::GtkFileChooserWidget, gtk_sys::GtkFileChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, FileChooser;
 
     match fn {
         get_type => || gtk_sys::gtk_file_chooser_widget_get_type(),

@@ -32,7 +32,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct ColorButton(Object<gtk_sys::GtkColorButton, gtk_sys::GtkColorButtonClass, ColorButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable, ColorChooser;
+    pub struct ColorButton(Object<gtk_sys::GtkColorButton, gtk_sys::GtkColorButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable, ColorChooser;
 
     match fn {
         get_type => || gtk_sys::gtk_color_button_get_type(),

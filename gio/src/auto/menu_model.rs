@@ -18,7 +18,7 @@ use MenuAttributeIter;
 use MenuLinkIter;
 
 glib_wrapper! {
-    pub struct MenuModel(Object<gio_sys::GMenuModel, gio_sys::GMenuModelClass, MenuModelClass>);
+    pub struct MenuModel(Object<gio_sys::GMenuModel, gio_sys::GMenuModelClass>);
 
     match fn {
         get_type => || gio_sys::g_menu_model_get_type(),

@@ -25,7 +25,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct MenuBar(Object<gtk_sys::GtkMenuBar, gtk_sys::GtkMenuBarClass, MenuBarClass>) @extends MenuShell, Container, Widget, @implements Buildable;
+    pub struct MenuBar(Object<gtk_sys::GtkMenuBar, gtk_sys::GtkMenuBarClass>) @extends MenuShell, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_menu_bar_get_type(),

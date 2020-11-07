@@ -24,7 +24,7 @@ use SettingsBindFlags;
 use SettingsSchema;
 
 glib_wrapper! {
-    pub struct Settings(Object<gio_sys::GSettings, gio_sys::GSettingsClass, SettingsClass>);
+    pub struct Settings(Object<gio_sys::GSettings, gio_sys::GSettingsClass>);
 
     match fn {
         get_type => || gio_sys::g_settings_get_type(),

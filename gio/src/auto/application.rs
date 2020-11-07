@@ -31,7 +31,7 @@ use File;
 use Notification;
 
 glib_wrapper! {
-    pub struct Application(Object<gio_sys::GApplication, gio_sys::GApplicationClass, ApplicationClass>) @implements ActionGroup, ActionMap;
+    pub struct Application(Object<gio_sys::GApplication, gio_sys::GApplicationClass>) @implements ActionGroup, ActionMap;
 
     match fn {
         get_type => || gio_sys::g_application_get_type(),

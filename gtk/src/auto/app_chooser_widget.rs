@@ -31,7 +31,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct AppChooserWidget(Object<gtk_sys::GtkAppChooserWidget, gtk_sys::GtkAppChooserWidgetClass, AppChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, AppChooser;
+    pub struct AppChooserWidget(Object<gtk_sys::GtkAppChooserWidget, gtk_sys::GtkAppChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, AppChooser;
 
     match fn {
         get_type => || gtk_sys::gtk_app_chooser_widget_get_type(),

@@ -31,7 +31,7 @@ use TreePath;
 use Widget;
 
 glib_wrapper! {
-    pub struct CellView(Object<gtk_sys::GtkCellView, gtk_sys::GtkCellViewClass, CellViewClass>) @extends Widget, @implements Buildable, CellLayout, Orientable;
+    pub struct CellView(Object<gtk_sys::GtkCellView, gtk_sys::GtkCellViewClass>) @extends Widget, @implements Buildable, CellLayout, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_cell_view_get_type(),

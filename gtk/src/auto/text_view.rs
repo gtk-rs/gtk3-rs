@@ -48,7 +48,7 @@ use Widget;
 use WrapMode;
 
 glib_wrapper! {
-    pub struct TextView(Object<gtk_sys::GtkTextView, gtk_sys::GtkTextViewClass, TextViewClass>) @extends Container, Widget, @implements Buildable, Scrollable;
+    pub struct TextView(Object<gtk_sys::GtkTextView, gtk_sys::GtkTextViewClass>) @extends Container, Widget, @implements Buildable, Scrollable;
 
     match fn {
         get_type => || gtk_sys::gtk_text_view_get_type(),

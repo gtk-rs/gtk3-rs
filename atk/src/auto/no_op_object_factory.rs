@@ -9,7 +9,7 @@ use std::fmt;
 use ObjectFactory;
 
 glib_wrapper! {
-    pub struct NoOpObjectFactory(Object<atk_sys::AtkNoOpObjectFactory, atk_sys::AtkNoOpObjectFactoryClass, NoOpObjectFactoryClass>) @extends ObjectFactory;
+    pub struct NoOpObjectFactory(Object<atk_sys::AtkNoOpObjectFactory, atk_sys::AtkNoOpObjectFactoryClass>) @extends ObjectFactory;
 
     match fn {
         get_type => || atk_sys::atk_no_op_object_factory_get_type(),

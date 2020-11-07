@@ -7,7 +7,7 @@ use gtk_sys;
 use libc::{c_int, c_uint};
 
 glib_wrapper! {
-    pub struct EntryBuffer(Object<gtk_sys::GtkEntryBuffer, gtk_sys::GtkEntryBufferClass, EntryBufferClass>);
+    pub struct EntryBuffer(Object<gtk_sys::GtkEntryBuffer, gtk_sys::GtkEntryBufferClass>);
 
     match fn {
         get_type => || gtk_sys::gtk_entry_buffer_get_type(),

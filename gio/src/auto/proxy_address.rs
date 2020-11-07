@@ -14,7 +14,7 @@ use SocketAddress;
 use SocketConnectable;
 
 glib_wrapper! {
-    pub struct ProxyAddress(Object<gio_sys::GProxyAddress, gio_sys::GProxyAddressClass, ProxyAddressClass>) @extends InetSocketAddress, SocketAddress, @implements SocketConnectable;
+    pub struct ProxyAddress(Object<gio_sys::GProxyAddress, gio_sys::GProxyAddressClass>) @extends InetSocketAddress, SocketAddress, @implements SocketConnectable;
 
     match fn {
         get_type => || gio_sys::g_proxy_address_get_type(),

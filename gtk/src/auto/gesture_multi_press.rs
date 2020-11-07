@@ -24,7 +24,7 @@ use PropagationPhase;
 use Widget;
 
 glib_wrapper! {
-    pub struct GestureMultiPress(Object<gtk_sys::GtkGestureMultiPress, gtk_sys::GtkGestureMultiPressClass, GestureMultiPressClass>) @extends GestureSingle, Gesture, EventController;
+    pub struct GestureMultiPress(Object<gtk_sys::GtkGestureMultiPress, gtk_sys::GtkGestureMultiPressClass>) @extends GestureSingle, Gesture, EventController;
 
     match fn {
         get_type => || gtk_sys::gtk_gesture_multi_press_get_type(),

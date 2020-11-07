@@ -24,7 +24,7 @@ use ToolItem;
 use Widget;
 
 glib_wrapper! {
-    pub struct SeparatorToolItem(Object<gtk_sys::GtkSeparatorToolItem, gtk_sys::GtkSeparatorToolItemClass, SeparatorToolItemClass>) @extends ToolItem, Bin, Container, Widget, @implements Buildable;
+    pub struct SeparatorToolItem(Object<gtk_sys::GtkSeparatorToolItem, gtk_sys::GtkSeparatorToolItemClass>) @extends ToolItem, Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_separator_tool_item_get_type(),

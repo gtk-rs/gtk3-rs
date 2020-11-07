@@ -25,7 +25,7 @@ use MenuItem;
 use Widget;
 
 glib_wrapper! {
-    pub struct MenuShell(Object<gtk_sys::GtkMenuShell, gtk_sys::GtkMenuShellClass, MenuShellClass>) @extends Container, Widget, @implements Buildable;
+    pub struct MenuShell(Object<gtk_sys::GtkMenuShell, gtk_sys::GtkMenuShellClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_menu_shell_get_type(),

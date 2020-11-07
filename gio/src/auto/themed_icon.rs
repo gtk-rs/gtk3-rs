@@ -18,7 +18,7 @@ use std::mem::transmute;
 use Icon;
 
 glib_wrapper! {
-    pub struct ThemedIcon(Object<gio_sys::GThemedIcon, gio_sys::GThemedIconClass, ThemedIconClass>) @implements Icon;
+    pub struct ThemedIcon(Object<gio_sys::GThemedIcon, gio_sys::GThemedIconClass>) @implements Icon;
 
     match fn {
         get_type => || gio_sys::g_themed_icon_get_type(),

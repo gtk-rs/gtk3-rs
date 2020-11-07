@@ -26,7 +26,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct HeaderBar(Object<gtk_sys::GtkHeaderBar, gtk_sys::GtkHeaderBarClass, HeaderBarClass>) @extends Container, Widget, @implements Buildable;
+    pub struct HeaderBar(Object<gtk_sys::GtkHeaderBar, gtk_sys::GtkHeaderBarClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_header_bar_get_type(),

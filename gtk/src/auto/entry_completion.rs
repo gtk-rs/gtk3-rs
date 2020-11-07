@@ -25,7 +25,7 @@ use TreeIter;
 use TreeModel;
 
 glib_wrapper! {
-    pub struct EntryCompletion(Object<gtk_sys::GtkEntryCompletion, gtk_sys::GtkEntryCompletionClass, EntryCompletionClass>) @implements Buildable, CellLayout;
+    pub struct EntryCompletion(Object<gtk_sys::GtkEntryCompletion, gtk_sys::GtkEntryCompletionClass>) @implements Buildable, CellLayout;
 
     match fn {
         get_type => || gtk_sys::gtk_entry_completion_get_type(),

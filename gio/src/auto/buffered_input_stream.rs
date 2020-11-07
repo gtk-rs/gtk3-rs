@@ -25,7 +25,7 @@ use InputStream;
 use Seekable;
 
 glib_wrapper! {
-    pub struct BufferedInputStream(Object<gio_sys::GBufferedInputStream, gio_sys::GBufferedInputStreamClass, BufferedInputStreamClass>) @extends FilterInputStream, InputStream, @implements Seekable;
+    pub struct BufferedInputStream(Object<gio_sys::GBufferedInputStream, gio_sys::GBufferedInputStreamClass>) @extends FilterInputStream, InputStream, @implements Seekable;
 
     match fn {
         get_type => || gio_sys::g_buffered_input_stream_get_type(),

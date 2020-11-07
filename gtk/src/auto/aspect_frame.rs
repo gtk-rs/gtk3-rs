@@ -27,7 +27,7 @@ use ShadowType;
 use Widget;
 
 glib_wrapper! {
-    pub struct AspectFrame(Object<gtk_sys::GtkAspectFrame, gtk_sys::GtkAspectFrameClass, AspectFrameClass>) @extends Frame, Bin, Container, Widget, @implements Buildable;
+    pub struct AspectFrame(Object<gtk_sys::GtkAspectFrame, gtk_sys::GtkAspectFrameClass>) @extends Frame, Bin, Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_aspect_frame_get_type(),

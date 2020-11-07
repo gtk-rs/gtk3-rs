@@ -12,7 +12,7 @@ use SocketAddress;
 use SocketConnectable;
 
 glib_wrapper! {
-    pub struct InetSocketAddress(Object<gio_sys::GInetSocketAddress, gio_sys::GInetSocketAddressClass, InetSocketAddressClass>) @extends SocketAddress, @implements SocketConnectable;
+    pub struct InetSocketAddress(Object<gio_sys::GInetSocketAddress, gio_sys::GInetSocketAddressClass>) @extends SocketAddress, @implements SocketConnectable;
 
     match fn {
         get_type => || gio_sys::g_inet_socket_address_get_type(),

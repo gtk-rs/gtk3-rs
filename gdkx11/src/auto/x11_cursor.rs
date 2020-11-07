@@ -9,7 +9,7 @@ use std::fmt;
 use xlib;
 
 glib_wrapper! {
-    pub struct X11Cursor(Object<gdk_x11_sys::GdkX11Cursor, gdk_x11_sys::GdkX11CursorClass, X11CursorClass>) @extends gdk::Cursor;
+    pub struct X11Cursor(Object<gdk_x11_sys::GdkX11Cursor, gdk_x11_sys::GdkX11CursorClass>) @extends gdk::Cursor;
 
     match fn {
         get_type => || gdk_x11_sys::gdk_x11_cursor_get_type(),

@@ -17,7 +17,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct Fixed(Object<gtk_sys::GtkFixed, gtk_sys::GtkFixedClass, FixedClass>) @extends Container, Widget, @implements Buildable;
+    pub struct Fixed(Object<gtk_sys::GtkFixed, gtk_sys::GtkFixedClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_fixed_get_type(),

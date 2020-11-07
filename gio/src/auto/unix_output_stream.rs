@@ -10,7 +10,7 @@ use OutputStream;
 use PollableOutputStream;
 
 glib_wrapper! {
-    pub struct UnixOutputStream(Object<gio_sys::GUnixOutputStream, gio_sys::GUnixOutputStreamClass, UnixOutputStreamClass>) @extends OutputStream, @implements PollableOutputStream;
+    pub struct UnixOutputStream(Object<gio_sys::GUnixOutputStream, gio_sys::GUnixOutputStreamClass>) @extends OutputStream, @implements PollableOutputStream;
 
     match fn {
         get_type => || gio_sys::g_unix_output_stream_get_type(),

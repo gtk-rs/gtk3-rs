@@ -12,7 +12,7 @@ use std::ptr;
 use SocketConnectable;
 
 glib_wrapper! {
-    pub struct NetworkAddress(Object<gio_sys::GNetworkAddress, gio_sys::GNetworkAddressClass, NetworkAddressClass>) @implements SocketConnectable;
+    pub struct NetworkAddress(Object<gio_sys::GNetworkAddress, gio_sys::GNetworkAddressClass>) @implements SocketConnectable;
 
     match fn {
         get_type => || gio_sys::g_network_address_get_type(),

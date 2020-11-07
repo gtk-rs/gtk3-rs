@@ -26,7 +26,7 @@ use CellRenderer;
 use CellRendererMode;
 
 glib_wrapper! {
-    pub struct CellRendererPixbuf(Object<gtk_sys::GtkCellRendererPixbuf, gtk_sys::GtkCellRendererPixbufClass, CellRendererPixbufClass>) @extends CellRenderer;
+    pub struct CellRendererPixbuf(Object<gtk_sys::GtkCellRendererPixbuf, gtk_sys::GtkCellRendererPixbufClass>) @extends CellRenderer;
 
     match fn {
         get_type => || gtk_sys::gtk_cell_renderer_pixbuf_get_type(),

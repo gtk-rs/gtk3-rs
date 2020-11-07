@@ -32,7 +32,7 @@ use SizeGroup;
 use Widget;
 
 glib_wrapper! {
-    pub struct ShortcutsGroup(Object<gtk_sys::GtkShortcutsGroup, gtk_sys::GtkShortcutsGroupClass, ShortcutsGroupClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
+    pub struct ShortcutsGroup(Object<gtk_sys::GtkShortcutsGroup, gtk_sys::GtkShortcutsGroupClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_shortcuts_group_get_type(),

@@ -16,7 +16,7 @@ use std::mem::transmute;
 use SocketFamily;
 
 glib_wrapper! {
-    pub struct InetAddress(Object<gio_sys::GInetAddress, gio_sys::GInetAddressClass, InetAddressClass>);
+    pub struct InetAddress(Object<gio_sys::GInetAddress, gio_sys::GInetAddressClass>);
 
     match fn {
         get_type => || gio_sys::g_inet_address_get_type(),

@@ -27,7 +27,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct Grid(Object<gtk_sys::GtkGrid, gtk_sys::GtkGridClass, GridClass>) @extends Container, Widget, @implements Buildable, Orientable;
+    pub struct Grid(Object<gtk_sys::GtkGrid, gtk_sys::GtkGridClass>) @extends Container, Widget, @implements Buildable, Orientable;
 
     match fn {
         get_type => || gtk_sys::gtk_grid_get_type(),

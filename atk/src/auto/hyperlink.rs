@@ -20,7 +20,7 @@ use Action;
 use Object;
 
 glib_wrapper! {
-    pub struct Hyperlink(Object<atk_sys::AtkHyperlink, atk_sys::AtkHyperlinkClass, HyperlinkClass>) @implements Action;
+    pub struct Hyperlink(Object<atk_sys::AtkHyperlink, atk_sys::AtkHyperlinkClass>) @implements Action;
 
     match fn {
         get_type => || atk_sys::atk_hyperlink_get_type(),

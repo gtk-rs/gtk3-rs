@@ -25,7 +25,7 @@ use Container;
 use Widget;
 
 glib_wrapper! {
-    pub struct Switch(Object<gtk_sys::GtkSwitch, gtk_sys::GtkSwitchClass, SwitchClass>) @extends Widget, @implements Buildable, Actionable;
+    pub struct Switch(Object<gtk_sys::GtkSwitch, gtk_sys::GtkSwitchClass>) @extends Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_switch_get_type(),

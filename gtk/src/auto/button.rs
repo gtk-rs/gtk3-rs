@@ -31,7 +31,7 @@ use ResizeMode;
 use Widget;
 
 glib_wrapper! {
-    pub struct Button(Object<gtk_sys::GtkButton, gtk_sys::GtkButtonClass, ButtonClass>) @extends Bin, Container, Widget, @implements Buildable, Actionable;
+    pub struct Button(Object<gtk_sys::GtkButton, gtk_sys::GtkButtonClass>) @extends Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
         get_type => || gtk_sys::gtk_button_get_type(),

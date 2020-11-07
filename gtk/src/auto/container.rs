@@ -25,7 +25,7 @@ use Widget;
 use WidgetPath;
 
 glib_wrapper! {
-    pub struct Container(Object<gtk_sys::GtkContainer, gtk_sys::GtkContainerClass, ContainerClass>) @extends Widget, @implements Buildable;
+    pub struct Container(Object<gtk_sys::GtkContainer, gtk_sys::GtkContainerClass>) @extends Widget, @implements Buildable;
 
     match fn {
         get_type => || gtk_sys::gtk_container_get_type(),

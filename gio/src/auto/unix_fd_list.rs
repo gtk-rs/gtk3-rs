@@ -8,7 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct UnixFDList(Object<gio_sys::GUnixFDList, gio_sys::GUnixFDListClass, UnixFDListClass>);
+    pub struct UnixFDList(Object<gio_sys::GUnixFDList, gio_sys::GUnixFDListClass>);
 
     match fn {
         get_type => || gio_sys::g_unix_fd_list_get_type(),

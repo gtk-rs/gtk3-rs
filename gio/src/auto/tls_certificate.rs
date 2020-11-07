@@ -17,7 +17,7 @@ use SocketConnectable;
 use TlsCertificateFlags;
 
 glib_wrapper! {
-    pub struct TlsCertificate(Object<gio_sys::GTlsCertificate, gio_sys::GTlsCertificateClass, TlsCertificateClass>);
+    pub struct TlsCertificate(Object<gio_sys::GTlsCertificate, gio_sys::GTlsCertificateClass>);
 
     match fn {
         get_type => || gio_sys::g_tls_certificate_get_type(),
