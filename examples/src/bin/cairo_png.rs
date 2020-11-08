@@ -4,8 +4,6 @@
 //! and then save result to PNG file.
 //! Analog of C# example http://www.mgsloan.com/cairo_tut/stroke.cs
 
-extern crate cairo;
-
 use cairo::{Context, Format, ImageSurface};
 use std::fs::File;
 

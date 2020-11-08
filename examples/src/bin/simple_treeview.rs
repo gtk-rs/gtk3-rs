@@ -2,9 +2,6 @@
 //!
 //! This sample demonstrates how to create a TreeView with a ListStore.
 
-extern crate gio;
-extern crate gtk;
-
 use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::{

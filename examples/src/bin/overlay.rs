@@ -2,11 +2,6 @@
 //!
 //! This sample demonstrates how to create an element "floating" above others.
 
-extern crate gdk;
-extern crate gio;
-extern crate glib;
-extern crate gtk;
-
 use gio::prelude::*;
 use gtk::prelude::*;
 

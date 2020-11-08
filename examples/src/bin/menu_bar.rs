@@ -4,10 +4,6 @@
 //!
 //! /!\ This is different from the system menu bar (which are preferred) available in `gio::Menu`!
 
-extern crate gio;
-extern crate glib;
-extern crate gtk;
-
 use gio::prelude::*;
 use glib::clone;
 use gtk::prelude::*;

@@ -1,8 +1,3 @@
-extern crate futures;
-
-extern crate glib;
-
-extern crate gio;
 use gio::prelude::*;
 
 use std::str;

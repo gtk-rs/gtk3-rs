@@ -3,10 +3,6 @@
 //! You can use property bindings in order to synchronize the values of widgets. In this example a
 //! spin button and a horizontal scale will get interlocked.
 
-extern crate gio;
-extern crate glib;
-extern crate gtk;
-
 use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::Builder;

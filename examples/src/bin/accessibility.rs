@@ -1,13 +1,6 @@
 //! # Accessibility example
 //!
 //! This sample demonstrates how to make an application more accessible.
-
-extern crate atk;
-extern crate gdk;
-extern crate gio;
-extern crate glib;
-extern crate gtk;
-
 use atk::prelude::*;
 use gio::prelude::*;
 use gtk::prelude::*;

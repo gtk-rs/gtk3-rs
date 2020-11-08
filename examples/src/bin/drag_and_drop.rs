@@ -3,10 +3,6 @@
 //! Ported over from example code:
 //! https://developer.gnome.org/gtkmm-tutorial/stable/sec-dnd-example.html.en
 
-extern crate gdk;
-extern crate gio;
-extern crate gtk;
-
 use gio::prelude::*;
 use gtk::prelude::*;
 

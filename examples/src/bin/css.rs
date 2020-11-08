@@ -2,11 +2,6 @@
 //!
 //! This sample demonstrates how to use CSS with gtk-rs.
 
-extern crate gdk;
-extern crate gio;
-extern crate glib;
-extern crate gtk;
-
 use gio::prelude::*;
 use gtk::prelude::*;
 

@@ -1,5 +1,3 @@
-extern crate gio;
-extern crate glib;
 use gio::prelude::*;
 
 use futures::prelude::*;

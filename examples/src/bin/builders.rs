@@ -4,9 +4,6 @@
 //! These allow to set construct-only properties and other construct
 //! properties when creating the widget.
 
-extern crate gio;
-extern crate gtk;
-
 use gio::prelude::*;
 use gtk::prelude::*;
 

@@ -4,9 +4,6 @@
 //! position, how to add a `button` to this `window` and how to connect signals with
 //! actions.
 
-extern crate gio;
-extern crate gtk;
-
 use gio::prelude::*;
 use gtk::prelude::*;
 

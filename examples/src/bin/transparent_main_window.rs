@@ -2,11 +2,6 @@
 //!
 //! This example demonstrates how to create a main window with a transparent background.
 
-extern crate cairo;
-extern crate gdk;
-extern crate gio;
-extern crate gtk;
-
 use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::{ApplicationWindow, Button, Fixed};
