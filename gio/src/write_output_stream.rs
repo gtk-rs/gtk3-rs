@@ -28,6 +28,7 @@ mod imp {
 
     impl ObjectSubclass for WriteOutputStream {
         const NAME: &'static str = "WriteOutputStream";
+        type Type = super::WriteOutputStream;
         type ParentType = OutputStream;
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;

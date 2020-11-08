@@ -26,6 +26,7 @@ mod imp {
 
     impl ObjectSubclass for ReadInputStream {
         const NAME: &'static str = "ReadInputStream";
+        type Type = super::ReadInputStream;
         type ParentType = InputStream;
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;

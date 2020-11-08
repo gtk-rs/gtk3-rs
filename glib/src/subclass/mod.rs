@@ -108,6 +108,7 @@
 //!         const NAME: &'static str = "SimpleObject";
 //!
 //!         // The parent type this one is inheriting from.
+//!         type Type = super::SimpleObject;
 //!         type ParentType = glib::Object;
 //!
 //!         // The C/FFI instance and class structs. The simple ones
@@ -143,7 +144,7 @@
 //!     impl ObjectImpl for SimpleObject {
 //!         // Called whenever a property is set on this instance. The id
 //!         // is the same as the index of the property in the PROPERTIES array.
-//!         fn set_property(&self, _obj: &glib::Object, id: usize, value: &glib::Value) {
+//!         fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
 //!             let prop = &PROPERTIES[id];
 //!
 //!             match *prop {
@@ -171,7 +172,7 @@
 //!
 //!         // Called whenever a property is retrieved from this instance. The id
 //!         // is the same as the index of the property in the PROPERTIES array.
-//!         fn get_property(&self, _obj: &glib::Object, id: usize) -> Result<glib::Value, ()> {
+//!         fn get_property(&self, _obj: &Self::Type, id: usize) -> Result<glib::Value, ()> {
 //!             let prop = &PROPERTIES[id];
 //!
 //!             match *prop {
@@ -183,7 +184,7 @@
 //!         }
 //!
 //!         // Called right after construction of the instance.
-//!         fn constructed(&self, obj: &glib::Object) {
+//!         fn constructed(&self, obj: &Self::Type) {
 //!                 // Chain up to the parent type's implementation of this virtual
 //!             // method.
 //!             self.parent_constructed(obj);

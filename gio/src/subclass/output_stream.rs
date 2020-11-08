@@ -326,12 +326,13 @@ mod tests {
     use glib::subclass;
     use std::cell::RefCell;
 
-    struct SimpleOutputStream {
+    pub struct SimpleOutputStream {
         sum: RefCell<usize>,
     }
 
     impl ObjectSubclass for SimpleOutputStream {
         const NAME: &'static str = "SimpleOutputStream";
+        type Type = SimpleOutputStreamWrapper;
         type ParentType = OutputStream;
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
@@ -363,11 +364,16 @@ mod tests {
         }
     }
 
+    glib_wrapper! {
+        pub struct SimpleOutputStreamWrapper(ObjectSubclass<SimpleOutputStream>)
+            @extends OutputStream;
+    }
+
     #[test]
     fn test_simple_stream() {
         let stream = glib::Object::new(SimpleOutputStream::get_type(), &[])
             .unwrap()
-            .downcast::<::OutputStream>()
+            .downcast::<SimpleOutputStreamWrapper>()
             .unwrap();
 
         assert_eq!(*SimpleOutputStream::from_instance(&stream).sum.borrow(), 0);

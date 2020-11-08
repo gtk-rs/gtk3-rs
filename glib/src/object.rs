@@ -18,6 +18,7 @@ use std::ptr;
 use translate::*;
 use types::StaticType;
 
+use subclass::prelude::ObjectSubclass;
 use value::ToValue;
 use BoolError;
 use Closure;
@@ -2552,6 +2553,12 @@ impl<T: ObjectType> AsMut<T::GlibClassType> for Class<T> {
 // This should require Self: IsA<Self::Super>, but that seems to cause a cycle error
 pub unsafe trait ParentClassIs: ObjectType {
     type Parent: ObjectType;
+}
+
+/// Automatically implemented by `ObjectSubclass` variants of
+/// [`glib_wrapper!`][crate::glib_wrapper]
+pub unsafe trait ObjectSubclassIs: ObjectType {
+    type Subclass: ObjectSubclass;
 }
 
 impl<T: ParentClassIs> ops::Deref for Class<T> {

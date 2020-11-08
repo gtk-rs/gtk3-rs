@@ -447,10 +447,11 @@ mod tests {
 
     const EXIT_STATUS: i32 = 20;
 
-    struct SimpleApplication;
+    pub struct SimpleApplication;
 
     impl ObjectSubclass for SimpleApplication {
         const NAME: &'static str = "SimpleApplication";
+        type Type = SimpleApplicationWrapper;
         type ParentType = Application;
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
@@ -504,6 +505,10 @@ mod tests {
 
             EXIT_STATUS
         }
+    }
+
+    glib_wrapper! {
+        pub struct SimpleApplicationWrapper(ObjectSubclass<SimpleApplication>);
     }
 
     #[test]

@@ -13,7 +13,7 @@ use std::fmt;
 use std::mem;
 use std::ptr;
 use translate::*;
-use {Object, ObjectType, SignalFlags, Type, Value};
+use {Cast, Object, ObjectType, SignalFlags, Type, Value};
 
 /// Trait for implementors of `glib::Object` subclasses.
 ///
@@ -23,7 +23,7 @@ pub trait ObjectImpl: ObjectSubclass + ObjectImplExt {
     ///
     /// This is called whenever the property of this specific subclass with the
     /// given index is set. The new value is passed as `glib::Value`.
-    fn set_property(&self, _obj: &Object, _id: usize, _value: &Value) {
+    fn set_property(&self, _obj: &Self::Type, _id: usize, _value: &Value) {
         unimplemented!()
     }
 
@@ -31,7 +31,7 @@ pub trait ObjectImpl: ObjectSubclass + ObjectImplExt {
     ///
     /// This is called whenever the property value of the specific subclass with the
     /// given index should be returned.
-    fn get_property(&self, _obj: &Object, _id: usize) -> Result<Value, ()> {
+    fn get_property(&self, _obj: &Self::Type, _id: usize) -> Result<Value, ()> {
         unimplemented!()
     }
 
@@ -40,7 +40,7 @@ pub trait ObjectImpl: ObjectSubclass + ObjectImplExt {
     /// This is called once construction of the instance is finished.
     ///
     /// Should chain up to the parent class' implementation.
-    fn constructed(&self, obj: &Object) {
+    fn constructed(&self, obj: &Self::Type) {
         self.parent_constructed(obj);
     }
 }
@@ -54,7 +54,10 @@ unsafe extern "C" fn get_property<T: ObjectImpl>(
     let instance = &*(obj as *mut T::Instance);
     let imp = instance.get_impl();
 
-    match imp.get_property(&from_glib_borrow(obj), (id - 1) as usize) {
+    match imp.get_property(
+        &from_glib_borrow::<_, Object>(obj).unsafe_cast_ref(),
+        (id - 1) as usize,
+    ) {
         Ok(v) => {
             // We first unset the value we get passed in, in case it contained
             // any previous data. Then we directly overwrite it with our new
@@ -81,7 +84,7 @@ unsafe extern "C" fn set_property<T: ObjectImpl>(
     let instance = &*(obj as *mut T::Instance);
     let imp = instance.get_impl();
     imp.set_property(
-        &from_glib_borrow(obj),
+        &from_glib_borrow::<_, Object>(obj).unsafe_cast_ref(),
         (id - 1) as usize,
         &*(value as *mut Value),
     );
@@ -91,7 +94,7 @@ unsafe extern "C" fn constructed<T: ObjectImpl>(obj: *mut gobject_sys::GObject) 
     let instance = &*(obj as *mut T::Instance);
     let imp = instance.get_impl();
 
-    imp.constructed(&from_glib_borrow(obj));
+    imp.constructed(&from_glib_borrow::<_, Object>(obj).unsafe_cast_ref());
 }
 
 /// Definition of a property.
@@ -278,9 +281,9 @@ unsafe impl<T: ObjectImpl> IsSubclassable<T> for Object {
     }
 }
 
-pub trait ObjectImplExt {
+pub trait ObjectImplExt: ObjectSubclass {
     /// Chain up to the parent class' implementation of `glib::Object::constructed()`.
-    fn parent_constructed(&self, obj: &Object);
+    fn parent_constructed(&self, obj: &Self::Type);
 
     fn signal_chain_from_overridden(
         &self,
@@ -290,13 +293,13 @@ pub trait ObjectImplExt {
 }
 
 impl<T: ObjectImpl> ObjectImplExt for T {
-    fn parent_constructed(&self, obj: &Object) {
+    fn parent_constructed(&self, obj: &Self::Type) {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gobject_sys::GObjectClass;
 
             if let Some(ref func) = (*parent_class).constructed {
-                func(obj.to_glib_none().0);
+                func(obj.unsafe_cast_ref::<Object>().to_glib_none().0);
             }
         }
     }
@@ -326,27 +329,156 @@ mod test {
 
     use std::cell::RefCell;
 
-    // A dummy `Object` to test setting an `Object` property and returning an `Object` in signals
-    pub struct ChildObject;
-    impl ObjectSubclass for ChildObject {
-        const NAME: &'static str = "ChildObject";
-        type ParentType = Object;
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
+    mod imp {
+        use super::*;
 
-        glib_object_subclass!();
+        // A dummy `Object` to test setting an `Object` property and returning an `Object` in signals
+        pub struct ChildObject;
+        impl ObjectSubclass for ChildObject {
+            const NAME: &'static str = "ChildObject";
+            type Type = super::ChildObject;
+            type ParentType = Object;
+            type Instance = subclass::simple::InstanceStruct<Self>;
+            type Class = subclass::simple::ClassStruct<Self>;
 
-        fn new() -> Self {
-            ChildObject
+            glib_object_subclass!();
+
+            fn new() -> Self {
+                ChildObject
+            }
+        }
+
+        impl ObjectImpl for ChildObject {}
+
+        pub struct SimpleObject {
+            name: RefCell<Option<String>>,
+            construct_name: RefCell<Option<String>>,
+            constructed: RefCell<bool>,
+        }
+
+        impl ObjectSubclass for SimpleObject {
+            const NAME: &'static str = "SimpleObject";
+            type Type = super::SimpleObject;
+            type ParentType = Object;
+            type Instance = subclass::simple::InstanceStruct<Self>;
+            type Class = subclass::simple::ClassStruct<Self>;
+
+            glib_object_subclass!();
+
+            fn type_init(type_: &mut subclass::InitializingType<Self>) {
+                type_.add_interface::<DummyInterface>();
+            }
+
+            fn class_init(klass: &mut subclass::simple::ClassStruct<Self>) {
+                klass.install_properties(&PROPERTIES);
+
+                klass.add_signal(
+                    "name-changed",
+                    SignalFlags::RUN_LAST,
+                    &[String::static_type()],
+                    ::Type::Unit,
+                );
+
+                klass.add_signal_with_class_handler(
+                    "change-name",
+                    SignalFlags::RUN_LAST | SignalFlags::ACTION,
+                    &[String::static_type()],
+                    String::static_type(),
+                    |_, args| {
+                        let obj = args[0]
+                            .get::<Self::Type>()
+                            .expect("Failed to get args[0]")
+                            .expect("Failed to get Object from args[0]");
+                        let new_name = args[1]
+                            .get::<String>()
+                            .expect("Failed to get args[1]")
+                            .expect("Failed to get Object from args[1]");
+                        let imp = Self::from_instance(&obj);
+
+                        let old_name = imp.name.borrow_mut().take();
+                        *imp.name.borrow_mut() = Some(new_name);
+
+                        obj.emit("name-changed", &[&*imp.name.borrow()])
+                            .expect("Failed to borrow name");
+
+                        Some(old_name.to_value())
+                    },
+                );
+
+                klass.add_signal(
+                    "create-string",
+                    SignalFlags::RUN_LAST,
+                    &[],
+                    String::static_type(),
+                );
+
+                klass.add_signal(
+                    "create-child-object",
+                    SignalFlags::RUN_LAST,
+                    &[],
+                    ChildObject::get_type(),
+                );
+            }
+
+            fn new() -> Self {
+                Self {
+                    name: RefCell::new(None),
+                    construct_name: RefCell::new(None),
+                    constructed: RefCell::new(false),
+                }
+            }
+        }
+
+        impl ObjectImpl for SimpleObject {
+            fn set_property(&self, obj: &Self::Type, id: usize, value: &Value) {
+                let prop = &PROPERTIES[id];
+
+                match *prop {
+                    Property("name", ..) => {
+                        let name = value
+                            .get()
+                            .expect("type conformity checked by 'Object::set_property'");
+                        self.name.replace(name);
+                        obj.emit("name-changed", &[&*self.name.borrow()])
+                            .expect("Failed to borrow name");
+                    }
+                    Property("construct-name", ..) => {
+                        let name = value
+                            .get()
+                            .expect("type conformity checked by 'Object::set_property'");
+                        self.construct_name.replace(name);
+                    }
+                    Property("child", ..) => {
+                        // not stored, only used to test `set_property` with `Objects`
+                    }
+                    _ => unimplemented!(),
+                }
+            }
+
+            fn get_property(&self, _obj: &Self::Type, id: usize) -> Result<Value, ()> {
+                let prop = &PROPERTIES[id];
+
+                match *prop {
+                    Property("name", ..) => Ok(self.name.borrow().to_value()),
+                    Property("construct-name", ..) => Ok(self.construct_name.borrow().to_value()),
+                    Property("constructed", ..) => Ok(self.constructed.borrow().to_value()),
+                    _ => unimplemented!(),
+                }
+            }
+
+            fn constructed(&self, obj: &Self::Type) {
+                self.parent_constructed(obj);
+
+                assert_eq!(obj, &self.get_instance());
+                assert_eq!(self as *const _, Self::from_instance(obj) as *const _);
+
+                *self.constructed.borrow_mut() = true;
+            }
         }
     }
 
-    impl ObjectImpl for ChildObject {}
-
-    impl StaticType for ChildObject {
-        fn static_type() -> Type {
-            ChildObject::get_type()
-        }
+    glib_wrapper! {
+        pub struct ChildObject(ObjectSubclass<imp::ChildObject>);
     }
 
     static PROPERTIES: [Property; 4] = [
@@ -388,129 +520,8 @@ mod test {
         }),
     ];
 
-    pub struct SimpleObject {
-        name: RefCell<Option<String>>,
-        construct_name: RefCell<Option<String>>,
-        constructed: RefCell<bool>,
-    }
-
-    impl ObjectSubclass for SimpleObject {
-        const NAME: &'static str = "SimpleObject";
-        type ParentType = Object;
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib_object_subclass!();
-
-        fn type_init(type_: &mut subclass::InitializingType<Self>) {
-            type_.add_interface::<DummyInterface>();
-        }
-
-        fn class_init(klass: &mut subclass::simple::ClassStruct<Self>) {
-            klass.install_properties(&PROPERTIES);
-
-            klass.add_signal(
-                "name-changed",
-                SignalFlags::RUN_LAST,
-                &[String::static_type()],
-                ::Type::Unit,
-            );
-
-            klass.add_signal_with_class_handler(
-                "change-name",
-                SignalFlags::RUN_LAST | SignalFlags::ACTION,
-                &[String::static_type()],
-                String::static_type(),
-                |_, args| {
-                    let obj = args[0]
-                        .get::<Object>()
-                        .expect("Failed to get args[0]")
-                        .expect("Failed to get Object from args[0]");
-                    let new_name = args[1]
-                        .get::<String>()
-                        .expect("Failed to get args[1]")
-                        .expect("Failed to get Object from args[1]");
-                    let imp = Self::from_instance(&obj);
-
-                    let old_name = imp.name.borrow_mut().take();
-                    *imp.name.borrow_mut() = Some(new_name);
-
-                    obj.emit("name-changed", &[&*imp.name.borrow()])
-                        .expect("Failed to borrow name");
-
-                    Some(old_name.to_value())
-                },
-            );
-
-            klass.add_signal(
-                "create-string",
-                SignalFlags::RUN_LAST,
-                &[],
-                String::static_type(),
-            );
-
-            klass.add_signal(
-                "create-child-object",
-                SignalFlags::RUN_LAST,
-                &[],
-                ChildObject::static_type(),
-            );
-        }
-
-        fn new() -> Self {
-            Self {
-                name: RefCell::new(None),
-                construct_name: RefCell::new(None),
-                constructed: RefCell::new(false),
-            }
-        }
-    }
-
-    impl ObjectImpl for SimpleObject {
-        fn set_property(&self, obj: &Object, id: usize, value: &Value) {
-            let prop = &PROPERTIES[id];
-
-            match *prop {
-                Property("name", ..) => {
-                    let name = value
-                        .get()
-                        .expect("type conformity checked by 'Object::set_property'");
-                    self.name.replace(name);
-                    obj.emit("name-changed", &[&*self.name.borrow()])
-                        .expect("Failed to borrow name");
-                }
-                Property("construct-name", ..) => {
-                    let name = value
-                        .get()
-                        .expect("type conformity checked by 'Object::set_property'");
-                    self.construct_name.replace(name);
-                }
-                Property("child", ..) => {
-                    // not stored, only used to test `set_property` with `Objects`
-                }
-                _ => unimplemented!(),
-            }
-        }
-
-        fn get_property(&self, _obj: &Object, id: usize) -> Result<Value, ()> {
-            let prop = &PROPERTIES[id];
-
-            match *prop {
-                Property("name", ..) => Ok(self.name.borrow().to_value()),
-                Property("construct-name", ..) => Ok(self.construct_name.borrow().to_value()),
-                Property("constructed", ..) => Ok(self.constructed.borrow().to_value()),
-                _ => unimplemented!(),
-            }
-        }
-
-        fn constructed(&self, obj: &Object) {
-            self.parent_constructed(obj);
-
-            assert_eq!(obj, &self.get_instance());
-            assert_eq!(self as *const _, Self::from_instance(obj) as *const _);
-
-            *self.constructed.borrow_mut() = true;
-        }
+    glib_wrapper! {
+        pub struct SimpleObject(ObjectSubclass<imp::SimpleObject>);
     }
 
     #[repr(C)]
@@ -548,7 +559,7 @@ mod test {
 
     #[test]
     fn test_create() {
-        let type_ = SimpleObject::get_type();
+        let type_ = SimpleObject::static_type();
         let obj = Object::new(type_, &[]).expect("Object::new failed");
 
         assert!(obj.get_type().is_a(&DummyInterface::static_type()));
@@ -568,12 +579,15 @@ mod test {
 
     #[test]
     fn test_create_child_object() {
-        let type_ = ChildObject::get_type();
-        let obj = Object::new(type_, &[]).expect("Object::new failed");
+        let type_ = ChildObject::static_type();
+        let obj = Object::new(type_, &[])
+            .expect("Object::new failed")
+            .downcast::<ChildObject>()
+            .unwrap();
 
         // ChildObject is a zero-sized type and we map that to the same pointer as the object
         // itself. No private/impl data is allocated for zero-sized types.
-        let imp = ChildObject::from_instance(&obj);
+        let imp = imp::ChildObject::from_instance(&obj);
         assert_eq!(imp as *const _ as *const (), obj.as_ptr() as *const _);
         assert_eq!(obj, imp.get_instance());
     }
@@ -581,7 +595,7 @@ mod test {
     #[test]
     fn test_set_properties() {
         let obj = Object::new(
-            SimpleObject::get_type(),
+            SimpleObject::static_type(),
             &[("construct-name", &"meh"), ("name", &"initial")],
         )
         .expect("Object::new failed");
@@ -648,7 +662,7 @@ mod test {
             "property 'name' of type 'SimpleObject' can't be set from the given type (expected: 'gchararray', got: 'gboolean')",
         );
 
-        let other_obj = Object::new(SimpleObject::get_type(), &[]).expect("Object::new failed");
+        let other_obj = Object::new(SimpleObject::static_type(), &[]).expect("Object::new failed");
         assert_eq!(
             obj.set_property("child", &other_obj)
                 .err()
@@ -657,7 +671,7 @@ mod test {
             "property 'child' of type 'SimpleObject' can't be set from the given object type (expected: 'ChildObject', got: 'SimpleObject')",
         );
 
-        let child = Object::new(ChildObject::get_type(), &[]).expect("Object::new failed");
+        let child = Object::new(ChildObject::static_type(), &[]).expect("Object::new failed");
         assert!(obj.set_property("child", &child).is_ok());
     }
 
@@ -666,7 +680,7 @@ mod test {
         use std::sync::atomic::{AtomicBool, Ordering};
         use std::sync::Arc;
 
-        let type_ = SimpleObject::get_type();
+        let type_ = SimpleObject::static_type();
         let obj = Object::new(type_, &[("name", &"old-name")]).expect("Object::new failed");
 
         let name_changed_triggered = Arc::new(AtomicBool::new(false));
@@ -709,7 +723,7 @@ mod test {
 
     #[test]
     fn test_signal_return_expected_type() {
-        let obj = Object::new(SimpleObject::get_type(), &[]).expect("Object::new failed");
+        let obj = Object::new(SimpleObject::static_type(), &[]).expect("Object::new failed");
 
         obj.connect("create-string", false, move |_args| {
             Some("return value".to_value())
@@ -728,7 +742,7 @@ mod test {
         use std::sync::atomic::{AtomicBool, Ordering};
         use std::sync::Arc;
 
-        let type_ = SimpleObject::get_type();
+        let type_ = SimpleObject::static_type();
         let obj = Object::new(type_, &[("name", &"old-name")]).expect("Object::new failed");
 
         let name_changed_triggered = Arc::new(AtomicBool::new(false));
@@ -746,11 +760,11 @@ mod test {
 
     #[test]
     fn test_signal_return_expected_object_type() {
-        let obj = Object::new(SimpleObject::get_type(), &[]).expect("Object::new failed");
+        let obj = Object::new(SimpleObject::static_type(), &[]).expect("Object::new failed");
 
         obj.connect("create-child-object", false, move |_args| {
             Some(
-                Object::new(ChildObject::get_type(), &[])
+                Object::new(ChildObject::static_type(), &[])
                     .expect("Object::new failed")
                     .to_value(),
             )

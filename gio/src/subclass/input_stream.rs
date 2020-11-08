@@ -265,12 +265,13 @@ mod tests {
     use glib::subclass;
     use std::cell::RefCell;
 
-    struct SimpleInputStream {
+    pub struct SimpleInputStream {
         pos: RefCell<usize>,
     }
 
     impl ObjectSubclass for SimpleInputStream {
         const NAME: &'static str = "SimpleInputStream";
+        type Type = SimpleInputStreamWrapper;
         type ParentType = InputStream;
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
@@ -358,11 +359,16 @@ mod tests {
         }
     }
 
+    glib_wrapper! {
+        pub struct SimpleInputStreamWrapper(ObjectSubclass<SimpleInputStream>)
+            @extends InputStream;
+    }
+
     #[test]
     fn test_simple_stream() {
         let stream = glib::Object::new(SimpleInputStream::get_type(), &[])
             .unwrap()
-            .downcast::<::InputStream>()
+            .downcast::<SimpleInputStreamWrapper>()
             .unwrap();
 
         let mut buf = [0; 16];

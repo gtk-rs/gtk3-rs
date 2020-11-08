@@ -248,6 +248,7 @@ mod row_data {
         // Basic declaration of our type for the GObject type system
         impl ObjectSubclass for RowData {
             const NAME: &'static str = "RowData";
+            type Type = super::RowData;
             type ParentType = glib::Object;
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
@@ -279,7 +280,7 @@ mod row_data {
         // This maps between the GObject properties and our internal storage of the
         // corresponding values of the properties.
         impl ObjectImpl for RowData {
-            fn set_property(&self, _obj: &glib::Object, id: usize, value: &glib::Value) {
+            fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
                 let prop = &PROPERTIES[id];
 
                 match *prop {
@@ -299,7 +300,7 @@ mod row_data {
                 }
             }
 
-            fn get_property(&self, _obj: &glib::Object, id: usize) -> Result<glib::Value, ()> {
+            fn get_property(&self, _obj: &Self::Type, id: usize) -> Result<glib::Value, ()> {
                 let prop = &PROPERTIES[id];
 
                 match *prop {

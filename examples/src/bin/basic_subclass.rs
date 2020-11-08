@@ -39,6 +39,7 @@ mod imp_win {
 
     impl ObjectSubclass for SimpleWindow {
         const NAME: &'static str = "SimpleWindow";
+        type Type = super::SimpleWindow;
         type ParentType = gtk::ApplicationWindow;
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
@@ -57,10 +58,8 @@ mod imp_win {
         // Here we are overriding the glib::Objcet::contructed
         // method. Its what gets called when we create our Object
         // and where we can initialize things.
-        fn constructed(&self, obj: &glib::Object) {
+        fn constructed(&self, obj: &Self::Type) {
             self.parent_constructed(obj);
-
-            let self_ = obj.downcast_ref::<super::SimpleWindow>().unwrap();
 
             let headerbar = gtk::HeaderBar::new();
             let increment = gtk::Button::with_label("Increment!");
@@ -72,14 +71,14 @@ mod imp_win {
 
             // Connect our method `on_increment_clicked` to be called
             // when the increment button is clicked.
-            increment.connect_clicked(clone!(@weak self_ => move |_| {
-                let priv_ = SimpleWindow::from_instance(&self_);
+            increment.connect_clicked(clone!(@weak obj => move |_| {
+                let priv_ = SimpleWindow::from_instance(&obj);
                 priv_.on_increment_clicked();
             }));
 
-            self_.add(&label);
-            self_.set_titlebar(Some(&headerbar));
-            self_.set_default_size(640, 480);
+            obj.add(&label);
+            obj.set_titlebar(Some(&headerbar));
+            obj.set_default_size(640, 480);
 
             self.widgets
                 .set(WindowWidgets {
@@ -113,7 +112,7 @@ glib_wrapper! {
 }
 
 impl SimpleWindow {
-    pub fn new(app: &gtk::Application) -> Self {
+    pub fn new(app: &SimpleApplication) -> Self {
         glib::Object::new(Self::static_type(), &[("application", app)])
             .expect("Failed to create SimpleWindow")
             .downcast::<SimpleWindow>()
@@ -131,6 +130,7 @@ mod imp_app {
 
     impl ObjectSubclass for SimpleApplication {
         const NAME: &'static str = "SimpleApplication";
+        type Type = super::SimpleApplication;
         type ParentType = gtk::Application;
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
@@ -155,7 +155,7 @@ mod imp_app {
         // application is launched by the desktop environment and
         // aksed to present itself.
         fn activate(&self, app: &gio::Application) {
-            let app = app.downcast_ref::<gtk::Application>().unwrap();
+            let app = app.downcast_ref::<super::SimpleApplication>().unwrap();
             let priv_ = SimpleApplication::from_instance(app);
             let window = priv_
                 .window
@@ -175,7 +175,7 @@ mod imp_app {
         fn startup(&self, app: &gio::Application) {
             self.parent_startup(app);
 
-            let app = app.downcast_ref::<gtk::Application>().unwrap();
+            let app = app.downcast_ref::<super::SimpleApplication>().unwrap();
             let priv_ = SimpleApplication::from_instance(app);
             let window = SimpleWindow::new(&app);
             priv_
