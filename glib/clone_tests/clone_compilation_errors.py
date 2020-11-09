@@ -44,11 +44,11 @@ TESTS = [
     ("clone!(@weak v => default-return false, move || {})",
         "Missing `@` before `default-return`"),
     ("clone!(@weak v => @default-return false move || {})",
-        "Missing comma after `@default-return`'s value"),
+        "Expected `,` after `@default-return false`"),
     ("clone!(@yolo v => move || {})",
-        "Unknown keyword \"yolo\", only `weak`, `weak-allow-none` and `strong` are allowed"),
+        "Unknown keyword `yolo`, only `weak`, `weak-allow-none` and `strong` are allowed"),
     ("clone!(v => move || {})",
-        "You need to specify if this is a weak or a strong clone."),
+        "Unexpected ident `v`: you need to specify if this is a weak or a strong clone."),
     ("clone!(@strong v => async move {println!(\"foo\");});",
         "async blocks are not supported by the clone! macro"),
     ("clone!(@strong v => {println!(\"foo\");});",
@@ -95,7 +95,7 @@ def run_test(code, expected_str):
             if (x["reason"] != "compiler-message"
                 or x["message"]["message"] == "aborting due to previous error"):
                 continue
-            compiler_message = x["message"]["message"]
+            compiler_message = x["message"]
             break
         except Exception:
             continue
@@ -103,9 +103,17 @@ def run_test(code, expected_str):
         return "Weird issue: no compiler-message found..."
     if expected_str == "":
         return "failed: `{}`".format(compiler_message)
-    if expected_str not in compiler_message:
-        return "`{}` not found in `{}`".format(expected_str, compiler_message)
-    return None
+    err_message = []
+    if expected_str in compiler_message["message"]:
+        return None
+    err_message.append(compiler_message["message"])
+        for child in compiler_message["children"]:
+        if "message" not in child:
+            continue
+        if expected_str in child["message"]:
+            return None
+        err_message.append(child["message"])
+    return "`{}` not found in `{}`".format(expected_str, err_message)
 
 
 def run_tests():
