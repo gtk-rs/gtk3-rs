@@ -4,7 +4,7 @@
 
 use crate::utils::crate_ident_new;
 use proc_macro::token_stream::IntoIter as ProcIter;
-use proc_macro::{Delimiter, TokenStream, TokenTree};
+use proc_macro::{Delimiter, Group, TokenStream, TokenTree};
 use std::iter::Peekable;
 
 #[derive(Clone, Copy, Debug)]
@@ -319,6 +319,25 @@ fn parse_ident(parts: &mut Peekable<ProcIter>, elements: &mut Vec<ElemToClone>) 
     });
 }
 
+fn group_to_string(g: &Group) -> String {
+    format!(
+        "{}{}{}",
+        match g.delimiter() {
+            Delimiter::Parenthesis => "(",
+            Delimiter::Brace => "{",
+            Delimiter::Bracket => "[",
+            Delimiter::None => "",
+        },
+        tokens_to_string(g.stream().into_iter().peekable()),
+        match g.delimiter() {
+            Delimiter::Parenthesis => ")",
+            Delimiter::Brace => "}",
+            Delimiter::Bracket => "]",
+            Delimiter::None => "",
+        },
+    )
+}
+
 fn get_expr(parts: &mut Peekable<ProcIter>) -> String {
     let mut ret = String::new();
     let mut total = 0;
@@ -331,7 +350,7 @@ fn get_expr(parts: &mut Peekable<ProcIter>) -> String {
             }
             x => panic!("Unexpected token `{}` after `@default-return`", x),
         },
-        Some(x) => panic!("Unexpected token `{}` after `@default-return", x),
+        Some(TokenTree::Group(g)) => return group_to_string(&g),
         None => panic!("Unexpected end after `@default-return`"),
     };
     loop {
@@ -347,21 +366,7 @@ fn get_expr(parts: &mut Peekable<ProcIter>) -> String {
                 }
                 ret.push_str(&p_s);
             }
-            Some(TokenTree::Group(g)) => {
-                ret.push_str(match g.delimiter() {
-                    Delimiter::Parenthesis => "(",
-                    Delimiter::Brace => "{",
-                    Delimiter::Bracket => "[",
-                    Delimiter::None => "",
-                });
-                ret.push_str(&tokens_to_string(g.stream().into_iter().peekable()));
-                ret.push_str(match g.delimiter() {
-                    Delimiter::Parenthesis => ")",
-                    Delimiter::Brace => "}",
-                    Delimiter::Bracket => "]",
-                    Delimiter::None => "",
-                });
-            }
+            Some(TokenTree::Group(g)) => ret.push_str(&group_to_string(g)),
             Some(x) => {
                 if total == 0 && !ret.ends_with(":") {
                     return ret;
@@ -484,19 +489,7 @@ pub fn tokens_to_string(mut parts: Peekable<ProcIter>) -> String {
             TokenTree::Literal(l) => handle_ident_like(l.to_string(), &mut ret, &mut prev_is_ident),
             TokenTree::Group(g) => {
                 prev_is_ident = false;
-                ret.push_str(match g.delimiter() {
-                    Delimiter::Parenthesis => "(",
-                    Delimiter::Brace => "{",
-                    Delimiter::Bracket => "[",
-                    Delimiter::None => "",
-                });
-                ret.push_str(&tokens_to_string(g.stream().into_iter().peekable()));
-                ret.push_str(match g.delimiter() {
-                    Delimiter::Parenthesis => ")",
-                    Delimiter::Brace => "}",
-                    Delimiter::Bracket => "]",
-                    Delimiter::None => "",
-                });
+                ret.push_str(&group_to_string(&g));
             }
         }
     }

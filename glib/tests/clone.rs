@@ -467,6 +467,8 @@ fn test_clone_macro_default_return() {
     let _closure = clone!(@weak v => @default-return Enum::A, move || { Enum::A });
     let _closure = clone!(@weak v => @default-return Enum::B(0), move || { Enum::A });
     let _closure = clone!(@weak v => @default-return Enum::C { x: 0 }, move || { Enum::A });
+    let _closure =
+        clone!(@weak v => @default-return { let x = 12; x + 2 }, move || { 19 });
 }
 
 #[test]
