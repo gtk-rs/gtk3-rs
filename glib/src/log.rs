@@ -114,7 +114,7 @@ fn to_log_flags(fatal: bool, recursion: bool) -> u32 {
 }
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
-pub fn log_set_handler<P: Fn(&str, LogLevel, &str) + Send + Sync + 'static>(
+pub fn log_set_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static>(
     log_domain: Option<&str>,
     log_levels: LogLevels,
     fatal: bool,
@@ -122,19 +122,31 @@ pub fn log_set_handler<P: Fn(&str, LogLevel, &str) + Send + Sync + 'static>(
     log_func: P,
 ) -> LogHandlerId {
     let log_func_data: Box_<P> = Box_::new(log_func);
-    unsafe extern "C" fn log_func_func<P: Fn(&str, LogLevel, &str) + Send + Sync + 'static>(
+    unsafe extern "C" fn log_func_func<
+        P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static,
+    >(
         log_domain: *const libc::c_char,
         log_level: glib_sys::GLogLevelFlags,
         message: *const libc::c_char,
         user_data: glib_sys::gpointer,
     ) {
-        let log_domain: Borrowed<GString> = from_glib_borrow(log_domain);
         let message: Borrowed<GString> = from_glib_borrow(message);
         let callback: &P = &*(user_data as *mut _);
-        (*callback)(log_domain.as_str(), from_glib(log_level), message.as_str());
+        if log_domain.is_null() {
+            (*callback)(None, from_glib(log_level), message.as_str());
+        } else {
+            let log_domain: Borrowed<GString> = from_glib_borrow(log_domain);
+            (*callback)(
+                Some(log_domain.as_str()),
+                from_glib(log_level),
+                message.as_str(),
+            );
+        }
     }
     let log_func = Some(log_func_func::<P> as _);
-    unsafe extern "C" fn destroy_func<P: Fn(&str, LogLevel, &str) + Send + Sync + 'static>(
+    unsafe extern "C" fn destroy_func<
+        P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static,
+    >(
         data: glib_sys::gpointer,
     ) {
         let _callback: Box_<P> = Box_::from_raw(data as *mut _);
@@ -162,7 +174,7 @@ pub fn log_set_always_fatal(fatal_levels: LogLevels) -> LogLevels {
     unsafe { from_glib(glib_sys::g_log_set_always_fatal(fatal_levels.to_glib())) }
 }
 
-pub fn log_set_fatal_mask(log_domain: &str, fatal_levels: LogLevels) -> LogLevels {
+pub fn log_set_fatal_mask(log_domain: Option<&str>, fatal_levels: LogLevels) -> LogLevels {
     unsafe {
         from_glib(glib_sys::g_log_set_fatal_mask(
             log_domain.to_glib_none().0,
@@ -241,12 +253,14 @@ pub fn unset_printerr_handler() {
     unsafe { glib_sys::g_set_printerr_handler(None) };
 }
 
-type LogCallback = dyn Fn(&str, LogLevel, &str) + Send + Sync + 'static;
+type LogCallback = dyn Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static;
 
 static DEFAULT_HANDLER: Lazy<Mutex<Option<Arc<LogCallback>>>> = Lazy::new(|| Mutex::new(None));
 
 /// To set back the default print handler, use the [`log_unset_default_handler`] function.
-pub fn log_set_default_handler<P: Fn(&str, LogLevel, &str) + Send + Sync + 'static>(log_func: P) {
+pub fn log_set_default_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static>(
+    log_func: P,
+) {
     unsafe extern "C" fn func_func(
         log_domain: *const libc::c_char,
         log_levels: glib_sys::GLogLevelFlags,
@@ -260,9 +274,17 @@ pub fn log_set_default_handler<P: Fn(&str, LogLevel, &str) + Send + Sync + 'stat
             Some(ref handler) => Some(Arc::clone(handler)),
             None => None,
         } {
-            let log_domain: Borrowed<GString> = from_glib_borrow(log_domain);
             let message: Borrowed<GString> = from_glib_borrow(message);
-            (*callback)(log_domain.as_str(), from_glib(log_levels), message.as_str());
+            if log_domain.is_null() {
+                (*callback)(None, from_glib(log_levels), message.as_str());
+            } else {
+                let log_domain: Borrowed<GString> = from_glib_borrow(log_domain);
+                (*callback)(
+                    Some(log_domain.as_str()),
+                    from_glib(log_levels),
+                    message.as_str(),
+                );
+            }
         }
     }
     *DEFAULT_HANDLER
@@ -284,7 +306,7 @@ pub fn log_unset_default_handler() {
     };
 }
 
-pub fn log_default_handler(log_domain: &str, log_level: LogLevel, message: Option<&str>) {
+pub fn log_default_handler(log_domain: Option<&str>, log_level: LogLevel, message: Option<&str>) {
     unsafe {
         glib_sys::g_log_default_handler(
             log_domain.to_glib_none().0,
@@ -323,11 +345,11 @@ macro_rules! g_log {
         use $crate::translate::{ToGlib, ToGlibPtr};
         use $crate::LogLevel;
 
-        fn check_log_args(_log_domain: &str, _log_level: LogLevel, _format: &str) {}
+        fn check_log_args(_log_domain: Option<&str>, _log_level: LogLevel, _format: &str) {}
 
         check_log_args(&$log_domain, $log_level, $format);
         // the next line is used to enforce the type for the macro checker...
-        let log_domain: &str = $log_domain;
+        let log_domain: Option<&str> = $log_domain;
         // to prevent the glib formatter to look for arguments which don't exist
         let f = format!($format, $($arg),*).replace("%", "%%");
         unsafe {
@@ -342,11 +364,11 @@ macro_rules! g_log {
         use $crate::translate::{ToGlib, ToGlibPtr};
         use $crate::LogLevel;
 
-        fn check_log_args(_log_domain: &str, _log_level: LogLevel, _format: &str) {}
+        fn check_log_args(_log_domain: Option<&str>, _log_level: LogLevel, _format: &str) {}
 
         check_log_args(&$log_domain, $log_level, $format);
         // the next line is used to enforce the type for the macro checker...
-        let log_domain: &str = $log_domain;
+        let log_domain: Option<&str> = $log_domain;
         // to prevent the glib formatter to look for arguments which don't exist
         let f = $format.replace("%", "%%");
         unsafe {
@@ -682,7 +704,7 @@ macro_rules! g_printerr {
 //         use $crate::LogLevel;
 //         use std::ffi::CString;
 
-//         fn check_log_args(_log_domain: &str, _log_level: LogLevel) {}
+//         fn check_log_args(_log_domain: Option<&str>, _log_level: LogLevel) {}
 //         fn check_key(key: &str) -> Stash<*const i8, str> { key.to_glib_none() }
 
 //         check_log_args(&$log_domain, $log_level);
