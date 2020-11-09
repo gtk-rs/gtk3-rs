@@ -2,10 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::utils::crate_ident_new;
 use proc_macro::token_stream::IntoIter as ProcIter;
 use proc_macro::{Delimiter, TokenStream, TokenTree};
 use std::iter::Peekable;
-use crate::utils::crate_ident_new;
 
 #[derive(Clone, Copy, Debug)]
 enum BorrowKind {
@@ -57,13 +57,21 @@ impl ElemToClone {
         match self.borrow_kind {
             BorrowKind::Weak | BorrowKind::WeakAllowNone => format!(
                 "let {} = {}::clone::Downgrade::downgrade(&{});",
-                if let Some(ref a) = self.alias { a } else { &self.name },
+                if let Some(ref a) = self.alias {
+                    a
+                } else {
+                    &self.name
+                },
                 crate_ident_new(),
                 self.name,
             ),
             BorrowKind::Strong => format!(
                 "let {} = {}.clone();",
-                if let Some(ref a) = self.alias { a } else { &self.name },
+                if let Some(ref a) = self.alias {
+                    a
+                } else {
+                    &self.name
+                },
                 self.name,
             ),
         }
@@ -72,8 +80,13 @@ impl ElemToClone {
     fn to_str_after(&self, wrapper_kind: &WrapperKind) -> String {
         match (self.borrow_kind, wrapper_kind) {
             (BorrowKind::Weak, WrapperKind::DefaultPanic) => {
-                let name = if let Some(ref a) = self.alias { a } else { &self.name };
-                format!("\
+                let name = if let Some(ref a) = self.alias {
+                    a
+                } else {
+                    &self.name
+                };
+                format!(
+                    "\
 let {0} = match {1}::clone::Upgrade::upgrade(&{0}) {{
     Some(val) => val,
     None => panic!(
@@ -85,8 +98,13 @@ let {0} = match {1}::clone::Upgrade::upgrade(&{0}) {{
                 )
             }
             (BorrowKind::Weak, WrapperKind::DefaultReturn(ref r)) => {
-                let name = if let Some(ref a) = self.alias { a } else { &self.name };
-                format!("\
+                let name = if let Some(ref a) = self.alias {
+                    a
+                } else {
+                    &self.name
+                };
+                format!(
+                    "\
 let {0} = match {1}::clone::Upgrade::upgrade(&{0}) {{
     Some(val) => val,
     None => {{
@@ -103,13 +121,15 @@ let {0} = match {1}::clone::Upgrade::upgrade(&{0}) {{
                     r,
                 )
             }
-            (BorrowKind::WeakAllowNone, _) => {
-                format!(
-                    "let {0} = {1}::clone::Upgrade::upgrade(&{0});",
-                    if let Some(ref a) = self.alias { a } else { &self.name },
-                    crate_ident_new(),
-                )
-            }
+            (BorrowKind::WeakAllowNone, _) => format!(
+                "let {0} = {1}::clone::Upgrade::upgrade(&{0});",
+                if let Some(ref a) = self.alias {
+                    a
+                } else {
+                    &self.name
+                },
+                crate_ident_new(),
+            ),
             _ => String::new(),
         }
     }
@@ -151,13 +171,19 @@ enum TokenCheck {
     UnexpectedEnd(String),
 }
 
-fn check_tokens(tokens_to_check: &[SimpleToken], parts: &mut Peekable<ProcIter>) -> Result<(), TokenCheck> {
+fn check_tokens(
+    tokens_to_check: &[SimpleToken],
+    parts: &mut Peekable<ProcIter>,
+) -> Result<(), TokenCheck> {
     let mut tokens = String::new();
 
     for token in tokens_to_check {
         if let Some(next) = parts.next() {
             if *token != next {
-                return Err(TokenCheck::UnexpectedToken(tokens, token.to_str().to_owned()));
+                return Err(TokenCheck::UnexpectedToken(
+                    tokens,
+                    token.to_str().to_owned(),
+                ));
             }
             tokens.push_str(token.to_str());
         } else {
@@ -176,7 +202,7 @@ fn get_full_ident(parts: &mut Peekable<ProcIter>, borrow_kind: BorrowKind) -> St
             Some(TokenTree::Punct(p)) => {
                 let p_s = p.to_string();
                 if p_s == "," || p_s == "=" {
-                    break
+                    break;
                 } else if p_s == "." {
                     if !prev_is_ident {
                         panic!("Unexpected `.` after `{}`", borrow_kind.to_str());
@@ -192,7 +218,7 @@ fn get_full_ident(parts: &mut Peekable<ProcIter>, borrow_kind: BorrowKind) -> St
             }
             Some(TokenTree::Ident(i)) => {
                 if prev_is_ident {
-                    break
+                    break;
                 }
                 prev_is_ident = true;
                 name.push_str(&i.to_string());
@@ -204,7 +230,10 @@ fn get_full_ident(parts: &mut Peekable<ProcIter>, borrow_kind: BorrowKind) -> St
         }
     }
     if name.is_empty() {
-        panic!("Expected ident, found `{}`", parts.next().unwrap().to_string());
+        panic!(
+            "Expected ident, found `{}`",
+            parts.next().unwrap().to_string()
+        );
     }
     name
 }
@@ -229,7 +258,7 @@ fn get_keyword(parts: &mut Peekable<ProcIter>) -> String {
             }
             Some(TokenTree::Punct(p)) if p.to_string() == "-" => {
                 if !prev_is_ident {
-                    break
+                    break;
                 }
                 // This is to prevent to push `-` if the next item isn't an ident.
                 prev_is_ident = false;
@@ -260,7 +289,10 @@ fn parse_ident(parts: &mut Peekable<ProcIter>, elements: &mut Vec<ElemToClone>) 
             parts.next();
             match parts.next() {
                 Some(TokenTree::Ident(i)) => Some(i.to_string()),
-                Some(x) => panic!("Expected ident after `as` keyword, found `{}`", x.to_string()),
+                Some(x) => panic!(
+                    "Expected ident after `as` keyword, found `{}`",
+                    x.to_string()
+                ),
                 None => panic!("Unexpected end after `as` keyword"),
             }
         }
@@ -268,12 +300,17 @@ fn parse_ident(parts: &mut Peekable<ProcIter>, elements: &mut Vec<ElemToClone>) 
         _ => None,
     };
     if name == "self" && alias.is_none() {
-        panic!("Can't use `self` as variable name. Try storing it in a temporary variable or \
-                rename it using `as`.");
+        panic!(
+            "Can't use `self` as variable name. Try storing it in a temporary variable or \
+                rename it using `as`."
+        );
     } else if name.ends_with(".") {
         panic!("Invalid variable name: `{}`", name);
     } else if name.contains(".") && alias.is_none() {
-        panic!("`{}`: Field accesses are not allowed as is, you must rename it!", name);
+        panic!(
+            "`{}`: Field accesses are not allowed as is, you must rename it!",
+            name
+        );
     }
     elements.push(ElemToClone {
         name,
@@ -375,7 +412,11 @@ fn parse_return_kind(parts: &mut Peekable<ProcIter>) -> WrapperKind {
     let ret = get_return_kind(parts);
     match check_tokens(&[SimpleToken::Punct(",")], parts) {
         Err(TokenCheck::UnexpectedToken(_, unexpected_token)) => {
-            panic!("Expected `,` after `{}`, found `{}`", ret.to_str(), unexpected_token);
+            panic!(
+                "Expected `,` after `{}`, found `{}`",
+                ret.to_str(),
+                unexpected_token
+            );
         }
         Err(TokenCheck::UnexpectedEnd(tokens)) => {
             panic!("Expected `,` after `{}{}`", ret.to_str(), tokens);
@@ -509,10 +550,19 @@ pub(crate) fn clone_inner(item: TokenStream) -> TokenStream {
     let closure = get_closure(&mut parts);
     let body = tokens_to_string(parts);
 
-    let x = format!("{{\n{}\nmove |{}| {{\n{}\nlet ____ret = {{ {} }};\n____ret\n}}\n}}",
-        elements.iter().map(|x| x.to_str_before()).collect::<Vec<_>>().join("\n"),
+    let x = format!(
+        "{{\n{}\nmove |{}| {{\n{}\nlet ____ret = {{ {} }};\n____ret\n}}\n}}",
+        elements
+            .iter()
+            .map(|x| x.to_str_before())
+            .collect::<Vec<_>>()
+            .join("\n"),
         closure,
-        elements.iter().map(|x| x.to_str_after(&return_kind)).collect::<Vec<_>>().join("\n"),
+        elements
+            .iter()
+            .map(|x| x.to_str_after(&return_kind))
+            .collect::<Vec<_>>()
+            .join("\n"),
         body,
     );
     x.parse().unwrap()
