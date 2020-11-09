@@ -90,7 +90,7 @@ pub extern crate glib_sys;
 pub extern crate gobject_sys;
 
 extern crate glib_macros;
-pub use glib_macros::{gflags, GBoxed, GEnum};
+pub use glib_macros::{clone, gflags, GBoxed, GEnum};
 
 extern crate futures_channel;
 extern crate futures_core;
@@ -121,7 +121,6 @@ pub use variant_dict::VariantDict;
 pub use variant_iter::VariantIter;
 pub use variant_type::{VariantTy, VariantType};
 
-#[macro_use]
 pub mod clone;
 #[macro_use]
 pub mod wrapper;
