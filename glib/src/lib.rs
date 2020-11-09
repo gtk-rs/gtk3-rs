@@ -220,7 +220,7 @@ pub use source_futures::*;
 mod thread_pool;
 pub use thread_pool::ThreadPool;
 
-/// This is the log domain used by the [`clone!`][crate::clone] macro. If you want to use a custom
+/// This is the log domain used by the [`clone!`][crate::clone!] macro. If you want to use a custom
 /// logger (it prints to stdout by default), you can set your own logger using the corresponding
 /// `log` functions.
 pub const CLONE_MACRO_LOG_DOMAIN: &str = "glib-rs-clone";
