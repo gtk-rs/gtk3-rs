@@ -130,18 +130,14 @@ pub fn log_set_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'stat
         message: *const libc::c_char,
         user_data: glib_sys::gpointer,
     ) {
+        let log_domain: Borrowed<Option<GString>> = from_glib_borrow(log_domain);
         let message: Borrowed<GString> = from_glib_borrow(message);
         let callback: &P = &*(user_data as *mut _);
-        if log_domain.is_null() {
-            (*callback)(None, from_glib(log_level), message.as_str());
-        } else {
-            let log_domain: Borrowed<GString> = from_glib_borrow(log_domain);
-            (*callback)(
-                Some(log_domain.as_str()),
-                from_glib(log_level),
-                message.as_str(),
-            );
-        }
+        (*callback)(
+            (*log_domain).as_deref(),
+            from_glib(log_level),
+            message.as_str(),
+        );
     }
     let log_func = Some(log_func_func::<P> as _);
     unsafe extern "C" fn destroy_func<
@@ -274,17 +270,13 @@ pub fn log_set_default_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync
             Some(ref handler) => Some(Arc::clone(handler)),
             None => None,
         } {
+            let log_domain: Borrowed<Option<GString>> = from_glib_borrow(log_domain);
             let message: Borrowed<GString> = from_glib_borrow(message);
-            if log_domain.is_null() {
-                (*callback)(None, from_glib(log_levels), message.as_str());
-            } else {
-                let log_domain: Borrowed<GString> = from_glib_borrow(log_domain);
-                (*callback)(
-                    Some(log_domain.as_str()),
-                    from_glib(log_levels),
-                    message.as_str(),
-                );
-            }
+            (*callback)(
+                (*log_domain).as_deref(),
+                from_glib(log_levels),
+                message.as_str(),
+            );
         }
     }
     *DEFAULT_HANDLER
@@ -345,11 +337,11 @@ macro_rules! g_log {
         use $crate::translate::{ToGlib, ToGlibPtr};
         use $crate::LogLevel;
 
-        fn check_log_args(_log_domain: Option<&str>, _log_level: LogLevel, _format: &str) {}
+        fn check_log_args(_log_domain: &str, _log_level: LogLevel, _format: &str) {}
 
         check_log_args(&$log_domain, $log_level, $format);
         // the next line is used to enforce the type for the macro checker...
-        let log_domain: Option<&str> = $log_domain;
+        let log_domain: &str = $log_domain;
         // to prevent the glib formatter to look for arguments which don't exist
         let f = format!($format, $($arg),*).replace("%", "%%");
         unsafe {
@@ -364,11 +356,11 @@ macro_rules! g_log {
         use $crate::translate::{ToGlib, ToGlibPtr};
         use $crate::LogLevel;
 
-        fn check_log_args(_log_domain: Option<&str>, _log_level: LogLevel, _format: &str) {}
+        fn check_log_args(_log_domain: &str, _log_level: LogLevel, _format: &str) {}
 
         check_log_args(&$log_domain, $log_level, $format);
         // the next line is used to enforce the type for the macro checker...
-        let log_domain: Option<&str> = $log_domain;
+        let log_domain: &str = $log_domain;
         // to prevent the glib formatter to look for arguments which don't exist
         let f = $format.replace("%", "%%");
         unsafe {
@@ -704,7 +696,7 @@ macro_rules! g_printerr {
 //         use $crate::LogLevel;
 //         use std::ffi::CString;
 
-//         fn check_log_args(_log_domain: Option<&str>, _log_level: LogLevel) {}
+//         fn check_log_args(_log_domain: &str, _log_level: LogLevel) {}
 //         fn check_key(key: &str) -> Stash<*const i8, str> { key.to_glib_none() }
 
 //         check_log_args(&$log_domain, $log_level);

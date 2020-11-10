@@ -32,7 +32,7 @@ fn assert_counts(
 #[test]
 fn check_log_handlers() {
     // We set the fatal level explicitly in case it's set outside of the test.
-    log_set_fatal_mask("domain", LogLevels::LEVEL_ERROR);
+    log_set_fatal_mask(Some("domain"), LogLevels::LEVEL_ERROR);
 
     //
     // log_set_default_handler check part
