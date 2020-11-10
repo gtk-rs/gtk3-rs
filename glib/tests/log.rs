@@ -49,21 +49,21 @@ fn check_log_handlers() {
         }
     }));
     assert_counts(&count, 0, 0, 0, 0, 0);
-    g_warning!("domain", "hello");
+    g_warning!(Some("domain"), "hello");
     assert_counts(&count, 0, 1, 0, 0, 0);
-    g_warning!("domain", "hello");
-    g_critical!("domain", "hello");
-    g_warning!("domain", "hello");
-    g_message!("domain", "hello");
-    g_info!("domain", "hello");
-    g_debug!("domain", "hello");
-    g_info!("domain", "hello");
+    g_warning!(Some("domain"), "hello");
+    g_critical!(Some("domain"), "hello");
+    g_warning!(Some("domain"), "hello");
+    g_message!(Some("domain"), "hello");
+    g_info!(Some("domain"), "hello");
+    g_debug!(Some("domain"), "hello");
+    g_info!(Some("domain"), "hello");
     assert_counts(&count, 1, 3, 1, 2, 1);
 
     // We now unset our callback and check if it has really been unset.
     log_unset_default_handler();
-    g_info!("domain", "hello");
-    g_debug!("domain", "hello");
+    g_info!(Some("domain"), "hello");
+    g_debug!(Some("domain"), "hello");
     assert_counts(&count, 1, 3, 1, 2, 1);
 
     //

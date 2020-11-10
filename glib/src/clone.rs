@@ -161,7 +161,7 @@ macro_rules! to_type_after {
             Some(val) => val,
             None => {
                 $crate::g_debug!(
-                    $crate::CLONE_MACRO_LOG_DOMAIN,
+                    Some($crate::CLONE_MACRO_LOG_DOMAIN),
                     "Failed to upgrade {}",
                     stringify!($variable)
                 );
@@ -174,7 +174,7 @@ macro_rules! to_type_after {
             Some(val) => val,
             None => {
                 $crate::g_debug!(
-                    $crate::CLONE_MACRO_LOG_DOMAIN,
+                    Some($crate::CLONE_MACRO_LOG_DOMAIN),
                     "Failed to upgrade {} {}",
                     stringify!($rename),
                     "yolo",

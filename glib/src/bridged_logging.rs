@@ -221,7 +221,7 @@ pub fn rust_log_handler(domain: Option<&str>, level: glib_log::LogLevel, message
         glib_log::LogLevel::Debug => log::Level::Debug,
     };
 
-    rs_log::log!(target: domain, level, "{}", message);
+    rs_log::log!(target: domain.unwrap_or("<null>"), level, "{}", message);
 }
 
 /// A macro which behaves exactly as `log::error!` except that it sets the
