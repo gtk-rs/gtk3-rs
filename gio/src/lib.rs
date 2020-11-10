@@ -51,6 +51,7 @@ mod file_enumerator;
 mod file_info;
 mod flags;
 mod inet_address;
+mod inet_socket_address;
 mod io_stream;
 pub use io_stream::IOStreamAsyncReadWrite;
 mod input_stream;
