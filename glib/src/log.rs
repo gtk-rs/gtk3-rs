@@ -318,18 +318,18 @@ pub fn log_default_handler(log_domain: Option<&str>, log_level: LogLevel, messag
 /// ```no_run
 /// use glib::{LogLevel, g_log};
 ///
-/// g_log!(Some("test"), LogLevel::Debug, "test");
-/// g_log!(Some("test"), LogLevel::Message, "test");
+/// g_log!("test", LogLevel::Debug, "test");
+/// g_log!("test", LogLevel::Message, "test");
 /// // trailing commas work as well:
-/// g_log!(Some("test"), LogLevel::Message, "test",);
+/// g_log!("test", LogLevel::Message, "test",);
 ///
 /// // You can also pass arguments like in format! or println!:
 /// let x = 12;
-/// g_log!(Some("test"), LogLevel::Error, "test: {}", x);
-/// g_log!(Some("test"), LogLevel::Critical, "test: {}", x);
-/// g_log!(Some("test"), LogLevel::Warning, "test: {} {}", x, "a");
+/// g_log!("test", LogLevel::Error, "test: {}", x);
+/// g_log!("test", LogLevel::Critical, "test: {}", x);
+/// g_log!("test", LogLevel::Warning, "test: {} {}", x, "a");
 /// // trailing commas work as well:
-/// g_log!(Some("test"), LogLevel::Warning, "test: {} {}", x, "a",);
+/// g_log!("test", LogLevel::Warning, "test: {} {}", x, "a",);
 /// ```
 ///
 /// To be noted that the log domain is optional:
@@ -338,10 +338,10 @@ pub fn log_default_handler(log_domain: Option<&str>, log_level: LogLevel, messag
 /// use glib::{LogLevel, g_log};
 ///
 /// // As you can see: no log domain:
-/// g_log!("test", LogLevel::Message, "test");
+/// g_log!(LogLevel::Message, "test");
 /// // For the rest, it's just like when you have the log domain:
 /// // trailing commas:
-/// g_log!("test", LogLevel::Message, "test",);
+/// g_log!(LogLevel::Message, "test",);
 ///
 /// // formatting:
 /// let x = 12;
@@ -435,20 +435,20 @@ macro_rules! g_log {
 /// ```no_run
 /// use glib::g_error;
 ///
-/// g_error!(Some("test"), "test");
+/// g_error!("test", "test");
 /// // Equivalent to:
 /// use glib::{g_log, LogLevel};
-/// g_log!(Some("test"), LogLevel::Error, "test");
+/// g_log!("test", LogLevel::Error, "test");
 ///
 /// // trailing commas work as well:
-/// g_error!(Some("test"), "test",);
+/// g_error!("test", "test",);
 ///
 /// // You can also pass arguments like in format! or println!:
 /// let x = 12;
-/// g_error!(Some("test"), "test: {}", x);
-/// g_error!(Some("test"), "test: {} {}", x, "a");
+/// g_error!("test", "test: {}", x);
+/// g_error!("test", "test: {} {}", x, "a");
 /// // trailing commas work as well:
-/// g_error!(Some("test"), "test: {} {}", x, "a",);
+/// g_error!("test", "test: {} {}", x, "a",);
 /// ```
 #[macro_export]
 macro_rules! g_error {
@@ -471,20 +471,20 @@ macro_rules! g_error {
 /// ```no_run
 /// use glib::g_critical;
 ///
-/// g_critical!(Some("test"), "test");
+/// g_critical!("test", "test");
 /// // Equivalent to:
 /// use glib::{g_log, LogLevel};
-/// g_log!(Some("test"), LogLevel::Critical, "test");
+/// g_log!("test", LogLevel::Critical, "test");
 ///
 /// // trailing commas work as well:
-/// g_critical!(Some("test"), "test",);
+/// g_critical!("test", "test",);
 ///
 /// // You can also pass arguments like in format! or println!:
 /// let x = 12;
-/// g_critical!(Some("test"), "test: {}", x);
-/// g_critical!(Some("test"), "test: {} {}", x, "a");
+/// g_critical!("test", "test: {}", x);
+/// g_critical!("test", "test: {} {}", x, "a");
 /// // trailing commas work as well:
-/// g_critical!(Some("test"), "test: {} {}", x, "a",);
+/// g_critical!("test", "test: {} {}", x, "a",);
 /// ```
 #[macro_export]
 macro_rules! g_critical {
@@ -507,20 +507,20 @@ macro_rules! g_critical {
 /// ```no_run
 /// use glib::g_warning;
 ///
-/// g_warning!(Some("test"), "test");
+/// g_warning!("test", "test");
 /// // Equivalent to:
 /// use glib::{g_log, LogLevel};
-/// g_log!(Some("test"), LogLevel::Warning, "test");
+/// g_log!("test", LogLevel::Warning, "test");
 ///
 /// // trailing commas work as well:
-/// g_warning!(Some("test"), "test",);
+/// g_warning!("test", "test",);
 ///
 /// // You can also pass arguments like in format! or println!:
 /// let x = 12;
-/// g_warning!(Some("test"), "test: {}", x);
-/// g_warning!(Some("test"), "test: {} {}", x, "a");
+/// g_warning!("test", "test: {}", x);
+/// g_warning!("test", "test: {} {}", x, "a");
 /// // trailing commas work as well:
-/// g_warning!(Some("test"), "test: {} {}", x, "a",);
+/// g_warning!("test", "test: {} {}", x, "a",);
 /// ```
 #[macro_export]
 macro_rules! g_warning {
@@ -543,20 +543,20 @@ macro_rules! g_warning {
 /// ```no_run
 /// use glib::g_message;
 ///
-/// g_message!(Some("test"), "test");
+/// g_message!("test", "test");
 /// // Equivalent to:
 /// use glib::{g_log, LogLevel};
-/// g_log!(Some("test"), LogLevel::Message, "test");
+/// g_log!("test", LogLevel::Message, "test");
 ///
 /// // trailing commas work as well:
-/// g_message!(Some("test"), "test",);
+/// g_message!("test", "test",);
 ///
 /// // You can also pass arguments like in format! or println!:
 /// let x = 12;
-/// g_message!(Some("test"), "test: {}", x);
-/// g_message!(Some("test"), "test: {} {}", x, "a");
+/// g_message!("test", "test: {}", x);
+/// g_message!("test", "test: {} {}", x, "a");
 /// // trailing commas work as well:
-/// g_message!(Some("test"), "test: {} {}", x, "a",);
+/// g_message!("test", "test: {} {}", x, "a",);
 /// ```
 #[macro_export]
 macro_rules! g_message {
@@ -579,20 +579,20 @@ macro_rules! g_message {
 /// ```no_run
 /// use glib::g_info;
 ///
-/// g_info!(Some("test"), "test");
+/// g_info!("test", "test");
 /// // Equivalent to:
 /// use glib::{g_log, LogLevel};
-/// g_log!(Some("test"), LogLevel::Info, "test");
+/// g_log!("test", LogLevel::Info, "test");
 ///
 /// // trailing commas work as well:
-/// g_info!(Some("test"), "test",);
+/// g_info!("test", "test",);
 ///
 /// // You can also pass arguments like in format! or println!:
 /// let x = 12;
-/// g_info!(Some("test"), "test: {}", x);
-/// g_info!(Some("test"), "test: {} {}", x, "a");
+/// g_info!("test", "test: {}", x);
+/// g_info!("test", "test: {} {}", x, "a");
 /// // trailing commas work as well:
-/// g_info!(Some("test"), "test: {} {}", x, "a",);
+/// g_info!("test", "test: {} {}", x, "a",);
 /// ```
 #[macro_export]
 macro_rules! g_info {
@@ -615,20 +615,20 @@ macro_rules! g_info {
 /// ```no_run
 /// use glib::g_debug;
 ///
-/// g_debug!(Some("test"), "test");
+/// g_debug!("test", "test");
 /// // Equivalent to:
 /// use glib::{g_log, LogLevel};
-/// g_log!(Some("test"), LogLevel::Debug, "test");
+/// g_log!("test", LogLevel::Debug, "test");
 ///
 /// // trailing commas work as well:
-/// g_debug!(Some("test"), "test",);
+/// g_debug!("test", "test",);
 ///
 /// // You can also pass arguments like in format! or println!:
 /// let x = 12;
-/// g_debug!(Some("test"), "test: {}", x);
-/// g_debug!(Some("test"), "test: {} {}", x, "a");
+/// g_debug!("test", "test: {}", x);
+/// g_debug!("test", "test: {} {}", x, "a");
 /// // trailing commas work as well:
-/// g_debug!(Some("test"), "test: {} {}", x, "a",);
+/// g_debug!("test", "test: {} {}", x, "a",);
 /// ```
 #[macro_export]
 macro_rules! g_debug {
