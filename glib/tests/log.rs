@@ -87,25 +87,25 @@ fn check_log_handlers() {
             }),
         );
         assert_counts(&count, 0, 0, 0, 0, 0);
-        g_warning!("domain", "hello");
+        g_warning!(Some("domain"), "hello");
         assert_counts(&count, 0, 1, 0, 0, 0);
-        g_critical!("domain", "hello");
-        g_message!("domain", "hello");
-        g_info!("domain", "hello");
+        g_critical!(Some("domain"), "hello");
+        g_message!(Some("domain"), "hello");
+        g_info!(Some("domain"), "hello");
         assert_counts(&count, 0, 1, 0, 0, 0);
-        g_debug!("domain", "hello");
+        g_debug!(Some("domain"), "hello");
         assert_counts(&count, 0, 1, 0, 0, 1);
         // We check that only "domain" messages are calling our callback.
-        g_debug!("not-domain", "hello");
-        g_warning!("not-domain", "hello");
+        g_debug!(Some("not-domain"), "hello");
+        g_warning!(Some("not-domain"), "hello");
         assert_counts(&count, 0, 1, 0, 0, 1);
 
         log_remove_handler(Some("domain"), handler_id);
-        g_critical!("domain", "hello");
-        g_message!("domain", "hello");
-        g_info!("domain", "hello");
-        g_debug!("domain", "hello");
-        g_warning!("domain", "hello");
+        g_critical!(Some("domain"), "hello");
+        g_message!(Some("domain"), "hello");
+        g_info!(Some("domain"), "hello");
+        g_debug!(Some("domain"), "hello");
+        g_warning!(Some("domain"), "hello");
         assert_counts(&count, 0, 1, 0, 0, 1);
     }
 }
