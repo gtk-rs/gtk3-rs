@@ -14,7 +14,6 @@ use glib::VariantDict;
 use Application;
 
 use libc::{c_char, c_int, c_void};
-use std::convert;
 use std::ffi::OsString;
 use std::fmt;
 use std::ops::Deref;
@@ -70,9 +69,9 @@ impl fmt::Debug for ArgumentList {
     }
 }
 
-impl convert::Into<Vec<OsString>> for ArgumentList {
-    fn into(self) -> Vec<OsString> {
-        self.items
+impl From<ArgumentList> for Vec<OsString> {
+    fn from(list: ArgumentList) -> Vec<OsString> {
+        list.items
     }
 }
 

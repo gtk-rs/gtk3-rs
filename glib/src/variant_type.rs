@@ -93,9 +93,9 @@ impl Hash for VariantType {
     }
 }
 
-impl<'a> Into<Cow<'a, VariantTy>> for VariantType {
-    fn into(self) -> Cow<'a, VariantTy> {
-        Cow::Owned(self)
+impl<'a> From<VariantType> for Cow<'a, VariantTy> {
+    fn from(ty: VariantType) -> Cow<'a, VariantTy> {
+        Cow::Owned(ty)
     }
 }
 
@@ -202,9 +202,9 @@ impl fmt::Display for VariantTy {
     }
 }
 
-impl<'a> Into<Cow<'a, VariantTy>> for &'a VariantTy {
-    fn into(self) -> Cow<'a, VariantTy> {
-        Cow::Borrowed(self)
+impl<'a> From<&'a VariantTy> for Cow<'a, VariantTy> {
+    fn from(ty: &'a VariantTy) -> Cow<'a, VariantTy> {
+        Cow::Borrowed(ty)
     }
 }
 
