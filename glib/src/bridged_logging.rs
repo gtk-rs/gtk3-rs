@@ -213,7 +213,7 @@ impl rs_log::Log for GlibLogger {
 /// ```no_run
 /// glib::log_set_default_handler(glib::rust_log_handler);
 /// ```
-pub fn rust_log_handler(domain: &str, level: glib_log::LogLevel, message: &str) {
+pub fn rust_log_handler(domain: Option<&str>, level: glib_log::LogLevel, message: &str) {
     let level = match level {
         glib_log::LogLevel::Error | glib_log::LogLevel::Critical => log::Level::Error,
         glib_log::LogLevel::Warning => log::Level::Warn,
