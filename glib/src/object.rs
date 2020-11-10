@@ -1298,6 +1298,11 @@ pub trait ObjectExt: ObjectType {
         name: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
+    fn connect_notify_local<F: Fn(&Self, &::ParamSpec) + 'static>(
+        &self,
+        name: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId;
     #[allow(clippy::missing_safety_doc)]
     unsafe fn connect_notify_unsafe<F: Fn(&Self, &::ParamSpec)>(
         &self,
@@ -1608,6 +1613,20 @@ impl<T: ObjectType> ObjectExt for T {
         f: F,
     ) -> SignalHandlerId {
         unsafe { self.connect_notify_unsafe(name, f) }
+    }
+
+    fn connect_notify_local<F: Fn(&Self, &::ParamSpec) + 'static>(
+        &self,
+        name: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId {
+        let f = crate::ThreadGuard::new(f);
+
+        unsafe {
+            self.connect_notify_unsafe(name, move |s, pspec| {
+                (f.get_ref())(s, pspec);
+            })
+        }
     }
 
     unsafe fn connect_notify_unsafe<F: Fn(&Self, &::ParamSpec)>(
