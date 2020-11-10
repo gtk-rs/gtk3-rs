@@ -331,17 +331,68 @@ pub fn log_default_handler(log_domain: Option<&str>, log_level: LogLevel, messag
 /// // trailing commas work as well:
 /// g_log!(Some("test"), LogLevel::Warning, "test: {} {}", x, "a",);
 /// ```
+///
+/// To be noted that the log domain is optional:
+///
+/// ```no_run
+/// use glib::{LogLevel, g_log};
+///
+/// // As you can see: no log domain:
+/// g_log!("test", LogLevel::Message, "test");
+/// // For the rest, it's just like when you have the log domain:
+/// // trailing commas:
+/// g_log!("test", LogLevel::Message, "test",);
+///
+/// // formatting:
+/// let x = 12;
+/// g_log!(LogLevel::Warning, "test: {} {}", x, "a");
+/// g_log!(LogLevel::Warning, "test: {} {}", x, "a",);
+/// ```
 #[macro_export]
 macro_rules! g_log {
-    ($log_domain:expr, $log_level:expr, $format:expr, $($arg:expr),* $(,)?) => {{
+    ($log_level:expr, $format:literal, $($arg:expr),* $(,)?) => {{
         use $crate::translate::{ToGlib, ToGlibPtr};
         use $crate::LogLevel;
 
-        fn check_log_args(_log_domain: Option<&str>, _log_level: LogLevel, _format: &str) {}
+        fn check_log_args(_log_level: LogLevel, _format: &str) {}
 
-        check_log_args($log_domain, $log_level, $format);
+        check_log_args($log_level, $format);
+        // to prevent the glib formatter to look for arguments which don't exist
+        let f = format!($format, $($arg),*).replace("%", "%%");
+        unsafe {
+            $crate::glib_sys::g_log(
+                ::std::ptr::null(),
+                $log_level.to_glib(),
+                f.to_glib_none().0,
+            );
+        }
+    }};
+    ($log_level:expr, $format:literal $(,)?) => {{
+        use $crate::translate::{ToGlib, ToGlibPtr};
+        use $crate::LogLevel;
+
+        fn check_log_args(_log_level: LogLevel, _format: &str) {}
+
+        check_log_args($log_level, $format);
+        // to prevent the glib formatter to look for arguments which don't exist
+        let f = $format.replace("%", "%%");
+        unsafe {
+            $crate::glib_sys::g_log(
+                ::std::ptr::null(),
+                $log_level.to_glib(),
+                f.to_glib_none().0,
+            );
+        }
+    }};
+    ($log_domain:expr, $log_level:expr, $format:literal, $($arg:expr),* $(,)?) => {{
+        use $crate::translate::{ToGlib, ToGlibPtr};
+        use $crate::LogLevel;
+
+        fn check_log_args(_log_level: LogLevel, _format: &str) {}
+
         // the next line is used to enforce the type for the macro checker...
-        let log_domain: Option<&str> = $log_domain;
+        let log_domain: Option<&str> = $log_domain.into();
+        check_log_args($log_level, $format);
         // to prevent the glib formatter to look for arguments which don't exist
         let f = format!($format, $($arg),*).replace("%", "%%");
         unsafe {
@@ -352,15 +403,15 @@ macro_rules! g_log {
             );
         }
     }};
-    ($log_domain:expr, $log_level:expr, $format:expr $(,)?) => {{
+    ($log_domain:expr, $log_level:expr, $format:literal $(,)?) => {{
         use $crate::translate::{ToGlib, ToGlibPtr};
         use $crate::LogLevel;
 
-        fn check_log_args(_log_domain: Option<&str>, _log_level: LogLevel, _format: &str) {}
+        fn check_log_args(_log_level: LogLevel, _format: &str) {}
 
-        check_log_args($log_domain, $log_level, $format);
         // the next line is used to enforce the type for the macro checker...
-        let log_domain: Option<&str> = $log_domain;
+        let log_domain: Option<&str> = $log_domain.into();
+        check_log_args($log_level, $format);
         // to prevent the glib formatter to look for arguments which don't exist
         let f = $format.replace("%", "%%");
         unsafe {
@@ -401,10 +452,10 @@ macro_rules! g_log {
 /// ```
 #[macro_export]
 macro_rules! g_error {
-    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
+    ($log_domain:expr, $format:literal, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Error, $format, $($arg),*);
     }};
-    ($log_domain:expr, $format:expr $(,)?) => {{
+    ($log_domain:expr, $format:literal $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Error, $format);
     }};
 }
@@ -437,10 +488,10 @@ macro_rules! g_error {
 /// ```
 #[macro_export]
 macro_rules! g_critical {
-    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
+    ($log_domain:expr, $format:literal, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Critical, $format, $($arg),*);
     }};
-    ($log_domain:expr, $format:expr $(,)?) => {{
+    ($log_domain:expr, $format:literal $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Critical, $format);
     }};
 }
@@ -473,10 +524,10 @@ macro_rules! g_critical {
 /// ```
 #[macro_export]
 macro_rules! g_warning {
-    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
+    ($log_domain:expr, $format:literal, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Warning, $format, $($arg),*);
     }};
-    ($log_domain:expr, $format:expr $(,)?) => {{
+    ($log_domain:expr, $format:literal $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Warning, $format);
     }};
 }
@@ -509,10 +560,10 @@ macro_rules! g_warning {
 /// ```
 #[macro_export]
 macro_rules! g_message {
-    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
+    ($log_domain:expr, $format:literal, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Message, $format, $($arg),*);
     }};
-    ($log_domain:expr, $format:expr $(,)?) => {{
+    ($log_domain:expr, $format:literal $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Message, $format);
     }};
 }
@@ -545,10 +596,10 @@ macro_rules! g_message {
 /// ```
 #[macro_export]
 macro_rules! g_info {
-    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
+    ($log_domain:expr, $format:literal, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Info, $format, $($arg),*);
     }};
-    ($log_domain:expr, $format:expr $(,)?) => {{
+    ($log_domain:expr, $format:literal $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Info, $format);
     }};
 }
@@ -581,10 +632,10 @@ macro_rules! g_info {
 /// ```
 #[macro_export]
 macro_rules! g_debug {
-    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
+    ($log_domain:expr, $format:literal, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Debug, $format, $($arg),*);
     }};
-    ($log_domain:expr, $format:expr $(,)?) => {{
+    ($log_domain:expr, $format:literal $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Debug, $format);
     }};
 }
