@@ -213,7 +213,7 @@ impl rs_log::Log for GlibLogger {
 /// ```no_run
 /// glib::log_set_default_handler(glib::rust_log_handler);
 /// ```
-pub fn rust_log_handler(domain: &str, level: glib_log::LogLevel, message: &str) {
+pub fn rust_log_handler(domain: Option<&str>, level: glib_log::LogLevel, message: &str) {
     let level = match level {
         glib_log::LogLevel::Error | glib_log::LogLevel::Critical => log::Level::Error,
         glib_log::LogLevel::Warning => log::Level::Warn,
@@ -221,7 +221,7 @@ pub fn rust_log_handler(domain: &str, level: glib_log::LogLevel, message: &str) 
         glib_log::LogLevel::Debug => log::Level::Debug,
     };
 
-    rs_log::log!(target: domain, level, "{}", message);
+    rs_log::log!(target: domain.unwrap_or("<null>"), level, "{}", message);
 }
 
 /// A macro which behaves exactly as `log::error!` except that it sets the

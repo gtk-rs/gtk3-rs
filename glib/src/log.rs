@@ -114,7 +114,7 @@ fn to_log_flags(fatal: bool, recursion: bool) -> u32 {
 }
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
-pub fn log_set_handler<P: Fn(&str, LogLevel, &str) + Send + Sync + 'static>(
+pub fn log_set_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static>(
     log_domain: Option<&str>,
     log_levels: LogLevels,
     fatal: bool,
@@ -122,19 +122,27 @@ pub fn log_set_handler<P: Fn(&str, LogLevel, &str) + Send + Sync + 'static>(
     log_func: P,
 ) -> LogHandlerId {
     let log_func_data: Box_<P> = Box_::new(log_func);
-    unsafe extern "C" fn log_func_func<P: Fn(&str, LogLevel, &str) + Send + Sync + 'static>(
+    unsafe extern "C" fn log_func_func<
+        P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static,
+    >(
         log_domain: *const libc::c_char,
         log_level: glib_sys::GLogLevelFlags,
         message: *const libc::c_char,
         user_data: glib_sys::gpointer,
     ) {
-        let log_domain: Borrowed<GString> = from_glib_borrow(log_domain);
+        let log_domain: Borrowed<Option<GString>> = from_glib_borrow(log_domain);
         let message: Borrowed<GString> = from_glib_borrow(message);
         let callback: &P = &*(user_data as *mut _);
-        (*callback)(log_domain.as_str(), from_glib(log_level), message.as_str());
+        (*callback)(
+            (*log_domain).as_deref(),
+            from_glib(log_level),
+            message.as_str(),
+        );
     }
     let log_func = Some(log_func_func::<P> as _);
-    unsafe extern "C" fn destroy_func<P: Fn(&str, LogLevel, &str) + Send + Sync + 'static>(
+    unsafe extern "C" fn destroy_func<
+        P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static,
+    >(
         data: glib_sys::gpointer,
     ) {
         let _callback: Box_<P> = Box_::from_raw(data as *mut _);
@@ -162,7 +170,7 @@ pub fn log_set_always_fatal(fatal_levels: LogLevels) -> LogLevels {
     unsafe { from_glib(glib_sys::g_log_set_always_fatal(fatal_levels.to_glib())) }
 }
 
-pub fn log_set_fatal_mask(log_domain: &str, fatal_levels: LogLevels) -> LogLevels {
+pub fn log_set_fatal_mask(log_domain: Option<&str>, fatal_levels: LogLevels) -> LogLevels {
     unsafe {
         from_glib(glib_sys::g_log_set_fatal_mask(
             log_domain.to_glib_none().0,
@@ -241,12 +249,14 @@ pub fn unset_printerr_handler() {
     unsafe { glib_sys::g_set_printerr_handler(None) };
 }
 
-type LogCallback = dyn Fn(&str, LogLevel, &str) + Send + Sync + 'static;
+type LogCallback = dyn Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static;
 
 static DEFAULT_HANDLER: Lazy<Mutex<Option<Arc<LogCallback>>>> = Lazy::new(|| Mutex::new(None));
 
 /// To set back the default print handler, use the [`log_unset_default_handler`] function.
-pub fn log_set_default_handler<P: Fn(&str, LogLevel, &str) + Send + Sync + 'static>(log_func: P) {
+pub fn log_set_default_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static>(
+    log_func: P,
+) {
     unsafe extern "C" fn func_func(
         log_domain: *const libc::c_char,
         log_levels: glib_sys::GLogLevelFlags,
@@ -260,9 +270,13 @@ pub fn log_set_default_handler<P: Fn(&str, LogLevel, &str) + Send + Sync + 'stat
             Some(ref handler) => Some(Arc::clone(handler)),
             None => None,
         } {
-            let log_domain: Borrowed<GString> = from_glib_borrow(log_domain);
+            let log_domain: Borrowed<Option<GString>> = from_glib_borrow(log_domain);
             let message: Borrowed<GString> = from_glib_borrow(message);
-            (*callback)(log_domain.as_str(), from_glib(log_levels), message.as_str());
+            (*callback)(
+                (*log_domain).as_deref(),
+                from_glib(log_levels),
+                message.as_str(),
+            );
         }
     }
     *DEFAULT_HANDLER
@@ -284,7 +298,7 @@ pub fn log_unset_default_handler() {
     };
 }
 
-pub fn log_default_handler(log_domain: &str, log_level: LogLevel, message: Option<&str>) {
+pub fn log_default_handler(log_domain: Option<&str>, log_level: LogLevel, message: Option<&str>) {
     unsafe {
         glib_sys::g_log_default_handler(
             log_domain.to_glib_none().0,
@@ -317,17 +331,68 @@ pub fn log_default_handler(log_domain: &str, log_level: LogLevel, message: Optio
 /// // trailing commas work as well:
 /// g_log!("test", LogLevel::Warning, "test: {} {}", x, "a",);
 /// ```
+///
+/// To be noted that the log domain is optional:
+///
+/// ```no_run
+/// use glib::{LogLevel, g_log};
+///
+/// // As you can see: no log domain:
+/// g_log!(LogLevel::Message, "test");
+/// // For the rest, it's just like when you have the log domain:
+/// // trailing commas:
+/// g_log!(LogLevel::Message, "test",);
+///
+/// // formatting:
+/// let x = 12;
+/// g_log!(LogLevel::Warning, "test: {} {}", x, "a");
+/// g_log!(LogLevel::Warning, "test: {} {}", x, "a",);
+/// ```
 #[macro_export]
 macro_rules! g_log {
-    ($log_domain:expr, $log_level:expr, $format:expr, $($arg:expr),* $(,)?) => {{
+    ($log_level:expr, $format:literal, $($arg:expr),* $(,)?) => {{
         use $crate::translate::{ToGlib, ToGlibPtr};
         use $crate::LogLevel;
 
-        fn check_log_args(_log_domain: &str, _log_level: LogLevel, _format: &str) {}
+        fn check_log_args(_log_level: LogLevel, _format: &str) {}
 
-        check_log_args(&$log_domain, $log_level, $format);
+        check_log_args($log_level, $format);
+        // to prevent the glib formatter to look for arguments which don't exist
+        let f = format!($format, $($arg),*).replace("%", "%%");
+        unsafe {
+            $crate::glib_sys::g_log(
+                ::std::ptr::null(),
+                $log_level.to_glib(),
+                f.to_glib_none().0,
+            );
+        }
+    }};
+    ($log_level:expr, $format:literal $(,)?) => {{
+        use $crate::translate::{ToGlib, ToGlibPtr};
+        use $crate::LogLevel;
+
+        fn check_log_args(_log_level: LogLevel, _format: &str) {}
+
+        check_log_args($log_level, $format);
+        // to prevent the glib formatter to look for arguments which don't exist
+        let f = $format.replace("%", "%%");
+        unsafe {
+            $crate::glib_sys::g_log(
+                ::std::ptr::null(),
+                $log_level.to_glib(),
+                f.to_glib_none().0,
+            );
+        }
+    }};
+    ($log_domain:expr, $log_level:expr, $format:literal, $($arg:expr),* $(,)?) => {{
+        use $crate::translate::{ToGlib, ToGlibPtr};
+        use $crate::LogLevel;
+
+        fn check_log_args(_log_level: LogLevel, _format: &str) {}
+
         // the next line is used to enforce the type for the macro checker...
-        let log_domain: &str = $log_domain;
+        let log_domain: Option<&str> = $log_domain.into();
+        check_log_args($log_level, $format);
         // to prevent the glib formatter to look for arguments which don't exist
         let f = format!($format, $($arg),*).replace("%", "%%");
         unsafe {
@@ -338,15 +403,15 @@ macro_rules! g_log {
             );
         }
     }};
-    ($log_domain:expr, $log_level:expr, $format:expr $(,)?) => {{
+    ($log_domain:expr, $log_level:expr, $format:literal $(,)?) => {{
         use $crate::translate::{ToGlib, ToGlibPtr};
         use $crate::LogLevel;
 
-        fn check_log_args(_log_domain: &str, _log_level: LogLevel, _format: &str) {}
+        fn check_log_args(_log_level: LogLevel, _format: &str) {}
 
-        check_log_args(&$log_domain, $log_level, $format);
         // the next line is used to enforce the type for the macro checker...
-        let log_domain: &str = $log_domain;
+        let log_domain: Option<&str> = $log_domain.into();
+        check_log_args($log_level, $format);
         // to prevent the glib formatter to look for arguments which don't exist
         let f = $format.replace("%", "%%");
         unsafe {
@@ -387,10 +452,10 @@ macro_rules! g_log {
 /// ```
 #[macro_export]
 macro_rules! g_error {
-    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
+    ($log_domain:expr, $format:literal, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Error, $format, $($arg),*);
     }};
-    ($log_domain:expr, $format:expr $(,)?) => {{
+    ($log_domain:expr, $format:literal $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Error, $format);
     }};
 }
@@ -423,10 +488,10 @@ macro_rules! g_error {
 /// ```
 #[macro_export]
 macro_rules! g_critical {
-    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
+    ($log_domain:expr, $format:literal, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Critical, $format, $($arg),*);
     }};
-    ($log_domain:expr, $format:expr $(,)?) => {{
+    ($log_domain:expr, $format:literal $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Critical, $format);
     }};
 }
@@ -459,10 +524,10 @@ macro_rules! g_critical {
 /// ```
 #[macro_export]
 macro_rules! g_warning {
-    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
+    ($log_domain:expr, $format:literal, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Warning, $format, $($arg),*);
     }};
-    ($log_domain:expr, $format:expr $(,)?) => {{
+    ($log_domain:expr, $format:literal $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Warning, $format);
     }};
 }
@@ -495,10 +560,10 @@ macro_rules! g_warning {
 /// ```
 #[macro_export]
 macro_rules! g_message {
-    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
+    ($log_domain:expr, $format:literal, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Message, $format, $($arg),*);
     }};
-    ($log_domain:expr, $format:expr $(,)?) => {{
+    ($log_domain:expr, $format:literal $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Message, $format);
     }};
 }
@@ -531,10 +596,10 @@ macro_rules! g_message {
 /// ```
 #[macro_export]
 macro_rules! g_info {
-    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
+    ($log_domain:expr, $format:literal, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Info, $format, $($arg),*);
     }};
-    ($log_domain:expr, $format:expr $(,)?) => {{
+    ($log_domain:expr, $format:literal $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Info, $format);
     }};
 }
@@ -567,10 +632,10 @@ macro_rules! g_info {
 /// ```
 #[macro_export]
 macro_rules! g_debug {
-    ($log_domain:expr, $format:expr, $($arg:expr),* $(,)?) => {{
+    ($log_domain:expr, $format:literal, $($arg:expr),* $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Debug, $format, $($arg),*);
     }};
-    ($log_domain:expr, $format:expr $(,)?) => {{
+    ($log_domain:expr, $format:literal $(,)?) => {{
         $crate::g_log!($log_domain, $crate::LogLevel::Debug, $format);
     }};
 }
