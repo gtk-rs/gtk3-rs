@@ -71,11 +71,11 @@ impl From<IpAddr> for InetAddress {
     }
 }
 
-impl Into<IpAddr> for InetAddress {
-    fn into(self) -> IpAddr {
-        let size = self.get_native_size();
+impl From<InetAddress> for IpAddr {
+    fn from(addr: InetAddress) -> IpAddr {
+        let size = addr.get_native_size();
         unsafe {
-            let bytes = gio_sys::g_inet_address_to_bytes(self.to_glib_none().0);
+            let bytes = gio_sys::g_inet_address_to_bytes(addr.to_glib_none().0);
             if size == 4 {
                 IpAddr::V4(Ipv4Addr::from(*(bytes as *const [u8; 4])))
             } else if size == 16 {

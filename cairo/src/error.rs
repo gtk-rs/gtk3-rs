@@ -98,9 +98,9 @@ pub enum Error {
     __Unknown(i32),
 }
 #[doc(hidden)]
-impl Into<ffi::cairo_status_t> for Error {
-    fn into(self) -> ffi::cairo_status_t {
-        match self {
+impl From<Error> for ffi::cairo_status_t {
+    fn from(err: Error) -> ffi::cairo_status_t {
+        match err {
             Error::NoMemory => ffi::STATUS_NO_MEMORY,
             Error::InvalidRestore => ffi::STATUS_INVALID_RESTORE,
             Error::InvalidPopGroup => ffi::STATUS_INVALID_POP_GROUP,

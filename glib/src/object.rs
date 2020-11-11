@@ -639,9 +639,9 @@ macro_rules! glib_object_wrapper {
         pub struct $name($crate::object::ObjectRef);
 
         #[doc(hidden)]
-        impl Into<$crate::object::ObjectRef> for $name {
-            fn into(self) -> $crate::object::ObjectRef {
-                self.0
+        impl From<$name> for $crate::object::ObjectRef {
+            fn from(s: $name) -> $crate::object::ObjectRef {
+                s.0
             }
         }
 
