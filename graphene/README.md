@@ -1,4 +1,4 @@
-# graphene ![CI](https://github.com/gtk-rs/graphene/workflows/CI/badge.svg)
+# graphene
 
 Graphene bindings for Rust.
 
