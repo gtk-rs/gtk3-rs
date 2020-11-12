@@ -59,6 +59,7 @@ impl SimpleAction {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn set_state_hint(&self, state_hint: Option<&glib::Variant>) {
         unsafe {
             gio_sys::g_simple_action_set_state_hint(

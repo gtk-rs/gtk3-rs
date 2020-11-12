@@ -7,6 +7,7 @@ use glib::GString;
 use pango_sys;
 use std::fmt;
 #[cfg(any(feature = "v1_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 use std::mem;
 
 glib_wrapper! {
@@ -31,6 +32,7 @@ impl Color {
     }
 
     #[cfg(any(feature = "v1_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
     pub fn parse_with_alpha(&mut self, spec: &str) -> Option<u16> {
         unsafe {
             let mut alpha = mem::MaybeUninit::uninit();

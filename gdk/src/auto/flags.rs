@@ -13,6 +13,7 @@ use glib::Type;
 use gobject_sys;
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 bitflags! {
     pub struct AnchorHints: u32 {
         const FLIP_X = 1;
@@ -28,6 +29,7 @@ bitflags! {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl ToGlib for AnchorHints {
     type GlibType = gdk_sys::GdkAnchorHints;
@@ -38,6 +40,7 @@ impl ToGlib for AnchorHints {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl FromGlib<gdk_sys::GdkAnchorHints> for AnchorHints {
     fn from_glib(value: gdk_sys::GdkAnchorHints) -> AnchorHints {
@@ -47,6 +50,7 @@ impl FromGlib<gdk_sys::GdkAnchorHints> for AnchorHints {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl StaticType for AnchorHints {
     fn static_type() -> Type {
         unsafe { from_glib(gdk_sys::gdk_anchor_hints_get_type()) }
@@ -54,6 +58,7 @@ impl StaticType for AnchorHints {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl<'a> FromValueOptional<'a> for AnchorHints {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
@@ -61,6 +66,7 @@ impl<'a> FromValueOptional<'a> for AnchorHints {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl<'a> FromValue<'a> for AnchorHints {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
@@ -68,6 +74,7 @@ impl<'a> FromValue<'a> for AnchorHints {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl SetValue for AnchorHints {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
@@ -75,6 +82,7 @@ impl SetValue for AnchorHints {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 bitflags! {
     pub struct AxisFlags: u32 {
         const X = 2;
@@ -90,6 +98,7 @@ bitflags! {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl ToGlib for AxisFlags {
     type GlibType = gdk_sys::GdkAxisFlags;
@@ -100,6 +109,7 @@ impl ToGlib for AxisFlags {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl FromGlib<gdk_sys::GdkAxisFlags> for AxisFlags {
     fn from_glib(value: gdk_sys::GdkAxisFlags) -> AxisFlags {
@@ -109,6 +119,7 @@ impl FromGlib<gdk_sys::GdkAxisFlags> for AxisFlags {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl StaticType for AxisFlags {
     fn static_type() -> Type {
         unsafe { from_glib(gdk_sys::gdk_axis_flags_get_type()) }
@@ -116,6 +127,7 @@ impl StaticType for AxisFlags {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl<'a> FromValueOptional<'a> for AxisFlags {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
@@ -123,6 +135,7 @@ impl<'a> FromValueOptional<'a> for AxisFlags {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl<'a> FromValue<'a> for AxisFlags {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
@@ -130,6 +143,7 @@ impl<'a> FromValue<'a> for AxisFlags {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl SetValue for AxisFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
@@ -393,6 +407,7 @@ impl SetValue for ModifierType {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 bitflags! {
     pub struct SeatCapabilities: u32 {
         const NONE = 0;
@@ -406,6 +421,7 @@ bitflags! {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl ToGlib for SeatCapabilities {
     type GlibType = gdk_sys::GdkSeatCapabilities;
@@ -416,6 +432,7 @@ impl ToGlib for SeatCapabilities {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl FromGlib<gdk_sys::GdkSeatCapabilities> for SeatCapabilities {
     fn from_glib(value: gdk_sys::GdkSeatCapabilities) -> SeatCapabilities {
@@ -425,6 +442,7 @@ impl FromGlib<gdk_sys::GdkSeatCapabilities> for SeatCapabilities {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl StaticType for SeatCapabilities {
     fn static_type() -> Type {
         unsafe { from_glib(gdk_sys::gdk_seat_capabilities_get_type()) }
@@ -432,6 +450,7 @@ impl StaticType for SeatCapabilities {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl<'a> FromValueOptional<'a> for SeatCapabilities {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
@@ -439,6 +458,7 @@ impl<'a> FromValueOptional<'a> for SeatCapabilities {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl<'a> FromValue<'a> for SeatCapabilities {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
@@ -446,6 +466,7 @@ impl<'a> FromValue<'a> for SeatCapabilities {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl SetValue for SeatCapabilities {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())

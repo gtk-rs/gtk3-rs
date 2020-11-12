@@ -4,6 +4,7 @@
 
 use gio_sys;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -12,6 +13,7 @@ use glib::StaticType;
 use glib::ToValue;
 use std::fmt;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 use std::mem;
 use ListModel;
 
@@ -25,6 +27,7 @@ glib_wrapper! {
 
 impl ListStore {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn new(item_type: glib::types::Type) -> ListStore {
         unsafe { from_glib_full(gio_sys::g_list_store_new(item_type.to_glib())) }
     }
@@ -33,6 +36,7 @@ impl ListStore {
 #[derive(Clone, Default)]
 pub struct ListStoreBuilder {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     item_type: Option<glib::types::Type>,
 }
 
@@ -44,6 +48,7 @@ impl ListStoreBuilder {
     pub fn build(self) -> ListStore {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         #[cfg(any(feature = "v2_44", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
         {
             if let Some(ref item_type) = self.item_type {
                 properties.push(("item-type", item_type));
@@ -57,6 +62,7 @@ impl ListStoreBuilder {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn item_type(mut self, item_type: glib::types::Type) -> Self {
         self.item_type = Some(item_type);
         self
@@ -67,29 +73,37 @@ pub const NONE_LIST_STORE: Option<&ListStore> = None;
 
 pub trait ListStoreExt: 'static {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn append<P: IsA<glib::Object>>(&self, item: &P);
 
     #[cfg(any(feature = "v2_64", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     fn find<P: IsA<glib::Object>>(&self, item: &P) -> Option<u32>;
 
     //#[cfg(any(feature = "v2_64", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     //fn find_with_equal_func<P: IsA<glib::Object>>(&self, item: &P, equal_func: /*Unimplemented*/FnMut(/*Unimplemented*/Option<Fundamental: Pointer>, /*Unimplemented*/Option<Fundamental: Pointer>) -> bool) -> Option<u32>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn insert<P: IsA<glib::Object>>(&self, position: u32, item: &P);
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn remove(&self, position: u32);
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn remove_all(&self);
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn splice(&self, position: u32, n_removals: u32, additions: &[glib::Object]);
 }
 
 impl<O: IsA<ListStore>> ListStoreExt for O {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn append<P: IsA<glib::Object>>(&self, item: &P) {
         unsafe {
             gio_sys::g_list_store_append(
@@ -100,6 +114,7 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
     }
 
     #[cfg(any(feature = "v2_64", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     fn find<P: IsA<glib::Object>>(&self, item: &P) -> Option<u32> {
         unsafe {
             let mut position = mem::MaybeUninit::uninit();
@@ -118,11 +133,13 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
     }
 
     //#[cfg(any(feature = "v2_64", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     //fn find_with_equal_func<P: IsA<glib::Object>>(&self, item: &P, equal_func: /*Unimplemented*/FnMut(/*Unimplemented*/Option<Fundamental: Pointer>, /*Unimplemented*/Option<Fundamental: Pointer>) -> bool) -> Option<u32> {
     //    unsafe { TODO: call gio_sys:g_list_store_find_with_equal_func() }
     //}
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn insert<P: IsA<glib::Object>>(&self, position: u32, item: &P) {
         unsafe {
             gio_sys::g_list_store_insert(
@@ -134,6 +151,7 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn remove(&self, position: u32) {
         unsafe {
             gio_sys::g_list_store_remove(self.as_ref().to_glib_none().0, position);
@@ -141,6 +159,7 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn remove_all(&self) {
         unsafe {
             gio_sys::g_list_store_remove_all(self.as_ref().to_glib_none().0);
@@ -148,6 +167,7 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn splice(&self, position: u32, n_removals: u32, additions: &[glib::Object]) {
         let n_additions = additions.len() as u32;
         unsafe {

@@ -27,6 +27,7 @@ use DBusInterface;
 use DBusInterfaceInfo;
 use DBusProxyFlags;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 use UnixFDList;
 
 glib_wrapper! {
@@ -282,6 +283,7 @@ pub trait DBusProxyExt: 'static {
     ) -> Result<glib::Variant, glib::Error>;
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     fn call_with_unix_fd_list<
         P: IsA<UnixFDList>,
         Q: IsA<Cancellable>,
@@ -298,6 +300,7 @@ pub trait DBusProxyExt: 'static {
     );
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     fn call_with_unix_fd_list_future<P: IsA<UnixFDList> + Clone + 'static>(
         &self,
         method_name: &str,
@@ -313,6 +316,7 @@ pub trait DBusProxyExt: 'static {
     >;
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     fn call_with_unix_fd_list_sync<P: IsA<UnixFDList>, Q: IsA<Cancellable>>(
         &self,
         method_name: &str,
@@ -481,6 +485,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
     }
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     fn call_with_unix_fd_list<
         P: IsA<UnixFDList>,
         Q: IsA<Cancellable>,
@@ -536,6 +541,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
     }
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     fn call_with_unix_fd_list_future<P: IsA<UnixFDList> + Clone + 'static>(
         &self,
         method_name: &str,
@@ -571,6 +577,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
     }
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     fn call_with_unix_fd_list_sync<P: IsA<UnixFDList>, Q: IsA<Cancellable>>(
         &self,
         method_name: &str,

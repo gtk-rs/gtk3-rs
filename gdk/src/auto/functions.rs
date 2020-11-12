@@ -204,6 +204,7 @@ pub fn pango_context_get() -> Option<pango::Context> {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub fn pango_context_get_for_display(display: &Display) -> Option<pango::Context> {
     skip_assert_initialized!();
     unsafe {

@@ -45,6 +45,7 @@ glib_wrapper! {
 
 impl File {
     //#[cfg(any(feature = "v2_56", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     //pub fn new_build_filename<P: AsRef<std::path::Path>>(first_element: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<File> {
     //    unsafe { TODO: call gio_sys:g_file_new_build_filename() }
     //}
@@ -268,12 +269,14 @@ pub trait FileExt: 'static {
     fn is_native(&self) -> bool;
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn load_bytes<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
     ) -> Result<(glib::Bytes, Option<GString>), glib::Error>;
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn load_bytes_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<(glib::Bytes, Option<GString>), glib::Error>) + Send + 'static,
@@ -284,6 +287,7 @@ pub trait FileExt: 'static {
     );
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn load_bytes_async_future(
         &self,
     ) -> Pin<
@@ -444,6 +448,7 @@ pub trait FileExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<FileIOStream, glib::Error>> + 'static>>;
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn peek_path(&self) -> Option<std::path::PathBuf>;
 
     fn poll_mountable<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
@@ -462,6 +467,7 @@ pub trait FileExt: 'static {
     ) -> Result<AppInfo, glib::Error>;
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn query_default_handler_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<AppInfo, glib::Error>) + Send + 'static,
@@ -473,6 +479,7 @@ pub trait FileExt: 'static {
     );
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn query_default_handler_async_future(
         &self,
         io_priority: glib::Priority,
@@ -1417,6 +1424,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn load_bytes<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
@@ -1439,6 +1447,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn load_bytes_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<(glib::Bytes, Option<GString>), glib::Error>) + Send + 'static,
@@ -1483,6 +1492,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn load_bytes_async_future(
         &self,
     ) -> Pin<
@@ -2125,6 +2135,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn peek_path(&self) -> Option<std::path::PathBuf> {
         unsafe { from_glib_none(gio_sys::g_file_peek_path(self.as_ref().to_glib_none().0)) }
     }
@@ -2197,6 +2208,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn query_default_handler_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<AppInfo, glib::Error>) + Send + 'static,
@@ -2241,6 +2253,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn query_default_handler_async_future(
         &self,
         io_priority: glib::Priority,

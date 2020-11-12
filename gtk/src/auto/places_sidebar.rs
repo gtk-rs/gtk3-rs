@@ -117,6 +117,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn get_show_other_locations(&self) -> bool {
         unsafe {
             from_glib(gtk_sys::gtk_places_sidebar_get_show_other_locations(
@@ -126,6 +127,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn get_show_recent(&self) -> bool {
         unsafe {
             from_glib(gtk_sys::gtk_places_sidebar_get_show_recent(
@@ -135,6 +137,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_22_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     pub fn get_show_starred_location(&self) -> bool {
         unsafe {
             from_glib(gtk_sys::gtk_places_sidebar_get_show_starred_location(
@@ -144,6 +147,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn get_show_trash(&self) -> bool {
         unsafe {
             from_glib(gtk_sys::gtk_places_sidebar_get_show_trash(
@@ -170,6 +174,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn set_drop_targets_visible(&self, visible: bool, context: &gdk::DragContext) {
         unsafe {
             gtk_sys::gtk_places_sidebar_set_drop_targets_visible(
@@ -230,6 +235,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn set_show_other_locations(&self, show_other_locations: bool) {
         unsafe {
             gtk_sys::gtk_places_sidebar_set_show_other_locations(
@@ -240,6 +246,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn set_show_recent(&self, show_recent: bool) {
         unsafe {
             gtk_sys::gtk_places_sidebar_set_show_recent(
@@ -250,6 +257,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_22_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     pub fn set_show_starred_location(&self, show_starred_location: bool) {
         unsafe {
             gtk_sys::gtk_places_sidebar_set_show_starred_location(
@@ -260,6 +268,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn set_show_trash(&self, show_trash: bool) {
         unsafe {
             gtk_sys::gtk_places_sidebar_set_show_trash(self.to_glib_none().0, show_trash.to_glib());
@@ -267,6 +276,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn get_property_populate_all(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
@@ -283,6 +293,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn set_property_populate_all(&self, populate_all: bool) {
         unsafe {
             gobject_sys::g_object_set_property(
@@ -396,6 +407,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn connect_mount<F: Fn(&PlacesSidebar, &gio::MountOperation) + 'static>(
         &self,
         f: F,
@@ -542,6 +554,7 @@ impl PlacesSidebar {
 
     #[cfg_attr(feature = "v3_20", deprecated)]
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn connect_show_other_locations<F: Fn(&PlacesSidebar) + 'static>(
         &self,
         f: F,
@@ -567,6 +580,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn connect_show_other_locations_with_flags<
         F: Fn(&PlacesSidebar, PlacesOpenFlags) + 'static,
     >(
@@ -597,6 +611,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_22_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     pub fn connect_show_starred_location<F: Fn(&PlacesSidebar, PlacesOpenFlags) + 'static>(
         &self,
         f: F,
@@ -625,6 +640,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn connect_unmount<F: Fn(&PlacesSidebar, &gio::MountOperation) + 'static>(
         &self,
         f: F,
@@ -728,6 +744,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn connect_property_populate_all_notify<F: Fn(&PlacesSidebar) + 'static>(
         &self,
         f: F,
@@ -885,6 +902,7 @@ impl PlacesSidebar {
     }
 
     #[cfg(any(feature = "v3_22_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     pub fn connect_property_show_starred_location_notify<F: Fn(&PlacesSidebar) + 'static>(
         &self,
         f: F,
@@ -950,6 +968,7 @@ pub struct PlacesSidebarBuilder {
     location: Option<gio::File>,
     open_flags: Option<PlacesOpenFlags>,
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     populate_all: Option<bool>,
     show_connect_to_server: Option<bool>,
     show_desktop: Option<bool>,
@@ -957,22 +976,28 @@ pub struct PlacesSidebarBuilder {
     show_other_locations: Option<bool>,
     show_recent: Option<bool>,
     #[cfg(any(feature = "v3_22_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     show_starred_location: Option<bool>,
     show_trash: Option<bool>,
     hadjustment: Option<Adjustment>,
     hscrollbar_policy: Option<PolicyType>,
     kinetic_scrolling: Option<bool>,
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     max_content_height: Option<i32>,
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     max_content_width: Option<i32>,
     min_content_height: Option<i32>,
     min_content_width: Option<i32>,
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     overlay_scrolling: Option<bool>,
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     propagate_natural_height: Option<bool>,
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     propagate_natural_width: Option<bool>,
     shadow_type: Option<ShadowType>,
     vadjustment: Option<Adjustment>,
@@ -987,6 +1012,7 @@ pub struct PlacesSidebarBuilder {
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -1033,6 +1059,7 @@ impl PlacesSidebarBuilder {
             properties.push(("open-flags", open_flags));
         }
         #[cfg(any(feature = "v3_18", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
         {
             if let Some(ref populate_all) = self.populate_all {
                 properties.push(("populate-all", populate_all));
@@ -1054,6 +1081,7 @@ impl PlacesSidebarBuilder {
             properties.push(("show-recent", show_recent));
         }
         #[cfg(any(feature = "v3_22_26", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
         {
             if let Some(ref show_starred_location) = self.show_starred_location {
                 properties.push(("show-starred-location", show_starred_location));
@@ -1072,12 +1100,14 @@ impl PlacesSidebarBuilder {
             properties.push(("kinetic-scrolling", kinetic_scrolling));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
         {
             if let Some(ref max_content_height) = self.max_content_height {
                 properties.push(("max-content-height", max_content_height));
             }
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
         {
             if let Some(ref max_content_width) = self.max_content_width {
                 properties.push(("max-content-width", max_content_width));
@@ -1090,18 +1120,21 @@ impl PlacesSidebarBuilder {
             properties.push(("min-content-width", min_content_width));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
         {
             if let Some(ref overlay_scrolling) = self.overlay_scrolling {
                 properties.push(("overlay-scrolling", overlay_scrolling));
             }
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
         {
             if let Some(ref propagate_natural_height) = self.propagate_natural_height {
                 properties.push(("propagate-natural-height", propagate_natural_height));
             }
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
         {
             if let Some(ref propagate_natural_width) = self.propagate_natural_width {
                 properties.push(("propagate-natural-width", propagate_natural_width));
@@ -1144,6 +1177,7 @@ impl PlacesSidebarBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref focus_on_click) = self.focus_on_click {
                 properties.push(("focus-on-click", focus_on_click));
@@ -1250,6 +1284,7 @@ impl PlacesSidebarBuilder {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn populate_all(mut self, populate_all: bool) -> Self {
         self.populate_all = Some(populate_all);
         self
@@ -1281,6 +1316,7 @@ impl PlacesSidebarBuilder {
     }
 
     #[cfg(any(feature = "v3_22_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     pub fn show_starred_location(mut self, show_starred_location: bool) -> Self {
         self.show_starred_location = Some(show_starred_location);
         self
@@ -1307,12 +1343,14 @@ impl PlacesSidebarBuilder {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn max_content_height(mut self, max_content_height: i32) -> Self {
         self.max_content_height = Some(max_content_height);
         self
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn max_content_width(mut self, max_content_width: i32) -> Self {
         self.max_content_width = Some(max_content_width);
         self
@@ -1329,18 +1367,21 @@ impl PlacesSidebarBuilder {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn overlay_scrolling(mut self, overlay_scrolling: bool) -> Self {
         self.overlay_scrolling = Some(overlay_scrolling);
         self
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn propagate_natural_height(mut self, propagate_natural_height: bool) -> Self {
         self.propagate_natural_height = Some(propagate_natural_height);
         self
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn propagate_natural_width(mut self, propagate_natural_width: bool) -> Self {
         self.propagate_natural_width = Some(propagate_natural_width);
         self
@@ -1407,6 +1448,7 @@ impl PlacesSidebarBuilder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self

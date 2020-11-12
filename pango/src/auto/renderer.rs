@@ -57,6 +57,7 @@ pub trait RendererExt: 'static {
     );
 
     #[cfg(any(feature = "v1_38", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     fn get_alpha(&self, part: RenderPart) -> u16;
 
     fn get_color(&self, part: RenderPart) -> Option<Color>;
@@ -70,6 +71,7 @@ pub trait RendererExt: 'static {
     fn part_changed(&self, part: RenderPart);
 
     #[cfg(any(feature = "v1_38", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     fn set_alpha(&self, part: RenderPart, alpha: u16);
 
     fn set_color(&self, part: RenderPart, color: Option<&Color>);
@@ -198,6 +200,7 @@ impl<O: IsA<Renderer>> RendererExt for O {
     }
 
     #[cfg(any(feature = "v1_38", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     fn get_alpha(&self, part: RenderPart) -> u16 {
         unsafe {
             pango_sys::pango_renderer_get_alpha(self.as_ref().to_glib_none().0, part.to_glib())
@@ -244,6 +247,7 @@ impl<O: IsA<Renderer>> RendererExt for O {
     }
 
     #[cfg(any(feature = "v1_38", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     fn set_alpha(&self, part: RenderPart, alpha: u16) {
         unsafe {
             pango_sys::pango_renderer_set_alpha(

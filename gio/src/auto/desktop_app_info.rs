@@ -11,6 +11,7 @@ use std;
 use std::boxed::Box as Box_;
 use std::fmt;
 #[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
 use std::mem;
 use std::ptr;
 use AppInfo;
@@ -72,6 +73,7 @@ pub trait DesktopAppInfoExt: 'static {
     fn get_keywords(&self) -> Vec<GString>;
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn get_locale_string(&self, key: &str) -> Option<GString>;
 
     fn get_nodisplay(&self) -> bool;
@@ -83,6 +85,7 @@ pub trait DesktopAppInfoExt: 'static {
     fn get_string(&self, key: &str) -> Option<GString>;
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn get_string_list(&self, key: &str) -> Vec<GString>;
 
     fn has_key(&self, key: &str) -> bool;
@@ -165,6 +168,7 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn get_locale_string(&self, key: &str) -> Option<GString> {
         unsafe {
             from_glib_full(gio_sys::g_desktop_app_info_get_locale_string(
@@ -209,6 +213,7 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
     }
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn get_string_list(&self, key: &str) -> Vec<GString> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();

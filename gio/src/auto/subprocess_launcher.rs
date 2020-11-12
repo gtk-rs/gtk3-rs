@@ -7,6 +7,7 @@ use glib;
 use glib::translate::*;
 use std;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
@@ -36,6 +37,7 @@ impl SubprocessLauncher {
     }
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     pub fn set_child_setup<P: Fn() + 'static>(&self, child_setup: P) {
         let child_setup_data: Box_<P> = Box_::new(child_setup);
         unsafe extern "C" fn child_setup_func<P: Fn() + 'static>(user_data: glib_sys::gpointer) {
@@ -80,6 +82,7 @@ impl SubprocessLauncher {
     }
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     pub fn set_stderr_file_path<P: AsRef<std::path::Path>>(&self, path: P) {
         unsafe {
             gio_sys::g_subprocess_launcher_set_stderr_file_path(
@@ -90,6 +93,7 @@ impl SubprocessLauncher {
     }
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     pub fn set_stdin_file_path(&self, path: &str) {
         unsafe {
             gio_sys::g_subprocess_launcher_set_stdin_file_path(
@@ -100,6 +104,7 @@ impl SubprocessLauncher {
     }
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     pub fn set_stdout_file_path<P: AsRef<std::path::Path>>(&self, path: P) {
         unsafe {
             gio_sys::g_subprocess_launcher_set_stdout_file_path(

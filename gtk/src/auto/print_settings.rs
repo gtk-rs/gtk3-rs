@@ -53,6 +53,7 @@ impl PrintSettings {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn from_gvariant(variant: &glib::Variant) -> PrintSettings {
         assert_initialized_main_thread!();
         unsafe {
@@ -639,6 +640,7 @@ impl PrintSettings {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn to_gvariant(&self) -> Option<glib::Variant> {
         unsafe {
             from_glib_none(gtk_sys::gtk_print_settings_to_gvariant(

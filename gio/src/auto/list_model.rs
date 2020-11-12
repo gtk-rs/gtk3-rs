@@ -4,23 +4,31 @@
 
 use gio_sys;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::object::Cast;
 use glib::object::IsA;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::signal::connect_raw;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib_sys;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use libc;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use std::boxed::Box as Box_;
 use std::fmt;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use std::mem::transmute;
 
 glib_wrapper! {
@@ -35,32 +43,40 @@ pub const NONE_LIST_MODEL: Option<&ListModel> = None;
 
 pub trait ListModelExt: 'static {
     //#[cfg(any(feature = "v2_44", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     //fn get_item(&self, position: u32) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn get_item_type(&self) -> glib::types::Type;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn get_n_items(&self) -> u32;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn get_object(&self, position: u32) -> Option<glib::Object>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn items_changed(&self, position: u32, removed: u32, added: u32);
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn connect_items_changed<F: Fn(&Self, u32, u32, u32) + 'static>(&self, f: F)
         -> SignalHandlerId;
 }
 
 impl<O: IsA<ListModel>> ListModelExt for O {
     //#[cfg(any(feature = "v2_44", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     //fn get_item(&self, position: u32) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call gio_sys:g_list_model_get_item() }
     //}
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn get_item_type(&self) -> glib::types::Type {
         unsafe {
             from_glib(gio_sys::g_list_model_get_item_type(
@@ -70,11 +86,13 @@ impl<O: IsA<ListModel>> ListModelExt for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn get_n_items(&self) -> u32 {
         unsafe { gio_sys::g_list_model_get_n_items(self.as_ref().to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn get_object(&self, position: u32) -> Option<glib::Object> {
         unsafe {
             from_glib_full(gio_sys::g_list_model_get_object(
@@ -85,6 +103,7 @@ impl<O: IsA<ListModel>> ListModelExt for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn items_changed(&self, position: u32, removed: u32, added: u32) {
         unsafe {
             gio_sys::g_list_model_items_changed(
@@ -97,6 +116,7 @@ impl<O: IsA<ListModel>> ListModelExt for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn connect_items_changed<F: Fn(&Self, u32, u32, u32) + 'static>(
         &self,
         f: F,

@@ -3,10 +3,13 @@
 // DO NOT EDIT
 
 #[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use gdk;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use glib::object::Cast;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
@@ -18,12 +21,14 @@ use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use std::mem;
 use std::mem::transmute;
 use EventController;
 use Gesture;
 use GestureSingle;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use Widget;
 
 glib_wrapper! {
@@ -36,6 +41,7 @@ glib_wrapper! {
 
 impl GestureStylus {
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn new<P: IsA<Widget>>(widget: &P) -> GestureStylus {
         skip_assert_initialized!();
         unsafe {
@@ -47,6 +53,7 @@ impl GestureStylus {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn get_axis(&self, axis: gdk::AxisUse) -> Option<f64> {
         unsafe {
             let mut value = mem::MaybeUninit::uninit();
@@ -65,6 +72,7 @@ impl GestureStylus {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn get_device_tool(&self) -> Option<gdk::DeviceTool> {
         unsafe {
             from_glib_none(gtk_sys::gtk_gesture_stylus_get_device_tool(

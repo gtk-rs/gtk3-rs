@@ -67,6 +67,7 @@ pub struct ColorButtonBuilder {
     alpha: Option<u32>,
     rgba: Option<gdk::RGBA>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     show_editor: Option<bool>,
     title: Option<String>,
     use_alpha: Option<bool>,
@@ -85,6 +86,7 @@ pub struct ColorButtonBuilder {
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -130,6 +132,7 @@ impl ColorButtonBuilder {
             properties.push(("rgba", rgba));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref show_editor) = self.show_editor {
                 properties.push(("show-editor", show_editor));
@@ -184,6 +187,7 @@ impl ColorButtonBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref focus_on_click) = self.focus_on_click {
                 properties.push(("focus-on-click", focus_on_click));
@@ -291,6 +295,7 @@ impl ColorButtonBuilder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn show_editor(mut self, show_editor: bool) -> Self {
         self.show_editor = Some(show_editor);
         self
@@ -377,6 +382,7 @@ impl ColorButtonBuilder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -535,9 +541,11 @@ pub trait ColorButtonExt: 'static {
     fn set_property_alpha(&self, alpha: u32);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_property_show_editor(&self) -> bool;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_property_show_editor(&self, show_editor: bool);
 
     fn connect_color_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -547,6 +555,7 @@ pub trait ColorButtonExt: 'static {
     fn connect_property_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn connect_property_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -598,6 +607,7 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_property_show_editor(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
@@ -614,6 +624,7 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_property_show_editor(&self, show_editor: bool) {
         unsafe {
             gobject_sys::g_object_set_property(
@@ -696,6 +707,7 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn connect_property_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_editor_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut gtk_sys::GtkColorButton,

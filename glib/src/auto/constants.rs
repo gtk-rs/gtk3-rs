@@ -178,6 +178,7 @@ pub static STR_DELIMITERS: once_cell::sync::Lazy<&'static str> =
         CStr::from_ptr(glib_sys::G_STR_DELIMITERS).to_str().unwrap()
     });
 #[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
 pub static TEST_OPTION_ISOLATE_DIRS: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(glib_sys::G_TEST_OPTION_ISOLATE_DIRS)

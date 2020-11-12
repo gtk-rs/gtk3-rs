@@ -46,6 +46,7 @@ impl PaperSize {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn from_gvariant(variant: &glib::Variant) -> PaperSize {
         assert_initialized_main_thread!();
         unsafe {
@@ -56,6 +57,7 @@ impl PaperSize {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn from_ipp(ipp_name: &str, width: f64, height: f64) -> PaperSize {
         assert_initialized_main_thread!();
         unsafe {
@@ -189,6 +191,7 @@ impl PaperSize {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn is_ipp(&self) -> bool {
         unsafe {
             from_glib(gtk_sys::gtk_paper_size_is_ipp(mut_override(
@@ -209,6 +212,7 @@ impl PaperSize {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn to_gvariant(&mut self) -> Option<glib::Variant> {
         unsafe {
             from_glib_none(gtk_sys::gtk_paper_size_to_gvariant(

@@ -11,9 +11,11 @@ use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::Value;
 use glib_sys;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use gobject_sys;
 use gtk_sys;
 use std::boxed::Box as Box_;
@@ -54,6 +56,7 @@ impl Default for StackSwitcher {
 #[derive(Clone, Default)]
 pub struct StackSwitcherBuilder {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     icon_size: Option<i32>,
     stack: Option<Stack>,
     baseline_position: Option<BaselinePosition>,
@@ -68,6 +71,7 @@ pub struct StackSwitcherBuilder {
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -106,6 +110,7 @@ impl StackSwitcherBuilder {
     pub fn build(self) -> StackSwitcher {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref icon_size) = self.icon_size {
                 properties.push(("icon-size", icon_size));
@@ -148,6 +153,7 @@ impl StackSwitcherBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref focus_on_click) = self.focus_on_click {
                 properties.push(("focus-on-click", focus_on_click));
@@ -242,6 +248,7 @@ impl StackSwitcherBuilder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn icon_size(mut self, icon_size: i32) -> Self {
         self.icon_size = Some(icon_size);
         self
@@ -308,6 +315,7 @@ impl StackSwitcherBuilder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -457,12 +465,15 @@ pub trait StackSwitcherExt: 'static {
     fn set_stack<P: IsA<Stack>>(&self, stack: Option<&P>);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_property_icon_size(&self) -> i32;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_property_icon_size(&self, icon_size: i32);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn connect_property_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -487,6 +498,7 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_property_icon_size(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
@@ -503,6 +515,7 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_property_icon_size(&self, icon_size: i32) {
         unsafe {
             gobject_sys::g_object_set_property(
@@ -514,6 +527,7 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn connect_property_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut gtk_sys::GtkStackSwitcher,

@@ -193,6 +193,7 @@ pub trait WidgetExt: 'static {
     fn get_accessible(&self) -> Option<atk::Object>;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_action_group(&self, prefix: &str) -> Option<gio::ActionGroup>;
 
     fn get_allocated_baseline(&self) -> i32;
@@ -200,6 +201,7 @@ pub trait WidgetExt: 'static {
     fn get_allocated_height(&self) -> i32;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_allocated_size(&self) -> (Allocation, i32);
 
     fn get_allocated_width(&self) -> i32;
@@ -231,12 +233,15 @@ pub trait WidgetExt: 'static {
     fn get_double_buffered(&self) -> bool;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_focus_on_click(&self) -> bool;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn get_font_map(&self) -> Option<pango::FontMap>;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn get_font_options(&self) -> Option<cairo::FontOptions>;
 
     fn get_frame_clock(&self) -> Option<gdk::FrameClock>;
@@ -387,6 +392,7 @@ pub trait WidgetExt: 'static {
     fn list_accel_closures(&self) -> Vec<glib::Closure>;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn list_action_prefixes(&self) -> Vec<GString>;
 
     fn list_mnemonic_labels(&self) -> Vec<Widget>;
@@ -411,6 +417,7 @@ pub trait WidgetExt: 'static {
     fn override_symbolic_color(&self, name: &str, color: Option<&gdk::RGBA>);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn queue_allocate(&self);
 
     fn queue_compute_expand(&self);
@@ -466,12 +473,15 @@ pub trait WidgetExt: 'static {
     fn set_direction(&self, dir: TextDirection);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_focus_on_click(&self, focus_on_click: bool);
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_font_map<P: IsA<pango::FontMap>>(&self, font_map: Option<&P>);
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_font_options(&self, options: Option<&cairo::FontOptions>);
 
     fn set_halign(&self, align: Align);
@@ -936,6 +946,7 @@ pub trait WidgetExt: 'static {
     fn connect_property_expand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn connect_property_focus_on_click_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1384,6 +1395,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_action_group(&self, prefix: &str) -> Option<gio::ActionGroup> {
         unsafe {
             from_glib_none(gtk_sys::gtk_widget_get_action_group(
@@ -1402,6 +1414,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_allocated_size(&self) -> (Allocation, i32) {
         unsafe {
             let mut allocation = Allocation::uninitialized();
@@ -1532,6 +1545,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_focus_on_click(&self) -> bool {
         unsafe {
             from_glib(gtk_sys::gtk_widget_get_focus_on_click(
@@ -1541,6 +1555,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn get_font_map(&self) -> Option<pango::FontMap> {
         unsafe {
             from_glib_none(gtk_sys::gtk_widget_get_font_map(
@@ -1550,6 +1565,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn get_font_options(&self) -> Option<cairo::FontOptions> {
         unsafe {
             from_glib_none(gtk_sys::gtk_widget_get_font_options(
@@ -2148,6 +2164,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn list_action_prefixes(&self) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(gtk_sys::gtk_widget_list_action_prefixes(
@@ -2229,6 +2246,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn queue_allocate(&self) {
         unsafe {
             gtk_sys::gtk_widget_queue_allocate(self.as_ref().to_glib_none().0);
@@ -2433,6 +2451,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_focus_on_click(&self, focus_on_click: bool) {
         unsafe {
             gtk_sys::gtk_widget_set_focus_on_click(
@@ -2443,6 +2462,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_font_map<P: IsA<pango::FontMap>>(&self, font_map: Option<&P>) {
         unsafe {
             gtk_sys::gtk_widget_set_font_map(
@@ -2453,6 +2473,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_font_options(&self, options: Option<&cairo::FontOptions>) {
         unsafe {
             gtk_sys::gtk_widget_set_font_options(
@@ -5302,6 +5323,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn connect_property_focus_on_click_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,

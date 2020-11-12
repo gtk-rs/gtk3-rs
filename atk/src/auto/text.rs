@@ -17,6 +17,7 @@ use std::mem;
 use std::mem::transmute;
 use CoordType;
 #[cfg(any(feature = "v2_32", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
 use ScrollType;
 use TextBoundary;
 use TextClipType;
@@ -83,9 +84,11 @@ pub trait TextExt: 'static {
     fn remove_selection(&self, selection_num: i32) -> bool;
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     fn scroll_substring_to(&self, start_offset: i32, end_offset: i32, type_: ScrollType) -> bool;
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     fn scroll_substring_to_point(
         &self,
         start_offset: i32,
@@ -296,6 +299,7 @@ impl<O: IsA<Text>> TextExt for O {
     }
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     fn scroll_substring_to(&self, start_offset: i32, end_offset: i32, type_: ScrollType) -> bool {
         unsafe {
             from_glib(atk_sys::atk_text_scroll_substring_to(
@@ -308,6 +312,7 @@ impl<O: IsA<Text>> TextExt for O {
     }
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     fn scroll_substring_to_point(
         &self,
         start_offset: i32,

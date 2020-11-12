@@ -6,23 +6,30 @@ use gdk;
 use glib::object::Cast;
 use glib::object::IsA;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use glib::object::ObjectType as ObjectType_;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use glib::signal::connect_raw;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use glib_sys;
 use gtk_sys;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use std::boxed::Box as Box_;
 use std::fmt;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use std::mem::transmute;
 use Align;
 use BaselinePosition;
@@ -44,6 +51,7 @@ glib_wrapper! {
 
 impl ShortcutLabel {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn new(accelerator: &str) -> ShortcutLabel {
         assert_initialized_main_thread!();
         unsafe {
@@ -55,6 +63,7 @@ impl ShortcutLabel {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn get_accelerator(&self) -> Option<GString> {
         unsafe {
             from_glib_none(gtk_sys::gtk_shortcut_label_get_accelerator(
@@ -64,6 +73,7 @@ impl ShortcutLabel {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn get_disabled_text(&self) -> Option<GString> {
         unsafe {
             from_glib_none(gtk_sys::gtk_shortcut_label_get_disabled_text(
@@ -73,6 +83,7 @@ impl ShortcutLabel {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn set_accelerator(&self, accelerator: &str) {
         unsafe {
             gtk_sys::gtk_shortcut_label_set_accelerator(
@@ -83,6 +94,7 @@ impl ShortcutLabel {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn set_disabled_text(&self, disabled_text: &str) {
         unsafe {
             gtk_sys::gtk_shortcut_label_set_disabled_text(
@@ -93,6 +105,7 @@ impl ShortcutLabel {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn connect_property_accelerator_notify<F: Fn(&ShortcutLabel) + 'static>(
         &self,
         f: F,
@@ -119,6 +132,7 @@ impl ShortcutLabel {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn connect_property_disabled_text_notify<F: Fn(&ShortcutLabel) + 'static>(
         &self,
         f: F,
@@ -148,8 +162,10 @@ impl ShortcutLabel {
 #[derive(Clone, Default)]
 pub struct ShortcutLabelBuilder {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     accelerator: Option<String>,
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     disabled_text: Option<String>,
     baseline_position: Option<BaselinePosition>,
     homogeneous: Option<bool>,
@@ -163,6 +179,7 @@ pub struct ShortcutLabelBuilder {
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -201,12 +218,14 @@ impl ShortcutLabelBuilder {
     pub fn build(self) -> ShortcutLabel {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         #[cfg(any(feature = "v3_22", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
         {
             if let Some(ref accelerator) = self.accelerator {
                 properties.push(("accelerator", accelerator));
             }
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
         {
             if let Some(ref disabled_text) = self.disabled_text {
                 properties.push(("disabled-text", disabled_text));
@@ -246,6 +265,7 @@ impl ShortcutLabelBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref focus_on_click) = self.focus_on_click {
                 properties.push(("focus-on-click", focus_on_click));
@@ -340,12 +360,14 @@ impl ShortcutLabelBuilder {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn accelerator(mut self, accelerator: &str) -> Self {
         self.accelerator = Some(accelerator.to_string());
         self
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn disabled_text(mut self, disabled_text: &str) -> Self {
         self.disabled_text = Some(disabled_text.to_string());
         self
@@ -407,6 +429,7 @@ impl ShortcutLabelBuilder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self

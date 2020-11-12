@@ -5,6 +5,7 @@
 use glib::translate::*;
 use pango_sys;
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 use AttrIterator;
 
 glib_wrapper! {
@@ -24,6 +25,7 @@ impl Item {
     }
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     pub fn apply_attrs(&mut self, iter: &mut AttrIterator) {
         unsafe {
             pango_sys::pango_item_apply_attrs(self.to_glib_none_mut().0, iter.to_glib_none_mut().0);

@@ -61,6 +61,7 @@ impl Keymap {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn get_scroll_lock_state(&self) -> bool {
         unsafe {
             from_glib(gdk_sys::gdk_keymap_get_scroll_lock_state(

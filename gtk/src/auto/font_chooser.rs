@@ -16,6 +16,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use FontChooserLevel;
 
 glib_wrapper! {
@@ -38,17 +39,21 @@ pub trait FontChooserExt: 'static {
     fn get_font_family(&self) -> Option<pango::FontFamily>;
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn get_font_features(&self) -> Option<GString>;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn get_font_map(&self) -> Option<pango::FontMap>;
 
     fn get_font_size(&self) -> i32;
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn get_language(&self) -> Option<GString>;
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn get_level(&self) -> FontChooserLevel;
 
     fn get_preview_text(&self) -> Option<GString>;
@@ -65,12 +70,15 @@ pub trait FontChooserExt: 'static {
     fn set_font_desc(&self, font_desc: &pango::FontDescription);
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_font_map<P: IsA<pango::FontMap>>(&self, fontmap: Option<&P>);
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn set_language(&self, language: &str);
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn set_level(&self, level: FontChooserLevel);
 
     fn set_preview_text(&self, text: &str);
@@ -84,15 +92,18 @@ pub trait FontChooserExt: 'static {
     fn connect_property_font_desc_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn connect_property_font_features_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn connect_property_language_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn connect_property_level_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_preview_text_notify<F: Fn(&Self) + 'static>(&self, f: F)
@@ -138,6 +149,7 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn get_font_features(&self) -> Option<GString> {
         unsafe {
             from_glib_full(gtk_sys::gtk_font_chooser_get_font_features(
@@ -147,6 +159,7 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn get_font_map(&self) -> Option<pango::FontMap> {
         unsafe {
             from_glib_full(gtk_sys::gtk_font_chooser_get_font_map(
@@ -160,6 +173,7 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn get_language(&self) -> Option<GString> {
         unsafe {
             from_glib_full(gtk_sys::gtk_font_chooser_get_language(
@@ -169,6 +183,7 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn get_level(&self) -> FontChooserLevel {
         unsafe {
             from_glib(gtk_sys::gtk_font_chooser_get_level(
@@ -260,6 +275,7 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_font_map<P: IsA<pango::FontMap>>(&self, fontmap: Option<&P>) {
         unsafe {
             gtk_sys::gtk_font_chooser_set_font_map(
@@ -270,6 +286,7 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn set_language(&self, language: &str) {
         unsafe {
             gtk_sys::gtk_font_chooser_set_language(
@@ -280,6 +297,7 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn set_level(&self, level: FontChooserLevel) {
         unsafe {
             gtk_sys::gtk_font_chooser_set_level(self.as_ref().to_glib_none().0, level.to_glib());
@@ -380,6 +398,7 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn connect_property_font_features_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -408,6 +427,7 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn connect_property_language_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_language_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut gtk_sys::GtkFontChooser,
@@ -433,6 +453,7 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn connect_property_level_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_level_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut gtk_sys::GtkFontChooser,

@@ -78,14 +78,18 @@ pub struct MenuBuilder {
     accel_path: Option<String>,
     active: Option<i32>,
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     anchor_hints: Option<gdk::AnchorHints>,
     attach_widget: Option<Widget>,
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     menu_type_hint: Option<gdk::WindowTypeHint>,
     monitor: Option<i32>,
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     rect_anchor_dx: Option<i32>,
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     rect_anchor_dy: Option<i32>,
     reserve_toggle_size: Option<bool>,
     take_focus: Option<bool>,
@@ -98,6 +102,7 @@ pub struct MenuBuilder {
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -144,6 +149,7 @@ impl MenuBuilder {
             properties.push(("active", active));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
         {
             if let Some(ref anchor_hints) = self.anchor_hints {
                 properties.push(("anchor-hints", anchor_hints));
@@ -153,6 +159,7 @@ impl MenuBuilder {
             properties.push(("attach-widget", attach_widget));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
         {
             if let Some(ref menu_type_hint) = self.menu_type_hint {
                 properties.push(("menu-type-hint", menu_type_hint));
@@ -162,12 +169,14 @@ impl MenuBuilder {
             properties.push(("monitor", monitor));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
         {
             if let Some(ref rect_anchor_dx) = self.rect_anchor_dx {
                 properties.push(("rect-anchor-dx", rect_anchor_dx));
             }
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
         {
             if let Some(ref rect_anchor_dy) = self.rect_anchor_dy {
                 properties.push(("rect-anchor-dy", rect_anchor_dy));
@@ -204,6 +213,7 @@ impl MenuBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref focus_on_click) = self.focus_on_click {
                 properties.push(("focus-on-click", focus_on_click));
@@ -310,6 +320,7 @@ impl MenuBuilder {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn anchor_hints(mut self, anchor_hints: gdk::AnchorHints) -> Self {
         self.anchor_hints = Some(anchor_hints);
         self
@@ -321,6 +332,7 @@ impl MenuBuilder {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn menu_type_hint(mut self, menu_type_hint: gdk::WindowTypeHint) -> Self {
         self.menu_type_hint = Some(menu_type_hint);
         self
@@ -332,12 +344,14 @@ impl MenuBuilder {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn rect_anchor_dx(mut self, rect_anchor_dx: i32) -> Self {
         self.rect_anchor_dx = Some(rect_anchor_dx);
         self
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn rect_anchor_dy(mut self, rect_anchor_dy: i32) -> Self {
         self.rect_anchor_dy = Some(rect_anchor_dy);
         self
@@ -394,6 +408,7 @@ impl MenuBuilder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -559,6 +574,7 @@ pub trait GtkMenuExt: 'static {
     fn get_reserve_toggle_size(&self) -> bool;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn place_on_monitor(&self, monitor: &gdk::Monitor);
 
     fn popdown(&self);
@@ -567,9 +583,11 @@ pub trait GtkMenuExt: 'static {
     //fn popup<P: IsA<Widget>, Q: IsA<Widget>>(&self, parent_menu_shell: Option<&P>, parent_menu_item: Option<&Q>, func: Option<Box_<dyn FnOnce(&Menu, i32, i32, bool) + 'static>>, button: u32, activate_time: u32);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn popup_at_pointer(&self, trigger_event: Option<&gdk::Event>);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn popup_at_rect<P: IsA<gdk::Window>>(
         &self,
         rect_window: &P,
@@ -580,6 +598,7 @@ pub trait GtkMenuExt: 'static {
     );
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn popup_at_widget<P: IsA<Widget>>(
         &self,
         widget: &P,
@@ -608,9 +627,11 @@ pub trait GtkMenuExt: 'static {
     fn set_screen(&self, screen: Option<&gdk::Screen>);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_property_anchor_hints(&self) -> gdk::AnchorHints;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_property_anchor_hints(&self, anchor_hints: gdk::AnchorHints);
 
     fn set_property_attach_widget<P: IsA<Widget> + SetValueOptional>(
@@ -619,21 +640,27 @@ pub trait GtkMenuExt: 'static {
     );
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_property_menu_type_hint(&self) -> gdk::WindowTypeHint;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_property_menu_type_hint(&self, menu_type_hint: gdk::WindowTypeHint);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_property_rect_anchor_dx(&self) -> i32;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_property_rect_anchor_dx(&self, rect_anchor_dx: i32);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_property_rect_anchor_dy(&self) -> i32;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_property_rect_anchor_dy(&self, rect_anchor_dy: i32);
 
     fn get_item_bottom_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
@@ -657,6 +684,7 @@ pub trait GtkMenuExt: 'static {
     fn emit_move_scroll(&self, scroll_type: ScrollType);
 
     //#[cfg(any(feature = "v3_22", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     //fn connect_popped_up<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_accel_group_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -666,6 +694,7 @@ pub trait GtkMenuExt: 'static {
     fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn connect_property_anchor_hints_notify<F: Fn(&Self) + 'static>(&self, f: F)
         -> SignalHandlerId;
 
@@ -675,6 +704,7 @@ pub trait GtkMenuExt: 'static {
     ) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn connect_property_menu_type_hint_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -683,12 +713,14 @@ pub trait GtkMenuExt: 'static {
     fn connect_property_monitor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn connect_property_rect_anchor_dx_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn connect_property_rect_anchor_dy_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -772,6 +804,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn place_on_monitor(&self, monitor: &gdk::Monitor) {
         unsafe {
             gtk_sys::gtk_menu_place_on_monitor(
@@ -792,6 +825,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     //}
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn popup_at_pointer(&self, trigger_event: Option<&gdk::Event>) {
         unsafe {
             gtk_sys::gtk_menu_popup_at_pointer(
@@ -802,6 +836,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn popup_at_rect<P: IsA<gdk::Window>>(
         &self,
         rect_window: &P,
@@ -823,6 +858,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn popup_at_widget<P: IsA<Widget>>(
         &self,
         widget: &P,
@@ -907,6 +943,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_property_anchor_hints(&self) -> gdk::AnchorHints {
         unsafe {
             let mut value = Value::from_type(<gdk::AnchorHints as StaticType>::static_type());
@@ -923,6 +960,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_property_anchor_hints(&self, anchor_hints: gdk::AnchorHints) {
         unsafe {
             gobject_sys::g_object_set_property(
@@ -947,6 +985,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_property_menu_type_hint(&self) -> gdk::WindowTypeHint {
         unsafe {
             let mut value = Value::from_type(<gdk::WindowTypeHint as StaticType>::static_type());
@@ -963,6 +1002,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_property_menu_type_hint(&self, menu_type_hint: gdk::WindowTypeHint) {
         unsafe {
             gobject_sys::g_object_set_property(
@@ -974,6 +1014,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_property_rect_anchor_dx(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
@@ -990,6 +1031,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_property_rect_anchor_dx(&self, rect_anchor_dx: i32) {
         unsafe {
             gobject_sys::g_object_set_property(
@@ -1001,6 +1043,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_property_rect_anchor_dy(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
@@ -1017,6 +1060,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_property_rect_anchor_dy(&self, rect_anchor_dy: i32) {
         unsafe {
             gobject_sys::g_object_set_property(
@@ -1171,6 +1215,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     //#[cfg(any(feature = "v3_22", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     //fn connect_popped_up<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Unimplemented flipped_rect: *.Pointer
     //    Unimplemented final_rect: *.Pointer
@@ -1249,6 +1294,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn connect_property_anchor_hints_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1304,6 +1350,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn connect_property_menu_type_hint_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1356,6 +1403,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn connect_property_rect_anchor_dx_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1384,6 +1432,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn connect_property_rect_anchor_dy_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,

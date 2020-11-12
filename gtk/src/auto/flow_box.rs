@@ -4,6 +4,7 @@
 
 use gdk;
 #[cfg(any(feature = "v3_18", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
 use gio;
 use glib;
 use glib::object::Cast;
@@ -72,6 +73,7 @@ pub struct FlowBoxBuilder {
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -155,6 +157,7 @@ impl FlowBoxBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref focus_on_click) = self.focus_on_click {
                 properties.push(("focus-on-click", focus_on_click));
@@ -324,6 +327,7 @@ impl FlowBoxBuilder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -469,6 +473,7 @@ pub const NONE_FLOW_BOX: Option<&FlowBox> = None;
 
 pub trait FlowBoxExt: 'static {
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn bind_model<P: IsA<gio::ListModel>, Q: Fn(&glib::Object) -> Widget + 'static>(
         &self,
         model: Option<&P>,
@@ -480,6 +485,7 @@ pub trait FlowBoxExt: 'static {
     fn get_child_at_index(&self, idx: i32) -> Option<FlowBoxChild>;
 
     #[cfg(any(feature = "v3_22_6", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_6")))]
     fn get_child_at_pos(&self, x: i32, y: i32) -> Option<FlowBoxChild>;
 
     fn get_column_spacing(&self) -> u32;
@@ -599,6 +605,7 @@ pub trait FlowBoxExt: 'static {
 
 impl<O: IsA<FlowBox>> FlowBoxExt for O {
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn bind_model<P: IsA<gio::ListModel>, Q: Fn(&glib::Object) -> Widget + 'static>(
         &self,
         model: Option<&P>,
@@ -657,6 +664,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
     }
 
     #[cfg(any(feature = "v3_22_6", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_6")))]
     fn get_child_at_pos(&self, x: i32, y: i32) -> Option<FlowBoxChild> {
         unsafe {
             from_glib_none(gtk_sys::gtk_flow_box_get_child_at_pos(

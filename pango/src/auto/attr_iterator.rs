@@ -9,6 +9,7 @@ use AttrType;
 use Attribute;
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AttrIterator(Boxed<pango_sys::PangoAttrIterator>);

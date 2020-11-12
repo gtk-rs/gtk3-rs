@@ -89,6 +89,7 @@ pub trait DriveExt: 'static {
     fn is_media_removable(&self) -> bool;
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     fn is_removable(&self) -> bool;
 
     fn poll_for_media<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
@@ -324,6 +325,7 @@ impl<O: IsA<Drive>> DriveExt for O {
     }
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     fn is_removable(&self) -> bool {
         unsafe {
             from_glib(gio_sys::g_drive_is_removable(

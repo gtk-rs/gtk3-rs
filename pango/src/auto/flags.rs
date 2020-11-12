@@ -66,6 +66,7 @@ impl SetValue for FontMask {
 }
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 bitflags! {
     pub struct ShapeFlags: u32 {
         const NONE = 0;
@@ -74,6 +75,7 @@ bitflags! {
 }
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 #[doc(hidden)]
 impl ToGlib for ShapeFlags {
     type GlibType = pango_sys::PangoShapeFlags;
@@ -84,6 +86,7 @@ impl ToGlib for ShapeFlags {
 }
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 #[doc(hidden)]
 impl FromGlib<pango_sys::PangoShapeFlags> for ShapeFlags {
     fn from_glib(value: pango_sys::PangoShapeFlags) -> ShapeFlags {
@@ -92,6 +95,7 @@ impl FromGlib<pango_sys::PangoShapeFlags> for ShapeFlags {
 }
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 impl StaticType for ShapeFlags {
     fn static_type() -> Type {
         unsafe { from_glib(pango_sys::pango_shape_flags_get_type()) }
@@ -99,6 +103,7 @@ impl StaticType for ShapeFlags {
 }
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 impl<'a> FromValueOptional<'a> for ShapeFlags {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
@@ -106,6 +111,7 @@ impl<'a> FromValueOptional<'a> for ShapeFlags {
 }
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 impl<'a> FromValue<'a> for ShapeFlags {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
@@ -113,6 +119,7 @@ impl<'a> FromValue<'a> for ShapeFlags {
 }
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 impl SetValue for ShapeFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
@@ -120,6 +127,7 @@ impl SetValue for ShapeFlags {
 }
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 bitflags! {
     pub struct ShowFlags: u32 {
         const NONE = 0;
@@ -130,6 +138,7 @@ bitflags! {
 }
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 #[doc(hidden)]
 impl ToGlib for ShowFlags {
     type GlibType = pango_sys::PangoShowFlags;
@@ -140,6 +149,7 @@ impl ToGlib for ShowFlags {
 }
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 #[doc(hidden)]
 impl FromGlib<pango_sys::PangoShowFlags> for ShowFlags {
     fn from_glib(value: pango_sys::PangoShowFlags) -> ShowFlags {
@@ -148,6 +158,7 @@ impl FromGlib<pango_sys::PangoShowFlags> for ShowFlags {
 }
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 impl StaticType for ShowFlags {
     fn static_type() -> Type {
         unsafe { from_glib(pango_sys::pango_show_flags_get_type()) }
@@ -155,6 +166,7 @@ impl StaticType for ShowFlags {
 }
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 impl<'a> FromValueOptional<'a> for ShowFlags {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
@@ -162,6 +174,7 @@ impl<'a> FromValueOptional<'a> for ShowFlags {
 }
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 impl<'a> FromValue<'a> for ShowFlags {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
@@ -169,6 +182,7 @@ impl<'a> FromValue<'a> for ShowFlags {
 }
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 impl SetValue for ShowFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())

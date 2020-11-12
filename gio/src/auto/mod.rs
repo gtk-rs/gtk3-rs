@@ -118,10 +118,13 @@ pub use self::data_output_stream::DataOutputStreamExt;
 pub use self::data_output_stream::{DataOutputStream, NONE_DATA_OUTPUT_STREAM};
 
 #[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(all(not(windows), not(target_os = "macos")))))]
 mod desktop_app_info;
 #[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(all(not(windows), not(target_os = "macos")))))]
 pub use self::desktop_app_info::DesktopAppInfoExt;
 #[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(all(not(windows), not(target_os = "macos")))))]
 pub use self::desktop_app_info::{DesktopAppInfo, NONE_DESKTOP_APP_INFO};
 
 mod drive;
@@ -202,19 +205,26 @@ pub use self::input_stream::InputStreamExt;
 pub use self::input_stream::{InputStream, NONE_INPUT_STREAM};
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 mod list_model;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 pub use self::list_model::ListModelExt;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 pub use self::list_model::{ListModel, NONE_LIST_MODEL};
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 mod list_store;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 pub use self::list_store::ListStoreBuilder;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 pub use self::list_store::ListStoreExt;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 pub use self::list_store::{ListStore, NONE_LIST_STORE};
 
 mod loadable_icon;
@@ -226,10 +236,13 @@ pub use self::memory_input_stream::MemoryInputStreamExt;
 pub use self::memory_input_stream::{MemoryInputStream, NONE_MEMORY_INPUT_STREAM};
 
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 mod memory_monitor;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 pub use self::memory_monitor::MemoryMonitorExt;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 pub use self::memory_monitor::{MemoryMonitor, NONE_MEMORY_MONITOR};
 
 mod memory_output_stream;
@@ -335,8 +348,10 @@ mod simple_action_group;
 pub use self::simple_action_group::{SimpleActionGroup, NONE_SIMPLE_ACTION_GROUP};
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 mod simple_io_stream;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 pub use self::simple_io_stream::SimpleIOStream;
 
 mod simple_permission;
@@ -430,31 +445,43 @@ pub use self::tls_server_connection::TlsServerConnectionExt;
 pub use self::tls_server_connection::{TlsServerConnection, NONE_TLS_SERVER_CONNECTION};
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 mod unix_fd_list;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 pub use self::unix_fd_list::UnixFDListExt;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 pub use self::unix_fd_list::{UnixFDList, NONE_UNIX_FD_LIST};
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 mod unix_input_stream;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 pub use self::unix_input_stream::UnixInputStreamExt;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 pub use self::unix_input_stream::{UnixInputStream, NONE_UNIX_INPUT_STREAM};
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 mod unix_output_stream;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 pub use self::unix_output_stream::UnixOutputStreamExt;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 pub use self::unix_output_stream::{UnixOutputStream, NONE_UNIX_OUTPUT_STREAM};
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 mod unix_socket_address;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 pub use self::unix_socket_address::UnixSocketAddressExt;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 pub use self::unix_socket_address::{UnixSocketAddress, NONE_UNIX_SOCKET_ADDRESS};
 
 mod vfs;
@@ -514,17 +541,25 @@ mod srv_target;
 pub use self::srv_target::SrvTarget;
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 #[cfg(any(feature = "v2_54", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
 mod unix_mount_entry;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 #[cfg(any(feature = "v2_54", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
 pub use self::unix_mount_entry::UnixMountEntry;
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 #[cfg(any(feature = "v2_54", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
 mod unix_mount_point;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 #[cfg(any(feature = "v2_54", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
 pub use self::unix_mount_point::UnixMountPoint;
 
 mod enums;
@@ -544,9 +579,11 @@ pub use self::enums::FileMonitorEvent;
 pub use self::enums::FileType;
 pub use self::enums::IOErrorEnum;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 pub use self::enums::MemoryMonitorWarningLevel;
 pub use self::enums::MountOperationResult;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 pub use self::enums::NetworkConnectivity;
 pub use self::enums::NotificationPriority;
 pub use self::enums::PasswordSave;
@@ -555,12 +592,14 @@ pub use self::enums::ResourceError;
 pub use self::enums::SocketClientEvent;
 pub use self::enums::SocketFamily;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 pub use self::enums::SocketListenerEvent;
 pub use self::enums::SocketProtocol;
 pub use self::enums::SocketType;
 pub use self::enums::TlsAuthenticationMode;
 pub use self::enums::TlsCertificateRequestFlags;
 #[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 pub use self::enums::TlsChannelBindingType;
 pub use self::enums::TlsDatabaseLookupFlags;
 pub use self::enums::TlsInteractionResult;
@@ -595,6 +634,7 @@ pub use self::flags::MountMountFlags;
 pub use self::flags::MountUnmountFlags;
 pub use self::flags::OutputStreamSpliceFlags;
 #[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
 pub use self::flags::ResolverNameLookupFlags;
 pub use self::flags::ResourceLookupFlags;
 pub use self::flags::SettingsBindFlags;
@@ -607,6 +647,7 @@ pub mod functions;
 
 mod constants;
 #[cfg(any(feature = "v2_58", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
 pub use self::constants::DRIVE_IDENTIFIER_KIND_UNIX_DEVICE;
 pub use self::constants::FILE_ATTRIBUTE_ACCESS_CAN_DELETE;
 pub use self::constants::FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE;
@@ -616,9 +657,11 @@ pub use self::constants::FILE_ATTRIBUTE_ACCESS_CAN_TRASH;
 pub use self::constants::FILE_ATTRIBUTE_ACCESS_CAN_WRITE;
 pub use self::constants::FILE_ATTRIBUTE_DOS_IS_ARCHIVE;
 #[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
 pub use self::constants::FILE_ATTRIBUTE_DOS_IS_MOUNTPOINT;
 pub use self::constants::FILE_ATTRIBUTE_DOS_IS_SYSTEM;
 #[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
 pub use self::constants::FILE_ATTRIBUTE_DOS_REPARSE_POINT_TAG;
 pub use self::constants::FILE_ATTRIBUTE_ETAG_VALUE;
 pub use self::constants::FILE_ATTRIBUTE_FILESYSTEM_FREE;
@@ -648,6 +691,7 @@ pub use self::constants::FILE_ATTRIBUTE_OWNER_USER;
 pub use self::constants::FILE_ATTRIBUTE_OWNER_USER_REAL;
 pub use self::constants::FILE_ATTRIBUTE_PREVIEW_ICON;
 #[cfg(any(feature = "v2_52", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
 pub use self::constants::FILE_ATTRIBUTE_RECENT_MODIFIED;
 pub use self::constants::FILE_ATTRIBUTE_SELINUX_CONTEXT;
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_ALLOCATED_SIZE;
@@ -663,6 +707,7 @@ pub use self::constants::FILE_ATTRIBUTE_STANDARD_IS_HIDDEN;
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_IS_SYMLINK;
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_IS_VOLATILE;
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_NAME;
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_SIZE;
@@ -696,6 +741,7 @@ pub use self::constants::FILE_ATTRIBUTE_UNIX_NLINK;
 pub use self::constants::FILE_ATTRIBUTE_UNIX_RDEV;
 pub use self::constants::FILE_ATTRIBUTE_UNIX_UID;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 pub use self::constants::MEMORY_MONITOR_EXTENSION_POINT_NAME;
 pub use self::constants::MENU_ATTRIBUTE_ACTION;
 pub use self::constants::MENU_ATTRIBUTE_ACTION_NAMESPACE;
@@ -744,6 +790,7 @@ pub mod traits {
     pub use super::DataInputStreamExt;
     pub use super::DataOutputStreamExt;
     #[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(all(not(windows), not(target_os = "macos")))))]
     pub use super::DesktopAppInfoExt;
     pub use super::DriveExt;
     pub use super::EmblemedIconExt;
@@ -763,12 +810,15 @@ pub mod traits {
     pub use super::InetSocketAddressExt;
     pub use super::InputStreamExt;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub use super::ListModelExt;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub use super::ListStoreExt;
     pub use super::LoadableIconExt;
     pub use super::MemoryInputStreamExt;
     #[cfg(any(feature = "v2_64", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     pub use super::MemoryMonitorExt;
     pub use super::MemoryOutputStreamExt;
     pub use super::MenuAttributeIterExt;
@@ -811,12 +861,16 @@ pub mod traits {
     pub use super::TlsPasswordExt;
     pub use super::TlsServerConnectionExt;
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     pub use super::UnixFDListExt;
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     pub use super::UnixInputStreamExt;
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     pub use super::UnixOutputStreamExt;
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     pub use super::UnixSocketAddressExt;
     pub use super::VfsExt;
     pub use super::VolumeExt;

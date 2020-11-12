@@ -16,10 +16,12 @@ use gtk_sys;
 use std::fmt;
 use EventController;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use PadActionType;
 use PropagationPhase;
 use Widget;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use Window;
 
 glib_wrapper! {
@@ -32,6 +34,7 @@ glib_wrapper! {
 
 impl PadController {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn new<P: IsA<Window>, Q: IsA<gio::ActionGroup>>(
         window: &P,
         group: &Q,
@@ -48,6 +51,7 @@ impl PadController {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn set_action(
         &self,
         type_: PadActionType,

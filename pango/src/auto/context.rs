@@ -98,6 +98,7 @@ impl Context {
     }
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     pub fn get_round_glyph_positions(&self) -> bool {
         unsafe {
             from_glib(pango_sys::pango_context_get_round_glyph_positions(
@@ -194,6 +195,7 @@ impl Context {
     }
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     pub fn set_round_glyph_positions(&self, round_positions: bool) {
         unsafe {
             pango_sys::pango_context_set_round_glyph_positions(

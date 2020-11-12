@@ -14,6 +14,7 @@ use std::fmt;
 use std::mem::transmute;
 use Adjustment;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use Border;
 use ScrollablePolicy;
 
@@ -29,6 +30,7 @@ pub const NONE_SCROLLABLE: Option<&Scrollable> = None;
 
 pub trait ScrollableExt: 'static {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_border(&self) -> Option<Border>;
 
     fn get_hadjustment(&self) -> Option<Adjustment>;
@@ -64,6 +66,7 @@ pub trait ScrollableExt: 'static {
 
 impl<O: IsA<Scrollable>> ScrollableExt for O {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_border(&self) -> Option<Border> {
         unsafe {
             let mut border = Border::uninitialized();

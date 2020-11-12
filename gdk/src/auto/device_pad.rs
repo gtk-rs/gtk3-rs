@@ -8,6 +8,7 @@ use glib::translate::*;
 use std::fmt;
 use Device;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use DevicePadFeature;
 
 glib_wrapper! {
@@ -22,20 +23,25 @@ pub const NONE_DEVICE_PAD: Option<&DevicePad> = None;
 
 pub trait DevicePadExt: 'static {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_feature_group(&self, feature: DevicePadFeature, feature_idx: i32) -> i32;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_group_n_modes(&self, group_idx: i32) -> i32;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_n_features(&self, feature: DevicePadFeature) -> i32;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_n_groups(&self) -> i32;
 }
 
 impl<O: IsA<DevicePad>> DevicePadExt for O {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_feature_group(&self, feature: DevicePadFeature, feature_idx: i32) -> i32 {
         unsafe {
             gdk_sys::gdk_device_pad_get_feature_group(
@@ -47,6 +53,7 @@ impl<O: IsA<DevicePad>> DevicePadExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_group_n_modes(&self, group_idx: i32) -> i32 {
         unsafe {
             gdk_sys::gdk_device_pad_get_group_n_modes(self.as_ref().to_glib_none().0, group_idx)
@@ -54,6 +61,7 @@ impl<O: IsA<DevicePad>> DevicePadExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_n_features(&self, feature: DevicePadFeature) -> i32 {
         unsafe {
             gdk_sys::gdk_device_pad_get_n_features(
@@ -64,6 +72,7 @@ impl<O: IsA<DevicePad>> DevicePadExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_n_groups(&self) -> i32 {
         unsafe { gdk_sys::gdk_device_pad_get_n_groups(self.as_ref().to_glib_none().0) }
     }

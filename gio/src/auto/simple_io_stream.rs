@@ -4,15 +4,19 @@
 
 use gio_sys;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::object::Cast;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 use IOStream;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use InputStream;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use OutputStream;
 
 glib_wrapper! {
@@ -25,6 +29,7 @@ glib_wrapper! {
 
 impl SimpleIOStream {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn new<P: IsA<InputStream>, Q: IsA<OutputStream>>(
         input_stream: &P,
         output_stream: &Q,

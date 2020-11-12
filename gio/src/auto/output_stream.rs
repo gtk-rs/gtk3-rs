@@ -126,23 +126,29 @@ pub trait OutputStreamExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<isize, glib::Error>> + 'static>>;
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     //fn writev<P: IsA<Cancellable>>(&self, vectors: /*Ignored*/&[&OutputVector], cancellable: Option<&P>) -> Result<usize, glib::Error>;
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     //fn writev_all<P: IsA<Cancellable>>(&self, vectors: /*Ignored*/&[&OutputVector], cancellable: Option<&P>) -> Result<usize, glib::Error>;
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     //fn writev_all_async<P: IsA<Cancellable>, Q: FnOnce(Result<usize, glib::Error>) + Send + 'static>(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     //
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     //fn writev_all_async_future(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority) -> Pin<Box_<dyn std::future::Future<Output = Result<usize, glib::Error>> + 'static>>;
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     //fn writev_async<P: IsA<Cancellable>, Q: FnOnce(Result<usize, glib::Error>) + Send + 'static>(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     //
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     //fn writev_async_future(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority) -> Pin<Box_<dyn std::future::Future<Output = Result<usize, glib::Error>> + 'static>>;
 }
 
@@ -529,22 +535,26 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
     }
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     //fn writev<P: IsA<Cancellable>>(&self, vectors: /*Ignored*/&[&OutputVector], cancellable: Option<&P>) -> Result<usize, glib::Error> {
     //    unsafe { TODO: call gio_sys:g_output_stream_writev() }
     //}
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     //fn writev_all<P: IsA<Cancellable>>(&self, vectors: /*Ignored*/&[&OutputVector], cancellable: Option<&P>) -> Result<usize, glib::Error> {
     //    unsafe { TODO: call gio_sys:g_output_stream_writev_all() }
     //}
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     //fn writev_all_async<P: IsA<Cancellable>, Q: FnOnce(Result<usize, glib::Error>) + Send + 'static>(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority, cancellable: Option<&P>, callback: Q) {
     //    unsafe { TODO: call gio_sys:g_output_stream_writev_all_async() }
     //}
 
     //
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     //fn writev_all_async_future(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority) -> Pin<Box_<dyn std::future::Future<Output = Result<usize, glib::Error>> + 'static>> {
 
     //let vectors = vectors.clone();
@@ -564,12 +574,14 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
     //}
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     //fn writev_async<P: IsA<Cancellable>, Q: FnOnce(Result<usize, glib::Error>) + Send + 'static>(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority, cancellable: Option<&P>, callback: Q) {
     //    unsafe { TODO: call gio_sys:g_output_stream_writev_async() }
     //}
 
     //
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     //fn writev_async_future(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority) -> Pin<Box_<dyn std::future::Future<Output = Result<usize, glib::Error>> + 'static>> {
 
     //let vectors = vectors.clone();

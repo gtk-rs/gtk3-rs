@@ -4,29 +4,38 @@
 
 use gdk;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use gdk_sys;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::signal::connect_raw;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib_sys;
 use gtk_sys;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use libc;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use std::boxed::Box as Box_;
 use std::fmt;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use std::mem;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use std::mem::transmute;
 use Align;
 use Buildable;
@@ -43,6 +52,7 @@ glib_wrapper! {
 
 impl GLArea {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn new() -> GLArea {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(gtk_sys::gtk_gl_area_new()).unsafe_cast() }
@@ -50,6 +60,7 @@ impl GLArea {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl Default for GLArea {
     fn default() -> Self {
         Self::new()
@@ -59,14 +70,19 @@ impl Default for GLArea {
 #[derive(Clone, Default)]
 pub struct GLAreaBuilder {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     auto_render: Option<bool>,
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     has_alpha: Option<bool>,
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     has_depth_buffer: Option<bool>,
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     has_stencil_buffer: Option<bool>,
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     use_es: Option<bool>,
     app_paintable: Option<bool>,
     can_default: Option<bool>,
@@ -74,6 +90,7 @@ pub struct GLAreaBuilder {
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -111,30 +128,35 @@ impl GLAreaBuilder {
     pub fn build(self) -> GLArea {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
         {
             if let Some(ref auto_render) = self.auto_render {
                 properties.push(("auto-render", auto_render));
             }
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
         {
             if let Some(ref has_alpha) = self.has_alpha {
                 properties.push(("has-alpha", has_alpha));
             }
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
         {
             if let Some(ref has_depth_buffer) = self.has_depth_buffer {
                 properties.push(("has-depth-buffer", has_depth_buffer));
             }
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
         {
             if let Some(ref has_stencil_buffer) = self.has_stencil_buffer {
                 properties.push(("has-stencil-buffer", has_stencil_buffer));
             }
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
         {
             if let Some(ref use_es) = self.use_es {
                 properties.push(("use-es", use_es));
@@ -156,6 +178,7 @@ impl GLAreaBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref focus_on_click) = self.focus_on_click {
                 properties.push(("focus-on-click", focus_on_click));
@@ -247,30 +270,35 @@ impl GLAreaBuilder {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn auto_render(mut self, auto_render: bool) -> Self {
         self.auto_render = Some(auto_render);
         self
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn has_alpha(mut self, has_alpha: bool) -> Self {
         self.has_alpha = Some(has_alpha);
         self
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn has_depth_buffer(mut self, has_depth_buffer: bool) -> Self {
         self.has_depth_buffer = Some(has_depth_buffer);
         self
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn has_stencil_buffer(mut self, has_stencil_buffer: bool) -> Self {
         self.has_stencil_buffer = Some(has_stencil_buffer);
         self
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn use_es(mut self, use_es: bool) -> Self {
         self.use_es = Some(use_es);
         self
@@ -302,6 +330,7 @@ impl GLAreaBuilder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -442,101 +471,129 @@ pub const NONE_GL_AREA: Option<&GLArea> = None;
 
 pub trait GLAreaExt: 'static {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn attach_buffers(&self);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_auto_render(&self) -> bool;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_context(&self) -> Option<gdk::GLContext>;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_error(&self) -> Option<glib::Error>;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_has_alpha(&self) -> bool;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_has_depth_buffer(&self) -> bool;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_has_stencil_buffer(&self) -> bool;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_required_version(&self) -> (i32, i32);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_use_es(&self) -> bool;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn make_current(&self);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn queue_render(&self);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_auto_render(&self, auto_render: bool);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_error(&self, error: Option<&glib::Error>);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_has_alpha(&self, has_alpha: bool);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_has_depth_buffer(&self, has_depth_buffer: bool);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_has_stencil_buffer(&self, has_stencil_buffer: bool);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_required_version(&self, major: i32, minor: i32);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_use_es(&self, use_es: bool);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_create_context<F: Fn(&Self) -> Option<gdk::GLContext> + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_render<F: Fn(&Self, &gdk::GLContext) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_resize<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_property_auto_render_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_property_context_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_property_has_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_property_has_depth_buffer_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_property_has_stencil_buffer_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn connect_property_use_es_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<GLArea>> GLAreaExt for O {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn attach_buffers(&self) {
         unsafe {
             gtk_sys::gtk_gl_area_attach_buffers(self.as_ref().to_glib_none().0);
@@ -544,6 +601,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_auto_render(&self) -> bool {
         unsafe {
             from_glib(gtk_sys::gtk_gl_area_get_auto_render(
@@ -553,6 +611,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_context(&self) -> Option<gdk::GLContext> {
         unsafe {
             from_glib_none(gtk_sys::gtk_gl_area_get_context(
@@ -562,6 +621,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_error(&self) -> Option<glib::Error> {
         unsafe {
             from_glib_none(gtk_sys::gtk_gl_area_get_error(
@@ -571,6 +631,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_has_alpha(&self) -> bool {
         unsafe {
             from_glib(gtk_sys::gtk_gl_area_get_has_alpha(
@@ -580,6 +641,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_has_depth_buffer(&self) -> bool {
         unsafe {
             from_glib(gtk_sys::gtk_gl_area_get_has_depth_buffer(
@@ -589,6 +651,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_has_stencil_buffer(&self) -> bool {
         unsafe {
             from_glib(gtk_sys::gtk_gl_area_get_has_stencil_buffer(
@@ -598,6 +661,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_required_version(&self) -> (i32, i32) {
         unsafe {
             let mut major = mem::MaybeUninit::uninit();
@@ -614,6 +678,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_use_es(&self) -> bool {
         unsafe {
             from_glib(gtk_sys::gtk_gl_area_get_use_es(
@@ -623,6 +688,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn make_current(&self) {
         unsafe {
             gtk_sys::gtk_gl_area_make_current(self.as_ref().to_glib_none().0);
@@ -630,6 +696,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn queue_render(&self) {
         unsafe {
             gtk_sys::gtk_gl_area_queue_render(self.as_ref().to_glib_none().0);
@@ -637,6 +704,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_auto_render(&self, auto_render: bool) {
         unsafe {
             gtk_sys::gtk_gl_area_set_auto_render(
@@ -647,6 +715,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_error(&self, error: Option<&glib::Error>) {
         unsafe {
             gtk_sys::gtk_gl_area_set_error(self.as_ref().to_glib_none().0, error.to_glib_none().0);
@@ -654,6 +723,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_has_alpha(&self, has_alpha: bool) {
         unsafe {
             gtk_sys::gtk_gl_area_set_has_alpha(self.as_ref().to_glib_none().0, has_alpha.to_glib());
@@ -661,6 +731,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_has_depth_buffer(&self, has_depth_buffer: bool) {
         unsafe {
             gtk_sys::gtk_gl_area_set_has_depth_buffer(
@@ -671,6 +742,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_has_stencil_buffer(&self, has_stencil_buffer: bool) {
         unsafe {
             gtk_sys::gtk_gl_area_set_has_stencil_buffer(
@@ -681,6 +753,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_required_version(&self, major: i32, minor: i32) {
         unsafe {
             gtk_sys::gtk_gl_area_set_required_version(self.as_ref().to_glib_none().0, major, minor);
@@ -688,6 +761,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn set_use_es(&self, use_es: bool) {
         unsafe {
             gtk_sys::gtk_gl_area_set_use_es(self.as_ref().to_glib_none().0, use_es.to_glib());
@@ -695,6 +769,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_create_context<F: Fn(&Self) -> Option<gdk::GLContext> + 'static>(
         &self,
         f: F,
@@ -726,6 +801,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_render<F: Fn(&Self, &gdk::GLContext) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -762,6 +838,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_resize<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn resize_trampoline<P, F: Fn(&P, i32, i32) + 'static>(
             this: *mut gtk_sys::GtkGLArea,
@@ -792,6 +869,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_property_auto_render_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_auto_render_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut gtk_sys::GtkGLArea,
@@ -817,6 +895,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_property_context_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_context_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut gtk_sys::GtkGLArea,
@@ -842,6 +921,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_property_has_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_alpha_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut gtk_sys::GtkGLArea,
@@ -867,6 +947,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_property_has_depth_buffer_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -895,6 +976,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_property_has_stencil_buffer_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -923,6 +1005,7 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn connect_property_use_es_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_es_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut gtk_sys::GtkGLArea,

@@ -20,6 +20,7 @@ use Container;
 use Dialog;
 use FontChooser;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use FontChooserLevel;
 use ResizeMode;
 use Widget;
@@ -88,6 +89,7 @@ pub struct FontChooserDialogBuilder {
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -118,8 +120,10 @@ pub struct FontChooserDialogBuilder {
     font: Option<String>,
     font_desc: Option<pango::FontDescription>,
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     language: Option<String>,
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     level: Option<FontChooserLevel>,
     preview_text: Option<String>,
     show_preview_entry: Option<bool>,
@@ -244,6 +248,7 @@ impl FontChooserDialogBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref focus_on_click) = self.focus_on_click {
                 properties.push(("focus-on-click", focus_on_click));
@@ -334,12 +339,14 @@ impl FontChooserDialogBuilder {
             properties.push(("font-desc", font_desc));
         }
         #[cfg(any(feature = "v3_24", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
         {
             if let Some(ref language) = self.language {
                 properties.push(("language", language));
             }
         }
         #[cfg(any(feature = "v3_24", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
         {
             if let Some(ref level) = self.level {
                 properties.push(("level", level));
@@ -544,6 +551,7 @@ impl FontChooserDialogBuilder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -690,12 +698,14 @@ impl FontChooserDialogBuilder {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn language(mut self, language: &str) -> Self {
         self.language = Some(language.to_string());
         self
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn level(mut self, level: FontChooserLevel) -> Self {
         self.level = Some(level);
         self

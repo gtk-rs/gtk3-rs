@@ -15,15 +15,20 @@ mod device_manager;
 pub use self::device_manager::DeviceManager;
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 mod device_pad;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use self::device_pad::DevicePadExt;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use self::device_pad::{DevicePad, NONE_DEVICE_PAD};
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 mod device_tool;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use self::device_tool::DeviceTool;
 
 mod display;
@@ -36,32 +41,40 @@ mod drag_context;
 pub use self::drag_context::DragContext;
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 mod drawing_context;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use self::drawing_context::DrawingContext;
 
 mod frame_clock;
 pub use self::frame_clock::FrameClock;
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 mod gl_context;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::gl_context::GLContext;
 
 mod keymap;
 pub use self::keymap::Keymap;
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 mod monitor;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use self::monitor::Monitor;
 
 mod screen;
 pub use self::screen::Screen;
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 mod seat;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::seat::Seat;
 
 mod visual;
@@ -83,16 +96,20 @@ pub use self::enums::ByteOrder;
 pub use self::enums::CrossingMode;
 pub use self::enums::CursorType;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use self::enums::DevicePadFeature;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use self::enums::DeviceToolType;
 pub use self::enums::DeviceType;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::enums::DragCancelReason;
 pub use self::enums::DragProtocol;
 pub use self::enums::EventType;
 pub use self::enums::FullscreenMode;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::enums::GLError;
 pub use self::enums::GrabOwnership;
 pub use self::enums::GrabStatus;
@@ -107,6 +124,7 @@ pub use self::enums::PropertyState;
 pub use self::enums::ScrollDirection;
 pub use self::enums::SettingAction;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use self::enums::SubpixelLayout;
 pub use self::enums::VisibilityState;
 pub use self::enums::VisualType;
@@ -117,14 +135,17 @@ pub use self::enums::WindowWindowClass;
 
 mod flags;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use self::flags::AnchorHints;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 pub use self::flags::AxisFlags;
 pub use self::flags::DragAction;
 pub use self::flags::EventMask;
 pub use self::flags::FrameClockPhase;
 pub use self::flags::ModifierType;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::flags::SeatCapabilities;
 pub use self::flags::WMDecoration;
 pub use self::flags::WMFunction;
@@ -136,6 +157,7 @@ pub mod functions;
 #[doc(hidden)]
 pub mod traits {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub use super::DevicePadExt;
     pub use super::WindowExt;
 }

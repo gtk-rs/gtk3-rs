@@ -10,6 +10,7 @@ use Coverage;
 use EngineShape;
 use FontDescription;
 #[cfg(any(feature = "v1_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 use FontFace;
 use FontMap;
 use FontMetrics;
@@ -37,9 +38,11 @@ pub trait FontExt: 'static {
     fn get_coverage(&self, language: &Language) -> Option<Coverage>;
 
     #[cfg(any(feature = "v1_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
     fn get_face(&self) -> Option<FontFace>;
 
     //#[cfg(any(feature = "v1_44", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     //fn get_features(&self, features: /*Unimplemented*/&mut Fundamental: Pointer, num_features: &mut u32) -> u32;
 
     fn get_font_map(&self) -> Option<FontMap>;
@@ -47,11 +50,13 @@ pub trait FontExt: 'static {
     fn get_glyph_extents(&self, glyph: Glyph) -> (Rectangle, Rectangle);
 
     //#[cfg(any(feature = "v1_44", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     //fn get_hb_font(&self) -> /*Ignored*/Option<harf_buzz::font_t>;
 
     fn get_metrics(&self, language: Option<&Language>) -> Option<FontMetrics>;
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     fn has_char(&self, wc: char) -> bool;
 }
 
@@ -92,6 +97,7 @@ impl<O: IsA<Font>> FontExt for O {
     }
 
     #[cfg(any(feature = "v1_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
     fn get_face(&self) -> Option<FontFace> {
         unsafe {
             from_glib_none(pango_sys::pango_font_get_face(
@@ -101,6 +107,7 @@ impl<O: IsA<Font>> FontExt for O {
     }
 
     //#[cfg(any(feature = "v1_44", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     //fn get_features(&self, features: /*Unimplemented*/&mut Fundamental: Pointer, num_features: &mut u32) -> u32 {
     //    unsafe { TODO: call pango_sys:pango_font_get_features() }
     //}
@@ -128,6 +135,7 @@ impl<O: IsA<Font>> FontExt for O {
     }
 
     //#[cfg(any(feature = "v1_44", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     //fn get_hb_font(&self) -> /*Ignored*/Option<harf_buzz::font_t> {
     //    unsafe { TODO: call pango_sys:pango_font_get_hb_font() }
     //}
@@ -142,6 +150,7 @@ impl<O: IsA<Font>> FontExt for O {
     }
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     fn has_char(&self, wc: char) -> bool {
         unsafe {
             from_glib(pango_sys::pango_font_has_char(

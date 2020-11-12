@@ -5,6 +5,7 @@
 use gio_sys;
 use glib;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
@@ -22,6 +23,7 @@ use DBusMessageFlags;
 use DBusMessageHeaderField;
 use DBusMessageType;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 use UnixFDList;
 
 glib_wrapper! {
@@ -162,6 +164,7 @@ impl DBusMessage {
     }
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     pub fn get_num_unix_fds(&self) -> u32 {
         unsafe { gio_sys::g_dbus_message_get_num_unix_fds(self.to_glib_none().0) }
     }
@@ -187,6 +190,7 @@ impl DBusMessage {
     }
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     pub fn get_unix_fd_list(&self) -> Option<UnixFDList> {
         unsafe {
             from_glib_none(gio_sys::g_dbus_message_get_unix_fd_list(
@@ -294,6 +298,7 @@ impl DBusMessage {
     }
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     pub fn set_num_unix_fds(&self, value: u32) {
         unsafe {
             gio_sys::g_dbus_message_set_num_unix_fds(self.to_glib_none().0, value);
@@ -331,6 +336,7 @@ impl DBusMessage {
     }
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     pub fn set_unix_fd_list<P: IsA<UnixFDList>>(&self, fd_list: Option<&P>) {
         unsafe {
             gio_sys::g_dbus_message_set_unix_fd_list(

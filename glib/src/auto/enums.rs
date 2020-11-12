@@ -16,6 +16,7 @@ pub enum ChecksumType {
     Sha256,
     Sha512,
     #[cfg(any(feature = "v2_52", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
     Sha384,
     #[doc(hidden)]
     __Unknown(i32),
@@ -32,6 +33,7 @@ impl fmt::Display for ChecksumType {
                 ChecksumType::Sha256 => "Sha256",
                 ChecksumType::Sha512 => "Sha512",
                 #[cfg(any(feature = "v2_52", feature = "dox"))]
+                #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
                 ChecksumType::Sha384 => "Sha384",
                 _ => "Unknown",
             }
@@ -50,6 +52,7 @@ impl ToGlib for ChecksumType {
             ChecksumType::Sha256 => glib_sys::G_CHECKSUM_SHA256,
             ChecksumType::Sha512 => glib_sys::G_CHECKSUM_SHA512,
             #[cfg(any(feature = "v2_52", feature = "dox"))]
+            #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
             ChecksumType::Sha384 => glib_sys::G_CHECKSUM_SHA384,
             ChecksumType::__Unknown(value) => value,
         }
@@ -65,6 +68,7 @@ impl FromGlib<glib_sys::GChecksumType> for ChecksumType {
             2 => ChecksumType::Sha256,
             3 => ChecksumType::Sha512,
             #[cfg(any(feature = "v2_52", feature = "dox"))]
+            #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
             4 => ChecksumType::Sha384,
             value => ChecksumType::__Unknown(value),
         }
@@ -496,6 +500,7 @@ impl FromGlib<glib_sys::GTimeType> for TimeType {
 }
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum UriError {
@@ -514,6 +519,7 @@ pub enum UriError {
 }
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 impl fmt::Display for UriError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -537,6 +543,7 @@ impl fmt::Display for UriError {
 }
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl ToGlib for UriError {
     type GlibType = glib_sys::GUriError;
@@ -559,6 +566,7 @@ impl ToGlib for UriError {
 }
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<glib_sys::GUriError> for UriError {
     fn from_glib(value: glib_sys::GUriError) -> Self {
@@ -579,6 +587,7 @@ impl FromGlib<glib_sys::GUriError> for UriError {
 }
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 impl ErrorDomain for UriError {
     fn domain() -> Quark {
         unsafe { from_glib(glib_sys::g_uri_error_quark()) }
