@@ -154,7 +154,7 @@ mod imp_app {
         // `gio::Application::activate` is what gets called when the
         // application is launched by the desktop environment and
         // aksed to present itself.
-        fn activate(&self, app: &gio::Application) {
+        fn activate(&self, app: &Self::Type) {
             let app = app.downcast_ref::<super::SimpleApplication>().unwrap();
             let priv_ = SimpleApplication::from_instance(app);
             let window = priv_
@@ -172,7 +172,7 @@ mod imp_app {
         //
         // Due to this, we create and initialize the `SimpleWindow` widget
         // here. Widgets can't be created before `startup` has been called.
-        fn startup(&self, app: &gio::Application) {
+        fn startup(&self, app: &Self::Type) {
             self.parent_startup(app);
 
             let app = app.downcast_ref::<super::SimpleApplication>().unwrap();

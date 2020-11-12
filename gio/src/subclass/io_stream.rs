@@ -9,7 +9,7 @@ use glib::prelude::*;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 
-use glib::Error;
+use glib::{Cast, Error};
 
 use Cancellable;
 use IOStream;
@@ -20,57 +20,57 @@ use std::ptr;
 use once_cell::sync::Lazy;
 
 pub trait IOStreamImpl: ObjectImpl + IOStreamImplExt + Send {
-    fn get_input_stream(&self, stream: &IOStream) -> crate::InputStream {
+    fn get_input_stream(&self, stream: &Self::Type) -> crate::InputStream {
         self.parent_get_input_stream(stream)
     }
 
-    fn get_output_stream(&self, stream: &IOStream) -> crate::OutputStream {
+    fn get_output_stream(&self, stream: &Self::Type) -> crate::OutputStream {
         self.parent_get_output_stream(stream)
     }
 
-    fn close(&self, stream: &IOStream, cancellable: Option<&Cancellable>) -> Result<(), Error> {
+    fn close(&self, stream: &Self::Type, cancellable: Option<&Cancellable>) -> Result<(), Error> {
         self.parent_close(stream, cancellable)
     }
 }
 
-pub trait IOStreamImplExt {
-    fn parent_get_input_stream(&self, stream: &IOStream) -> crate::InputStream;
+pub trait IOStreamImplExt: ObjectSubclass {
+    fn parent_get_input_stream(&self, stream: &Self::Type) -> crate::InputStream;
 
-    fn parent_get_output_stream(&self, stream: &IOStream) -> crate::OutputStream;
+    fn parent_get_output_stream(&self, stream: &Self::Type) -> crate::OutputStream;
 
     fn parent_close(
         &self,
-        stream: &IOStream,
+        stream: &Self::Type,
         cancellable: Option<&Cancellable>,
     ) -> Result<(), Error>;
 }
 
 impl<T: IOStreamImpl> IOStreamImplExt for T {
-    fn parent_get_input_stream(&self, stream: &IOStream) -> crate::InputStream {
+    fn parent_get_input_stream(&self, stream: &Self::Type) -> crate::InputStream {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GIOStreamClass;
             let f = (*parent_class)
                 .get_input_stream
                 .expect("No parent class implementation for \"get_input_stream\"");
-            from_glib_none(f(stream.to_glib_none().0))
+            from_glib_none(f(stream.unsafe_cast_ref::<IOStream>().to_glib_none().0))
         }
     }
 
-    fn parent_get_output_stream(&self, stream: &IOStream) -> crate::OutputStream {
+    fn parent_get_output_stream(&self, stream: &Self::Type) -> crate::OutputStream {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GIOStreamClass;
             let f = (*parent_class)
                 .get_output_stream
                 .expect("No parent class implementation for \"get_output_stream\"");
-            from_glib_none(f(stream.to_glib_none().0))
+            from_glib_none(f(stream.unsafe_cast_ref::<IOStream>().to_glib_none().0))
         }
     }
 
     fn parent_close(
         &self,
-        stream: &IOStream,
+        stream: &Self::Type,
         cancellable: Option<&Cancellable>,
     ) -> Result<(), Error> {
         unsafe {
@@ -79,7 +79,7 @@ impl<T: IOStreamImpl> IOStreamImplExt for T {
             let mut err = ptr::null_mut();
             if let Some(f) = (*parent_class).close_fn {
                 if from_glib(f(
-                    stream.to_glib_none().0,
+                    stream.unsafe_cast_ref::<IOStream>().to_glib_none().0,
                     cancellable.to_glib_none().0,
                     &mut err,
                 )) {
@@ -117,7 +117,7 @@ unsafe extern "C" fn stream_get_input_stream<T: IOStreamImpl>(
     let imp = instance.get_impl();
     let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
 
-    let ret = imp.get_input_stream(&wrap);
+    let ret = imp.get_input_stream(wrap.unsafe_cast_ref());
 
     // Ensure that a) the stream stays alive as long as the IO stream instance and
     // b) that the same stream is returned every time. This is a requirement by the
@@ -151,7 +151,7 @@ unsafe extern "C" fn stream_get_output_stream<T: IOStreamImpl>(
     let imp = instance.get_impl();
     let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
 
-    let ret = imp.get_output_stream(&wrap);
+    let ret = imp.get_output_stream(wrap.unsafe_cast_ref());
 
     // Ensure that a) the stream stays alive as long as the IO stream instance and
     // b) that the same stream is returned every time. This is a requirement by the
@@ -188,7 +188,7 @@ unsafe extern "C" fn stream_close<T: IOStreamImpl>(
     let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
 
     match imp.close(
-        &wrap,
+        wrap.unsafe_cast_ref(),
         Option::<Cancellable>::from_glib_borrow(cancellable)
             .as_ref()
             .as_ref(),

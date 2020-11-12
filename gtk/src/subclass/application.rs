@@ -1,5 +1,7 @@
 use gtk_sys;
 
+use glib::Cast;
+
 use glib::translate::*;
 
 use glib::subclass::prelude::*;
@@ -78,7 +80,7 @@ unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
             let imp = instance.get_impl();
             let wrap: Borrowed<gio::Application> = from_glib_borrow(ptr);
             crate::rt::set_initialized();
-            imp.startup(&wrap)
+            imp.startup(wrap.unsafe_cast_ref())
         }
 
         <gio::Application as IsSubclassable<T>>::override_vfuncs(class);

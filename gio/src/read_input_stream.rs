@@ -49,7 +49,7 @@ mod imp {
     impl InputStreamImpl for ReadInputStream {
         fn read(
             &self,
-            _stream: &InputStream,
+            _stream: &Self::Type,
             buffer: &mut [u8],
             _cancellable: Option<&crate::Cancellable>,
         ) -> Result<usize, glib::Error> {
@@ -75,7 +75,7 @@ mod imp {
 
         fn close(
             &self,
-            _stream: &InputStream,
+            _stream: &Self::Type,
             _cancellable: Option<&crate::Cancellable>,
         ) -> Result<(), glib::Error> {
             let _ = self.read.borrow_mut().take();
@@ -84,7 +84,7 @@ mod imp {
     }
 
     impl SeekableImpl for ReadInputStream {
-        fn tell(&self, _seekable: &crate::Seekable) -> i64 {
+        fn tell(&self, _seekable: &Self::Type) -> i64 {
             // XXX: stream_position is not stable yet
             // let mut read = self.read.borrow_mut();
             // match *read {
@@ -96,7 +96,7 @@ mod imp {
             -1
         }
 
-        fn can_seek(&self, _seekable: &crate::Seekable) -> bool {
+        fn can_seek(&self, _seekable: &Self::Type) -> bool {
             let read = self.read.borrow();
             match *read {
                 Some(Reader::ReadSeek(_)) => true,
@@ -106,7 +106,7 @@ mod imp {
 
         fn seek(
             &self,
-            _seekable: &crate::Seekable,
+            _seekable: &Self::Type,
             offset: i64,
             type_: glib::SeekType,
             _cancellable: Option<&crate::Cancellable>,
@@ -146,13 +146,13 @@ mod imp {
             }
         }
 
-        fn can_truncate(&self, _seekable: &crate::Seekable) -> bool {
+        fn can_truncate(&self, _seekable: &Self::Type) -> bool {
             false
         }
 
         fn truncate(
             &self,
-            _seekable: &crate::Seekable,
+            _seekable: &Self::Type,
             _offset: i64,
             _cancellable: Option<&crate::Cancellable>,
         ) -> Result<(), glib::Error> {
