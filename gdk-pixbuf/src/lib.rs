@@ -4,6 +4,7 @@
 
 #![cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
 #![cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
+#![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 extern crate gdk_pixbuf_sys;
 extern crate gio_sys;

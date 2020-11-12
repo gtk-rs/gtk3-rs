@@ -6,6 +6,7 @@
 #![allow(clippy::let_and_return)]
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::type_complexity)]
+#![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 #[macro_use]
 extern crate bitflags;

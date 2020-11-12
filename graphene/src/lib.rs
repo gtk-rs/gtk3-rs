@@ -7,6 +7,7 @@
 #![cfg_attr(feature = "cargo-clippy", allow(transmute_int_to_char))]
 #![cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ptr))]
 #![cfg_attr(feature = "cargo-clippy", allow(trivially_copy_pass_by_ref))]
+#![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 #[macro_use]
 extern crate glib;

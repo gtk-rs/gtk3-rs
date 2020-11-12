@@ -5,6 +5,7 @@
 #![allow(deprecated)]
 #![cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
 #![cfg_attr(feature = "cargo-clippy", allow(trivially_copy_pass_by_ref))]
+#![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 extern crate gdk_pixbuf;
 extern crate gdk_sys;
