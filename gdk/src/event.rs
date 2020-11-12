@@ -226,6 +226,7 @@ impl Event {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn is_scroll_stop_event(&self) -> bool {
         unsafe {
             from_glib(gdk_sys::gdk_event_is_scroll_stop_event(
@@ -270,16 +271,19 @@ impl Event {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn get_seat(&self) -> Option<Seat> {
         unsafe { from_glib_none(gdk_sys::gdk_event_get_seat(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn get_scancode(&mut self) -> i32 {
         unsafe { gdk_sys::gdk_event_get_scancode(self.to_glib_none_mut().0) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn get_pointer_emulated(&mut self) -> bool {
         unsafe {
             from_glib(gdk_sys::gdk_event_get_pointer_emulated(
@@ -315,6 +319,7 @@ impl Event {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn set_device_tool(&mut self, device: Option<&DeviceTool>) {
         unsafe {
             gdk_sys::gdk_event_set_device_tool(self.to_glib_none_mut().0, device.to_glib_none().0)
@@ -322,6 +327,7 @@ impl Event {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn get_device_tool(&self) -> Option<DeviceTool> {
         unsafe { from_glib_none(gdk_sys::gdk_event_get_device_tool(self.to_glib_none().0)) }
     }

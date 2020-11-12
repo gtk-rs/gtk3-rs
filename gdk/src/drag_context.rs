@@ -116,6 +116,7 @@ impl DragContext {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn drag_begin_from_point<P: IsA<Device>>(
         window: &Window,
         device: &P,
@@ -136,6 +137,7 @@ impl DragContext {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn drag_drop_done(&self, success: bool) {
         skip_assert_initialized!();
         unsafe {

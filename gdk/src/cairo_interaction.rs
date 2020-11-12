@@ -49,6 +49,7 @@ pub trait GdkContextExt {
     fn create_from_window<W: IsA<Window>>(window: &W) -> Context;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     unsafe fn draw_from_gl<W: IsA<Window>>(
         &self,
         window: &W,
@@ -81,6 +82,7 @@ impl GdkContextExt for Context {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     unsafe fn draw_from_gl<W: IsA<Window>>(
         &self,
         window: &W,

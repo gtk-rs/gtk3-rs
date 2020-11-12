@@ -32,6 +32,7 @@ pub struct SignalSubscriptionId(NonZeroU32);
 
 impl DBusConnection {
     #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn register_object<MethodCall, SetProperty, GetProperty>(
         &self,
         object_path: &str,

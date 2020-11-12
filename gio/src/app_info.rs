@@ -25,6 +25,7 @@ use Cancellable;
 
 pub trait AppInfoExtManual: 'static {
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn launch_uris_async<
         P: IsA<AppLaunchContext>,
         Q: IsA<Cancellable>,
@@ -38,6 +39,7 @@ pub trait AppInfoExtManual: 'static {
     );
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn launch_uris_async_future<P: IsA<AppLaunchContext> + Clone + 'static>(
         &self,
         uris: &[&str],
@@ -47,6 +49,7 @@ pub trait AppInfoExtManual: 'static {
 
 impl<O: IsA<AppInfo>> AppInfoExtManual for O {
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn launch_uris_async<
         P: IsA<AppLaunchContext>,
         Q: IsA<Cancellable>,
@@ -93,6 +96,7 @@ impl<O: IsA<AppInfo>> AppInfoExtManual for O {
     }
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn launch_uris_async_future<P: IsA<AppLaunchContext> + Clone + 'static>(
         &self,
         uris: &[&str],

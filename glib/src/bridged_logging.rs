@@ -124,6 +124,7 @@ impl GlibLogger {
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn write_log_structured(
         domain: Option<&str>,
         level: log::Level,
@@ -241,6 +242,7 @@ pub fn rust_log_handler(domain: Option<&str>, level: glib_log::LogLevel, message
 /// ```
 #[macro_export]
 #[cfg(any(feature = "dox", feature = "log_macros"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "log_macros")))]
 macro_rules! error {
     (target: $target:expr, $($arg:tt)+) => (
         log::log!(target: $target, log::Level::Error, $($arg)+);
@@ -267,6 +269,7 @@ macro_rules! error {
 /// ```
 #[macro_export]
 #[cfg(any(feature = "dox", feature = "log_macros"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "log_macros")))]
 macro_rules! warn {
     (target: $target:expr, $($arg:tt)+) => (
         log::log!(target: $target, log::Level::Warn, $($arg)+);
@@ -293,6 +296,7 @@ macro_rules! warn {
 /// ```
 #[macro_export]
 #[cfg(any(feature = "dox", feature = "log_macros"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "log_macros")))]
 macro_rules! info {
     (target: $target:expr, $($arg:tt)+) => (
         log::log!(target: $target, log::Level::Info, $($arg)+);
@@ -319,6 +323,7 @@ macro_rules! info {
 /// ```
 #[macro_export]
 #[cfg(any(feature = "dox", feature = "log_macros"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "log_macros")))]
 macro_rules! debug {
     (target: $target:expr, $($arg:tt)+) => (
         log::log!(target: $target, log::Level::Debug, $($arg)+);
@@ -345,6 +350,7 @@ macro_rules! debug {
 /// ```
 #[macro_export]
 #[cfg(any(feature = "dox", feature = "log_macros"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "log_macros")))]
 macro_rules! trace {
     (target: $target:expr, $($arg:tt)+) => (
         log::log!(target: $target, log::Level::Trace, $($arg)+);

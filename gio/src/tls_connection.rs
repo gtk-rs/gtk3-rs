@@ -9,6 +9,7 @@ use std::ptr;
 
 pub trait TlsConnectionManualExt {
     #[cfg(any(feature = "v2_66", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
     fn get_channel_binding_data(
         &self,
         type_: TlsChannelBindingType,
@@ -17,6 +18,7 @@ pub trait TlsConnectionManualExt {
 
 impl<O: IsA<TlsConnection>> TlsConnectionManualExt for O {
     #[cfg(any(feature = "v2_66", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
     fn get_channel_binding_data(
         &self,
         type_: TlsChannelBindingType,

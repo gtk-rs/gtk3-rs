@@ -20,6 +20,7 @@ impl AttrList {
     }
 
     #[cfg(any(feature = "v1_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
     fn equal(&self, other_list: &AttrList) -> bool {
         unsafe {
             from_glib(pango_sys::pango_attr_list_equal(
