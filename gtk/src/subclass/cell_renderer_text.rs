@@ -4,31 +4,34 @@ use libc::c_char;
 
 use glib::subclass::prelude::*;
 use glib::translate::*;
-use glib::GString;
+use glib::{Cast, GString};
 
 use super::cell_renderer::CellRendererImpl;
 use CellRenderer;
 use CellRendererText;
 
 pub trait CellRendererTextImpl: CellRendererTextImplExt + CellRendererImpl {
-    fn edited(&self, renderer: &CellRendererText, path: &str, new_text: &str) {
+    fn edited(&self, renderer: &Self::Type, path: &str, new_text: &str) {
         self.parent_edited(renderer, path, new_text);
     }
 }
 
-pub trait CellRendererTextImplExt {
-    fn parent_edited(&self, renderer: &CellRendererText, path: &str, new_text: &str);
+pub trait CellRendererTextImplExt: ObjectSubclass {
+    fn parent_edited(&self, renderer: &Self::Type, path: &str, new_text: &str);
 }
 
 impl<T: CellRendererTextImpl> CellRendererTextImplExt for T {
-    fn parent_edited(&self, renderer: &CellRendererText, path: &str, new_text: &str) {
+    fn parent_edited(&self, renderer: &Self::Type, path: &str, new_text: &str) {
         unsafe {
             let data = T::type_data();
             let parent_class =
                 data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererTextClass;
             if let Some(f) = (*parent_class).edited {
                 f(
-                    renderer.to_glib_none().0,
+                    renderer
+                        .unsafe_cast_ref::<CellRendererText>()
+                        .to_glib_none()
+                        .0,
                     path.to_glib_none().0,
                     new_text.to_glib_none().0,
                 )
@@ -53,10 +56,10 @@ unsafe extern "C" fn cell_renderer_text_edited<T: CellRendererTextImpl>(
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap = from_glib_borrow(ptr);
+    let wrap: Borrowed<CellRendererText> = from_glib_borrow(ptr);
 
     imp.edited(
-        &wrap,
+        wrap.unsafe_cast_ref(),
         &GString::from_glib_borrow(path),
         &GString::from_glib_borrow(new_text),
     )

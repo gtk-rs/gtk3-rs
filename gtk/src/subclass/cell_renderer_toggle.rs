@@ -4,30 +4,36 @@ use libc::c_char;
 
 use glib::subclass::prelude::*;
 use glib::translate::*;
-use glib::GString;
+use glib::{Cast, GString};
 
 use super::cell_renderer::CellRendererImpl;
 use CellRenderer;
 use CellRendererToggle;
 
 pub trait CellRendererToggleImpl: CellRendererToggleImplExt + CellRendererImpl {
-    fn toggled(&self, renderer: &CellRendererToggle, path: &str) {
+    fn toggled(&self, renderer: &Self::Type, path: &str) {
         self.parent_toggled(renderer, path);
     }
 }
 
-pub trait CellRendererToggleImplExt {
-    fn parent_toggled(&self, renderer: &CellRendererToggle, path: &str);
+pub trait CellRendererToggleImplExt: ObjectSubclass {
+    fn parent_toggled(&self, renderer: &Self::Type, path: &str);
 }
 
 impl<T: CellRendererToggleImpl> CellRendererToggleImplExt for T {
-    fn parent_toggled(&self, renderer: &CellRendererToggle, path: &str) {
+    fn parent_toggled(&self, renderer: &Self::Type, path: &str) {
         unsafe {
             let data = T::type_data();
             let parent_class =
                 data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererToggleClass;
             if let Some(f) = (*parent_class).toggled {
-                f(renderer.to_glib_none().0, path.to_glib_none().0)
+                f(
+                    renderer
+                        .unsafe_cast_ref::<CellRendererToggle>()
+                        .to_glib_none()
+                        .0,
+                    path.to_glib_none().0,
+                )
             }
         }
     }
@@ -48,7 +54,7 @@ unsafe extern "C" fn cell_renderer_toggle_toggled<T: CellRendererToggleImpl>(
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
-    let wrap = from_glib_borrow(ptr);
+    let wrap: Borrowed<CellRendererToggle> = from_glib_borrow(ptr);
 
-    imp.toggled(&wrap, &GString::from_glib_borrow(path))
+    imp.toggled(wrap.unsafe_cast_ref(), &GString::from_glib_borrow(path))
 }

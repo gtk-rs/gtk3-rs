@@ -7,17 +7,18 @@ use ListBoxRow;
 
 use glib::subclass::prelude::*;
 use glib::translate::*;
+use glib::Cast;
 
 use super::bin::BinImpl;
 
 pub trait ListBoxRowImpl: ListBoxRowImplExt + BinImpl {
-    fn activate(&self, list_box_row: &ListBoxRow) {
+    fn activate(&self, list_box_row: &Self::Type) {
         self.list_box_row_activate(list_box_row)
     }
 }
 
-pub trait ListBoxRowImplExt {
-    fn list_box_row_activate(&self, list_box_row: &ListBoxRow);
+pub trait ListBoxRowImplExt: ObjectSubclass {
+    fn list_box_row_activate(&self, list_box_row: &Self::Type);
 }
 
 unsafe impl<T: ListBoxRowImpl> IsSubclassable<T> for ListBoxRow {
@@ -34,5 +35,5 @@ unsafe extern "C" fn list_box_row_activate<T: ListBoxRowImpl>(ptr: *mut gtk_sys:
     let imp = instance.get_impl();
     let wrap: Borrowed<ListBoxRow> = from_glib_borrow(ptr);
 
-    imp.activate(&wrap)
+    imp.activate(wrap.unsafe_cast_ref())
 }
