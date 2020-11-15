@@ -3,9 +3,6 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-#![allow(clippy::too_many_arguments)]
-#![allow(clippy::type_complexity)]
-
 #[doc(hidden)]
 pub extern crate gdk_pixbuf_sys;
 pub use gdk_pixbuf_sys as ffi;
@@ -17,6 +14,7 @@ extern crate glib;
 extern crate gio;
 extern crate libc;
 
+#[allow(clippy::too_many_arguments)]
 #[allow(unused_imports)]
 mod auto;
 

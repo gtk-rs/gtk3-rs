@@ -4,8 +4,6 @@
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 #![allow(clippy::missing_safety_doc)]
 #![allow(deprecated)]
-#![allow(clippy::cast_ptr_alignment)]
-#![allow(clippy::trivially_copy_pass_by_ref)]
 
 extern crate gdk_pixbuf;
 #[doc(hidden)]

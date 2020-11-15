@@ -148,12 +148,9 @@
 //! them once. **Omitting them in the following cargo invocations will not undo
 //! their effects!**
 
-#![allow(clippy::let_unit_value)]
 #![allow(clippy::new_without_default)]
 #![allow(clippy::type_complexity)]
-#![allow(clippy::trivially_copy_pass_by_ref)]
 #![allow(clippy::derive_hash_xor_eq)]
-#![allow(clippy::needless_doctest_main)]
 #![allow(clippy::too_many_arguments)]
 #![allow(deprecated)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]

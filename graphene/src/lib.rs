@@ -3,10 +3,6 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 #![allow(deprecated)]
-#![allow(clippy::cast_ptr_alignment)]
-#![allow(clippy::transmute_int_to_char)]
-#![allow(clippy::transmute_ptr_to_ptr)]
-#![allow(clippy::trivially_copy_pass_by_ref)]
 
 #[macro_use]
 extern crate glib;
