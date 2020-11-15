@@ -39,20 +39,17 @@ impl<'a> Drop for DeviceAcquireGuard<'a> {
 pub struct Device(ptr::NonNull<ffi::cairo_device_t>);
 
 impl Device {
-    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_device_t) -> Device {
         assert!(!ptr.is_null());
         ffi::cairo_device_reference(ptr);
         Device(ptr::NonNull::new_unchecked(ptr))
     }
 
-    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_device_t) -> ::Borrowed<Device> {
         assert!(!ptr.is_null());
         ::Borrowed::new(Device(ptr::NonNull::new_unchecked(ptr)))
     }
 
-    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_device_t) -> Device {
         assert!(!ptr.is_null());
         Device(ptr::NonNull::new_unchecked(ptr))

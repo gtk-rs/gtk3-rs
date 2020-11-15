@@ -77,6 +77,7 @@
 #![allow(clippy::doc_markdown)]
 #![allow(clippy::unreadable_literal)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
+#![allow(clippy::missing_safety_doc)]
 
 #[doc(hidden)]
 #[macro_use]

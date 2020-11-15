@@ -46,7 +46,6 @@ impl FontFace {
 
     // Safety: the FT_Face must be valid and not be freed until the `FontFace` is dropped.
     #[cfg(any(feature = "freetype", feature = "dox"))]
-    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn create_from_ft(face: freetype_crate::freetype::FT_Face) -> FontFace {
         let font_face = FontFace::from_raw_full(ffi::cairo_ft_font_face_create_for_ft_face(
             face as *mut _,
@@ -59,7 +58,6 @@ impl FontFace {
 
     // Safety: the FT_Face must be valid and not be freed until the `FontFace` is dropped.
     #[cfg(any(feature = "freetype", feature = "dox"))]
-    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn create_from_ft_with_flags(
         face: freetype_crate::freetype::FT_Face,
         load_flags: c_int,
@@ -74,26 +72,22 @@ impl FontFace {
     }
 
     #[cfg(feature = "use_glib")]
-    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_face_t) -> FontFace {
         from_glib_full(ptr)
     }
 
     #[cfg(not(feature = "use_glib"))]
-    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_face_t) -> FontFace {
         assert!(!ptr.is_null());
         FontFace(ptr::NonNull::new_unchecked(ptr))
     }
 
     #[cfg(feature = "use_glib")]
-    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_font_face_t) -> FontFace {
         from_glib_none(ptr)
     }
 
     #[cfg(not(feature = "use_glib"))]
-    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_font_face_t) -> FontFace {
         assert!(!ptr.is_null());
         FontFace(ptr::NonNull::new_unchecked(ptr))

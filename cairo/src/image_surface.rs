@@ -37,7 +37,6 @@ impl ImageSurface {
     ///   and at least `width * stride` succeeding bytes should be allocated.
     /// - `data` must live longer than any reference to the returned surface.
     /// - You have to free `data` by yourself.
-    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn create_for_data_unsafe(
         data: *mut u8,
         format: Format,

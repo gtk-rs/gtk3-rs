@@ -41,6 +41,7 @@
 //! * **win32-surface** - Microsoft Windows surface support
 
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
+#![allow(clippy::missing_safety_doc)]
 
 pub extern crate cairo_sys as ffi;
 extern crate libc;

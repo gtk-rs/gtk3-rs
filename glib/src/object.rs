@@ -652,7 +652,6 @@ macro_rules! glib_object_wrapper {
 
         #[doc(hidden)]
         impl $crate::object::UnsafeFrom<$crate::object::ObjectRef> for $name {
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn unsafe_from(t: $crate::object::ObjectRef) -> Self {
                 $name(t)
             }
@@ -793,7 +792,6 @@ macro_rules! glib_object_wrapper {
         impl $crate::translate::FromGlibPtrNone<*mut $ffi_name> for $name {
             #[inline]
             #[allow(clippy::cast_ptr_alignment)]
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_none(ptr: *mut $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
                 $name($crate::translate::from_glib_none(ptr as *mut _))
@@ -804,7 +802,6 @@ macro_rules! glib_object_wrapper {
         impl $crate::translate::FromGlibPtrNone<*const $ffi_name> for $name {
             #[inline]
             #[allow(clippy::cast_ptr_alignment)]
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_none(ptr: *const $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
                 $name($crate::translate::from_glib_none(ptr as *mut _))
@@ -815,7 +812,6 @@ macro_rules! glib_object_wrapper {
         impl $crate::translate::FromGlibPtrFull<*mut $ffi_name> for $name {
             #[inline]
             #[allow(clippy::cast_ptr_alignment)]
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_full(ptr: *mut $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
                 $name($crate::translate::from_glib_full(ptr as *mut _))
@@ -826,7 +822,6 @@ macro_rules! glib_object_wrapper {
         impl $crate::translate::FromGlibPtrBorrow<*mut $ffi_name> for $name {
             #[inline]
             #[allow(clippy::cast_ptr_alignment)]
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_borrow(ptr: *mut $ffi_name) -> $crate::translate::Borrowed<Self> {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
                 $crate::translate::Borrowed::new(
@@ -841,7 +836,6 @@ macro_rules! glib_object_wrapper {
         impl $crate::translate::FromGlibPtrBorrow<*const $ffi_name> for $name {
             #[inline]
             #[allow(clippy::cast_ptr_alignment)]
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_borrow(ptr: *const $ffi_name) -> $crate::translate::Borrowed<Self> {
                 $crate::translate::from_glib_borrow::<_, $name>(ptr as *mut $ffi_name)
             }
@@ -849,7 +843,6 @@ macro_rules! glib_object_wrapper {
 
         #[doc(hidden)]
         impl $crate::translate::FromGlibContainerAsVec<*mut $ffi_name, *mut *mut $ffi_name> for $name {
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_none_num_as_vec(ptr: *mut *mut $ffi_name, num: usize) -> Vec<Self> {
                 if num == 0 || ptr.is_null() {
                     return Vec::new();
@@ -862,14 +855,12 @@ macro_rules! glib_object_wrapper {
                 res
             }
 
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_container_num_as_vec(ptr: *mut *mut $ffi_name, num: usize) -> Vec<Self> {
                 let res = $crate::translate::FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
                 $crate::glib_sys::g_free(ptr as *mut _);
                 res
             }
 
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_full_num_as_vec(ptr: *mut *mut $ffi_name, num: usize) -> Vec<Self> {
                 if num == 0 || ptr.is_null() {
                     return Vec::new();
@@ -886,17 +877,14 @@ macro_rules! glib_object_wrapper {
 
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrArrayContainerAsVec<*mut $ffi_name, *mut *mut $ffi_name> for $name {
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_none_as_vec(ptr: *mut *mut $ffi_name) -> Vec<Self> {
                 $crate::translate::FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, $crate::translate::c_ptr_array_len(ptr))
             }
 
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_container_as_vec(ptr: *mut *mut $ffi_name) -> Vec<Self> {
                 $crate::translate::FromGlibContainerAsVec::from_glib_container_num_as_vec(ptr, $crate::translate::c_ptr_array_len(ptr))
             }
 
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_full_as_vec(ptr: *mut *mut $ffi_name) -> Vec<Self> {
                 $crate::translate::FromGlibContainerAsVec::from_glib_full_num_as_vec(ptr, $crate::translate::c_ptr_array_len(ptr))
             }
@@ -904,18 +892,15 @@ macro_rules! glib_object_wrapper {
 
         #[doc(hidden)]
         impl $crate::translate::FromGlibContainerAsVec<*mut $ffi_name, *const *mut $ffi_name> for $name {
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_none_num_as_vec(ptr: *const *mut $ffi_name, num: usize) -> Vec<Self> {
                 $crate::translate::FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr as *mut *mut _, num)
             }
 
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_container_num_as_vec(_: *const *mut $ffi_name, _: usize) -> Vec<Self> {
                 // Can't free a *const
                 unimplemented!()
             }
 
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_full_num_as_vec(_: *const *mut $ffi_name, _: usize) -> Vec<Self> {
                 // Can't free a *const
                 unimplemented!()
@@ -924,18 +909,15 @@ macro_rules! glib_object_wrapper {
 
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrArrayContainerAsVec<*mut $ffi_name, *const *mut $ffi_name> for $name {
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_none_as_vec(ptr: *const *mut $ffi_name) -> Vec<Self> {
                 $crate::translate::FromGlibPtrArrayContainerAsVec::from_glib_none_as_vec(ptr as *mut *mut _)
             }
 
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_container_as_vec(_: *const *mut $ffi_name) -> Vec<Self> {
                 // Can't free a *const
                 unimplemented!()
             }
 
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_full_as_vec(_: *const *mut $ffi_name) -> Vec<Self> {
                 // Can't free a *const
                 unimplemented!()
@@ -965,7 +947,6 @@ macro_rules! glib_object_wrapper {
 
         #[doc(hidden)]
         impl<'a> $crate::value::FromValueOptional<'a> for $name {
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_value_optional(value: &$crate::Value) -> Option<Self> {
                 let obj = $crate::gobject_sys::g_value_get_object($crate::translate::ToGlibPtr::to_glib_none(value).0);
 
@@ -984,7 +965,6 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl $crate::value::SetValue for $name {
             #[allow(clippy::cast_ptr_alignment)]
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn set_value(value: &mut $crate::Value, this: &Self) {
                 $crate::gobject_sys::g_value_set_object($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(this).0 as *mut $crate::gobject_sys::GObject)
             }
@@ -993,7 +973,6 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl $crate::value::SetValueOptional for $name {
             #[allow(clippy::cast_ptr_alignment)]
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn set_value_optional(value: &mut $crate::Value, this: Option<&Self>) {
                 $crate::gobject_sys::g_value_set_object($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(&this).0 as *mut $crate::gobject_sys::GObject)
             }
@@ -1276,7 +1255,6 @@ pub trait ObjectExt: ObjectType {
     where
         N: Into<&'a str>,
         F: Fn(&[Value]) -> Option<Value> + 'static;
-    #[allow(clippy::missing_safety_doc)]
     unsafe fn connect_unsafe<'a, N, F>(
         &self,
         signal_name: N,

@@ -145,7 +145,6 @@ macro_rules! glib_boxed_wrapper {
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrNone<*mut $ffi_name> for $name {
             #[inline]
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_none(ptr: *mut $ffi_name) -> Self {
                 $name($crate::translate::from_glib_none(ptr))
             }
@@ -154,7 +153,6 @@ macro_rules! glib_boxed_wrapper {
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrNone<*const $ffi_name> for $name {
             #[inline]
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_none(ptr: *const $ffi_name) -> Self {
                 $name($crate::translate::from_glib_none(ptr))
             }
@@ -163,7 +161,6 @@ macro_rules! glib_boxed_wrapper {
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrFull<*mut $ffi_name> for $name {
             #[inline]
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_full(ptr: *mut $ffi_name) -> Self {
                 $name($crate::translate::from_glib_full(ptr))
             }
@@ -172,7 +169,6 @@ macro_rules! glib_boxed_wrapper {
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrFull<*const $ffi_name> for $name {
             #[inline]
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_full(ptr: *const $ffi_name) -> Self {
                 $name($crate::translate::from_glib_full(ptr))
             }
@@ -181,7 +177,6 @@ macro_rules! glib_boxed_wrapper {
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrBorrow<*mut $ffi_name> for $name {
             #[inline]
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_borrow(ptr: *mut $ffi_name) -> $crate::translate::Borrowed<Self> {
                 $crate::translate::Borrowed::new(
                     $name(
@@ -194,7 +189,6 @@ macro_rules! glib_boxed_wrapper {
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrBorrow<*const $ffi_name> for $name {
             #[inline]
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_borrow(ptr: *const $ffi_name) -> $crate::translate::Borrowed<Self> {
                 $crate::translate::from_glib_borrow::<_, $name>(ptr as *mut $ffi_name)
             }
@@ -202,7 +196,6 @@ macro_rules! glib_boxed_wrapper {
 
         #[doc(hidden)]
         impl $crate::translate::FromGlibContainerAsVec<*mut $ffi_name, *mut *mut $ffi_name> for $name {
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_none_num_as_vec(ptr: *mut *mut $ffi_name, num: usize) -> Vec<Self> {
                 if num == 0 || ptr.is_null() {
                     return Vec::new();
@@ -215,14 +208,12 @@ macro_rules! glib_boxed_wrapper {
                 res
             }
 
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_container_num_as_vec(ptr: *mut *mut $ffi_name, num: usize) -> Vec<Self> {
                 let res = $crate::translate::FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
                 $crate::glib_sys::g_free(ptr as *mut _);
                 res
             }
 
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_full_num_as_vec(ptr: *mut *mut $ffi_name, num: usize) -> Vec<Self> {
                 if num == 0 || ptr.is_null() {
                     return Vec::new();
@@ -239,17 +230,14 @@ macro_rules! glib_boxed_wrapper {
 
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrArrayContainerAsVec<*mut $ffi_name, *mut *mut $ffi_name> for $name {
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_none_as_vec(ptr: *mut *mut $ffi_name) -> Vec<Self> {
                 $crate::translate::FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, $crate::translate::c_ptr_array_len(ptr))
             }
 
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_container_as_vec(ptr: *mut *mut $ffi_name) -> Vec<Self> {
                 $crate::translate::FromGlibContainerAsVec::from_glib_container_num_as_vec(ptr, $crate::translate::c_ptr_array_len(ptr))
             }
 
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_glib_full_as_vec(ptr: *mut *mut $ffi_name) -> Vec<Self> {
                 $crate::translate::FromGlibContainerAsVec::from_glib_full_num_as_vec(ptr, $crate::translate::c_ptr_array_len(ptr))
             }
@@ -266,7 +254,6 @@ macro_rules! glib_boxed_wrapper {
 
         #[doc(hidden)]
         impl<'a> $crate::value::FromValueOptional<'a> for $name {
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_value_optional(value: &$crate::Value) -> Option<Self> {
                 $crate::translate::from_glib_full($crate::gobject_sys::g_value_dup_boxed($crate::translate::ToGlibPtr::to_glib_none(value).0) as *mut $ffi_name)
             }
@@ -274,7 +261,6 @@ macro_rules! glib_boxed_wrapper {
 
         #[doc(hidden)]
         impl $crate::value::SetValue for $name {
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn set_value(value: &mut $crate::Value, this: &Self) {
                 $crate::gobject_sys::g_value_set_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*const $ffi_name>::to_glib_none(this).0 as $crate::glib_sys::gpointer)
             }
@@ -282,7 +268,6 @@ macro_rules! glib_boxed_wrapper {
 
         #[doc(hidden)]
         impl $crate::value::SetValueOptional for $name {
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn set_value_optional(value: &mut $crate::Value, this: Option<&Self>) {
                 $crate::gobject_sys::g_value_set_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*const $ffi_name>::to_glib_none(&this).0 as $crate::glib_sys::gpointer)
             }
@@ -365,7 +350,6 @@ impl<T> fmt::Debug for AnyBox<T> {
 }
 
 // The safety docs really belong in the glib_wrapper!() macro for Boxed<T>
-#[allow(clippy::missing_safety_doc)]
 /// Memory management functions for a boxed type.
 pub trait BoxedMemoryManager<T>: 'static {
     /// Makes a copy.

@@ -104,7 +104,6 @@ impl Eq for Region {}
 
 impl Region {
     #[inline]
-    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_region_t) -> Region {
         assert!(!ptr.is_null());
         ffi::cairo_region_reference(ptr);
@@ -112,14 +111,12 @@ impl Region {
     }
 
     #[inline]
-    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_region_t) -> ::Borrowed<Region> {
         assert!(!ptr.is_null());
         ::Borrowed::new(Region(ptr::NonNull::new_unchecked(ptr)))
     }
 
     #[inline]
-    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_region_t) -> Region {
         assert!(!ptr.is_null());
         Region(ptr::NonNull::new_unchecked(ptr))

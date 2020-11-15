@@ -49,7 +49,6 @@ impl ToGlib for Inhibit {
     }
 }
 
-#[allow(clippy::missing_safety_doc)]
 pub unsafe fn connect_raw<F>(
     receiver: *mut gobject_sys::GObject,
     signal_name: *const c_char,

@@ -45,7 +45,6 @@ impl Atom {
         unsafe { from_glib_full(gdk_sys::gdk_atom_name(self.0)) }
     }
 
-    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn value(self) -> usize {
         self.0 as usize
     }

@@ -205,13 +205,11 @@ pub fn const_override<T>(ptr: *mut T) -> *const T {
 /// A trait for creating an uninitialized value. Handy for receiving outparams.
 pub trait Uninitialized {
     /// Returns an uninitialized value.
-    #[allow(clippy::missing_safety_doc)]
     unsafe fn uninitialized() -> Self;
 }
 
 /// Returns an uninitialized value.
 #[inline]
-#[allow(clippy::missing_safety_doc)]
 pub unsafe fn uninitialized<T: Uninitialized>() -> T {
     T::uninitialized()
 }
@@ -1337,7 +1335,6 @@ pub trait FromGlibPtrBorrow<P: Ptr>: Sized {
 ///
 /// See [`FromGlibPtrNone`](trait.FromGlibPtrNone.html).
 #[inline]
-#[allow(clippy::missing_safety_doc)]
 pub unsafe fn from_glib_none<P: Ptr, T: FromGlibPtrNone<P>>(ptr: P) -> T {
     FromGlibPtrNone::from_glib_none(ptr)
 }
@@ -1346,7 +1343,6 @@ pub unsafe fn from_glib_none<P: Ptr, T: FromGlibPtrNone<P>>(ptr: P) -> T {
 ///
 /// See [`FromGlibPtrFull`](trait.FromGlibPtrFull.html).
 #[inline]
-#[allow(clippy::missing_safety_doc)]
 pub unsafe fn from_glib_full<P: Ptr, T: FromGlibPtrFull<P>>(ptr: P) -> T {
     FromGlibPtrFull::from_glib_full(ptr)
 }
@@ -1355,7 +1351,6 @@ pub unsafe fn from_glib_full<P: Ptr, T: FromGlibPtrFull<P>>(ptr: P) -> T {
 ///
 /// See [`FromGlibPtrBorrow`](trait.FromGlibPtrBorrow.html).
 #[inline]
-#[allow(clippy::missing_safety_doc)]
 pub unsafe fn from_glib_borrow<P: Ptr, T: FromGlibPtrBorrow<P>>(ptr: P) -> Borrowed<T> {
     FromGlibPtrBorrow::from_glib_borrow(ptr)
 }
@@ -1547,7 +1542,6 @@ impl FromGlibPtrFull<*mut c_char> for OsString {
 }
 
 /// Translate from a container.
-#[allow(clippy::missing_safety_doc)]
 pub trait FromGlibContainer<T, P: Ptr>: Sized {
     /// Transfer: none.
     ///
@@ -1566,7 +1560,6 @@ pub trait FromGlibContainer<T, P: Ptr>: Sized {
 }
 
 /// Translate from a container of pointers.
-#[allow(clippy::missing_safety_doc)]
 pub trait FromGlibPtrContainer<P: Ptr, PP: Ptr>: FromGlibContainer<P, PP> + Sized {
     /// Transfer: none.
     unsafe fn from_glib_none(ptr: PP) -> Self;
@@ -1578,7 +1571,6 @@ pub trait FromGlibPtrContainer<P: Ptr, PP: Ptr>: FromGlibContainer<P, PP> + Size
     unsafe fn from_glib_full(ptr: PP) -> Self;
 }
 
-#[allow(clippy::missing_safety_doc)]
 pub unsafe fn c_ptr_array_len<P: Ptr>(mut ptr: *const P) -> usize {
     let mut len = 0;
 
@@ -1591,7 +1583,6 @@ pub unsafe fn c_ptr_array_len<P: Ptr>(mut ptr: *const P) -> usize {
     len
 }
 
-#[allow(clippy::missing_safety_doc)]
 pub trait FromGlibContainerAsVec<T, P: Ptr>
 where
     Self: Sized,
@@ -1601,7 +1592,6 @@ where
     unsafe fn from_glib_full_num_as_vec(ptr: P, num: usize) -> Vec<Self>;
 }
 
-#[allow(clippy::missing_safety_doc)]
 pub trait FromGlibPtrArrayContainerAsVec<P: Ptr, PP: Ptr>: FromGlibContainerAsVec<P, PP>
 where
     Self: Sized,

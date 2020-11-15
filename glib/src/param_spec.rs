@@ -33,7 +33,6 @@ impl StaticType for ParamSpec {
 
 #[doc(hidden)]
 impl<'a> value::FromValueOptional<'a> for ParamSpec {
-    #[allow(clippy::missing_safety_doc)]
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         from_glib_full(gobject_sys::g_value_dup_param(value.to_glib_none().0))
     }
@@ -41,7 +40,6 @@ impl<'a> value::FromValueOptional<'a> for ParamSpec {
 
 #[doc(hidden)]
 impl value::SetValue for ParamSpec {
-    #[allow(clippy::missing_safety_doc)]
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0)
     }
@@ -49,7 +47,6 @@ impl value::SetValue for ParamSpec {
 
 #[doc(hidden)]
 impl value::SetValueOptional for ParamSpec {
-    #[allow(clippy::missing_safety_doc)]
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
         gobject_sys::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0)
     }
@@ -642,7 +639,6 @@ macro_rules! define_param_spec {
 
         #[doc(hidden)]
         impl<'a> value::FromValueOptional<'a> for $rust_type {
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_value_optional(value: &Value) -> Option<Self> {
                 from_glib_full(gobject_sys::g_value_dup_param(value.to_glib_none().0) as *mut $ffi_type)
             }
@@ -650,7 +646,6 @@ macro_rules! define_param_spec {
 
         #[doc(hidden)]
         impl value::SetValue for $rust_type {
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn set_value(value: &mut Value, this: &Self) {
                 gobject_sys::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0 as *mut gobject_sys::GParamSpec)
             }
@@ -658,7 +653,6 @@ macro_rules! define_param_spec {
 
         #[doc(hidden)]
         impl value::SetValueOptional for $rust_type {
-            #[allow(clippy::missing_safety_doc)]
             unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
                 gobject_sys::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0 as *mut gobject_sys::GParamSpec)
             }

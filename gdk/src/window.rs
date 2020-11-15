@@ -144,10 +144,8 @@ impl Window {
 }
 
 pub trait WindowExtManual: 'static {
-    #[allow(clippy::missing_safety_doc)]
     unsafe fn set_user_data<T>(&self, user_data: &mut T);
 
-    #[allow(clippy::missing_safety_doc)]
     #[allow(clippy::mut_from_ref)]
     unsafe fn get_user_data<T>(&self) -> &mut T;
 
@@ -173,7 +171,6 @@ pub trait WindowExtManual: 'static {
 }
 
 impl<O: IsA<Window>> WindowExtManual for O {
-    #[allow(clippy::missing_safety_doc)]
     unsafe fn set_user_data<T>(&self, user_data: &mut T) {
         gdk_sys::gdk_window_set_user_data(
             self.as_ref().to_glib_none().0,
@@ -181,7 +178,6 @@ impl<O: IsA<Window>> WindowExtManual for O {
         )
     }
 
-    #[allow(clippy::missing_safety_doc)]
     unsafe fn get_user_data<T>(&self) -> &mut T {
         let mut pointer = ::std::ptr::null_mut();
         gdk_sys::gdk_window_get_user_data(self.as_ref().to_glib_none().0, &mut pointer);
