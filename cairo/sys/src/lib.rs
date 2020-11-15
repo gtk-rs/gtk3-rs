@@ -3,7 +3,8 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 #![allow(non_camel_case_types)]
-#![cfg_attr(feature = "cargo-clippy", allow(unreadable_literal, write_literal))]
+#![allow(clippy::unreadable_literal)]
+#![allow(clippy::write_literal)]
 
 extern crate libc;
 

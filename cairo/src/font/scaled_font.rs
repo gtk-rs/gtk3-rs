@@ -58,22 +58,26 @@ impl ScaledFont {
     }
 
     #[cfg(not(feature = "use_glib"))]
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_scaled_font_t) -> ScaledFont {
         assert!(!ptr.is_null());
         ScaledFont(ptr::NonNull::new_unchecked(ptr))
     }
 
     #[cfg(feature = "use_glib")]
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_scaled_font_t) -> ScaledFont {
         from_glib_full(ptr)
     }
 
     #[cfg(feature = "use_glib")]
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_scaled_font_t) -> ScaledFont {
         from_glib_none(ptr)
     }
 
     #[cfg(not(feature = "use_glib"))]
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_scaled_font_t) -> ScaledFont {
         assert!(!ptr.is_null());
         ffi::cairo_scaled_font_reference(ptr);

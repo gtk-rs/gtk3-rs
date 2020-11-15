@@ -47,11 +47,13 @@ impl FontOptions {
     }
 
     #[cfg(feature = "use_glib")]
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_options_t) -> FontOptions {
         from_glib_full(ptr)
     }
 
     #[cfg(not(feature = "use_glib"))]
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_options_t) -> FontOptions {
         assert!(!ptr.is_null());
         FontOptions(ptr::NonNull::new_unchecked(ptr))

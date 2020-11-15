@@ -17,6 +17,7 @@ macro_rules! declare_surface {
         }
 
         impl $surf_name {
+            #[allow(clippy::missing_safety_doc)]
             pub unsafe fn from_raw_full(
                 ptr: *mut ffi::cairo_surface_t,
             ) -> Result<$surf_name, ::error::Error> {

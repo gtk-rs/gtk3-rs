@@ -25,17 +25,20 @@ use rectangle_int::RectangleInt;
 pub struct Surface(ptr::NonNull<ffi::cairo_surface_t>);
 
 impl Surface {
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_surface_t) -> Surface {
         assert!(!ptr.is_null());
         ffi::cairo_surface_reference(ptr);
         Surface(ptr::NonNull::new_unchecked(ptr))
     }
 
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_surface_t) -> ::Borrowed<Surface> {
         assert!(!ptr.is_null());
         ::Borrowed::new(Surface(ptr::NonNull::new_unchecked(ptr)))
     }
 
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<Surface, Error> {
         assert!(!ptr.is_null());
         let status = ffi::cairo_surface_status(ptr);
@@ -94,6 +97,7 @@ impl Surface {
         }
     }
 
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn get_mime_data_raw(&self, mime_type: &str) -> Option<&[u8]> {
         let data_ptr: *mut u8 = ptr::null_mut();
         let mut length: c_ulong = 0;

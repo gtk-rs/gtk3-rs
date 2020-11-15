@@ -17,6 +17,7 @@ impl Path {
         self.0.as_ptr()
     }
 
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_full(pointer: *mut cairo_path_t) -> Path {
         assert!(!pointer.is_null());
         Path(ptr::NonNull::new_unchecked(pointer))

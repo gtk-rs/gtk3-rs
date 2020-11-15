@@ -7,6 +7,7 @@ use ffi;
 use std::ffi::CStr;
 use std::fmt;
 
+#[allow(clippy::missing_safety_doc)]
 pub unsafe fn debug_reset_static_data() {
     ffi::cairo_debug_reset_static_data()
 }

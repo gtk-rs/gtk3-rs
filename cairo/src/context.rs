@@ -133,6 +133,7 @@ impl Drop for Context {
 
 impl Context {
     #[inline]
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_t) -> Context {
         assert!(!ptr.is_null());
         ffi::cairo_reference(ptr);
@@ -140,12 +141,14 @@ impl Context {
     }
 
     #[inline]
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_t) -> ::Borrowed<Context> {
         assert!(!ptr.is_null());
         ::Borrowed::new(Context(ptr::NonNull::new_unchecked(ptr)))
     }
 
     #[inline]
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_t) -> Context {
         assert!(!ptr.is_null());
         Context(ptr::NonNull::new_unchecked(ptr))

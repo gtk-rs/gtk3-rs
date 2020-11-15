@@ -37,11 +37,13 @@ impl Pattern {
         self.pointer
     }
 
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_none(pointer: *mut cairo_pattern_t) -> Pattern {
         ffi::cairo_pattern_reference(pointer);
         Self::from_raw_full(pointer)
     }
 
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn from_raw_full(pointer: *mut cairo_pattern_t) -> Pattern {
         Pattern { pointer }
     }
