@@ -26,6 +26,7 @@ impl TextRectangle {
 
     #[doc(hidden)]
     #[inline]
+    #[allow(clippy::wrong_self_convention)]
     pub fn to_glib_none_mut(&mut self) -> (*mut atk_sys::AtkTextRectangle, i32) {
         (self as *mut TextRectangle as usize as *mut _, 0)
     }
