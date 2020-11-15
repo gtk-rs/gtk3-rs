@@ -1212,17 +1212,11 @@ impl<I: Error> GlibNoneOrInvalidError<I> {
     }
 
     /// Returns `true` if `self` is the `None` variant.
-    // FIXME `matches!` was introduced in rustc 1.42.0, current MSRV is 1.40.0
-    // FIXME uncomment when CI can upgrade to 1.47.1
-    //#[allow(clippy::match_like_matches_macro)]
     pub fn is_none(&self) -> bool {
         matches!(self, GlibNoneOrInvalidError::None)
     }
 
     /// Returns `true` if `self` is the `Invalid` variant.
-    // FIXME `matches!` was introduced in rustc 1.42.0, current MSRV is 1.40.0
-    // FIXME uncomment when CI can upgrade to 1.47.1
-    //#[allow(clippy::match_like_matches_macro)]
     pub fn is_invalid(&self) -> bool {
         matches!(self, GlibNoneOrInvalidError::Invalid(_))
     }
