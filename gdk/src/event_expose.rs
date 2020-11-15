@@ -3,7 +3,6 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 use cairo;
-use gdk_sys;
 use glib::translate::*;
 use Rectangle;
 

@@ -57,6 +57,7 @@ pub fn is_initialized_main_thread() -> bool {
 }
 
 /// Informs this crate that GDK has been initialized and the current thread is the main one.
+#[allow(clippy::missing_safety_doc)]
 pub unsafe fn set_initialized() {
     skip_assert_initialized!();
     if is_initialized_main_thread() {

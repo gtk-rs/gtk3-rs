@@ -26,7 +26,7 @@ impl Screen {
                 value.to_glib_none_mut().0,
             ));
 
-            if done == true {
+            if done {
                 Some(value)
             } else {
                 None

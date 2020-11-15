@@ -45,6 +45,7 @@ impl Atom {
         unsafe { from_glib_full(gdk_sys::gdk_atom_name(self.0)) }
     }
 
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn value(self) -> usize {
         self.0 as usize
     }
@@ -106,7 +107,7 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut gdk_sys::GdkAtom> for &'a Atom {
                 as *mut gdk_sys::GdkAtom;
 
             for (i, s) in v.iter().enumerate() {
-                ptr::write(v_ptr.offset(i as isize), s.0);
+                ptr::write(v_ptr.add(i), s.0);
             }
 
             v_ptr
@@ -148,7 +149,7 @@ impl<'a> ToGlibContainerFromSlice<'a, *const gdk_sys::GdkAtom> for &'a Atom {
                 as *mut gdk_sys::GdkAtom;
 
             for (i, s) in v.iter().enumerate() {
-                ptr::write(v_ptr.offset(i as isize), s.0);
+                ptr::write(v_ptr.add(i), s.0);
             }
 
             v_ptr as *const gdk_sys::GdkAtom
@@ -193,7 +194,7 @@ impl FromGlibContainerAsVec<gdk_sys::GdkAtom, *mut gdk_sys::GdkAtom> for Atom {
 
         let mut res = Vec::with_capacity(num);
         for i in 0..num {
-            res.push(from_glib_none(ptr::read(ptr.offset(i as isize))));
+            res.push(from_glib_none(ptr::read(ptr.add(i))));
         }
         res
     }
@@ -211,7 +212,7 @@ impl FromGlibContainerAsVec<gdk_sys::GdkAtom, *mut gdk_sys::GdkAtom> for Atom {
 
         let mut res = Vec::with_capacity(num);
         for i in 0..num {
-            res.push(from_glib_full(ptr::read(ptr.offset(i as isize))));
+            res.push(from_glib_full(ptr::read(ptr.add(i))));
         }
         glib_sys::g_free(ptr as *mut _);
         res

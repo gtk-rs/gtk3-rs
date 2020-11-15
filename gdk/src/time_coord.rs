@@ -100,7 +100,7 @@ impl FromGlibContainerAsVec<gdk_sys::GdkTimeCoord, *mut gdk_sys::GdkTimeCoord> f
 
         let mut res = Vec::with_capacity(num);
         for i in 0..num {
-            res.push((*(ptr.offset(i as isize) as *mut TimeCoord)).clone());
+            res.push((*(ptr.add(i) as *mut TimeCoord)).clone());
         }
         res
     }
@@ -121,7 +121,7 @@ impl FromGlibContainerAsVec<gdk_sys::GdkTimeCoord, *mut gdk_sys::GdkTimeCoord> f
 
         let mut res = Vec::with_capacity(num);
         for i in 0..num {
-            res.push((*(ptr.offset(i as isize) as *mut TimeCoord)).clone());
+            res.push((*(ptr.add(i) as *mut TimeCoord)).clone());
         }
         glib_sys::g_free(ptr as *mut _);
         res

@@ -1,11 +1,11 @@
 // Copyright 2013-2018, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
-
-#![allow(deprecated)]
-#![cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
-#![cfg_attr(feature = "cargo-clippy", allow(trivially_copy_pass_by_ref))]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
+#![allow(clippy::missing_safety_doc)]
+#![allow(deprecated)]
+#![allow(clippy::cast_ptr_alignment)]
+#![allow(clippy::trivially_copy_pass_by_ref)]
 
 extern crate gdk_pixbuf;
 #[doc(hidden)]
@@ -29,8 +29,8 @@ mod rt;
 #[macro_use]
 mod event;
 
-#[cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
-#[cfg_attr(feature = "cargo-clippy", allow(unreadable_literal))]
+#[allow(clippy::type_complexity)]
+#[allow(clippy::unreadable_literal)]
 #[allow(unused_imports)]
 mod auto;
 

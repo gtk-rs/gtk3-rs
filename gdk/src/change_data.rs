@@ -35,4 +35,8 @@ impl<'a> ChangeData<'a> {
             ChangeData::UChar(_) | ChangeData::UShort(_) | ChangeData::ULong(_) => 1,
         }
     }
+
+    pub fn is_empty(&'a self) -> bool {
+        self.len() != 0
+    }
 }
