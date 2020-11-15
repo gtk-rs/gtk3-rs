@@ -121,7 +121,9 @@ impl FontOptions {
                     let v = CString::new(*v).unwrap();
                     ffi::cairo_font_options_set_variations(self.to_raw_none(), v.as_ptr())
                 }
-                None => ffi::cairo_font_options_set_variations(self.to_raw_none(), 0 as *const _),
+                None => {
+                    ffi::cairo_font_options_set_variations(self.to_raw_none(), std::ptr::null())
+                }
             }
         }
     }

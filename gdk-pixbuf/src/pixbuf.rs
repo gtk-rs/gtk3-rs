@@ -398,6 +398,7 @@ impl Pixbuf {
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+    #[allow(clippy::type_complexity)]
     pub fn get_file_info_async_future<T: AsRef<Path> + Clone + 'static>(
         filename: T,
     ) -> Pin<Box<dyn Future<Output = Result<Option<(PixbufFormat, i32, i32)>, Error>> + 'static>>
@@ -473,7 +474,6 @@ impl Pixbuf {
     #[cfg(any(feature = "v2_36", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
     pub fn save_to_streamv_async<
-        'a,
         P: IsA<gio::OutputStream>,
         Q: IsA<gio::Cancellable>,
         R: FnOnce(Result<(), Error>) + Send + 'static,

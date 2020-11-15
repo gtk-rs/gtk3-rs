@@ -6,8 +6,10 @@ use gio_sys;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use libc;
+#[cfg(not(feature = "dox"))]
 use std::ffi::OsStr;
 #[cfg(unix)]
+#[cfg(not(feature = "dox"))]
 use std::os::unix::ffi::OsStrExt;
 use std::path;
 use std::ptr;

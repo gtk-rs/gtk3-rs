@@ -25,7 +25,6 @@ impl Notebook {
         let tab = gtk::Box::new(Orientation::Horizontal, 0);
 
         button.set_relief(ReliefStyle::None);
-        button.set_focus_on_click(false);
         button.add(&close_image);
 
         tab.pack_start(&label, false, false, 0);

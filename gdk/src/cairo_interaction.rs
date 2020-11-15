@@ -50,6 +50,7 @@ pub trait GdkContextExt {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[allow(clippy::too_many_arguments)]
     unsafe fn draw_from_gl<W: IsA<Window>>(
         &self,
         window: &W,

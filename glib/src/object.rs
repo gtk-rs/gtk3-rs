@@ -1286,7 +1286,6 @@ pub trait ObjectExt: ObjectType {
         name: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
-    #[allow(clippy::missing_safety_doc)]
     unsafe fn connect_notify_unsafe<F: Fn(&Self, &::ParamSpec)>(
         &self,
         name: Option<&str>,
