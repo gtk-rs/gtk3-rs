@@ -1,10 +1,10 @@
 // Copyright 2013-2016, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
-
-#![cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
-#![cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
+
+#![allow(clippy::too_many_arguments)]
+#![allow(clippy::type_complexity)]
 
 #[doc(hidden)]
 pub extern crate gdk_pixbuf_sys;
