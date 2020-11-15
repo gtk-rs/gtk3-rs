@@ -1216,10 +1216,7 @@ impl<I: Error> GlibNoneOrInvalidError<I> {
     // FIXME uncomment when CI can upgrade to 1.47.1
     //#[allow(clippy::match_like_matches_macro)]
     pub fn is_none(&self) -> bool {
-        match self {
-            GlibNoneOrInvalidError::None => true,
-            _ => false,
-        }
+        matches!(self, GlibNoneOrInvalidError::None)
     }
 
     /// Returns `true` if `self` is the `Invalid` variant.
@@ -1227,10 +1224,7 @@ impl<I: Error> GlibNoneOrInvalidError<I> {
     // FIXME uncomment when CI can upgrade to 1.47.1
     //#[allow(clippy::match_like_matches_macro)]
     pub fn is_invalid(&self) -> bool {
-        match self {
-            GlibNoneOrInvalidError::Invalid(_) => true,
-            _ => false,
-        }
+        matches!(self, GlibNoneOrInvalidError::Invalid(_))
     }
 }
 
