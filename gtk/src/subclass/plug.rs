@@ -5,28 +5,29 @@
 use glib::subclass::prelude::*;
 
 use glib::translate::*;
+use glib::Cast;
 
 use super::window::WindowImpl;
 use Plug;
 use Window;
 
 pub trait PlugImpl: PlugImplExt + WindowImpl {
-    fn embedded(&self, plug: &Plug) {
+    fn embedded(&self, plug: &Self::Type) {
         self.parent_embedded(plug)
     }
 }
 
-pub trait PlugImplExt {
-    fn parent_embedded(&self, plug: &Plug);
+pub trait PlugImplExt: ObjectSubclass {
+    fn parent_embedded(&self, plug: &Self::Type);
 }
 
 impl<T: PlugImpl> PlugImplExt for T {
-    fn parent_embedded(&self, plug: &Plug) {
+    fn parent_embedded(&self, plug: &Self::Type) {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkPlugClass;
             if let Some(f) = (*parent_class).embedded {
-                f(plug.to_glib_none().0)
+                f(plug.unsafe_cast_ref::<Plug>().to_glib_none().0)
             }
         }
     }
@@ -46,5 +47,5 @@ unsafe extern "C" fn plug_embedded<T: PlugImpl>(ptr: *mut gtk_sys::GtkPlug) {
     let imp = instance.get_impl();
     let wrap: Borrowed<Plug> = from_glib_borrow(ptr);
 
-    imp.embedded(&wrap)
+    imp.embedded(wrap.unsafe_cast_ref())
 }

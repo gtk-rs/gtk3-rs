@@ -6,13 +6,13 @@
 
 use glib_sys;
 use gobject_sys;
-use object::{ObjectExt, ObjectType};
+use object::{ObjectSubclassIs, ObjectType};
 use std::fmt;
 use std::marker;
 use std::mem;
 use std::ptr;
 use translate::*;
-use {Closure, IsA, SignalFlags, StaticType, Type, Value};
+use {Closure, SignalFlags, StaticType, Type, Value};
 
 /// A newly registered `glib::Type` that is currently still being initialized.
 ///
@@ -247,6 +247,13 @@ pub trait ObjectSubclass: Sized + 'static {
     /// Optional.
     const ABSTRACT: bool = false;
 
+    /// Wrapper around this subclass defined with `glib_wrapper!`
+    type Type: ObjectType
+        + ObjectSubclassIs<Subclass = Self>
+        + FromGlibPtrFull<*mut <Self::Type as ObjectType>::GlibType>
+        + FromGlibPtrBorrow<*mut <Self::Type as ObjectType>::GlibType>
+        + FromGlibPtrNone<*mut <Self::Type as ObjectType>::GlibType>;
+
     /// Parent Rust type to inherit from.
     type ParentType: ObjectType
         + FromGlibPtrFull<*mut <Self::ParentType as ObjectType>::GlibType>
@@ -289,7 +296,7 @@ pub trait ObjectSubclass: Sized + 'static {
     fn get_type() -> Type;
 
     /// Returns the corresponding object instance.
-    fn get_instance(&self) -> Self::ParentType {
+    fn get_instance(&self) -> Self::Type {
         unsafe {
             let data = Self::type_data();
             let type_ = data.as_ref().get_type();
@@ -299,7 +306,7 @@ pub trait ObjectSubclass: Sized + 'static {
 
             let ptr = self as *const Self as *const u8;
             let ptr = ptr.offset(offset);
-            let ptr = ptr as *mut u8 as *mut <Self::ParentType as ObjectType>::GlibType;
+            let ptr = ptr as *mut u8 as *mut <Self::Type as ObjectType>::GlibType;
 
             // The object might just be finalized, and in that case it's unsafe to access
             // it and use any API on it. This can only happen from inside the Drop impl
@@ -314,16 +321,8 @@ pub trait ObjectSubclass: Sized + 'static {
     }
 
     /// Returns the implementation from an instance.
-    ///
-    /// Panics if called on an object of the wrong type.
-    fn from_instance<T: IsA<::Object>>(obj: &T) -> &Self {
+    fn from_instance(obj: &Self::Type) -> &Self {
         unsafe {
-            let data = Self::type_data();
-            let type_ = data.as_ref().get_type();
-            assert_ne!(type_, Type::Invalid);
-
-            assert!(obj.get_type().is_a(&type_));
-
             let ptr = obj.as_ptr() as *const Self::Instance;
             (*ptr).get_impl()
         }

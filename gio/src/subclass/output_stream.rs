@@ -8,7 +8,7 @@ use glib_sys;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 
-use glib::Error;
+use glib::{Cast, Error};
 
 use Cancellable;
 use InputStream;
@@ -21,24 +21,24 @@ use std::ptr;
 pub trait OutputStreamImpl: ObjectImpl + OutputStreamImplExt + Send {
     fn write(
         &self,
-        stream: &OutputStream,
+        stream: &Self::Type,
         buffer: &[u8],
         cancellable: Option<&Cancellable>,
     ) -> Result<usize, Error> {
         self.parent_write(stream, buffer, cancellable)
     }
 
-    fn close(&self, stream: &OutputStream, cancellable: Option<&Cancellable>) -> Result<(), Error> {
+    fn close(&self, stream: &Self::Type, cancellable: Option<&Cancellable>) -> Result<(), Error> {
         self.parent_close(stream, cancellable)
     }
 
-    fn flush(&self, stream: &OutputStream, cancellable: Option<&Cancellable>) -> Result<(), Error> {
+    fn flush(&self, stream: &Self::Type, cancellable: Option<&Cancellable>) -> Result<(), Error> {
         self.parent_flush(stream, cancellable)
     }
 
     fn splice(
         &self,
-        stream: &OutputStream,
+        stream: &Self::Type,
         input_stream: &InputStream,
         flags: OutputStreamSpliceFlags,
         cancellable: Option<&Cancellable>,
@@ -47,29 +47,29 @@ pub trait OutputStreamImpl: ObjectImpl + OutputStreamImplExt + Send {
     }
 }
 
-pub trait OutputStreamImplExt {
+pub trait OutputStreamImplExt: ObjectSubclass {
     fn parent_write(
         &self,
-        stream: &OutputStream,
+        stream: &Self::Type,
         buffer: &[u8],
         cancellable: Option<&Cancellable>,
     ) -> Result<usize, Error>;
 
     fn parent_close(
         &self,
-        stream: &OutputStream,
+        stream: &Self::Type,
         cancellable: Option<&Cancellable>,
     ) -> Result<(), Error>;
 
     fn parent_flush(
         &self,
-        stream: &OutputStream,
+        stream: &Self::Type,
         cancellable: Option<&Cancellable>,
     ) -> Result<(), Error>;
 
     fn parent_splice(
         &self,
-        stream: &OutputStream,
+        stream: &Self::Type,
         input_stream: &InputStream,
         flags: OutputStreamSpliceFlags,
         cancellable: Option<&Cancellable>,
@@ -79,7 +79,7 @@ pub trait OutputStreamImplExt {
 impl<T: OutputStreamImpl> OutputStreamImplExt for T {
     fn parent_write(
         &self,
-        stream: &OutputStream,
+        stream: &Self::Type,
         buffer: &[u8],
         cancellable: Option<&Cancellable>,
     ) -> Result<usize, Error> {
@@ -91,7 +91,7 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
                 .expect("No parent class implementation for \"write\"");
             let mut err = ptr::null_mut();
             let res = f(
-                stream.to_glib_none().0,
+                stream.unsafe_cast_ref::<OutputStream>().to_glib_none().0,
                 mut_override(buffer.as_ptr()),
                 buffer.len(),
                 cancellable.to_glib_none().0,
@@ -110,7 +110,7 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
 
     fn parent_close(
         &self,
-        stream: &OutputStream,
+        stream: &Self::Type,
         cancellable: Option<&Cancellable>,
     ) -> Result<(), Error> {
         unsafe {
@@ -119,7 +119,7 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
             let mut err = ptr::null_mut();
             if let Some(f) = (*parent_class).close_fn {
                 if from_glib(f(
-                    stream.to_glib_none().0,
+                    stream.unsafe_cast_ref::<OutputStream>().to_glib_none().0,
                     cancellable.to_glib_none().0,
                     &mut err,
                 )) {
@@ -135,7 +135,7 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
 
     fn parent_flush(
         &self,
-        stream: &OutputStream,
+        stream: &Self::Type,
         cancellable: Option<&Cancellable>,
     ) -> Result<(), Error> {
         unsafe {
@@ -144,7 +144,7 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
             let mut err = ptr::null_mut();
             if let Some(f) = (*parent_class).flush {
                 if from_glib(f(
-                    stream.to_glib_none().0,
+                    stream.unsafe_cast_ref::<OutputStream>().to_glib_none().0,
                     cancellable.to_glib_none().0,
                     &mut err,
                 )) {
@@ -160,7 +160,7 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
 
     fn parent_splice(
         &self,
-        stream: &OutputStream,
+        stream: &Self::Type,
         input_stream: &InputStream,
         flags: OutputStreamSpliceFlags,
         cancellable: Option<&Cancellable>,
@@ -173,7 +173,7 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
                 .splice
                 .expect("No parent class implementation for \"splice\"");
             let res = f(
-                stream.to_glib_none().0,
+                stream.unsafe_cast_ref::<OutputStream>().to_glib_none().0,
                 input_stream.to_glib_none().0,
                 flags.to_glib(),
                 cancellable.to_glib_none().0,
@@ -219,7 +219,7 @@ unsafe extern "C" fn stream_write<T: OutputStreamImpl>(
     let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
 
     match imp.write(
-        &wrap,
+        &wrap.unsafe_cast_ref(),
         slice::from_raw_parts(buffer as *const u8, count),
         Option::<Cancellable>::from_glib_borrow(cancellable)
             .as_ref()
@@ -248,7 +248,7 @@ unsafe extern "C" fn stream_close<T: OutputStreamImpl>(
     let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
 
     match imp.close(
-        &wrap,
+        &wrap.unsafe_cast_ref(),
         Option::<Cancellable>::from_glib_borrow(cancellable)
             .as_ref()
             .as_ref(),
@@ -272,7 +272,7 @@ unsafe extern "C" fn stream_flush<T: OutputStreamImpl>(
     let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
 
     match imp.flush(
-        &wrap,
+        &wrap.unsafe_cast_ref(),
         Option::<Cancellable>::from_glib_borrow(cancellable)
             .as_ref()
             .as_ref(),
@@ -298,7 +298,7 @@ unsafe extern "C" fn stream_splice<T: OutputStreamImpl>(
     let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
 
     match imp.splice(
-        &wrap,
+        &wrap.unsafe_cast_ref(),
         &from_glib_borrow(input_stream),
         from_glib(flags),
         Option::<Cancellable>::from_glib_borrow(cancellable)
@@ -326,55 +326,71 @@ mod tests {
     use glib::subclass;
     use std::cell::RefCell;
 
-    struct SimpleOutputStream {
-        sum: RefCell<usize>,
-    }
+    mod imp {
+        use super::*;
 
-    impl ObjectSubclass for SimpleOutputStream {
-        const NAME: &'static str = "SimpleOutputStream";
-        type ParentType = OutputStream;
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
+        pub struct SimpleOutputStream {
+            pub sum: RefCell<usize>,
+        }
 
-        glib_object_subclass!();
+        impl ObjectSubclass for SimpleOutputStream {
+            const NAME: &'static str = "SimpleOutputStream";
+            type Type = super::SimpleOutputStream;
+            type ParentType = OutputStream;
+            type Instance = subclass::simple::InstanceStruct<Self>;
+            type Class = subclass::simple::ClassStruct<Self>;
 
-        fn new() -> Self {
-            Self {
-                sum: RefCell::new(0),
+            glib_object_subclass!();
+
+            fn new() -> Self {
+                Self {
+                    sum: RefCell::new(0),
+                }
+            }
+        }
+
+        impl ObjectImpl for SimpleOutputStream {}
+
+        impl OutputStreamImpl for SimpleOutputStream {
+            fn write(
+                &self,
+                _stream: &Self::Type,
+                buffer: &[u8],
+                _cancellable: Option<&Cancellable>,
+            ) -> Result<usize, Error> {
+                let mut sum = self.sum.borrow_mut();
+                for b in buffer {
+                    *sum += *b as usize;
+                }
+
+                Ok(buffer.len())
             }
         }
     }
 
-    impl ObjectImpl for SimpleOutputStream {}
-
-    impl OutputStreamImpl for SimpleOutputStream {
-        fn write(
-            &self,
-            _stream: &OutputStream,
-            buffer: &[u8],
-            _cancellable: Option<&Cancellable>,
-        ) -> Result<usize, Error> {
-            let mut sum = self.sum.borrow_mut();
-            for b in buffer {
-                *sum += *b as usize;
-            }
-
-            Ok(buffer.len())
-        }
+    glib_wrapper! {
+        pub struct SimpleOutputStream(ObjectSubclass<imp::SimpleOutputStream>)
+            @extends OutputStream;
     }
 
     #[test]
     fn test_simple_stream() {
-        let stream = glib::Object::new(SimpleOutputStream::get_type(), &[])
+        let stream = glib::Object::new(SimpleOutputStream::static_type(), &[])
             .unwrap()
-            .downcast::<::OutputStream>()
+            .downcast::<SimpleOutputStream>()
             .unwrap();
 
-        assert_eq!(*SimpleOutputStream::from_instance(&stream).sum.borrow(), 0);
+        assert_eq!(
+            *imp::SimpleOutputStream::from_instance(&stream).sum.borrow(),
+            0
+        );
         assert_eq!(
             stream.write(&[1, 2, 3, 4, 5], crate::NONE_CANCELLABLE),
             Ok(5)
         );
-        assert_eq!(*SimpleOutputStream::from_instance(&stream).sum.borrow(), 15);
+        assert_eq!(
+            *imp::SimpleOutputStream::from_instance(&stream).sum.borrow(),
+            15
+        );
     }
 }

@@ -433,10 +433,12 @@ macro_rules! glib_wrapper {
         $(#[$attr:meta])*
         pub struct $name:ident(ObjectSubclass<$subclass:ty>);
     ) => {
-        use glib::translate::ToGlib;
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class,
             @get_type $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclass>::get_type()),
             @extends [], @implements []);
+        unsafe impl $crate::object::ObjectSubclassIs for $name {
+            type Subclass = $subclass;
+        }
     };
 
     // ObjectSubclass, no parents, interfaces
@@ -447,6 +449,9 @@ macro_rules! glib_wrapper {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class,
             @get_type $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclass>::get_type()),
             @extends [], @implements [$($implements),+]);
+        unsafe impl $crate::object::ObjectSubclassIs for $name {
+            type Subclass = $subclass;
+        }
     };
 
     // ObjectSubclass, parents, no interfaces
@@ -457,6 +462,9 @@ macro_rules! glib_wrapper {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class,
             @get_type $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclass>::get_type()),
             @extends [$($extends),+], @implements []);
+        unsafe impl $crate::object::ObjectSubclassIs for $name {
+            type Subclass = $subclass;
+        }
     };
 
     // ObjectSubclass, parents and interfaces
@@ -467,6 +475,9 @@ macro_rules! glib_wrapper {
         $crate::glib_object_wrapper!(@object [$($attr)*] $name, <$subclass as $crate::subclass::types::ObjectSubclass>::Instance, <$subclass as $crate::subclass::types::ObjectSubclass>::Class,
             @get_type $crate::translate::ToGlib::to_glib(&<$subclass as $crate::subclass::types::ObjectSubclass>::get_type()),
             @extends [$($extends),+], @implements [$($implements),+]);
+        unsafe impl $crate::object::ObjectSubclassIs for $name {
+            type Subclass = $subclass;
+        }
     };
 
     // Interface, no prerequisites
