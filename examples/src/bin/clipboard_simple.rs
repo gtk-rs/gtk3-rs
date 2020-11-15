@@ -69,10 +69,10 @@ fn build_ui(application: &gtk::Application) {
     // Save out UI in thread-local storage so we can use it in callbacks later
     GLOBAL.with(move |global| {
         *global.borrow_mut() = Some(Ui {
-            button_a1: button_a1,
-            button_a2: button_a2,
-            button_b1: button_b1,
-            button_b2: button_b2,
+            button_a1,
+            button_a2,
+            button_b1,
+            button_b2,
         })
     });
 
@@ -109,12 +109,11 @@ fn build_ui(application: &gtk::Application) {
     paste_button.connect_clicked(|_| {
         let clipboard = gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD);
         clipboard.request_text(|_, t| {
-            if t.is_some() {
-                let t = t.unwrap();
+            if let Some(t) = t {
                 if t.len() >= 4 {
                     GLOBAL.with(|global| {
                         if let Some(ref ui) = *global.borrow() {
-                            ui.button_a1.set_active(t.chars().nth(0).unwrap() == '1');
+                            ui.button_a1.set_active(t.starts_with('1'));
                             ui.button_a2.set_active(t.chars().nth(1).unwrap() == '1');
                             ui.button_b1.set_active(t.chars().nth(2).unwrap() == '1');
                             ui.button_b2.set_active(t.chars().nth(3).unwrap() == '1');

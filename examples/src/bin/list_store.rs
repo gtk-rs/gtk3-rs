@@ -1,4 +1,5 @@
 use gio::prelude::*;
+use glib::clone;
 use gtk::prelude::*;
 
 use std::env::args;
@@ -51,8 +52,13 @@ fn build_ui(application: &gtk::Application) {
 
     window.show_all();
 
-    let model = model.clone();
-    glib::timeout_add_local(Duration::from_millis(80), move || spinner_timeout(&model));
+    glib::timeout_add_local(
+        Duration::from_millis(80),
+        clone!(@weak model => @default-return glib::Continue(false), move || {
+            spinner_timeout(&model);
+            glib::Continue(false)
+        }),
+    );
 }
 
 struct Data {

@@ -67,7 +67,7 @@ fn create_list_store_model() -> gtk::ListStore {
         }
     }
 
-    return icon_view_model;
+    icon_view_model
 }
 
 fn build_ui(application: &gtk::Application) {

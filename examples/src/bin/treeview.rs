@@ -63,7 +63,7 @@ fn build_ui(application: &gtk::Application) {
     col.pack_start(&renderer2, true);
     col.add_attribute(&renderer2, "text", 1);
     let image = Pixbuf::from_file("./resources/eye.png")
-        .or_else(|err| {
+        .map_err(|err| {
             let mut msg = err.to_string();
             if err.kind() == Some(glib::FileError::Noent) {
                 msg.push_str(
@@ -81,8 +81,6 @@ fn build_ui(application: &gtk::Application) {
                     Continue(false)
                 }),
             );
-
-            Err(())
         })
         .ok();
 
