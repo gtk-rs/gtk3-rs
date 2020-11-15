@@ -125,10 +125,7 @@ mod imp {
 
         fn can_seek(&self, _seekable: &Self::Type) -> bool {
             let write = self.write.borrow();
-            match *write {
-                Some(Writer::WriteSeek(_)) => true,
-                _ => false,
-            }
+            matches!(*write, Some(Writer::WriteSeek(_)))
         }
 
         fn seek(

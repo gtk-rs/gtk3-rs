@@ -98,10 +98,7 @@ mod imp {
 
         fn can_seek(&self, _seekable: &Self::Type) -> bool {
             let read = self.read.borrow();
-            match *read {
-                Some(Reader::ReadSeek(_)) => true,
-                _ => false,
-            }
+            matches!(*read, Some(Reader::ReadSeek(_)))
         }
 
         fn seek(

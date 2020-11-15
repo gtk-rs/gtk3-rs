@@ -1,12 +1,11 @@
 // Copyright 2013-2018, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
-
-#![allow(deprecated)]
-#![allow(clippy::let_and_return)]
-#![allow(clippy::too_many_arguments)]
-#![allow(clippy::type_complexity)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
+#![allow(clippy::type_complexity)]
+#![allow(clippy::too_many_arguments)]
+#![allow(clippy::missing_safety_doc)]
+#![allow(deprecated)]
 
 #[macro_use]
 extern crate bitflags;
@@ -101,6 +100,7 @@ pub mod prelude;
 
 #[allow(clippy::cast_ptr_alignment)]
 #[allow(clippy::wrong_self_convention)]
+#[allow(clippy::new_ret_no_self)]
 #[allow(unused_imports)]
 mod auto;
 
