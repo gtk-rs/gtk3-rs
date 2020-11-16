@@ -7,7 +7,9 @@
 #![cfg_attr(feature = "cargo-clippy", allow(trivially_copy_pass_by_ref))]
 
 extern crate gdk_pixbuf;
-extern crate gdk_sys;
+#[doc(hidden)]
+pub extern crate gdk_sys;
+pub use gdk_sys as ffi;
 extern crate gio;
 extern crate gio_sys;
 extern crate glib_sys;

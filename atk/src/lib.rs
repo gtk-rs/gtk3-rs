@@ -18,7 +18,9 @@ extern crate libc;
 #[macro_use]
 extern crate bitflags;
 
-extern crate atk_sys;
+#[doc(hidden)]
+pub extern crate atk_sys;
+pub use atk_sys as ffi;
 extern crate glib_sys;
 extern crate gobject_sys;
 #[macro_use]

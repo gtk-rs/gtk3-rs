@@ -168,7 +168,9 @@ extern crate gdk_sys;
 extern crate gio_sys;
 extern crate glib_sys;
 extern crate gobject_sys;
-extern crate gtk_sys;
+#[doc(hidden)]
+pub extern crate gtk_sys;
+pub use gtk_sys as ffi;
 extern crate pango_sys;
 #[macro_use]
 extern crate glib;
