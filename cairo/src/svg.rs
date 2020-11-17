@@ -211,7 +211,7 @@ mod test {
 
         impl io::Write for CustomWriter {
             fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
-                self.1.write(buf)?;
+                self.1.write_all(buf)?;
 
                 self.0 += buf.len();
                 Ok(buf.len())
