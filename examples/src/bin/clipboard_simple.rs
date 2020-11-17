@@ -110,13 +110,14 @@ fn build_ui(application: &gtk::Application) {
         let clipboard = gtk::Clipboard::get(&gdk::SELECTION_CLIPBOARD);
         clipboard.request_text(|_, t| {
             if let Some(t) = t {
+                let t = t.chars().collect::<Vec<_>>();
                 if t.len() >= 4 {
                     GLOBAL.with(|global| {
                         if let Some(ref ui) = *global.borrow() {
-                            ui.button_a1.set_active(t.starts_with('1'));
-                            ui.button_a2.set_active(t.chars().nth(1).unwrap() == '1');
-                            ui.button_b1.set_active(t.chars().nth(2).unwrap() == '1');
-                            ui.button_b2.set_active(t.chars().nth(3).unwrap() == '1');
+                            ui.button_a1.set_active(t[0] == '1');
+                            ui.button_a2.set_active(t[1] == '1');
+                            ui.button_b1.set_active(t[2] == '1');
+                            ui.button_b2.set_active(t[3] == '1');
                         }
                     });
                 }
