@@ -27,6 +27,7 @@ pub(crate) use x11::xlib;
 #[macro_use]
 mod rt;
 #[allow(clippy::let_and_return)]
+#[allow(unused_doc_comments)]
 #[allow(unused_imports)]
 mod auto;
 

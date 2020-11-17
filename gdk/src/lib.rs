@@ -29,6 +29,7 @@ mod event;
 
 #[allow(clippy::type_complexity)]
 #[allow(clippy::unreadable_literal)]
+#[allow(unused_doc_comments)]
 #[allow(unused_imports)]
 mod auto;
 

@@ -82,24 +82,24 @@ fn build_ui(application: &gtk::Application) {
         GLOBAL.with(|global| {
             if let Some(ref ui) = *global.borrow() {
                 if ui.button_a1.get_active() {
-                    s.push_str("1");
+                    s.push('1');
                 } else {
-                    s.push_str("0");
+                    s.push('0');
                 }
                 if ui.button_a2.get_active() {
-                    s.push_str("1");
+                    s.push('1');
                 } else {
-                    s.push_str("0");
+                    s.push('0');
                 }
                 if ui.button_b1.get_active() {
-                    s.push_str("1");
+                    s.push('1');
                 } else {
-                    s.push_str("0");
+                    s.push('0');
                 }
                 if ui.button_b2.get_active() {
-                    s.push_str("1");
+                    s.push('1');
                 } else {
-                    s.push_str("0");
+                    s.push('0');
                 }
             }
         });

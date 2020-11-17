@@ -6,6 +6,7 @@ use std::fmt::{self, Debug};
 use std::i32;
 use std::u32;
 
+use error::Error;
 use ffi;
 
 #[cfg(feature = "use_glib")]
@@ -1409,13 +1410,13 @@ impl fmt::Display for Format {
 gvalue_impl!(Format, ffi::gobject::cairo_gobject_format_get_type);
 
 impl Format {
-    pub fn stride_for_width(self, width: u32) -> Result<i32, ()> {
+    pub fn stride_for_width(self, width: u32) -> Result<i32, Error> {
         assert!(width <= i32::MAX as u32);
         let width = width as i32;
 
         let stride = unsafe { ffi::cairo_format_stride_for_width(self.into(), width) };
         if stride == -1 {
-            Err(())
+            Err(Error::InvalidFormat)
         } else {
             Ok(stride)
         }
