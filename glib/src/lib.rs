@@ -144,6 +144,7 @@ pub use auto::*;
 #[allow(clippy::let_unit_value)]
 #[allow(clippy::too_many_arguments)]
 #[allow(clippy::type_complexity)]
+#[allow(unused_doc_comments)]
 #[allow(non_upper_case_globals)]
 #[allow(unused_imports)]
 mod auto;
