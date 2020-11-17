@@ -78,7 +78,7 @@ def regen_crates(path, conf, level=0):
         if isdir(entry_file):
             if level < 2 and not regen_crates(entry_file, conf, level + 1):
                 return False
-        elif entry == 'Gir.toml':
+        elif entry.startswith("Gir") and entry.endswith(".toml"):
             print('==> Regenerating "{}"...'.format(entry_file))
 
             args = [conf["gir_path"], '-c', entry_file, '-o', path, '-d', conf["gir_files"]]
