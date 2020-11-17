@@ -1532,6 +1532,7 @@ impl SetValue for IOErrorEnum {
 }
 
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum MemoryMonitorWarningLevel {
@@ -1543,6 +1544,7 @@ pub enum MemoryMonitorWarningLevel {
 }
 
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 impl fmt::Display for MemoryMonitorWarningLevel {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -1559,6 +1561,7 @@ impl fmt::Display for MemoryMonitorWarningLevel {
 }
 
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 #[doc(hidden)]
 impl ToGlib for MemoryMonitorWarningLevel {
     type GlibType = gio_sys::GMemoryMonitorWarningLevel;
@@ -1574,6 +1577,7 @@ impl ToGlib for MemoryMonitorWarningLevel {
 }
 
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 #[doc(hidden)]
 impl FromGlib<gio_sys::GMemoryMonitorWarningLevel> for MemoryMonitorWarningLevel {
     fn from_glib(value: gio_sys::GMemoryMonitorWarningLevel) -> Self {
@@ -1587,6 +1591,7 @@ impl FromGlib<gio_sys::GMemoryMonitorWarningLevel> for MemoryMonitorWarningLevel
 }
 
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 impl StaticType for MemoryMonitorWarningLevel {
     fn static_type() -> Type {
         unsafe { from_glib(gio_sys::g_memory_monitor_warning_level_get_type()) }
@@ -1594,6 +1599,7 @@ impl StaticType for MemoryMonitorWarningLevel {
 }
 
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 impl<'a> FromValueOptional<'a> for MemoryMonitorWarningLevel {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
@@ -1601,6 +1607,7 @@ impl<'a> FromValueOptional<'a> for MemoryMonitorWarningLevel {
 }
 
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 impl<'a> FromValue<'a> for MemoryMonitorWarningLevel {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
@@ -1608,6 +1615,7 @@ impl<'a> FromValue<'a> for MemoryMonitorWarningLevel {
 }
 
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 impl SetValue for MemoryMonitorWarningLevel {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
@@ -1690,6 +1698,7 @@ impl SetValue for MountOperationResult {
 }
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum NetworkConnectivity {
@@ -1702,6 +1711,7 @@ pub enum NetworkConnectivity {
 }
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 impl fmt::Display for NetworkConnectivity {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -1719,6 +1729,7 @@ impl fmt::Display for NetworkConnectivity {
 }
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 #[doc(hidden)]
 impl ToGlib for NetworkConnectivity {
     type GlibType = gio_sys::GNetworkConnectivity;
@@ -1735,6 +1746,7 @@ impl ToGlib for NetworkConnectivity {
 }
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 #[doc(hidden)]
 impl FromGlib<gio_sys::GNetworkConnectivity> for NetworkConnectivity {
     fn from_glib(value: gio_sys::GNetworkConnectivity) -> Self {
@@ -1749,6 +1761,7 @@ impl FromGlib<gio_sys::GNetworkConnectivity> for NetworkConnectivity {
 }
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 impl StaticType for NetworkConnectivity {
     fn static_type() -> Type {
         unsafe { from_glib(gio_sys::g_network_connectivity_get_type()) }
@@ -1756,6 +1769,7 @@ impl StaticType for NetworkConnectivity {
 }
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 impl<'a> FromValueOptional<'a> for NetworkConnectivity {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
@@ -1763,6 +1777,7 @@ impl<'a> FromValueOptional<'a> for NetworkConnectivity {
 }
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 impl<'a> FromValue<'a> for NetworkConnectivity {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
@@ -1770,6 +1785,7 @@ impl<'a> FromValue<'a> for NetworkConnectivity {
 }
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 impl SetValue for NetworkConnectivity {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
@@ -2281,6 +2297,7 @@ impl SetValue for SocketFamily {
 }
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum SocketListenerEvent {
@@ -2293,6 +2310,7 @@ pub enum SocketListenerEvent {
 }
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 impl fmt::Display for SocketListenerEvent {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -2310,6 +2328,7 @@ impl fmt::Display for SocketListenerEvent {
 }
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 #[doc(hidden)]
 impl ToGlib for SocketListenerEvent {
     type GlibType = gio_sys::GSocketListenerEvent;
@@ -2326,6 +2345,7 @@ impl ToGlib for SocketListenerEvent {
 }
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 #[doc(hidden)]
 impl FromGlib<gio_sys::GSocketListenerEvent> for SocketListenerEvent {
     fn from_glib(value: gio_sys::GSocketListenerEvent) -> Self {
@@ -2340,6 +2360,7 @@ impl FromGlib<gio_sys::GSocketListenerEvent> for SocketListenerEvent {
 }
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 impl StaticType for SocketListenerEvent {
     fn static_type() -> Type {
         unsafe { from_glib(gio_sys::g_socket_listener_event_get_type()) }
@@ -2347,6 +2368,7 @@ impl StaticType for SocketListenerEvent {
 }
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 impl<'a> FromValueOptional<'a> for SocketListenerEvent {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
@@ -2354,6 +2376,7 @@ impl<'a> FromValueOptional<'a> for SocketListenerEvent {
 }
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 impl<'a> FromValue<'a> for SocketListenerEvent {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
@@ -2361,6 +2384,7 @@ impl<'a> FromValue<'a> for SocketListenerEvent {
 }
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 impl SetValue for SocketListenerEvent {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
@@ -2672,6 +2696,7 @@ impl SetValue for TlsCertificateRequestFlags {
 }
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum TlsChannelBindingType {
@@ -2682,6 +2707,7 @@ pub enum TlsChannelBindingType {
 }
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 impl fmt::Display for TlsChannelBindingType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -2697,6 +2723,7 @@ impl fmt::Display for TlsChannelBindingType {
 }
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl ToGlib for TlsChannelBindingType {
     type GlibType = gio_sys::GTlsChannelBindingType;
@@ -2713,6 +2740,7 @@ impl ToGlib for TlsChannelBindingType {
 }
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<gio_sys::GTlsChannelBindingType> for TlsChannelBindingType {
     fn from_glib(value: gio_sys::GTlsChannelBindingType) -> Self {
@@ -2725,6 +2753,7 @@ impl FromGlib<gio_sys::GTlsChannelBindingType> for TlsChannelBindingType {
 }
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 impl StaticType for TlsChannelBindingType {
     fn static_type() -> Type {
         unsafe { from_glib(gio_sys::g_tls_channel_binding_type_get_type()) }
@@ -2732,6 +2761,7 @@ impl StaticType for TlsChannelBindingType {
 }
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 impl<'a> FromValueOptional<'a> for TlsChannelBindingType {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
@@ -2739,6 +2769,7 @@ impl<'a> FromValueOptional<'a> for TlsChannelBindingType {
 }
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 impl<'a> FromValue<'a> for TlsChannelBindingType {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
@@ -2746,6 +2777,7 @@ impl<'a> FromValue<'a> for TlsChannelBindingType {
 }
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 impl SetValue for TlsChannelBindingType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())

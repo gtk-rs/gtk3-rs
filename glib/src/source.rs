@@ -119,6 +119,7 @@ fn into_raw_child_watch<F: FnMut(Pid, i32) + 'static>(func: F) -> gpointer {
 }
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 unsafe extern "C" fn trampoline_unix_fd<F: FnMut(RawFd, IOCondition) -> Continue + 'static>(
     fd: i32,
     condition: glib_sys::GIOCondition,
@@ -129,6 +130,7 @@ unsafe extern "C" fn trampoline_unix_fd<F: FnMut(RawFd, IOCondition) -> Continue
 }
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 unsafe extern "C" fn destroy_closure_unix_fd<F: FnMut(RawFd, IOCondition) -> Continue + 'static>(
     ptr: gpointer,
 ) {
@@ -136,6 +138,7 @@ unsafe extern "C" fn destroy_closure_unix_fd<F: FnMut(RawFd, IOCondition) -> Con
 }
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 fn into_raw_unix_fd<F: FnMut(RawFd, IOCondition) -> Continue + 'static>(func: F) -> gpointer {
     let func: Box<RefCell<F>> = Box::new(RefCell::new(func));
     Box::into_raw(func) as gpointer
@@ -346,6 +349,7 @@ where
 }
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 /// Adds a closure to be called by the default main loop whenever a UNIX signal is raised.
 ///
 /// `func` will be called repeatedly every time `signum` is raised until it
@@ -369,6 +373,7 @@ where
 }
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 /// Adds a closure to be called by the default main loop whenever a UNIX signal is raised.
 ///
 /// `func` will be called repeatedly every time `signum` is raised until it
@@ -399,6 +404,7 @@ where
 }
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 /// Adds a closure to be called by the main loop the returned `Source` is attached to whenever a
 /// UNIX file descriptor reaches the given IO condition.
 ///
@@ -424,6 +430,7 @@ where
 }
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 /// Adds a closure to be called by the main loop the returned `Source` is attached to whenever a
 /// UNIX file descriptor reaches the given IO condition.
 ///
@@ -631,6 +638,7 @@ where
 }
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 /// Adds a closure to be called by the main loop the returned `Source` is attached to whenever a
 /// UNIX signal is raised.
 ///
@@ -664,6 +672,7 @@ where
 }
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 /// Adds a closure to be called by the main loop the returned `Source` is attached to whenever a
 /// UNIX file descriptor reaches the given IO condition.
 ///

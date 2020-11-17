@@ -6,6 +6,7 @@ use gio_sys;
 use std::ffi::CStr;
 
 #[cfg(any(feature = "v2_58", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
 pub static DRIVE_IDENTIFIER_KIND_UNIX_DEVICE: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(gio_sys::G_DRIVE_IDENTIFIER_KIND_UNIX_DEVICE)
@@ -55,6 +56,7 @@ pub static FILE_ATTRIBUTE_DOS_IS_ARCHIVE: once_cell::sync::Lazy<&'static str> =
             .unwrap()
     });
 #[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
 pub static FILE_ATTRIBUTE_DOS_IS_MOUNTPOINT: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(gio_sys::G_FILE_ATTRIBUTE_DOS_IS_MOUNTPOINT)
@@ -68,6 +70,7 @@ pub static FILE_ATTRIBUTE_DOS_IS_SYSTEM: once_cell::sync::Lazy<&'static str> =
             .unwrap()
     });
 #[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
 pub static FILE_ATTRIBUTE_DOS_REPARSE_POINT_TAG: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(gio_sys::G_FILE_ATTRIBUTE_DOS_REPARSE_POINT_TAG)
@@ -237,6 +240,7 @@ pub static FILE_ATTRIBUTE_PREVIEW_ICON: once_cell::sync::Lazy<&'static str> =
             .unwrap()
     });
 #[cfg(any(feature = "v2_52", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
 pub static FILE_ATTRIBUTE_RECENT_MODIFIED: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(gio_sys::G_FILE_ATTRIBUTE_RECENT_MODIFIED)
@@ -322,6 +326,7 @@ pub static FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL: once_cell::sync::Lazy<&'static st
             .unwrap()
     });
 #[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 pub static FILE_ATTRIBUTE_STANDARD_IS_VOLATILE: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(gio_sys::G_FILE_ATTRIBUTE_STANDARD_IS_VOLATILE)
@@ -515,6 +520,7 @@ pub static FILE_ATTRIBUTE_UNIX_UID: once_cell::sync::Lazy<&'static str> =
             .unwrap()
     });
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 pub static MEMORY_MONITOR_EXTENSION_POINT_NAME: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(gio_sys::G_MEMORY_MONITOR_EXTENSION_POINT_NAME)

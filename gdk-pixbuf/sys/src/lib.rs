@@ -8,6 +8,7 @@
     clippy::type_complexity,
     clippy::unreadable_literal
 )]
+#![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 extern crate gio_sys as gio;
 extern crate glib_sys as glib;
@@ -206,6 +207,7 @@ extern "C" {
     pub fn gdk_pixbuf_format_get_name(format: *mut GdkPixbufFormat) -> *mut c_char;
     pub fn gdk_pixbuf_format_is_disabled(format: *mut GdkPixbufFormat) -> gboolean;
     #[cfg(any(feature = "v2_36", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
     pub fn gdk_pixbuf_format_is_save_option_supported(
         format: *mut GdkPixbufFormat,
         option_key: *const c_char,
@@ -226,6 +228,7 @@ extern "C" {
         height: c_int,
     ) -> *mut GdkPixbuf;
     #[cfg(any(feature = "v2_32", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     pub fn gdk_pixbuf_new_from_bytes(
         data: *mut glib::GBytes,
         colorspace: GdkColorspace,
@@ -247,6 +250,7 @@ extern "C" {
         destroy_fn_data: gpointer,
     ) -> *mut GdkPixbuf;
     #[cfg(any(windows, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(windows)))]
     pub fn gdk_pixbuf_new_from_file_utf8(
         filename: *const c_char,
         error: *mut *mut glib::GError,
@@ -256,6 +260,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> *mut GdkPixbuf;
     #[cfg(any(windows, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(windows)))]
     pub fn gdk_pixbuf_new_from_file_at_scale_utf8(
         filename: *const c_char,
         width: c_int,
@@ -271,6 +276,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> *mut GdkPixbuf;
     #[cfg(any(windows, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(windows)))]
     pub fn gdk_pixbuf_new_from_file_at_size_utf8(
         filename: *const c_char,
         width: c_int,
@@ -319,6 +325,7 @@ extern "C" {
     ) -> *mut GdkPixbuf;
     pub fn gdk_pixbuf_new_from_xpm_data(data: *mut *const c_char) -> *mut GdkPixbuf;
     #[cfg(any(feature = "v2_36_8", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36_8")))]
     pub fn gdk_pixbuf_calculate_rowstride(
         colorspace: GdkColorspace,
         has_alpha: gboolean,
@@ -332,6 +339,7 @@ extern "C" {
         height: *mut c_int,
     ) -> *mut GdkPixbufFormat;
     #[cfg(any(feature = "v2_32", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     pub fn gdk_pixbuf_get_file_info_async(
         filename: *const c_char,
         cancellable: *mut gio::GCancellable,
@@ -339,6 +347,7 @@ extern "C" {
         user_data: gpointer,
     );
     #[cfg(any(feature = "v2_32", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     pub fn gdk_pixbuf_get_file_info_finish(
         async_result: *mut gio::GAsyncResult,
         width: *mut c_int,
@@ -347,6 +356,7 @@ extern "C" {
     ) -> *mut GdkPixbufFormat;
     pub fn gdk_pixbuf_get_formats() -> *mut glib::GSList;
     #[cfg(any(feature = "v2_40", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
     pub fn gdk_pixbuf_init_modules(path: *const c_char, error: *mut *mut glib::GError) -> gboolean;
     pub fn gdk_pixbuf_new_from_stream_async(
         stream: *mut gio::GInputStream,
@@ -430,6 +440,7 @@ extern "C" {
         dest_y: c_int,
     );
     #[cfg(any(feature = "v2_36", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
     pub fn gdk_pixbuf_copy_options(
         src_pixbuf: *mut GdkPixbuf,
         dest_pixbuf: *mut GdkPixbuf,
@@ -444,6 +455,7 @@ extern "C" {
     pub fn gdk_pixbuf_get_n_channels(pixbuf: *const GdkPixbuf) -> c_int;
     pub fn gdk_pixbuf_get_option(pixbuf: *mut GdkPixbuf, key: *const c_char) -> *const c_char;
     #[cfg(any(feature = "v2_32", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     pub fn gdk_pixbuf_get_options(pixbuf: *mut GdkPixbuf) -> *mut glib::GHashTable;
     pub fn gdk_pixbuf_get_pixels(pixbuf: *const GdkPixbuf) -> *mut u8;
     pub fn gdk_pixbuf_get_pixels_with_length(
@@ -460,11 +472,14 @@ extern "C" {
         height: c_int,
     ) -> *mut GdkPixbuf;
     #[cfg(any(feature = "v2_32", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     pub fn gdk_pixbuf_read_pixel_bytes(pixbuf: *const GdkPixbuf) -> *mut glib::GBytes;
     #[cfg(any(feature = "v2_32", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     pub fn gdk_pixbuf_read_pixels(pixbuf: *const GdkPixbuf) -> *const u8;
     pub fn gdk_pixbuf_ref(pixbuf: *mut GdkPixbuf) -> *mut GdkPixbuf;
     #[cfg(any(feature = "v2_36", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
     pub fn gdk_pixbuf_remove_option(pixbuf: *mut GdkPixbuf, key: *const c_char) -> gboolean;
     pub fn gdk_pixbuf_rotate_simple(
         src: *const GdkPixbuf,
@@ -477,6 +492,7 @@ extern "C" {
         pixelate: gboolean,
     );
     #[cfg(any(windows, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(windows)))]
     pub fn gdk_pixbuf_save_utf8(
         pixbuf: *mut GdkPixbuf,
         filename: *const c_char,
@@ -543,6 +559,7 @@ extern "C" {
         ...
     );
     #[cfg(any(feature = "v2_36", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
     pub fn gdk_pixbuf_save_to_streamv(
         pixbuf: *mut GdkPixbuf,
         stream: *mut gio::GOutputStream,
@@ -553,6 +570,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_36", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
     pub fn gdk_pixbuf_save_to_streamv_async(
         pixbuf: *mut GdkPixbuf,
         stream: *mut gio::GOutputStream,
@@ -564,6 +582,7 @@ extern "C" {
         user_data: gpointer,
     );
     #[cfg(any(windows, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(windows)))]
     pub fn gdk_pixbuf_savev_utf8(
         pixbuf: *mut GdkPixbuf,
         filename: *const c_char,
@@ -611,6 +630,7 @@ extern "C" {
     //=========================================================================
     pub fn gdk_pixbuf_animation_get_type() -> GType;
     #[cfg(any(windows, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(windows)))]
     pub fn gdk_pixbuf_animation_new_from_file_utf8(
         filename: *const c_char,
         error: *mut *mut glib::GError,

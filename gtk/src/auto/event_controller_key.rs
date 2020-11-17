@@ -13,12 +13,14 @@ use glib::translate::*;
 use glib_sys;
 use gtk_sys;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use EventController;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use IMContext;
 use Widget;
 
@@ -42,6 +44,7 @@ impl EventControllerKey {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn forward<P: IsA<Widget>>(&self, widget: &P) -> bool {
         unsafe {
             from_glib(gtk_sys::gtk_event_controller_key_forward(
@@ -52,11 +55,13 @@ impl EventControllerKey {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn get_group(&self) -> u32 {
         unsafe { gtk_sys::gtk_event_controller_key_get_group(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn get_im_context(&self) -> Option<IMContext> {
         unsafe {
             from_glib_none(gtk_sys::gtk_event_controller_key_get_im_context(
@@ -66,6 +71,7 @@ impl EventControllerKey {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn set_im_context<P: IsA<IMContext>>(&self, im_context: &P) {
         unsafe {
             gtk_sys::gtk_event_controller_key_set_im_context(
@@ -139,6 +145,7 @@ impl EventControllerKey {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn connect_key_pressed<
         F: Fn(&EventControllerKey, u32, u32, gdk::ModifierType) -> bool + 'static,
     >(
@@ -171,6 +178,7 @@ impl EventControllerKey {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn connect_key_released<
         F: Fn(&EventControllerKey, u32, u32, gdk::ModifierType) + 'static,
     >(

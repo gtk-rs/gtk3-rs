@@ -20,6 +20,7 @@ use std::ptr;
 use Cancellable;
 use InetAddress;
 #[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
 use ResolverNameLookupFlags;
 use ResolverRecordType;
 use SrvTarget;
@@ -93,6 +94,7 @@ pub trait ResolverExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<InetAddress>, glib::Error>> + 'static>>;
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn lookup_by_name_with_flags<P: IsA<Cancellable>>(
         &self,
         hostname: &str,
@@ -101,6 +103,7 @@ pub trait ResolverExt: 'static {
     ) -> Result<Vec<InetAddress>, glib::Error>;
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn lookup_by_name_with_flags_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<Vec<InetAddress>, glib::Error>) + Send + 'static,
@@ -113,6 +116,7 @@ pub trait ResolverExt: 'static {
     );
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn lookup_by_name_with_flags_async_future(
         &self,
         hostname: &str,
@@ -339,6 +343,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
     }
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn lookup_by_name_with_flags<P: IsA<Cancellable>>(
         &self,
         hostname: &str,
@@ -363,6 +368,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
     }
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn lookup_by_name_with_flags_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<Vec<InetAddress>, glib::Error>) + Send + 'static,
@@ -409,6 +415,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
     }
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn lookup_by_name_with_flags_async_future(
         &self,
         hostname: &str,

@@ -145,6 +145,7 @@ pub trait ApplicationExt: 'static {
     //fn add_option_group(&self, group: /*Ignored*/&glib::OptionGroup);
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn bind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str);
 
     fn get_application_id(&self) -> Option<GString>;
@@ -158,6 +159,7 @@ pub trait ApplicationExt: 'static {
     fn get_inactivity_timeout(&self) -> u32;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn get_is_busy(&self) -> bool;
 
     fn get_is_registered(&self) -> bool;
@@ -189,17 +191,21 @@ pub trait ApplicationExt: 'static {
     fn set_inactivity_timeout(&self, inactivity_timeout: u32);
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn set_option_context_description(&self, description: Option<&str>);
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn set_option_context_parameter_string(&self, parameter_string: Option<&str>);
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn set_option_context_summary(&self, summary: Option<&str>);
 
     fn set_resource_base_path(&self, resource_path: Option<&str>);
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn unbind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str);
 
     fn unmark_busy(&self);
@@ -224,6 +230,7 @@ pub trait ApplicationExt: 'static {
     ) -> SignalHandlerId;
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn connect_name_lost<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_shutdown<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -246,6 +253,7 @@ pub trait ApplicationExt: 'static {
     ) -> SignalHandlerId;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn connect_property_is_busy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_is_registered_notify<F: Fn(&Self) + 'static>(
@@ -299,6 +307,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     //}
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn bind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str) {
         unsafe {
             gio_sys::g_application_bind_busy_property(
@@ -346,6 +355,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn get_is_busy(&self) -> bool {
         unsafe {
             from_glib(gio_sys::g_application_get_is_busy(
@@ -471,6 +481,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn set_option_context_description(&self, description: Option<&str>) {
         unsafe {
             gio_sys::g_application_set_option_context_description(
@@ -481,6 +492,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn set_option_context_parameter_string(&self, parameter_string: Option<&str>) {
         unsafe {
             gio_sys::g_application_set_option_context_parameter_string(
@@ -491,6 +503,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn set_option_context_summary(&self, summary: Option<&str>) {
         unsafe {
             gio_sys::g_application_set_option_context_summary(
@@ -510,6 +523,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn unbind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str) {
         unsafe {
             gio_sys::g_application_unbind_busy_property(
@@ -640,6 +654,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     }
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn connect_name_lost<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn name_lost_trampoline<P, F: Fn(&P) -> bool + 'static>(
             this: *mut gio_sys::GApplication,
@@ -816,6 +831,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn connect_property_is_busy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_busy_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut gio_sys::GApplication,

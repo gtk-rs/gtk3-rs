@@ -6,6 +6,7 @@ use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
 #[cfg(any(feature = "v2_48", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
 use glib::GString;
 use std::fmt;
 use SocketAddressEnumerator;
@@ -26,6 +27,7 @@ pub trait SocketConnectableExt: 'static {
     fn proxy_enumerate(&self) -> Option<SocketAddressEnumerator>;
 
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     fn to_string(&self) -> Option<GString>;
 }
 
@@ -47,6 +49,7 @@ impl<O: IsA<SocketConnectable>> SocketConnectableExt for O {
     }
 
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     fn to_string(&self) -> Option<GString> {
         unsafe {
             from_glib_full(gio_sys::g_socket_connectable_to_string(

@@ -5,6 +5,7 @@
 use gio_sys;
 use glib;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 use glib::object::IsA;
 use glib::translate::*;
 use glib::GString;
@@ -14,6 +15,7 @@ use DBusMessage;
 use DBusMethodInfo;
 use DBusPropertyInfo;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 use UnixFDList;
 
 glib_wrapper! {
@@ -129,6 +131,7 @@ impl DBusMethodInvocation {
     }
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     pub fn return_value_with_unix_fd_list<P: IsA<UnixFDList>>(
         &self,
         parameters: Option<&glib::Variant>,

@@ -61,6 +61,7 @@ impl Rect {
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     pub fn get_area(&self) -> f32 {
         unsafe { graphene_sys::graphene_rect_get_area(self.to_glib_none().0) }
     }
@@ -253,6 +254,7 @@ impl Rect {
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     pub fn round_extents(&self) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
@@ -265,6 +267,7 @@ impl Rect {
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     pub fn scale(&self, s_h: f32, s_v: f32) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();

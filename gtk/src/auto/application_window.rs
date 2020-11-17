@@ -24,6 +24,7 @@ use Buildable;
 use Container;
 use ResizeMode;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use ShortcutsWindow;
 use Widget;
 use Window;
@@ -78,6 +79,7 @@ pub struct ApplicationWindowBuilder {
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -226,6 +228,7 @@ impl ApplicationWindowBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref focus_on_click) = self.focus_on_click {
                 properties.push(("focus-on-click", focus_on_click));
@@ -502,6 +505,7 @@ impl ApplicationWindowBuilder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -642,6 +646,7 @@ pub const NONE_APPLICATION_WINDOW: Option<&ApplicationWindow> = None;
 
 pub trait ApplicationWindowExt: 'static {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_help_overlay(&self) -> Option<ShortcutsWindow>;
 
     fn get_id(&self) -> u32;
@@ -649,6 +654,7 @@ pub trait ApplicationWindowExt: 'static {
     fn get_show_menubar(&self) -> bool;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_help_overlay<P: IsA<ShortcutsWindow>>(&self, help_overlay: Option<&P>);
 
     fn set_show_menubar(&self, show_menubar: bool);
@@ -659,6 +665,7 @@ pub trait ApplicationWindowExt: 'static {
 
 impl<O: IsA<ApplicationWindow>> ApplicationWindowExt for O {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_help_overlay(&self) -> Option<ShortcutsWindow> {
         unsafe {
             from_glib_none(gtk_sys::gtk_application_window_get_help_overlay(
@@ -680,6 +687,7 @@ impl<O: IsA<ApplicationWindow>> ApplicationWindowExt for O {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_help_overlay<P: IsA<ShortcutsWindow>>(&self, help_overlay: Option<&P>) {
         unsafe {
             gtk_sys::gtk_application_window_set_help_overlay(

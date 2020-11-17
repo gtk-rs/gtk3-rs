@@ -43,6 +43,7 @@ impl PageSetup {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn from_gvariant(variant: &glib::Variant) -> PageSetup {
         assert_initialized_main_thread!();
         unsafe {
@@ -230,6 +231,7 @@ impl PageSetup {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn to_gvariant(&self) -> Option<glib::Variant> {
         unsafe { from_glib_none(gtk_sys::gtk_page_setup_to_gvariant(self.to_glib_none().0)) }
     }

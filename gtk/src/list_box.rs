@@ -10,11 +10,13 @@ use ListBox;
 
 pub trait ListBoxExtManual: 'static {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn unbind_model(&self);
 }
 
 impl<O: IsA<ListBox>> ListBoxExtManual for O {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn unbind_model(&self) {
         unsafe {
             gtk_sys::gtk_list_box_bind_model(

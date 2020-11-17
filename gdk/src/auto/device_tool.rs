@@ -22,16 +22,19 @@ glib_wrapper! {
 
 impl DeviceTool {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn get_hardware_id(&self) -> u64 {
         unsafe { gdk_sys::gdk_device_tool_get_hardware_id(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn get_serial(&self) -> u64 {
         unsafe { gdk_sys::gdk_device_tool_get_serial(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn get_tool_type(&self) -> DeviceToolType {
         unsafe {
             from_glib(gdk_sys::gdk_device_tool_get_tool_type(

@@ -6,16 +6,21 @@ use glib::translate::*;
 use gobject_sys;
 use graphene_sys;
 #[cfg(any(feature = "v1_10", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 use std::mem;
 #[cfg(any(feature = "v1_10", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 use Box;
 use Plane;
 use Point3D;
 #[cfg(any(feature = "v1_10", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 use RayIntersectionKind;
 #[cfg(any(feature = "v1_10", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 use Sphere;
 #[cfg(any(feature = "v1_10", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 use Triangle;
 use Vec3;
 
@@ -136,6 +141,7 @@ impl Ray {
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     pub fn intersect_box(&self, b: &Box) -> (RayIntersectionKind, f32) {
         unsafe {
             let mut t_out = mem::MaybeUninit::uninit();
@@ -150,6 +156,7 @@ impl Ray {
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     pub fn intersect_sphere(&self, s: &Sphere) -> (RayIntersectionKind, f32) {
         unsafe {
             let mut t_out = mem::MaybeUninit::uninit();
@@ -164,6 +171,7 @@ impl Ray {
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     pub fn intersect_triangle(&self, t: &Triangle) -> (RayIntersectionKind, f32) {
         unsafe {
             let mut t_out = mem::MaybeUninit::uninit();
@@ -178,6 +186,7 @@ impl Ray {
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     pub fn intersects_box(&self, b: &Box) -> bool {
         unsafe {
             from_glib(graphene_sys::graphene_ray_intersects_box(
@@ -188,6 +197,7 @@ impl Ray {
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     pub fn intersects_sphere(&self, s: &Sphere) -> bool {
         unsafe {
             from_glib(graphene_sys::graphene_ray_intersects_sphere(
@@ -198,6 +208,7 @@ impl Ray {
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     pub fn intersects_triangle(&self, t: &Triangle) -> bool {
         unsafe {
             from_glib(graphene_sys::graphene_ray_intersects_triangle(

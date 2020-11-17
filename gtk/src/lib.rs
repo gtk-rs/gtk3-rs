@@ -156,6 +156,7 @@
 #![allow(clippy::needless_doctest_main)]
 #![allow(clippy::too_many_arguments)]
 #![allow(deprecated)]
+#![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 extern crate libc;
 #[macro_use]

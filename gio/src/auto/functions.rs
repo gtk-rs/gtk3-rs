@@ -157,6 +157,7 @@ pub fn content_type_get_icon(type_: &str) -> Option<Icon> {
 }
 
 #[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
 pub fn content_type_get_mime_dirs() -> Vec<GString> {
     unsafe { FromGlibPtrContainer::from_glib_none(gio_sys::g_content_type_get_mime_dirs()) }
 }
@@ -210,6 +211,7 @@ pub fn content_type_is_a(type_: &str, supertype: &str) -> bool {
 }
 
 #[cfg(any(feature = "v2_52", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
 pub fn content_type_is_mime_type(type_: &str, mime_type: &str) -> bool {
     unsafe {
         from_glib(gio_sys::g_content_type_is_mime_type(
@@ -224,6 +226,7 @@ pub fn content_type_is_unknown(type_: &str) -> bool {
 }
 
 #[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
 pub fn content_type_set_mime_dirs(dirs: &[&str]) {
     unsafe {
         gio_sys::g_content_type_set_mime_dirs(dirs.to_glib_none().0);
@@ -565,6 +568,7 @@ pub fn resources_unregister(resource: &Resource) {
 //}
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 pub fn unix_is_mount_path_system_internal<P: AsRef<std::path::Path>>(mount_path: P) -> bool {
     unsafe {
         from_glib(gio_sys::g_unix_is_mount_path_system_internal(
@@ -574,7 +578,9 @@ pub fn unix_is_mount_path_system_internal<P: AsRef<std::path::Path>>(mount_path:
 }
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 #[cfg(any(feature = "v2_56", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
 pub fn unix_is_system_device_path<P: AsRef<std::path::Path>>(device_path: P) -> bool {
     unsafe {
         from_glib(gio_sys::g_unix_is_system_device_path(
@@ -584,7 +590,9 @@ pub fn unix_is_system_device_path<P: AsRef<std::path::Path>>(device_path: P) -> 
 }
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
 #[cfg(any(feature = "v2_56", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
 pub fn unix_is_system_fs_type(fs_type: &str) -> bool {
     unsafe { from_glib(gio_sys::g_unix_is_system_fs_type(fs_type.to_glib_none().0)) }
 }

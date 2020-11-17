@@ -4,27 +4,36 @@
 
 use gdk_sys;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::object::IsA;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::object::ObjectType as ObjectType_;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::signal::connect_raw;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib_sys;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use libc;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use std::boxed::Box as Box_;
 use std::fmt;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use std::mem::transmute;
 use Atom;
 use Device;
 use DragAction;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use DragCancelReason;
 use DragProtocol;
 use Window;
@@ -55,6 +64,7 @@ impl DragContext {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn get_drag_window(&self) -> Option<Window> {
         unsafe {
             from_glib_none(gdk_sys::gdk_drag_context_get_drag_window(
@@ -104,6 +114,7 @@ impl DragContext {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn manage_dnd<P: IsA<Window>>(&self, ipc_window: &P, actions: DragAction) -> bool {
         unsafe {
             from_glib(gdk_sys::gdk_drag_context_manage_dnd(
@@ -121,6 +132,7 @@ impl DragContext {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn set_hotspot(&self, hot_x: i32, hot_y: i32) {
         unsafe {
             gdk_sys::gdk_drag_context_set_hotspot(self.to_glib_none().0, hot_x, hot_y);
@@ -128,6 +140,7 @@ impl DragContext {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn connect_action_changed<F: Fn(&DragContext, DragAction) + 'static>(
         &self,
         f: F,
@@ -156,6 +169,7 @@ impl DragContext {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn connect_cancel<F: Fn(&DragContext, DragCancelReason) + 'static>(
         &self,
         f: F,
@@ -182,6 +196,7 @@ impl DragContext {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn connect_dnd_finished<F: Fn(&DragContext) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn dnd_finished_trampoline<F: Fn(&DragContext) + 'static>(
             this: *mut gdk_sys::GdkDragContext,
@@ -204,6 +219,7 @@ impl DragContext {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn connect_drop_performed<F: Fn(&DragContext, i32) + 'static>(
         &self,
         f: F,

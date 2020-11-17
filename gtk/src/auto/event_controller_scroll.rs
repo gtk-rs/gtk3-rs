@@ -3,8 +3,10 @@
 // DO NOT EDIT
 
 #[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use glib::object::Cast;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
@@ -18,8 +20,10 @@ use std::fmt;
 use std::mem::transmute;
 use EventController;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use EventControllerScrollFlags;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use Widget;
 
 glib_wrapper! {
@@ -32,6 +36,7 @@ glib_wrapper! {
 
 impl EventControllerScroll {
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn new<P: IsA<Widget>>(
         widget: &P,
         flags: EventControllerScrollFlags,
@@ -47,6 +52,7 @@ impl EventControllerScroll {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn get_flags(&self) -> EventControllerScrollFlags {
         unsafe {
             from_glib(gtk_sys::gtk_event_controller_scroll_get_flags(
@@ -56,6 +62,7 @@ impl EventControllerScroll {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn set_flags(&self, flags: EventControllerScrollFlags) {
         unsafe {
             gtk_sys::gtk_event_controller_scroll_set_flags(self.to_glib_none().0, flags.to_glib());
@@ -167,6 +174,7 @@ impl EventControllerScroll {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn connect_property_flags_notify<F: Fn(&EventControllerScroll) + 'static>(
         &self,
         f: F,

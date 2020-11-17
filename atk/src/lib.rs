@@ -12,6 +12,7 @@
 #![cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
 #![cfg_attr(feature = "cargo-clippy", allow(trivially_copy_pass_by_ref))]
 #![cfg_attr(feature = "cargo-clippy", allow(derive_hash_xor_eq))]
+#![cfg_attr(feature = "dox", feature(doc_cfg))]
 #![allow(deprecated)]
 
 extern crate libc;

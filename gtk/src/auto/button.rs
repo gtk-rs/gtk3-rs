@@ -97,6 +97,7 @@ pub struct ButtonBuilder {
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -178,6 +179,7 @@ impl ButtonBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref focus_on_click) = self.focus_on_click {
                 properties.push(("focus-on-click", focus_on_click));
@@ -345,6 +347,7 @@ impl ButtonBuilder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -502,6 +505,7 @@ pub trait ButtonExt: 'static {
 
     #[cfg_attr(feature = "v3_20", deprecated)]
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
     fn get_focus_on_click(&self) -> bool;
 
     fn get_image(&self) -> Option<Widget>;
@@ -518,6 +522,7 @@ pub trait ButtonExt: 'static {
 
     #[cfg_attr(feature = "v3_20", deprecated)]
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
     fn set_focus_on_click(&self, focus_on_click: bool);
 
     fn set_image<P: IsA<Widget>>(&self, image: Option<&P>);
@@ -584,6 +589,7 @@ impl<O: IsA<Button>> ButtonExt for O {
     }
 
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
     fn get_focus_on_click(&self) -> bool {
         unsafe {
             from_glib(gtk_sys::gtk_button_get_focus_on_click(
@@ -642,6 +648,7 @@ impl<O: IsA<Button>> ButtonExt for O {
     }
 
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
     fn set_focus_on_click(&self, focus_on_click: bool) {
         unsafe {
             gtk_sys::gtk_button_set_focus_on_click(

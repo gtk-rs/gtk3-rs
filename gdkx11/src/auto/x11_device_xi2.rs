@@ -49,12 +49,15 @@ pub struct X11DeviceXI2Builder {
     //input-source: /*Unknown type*/,
     name: Option<String>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     num_touches: Option<u32>,
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     product_id: Option<String>,
     //seat: /*Unknown type*/,
     //type: /*Unknown type*/,
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     vendor_id: Option<String>,
 }
 
@@ -81,18 +84,21 @@ impl X11DeviceXI2Builder {
             properties.push(("name", name));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref num_touches) = self.num_touches {
                 properties.push(("num-touches", num_touches));
             }
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
         {
             if let Some(ref product_id) = self.product_id {
                 properties.push(("product-id", product_id));
             }
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
         {
             if let Some(ref vendor_id) = self.vendor_id {
                 properties.push(("vendor-id", vendor_id));
@@ -131,18 +137,21 @@ impl X11DeviceXI2Builder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn num_touches(mut self, num_touches: u32) -> Self {
         self.num_touches = Some(num_touches);
         self
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn product_id(mut self, product_id: &str) -> Self {
         self.product_id = Some(product_id.to_string());
         self
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn vendor_id(mut self, vendor_id: &str) -> Self {
         self.vendor_id = Some(vendor_id.to_string());
         self

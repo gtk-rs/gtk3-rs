@@ -50,6 +50,7 @@ pub struct PanedBuilder {
     position: Option<i32>,
     position_set: Option<bool>,
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     wide_handle: Option<bool>,
     border_width: Option<u32>,
     child: Option<Widget>,
@@ -60,6 +61,7 @@ pub struct PanedBuilder {
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -104,6 +106,7 @@ impl PanedBuilder {
             properties.push(("position-set", position_set));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
         {
             if let Some(ref wide_handle) = self.wide_handle {
                 properties.push(("wide-handle", wide_handle));
@@ -134,6 +137,7 @@ impl PanedBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref focus_on_click) = self.focus_on_click {
                 properties.push(("focus-on-click", focus_on_click));
@@ -238,6 +242,7 @@ impl PanedBuilder {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn wide_handle(mut self, wide_handle: bool) -> Self {
         self.wide_handle = Some(wide_handle);
         self
@@ -284,6 +289,7 @@ impl PanedBuilder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -441,6 +447,7 @@ pub trait PanedExt: 'static {
     fn get_position(&self) -> i32;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_wide_handle(&self) -> bool;
 
     fn pack1<P: IsA<Widget>>(&self, child: &P, resize: bool, shrink: bool);
@@ -450,6 +457,7 @@ pub trait PanedExt: 'static {
     fn set_position(&self, position: i32);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_wide_handle(&self, wide: bool);
 
     fn get_property_max_position(&self) -> i32;
@@ -513,6 +521,7 @@ pub trait PanedExt: 'static {
         -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_property_wide_handle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -564,6 +573,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_wide_handle(&self) -> bool {
         unsafe {
             from_glib(gtk_sys::gtk_paned_get_wide_handle(
@@ -601,6 +611,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_wide_handle(&self, wide: bool) {
         unsafe {
             gtk_sys::gtk_paned_set_wide_handle(self.as_ref().to_glib_none().0, wide.to_glib());
@@ -1062,6 +1073,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_property_wide_handle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_wide_handle_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut gtk_sys::GtkPaned,

@@ -39,6 +39,7 @@ pub trait AtkObjectExt: 'static {
     fn add_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool;
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
     fn get_accessible_id(&self) -> Option<GString>;
 
     //fn get_attributes(&self) -> /*Ignored*/Option<AttributeSet>;
@@ -76,6 +77,7 @@ pub trait AtkObjectExt: 'static {
     fn remove_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool;
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
     fn set_accessible_id(&self, name: &str);
 
     fn set_description(&self, description: &str);
@@ -265,6 +267,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
     }
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
     fn get_accessible_id(&self) -> Option<GString> {
         unsafe {
             from_glib_none(atk_sys::atk_object_get_accessible_id(
@@ -387,6 +390,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
     }
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
     fn set_accessible_id(&self, name: &str) {
         unsafe {
             atk_sys::atk_object_set_accessible_id(

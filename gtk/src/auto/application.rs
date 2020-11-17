@@ -172,9 +172,11 @@ pub trait GtkApplicationExt: 'static {
     fn set_property_register_session(&self, register_session: bool);
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn get_property_screensaver_active(&self) -> bool;
 
     #[cfg(any(feature = "v3_24_8", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_8")))]
     fn connect_query_end<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_window_added<F: Fn(&Self, &Window) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -196,6 +198,7 @@ pub trait GtkApplicationExt: 'static {
     ) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn connect_property_screensaver_active_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -390,6 +393,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn get_property_screensaver_active(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
@@ -406,6 +410,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
     }
 
     #[cfg(any(feature = "v3_24_8", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_8")))]
     fn connect_query_end<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn query_end_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut gtk_sys::GtkApplication,
@@ -586,6 +591,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn connect_property_screensaver_active_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,

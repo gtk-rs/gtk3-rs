@@ -47,6 +47,7 @@ impl Pixbuf {
     }
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     pub fn from_bytes(
         data: &glib::Bytes,
         colorspace: Colorspace,
@@ -329,6 +330,7 @@ impl Pixbuf {
     }
 
     #[cfg(any(feature = "v2_36", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
     pub fn copy_options(&self, dest_pixbuf: &Pixbuf) -> bool {
         unsafe {
             from_glib(gdk_pixbuf_sys::gdk_pixbuf_copy_options(
@@ -395,6 +397,7 @@ impl Pixbuf {
     }
 
     //#[cfg(any(feature = "v2_32", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     //pub fn get_options(&self) -> /*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 } {
     //    unsafe { TODO: call gdk_pixbuf_sys:gdk_pixbuf_get_options() }
     //}
@@ -420,6 +423,7 @@ impl Pixbuf {
     }
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     pub fn read_pixel_bytes(&self) -> Option<glib::Bytes> {
         unsafe {
             from_glib_full(gdk_pixbuf_sys::gdk_pixbuf_read_pixel_bytes(
@@ -429,6 +433,7 @@ impl Pixbuf {
     }
 
     #[cfg(any(feature = "v2_36", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
     pub fn remove_option(&self, key: &str) -> bool {
         unsafe {
             from_glib(gdk_pixbuf_sys::gdk_pixbuf_remove_option(
@@ -574,6 +579,7 @@ impl Pixbuf {
     }
 
     #[cfg(any(feature = "v2_36_8", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36_8")))]
     pub fn calculate_rowstride(
         colorspace: Colorspace,
         has_alpha: bool,
@@ -599,6 +605,7 @@ impl Pixbuf {
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
     pub fn init_modules(path: &str) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();

@@ -26,6 +26,7 @@ glib_wrapper! {
 
 impl Quaternion {
     #[cfg(any(feature = "v1_10", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     pub fn add(&self, b: &Quaternion) -> Quaternion {
         unsafe {
             let mut res = Quaternion::uninitialized();
@@ -143,6 +144,7 @@ impl Quaternion {
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     pub fn multiply(&self, b: &Quaternion) -> Quaternion {
         unsafe {
             let mut res = Quaternion::uninitialized();
@@ -167,6 +169,7 @@ impl Quaternion {
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     pub fn scale(&self, factor: f32) -> Quaternion {
         unsafe {
             let mut res = Quaternion::uninitialized();

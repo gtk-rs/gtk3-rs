@@ -914,6 +914,7 @@ impl SetValue for Role {
 }
 
 #[cfg(any(feature = "v2_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum ScrollType {
@@ -929,6 +930,7 @@ pub enum ScrollType {
 }
 
 #[cfg(any(feature = "v2_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 impl fmt::Display for ScrollType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -949,6 +951,7 @@ impl fmt::Display for ScrollType {
 }
 
 #[cfg(any(feature = "v2_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 #[doc(hidden)]
 impl ToGlib for ScrollType {
     type GlibType = atk_sys::AtkScrollType;
@@ -968,6 +971,7 @@ impl ToGlib for ScrollType {
 }
 
 #[cfg(any(feature = "v2_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 #[doc(hidden)]
 impl FromGlib<atk_sys::AtkScrollType> for ScrollType {
     fn from_glib(value: atk_sys::AtkScrollType) -> Self {
@@ -986,6 +990,7 @@ impl FromGlib<atk_sys::AtkScrollType> for ScrollType {
 }
 
 #[cfg(any(feature = "v2_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 impl StaticType for ScrollType {
     fn static_type() -> Type {
         unsafe { from_glib(atk_sys::atk_scroll_type_get_type()) }
@@ -993,6 +998,7 @@ impl StaticType for ScrollType {
 }
 
 #[cfg(any(feature = "v2_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 impl<'a> FromValueOptional<'a> for ScrollType {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
@@ -1000,6 +1006,7 @@ impl<'a> FromValueOptional<'a> for ScrollType {
 }
 
 #[cfg(any(feature = "v2_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 impl<'a> FromValue<'a> for ScrollType {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
@@ -1007,6 +1014,7 @@ impl<'a> FromValue<'a> for ScrollType {
 }
 
 #[cfg(any(feature = "v2_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 impl SetValue for ScrollType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())

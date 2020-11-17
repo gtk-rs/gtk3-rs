@@ -6,6 +6,7 @@ use glib::translate::*;
 use gobject_sys;
 use graphene_sys;
 #[cfg(any(feature = "v1_10", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 use Matrix;
 use Point3D;
 use Vec3;
@@ -121,6 +122,7 @@ impl Plane {
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     pub fn transform(&self, matrix: &Matrix, normal_matrix: Option<&Matrix>) -> Plane {
         unsafe {
             let mut res = Plane::uninitialized();

@@ -8,6 +8,7 @@
     clippy::type_complexity,
     clippy::unreadable_literal
 )]
+#![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 extern crate glib_sys as glib;
 extern crate gobject_sys as gobject;
@@ -8889,6 +8890,7 @@ extern "C" {
     // GMemoryMonitorWarningLevel
     //=========================================================================
     #[cfg(any(feature = "v2_64", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     pub fn g_memory_monitor_warning_level_get_type() -> GType;
 
     //=========================================================================
@@ -8900,6 +8902,7 @@ extern "C" {
     // GNetworkConnectivity
     //=========================================================================
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_network_connectivity_get_type() -> GType;
 
     //=========================================================================
@@ -8916,6 +8919,7 @@ extern "C" {
     // GPollableReturn
     //=========================================================================
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_pollable_return_get_type() -> GType;
 
     //=========================================================================
@@ -8949,6 +8953,7 @@ extern "C" {
     // GSocketListenerEvent
     //=========================================================================
     #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn g_socket_listener_event_get_type() -> GType;
 
     //=========================================================================
@@ -8975,14 +8980,17 @@ extern "C" {
     // GTlsChannelBindingError
     //=========================================================================
     #[cfg(any(feature = "v2_66", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
     pub fn g_tls_channel_binding_error_get_type() -> GType;
     #[cfg(any(feature = "v2_66", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
     pub fn g_tls_channel_binding_error_quark() -> glib::GQuark;
 
     //=========================================================================
     // GTlsChannelBindingType
     //=========================================================================
     #[cfg(any(feature = "v2_66", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
     pub fn g_tls_channel_binding_type_get_type() -> GType;
 
     //=========================================================================
@@ -9165,6 +9173,7 @@ extern "C" {
     // GResolverNameLookupFlags
     //=========================================================================
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_resolver_name_lookup_flags_get_type() -> GType;
 
     //=========================================================================
@@ -9460,8 +9469,10 @@ extern "C" {
     pub fn g_settings_schema_has_key(schema: *mut GSettingsSchema, name: *const c_char)
         -> gboolean;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_settings_schema_list_children(schema: *mut GSettingsSchema) -> *mut *mut c_char;
     #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn g_settings_schema_list_keys(schema: *mut GSettingsSchema) -> *mut *mut c_char;
     pub fn g_settings_schema_ref(schema: *mut GSettingsSchema) -> *mut GSettingsSchema;
     pub fn g_settings_schema_unref(schema: *mut GSettingsSchema);
@@ -9475,6 +9486,7 @@ extern "C" {
     ) -> *mut glib::GVariant;
     pub fn g_settings_schema_key_get_description(key: *mut GSettingsSchemaKey) -> *const c_char;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_settings_schema_key_get_name(key: *mut GSettingsSchemaKey) -> *const c_char;
     pub fn g_settings_schema_key_get_range(key: *mut GSettingsSchemaKey) -> *mut glib::GVariant;
     pub fn g_settings_schema_key_get_summary(key: *mut GSettingsSchemaKey) -> *const c_char;
@@ -9544,18 +9556,21 @@ extern "C" {
     // GUnixMountEntry
     //=========================================================================
     #[cfg(any(feature = "v2_54", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
     pub fn g_unix_mount_entry_get_type() -> GType;
 
     //=========================================================================
     // GUnixMountPoint
     //=========================================================================
     #[cfg(any(feature = "v2_54", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
     pub fn g_unix_mount_point_get_type() -> GType;
     pub fn g_unix_mount_point_compare(
         mount1: *mut GUnixMountPoint,
         mount2: *mut GUnixMountPoint,
     ) -> c_int;
     #[cfg(any(feature = "v2_54", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
     pub fn g_unix_mount_point_copy(mount_point: *mut GUnixMountPoint) -> *mut GUnixMountPoint;
     pub fn g_unix_mount_point_free(mount_point: *mut GUnixMountPoint);
     pub fn g_unix_mount_point_get_device_path(mount_point: *mut GUnixMountPoint) -> *const c_char;
@@ -9570,6 +9585,7 @@ extern "C" {
     pub fn g_unix_mount_point_is_readonly(mount_point: *mut GUnixMountPoint) -> gboolean;
     pub fn g_unix_mount_point_is_user_mountable(mount_point: *mut GUnixMountPoint) -> gboolean;
     #[cfg(any(feature = "v2_66", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
     pub fn g_unix_mount_point_at(
         mount_path: *const c_char,
         time_read: *mut u64,
@@ -9639,6 +9655,7 @@ extern "C" {
         group: *mut glib::GOptionGroup,
     );
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_application_bind_busy_property(
         application: *mut GApplication,
         object: *mut gobject::GObject,
@@ -9652,6 +9669,7 @@ extern "C" {
     pub fn g_application_get_flags(application: *mut GApplication) -> GApplicationFlags;
     pub fn g_application_get_inactivity_timeout(application: *mut GApplication) -> c_uint;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_application_get_is_busy(application: *mut GApplication) -> gboolean;
     pub fn g_application_get_is_registered(application: *mut GApplication) -> gboolean;
     pub fn g_application_get_is_remote(application: *mut GApplication) -> gboolean;
@@ -9696,16 +9714,19 @@ extern "C" {
         inactivity_timeout: c_uint,
     );
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     pub fn g_application_set_option_context_description(
         application: *mut GApplication,
         description: *const c_char,
     );
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     pub fn g_application_set_option_context_parameter_string(
         application: *mut GApplication,
         parameter_string: *const c_char,
     );
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     pub fn g_application_set_option_context_summary(
         application: *mut GApplication,
         summary: *const c_char,
@@ -9715,6 +9736,7 @@ extern "C" {
         resource_path: *const c_char,
     );
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_application_unbind_busy_property(
         application: *mut GApplication,
         object: *mut gobject::GObject,
@@ -10154,6 +10176,7 @@ extern "C" {
     ) -> GDBusCapabilityFlags;
     pub fn g_dbus_connection_get_exit_on_close(connection: *mut GDBusConnection) -> gboolean;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_dbus_connection_get_flags(connection: *mut GDBusConnection) -> GDBusConnectionFlags;
     pub fn g_dbus_connection_get_guid(connection: *mut GDBusConnection) -> *const c_char;
     pub fn g_dbus_connection_get_last_serial(connection: *mut GDBusConnection) -> u32;
@@ -10173,6 +10196,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> c_uint;
     #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn g_dbus_connection_register_object_with_closures(
         connection: *mut GDBusConnection,
         object_path: *const c_char,
@@ -10991,6 +11015,7 @@ extern "C" {
     pub fn g_desktop_app_info_get_is_hidden(info: *mut GDesktopAppInfo) -> gboolean;
     pub fn g_desktop_app_info_get_keywords(info: *mut GDesktopAppInfo) -> *const *const c_char;
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     pub fn g_desktop_app_info_get_locale_string(
         info: *mut GDesktopAppInfo,
         key: *const c_char,
@@ -11006,6 +11031,7 @@ extern "C" {
         key: *const c_char,
     ) -> *mut c_char;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_desktop_app_info_get_string_list(
         info: *mut GDesktopAppInfo,
         key: *const c_char,
@@ -11029,6 +11055,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     pub fn g_desktop_app_info_launch_uris_as_manager_with_fds(
         appinfo: *mut GDesktopAppInfo,
         uris: *mut glib::GList,
@@ -11093,6 +11120,7 @@ extern "C" {
     pub fn g_file_enumerator_has_pending(enumerator: *mut GFileEnumerator) -> gboolean;
     pub fn g_file_enumerator_is_closed(enumerator: *mut GFileEnumerator) -> gboolean;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_file_enumerator_iterate(
         direnum: *mut GFileEnumerator,
         out_info: *mut *mut GFileInfo,
@@ -11214,6 +11242,7 @@ extern "C" {
     pub fn g_file_info_get_is_hidden(info: *mut GFileInfo) -> gboolean;
     pub fn g_file_info_get_is_symlink(info: *mut GFileInfo) -> gboolean;
     #[cfg(any(feature = "v2_62", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_62")))]
     pub fn g_file_info_get_modification_date_time(info: *mut GFileInfo) -> *mut glib::GDateTime;
     pub fn g_file_info_get_modification_time(info: *mut GFileInfo, result: *mut glib::GTimeVal);
     pub fn g_file_info_get_name(info: *mut GFileInfo) -> *const c_char;
@@ -11293,6 +11322,7 @@ extern "C" {
     pub fn g_file_info_set_is_hidden(info: *mut GFileInfo, is_hidden: gboolean);
     pub fn g_file_info_set_is_symlink(info: *mut GFileInfo, is_symlink: gboolean);
     #[cfg(any(feature = "v2_62", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_62")))]
     pub fn g_file_info_set_modification_date_time(
         info: *mut GFileInfo,
         mtime: *mut glib::GDateTime,
@@ -11579,6 +11609,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_input_stream_read_all_async(
         stream: *mut GInputStream,
         buffer: *mut u8,
@@ -11589,6 +11620,7 @@ extern "C" {
         user_data: gpointer,
     );
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_input_stream_read_all_finish(
         stream: *mut GInputStream,
         result: *mut GAsyncResult,
@@ -11656,18 +11688,23 @@ extern "C" {
     // GListStore
     //=========================================================================
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_list_store_get_type() -> GType;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_list_store_new(item_type: GType) -> *mut GListStore;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_list_store_append(store: *mut GListStore, item: *mut gobject::GObject);
     #[cfg(any(feature = "v2_64", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     pub fn g_list_store_find(
         store: *mut GListStore,
         item: *mut gobject::GObject,
         position: *mut c_uint,
     ) -> gboolean;
     #[cfg(any(feature = "v2_64", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     pub fn g_list_store_find_with_equal_func(
         store: *mut GListStore,
         item: *mut gobject::GObject,
@@ -11675,12 +11712,14 @@ extern "C" {
         position: *mut c_uint,
     ) -> gboolean;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_list_store_insert(
         store: *mut GListStore,
         position: c_uint,
         item: *mut gobject::GObject,
     );
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_list_store_insert_sorted(
         store: *mut GListStore,
         item: *mut gobject::GObject,
@@ -11688,16 +11727,20 @@ extern "C" {
         user_data: gpointer,
     ) -> c_uint;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_list_store_remove(store: *mut GListStore, position: c_uint);
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_list_store_remove_all(store: *mut GListStore);
     #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn g_list_store_sort(
         store: *mut GListStore,
         compare_func: glib::GCompareDataFunc,
         user_data: gpointer,
     );
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_list_store_splice(
         store: *mut GListStore,
         position: c_uint,
@@ -11919,12 +11962,15 @@ extern "C" {
     pub fn g_mount_operation_get_choice(op: *mut GMountOperation) -> c_int;
     pub fn g_mount_operation_get_domain(op: *mut GMountOperation) -> *const c_char;
     #[cfg(any(feature = "v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     pub fn g_mount_operation_get_is_tcrypt_hidden_volume(op: *mut GMountOperation) -> gboolean;
     #[cfg(any(feature = "v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     pub fn g_mount_operation_get_is_tcrypt_system_volume(op: *mut GMountOperation) -> gboolean;
     pub fn g_mount_operation_get_password(op: *mut GMountOperation) -> *const c_char;
     pub fn g_mount_operation_get_password_save(op: *mut GMountOperation) -> GPasswordSave;
     #[cfg(any(feature = "v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     pub fn g_mount_operation_get_pim(op: *mut GMountOperation) -> c_uint;
     pub fn g_mount_operation_get_username(op: *mut GMountOperation) -> *const c_char;
     pub fn g_mount_operation_reply(op: *mut GMountOperation, result: GMountOperationResult);
@@ -11932,11 +11978,13 @@ extern "C" {
     pub fn g_mount_operation_set_choice(op: *mut GMountOperation, choice: c_int);
     pub fn g_mount_operation_set_domain(op: *mut GMountOperation, domain: *const c_char);
     #[cfg(any(feature = "v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     pub fn g_mount_operation_set_is_tcrypt_hidden_volume(
         op: *mut GMountOperation,
         hidden_volume: gboolean,
     );
     #[cfg(any(feature = "v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     pub fn g_mount_operation_set_is_tcrypt_system_volume(
         op: *mut GMountOperation,
         system_volume: gboolean,
@@ -11944,6 +11992,7 @@ extern "C" {
     pub fn g_mount_operation_set_password(op: *mut GMountOperation, password: *const c_char);
     pub fn g_mount_operation_set_password_save(op: *mut GMountOperation, save: GPasswordSave);
     #[cfg(any(feature = "v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     pub fn g_mount_operation_set_pim(op: *mut GMountOperation, pim: c_uint);
     pub fn g_mount_operation_set_username(op: *mut GMountOperation, username: *const c_char);
 
@@ -11951,8 +12000,10 @@ extern "C" {
     // GNativeSocketAddress
     //=========================================================================
     #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn g_native_socket_address_get_type() -> GType;
     #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn g_native_socket_address_new(native: gpointer, len: size_t) -> *mut GSocketAddress;
 
     //=========================================================================
@@ -11966,6 +12017,7 @@ extern "C" {
     pub fn g_network_address_get_type() -> GType;
     pub fn g_network_address_new(hostname: *const c_char, port: u16) -> *mut GNetworkAddress;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_network_address_new_loopback(port: u16) -> *mut GNetworkAddress;
     pub fn g_network_address_parse(
         host_and_port: *const c_char,
@@ -12135,6 +12187,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_output_stream_write_all_async(
         stream: *mut GOutputStream,
         buffer: *mut u8,
@@ -12145,6 +12198,7 @@ extern "C" {
         user_data: gpointer,
     );
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_output_stream_write_all_finish(
         stream: *mut GOutputStream,
         result: *mut GAsyncResult,
@@ -12185,6 +12239,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> ssize_t;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_output_stream_writev(
         stream: *mut GOutputStream,
         vectors: *const GOutputVector,
@@ -12194,6 +12249,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_output_stream_writev_all(
         stream: *mut GOutputStream,
         vectors: *mut GOutputVector,
@@ -12203,6 +12259,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_output_stream_writev_all_async(
         stream: *mut GOutputStream,
         vectors: *mut GOutputVector,
@@ -12213,6 +12270,7 @@ extern "C" {
         user_data: gpointer,
     );
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_output_stream_writev_all_finish(
         stream: *mut GOutputStream,
         result: *mut GAsyncResult,
@@ -12220,6 +12278,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_output_stream_writev_async(
         stream: *mut GOutputStream,
         vectors: *const GOutputVector,
@@ -12230,6 +12289,7 @@ extern "C" {
         user_data: gpointer,
     );
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_output_stream_writev_finish(
         stream: *mut GOutputStream,
         result: *mut GAsyncResult,
@@ -12363,6 +12423,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> *mut glib::GList;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_resolver_lookup_by_name_with_flags(
         resolver: *mut GResolver,
         hostname: *const c_char,
@@ -12371,6 +12432,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> *mut glib::GList;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_resolver_lookup_by_name_with_flags_async(
         resolver: *mut GResolver,
         hostname: *const c_char,
@@ -12380,6 +12442,7 @@ extern "C" {
         user_data: gpointer,
     );
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_resolver_lookup_by_name_with_flags_finish(
         resolver: *mut GResolver,
         result: *mut GAsyncResult,
@@ -12497,6 +12560,7 @@ extern "C" {
     pub fn g_settings_get_has_unapplied(settings: *mut GSettings) -> gboolean;
     pub fn g_settings_get_int(settings: *mut GSettings, key: *const c_char) -> c_int;
     #[cfg(any(feature = "v2_50", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     pub fn g_settings_get_int64(settings: *mut GSettings, key: *const c_char) -> i64;
     pub fn g_settings_get_mapped(
         settings: *mut GSettings,
@@ -12512,6 +12576,7 @@ extern "C" {
     pub fn g_settings_get_strv(settings: *mut GSettings, key: *const c_char) -> *mut *mut c_char;
     pub fn g_settings_get_uint(settings: *mut GSettings, key: *const c_char) -> c_uint;
     #[cfg(any(feature = "v2_50", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     pub fn g_settings_get_uint64(settings: *mut GSettings, key: *const c_char) -> u64;
     pub fn g_settings_get_user_value(
         settings: *mut GSettings,
@@ -12563,6 +12628,7 @@ extern "C" {
         value: c_int,
     ) -> gboolean;
     #[cfg(any(feature = "v2_50", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     pub fn g_settings_set_int64(
         settings: *mut GSettings,
         key: *const c_char,
@@ -12584,6 +12650,7 @@ extern "C" {
         value: c_uint,
     ) -> gboolean;
     #[cfg(any(feature = "v2_50", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     pub fn g_settings_set_uint64(
         settings: *mut GSettings,
         key: *const c_char,
@@ -12649,6 +12716,7 @@ extern "C" {
     pub fn g_simple_action_set_enabled(simple: *mut GSimpleAction, enabled: gboolean);
     pub fn g_simple_action_set_state(simple: *mut GSimpleAction, value: *mut glib::GVariant);
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_simple_action_set_state_hint(
         simple: *mut GSimpleAction,
         state_hint: *mut glib::GVariant,
@@ -12769,8 +12837,10 @@ extern "C" {
     // GSimpleIOStream
     //=========================================================================
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_simple_io_stream_get_type() -> GType;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_simple_io_stream_new(
         input_stream: *mut GInputStream,
         output_stream: *mut GOutputStream,
@@ -12904,6 +12974,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     pub fn g_socket_join_multicast_group_ssm(
         socket: *mut GSocket,
         group: *mut GInetAddress,
@@ -12919,6 +12990,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     pub fn g_socket_leave_multicast_group_ssm(
         socket: *mut GSocket,
         group: *mut GInetAddress,
@@ -12954,6 +13026,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> ssize_t;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_socket_receive_messages(
         socket: *mut GSocket,
         messages: *mut GInputMessage,
@@ -12989,6 +13062,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> ssize_t;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_socket_send_message_with_timeout(
         socket: *mut GSocket,
         address: *mut GSocketAddress,
@@ -13003,6 +13077,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> GPollableReturn;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_socket_send_messages(
         socket: *mut GSocket,
         messages: *mut GOutputMessage,
@@ -13546,9 +13621,11 @@ extern "C" {
     pub fn g_task_get_cancellable(task: *mut GTask) -> *mut GCancellable;
     pub fn g_task_get_check_cancellable(task: *mut GTask) -> gboolean;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_task_get_completed(task: *mut GTask) -> gboolean;
     pub fn g_task_get_context(task: *mut GTask) -> *mut glib::GMainContext;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_task_get_name(task: *mut GTask) -> *const c_char;
     pub fn g_task_get_priority(task: *mut GTask) -> c_int;
     pub fn g_task_get_return_on_cancel(task: *mut GTask) -> gboolean;
@@ -13560,6 +13637,7 @@ extern "C" {
     pub fn g_task_propagate_int(task: *mut GTask, error: *mut *mut glib::GError) -> ssize_t;
     pub fn g_task_propagate_pointer(task: *mut GTask, error: *mut *mut glib::GError) -> gpointer;
     #[cfg(any(feature = "v2_64", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     pub fn g_task_propagate_value(
         task: *mut GTask,
         value: *mut gobject::GValue,
@@ -13582,11 +13660,13 @@ extern "C" {
         result_destroy: glib::GDestroyNotify,
     );
     #[cfg(any(feature = "v2_64", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     pub fn g_task_return_value(task: *mut GTask, result: *mut gobject::GValue);
     pub fn g_task_run_in_thread(task: *mut GTask, task_func: GTaskThreadFunc);
     pub fn g_task_run_in_thread_sync(task: *mut GTask, task_func: GTaskThreadFunc);
     pub fn g_task_set_check_cancellable(task: *mut GTask, check_cancellable: gboolean);
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_task_set_name(task: *mut GTask, name: *const c_char);
     pub fn g_task_set_priority(task: *mut GTask, priority: c_int);
     pub fn g_task_set_return_on_cancel(task: *mut GTask, return_on_cancel: gboolean) -> gboolean;
@@ -13696,6 +13776,7 @@ extern "C" {
     ) -> gboolean;
     pub fn g_tls_connection_get_certificate(conn: *mut GTlsConnection) -> *mut GTlsCertificate;
     #[cfg(any(feature = "v2_66", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
     pub fn g_tls_connection_get_channel_binding_data(
         conn: *mut GTlsConnection,
         type_: GTlsChannelBindingType,
@@ -13705,6 +13786,7 @@ extern "C" {
     pub fn g_tls_connection_get_database(conn: *mut GTlsConnection) -> *mut GTlsDatabase;
     pub fn g_tls_connection_get_interaction(conn: *mut GTlsConnection) -> *mut GTlsInteraction;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_tls_connection_get_negotiated_protocol(conn: *mut GTlsConnection) -> *const c_char;
     pub fn g_tls_connection_get_peer_certificate(conn: *mut GTlsConnection)
         -> *mut GTlsCertificate;
@@ -13732,6 +13814,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_tls_connection_set_advertised_protocols(
         conn: *mut GTlsConnection,
         protocols: *const *const c_char,
@@ -14053,6 +14136,7 @@ extern "C" {
     pub fn g_unix_mount_monitor_get_type() -> GType;
     pub fn g_unix_mount_monitor_new() -> *mut GUnixMountMonitor;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_unix_mount_monitor_get() -> *mut GUnixMountMonitor;
     pub fn g_unix_mount_monitor_set_rate_limit(
         mount_monitor: *mut GUnixMountMonitor,
@@ -14102,6 +14186,7 @@ extern "C" {
     pub fn g_vfs_is_active(vfs: *mut GVfs) -> gboolean;
     pub fn g_vfs_parse_name(vfs: *mut GVfs, parse_name: *const c_char) -> *mut GFile;
     #[cfg(any(feature = "v2_50", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     pub fn g_vfs_register_uri_scheme(
         vfs: *mut GVfs,
         scheme: *const c_char,
@@ -14113,6 +14198,7 @@ extern "C" {
         parse_name_destroy: glib::GDestroyNotify,
     ) -> gboolean;
     #[cfg(any(feature = "v2_50", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     pub fn g_vfs_unregister_uri_scheme(vfs: *mut GVfs, scheme: *const c_char) -> gboolean;
 
     //=========================================================================
@@ -14288,6 +14374,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_50", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     pub fn g_app_info_launch_default_for_uri_async(
         uri: *const c_char,
         context: *mut GAppLaunchContext,
@@ -14296,6 +14383,7 @@ extern "C" {
         user_data: gpointer,
     );
     #[cfg(any(feature = "v2_50", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     pub fn g_app_info_launch_default_for_uri_finish(
         result: *mut GAsyncResult,
         error: *mut *mut glib::GError,
@@ -14332,6 +14420,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_app_info_launch_uris_async(
         appinfo: *mut GAppInfo,
         uris: *mut glib::GList,
@@ -14341,6 +14430,7 @@ extern "C" {
         user_data: gpointer,
     );
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_app_info_launch_uris_finish(
         appinfo: *mut GAppInfo,
         result: *mut GAsyncResult,
@@ -14481,13 +14571,16 @@ extern "C" {
     // GDatagramBased
     //=========================================================================
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_datagram_based_get_type() -> GType;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_datagram_based_condition_check(
         datagram_based: *mut GDatagramBased,
         condition: glib::GIOCondition,
     ) -> glib::GIOCondition;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_datagram_based_condition_wait(
         datagram_based: *mut GDatagramBased,
         condition: glib::GIOCondition,
@@ -14496,12 +14589,14 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_datagram_based_create_source(
         datagram_based: *mut GDatagramBased,
         condition: glib::GIOCondition,
         cancellable: *mut GCancellable,
     ) -> *mut glib::GSource;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_datagram_based_receive_messages(
         datagram_based: *mut GDatagramBased,
         messages: *mut GInputMessage,
@@ -14512,6 +14607,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> c_int;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_datagram_based_send_messages(
         datagram_based: *mut GDatagramBased,
         messages: *mut GOutputMessage,
@@ -14578,6 +14674,7 @@ extern "C" {
     pub fn g_drive_is_media_check_automatic(drive: *mut GDrive) -> gboolean;
     pub fn g_drive_is_media_removable(drive: *mut GDrive) -> gboolean;
     #[cfg(any(feature = "v2_50", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     pub fn g_drive_is_removable(drive: *mut GDrive) -> gboolean;
     pub fn g_drive_poll_for_media(
         drive: *mut GDrive,
@@ -14621,31 +14718,38 @@ extern "C" {
     // GDtlsClientConnection
     //=========================================================================
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_client_connection_get_type() -> GType;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_client_connection_new(
         base_socket: *mut GDatagramBased,
         server_identity: *mut GSocketConnectable,
         error: *mut *mut glib::GError,
     ) -> *mut GDtlsClientConnection;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_client_connection_get_accepted_cas(
         conn: *mut GDtlsClientConnection,
     ) -> *mut glib::GList;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_client_connection_get_server_identity(
         conn: *mut GDtlsClientConnection,
     ) -> *mut GSocketConnectable;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_client_connection_get_validation_flags(
         conn: *mut GDtlsClientConnection,
     ) -> GTlsCertificateFlags;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_client_connection_set_server_identity(
         conn: *mut GDtlsClientConnection,
         identity: *mut GSocketConnectable,
     );
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_client_connection_set_validation_flags(
         conn: *mut GDtlsClientConnection,
         flags: GTlsCertificateFlags,
@@ -14655,14 +14759,17 @@ extern "C" {
     // GDtlsConnection
     //=========================================================================
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_get_type() -> GType;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_close(
         conn: *mut GDtlsConnection,
         cancellable: *mut GCancellable,
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_close_async(
         conn: *mut GDtlsConnection,
         io_priority: c_int,
@@ -14671,20 +14778,24 @@ extern "C" {
         user_data: gpointer,
     );
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_close_finish(
         conn: *mut GDtlsConnection,
         result: *mut GAsyncResult,
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_emit_accept_certificate(
         conn: *mut GDtlsConnection,
         peer_cert: *mut GTlsCertificate,
         errors: GTlsCertificateFlags,
     ) -> gboolean;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_get_certificate(conn: *mut GDtlsConnection) -> *mut GTlsCertificate;
     #[cfg(any(feature = "v2_66", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
     pub fn g_dtls_connection_get_channel_binding_data(
         conn: *mut GDtlsConnection,
         type_: GTlsChannelBindingType,
@@ -14692,32 +14803,41 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_get_database(conn: *mut GDtlsConnection) -> *mut GTlsDatabase;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_get_interaction(conn: *mut GDtlsConnection) -> *mut GTlsInteraction;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_dtls_connection_get_negotiated_protocol(conn: *mut GDtlsConnection) -> *const c_char;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_get_peer_certificate(
         conn: *mut GDtlsConnection,
     ) -> *mut GTlsCertificate;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_get_peer_certificate_errors(
         conn: *mut GDtlsConnection,
     ) -> GTlsCertificateFlags;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_get_rehandshake_mode(
         conn: *mut GDtlsConnection,
     ) -> GTlsRehandshakeMode;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_get_require_close_notify(conn: *mut GDtlsConnection) -> gboolean;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_handshake(
         conn: *mut GDtlsConnection,
         cancellable: *mut GCancellable,
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_handshake_async(
         conn: *mut GDtlsConnection,
         io_priority: c_int,
@@ -14726,39 +14846,47 @@ extern "C" {
         user_data: gpointer,
     );
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_handshake_finish(
         conn: *mut GDtlsConnection,
         result: *mut GAsyncResult,
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_dtls_connection_set_advertised_protocols(
         conn: *mut GDtlsConnection,
         protocols: *const *const c_char,
     );
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_set_certificate(
         conn: *mut GDtlsConnection,
         certificate: *mut GTlsCertificate,
     );
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_set_database(conn: *mut GDtlsConnection, database: *mut GTlsDatabase);
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_set_interaction(
         conn: *mut GDtlsConnection,
         interaction: *mut GTlsInteraction,
     );
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_set_rehandshake_mode(
         conn: *mut GDtlsConnection,
         mode: GTlsRehandshakeMode,
     );
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_set_require_close_notify(
         conn: *mut GDtlsConnection,
         require_close_notify: gboolean,
     );
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_shutdown(
         conn: *mut GDtlsConnection,
         shutdown_read: gboolean,
@@ -14767,6 +14895,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_shutdown_async(
         conn: *mut GDtlsConnection,
         shutdown_read: gboolean,
@@ -14777,6 +14906,7 @@ extern "C" {
         user_data: gpointer,
     );
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_connection_shutdown_finish(
         conn: *mut GDtlsConnection,
         result: *mut GAsyncResult,
@@ -14787,8 +14917,10 @@ extern "C" {
     // GDtlsServerConnection
     //=========================================================================
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_server_connection_get_type() -> GType;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_dtls_server_connection_new(
         base_socket: *mut GDatagramBased,
         certificate: *mut GTlsCertificate,
@@ -14800,6 +14932,7 @@ extern "C" {
     //=========================================================================
     pub fn g_file_get_type() -> GType;
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     pub fn g_file_new_build_filename(first_element: *const c_char, ...) -> *mut GFile;
     pub fn g_file_new_for_commandline_arg(arg: *const c_char) -> *mut GFile;
     pub fn g_file_new_for_commandline_arg_and_cwd(
@@ -15004,6 +15137,7 @@ extern "C" {
     pub fn g_file_hash(file: gconstpointer) -> c_uint;
     pub fn g_file_is_native(file: *mut GFile) -> gboolean;
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     pub fn g_file_load_bytes(
         file: *mut GFile,
         cancellable: *mut GCancellable,
@@ -15011,6 +15145,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> *mut glib::GBytes;
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     pub fn g_file_load_bytes_async(
         file: *mut GFile,
         cancellable: *mut GCancellable,
@@ -15018,6 +15153,7 @@ extern "C" {
         user_data: gpointer,
     );
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     pub fn g_file_load_bytes_finish(
         file: *mut GFile,
         result: *mut GAsyncResult,
@@ -15189,6 +15325,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> *mut GFileIOStream;
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     pub fn g_file_peek_path(file: *mut GFile) -> *const c_char;
     pub fn g_file_poll_mountable(
         file: *mut GFile,
@@ -15207,6 +15344,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> *mut GAppInfo;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_file_query_default_handler_async(
         file: *mut GFile,
         io_priority: c_int,
@@ -15215,6 +15353,7 @@ extern "C" {
         user_data: gpointer,
     );
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_file_query_default_handler_finish(
         file: *mut GFile,
         result: *mut GAsyncResult,
@@ -15595,19 +15734,25 @@ extern "C" {
     // GListModel
     //=========================================================================
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_list_model_get_type() -> GType;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_list_model_get_item(list: *mut GListModel, position: c_uint) -> gpointer;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_list_model_get_item_type(list: *mut GListModel) -> GType;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_list_model_get_n_items(list: *mut GListModel) -> c_uint;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_list_model_get_object(
         list: *mut GListModel,
         position: c_uint,
     ) -> *mut gobject::GObject;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_list_model_items_changed(
         list: *mut GListModel,
         position: c_uint,
@@ -15644,8 +15789,10 @@ extern "C" {
     // GMemoryMonitor
     //=========================================================================
     #[cfg(any(feature = "v2_64", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     pub fn g_memory_monitor_get_type() -> GType;
     #[cfg(any(feature = "v2_64", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     pub fn g_memory_monitor_dup_default() -> *mut GMemoryMonitor;
 
     //=========================================================================
@@ -15772,11 +15919,13 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn g_network_monitor_get_connectivity(
         monitor: *mut GNetworkMonitor,
     ) -> GNetworkConnectivity;
     pub fn g_network_monitor_get_network_available(monitor: *mut GNetworkMonitor) -> gboolean;
     #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn g_network_monitor_get_network_metered(monitor: *mut GNetworkMonitor) -> gboolean;
 
     //=========================================================================
@@ -15815,6 +15964,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> ssize_t;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_pollable_output_stream_writev_nonblocking(
         stream: *mut GPollableOutputStream,
         vectors: *const GOutputVector,
@@ -15925,6 +16075,7 @@ extern "C" {
         connectable: *mut GSocketConnectable,
     ) -> *mut GSocketAddressEnumerator;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_socket_connectable_to_string(connectable: *mut GSocketConnectable) -> *mut c_char;
 
     //=========================================================================
@@ -15936,17 +16087,21 @@ extern "C" {
     pub fn g_tls_backend_get_client_connection_type(backend: *mut GTlsBackend) -> GType;
     pub fn g_tls_backend_get_default_database(backend: *mut GTlsBackend) -> *mut GTlsDatabase;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_tls_backend_get_dtls_client_connection_type(backend: *mut GTlsBackend) -> GType;
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_tls_backend_get_dtls_server_connection_type(backend: *mut GTlsBackend) -> GType;
     pub fn g_tls_backend_get_file_database_type(backend: *mut GTlsBackend) -> GType;
     pub fn g_tls_backend_get_server_connection_type(backend: *mut GTlsBackend) -> GType;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_tls_backend_set_default_database(
         backend: *mut GTlsBackend,
         database: *mut GTlsDatabase,
     );
     #[cfg(any(feature = "v2_48", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     pub fn g_tls_backend_supports_dtls(backend: *mut GTlsBackend) -> gboolean;
     pub fn g_tls_backend_supports_tls(backend: *mut GTlsBackend) -> gboolean;
 
@@ -15960,6 +16115,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> *mut GTlsClientConnection;
     #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn g_tls_client_connection_copy_session_state(
         conn: *mut GTlsClientConnection,
         source: *mut GTlsClientConnection,
@@ -16155,6 +16311,7 @@ extern "C" {
     pub fn g_content_type_get_generic_icon_name(type_: *const c_char) -> *mut c_char;
     pub fn g_content_type_get_icon(type_: *const c_char) -> *mut GIcon;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_content_type_get_mime_dirs() -> *const *const c_char;
     pub fn g_content_type_get_mime_type(type_: *const c_char) -> *mut c_char;
     pub fn g_content_type_get_symbolic_icon(type_: *const c_char) -> *mut GIcon;
@@ -16167,9 +16324,11 @@ extern "C" {
     pub fn g_content_type_guess_for_tree(root: *mut GFile) -> *mut *mut c_char;
     pub fn g_content_type_is_a(type_: *const c_char, supertype: *const c_char) -> gboolean;
     #[cfg(any(feature = "v2_52", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
     pub fn g_content_type_is_mime_type(type_: *const c_char, mime_type: *const c_char) -> gboolean;
     pub fn g_content_type_is_unknown(type_: *const c_char) -> gboolean;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_content_type_set_mime_dirs(dirs: *const *const c_char);
     pub fn g_content_types_get_registered() -> *mut glib::GList;
     pub fn g_dbus_address_escape_value(string: *const c_char) -> *mut c_char;
@@ -16317,8 +16476,10 @@ extern "C" {
     );
     pub fn g_unix_is_mount_path_system_internal(mount_path: *const c_char) -> gboolean;
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     pub fn g_unix_is_system_device_path(device_path: *const c_char) -> gboolean;
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     pub fn g_unix_is_system_fs_type(fs_type: *const c_char) -> gboolean;
     pub fn g_unix_mount_at(mount_path: *const c_char, time_read: *mut u64) -> *mut GUnixMountEntry;
     pub fn g_unix_mount_compare(
@@ -16326,16 +16487,20 @@ extern "C" {
         mount2: *mut GUnixMountEntry,
     ) -> c_int;
     #[cfg(any(feature = "v2_54", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
     pub fn g_unix_mount_copy(mount_entry: *mut GUnixMountEntry) -> *mut GUnixMountEntry;
     #[cfg(any(feature = "v2_52", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
     pub fn g_unix_mount_for(file_path: *const c_char, time_read: *mut u64) -> *mut GUnixMountEntry;
     pub fn g_unix_mount_free(mount_entry: *mut GUnixMountEntry);
     pub fn g_unix_mount_get_device_path(mount_entry: *mut GUnixMountEntry) -> *const c_char;
     pub fn g_unix_mount_get_fs_type(mount_entry: *mut GUnixMountEntry) -> *const c_char;
     pub fn g_unix_mount_get_mount_path(mount_entry: *mut GUnixMountEntry) -> *const c_char;
     #[cfg(any(feature = "v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
     pub fn g_unix_mount_get_options(mount_entry: *mut GUnixMountEntry) -> *const c_char;
     #[cfg(any(feature = "v2_60", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn g_unix_mount_get_root_path(mount_entry: *mut GUnixMountEntry) -> *const c_char;
     pub fn g_unix_mount_guess_can_eject(mount_entry: *mut GUnixMountEntry) -> gboolean;
     pub fn g_unix_mount_guess_icon(mount_entry: *mut GUnixMountEntry) -> *mut GIcon;

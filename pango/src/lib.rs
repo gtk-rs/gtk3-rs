@@ -3,6 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 #![allow(deprecated)]
+#![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 extern crate glib_sys;
 extern crate gobject_sys;

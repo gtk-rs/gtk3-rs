@@ -23,6 +23,7 @@ use Socket;
 use SocketAddress;
 use SocketConnection;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 use SocketListenerEvent;
 use SocketProtocol;
 use SocketType;
@@ -131,6 +132,7 @@ pub trait SocketListenerExt: 'static {
     fn set_property_listen_backlog(&self, listen_backlog: i32);
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     fn connect_event<F: Fn(&Self, SocketListenerEvent, &Socket) + 'static>(
         &self,
         f: F,
@@ -434,6 +436,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
     }
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     fn connect_event<F: Fn(&Self, SocketListenerEvent, &Socket) + 'static>(
         &self,
         f: F,

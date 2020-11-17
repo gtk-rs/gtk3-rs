@@ -147,6 +147,7 @@ impl Vec3 {
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     pub fn interpolate(&self, v2: &Vec3, factor: f64) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();

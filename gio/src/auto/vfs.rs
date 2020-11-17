@@ -7,6 +7,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib::GString;
 #[cfg(any(feature = "v2_50", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 use std::boxed::Box as Box_;
 use std::fmt;
 use File;
@@ -46,6 +47,7 @@ pub trait VfsExt: 'static {
     fn parse_name(&self, parse_name: &str) -> Option<File>;
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     fn register_uri_scheme(
         &self,
         scheme: &str,
@@ -54,6 +56,7 @@ pub trait VfsExt: 'static {
     ) -> bool;
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     fn unregister_uri_scheme(&self, scheme: &str) -> bool;
 }
 
@@ -98,6 +101,7 @@ impl<O: IsA<Vfs>> VfsExt for O {
     }
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     fn register_uri_scheme(
         &self,
         scheme: &str,
@@ -179,6 +183,7 @@ impl<O: IsA<Vfs>> VfsExt for O {
     }
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     fn unregister_uri_scheme(&self, scheme: &str) -> bool {
         unsafe {
             from_glib(gio_sys::g_vfs_unregister_uri_scheme(

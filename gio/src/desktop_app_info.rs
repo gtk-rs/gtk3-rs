@@ -51,6 +51,7 @@ impl DesktopAppInfo {
 
 pub trait DesktopAppInfoExtManual {
     #[cfg(any(all(feature = "v2_58", unix), all(unix, feature = "dox")))]
+    #[cfg_attr(feature = "dox", doc(cfg(all(feature = "v2_58", unix))))]
     fn launch_uris_as_manager_with_fds<
         P: IsA<AppLaunchContext>,
         T: AsRawFd,
@@ -71,6 +72,7 @@ pub trait DesktopAppInfoExtManual {
 
 impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExtManual for O {
     #[cfg(any(all(feature = "v2_58", unix), all(unix, feature = "dox")))]
+    #[cfg_attr(feature = "dox", doc(cfg(all(feature = "v2_58", unix))))]
     fn launch_uris_as_manager_with_fds<
         P: IsA<AppLaunchContext>,
         T: AsRawFd,

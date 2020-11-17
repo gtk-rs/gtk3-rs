@@ -35,6 +35,7 @@ pub trait InputStreamExtManual: Sized {
     ) -> Result<(usize, Option<glib::Error>), glib::Error>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn read_all_async<
         B: AsMut<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize, Option<glib::Error>), (B, glib::Error)>) + Send + 'static,
@@ -60,6 +61,7 @@ pub trait InputStreamExtManual: Sized {
     );
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn read_all_async_future<B: AsMut<[u8]> + Send + 'static>(
         &self,
         buffer: B,
@@ -155,6 +157,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn read_all_async<
         B: AsMut<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize, Option<glib::Error>), (B, glib::Error)>) + Send + 'static,
@@ -278,6 +281,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn read_all_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self,
         buffer: B,

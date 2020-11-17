@@ -8,6 +8,7 @@ use std::mem;
 use std::ptr;
 use translate::*;
 #[cfg(any(feature = "v2_50", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 use Bytes;
 use Char;
 use Error;
@@ -174,6 +175,7 @@ impl KeyFile {
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     pub fn get_locale_for_key(
         &self,
         group_name: &str,
@@ -238,6 +240,7 @@ impl KeyFile {
     }
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     pub fn load_from_bytes(&self, bytes: &Bytes, flags: KeyFileFlags) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();

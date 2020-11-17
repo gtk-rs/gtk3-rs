@@ -160,6 +160,7 @@ pub struct WindowBuilder {
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -305,6 +306,7 @@ impl WindowBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref focus_on_click) = self.focus_on_click {
                 properties.push(("focus-on-click", focus_on_click));
@@ -576,6 +578,7 @@ impl WindowBuilder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -743,6 +746,7 @@ pub trait GtkWindowExt: 'static {
     fn fullscreen(&self);
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn fullscreen_on_monitor(&self, screen: &gdk::Screen, monitor: i32);
 
     fn get_accept_focus(&self) -> bool;
@@ -800,6 +804,7 @@ pub trait GtkWindowExt: 'static {
     fn get_title(&self) -> Option<GString>;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_titlebar(&self) -> Option<Widget>;
 
     fn get_transient_for(&self) -> Option<Window>;
@@ -1167,6 +1172,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn fullscreen_on_monitor(&self, screen: &gdk::Screen, monitor: i32) {
         unsafe {
             gtk_sys::gtk_window_fullscreen_on_monitor(
@@ -1407,6 +1413,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_titlebar(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(gtk_sys::gtk_window_get_titlebar(

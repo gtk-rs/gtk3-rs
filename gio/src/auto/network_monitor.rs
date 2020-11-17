@@ -18,6 +18,7 @@ use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use NetworkConnectivity;
 use SocketConnectable;
 
@@ -61,16 +62,19 @@ pub trait NetworkMonitorExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn get_connectivity(&self) -> NetworkConnectivity;
 
     fn get_network_available(&self) -> bool;
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     fn get_network_metered(&self) -> bool;
 
     fn connect_network_changed<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn connect_property_connectivity_notify<F: Fn(&Self) + 'static>(&self, f: F)
         -> SignalHandlerId;
 
@@ -80,6 +84,7 @@ pub trait NetworkMonitorExt: 'static {
     ) -> SignalHandlerId;
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     fn connect_property_network_metered_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -168,6 +173,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn get_connectivity(&self) -> NetworkConnectivity {
         unsafe {
             from_glib(gio_sys::g_network_monitor_get_connectivity(
@@ -185,6 +191,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
     }
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     fn get_network_metered(&self) -> bool {
         unsafe {
             from_glib(gio_sys::g_network_monitor_get_network_metered(
@@ -221,6 +228,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn connect_property_connectivity_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -276,6 +284,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
     }
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     fn connect_property_network_metered_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,

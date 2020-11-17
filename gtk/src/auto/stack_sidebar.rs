@@ -36,6 +36,7 @@ glib_wrapper! {
 
 impl StackSidebar {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn new() -> StackSidebar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(gtk_sys::gtk_stack_sidebar_new()).unsafe_cast() }
@@ -43,6 +44,7 @@ impl StackSidebar {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl Default for StackSidebar {
     fn default() -> Self {
         Self::new()
@@ -61,6 +63,7 @@ pub struct StackSidebarBuilder {
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -125,6 +128,7 @@ impl StackSidebarBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref focus_on_click) = self.focus_on_click {
                 properties.push(("focus-on-click", focus_on_click));
@@ -261,6 +265,7 @@ impl StackSidebarBuilder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -401,9 +406,11 @@ pub const NONE_STACK_SIDEBAR: Option<&StackSidebar> = None;
 
 pub trait StackSidebarExt: 'static {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_stack(&self) -> Option<Stack>;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_stack<P: IsA<Stack>>(&self, stack: &P);
 
     fn get_property_stack(&self) -> Option<Stack>;
@@ -415,6 +422,7 @@ pub trait StackSidebarExt: 'static {
 
 impl<O: IsA<StackSidebar>> StackSidebarExt for O {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_stack(&self) -> Option<Stack> {
         unsafe {
             from_glib_none(gtk_sys::gtk_stack_sidebar_get_stack(
@@ -424,6 +432,7 @@ impl<O: IsA<StackSidebar>> StackSidebarExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_stack<P: IsA<Stack>>(&self, stack: &P) {
         unsafe {
             gtk_sys::gtk_stack_sidebar_set_stack(

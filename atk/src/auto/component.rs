@@ -18,6 +18,7 @@ use Layer;
 use Object;
 use Rectangle;
 #[cfg(any(feature = "v2_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 use ScrollType;
 
 glib_wrapper! {
@@ -50,9 +51,11 @@ pub trait ComponentExt: 'static {
     fn ref_accessible_at_point(&self, x: i32, y: i32, coord_type: CoordType) -> Option<Object>;
 
     #[cfg(any(feature = "v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
     fn scroll_to(&self, type_: ScrollType) -> bool;
 
     #[cfg(any(feature = "v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
     fn scroll_to_point(&self, coords: CoordType, x: i32, y: i32) -> bool;
 
     fn set_extents(&self, x: i32, y: i32, width: i32, height: i32, coord_type: CoordType) -> bool;
@@ -165,6 +168,7 @@ impl<O: IsA<Component>> ComponentExt for O {
     }
 
     #[cfg(any(feature = "v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
     fn scroll_to(&self, type_: ScrollType) -> bool {
         unsafe {
             from_glib(atk_sys::atk_component_scroll_to(
@@ -175,6 +179,7 @@ impl<O: IsA<Component>> ComponentExt for O {
     }
 
     #[cfg(any(feature = "v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
     fn scroll_to_point(&self, coords: CoordType, x: i32, y: i32) -> bool {
         unsafe {
             from_glib(atk_sys::atk_component_scroll_to_point(

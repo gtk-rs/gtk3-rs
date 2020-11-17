@@ -40,6 +40,8 @@
 //!
 //! * **win32-surface** - Microsoft Windows surface support
 
+#![cfg_attr(feature = "dox", feature(doc_cfg))]
+
 pub extern crate cairo_sys as ffi;
 extern crate libc;
 extern crate thiserror;

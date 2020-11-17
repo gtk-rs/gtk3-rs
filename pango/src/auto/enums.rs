@@ -823,6 +823,7 @@ impl SetValue for GravityHint {
 }
 
 #[cfg(any(feature = "v1_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum Overline {
@@ -833,6 +834,7 @@ pub enum Overline {
 }
 
 #[cfg(any(feature = "v1_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 impl fmt::Display for Overline {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -848,6 +850,7 @@ impl fmt::Display for Overline {
 }
 
 #[cfg(any(feature = "v1_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 #[doc(hidden)]
 impl ToGlib for Overline {
     type GlibType = pango_sys::PangoOverline;
@@ -862,6 +865,7 @@ impl ToGlib for Overline {
 }
 
 #[cfg(any(feature = "v1_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 #[doc(hidden)]
 impl FromGlib<pango_sys::PangoOverline> for Overline {
     fn from_glib(value: pango_sys::PangoOverline) -> Self {
@@ -874,6 +878,7 @@ impl FromGlib<pango_sys::PangoOverline> for Overline {
 }
 
 #[cfg(any(feature = "v1_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 impl StaticType for Overline {
     fn static_type() -> Type {
         unsafe { from_glib(pango_sys::pango_overline_get_type()) }
@@ -881,6 +886,7 @@ impl StaticType for Overline {
 }
 
 #[cfg(any(feature = "v1_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 impl<'a> FromValueOptional<'a> for Overline {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
@@ -888,6 +894,7 @@ impl<'a> FromValueOptional<'a> for Overline {
 }
 
 #[cfg(any(feature = "v1_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 impl<'a> FromValue<'a> for Overline {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
@@ -895,6 +902,7 @@ impl<'a> FromValue<'a> for Overline {
 }
 
 #[cfg(any(feature = "v1_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 impl SetValue for Overline {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())

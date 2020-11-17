@@ -311,6 +311,7 @@ pub fn split_file_list(str: &str) -> Vec<GString> {
 }
 
 //#[cfg(any(feature = "v1_44", feature = "dox"))]
+//#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 //pub fn tailor_break(text: &str, analysis: &mut Analysis, offset: i32, log_attrs: /*Ignored*/&[&LogAttr]) {
 //    unsafe { TODO: call pango_sys:pango_tailor_break() }
 //}

@@ -50,6 +50,7 @@ impl AttrList {
     }
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     pub fn get_attributes(&self) -> Vec<Attribute> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(pango_sys::pango_attr_list_get_attributes(
@@ -78,6 +79,7 @@ impl AttrList {
     }
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     pub fn update(&self, pos: i32, remove: i32, add: i32) {
         unsafe {
             pango_sys::pango_attr_list_update(self.to_glib_none().0, pos, remove, add);

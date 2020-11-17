@@ -107,6 +107,7 @@ impl WidgetPath {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn iter_get_object_name(&self, pos: i32) -> Option<GString> {
         unsafe {
             from_glib_none(gtk_sys::gtk_widget_path_iter_get_object_name(
@@ -217,6 +218,7 @@ impl WidgetPath {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn iter_set_object_name(&self, pos: i32, name: Option<&str>) {
         unsafe {
             gtk_sys::gtk_widget_path_iter_set_object_name(

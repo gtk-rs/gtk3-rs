@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use glib;
 use glib::translate::*;
 use glib::GString;
@@ -26,6 +27,7 @@ impl FileFilter {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn from_gvariant(variant: &glib::Variant) -> FileFilter {
         assert_initialized_main_thread!();
         unsafe {
@@ -79,6 +81,7 @@ impl FileFilter {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn to_gvariant(&self) -> Option<glib::Variant> {
         unsafe { from_glib_none(gtk_sys::gtk_file_filter_to_gvariant(self.to_glib_none().0)) }
     }

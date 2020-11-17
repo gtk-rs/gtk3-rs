@@ -12,11 +12,13 @@ use GestureStylus;
 
 pub trait GestureStylusExtManual: 'static {
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn get_axes(&self, axes: Vec<AxisUse>) -> Option<Vec<f64>>;
 }
 
 impl<O: IsA<GestureStylus>> GestureStylusExtManual for O {
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn get_axes(&self, axes: Vec<AxisUse>) -> Option<Vec<f64>> {
         let mut values: Vec<f64> = Vec::new();
         unsafe {

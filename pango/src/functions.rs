@@ -53,6 +53,7 @@ pub fn shape_full(
 }
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 pub fn shape_with_flags(
     item_text: &str,
     paragraph_text: Option<&str>,

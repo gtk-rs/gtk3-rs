@@ -722,6 +722,7 @@ impl TextIter {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn starts_tag<P: IsA<TextTag>>(&self, tag: Option<&P>) -> bool {
         unsafe {
             from_glib(gtk_sys::gtk_text_iter_starts_tag(

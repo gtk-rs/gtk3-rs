@@ -39,6 +39,7 @@ pub trait OutputStreamExtManual: Sized + OutputStreamExt {
     ) -> Result<(usize, Option<glib::Error>), glib::Error>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn write_all_async<
         B: AsRef<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize, Option<glib::Error>), (B, glib::Error)>) + Send + 'static,
@@ -58,6 +59,7 @@ pub trait OutputStreamExtManual: Sized + OutputStreamExt {
     ) -> Pin<Box<dyn std::future::Future<Output = Result<(B, usize), (B, glib::Error)>> + 'static>>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn write_all_async_future<B: AsRef<[u8]> + Send + 'static>(
         &self,
         buffer: B,
@@ -166,6 +168,7 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn write_all_async<
         B: AsRef<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize, Option<glib::Error>), (B, glib::Error)>) + Send + 'static,
@@ -246,6 +249,7 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn write_all_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self,
         buffer: B,

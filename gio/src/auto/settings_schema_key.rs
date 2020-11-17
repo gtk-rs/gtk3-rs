@@ -36,6 +36,7 @@ impl SettingsSchemaKey {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn get_name(&self) -> Option<GString> {
         unsafe {
             from_glib_none(gio_sys::g_settings_schema_key_get_name(

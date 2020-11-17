@@ -103,9 +103,11 @@ pub trait SocketExtManual: Sized {
     ) -> Result<usize, glib::Error>;
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     fn get_fd<T: FromRawFd>(&self) -> T;
 
     #[cfg(any(windows, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(windows)))]
     fn get_socket<T: FromRawSocket>(&self) -> T;
 
     fn create_source<F, C>(
@@ -312,11 +314,13 @@ impl<O: IsA<Socket>> SocketExtManual for O {
     }
 
     #[cfg(any(unix, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
     fn get_fd<T: FromRawFd>(&self) -> T {
         unsafe { FromRawFd::from_raw_fd(gio_sys::g_socket_get_fd(self.as_ref().to_glib_none().0)) }
     }
 
     #[cfg(any(windows, feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(windows)))]
     fn get_socket<T: FromRawSocket>(&self) -> T {
         unsafe {
             FromRawSocket::from_raw_socket(

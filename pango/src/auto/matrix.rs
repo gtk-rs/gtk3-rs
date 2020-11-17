@@ -5,6 +5,7 @@
 use glib::translate::*;
 use pango_sys;
 #[cfg(any(feature = "v1_38", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
 use std::mem;
 
 glib_wrapper! {
@@ -30,6 +31,7 @@ impl Matrix {
     }
 
     #[cfg(any(feature = "v1_38", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
     pub fn get_font_scale_factors(&self) -> (f64, f64) {
         unsafe {
             let mut xscale = mem::MaybeUninit::uninit();

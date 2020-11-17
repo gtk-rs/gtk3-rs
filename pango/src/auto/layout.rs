@@ -11,6 +11,7 @@ use Alignment;
 use AttrList;
 use Context;
 #[cfg(any(feature = "v1_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 use Direction;
 use EllipsizeMode;
 use FontDescription;
@@ -86,6 +87,7 @@ impl Layout {
     }
 
     #[cfg(any(feature = "v1_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
     pub fn get_direction(&self, index: i32) -> Direction {
         unsafe {
             from_glib(pango_sys::pango_layout_get_direction(
@@ -159,6 +161,7 @@ impl Layout {
     }
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     pub fn get_line_spacing(&self) -> f32 {
         unsafe { pango_sys::pango_layout_get_line_spacing(self.to_glib_none().0) }
     }
@@ -380,6 +383,7 @@ impl Layout {
     }
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     pub fn set_line_spacing(&self, factor: f32) {
         unsafe {
             pango_sys::pango_layout_set_line_spacing(self.to_glib_none().0, factor);

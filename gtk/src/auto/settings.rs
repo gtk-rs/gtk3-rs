@@ -48,6 +48,7 @@ pub const NONE_SETTINGS: Option<&Settings> = None;
 
 pub trait SettingsExt: 'static {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn reset_property(&self, name: &str);
 
     #[cfg_attr(feature = "v3_16", deprecated)]
@@ -78,9 +79,11 @@ pub trait SettingsExt: 'static {
     );
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn get_property_gtk_cursor_aspect_ratio(&self) -> f32;
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn set_property_gtk_cursor_aspect_ratio(&self, gtk_cursor_aspect_ratio: f32);
 
     fn get_property_gtk_cursor_blink(&self) -> bool;
@@ -176,9 +179,11 @@ pub trait SettingsExt: 'static {
     fn set_property_gtk_key_theme_name(&self, gtk_key_theme_name: Option<&str>);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_property_gtk_keynav_use_caret(&self) -> bool;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_property_gtk_keynav_use_caret(&self, gtk_keynav_use_caret: bool);
 
     fn get_property_gtk_label_select_on_focus(&self) -> bool;
@@ -194,9 +199,11 @@ pub trait SettingsExt: 'static {
     fn set_property_gtk_modules(&self, gtk_modules: Option<&str>);
 
     #[cfg(any(feature = "v3_24_9", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_9")))]
     fn get_property_gtk_overlay_scrolling(&self) -> bool;
 
     #[cfg(any(feature = "v3_24_9", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_9")))]
     fn set_property_gtk_overlay_scrolling(&self, gtk_overlay_scrolling: bool);
 
     fn get_property_gtk_primary_button_warps_slider(&self) -> bool;
@@ -291,6 +298,7 @@ pub trait SettingsExt: 'static {
     ) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn connect_property_gtk_cursor_aspect_ratio_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -412,6 +420,7 @@ pub trait SettingsExt: 'static {
     ) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn connect_property_gtk_keynav_use_caret_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -430,6 +439,7 @@ pub trait SettingsExt: 'static {
     fn connect_property_gtk_modules_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_24_9", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_9")))]
     fn connect_property_gtk_overlay_scrolling_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -528,6 +538,7 @@ pub trait SettingsExt: 'static {
 
 impl<O: IsA<Settings>> SettingsExt for O {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn reset_property(&self, name: &str) {
         unsafe {
             gtk_sys::gtk_settings_reset_property(
@@ -655,6 +666,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn get_property_gtk_cursor_aspect_ratio(&self) -> f32 {
         unsafe {
             let mut value = Value::from_type(<f32 as StaticType>::static_type());
@@ -671,6 +683,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn set_property_gtk_cursor_aspect_ratio(&self, gtk_cursor_aspect_ratio: f32) {
         unsafe {
             gobject_sys::g_object_set_property(
@@ -1258,6 +1271,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_property_gtk_keynav_use_caret(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
@@ -1274,6 +1288,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_property_gtk_keynav_use_caret(&self, gtk_keynav_use_caret: bool) {
         unsafe {
             gobject_sys::g_object_set_property(
@@ -1359,6 +1374,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     }
 
     #[cfg(any(feature = "v3_24_9", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_9")))]
     fn get_property_gtk_overlay_scrolling(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
@@ -1375,6 +1391,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     }
 
     #[cfg(any(feature = "v3_24_9", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_9")))]
     fn set_property_gtk_overlay_scrolling(&self, gtk_overlay_scrolling: bool) {
         unsafe {
             gobject_sys::g_object_set_property(
@@ -1941,6 +1958,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn connect_property_gtk_cursor_aspect_ratio_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -2596,6 +2614,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn connect_property_gtk_keynav_use_caret_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -2702,6 +2721,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     }
 
     #[cfg(any(feature = "v3_24_9", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_9")))]
     fn connect_property_gtk_overlay_scrolling_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,

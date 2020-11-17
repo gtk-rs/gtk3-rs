@@ -23,6 +23,7 @@ pub const NONE_FONT_FAMILY: Option<&FontFamily> = None;
 
 pub trait FontFamilyExt: 'static {
     #[cfg(any(feature = "v1_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
     fn get_face(&self, name: Option<&str>) -> Option<FontFace>;
 
     fn get_name(&self) -> Option<GString>;
@@ -30,6 +31,7 @@ pub trait FontFamilyExt: 'static {
     fn is_monospace(&self) -> bool;
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     fn is_variable(&self) -> bool;
 
     fn list_faces(&self) -> Vec<FontFace>;
@@ -37,6 +39,7 @@ pub trait FontFamilyExt: 'static {
 
 impl<O: IsA<FontFamily>> FontFamilyExt for O {
     #[cfg(any(feature = "v1_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
     fn get_face(&self, name: Option<&str>) -> Option<FontFace> {
         unsafe {
             from_glib_none(pango_sys::pango_font_family_get_face(
@@ -63,6 +66,7 @@ impl<O: IsA<FontFamily>> FontFamilyExt for O {
     }
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
     fn is_variable(&self) -> bool {
         unsafe {
             from_glib(pango_sys::pango_font_family_is_variable(

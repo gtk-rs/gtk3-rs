@@ -5,6 +5,7 @@
 use gdk;
 use gdk_x11_sys;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::object::IsA;
 use glib::translate::*;
 use glib::GString;
@@ -142,6 +143,7 @@ impl X11Display {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn get_glx_version<P: IsA<gdk::Display>>(display: &P) -> Option<(i32, i32)> {
         assert_initialized_main_thread!();
         unsafe {

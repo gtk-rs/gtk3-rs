@@ -219,6 +219,7 @@ impl Subprocess {
     }
 
     #[cfg(any(not(windows), feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(not(windows))))]
     pub fn send_signal(&self, signal_num: i32) {
         unsafe {
             gio_sys::g_subprocess_send_signal(self.to_glib_none().0, signal_num);

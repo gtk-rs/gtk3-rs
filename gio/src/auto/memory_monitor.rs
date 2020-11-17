@@ -4,21 +4,28 @@
 
 use gio_sys;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 use glib::object::Cast;
 use glib::object::IsA;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 use glib::signal::connect_raw;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 use glib_sys;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 use std::boxed::Box as Box_;
 use std::fmt;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 use std::mem::transmute;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 use MemoryMonitorWarningLevel;
 
 glib_wrapper! {
@@ -31,6 +38,7 @@ glib_wrapper! {
 
 impl MemoryMonitor {
     #[cfg(any(feature = "v2_64", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     pub fn dup_default() -> Option<MemoryMonitor> {
         unsafe { from_glib_full(gio_sys::g_memory_monitor_dup_default()) }
     }
@@ -40,6 +48,7 @@ pub const NONE_MEMORY_MONITOR: Option<&MemoryMonitor> = None;
 
 pub trait MemoryMonitorExt: 'static {
     #[cfg(any(feature = "v2_64", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     fn connect_low_memory_warning<F: Fn(&Self, MemoryMonitorWarningLevel) + 'static>(
         &self,
         f: F,
@@ -48,6 +57,7 @@ pub trait MemoryMonitorExt: 'static {
 
 impl<O: IsA<MemoryMonitor>> MemoryMonitorExt for O {
     #[cfg(any(feature = "v2_64", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     fn connect_low_memory_warning<F: Fn(&Self, MemoryMonitorWarningLevel) + 'static>(
         &self,
         f: F,

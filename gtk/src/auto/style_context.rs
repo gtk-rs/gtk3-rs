@@ -24,6 +24,7 @@ use CssSection;
 use JunctionSides;
 use StateFlags;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use StyleContextPrintFlags;
 use StyleProvider;
 use TextDirection;
@@ -218,6 +219,7 @@ pub trait StyleContextExt: 'static {
     fn set_state(&self, flags: StateFlags);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn to_string(&self, flags: StyleContextPrintFlags) -> GString;
 
     fn get_property_direction(&self) -> TextDirection;
@@ -563,6 +565,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn to_string(&self, flags: StyleContextPrintFlags) -> GString {
         unsafe {
             from_glib_full(gtk_sys::gtk_style_context_to_string(

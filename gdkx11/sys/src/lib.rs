@@ -8,6 +8,7 @@
     clippy::type_complexity,
     clippy::unreadable_literal
 )]
+#![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 extern crate gdk_pixbuf_sys as gdk_pixbuf;
 extern crate gdk_sys as gdk;
@@ -297,6 +298,7 @@ extern "C" {
     //=========================================================================
     pub fn gdk_x11_display_get_type() -> GType;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_x11_display_get_glx_version(
         display: *mut gdk::GdkDisplay,
         major: *mut c_int,
@@ -366,6 +368,7 @@ extern "C" {
     // GdkX11GLContext
     //=========================================================================
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gdk_x11_gl_context_get_type() -> GType;
 
     //=========================================================================
@@ -379,8 +382,10 @@ extern "C" {
     // GdkX11Monitor
     //=========================================================================
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_x11_monitor_get_type() -> GType;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gdk_x11_monitor_get_output(monitor: *mut gdk::GdkMonitor) -> xlib::XID;
 
     //=========================================================================
@@ -469,6 +474,7 @@ extern "C" {
     pub fn gdk_x11_get_default_screen() -> c_int;
     pub fn gdk_x11_get_default_xdisplay() -> *mut xlib::Display;
     #[cfg(any(feature = "v3_24_2", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_2")))]
     pub fn gdk_x11_get_parent_relative_pattern() -> *mut cairo::cairo_pattern_t;
     pub fn gdk_x11_get_server_time(window: *mut GdkX11Window) -> u32;
     pub fn gdk_x11_get_xatom_by_name(atom_name: *const c_char) -> xlib::Atom;

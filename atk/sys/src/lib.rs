@@ -8,6 +8,7 @@
     clippy::type_complexity,
     clippy::unreadable_literal
 )]
+#![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 extern crate glib_sys as glib;
 extern crate gobject_sys as gobject;
@@ -1798,6 +1799,7 @@ extern "C" {
     // AtkScrollType
     //=========================================================================
     #[cfg(any(feature = "v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
     pub fn atk_scroll_type_get_type() -> GType;
 
     //=========================================================================
@@ -1935,6 +1937,7 @@ extern "C" {
         handler: *mut AtkPropertyChangeHandler,
     ) -> c_uint;
     #[cfg(any(feature = "v2_34", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
     pub fn atk_object_get_accessible_id(accessible: *mut AtkObject) -> *const c_char;
     pub fn atk_object_get_attributes(accessible: *mut AtkObject) -> *mut AtkAttributeSet;
     pub fn atk_object_get_description(accessible: *mut AtkObject) -> *const c_char;
@@ -1966,6 +1969,7 @@ extern "C" {
         target: *mut AtkObject,
     ) -> gboolean;
     #[cfg(any(feature = "v2_34", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
     pub fn atk_object_set_accessible_id(accessible: *mut AtkObject, name: *const c_char);
     pub fn atk_object_set_description(accessible: *mut AtkObject, description: *const c_char);
     pub fn atk_object_set_name(accessible: *mut AtkObject, name: *const c_char);
@@ -2157,8 +2161,10 @@ extern "C" {
     ) -> *mut AtkObject;
     pub fn atk_component_remove_focus_handler(component: *mut AtkComponent, handler_id: c_uint);
     #[cfg(any(feature = "v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
     pub fn atk_component_scroll_to(component: *mut AtkComponent, type_: AtkScrollType) -> gboolean;
     #[cfg(any(feature = "v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
     pub fn atk_component_scroll_to_point(
         component: *mut AtkComponent,
         coords: AtkCoordType,
@@ -2462,6 +2468,7 @@ extern "C" {
     ) -> *mut c_char;
     pub fn atk_text_remove_selection(text: *mut AtkText, selection_num: c_int) -> gboolean;
     #[cfg(any(feature = "v2_32", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     pub fn atk_text_scroll_substring_to(
         text: *mut AtkText,
         start_offset: c_int,
@@ -2469,6 +2476,7 @@ extern "C" {
         type_: AtkScrollType,
     ) -> gboolean;
     #[cfg(any(feature = "v2_32", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     pub fn atk_text_scroll_substring_to_point(
         text: *mut AtkText,
         start_offset: c_int,

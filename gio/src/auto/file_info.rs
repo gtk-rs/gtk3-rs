@@ -201,6 +201,7 @@ impl FileInfo {
     }
 
     #[cfg(any(feature = "v2_62", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_62")))]
     pub fn get_modification_date_time(&self) -> Option<glib::DateTime> {
         unsafe {
             from_glib_full(gio_sys::g_file_info_get_modification_date_time(
@@ -432,6 +433,7 @@ impl FileInfo {
     }
 
     #[cfg(any(feature = "v2_62", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_62")))]
     pub fn set_modification_date_time(&self, mtime: &glib::DateTime) {
         unsafe {
             gio_sys::g_file_info_set_modification_date_time(

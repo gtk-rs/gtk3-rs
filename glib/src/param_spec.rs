@@ -122,6 +122,7 @@ impl ParamSpec {
     }
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn get_name_quark(&self) -> ::Quark {
         unsafe {
             from_glib(gobject_sys::g_param_spec_get_name_quark(

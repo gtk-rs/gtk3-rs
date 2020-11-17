@@ -33,6 +33,7 @@ pub trait PollableOutputStreamExt: 'static {
     ) -> Result<isize, glib::Error>;
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     //fn writev_nonblocking<P: IsA<Cancellable>>(&self, vectors: /*Ignored*/&[&OutputVector], cancellable: Option<&P>) -> Result<(/*Ignored*/PollableReturn, usize), glib::Error>;
 }
 
@@ -77,6 +78,7 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExt for O {
     }
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
+    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     //fn writev_nonblocking<P: IsA<Cancellable>>(&self, vectors: /*Ignored*/&[&OutputVector], cancellable: Option<&P>) -> Result<(/*Ignored*/PollableReturn, usize), glib::Error> {
     //    unsafe { TODO: call gio_sys:g_pollable_output_stream_writev_nonblocking() }
     //}

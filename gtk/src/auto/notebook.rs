@@ -70,6 +70,7 @@ pub struct NotebookBuilder {
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -152,6 +153,7 @@ impl NotebookBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
         {
             if let Some(ref focus_on_click) = self.focus_on_click {
                 properties.push(("focus-on-click", focus_on_click));
@@ -318,6 +320,7 @@ impl NotebookBuilder {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -458,6 +461,7 @@ pub const NONE_NOTEBOOK: Option<&Notebook> = None;
 
 pub trait NotebookExt: 'static {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn detach_tab<P: IsA<Widget>>(&self, child: &P);
 
     fn get_action_widget(&self, pack_type: PackType) -> Option<Widget>;
@@ -630,6 +634,7 @@ pub trait NotebookExt: 'static {
 
 impl<O: IsA<Notebook>> NotebookExt for O {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn detach_tab<P: IsA<Widget>>(&self, child: &P) {
         unsafe {
             gtk_sys::gtk_notebook_detach_tab(

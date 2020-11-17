@@ -8,6 +8,7 @@
     clippy::type_complexity,
     clippy::unreadable_literal
 )]
+#![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 extern crate atk_sys as atk;
 extern crate cairo_sys as cairo;
@@ -15200,6 +15201,7 @@ extern "C" {
     // GtkButtonRole
     //=========================================================================
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_button_role_get_type() -> GType;
 
     //=========================================================================
@@ -15389,6 +15391,7 @@ extern "C" {
     // GtkPadActionType
     //=========================================================================
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_pad_action_type_get_type() -> GType;
 
     //=========================================================================
@@ -15425,6 +15428,7 @@ extern "C" {
     // GtkPopoverConstraint
     //=========================================================================
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_popover_constraint_get_type() -> GType;
 
     //=========================================================================
@@ -15549,6 +15553,7 @@ extern "C" {
     // GtkShortcutType
     //=========================================================================
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_shortcut_type_get_type() -> GType;
 
     //=========================================================================
@@ -15600,6 +15605,7 @@ extern "C" {
     // GtkTextExtendSelection
     //=========================================================================
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_text_extend_selection_get_type() -> GType;
 
     //=========================================================================
@@ -15706,6 +15712,7 @@ extern "C" {
     // GtkEventControllerScrollFlags
     //=========================================================================
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_scroll_flags_get_type() -> GType;
 
     //=========================================================================
@@ -15717,6 +15724,7 @@ extern "C" {
     // GtkFontChooserLevel
     //=========================================================================
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_font_chooser_level_get_type() -> GType;
 
     //=========================================================================
@@ -15763,6 +15771,7 @@ extern "C" {
     // GtkStyleContextPrintFlags
     //=========================================================================
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_style_context_print_flags_get_type() -> GType;
 
     //=========================================================================
@@ -15881,6 +15890,7 @@ extern "C" {
     //pub fn gtk_container_class_find_child_property(cclass: /*Metadata mismatch*/*mut [c:type mismatch `GObjectClass` != `GtkContainerClass` of `ContainerClass`], property_name: *const c_char) -> *mut gobject::GParamSpec;
     pub fn gtk_container_class_handle_border_width(klass: *mut GtkContainerClass);
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_container_class_install_child_properties(
         cclass: *mut GtkContainerClass,
         n_pspecs: c_uint,
@@ -16022,8 +16032,10 @@ extern "C" {
         unit: GtkUnit,
     ) -> *mut GtkPaperSize;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_paper_size_new_from_gvariant(variant: *mut glib::GVariant) -> *mut GtkPaperSize;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_paper_size_new_from_ipp(
         ipp_name: *const c_char,
         width: c_double,
@@ -16073,6 +16085,7 @@ extern "C" {
         unit: GtkUnit,
     );
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_paper_size_to_gvariant(paper_size: *mut GtkPaperSize) -> *mut glib::GVariant;
     pub fn gtk_paper_size_to_key_file(
         size: *mut GtkPaperSize,
@@ -16516,6 +16529,7 @@ extern "C" {
     pub fn gtk_text_iter_starts_line(iter: *const GtkTextIter) -> gboolean;
     pub fn gtk_text_iter_starts_sentence(iter: *const GtkTextIter) -> gboolean;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_text_iter_starts_tag(iter: *const GtkTextIter, tag: *mut GtkTextTag) -> gboolean;
     pub fn gtk_text_iter_starts_word(iter: *const GtkTextIter) -> gboolean;
     pub fn gtk_text_iter_toggles_tag(iter: *const GtkTextIter, tag: *mut GtkTextTag) -> gboolean;
@@ -16613,6 +16627,7 @@ extern "C" {
         property_name: *const c_char,
     ) -> *mut gobject::GParamSpec;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_widget_class_get_css_name(widget_class: *mut GtkWidgetClass) -> *const c_char;
     pub fn gtk_widget_class_install_style_property(
         klass: *mut GtkWidgetClass,
@@ -16639,6 +16654,7 @@ extern "C" {
         connect_data_destroy: glib::GDestroyNotify,
     );
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_widget_class_set_css_name(widget_class: *mut GtkWidgetClass, name: *const c_char);
     pub fn gtk_widget_class_set_template(
         widget_class: *mut GtkWidgetClass,
@@ -16684,6 +16700,7 @@ extern "C" {
     pub fn gtk_widget_path_iter_clear_regions(path: *mut GtkWidgetPath, pos: c_int);
     pub fn gtk_widget_path_iter_get_name(path: *const GtkWidgetPath, pos: c_int) -> *const c_char;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_widget_path_iter_get_object_name(
         path: *const GtkWidgetPath,
         pos: c_int,
@@ -16748,6 +16765,7 @@ extern "C" {
     );
     pub fn gtk_widget_path_iter_set_name(path: *mut GtkWidgetPath, pos: c_int, name: *const c_char);
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_widget_path_iter_set_object_name(
         path: *mut GtkWidgetPath,
         pos: c_int,
@@ -17340,12 +17358,14 @@ extern "C" {
     pub fn gtk_application_window_get_type() -> GType;
     pub fn gtk_application_window_new(application: *mut GtkApplication) -> *mut GtkWidget;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_application_window_get_help_overlay(
         window: *mut GtkApplicationWindow,
     ) -> *mut GtkShortcutsWindow;
     pub fn gtk_application_window_get_id(window: *mut GtkApplicationWindow) -> c_uint;
     pub fn gtk_application_window_get_show_menubar(window: *mut GtkApplicationWindow) -> gboolean;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_application_window_set_help_overlay(
         window: *mut GtkApplicationWindow,
         help_overlay: *mut GtkShortcutsWindow,
@@ -17409,6 +17429,7 @@ extern "C" {
         page: *mut GtkWidget,
     ) -> gboolean;
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_assistant_get_page_has_padding(
         assistant: *mut GtkAssistant,
         page: *mut GtkWidget,
@@ -17452,6 +17473,7 @@ extern "C" {
         complete: gboolean,
     );
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_assistant_set_page_has_padding(
         assistant: *mut GtkAssistant,
         page: *mut GtkWidget,
@@ -18298,6 +18320,7 @@ extern "C" {
     pub fn gtk_clipboard_get_type() -> GType;
     pub fn gtk_clipboard_get(selection: gdk::GdkAtom) -> *mut GtkClipboard;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_clipboard_get_default(display: *mut gdk::GdkDisplay) -> *mut GtkClipboard;
     pub fn gtk_clipboard_get_for_display(
         display: *mut gdk::GdkDisplay,
@@ -18307,6 +18330,7 @@ extern "C" {
     pub fn gtk_clipboard_get_display(clipboard: *mut GtkClipboard) -> *mut gdk::GdkDisplay;
     pub fn gtk_clipboard_get_owner(clipboard: *mut GtkClipboard) -> *mut gobject::GObject;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_clipboard_get_selection(clipboard: *mut GtkClipboard) -> gdk::GdkAtom;
     pub fn gtk_clipboard_request_contents(
         clipboard: *mut GtkClipboard,
@@ -18638,6 +18662,7 @@ extern "C" {
         child_property: *const c_char,
     );
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_container_child_notify_by_pspec(
         container: *mut GtkContainer,
         child: *mut GtkWidget,
@@ -18758,6 +18783,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_css_provider_load_from_resource(
         css_provider: *mut GtkCssProvider,
         resource_path: *const c_char,
@@ -18898,6 +18924,7 @@ extern "C" {
     pub fn gtk_entry_get_visibility(entry: *mut GtkEntry) -> gboolean;
     pub fn gtk_entry_get_width_chars(entry: *mut GtkEntry) -> c_int;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_entry_grab_focus_without_selecting(entry: *mut GtkEntry);
     pub fn gtk_entry_im_context_filter_keypress(
         entry: *mut GtkEntry,
@@ -19144,21 +19171,27 @@ extern "C" {
     // GtkEventControllerKey
     //=========================================================================
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_key_get_type() -> GType;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_key_new(widget: *mut GtkWidget) -> *mut GtkEventController;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_key_forward(
         controller: *mut GtkEventControllerKey,
         widget: *mut GtkWidget,
     ) -> gboolean;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_key_get_group(controller: *mut GtkEventControllerKey) -> c_uint;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_key_get_im_context(
         controller: *mut GtkEventControllerKey,
     ) -> *mut GtkIMContext;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_key_set_im_context(
         controller: *mut GtkEventControllerKey,
         im_context: *mut GtkIMContext,
@@ -19168,25 +19201,31 @@ extern "C" {
     // GtkEventControllerMotion
     //=========================================================================
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_motion_get_type() -> GType;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_motion_new(widget: *mut GtkWidget) -> *mut GtkEventController;
 
     //=========================================================================
     // GtkEventControllerScroll
     //=========================================================================
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_scroll_get_type() -> GType;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_scroll_new(
         widget: *mut GtkWidget,
         flags: GtkEventControllerScrollFlags,
     ) -> *mut GtkEventController;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_scroll_get_flags(
         controller: *mut GtkEventControllerScroll,
     ) -> GtkEventControllerScrollFlags;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_scroll_set_flags(
         controller: *mut GtkEventControllerScroll,
         flags: GtkEventControllerScrollFlags,
@@ -19263,8 +19302,10 @@ extern "C" {
     // GtkFileChooserNative
     //=========================================================================
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_file_chooser_native_get_type() -> GType;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_file_chooser_native_new(
         title: *const c_char,
         parent: *mut GtkWindow,
@@ -19273,19 +19314,23 @@ extern "C" {
         cancel_label: *const c_char,
     ) -> *mut GtkFileChooserNative;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_file_chooser_native_get_accept_label(
         self_: *mut GtkFileChooserNative,
     ) -> *const c_char;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_file_chooser_native_get_cancel_label(
         self_: *mut GtkFileChooserNative,
     ) -> *const c_char;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_file_chooser_native_set_accept_label(
         self_: *mut GtkFileChooserNative,
         accept_label: *const c_char,
     );
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_file_chooser_native_set_cancel_label(
         self_: *mut GtkFileChooserNative,
         cancel_label: *const c_char,
@@ -19303,6 +19348,7 @@ extern "C" {
     pub fn gtk_file_filter_get_type() -> GType;
     pub fn gtk_file_filter_new() -> *mut GtkFileFilter;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_file_filter_new_from_gvariant(variant: *mut glib::GVariant) -> *mut GtkFileFilter;
     pub fn gtk_file_filter_add_custom(
         filter: *mut GtkFileFilter,
@@ -19322,6 +19368,7 @@ extern "C" {
     pub fn gtk_file_filter_get_needed(filter: *mut GtkFileFilter) -> GtkFileFilterFlags;
     pub fn gtk_file_filter_set_name(filter: *mut GtkFileFilter, name: *const c_char);
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_file_filter_to_gvariant(filter: *mut GtkFileFilter) -> *mut glib::GVariant;
 
     //=========================================================================
@@ -19338,6 +19385,7 @@ extern "C" {
     pub fn gtk_flow_box_get_type() -> GType;
     pub fn gtk_flow_box_new() -> *mut GtkWidget;
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_flow_box_bind_model(
         box_: *mut GtkFlowBox,
         model: *mut gio::GListModel,
@@ -19351,6 +19399,7 @@ extern "C" {
         idx: c_int,
     ) -> *mut GtkFlowBoxChild;
     #[cfg(any(feature = "v3_22_6", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_6")))]
     pub fn gtk_flow_box_get_child_at_pos(
         box_: *mut GtkFlowBox,
         x: c_int,
@@ -19532,48 +19581,68 @@ extern "C" {
     // GtkGLArea
     //=========================================================================
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_get_type() -> GType;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_new() -> *mut GtkWidget;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_attach_buffers(area: *mut GtkGLArea);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_get_auto_render(area: *mut GtkGLArea) -> gboolean;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_get_context(area: *mut GtkGLArea) -> *mut gdk::GdkGLContext;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_get_error(area: *mut GtkGLArea) -> *mut glib::GError;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_get_has_alpha(area: *mut GtkGLArea) -> gboolean;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_get_has_depth_buffer(area: *mut GtkGLArea) -> gboolean;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_get_has_stencil_buffer(area: *mut GtkGLArea) -> gboolean;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_get_required_version(
         area: *mut GtkGLArea,
         major: *mut c_int,
         minor: *mut c_int,
     );
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_gl_area_get_use_es(area: *mut GtkGLArea) -> gboolean;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_make_current(area: *mut GtkGLArea);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_queue_render(area: *mut GtkGLArea);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_set_auto_render(area: *mut GtkGLArea, auto_render: gboolean);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_set_error(area: *mut GtkGLArea, error: *const glib::GError);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_set_has_alpha(area: *mut GtkGLArea, has_alpha: gboolean);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_set_has_depth_buffer(area: *mut GtkGLArea, has_depth_buffer: gboolean);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_set_has_stencil_buffer(area: *mut GtkGLArea, has_stencil_buffer: gboolean);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_gl_area_set_required_version(area: *mut GtkGLArea, major: c_int, minor: c_int);
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_gl_area_set_use_es(area: *mut GtkGLArea, use_es: gboolean);
 
     //=========================================================================
@@ -19710,20 +19779,24 @@ extern "C" {
     //=========================================================================
     pub fn gtk_gesture_stylus_get_type() -> GType;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_gesture_stylus_new(widget: *mut GtkWidget) -> *mut GtkGesture;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_gesture_stylus_get_axes(
         gesture: *mut GtkGestureStylus,
         axes: *mut gdk::GdkAxisUse,
         values: *mut *mut c_double,
     ) -> gboolean;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_gesture_stylus_get_axis(
         gesture: *mut GtkGestureStylus,
         axis: gdk::GdkAxisUse,
         value: *mut c_double,
     ) -> gboolean;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_gesture_stylus_get_device_tool(
         gesture: *mut GtkGestureStylus,
     ) -> *mut gdk::GdkDeviceTool;
@@ -19902,6 +19975,7 @@ extern "C" {
     // GtkHeaderBarAccessible
     //=========================================================================
     #[cfg(any(feature = "v3_24_11", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_11")))]
     pub fn gtk_header_bar_accessible_get_type() -> GType;
 
     //=========================================================================
@@ -20525,6 +20599,7 @@ extern "C" {
     pub fn gtk_info_bar_get_content_area(info_bar: *mut GtkInfoBar) -> *mut GtkBox;
     pub fn gtk_info_bar_get_message_type(info_bar: *mut GtkInfoBar) -> GtkMessageType;
     #[cfg(any(feature = "v3_22_29", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
     pub fn gtk_info_bar_get_revealed(info_bar: *mut GtkInfoBar) -> gboolean;
     pub fn gtk_info_bar_get_show_close_button(info_bar: *mut GtkInfoBar) -> gboolean;
     pub fn gtk_info_bar_response(info_bar: *mut GtkInfoBar, response_id: GtkResponseType);
@@ -20539,6 +20614,7 @@ extern "C" {
         setting: gboolean,
     );
     #[cfg(any(feature = "v3_22_29", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
     pub fn gtk_info_bar_set_revealed(info_bar: *mut GtkInfoBar, revealed: gboolean);
     pub fn gtk_info_bar_set_show_close_button(info_bar: *mut GtkInfoBar, setting: gboolean);
 
@@ -20584,8 +20660,10 @@ extern "C" {
     pub fn gtk_label_get_use_underline(label: *mut GtkLabel) -> gboolean;
     pub fn gtk_label_get_width_chars(label: *mut GtkLabel) -> c_int;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_label_get_xalign(label: *mut GtkLabel) -> c_float;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_label_get_yalign(label: *mut GtkLabel) -> c_float;
     pub fn gtk_label_select_region(label: *mut GtkLabel, start_offset: c_int, end_offset: c_int);
     pub fn gtk_label_set_angle(label: *mut GtkLabel, angle: c_double);
@@ -20610,8 +20688,10 @@ extern "C" {
     pub fn gtk_label_set_use_underline(label: *mut GtkLabel, setting: gboolean);
     pub fn gtk_label_set_width_chars(label: *mut GtkLabel, n_chars: c_int);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_label_set_xalign(label: *mut GtkLabel, xalign: c_float);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_label_set_yalign(label: *mut GtkLabel, yalign: c_float);
 
     //=========================================================================
@@ -20703,6 +20783,7 @@ extern "C" {
     pub fn gtk_list_box_get_type() -> GType;
     pub fn gtk_list_box_new() -> *mut GtkWidget;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_list_box_bind_model(
         box_: *mut GtkListBox,
         model: *mut gio::GListModel,
@@ -20907,6 +20988,7 @@ extern "C" {
     pub fn gtk_menu_get_tearoff_state(menu: *mut GtkMenu) -> gboolean;
     pub fn gtk_menu_get_title(menu: *mut GtkMenu) -> *const c_char;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_menu_place_on_monitor(menu: *mut GtkMenu, monitor: *mut gdk::GdkMonitor);
     pub fn gtk_menu_popdown(menu: *mut GtkMenu);
     pub fn gtk_menu_popup(
@@ -20919,8 +21001,10 @@ extern "C" {
         activate_time: u32,
     );
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_menu_popup_at_pointer(menu: *mut GtkMenu, trigger_event: *const gdk::GdkEvent);
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_menu_popup_at_rect(
         menu: *mut GtkMenu,
         rect_window: *mut gdk::GdkWindow,
@@ -20930,6 +21014,7 @@ extern "C" {
         trigger_event: *const gdk::GdkEvent,
     );
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_menu_popup_at_widget(
         menu: *mut GtkMenu,
         widget: *mut GtkWidget,
@@ -21147,8 +21232,10 @@ extern "C" {
     // GtkModelButton
     //=========================================================================
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_model_button_get_type() -> GType;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_model_button_new() -> *mut GtkWidget;
 
     //=========================================================================
@@ -21166,28 +21253,40 @@ extern "C" {
     // GtkNativeDialog
     //=========================================================================
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_native_dialog_get_type() -> GType;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_native_dialog_destroy(self_: *mut GtkNativeDialog);
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_native_dialog_get_modal(self_: *mut GtkNativeDialog) -> gboolean;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_native_dialog_get_title(self_: *mut GtkNativeDialog) -> *const c_char;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_native_dialog_get_transient_for(self_: *mut GtkNativeDialog) -> *mut GtkWindow;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_native_dialog_get_visible(self_: *mut GtkNativeDialog) -> gboolean;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_native_dialog_hide(self_: *mut GtkNativeDialog);
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_native_dialog_run(self_: *mut GtkNativeDialog) -> c_int;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_native_dialog_set_modal(self_: *mut GtkNativeDialog, modal: gboolean);
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_native_dialog_set_title(self_: *mut GtkNativeDialog, title: *const c_char);
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_native_dialog_set_transient_for(self_: *mut GtkNativeDialog, parent: *mut GtkWindow);
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_native_dialog_show(self_: *mut GtkNativeDialog);
 
     //=========================================================================
@@ -21207,6 +21306,7 @@ extern "C" {
         menu_label: *mut GtkWidget,
     ) -> c_int;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_notebook_detach_tab(notebook: *mut GtkNotebook, child: *mut GtkWidget);
     pub fn gtk_notebook_get_action_widget(
         notebook: *mut GtkNotebook,
@@ -21392,17 +21492,20 @@ extern "C" {
     pub fn gtk_overlay_new() -> *mut GtkWidget;
     pub fn gtk_overlay_add_overlay(overlay: *mut GtkOverlay, widget: *mut GtkWidget);
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_overlay_get_overlay_pass_through(
         overlay: *mut GtkOverlay,
         widget: *mut GtkWidget,
     ) -> gboolean;
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_overlay_reorder_overlay(
         overlay: *mut GtkOverlay,
         child: *mut GtkWidget,
         index_: c_int,
     );
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_overlay_set_overlay_pass_through(
         overlay: *mut GtkOverlay,
         widget: *mut GtkWidget,
@@ -21413,14 +21516,17 @@ extern "C" {
     // GtkPadController
     //=========================================================================
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_pad_controller_get_type() -> GType;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_pad_controller_new(
         window: *mut GtkWindow,
         group: *mut gio::GActionGroup,
         pad: *mut gdk::GdkDevice,
     ) -> *mut GtkPadController;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_pad_controller_set_action(
         controller: *mut GtkPadController,
         type_: GtkPadActionType,
@@ -21430,6 +21536,7 @@ extern "C" {
         action_name: *const c_char,
     );
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_pad_controller_set_action_entries(
         controller: *mut GtkPadController,
         entries: *const GtkPadActionEntry,
@@ -21446,6 +21553,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> *mut GtkPageSetup;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_page_setup_new_from_gvariant(variant: *mut glib::GVariant) -> *mut GtkPageSetup;
     pub fn gtk_page_setup_new_from_key_file(
         key_file: *mut glib::GKeyFile,
@@ -21505,6 +21613,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_page_setup_to_gvariant(setup: *mut GtkPageSetup) -> *mut glib::GVariant;
     pub fn gtk_page_setup_to_key_file(
         setup: *mut GtkPageSetup,
@@ -21524,6 +21633,7 @@ extern "C" {
     pub fn gtk_paned_get_handle_window(paned: *mut GtkPaned) -> *mut gdk::GdkWindow;
     pub fn gtk_paned_get_position(paned: *mut GtkPaned) -> c_int;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_paned_get_wide_handle(paned: *mut GtkPaned) -> gboolean;
     pub fn gtk_paned_pack1(
         paned: *mut GtkPaned,
@@ -21539,6 +21649,7 @@ extern "C" {
     );
     pub fn gtk_paned_set_position(paned: *mut GtkPaned, position: c_int);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_paned_set_wide_handle(paned: *mut GtkPaned, wide: gboolean);
 
     //=========================================================================
@@ -21568,13 +21679,17 @@ extern "C" {
     pub fn gtk_places_sidebar_get_show_desktop(sidebar: *mut GtkPlacesSidebar) -> gboolean;
     pub fn gtk_places_sidebar_get_show_enter_location(sidebar: *mut GtkPlacesSidebar) -> gboolean;
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_places_sidebar_get_show_other_locations(sidebar: *mut GtkPlacesSidebar) -> gboolean;
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_places_sidebar_get_show_recent(sidebar: *mut GtkPlacesSidebar) -> gboolean;
     #[cfg(any(feature = "v3_22_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     pub fn gtk_places_sidebar_get_show_starred_location(sidebar: *mut GtkPlacesSidebar)
         -> gboolean;
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_places_sidebar_get_show_trash(sidebar: *mut GtkPlacesSidebar) -> gboolean;
     pub fn gtk_places_sidebar_list_shortcuts(sidebar: *mut GtkPlacesSidebar) -> *mut glib::GSList;
     pub fn gtk_places_sidebar_remove_shortcut(
@@ -21582,6 +21697,7 @@ extern "C" {
         location: *mut gio::GFile,
     );
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_places_sidebar_set_drop_targets_visible(
         sidebar: *mut GtkPlacesSidebar,
         visible: gboolean,
@@ -21609,21 +21725,25 @@ extern "C" {
         show_enter_location: gboolean,
     );
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_places_sidebar_set_show_other_locations(
         sidebar: *mut GtkPlacesSidebar,
         show_other_locations: gboolean,
     );
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_places_sidebar_set_show_recent(
         sidebar: *mut GtkPlacesSidebar,
         show_recent: gboolean,
     );
     #[cfg(any(feature = "v3_22_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     pub fn gtk_places_sidebar_set_show_starred_location(
         sidebar: *mut GtkPlacesSidebar,
         show_starred_location: gboolean,
     );
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_places_sidebar_set_show_trash(sidebar: *mut GtkPlacesSidebar, show_trash: gboolean);
 
     //=========================================================================
@@ -21660,8 +21780,10 @@ extern "C" {
         action_namespace: *const c_char,
     );
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_popover_get_constrain_to(popover: *mut GtkPopover) -> GtkPopoverConstraint;
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_popover_get_default_widget(popover: *mut GtkPopover) -> *mut GtkWidget;
     pub fn gtk_popover_get_modal(popover: *mut GtkPopover) -> gboolean;
     pub fn gtk_popover_get_pointing_to(
@@ -21671,20 +21793,26 @@ extern "C" {
     pub fn gtk_popover_get_position(popover: *mut GtkPopover) -> GtkPositionType;
     pub fn gtk_popover_get_relative_to(popover: *mut GtkPopover) -> *mut GtkWidget;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_popover_get_transitions_enabled(popover: *mut GtkPopover) -> gboolean;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_popover_popdown(popover: *mut GtkPopover);
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_popover_popup(popover: *mut GtkPopover);
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_popover_set_constrain_to(popover: *mut GtkPopover, constraint: GtkPopoverConstraint);
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_popover_set_default_widget(popover: *mut GtkPopover, widget: *mut GtkWidget);
     pub fn gtk_popover_set_modal(popover: *mut GtkPopover, modal: gboolean);
     pub fn gtk_popover_set_pointing_to(popover: *mut GtkPopover, rect: *const gdk::GdkRectangle);
     pub fn gtk_popover_set_position(popover: *mut GtkPopover, position: GtkPositionType);
     pub fn gtk_popover_set_relative_to(popover: *mut GtkPopover, relative_to: *mut GtkWidget);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_popover_set_transitions_enabled(
         popover: *mut GtkPopover,
         transitions_enabled: gboolean,
@@ -21699,10 +21827,13 @@ extern "C" {
     // GtkPopoverMenu
     //=========================================================================
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_popover_menu_get_type() -> GType;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_popover_menu_new() -> *mut GtkWidget;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_popover_menu_open_submenu(popover: *mut GtkPopoverMenu, name: *const c_char);
 
     //=========================================================================
@@ -21818,6 +21949,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> *mut GtkPrintSettings;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_print_settings_new_from_gvariant(
         variant: *mut glib::GVariant,
     ) -> *mut GtkPrintSettings;
@@ -22015,6 +22147,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_print_settings_to_gvariant(settings: *mut GtkPrintSettings) -> *mut glib::GVariant;
     pub fn gtk_print_settings_to_key_file(
         settings: *mut GtkPrintSettings,
@@ -22132,6 +22265,7 @@ extern "C" {
         radio_menu_item: *mut GtkRadioMenuItem,
     ) -> *mut glib::GSList;
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_radio_menu_item_join_group(
         radio_menu_item: *mut GtkRadioMenuItem,
         group_source: *mut GtkRadioMenuItem,
@@ -22480,10 +22614,12 @@ extern "C" {
         scrolled_window: *mut GtkScrolledWindow,
     ) -> gboolean;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_scrolled_window_get_max_content_height(
         scrolled_window: *mut GtkScrolledWindow,
     ) -> c_int;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_scrolled_window_get_max_content_width(
         scrolled_window: *mut GtkScrolledWindow,
     ) -> c_int;
@@ -22494,6 +22630,7 @@ extern "C" {
         scrolled_window: *mut GtkScrolledWindow,
     ) -> c_int;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_scrolled_window_get_overlay_scrolling(
         scrolled_window: *mut GtkScrolledWindow,
     ) -> gboolean;
@@ -22506,10 +22643,12 @@ extern "C" {
         vscrollbar_policy: *mut GtkPolicyType,
     );
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_scrolled_window_get_propagate_natural_height(
         scrolled_window: *mut GtkScrolledWindow,
     ) -> gboolean;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_scrolled_window_get_propagate_natural_width(
         scrolled_window: *mut GtkScrolledWindow,
     ) -> gboolean;
@@ -22535,11 +22674,13 @@ extern "C" {
         kinetic_scrolling: gboolean,
     );
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_scrolled_window_set_max_content_height(
         scrolled_window: *mut GtkScrolledWindow,
         height: c_int,
     );
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_scrolled_window_set_max_content_width(
         scrolled_window: *mut GtkScrolledWindow,
         width: c_int,
@@ -22553,6 +22694,7 @@ extern "C" {
         width: c_int,
     );
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_scrolled_window_set_overlay_scrolling(
         scrolled_window: *mut GtkScrolledWindow,
         overlay_scrolling: gboolean,
@@ -22567,11 +22709,13 @@ extern "C" {
         vscrollbar_policy: GtkPolicyType,
     );
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_scrolled_window_set_propagate_natural_height(
         scrolled_window: *mut GtkScrolledWindow,
         propagate: gboolean,
     );
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_scrolled_window_set_propagate_natural_width(
         scrolled_window: *mut GtkScrolledWindow,
         propagate: gboolean,
@@ -22612,6 +22756,7 @@ extern "C" {
     pub fn gtk_search_entry_get_type() -> GType;
     pub fn gtk_search_entry_new() -> *mut GtkWidget;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_search_entry_handle_event(
         entry: *mut GtkSearchEntry,
         event: *mut gdk::GdkEvent,
@@ -22649,6 +22794,7 @@ extern "C" {
         parser: GtkRcPropertyParser,
     );
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_settings_reset_property(settings: *mut GtkSettings, name: *const c_char);
     pub fn gtk_settings_set_double_property(
         settings: *mut GtkSettings,
@@ -22678,19 +22824,25 @@ extern "C" {
     // GtkShortcutLabel
     //=========================================================================
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_shortcut_label_get_type() -> GType;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_shortcut_label_new(accelerator: *const c_char) -> *mut GtkWidget;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_shortcut_label_get_accelerator(self_: *mut GtkShortcutLabel) -> *const c_char;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_shortcut_label_get_disabled_text(self_: *mut GtkShortcutLabel) -> *const c_char;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_shortcut_label_set_accelerator(
         self_: *mut GtkShortcutLabel,
         accelerator: *const c_char,
     );
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_shortcut_label_set_disabled_text(
         self_: *mut GtkShortcutLabel,
         disabled_text: *const c_char,
@@ -22700,24 +22852,28 @@ extern "C" {
     // GtkShortcutsGroup
     //=========================================================================
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_shortcuts_group_get_type() -> GType;
 
     //=========================================================================
     // GtkShortcutsSection
     //=========================================================================
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_shortcuts_section_get_type() -> GType;
 
     //=========================================================================
     // GtkShortcutsShortcut
     //=========================================================================
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_shortcuts_shortcut_get_type() -> GType;
 
     //=========================================================================
     // GtkShortcutsWindow
     //=========================================================================
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_shortcuts_window_get_type() -> GType;
 
     //=========================================================================
@@ -22844,25 +23000,31 @@ extern "C" {
     pub fn gtk_stack_get_child_by_name(stack: *mut GtkStack, name: *const c_char)
         -> *mut GtkWidget;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_stack_get_hhomogeneous(stack: *mut GtkStack) -> gboolean;
     pub fn gtk_stack_get_homogeneous(stack: *mut GtkStack) -> gboolean;
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_stack_get_interpolate_size(stack: *mut GtkStack) -> gboolean;
     pub fn gtk_stack_get_transition_duration(stack: *mut GtkStack) -> c_uint;
     pub fn gtk_stack_get_transition_running(stack: *mut GtkStack) -> gboolean;
     pub fn gtk_stack_get_transition_type(stack: *mut GtkStack) -> GtkStackTransitionType;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_stack_get_vhomogeneous(stack: *mut GtkStack) -> gboolean;
     pub fn gtk_stack_get_visible_child(stack: *mut GtkStack) -> *mut GtkWidget;
     pub fn gtk_stack_get_visible_child_name(stack: *mut GtkStack) -> *const c_char;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_stack_set_hhomogeneous(stack: *mut GtkStack, hhomogeneous: gboolean);
     pub fn gtk_stack_set_homogeneous(stack: *mut GtkStack, homogeneous: gboolean);
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_stack_set_interpolate_size(stack: *mut GtkStack, interpolate_size: gboolean);
     pub fn gtk_stack_set_transition_duration(stack: *mut GtkStack, duration: c_uint);
     pub fn gtk_stack_set_transition_type(stack: *mut GtkStack, transition: GtkStackTransitionType);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_stack_set_vhomogeneous(stack: *mut GtkStack, vhomogeneous: gboolean);
     pub fn gtk_stack_set_visible_child(stack: *mut GtkStack, child: *mut GtkWidget);
     pub fn gtk_stack_set_visible_child_full(
@@ -22876,18 +23038,23 @@ extern "C" {
     // GtkStackAccessible
     //=========================================================================
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_stack_accessible_get_type() -> GType;
 
     //=========================================================================
     // GtkStackSidebar
     //=========================================================================
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_stack_sidebar_get_type() -> GType;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_stack_sidebar_new() -> *mut GtkWidget;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_stack_sidebar_get_stack(sidebar: *mut GtkStackSidebar) -> *mut GtkStack;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_stack_sidebar_set_stack(sidebar: *mut GtkStackSidebar, stack: *mut GtkStack);
 
     //=========================================================================
@@ -23215,6 +23382,7 @@ extern "C" {
         progress: *mut c_double,
     ) -> gboolean;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_style_context_to_string(
         context: *mut GtkStyleContext,
         flags: GtkStyleContextPrintFlags,
@@ -23529,6 +23697,7 @@ extern "C" {
         default_editable: gboolean,
     ) -> gboolean;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_text_buffer_insert_markup(
         buffer: *mut GtkTextBuffer,
         iter: *mut GtkTextIter,
@@ -23684,6 +23853,7 @@ extern "C" {
     pub fn gtk_text_tag_get_type() -> GType;
     pub fn gtk_text_tag_new(name: *const c_char) -> *mut GtkTextTag;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_text_tag_changed(tag: *mut GtkTextTag, size_changed: gboolean);
     pub fn gtk_text_tag_event(
         tag: *mut GtkTextTag,
@@ -23760,6 +23930,7 @@ extern "C" {
         type_: GtkTextWindowType,
     ) -> c_int;
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_text_view_get_bottom_margin(text_view: *mut GtkTextView) -> c_int;
     pub fn gtk_text_view_get_buffer(text_view: *mut GtkTextView) -> *mut GtkTextBuffer;
     pub fn gtk_text_view_get_cursor_locations(
@@ -23810,6 +23981,7 @@ extern "C" {
         height: *mut c_int,
     );
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_text_view_get_monospace(text_view: *mut GtkTextView) -> gboolean;
     pub fn gtk_text_view_get_overwrite(text_view: *mut GtkTextView) -> gboolean;
     pub fn gtk_text_view_get_pixels_above_lines(text_view: *mut GtkTextView) -> c_int;
@@ -23818,6 +23990,7 @@ extern "C" {
     pub fn gtk_text_view_get_right_margin(text_view: *mut GtkTextView) -> c_int;
     pub fn gtk_text_view_get_tabs(text_view: *mut GtkTextView) -> *mut pango::PangoTabArray;
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_text_view_get_top_margin(text_view: *mut GtkTextView) -> c_int;
     pub fn gtk_text_view_get_vadjustment(text_view: *mut GtkTextView) -> *mut GtkAdjustment;
     pub fn gtk_text_view_get_visible_rect(
@@ -23854,6 +24027,7 @@ extern "C" {
     ) -> gboolean;
     pub fn gtk_text_view_place_cursor_onscreen(text_view: *mut GtkTextView) -> gboolean;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_text_view_reset_cursor_blink(text_view: *mut GtkTextView);
     pub fn gtk_text_view_reset_im_context(text_view: *mut GtkTextView);
     pub fn gtk_text_view_scroll_mark_onscreen(text_view: *mut GtkTextView, mark: *mut GtkTextMark);
@@ -23880,6 +24054,7 @@ extern "C" {
         size: c_int,
     );
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_text_view_set_bottom_margin(text_view: *mut GtkTextView, bottom_margin: c_int);
     pub fn gtk_text_view_set_buffer(text_view: *mut GtkTextView, buffer: *mut GtkTextBuffer);
     pub fn gtk_text_view_set_cursor_visible(text_view: *mut GtkTextView, setting: gboolean);
@@ -23893,6 +24068,7 @@ extern "C" {
     );
     pub fn gtk_text_view_set_left_margin(text_view: *mut GtkTextView, left_margin: c_int);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_text_view_set_monospace(text_view: *mut GtkTextView, monospace: gboolean);
     pub fn gtk_text_view_set_overwrite(text_view: *mut GtkTextView, overwrite: gboolean);
     pub fn gtk_text_view_set_pixels_above_lines(
@@ -23910,6 +24086,7 @@ extern "C" {
     pub fn gtk_text_view_set_right_margin(text_view: *mut GtkTextView, right_margin: c_int);
     pub fn gtk_text_view_set_tabs(text_view: *mut GtkTextView, tabs: *mut pango::PangoTabArray);
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_text_view_set_top_margin(text_view: *mut GtkTextView, top_margin: c_int);
     pub fn gtk_text_view_set_wrap_mode(text_view: *mut GtkTextView, wrap_mode: GtkWrapMode);
     pub fn gtk_text_view_starts_display_line(
@@ -25328,6 +25505,7 @@ extern "C" {
     pub fn gtk_widget_freeze_child_notify(widget: *mut GtkWidget);
     pub fn gtk_widget_get_accessible(widget: *mut GtkWidget) -> *mut atk::AtkObject;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_widget_get_action_group(
         widget: *mut GtkWidget,
         prefix: *const c_char,
@@ -25335,6 +25513,7 @@ extern "C" {
     pub fn gtk_widget_get_allocated_baseline(widget: *mut GtkWidget) -> c_int;
     pub fn gtk_widget_get_allocated_height(widget: *mut GtkWidget) -> c_int;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_widget_get_allocated_size(
         widget: *mut GtkWidget,
         allocation: *mut GtkAllocation,
@@ -25370,10 +25549,13 @@ extern "C" {
     pub fn gtk_widget_get_double_buffered(widget: *mut GtkWidget) -> gboolean;
     pub fn gtk_widget_get_events(widget: *mut GtkWidget) -> c_int;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_widget_get_focus_on_click(widget: *mut GtkWidget) -> gboolean;
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_widget_get_font_map(widget: *mut GtkWidget) -> *mut pango::PangoFontMap;
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_widget_get_font_options(
         widget: *mut GtkWidget,
     ) -> *const cairo::cairo_font_options_t;
@@ -25514,6 +25696,7 @@ extern "C" {
     ) -> gboolean;
     pub fn gtk_widget_list_accel_closures(widget: *mut GtkWidget) -> *mut glib::GList;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_widget_list_action_prefixes(widget: *mut GtkWidget) -> *mut *const c_char;
     pub fn gtk_widget_list_mnemonic_labels(widget: *mut GtkWidget) -> *mut glib::GList;
     pub fn gtk_widget_map(widget: *mut GtkWidget);
@@ -25582,6 +25765,7 @@ extern "C" {
         path_reversed: *mut *mut c_char,
     );
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_widget_queue_allocate(widget: *mut GtkWidget);
     pub fn gtk_widget_queue_compute_expand(widget: *mut GtkWidget);
     pub fn gtk_widget_queue_draw(widget: *mut GtkWidget);
@@ -25657,10 +25841,13 @@ extern "C" {
     pub fn gtk_widget_set_double_buffered(widget: *mut GtkWidget, double_buffered: gboolean);
     pub fn gtk_widget_set_events(widget: *mut GtkWidget, events: c_int);
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_widget_set_focus_on_click(widget: *mut GtkWidget, focus_on_click: gboolean);
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_widget_set_font_map(widget: *mut GtkWidget, font_map: *mut pango::PangoFontMap);
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_widget_set_font_options(
         widget: *mut GtkWidget,
         options: *const cairo::cairo_font_options_t,
@@ -25794,6 +25981,7 @@ extern "C" {
     pub fn gtk_window_deiconify(window: *mut GtkWindow);
     pub fn gtk_window_fullscreen(window: *mut GtkWindow);
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_window_fullscreen_on_monitor(
         window: *mut GtkWindow,
         screen: *mut gdk::GdkScreen,
@@ -25838,6 +26026,7 @@ extern "C" {
     pub fn gtk_window_get_skip_taskbar_hint(window: *mut GtkWindow) -> gboolean;
     pub fn gtk_window_get_title(window: *mut GtkWindow) -> *const c_char;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_window_get_titlebar(window: *mut GtkWindow) -> *mut GtkWidget;
     pub fn gtk_window_get_transient_for(window: *mut GtkWindow) -> *mut GtkWindow;
     pub fn gtk_window_get_type_hint(window: *mut GtkWindow) -> gdk::GdkWindowTypeHint;
@@ -26231,6 +26420,7 @@ extern "C" {
     //=========================================================================
     pub fn gtk_file_chooser_get_type() -> GType;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_file_chooser_add_choice(
         chooser: *mut GtkFileChooser,
         id: *const c_char,
@@ -26251,6 +26441,7 @@ extern "C" {
     ) -> gboolean;
     pub fn gtk_file_chooser_get_action(chooser: *mut GtkFileChooser) -> GtkFileChooserAction;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_file_chooser_get_choice(
         chooser: *mut GtkFileChooser,
         id: *const c_char,
@@ -26289,6 +26480,7 @@ extern "C" {
         chooser: *mut GtkFileChooser,
     ) -> *mut glib::GSList;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_file_chooser_remove_choice(chooser: *mut GtkFileChooser, id: *const c_char);
     pub fn gtk_file_chooser_remove_filter(chooser: *mut GtkFileChooser, filter: *mut GtkFileFilter);
     pub fn gtk_file_chooser_remove_shortcut_folder(
@@ -26317,6 +26509,7 @@ extern "C" {
     ) -> gboolean;
     pub fn gtk_file_chooser_set_action(chooser: *mut GtkFileChooser, action: GtkFileChooserAction);
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_file_chooser_set_choice(
         chooser: *mut GtkFileChooser,
         id: *const c_char,
@@ -26400,15 +26593,19 @@ extern "C" {
         fontchooser: *mut GtkFontChooser,
     ) -> *mut pango::PangoFontFamily;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_font_chooser_get_font_features(fontchooser: *mut GtkFontChooser) -> *mut c_char;
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_font_chooser_get_font_map(
         fontchooser: *mut GtkFontChooser,
     ) -> *mut pango::PangoFontMap;
     pub fn gtk_font_chooser_get_font_size(fontchooser: *mut GtkFontChooser) -> c_int;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_font_chooser_get_language(fontchooser: *mut GtkFontChooser) -> *mut c_char;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_font_chooser_get_level(fontchooser: *mut GtkFontChooser) -> GtkFontChooserLevel;
     pub fn gtk_font_chooser_get_preview_text(fontchooser: *mut GtkFontChooser) -> *mut c_char;
     pub fn gtk_font_chooser_get_show_preview_entry(fontchooser: *mut GtkFontChooser) -> gboolean;
@@ -26424,13 +26621,16 @@ extern "C" {
         font_desc: *const pango::PangoFontDescription,
     );
     #[cfg(any(feature = "v3_18", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn gtk_font_chooser_set_font_map(
         fontchooser: *mut GtkFontChooser,
         fontmap: *mut pango::PangoFontMap,
     );
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_font_chooser_set_language(fontchooser: *mut GtkFontChooser, language: *const c_char);
     #[cfg(any(feature = "v3_24", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_font_chooser_set_level(fontchooser: *mut GtkFontChooser, level: GtkFontChooserLevel);
     pub fn gtk_font_chooser_set_preview_text(fontchooser: *mut GtkFontChooser, text: *const c_char);
     pub fn gtk_font_chooser_set_show_preview_entry(
@@ -26542,6 +26742,7 @@ extern "C" {
     //=========================================================================
     pub fn gtk_scrollable_get_type() -> GType;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_scrollable_get_border(
         scrollable: *mut GtkScrollable,
         border: *mut GtkBorder,
@@ -26857,6 +27058,7 @@ extern "C" {
         sizes: *mut GtkRequestedSize,
     ) -> c_int;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn gtk_drag_cancel(context: *mut gdk::GdkDragContext);
     pub fn gtk_drag_finish(
         context: *mut gdk::GdkDragContext,
@@ -27265,6 +27467,7 @@ extern "C" {
         height: c_double,
     );
     #[cfg(any(feature = "v3_20", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn gtk_render_background_get_clip(
         context: *mut GtkStyleContext,
         x: c_double,
@@ -27441,6 +27644,7 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> gboolean;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn gtk_show_uri_on_window(
         parent: *mut GtkWindow,
         uri: *const c_char,

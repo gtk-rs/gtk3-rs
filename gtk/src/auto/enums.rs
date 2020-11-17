@@ -693,6 +693,7 @@ impl SetValue for ButtonBoxStyle {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum ButtonRole {
@@ -704,6 +705,7 @@ pub enum ButtonRole {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl fmt::Display for ButtonRole {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -720,6 +722,7 @@ impl fmt::Display for ButtonRole {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[doc(hidden)]
 impl ToGlib for ButtonRole {
     type GlibType = gtk_sys::GtkButtonRole;
@@ -735,6 +738,7 @@ impl ToGlib for ButtonRole {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[doc(hidden)]
 impl FromGlib<gtk_sys::GtkButtonRole> for ButtonRole {
     fn from_glib(value: gtk_sys::GtkButtonRole) -> Self {
@@ -749,6 +753,7 @@ impl FromGlib<gtk_sys::GtkButtonRole> for ButtonRole {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl StaticType for ButtonRole {
     fn static_type() -> Type {
         unsafe { from_glib(gtk_sys::gtk_button_role_get_type()) }
@@ -756,6 +761,7 @@ impl StaticType for ButtonRole {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl<'a> FromValueOptional<'a> for ButtonRole {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
@@ -763,6 +769,7 @@ impl<'a> FromValueOptional<'a> for ButtonRole {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl<'a> FromValue<'a> for ButtonRole {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
@@ -770,6 +777,7 @@ impl<'a> FromValue<'a> for ButtonRole {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl SetValue for ButtonRole {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
@@ -3576,6 +3584,7 @@ impl SetValue for PackType {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum PadActionType {
@@ -3587,6 +3596,7 @@ pub enum PadActionType {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl fmt::Display for PadActionType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -3603,6 +3613,7 @@ impl fmt::Display for PadActionType {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl ToGlib for PadActionType {
     type GlibType = gtk_sys::GtkPadActionType;
@@ -3618,6 +3629,7 @@ impl ToGlib for PadActionType {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl FromGlib<gtk_sys::GtkPadActionType> for PadActionType {
     fn from_glib(value: gtk_sys::GtkPadActionType) -> Self {
@@ -3632,6 +3644,7 @@ impl FromGlib<gtk_sys::GtkPadActionType> for PadActionType {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl StaticType for PadActionType {
     fn static_type() -> Type {
         unsafe { from_glib(gtk_sys::gtk_pad_action_type_get_type()) }
@@ -3639,6 +3652,7 @@ impl StaticType for PadActionType {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl<'a> FromValueOptional<'a> for PadActionType {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
@@ -3646,6 +3660,7 @@ impl<'a> FromValueOptional<'a> for PadActionType {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl<'a> FromValue<'a> for PadActionType {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
@@ -3653,6 +3668,7 @@ impl<'a> FromValue<'a> for PadActionType {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 impl SetValue for PadActionType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
@@ -3976,6 +3992,7 @@ impl SetValue for PolicyType {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum PopoverConstraint {
@@ -3986,6 +4003,7 @@ pub enum PopoverConstraint {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl fmt::Display for PopoverConstraint {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -4001,6 +4019,7 @@ impl fmt::Display for PopoverConstraint {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl ToGlib for PopoverConstraint {
     type GlibType = gtk_sys::GtkPopoverConstraint;
@@ -4015,6 +4034,7 @@ impl ToGlib for PopoverConstraint {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl FromGlib<gtk_sys::GtkPopoverConstraint> for PopoverConstraint {
     fn from_glib(value: gtk_sys::GtkPopoverConstraint) -> Self {
@@ -4028,6 +4048,7 @@ impl FromGlib<gtk_sys::GtkPopoverConstraint> for PopoverConstraint {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl StaticType for PopoverConstraint {
     fn static_type() -> Type {
         unsafe { from_glib(gtk_sys::gtk_popover_constraint_get_type()) }
@@ -4035,6 +4056,7 @@ impl StaticType for PopoverConstraint {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl<'a> FromValueOptional<'a> for PopoverConstraint {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
@@ -4042,6 +4064,7 @@ impl<'a> FromValueOptional<'a> for PopoverConstraint {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl<'a> FromValue<'a> for PopoverConstraint {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
@@ -4049,6 +4072,7 @@ impl<'a> FromValue<'a> for PopoverConstraint {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl SetValue for PopoverConstraint {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
@@ -5876,6 +5900,7 @@ impl SetValue for ShadowType {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum ShortcutType {
@@ -5892,6 +5917,7 @@ pub enum ShortcutType {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl fmt::Display for ShortcutType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -5913,6 +5939,7 @@ impl fmt::Display for ShortcutType {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl ToGlib for ShortcutType {
     type GlibType = gtk_sys::GtkShortcutType;
@@ -5939,6 +5966,7 @@ impl ToGlib for ShortcutType {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl FromGlib<gtk_sys::GtkShortcutType> for ShortcutType {
     fn from_glib(value: gtk_sys::GtkShortcutType) -> Self {
@@ -5958,6 +5986,7 @@ impl FromGlib<gtk_sys::GtkShortcutType> for ShortcutType {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl StaticType for ShortcutType {
     fn static_type() -> Type {
         unsafe { from_glib(gtk_sys::gtk_shortcut_type_get_type()) }
@@ -5965,6 +5994,7 @@ impl StaticType for ShortcutType {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl<'a> FromValueOptional<'a> for ShortcutType {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
@@ -5972,6 +6002,7 @@ impl<'a> FromValueOptional<'a> for ShortcutType {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl<'a> FromValue<'a> for ShortcutType {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
@@ -5979,6 +6010,7 @@ impl<'a> FromValue<'a> for ShortcutType {
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 impl SetValue for ShortcutType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
@@ -6697,6 +6729,7 @@ impl SetValue for TextDirection {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum TextExtendSelection {
@@ -6707,6 +6740,7 @@ pub enum TextExtendSelection {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl fmt::Display for TextExtendSelection {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -6722,6 +6756,7 @@ impl fmt::Display for TextExtendSelection {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[doc(hidden)]
 impl ToGlib for TextExtendSelection {
     type GlibType = gtk_sys::GtkTextExtendSelection;
@@ -6736,6 +6771,7 @@ impl ToGlib for TextExtendSelection {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[doc(hidden)]
 impl FromGlib<gtk_sys::GtkTextExtendSelection> for TextExtendSelection {
     fn from_glib(value: gtk_sys::GtkTextExtendSelection) -> Self {
@@ -6749,6 +6785,7 @@ impl FromGlib<gtk_sys::GtkTextExtendSelection> for TextExtendSelection {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl StaticType for TextExtendSelection {
     fn static_type() -> Type {
         unsafe { from_glib(gtk_sys::gtk_text_extend_selection_get_type()) }
@@ -6756,6 +6793,7 @@ impl StaticType for TextExtendSelection {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl<'a> FromValueOptional<'a> for TextExtendSelection {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
@@ -6763,6 +6801,7 @@ impl<'a> FromValueOptional<'a> for TextExtendSelection {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl<'a> FromValue<'a> for TextExtendSelection {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
@@ -6770,6 +6809,7 @@ impl<'a> FromValue<'a> for TextExtendSelection {
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 impl SetValue for TextExtendSelection {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
