@@ -300,12 +300,12 @@ mod row_data {
                 }
             }
 
-            fn get_property(&self, _obj: &Self::Type, id: usize) -> Result<glib::Value, ()> {
+            fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
                 let prop = &PROPERTIES[id];
 
                 match *prop {
-                    subclass::Property("name", ..) => Ok(self.name.borrow().to_value()),
-                    subclass::Property("count", ..) => Ok(self.count.borrow().to_value()),
+                    subclass::Property("name", ..) => self.name.borrow().to_value(),
+                    subclass::Property("count", ..) => self.count.borrow().to_value(),
                     _ => unimplemented!(),
                 }
             }

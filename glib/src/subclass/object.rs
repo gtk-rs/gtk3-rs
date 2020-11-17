@@ -31,7 +31,7 @@ pub trait ObjectImpl: ObjectSubclass + ObjectImplExt {
     ///
     /// This is called whenever the property value of the specific subclass with the
     /// given index should be returned.
-    fn get_property(&self, _obj: &Self::Type, _id: usize) -> Result<Value, ()> {
+    fn get_property(&self, _obj: &Self::Type, _id: usize) -> Value {
         unimplemented!()
     }
 
@@ -54,25 +54,22 @@ unsafe extern "C" fn get_property<T: ObjectImpl>(
     let instance = &*(obj as *mut T::Instance);
     let imp = instance.get_impl();
 
-    match imp.get_property(
+    let v = imp.get_property(
         &from_glib_borrow::<_, Object>(obj).unsafe_cast_ref(),
         (id - 1) as usize,
-    ) {
-        Ok(v) => {
-            // We first unset the value we get passed in, in case it contained
-            // any previous data. Then we directly overwrite it with our new
-            // value, and pass ownership of the contained data to the C GValue
-            // by forgetting it on the Rust side.
-            //
-            // Without this, by using the GValue API, we would have to create
-            // a copy of the value when setting it on the destination just to
-            // immediately free the original value afterwards.
-            gobject_sys::g_value_unset(value);
-            let v = mem::ManuallyDrop::new(v);
-            ptr::write(value, ptr::read(v.to_glib_none().0));
-        }
-        Err(()) => eprintln!("Failed to get property"),
-    }
+    );
+
+    // We first unset the value we get passed in, in case it contained
+    // any previous data. Then we directly overwrite it with our new
+    // value, and pass ownership of the contained data to the C GValue
+    // by forgetting it on the Rust side.
+    //
+    // Without this, by using the GValue API, we would have to create
+    // a copy of the value when setting it on the destination just to
+    // immediately free the original value afterwards.
+    gobject_sys::g_value_unset(value);
+    let v = mem::ManuallyDrop::new(v);
+    ptr::write(value, ptr::read(v.to_glib_none().0));
 }
 
 unsafe extern "C" fn set_property<T: ObjectImpl>(
@@ -455,13 +452,13 @@ mod test {
                 }
             }
 
-            fn get_property(&self, _obj: &Self::Type, id: usize) -> Result<Value, ()> {
+            fn get_property(&self, _obj: &Self::Type, id: usize) -> Value {
                 let prop = &PROPERTIES[id];
 
                 match *prop {
-                    Property("name", ..) => Ok(self.name.borrow().to_value()),
-                    Property("construct-name", ..) => Ok(self.construct_name.borrow().to_value()),
-                    Property("constructed", ..) => Ok(self.constructed.borrow().to_value()),
+                    Property("name", ..) => self.name.borrow().to_value(),
+                    Property("construct-name", ..) => self.construct_name.borrow().to_value(),
+                    Property("constructed", ..) => self.constructed.borrow().to_value(),
                     _ => unimplemented!(),
                 }
             }
