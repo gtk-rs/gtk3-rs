@@ -85,9 +85,11 @@ extern crate once_cell;
 extern crate smallvec;
 
 #[doc(hidden)]
-pub extern crate glib_sys;
+pub extern crate glib_sys as glib_sys;
+pub use glib_sys as ffi;
 #[doc(hidden)]
-pub extern crate gobject_sys;
+pub extern crate gobject_sys as gobject_sys;
+pub use gobject_sys as gobject_ffi;
 
 extern crate glib_macros;
 pub use glib_macros::{gflags, GBoxed, GEnum};

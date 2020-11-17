@@ -9,7 +9,9 @@ extern crate cairo_sys;
 extern crate glib_sys;
 extern crate gobject_sys;
 extern crate pango;
-extern crate pango_cairo_sys;
+#[doc(hidden)]
+pub extern crate pango_cairo_sys;
+pub use pango_cairo_sys as ffi;
 extern crate pango_sys;
 #[macro_use]
 extern crate glib;

@@ -12,7 +12,9 @@
 extern crate glib;
 extern crate glib_sys as glib_sys;
 extern crate gobject_sys as gobject_sys;
-extern crate graphene_sys as graphene_sys;
+#[doc(hidden)]
+pub extern crate graphene_sys as graphene_sys;
+pub use graphene_sys as ffi;
 extern crate libc;
 
 // Graphene has no runtime to initialize

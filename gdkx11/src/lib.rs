@@ -10,7 +10,9 @@ extern crate glib;
 extern crate gdk;
 extern crate gdk_pixbuf;
 extern crate gdk_sys;
-extern crate gdk_x11_sys;
+#[doc(hidden)]
+pub extern crate gdk_x11_sys;
+pub use gdk_x11_sys as ffi;
 extern crate gio;
 extern crate gio_sys;
 extern crate glib_sys;

@@ -6,7 +6,9 @@
 
 extern crate glib_sys;
 extern crate gobject_sys;
-extern crate pango_sys;
+#[doc(hidden)]
+pub extern crate pango_sys;
+pub use pango_sys as ffi;
 #[macro_use]
 extern crate glib;
 #[macro_use]

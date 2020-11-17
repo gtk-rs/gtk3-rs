@@ -16,7 +16,9 @@ extern crate glib;
 #[cfg(test)]
 extern crate serial_test_derive;
 
-extern crate gio_sys;
+#[doc(hidden)]
+pub extern crate gio_sys;
+pub use gio_sys as ffi;
 extern crate glib_sys;
 extern crate gobject_sys;
 extern crate libc;
