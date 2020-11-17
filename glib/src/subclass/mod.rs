@@ -271,10 +271,10 @@ pub mod boxed;
 
 pub mod prelude {
     //! Prelude that re-exports all important traits from this crate.
-    pub use super::boxed::BoxedType;
-    pub use super::interface::{ObjectInterface, ObjectInterfaceExt};
-    pub use super::object::{ObjectClassSubclassExt, ObjectImpl, ObjectImplExt};
-    pub use super::types::{
+    pub use crate::subclass::boxed::BoxedType;
+    pub use crate::subclass::interface::{ObjectInterface, ObjectInterfaceExt};
+    pub use crate::subclass::object::{ObjectClassSubclassExt, ObjectImpl, ObjectImplExt};
+    pub use crate::subclass::types::{
         ClassStruct, InstanceStruct, IsImplementable, IsSubclassable, ObjectSubclass,
     };
 }

@@ -2,7 +2,15 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::ffi;
+use crate::IOStream;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+use crate::InputStream;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+use crate::OutputStream;
+use glib;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::object::Cast;
@@ -11,19 +19,12 @@ use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
-use IOStream;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-use InputStream;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-use OutputStream;
 
-glib_wrapper! {
-    pub struct SimpleIOStream(Object<gio_sys::GSimpleIOStream>) @extends IOStream;
+glib::glib_wrapper! {
+    pub struct SimpleIOStream(Object<ffi::GSimpleIOStream>) @extends IOStream;
 
     match fn {
-        get_type => || gio_sys::g_simple_io_stream_get_type(),
+        get_type => || ffi::g_simple_io_stream_get_type(),
     }
 }
 
@@ -35,7 +36,7 @@ impl SimpleIOStream {
         output_stream: &Q,
     ) -> SimpleIOStream {
         unsafe {
-            IOStream::from_glib_full(gio_sys::g_simple_io_stream_new(
+            IOStream::from_glib_full(ffi::g_simple_io_stream_new(
                 input_stream.as_ref().to_glib_none().0,
                 output_stream.as_ref().to_glib_none().0,
             ))

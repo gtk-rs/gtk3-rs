@@ -15,6 +15,7 @@ use crate::read_input_stream::std_error_to_gio_error;
 
 mod imp {
     use super::*;
+    use glib;
     use std::cell::RefCell;
 
     pub(super) enum Writer {
@@ -33,7 +34,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::glib_object_subclass!();
 
         fn new() -> Self {
             Self {
@@ -191,7 +192,7 @@ mod imp {
     }
 }
 
-glib_wrapper! {
+glib::glib_wrapper! {
     pub struct WriteOutputStream(ObjectSubclass<imp::WriteOutputStream>) @extends crate::OutputStream, @implements crate::Seekable;
 }
 

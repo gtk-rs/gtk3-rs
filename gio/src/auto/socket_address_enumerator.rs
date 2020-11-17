@@ -2,24 +2,22 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::ffi;
+use crate::Cancellable;
+use crate::SocketAddress;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
-use SocketAddress;
 
-glib_wrapper! {
-    pub struct SocketAddressEnumerator(Object<gio_sys::GSocketAddressEnumerator, gio_sys::GSocketAddressEnumeratorClass>);
+glib::glib_wrapper! {
+    pub struct SocketAddressEnumerator(Object<ffi::GSocketAddressEnumerator, ffi::GSocketAddressEnumeratorClass>);
 
     match fn {
-        get_type => || gio_sys::g_socket_address_enumerator_get_type(),
+        get_type => || ffi::g_socket_address_enumerator_get_type(),
     }
 }
 
@@ -52,7 +50,7 @@ impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
     ) -> Result<SocketAddress, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_socket_address_enumerator_next(
+            let ret = ffi::g_socket_address_enumerator_next(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -77,12 +75,12 @@ impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
         unsafe extern "C" fn next_async_trampoline<
             Q: FnOnce(Result<SocketAddress, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_socket_address_enumerator_next_finish(
+            let ret = ffi::g_socket_address_enumerator_next_finish(
                 _source_object as *mut _,
                 res,
                 &mut error,
@@ -97,7 +95,7 @@ impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
         }
         let callback = next_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_socket_address_enumerator_next_async(
+            ffi::g_socket_address_enumerator_next_async(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),

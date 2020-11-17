@@ -13,6 +13,7 @@ use std::io::{Read, Seek};
 
 mod imp {
     use super::*;
+    use glib;
     use std::cell::RefCell;
 
     pub(super) enum Reader {
@@ -31,7 +32,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::glib_object_subclass!();
 
         fn new() -> Self {
             Self {
@@ -164,7 +165,7 @@ mod imp {
     }
 }
 
-glib_wrapper! {
+glib::glib_wrapper! {
     pub struct ReadInputStream(ObjectSubclass<imp::ReadInputStream>) @extends crate::InputStream, @implements crate::Seekable;
 }
 

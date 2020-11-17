@@ -5,15 +5,14 @@
 //! Module that contains all types needed for creating a direct subclass of `GObject`
 //! or implementing virtual methods of it.
 
-use super::prelude::*;
-use glib_sys;
-use gobject_sys;
+use crate::ffi;
+use crate::gobject_ffi;
+use crate::subclass::prelude::*;
 use std::borrow::Borrow;
-use std::fmt;
-use std::mem;
-use std::ptr;
-use translate::*;
-use {Cast, Object, ObjectType, SignalFlags, Type, Value};
+use std::{fmt, mem, ptr};
+
+use crate::translate::*;
+use crate::{Cast, Object, ObjectType, SignalFlags, Type, Value};
 
 /// Trait for implementors of `glib::Object` subclasses.
 ///
@@ -46,10 +45,10 @@ pub trait ObjectImpl: ObjectSubclass + ObjectImplExt {
 }
 
 unsafe extern "C" fn get_property<T: ObjectImpl>(
-    obj: *mut gobject_sys::GObject,
+    obj: *mut gobject_ffi::GObject,
     id: u32,
-    value: *mut gobject_sys::GValue,
-    _pspec: *mut gobject_sys::GParamSpec,
+    value: *mut gobject_ffi::GValue,
+    _pspec: *mut gobject_ffi::GParamSpec,
 ) {
     let instance = &*(obj as *mut T::Instance);
     let imp = instance.get_impl();
@@ -67,7 +66,7 @@ unsafe extern "C" fn get_property<T: ObjectImpl>(
             // Without this, by using the GValue API, we would have to create
             // a copy of the value when setting it on the destination just to
             // immediately free the original value afterwards.
-            gobject_sys::g_value_unset(value);
+            gobject_ffi::g_value_unset(value);
             let v = mem::ManuallyDrop::new(v);
             ptr::write(value, ptr::read(v.to_glib_none().0));
         }
@@ -76,10 +75,10 @@ unsafe extern "C" fn get_property<T: ObjectImpl>(
 }
 
 unsafe extern "C" fn set_property<T: ObjectImpl>(
-    obj: *mut gobject_sys::GObject,
+    obj: *mut gobject_ffi::GObject,
     id: u32,
-    value: *mut gobject_sys::GValue,
-    _pspec: *mut gobject_sys::GParamSpec,
+    value: *mut gobject_ffi::GValue,
+    _pspec: *mut gobject_ffi::GParamSpec,
 ) {
     let instance = &*(obj as *mut T::Instance);
     let imp = instance.get_impl();
@@ -90,7 +89,7 @@ unsafe extern "C" fn set_property<T: ObjectImpl>(
     );
 }
 
-unsafe extern "C" fn constructed<T: ObjectImpl>(obj: *mut gobject_sys::GObject) {
+unsafe extern "C" fn constructed<T: ObjectImpl>(obj: *mut gobject_ffi::GObject) {
     let instance = &*(obj as *mut T::Instance);
     let imp = instance.get_impl();
 
@@ -99,7 +98,7 @@ unsafe extern "C" fn constructed<T: ObjectImpl>(obj: *mut gobject_sys::GObject) 
 
 /// Definition of a property.
 #[derive(Clone)]
-pub struct Property<'a>(pub &'a str, pub fn(&str) -> ::ParamSpec);
+pub struct Property<'a>(pub &'a str, pub fn(&str) -> crate::ParamSpec);
 
 impl<'a> fmt::Debug for Property<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
@@ -137,8 +136,8 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
                 pspecs_ptrs.push(pspec.to_glib_none().0);
             }
 
-            gobject_sys::g_object_class_install_properties(
-                self as *mut _ as *mut gobject_sys::GObjectClass,
+            gobject_ffi::g_object_class_install_properties(
+                self as *mut _ as *mut gobject_ffi::GObjectClass,
                 pspecs_ptrs.len() as u32,
                 pspecs_ptrs.as_mut_ptr(),
             );
@@ -152,7 +151,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     fn add_signal(&mut self, name: &str, flags: SignalFlags, arg_types: &[Type], ret_type: Type) {
         unsafe {
             super::types::add_signal(
-                *(self as *mut _ as *mut glib_sys::GType),
+                *(self as *mut _ as *mut ffi::GType),
                 name,
                 flags,
                 arg_types,
@@ -179,7 +178,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     {
         unsafe {
             super::types::add_signal_with_class_handler(
-                *(self as *mut _ as *mut glib_sys::GType),
+                *(self as *mut _ as *mut ffi::GType),
                 name,
                 flags,
                 arg_types,
@@ -210,7 +209,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     {
         unsafe {
             super::types::add_signal_with_accumulator(
-                *(self as *mut _ as *mut glib_sys::GType),
+                *(self as *mut _ as *mut ffi::GType),
                 name,
                 flags,
                 arg_types,
@@ -245,7 +244,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     {
         unsafe {
             super::types::add_signal_with_class_handler_and_accumulator(
-                *(self as *mut _ as *mut glib_sys::GType),
+                *(self as *mut _ as *mut ffi::GType),
                 name,
                 flags,
                 arg_types,
@@ -263,17 +262,17 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
         unsafe {
             super::types::signal_override_class_handler(
                 name,
-                *(self as *mut _ as *mut glib_sys::GType),
+                *(self as *mut _ as *mut ffi::GType),
                 class_handler,
             );
         }
     }
 }
 
-unsafe impl ObjectClassSubclassExt for ::Class<Object> {}
+unsafe impl ObjectClassSubclassExt for crate::Class<Object> {}
 
 unsafe impl<T: ObjectImpl> IsSubclassable<T> for Object {
-    fn override_vfuncs(class: &mut ::Class<Self>) {
+    fn override_vfuncs(class: &mut crate::Class<Self>) {
         let klass = class.as_mut();
         klass.set_property = Some(set_property::<T>);
         klass.get_property = Some(get_property::<T>);
@@ -296,7 +295,7 @@ impl<T: ObjectImpl> ObjectImplExt for T {
     fn parent_constructed(&self, obj: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gobject_sys::GObjectClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut gobject_ffi::GObjectClass;
 
             if let Some(ref func) = (*parent_class).constructed {
                 func(obj.unsafe_cast_ref::<Object>().to_glib_none().0);
@@ -376,7 +375,7 @@ mod test {
                     "name-changed",
                     SignalFlags::RUN_LAST,
                     &[String::static_type()],
-                    ::Type::Unit,
+                    crate::Type::Unit,
                 );
 
                 klass.add_signal_with_class_handler(
@@ -483,39 +482,39 @@ mod test {
 
     static PROPERTIES: [Property; 4] = [
         Property("name", |name| {
-            ::ParamSpec::string(
+            crate::ParamSpec::string(
                 name,
                 "Name",
                 "Name of this object",
                 None,
-                ::ParamFlags::READWRITE,
+                crate::ParamFlags::READWRITE,
             )
         }),
         Property("construct-name", |name| {
-            ::ParamSpec::string(
+            crate::ParamSpec::string(
                 name,
                 "Construct Name",
                 "Construct Name of this object",
                 None,
-                ::ParamFlags::READWRITE | ::ParamFlags::CONSTRUCT_ONLY,
+                crate::ParamFlags::READWRITE | crate::ParamFlags::CONSTRUCT_ONLY,
             )
         }),
         Property("constructed", |name| {
-            ::ParamSpec::boolean(
+            crate::ParamSpec::boolean(
                 name,
                 "Constructed",
                 "True if the constructed() virtual method was called",
                 false,
-                ::ParamFlags::READABLE,
+                crate::ParamFlags::READABLE,
             )
         }),
         Property("child", |name| {
-            ::ParamSpec::object(
+            crate::ParamSpec::object(
                 name,
                 "Child",
                 "Child object",
                 ChildObject::static_type(),
-                ::ParamFlags::READWRITE,
+                crate::ParamFlags::READWRITE,
             )
         }),
     ];
@@ -526,7 +525,7 @@ mod test {
 
     #[repr(C)]
     pub struct DummyInterface {
-        parent: gobject_sys::GTypeInterface,
+        parent: gobject_ffi::GTypeInterface,
     }
 
     impl ObjectInterface for DummyInterface {
@@ -550,11 +549,7 @@ mod test {
     // Usually this would be implemented on a Rust wrapper type defined
     // with glib_wrapper!() but for the test the following is susyscient
     unsafe impl<T: ObjectImpl> IsImplementable<T> for DummyInterface {
-        unsafe extern "C" fn interface_init(
-            _iface: glib_sys::gpointer,
-            _iface_data: glib_sys::gpointer,
-        ) {
-        }
+        unsafe extern "C" fn interface_init(_iface: ffi::gpointer, _iface_data: ffi::gpointer) {}
     }
 
     #[test]

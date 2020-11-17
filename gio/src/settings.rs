@@ -1,6 +1,6 @@
+use crate::{Settings, SettingsExt};
 use glib::variant::FromVariant;
 use glib::{BoolError, IsA, ToVariant};
-use {Settings, SettingsExt};
 
 pub trait SettingsExtManual {
     fn get<U: FromVariant>(&self, key: &str) -> U;

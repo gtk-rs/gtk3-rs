@@ -1,6 +1,6 @@
+use crate::translate::FromGlib;
+use crate::translate::ToGlib;
 use libc::{c_char, c_uchar};
-use translate::FromGlib;
-use translate::ToGlib;
 
 /// Wrapper for values where C functions expect a plain C `char`
 ///

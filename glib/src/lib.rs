@@ -78,28 +78,10 @@
 #![allow(clippy::unreadable_literal)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-#[doc(hidden)]
-#[macro_use]
-pub extern crate bitflags;
-extern crate libc;
-extern crate once_cell;
-extern crate smallvec;
-
-#[doc(hidden)]
-pub extern crate glib_sys as glib_sys;
 pub use glib_sys as ffi;
-#[doc(hidden)]
-pub extern crate gobject_sys as gobject_sys;
 pub use gobject_sys as gobject_ffi;
 
-extern crate glib_macros;
 pub use glib_macros::{gflags, GBoxed, GEnum};
-
-extern crate futures_channel;
-extern crate futures_core;
-extern crate futures_executor;
-extern crate futures_task;
-extern crate futures_util;
 
 pub use byte_array::ByteArray;
 pub use bytes::Bytes;
@@ -154,7 +136,7 @@ mod byte_array;
 mod bytes;
 pub mod char;
 mod string;
-pub use char::*;
+pub use crate::char::*;
 mod checksum;
 pub mod closure;
 mod enums;

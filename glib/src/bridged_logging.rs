@@ -2,9 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::ffi;
 use crate::log as glib_log;
-use glib_sys;
-use translate::*;
+use crate::translate::*;
 
 /// Enumeration of the possible formatting behaviours for a
 /// [`GlibLogger`](struct.GlibLogger.html).
@@ -101,21 +101,21 @@ impl GlibLogger {
         GlibLogger { format, domain }
     }
 
-    fn level_to_glib(level: rs_log::Level) -> glib_sys::GLogLevelFlags {
+    fn level_to_glib(level: rs_log::Level) -> ffi::GLogLevelFlags {
         match level {
             // Errors are mapped to critical to avoid automatic termination
-            rs_log::Level::Error => glib_sys::G_LOG_LEVEL_CRITICAL,
-            rs_log::Level::Warn => glib_sys::G_LOG_LEVEL_WARNING,
-            rs_log::Level::Info => glib_sys::G_LOG_LEVEL_INFO,
-            rs_log::Level::Debug => glib_sys::G_LOG_LEVEL_DEBUG,
+            rs_log::Level::Error => ffi::G_LOG_LEVEL_CRITICAL,
+            rs_log::Level::Warn => ffi::G_LOG_LEVEL_WARNING,
+            rs_log::Level::Info => ffi::G_LOG_LEVEL_INFO,
+            rs_log::Level::Debug => ffi::G_LOG_LEVEL_DEBUG,
             // There is no equivalent to trace level in glib
-            rs_log::Level::Trace => glib_sys::G_LOG_LEVEL_DEBUG,
+            rs_log::Level::Trace => ffi::G_LOG_LEVEL_DEBUG,
         }
     }
 
     fn write_log(domain: Option<&str>, level: rs_log::Level, message: &str) {
         unsafe {
-            crate::glib_sys::g_log(
+            crate::ffi::g_log(
                 domain.to_glib_none().0,
                 GlibLogger::level_to_glib(level),
                 message.replace("%", "%%").to_glib_none().0,
@@ -139,7 +139,7 @@ impl GlibLogger {
         };
 
         unsafe {
-            crate::glib_sys::g_log_structured_standard(
+            crate::ffi::g_log_structured_standard(
                 domain.to_glib_none().0,
                 GlibLogger::level_to_glib(level),
                 file.to_glib_none().0,

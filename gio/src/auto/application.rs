@@ -2,7 +2,15 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::ffi;
+use crate::ActionGroup;
+use crate::ActionMap;
+use crate::ApplicationCommandLine;
+use crate::ApplicationFlags;
+use crate::Cancellable;
+use crate::DBusConnection;
+use crate::File;
+use crate::Notification;
 use glib;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -10,38 +18,27 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::value::SetValueOptional;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
-use ActionGroup;
-use ActionMap;
-use ApplicationCommandLine;
-use ApplicationFlags;
-use Cancellable;
-use DBusConnection;
-use File;
-use Notification;
 
-glib_wrapper! {
-    pub struct Application(Object<gio_sys::GApplication, gio_sys::GApplicationClass>) @implements ActionGroup, ActionMap;
+glib::glib_wrapper! {
+    pub struct Application(Object<ffi::GApplication, ffi::GApplicationClass>) @implements ActionGroup, ActionMap;
 
     match fn {
-        get_type => || gio_sys::g_application_get_type(),
+        get_type => || ffi::g_application_get_type(),
     }
 }
 
 impl Application {
     pub fn new(application_id: Option<&str>, flags: ApplicationFlags) -> Application {
         unsafe {
-            from_glib_full(gio_sys::g_application_new(
+            from_glib_full(ffi::g_application_new(
                 application_id.to_glib_none().0,
                 flags.to_glib(),
             ))
@@ -49,12 +46,12 @@ impl Application {
     }
 
     pub fn get_default() -> Option<Application> {
-        unsafe { from_glib_none(gio_sys::g_application_get_default()) }
+        unsafe { from_glib_none(ffi::g_application_get_default()) }
     }
 
     pub fn id_is_valid(application_id: &str) -> bool {
         unsafe {
-            from_glib(gio_sys::g_application_id_is_valid(
+            from_glib(ffi::g_application_id_is_valid(
                 application_id.to_glib_none().0,
             ))
         }
@@ -148,11 +145,11 @@ pub trait ApplicationExt: 'static {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn bind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str);
 
-    fn get_application_id(&self) -> Option<GString>;
+    fn get_application_id(&self) -> Option<glib::GString>;
 
     fn get_dbus_connection(&self) -> Option<DBusConnection>;
 
-    fn get_dbus_object_path(&self) -> Option<GString>;
+    fn get_dbus_object_path(&self) -> Option<glib::GString>;
 
     fn get_flags(&self) -> ApplicationFlags;
 
@@ -166,7 +163,7 @@ pub trait ApplicationExt: 'static {
 
     fn get_is_remote(&self) -> bool;
 
-    fn get_resource_base_path(&self) -> Option<GString>;
+    fn get_resource_base_path(&self) -> Option<glib::GString>;
 
     fn hold(&self);
 
@@ -272,7 +269,7 @@ pub trait ApplicationExt: 'static {
 impl<O: IsA<Application>> ApplicationExt for O {
     fn activate(&self) {
         unsafe {
-            gio_sys::g_application_activate(self.as_ref().to_glib_none().0);
+            ffi::g_application_activate(self.as_ref().to_glib_none().0);
         }
     }
 
@@ -286,7 +283,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
         arg_description: Option<&str>,
     ) {
         unsafe {
-            gio_sys::g_application_add_main_option(
+            ffi::g_application_add_main_option(
                 self.as_ref().to_glib_none().0,
                 long_name.to_glib_none().0,
                 short_name.to_glib(),
@@ -299,18 +296,18 @@ impl<O: IsA<Application>> ApplicationExt for O {
     }
 
     //fn add_main_option_entries(&self, entries: /*Ignored*/&[&glib::OptionEntry]) {
-    //    unsafe { TODO: call gio_sys:g_application_add_main_option_entries() }
+    //    unsafe { TODO: call ffi:g_application_add_main_option_entries() }
     //}
 
     //fn add_option_group(&self, group: /*Ignored*/&glib::OptionGroup) {
-    //    unsafe { TODO: call gio_sys:g_application_add_option_group() }
+    //    unsafe { TODO: call ffi:g_application_add_option_group() }
     //}
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn bind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str) {
         unsafe {
-            gio_sys::g_application_bind_busy_property(
+            ffi::g_application_bind_busy_property(
                 self.as_ref().to_glib_none().0,
                 object.as_ref().to_glib_none().0,
                 property.to_glib_none().0,
@@ -318,9 +315,9 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    fn get_application_id(&self) -> Option<GString> {
+    fn get_application_id(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gio_sys::g_application_get_application_id(
+            from_glib_none(ffi::g_application_get_application_id(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -328,37 +325,33 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn get_dbus_connection(&self) -> Option<DBusConnection> {
         unsafe {
-            from_glib_none(gio_sys::g_application_get_dbus_connection(
+            from_glib_none(ffi::g_application_get_dbus_connection(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_dbus_object_path(&self) -> Option<GString> {
+    fn get_dbus_object_path(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gio_sys::g_application_get_dbus_object_path(
+            from_glib_none(ffi::g_application_get_dbus_object_path(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_flags(&self) -> ApplicationFlags {
-        unsafe {
-            from_glib(gio_sys::g_application_get_flags(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::g_application_get_flags(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_inactivity_timeout(&self) -> u32 {
-        unsafe { gio_sys::g_application_get_inactivity_timeout(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::g_application_get_inactivity_timeout(self.as_ref().to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn get_is_busy(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_application_get_is_busy(
+            from_glib(ffi::g_application_get_is_busy(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -366,7 +359,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn get_is_registered(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_application_get_is_registered(
+            from_glib(ffi::g_application_get_is_registered(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -374,15 +367,15 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn get_is_remote(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_application_get_is_remote(
+            from_glib(ffi::g_application_get_is_remote(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_resource_base_path(&self) -> Option<GString> {
+    fn get_resource_base_path(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gio_sys::g_application_get_resource_base_path(
+            from_glib_none(ffi::g_application_get_resource_base_path(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -390,20 +383,20 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn hold(&self) {
         unsafe {
-            gio_sys::g_application_hold(self.as_ref().to_glib_none().0);
+            ffi::g_application_hold(self.as_ref().to_glib_none().0);
         }
     }
 
     fn mark_busy(&self) {
         unsafe {
-            gio_sys::g_application_mark_busy(self.as_ref().to_glib_none().0);
+            ffi::g_application_mark_busy(self.as_ref().to_glib_none().0);
         }
     }
 
     fn open(&self, files: &[File], hint: &str) {
         let n_files = files.len() as i32;
         unsafe {
-            gio_sys::g_application_open(
+            ffi::g_application_open(
                 self.as_ref().to_glib_none().0,
                 files.to_glib_none().0,
                 n_files,
@@ -414,14 +407,14 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn quit(&self) {
         unsafe {
-            gio_sys::g_application_quit(self.as_ref().to_glib_none().0);
+            ffi::g_application_quit(self.as_ref().to_glib_none().0);
         }
     }
 
     fn register<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_application_register(
+            let _ = ffi::g_application_register(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -436,13 +429,13 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn release(&self) {
         unsafe {
-            gio_sys::g_application_release(self.as_ref().to_glib_none().0);
+            ffi::g_application_release(self.as_ref().to_glib_none().0);
         }
     }
 
     fn send_notification(&self, id: Option<&str>, notification: &Notification) {
         unsafe {
-            gio_sys::g_application_send_notification(
+            ffi::g_application_send_notification(
                 self.as_ref().to_glib_none().0,
                 id.to_glib_none().0,
                 notification.to_glib_none().0,
@@ -452,7 +445,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn set_application_id(&self, application_id: Option<&str>) {
         unsafe {
-            gio_sys::g_application_set_application_id(
+            ffi::g_application_set_application_id(
                 self.as_ref().to_glib_none().0,
                 application_id.to_glib_none().0,
             );
@@ -461,19 +454,19 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn set_default(&self) {
         unsafe {
-            gio_sys::g_application_set_default(self.as_ref().to_glib_none().0);
+            ffi::g_application_set_default(self.as_ref().to_glib_none().0);
         }
     }
 
     fn set_flags(&self, flags: ApplicationFlags) {
         unsafe {
-            gio_sys::g_application_set_flags(self.as_ref().to_glib_none().0, flags.to_glib());
+            ffi::g_application_set_flags(self.as_ref().to_glib_none().0, flags.to_glib());
         }
     }
 
     fn set_inactivity_timeout(&self, inactivity_timeout: u32) {
         unsafe {
-            gio_sys::g_application_set_inactivity_timeout(
+            ffi::g_application_set_inactivity_timeout(
                 self.as_ref().to_glib_none().0,
                 inactivity_timeout,
             );
@@ -484,7 +477,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn set_option_context_description(&self, description: Option<&str>) {
         unsafe {
-            gio_sys::g_application_set_option_context_description(
+            ffi::g_application_set_option_context_description(
                 self.as_ref().to_glib_none().0,
                 description.to_glib_none().0,
             );
@@ -495,7 +488,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn set_option_context_parameter_string(&self, parameter_string: Option<&str>) {
         unsafe {
-            gio_sys::g_application_set_option_context_parameter_string(
+            ffi::g_application_set_option_context_parameter_string(
                 self.as_ref().to_glib_none().0,
                 parameter_string.to_glib_none().0,
             );
@@ -506,7 +499,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn set_option_context_summary(&self, summary: Option<&str>) {
         unsafe {
-            gio_sys::g_application_set_option_context_summary(
+            ffi::g_application_set_option_context_summary(
                 self.as_ref().to_glib_none().0,
                 summary.to_glib_none().0,
             );
@@ -515,7 +508,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn set_resource_base_path(&self, resource_path: Option<&str>) {
         unsafe {
-            gio_sys::g_application_set_resource_base_path(
+            ffi::g_application_set_resource_base_path(
                 self.as_ref().to_glib_none().0,
                 resource_path.to_glib_none().0,
             );
@@ -526,7 +519,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn unbind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str) {
         unsafe {
-            gio_sys::g_application_unbind_busy_property(
+            ffi::g_application_unbind_busy_property(
                 self.as_ref().to_glib_none().0,
                 object.as_ref().to_glib_none().0,
                 property.to_glib_none().0,
@@ -536,13 +529,13 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn unmark_busy(&self) {
         unsafe {
-            gio_sys::g_application_unmark_busy(self.as_ref().to_glib_none().0);
+            ffi::g_application_unmark_busy(self.as_ref().to_glib_none().0);
         }
     }
 
     fn withdraw_notification(&self, id: &str) {
         unsafe {
-            gio_sys::g_application_withdraw_notification(
+            ffi::g_application_withdraw_notification(
                 self.as_ref().to_glib_none().0,
                 id.to_glib_none().0,
             );
@@ -554,8 +547,8 @@ impl<O: IsA<Application>> ApplicationExt for O {
         action_group: Option<&P>,
     ) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"action-group\0".as_ptr() as *const _,
                 Value::from(action_group).to_glib_none().0,
             );
@@ -564,8 +557,8 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GApplication,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GApplication,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -593,9 +586,9 @@ impl<O: IsA<Application>> ApplicationExt for O {
             P,
             F: Fn(&P, &ApplicationCommandLine) -> i32 + 'static,
         >(
-            this: *mut gio_sys::GApplication,
-            command_line: *mut gio_sys::GApplicationCommandLine,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GApplication,
+            command_line: *mut ffi::GApplicationCommandLine,
+            f: glib::ffi::gpointer,
         ) -> libc::c_int
         where
             P: IsA<Application>,
@@ -627,9 +620,9 @@ impl<O: IsA<Application>> ApplicationExt for O {
             P,
             F: Fn(&P, &glib::VariantDict) -> i32 + 'static,
         >(
-            this: *mut gio_sys::GApplication,
-            options: *mut glib_sys::GVariantDict,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GApplication,
+            options: *mut glib::ffi::GVariantDict,
+            f: glib::ffi::gpointer,
         ) -> libc::c_int
         where
             P: IsA<Application>,
@@ -657,9 +650,9 @@ impl<O: IsA<Application>> ApplicationExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn connect_name_lost<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn name_lost_trampoline<P, F: Fn(&P) -> bool + 'static>(
-            this: *mut gio_sys::GApplication,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GApplication,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Application>,
         {
@@ -681,8 +674,8 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn connect_shutdown<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn shutdown_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GApplication,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GApplication,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -704,8 +697,8 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn connect_startup<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn startup_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GApplication,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GApplication,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -730,9 +723,9 @@ impl<O: IsA<Application>> ApplicationExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_action_group_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GApplication,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GApplication,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -757,9 +750,9 @@ impl<O: IsA<Application>> ApplicationExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_application_id_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GApplication,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GApplication,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -781,9 +774,9 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn connect_property_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_flags_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GApplication,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GApplication,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -808,9 +801,9 @@ impl<O: IsA<Application>> ApplicationExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_inactivity_timeout_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GApplication,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GApplication,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -834,9 +827,9 @@ impl<O: IsA<Application>> ApplicationExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn connect_property_is_busy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_busy_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GApplication,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GApplication,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -861,9 +854,9 @@ impl<O: IsA<Application>> ApplicationExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_registered_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GApplication,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GApplication,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -885,9 +878,9 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn connect_property_is_remote_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_remote_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GApplication,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GApplication,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -912,9 +905,9 @@ impl<O: IsA<Application>> ApplicationExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_resource_base_path_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GApplication,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GApplication,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {

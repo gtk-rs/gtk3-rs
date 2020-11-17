@@ -2,7 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gio_sys;
+use crate::ffi;
+#[cfg(any(all(feature = "v2_58", unix), all(unix, feature = "dox")))]
+use crate::AppLaunchContext;
+use crate::DesktopAppInfo;
 use glib::object::IsA;
 use glib::translate::*;
 #[cfg(any(all(feature = "v2_58", unix), all(unix, feature = "dox")))]
@@ -14,9 +17,6 @@ use libc;
 use std::boxed::Box as Box_;
 #[cfg(any(all(feature = "v2_58", unix), all(unix, feature = "dox")))]
 use std::ptr;
-#[cfg(any(all(feature = "v2_58", unix), all(unix, feature = "dox")))]
-use AppLaunchContext;
-use DesktopAppInfo;
 
 #[cfg(any(all(feature = "v2_58", unix), all(unix, feature = "dox")))]
 use std::os::unix::io::AsRawFd;
@@ -24,7 +24,7 @@ use std::os::unix::io::AsRawFd;
 impl DesktopAppInfo {
     pub fn search(search_string: &str) -> Vec<Vec<GString>> {
         unsafe {
-            let out = gio_sys::g_desktop_app_info_search(search_string.to_glib_none().0);
+            let out = ffi::g_desktop_app_info_search(search_string.to_glib_none().0);
 
             if out.is_null() {
                 return Vec::new();
@@ -105,7 +105,7 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExtManual for O {
         };
         let pid_callback_data: Option<&mut dyn (FnMut(&DesktopAppInfo, glib::Pid))> = pid_callback;
         unsafe extern "C" fn pid_callback_func<P: IsA<AppLaunchContext>>(
-            appinfo: *mut gio_sys::GDesktopAppInfo,
+            appinfo: *mut ffi::GDesktopAppInfo,
             pid: glib_sys::GPid,
             user_data: glib_sys::gpointer,
         ) {
@@ -130,7 +130,7 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExtManual for O {
             &pid_callback_data;
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_desktop_app_info_launch_uris_as_manager_with_fds(
+            let _ = ffi::g_desktop_app_info_launch_uris_as_manager_with_fds(
                 self.as_ref().to_glib_none().0,
                 uris.to_glib_none().0,
                 launch_context.map(|p| p.as_ref()).to_glib_none().0,

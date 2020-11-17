@@ -2,8 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::DBusMessage;
 use std::fmt;
-use DBusMessage;
 
 impl fmt::Display for DBusMessage {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {

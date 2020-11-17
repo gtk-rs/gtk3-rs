@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use ApplicationFlags;
+use crate::ApplicationFlags;
 
 impl Default for ApplicationFlags {
     fn default() -> ApplicationFlags {

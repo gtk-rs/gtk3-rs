@@ -2,30 +2,29 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::ffi;
+use crate::Action;
 use glib;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Action;
 
-glib_wrapper! {
-    pub struct SimpleAction(Object<gio_sys::GSimpleAction>) @implements Action;
+glib::glib_wrapper! {
+    pub struct SimpleAction(Object<ffi::GSimpleAction>) @implements Action;
 
     match fn {
-        get_type => || gio_sys::g_simple_action_get_type(),
+        get_type => || ffi::g_simple_action_get_type(),
     }
 }
 
 impl SimpleAction {
     pub fn new(name: &str, parameter_type: Option<&glib::VariantTy>) -> SimpleAction {
         unsafe {
-            from_glib_full(gio_sys::g_simple_action_new(
+            from_glib_full(ffi::g_simple_action_new(
                 name.to_glib_none().0,
                 parameter_type.to_glib_none().0,
             ))
@@ -38,7 +37,7 @@ impl SimpleAction {
         state: &glib::Variant,
     ) -> SimpleAction {
         unsafe {
-            from_glib_full(gio_sys::g_simple_action_new_stateful(
+            from_glib_full(ffi::g_simple_action_new_stateful(
                 name.to_glib_none().0,
                 parameter_type.to_glib_none().0,
                 state.to_glib_none().0,
@@ -48,13 +47,13 @@ impl SimpleAction {
 
     pub fn set_enabled(&self, enabled: bool) {
         unsafe {
-            gio_sys::g_simple_action_set_enabled(self.to_glib_none().0, enabled.to_glib());
+            ffi::g_simple_action_set_enabled(self.to_glib_none().0, enabled.to_glib());
         }
     }
 
     pub fn set_state(&self, value: &glib::Variant) {
         unsafe {
-            gio_sys::g_simple_action_set_state(self.to_glib_none().0, value.to_glib_none().0);
+            ffi::g_simple_action_set_state(self.to_glib_none().0, value.to_glib_none().0);
         }
     }
 
@@ -62,10 +61,7 @@ impl SimpleAction {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn set_state_hint(&self, state_hint: Option<&glib::Variant>) {
         unsafe {
-            gio_sys::g_simple_action_set_state_hint(
-                self.to_glib_none().0,
-                state_hint.to_glib_none().0,
-            );
+            ffi::g_simple_action_set_state_hint(self.to_glib_none().0, state_hint.to_glib_none().0);
         }
     }
 
@@ -76,9 +72,9 @@ impl SimpleAction {
         unsafe extern "C" fn activate_trampoline<
             F: Fn(&SimpleAction, Option<&glib::Variant>) + 'static,
         >(
-            this: *mut gio_sys::GSimpleAction,
-            parameter: *mut glib_sys::GVariant,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GSimpleAction,
+            parameter: *mut glib::ffi::GVariant,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(
@@ -108,9 +104,9 @@ impl SimpleAction {
         unsafe extern "C" fn change_state_trampoline<
             F: Fn(&SimpleAction, Option<&glib::Variant>) + 'static,
         >(
-            this: *mut gio_sys::GSimpleAction,
-            value: *mut glib_sys::GVariant,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GSimpleAction,
+            value: *mut glib::ffi::GVariant,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(
@@ -138,9 +134,9 @@ impl SimpleAction {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_enabled_trampoline<F: Fn(&SimpleAction) + 'static>(
-            this: *mut gio_sys::GSimpleAction,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GSimpleAction,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -163,9 +159,9 @@ impl SimpleAction {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_state_type_trampoline<F: Fn(&SimpleAction) + 'static>(
-            this: *mut gio_sys::GSimpleAction,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GSimpleAction,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))

@@ -12,6 +12,7 @@ license = "MIT"
 exclude = [
     "gir-files/*",
 ]
+edition = "2018"
 
 [lib]
 name = "glib"

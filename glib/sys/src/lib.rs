@@ -10,8 +10,6 @@
 )]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate libc;
-
 mod manual;
 
 pub use manual::*;
@@ -2291,10 +2289,6 @@ impl ::std::fmt::Debug for GVariantType {
 #[link(name = "gobject-2.0")]
 #[link(name = "glib-2.0")]
 extern "C" {
-
-    //=========================================================================
-    // GIOCondition
-    //=========================================================================
     pub fn g_io_condition_get_type() -> GType;
 
     //=========================================================================

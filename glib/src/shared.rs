@@ -4,12 +4,9 @@
 
 //! `IMPL` Shared (reference counted) wrapper implementation.
 
-use std::cmp;
-use std::fmt;
+use crate::translate::*;
 use std::hash::{Hash, Hasher};
 use std::marker::PhantomData;
-use std::ptr;
-use translate::*;
 
 /// Wrapper implementations for shared types. See `glib_wrapper!`.
 #[macro_export]
@@ -17,7 +14,7 @@ macro_rules! glib_shared_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:ty, @ref $ref_arg:ident $ref_expr:expr,
      @unref $unref_arg:ident $unref_expr:expr,
      @get_type $get_type_expr:expr) => {
-        glib_shared_wrapper!([$($attr)*] $name, $ffi_name, @ref $ref_arg $ref_expr,
+        $crate::glib_shared_wrapper!([$($attr)*] $name, $ffi_name, @ref $ref_arg $ref_expr,
             @unref $unref_arg $unref_expr);
 
         impl $crate::types::StaticType for $name {
@@ -31,7 +28,7 @@ macro_rules! glib_shared_wrapper {
         impl<'a> $crate::value::FromValueOptional<'a> for $name {
             #[allow(clippy::missing_safety_doc)]
             unsafe fn from_value_optional(value: &$crate::Value) -> Option<Self> {
-                $crate::translate::from_glib_full($crate::gobject_sys::g_value_dup_boxed($crate::translate::ToGlibPtr::to_glib_none(value).0) as *mut $ffi_name)
+                $crate::translate::from_glib_full($crate::gobject_ffi::g_value_dup_boxed($crate::translate::ToGlibPtr::to_glib_none(value).0) as *mut $ffi_name)
             }
         }
 
@@ -39,7 +36,7 @@ macro_rules! glib_shared_wrapper {
         impl $crate::value::SetValue for $name {
             #[allow(clippy::missing_safety_doc)]
             unsafe fn set_value(value: &mut $crate::Value, this: &Self) {
-                $crate::gobject_sys::g_value_set_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(this).0 as $crate::glib_sys::gpointer)
+                $crate::gobject_ffi::g_value_set_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(this).0 as $crate::ffi::gpointer)
             }
         }
 
@@ -47,7 +44,7 @@ macro_rules! glib_shared_wrapper {
         impl $crate::value::SetValueOptional for $name {
             #[allow(clippy::missing_safety_doc)]
             unsafe fn set_value_optional(value: &mut $crate::Value, this: Option<&Self>) {
-                $crate::gobject_sys::g_value_set_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(&this).0 as $crate::glib_sys::gpointer)
+                $crate::gobject_ffi::g_value_set_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(&this).0 as $crate::ffi::gpointer)
             }
         }
     };
@@ -99,7 +96,7 @@ macro_rules! glib_shared_wrapper {
             fn to_glib_none_from_slice(t: &'a [$name]) -> (*mut *mut $ffi_name, Self::Storage) {
                 let v: Vec<_> = t.iter().map(|s| $crate::translate::ToGlibPtr::to_glib_none(s)).collect();
                 let mut v_ptr: Vec<_> = v.iter().map(|s| s.0).collect();
-                v_ptr.push(::std::ptr::null_mut() as *mut $ffi_name);
+                v_ptr.push(std::ptr::null_mut() as *mut $ffi_name);
 
                 (v_ptr.as_ptr() as *mut *mut $ffi_name, (v, Some(v_ptr)))
             }
@@ -108,10 +105,10 @@ macro_rules! glib_shared_wrapper {
                 let v: Vec<_> = t.iter().map(|s| $crate::translate::ToGlibPtr::to_glib_none(s)).collect();
 
                 let v_ptr = unsafe {
-                    let v_ptr = $crate::glib_sys::g_malloc0(::std::mem::size_of::<*mut $ffi_name>() * (t.len() + 1)) as *mut *mut $ffi_name;
+                    let v_ptr = $crate::ffi::g_malloc0(std::mem::size_of::<*mut $ffi_name>() * (t.len() + 1)) as *mut *mut $ffi_name;
 
                     for (i, s) in v.iter().enumerate() {
-                        ::std::ptr::write(v_ptr.add(i), s.0);
+                        std::ptr::write(v_ptr.add(i), s.0);
                     }
 
                     v_ptr
@@ -122,10 +119,10 @@ macro_rules! glib_shared_wrapper {
 
             fn to_glib_full_from_slice(t: &[$name]) -> *mut *mut $ffi_name {
                 unsafe {
-                    let v_ptr = $crate::glib_sys::g_malloc0(::std::mem::size_of::<*mut $ffi_name>() * (t.len() + 1)) as *mut *mut $ffi_name;
+                    let v_ptr = $crate::ffi::g_malloc0(std::mem::size_of::<*mut $ffi_name>() * (t.len() + 1)) as *mut *mut $ffi_name;
 
                     for (i, s) in t.iter().enumerate() {
-                        ::std::ptr::write(v_ptr.add(i), $crate::translate::ToGlibPtr::to_glib_full(s));
+                        std::ptr::write(v_ptr.add(i), $crate::translate::ToGlibPtr::to_glib_full(s));
                     }
 
                     v_ptr
@@ -206,14 +203,14 @@ macro_rules! glib_shared_wrapper {
 
                 let mut res = Vec::with_capacity(num);
                 for i in 0..num {
-                    res.push($crate::translate::from_glib_none(::std::ptr::read(ptr.add(i))));
+                    res.push($crate::translate::from_glib_none(std::ptr::read(ptr.add(i))));
                 }
                 res
             }
 
             unsafe fn from_glib_container_num_as_vec(ptr: *mut *mut $ffi_name, num: usize) -> Vec<Self> {
                 let res = $crate::translate::FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
-                $crate::glib_sys::g_free(ptr as *mut _);
+                $crate::ffi::g_free(ptr as *mut _);
                 res
             }
 
@@ -224,9 +221,9 @@ macro_rules! glib_shared_wrapper {
 
                 let mut res = Vec::with_capacity(num);
                 for i in 0..num {
-                    res.push($crate::translate::from_glib_full(::std::ptr::read(ptr.add(i))));
+                    res.push($crate::translate::from_glib_full(std::ptr::read(ptr.add(i))));
                 }
-                $crate::glib_sys::g_free(ptr as *mut _);
+                $crate::ffi::g_free(ptr as *mut _);
                 res
             }
         }
@@ -299,7 +296,7 @@ pub trait SharedMemoryManager<T> {
 
 /// Encapsulates memory management logic for shared types.
 pub struct Shared<T, MM: SharedMemoryManager<T>> {
-    inner: ptr::NonNull<T>,
+    inner: std::ptr::NonNull<T>,
     mm: PhantomData<*const MM>,
 }
 
@@ -323,8 +320,8 @@ impl<T, MM: SharedMemoryManager<T>> Clone for Shared<T, MM> {
     }
 }
 
-impl<T, MM: SharedMemoryManager<T>> fmt::Debug for Shared<T, MM> {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl<T, MM: SharedMemoryManager<T>> std::fmt::Debug for Shared<T, MM> {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         f.debug_struct("Shared")
             .field("inner", &self.inner)
             .finish()
@@ -332,13 +329,13 @@ impl<T, MM: SharedMemoryManager<T>> fmt::Debug for Shared<T, MM> {
 }
 
 impl<T, MM: SharedMemoryManager<T>> PartialOrd for Shared<T, MM> {
-    fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
         self.inner.partial_cmp(&other.inner)
     }
 }
 
 impl<T, MM: SharedMemoryManager<T>> Ord for Shared<T, MM> {
-    fn cmp(&self, other: &Self) -> cmp::Ordering {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
         self.inner.cmp(&other.inner)
     }
 }
@@ -386,7 +383,7 @@ impl<T: 'static, MM: SharedMemoryManager<T>> FromGlibPtrNone<*mut T> for Shared<
         assert!(!ptr.is_null());
         MM::ref_(ptr);
         Shared {
-            inner: ptr::NonNull::new_unchecked(ptr),
+            inner: std::ptr::NonNull::new_unchecked(ptr),
             mm: PhantomData,
         }
     }
@@ -398,7 +395,7 @@ impl<T: 'static, MM: SharedMemoryManager<T>> FromGlibPtrNone<*const T> for Share
         assert!(!ptr.is_null());
         MM::ref_(ptr as *mut _);
         Shared {
-            inner: ptr::NonNull::new_unchecked(ptr as *mut _),
+            inner: std::ptr::NonNull::new_unchecked(ptr as *mut _),
             mm: PhantomData,
         }
     }
@@ -409,7 +406,7 @@ impl<T: 'static, MM: SharedMemoryManager<T>> FromGlibPtrFull<*mut T> for Shared<
     unsafe fn from_glib_full(ptr: *mut T) -> Self {
         assert!(!ptr.is_null());
         Shared {
-            inner: ptr::NonNull::new_unchecked(ptr),
+            inner: std::ptr::NonNull::new_unchecked(ptr),
             mm: PhantomData,
         }
     }
@@ -420,7 +417,7 @@ impl<T: 'static, MM: SharedMemoryManager<T>> FromGlibPtrBorrow<*mut T> for Share
     unsafe fn from_glib_borrow(ptr: *mut T) -> Borrowed<Self> {
         assert!(!ptr.is_null());
         Borrowed::new(Shared {
-            inner: ptr::NonNull::new_unchecked(ptr),
+            inner: std::ptr::NonNull::new_unchecked(ptr),
             mm: PhantomData,
         })
     }

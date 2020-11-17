@@ -2,13 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gio_sys;
+use crate::ffi;
+use crate::Resource;
 use glib;
 use glib::translate::*;
 use glib_sys;
 use std::mem;
 use std::ptr;
-use Resource;
 
 impl Resource {
     pub fn from_data(data: &glib::Bytes) -> Result<Resource, glib::Error> {
@@ -23,7 +23,7 @@ impl Resource {
                 data = glib::Bytes::from(&*data);
             }
 
-            let ret = gio_sys::g_resource_new_from_data(data.to_glib_none().0, &mut error);
+            let ret = ffi::g_resource_new_from_data(data.to_glib_none().0, &mut error);
             if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {

@@ -2,9 +2,12 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::ffi;
+use crate::Cancellable;
+use crate::PollableInputStream;
+use crate::PollableInputStreamExt;
 use futures_core::task::{Context, Poll};
 use futures_io::AsyncRead;
-use gio_sys;
 use glib;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
@@ -13,9 +16,6 @@ use std::cell::RefCell;
 use std::io;
 use std::mem::transmute;
 use std::ptr;
-use Cancellable;
-use PollableInputStream;
-use PollableInputStreamExt;
 
 use futures_core::stream::Stream;
 use std::pin::Pin;
@@ -78,7 +78,7 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
             O: IsA<PollableInputStream>,
             F: FnMut(&O) -> glib::Continue + 'static,
         >(
-            stream: *mut gio_sys::GPollableInputStream,
+            stream: *mut ffi::GPollableInputStream,
             func: glib_sys::gpointer,
         ) -> glib_sys::gboolean {
             let func: &RefCell<F> = &*(func as *const RefCell<F>);
@@ -91,7 +91,7 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
         let cancellable = cancellable.map(|c| c.as_ref());
         let gcancellable = cancellable.to_glib_none();
         unsafe {
-            let source = gio_sys::g_pollable_input_stream_create_source(
+            let source = ffi::g_pollable_input_stream_create_source(
                 self.as_ref().to_glib_none().0,
                 gcancellable.0,
             );
@@ -126,7 +126,7 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
         let count = buffer.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_pollable_input_stream_read_nonblocking(
+            let ret = ffi::g_pollable_input_stream_read_nonblocking(
                 self.as_ref().to_glib_none().0,
                 buffer.to_glib_none().0,
                 count,
@@ -198,7 +198,10 @@ impl<T: IsA<PollableInputStream>> AsyncRead for InputStreamAsyncRead<T> {
         buf: &mut [u8],
     ) -> Poll<io::Result<usize>> {
         let stream = Pin::get_ref(self.as_ref());
-        let gio_result = stream.0.as_ref().read_nonblocking(buf, ::NONE_CANCELLABLE);
+        let gio_result = stream
+            .0
+            .as_ref()
+            .read_nonblocking(buf, crate::NONE_CANCELLABLE);
 
         match gio_result {
             Ok(size) => Poll::Ready(Ok(size as usize)),
@@ -207,7 +210,7 @@ impl<T: IsA<PollableInputStream>> AsyncRead for InputStreamAsyncRead<T> {
                 if kind == crate::IOErrorEnum::WouldBlock {
                     let mut waker = Some(cx.waker().clone());
                     let source = stream.0.as_ref().create_source(
-                        ::NONE_CANCELLABLE,
+                        crate::NONE_CANCELLABLE,
                         None,
                         glib::PRIORITY_DEFAULT,
                         move |_| {

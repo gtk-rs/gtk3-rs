@@ -2,7 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::ffi;
+use crate::IOStream;
+use crate::TlsAuthenticationMode;
+use crate::TlsCertificate;
+use crate::TlsConnection;
 use glib;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -11,22 +15,16 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
-use IOStream;
-use TlsAuthenticationMode;
-use TlsCertificate;
-use TlsConnection;
 
-glib_wrapper! {
-    pub struct TlsServerConnection(Interface<gio_sys::GTlsServerConnection>) @requires TlsConnection, IOStream;
+glib::glib_wrapper! {
+    pub struct TlsServerConnection(Interface<ffi::GTlsServerConnection>) @requires TlsConnection, IOStream;
 
     match fn {
-        get_type => || gio_sys::g_tls_server_connection_get_type(),
+        get_type => || ffi::g_tls_server_connection_get_type(),
     }
 }
 
@@ -37,7 +35,7 @@ impl TlsServerConnection {
     ) -> Result<TlsServerConnection, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_tls_server_connection_new(
+            let ret = ffi::g_tls_server_connection_new(
                 base_io_stream.as_ref().to_glib_none().0,
                 certificate.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -68,8 +66,8 @@ impl<O: IsA<TlsServerConnection>> TlsServerConnectionExt for O {
     fn get_property_authentication_mode(&self) -> TlsAuthenticationMode {
         unsafe {
             let mut value = Value::from_type(<TlsAuthenticationMode as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"authentication-mode\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -82,8 +80,8 @@ impl<O: IsA<TlsServerConnection>> TlsServerConnectionExt for O {
 
     fn set_property_authentication_mode(&self, authentication_mode: TlsAuthenticationMode) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"authentication-mode\0".as_ptr() as *const _,
                 Value::from(&authentication_mode).to_glib_none().0,
             );
@@ -95,9 +93,9 @@ impl<O: IsA<TlsServerConnection>> TlsServerConnectionExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_authentication_mode_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GTlsServerConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GTlsServerConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TlsServerConnection>,
         {

@@ -2,12 +2,16 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use error::to_std_io_result;
+use crate::error::to_std_io_result;
+use crate::ffi;
+use crate::Cancellable;
+use crate::OutputStreamExt;
+use crate::PollableOutputStream;
+use crate::PollableOutputStreamExt;
 use futures_channel::oneshot;
 use futures_core::task::{Context, Poll};
 use futures_core::Future;
 use futures_io::AsyncWrite;
-use gio_sys;
 use glib;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
@@ -16,10 +20,6 @@ use std::cell::RefCell;
 use std::io;
 use std::mem::transmute;
 use std::pin::Pin;
-use Cancellable;
-use OutputStreamExt;
-use PollableOutputStream;
-use PollableOutputStreamExt;
 
 use futures_core::stream::Stream;
 
@@ -75,7 +75,7 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
             O: IsA<PollableOutputStream>,
             F: FnMut(&O) -> glib::Continue + 'static,
         >(
-            stream: *mut gio_sys::GPollableOutputStream,
+            stream: *mut ffi::GPollableOutputStream,
             func: glib_sys::gpointer,
         ) -> glib_sys::gboolean {
             let func: &RefCell<F> = &*(func as *const RefCell<F>);
@@ -89,7 +89,7 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
         let cancellable = cancellable.map(|c| c.as_ref());
         let gcancellable = cancellable.to_glib_none();
         unsafe {
-            let source = gio_sys::g_pollable_output_stream_create_source(
+            let source = ffi::g_pollable_output_stream_create_source(
                 self.as_ref().to_glib_none().0,
                 gcancellable.0,
             );
@@ -171,7 +171,10 @@ impl<T: IsA<PollableOutputStream>> OutputStreamAsyncWrite<T> {
 impl<T: IsA<PollableOutputStream>> AsyncWrite for OutputStreamAsyncWrite<T> {
     fn poll_write(self: Pin<&mut Self>, cx: &mut Context, buf: &[u8]) -> Poll<io::Result<usize>> {
         let stream = Pin::get_ref(self.as_ref());
-        let gio_result = stream.0.as_ref().write_nonblocking(buf, ::NONE_CANCELLABLE);
+        let gio_result = stream
+            .0
+            .as_ref()
+            .write_nonblocking(buf, crate::NONE_CANCELLABLE);
 
         match gio_result {
             Ok(size) => Poll::Ready(Ok(size as usize)),
@@ -180,7 +183,7 @@ impl<T: IsA<PollableOutputStream>> AsyncWrite for OutputStreamAsyncWrite<T> {
                 if kind == crate::IOErrorEnum::WouldBlock {
                     let mut waker = Some(cx.waker().clone());
                     let source = stream.0.as_ref().create_source(
-                        ::NONE_CANCELLABLE,
+                        crate::NONE_CANCELLABLE,
                         None,
                         glib::PRIORITY_DEFAULT,
                         move |_| {
@@ -208,12 +211,13 @@ impl<T: IsA<PollableOutputStream>> AsyncWrite for OutputStreamAsyncWrite<T> {
             rx
         } else {
             let (tx, rx) = oneshot::channel();
-            stream
-                .0
-                .as_ref()
-                .close_async(glib::PRIORITY_DEFAULT, ::NONE_CANCELLABLE, move |res| {
+            stream.0.as_ref().close_async(
+                glib::PRIORITY_DEFAULT,
+                crate::NONE_CANCELLABLE,
+                move |res| {
                     let _ = tx.send(res);
-                });
+                },
+            );
 
             stream.1 = Some(rx);
             stream.1.as_mut().unwrap()
@@ -239,12 +243,13 @@ impl<T: IsA<PollableOutputStream>> AsyncWrite for OutputStreamAsyncWrite<T> {
             rx
         } else {
             let (tx, rx) = oneshot::channel();
-            stream
-                .0
-                .as_ref()
-                .flush_async(glib::PRIORITY_DEFAULT, ::NONE_CANCELLABLE, move |res| {
+            stream.0.as_ref().flush_async(
+                glib::PRIORITY_DEFAULT,
+                crate::NONE_CANCELLABLE,
+                move |res| {
                     let _ = tx.send(res);
-                });
+                },
+            );
 
             stream.1 = Some(rx);
             stream.1.as_mut().unwrap()

@@ -8,9 +8,9 @@ use futures_util::future::FutureExt;
 use std::future::Future;
 use std::pin;
 
+use crate::Cancellable;
+use crate::CancellableExt;
 use glib;
-use Cancellable;
-use CancellableExt;
 
 pub struct GioFuture<F, O, T, E> {
     obj: O,
