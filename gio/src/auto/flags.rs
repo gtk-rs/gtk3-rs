@@ -9,6 +9,7 @@ use glib::value::FromValueOptional;
 use glib::value::SetValue;
 use glib::StaticType;
 use glib::Type;
+use std::fmt;
 
 bitflags! {
     pub struct AppInfoCreateFlags: u32 {

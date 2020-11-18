@@ -66,7 +66,7 @@ pub trait InetAddressMaskExt: 'static {
 
     fn matches<P: IsA<InetAddress>>(&self, address: &P) -> bool;
 
-    fn to_string(&self) -> glib::GString;
+    fn to_str(&self) -> glib::GString;
 
     fn set_property_address<P: IsA<InetAddress>>(&self, address: Option<&P>);
 
@@ -127,7 +127,7 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
         }
     }
 
-    fn to_string(&self) -> glib::GString {
+    fn to_str(&self) -> glib::GString {
         unsafe {
             from_glib_full(ffi::g_inet_address_mask_to_string(
                 self.as_ref().to_glib_none().0,

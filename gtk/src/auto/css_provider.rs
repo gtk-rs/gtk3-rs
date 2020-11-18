@@ -64,7 +64,7 @@ pub trait CssProviderExt: 'static {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn load_from_resource(&self, resource_path: &str);
 
-    fn to_string(&self) -> glib::GString;
+    fn to_str(&self) -> glib::GString;
 
     fn connect_parsing_error<F: Fn(&Self, &CssSection, &glib::Error) + 'static>(
         &self,
@@ -134,7 +134,7 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
         }
     }
 
-    fn to_string(&self) -> glib::GString {
+    fn to_str(&self) -> glib::GString {
         unsafe {
             from_glib_full(ffi::gtk_css_provider_to_string(
                 self.as_ref().to_glib_none().0,

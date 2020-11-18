@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::gobject_ffi;
 use crate::translate::*;
 use crate::BindingFlags;
 use std::fmt;

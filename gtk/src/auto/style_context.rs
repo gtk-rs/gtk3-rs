@@ -213,7 +213,7 @@ pub trait StyleContextExt: 'static {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn to_string(&self, flags: StyleContextPrintFlags) -> glib::GString;
+    fn to_string(&self, flags: StyleContextPrintFlags) -> Option<glib::GString>;
 
     fn get_property_direction(&self) -> TextDirection;
 
@@ -556,7 +556,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn to_string(&self, flags: StyleContextPrintFlags) -> glib::GString {
+    fn to_string(&self, flags: StyleContextPrintFlags) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_style_context_to_string(
                 self.as_ref().to_glib_none().0,

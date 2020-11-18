@@ -66,7 +66,7 @@ pub trait InetAddressExt: 'static {
 
     fn get_native_size(&self) -> usize;
 
-    fn to_string(&self) -> glib::GString;
+    fn to_str(&self) -> glib::GString;
 
     //fn get_property_bytes(&self) -> /*Unimplemented*/Fundamental: Pointer;
 
@@ -223,7 +223,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         unsafe { ffi::g_inet_address_get_native_size(self.as_ref().to_glib_none().0) }
     }
 
-    fn to_string(&self) -> glib::GString {
+    fn to_str(&self) -> glib::GString {
         unsafe {
             from_glib_full(ffi::g_inet_address_to_string(
                 self.as_ref().to_glib_none().0,

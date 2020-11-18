@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::gobject_ffi;
 use crate::translate::*;
 use crate::value::FromValue;
 use crate::value::FromValueOptional;
@@ -10,6 +9,7 @@ use crate::value::SetValue;
 use crate::StaticType;
 use crate::Type;
 use bitflags::bitflags;
+use std::fmt;
 
 bitflags! {
     pub struct BindingFlags: u32 {

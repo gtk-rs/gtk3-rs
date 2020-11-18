@@ -9,6 +9,7 @@ use crate::value::SetValue;
 use crate::StaticType;
 use crate::Type;
 use bitflags::bitflags;
+use std::fmt;
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
