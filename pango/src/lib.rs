@@ -50,7 +50,6 @@ pub mod attr_iterator;
 pub mod attr_list;
 pub mod attribute;
 mod functions;
-pub mod gravity;
 pub mod item;
 pub mod language;
 pub use crate::language::Language;
