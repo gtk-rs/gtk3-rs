@@ -94,7 +94,7 @@ pub extern crate gobject_sys as gobject_sys;
 pub use gobject_sys as gobject_ffi;
 
 extern crate glib_macros;
-pub use glib_macros::{gflags, GBoxed, GEnum};
+pub use glib_macros::{clone, gflags, GBoxed, GEnum};
 
 extern crate futures_channel;
 extern crate futures_core;
@@ -125,7 +125,6 @@ pub use variant_dict::VariantDict;
 pub use variant_iter::VariantIter;
 pub use variant_type::{VariantTy, VariantType};
 
-#[macro_use]
 pub mod clone;
 #[macro_use]
 pub mod wrapper;
@@ -226,7 +225,7 @@ pub use source_futures::*;
 mod thread_pool;
 pub use thread_pool::ThreadPool;
 
-/// This is the log domain used by the [`clone!`][crate::clone] macro. If you want to use a custom
+/// This is the log domain used by the [`clone!`][crate::clone!] macro. If you want to use a custom
 /// logger (it prints to stdout by default), you can set your own logger using the corresponding
 /// `log` functions.
 pub const CLONE_MACRO_LOG_DOMAIN: &str = "glib-rs-clone";
