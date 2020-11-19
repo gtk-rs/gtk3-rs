@@ -1059,11 +1059,8 @@ impl PlacesSidebarBuilder {
             properties.push(("open-flags", open_flags));
         }
         #[cfg(any(feature = "v3_18", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
-        {
-            if let Some(ref populate_all) = self.populate_all {
-                properties.push(("populate-all", populate_all));
-            }
+        if let Some(ref populate_all) = self.populate_all {
+            properties.push(("populate-all", populate_all));
         }
         if let Some(ref show_connect_to_server) = self.show_connect_to_server {
             properties.push(("show-connect-to-server", show_connect_to_server));
@@ -1081,11 +1078,8 @@ impl PlacesSidebarBuilder {
             properties.push(("show-recent", show_recent));
         }
         #[cfg(any(feature = "v3_22_26", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
-        {
-            if let Some(ref show_starred_location) = self.show_starred_location {
-                properties.push(("show-starred-location", show_starred_location));
-            }
+        if let Some(ref show_starred_location) = self.show_starred_location {
+            properties.push(("show-starred-location", show_starred_location));
         }
         if let Some(ref show_trash) = self.show_trash {
             properties.push(("show-trash", show_trash));
@@ -1100,18 +1094,12 @@ impl PlacesSidebarBuilder {
             properties.push(("kinetic-scrolling", kinetic_scrolling));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-        {
-            if let Some(ref max_content_height) = self.max_content_height {
-                properties.push(("max-content-height", max_content_height));
-            }
+        if let Some(ref max_content_height) = self.max_content_height {
+            properties.push(("max-content-height", max_content_height));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-        {
-            if let Some(ref max_content_width) = self.max_content_width {
-                properties.push(("max-content-width", max_content_width));
-            }
+        if let Some(ref max_content_width) = self.max_content_width {
+            properties.push(("max-content-width", max_content_width));
         }
         if let Some(ref min_content_height) = self.min_content_height {
             properties.push(("min-content-height", min_content_height));
@@ -1120,25 +1108,16 @@ impl PlacesSidebarBuilder {
             properties.push(("min-content-width", min_content_width));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref overlay_scrolling) = self.overlay_scrolling {
-                properties.push(("overlay-scrolling", overlay_scrolling));
-            }
+        if let Some(ref overlay_scrolling) = self.overlay_scrolling {
+            properties.push(("overlay-scrolling", overlay_scrolling));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-        {
-            if let Some(ref propagate_natural_height) = self.propagate_natural_height {
-                properties.push(("propagate-natural-height", propagate_natural_height));
-            }
+        if let Some(ref propagate_natural_height) = self.propagate_natural_height {
+            properties.push(("propagate-natural-height", propagate_natural_height));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-        {
-            if let Some(ref propagate_natural_width) = self.propagate_natural_width {
-                properties.push(("propagate-natural-width", propagate_natural_width));
-            }
+        if let Some(ref propagate_natural_width) = self.propagate_natural_width {
+            properties.push(("propagate-natural-width", propagate_natural_width));
         }
         if let Some(ref shadow_type) = self.shadow_type {
             properties.push(("shadow-type", shadow_type));
@@ -1177,11 +1156,8 @@ impl PlacesSidebarBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref focus_on_click) = self.focus_on_click {
-                properties.push(("focus-on-click", focus_on_click));
-            }
+        if let Some(ref focus_on_click) = self.focus_on_click {
+            properties.push(("focus-on-click", focus_on_click));
         }
         if let Some(ref halign) = self.halign {
             properties.push(("halign", halign));

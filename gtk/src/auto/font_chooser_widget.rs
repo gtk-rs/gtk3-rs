@@ -147,11 +147,8 @@ impl FontChooserWidgetBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref focus_on_click) = self.focus_on_click {
-                properties.push(("focus-on-click", focus_on_click));
-            }
+        if let Some(ref focus_on_click) = self.focus_on_click {
+            properties.push(("focus-on-click", focus_on_click));
         }
         if let Some(ref halign) = self.halign {
             properties.push(("halign", halign));
@@ -241,18 +238,12 @@ impl FontChooserWidgetBuilder {
             properties.push(("font-desc", font_desc));
         }
         #[cfg(any(feature = "v3_24", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-        {
-            if let Some(ref language) = self.language {
-                properties.push(("language", language));
-            }
+        if let Some(ref language) = self.language {
+            properties.push(("language", language));
         }
         #[cfg(any(feature = "v3_24", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-        {
-            if let Some(ref level) = self.level {
-                properties.push(("level", level));
-            }
+        if let Some(ref level) = self.level {
+            properties.push(("level", level));
         }
         if let Some(ref preview_text) = self.preview_text {
             properties.push(("preview-text", preview_text));

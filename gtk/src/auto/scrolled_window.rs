@@ -142,18 +142,12 @@ impl ScrolledWindowBuilder {
             properties.push(("kinetic-scrolling", kinetic_scrolling));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-        {
-            if let Some(ref max_content_height) = self.max_content_height {
-                properties.push(("max-content-height", max_content_height));
-            }
+        if let Some(ref max_content_height) = self.max_content_height {
+            properties.push(("max-content-height", max_content_height));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-        {
-            if let Some(ref max_content_width) = self.max_content_width {
-                properties.push(("max-content-width", max_content_width));
-            }
+        if let Some(ref max_content_width) = self.max_content_width {
+            properties.push(("max-content-width", max_content_width));
         }
         if let Some(ref min_content_height) = self.min_content_height {
             properties.push(("min-content-height", min_content_height));
@@ -162,25 +156,16 @@ impl ScrolledWindowBuilder {
             properties.push(("min-content-width", min_content_width));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref overlay_scrolling) = self.overlay_scrolling {
-                properties.push(("overlay-scrolling", overlay_scrolling));
-            }
+        if let Some(ref overlay_scrolling) = self.overlay_scrolling {
+            properties.push(("overlay-scrolling", overlay_scrolling));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-        {
-            if let Some(ref propagate_natural_height) = self.propagate_natural_height {
-                properties.push(("propagate-natural-height", propagate_natural_height));
-            }
+        if let Some(ref propagate_natural_height) = self.propagate_natural_height {
+            properties.push(("propagate-natural-height", propagate_natural_height));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-        {
-            if let Some(ref propagate_natural_width) = self.propagate_natural_width {
-                properties.push(("propagate-natural-width", propagate_natural_width));
-            }
+        if let Some(ref propagate_natural_width) = self.propagate_natural_width {
+            properties.push(("propagate-natural-width", propagate_natural_width));
         }
         if let Some(ref shadow_type) = self.shadow_type {
             properties.push(("shadow-type", shadow_type));
@@ -219,11 +204,8 @@ impl ScrolledWindowBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref focus_on_click) = self.focus_on_click {
-                properties.push(("focus-on-click", focus_on_click));
-            }
+        if let Some(ref focus_on_click) = self.focus_on_click {
+            properties.push(("focus-on-click", focus_on_click));
         }
         if let Some(ref halign) = self.halign {
             properties.push(("halign", halign));

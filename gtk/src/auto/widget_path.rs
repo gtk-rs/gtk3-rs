@@ -269,6 +269,6 @@ impl Default for WidgetPath {
 impl fmt::Display for WidgetPath {
     #[inline]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", self.to_string())
+        f.write_str(&self.to_string())
     }
 }

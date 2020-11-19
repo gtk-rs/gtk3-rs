@@ -1254,10 +1254,8 @@ impl fmt::Display for EventType {
                 EventType::TouchEnd => "TouchEnd",
                 EventType::TouchCancel => "TouchCancel",
                 #[cfg(any(feature = "v3_18", feature = "dox"))]
-                #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
                 EventType::TouchpadSwipe => "TouchpadSwipe",
                 #[cfg(any(feature = "v3_18", feature = "dox"))]
-                #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
                 EventType::TouchpadPinch => "TouchpadPinch",
                 EventType::PadButtonPress => "PadButtonPress",
                 EventType::PadButtonRelease => "PadButtonRelease",
@@ -1318,10 +1316,8 @@ impl ToGlib for EventType {
             EventType::TouchEnd => gdk_sys::GDK_TOUCH_END,
             EventType::TouchCancel => gdk_sys::GDK_TOUCH_CANCEL,
             #[cfg(any(feature = "v3_18", feature = "dox"))]
-            #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
             EventType::TouchpadSwipe => gdk_sys::GDK_TOUCHPAD_SWIPE,
             #[cfg(any(feature = "v3_18", feature = "dox"))]
-            #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
             EventType::TouchpadPinch => gdk_sys::GDK_TOUCHPAD_PINCH,
             EventType::PadButtonPress => gdk_sys::GDK_PAD_BUTTON_PRESS,
             EventType::PadButtonRelease => gdk_sys::GDK_PAD_BUTTON_RELEASE,
@@ -1380,10 +1376,8 @@ impl FromGlib<gdk_sys::GdkEventType> for EventType {
             39 => EventType::TouchEnd,
             40 => EventType::TouchCancel,
             #[cfg(any(feature = "v3_18", feature = "dox"))]
-            #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
             41 => EventType::TouchpadSwipe,
             #[cfg(any(feature = "v3_18", feature = "dox"))]
-            #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
             42 => EventType::TouchpadPinch,
             43 => EventType::PadButtonPress,
             44 => EventType::PadButtonRelease,

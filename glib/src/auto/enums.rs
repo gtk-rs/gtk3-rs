@@ -33,7 +33,6 @@ impl fmt::Display for ChecksumType {
                 ChecksumType::Sha256 => "Sha256",
                 ChecksumType::Sha512 => "Sha512",
                 #[cfg(any(feature = "v2_52", feature = "dox"))]
-                #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
                 ChecksumType::Sha384 => "Sha384",
                 _ => "Unknown",
             }
@@ -52,7 +51,6 @@ impl ToGlib for ChecksumType {
             ChecksumType::Sha256 => glib_sys::G_CHECKSUM_SHA256,
             ChecksumType::Sha512 => glib_sys::G_CHECKSUM_SHA512,
             #[cfg(any(feature = "v2_52", feature = "dox"))]
-            #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
             ChecksumType::Sha384 => glib_sys::G_CHECKSUM_SHA384,
             ChecksumType::__Unknown(value) => value,
         }
@@ -68,7 +66,6 @@ impl FromGlib<glib_sys::GChecksumType> for ChecksumType {
             2 => ChecksumType::Sha256,
             3 => ChecksumType::Sha512,
             #[cfg(any(feature = "v2_52", feature = "dox"))]
-            #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
             4 => ChecksumType::Sha384,
             value => ChecksumType::__Unknown(value),
         }

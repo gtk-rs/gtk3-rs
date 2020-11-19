@@ -149,38 +149,26 @@ impl MenuBuilder {
             properties.push(("active", active));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-        {
-            if let Some(ref anchor_hints) = self.anchor_hints {
-                properties.push(("anchor-hints", anchor_hints));
-            }
+        if let Some(ref anchor_hints) = self.anchor_hints {
+            properties.push(("anchor-hints", anchor_hints));
         }
         if let Some(ref attach_widget) = self.attach_widget {
             properties.push(("attach-widget", attach_widget));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-        {
-            if let Some(ref menu_type_hint) = self.menu_type_hint {
-                properties.push(("menu-type-hint", menu_type_hint));
-            }
+        if let Some(ref menu_type_hint) = self.menu_type_hint {
+            properties.push(("menu-type-hint", menu_type_hint));
         }
         if let Some(ref monitor) = self.monitor {
             properties.push(("monitor", monitor));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-        {
-            if let Some(ref rect_anchor_dx) = self.rect_anchor_dx {
-                properties.push(("rect-anchor-dx", rect_anchor_dx));
-            }
+        if let Some(ref rect_anchor_dx) = self.rect_anchor_dx {
+            properties.push(("rect-anchor-dx", rect_anchor_dx));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-        {
-            if let Some(ref rect_anchor_dy) = self.rect_anchor_dy {
-                properties.push(("rect-anchor-dy", rect_anchor_dy));
-            }
+        if let Some(ref rect_anchor_dy) = self.rect_anchor_dy {
+            properties.push(("rect-anchor-dy", rect_anchor_dy));
         }
         if let Some(ref reserve_toggle_size) = self.reserve_toggle_size {
             properties.push(("reserve-toggle-size", reserve_toggle_size));
@@ -213,11 +201,8 @@ impl MenuBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref focus_on_click) = self.focus_on_click {
-                properties.push(("focus-on-click", focus_on_click));
-            }
+        if let Some(ref focus_on_click) = self.focus_on_click {
+            properties.push(("focus-on-click", focus_on_click));
         }
         if let Some(ref halign) = self.halign {
             properties.push(("halign", halign));
