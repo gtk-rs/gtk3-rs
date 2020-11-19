@@ -1,8 +1,8 @@
+use crate::Box;
+use crate::Point3D;
+use crate::Vec3;
 use glib::translate::*;
 use graphene_sys;
-use Box;
-use Point3D;
-use Vec3;
 
 impl Box {
     pub fn get_vertices(&self) -> [Vec3; 8] {

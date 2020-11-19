@@ -1,8 +1,8 @@
+use crate::Point3D;
+use crate::Triangle;
+use crate::Vec3;
 use glib::translate::*;
 use graphene_sys;
-use Point3D;
-use Triangle;
-use Vec3;
 
 impl Triangle {
     pub fn new_from_point3d(

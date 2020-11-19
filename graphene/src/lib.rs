@@ -9,14 +9,7 @@
 #![cfg_attr(feature = "cargo-clippy", allow(trivially_copy_pass_by_ref))]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-#[macro_use]
-extern crate glib;
-extern crate glib_sys as glib_sys;
-extern crate gobject_sys as gobject_sys;
-#[doc(hidden)]
-pub extern crate graphene_sys as graphene_sys;
 pub use graphene_sys as ffi;
-extern crate libc;
 
 // Graphene has no runtime to initialize
 macro_rules! assert_initialized_main_thread {
@@ -36,7 +29,7 @@ mod auto;
 
 pub mod prelude;
 
-pub use auto::*;
+pub use self::auto::*;
 
 mod box_;
 mod euler;

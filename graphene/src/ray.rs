@@ -1,8 +1,8 @@
+use crate::Point3D;
+use crate::Ray;
+use crate::Vec3;
 use glib::translate::*;
 use graphene_sys;
-use Point3D;
-use Ray;
-use Vec3;
 
 impl Ray {
     pub fn new(origin: Option<&Point3D>, direction: Option<&Vec3>) -> Ray {

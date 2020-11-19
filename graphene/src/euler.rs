@@ -1,10 +1,10 @@
+use crate::Euler;
+use crate::EulerOrder;
+use crate::Matrix;
+use crate::Quaternion;
+use crate::Vec3;
 use glib::translate::*;
 use graphene_sys;
-use Euler;
-use EulerOrder;
-use Matrix;
-use Quaternion;
-use Vec3;
 
 impl Euler {
     pub fn new(x: f32, y: f32, z: f32) -> Euler {

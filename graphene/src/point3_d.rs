@@ -1,7 +1,7 @@
+use crate::Point3D;
+use crate::Vec3;
 use glib::translate::*;
 use graphene_sys;
-use Point3D;
-use Vec3;
 
 impl Point3D {
     pub fn new(x: f32, y: f32, z: f32) -> Point3D {

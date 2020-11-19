@@ -1,9 +1,9 @@
+use crate::Matrix;
+use crate::Point3D;
+use crate::Vec3;
+use crate::Vec4;
 use glib::translate::*;
 use graphene_sys;
-use Matrix;
-use Point3D;
-use Vec3;
-use Vec4;
 
 impl Matrix {
     pub fn init_from_float(&mut self, v: &[f32; 16]) {

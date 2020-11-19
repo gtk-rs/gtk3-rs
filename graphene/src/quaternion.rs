@@ -1,10 +1,10 @@
+use crate::Euler;
+use crate::Matrix;
+use crate::Quaternion;
+use crate::Vec3;
+use crate::Vec4;
 use glib::translate::*;
 use graphene_sys;
-use Euler;
-use Matrix;
-use Quaternion;
-use Vec3;
-use Vec4;
 
 impl Quaternion {
     pub fn new(x: f32, y: f32, z: f32, w: f32) -> Quaternion {

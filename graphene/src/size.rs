@@ -1,6 +1,6 @@
+use crate::Size;
 use glib::translate::*;
 use graphene_sys;
-use Size;
 
 impl Size {
     pub fn new(width: f32, height: f32) -> Size {

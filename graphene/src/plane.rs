@@ -1,9 +1,9 @@
+use crate::Plane;
+use crate::Point3D;
+use crate::Vec3;
+use crate::Vec4;
 use glib::translate::*;
 use graphene_sys;
-use Plane;
-use Point3D;
-use Vec3;
-use Vec4;
 
 impl Plane {
     pub fn new(normal: Option<&Vec3>, constant: f32) -> Plane {

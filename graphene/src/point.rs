@@ -1,7 +1,7 @@
+use crate::Point;
+use crate::Vec2;
 use glib::translate::*;
 use graphene_sys;
-use Point;
-use Vec2;
 
 impl Point {
     pub fn new(x: f32, y: f32) -> Point {

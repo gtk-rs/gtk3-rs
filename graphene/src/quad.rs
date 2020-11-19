@@ -1,8 +1,8 @@
+use crate::Point;
+use crate::Quad;
+use crate::Rect;
 use glib::translate::*;
 use graphene_sys;
-use Point;
-use Quad;
-use Rect;
 
 impl Quad {
     pub fn init_from_points(&mut self, points: &[&Point; 4]) {

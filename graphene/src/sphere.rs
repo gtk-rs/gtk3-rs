@@ -1,8 +1,8 @@
+use crate::Point3D;
+use crate::Sphere;
+use crate::Vec3;
 use glib::translate::*;
 use graphene_sys;
-use Point3D;
-use Sphere;
-use Vec3;
 
 impl Sphere {
     pub fn init_from_points(&mut self, points: &[&Point3D], center: Option<&Point3D>) {

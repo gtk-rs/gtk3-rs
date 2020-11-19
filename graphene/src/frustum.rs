@@ -1,8 +1,8 @@
+use crate::Frustum;
+use crate::Matrix;
+use crate::Plane;
 use glib::translate::*;
 use graphene_sys;
-use Frustum;
-use Matrix;
-use Plane;
 
 impl Frustum {
     pub fn get_planes(&self) -> [Plane; 6] {

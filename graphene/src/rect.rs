@@ -1,7 +1,7 @@
+use crate::Rect;
+use crate::Vec2;
 use glib::translate::*;
 use graphene_sys;
-use Rect;
-use Vec2;
 
 impl Rect {
     pub fn get_vertices(&self) -> [Vec2; 4] {
