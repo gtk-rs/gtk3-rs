@@ -2,9 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use error::Error;
-use ffi::{self, cairo_status_t};
-use {Surface, UserDataKey};
+use crate::error::Error;
+use crate::ffi::{self, cairo_status_t};
+use crate::{Surface, UserDataKey};
 
 use libc::{c_double, c_uchar, c_uint, c_void};
 use std::any::Any;

@@ -19,9 +19,9 @@ macro_rules! declare_surface {
         impl $surf_name {
             pub unsafe fn from_raw_full(
                 ptr: *mut ffi::cairo_surface_t,
-            ) -> Result<$surf_name, ::error::Error> {
+            ) -> Result<$surf_name, crate::error::Error> {
                 let surface = Surface::from_raw_full(ptr)?;
-                Self::try_from(surface).map_err(|_| ::error::Error::SurfaceTypeMismatch)
+                Self::try_from(surface).map_err(|_| crate::error::Error::SurfaceTypeMismatch)
             }
         }
 
@@ -52,12 +52,14 @@ macro_rules! declare_surface {
         #[cfg(feature = "use_glib")]
         impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for $surf_name {
             #[inline]
-            unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> ::Borrowed<$surf_name> {
+            unsafe fn from_glib_borrow(
+                ptr: *mut ffi::cairo_surface_t,
+            ) -> crate::Borrowed<$surf_name> {
                 let surface = from_glib_borrow::<_, Surface>(ptr);
                 let surface = Self::try_from(surface.into_inner())
                     .map_err(std::mem::forget)
                     .unwrap();
-                ::Borrowed::new(surface)
+                crate::Borrowed::new(surface)
             }
         }
 

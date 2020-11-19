@@ -2,9 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use enums::PathDataType;
-use ffi;
-use ffi::cairo_path_t;
+use crate::enums::PathDataType;
+use crate::ffi;
+use crate::ffi::cairo_path_t;
 use std::fmt;
 use std::iter::Iterator;
 use std::ptr;
@@ -128,8 +128,8 @@ fn to_tuple(pair: &[f64; 2]) -> (f64, f64) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::enums::Format;
     use context::*;
-    use enums::Format;
     use image_surface::*;
 
     fn make_cr() -> Context {

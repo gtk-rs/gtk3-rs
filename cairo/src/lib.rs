@@ -42,25 +42,7 @@
 
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-pub extern crate cairo_sys as ffi;
-extern crate libc;
-extern crate thiserror;
-
-#[macro_use]
-extern crate bitflags;
-
-#[cfg(feature = "use_glib")]
-#[macro_use]
-extern crate glib;
-
-#[cfg(feature = "use_glib")]
-extern crate glib_sys as glib_ffi;
-
-#[cfg(feature = "use_glib")]
-extern crate gobject_sys as gobject_ffi;
-
-#[cfg(test)]
-extern crate tempfile;
+pub use cairo_sys as ffi;
 
 // Helper macro for our GValue related trait impls
 #[cfg(feature = "use_glib")]
@@ -69,8 +51,6 @@ macro_rules! gvalue_impl {
         use glib;
         #[allow(unused_imports)]
         use glib::translate::*;
-        use glib_ffi;
-        use gobject_ffi;
 
         impl glib::types::StaticType for $name {
             fn static_type() -> glib::types::Type {
@@ -80,7 +60,7 @@ macro_rules! gvalue_impl {
 
         impl<'a> glib::value::FromValueOptional<'a> for $name {
             unsafe fn from_value_optional(v: &'a glib::value::Value) -> Option<Self> {
-                let ptr = gobject_ffi::g_value_get_boxed(v.to_glib_none().0);
+                let ptr = glib::gobject_ffi::g_value_get_boxed(v.to_glib_none().0);
                 assert!(!ptr.is_null());
                 from_glib_none(ptr as *mut $ffi_name)
             }
@@ -88,9 +68,9 @@ macro_rules! gvalue_impl {
 
         impl glib::value::SetValue for $name {
             unsafe fn set_value(v: &mut glib::value::Value, s: &Self) {
-                gobject_ffi::g_value_set_boxed(
+                glib::gobject_ffi::g_value_set_boxed(
                     v.to_glib_none_mut().0,
-                    s.to_glib_none().0 as glib_ffi::gpointer,
+                    s.to_glib_none().0 as glib::ffi::gpointer,
                 );
             }
         }
@@ -98,65 +78,56 @@ macro_rules! gvalue_impl {
         impl glib::value::SetValueOptional for $name {
             unsafe fn set_value_optional(v: &mut glib::value::Value, s: Option<&Self>) {
                 if let Some(s) = s {
-                    gobject_ffi::g_value_set_boxed(
+                    glib::gobject_ffi::g_value_set_boxed(
                         v.to_glib_none_mut().0,
-                        s.to_glib_none().0 as glib_ffi::gpointer,
+                        s.to_glib_none().0 as glib::ffi::gpointer,
                     );
                 } else {
-                    gobject_ffi::g_value_set_boxed(v.to_glib_none_mut().0, ::std::ptr::null_mut());
+                    glib::gobject_ffi::g_value_set_boxed(
+                        v.to_glib_none_mut().0,
+                        ::std::ptr::null_mut(),
+                    );
                 }
             }
         }
     };
 }
 
-pub use user_data::UserDataKey;
-
-pub use context::{Context, RectangleList};
-
-pub use paths::{Path, PathSegment, PathSegments};
-
-pub use device::Device;
-
-pub use enums::*;
-
-pub use error::{BorrowError, Error, IoError};
-
-pub use patterns::{
-    Gradient, LinearGradient, Mesh, Pattern, RadialGradient, SolidPattern, SurfacePattern,
-};
-
-pub use font::{
+pub use self::context::{Context, RectangleList};
+pub use self::device::Device;
+pub use self::enums::*;
+pub use self::error::{BorrowError, Error, IoError};
+pub use self::font::{
     FontExtents, FontFace, FontOptions, FontSlant, FontType, FontWeight, Glyph, ScaledFont,
     TextCluster, TextExtents,
 };
-
-pub use matrices::Matrix;
-
-pub use recording_surface::RecordingSurface;
-pub use rectangle::Rectangle;
-pub use rectangle_int::RectangleInt;
-
-pub use region::Region;
-
-pub use surface::{MappedImageSurface, Surface};
-
-pub use image_surface::{ImageSurface, ImageSurfaceData};
+pub use self::image_surface::{ImageSurface, ImageSurfaceData};
+pub use self::matrices::Matrix;
+pub use self::paths::{Path, PathSegment, PathSegments};
+pub use self::patterns::{
+    Gradient, LinearGradient, Mesh, Pattern, RadialGradient, SolidPattern, SurfacePattern,
+};
+pub use self::recording_surface::RecordingSurface;
+pub use self::rectangle::Rectangle;
+pub use self::rectangle_int::RectangleInt;
+pub use self::region::Region;
+pub use self::surface::{MappedImageSurface, Surface};
+pub use self::user_data::UserDataKey;
 
 #[cfg(any(feature = "pdf", feature = "svg", feature = "ps", feature = "dox"))]
-pub use stream::StreamWithError;
+pub use self::stream::StreamWithError;
 
 #[cfg(any(feature = "pdf", feature = "dox"))]
-pub use pdf::PdfSurface;
+pub use self::pdf::PdfSurface;
 
 #[cfg(any(feature = "ps", feature = "dox"))]
-pub use ps::PsSurface;
+pub use self::ps::PsSurface;
 
 #[cfg(any(feature = "svg", feature = "dox"))]
-pub use svg::SvgSurface;
+pub use self::svg::SvgSurface;
 
 #[cfg(any(feature = "xcb", feature = "dox"))]
-pub use xcb::{
+pub use self::xcb::{
     XCBConnection, XCBDrawable, XCBPixmap, XCBRenderPictFormInfo, XCBScreen, XCBSurface,
     XCBVisualType,
 };
@@ -166,9 +137,9 @@ mod surface_macros;
 #[macro_use]
 mod user_data;
 mod constants;
-pub use constants::*;
+pub use self::constants::*;
 mod utils;
-pub use utils::{debug_reset_static_data, get_version_string, Version};
+pub use self::utils::{debug_reset_static_data, get_version_string, Version};
 mod context;
 mod device;
 mod enums;
@@ -201,13 +172,13 @@ mod svg;
 #[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
 mod quartz_surface;
 #[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
-pub use quartz_surface::QuartzSurface;
+pub use self::quartz_surface::QuartzSurface;
 
 #[cfg(any(all(windows, feature = "win32-surface"), feature = "dox"))]
 mod win32_surface;
 
 #[cfg(any(all(windows, feature = "win32-surface"), feature = "dox"))]
-pub use win32_surface::Win32Surface;
+pub use self::win32_surface::Win32Surface;
 
 #[cfg(not(feature = "use_glib"))]
 mod borrowed {
@@ -254,7 +225,7 @@ mod borrowed {
 }
 
 #[cfg(not(feature = "use_glib"))]
-pub use borrowed::Borrowed;
+pub use self::borrowed::Borrowed;
 
 #[cfg(feature = "use_glib")]
 pub(crate) use glib::translate::Borrowed;

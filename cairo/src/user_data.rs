@@ -1,6 +1,6 @@
 use std::marker::PhantomData;
 
-use ffi::cairo_user_data_key_t;
+use crate::ffi::cairo_user_data_key_t;
 
 pub struct UserDataKey<T> {
     pub(crate) ffi: cairo_user_data_key_t,

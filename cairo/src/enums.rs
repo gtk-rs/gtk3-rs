@@ -2,18 +2,19 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use bitflags;
 use std::fmt::{self, Debug};
 use std::i32;
 use std::u32;
 
-use ffi;
+use crate::ffi;
 
 #[cfg(feature = "use_glib")]
 use glib;
 #[cfg(feature = "use_glib")]
-use glib::translate::*;
+use glib::gobject_ffi;
 #[cfg(feature = "use_glib")]
-use gobject_ffi;
+use glib::translate::*;
 
 // Helper macro for our GValue related trait impls
 #[cfg(feature = "use_glib")]
@@ -1477,7 +1478,7 @@ gvalue_impl!(
     ffi::gobject::cairo_gobject_region_overlap_get_type
 );
 
-bitflags! {
+bitflags::bitflags! {
     pub struct PdfOutline: i32 {
         const OPEN = ffi::PDF_OUTLINE_FLAG_OPEN;
         const BOLD = ffi::PDF_OUTLINE_FLAG_BOLD;

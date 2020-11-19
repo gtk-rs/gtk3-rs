@@ -2,18 +2,18 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-pub use ffi::winapi;
+pub use crate::ffi::winapi;
 
 use std::convert::TryFrom;
 use std::fmt;
 use std::ops::Deref;
 
-use enums::{Format, SurfaceType};
-use error::Error;
-use ffi;
+use crate::enums::{Format, SurfaceType};
+use crate::error::Error;
+use crate::ffi;
+use crate::surface::Surface;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
-use surface::Surface;
 
 declare_surface!(Win32Surface, SurfaceType::Win32);
 

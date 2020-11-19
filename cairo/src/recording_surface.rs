@@ -6,14 +6,14 @@ use std::convert::TryFrom;
 use std::fmt;
 use std::ops::Deref;
 
-use enums::{Content, SurfaceType};
-use error::Error;
-use ffi;
+use crate::enums::{Content, SurfaceType};
+use crate::error::Error;
+use crate::ffi;
+use crate::rectangle::Rectangle;
+use crate::surface::Surface;
+
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
-use rectangle::Rectangle;
-
-use surface::Surface;
 
 declare_surface!(RecordingSurface, SurfaceType::Recording);
 impl RecordingSurface {

@@ -10,6 +10,7 @@ version = "0.13.0"
 description = "Rust bindings for the Cairo library"
 repository = "https://github.com/gtk-rs/gtk-rs"
 build = "build.rs"
+edition = "2018"
 
 [badges]
 appveyor = { repository = "GuillaumeGomez/cairo", service = "github" }

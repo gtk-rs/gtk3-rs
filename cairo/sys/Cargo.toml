@@ -9,6 +9,7 @@ version = "0.13.0"
 keywords = ["cairo", "ffi", "gtk-rs", "gnome"]
 repository = "https://github.com/gtk-rs/gtk-rs"
 build = "build.rs"
+edition = "2018"
 
 [package.metadata.system-deps.cairo]
 name = "cairo"

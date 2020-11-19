@@ -11,10 +11,10 @@ use std::ops::Deref;
 use std::path::Path;
 use std::ptr;
 
-use enums::{PsLevel, SurfaceType};
-use error::Error;
-use ffi;
-use surface::Surface;
+use crate::enums::{PsLevel, SurfaceType};
+use crate::error::Error;
+use crate::ffi;
+use crate::surface::Surface;
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;

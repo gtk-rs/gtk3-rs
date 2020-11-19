@@ -3,10 +3,10 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
-use enums::SvgUnit;
-use enums::{SurfaceType, SvgVersion};
-use error::Error;
-use ffi;
+use crate::enums::SvgUnit;
+use crate::enums::{SurfaceType, SvgVersion};
+use crate::error::Error;
+use crate::ffi;
 use std::convert::TryFrom;
 use std::ffi::{CStr, CString};
 use std::fmt;
@@ -18,7 +18,7 @@ use std::os::unix::prelude::*;
 use std::path::Path;
 use std::ptr;
 
-use surface::Surface;
+use crate::surface::Surface;
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
