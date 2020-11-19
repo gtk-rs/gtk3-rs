@@ -46,6 +46,8 @@
 <span id="43">43</span>
 <span id="44">44</span>
 <span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2017, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -61,7 +63,8 @@
 <span class="kw">use</span> <span class="ident">TreeRowReference</span>;
 
 <span class="kw">impl</span> <span class="ident">TreeRowReference</span> {
-    <span class="comment">// This is unsafe because new_order bounds can&#39;t be checked.</span>
+    <span class="doccomment">/// This is unsafe because new_order bounds can&#39;t be checked.</span>
+    <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
     <span class="doccomment">/// Lets a set of row reference created by</span>
     <span class="doccomment">/// `TreeRowReference::new_proxy` know that the</span>
     <span class="doccomment">/// model emitted the `TreeModel::rows-reordered` signal.</span>
@@ -73,6 +76,7 @@
     <span class="doccomment">/// the iter pointing to the parent of the reordered</span>
     <span class="doccomment">/// ## `new_order`</span>
     <span class="doccomment">/// the new order of rows</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">reordered</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Object</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">proxy</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>,
         <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>,

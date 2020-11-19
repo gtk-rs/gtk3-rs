@@ -778,9 +778,6 @@
 <span id="775">775</span>
 <span id="776">776</span>
 <span id="777">777</span>
-<span id="778">778</span>
-<span id="779">779</span>
-<span id="780">780</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2017-2018, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -815,7 +812,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is called whenever the property value of the specific subclass with the</span>
     <span class="doccomment">/// given index should be returned.</span>
-    <span class="kw">fn</span> <span class="ident">get_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">_id</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Value</span>, ()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">_id</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Value</span> {
         <span class="macro">unimplemented</span><span class="macro">!</span>()
     }
 
@@ -838,25 +835,22 @@
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">obj</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
 
-    <span class="kw">match</span> <span class="ident">imp</span>.<span class="ident">get_property</span>(
+    <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">get_property</span>(
         <span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">Object</span><span class="op">&gt;</span>(<span class="ident">obj</span>).<span class="ident">unsafe_cast_ref</span>(),
         (<span class="ident">id</span> <span class="op">-</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">usize</span>,
-    ) {
-        <span class="prelude-val">Ok</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="comment">// We first unset the value we get passed in, in case it contained</span>
-            <span class="comment">// any previous data. Then we directly overwrite it with our new</span>
-            <span class="comment">// value, and pass ownership of the contained data to the C GValue</span>
-            <span class="comment">// by forgetting it on the Rust side.</span>
-            <span class="comment">//</span>
-            <span class="comment">// Without this, by using the GValue API, we would have to create</span>
-            <span class="comment">// a copy of the value when setting it on the destination just to</span>
-            <span class="comment">// immediately free the original value afterwards.</span>
-            <span class="ident">gobject_sys</span>::<span class="ident">g_value_unset</span>(<span class="ident">value</span>);
-            <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">ManuallyDrop</span>::<span class="ident">new</span>(<span class="ident">v</span>);
-            <span class="ident">ptr</span>::<span class="ident">write</span>(<span class="ident">value</span>, <span class="ident">ptr</span>::<span class="ident">read</span>(<span class="ident">v</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>));
-        }
-        <span class="prelude-val">Err</span>(()) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">eprintln</span><span class="macro">!</span>(<span class="string">&quot;Failed to get property&quot;</span>),
-    }
+    );
+
+    <span class="comment">// We first unset the value we get passed in, in case it contained</span>
+    <span class="comment">// any previous data. Then we directly overwrite it with our new</span>
+    <span class="comment">// value, and pass ownership of the contained data to the C GValue</span>
+    <span class="comment">// by forgetting it on the Rust side.</span>
+    <span class="comment">//</span>
+    <span class="comment">// Without this, by using the GValue API, we would have to create</span>
+    <span class="comment">// a copy of the value when setting it on the destination just to</span>
+    <span class="comment">// immediately free the original value afterwards.</span>
+    <span class="ident">gobject_sys</span>::<span class="ident">g_value_unset</span>(<span class="ident">value</span>);
+    <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">ManuallyDrop</span>::<span class="ident">new</span>(<span class="ident">v</span>);
+    <span class="ident">ptr</span>::<span class="ident">write</span>(<span class="ident">value</span>, <span class="ident">ptr</span>::<span class="ident">read</span>(<span class="ident">v</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>));
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">set_property</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectImpl</span><span class="op">&gt;</span>(
@@ -1239,13 +1233,13 @@
                 }
             }
 
-            <span class="kw">fn</span> <span class="ident">get_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">id</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Value</span>, ()<span class="op">&gt;</span> {
+            <span class="kw">fn</span> <span class="ident">get_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">id</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Value</span> {
                 <span class="kw">let</span> <span class="ident">prop</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">PROPERTIES</span>[<span class="ident">id</span>];
 
                 <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">prop</span> {
-                    <span class="ident">Property</span>(<span class="string">&quot;name&quot;</span>, ..) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">name</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>()),
-                    <span class="ident">Property</span>(<span class="string">&quot;construct-name&quot;</span>, ..) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">construct_name</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>()),
-                    <span class="ident">Property</span>(<span class="string">&quot;constructed&quot;</span>, ..) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">constructed</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>()),
+                    <span class="ident">Property</span>(<span class="string">&quot;name&quot;</span>, ..) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">name</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>(),
+                    <span class="ident">Property</span>(<span class="string">&quot;construct-name&quot;</span>, ..) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">construct_name</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>(),
+                    <span class="ident">Property</span>(<span class="string">&quot;constructed&quot;</span>, ..) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">constructed</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>(),
                     <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unimplemented</span><span class="macro">!</span>(),
                 }
             }

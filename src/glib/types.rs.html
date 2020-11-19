@@ -393,7 +393,6 @@
 <span id="390">390</span>
 <span id="391">391</span>
 <span id="392">392</span>
-<span id="393">393</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2015-2016, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -627,7 +626,6 @@
 }
 
 <span class="attribute">#[<span class="ident">inline</span>]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
 <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">instance_of</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">StaticType</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="ident">glib_sys</span>::<span class="ident">gconstpointer</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
     <span class="ident">from_glib</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_type_check_instance_is_a</span>(
         <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,

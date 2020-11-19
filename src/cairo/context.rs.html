@@ -1507,7 +1507,7 @@
             <span class="ident">ffi</span>::<span class="ident">cairo_show_text_glyphs</span>(
                 <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">text</span>.<span class="ident">as_ptr</span>(),
-                <span class="op">-</span><span class="number">1</span> <span class="kw">as</span> <span class="ident">c_int</span>, <span class="comment">//NULL terminated</span>
+                <span class="op">-</span><span class="number">1_i32</span>, <span class="comment">//NULL terminated</span>
                 <span class="ident">glyphs</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">glyphs</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">c_int</span>,
                 <span class="ident">clusters</span>.<span class="ident">as_ptr</span>(),

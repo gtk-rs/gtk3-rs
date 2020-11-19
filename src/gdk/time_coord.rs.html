@@ -233,7 +233,7 @@
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">num</span>);
         <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">num</span> {
-            <span class="ident">res</span>.<span class="ident">push</span>((<span class="kw-2">*</span>(<span class="ident">ptr</span>.<span class="ident">offset</span>(<span class="ident">i</span> <span class="kw">as</span> <span class="ident">isize</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">TimeCoord</span>)).<span class="ident">clone</span>());
+            <span class="ident">res</span>.<span class="ident">push</span>((<span class="kw-2">*</span>(<span class="ident">ptr</span>.<span class="ident">add</span>(<span class="ident">i</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">TimeCoord</span>)).<span class="ident">clone</span>());
         }
         <span class="ident">res</span>
     }
@@ -254,7 +254,7 @@
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">num</span>);
         <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">num</span> {
-            <span class="ident">res</span>.<span class="ident">push</span>((<span class="kw-2">*</span>(<span class="ident">ptr</span>.<span class="ident">offset</span>(<span class="ident">i</span> <span class="kw">as</span> <span class="ident">isize</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">TimeCoord</span>)).<span class="ident">clone</span>());
+            <span class="ident">res</span>.<span class="ident">push</span>((<span class="kw-2">*</span>(<span class="ident">ptr</span>.<span class="ident">add</span>(<span class="ident">i</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">TimeCoord</span>)).<span class="ident">clone</span>());
         }
         <span class="ident">glib_sys</span>::<span class="ident">g_free</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
         <span class="ident">res</span>

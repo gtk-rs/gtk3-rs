@@ -421,7 +421,7 @@
     }
 }
 
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;cargo-clippy&quot;</span>, <span class="ident">allow</span>(<span class="ident">type_complexity</span>))]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">type_complexity</span>)]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gdk_sys</span>::<span class="ident">GdkWindowAttr</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WindowAttr</span> {
     <span class="kw">type</span> <span class="ident">Storage</span> <span class="op">=</span> (
         <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">gdk_sys</span>::<span class="ident">GdkWindowAttr</span><span class="op">&gt;</span>,
@@ -544,7 +544,7 @@
     <span class="doccomment">/// that `self` belongs to. See `Window::set_user_data`.</span>
     <span class="doccomment">/// ## `data`</span>
     <span class="doccomment">/// return location for user data</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;cargo-clippy&quot;</span>, <span class="ident">allow</span>(<span class="ident">mut_from_ref</span>))]</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">mut_from_ref</span>)]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_user_data</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span>;
 
     <span class="kw">fn</span> <span class="ident">get_default_root_window</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Window</span>;

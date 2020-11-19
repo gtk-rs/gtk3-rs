@@ -463,13 +463,13 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//!         // Called whenever a property is retrieved from this instance. The id</span>
 <span class="doccomment">//!         // is the same as the index of the property in the PROPERTIES array.</span>
-<span class="doccomment">//!         fn get_property(&amp;self, _obj: &amp;Self::Type, id: usize) -&gt; Result&lt;glib::Value, ()&gt; {</span>
+<span class="doccomment">//!         fn get_property(&amp;self, _obj: &amp;Self::Type, id: usize) -&gt; glib::Value {</span>
 <span class="doccomment">//!             let prop = &amp;PROPERTIES[id];</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!             match *prop {</span>
-<span class="doccomment">//!                 subclass::Property(&quot;name&quot;, ..) =&gt; Ok(self.name.borrow().to_value()),</span>
-<span class="doccomment">//!                 subclass::Property(&quot;animal&quot;, ..) =&gt; Ok(self.animal.get().to_value()),</span>
-<span class="doccomment">//!                 subclass::Property(&quot;flags&quot;, ..) =&gt; Ok(self.flags.get().to_value()),</span>
+<span class="doccomment">//!                 subclass::Property(&quot;name&quot;, ..) =&gt; self.name.borrow().to_value(),</span>
+<span class="doccomment">//!                 subclass::Property(&quot;animal&quot;, ..) =&gt; self.animal.get().to_value(),</span>
+<span class="doccomment">//!                 subclass::Property(&quot;flags&quot;, ..) =&gt; self.flags.get().to_value(),</span>
 <span class="doccomment">//!                 _ =&gt; unimplemented!(),</span>
 <span class="doccomment">//!             }</span>
 <span class="doccomment">//!         }</span>

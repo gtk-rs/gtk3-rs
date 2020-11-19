@@ -176,8 +176,6 @@
 <span id="173">173</span>
 <span id="174">174</span>
 <span id="175">175</span>
-<span id="176">176</span>
-<span id="177">177</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">libc</span>::{<span class="ident">c_char</span>, <span class="ident">c_uchar</span>};
 <span class="kw">use</span> <span class="ident">translate</span>::<span class="ident">FromGlib</span>;
@@ -320,12 +318,10 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">converts_single_byte_chars</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">Char</span>::<span class="ident">new</span>(<span class="number">0</span> <span class="kw">as</span> <span class="ident">char</span>), <span class="prelude-val">Some</span>(<span class="ident">Char</span>(<span class="number">0</span> <span class="kw">as</span> <span class="ident">c_char</span>)));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">Char</span>::<span class="ident">new</span>(<span class="number">255</span> <span class="kw">as</span> <span class="ident">char</span>), <span class="prelude-val">Some</span>(<span class="ident">Char</span>(<span class="op">-</span><span class="number">1</span> <span class="kw">as</span> <span class="ident">i8</span> <span class="kw">as</span> <span class="ident">c_char</span>)));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">Char</span>::<span class="ident">new</span>(<span class="string">&#39;ñ&#39;</span>), <span class="prelude-val">Some</span>(<span class="ident">Char</span>(<span class="number">241</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="kw">as</span> <span class="ident">c_char</span>)));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">UChar</span>::<span class="ident">new</span>(<span class="number">0</span> <span class="kw">as</span> <span class="ident">char</span>), <span class="prelude-val">Some</span>(<span class="ident">UChar</span>(<span class="number">0</span> <span class="kw">as</span> <span class="ident">c_uchar</span>)));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">UChar</span>::<span class="ident">new</span>(<span class="number">255</span> <span class="kw">as</span> <span class="ident">char</span>), <span class="prelude-val">Some</span>(<span class="ident">UChar</span>(<span class="number">255</span> <span class="kw">as</span> <span class="ident">c_uchar</span>)));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">UChar</span>::<span class="ident">new</span>(<span class="string">&#39;ñ&#39;</span>), <span class="prelude-val">Some</span>(<span class="ident">UChar</span>(<span class="number">241</span> <span class="kw">as</span> <span class="ident">c_uchar</span>)));
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">Char</span>::<span class="ident">new</span>(<span class="number">0</span> <span class="kw">as</span> <span class="ident">char</span>), <span class="prelude-val">Some</span>(<span class="ident">Char</span>(<span class="number">0_i8</span>)));
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">UChar</span>::<span class="ident">new</span>(<span class="number">0</span> <span class="kw">as</span> <span class="ident">char</span>), <span class="prelude-val">Some</span>(<span class="ident">UChar</span>(<span class="number">0_u8</span>)));
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">UChar</span>::<span class="ident">new</span>(<span class="number">255</span> <span class="kw">as</span> <span class="ident">char</span>), <span class="prelude-val">Some</span>(<span class="ident">UChar</span>(<span class="number">255_u8</span>)));
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">UChar</span>::<span class="ident">new</span>(<span class="string">&#39;ñ&#39;</span>), <span class="prelude-val">Some</span>(<span class="ident">UChar</span>(<span class="number">241_u8</span>)));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -336,24 +332,24 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">into_i8</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">Char</span>::<span class="ident">new</span>(<span class="string">&#39;A&#39;</span>).<span class="ident">unwrap</span>().<span class="ident">to_glib</span>(), <span class="number">65</span> <span class="kw">as</span> <span class="ident">c_char</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">Char</span>::<span class="ident">new</span>(<span class="string">&#39;A&#39;</span>).<span class="ident">unwrap</span>().<span class="ident">to_glib</span>(), <span class="number">65_i8</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">into_u8</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">UChar</span>::<span class="ident">new</span>(<span class="string">&#39;A&#39;</span>).<span class="ident">unwrap</span>().<span class="ident">to_glib</span>(), <span class="number">65</span> <span class="kw">as</span> <span class="ident">c_uchar</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">UChar</span>::<span class="ident">new</span>(<span class="string">&#39;A&#39;</span>).<span class="ident">unwrap</span>().<span class="ident">to_glib</span>(), <span class="number">65_u8</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">into_char</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">char</span>::<span class="ident">from</span>(<span class="ident">Char</span>(<span class="number">65</span> <span class="kw">as</span> <span class="ident">c_char</span>)), <span class="string">&#39;A&#39;</span>);
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&#39;ñ&#39;</span>, <span class="ident">UChar</span>(<span class="number">241</span> <span class="kw">as</span> <span class="ident">c_uchar</span>).<span class="ident">into</span>());
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">char</span>::<span class="ident">from</span>(<span class="ident">Char</span>(<span class="number">65_i8</span>)), <span class="string">&#39;A&#39;</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&#39;ñ&#39;</span>, <span class="ident">UChar</span>(<span class="number">241_u8</span>).<span class="ident">into</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">convert_from_glib</span>() {
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">Char</span>(<span class="number">65</span> <span class="kw">as</span> <span class="ident">c_char</span>), <span class="ident">from_glib</span>(<span class="number">65</span> <span class="kw">as</span> <span class="ident">c_char</span>));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">UChar</span>(<span class="number">241</span> <span class="kw">as</span> <span class="ident">c_uchar</span>), <span class="ident">from_glib</span>(<span class="number">241</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="kw">as</span> <span class="ident">c_uchar</span>));
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">Char</span>(<span class="number">65_i8</span>), <span class="ident">from_glib</span>(<span class="number">65_i8</span>));
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">UChar</span>(<span class="number">241_u8</span>), <span class="ident">from_glib</span>(<span class="number">241_u8</span>));
     }
 }
 </pre></div>

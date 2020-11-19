@@ -219,6 +219,7 @@
 <span id="216">216</span>
 <span id="217">217</span>
 <span id="218">218</span>
+<span id="219">219</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # Basic Subclass example</span>
 <span class="doccomment">//!</span>
@@ -416,6 +417,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">SimpleApplication</span> {
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">new_without_default</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">glib</span>::<span class="ident">Object</span>::<span class="ident">new</span>(
             <span class="self">Self</span>::<span class="ident">static_type</span>(),

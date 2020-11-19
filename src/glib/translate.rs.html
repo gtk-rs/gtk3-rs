@@ -2499,28 +2499,6 @@
 <span id="2496">2496</span>
 <span id="2497">2497</span>
 <span id="2498">2498</span>
-<span id="2499">2499</span>
-<span id="2500">2500</span>
-<span id="2501">2501</span>
-<span id="2502">2502</span>
-<span id="2503">2503</span>
-<span id="2504">2504</span>
-<span id="2505">2505</span>
-<span id="2506">2506</span>
-<span id="2507">2507</span>
-<span id="2508">2508</span>
-<span id="2509">2509</span>
-<span id="2510">2510</span>
-<span id="2511">2511</span>
-<span id="2512">2512</span>
-<span id="2513">2513</span>
-<span id="2514">2514</span>
-<span id="2515">2515</span>
-<span id="2516">2516</span>
-<span id="2517">2517</span>
-<span id="2518">2518</span>
-<span id="2519">2519</span>
-<span id="2520">2520</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2015, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -2729,13 +2707,11 @@
 <span class="doccomment">/// A trait for creating an uninitialized value. Handy for receiving outparams.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Uninitialized</span> {
     <span class="doccomment">/// Returns an uninitialized value.</span>
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">uninitialized</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>;
 }
 
 <span class="doccomment">/// Returns an uninitialized value.</span>
 <span class="attribute">#[<span class="ident">inline</span>]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
 <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">uninitialized</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Uninitialized</span><span class="op">&gt;</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span> {
     <span class="ident">T</span>::<span class="ident">uninitialized</span>()
 }
@@ -3736,25 +3712,13 @@
     }
 
     <span class="doccomment">/// Returns `true` if `self` is the `None` variant.</span>
-    <span class="comment">// FIXME `matches!` was introduced in rustc 1.42.0, current MSRV is 1.40.0</span>
-    <span class="comment">// FIXME uncomment when CI can upgrade to 1.47.1</span>
-    <span class="comment">//#[allow(clippy::match_like_matches_macro)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">GlibNoneOrInvalidError</span>::<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
-        }
+        <span class="macro">matches</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">GlibNoneOrInvalidError</span>::<span class="prelude-val">None</span>)
     }
 
     <span class="doccomment">/// Returns `true` if `self` is the `Invalid` variant.</span>
-    <span class="comment">// FIXME `matches!` was introduced in rustc 1.42.0, current MSRV is 1.40.0</span>
-    <span class="comment">// FIXME uncomment when CI can upgrade to 1.47.1</span>
-    <span class="comment">//#[allow(clippy::match_like_matches_macro)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_invalid</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">GlibNoneOrInvalidError</span>::<span class="ident">Invalid</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
-        }
+        <span class="macro">matches</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">GlibNoneOrInvalidError</span>::<span class="ident">Invalid</span>(<span class="kw">_</span>))
     }
 }
 
@@ -3873,7 +3837,6 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// See [`FromGlibPtrNone`](trait.FromGlibPtrNone.html).</span>
 <span class="attribute">#[<span class="ident">inline</span>]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
 <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">Ptr</span>, <span class="ident">T</span>: <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span> {
     <span class="ident">FromGlibPtrNone</span>::<span class="ident">from_glib_none</span>(<span class="ident">ptr</span>)
 }
@@ -3882,7 +3845,6 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// See [`FromGlibPtrFull`](trait.FromGlibPtrFull.html).</span>
 <span class="attribute">#[<span class="ident">inline</span>]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
 <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">Ptr</span>, <span class="ident">T</span>: <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span> {
     <span class="ident">FromGlibPtrFull</span>::<span class="ident">from_glib_full</span>(<span class="ident">ptr</span>)
 }
@@ -3891,7 +3853,6 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// See [`FromGlibPtrBorrow`](trait.FromGlibPtrBorrow.html).</span>
 <span class="attribute">#[<span class="ident">inline</span>]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
 <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">Ptr</span>, <span class="ident">T</span>: <span class="ident">FromGlibPtrBorrow</span><span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="ident">FromGlibPtrBorrow</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>)
 }
@@ -4083,7 +4044,6 @@
 }
 
 <span class="doccomment">/// Translate from a container.</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FromGlibContainer</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">P</span>: <span class="ident">Ptr</span><span class="op">&gt;</span>: <span class="ident">Sized</span> {
     <span class="doccomment">/// Transfer: none.</span>
     <span class="doccomment">///</span>
@@ -4102,7 +4062,6 @@
 }
 
 <span class="doccomment">/// Translate from a container of pointers.</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FromGlibPtrContainer</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">Ptr</span>, <span class="ident">PP</span>: <span class="ident">Ptr</span><span class="op">&gt;</span>: <span class="ident">FromGlibContainer</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">PP</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Sized</span> {
     <span class="doccomment">/// Transfer: none.</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="ident">PP</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>;
@@ -4114,7 +4073,6 @@
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="ident">PP</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>;
 }
 
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
 <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">c_ptr_array_len</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">Ptr</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">len</span> <span class="op">=</span> <span class="number">0</span>;
 
@@ -4127,7 +4085,6 @@
     <span class="ident">len</span>
 }
 
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FromGlibContainerAsVec</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">P</span>: <span class="ident">Ptr</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="self">Self</span>: <span class="ident">Sized</span>,
@@ -4137,7 +4094,6 @@
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full_num_as_vec</span>(<span class="ident">ptr</span>: <span class="ident">P</span>, <span class="ident">num</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FromGlibPtrArrayContainerAsVec</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">Ptr</span>, <span class="ident">PP</span>: <span class="ident">Ptr</span><span class="op">&gt;</span>: <span class="ident">FromGlibContainerAsVec</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">PP</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="self">Self</span>: <span class="ident">Sized</span>,

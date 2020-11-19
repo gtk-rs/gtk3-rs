@@ -72,6 +72,8 @@
 <span id="69">69</span>
 <span id="70">70</span>
 <span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2018, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -101,6 +103,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// a new `UnixInputStream`</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">IntoRawFd</span><span class="op">&gt;</span>(<span class="ident">fd</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UnixInputStream</span> {
         <span class="kw">let</span> <span class="ident">fd</span> <span class="op">=</span> <span class="ident">fd</span>.<span class="ident">into_raw_fd</span>();
         <span class="kw">let</span> <span class="ident">close_fd</span> <span class="op">=</span> <span class="bool-val">true</span>.<span class="ident">to_glib</span>();
@@ -125,6 +128,7 @@
     <span class="doccomment">/// when the stream is closed.</span>
     <span class="doccomment">/// ## `close_fd`</span>
     <span class="doccomment">/// `true` to close the file descriptor when done</span>
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_close_fd</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">close_fd</span>: <span class="ident">bool</span>);
 }
 

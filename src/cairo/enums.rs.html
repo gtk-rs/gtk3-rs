@@ -1951,6 +1951,7 @@
 <span id="1948">1948</span>
 <span id="1949">1949</span>
 <span id="1950">1950</span>
+<span id="1951">1951</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2019, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -1960,6 +1961,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">i32</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">u32</span>;
 
+<span class="kw">use</span> <span class="ident">error</span>::<span class="ident">Error</span>;
 <span class="kw">use</span> <span class="ident">ffi</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
@@ -3363,13 +3365,13 @@
 <span class="macro">gvalue_impl</span><span class="macro">!</span>(<span class="ident">Format</span>, <span class="ident">ffi</span>::<span class="ident">gobject</span>::<span class="ident">cairo_gobject_format_get_type</span>);
 
 <span class="kw">impl</span> <span class="ident">Format</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stride_for_width</span>(<span class="self">self</span>, <span class="ident">width</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">i32</span>, ()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stride_for_width</span>(<span class="self">self</span>, <span class="ident">width</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">i32</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">width</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">i32</span>::<span class="ident">MAX</span> <span class="kw">as</span> <span class="ident">u32</span>);
         <span class="kw">let</span> <span class="ident">width</span> <span class="op">=</span> <span class="ident">width</span> <span class="kw">as</span> <span class="ident">i32</span>;
 
         <span class="kw">let</span> <span class="ident">stride</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_format_stride_for_width</span>(<span class="self">self</span>.<span class="ident">into</span>(), <span class="ident">width</span>) };
         <span class="kw">if</span> <span class="ident">stride</span> <span class="op">=</span><span class="op">=</span> <span class="op">-</span><span class="number">1</span> {
-            <span class="prelude-val">Err</span>(())
+            <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="ident">InvalidFormat</span>)
         } <span class="kw">else</span> {
             <span class="prelude-val">Ok</span>(<span class="ident">stride</span>)
         }

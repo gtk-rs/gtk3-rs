@@ -143,7 +143,7 @@
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">std</span>::<span class="ident">marker</span>::<span class="ident">Unpin</span> {
     <span class="ident">file</span>.<span class="ident">read_async_future</span>(<span class="ident">glib</span>::<span class="ident">PRIORITY_DEFAULT</span>)
         .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Failed to open file: {}&quot;</span>, <span class="ident">err</span>))
-        .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">strm</span><span class="op">|</span> <span class="ident">read_and_print_chunks</span>(<span class="ident">strm</span>))
+        .<span class="ident">and_then</span>(<span class="ident">read_and_print_chunks</span>)
 }
 
 <span class="comment">// Read the input stream in chunks of 64 bytes, always into the same buffer</span>
