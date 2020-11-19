@@ -46,6 +46,10 @@ pub unsafe trait ObjectType:
     + PartialOrd
     + Ord
     + hash::Hash
+    + ::value::SetValue
+    + ::value::SetValueOptional
+    + for<'a> ::value::FromValueOptional<'a>
+    + ::value::ToValue
     + for<'a> ToGlibPtr<'a, *mut <Self as ObjectType>::GlibType>
     + 'static
 {
