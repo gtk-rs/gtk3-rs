@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["glib"] = [{"text":"impl&lt;F, T&gt; Stream for SourceStream&lt;F, T&gt; <span class=\"where fmt-newline\">where<br>&nbsp;&nbsp;&nbsp;&nbsp;F: FnOnce(UnboundedSender&lt;T&gt;) -&gt; Source + 'static,&nbsp;</span>","synthetic":false,"types":[]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

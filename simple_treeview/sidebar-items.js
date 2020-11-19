@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["append_column",""],["build_ui",""],["create_and_fill_model",""],["create_and_setup_view",""],["main",""]]});

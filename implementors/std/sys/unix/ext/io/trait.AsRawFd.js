@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["gio"] = [{"text":"impl AsRawFd for Socket","synthetic":false,"types":[]},{"text":"impl AsRawFd for UnixInputStream","synthetic":false,"types":[]},{"text":"impl AsRawFd for UnixOutputStream","synthetic":false,"types":[]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

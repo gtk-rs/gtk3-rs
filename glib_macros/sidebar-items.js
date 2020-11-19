@@ -1,0 +1,1 @@
+initSidebarItems({"attr":[["gflags","Attribute macro for defining flags using the `bitflags` crate. This macro will also define a `GFlags::get_type` function and the `glib::Value` traits."]],"derive":[["GBoxed","Derive macro for defining a `BoxedType``::get_type` function and the `glib::Value` traits."],["GEnum",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["add_accelerators",""],["add_actions","This function creates \"actions\" which connect on the declared actions from the menu items."],["build_system_menu",""],["build_ui",""],["main",""]]});

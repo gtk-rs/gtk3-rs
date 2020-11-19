@@ -1,0 +1,4 @@
+(function() {var implementors = {};
+implementors["cairo"] = [{"text":"impl Error for Error","synthetic":false,"types":[]},{"text":"impl Error for IoError","synthetic":false,"types":[]},{"text":"impl Error for BorrowError","synthetic":false,"types":[]}];
+implementors["glib"] = [{"text":"impl Error for Error","synthetic":false,"types":[]},{"text":"impl Error for BoolError","synthetic":false,"types":[]},{"text":"impl Error for GlibNoneError","synthetic":false,"types":[]},{"text":"impl&lt;I:&nbsp;Error&gt; Error for GlibNoneOrInvalidError&lt;I&gt;","synthetic":false,"types":[]},{"text":"impl Error for GetError","synthetic":false,"types":[]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

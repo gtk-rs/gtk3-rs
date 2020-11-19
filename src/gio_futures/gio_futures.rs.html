@@ -1,0 +1,256 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `examples/src/bin/gio_futures.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>gio_futures.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
+<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../gio_futures/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
+                <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<span id="2">  2</span>
+<span id="3">  3</span>
+<span id="4">  4</span>
+<span id="5">  5</span>
+<span id="6">  6</span>
+<span id="7">  7</span>
+<span id="8">  8</span>
+<span id="9">  9</span>
+<span id="10"> 10</span>
+<span id="11"> 11</span>
+<span id="12"> 12</span>
+<span id="13"> 13</span>
+<span id="14"> 14</span>
+<span id="15"> 15</span>
+<span id="16"> 16</span>
+<span id="17"> 17</span>
+<span id="18"> 18</span>
+<span id="19"> 19</span>
+<span id="20"> 20</span>
+<span id="21"> 21</span>
+<span id="22"> 22</span>
+<span id="23"> 23</span>
+<span id="24"> 24</span>
+<span id="25"> 25</span>
+<span id="26"> 26</span>
+<span id="27"> 27</span>
+<span id="28"> 28</span>
+<span id="29"> 29</span>
+<span id="30"> 30</span>
+<span id="31"> 31</span>
+<span id="32"> 32</span>
+<span id="33"> 33</span>
+<span id="34"> 34</span>
+<span id="35"> 35</span>
+<span id="36"> 36</span>
+<span id="37"> 37</span>
+<span id="38"> 38</span>
+<span id="39"> 39</span>
+<span id="40"> 40</span>
+<span id="41"> 41</span>
+<span id="42"> 42</span>
+<span id="43"> 43</span>
+<span id="44"> 44</span>
+<span id="45"> 45</span>
+<span id="46"> 46</span>
+<span id="47"> 47</span>
+<span id="48"> 48</span>
+<span id="49"> 49</span>
+<span id="50"> 50</span>
+<span id="51"> 51</span>
+<span id="52"> 52</span>
+<span id="53"> 53</span>
+<span id="54"> 54</span>
+<span id="55"> 55</span>
+<span id="56"> 56</span>
+<span id="57"> 57</span>
+<span id="58"> 58</span>
+<span id="59"> 59</span>
+<span id="60"> 60</span>
+<span id="61"> 61</span>
+<span id="62"> 62</span>
+<span id="63"> 63</span>
+<span id="64"> 64</span>
+<span id="65"> 65</span>
+<span id="66"> 66</span>
+<span id="67"> 67</span>
+<span id="68"> 68</span>
+<span id="69"> 69</span>
+<span id="70"> 70</span>
+<span id="71"> 71</span>
+<span id="72"> 72</span>
+<span id="73"> 73</span>
+<span id="74"> 74</span>
+<span id="75"> 75</span>
+<span id="76"> 76</span>
+<span id="77"> 77</span>
+<span id="78"> 78</span>
+<span id="79"> 79</span>
+<span id="80"> 80</span>
+<span id="81"> 81</span>
+<span id="82"> 82</span>
+<span id="83"> 83</span>
+<span id="84"> 84</span>
+<span id="85"> 85</span>
+<span id="86"> 86</span>
+<span id="87"> 87</span>
+<span id="88"> 88</span>
+<span id="89"> 89</span>
+<span id="90"> 90</span>
+<span id="91"> 91</span>
+<span id="92"> 92</span>
+<span id="93"> 93</span>
+<span id="94"> 94</span>
+<span id="95"> 95</span>
+<span id="96"> 96</span>
+<span id="97"> 97</span>
+<span id="98"> 98</span>
+<span id="99"> 99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+</pre><div class="example-wrap"><pre class="rust ">
+<span class="kw">use</span> <span class="ident">gio</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">str</span>;
+
+<span class="kw">use</span> <span class="ident">futures</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+
+<span class="comment">// Throughout our chained futures, we convert all errors to strings</span>
+<span class="comment">// via map_err() and print them at the very end.</span>
+<span class="comment">//</span>
+<span class="comment">// Open the file for reading, and if that succeeds read the whole file from</span>
+<span class="comment">// the resulting input stream.</span>
+<span class="kw">fn</span> <span class="ident">read_and_print_file</span>(
+    <span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">gio</span>::<span class="ident">File</span>,
+) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">std</span>::<span class="ident">marker</span>::<span class="ident">Unpin</span> {
+    <span class="ident">file</span>.<span class="ident">read_async_future</span>(<span class="ident">glib</span>::<span class="ident">PRIORITY_DEFAULT</span>)
+        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Failed to open file: {}&quot;</span>, <span class="ident">err</span>))
+        .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">strm</span><span class="op">|</span> <span class="ident">read_and_print_chunks</span>(<span class="ident">strm</span>))
+}
+
+<span class="comment">// Read the input stream in chunks of 64 bytes, always into the same buffer</span>
+<span class="comment">// without re-allocating it all the time. Continue until the end of the file</span>
+<span class="comment">// or an error happens.</span>
+<span class="kw">fn</span> <span class="ident">read_and_print_chunks</span>(
+    <span class="ident">strm</span>: <span class="ident">gio</span>::<span class="ident">FileInputStream</span>,
+) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">std</span>::<span class="ident">marker</span>::<span class="ident">Unpin</span> {
+    <span class="kw">let</span> <span class="ident">buf</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>; <span class="number">64</span>];
+    <span class="kw">let</span> <span class="ident">idx</span> <span class="op">=</span> <span class="number">0</span>;
+
+    <span class="comment">// We use unfold() here, which takes some initialization data and a</span>
+    <span class="comment">// closure that is returning an item and the next state, or None to</span>
+    <span class="comment">// finish the stream</span>
+    <span class="ident">futures</span>::<span class="ident">stream</span>::<span class="ident">unfold</span>(<span class="prelude-val">Some</span>((<span class="ident">buf</span>, <span class="ident">idx</span>)), <span class="kw">move</span> <span class="op">|</span><span class="ident">buf_and_idx</span><span class="op">|</span> {
+        <span class="comment">// If None was returned from the last iteration then the last iteration</span>
+        <span class="comment">// was closing the input stream or an error happened, and now we only</span>
+        <span class="comment">// have to finish the stream created by unfold().</span>
+        <span class="comment">//</span>
+        <span class="comment">// Otherwise we got the buffer to read to and the index of the next line</span>
+        <span class="comment">// from the previous iteration.</span>
+        <span class="kw">let</span> (<span class="ident">buf</span>, <span class="ident">idx</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">buf_and_idx</span> {
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="kw">return</span> <span class="ident">futures</span>::<span class="ident">future</span>::<span class="ident">Either</span>::<span class="ident">Left</span>(<span class="ident">futures</span>::<span class="ident">future</span>::<span class="ident">ready</span>(<span class="prelude-val">None</span>));
+            }
+            <span class="prelude-val">Some</span>(<span class="ident">buf_and_idx</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">buf_and_idx</span>,
+        };
+
+        <span class="comment">// Read and print the next chunk</span>
+        <span class="ident">futures</span>::<span class="ident">future</span>::<span class="ident">Either</span>::<span class="ident">Right</span>(<span class="ident">read_and_print_next_chunk</span>(<span class="kw-2">&amp;</span><span class="ident">strm</span>, <span class="ident">buf</span>, <span class="ident">idx</span>).<span class="ident">map</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">res</span><span class="op">|</span> {
+            <span class="kw">match</span> <span class="ident">res</span> {
+                <span class="comment">// And error happened, return the error from this stream and then finish on the</span>
+                <span class="comment">// next iteration.</span>
+                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>((<span class="prelude-val">Err</span>(<span class="ident">err</span>), <span class="prelude-val">None</span>)),
+                <span class="comment">// The input stream was closed, return Ok(()) from this stream and then finish on</span>
+                <span class="comment">// the next iteration.</span>
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>((<span class="prelude-val">Ok</span>(()), <span class="prelude-val">None</span>)),
+                <span class="comment">// A chunk was successfully read and printed, return Ok(()) from this stream and</span>
+                <span class="comment">// then continue with the next iteration.</span>
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">buf</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>((<span class="prelude-val">Ok</span>(()), <span class="prelude-val">Some</span>((<span class="ident">buf</span>, <span class="ident">idx</span> <span class="op">+</span> <span class="number">1</span>)))),
+            }
+        }))
+    })
+    <span class="comment">// Convert the stream into a simple future that collects all items and</span>
+    <span class="comment">// returns Ok(()), or short-circuits on the very first error and returns it</span>
+    .<span class="ident">try_for_each</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">futures</span>::<span class="ident">future</span>::<span class="ident">ok</span>(()))
+}
+
+<span class="comment">// Read the next chunk into the buffer and print it out, or return an error. If</span>
+<span class="comment">// the input stream is finished, close the stream.</span>
+<span class="comment">//</span>
+<span class="comment">// After reading successfully we return the buffer again so it can be used in the</span>
+<span class="comment">// next iteration.</span>
+<span class="kw">fn</span> <span class="ident">read_and_print_next_chunk</span>(
+    <span class="ident">strm</span>: <span class="kw-2">&amp;</span><span class="ident">gio</span>::<span class="ident">FileInputStream</span>,
+    <span class="ident">buf</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
+    <span class="ident">idx</span>: <span class="ident">usize</span>,
+) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">std</span>::<span class="ident">marker</span>::<span class="ident">Unpin</span> {
+    <span class="kw">let</span> <span class="ident">strm_clone</span> <span class="op">=</span> <span class="ident">strm</span>.<span class="ident">clone</span>();
+    <span class="ident">strm</span>.<span class="ident">read_async_future</span>(<span class="ident">buf</span>, <span class="ident">glib</span>::<span class="ident">PRIORITY_DEFAULT</span>)
+        .<span class="ident">map_err</span>(<span class="op">|</span>(<span class="ident">_buf</span>, <span class="ident">err</span>)<span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Failed to read from stream: {}&quot;</span>, <span class="ident">err</span>))
+        .<span class="ident">and_then</span>(<span class="kw">move</span> <span class="op">|</span>(<span class="ident">buf</span>, <span class="ident">len</span>)<span class="op">|</span> {
+            <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;line {}: {:?}&quot;</span>, <span class="ident">idx</span>, <span class="ident">str</span>::<span class="ident">from_utf8</span>(<span class="kw-2">&amp;</span><span class="ident">buf</span>[<span class="number">0</span>..<span class="ident">len</span>]).<span class="ident">unwrap</span>());
+
+            <span class="comment">// 0 is only returned when the input stream is finished, in which case</span>
+            <span class="comment">// we drop the buffer and close the stream asynchronously.</span>
+            <span class="comment">//</span>
+            <span class="comment">// Otherwise we simply return the buffer again so it can be read into</span>
+            <span class="comment">// in the next iteration.</span>
+            <span class="kw">if</span> <span class="ident">len</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
+                <span class="ident">futures</span>::<span class="ident">future</span>::<span class="ident">Either</span>::<span class="ident">Left</span>(
+                    <span class="ident">strm_clone</span>
+                        .<span class="ident">close_async_future</span>(<span class="ident">glib</span>::<span class="ident">PRIORITY_DEFAULT</span>)
+                        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Failed to close stream: {}&quot;</span>, <span class="ident">err</span>))
+                        .<span class="ident">map_ok</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="prelude-val">None</span>),
+                )
+            } <span class="kw">else</span> {
+                <span class="ident">futures</span>::<span class="ident">future</span>::<span class="ident">Either</span>::<span class="ident">Right</span>(<span class="ident">futures</span>::<span class="ident">future</span>::<span class="ident">ok</span>(<span class="prelude-val">Some</span>(<span class="ident">buf</span>)))
+            }
+        })
+}
+
+<span class="kw">fn</span> <span class="ident">main</span>() {
+    <span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">MainContext</span>::<span class="ident">default</span>();
+    <span class="kw">let</span> <span class="ident">l</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">MainLoop</span>::<span class="ident">new</span>(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">c</span>), <span class="bool-val">false</span>);
+
+    <span class="ident">c</span>.<span class="ident">push_thread_default</span>();
+
+    <span class="kw">let</span> <span class="ident">file</span> <span class="op">=</span> <span class="ident">gio</span>::<span class="ident">File</span>::<span class="ident">new_for_path</span>(<span class="string">&quot;Cargo.toml&quot;</span>);
+
+    <span class="kw">let</span> <span class="ident">l_clone</span> <span class="op">=</span> <span class="ident">l</span>.<span class="ident">clone</span>();
+    <span class="ident">c</span>.<span class="ident">spawn_local</span>(
+        <span class="ident">read_and_print_file</span>(<span class="kw-2">&amp;</span><span class="ident">file</span>)
+            <span class="comment">// Once all is done we quit the main loop and in case of an</span>
+            <span class="comment">// error first print that error.</span>
+            .<span class="ident">map</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">res</span><span class="op">|</span> {
+                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="ident">res</span> {
+                    <span class="macro">eprintln</span><span class="macro">!</span>(<span class="string">&quot;Got error: {}&quot;</span>, <span class="ident">err</span>);
+                }
+
+                <span class="ident">l_clone</span>.<span class="ident">quit</span>();
+            }),
+    );
+
+    <span class="ident">l</span>.<span class="ident">run</span>();
+
+    <span class="ident">c</span>.<span class="ident">pop_thread_default</span>();
+}
+</pre></div>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "gio_futures";</script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
