@@ -15,17 +15,7 @@
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 #![allow(deprecated)]
 
-extern crate libc;
-#[macro_use]
-extern crate bitflags;
-
-#[doc(hidden)]
-pub extern crate atk_sys;
 pub use atk_sys as ffi;
-extern crate glib_sys;
-extern crate gobject_sys;
-#[macro_use]
-extern crate glib;
 
 #[macro_use]
 mod rt;

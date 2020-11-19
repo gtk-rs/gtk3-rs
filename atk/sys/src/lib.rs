@@ -10,9 +10,8 @@
 )]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate glib_sys as glib;
-extern crate gobject_sys as gobject;
-extern crate libc;
+use glib_sys as glib;
+use gobject_sys as gobject;
 
 #[allow(unused_imports)]
 use libc::{
@@ -1762,10 +1761,6 @@ impl ::std::fmt::Debug for AtkWindow {
 
 #[link(name = "atk-1.0")]
 extern "C" {
-
-    //=========================================================================
-    // AtkCoordType
-    //=========================================================================
     pub fn atk_coord_type_get_type() -> GType;
 
     //=========================================================================

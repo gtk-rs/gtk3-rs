@@ -2,10 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::Table;
 use atk_sys;
 use glib::object::IsA;
 use glib::translate::*;
-use Table;
 
 pub trait TableExtManual: 'static {
     fn get_selected_columns(&self) -> Vec<i32>;

@@ -4,8 +4,8 @@
 
 //! Traits intended for blanket imports.
 
-pub use auto::traits::*;
-pub use editable_text::EditableTextExtManual;
+pub use crate::auto::traits::*;
+pub use crate::editable_text::EditableTextExtManual;
+pub use crate::table::TableExtManual;
 #[doc(hidden)]
 pub use glib::prelude::*;
-pub use table::TableExtManual;

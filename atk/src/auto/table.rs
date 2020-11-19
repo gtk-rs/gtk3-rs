@@ -2,25 +2,24 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk_sys;
+use crate::ffi;
+use crate::Object;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
-use glib_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Object;
 
-glib_wrapper! {
-    pub struct Table(Interface<atk_sys::AtkTable>);
+glib::glib_wrapper! {
+    pub struct Table(Interface<ffi::AtkTable>);
 
     match fn {
-        get_type => || atk_sys::atk_table_get_type(),
+        get_type => || ffi::atk_table_get_type(),
     }
 }
 
@@ -35,7 +34,7 @@ pub trait TableExt: 'static {
 
     fn get_column_at_index(&self, index_: i32) -> i32;
 
-    fn get_column_description(&self, column: i32) -> Option<GString>;
+    fn get_column_description(&self, column: i32) -> Option<glib::GString>;
 
     fn get_column_extent_at(&self, row: i32, column: i32) -> i32;
 
@@ -49,7 +48,7 @@ pub trait TableExt: 'static {
 
     fn get_row_at_index(&self, index_: i32) -> i32;
 
-    fn get_row_description(&self, row: i32) -> Option<GString>;
+    fn get_row_description(&self, row: i32) -> Option<glib::GString>;
 
     fn get_row_extent_at(&self, row: i32, column: i32) -> i32;
 
@@ -99,7 +98,7 @@ pub trait TableExt: 'static {
 impl<O: IsA<Table>> TableExt for O {
     fn add_column_selection(&self, column: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_table_add_column_selection(
+            from_glib(ffi::atk_table_add_column_selection(
                 self.as_ref().to_glib_none().0,
                 column,
             ))
@@ -108,7 +107,7 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn add_row_selection(&self, row: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_table_add_row_selection(
+            from_glib(ffi::atk_table_add_row_selection(
                 self.as_ref().to_glib_none().0,
                 row,
             ))
@@ -116,20 +115,16 @@ impl<O: IsA<Table>> TableExt for O {
     }
 
     fn get_caption(&self) -> Option<Object> {
-        unsafe {
-            from_glib_none(atk_sys::atk_table_get_caption(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::atk_table_get_caption(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_column_at_index(&self, index_: i32) -> i32 {
-        unsafe { atk_sys::atk_table_get_column_at_index(self.as_ref().to_glib_none().0, index_) }
+        unsafe { ffi::atk_table_get_column_at_index(self.as_ref().to_glib_none().0, index_) }
     }
 
-    fn get_column_description(&self, column: i32) -> Option<GString> {
+    fn get_column_description(&self, column: i32) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(atk_sys::atk_table_get_column_description(
+            from_glib_none(ffi::atk_table_get_column_description(
                 self.as_ref().to_glib_none().0,
                 column,
             ))
@@ -137,14 +132,12 @@ impl<O: IsA<Table>> TableExt for O {
     }
 
     fn get_column_extent_at(&self, row: i32, column: i32) -> i32 {
-        unsafe {
-            atk_sys::atk_table_get_column_extent_at(self.as_ref().to_glib_none().0, row, column)
-        }
+        unsafe { ffi::atk_table_get_column_extent_at(self.as_ref().to_glib_none().0, row, column) }
     }
 
     fn get_column_header(&self, column: i32) -> Option<Object> {
         unsafe {
-            from_glib_none(atk_sys::atk_table_get_column_header(
+            from_glib_none(ffi::atk_table_get_column_header(
                 self.as_ref().to_glib_none().0,
                 column,
             ))
@@ -152,24 +145,24 @@ impl<O: IsA<Table>> TableExt for O {
     }
 
     fn get_index_at(&self, row: i32, column: i32) -> i32 {
-        unsafe { atk_sys::atk_table_get_index_at(self.as_ref().to_glib_none().0, row, column) }
+        unsafe { ffi::atk_table_get_index_at(self.as_ref().to_glib_none().0, row, column) }
     }
 
     fn get_n_columns(&self) -> i32 {
-        unsafe { atk_sys::atk_table_get_n_columns(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::atk_table_get_n_columns(self.as_ref().to_glib_none().0) }
     }
 
     fn get_n_rows(&self) -> i32 {
-        unsafe { atk_sys::atk_table_get_n_rows(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::atk_table_get_n_rows(self.as_ref().to_glib_none().0) }
     }
 
     fn get_row_at_index(&self, index_: i32) -> i32 {
-        unsafe { atk_sys::atk_table_get_row_at_index(self.as_ref().to_glib_none().0, index_) }
+        unsafe { ffi::atk_table_get_row_at_index(self.as_ref().to_glib_none().0, index_) }
     }
 
-    fn get_row_description(&self, row: i32) -> Option<GString> {
+    fn get_row_description(&self, row: i32) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(atk_sys::atk_table_get_row_description(
+            from_glib_none(ffi::atk_table_get_row_description(
                 self.as_ref().to_glib_none().0,
                 row,
             ))
@@ -177,12 +170,12 @@ impl<O: IsA<Table>> TableExt for O {
     }
 
     fn get_row_extent_at(&self, row: i32, column: i32) -> i32 {
-        unsafe { atk_sys::atk_table_get_row_extent_at(self.as_ref().to_glib_none().0, row, column) }
+        unsafe { ffi::atk_table_get_row_extent_at(self.as_ref().to_glib_none().0, row, column) }
     }
 
     fn get_row_header(&self, row: i32) -> Option<Object> {
         unsafe {
-            from_glib_none(atk_sys::atk_table_get_row_header(
+            from_glib_none(ffi::atk_table_get_row_header(
                 self.as_ref().to_glib_none().0,
                 row,
             ))
@@ -190,16 +183,12 @@ impl<O: IsA<Table>> TableExt for O {
     }
 
     fn get_summary(&self) -> Option<Object> {
-        unsafe {
-            from_glib_full(atk_sys::atk_table_get_summary(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_full(ffi::atk_table_get_summary(self.as_ref().to_glib_none().0)) }
     }
 
     fn is_column_selected(&self, column: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_table_is_column_selected(
+            from_glib(ffi::atk_table_is_column_selected(
                 self.as_ref().to_glib_none().0,
                 column,
             ))
@@ -208,7 +197,7 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn is_row_selected(&self, row: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_table_is_row_selected(
+            from_glib(ffi::atk_table_is_row_selected(
                 self.as_ref().to_glib_none().0,
                 row,
             ))
@@ -217,7 +206,7 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn is_selected(&self, row: i32, column: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_table_is_selected(
+            from_glib(ffi::atk_table_is_selected(
                 self.as_ref().to_glib_none().0,
                 row,
                 column,
@@ -227,7 +216,7 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn ref_at(&self, row: i32, column: i32) -> Option<Object> {
         unsafe {
-            from_glib_full(atk_sys::atk_table_ref_at(
+            from_glib_full(ffi::atk_table_ref_at(
                 self.as_ref().to_glib_none().0,
                 row,
                 column,
@@ -237,7 +226,7 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn remove_column_selection(&self, column: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_table_remove_column_selection(
+            from_glib(ffi::atk_table_remove_column_selection(
                 self.as_ref().to_glib_none().0,
                 column,
             ))
@@ -246,7 +235,7 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn remove_row_selection(&self, row: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_table_remove_row_selection(
+            from_glib(ffi::atk_table_remove_row_selection(
                 self.as_ref().to_glib_none().0,
                 row,
             ))
@@ -255,7 +244,7 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn set_caption<P: IsA<Object>>(&self, caption: &P) {
         unsafe {
-            atk_sys::atk_table_set_caption(
+            ffi::atk_table_set_caption(
                 self.as_ref().to_glib_none().0,
                 caption.as_ref().to_glib_none().0,
             );
@@ -264,7 +253,7 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn set_column_description(&self, column: i32, description: &str) {
         unsafe {
-            atk_sys::atk_table_set_column_description(
+            ffi::atk_table_set_column_description(
                 self.as_ref().to_glib_none().0,
                 column,
                 description.to_glib_none().0,
@@ -274,7 +263,7 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn set_column_header<P: IsA<Object>>(&self, column: i32, header: &P) {
         unsafe {
-            atk_sys::atk_table_set_column_header(
+            ffi::atk_table_set_column_header(
                 self.as_ref().to_glib_none().0,
                 column,
                 header.as_ref().to_glib_none().0,
@@ -284,7 +273,7 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn set_row_description(&self, row: i32, description: &str) {
         unsafe {
-            atk_sys::atk_table_set_row_description(
+            ffi::atk_table_set_row_description(
                 self.as_ref().to_glib_none().0,
                 row,
                 description.to_glib_none().0,
@@ -294,7 +283,7 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn set_row_header<P: IsA<Object>>(&self, row: i32, header: &P) {
         unsafe {
-            atk_sys::atk_table_set_row_header(
+            ffi::atk_table_set_row_header(
                 self.as_ref().to_glib_none().0,
                 row,
                 header.as_ref().to_glib_none().0,
@@ -304,7 +293,7 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn set_summary<P: IsA<Object>>(&self, accessible: &P) {
         unsafe {
-            atk_sys::atk_table_set_summary(
+            ffi::atk_table_set_summary(
                 self.as_ref().to_glib_none().0,
                 accessible.as_ref().to_glib_none().0,
             );
@@ -313,10 +302,10 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn connect_column_deleted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn column_deleted_trampoline<P, F: Fn(&P, i32, i32) + 'static>(
-            this: *mut atk_sys::AtkTable,
+            this: *mut ffi::AtkTable,
             arg1: libc::c_int,
             arg2: libc::c_int,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Table>,
         {
@@ -338,10 +327,10 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn connect_column_inserted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn column_inserted_trampoline<P, F: Fn(&P, i32, i32) + 'static>(
-            this: *mut atk_sys::AtkTable,
+            this: *mut ffi::AtkTable,
             arg1: libc::c_int,
             arg2: libc::c_int,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Table>,
         {
@@ -363,8 +352,8 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn connect_column_reordered<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn column_reordered_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkTable,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkTable,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Table>,
         {
@@ -386,8 +375,8 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn connect_model_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn model_changed_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkTable,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkTable,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Table>,
         {
@@ -409,10 +398,10 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn connect_row_deleted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn row_deleted_trampoline<P, F: Fn(&P, i32, i32) + 'static>(
-            this: *mut atk_sys::AtkTable,
+            this: *mut ffi::AtkTable,
             arg1: libc::c_int,
             arg2: libc::c_int,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Table>,
         {
@@ -434,10 +423,10 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn connect_row_inserted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn row_inserted_trampoline<P, F: Fn(&P, i32, i32) + 'static>(
-            this: *mut atk_sys::AtkTable,
+            this: *mut ffi::AtkTable,
             arg1: libc::c_int,
             arg2: libc::c_int,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Table>,
         {
@@ -459,8 +448,8 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn connect_row_reordered<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn row_reordered_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkTable,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkTable,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Table>,
         {

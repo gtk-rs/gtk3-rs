@@ -2,23 +2,22 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk_sys;
+use crate::ffi;
+use crate::Object;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Object;
 
-glib_wrapper! {
-    pub struct Window(Interface<atk_sys::AtkWindow>) @requires Object;
+glib::glib_wrapper! {
+    pub struct Window(Interface<ffi::AtkWindow>) @requires Object;
 
     match fn {
-        get_type => || atk_sys::atk_window_get_type(),
+        get_type => || ffi::atk_window_get_type(),
     }
 }
 
@@ -47,8 +46,8 @@ pub trait AtkWindowExt: 'static {
 impl<O: IsA<Window>> AtkWindowExt for O {
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkWindow,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkWindow,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Window>,
         {
@@ -70,8 +69,8 @@ impl<O: IsA<Window>> AtkWindowExt for O {
 
     fn connect_create<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn create_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkWindow,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkWindow,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Window>,
         {
@@ -93,8 +92,8 @@ impl<O: IsA<Window>> AtkWindowExt for O {
 
     fn connect_deactivate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn deactivate_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkWindow,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkWindow,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Window>,
         {
@@ -116,8 +115,8 @@ impl<O: IsA<Window>> AtkWindowExt for O {
 
     fn connect_destroy<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn destroy_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkWindow,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkWindow,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Window>,
         {
@@ -139,8 +138,8 @@ impl<O: IsA<Window>> AtkWindowExt for O {
 
     fn connect_maximize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn maximize_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkWindow,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkWindow,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Window>,
         {
@@ -162,8 +161,8 @@ impl<O: IsA<Window>> AtkWindowExt for O {
 
     fn connect_minimize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn minimize_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkWindow,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkWindow,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Window>,
         {
@@ -185,8 +184,8 @@ impl<O: IsA<Window>> AtkWindowExt for O {
 
     fn connect_move<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn move_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkWindow,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkWindow,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Window>,
         {
@@ -208,8 +207,8 @@ impl<O: IsA<Window>> AtkWindowExt for O {
 
     fn connect_resize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn resize_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkWindow,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkWindow,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Window>,
         {
@@ -231,8 +230,8 @@ impl<O: IsA<Window>> AtkWindowExt for O {
 
     fn connect_restore<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn restore_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkWindow,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkWindow,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Window>,
         {

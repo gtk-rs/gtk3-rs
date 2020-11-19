@@ -2,27 +2,27 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk_sys;
+use crate::ffi;
+use crate::Component;
+use crate::Object;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
-use glib::GString;
 use std::fmt;
-use Component;
-use Object;
 
-glib_wrapper! {
-    pub struct Plug(Object<atk_sys::AtkPlug, atk_sys::AtkPlugClass>) @extends Object, @implements Component;
+glib::glib_wrapper! {
+    pub struct Plug(Object<ffi::AtkPlug, ffi::AtkPlugClass>) @extends Object, @implements Component;
 
     match fn {
-        get_type => || atk_sys::atk_plug_get_type(),
+        get_type => || ffi::atk_plug_get_type(),
     }
 }
 
 impl Plug {
     pub fn new() -> Plug {
         assert_initialized_main_thread!();
-        unsafe { Object::from_glib_full(atk_sys::atk_plug_new()).unsafe_cast() }
+        unsafe { Object::from_glib_full(ffi::atk_plug_new()).unsafe_cast() }
     }
 }
 
@@ -35,12 +35,12 @@ impl Default for Plug {
 pub const NONE_PLUG: Option<&Plug> = None;
 
 pub trait AtkPlugExt: 'static {
-    fn get_id(&self) -> Option<GString>;
+    fn get_id(&self) -> Option<glib::GString>;
 }
 
 impl<O: IsA<Plug>> AtkPlugExt for O {
-    fn get_id(&self) -> Option<GString> {
-        unsafe { from_glib_full(atk_sys::atk_plug_get_id(self.as_ref().to_glib_none().0)) }
+    fn get_id(&self) -> Option<glib::GString> {
+        unsafe { from_glib_full(ffi::atk_plug_get_id(self.as_ref().to_glib_none().0)) }
     }
 }
 

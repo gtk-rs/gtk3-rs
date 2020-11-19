@@ -2,28 +2,28 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk_sys;
+use crate::ffi;
+use crate::CoordType;
+use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use glib::GString;
 use std::fmt;
 use std::mem;
-use CoordType;
 
-glib_wrapper! {
-    pub struct Image(Interface<atk_sys::AtkImage>);
+glib::glib_wrapper! {
+    pub struct Image(Interface<ffi::AtkImage>);
 
     match fn {
-        get_type => || atk_sys::atk_image_get_type(),
+        get_type => || ffi::atk_image_get_type(),
     }
 }
 
 pub const NONE_IMAGE: Option<&Image> = None;
 
 pub trait AtkImageExt: 'static {
-    fn get_image_description(&self) -> Option<GString>;
+    fn get_image_description(&self) -> Option<glib::GString>;
 
-    fn get_image_locale(&self) -> Option<GString>;
+    fn get_image_locale(&self) -> Option<glib::GString>;
 
     fn get_image_position(&self, coord_type: CoordType) -> (i32, i32);
 
@@ -33,17 +33,17 @@ pub trait AtkImageExt: 'static {
 }
 
 impl<O: IsA<Image>> AtkImageExt for O {
-    fn get_image_description(&self) -> Option<GString> {
+    fn get_image_description(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(atk_sys::atk_image_get_image_description(
+            from_glib_none(ffi::atk_image_get_image_description(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_image_locale(&self) -> Option<GString> {
+    fn get_image_locale(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(atk_sys::atk_image_get_image_locale(
+            from_glib_none(ffi::atk_image_get_image_locale(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -53,7 +53,7 @@ impl<O: IsA<Image>> AtkImageExt for O {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
             let mut y = mem::MaybeUninit::uninit();
-            atk_sys::atk_image_get_image_position(
+            ffi::atk_image_get_image_position(
                 self.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
@@ -69,7 +69,7 @@ impl<O: IsA<Image>> AtkImageExt for O {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();
-            atk_sys::atk_image_get_image_size(
+            ffi::atk_image_get_image_size(
                 self.as_ref().to_glib_none().0,
                 width.as_mut_ptr(),
                 height.as_mut_ptr(),
@@ -82,7 +82,7 @@ impl<O: IsA<Image>> AtkImageExt for O {
 
     fn set_image_description(&self, description: &str) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_image_set_image_description(
+            from_glib(ffi::atk_image_set_image_description(
                 self.as_ref().to_glib_none().0,
                 description.to_glib_none().0,
             ))

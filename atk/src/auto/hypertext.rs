@@ -2,24 +2,23 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk_sys;
+use crate::ffi;
+use crate::Hyperlink;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Hyperlink;
 
-glib_wrapper! {
-    pub struct Hypertext(Interface<atk_sys::AtkHypertext>);
+glib::glib_wrapper! {
+    pub struct Hypertext(Interface<ffi::AtkHypertext>);
 
     match fn {
-        get_type => || atk_sys::atk_hypertext_get_type(),
+        get_type => || ffi::atk_hypertext_get_type(),
     }
 }
 
@@ -38,7 +37,7 @@ pub trait HypertextExt: 'static {
 impl<O: IsA<Hypertext>> HypertextExt for O {
     fn get_link(&self, link_index: i32) -> Option<Hyperlink> {
         unsafe {
-            from_glib_none(atk_sys::atk_hypertext_get_link(
+            from_glib_none(ffi::atk_hypertext_get_link(
                 self.as_ref().to_glib_none().0,
                 link_index,
             ))
@@ -46,18 +45,18 @@ impl<O: IsA<Hypertext>> HypertextExt for O {
     }
 
     fn get_link_index(&self, char_index: i32) -> i32 {
-        unsafe { atk_sys::atk_hypertext_get_link_index(self.as_ref().to_glib_none().0, char_index) }
+        unsafe { ffi::atk_hypertext_get_link_index(self.as_ref().to_glib_none().0, char_index) }
     }
 
     fn get_n_links(&self) -> i32 {
-        unsafe { atk_sys::atk_hypertext_get_n_links(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::atk_hypertext_get_n_links(self.as_ref().to_glib_none().0) }
     }
 
     fn connect_link_selected<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn link_selected_trampoline<P, F: Fn(&P, i32) + 'static>(
-            this: *mut atk_sys::AtkHypertext,
+            this: *mut ffi::AtkHypertext,
             arg1: libc::c_int,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Hypertext>,
         {

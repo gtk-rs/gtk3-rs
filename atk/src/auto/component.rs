@@ -2,30 +2,29 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk_sys;
+use crate::ffi;
+use crate::CoordType;
+use crate::Layer;
+use crate::Object;
+use crate::Rectangle;
+#[cfg(any(feature = "v2_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+use crate::ScrollType;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
-use CoordType;
-use Layer;
-use Object;
-use Rectangle;
-#[cfg(any(feature = "v2_30", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
-use ScrollType;
 
-glib_wrapper! {
-    pub struct Component(Interface<atk_sys::AtkComponent>);
+glib::glib_wrapper! {
+    pub struct Component(Interface<ffi::AtkComponent>);
 
     match fn {
-        get_type => || atk_sys::atk_component_get_type(),
+        get_type => || ffi::atk_component_get_type(),
     }
 }
 
@@ -70,7 +69,7 @@ pub trait ComponentExt: 'static {
 impl<O: IsA<Component>> ComponentExt for O {
     fn contains(&self, x: i32, y: i32, coord_type: CoordType) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_component_contains(
+            from_glib(ffi::atk_component_contains(
                 self.as_ref().to_glib_none().0,
                 x,
                 y,
@@ -80,7 +79,7 @@ impl<O: IsA<Component>> ComponentExt for O {
     }
 
     fn get_alpha(&self) -> f64 {
-        unsafe { atk_sys::atk_component_get_alpha(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::atk_component_get_alpha(self.as_ref().to_glib_none().0) }
     }
 
     fn get_extents(&self, coord_type: CoordType) -> (i32, i32, i32, i32) {
@@ -89,7 +88,7 @@ impl<O: IsA<Component>> ComponentExt for O {
             let mut y = mem::MaybeUninit::uninit();
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();
-            atk_sys::atk_component_get_extents(
+            ffi::atk_component_get_extents(
                 self.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
@@ -106,22 +105,18 @@ impl<O: IsA<Component>> ComponentExt for O {
     }
 
     fn get_layer(&self) -> Layer {
-        unsafe {
-            from_glib(atk_sys::atk_component_get_layer(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::atk_component_get_layer(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_mdi_zorder(&self) -> i32 {
-        unsafe { atk_sys::atk_component_get_mdi_zorder(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::atk_component_get_mdi_zorder(self.as_ref().to_glib_none().0) }
     }
 
     fn get_position(&self, coord_type: CoordType) -> (i32, i32) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
             let mut y = mem::MaybeUninit::uninit();
-            atk_sys::atk_component_get_position(
+            ffi::atk_component_get_position(
                 self.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
@@ -137,7 +132,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();
-            atk_sys::atk_component_get_size(
+            ffi::atk_component_get_size(
                 self.as_ref().to_glib_none().0,
                 width.as_mut_ptr(),
                 height.as_mut_ptr(),
@@ -150,7 +145,7 @@ impl<O: IsA<Component>> ComponentExt for O {
 
     fn grab_focus(&self) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_component_grab_focus(
+            from_glib(ffi::atk_component_grab_focus(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -158,7 +153,7 @@ impl<O: IsA<Component>> ComponentExt for O {
 
     fn ref_accessible_at_point(&self, x: i32, y: i32, coord_type: CoordType) -> Option<Object> {
         unsafe {
-            from_glib_full(atk_sys::atk_component_ref_accessible_at_point(
+            from_glib_full(ffi::atk_component_ref_accessible_at_point(
                 self.as_ref().to_glib_none().0,
                 x,
                 y,
@@ -171,7 +166,7 @@ impl<O: IsA<Component>> ComponentExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
     fn scroll_to(&self, type_: ScrollType) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_component_scroll_to(
+            from_glib(ffi::atk_component_scroll_to(
                 self.as_ref().to_glib_none().0,
                 type_.to_glib(),
             ))
@@ -182,7 +177,7 @@ impl<O: IsA<Component>> ComponentExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
     fn scroll_to_point(&self, coords: CoordType, x: i32, y: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_component_scroll_to_point(
+            from_glib(ffi::atk_component_scroll_to_point(
                 self.as_ref().to_glib_none().0,
                 coords.to_glib(),
                 x,
@@ -193,7 +188,7 @@ impl<O: IsA<Component>> ComponentExt for O {
 
     fn set_extents(&self, x: i32, y: i32, width: i32, height: i32, coord_type: CoordType) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_component_set_extents(
+            from_glib(ffi::atk_component_set_extents(
                 self.as_ref().to_glib_none().0,
                 x,
                 y,
@@ -206,7 +201,7 @@ impl<O: IsA<Component>> ComponentExt for O {
 
     fn set_position(&self, x: i32, y: i32, coord_type: CoordType) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_component_set_position(
+            from_glib(ffi::atk_component_set_position(
                 self.as_ref().to_glib_none().0,
                 x,
                 y,
@@ -217,7 +212,7 @@ impl<O: IsA<Component>> ComponentExt for O {
 
     fn set_size(&self, width: i32, height: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_component_set_size(
+            from_glib(ffi::atk_component_set_size(
                 self.as_ref().to_glib_none().0,
                 width,
                 height,
@@ -227,9 +222,9 @@ impl<O: IsA<Component>> ComponentExt for O {
 
     fn connect_bounds_changed<F: Fn(&Self, &Rectangle) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn bounds_changed_trampoline<P, F: Fn(&P, &Rectangle) + 'static>(
-            this: *mut atk_sys::AtkComponent,
-            arg1: *mut atk_sys::AtkRectangle,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkComponent,
+            arg1: *mut ffi::AtkRectangle,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Component>,
         {

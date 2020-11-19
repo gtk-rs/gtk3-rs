@@ -2,18 +2,18 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk_sys;
+use crate::ffi;
+use crate::ObjectFactory;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
-use ObjectFactory;
 
-glib_wrapper! {
-    pub struct Registry(Object<atk_sys::AtkRegistry, atk_sys::AtkRegistryClass>);
+glib::glib_wrapper! {
+    pub struct Registry(Object<ffi::AtkRegistry, ffi::AtkRegistryClass>);
 
     match fn {
-        get_type => || atk_sys::atk_registry_get_type(),
+        get_type => || ffi::atk_registry_get_type(),
     }
 }
 
@@ -30,7 +30,7 @@ pub trait RegistryExt: 'static {
 impl<O: IsA<Registry>> RegistryExt for O {
     fn get_factory(&self, type_: glib::types::Type) -> Option<ObjectFactory> {
         unsafe {
-            from_glib_none(atk_sys::atk_registry_get_factory(
+            from_glib_none(ffi::atk_registry_get_factory(
                 self.as_ref().to_glib_none().0,
                 type_.to_glib(),
             ))
@@ -39,7 +39,7 @@ impl<O: IsA<Registry>> RegistryExt for O {
 
     fn get_factory_type(&self, type_: glib::types::Type) -> glib::types::Type {
         unsafe {
-            from_glib(atk_sys::atk_registry_get_factory_type(
+            from_glib(ffi::atk_registry_get_factory_type(
                 self.as_ref().to_glib_none().0,
                 type_.to_glib(),
             ))
@@ -48,7 +48,7 @@ impl<O: IsA<Registry>> RegistryExt for O {
 
     fn set_factory_type(&self, type_: glib::types::Type, factory_type: glib::types::Type) {
         unsafe {
-            atk_sys::atk_registry_set_factory_type(
+            ffi::atk_registry_set_factory_type(
                 self.as_ref().to_glib_none().0,
                 type_.to_glib(),
                 factory_type.to_glib(),
