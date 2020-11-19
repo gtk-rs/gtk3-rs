@@ -2,12 +2,12 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::Gravity;
+use crate::GravityHint;
+use crate::Matrix;
+use crate::Script;
 use glib::translate::*;
 use pango_sys;
-use Gravity;
-use GravityHint;
-use Matrix;
-use Script;
 
 impl Gravity {
     pub fn to_rotation(&self) -> f64 {

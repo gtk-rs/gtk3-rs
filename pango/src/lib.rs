@@ -5,25 +5,15 @@
 #![allow(deprecated)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate glib_sys;
-extern crate gobject_sys;
-#[doc(hidden)]
-pub extern crate pango_sys;
 pub use pango_sys as ffi;
-#[macro_use]
-extern crate glib;
-#[macro_use]
-extern crate bitflags;
-extern crate libc;
-extern crate once_cell;
 
 #[cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
 #[cfg_attr(feature = "cargo-clippy", allow(should_implement_trait))]
 #[allow(unused_imports)]
 mod auto;
-pub use auto::functions::*;
-pub use auto::*;
-pub use functions::*;
+pub use self::auto::functions::*;
+pub use self::auto::*;
+pub use self::functions::*;
 
 pub use pango_sys::PANGO_SCALE as SCALE;
 
@@ -51,9 +41,9 @@ pub const SCALE_XX_LARGE: f64 = 1.728;
 pub mod prelude;
 
 pub mod analysis;
-pub use analysis::Analysis;
+pub use self::analysis::Analysis;
 pub mod attr_class;
-pub use attr_class::AttrClass;
+pub use self::attr_class::AttrClass;
 pub mod attr_iterator;
 pub mod attr_list;
 pub mod attribute;
@@ -61,10 +51,10 @@ mod functions;
 pub mod gravity;
 pub mod item;
 pub mod language;
-pub use language::Language;
+pub use self::language::Language;
 pub mod rectangle;
-pub use rectangle::Rectangle;
+pub use self::rectangle::Rectangle;
 pub mod glyph;
 
 mod coverage;
-pub use coverage::*;
+pub use self::coverage::*;

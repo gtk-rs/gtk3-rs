@@ -2,15 +2,16 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::CoverageLevel;
+use glib;
 use glib::translate::*;
 use pango_sys;
 use std::fmt;
 use std::mem;
 use std::ptr;
-use CoverageLevel;
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
-glib_wrapper! {
+glib::glib_wrapper! {
     pub struct Coverage(Object<pango_sys::PangoCoverage>);
 
     match fn {
@@ -20,7 +21,7 @@ glib_wrapper! {
 
 // There was no get_type() function before 1.44
 #[cfg(not(any(feature = "v1_44", feature = "dox")))]
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Coverage(Shared<pango_sys::PangoCoverage>);
 

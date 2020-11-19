@@ -2,14 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::EngineLang;
+use crate::EngineShape;
+use crate::Font;
+use crate::Gravity;
+use crate::Language;
+use crate::Script;
 use glib::translate::*;
 use pango_sys;
-use EngineLang;
-use EngineShape;
-use Font;
-use Gravity;
-use Language;
-use Script;
 
 #[repr(C)]
 pub struct Analysis(pango_sys::PangoAnalysis);

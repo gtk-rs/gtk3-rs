@@ -2,15 +2,15 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::Analysis;
+use crate::GlyphString;
+use crate::Item;
+#[cfg(any(feature = "v1_44", feature = "dox"))]
+use crate::ShapeFlags;
 use glib::translate::*;
 use glib_sys;
 use pango_sys;
 use std::ptr;
-use Analysis;
-use GlyphString;
-use Item;
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-use ShapeFlags;
 
 pub fn reorder_items(logical_items: &[&Item]) -> Vec<Item> {
     unsafe {

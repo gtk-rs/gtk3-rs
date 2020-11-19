@@ -2,13 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::AttrIterator;
+use crate::Attribute;
+use crate::FontDescription;
+use crate::Language;
 use glib::translate::*;
 use glib_sys;
 use pango_sys;
-use AttrIterator;
-use Attribute;
-use FontDescription;
-use Language;
 
 use std::ptr;
 

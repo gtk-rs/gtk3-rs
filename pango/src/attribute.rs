@@ -2,17 +2,17 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::AttrClass;
+use crate::Attribute;
+use crate::Gravity;
+use crate::GravityHint;
+use crate::Stretch;
+use crate::Style;
+use crate::Underline;
+use crate::Variant;
+use crate::Weight;
 use glib::translate::*;
 use pango_sys;
-use AttrClass;
-use Attribute;
-use Gravity;
-use GravityHint;
-use Stretch;
-use Style;
-use Underline;
-use Variant;
-use Weight;
 
 impl Attribute {
     #[cfg(any(feature = "v1_38", feature = "dox"))]

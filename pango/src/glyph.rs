@@ -1,8 +1,8 @@
+use crate::GlyphItem;
+use crate::GlyphString;
+use crate::Item;
 use glib::translate::*;
 use pango_sys;
-use GlyphItem;
-use GlyphString;
-use Item;
 
 impl GlyphString {
     pub fn num_glyphs(&self) -> i32 {

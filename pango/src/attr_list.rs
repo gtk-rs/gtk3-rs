@@ -2,11 +2,11 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::AttrList;
+use crate::Attribute;
 use glib::translate::*;
 use pango_sys;
 use std::mem;
-use AttrList;
-use Attribute;
 
 impl AttrList {
     pub fn change(&self, attr: Attribute) {
