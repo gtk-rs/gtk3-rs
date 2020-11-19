@@ -5,26 +5,14 @@
 #![allow(deprecated)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate cairo;
-extern crate cairo_sys;
-extern crate glib_sys;
-extern crate gobject_sys;
-extern crate pango;
-#[doc(hidden)]
-pub extern crate pango_cairo_sys;
 pub use pango_cairo_sys as ffi;
-extern crate pango_sys;
-#[macro_use]
-extern crate glib;
-extern crate bitflags;
-extern crate libc;
 
 #[cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
 #[allow(unused_imports)]
 mod auto;
 
-pub use auto::functions::*;
-pub use auto::*;
+pub use self::auto::functions::*;
+pub use self::auto::*;
 pub mod prelude;
 
 mod font_map;
