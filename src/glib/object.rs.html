@@ -2583,6 +2583,10 @@
 <span id="2580">2580</span>
 <span id="2581">2581</span>
 <span id="2582">2582</span>
+<span id="2583">2583</span>
+<span id="2584">2584</span>
+<span id="2585">2585</span>
+<span id="2586">2586</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2015-2016, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -2632,6 +2636,10 @@
     <span class="op">+</span> <span class="ident">PartialOrd</span>
     <span class="op">+</span> <span class="ident">Ord</span>
     <span class="op">+</span> <span class="ident">hash</span>::<span class="ident">Hash</span>
+    <span class="op">+</span> ::<span class="ident">value</span>::<span class="ident">SetValue</span>
+    <span class="op">+</span> ::<span class="ident">value</span>::<span class="ident">SetValueOptional</span>
+    <span class="op">+</span> <span class="kw">for</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> ::<span class="ident">value</span>::<span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>
+    <span class="op">+</span> ::<span class="ident">value</span>::<span class="ident">ToValue</span>
     <span class="op">+</span> <span class="kw">for</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">ObjectType</span><span class="op">&gt;</span>::<span class="ident">GlibType</span><span class="op">&gt;</span>
     <span class="op">+</span> <span class="lifetime">&#39;static</span>
 {
