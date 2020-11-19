@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `atk` crate."><meta name="keywords" content="rust, rustlang, rust-lang, atk"><title>atk - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="shortcut icon" href="../favicon.ico"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../atk/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class='location'>Crate atk</p><div class='block version'><p>Version 0.9.0</p></div><div class="sidebar-elems"><a id='all-types' href='all.html'><p>See all atk's items</p></a><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'atk', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
+                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/atk/lib.rs.html#5-49' title='goto source code'>[src]</a></span><span class='in-band'>Crate <a class="mod" href=''>atk</a></span></h1><div class='docblock'><h1 id="atk-bindings" class="section-header"><a href="#atk-bindings">ATK bindings</a></h1>
+<p>This library contains safe Rust bindings for <a href="https://developer.gnome.org/atk/">ATK</a>. It's
+a part of <a href="http://gtk-rs.org/">Gtk-rs</a>.</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table><tr class='module-item'><td><a class="mod" href="prelude/index.html" title='atk::prelude mod'>prelude</a></td><td class='docblock-short'><p>Traits intended for blanket imports.</p>
+</td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table><tr class='module-item'><td><a class="struct" href="struct.Action.html" title='atk::Action struct'>Action</a></td><td class='docblock-short'><p><code>Action</code> should be implemented by instances of <code>Object</code> classes
+with which the user can interact directly, i.e. buttons,
+checkboxes, scrollbars, e.g. components which are not &quot;passive&quot;
+providers of UI information.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Attribute.html" title='atk::Attribute struct'>Attribute</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.Component.html" title='atk::Component struct'>Component</a></td><td class='docblock-short'><p><code>Component</code> should be implemented by most if not all UI elements
+with an actual on-screen presence, i.e. components which can be
+said to have a screen-coordinate bounding box. Virtually all
+widgets will need to have <code>Component</code> implementations provided
+for their corresponding <code>Object</code> class. In short, only UI
+elements which are <em>not</em> GUI elements will omit this ATK interface.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Document.html" title='atk::Document struct'>Document</a></td><td class='docblock-short'><p>The AtkDocument interface should be supported by any object whose
+content is a representation or view of a document. The AtkDocument
+interface should appear on the toplevel container for the document
+content; however AtkDocument instances may be nested (i.e. an
+AtkDocument may be a descendant of another AtkDocument) in those
+cases where one document contains &quot;embedded content&quot; which can
+reasonably be considered a document in its own right.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.EditableText.html" title='atk::EditableText struct'>EditableText</a></td><td class='docblock-short'><p><code>EditableText</code> should be implemented by UI components which
+contain text which the user can edit, via the <code>Object</code>
+corresponding to that component (see <code>Object</code>).</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.GObjectAccessible.html" title='atk::GObjectAccessible struct'>GObjectAccessible</a></td><td class='docblock-short'><p>This object class is derived from AtkObject. It can be used as a
+basis for implementing accessible objects for GObjects which are
+not derived from <code>GtkWidget</code>. One example of its use is in providing
+an accessible object for GnomeCanvasItem in the GAIL library.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.GObjectAccessibleClass.html" title='atk::GObjectAccessibleClass struct'>GObjectAccessibleClass</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.Hyperlink.html" title='atk::Hyperlink struct'>Hyperlink</a></td><td class='docblock-short'><p>An ATK object which encapsulates a link or set of links (for
+instance in the case of client-side image maps) in a hypertext
+document. It may implement the AtkAction interface. AtkHyperlink
+may also be used to refer to inline embedded content, since it
+allows specification of a start and end offset within the host
+AtkHypertext object.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.HyperlinkClass.html" title='atk::HyperlinkClass struct'>HyperlinkClass</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.HyperlinkImpl.html" title='atk::HyperlinkImpl struct'>HyperlinkImpl</a></td><td class='docblock-short'><p>AtkHyperlinkImpl allows AtkObjects to refer to their associated
+AtkHyperlink instance, if one exists. AtkHyperlinkImpl differs
+from AtkHyperlink in that AtkHyperlinkImpl is an interface, whereas
+AtkHyperlink is a object type. The AtkHyperlinkImpl interface
+allows a client to query an AtkObject for the availability of an
+associated AtkHyperlink instance, and obtain that instance. It is
+thus particularly useful in cases where embedded content or inline
+content within a text object is present, since the embedding text
+object implements AtkHypertext and the inline/embedded objects are
+exposed as children which implement AtkHyperlinkImpl, in addition
+to their being obtainable via AtkHypertext:getLink followed by
+AtkHyperlink:getObject.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.HyperlinkStateFlags.html" title='atk::HyperlinkStateFlags struct'>HyperlinkStateFlags</a></td><td class='docblock-short'><p>Describes the type of link</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Hypertext.html" title='atk::Hypertext struct'>Hypertext</a></td><td class='docblock-short'><p>An interface used for objects which implement linking between
+multiple resource or content locations, or multiple 'markers'
+within a single document. A Hypertext instance is associated with
+one or more Hyperlinks, which are associated with particular
+offsets within the Hypertext's included content. While this
+interface is derived from Text, there is no requirement that
+Hypertext instances have textual content; they may implement Image
+as well, and Hyperlinks need not have non-zero text offsets.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Image.html" title='atk::Image struct'>Image</a></td><td class='docblock-short'><p><code>Image</code> should be implemented by <code>Object</code> subtypes on behalf of
+components which display image/pixmap information onscreen, and
+which provide information (other than just widget borders, etc.)
+via that image content. For instance, icons, buttons with icons,
+toolbar elements, and image viewing panes typically should
+implement <code>Image</code>.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Misc.html" title='atk::Misc struct'>Misc</a></td><td class='docblock-short'><p>A set of utility functions for thread locking. This interface and
+all his related methods are deprecated since 2.12.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.MiscClass.html" title='atk::MiscClass struct'>MiscClass</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.NoOpObject.html" title='atk::NoOpObject struct'>NoOpObject</a></td><td class='docblock-short'><p>An AtkNoOpObject is an AtkObject which purports to implement all
+ATK interfaces. It is the type of AtkObject which is created if an
+accessible object is requested for an object type for which no
+factory type is specified.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.NoOpObjectClass.html" title='atk::NoOpObjectClass struct'>NoOpObjectClass</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.NoOpObjectFactory.html" title='atk::NoOpObjectFactory struct'>NoOpObjectFactory</a></td><td class='docblock-short'><p>The AtkObjectFactory which creates an AtkNoOpObject. An instance of
+this is created by an AtkRegistry if no factory type has not been
+specified to create an accessible object of a particular type.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.NoOpObjectFactoryClass.html" title='atk::NoOpObjectFactoryClass struct'>NoOpObjectFactoryClass</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.Object.html" title='atk::Object struct'>Object</a></td><td class='docblock-short'><p>This class is the primary class for accessibility support via the
+Accessibility ToolKit (ATK). Objects which are instances of
+<code>Object</code> (or instances of AtkObject-derived types) are queried
+for properties which relate basic (and generic) properties of a UI
+component such as name and description. Instances of <code>Object</code>
+may also be queried as to whether they implement other ATK
+interfaces (e.g. <code>Action</code>, <code>Component</code>, etc.), as appropriate
+to the role which a given UI component plays in a user interface.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.ObjectClass.html" title='atk::ObjectClass struct'>ObjectClass</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.ObjectFactory.html" title='atk::ObjectFactory struct'>ObjectFactory</a></td><td class='docblock-short'><p>This class is the base object class for a factory used to create an
+accessible object for a specific GType. The function
+<code>RegistryExt::set_factory_type</code> is normally called to store in the
+registry the factory type to be used to create an accessible of a
+particular GType.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.ObjectFactoryClass.html" title='atk::ObjectFactoryClass struct'>ObjectFactoryClass</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.Plug.html" title='atk::Plug struct'>Plug</a></td><td class='docblock-short'><p>See <code>Socket</code></p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.PlugClass.html" title='atk::PlugClass struct'>PlugClass</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.Range.html" title='atk::Range struct'>Range</a></td><td class='docblock-short'><p><code>Range</code> are used on <code>Value</code>, in order to represent the full
+range of a given component (for example an slider or a range
+control), or to define each individual subrange this full range is
+splitted if available. See <code>Value</code> documentation for further
+details.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Rectangle.html" title='atk::Rectangle struct'>Rectangle</a></td><td class='docblock-short'><p>A data structure for holding a rectangle. Those coordinates are
+relative to the component top-level parent.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Registry.html" title='atk::Registry struct'>Registry</a></td><td class='docblock-short'><p>The AtkRegistry is normally used to create appropriate ATK &quot;peers&quot;
+for user interface components. Application developers usually need
+only interact with the AtkRegistry by associating appropriate ATK
+implementation classes with GObject classes via the
+atk_registry_set_factory_type call, passing the appropriate GType
+for application custom widget classes.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.RegistryClass.html" title='atk::RegistryClass struct'>RegistryClass</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.Relation.html" title='atk::Relation struct'>Relation</a></td><td class='docblock-short'><p>An AtkRelation describes a relation between an object and one or
+more other objects. The actual relations that an object has with
+other objects are defined as an AtkRelationSet, which is a set of
+AtkRelations.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.RelationClass.html" title='atk::RelationClass struct'>RelationClass</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.RelationSet.html" title='atk::RelationSet struct'>RelationSet</a></td><td class='docblock-short'><p>The AtkRelationSet held by an object establishes its relationships
+with objects beyond the normal &quot;parent/child&quot; hierarchical
+relationships that all user interface objects have.
+AtkRelationSets establish whether objects are labelled or
+controlled by other components, share group membership with other
+components (for instance within a radio-button group), or share
+content which &quot;flows&quot; between them, among other types of possible
+relationships.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.RelationSetClass.html" title='atk::RelationSetClass struct'>RelationSetClass</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.Selection.html" title='atk::Selection struct'>Selection</a></td><td class='docblock-short'><p><code>Selection</code> should be implemented by UI components with children
+which are exposed by <code>atk_object_ref_child</code> and
+<code>atk_object_get_n_children</code>, if the use of the parent UI component
+ordinarily involves selection of one or more of the objects
+corresponding to those <code>Object</code> children - for example,
+selectable lists.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Socket.html" title='atk::Socket struct'>Socket</a></td><td class='docblock-short'><p>Together with <code>Plug</code>, <code>Socket</code> provides the ability to embed
+accessibles from one process into another in a fashion that is
+transparent to assistive technologies. <code>Socket</code> works as the
+container of <code>Plug</code>, embedding it using the method
+<code>AtkSocketExt::embed</code>. Any accessible contained in the <code>Plug</code> will
+appear to the assistive technologies as being inside the
+application that created the <code>Socket</code>.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.SocketClass.html" title='atk::SocketClass struct'>SocketClass</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.StateSet.html" title='atk::StateSet struct'>StateSet</a></td><td class='docblock-short'><p>An AtkStateSet is a read-only representation of the full set of <code>AtkStates</code>
+that apply to an object at a given time. This set is not meant to be
+modified, but rather created when <code>AtkObjectExt::ref_state_set</code>() is called.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.StateSetClass.html" title='atk::StateSetClass struct'>StateSetClass</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.StreamableContent.html" title='atk::StreamableContent struct'>StreamableContent</a></td><td class='docblock-short'><p>An interface whereby an object allows its backing content to be
+streamed to clients. Typical implementors would be images or
+icons, HTML content, or multimedia display/rendering widgets.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Table.html" title='atk::Table struct'>Table</a></td><td class='docblock-short'><p><code>Table</code> should be implemented by components which present
+elements ordered via rows and columns. It may also be used to
+present tree-structured information if the nodes of the trees can
+be said to contain multiple &quot;columns&quot;. Individual elements of an
+<code>Table</code> are typically referred to as &quot;cells&quot;. Those cells should
+implement the interface <code>TableCell</code>, but <code>Atk</code> doesn't require
+them to be direct children of the current <code>Table</code>. They can be
+grand-children, grand-grand-children etc. <code>Table</code> provides the
+API needed to get a individual cell based on the row and column
+numbers.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.TableCell.html" title='atk::TableCell struct'>TableCell</a></td><td class='docblock-short'><p>Being <code>Table</code> a component which present elements ordered via rows
+and columns, an <code>TableCell</code> is the interface which each of those
+elements, so &quot;cells&quot; should implement.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Text.html" title='atk::Text struct'>Text</a></td><td class='docblock-short'><p><code>Text</code> should be implemented by <code>AtkObjects</code> on behalf of widgets
+that have text content which is either attributed or otherwise
+non-trivial. <code>AtkObjects</code> whose text content is simple,
+unattributed, and very brief may expose that content via
+<code>AtkObjectExt::get_name</code> instead; however if the text is editable,
+multi-line, typically longer than three or four words, attributed,
+selectable, or if the object already uses the 'name' ATK property
+for other information, the <code>Text</code> interface should be used to
+expose the text content. In the case of editable text content,
+<code>EditableText</code> (a subtype of the <code>Text</code> interface) should be
+implemented instead.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.TextRange.html" title='atk::TextRange struct'>TextRange</a></td><td class='docblock-short'><p>A structure used to describe a text range.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.TextRectangle.html" title='atk::TextRectangle struct'>TextRectangle</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.Util.html" title='atk::Util struct'>Util</a></td><td class='docblock-short'><p>A set of ATK utility functions which are used to support event
+registration of various types, and obtaining the 'root' accessible
+of a process and information about the current ATK implementation
+and toolkit version.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.UtilClass.html" title='atk::UtilClass struct'>UtilClass</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.Value.html" title='atk::Value struct'>Value</a></td><td class='docblock-short'><p><code>Value</code> should be implemented for components which either display
+a value from a bounded range, or which allow the user to specify a
+value from a bounded range, or both. For instance, most sliders and
+range controls, as well as dials, should have <code>Object</code>
+representations which implement <code>Value</code> on the component's
+behalf. <code>AtKValues</code> may be read-only, in which case attempts to
+alter the value return would fail.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Window.html" title='atk::Window struct'>Window</a></td><td class='docblock-short'><p><code>Window</code> should be implemented by the UI elements that represent
+a top-level window, such as the main window of an application or
+dialog.</p>
+</td></tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table><tr class='module-item'><td><a class="enum" href="enum.CoordType.html" title='atk::CoordType enum'>CoordType</a></td><td class='docblock-short'><p>Specifies how xy coordinates are to be interpreted. Used by functions such
+as <code>Component::get_position</code> and <code>Text::get_character_extents</code></p>
+</td></tr><tr class='module-item'><td><a class="enum" href="enum.Layer.html" title='atk::Layer enum'>Layer</a></td><td class='docblock-short'><p>Describes the layer of a component</p>
+</td></tr><tr class='module-item'><td><a class="enum" href="enum.RelationType.html" title='atk::RelationType enum'>RelationType</a></td><td class='docblock-short'><p>Describes the type of the relation</p>
+</td></tr><tr class='module-item'><td><a class="enum" href="enum.Role.html" title='atk::Role enum'>Role</a></td><td class='docblock-short'><p>Describes the role of an object</p>
+</td></tr><tr class='module-item'><td><a class="enum" href="enum.ScrollType.html" title='atk::ScrollType enum'>ScrollType</a></td><td class='docblock-short'><p>Specifies where an object should be placed on the screen when using scroll_to.</p>
+</td></tr><tr class='module-item'><td><a class="enum" href="enum.StateType.html" title='atk::StateType enum'>StateType</a></td><td class='docblock-short'><p>The possible types of states of an object</p>
+</td></tr><tr class='module-item'><td><a class="enum" href="enum.TextAttribute.html" title='atk::TextAttribute enum'>TextAttribute</a></td><td class='docblock-short'><p>Describes the text attributes supported</p>
+</td></tr><tr class='module-item'><td><a class="enum" href="enum.TextBoundary.html" title='atk::TextBoundary enum'>TextBoundary</a></td><td class='docblock-short'><p>Text boundary types used for specifying boundaries for regions of text.
+This enumeration is deprecated since 2.9.4 and should not be used. Use
+AtkTextGranularity with <code>Text::get_string_at_offset</code> instead.</p>
+</td></tr><tr class='module-item'><td><a class="enum" href="enum.TextClipType.html" title='atk::TextClipType enum'>TextClipType</a></td><td class='docblock-short'><p>Describes the type of clipping required.</p>
+</td></tr><tr class='module-item'><td><a class="enum" href="enum.TextGranularity.html" title='atk::TextGranularity enum'>TextGranularity</a></td><td class='docblock-short'><p>Text granularity types used for specifying the granularity of the region of
+text we are interested in.</p>
+</td></tr><tr class='module-item'><td><a class="enum" href="enum.ValueType.html" title='atk::ValueType enum'>ValueType</a></td><td class='docblock-short'><p>Default types for a given value. Those are defined in order to
+easily get localized strings to describe a given value or a given
+subrange, using <code>ValueType::get_localized_name</code>.</p>
+</td></tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table><tr class='module-item'><td><a class="constant" href="constant.NONE_ACTION.html" title='atk::NONE_ACTION constant'>NONE_ACTION</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_COMPONENT.html" title='atk::NONE_COMPONENT constant'>NONE_COMPONENT</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_DOCUMENT.html" title='atk::NONE_DOCUMENT constant'>NONE_DOCUMENT</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_EDITABLE_TEXT.html" title='atk::NONE_EDITABLE_TEXT constant'>NONE_EDITABLE_TEXT</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_GOBJECT_ACCESSIBLE.html" title='atk::NONE_GOBJECT_ACCESSIBLE constant'>NONE_GOBJECT_ACCESSIBLE</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_HYPERLINK.html" title='atk::NONE_HYPERLINK constant'>NONE_HYPERLINK</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_HYPERLINK_IMPL.html" title='atk::NONE_HYPERLINK_IMPL constant'>NONE_HYPERLINK_IMPL</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_HYPERTEXT.html" title='atk::NONE_HYPERTEXT constant'>NONE_HYPERTEXT</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_IMAGE.html" title='atk::NONE_IMAGE constant'>NONE_IMAGE</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_MISC.html" title='atk::NONE_MISC constant'>NONE_MISC</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_NO_OP_OBJECT.html" title='atk::NONE_NO_OP_OBJECT constant'>NONE_NO_OP_OBJECT</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_NO_OP_OBJECT_FACTORY.html" title='atk::NONE_NO_OP_OBJECT_FACTORY constant'>NONE_NO_OP_OBJECT_FACTORY</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_OBJECT.html" title='atk::NONE_OBJECT constant'>NONE_OBJECT</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_OBJECT_FACTORY.html" title='atk::NONE_OBJECT_FACTORY constant'>NONE_OBJECT_FACTORY</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_PLUG.html" title='atk::NONE_PLUG constant'>NONE_PLUG</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_REGISTRY.html" title='atk::NONE_REGISTRY constant'>NONE_REGISTRY</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_RELATION.html" title='atk::NONE_RELATION constant'>NONE_RELATION</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_RELATION_SET.html" title='atk::NONE_RELATION_SET constant'>NONE_RELATION_SET</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_SELECTION.html" title='atk::NONE_SELECTION constant'>NONE_SELECTION</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_SOCKET.html" title='atk::NONE_SOCKET constant'>NONE_SOCKET</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_STATE_SET.html" title='atk::NONE_STATE_SET constant'>NONE_STATE_SET</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_STREAMABLE_CONTENT.html" title='atk::NONE_STREAMABLE_CONTENT constant'>NONE_STREAMABLE_CONTENT</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_TABLE.html" title='atk::NONE_TABLE constant'>NONE_TABLE</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_TABLE_CELL.html" title='atk::NONE_TABLE_CELL constant'>NONE_TABLE_CELL</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_TEXT.html" title='atk::NONE_TEXT constant'>NONE_TEXT</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_UTIL.html" title='atk::NONE_UTIL constant'>NONE_UTIL</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_VALUE.html" title='atk::NONE_VALUE constant'>NONE_VALUE</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="constant" href="constant.NONE_WINDOW.html" title='atk::NONE_WINDOW constant'>NONE_WINDOW</a></td><td class='docblock-short'></td></tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table><tr class='module-item'><td><a class="trait" href="trait.AtkActionExt.html" title='atk::AtkActionExt trait'>AtkActionExt</a></td><td class='docblock-short'><p>Trait containing all <code>Action</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.AtkImageExt.html" title='atk::AtkImageExt trait'>AtkImageExt</a></td><td class='docblock-short'><p>Trait containing all <code>Image</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.AtkMiscExt.html" title='atk::AtkMiscExt trait'>AtkMiscExt</a></td><td class='docblock-short'><p>Trait containing all <code>Misc</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.AtkObjectExt.html" title='atk::AtkObjectExt trait'>AtkObjectExt</a></td><td class='docblock-short'><p>Trait containing all <code>Object</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.AtkPlugExt.html" title='atk::AtkPlugExt trait'>AtkPlugExt</a></td><td class='docblock-short'><p>Trait containing all <code>Plug</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.AtkSocketExt.html" title='atk::AtkSocketExt trait'>AtkSocketExt</a></td><td class='docblock-short'><p>Trait containing all <code>Socket</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.AtkWindowExt.html" title='atk::AtkWindowExt trait'>AtkWindowExt</a></td><td class='docblock-short'><p>Trait containing all <code>Window</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.ComponentExt.html" title='atk::ComponentExt trait'>ComponentExt</a></td><td class='docblock-short'><p>Trait containing all <code>Component</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.DocumentExt.html" title='atk::DocumentExt trait'>DocumentExt</a></td><td class='docblock-short'><p>Trait containing all <code>Document</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.EditableTextExt.html" title='atk::EditableTextExt trait'>EditableTextExt</a></td><td class='docblock-short'><p>Trait containing all <code>EditableText</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.GObjectAccessibleExt.html" title='atk::GObjectAccessibleExt trait'>GObjectAccessibleExt</a></td><td class='docblock-short'><p>Trait containing all <code>GObjectAccessible</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.HyperlinkExt.html" title='atk::HyperlinkExt trait'>HyperlinkExt</a></td><td class='docblock-short'><p>Trait containing all <code>Hyperlink</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.HyperlinkImplExt.html" title='atk::HyperlinkImplExt trait'>HyperlinkImplExt</a></td><td class='docblock-short'><p>Trait containing all <code>HyperlinkImpl</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.HypertextExt.html" title='atk::HypertextExt trait'>HypertextExt</a></td><td class='docblock-short'><p>Trait containing all <code>Hypertext</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.ObjectFactoryExt.html" title='atk::ObjectFactoryExt trait'>ObjectFactoryExt</a></td><td class='docblock-short'><p>Trait containing all <code>ObjectFactory</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.RegistryExt.html" title='atk::RegistryExt trait'>RegistryExt</a></td><td class='docblock-short'><p>Trait containing all <code>Registry</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.RelationExt.html" title='atk::RelationExt trait'>RelationExt</a></td><td class='docblock-short'><p>Trait containing all <code>Relation</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.RelationSetExt.html" title='atk::RelationSetExt trait'>RelationSetExt</a></td><td class='docblock-short'><p>Trait containing all <code>RelationSet</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.SelectionExt.html" title='atk::SelectionExt trait'>SelectionExt</a></td><td class='docblock-short'><p>Trait containing all <code>Selection</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.StateSetExt.html" title='atk::StateSetExt trait'>StateSetExt</a></td><td class='docblock-short'><p>Trait containing all <code>StateSet</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.StreamableContentExt.html" title='atk::StreamableContentExt trait'>StreamableContentExt</a></td><td class='docblock-short'><p>Trait containing all <code>StreamableContent</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.TableCellExt.html" title='atk::TableCellExt trait'>TableCellExt</a></td><td class='docblock-short'><p>Trait containing all <code>TableCell</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.TableExt.html" title='atk::TableExt trait'>TableExt</a></td><td class='docblock-short'><p>Trait containing all <code>Table</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.TextExt.html" title='atk::TextExt trait'>TextExt</a></td><td class='docblock-short'><p>Trait containing all <code>Text</code> methods.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.ValueExt.html" title='atk::ValueExt trait'>ValueExt</a></td><td class='docblock-short'><p>Trait containing all <code>Value</code> methods.</p>
+</td></tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table><tr class='module-item'><td><a class="type" href="type.AttributeSet.html" title='atk::AttributeSet type'>AttributeSet</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="type" href="type.State.html" title='atk::State type'>State</a></td><td class='docblock-short'></td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../";window.currentCrate = "atk";</script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

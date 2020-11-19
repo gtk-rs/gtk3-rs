@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["DevicePadExt","Trait containing all [`struct@DevicePad`] methods."],["DisplayExtManual",""],["GdkContextExt",""],["GdkPixbufExt",""],["GdkSurfaceExt",""],["WindowExtManual",""]]});

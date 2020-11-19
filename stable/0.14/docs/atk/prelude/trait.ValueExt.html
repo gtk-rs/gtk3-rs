@@ -1,0 +1,177 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all [`struct@Value`] methods."><meta name="keywords" content="rust, rustlang, rust-lang, ValueExt"><title>ValueExt in atk::prelude - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.14" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.14") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../atk/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a><p class="location">Trait ValueExt</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.connect_value_changed">connect_value_changed</a><a href="#tymethod.current_value">current_value</a><a href="#tymethod.increment">increment</a><a href="#tymethod.maximum_value">maximum_value</a><a href="#tymethod.minimum_increment">minimum_increment</a><a href="#tymethod.minimum_value">minimum_value</a><a href="#tymethod.range">range</a><a href="#tymethod.set_current_value">set_current_value</a><a href="#tymethod.set_value">set_value</a><a href="#tymethod.sub_ranges">sub_ranges</a><a href="#tymethod.value_and_text">value_and_text</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class="location">Other items in<br><a href="../index.html">atk</a>::<wbr><a href="index.html">prelude</a></p><div id="sidebar-vars" data-name="ValueExt" data-ty="trait" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Trait <a href="../index.html">atk</a>::<wbr><a href="index.html">prelude</a>::<wbr><a class="trait" href="#">ValueExt</a><button id="copy-path" onclick="copy_path(this)" title="copy path"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item import" title="Copy item import to clipboard"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../src/atk/auto/value.rs.html#177-346" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust trait">pub trait ValueExt: 'static {
+    fn <a href="#tymethod.current_value" class="fnname">current_value</a>(&amp;self) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.increment" class="fnname">increment</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.maximum_value" class="fnname">maximum_value</a>(&amp;self) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.minimum_increment" class="fnname">minimum_increment</a>(&amp;self) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.minimum_value" class="fnname">minimum_value</a>(&amp;self) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.range" class="fnname">range</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Range.html" title="struct atk::Range">Range</a>&gt;;
+<div class="item-spacer"></div>    fn <a href="#tymethod.sub_ranges" class="fnname">sub_ranges</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.Range.html" title="struct atk::Range">Range</a>&gt;;
+<div class="item-spacer"></div>    fn <a href="#tymethod.value_and_text" class="fnname">value_and_text</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.set_current_value" class="fnname">set_current_value</a>(&amp;self, value: &amp;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.set_value" class="fnname">set_value</a>(&amp;self, new_value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>);
+<div class="item-spacer"></div>    fn <a href="#tymethod.connect_value_changed" class="fnname">connect_value_changed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+}</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.Value.html" title="Value"><code>Value</code></a> methods.</p>
+<h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
+<p><a href="../struct.NoOpObject.html" title="crate::NoOpObject"><code>NoOpObject</code></a>, <a href="../struct.Value.html" title="crate::Value"><code>Value</code></a></p>
+</div></details><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><div id="tymethod.current_value" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/value.rs.html#192" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.current_value" class="fnname">current_value</a>(&amp;self) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a></code></div></summary><div class="docblock"><p>Gets the value of this object.</p>
+<h1 id="deprecated" class="section-header"><a href="#deprecated">Deprecated</a></h1>
+<p>Since 2.12. Use <a href="trait.ValueExt.html#tymethod.value_and_text" title="Self::value_and_text()"><code>value_and_text()</code></a>
+instead.</p>
+<h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1><h2 id="value" class="section-header"><a href="#value"><code>value</code></a></h2>
+<p>a <a href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/value/struct.Value.html" title="crate::glib::Value"><code>glib::Value</code></a> representing the current accessible value</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.increment" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/value.rs.html#205" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.increment" class="fnname">increment</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a></code></div></summary><div class="docblock"><p>Gets the minimum increment by which the value of this object may be
+changed. If zero, the minimum increment is undefined, which may
+mean that it is limited only by the floating point precision of the
+platform.</p>
+<h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
+<p>the minimum increment by which the value of this
+object may be changed. zero if undefined.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.maximum_value" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/value.rs.html#220" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.maximum_value" class="fnname">maximum_value</a>(&amp;self) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a></code></div></summary><div class="docblock"><p>Gets the maximum value of this object.</p>
+<h1 id="deprecated-1" class="section-header"><a href="#deprecated-1">Deprecated</a></h1>
+<p>Since 2.12. Use <a href="trait.ValueExt.html#tymethod.range" title="Self::range()"><code>range()</code></a> instead.</p>
+<h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1><h2 id="value-1" class="section-header"><a href="#value-1"><code>value</code></a></h2>
+<p>a <a href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/value/struct.Value.html" title="crate::glib::Value"><code>glib::Value</code></a> representing the maximum accessible value</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.minimum_increment" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/value.rs.html#237" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.minimum_increment" class="fnname">minimum_increment</a>(&amp;self) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a></code></div></summary><div class="docblock"><p>Gets the minimum increment by which the value of this object may be changed. If zero,
+the minimum increment is undefined, which may mean that it is limited only by the
+floating point precision of the platform.</p>
+<h1 id="deprecated-2" class="section-header"><a href="#deprecated-2">Deprecated</a></h1>
+<p>Since 2.12. Use <a href="trait.ValueExt.html#tymethod.increment" title="Self::increment()"><code>increment()</code></a> instead.</p>
+<h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1><h2 id="value-2" class="section-header"><a href="#value-2"><code>value</code></a></h2>
+<p>a <a href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/value/struct.Value.html" title="crate::glib::Value"><code>glib::Value</code></a> representing the minimum increment by which the accessible value may be changed</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.minimum_value" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/value.rs.html#252" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.minimum_value" class="fnname">minimum_value</a>(&amp;self) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a></code></div></summary><div class="docblock"><p>Gets the minimum value of this object.</p>
+<h1 id="deprecated-3" class="section-header"><a href="#deprecated-3">Deprecated</a></h1>
+<p>Since 2.12. Use <a href="trait.ValueExt.html#tymethod.range" title="Self::range()"><code>range()</code></a> instead.</p>
+<h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1><h2 id="value-3" class="section-header"><a href="#value-3"><code>value</code></a></h2>
+<p>a <a href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/value/struct.Value.html" title="crate::glib::Value"><code>glib::Value</code></a> representing the minimum accessible value</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.range" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/value.rs.html#263" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.range" class="fnname">range</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Range.html" title="struct atk::Range">Range</a>&gt;</code></div></summary><div class="docblock"><p>Gets the range of this object.</p>
+<h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
+<p>a newly allocated <a href="../struct.Range.html" title="crate::Range"><code>Range</code></a>
+that represents the minimum, maximum and descriptor (if available)
+of <code>self</code>. NULL if that range is not defined.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.sub_ranges" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/value.rs.html#275" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.sub_ranges" class="fnname">sub_ranges</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.Range.html" title="struct atk::Range">Range</a>&gt;</code></div></summary><div class="docblock"><p>Gets the list of subranges defined for this object. See <a href="../struct.Value.html" title="crate::Value"><code>Value</code></a>
+introduction for examples of subranges and when to expose them.</p>
+<h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
+<p>an <code>GSList</code> of
+<a href="../struct.Range.html" title="crate::Range"><code>Range</code></a> which each of the subranges defined for this object. Free
+the returns list with <code>g_slist_free()</code>.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.value_and_text" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/value.rs.html#292" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.value_and_text" class="fnname">value_and_text</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code></div></summary><div class="docblock"><p>Gets the current value and the human readable text alternative of
+<code>self</code>. <code>text</code> is a newly created string, that must be freed by the
+caller. Can be NULL if no descriptor is available.</p>
+<h1 id="returns-7" class="section-header"><a href="#returns-7">Returns</a></h1><h2 id="value-4" class="section-header"><a href="#value-4"><code>value</code></a></h2>
+<p>address of <code>gdouble</code> to put the current value of <code>self</code></p>
+<h2 id="text" class="section-header"><a href="#text"><code>text</code></a></h2>
+<p>address of <code>gchar</code> to put the human
+readable text alternative for <code>value</code></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.set_current_value" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/value.rs.html#306" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.set_current_value" class="fnname">set_current_value</a>(&amp;self, value: &amp;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></div></summary><div class="docblock"><p>Sets the value of this object.</p>
+<h1 id="deprecated-4" class="section-header"><a href="#deprecated-4">Deprecated</a></h1>
+<p>Since 2.12. Use <a href="trait.ValueExt.html#tymethod.set_value" title="Self::set_value()"><code>set_value()</code></a> instead.</p>
+<h2 id="value-5" class="section-header"><a href="#value-5"><code>value</code></a></h2>
+<p>a <a href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/value/struct.Value.html" title="crate::glib::Value"><code>glib::Value</code></a> which is the desired new accessible value.</p>
+<h1 id="returns-8" class="section-header"><a href="#returns-8">Returns</a></h1>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if new value is successfully set, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> otherwise.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.set_value" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/value.rs.html#325" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.set_value" class="fnname">set_value</a>(&amp;self, new_value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>)</code></div></summary><div class="docblock"><p>Sets the value of this object.</p>
+<p>This method is intended to provide a way to change the value of the
+object. In any case, it is possible that the value can’t be
+modified (ie: a read-only component). If the value changes due this
+call, it is possible that the text could change, and will trigger
+an <code>signal::Value::value-changed</code> signal emission.</p>
+<p>Note for implementors: the deprecated <a href="trait.ValueExt.html#tymethod.set_current_value" title="Self::set_current_value()"><code>set_current_value()</code></a>
+method returned TRUE or FALSE depending if the value was assigned
+or not. In the practice several implementors were not able to
+decide it, and returned TRUE in any case. For that reason it is not
+required anymore to return if the value was properly assigned or
+not.</p>
+<h2 id="new_value" class="section-header"><a href="#new_value"><code>new_value</code></a></h2>
+<p>a double which is the desired new accessible value.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.connect_value_changed" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/value.rs.html#345" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.connect_value_changed" class="fnname">connect_value_changed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code></div></summary><div class="docblock"><p>The ‘value-changed’ signal is emitted when the current value
+that represent the object changes. <code>value</code> is the numerical
+representation of this new value. <code>text</code> is the human
+readable text alternative of <code>value</code>, and can be NULL if it is
+not available. Note that if there is a textual description
+associated with the new numeric value, that description
+should be included regardless of whether or not it has also
+changed.</p>
+<p>Example: a password meter whose value changes as the user
+types their new password. Appropiate value text would be
+“weak”, “acceptable” and “strong”.</p>
+<h2 id="value-6" class="section-header"><a href="#value-6"><code>value</code></a></h2>
+<p>the new value in a numerical form.</p>
+<h2 id="text-1" class="section-header"><a href="#text-1"><code>text</code></a></h2>
+<p>human readable text alternative (also called
+description) of this object. NULL if not available.</p>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div class="item-list" id="implementors-list"><div id="impl-ValueExt" class="impl has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/value.rs.html#348-467" title="goto source code">[src]</a></div><a href="#impl-ValueExt" class="anchor"></a><code class="in-band">impl&lt;O:&nbsp;<a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Value.html" title="struct atk::Value">Value</a>&gt;&gt; <a class="trait" href="trait.ValueExt.html" title="trait atk::prelude::ValueExt">ValueExt</a> for O</code></div></div><script type="text/javascript" src="../../implementors/atk/prelude/trait.ValueExt.js" async></script></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="atk" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
+    <script src="../../main.js"></script>
+</body></html>

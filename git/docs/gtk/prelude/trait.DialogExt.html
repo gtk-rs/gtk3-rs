@@ -1,0 +1,209 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all [`struct@Dialog`] methods."><meta name="keywords" content="rust, rustlang, rust-lang, DialogExt"><title>DialogExt in gtk::prelude - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("master" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "master") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">DialogExt</a></h2><div class="sidebar-elems"><section><div class="block"><h3 class="sidebar-title"><a href="#required-methods">Required Methods</a></h3><ul><li><a href="#tymethod.add_action_widget">add_action_widget</a></li><li><a href="#tymethod.add_button">add_button</a></li><li><a href="#tymethod.connect_close">connect_close</a></li><li><a href="#tymethod.connect_response">connect_response</a></li><li><a href="#tymethod.content_area">content_area</a></li><li><a href="#tymethod.emit_close">emit_close</a></li><li><a href="#tymethod.header_bar">header_bar</a></li><li><a href="#tymethod.response">response</a></li><li><a href="#tymethod.response_for_widget">response_for_widget</a></li><li><a href="#tymethod.run">run</a></li><li><a href="#tymethod.set_default_response">set_default_response</a></li><li><a href="#tymethod.set_response_sensitive">set_response_sensitive</a></li><li><a href="#tymethod.use_header_bar">use_header_bar</a></li><li><a href="#tymethod.widget_for_response">widget_for_response</a></li></ul></div><div class="block"><h3 class="sidebar-title"><a href="#implementors">Implementors</a></h3></div></section><h2 class="location"><a href="index.html">In gtk::prelude</a></h2></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../gtk/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn"><span class="in-band">Trait <a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a>::<wbr><a class="trait" href="#">DialogExt</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../../src/gtk/auto/dialog.rs.html#928-1114">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><div class="docblock item-decl"><pre class="rust trait"><code>pub trait DialogExt: 'static {
+<details class="rustdoc-toggle type-contents-toggle"><summary class="hideme"><span>Show 14 methods</span></summary>    fn <a href="#tymethod.add_action_widget" class="fnname">add_action_widget</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;child: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response_id: <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a><br>&nbsp;&nbsp;&nbsp;&nbsp;);
+<span class="item-spacer"></span>    fn <a href="#tymethod.add_button" class="fnname">add_button</a>(&amp;self, button_text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, response_id: <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a>) -&gt; <a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.content_area" class="fnname">content_area</a>(&amp;self) -&gt; <a class="struct" href="../struct.Box.html" title="struct gtk::Box">Box</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.header_bar" class="fnname">header_bar</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.HeaderBar.html" title="struct gtk::HeaderBar">HeaderBar</a>&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.response_for_widget" class="fnname">response_for_widget</a>(&amp;self, widget: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;) -&gt; <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.widget_for_response" class="fnname">widget_for_response</a>(&amp;self, response_id: <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;;
+<span class="item-spacer"></span>    fn <a href="#tymethod.response" class="fnname">response</a>(&amp;self, response_id: <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.run" class="fnname">run</a>(&amp;self) -&gt; <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.set_default_response" class="fnname">set_default_response</a>(&amp;self, response_id: <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.set_response_sensitive" class="fnname">set_response_sensitive</a>(&amp;self, response_id: <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a>, setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.use_header_bar" class="fnname">use_header_bar</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.connect_close" class="fnname">connect_close</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.emit_close" class="fnname">emit_close</a>(&amp;self);
+<span class="item-spacer"></span>    fn <a href="#tymethod.connect_response" class="fnname">connect_response</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+</details>}</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.Dialog.html" title="Dialog"><code>Dialog</code></a> methods.</p>
+<h2 id="implementors-1"><a href="#implementors-1">Implementors</a></h2>
+<p><a href="../struct.AboutDialog.html" title="crate::AboutDialog"><code>AboutDialog</code></a>, <a href="../struct.AppChooserDialog.html" title="crate::AppChooserDialog"><code>AppChooserDialog</code></a>, <a href="../struct.ColorChooserDialog.html" title="crate::ColorChooserDialog"><code>ColorChooserDialog</code></a>, <a href="../struct.Dialog.html" title="crate::Dialog"><code>Dialog</code></a>, <a href="../struct.FileChooserDialog.html" title="crate::FileChooserDialog"><code>FileChooserDialog</code></a>, <a href="../struct.FontChooserDialog.html" title="crate::FontChooserDialog"><code>FontChooserDialog</code></a>, <a href="../struct.MessageDialog.html" title="crate::MessageDialog"><code>MessageDialog</code></a>, <a href="../struct.RecentChooserDialog.html" title="crate::RecentChooserDialog"><code>RecentChooserDialog</code></a></p>
+</div></details><h2 id="required-methods" class="small-section-header">Required Methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><div id="tymethod.add_action_widget" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/dialog.rs.html#940">source</a><h4 class="code-header">fn <a href="#tymethod.add_action_widget" class="fnname">add_action_widget</a>(&amp;self, child: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;, response_id: <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a>)</h4></div></summary><div class="docblock"><p>Adds an activatable widget to the action area of a <a href="../struct.Dialog.html" title="crate::Dialog"><code>Dialog</code></a>,
+connecting a signal handler that will emit the <code>signal::Dialog::response</code>
+signal on the dialog when the widget is activated. The widget is
+appended to the end of the dialog’s action area. If you want to add a
+non-activatable widget, simply pack it into the <code>action_area</code> field
+of the <a href="../struct.Dialog.html" title="crate::Dialog"><code>Dialog</code></a> struct.</p>
+<h6 id="child"><a href="#child"><code>child</code></a></h6>
+<p>an activatable widget</p>
+<h6 id="response_id"><a href="#response_id"><code>response_id</code></a></h6>
+<p>response ID for <code>child</code></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.add_button" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/dialog.rs.html#956">source</a><h4 class="code-header">fn <a href="#tymethod.add_button" class="fnname">add_button</a>(&amp;self, button_text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, response_id: <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a>) -&gt; <a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a></h4></div></summary><div class="docblock"><p>Adds a button with the given text and sets things up so that
+clicking the button will emit the <code>signal::Dialog::response</code> signal with
+the given <code>response_id</code>. The button is appended to the end of the
+dialog’s action area. The button widget is returned, but usually
+you don’t need it.</p>
+<h6 id="button_text"><a href="#button_text"><code>button_text</code></a></h6>
+<p>text of button</p>
+<h6 id="response_id-1"><a href="#response_id-1"><code>response_id</code></a></h6>
+<p>response ID for the button</p>
+<h5 id="returns"><a href="#returns">Returns</a></h5>
+<p>the <a href="../struct.Button.html" title="crate::Button"><code>Button</code></a> widget that was added</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.content_area" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/dialog.rs.html#965">source</a><h4 class="code-header">fn <a href="#tymethod.content_area" class="fnname">content_area</a>(&amp;self) -&gt; <a class="struct" href="../struct.Box.html" title="struct gtk::Box">Box</a></h4></div></summary><div class="docblock"><p>Returns the content area of <code>self</code>.</p>
+<h5 id="returns-1"><a href="#returns-1">Returns</a></h5>
+<p>the content area <a href="../struct.Box.html" title="crate::Box"><code>Box</code></a>.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.header_bar" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/dialog.rs.html#976">source</a><h4 class="code-header">fn <a href="#tymethod.header_bar" class="fnname">header_bar</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.HeaderBar.html" title="struct gtk::HeaderBar">HeaderBar</a>&gt;</h4></div></summary><div class="docblock"><p>Returns the header bar of <code>self</code>. Note that the
+headerbar is only used by the dialog if the
+<code>property::Dialog::use-header-bar</code> property is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>.</p>
+<h5 id="returns-2"><a href="#returns-2">Returns</a></h5>
+<p>the header bar</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.response_for_widget" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/dialog.rs.html#989">source</a><h4 class="code-header">fn <a href="#tymethod.response_for_widget" class="fnname">response_for_widget</a>(&amp;self, widget: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;) -&gt; <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a></h4></div></summary><div class="docblock"><p>Gets the response id of a widget in the action area
+of a dialog.</p>
+<h6 id="widget"><a href="#widget"><code>widget</code></a></h6>
+<p>a widget in the action area of <code>self</code></p>
+<h5 id="returns-3"><a href="#returns-3">Returns</a></h5>
+<p>the response id of <code>widget</code>, or <a href="../enum.ResponseType.html#variant.None" title="crate::ResponseType::None"><code>ResponseType::None</code></a>
+if <code>widget</code> doesn’t have a response id set.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.widget_for_response" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/dialog.rs.html#1002">source</a><h4 class="code-header">fn <a href="#tymethod.widget_for_response" class="fnname">widget_for_response</a>(&amp;self, response_id: <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;</h4></div></summary><div class="docblock"><p>Gets the widget button that uses the given response ID in the action area
+of a dialog.</p>
+<h6 id="response_id-2"><a href="#response_id-2"><code>response_id</code></a></h6>
+<p>the response ID used by the <code>self</code> widget</p>
+<h5 id="returns-4"><a href="#returns-4">Returns</a></h5>
+<p>the <code>widget</code> button that uses the given
+<code>response_id</code>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.response" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/dialog.rs.html#1011">source</a><h4 class="code-header">fn <a href="#tymethod.response" class="fnname">response</a>(&amp;self, response_id: <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a>)</h4></div></summary><div class="docblock"><p>Emits the <code>signal::Dialog::response</code> signal with the given response ID.
+Used to indicate that the user has responded to the dialog in some way;
+typically either you or <a href="trait.DialogExt.html#tymethod.run" title="Self::run()"><code>run()</code></a> will be monitoring the
+::response signal and take appropriate action.</p>
+<h6 id="response_id-3"><a href="#response_id-3"><code>response_id</code></a></h6>
+<p>response ID</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.run" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/dialog.rs.html#1067">source</a><h4 class="code-header">fn <a href="#tymethod.run" class="fnname">run</a>(&amp;self) -&gt; <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a></h4></div></summary><div class="docblock"><p>Blocks in a recursive main loop until the <code>self</code> either emits the
+<code>signal::Dialog::response</code> signal, or is destroyed. If the dialog is
+destroyed during the call to <a href="trait.DialogExt.html#tymethod.run" title="Self::run()"><code>run()</code></a>, <a href="trait.DialogExt.html#tymethod.run" title="Self::run()"><code>run()</code></a> returns
+<a href="../enum.ResponseType.html#variant.None" title="crate::ResponseType::None"><code>ResponseType::None</code></a>. Otherwise, it returns the response ID from the
+::response signal emission.</p>
+<p>Before entering the recursive main loop, <a href="trait.DialogExt.html#tymethod.run" title="Self::run()"><code>run()</code></a> calls
+<a href="trait.WidgetExt.html#tymethod.show" title="crate::prelude::WidgetExt::show()"><code>WidgetExt::show()</code></a> on the dialog for you. Note that you still
+need to show any children of the dialog yourself.</p>
+<p>During <a href="trait.DialogExt.html#tymethod.run" title="Self::run()"><code>run()</code></a>, the default behavior of <code>signal::Widget::delete-event</code>
+is disabled; if the dialog receives ::delete_event, it will not be
+destroyed as windows usually are, and <a href="trait.DialogExt.html#tymethod.run" title="Self::run()"><code>run()</code></a> will return
+<a href="../enum.ResponseType.html#variant.DeleteEvent" title="crate::ResponseType::DeleteEvent"><code>ResponseType::DeleteEvent</code></a>. Also, during <a href="trait.DialogExt.html#tymethod.run" title="Self::run()"><code>run()</code></a> the dialog
+will be modal. You can force <a href="trait.DialogExt.html#tymethod.run" title="Self::run()"><code>run()</code></a> to return at any time by
+calling <a href="trait.DialogExt.html#tymethod.response" title="Self::response()"><code>response()</code></a> to emit the ::response signal. Destroying
+the dialog during <a href="trait.DialogExt.html#tymethod.run" title="Self::run()"><code>run()</code></a> is a very bad idea, because your
+post-run code won’t know whether the dialog was destroyed or not.</p>
+<p>After <a href="trait.DialogExt.html#tymethod.run" title="Self::run()"><code>run()</code></a> returns, you are responsible for hiding or
+destroying the dialog if you wish to do so.</p>
+<p>Typical usage of this function might be:</p>
+<p><strong>⚠️ The following code is in C ⚠️</strong></p>
+<div class="example-wrap"><pre class="language-C"><code>  GtkWidget *dialog = gtk_dialog_new ();
+  // Set up dialog...
+
+  int result = gtk_dialog_run (GTK_DIALOG (dialog));
+  switch (result)
+    {
+      case GTK_RESPONSE_ACCEPT:
+         // do_application_specific_something ();
+         break;
+      default:
+         // do_nothing_since_dialog_was_cancelled ();
+         break;
+    }
+  gtk_widget_destroy (dialog);</code></pre></div>
+<p>Note that even though the recursive main loop gives the effect of a
+modal dialog (it prevents the user from interacting with other
+windows in the same window group while the dialog is run), callbacks
+such as timeouts, IO channel watches, DND drops, etc, will
+be triggered during a <a href="trait.DialogExt.html#tymethod.run" title="Self::run()"><code>run()</code></a> call.</p>
+<h5 id="returns-5"><a href="#returns-5">Returns</a></h5>
+<p>response ID</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.set_default_response" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/dialog.rs.html#1075">source</a><h4 class="code-header">fn <a href="#tymethod.set_default_response" class="fnname">set_default_response</a>(&amp;self, response_id: <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a>)</h4></div></summary><div class="docblock"><p>Sets the last widget in the dialog’s action area with the given <code>response_id</code>
+as the default widget for the dialog. Pressing “Enter” normally activates
+the default widget.</p>
+<h6 id="response_id-4"><a href="#response_id-4"><code>response_id</code></a></h6>
+<p>a response ID</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.set_response_sensitive" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/dialog.rs.html#1085">source</a><h4 class="code-header">fn <a href="#tymethod.set_response_sensitive" class="fnname">set_response_sensitive</a>(&amp;self, response_id: <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a>, setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></div></summary><div class="docblock"><p>Calls <code>gtk_widget_set_sensitive (widget, </code>setting<code>)</code>
+for each widget in the dialog’s action area with the given <code>response_id</code>.
+A convenient way to sensitize/desensitize dialog buttons.</p>
+<h6 id="response_id-5"><a href="#response_id-5"><code>response_id</code></a></h6>
+<p>a response ID</p>
+<h6 id="setting"><a href="#setting"><code>setting</code></a></h6>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> for sensitive</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.use_header_bar" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/dialog.rs.html#1093">source</a><h4 class="code-header">fn <a href="#tymethod.use_header_bar" class="fnname">use_header_bar</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></div></summary><div class="docblock"><p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if the dialog uses a <a href="../struct.HeaderBar.html" title="crate::HeaderBar"><code>HeaderBar</code></a> for action buttons
+instead of the action-area.</p>
+<p>For technical reasons, this property is declared as an integer
+property, but you should only set it to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> or <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a>.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.connect_close" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/dialog.rs.html#1102">source</a><h4 class="code-header">fn <a href="#tymethod.connect_close" class="fnname">connect_close</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></div></summary><div class="docblock"><p>The ::close signal is a
+[keybinding signal][GtkBindingSignal]
+which gets emitted when the user uses a keybinding to close
+the dialog.</p>
+<p>The default binding for this signal is the Escape key.</p>
+</div></details><div id="tymethod.emit_close" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/dialog.rs.html#1104">source</a><h4 class="code-header">fn <a href="#tymethod.emit_close" class="fnname">emit_close</a>(&amp;self)</h4></div><details class="rustdoc-toggle" open><summary><div id="tymethod.connect_response" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/dialog.rs.html#1113">source</a><h4 class="code-header">fn <a href="#tymethod.connect_response" class="fnname">connect_response</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="enum" href="../enum.ResponseType.html" title="enum gtk::ResponseType">ResponseType</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></div></summary><div class="docblock"><p>Emitted when an action widget is clicked, the dialog receives a
+delete event, or the application programmer calls <a href="trait.DialogExt.html#tymethod.response" title="Self::response()"><code>response()</code></a>.
+On a delete event, the response ID is <a href="../enum.ResponseType.html#variant.DeleteEvent" title="crate::ResponseType::DeleteEvent"><code>ResponseType::DeleteEvent</code></a>.
+Otherwise, it depends on which action widget was clicked.</p>
+<h6 id="response_id-6"><a href="#response_id-6"><code>response_id</code></a></h6>
+<p>the response ID</p>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div class="item-list" id="implementors-list"><section id="impl-DialogExt-for-O" class="impl has-srclink"><a class="srclink rightside" href="../../src/gtk/auto/dialog.rs.html#1116-1256">source</a><a href="#impl-DialogExt-for-O" class="anchor"></a><h3 class="code-header in-band">impl&lt;O:&nbsp;<a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Dialog.html" title="struct gtk::Dialog">Dialog</a>&gt;&gt; <a class="trait" href="trait.DialogExt.html" title="trait gtk::prelude::DialogExt">DialogExt</a> for O</h3></section></div><script src="../../implementors/gtk/auto/dialog/trait.DialogExt.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (ce36e8825 2022-08-28)" ></div></body></html>

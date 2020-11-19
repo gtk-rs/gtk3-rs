@@ -1,0 +1,617 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/tree_store.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>tree_store.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("master" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "master") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../gtk/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<span id="2">2</span>
+<span id="3">3</span>
+<span id="4">4</span>
+<span id="5">5</span>
+<span id="6">6</span>
+<span id="7">7</span>
+<span id="8">8</span>
+<span id="9">9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
+<span id="89">89</span>
+<span id="90">90</span>
+<span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
+<span id="94">94</span>
+<span id="95">95</span>
+<span id="96">96</span>
+<span id="97">97</span>
+<span id="98">98</span>
+<span id="99">99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+</pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
+
+</span><span class="kw">use </span><span class="kw">crate</span>::TreeIter;
+<span class="kw">use </span><span class="kw">crate</span>::TreeModel;
+<span class="kw">use </span><span class="kw">crate</span>::TreeStore;
+<span class="kw">use </span>glib::object::{Cast, IsA};
+<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
+<span class="kw">use </span>glib::{ToValue, Type, Value};
+<span class="kw">use </span>libc::c_int;
+
+<span class="kw">impl </span>TreeStore {
+    <span class="doccomment">/// Creates a new tree store as with `n_columns` columns each of the types passed
+    /// in. Note that only types derived from standard GObject fundamental types
+    /// are supported.
+    ///
+    /// As an example, `gtk_tree_store_new (3, G_TYPE_INT, G_TYPE_STRING,
+    /// GDK_TYPE_PIXBUF);` will create a new [`TreeStore`][crate::TreeStore] with three columns, of type
+    /// `gint`, `gchararray`, and [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf] respectively.
+    /// ## `n_columns`
+    /// number of columns in the tree store
+    ///
+    /// # Returns
+    ///
+    /// a new [`TreeStore`][crate::TreeStore]
+    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_store_newv&quot;</span>)]
+    </span><span class="kw">pub fn </span>new(column_types: <span class="kw-2">&amp;</span>[Type]) -&gt; TreeStore {
+        <span class="macro">assert_initialized_main_thread!</span>();
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>column_types = column_types
+                .iter()
+                .map(|t| t.into_glib())
+                .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+            from_glib_full(ffi::gtk_tree_store_newv(
+                column_types.len() <span class="kw">as </span>c_int,
+                column_types.as_mut_ptr(),
+            ))
+        }
+    }
+}
+
+<span class="kw">pub trait </span>TreeStoreExtManual: <span class="lifetime">&#39;static </span>{
+    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_store_insert_with_valuesv&quot;</span>)]
+    </span><span class="kw">fn </span>insert_with_values(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TreeIter&gt;,
+        position: <span class="prelude-ty">Option</span>&lt;u32&gt;,
+        columns_and_values: <span class="kw-2">&amp;</span>[(u32, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)],
+    ) -&gt; TreeIter;
+
+    <span class="doccomment">/// Reorders the children of `parent` in `self` to follow the order
+    /// indicated by `new_order`. Note that this function only works with
+    /// unsorted stores.
+    /// ## `parent`
+    /// A [`TreeIter`][crate::TreeIter], or [`None`]
+    /// ## `new_order`
+    /// an array of integers mapping the new position of each child
+    ///  to its old position before the re-ordering,
+    ///  i.e. `new_order``[newpos] = oldpos`.
+    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_store_reorder&quot;</span>)]
+    </span><span class="kw">fn </span>reorder(<span class="kw-2">&amp;</span><span class="self">self</span>, parent: <span class="kw-2">&amp;</span>TreeIter, new_order: <span class="kw-2">&amp;</span>[u32]);
+
+    <span class="doccomment">/// Sets the value of one or more cells in the row referenced by `iter`.
+    /// The variable argument list should contain integer column numbers,
+    /// each column number followed by the value to be set.
+    /// The list is terminated by a -1. For example, to set column 0 with type
+    /// `G_TYPE_STRING` to “Foo”, you would write
+    /// `gtk_tree_store_set (store, iter, 0, &quot;Foo&quot;, -1)`.
+    ///
+    /// The value will be referenced by the store if it is a `G_TYPE_OBJECT`, and it
+    /// will be copied if it is a `G_TYPE_STRING` or `G_TYPE_BOXED`.
+    /// ## `iter`
+    /// A valid [`TreeIter`][crate::TreeIter] for the row being modified
+    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_store_set&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;gtk_tree_store_set_valuesv&quot;</span>)]
+    </span><span class="kw">fn </span>set(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TreeIter, columns_and_values: <span class="kw-2">&amp;</span>[(u32, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)]);
+
+    <span class="doccomment">/// Sets the data in the cell specified by `iter` and `column`.
+    /// The type of `value` must be convertible to the type of the
+    /// column.
+    /// ## `iter`
+    /// A valid [`TreeIter`][crate::TreeIter] for the row being modified
+    /// ## `column`
+    /// column number to modify
+    /// ## `value`
+    /// new value for the cell
+    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_store_set_value&quot;</span>)]
+    </span><span class="kw">fn </span>set_value(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TreeIter, column: u32, value: <span class="kw-2">&amp;</span>Value);
+}
+
+<span class="kw">impl</span>&lt;O: IsA&lt;TreeStore&gt;&gt; TreeStoreExtManual <span class="kw">for </span>O {
+    <span class="kw">fn </span>insert_with_values(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TreeIter&gt;,
+        position: <span class="prelude-ty">Option</span>&lt;u32&gt;,
+        columns_and_values: <span class="kw-2">&amp;</span>[(u32, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)],
+    ) -&gt; TreeIter {
+        <span class="kw">unsafe </span>{
+            <span class="macro">assert!</span>(
+                position.unwrap_or(<span class="number">0</span>) &lt;= i32::max_value() <span class="kw">as </span>u32,
+                <span class="string">&quot;can&#39;t have more than {} rows&quot;</span>,
+                i32::max_value()
+            );
+            <span class="kw">let </span>n_columns = ffi::gtk_tree_model_get_n_columns(
+                <span class="self">self</span>.as_ref().upcast_ref::&lt;TreeModel&gt;().to_glib_none().<span class="number">0</span>,
+            ) <span class="kw">as </span>u32;
+            <span class="macro">assert!</span>(
+                columns_and_values.len() &lt;= n_columns <span class="kw">as </span>usize,
+                <span class="string">&quot;got values for {} columns but only {} columns exist&quot;</span>,
+                columns_and_values.len(),
+                n_columns
+            );
+            <span class="kw">for </span>(column, value) <span class="kw">in </span>columns_and_values {
+                <span class="macro">assert!</span>(
+                    <span class="kw-2">*</span>column &lt; n_columns,
+                    <span class="string">&quot;got column {} which is higher than the number of columns {}&quot;</span>,
+                    <span class="kw-2">*</span>column,
+                    n_columns
+                );
+                <span class="kw">let </span>type_ = from_glib(ffi::gtk_tree_model_get_column_type(
+                    <span class="self">self</span>.as_ref().upcast_ref::&lt;TreeModel&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="kw-2">*</span>column <span class="kw">as </span>c_int,
+                ));
+                <span class="macro">assert!</span>(
+                    Value::type_transformable(value.value_type(), type_),
+                    <span class="string">&quot;column {} is of type {} but found value of type {}&quot;</span>,
+                    <span class="kw-2">*</span>column,
+                    type_,
+                    value.value_type()
+                );
+            }
+
+            <span class="kw">let </span>columns = columns_and_values
+                .iter()
+                .map(|(c, <span class="kw">_</span>)| <span class="kw-2">*</span>c)
+                .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+            <span class="kw">let </span>values = columns_and_values
+                .iter()
+                .map(|(<span class="kw">_</span>, v)| v.to_value())
+                .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+
+            <span class="kw">let </span><span class="kw-2">mut </span>iter = TreeIter::uninitialized();
+            ffi::gtk_tree_store_insert_with_valuesv(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                mut_override(parent.to_glib_none().<span class="number">0</span>),
+                position.map_or(-<span class="number">1</span>, |n| n <span class="kw">as </span>c_int),
+                mut_override(columns.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span>c_int),
+                mut_override(values.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span>glib::gobject_ffi::GValue),
+                columns.len() <span class="kw">as </span>c_int,
+            );
+            iter
+        }
+    }
+
+    <span class="kw">fn </span>reorder(<span class="kw-2">&amp;</span><span class="self">self</span>, parent: <span class="kw-2">&amp;</span>TreeIter, new_order: <span class="kw-2">&amp;</span>[u32]) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span>count = ffi::gtk_tree_model_iter_n_children(
+                <span class="self">self</span>.as_ref().upcast_ref::&lt;TreeModel&gt;().to_glib_none().<span class="number">0</span>,
+                mut_override(parent.to_glib_none().<span class="number">0</span>),
+            );
+            <span class="kw">let </span>safe_count = count <span class="kw">as </span>usize == new_order.len();
+            <span class="macro">debug_assert!</span>(
+                safe_count,
+                <span class="string">&quot;Incorrect `new_order` slice length. Expected `{}`, found `{}`.&quot;</span>,
+                count,
+                new_order.len()
+            );
+            <span class="kw">let </span>safe_values = new_order.iter().max().map_or(<span class="bool-val">true</span>, |<span class="kw-2">&amp;</span>max| {
+                <span class="kw">let </span>max = max <span class="kw">as </span>i32;
+                max &gt;= <span class="number">0 </span>&amp;&amp; max &lt; count
+            });
+            <span class="macro">debug_assert!</span>(
+                safe_values,
+                <span class="string">&quot;Some `new_order` slice values are out of range. Maximum safe value: \
+                 `{}`. The slice contents: `{:?}`&quot;</span>,
+                count - <span class="number">1</span>,
+                new_order
+            );
+            <span class="kw">if </span>safe_count &amp;&amp; safe_values {
+                ffi::gtk_tree_store_reorder(
+                    <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                    mut_override(parent.to_glib_none().<span class="number">0</span>),
+                    mut_override(new_order.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span>c_int),
+                );
+            }
+        }
+    }
+
+    <span class="kw">fn </span>set(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TreeIter, columns_and_values: <span class="kw-2">&amp;</span>[(u32, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)]) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span>n_columns = ffi::gtk_tree_model_get_n_columns(
+                <span class="self">self</span>.as_ref().upcast_ref::&lt;TreeModel&gt;().to_glib_none().<span class="number">0</span>,
+            ) <span class="kw">as </span>u32;
+            <span class="macro">assert!</span>(
+                columns_and_values.len() &lt;= n_columns <span class="kw">as </span>usize,
+                <span class="string">&quot;got values for {} columns but only {} columns exist&quot;</span>,
+                columns_and_values.len(),
+                n_columns
+            );
+            <span class="kw">for </span>(column, value) <span class="kw">in </span>columns_and_values {
+                <span class="macro">assert!</span>(
+                    <span class="kw-2">*</span>column &lt; n_columns,
+                    <span class="string">&quot;got column {} which is higher than the number of columns {}&quot;</span>,
+                    <span class="kw-2">*</span>column,
+                    n_columns
+                );
+                <span class="kw">let </span>type_ = from_glib(ffi::gtk_tree_model_get_column_type(
+                    <span class="self">self</span>.as_ref().upcast_ref::&lt;TreeModel&gt;().to_glib_none().<span class="number">0</span>,
+                    <span class="kw-2">*</span>column <span class="kw">as </span>c_int,
+                ));
+                <span class="macro">assert!</span>(
+                    Value::type_transformable(value.value_type(), type_),
+                    <span class="string">&quot;column {} is of type {} but found value of type {}&quot;</span>,
+                    <span class="kw-2">*</span>column,
+                    type_,
+                    value.value_type()
+                );
+            }
+
+            <span class="kw">let </span>columns = columns_and_values
+                .iter()
+                .map(|(c, <span class="kw">_</span>)| <span class="kw-2">*</span>c)
+                .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+            <span class="kw">let </span>values = columns_and_values
+                .iter()
+                .map(|(<span class="kw">_</span>, v)| v.to_value())
+                .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+
+            ffi::gtk_tree_store_set_valuesv(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mut_override(iter.to_glib_none().<span class="number">0</span>),
+                mut_override(columns.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span>c_int),
+                mut_override(values.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span>glib::gobject_ffi::GValue),
+                columns.len() <span class="kw">as </span>c_int,
+            );
+        }
+    }
+
+    <span class="kw">fn </span>set_value(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TreeIter, column: u32, value: <span class="kw-2">&amp;</span>Value) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span>columns = ffi::gtk_tree_model_get_n_columns(
+                <span class="self">self</span>.as_ref().upcast_ref::&lt;TreeModel&gt;().to_glib_none().<span class="number">0</span>,
+            ) <span class="kw">as </span>u32;
+            <span class="macro">assert!</span>(
+                column &lt; columns,
+                <span class="string">&quot;got column {} which is higher than the number of columns {}&quot;</span>,
+                column,
+                columns
+            );
+
+            <span class="kw">let </span>type_ = from_glib(ffi::gtk_tree_model_get_column_type(
+                <span class="self">self</span>.as_ref().upcast_ref::&lt;TreeModel&gt;().to_glib_none().<span class="number">0</span>,
+                column <span class="kw">as </span>c_int,
+            ));
+            <span class="macro">assert!</span>(
+                Value::type_transformable(value.type_(), type_),
+                <span class="string">&quot;column {} is of type {} but found value of type {}&quot;</span>,
+                column,
+                type_,
+                value.type_()
+            );
+
+            ffi::gtk_tree_store_set_value(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mut_override(iter.to_glib_none().<span class="number">0</span>),
+                column <span class="kw">as </span>c_int,
+                mut_override(value.to_glib_none().<span class="number">0</span>),
+            );
+        }
+    }
+}
+</code></pre></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (ce36e8825 2022-08-28)" ></div></body></html>

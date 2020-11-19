@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `WidgetExtManual` trait in crate `gtk`."><meta name="keywords" content="rust, rustlang, rust-lang, WidgetExtManual"><title>WidgetExtManual in gtk::prelude - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.14" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.14") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../gtk/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a><p class="location">Trait WidgetExtManual</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.add_events">add_events</a><a href="#tymethod.add_tick_callback">add_tick_callback</a><a href="#tymethod.connect_map_event">connect_map_event</a><a href="#tymethod.connect_unmap_event">connect_unmap_event</a><a href="#tymethod.destroy">destroy</a><a href="#tymethod.drag_dest_set">drag_dest_set</a><a href="#tymethod.drag_source_set">drag_source_set</a><a href="#tymethod.events">events</a><a href="#tymethod.hide_on_delete">hide_on_delete</a><a href="#tymethod.intersect">intersect</a><a href="#tymethod.set_events">set_events</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class="location">Other items in<br><a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a></p><div id="sidebar-vars" data-name="WidgetExtManual" data-ty="trait" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Trait <a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a>::<wbr><a class="trait" href="#">WidgetExtManual</a><button id="copy-path" onclick="copy_path(this)" title="copy path"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item import" title="Copy item import to clipboard"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../src/gtk/widget.rs.html#30-284" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust trait">pub trait WidgetExtManual: 'static {
+    fn <a href="#tymethod.drag_dest_set" class="fnname">drag_dest_set</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flags: <a class="struct" href="../struct.DestDefaults.html" title="struct gtk::DestDefaults">DestDefaults</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;targets: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="struct" href="../struct.TargetEntry.html" title="struct gtk::TargetEntry">TargetEntry</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;actions: <a class="struct" href="../../gdk/auto/flags/struct.DragAction.html" title="struct gdk::auto::flags::DragAction">DragAction</a><br>&nbsp;&nbsp;&nbsp;&nbsp;);
+<div class="item-spacer"></div>    fn <a href="#tymethod.drag_source_set" class="fnname">drag_source_set</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start_button_mask: <a class="struct" href="../../gdk/auto/flags/struct.ModifierType.html" title="struct gdk::auto::flags::ModifierType">ModifierType</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;targets: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="struct" href="../struct.TargetEntry.html" title="struct gtk::TargetEntry">TargetEntry</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;actions: <a class="struct" href="../../gdk/auto/flags/struct.DragAction.html" title="struct gdk::auto::flags::DragAction">DragAction</a><br>&nbsp;&nbsp;&nbsp;&nbsp;);
+<div class="item-spacer"></div>    fn <a href="#tymethod.intersect" class="fnname">intersect</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;area: &amp;<a class="struct" href="../struct.Rectangle.html" title="struct gtk::Rectangle">Rectangle</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;intersection: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;mut <a class="struct" href="../struct.Rectangle.html" title="struct gtk::Rectangle">Rectangle</a>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.connect_map_event" class="fnname">connect_map_event</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../../gdk/event/struct.Event.html" title="struct gdk::event::Event">Event</a>) -&gt; <a class="struct" href="../struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.connect_unmap_event" class="fnname">connect_unmap_event</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../../gdk/event/struct.Event.html" title="struct gdk::event::Event">Event</a>) -&gt; <a class="struct" href="../struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.add_tick_callback" class="fnname">add_tick_callback</a>&lt;P:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../../gdk/auto/frame_clock/struct.FrameClock.html" title="struct gdk::auto::frame_clock::FrameClock">FrameClock</a>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/source/struct.Continue.html" title="struct glib::source::Continue">Continue</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callback: P<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../struct.TickCallbackId.html" title="struct gtk::TickCallbackId">TickCallbackId</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.add_events" class="fnname">add_events</a>(&amp;self, events: <a class="struct" href="../../gdk/auto/flags/struct.EventMask.html" title="struct gdk::auto::flags::EventMask">EventMask</a>);
+<div class="item-spacer"></div>    fn <a href="#tymethod.events" class="fnname">events</a>(&amp;self) -&gt; <a class="struct" href="../../gdk/auto/flags/struct.EventMask.html" title="struct gdk::auto::flags::EventMask">EventMask</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.set_events" class="fnname">set_events</a>(&amp;self, events: <a class="struct" href="../../gdk/auto/flags/struct.EventMask.html" title="struct gdk::auto::flags::EventMask">EventMask</a>);
+<div class="item-spacer"></div>    unsafe fn <a href="#tymethod.destroy" class="fnname">destroy</a>(&amp;self);
+<div class="item-spacer"></div>    fn <a href="#tymethod.hide_on_delete" class="fnname">hide_on_delete</a>(&amp;self) -&gt; <a class="struct" href="../struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a>;
+}</pre></div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><div id="tymethod.drag_dest_set" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/widget.rs.html#84" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.drag_dest_set" class="fnname">drag_dest_set</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;flags: <a class="struct" href="../struct.DestDefaults.html" title="struct gtk::DestDefaults">DestDefaults</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;targets: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="struct" href="../struct.TargetEntry.html" title="struct gtk::TargetEntry">TargetEntry</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;actions: <a class="struct" href="../../gdk/auto/flags/struct.DragAction.html" title="struct gdk::auto::flags::DragAction">DragAction</a><br>)</code></div></summary><div class="docblock"><p>Sets a widget as a potential drop destination, and adds default behaviors.</p>
+<p>The default behaviors listed in <code>flags</code> have an effect similar
+to installing default handlers for the widget’s drag-and-drop signals
+(<code>signal::Widget::drag-motion</code>, <code>signal::Widget::drag-drop</code>, …). They all exist
+for convenience. When passing <a href="../struct.DestDefaults.html#associatedconstant.ALL" title="crate::DestDefaults::ALL"><code>DestDefaults::ALL</code></a> for instance it is
+sufficient to connect to the widget’s <code>signal::Widget::drag-data-received</code>
+signal to get primitive, but consistent drag-and-drop support.</p>
+<p>Things become more complicated when you try to preview the dragged data,
+as described in the documentation for <code>signal::Widget::drag-motion</code>. The default
+behaviors described by <code>flags</code> make some assumptions, that can conflict
+with your own signal handlers. For instance <a href="../struct.DestDefaults.html#associatedconstant.DROP" title="crate::DestDefaults::DROP"><code>DestDefaults::DROP</code></a> causes
+invokations of <code>gdk_drag_status()</code> in the context of <code>signal::Widget::drag-motion</code>,
+and invokations of <code>gtk_drag_finish()</code> in <code>signal::Widget::drag-data-received</code>.
+Especially the later is dramatic, when your own <code>signal::Widget::drag-motion</code>
+handler calls <a href="trait.WidgetExt.html#tymethod.drag_get_data" title="crate::prelude::WidgetExt::drag_get_data()"><code>WidgetExt::drag_get_data()</code></a> to inspect the dragged data.</p>
+<p>There’s no way to set a default action here, you can use the
+<code>signal::Widget::drag-motion</code> callback for that. Here’s an example which selects
+the action to use depending on whether the control key is pressed or not:</p>
+<p><strong>⚠️ The following code is in C ⚠️</strong></p>
+<pre><code class="language-C">static void
+drag_motion (GtkWidget *widget,
+             GdkDragContext *context,
+             gint x,
+             gint y,
+             guint time)
+{
+  GdkModifierType mask;
+
+  gdk_window_get_pointer (gtk_widget_get_window (widget),
+                          NULL, NULL, &amp;mask);
+  if (mask &amp; GDK_CONTROL_MASK)
+    gdk_drag_status (context, GDK_ACTION_COPY, time);
+  else
+    gdk_drag_status (context, GDK_ACTION_MOVE, time);
+}
+</code></pre>
+<h2 id="flags" class="section-header"><a href="#flags"><code>flags</code></a></h2>
+<p>which types of default drag behavior to use</p>
+<h2 id="targets" class="section-header"><a href="#targets"><code>targets</code></a></h2>
+<p>a pointer to an array of
+<code>GtkTargetEntrys</code> indicating the drop types that this <code>self</code> will
+accept, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a>. Later you can access the list with
+<a href="trait.WidgetExt.html#tymethod.drag_dest_get_target_list" title="crate::prelude::WidgetExt::drag_dest_get_target_list()"><code>WidgetExt::drag_dest_get_target_list()</code></a> and <a href="trait.WidgetExt.html#tymethod.drag_dest_find_target" title="crate::prelude::WidgetExt::drag_dest_find_target()"><code>WidgetExt::drag_dest_find_target()</code></a>.</p>
+<h2 id="actions" class="section-header"><a href="#actions"><code>actions</code></a></h2>
+<p>a bitmask of possible actions for a drop onto this <code>self</code>.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.drag_source_set" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/widget.rs.html#96-101" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.drag_source_set" class="fnname">drag_source_set</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;start_button_mask: <a class="struct" href="../../gdk/auto/flags/struct.ModifierType.html" title="struct gdk::auto::flags::ModifierType">ModifierType</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;targets: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="struct" href="../struct.TargetEntry.html" title="struct gtk::TargetEntry">TargetEntry</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;actions: <a class="struct" href="../../gdk/auto/flags/struct.DragAction.html" title="struct gdk::auto::flags::DragAction">DragAction</a><br>)</code></div></summary><div class="docblock"><p>Sets up a widget so that GTK+ will start a drag operation when the user
+clicks and drags on the widget. The widget must have a window.</p>
+<h2 id="start_button_mask" class="section-header"><a href="#start_button_mask"><code>start_button_mask</code></a></h2>
+<p>the bitmask of buttons that can start the drag</p>
+<h2 id="targets-1" class="section-header"><a href="#targets-1"><code>targets</code></a></h2>
+<p>the table of targets
+that the drag will support, may be <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<h2 id="actions-1" class="section-header"><a href="#actions-1"><code>actions</code></a></h2>
+<p>the bitmask of possible actions for a drag from this widget</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.intersect" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/widget.rs.html#118" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.intersect" class="fnname">intersect</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;area: &amp;<a class="struct" href="../struct.Rectangle.html" title="struct gtk::Rectangle">Rectangle</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;intersection: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;mut <a class="struct" href="../struct.Rectangle.html" title="struct gtk::Rectangle">Rectangle</a>&gt;<br>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></div></summary><div class="docblock"><p>Computes the intersection of a <code>self</code>’s area and <code>area</code>, storing
+the intersection in <code>intersection</code>, and returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if there was
+an intersection. <code>intersection</code> may be <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if you’re only
+interested in whether there was an intersection.</p>
+<h2 id="area" class="section-header"><a href="#area"><code>area</code></a></h2>
+<p>a rectangle</p>
+<h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if there was an intersection</p>
+<h2 id="intersection" class="section-header"><a href="#intersection"><code>intersection</code></a></h2>
+<p>rectangle to store
+intersection of <code>self</code> and <code>area</code></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.connect_map_event" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/widget.rs.html#133-134" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.connect_map_event" class="fnname">connect_map_event</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../../gdk/event/struct.Event.html" title="struct gdk::event::Event">Event</a>) -&gt; <a class="struct" href="../struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code></div></summary><div class="docblock"><p>The ::map-event signal will be emitted when the <code>widget</code>’s window is
+mapped. A window is mapped when it becomes visible on the screen.</p>
+<p>To receive this signal, the <a href="../../gdk/auto/window/struct.Window.html" title="crate::gdk::Window"><code>gdk::Window</code></a> associated to the widget needs
+to enable the <a href="../../gdk/auto/flags/struct.EventMask.html#associatedconstant.STRUCTURE_MASK" title="crate::gdk::EventMask::STRUCTURE_MASK"><code>gdk::EventMask::STRUCTURE_MASK</code></a> mask. GDK will enable this mask
+automatically for all new windows.</p>
+<h2 id="event" class="section-header"><a href="#event"><code>event</code></a></h2>
+<p>the <code>GdkEventAny</code> which triggered this signal.</p>
+<h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to stop other handlers from being invoked for the event.
+<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> to propagate the event further.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.connect_unmap_event" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/widget.rs.html#149-152" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.connect_unmap_event" class="fnname">connect_unmap_event</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../../gdk/event/struct.Event.html" title="struct gdk::event::Event">Event</a>) -&gt; <a class="struct" href="../struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code></div></summary><div class="docblock"><p>The ::unmap-event signal will be emitted when the <code>widget</code>’s window is
+unmapped. A window is unmapped when it becomes invisible on the screen.</p>
+<p>To receive this signal, the <a href="../../gdk/auto/window/struct.Window.html" title="crate::gdk::Window"><code>gdk::Window</code></a> associated to the widget needs
+to enable the <a href="../../gdk/auto/flags/struct.EventMask.html#associatedconstant.STRUCTURE_MASK" title="crate::gdk::EventMask::STRUCTURE_MASK"><code>gdk::EventMask::STRUCTURE_MASK</code></a> mask. GDK will enable this mask
+automatically for all new windows.</p>
+<h2 id="event-1" class="section-header"><a href="#event-1"><code>event</code></a></h2>
+<p>the <code>GdkEventAny</code> which triggered this signal</p>
+<h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> to stop other handlers from being invoked for the event.
+<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> to propagate the event further.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.add_tick_callback" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/widget.rs.html#184-187" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.add_tick_callback" class="fnname">add_tick_callback</a>&lt;P:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../../gdk/auto/frame_clock/struct.FrameClock.html" title="struct gdk::auto::frame_clock::FrameClock">FrameClock</a>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/source/struct.Continue.html" title="struct glib::source::Continue">Continue</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;callback: P<br>) -&gt; <a class="struct" href="../struct.TickCallbackId.html" title="struct gtk::TickCallbackId">TickCallbackId</a></code></div></summary><div class="docblock"><p>Queues an animation frame update and adds a callback to be called
+before each frame. Until the tick callback is removed, it will be
+called frequently (usually at the frame rate of the output device
+or as quickly as the application can be repainted, whichever is
+slower). For this reason, is most suitable for handling graphics
+that change every frame or every few frames. The tick callback does
+not automatically imply a relayout or repaint. If you want a
+repaint or relayout, and aren’t changing widget properties that
+would trigger that (for example, changing the text of a <a href="../struct.Label.html" title="crate::Label"><code>Label</code></a>),
+then you will have to call <a href="trait.WidgetExt.html#tymethod.queue_resize" title="crate::prelude::WidgetExt::queue_resize()"><code>WidgetExt::queue_resize()</code></a> or
+<a href="trait.WidgetExt.html#tymethod.queue_draw_area" title="crate::prelude::WidgetExt::queue_draw_area()"><code>WidgetExt::queue_draw_area()</code></a> yourself.</p>
+<p><a href="../../gdk/auto/frame_clock/struct.FrameClock.html#method.frame_time" title="crate::gdk::FrameClock::frame_time()"><code>FrameClock::frame_time()</code></a> should generally be used for timing
+continuous animations and
+<code>gdk_frame_timings_get_predicted_presentation_time()</code> if you are
+trying to display isolated frames at particular times.</p>
+<p>This is a more convenient alternative to connecting directly to the
+<code>signal::gdk::FrameClock::update</code> signal of <a href="../../gdk/auto/frame_clock/struct.FrameClock.html" title="crate::gdk::FrameClock"><code>gdk::FrameClock</code></a>, since you don’t
+have to worry about when a <a href="../../gdk/auto/frame_clock/struct.FrameClock.html" title="crate::gdk::FrameClock"><code>gdk::FrameClock</code></a> is assigned to a widget.</p>
+<h2 id="callback" class="section-header"><a href="#callback"><code>callback</code></a></h2>
+<p>function to call for updating animations</p>
+<h2 id="notify" class="section-header"><a href="#notify"><code>notify</code></a></h2>
+<p>function to call to free <code>user_data</code> when the callback is removed.</p>
+<h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
+<p>an id for the connection of this callback. Remove the callback
+by passing it to <code>gtk_widget_remove_tick_callback()</code></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.add_events" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/widget.rs.html#195" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.add_events" class="fnname">add_events</a>(&amp;self, events: <a class="struct" href="../../gdk/auto/flags/struct.EventMask.html" title="struct gdk::auto::flags::EventMask">EventMask</a>)</code></div></summary><div class="docblock"><p>Adds the events in the bitfield <code>events</code> to the event mask for
+<code>self</code>. See <a href="trait.WidgetExtManual.html#tymethod.set_events" title="crate::prelude::WidgetExtManual::set_events()"><code>WidgetExtManual::set_events()</code></a> and the
+[input handling overview][event-masks] for details.</p>
+<h2 id="events" class="section-header"><a href="#events"><code>events</code></a></h2>
+<p>an event mask, see <a href="../../gdk/auto/flags/struct.EventMask.html" title="crate::gdk::EventMask"><code>gdk::EventMask</code></a></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.events" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/widget.rs.html#210" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.events" class="fnname">events</a>(&amp;self) -&gt; <a class="struct" href="../../gdk/auto/flags/struct.EventMask.html" title="struct gdk::auto::flags::EventMask">EventMask</a></code></div></summary><div class="docblock"><p>Returns the event mask (see <a href="../../gdk/auto/flags/struct.EventMask.html" title="crate::gdk::EventMask"><code>gdk::EventMask</code></a>) for the widget. These are the
+events that the widget will receive.</p>
+<p>Note: Internally, the widget event mask will be the logical OR of the event
+mask set through <a href="trait.WidgetExtManual.html#tymethod.set_events" title="crate::prelude::WidgetExtManual::set_events()"><code>WidgetExtManual::set_events()</code></a> or <a href="trait.WidgetExtManual.html#tymethod.add_events" title="crate::prelude::WidgetExtManual::add_events()"><code>WidgetExtManual::add_events()</code></a>, and the
+event mask necessary to cater for every <a href="../struct.EventController.html" title="crate::EventController"><code>EventController</code></a> created for the
+widget.</p>
+<h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
+<p>event mask for <code>self</code></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.set_events" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/widget.rs.html#226" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.set_events" class="fnname">set_events</a>(&amp;self, events: <a class="struct" href="../../gdk/auto/flags/struct.EventMask.html" title="struct gdk::auto::flags::EventMask">EventMask</a>)</code></div></summary><div class="docblock"><p>Sets the event mask (see <a href="../../gdk/auto/flags/struct.EventMask.html" title="crate::gdk::EventMask"><code>gdk::EventMask</code></a>) for a widget. The event
+mask determines which events a widget will receive. Keep in mind
+that different widgets have different default event masks, and by
+changing the event mask you may disrupt a widget’s functionality,
+so be careful. This function must be called while a widget is
+unrealized. Consider <a href="trait.WidgetExtManual.html#tymethod.add_events" title="crate::prelude::WidgetExtManual::add_events()"><code>WidgetExtManual::add_events()</code></a> for widgets that are
+already realized, or if you want to preserve the existing event
+mask. This function can’t be used with widgets that have no window.
+(See <a href="trait.WidgetExt.html#tymethod.has_window" title="crate::prelude::WidgetExt::has_window()"><code>WidgetExt::has_window()</code></a>). To get events on those widgets,
+place them inside a <a href="../struct.EventBox.html" title="crate::EventBox"><code>EventBox</code></a> and receive events on the event
+box.</p>
+<h2 id="events-1" class="section-header"><a href="#events-1"><code>events</code></a></h2>
+<p>event mask</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.destroy" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/widget.rs.html#269" title="goto source code">[src]</a></div><code>unsafe fn <a href="#tymethod.destroy" class="fnname">destroy</a>(&amp;self)</code></div></summary><div class="docblock"><p>Calls <code>gtk_widget_destroy()</code> on this widget.</p>
+<h1 id="safety" class="section-header"><a href="#safety">Safety</a></h1>
+<p>This will not necessarily entirely remove the widget from existence but
+you must <em>NOT</em> query the widget’s state subsequently.  Do not call this
+yourself unless you really mean to.
+Destroys a widget.</p>
+<p>When a widget is destroyed all references it holds on other objects
+will be released:</p>
+<ul>
+<li>if the widget is inside a container, it will be removed from its
+parent</li>
+<li>if the widget is a container, all its children will be destroyed,
+recursively</li>
+<li>if the widget is a top level, it will be removed from the list
+of top level widgets that GTK+ maintains internally</li>
+</ul>
+<p>It’s expected that all references held on the widget will also
+be released; you should connect to the <code>signal::Widget::destroy</code> signal
+if you hold a reference to <code>self</code> and you wish to remove it when
+this function is called. It is not necessary to do so if you are
+implementing a <a href="../struct.Container.html" title="crate::Container"><code>Container</code></a>, as you’ll be able to use the
+<code>GtkContainerClass.remove()</code> virtual function for that.</p>
+<p>It’s important to notice that <code>gtk_widget_destroy()</code> will only cause
+the <code>self</code> to be finalized if no additional references, acquired
+using <code>g_object_ref()</code>, are held on it. In case additional references
+are in place, the <code>self</code> will be in an “inert” state after calling
+this function; <code>self</code> will still point to valid memory, allowing you
+to release the references you hold, but you may not query the widget’s
+own state.</p>
+<p>You should typically call this function on top level widgets, and
+rarely on child widgets.</p>
+<p>See also: <a href="trait.ContainerExt.html#tymethod.remove" title="crate::prelude::ContainerExt::remove()"><code>ContainerExt::remove()</code></a></p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.hide_on_delete" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/widget.rs.html#283" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.hide_on_delete" class="fnname">hide_on_delete</a>(&amp;self) -&gt; <a class="struct" href="../struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a></code></div></summary><div class="docblock"><p>Utility function; intended to be connected to the <code>signal::Widget::delete-event</code>
+signal on a <a href="../struct.Window.html" title="crate::Window"><code>Window</code></a>. The function calls <a href="trait.WidgetExt.html#tymethod.hide" title="crate::prelude::WidgetExt::hide()"><code>WidgetExt::hide()</code></a> on its
+argument, then returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a>. If connected to ::delete-event, the
+result is that clicking the close button for a window (on the
+window frame, top right corner usually) will hide but not destroy
+the window. By default, GTK+ destroys windows when ::delete-event
+is received.</p>
+<h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a></p>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div class="item-list" id="implementors-list"><div id="impl-WidgetExtManual" class="impl has-srclink"><div class="rightside"><a class="srclink" href="../../src/gtk/widget.rs.html#286-475" title="goto source code">[src]</a></div><a href="#impl-WidgetExtManual" class="anchor"></a><code class="in-band">impl&lt;O:&nbsp;<a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;&gt; <a class="trait" href="trait.WidgetExtManual.html" title="trait gtk::prelude::WidgetExtManual">WidgetExtManual</a> for O</code></div></div><script type="text/javascript" src="../../implementors/gtk/prelude/trait.WidgetExtManual.js" async></script></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gtk" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
+    <script src="../../main.js"></script>
+</body></html>

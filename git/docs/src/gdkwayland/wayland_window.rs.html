@@ -1,0 +1,317 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdkwayland/src/wayland_window.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>wayland_window.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("master" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "master") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../gdkwayland/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../gdkwayland/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../gdkwayland/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<span id="2">2</span>
+<span id="3">3</span>
+<span id="4">4</span>
+<span id="5">5</span>
+<span id="6">6</span>
+<span id="7">7</span>
+<span id="8">8</span>
+<span id="9">9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
+<span id="89">89</span>
+<span id="90">90</span>
+<span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
+<span id="94">94</span>
+<span id="95">95</span>
+<span id="96">96</span>
+<span id="97">97</span>
+<span id="98">98</span>
+<span id="99">99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+</pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
+
+</span><span class="kw">use </span>gdk::Atom;
+<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
+
+<span class="macro">glib::wrapper! </span>{
+    <span class="attribute">#[doc(alias = <span class="string">&quot;GdkWaylandWindow&quot;</span>)]
+    </span><span class="kw">pub struct </span>WaylandWindow(Object&lt;ffi::GdkWaylandWindow&gt;) @extends gdk::Window;
+
+    <span class="kw">match fn </span>{
+        type_ =&gt; || ffi::gdk_wayland_window_get_type(),
+    }
+}
+
+<span class="kw">impl </span>WaylandWindow {
+    <span class="attribute">#[doc(alias = <span class="string">&quot;gdk_wayland_selection_add_targets&quot;</span>)]
+    </span><span class="kw">pub fn </span>selection_add_targets(<span class="kw-2">&amp;</span><span class="self">self</span>, selection: <span class="kw-2">&amp;</span>Atom, targets: <span class="kw-2">&amp;</span>[Atom]) {
+        <span class="kw">unsafe </span>{
+            ffi::gdk_wayland_selection_add_targets(
+                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+                selection.to_glib_none().<span class="number">0</span>,
+                targets.len() <span class="kw">as _</span>,
+                targets.to_glib_none().<span class="number">0</span>,
+            )
+        }
+    }
+
+    <span class="attribute">#[doc(alias = <span class="string">&quot;gdk_wayland_window_set_use_custom_surface&quot;</span>)]
+    </span><span class="kw">pub fn </span>set_use_custom_surface(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{ ffi::gdk_wayland_window_set_use_custom_surface(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
+    }
+
+    <span class="attribute">#[doc(alias = <span class="string">&quot;gdk_wayland_window_unexport_handle&quot;</span>)]
+    </span><span class="kw">pub fn </span>unexport_handle(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{ ffi::gdk_wayland_window_unexport_handle(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
+    }
+
+    <span class="attribute">#[doc(alias = <span class="string">&quot;gdk_wayland_window_export_handle&quot;</span>)]
+    </span><span class="kw">pub fn </span>export_handle&lt;P: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, callback: P) -&gt; bool {
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>callback_trampoline&lt;P: Fn(<span class="kw-2">&amp;</span>WaylandWindow, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(
+            window: <span class="kw-2">*mut </span>ffi::GdkWaylandWindow,
+            handle: <span class="kw-2">*const </span>libc::c_char,
+            user_data: glib::ffi::gpointer,
+        ) {
+            <span class="kw">let </span>window = from_glib_borrow(window);
+            <span class="kw">let </span>handle: Borrowed&lt;glib::GString&gt; = from_glib_borrow(handle);
+            <span class="kw">let </span>callback: <span class="kw-2">&amp;</span>P = <span class="kw-2">&amp;*</span>(user_data <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+            (<span class="kw-2">*</span>callback)(<span class="kw-2">&amp;</span>window, handle.as_str());
+        }
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>destroy_notify&lt;P: Fn(<span class="kw-2">&amp;</span>WaylandWindow, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(
+            data: glib::ffi::gpointer,
+        ) {
+            <span class="kw">let _ </span>= Box::from_raw(data <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+        }
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gdk_wayland_window_export_handle(
+                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+                <span class="prelude-val">Some</span>(callback_trampoline::&lt;P&gt; <span class="kw">as _</span>),
+                Box::into_raw(Box::new(callback)) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(destroy_notify::&lt;P&gt; <span class="kw">as _</span>),
+            ))
+        }
+    }
+
+    <span class="attribute">#[doc(alias = <span class="string">&quot;gdk_wayland_window_set_dbus_properties_libgtk_only&quot;</span>)]
+    </span><span class="kw">pub fn </span>set_dbus_properties_libgtk_only(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        application_id: <span class="kw-2">&amp;</span>str,
+        app_menu_path: <span class="kw-2">&amp;</span>str,
+        menubar_path: <span class="kw-2">&amp;</span>str,
+        window_object_path: <span class="kw-2">&amp;</span>str,
+        application_object_path: <span class="kw-2">&amp;</span>str,
+        unique_bus_name: <span class="kw-2">&amp;</span>str,
+    ) {
+        <span class="kw">unsafe </span>{
+            ffi::gdk_wayland_window_set_dbus_properties_libgtk_only(
+                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+                application_id.to_glib_none().<span class="number">0</span>,
+                app_menu_path.to_glib_none().<span class="number">0</span>,
+                menubar_path.to_glib_none().<span class="number">0</span>,
+                window_object_path.to_glib_none().<span class="number">0</span>,
+                application_object_path.to_glib_none().<span class="number">0</span>,
+                unique_bus_name.to_glib_none().<span class="number">0</span>,
+            )
+        }
+    }
+
+    <span class="attribute">#[doc(alias = <span class="string">&quot;gdk_wayland_window_set_transient_for_exported&quot;</span>)]
+    </span><span class="kw">pub fn </span>set_transient_for_exported(<span class="kw-2">&amp;</span><span class="self">self</span>, parent_handle: <span class="kw-2">&amp;</span>str) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gdk_wayland_window_set_transient_for_exported(
+                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+                parent_handle.to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
+
+    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24_22&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24_22&quot;</span>)))]
+    #[doc(alias = <span class="string">&quot;gdk_wayland_window_set_application_id&quot;</span>)]
+    </span><span class="kw">pub fn </span>set_application_id(<span class="kw-2">&amp;</span><span class="self">self</span>, application_id: <span class="kw-2">&amp;</span>str) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gdk_wayland_window_set_application_id(
+                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+                application_id.to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
+
+    <span class="attribute">#[doc(alias = <span class="string">&quot;gdk_wayland_window_announce_csd&quot;</span>)]
+    </span><span class="kw">pub fn </span>announce_csd(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{ ffi::gdk_wayland_window_announce_csd(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
+    }
+
+    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    #[doc(alias = <span class="string">&quot;gdk_wayland_window_announce_ssd&quot;</span>)]
+    </span><span class="kw">pub fn </span>announce_ssd(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{ ffi::gdk_wayland_window_announce_ssd(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
+    }
+}
+</code></pre></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gdkwayland" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (ce36e8825 2022-08-28)" ></div></body></html>

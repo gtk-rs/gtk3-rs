@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `TreeStoreExtManual` trait in crate `gtk`."><meta name="keywords" content="rust, rustlang, rust-lang, TreeStoreExtManual"><title>TreeStoreExtManual in gtk::prelude - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("master" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "master") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../gtk/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">TreeStoreExtManual</a></h2><div class="sidebar-elems"><section><div class="block"><h3 class="sidebar-title"><a href="#required-methods">Required Methods</a></h3><ul><li><a href="#tymethod.insert_with_values">insert_with_values</a></li><li><a href="#tymethod.reorder">reorder</a></li><li><a href="#tymethod.set">set</a></li><li><a href="#tymethod.set_value">set_value</a></li></ul></div><div class="block"><h3 class="sidebar-title"><a href="#implementors">Implementors</a></h3></div></section><h2 class="location"><a href="index.html">In gtk::prelude</a></h2></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../gtk/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn"><span class="in-band">Trait <a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a>::<wbr><a class="trait" href="#">TreeStoreExtManual</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../../src/gtk/tree_store.rs.html#41-88">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><div class="docblock item-decl"><pre class="rust trait"><code>pub trait TreeStoreExtManual: 'static {
+    fn <a href="#tymethod.insert_with_values" class="fnname">insert_with_values</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;columns_and_values: &amp;[(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, &amp;dyn <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html" title="trait glib::value::ToValue">ToValue</a>)]<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.reorder" class="fnname">reorder</a>(&amp;self, parent: &amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>, new_order: &amp;[<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>]);
+<span class="item-spacer"></span>    fn <a href="#tymethod.set" class="fnname">set</a>(&amp;self, iter: &amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>, columns_and_values: &amp;[(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, &amp;dyn <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html" title="trait glib::value::ToValue">ToValue</a>)]);
+<span class="item-spacer"></span>    fn <a href="#tymethod.set_value" class="fnname">set_value</a>(&amp;self, iter: &amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>, column: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, value: &amp;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>);
+}</code></pre></div><h2 id="required-methods" class="small-section-header">Required Methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><div id="tymethod.insert_with_values" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/tree_store.rs.html#43-48">source</a><h4 class="code-header">fn <a href="#tymethod.insert_with_values" class="fnname">insert_with_values</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;parent: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;position: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;columns_and_values: &amp;[(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, &amp;dyn <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html" title="trait glib::value::ToValue">ToValue</a>)]<br>) -&gt; <a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a></h4></div><details class="rustdoc-toggle" open><summary><div id="tymethod.reorder" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/tree_store.rs.html#60">source</a><h4 class="code-header">fn <a href="#tymethod.reorder" class="fnname">reorder</a>(&amp;self, parent: &amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>, new_order: &amp;[<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>])</h4></div></summary><div class="docblock"><p>Reorders the children of <code>parent</code> in <code>self</code> to follow the order
+indicated by <code>new_order</code>. Note that this function only works with
+unsorted stores.</p>
+<h6 id="parent"><a href="#parent"><code>parent</code></a></h6>
+<p>A <a href="../struct.TreeIter.html" title="crate::TreeIter"><code>TreeIter</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a></p>
+<h6 id="new_order"><a href="#new_order"><code>new_order</code></a></h6>
+<p>an array of integers mapping the new position of each child
+to its old position before the re-ordering,
+i.e. <code>new_order``[newpos] = oldpos</code>.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.set" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/tree_store.rs.html#75">source</a><h4 class="code-header">fn <a href="#tymethod.set" class="fnname">set</a>(&amp;self, iter: &amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>, columns_and_values: &amp;[(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, &amp;dyn <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html" title="trait glib::value::ToValue">ToValue</a>)])</h4></div></summary><div class="docblock"><p>Sets the value of one or more cells in the row referenced by <code>iter</code>.
+The variable argument list should contain integer column numbers,
+each column number followed by the value to be set.
+The list is terminated by a -1. For example, to set column 0 with type
+<code>G_TYPE_STRING</code> to “Foo”, you would write
+<code>gtk_tree_store_set (store, iter, 0, &quot;Foo&quot;, -1)</code>.</p>
+<p>The value will be referenced by the store if it is a <code>G_TYPE_OBJECT</code>, and it
+will be copied if it is a <code>G_TYPE_STRING</code> or <code>G_TYPE_BOXED</code>.</p>
+<h6 id="iter"><a href="#iter"><code>iter</code></a></h6>
+<p>A valid <a href="../struct.TreeIter.html" title="crate::TreeIter"><code>TreeIter</code></a> for the row being modified</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.set_value" class="method has-srclink"><a class="srclink rightside" href="../../src/gtk/tree_store.rs.html#87">source</a><h4 class="code-header">fn <a href="#tymethod.set_value" class="fnname">set_value</a>(&amp;self, iter: &amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>, column: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, value: &amp;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>)</h4></div></summary><div class="docblock"><p>Sets the data in the cell specified by <code>iter</code> and <code>column</code>.
+The type of <code>value</code> must be convertible to the type of the
+column.</p>
+<h6 id="iter-1"><a href="#iter-1"><code>iter</code></a></h6>
+<p>A valid <a href="../struct.TreeIter.html" title="crate::TreeIter"><code>TreeIter</code></a> for the row being modified</p>
+<h6 id="column"><a href="#column"><code>column</code></a></h6>
+<p>column number to modify</p>
+<h6 id="value"><a href="#value"><code>value</code></a></h6>
+<p>new value for the cell</p>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div class="item-list" id="implementors-list"><section id="impl-TreeStoreExtManual-for-O" class="impl has-srclink"><a class="srclink rightside" href="../../src/gtk/tree_store.rs.html#90-271">source</a><a href="#impl-TreeStoreExtManual-for-O" class="anchor"></a><h3 class="code-header in-band">impl&lt;O:&nbsp;<a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.TreeStore.html" title="struct gtk::TreeStore">TreeStore</a>&gt;&gt; <a class="trait" href="trait.TreeStoreExtManual.html" title="trait gtk::prelude::TreeStoreExtManual">TreeStoreExtManual</a> for O</h3></section></div><script src="../../implementors/gtk/tree_store/trait.TreeStoreExtManual.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (ce36e8825 2022-08-28)" ></div></body></html>

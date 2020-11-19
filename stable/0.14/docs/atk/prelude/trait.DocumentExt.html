@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all [`struct@Document`] methods."><meta name="keywords" content="rust, rustlang, rust-lang, DocumentExt"><title>DocumentExt in atk::prelude - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.14" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.14") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../atk/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a><p class="location">Trait DocumentExt</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.attribute_value">attribute_value</a><a href="#tymethod.connect_load_complete">connect_load_complete</a><a href="#tymethod.connect_load_stopped">connect_load_stopped</a><a href="#tymethod.connect_page_changed">connect_page_changed</a><a href="#tymethod.connect_reload">connect_reload</a><a href="#tymethod.current_page_number">current_page_number</a><a href="#tymethod.document_type">document_type</a><a href="#tymethod.page_count">page_count</a><a href="#tymethod.set_attribute_value">set_attribute_value</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class="location">Other items in<br><a href="../index.html">atk</a>::<wbr><a href="index.html">prelude</a></p><div id="sidebar-vars" data-name="DocumentExt" data-ty="trait" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Trait <a href="../index.html">atk</a>::<wbr><a href="index.html">prelude</a>::<wbr><a class="trait" href="#">DocumentExt</a><button id="copy-path" onclick="copy_path(this)" title="copy path"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item import" title="Copy item import to clipboard"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../src/atk/auto/document.rs.html#41-150" title="goto source code">[src]</a></span></h1><div class="docblock type-decl"><pre class="rust trait">pub trait DocumentExt: 'static {
+    fn <a href="#tymethod.attribute_value" class="fnname">attribute_value</a>(&amp;self, attribute_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;;
+<div class="item-spacer"></div>    fn <a href="#tymethod.current_page_number" class="fnname">current_page_number</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.document_type" class="fnname">document_type</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;;
+<div class="item-spacer"></div>    fn <a href="#tymethod.page_count" class="fnname">page_count</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.set_attribute_value" class="fnname">set_attribute_value</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attribute_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attribute_value: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.connect_load_complete" class="fnname">connect_load_complete</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.connect_load_stopped" class="fnname">connect_load_stopped</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.connect_page_changed" class="fnname">connect_page_changed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<div class="item-spacer"></div>    fn <a href="#tymethod.connect_reload" class="fnname">connect_reload</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+}</pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.Document.html" title="Document"><code>Document</code></a> methods.</p>
+<h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
+<p><a href="../struct.Document.html" title="crate::Document"><code>Document</code></a>, <a href="../struct.NoOpObject.html" title="crate::NoOpObject"><code>NoOpObject</code></a></p>
+</div></details><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><details class="rustdoc-toggle" open><summary><div id="tymethod.attribute_value" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/document.rs.html#54" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.attribute_value" class="fnname">attribute_value</a>(&amp;self, attribute_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code></div></summary><div class="docblock"><p>Retrieves the value of the given <code>attribute_name</code> inside <code>self</code>.</p>
+<h2 id="attribute_name" class="section-header"><a href="#attribute_name"><code>attribute_name</code></a></h2>
+<p>a character string representing the name of the attribute
+whose value is being queried.</p>
+<h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
+<p>a string value associated with the named
+attribute for this document, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if a value for
+<code>attribute_name</code> has not been specified for this document.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.current_page_number" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/document.rs.html#68" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.current_page_number" class="fnname">current_page_number</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code></div></summary><div class="docblock"><p>Retrieves the current page number inside <code>self</code>.</p>
+<h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
+<p>the current page number inside <code>self</code>, or -1 if
+not implemented, not know by the implementor, or irrelevant.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.document_type" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/document.rs.html#86" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.document_type" class="fnname">document_type</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code></div></summary><div class="docblock"><p>Gets a string indicating the document type.</p>
+<h1 id="deprecated" class="section-header"><a href="#deprecated">Deprecated</a></h1>
+<p>Since 2.12. Please use <code>atk_document_get_attributes()</code> to
+ask for the document type if it applies.</p>
+<h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
+<p>a string indicating the document type</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.page_count" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/document.rs.html#96" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.page_count" class="fnname">page_count</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code></div></summary><div class="docblock"><p>Retrieves the total number of pages inside <code>self</code>.</p>
+<h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
+<p>total page count of <code>self</code>, or -1 if not implemented,
+not know by the implementor or irrelevant.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.set_attribute_value" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/document.rs.html#111" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.set_attribute_value" class="fnname">set_attribute_value</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;attribute_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;attribute_value: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><br>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></div></summary><div class="docblock"><p>Sets the value for the given <code>attribute_name</code> inside <code>self</code>.</p>
+<h2 id="attribute_name-1" class="section-header"><a href="#attribute_name-1"><code>attribute_name</code></a></h2>
+<p>a character string representing the name of the attribute
+whose value is being set.</p>
+<h2 id="attribute_value" class="section-header"><a href="#attribute_value"><code>attribute_value</code></a></h2>
+<p>a string value to be associated with <code>attribute_name</code>.</p>
+<h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="true"><code>true</code></a> if <code>attribute_value</code> is successfully associated
+with <code>attribute_name</code> for this <code>self</code>, and <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="false"><code>false</code></a> if if the
+document does not allow the attribute to be modified</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.connect_load_complete" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/document.rs.html#123" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.connect_load_complete" class="fnname">connect_load_complete</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code></div></summary><div class="docblock"><p>The ‘load-complete’ signal is emitted when a pending load of
+a static document has completed. This signal is to be
+expected by ATK clients if and when AtkDocument implementors
+expose ATK_STATE_BUSY. If the state of an AtkObject which
+implements AtkDocument does not include ATK_STATE_BUSY, it
+should be safe for clients to assume that the AtkDocument’s
+static contents are fully loaded into the container.
+(Dynamic document contents should be exposed via other
+signals.)</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.connect_load_stopped" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/document.rs.html#132" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.connect_load_stopped" class="fnname">connect_load_stopped</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code></div></summary><div class="docblock"><p>The ‘load-stopped’ signal is emitted when a pending load of
+document contents is cancelled, paused, or otherwise
+interrupted by the user or application logic. It should not
+however be emitted while waiting for a resource (for instance
+while blocking on a file or network read) unless a
+user-significant timeout has occurred.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.connect_page_changed" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/document.rs.html#141" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.connect_page_changed" class="fnname">connect_page_changed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code></div></summary><div class="docblock"><p>The ‘page-changed’ signal is emitted when the current page of
+a document changes, e.g. pressing page up/down in a document
+viewer.</p>
+<h2 id="page_number" class="section-header"><a href="#page_number"><code>page_number</code></a></h2>
+<p>the new page number. If this value is unknown
+or not applicable, -1 should be provided.</p>
+</div></details><details class="rustdoc-toggle" open><summary><div id="tymethod.connect_reload" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/document.rs.html#149" title="goto source code">[src]</a></div><code>fn <a href="#tymethod.connect_reload" class="fnname">connect_reload</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code></div></summary><div class="docblock"><p>The ‘reload’ signal is emitted when the contents of a
+document is refreshed from its source. Once ‘reload’ has
+been emitted, a matching ‘load-complete’ or ‘load-stopped’
+signal should follow, which clients may await before
+interrogating ATK for the latest document content.</p>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor"></a></h2><div class="item-list" id="implementors-list"><div id="impl-DocumentExt" class="impl has-srclink"><div class="rightside"><a class="srclink" href="../../src/atk/auto/document.rs.html#152-283" title="goto source code">[src]</a></div><a href="#impl-DocumentExt" class="anchor"></a><code class="in-band">impl&lt;O:&nbsp;<a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.14/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Document.html" title="struct atk::Document">Document</a>&gt;&gt; <a class="trait" href="trait.DocumentExt.html" title="trait atk::prelude::DocumentExt">DocumentExt</a> for O</code></div></div><script type="text/javascript" src="../../implementors/atk/prelude/trait.DocumentExt.js" async></script></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="atk" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
+    <script src="../../main.js"></script>
+</body></html>
