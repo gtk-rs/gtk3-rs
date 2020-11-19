@@ -13,7 +13,6 @@ use glib::object::ObjectExt;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::value::SetValueOptional;
 use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
@@ -958,10 +957,7 @@ pub trait EntryExt: 'static {
 
     fn get_property_primary_icon_gicon(&self) -> Option<gio::Icon>;
 
-    fn set_property_primary_icon_gicon<P: IsA<gio::Icon> + SetValueOptional>(
-        &self,
-        primary_icon_gicon: Option<&P>,
-    );
+    fn set_property_primary_icon_gicon<P: IsA<gio::Icon>>(&self, primary_icon_gicon: Option<&P>);
 
     fn get_property_primary_icon_name(&self) -> Option<GString>;
 
@@ -993,7 +989,7 @@ pub trait EntryExt: 'static {
 
     fn get_property_secondary_icon_gicon(&self) -> Option<gio::Icon>;
 
-    fn set_property_secondary_icon_gicon<P: IsA<gio::Icon> + SetValueOptional>(
+    fn set_property_secondary_icon_gicon<P: IsA<gio::Icon>>(
         &self,
         secondary_icon_gicon: Option<&P>,
     );
@@ -2027,10 +2023,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn set_property_primary_icon_gicon<P: IsA<gio::Icon> + SetValueOptional>(
-        &self,
-        primary_icon_gicon: Option<&P>,
-    ) {
+    fn set_property_primary_icon_gicon<P: IsA<gio::Icon>>(&self, primary_icon_gicon: Option<&P>) {
         unsafe {
             gobject_sys::g_object_set_property(
                 self.to_glib_none().0 as *mut gobject_sys::GObject,
@@ -2230,7 +2223,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    fn set_property_secondary_icon_gicon<P: IsA<gio::Icon> + SetValueOptional>(
+    fn set_property_secondary_icon_gicon<P: IsA<gio::Icon>>(
         &self,
         secondary_icon_gicon: Option<&P>,
     ) {

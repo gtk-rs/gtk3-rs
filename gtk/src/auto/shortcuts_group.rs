@@ -9,7 +9,6 @@ use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::value::SetValueOptional;
 use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
@@ -40,10 +39,7 @@ glib_wrapper! {
 }
 
 impl ShortcutsGroup {
-    pub fn set_property_accel_size_group<P: IsA<SizeGroup> + SetValueOptional>(
-        &self,
-        accel_size_group: Option<&P>,
-    ) {
+    pub fn set_property_accel_size_group<P: IsA<SizeGroup>>(&self, accel_size_group: Option<&P>) {
         unsafe {
             gobject_sys::g_object_set_property(
                 self.as_ptr() as *mut gobject_sys::GObject,
@@ -92,10 +88,7 @@ impl ShortcutsGroup {
         }
     }
 
-    pub fn set_property_title_size_group<P: IsA<SizeGroup> + SetValueOptional>(
-        &self,
-        title_size_group: Option<&P>,
-    ) {
+    pub fn set_property_title_size_group<P: IsA<SizeGroup>>(&self, title_size_group: Option<&P>) {
         unsafe {
             gobject_sys::g_object_set_property(
                 self.as_ptr() as *mut gobject_sys::GObject,
