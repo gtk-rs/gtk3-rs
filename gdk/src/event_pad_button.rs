@@ -6,7 +6,7 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventPadButton(::Event);
+pub struct EventPadButton(crate::Event);
 
 event_wrapper!(EventPadButton, GdkEventPadButton);
 event_subtype!(

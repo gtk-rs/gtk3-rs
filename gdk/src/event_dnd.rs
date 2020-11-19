@@ -6,7 +6,7 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventDND(::Event);
+pub struct EventDND(crate::Event);
 
 event_wrapper!(EventDND, GdkEventDND);
 event_subtype!(
@@ -20,7 +20,7 @@ event_subtype!(
 );
 
 impl EventDND {
-    pub fn get_context(&self) -> Option<::DragContext> {
+    pub fn get_context(&self) -> Option<crate::DragContext> {
         unsafe { from_glib_none(self.as_ref().context) }
     }
 

@@ -2,17 +2,17 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use atom::Atom;
+use crate::atom::Atom;
+use crate::Device;
+use crate::DragAction;
+use crate::DragContext;
+use crate::DragProtocol;
+use crate::Screen;
+use crate::Window;
 use gdk_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::ptr;
-use Device;
-use DragAction;
-use DragContext;
-use DragProtocol;
-use Screen;
-use Window;
 
 impl DragContext {
     pub fn drag_get_selection(&self) -> Atom {

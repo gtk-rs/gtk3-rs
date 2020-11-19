@@ -6,7 +6,7 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventKey(::Event);
+pub struct EventKey(crate::Event);
 
 event_wrapper!(EventKey, GdkEventKey);
 event_subtype!(EventKey, gdk_sys::GDK_KEY_PRESS | gdk_sys::GDK_KEY_RELEASE);
@@ -16,11 +16,11 @@ impl EventKey {
         self.as_ref().time
     }
 
-    pub fn get_state(&self) -> ::ModifierType {
+    pub fn get_state(&self) -> crate::ModifierType {
         from_glib(self.as_ref().state)
     }
 
-    pub fn get_keyval(&self) -> ::keys::Key {
+    pub fn get_keyval(&self) -> crate::keys::Key {
         from_glib(self.as_ref().keyval)
     }
 

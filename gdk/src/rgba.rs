@@ -4,9 +4,8 @@
 
 use gdk_sys;
 use glib;
+use glib::ffi::gconstpointer;
 use glib::translate::*;
-use glib_sys::gconstpointer;
-use gobject_sys;
 use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::mem;
@@ -200,14 +199,14 @@ impl glib::StaticType for RGBA {
 impl<'a> glib::value::FromValueOptional<'a> for RGBA {
     unsafe fn from_value_optional(value: &'a glib::Value) -> Option<Self> {
         from_glib_full(
-            gobject_sys::g_value_dup_boxed(value.to_glib_none().0) as *mut gdk_sys::GdkRGBA
+            glib::gobject_ffi::g_value_dup_boxed(value.to_glib_none().0) as *mut gdk_sys::GdkRGBA
         )
     }
 }
 
 impl glib::value::SetValue for RGBA {
     unsafe fn set_value(value: &mut glib::Value, this: &Self) {
-        gobject_sys::g_value_set_boxed(
+        glib::gobject_ffi::g_value_set_boxed(
             value.to_glib_none_mut().0,
             this.to_glib_none().0 as gconstpointer,
         )
@@ -216,7 +215,7 @@ impl glib::value::SetValue for RGBA {
 
 impl glib::value::SetValueOptional for RGBA {
     unsafe fn set_value_optional(value: &mut glib::Value, this: Option<&Self>) {
-        gobject_sys::g_value_set_boxed(
+        glib::gobject_ffi::g_value_set_boxed(
             value.to_glib_none_mut().0,
             this.to_glib_none().0 as gconstpointer,
         )

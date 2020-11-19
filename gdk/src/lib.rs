@@ -7,22 +7,7 @@
 #![cfg_attr(feature = "cargo-clippy", allow(trivially_copy_pass_by_ref))]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate gdk_pixbuf;
-#[doc(hidden)]
-pub extern crate gdk_sys;
 pub use gdk_sys as ffi;
-extern crate gio;
-extern crate gio_sys;
-extern crate glib_sys;
-#[macro_use]
-extern crate glib;
-extern crate cairo;
-extern crate cairo_sys;
-extern crate gobject_sys;
-extern crate libc;
-extern crate pango;
-#[macro_use]
-extern crate bitflags;
 
 #[macro_use]
 mod rt;
@@ -37,7 +22,7 @@ mod auto;
 pub mod prelude;
 
 pub use self::auto::functions::*;
-pub use auto::*;
+pub use self::auto::*;
 
 mod atom;
 mod cairo_interaction;
@@ -91,61 +76,61 @@ pub use gdk_sys::GdkColor as Color;
 
 pub use self::rt::{init, set_initialized};
 
-pub use atom::Atom;
-pub use atom::NONE as ATOM_NONE;
-pub use atom::SELECTION_CLIPBOARD;
-pub use atom::SELECTION_PRIMARY;
-pub use atom::SELECTION_SECONDARY;
-pub use atom::SELECTION_TYPE_ATOM;
-pub use atom::SELECTION_TYPE_BITMAP;
-pub use atom::SELECTION_TYPE_COLORMAP;
-pub use atom::SELECTION_TYPE_DRAWABLE;
-pub use atom::SELECTION_TYPE_INTEGER;
-pub use atom::SELECTION_TYPE_PIXMAP;
-pub use atom::SELECTION_TYPE_STRING;
-pub use atom::SELECTION_TYPE_WINDOW;
-pub use atom::TARGET_BITMAP;
-pub use atom::TARGET_COLORMAP;
-pub use atom::TARGET_DRAWABLE;
-pub use atom::TARGET_PIXMAP;
-pub use atom::TARGET_STRING;
-pub use change_data::ChangeData;
-pub use event::Event;
-pub use event_button::EventButton;
-pub use event_configure::EventConfigure;
-pub use event_crossing::EventCrossing;
-pub use event_dnd::EventDND;
-pub use event_expose::EventExpose;
-pub use event_focus::EventFocus;
-pub use event_grab_broken::EventGrabBroken;
-pub use event_key::EventKey;
-pub use event_motion::EventMotion;
-pub use event_owner_change::EventOwnerChange;
+pub use self::atom::Atom;
+pub use self::atom::NONE as ATOM_NONE;
+pub use self::atom::SELECTION_CLIPBOARD;
+pub use self::atom::SELECTION_PRIMARY;
+pub use self::atom::SELECTION_SECONDARY;
+pub use self::atom::SELECTION_TYPE_ATOM;
+pub use self::atom::SELECTION_TYPE_BITMAP;
+pub use self::atom::SELECTION_TYPE_COLORMAP;
+pub use self::atom::SELECTION_TYPE_DRAWABLE;
+pub use self::atom::SELECTION_TYPE_INTEGER;
+pub use self::atom::SELECTION_TYPE_PIXMAP;
+pub use self::atom::SELECTION_TYPE_STRING;
+pub use self::atom::SELECTION_TYPE_WINDOW;
+pub use self::atom::TARGET_BITMAP;
+pub use self::atom::TARGET_COLORMAP;
+pub use self::atom::TARGET_DRAWABLE;
+pub use self::atom::TARGET_PIXMAP;
+pub use self::atom::TARGET_STRING;
+pub use self::change_data::ChangeData;
+pub use self::event::Event;
+pub use self::event_button::EventButton;
+pub use self::event_configure::EventConfigure;
+pub use self::event_crossing::EventCrossing;
+pub use self::event_dnd::EventDND;
+pub use self::event_expose::EventExpose;
+pub use self::event_focus::EventFocus;
+pub use self::event_grab_broken::EventGrabBroken;
+pub use self::event_key::EventKey;
+pub use self::event_motion::EventMotion;
+pub use self::event_owner_change::EventOwnerChange;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-pub use event_pad_axis::EventPadAxis;
+pub use self::event_pad_axis::EventPadAxis;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-pub use event_pad_button::EventPadButton;
+pub use self::event_pad_button::EventPadButton;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-pub use event_pad_group_mode::EventPadGroupMode;
-pub use event_property::EventProperty;
-pub use event_proximity::EventProximity;
-pub use event_scroll::EventScroll;
-pub use event_selection::EventSelection;
-pub use event_setting::EventSetting;
-pub use event_touch::EventTouch;
+pub use self::event_pad_group_mode::EventPadGroupMode;
+pub use self::event_property::EventProperty;
+pub use self::event_proximity::EventProximity;
+pub use self::event_scroll::EventScroll;
+pub use self::event_selection::EventSelection;
+pub use self::event_setting::EventSetting;
+pub use self::event_touch::EventTouch;
 #[cfg(any(feature = "v3_18", feature = "dox"))]
-pub use event_touchpad_pinch::EventTouchpadPinch;
+pub use self::event_touchpad_pinch::EventTouchpadPinch;
 #[cfg(any(feature = "v3_18", feature = "dox"))]
-pub use event_touchpad_swipe::EventTouchpadSwipe;
-pub use event_visibility::EventVisibility;
-pub use event_window_state::EventWindowState;
-pub use functions::*;
-pub use geometry::Geometry;
-pub use keymap_key::KeymapKey;
-pub use rectangle::Rectangle;
-pub use rgba::{RgbaParseError, RGBA};
-pub use time_coord::TimeCoord;
-pub use window::WindowAttr;
+pub use self::event_touchpad_swipe::EventTouchpadSwipe;
+pub use self::event_visibility::EventVisibility;
+pub use self::event_window_state::EventWindowState;
+pub use self::functions::*;
+pub use self::geometry::Geometry;
+pub use self::keymap_key::KeymapKey;
+pub use self::rectangle::Rectangle;
+pub use self::rgba::{RgbaParseError, RGBA};
+pub use self::time_coord::TimeCoord;
+pub use self::window::WindowAttr;
 
 #[allow(non_camel_case_types)]
 pub type key = i32;

@@ -6,7 +6,7 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventButton(::Event);
+pub struct EventButton(crate::Event);
 
 event_wrapper!(EventButton, GdkEventButton);
 event_subtype!(
@@ -24,7 +24,7 @@ impl EventButton {
         (x, y)
     }
 
-    pub fn get_state(&self) -> ::ModifierType {
+    pub fn get_state(&self) -> crate::ModifierType {
         from_glib(self.as_ref().state)
     }
 
@@ -36,7 +36,7 @@ impl EventButton {
         self.as_ref().button
     }
 
-    pub fn get_device(&self) -> Option<::Device> {
+    pub fn get_device(&self) -> Option<crate::Device> {
         unsafe { from_glib_none(self.as_ref().device) }
     }
 

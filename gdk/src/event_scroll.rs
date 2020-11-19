@@ -6,7 +6,7 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventScroll(::Event);
+pub struct EventScroll(crate::Event);
 
 event_wrapper!(EventScroll, GdkEventScroll);
 event_subtype!(EventScroll, gdk_sys::GDK_SCROLL);
@@ -22,15 +22,15 @@ impl EventScroll {
         (x, y)
     }
 
-    pub fn get_state(&self) -> ::ModifierType {
+    pub fn get_state(&self) -> crate::ModifierType {
         from_glib(self.as_ref().state)
     }
 
-    pub fn get_device(&self) -> Option<::Device> {
+    pub fn get_device(&self) -> Option<crate::Device> {
         unsafe { from_glib_none(self.as_ref().device) }
     }
 
-    pub fn get_direction(&self) -> ::ScrollDirection {
+    pub fn get_direction(&self) -> crate::ScrollDirection {
         from_glib(self.as_ref().direction)
     }
 

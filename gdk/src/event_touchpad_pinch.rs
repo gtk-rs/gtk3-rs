@@ -6,7 +6,7 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventTouchpadPinch(::Event);
+pub struct EventTouchpadPinch(crate::Event);
 
 event_wrapper!(EventTouchpadPinch, GdkEventTouchpadPinch);
 event_subtype!(EventTouchpadPinch, gdk_sys::GDK_TOUCHPAD_PINCH);
@@ -50,7 +50,7 @@ impl EventTouchpadPinch {
         (x_root, y_root)
     }
 
-    pub fn get_state(&self) -> ::ModifierType {
+    pub fn get_state(&self) -> crate::ModifierType {
         from_glib(self.as_ref().state)
     }
 }

@@ -6,7 +6,7 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventConfigure(::Event);
+pub struct EventConfigure(crate::Event);
 
 event_wrapper!(EventConfigure, GdkEventConfigure);
 event_subtype!(EventConfigure, gdk_sys::GDK_CONFIGURE);

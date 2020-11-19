@@ -2,10 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::Gravity;
 use gdk_sys;
 use glib::translate::*;
 use glib_sys;
-use Gravity;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 #[repr(C)]

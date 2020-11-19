@@ -2,9 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::FrameClock;
 use gdk_sys;
 use glib::translate::*;
-use FrameClock;
 
 impl FrameClock {
     pub fn get_refresh_info(&self, base_time: i64) -> (i64, i64) {

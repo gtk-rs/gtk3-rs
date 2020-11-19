@@ -6,21 +6,21 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventOwnerChange(::Event);
+pub struct EventOwnerChange(crate::Event);
 
 event_wrapper!(EventOwnerChange, GdkEventOwnerChange);
 event_subtype!(EventOwnerChange, gdk_sys::GDK_OWNER_CHANGE);
 
 impl EventOwnerChange {
-    pub fn get_owner(&self) -> Option<::Window> {
+    pub fn get_owner(&self) -> Option<crate::Window> {
         unsafe { from_glib_none(self.as_ref().owner) }
     }
 
-    pub fn get_reason(&self) -> ::OwnerChange {
+    pub fn get_reason(&self) -> crate::OwnerChange {
         from_glib(self.as_ref().reason)
     }
 
-    pub fn get_selection(&self) -> ::Atom {
+    pub fn get_selection(&self) -> crate::Atom {
         unsafe { from_glib_none(self.as_ref().selection as *mut _) }
     }
 

@@ -6,7 +6,7 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventTouchpadSwipe(::Event);
+pub struct EventTouchpadSwipe(crate::Event);
 
 event_wrapper!(EventTouchpadSwipe, GdkEventTouchpadSwipe);
 event_subtype!(EventTouchpadSwipe, gdk_sys::GDK_TOUCHPAD_SWIPE);
@@ -42,7 +42,7 @@ impl EventTouchpadSwipe {
         (x_root, y_root)
     }
 
-    pub fn get_state(&self) -> ::ModifierType {
+    pub fn get_state(&self) -> crate::ModifierType {
         from_glib(self.as_ref().state)
     }
 }

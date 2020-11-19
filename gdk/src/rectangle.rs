@@ -5,10 +5,8 @@
 use cairo::RectangleInt;
 use gdk_sys;
 use glib;
+use glib::ffi::gconstpointer;
 use glib::translate::*;
-use glib_sys;
-use glib_sys::gconstpointer;
-use gobject_sys;
 use std::convert::{AsRef, From};
 use std::mem;
 
@@ -114,7 +112,7 @@ impl FromGlibPtrBorrow<*mut gdk_sys::GdkRectangle> for Rectangle {
 impl FromGlibPtrFull<*mut gdk_sys::GdkRectangle> for Rectangle {
     unsafe fn from_glib_full(ptr: *mut gdk_sys::GdkRectangle) -> Self {
         let rect = *(ptr as *mut Rectangle);
-        glib_sys::g_free(ptr as *mut _);
+        glib::ffi::g_free(ptr as *mut _);
         rect
     }
 }
@@ -123,7 +121,7 @@ impl FromGlibPtrFull<*mut gdk_sys::GdkRectangle> for Rectangle {
 impl FromGlibPtrFull<*const gdk_sys::GdkRectangle> for Rectangle {
     unsafe fn from_glib_full(ptr: *const gdk_sys::GdkRectangle) -> Self {
         let rect = *(ptr as *const Rectangle);
-        glib_sys::g_free(ptr as *mut _);
+        glib::ffi::g_free(ptr as *mut _);
         rect
     }
 }
@@ -150,15 +148,14 @@ impl glib::StaticType for Rectangle {
 
 impl<'a> glib::value::FromValueOptional<'a> for Rectangle {
     unsafe fn from_value_optional(value: &'a glib::Value) -> Option<Self> {
-        from_glib_full(
-            gobject_sys::g_value_dup_boxed(value.to_glib_none().0) as *mut gdk_sys::GdkRectangle
-        )
+        from_glib_full(glib::gobject_ffi::g_value_dup_boxed(value.to_glib_none().0)
+            as *mut gdk_sys::GdkRectangle)
     }
 }
 
 impl glib::value::SetValue for Rectangle {
     unsafe fn set_value(value: &mut glib::Value, this: &Self) {
-        gobject_sys::g_value_set_boxed(
+        glib::gobject_ffi::g_value_set_boxed(
             value.to_glib_none_mut().0,
             this.to_glib_none().0 as gconstpointer,
         )
@@ -167,7 +164,7 @@ impl glib::value::SetValue for Rectangle {
 
 impl glib::value::SetValueOptional for Rectangle {
     unsafe fn set_value_optional(value: &mut glib::Value, this: Option<&Self>) {
-        gobject_sys::g_value_set_boxed(
+        glib::gobject_ffi::g_value_set_boxed(
             value.to_glib_none_mut().0,
             this.to_glib_none().0 as gconstpointer,
         )

@@ -6,7 +6,7 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventProximity(::Event);
+pub struct EventProximity(crate::Event);
 
 event_wrapper!(EventProximity, GdkEventProximity);
 event_subtype!(
@@ -19,7 +19,7 @@ impl EventProximity {
         self.as_ref().time
     }
 
-    pub fn get_device(&self) -> Option<::Device> {
+    pub fn get_device(&self) -> Option<crate::Device> {
         unsafe { from_glib_none(self.as_ref().device) }
     }
 }

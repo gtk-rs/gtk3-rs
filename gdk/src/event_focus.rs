@@ -6,7 +6,7 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventFocus(::Event);
+pub struct EventFocus(crate::Event);
 
 event_wrapper!(EventFocus, GdkEventFocus);
 event_subtype!(EventFocus, gdk_sys::GDK_FOCUS_CHANGE);

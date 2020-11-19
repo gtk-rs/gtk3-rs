@@ -1,9 +1,9 @@
+use crate::Keymap;
+use crate::KeymapKey;
+use crate::ModifierType;
 use glib::translate::*;
 use std::mem;
 use std::ptr;
-use Keymap;
-use KeymapKey;
-use ModifierType;
 
 impl Keymap {
     pub fn get_entries_for_keycode(&self, hardware_keycode: u32) -> Vec<(KeymapKey, u32)> {

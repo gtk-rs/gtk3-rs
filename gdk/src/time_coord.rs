@@ -4,7 +4,6 @@
 
 use gdk_sys;
 use glib::translate::*;
-use glib_sys;
 use std::mem;
 
 #[derive(Clone)]
@@ -78,7 +77,7 @@ impl FromGlibPtrBorrow<*mut gdk_sys::GdkTimeCoord> for TimeCoord {
 impl FromGlibPtrFull<*mut gdk_sys::GdkTimeCoord> for TimeCoord {
     unsafe fn from_glib_full(ptr: *mut gdk_sys::GdkTimeCoord) -> Self {
         let time_coord = (*(ptr as *mut TimeCoord)).clone();
-        glib_sys::g_free(ptr as *mut _);
+        glib::ffi::g_free(ptr as *mut _);
         time_coord
     }
 }
@@ -87,7 +86,7 @@ impl FromGlibPtrFull<*mut gdk_sys::GdkTimeCoord> for TimeCoord {
 impl FromGlibPtrFull<*const gdk_sys::GdkTimeCoord> for TimeCoord {
     unsafe fn from_glib_full(ptr: *const gdk_sys::GdkTimeCoord) -> Self {
         let time_coord = (*(ptr as *const TimeCoord)).clone();
-        glib_sys::g_free(ptr as *mut _);
+        glib::ffi::g_free(ptr as *mut _);
         time_coord
     }
 }
@@ -110,7 +109,7 @@ impl FromGlibContainerAsVec<gdk_sys::GdkTimeCoord, *mut gdk_sys::GdkTimeCoord> f
         num: usize,
     ) -> Vec<Self> {
         let res = FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
-        glib_sys::g_free(ptr as *mut _);
+        glib::ffi::g_free(ptr as *mut _);
         res
     }
 
@@ -123,7 +122,7 @@ impl FromGlibContainerAsVec<gdk_sys::GdkTimeCoord, *mut gdk_sys::GdkTimeCoord> f
         for i in 0..num {
             res.push((*(ptr.offset(i as isize) as *mut TimeCoord)).clone());
         }
-        glib_sys::g_free(ptr as *mut _);
+        glib::ffi::g_free(ptr as *mut _);
         res
     }
 }

@@ -6,11 +6,12 @@ use gdk_sys;
 use glib::translate::*;
 use glib::GString;
 use libc::c_uint;
+use std::{char, convert, fmt, ops};
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Key(u32);
 
-impl ::std::ops::Deref for Key {
+impl ops::Deref for Key {
     type Target = u32;
 
     fn deref(&self) -> &u32 {
@@ -18,13 +19,13 @@ impl ::std::ops::Deref for Key {
     }
 }
 
-impl ::std::ops::DerefMut for Key {
+impl ops::DerefMut for Key {
     fn deref_mut(&mut self) -> &mut u32 {
         &mut self.0
     }
 }
 
-impl ::std::convert::From<u32> for Key {
+impl convert::From<u32> for Key {
     fn from(value: u32) -> Self {
         skip_assert_initialized!();
         Key(value)
@@ -49,9 +50,7 @@ impl ToGlib for Key {
 impl Key {
     pub fn to_unicode(&self) -> Option<char> {
         skip_assert_initialized!();
-        unsafe {
-            ::std::char::from_u32(gdk_sys::gdk_keyval_to_unicode(**self)).filter(|x| *x != '\0')
-        }
+        unsafe { char::from_u32(gdk_sys::gdk_keyval_to_unicode(**self)).filter(|x| *x != '\0') }
     }
 
     pub fn name(&self) -> Option<GString> {
@@ -80,8 +79,8 @@ impl Key {
     }
 }
 
-impl ::std::fmt::Display for Key {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+impl fmt::Display for Key {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "Key({})", self.0)
     }
 }

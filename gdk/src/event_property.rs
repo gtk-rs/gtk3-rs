@@ -6,13 +6,13 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventProperty(::Event);
+pub struct EventProperty(crate::Event);
 
 event_wrapper!(EventProperty, GdkEventProperty);
 event_subtype!(EventProperty, gdk_sys::GDK_PROPERTY_NOTIFY);
 
 impl EventProperty {
-    pub fn get_atom(&self) -> ::Atom {
+    pub fn get_atom(&self) -> crate::Atom {
         unsafe { from_glib_none(self.as_ref().atom) }
     }
 
@@ -20,7 +20,7 @@ impl EventProperty {
         self.as_ref().time
     }
 
-    pub fn get_state(&self) -> ::PropertyState {
+    pub fn get_state(&self) -> crate::PropertyState {
         from_glib(self.as_ref().state)
     }
 }

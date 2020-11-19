@@ -3,27 +3,27 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 use gdk_sys;
+use glib;
 use glib::translate::*;
-use glib_sys;
 use libc::c_void;
 use std::fmt;
 use std::mem;
 use std::ptr;
 
-use AxisUse;
-use Device;
+use crate::AxisUse;
+use crate::Device;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-use DeviceTool;
-use EventSequence;
-use EventType;
-use ModifierType;
-use Screen;
-use ScrollDirection;
+use crate::DeviceTool;
+use crate::EventSequence;
+use crate::EventType;
+use crate::ModifierType;
+use crate::Screen;
+use crate::ScrollDirection;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
-use Seat;
-use Window;
+use crate::Seat;
+use crate::Window;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     /// A generic GDK event.
     #[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Event(Boxed<gdk_sys::GdkEvent>);
@@ -59,7 +59,7 @@ impl Event {
         assert_initialized_main_thread!();
         unsafe extern "C" fn event_handler_trampoline<F: Fn(&mut Event) + 'static>(
             event: *mut gdk_sys::GdkEvent,
-            ptr: glib_sys::gpointer,
+            ptr: glib::ffi::gpointer,
         ) {
             if ptr != ptr::null_mut() {
                 let f: &F = &*(ptr as *mut _);
@@ -68,7 +68,7 @@ impl Event {
             }
         }
         unsafe extern "C" fn event_handler_destroy<F: Fn(&mut Event) + 'static>(
-            ptr: glib_sys::gpointer,
+            ptr: glib::ffi::gpointer,
         ) {
             if ptr != ptr::null_mut() {
                 // convert back to Box and free
@@ -389,41 +389,41 @@ pub trait FromEvent: Sized {
 
 macro_rules! event_wrapper {
     ($name:ident, $ffi_name:ident) => {
-        impl<'a> ToGlibPtr<'a, *const ::gdk_sys::$ffi_name> for $name {
+        impl<'a> ToGlibPtr<'a, *const gdk_sys::$ffi_name> for $name {
             type Storage = &'a Self;
 
             #[inline]
-            fn to_glib_none(&'a self) -> Stash<'a, *const ::gdk_sys::$ffi_name, Self> {
-                let ptr = ToGlibPtr::<*const ::gdk_sys::GdkEvent>::to_glib_none(&self.0).0;
-                Stash(ptr as *const ::gdk_sys::$ffi_name, self)
+            fn to_glib_none(&'a self) -> Stash<'a, *const gdk_sys::$ffi_name, Self> {
+                let ptr = ToGlibPtr::<*const gdk_sys::GdkEvent>::to_glib_none(&self.0).0;
+                Stash(ptr as *const gdk_sys::$ffi_name, self)
             }
         }
 
-        impl<'a> ToGlibPtrMut<'a, *mut ::gdk_sys::$ffi_name> for $name {
+        impl<'a> ToGlibPtrMut<'a, *mut gdk_sys::$ffi_name> for $name {
             type Storage = &'a mut Self;
 
             #[inline]
-            fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut ::gdk_sys::$ffi_name, Self> {
-                let ptr = ToGlibPtrMut::<*mut ::gdk_sys::GdkEvent>::to_glib_none_mut(&mut self.0).0;
-                StashMut(ptr as *mut ::gdk_sys::$ffi_name, self)
+            fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut gdk_sys::$ffi_name, Self> {
+                let ptr = ToGlibPtrMut::<*mut gdk_sys::GdkEvent>::to_glib_none_mut(&mut self.0).0;
+                StashMut(ptr as *mut gdk_sys::$ffi_name, self)
             }
         }
 
-        impl FromGlibPtrNone<*mut ::gdk_sys::$ffi_name> for $name {
+        impl FromGlibPtrNone<*mut gdk_sys::$ffi_name> for $name {
             #[inline]
-            unsafe fn from_glib_none(ptr: *mut ::gdk_sys::$ffi_name) -> Self {
-                $name(from_glib_none(ptr as *mut ::gdk_sys::GdkEvent))
+            unsafe fn from_glib_none(ptr: *mut gdk_sys::$ffi_name) -> Self {
+                $name(from_glib_none(ptr as *mut gdk_sys::GdkEvent))
             }
         }
 
-        impl FromGlibPtrBorrow<*mut ::gdk_sys::$ffi_name> for $name {
+        impl FromGlibPtrBorrow<*mut gdk_sys::$ffi_name> for $name {
             #[inline]
             unsafe fn from_glib_borrow(
-                ptr: *mut ::gdk_sys::$ffi_name,
+                ptr: *mut gdk_sys::$ffi_name,
             ) -> glib::translate::Borrowed<Self> {
                 glib::translate::Borrowed::new(
-                    <$name as ::event::FromEvent>::from(
-                        ::Event::from_glib_borrow(ptr as *mut ::gdk_sys::GdkEvent).into_inner(),
+                    <$name as crate::event::FromEvent>::from(
+                        crate::Event::from_glib_borrow(ptr as *mut gdk_sys::GdkEvent).into_inner(),
                     )
                     .map_err(std::mem::forget)
                     .unwrap(),
@@ -431,28 +431,28 @@ macro_rules! event_wrapper {
             }
         }
 
-        impl FromGlibPtrFull<*mut ::gdk_sys::$ffi_name> for $name {
+        impl FromGlibPtrFull<*mut gdk_sys::$ffi_name> for $name {
             #[inline]
-            unsafe fn from_glib_full(ptr: *mut ::gdk_sys::$ffi_name) -> Self {
-                $name(from_glib_full(ptr as *mut ::gdk_sys::GdkEvent))
+            unsafe fn from_glib_full(ptr: *mut gdk_sys::$ffi_name) -> Self {
+                $name(from_glib_full(ptr as *mut gdk_sys::GdkEvent))
             }
         }
 
-        impl AsRef<::gdk_sys::$ffi_name> for $name {
+        impl AsRef<gdk_sys::$ffi_name> for $name {
             #[inline]
-            fn as_ref(&self) -> &::gdk_sys::$ffi_name {
+            fn as_ref(&self) -> &gdk_sys::$ffi_name {
                 unsafe {
-                    let ptr: *const ::gdk_sys::$ffi_name = self.to_glib_none().0;
+                    let ptr: *const gdk_sys::$ffi_name = self.to_glib_none().0;
                     &*ptr
                 }
             }
         }
 
-        impl AsMut<::gdk_sys::$ffi_name> for $name {
+        impl AsMut<gdk_sys::$ffi_name> for $name {
             #[inline]
-            fn as_mut(&mut self) -> &mut ::gdk_sys::$ffi_name {
+            fn as_mut(&mut self) -> &mut gdk_sys::$ffi_name {
                 unsafe {
-                    let ptr: *mut ::gdk_sys::$ffi_name = self.to_glib_none_mut().0;
+                    let ptr: *mut gdk_sys::$ffi_name = self.to_glib_none_mut().0;
                     &mut *ptr
                 }
             }
@@ -464,9 +464,9 @@ event_wrapper!(Event, GdkEventAny);
 
 macro_rules! event_subtype {
     ($name:ident, $($ty:path)|+) => {
-        impl ::event::FromEvent for $name {
+        impl crate::event::FromEvent for $name {
             #[inline]
-            fn is(ev: &::event::Event) -> bool {
+            fn is(ev: &crate::Event) -> bool {
                 skip_assert_initialized!();
                 match ev.as_ref().type_ {
                     $($ty)|+ => true,
@@ -475,7 +475,7 @@ macro_rules! event_subtype {
             }
 
             #[inline]
-            fn from(ev: ::event::Event) -> Result<Self, ::event::Event> {
+            fn from(ev: crate::event::Event) -> Result<Self, crate::event::Event> {
                 skip_assert_initialized!();
                 if Self::is(&ev) {
                     Ok($name(ev))
@@ -487,15 +487,15 @@ macro_rules! event_subtype {
         }
 
         impl ::std::ops::Deref for $name {
-            type Target = ::event::Event;
+            type Target = crate::Event;
 
-            fn deref(&self) -> &::event::Event {
+            fn deref(&self) -> &crate::Event {
                 &self.0
             }
         }
 
         impl ::std::ops::DerefMut for $name {
-            fn deref_mut(&mut self) -> &mut ::event::Event {
+            fn deref_mut(&mut self) -> &mut crate::Event {
                 &mut self.0
             }
         }

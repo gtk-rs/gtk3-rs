@@ -6,7 +6,7 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventPadGroupMode(::Event);
+pub struct EventPadGroupMode(crate::Event);
 
 event_wrapper!(EventPadGroupMode, GdkEventPadGroupMode);
 event_subtype!(EventPadGroupMode, gdk_sys::GDK_PAD_GROUP_MODE);

@@ -6,7 +6,7 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventCrossing(::Event);
+pub struct EventCrossing(crate::Event);
 
 event_wrapper!(EventCrossing, GdkEventCrossing);
 event_subtype!(
@@ -21,19 +21,19 @@ impl EventCrossing {
         (x, y)
     }
 
-    pub fn get_subwindow(&self) -> Option<::Window> {
+    pub fn get_subwindow(&self) -> Option<crate::Window> {
         unsafe { from_glib_none(self.as_ref().subwindow) }
     }
 
-    pub fn get_mode(&self) -> ::CrossingMode {
+    pub fn get_mode(&self) -> crate::CrossingMode {
         from_glib(self.as_ref().mode)
     }
 
-    pub fn get_detail(&self) -> ::NotifyType {
+    pub fn get_detail(&self) -> crate::NotifyType {
         from_glib(self.as_ref().detail)
     }
 
-    pub fn get_state(&self) -> ::ModifierType {
+    pub fn get_state(&self) -> crate::ModifierType {
         from_glib(self.as_ref().state)
     }
 

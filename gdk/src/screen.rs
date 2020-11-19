@@ -2,11 +2,11 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::Screen;
 use cairo;
 use gdk_sys;
 use glib;
 use glib::translate::*;
-use Screen;
 
 impl Screen {
     pub fn get_font_options(&self) -> Option<cairo::FontOptions> {

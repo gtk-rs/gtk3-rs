@@ -2,6 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::Cursor;
+use crate::EventMask;
+use crate::Visual;
+use crate::Window;
 use cairo::{self, Surface};
 use gdk_pixbuf;
 use gdk_sys;
@@ -9,12 +13,8 @@ use glib::object::IsA;
 use glib::translate::*;
 use libc::{c_char, c_int};
 use std::ptr;
-use Cursor;
-use EventMask;
-use Visual;
-use Window;
 
-use {WindowType, WindowTypeHint, WindowWindowClass};
+use crate::{WindowType, WindowTypeHint, WindowWindowClass};
 
 pub struct WindowAttr {
     pub title: Option<String>,

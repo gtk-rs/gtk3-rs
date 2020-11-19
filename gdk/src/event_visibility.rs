@@ -6,13 +6,13 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventVisibility(::Event);
+pub struct EventVisibility(crate::Event);
 
 event_wrapper!(EventVisibility, GdkEventVisibility);
 event_subtype!(EventVisibility, gdk_sys::GDK_VISIBILITY_NOTIFY);
 
 impl EventVisibility {
-    pub fn get_state(&self) -> ::VisibilityState {
+    pub fn get_state(&self) -> crate::VisibilityState {
         from_glib(self.as_ref().state)
     }
 }

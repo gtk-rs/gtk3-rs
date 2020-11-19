@@ -6,7 +6,7 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventSelection(::Event);
+pub struct EventSelection(crate::Event);
 
 event_wrapper!(EventSelection, GdkEventSelection);
 event_subtype!(
@@ -15,15 +15,15 @@ event_subtype!(
 );
 
 impl EventSelection {
-    pub fn get_selection(&self) -> ::Atom {
+    pub fn get_selection(&self) -> crate::Atom {
         unsafe { from_glib_none(self.as_ref().selection as *mut _) }
     }
 
-    pub fn get_target(&self) -> ::Atom {
+    pub fn get_target(&self) -> crate::Atom {
         unsafe { from_glib_none(self.as_ref().target as *mut _) }
     }
 
-    pub fn get_property(&self) -> ::Atom {
+    pub fn get_property(&self) -> crate::Atom {
         unsafe { from_glib_none(self.as_ref().property as *mut _) }
     }
 
@@ -31,7 +31,7 @@ impl EventSelection {
         self.as_ref().time
     }
 
-    pub fn get_requestor(&self) -> Option<::Window> {
+    pub fn get_requestor(&self) -> Option<crate::Window> {
         unsafe { from_glib_none(self.as_ref().requestor) }
     }
 }

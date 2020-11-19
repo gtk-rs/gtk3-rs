@@ -18,8 +18,8 @@ static INITIALIZED: AtomicBool = ATOMIC_BOOL_INIT;
 /// Asserts that this is the main thread and either `gdk::init` or `gtk::init` has been called.
 macro_rules! assert_initialized_main_thread {
     () => {
-        if !::rt::is_initialized_main_thread() {
-            if ::rt::is_initialized() {
+        if !crate::rt::is_initialized_main_thread() {
+            if crate::rt::is_initialized() {
                 panic!("GDK may only be used from the main thread.");
             } else {
                 panic!("GDK has not been initialized. Call `gdk::init` or `gtk::init` first.");
@@ -36,7 +36,7 @@ macro_rules! skip_assert_initialized {
 /// Asserts that neither `gdk::init` nor `gtk::init` has been called.
 macro_rules! assert_not_initialized {
     () => {
-        if ::rt::is_initialized() {
+        if crate::rt::is_initialized() {
             panic!("This function has to be called before `gdk::init` or `gtk::init`.");
         }
     };

@@ -2,21 +2,21 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk_sys;
+use crate::ffi;
+use crate::AxisFlags;
+use crate::DeviceToolType;
+use glib;
 use glib::object::ObjectType as ObjectType_;
 use glib::translate::*;
 use glib::StaticType;
 use glib::Value;
-use gobject_sys;
 use std::fmt;
-use AxisFlags;
-use DeviceToolType;
 
-glib_wrapper! {
-    pub struct DeviceTool(Object<gdk_sys::GdkDeviceTool>);
+glib::glib_wrapper! {
+    pub struct DeviceTool(Object<ffi::GdkDeviceTool>);
 
     match fn {
-        get_type => || gdk_sys::gdk_device_tool_get_type(),
+        get_type => || ffi::gdk_device_tool_get_type(),
     }
 }
 
@@ -24,30 +24,26 @@ impl DeviceTool {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn get_hardware_id(&self) -> u64 {
-        unsafe { gdk_sys::gdk_device_tool_get_hardware_id(self.to_glib_none().0) }
+        unsafe { ffi::gdk_device_tool_get_hardware_id(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn get_serial(&self) -> u64 {
-        unsafe { gdk_sys::gdk_device_tool_get_serial(self.to_glib_none().0) }
+        unsafe { ffi::gdk_device_tool_get_serial(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn get_tool_type(&self) -> DeviceToolType {
-        unsafe {
-            from_glib(gdk_sys::gdk_device_tool_get_tool_type(
-                self.to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gdk_device_tool_get_tool_type(self.to_glib_none().0)) }
     }
 
     pub fn get_property_axes(&self) -> AxisFlags {
         unsafe {
             let mut value = Value::from_type(<AxisFlags as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"axes\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -61,8 +57,8 @@ impl DeviceTool {
     pub fn get_property_hardware_id(&self) -> u64 {
         unsafe {
             let mut value = Value::from_type(<u64 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"hardware-id\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -76,8 +72,8 @@ impl DeviceTool {
     pub fn get_property_serial(&self) -> u64 {
         unsafe {
             let mut value = Value::from_type(<u64 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"serial\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -91,8 +87,8 @@ impl DeviceTool {
     pub fn get_property_tool_type(&self) -> DeviceToolType {
         unsafe {
             let mut value = Value::from_type(<DeviceToolType as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"tool-type\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );

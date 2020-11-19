@@ -2,13 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::AxisUse;
+use crate::Device;
+use crate::TimeCoord;
+use crate::Window;
 use gdk_sys;
 use glib::object::IsA;
 use glib::translate::*;
-use AxisUse;
-use Device;
-use TimeCoord;
-use Window;
 
 use std::mem;
 use std::ptr;

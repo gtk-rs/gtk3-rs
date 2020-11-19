@@ -2,13 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::{Rectangle, Window, RGBA};
 use cairo::Surface;
 use cairo::{Context, Region};
 use gdk_pixbuf::Pixbuf;
 use gdk_sys;
 use glib::object::IsA;
 use glib::translate::*;
-use {Rectangle, Window, RGBA};
 
 pub trait GdkSurfaceExt {
     fn create_region(&self) -> Option<Region>;

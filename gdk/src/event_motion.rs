@@ -6,7 +6,7 @@ use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventMotion(::Event);
+pub struct EventMotion(crate::Event);
 
 event_wrapper!(EventMotion, GdkEventMotion);
 event_subtype!(EventMotion, gdk_sys::GDK_MOTION_NOTIFY);
@@ -18,7 +18,7 @@ impl EventMotion {
         (x, y)
     }
 
-    pub fn get_state(&self) -> ::ModifierType {
+    pub fn get_state(&self) -> crate::ModifierType {
         from_glib(self.as_ref().state)
     }
 
@@ -30,7 +30,7 @@ impl EventMotion {
         unsafe { gdk_sys::gdk_event_request_motions(self.as_ref()) }
     }
 
-    pub fn get_device(&self) -> Option<::Device> {
+    pub fn get_device(&self) -> Option<crate::Device> {
         unsafe { from_glib_none(self.as_ref().device) }
     }
 

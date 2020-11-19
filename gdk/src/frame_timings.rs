@@ -2,10 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::FrameTimings;
 use gdk_sys;
 use glib::translate::*;
 use std::num::NonZeroU64;
-use FrameTimings;
 
 impl FrameTimings {
     pub fn get_predicted_presentation_time(&self) -> Option<NonZeroU64> {
