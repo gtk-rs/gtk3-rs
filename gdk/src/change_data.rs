@@ -16,7 +16,7 @@ pub enum ChangeData<'a> {
 
 #[doc(hidden)]
 impl<'a> ChangeData<'a> {
-    pub fn to_glib(&'a self) -> *const u8 {
+    pub fn to_glib(&self) -> *const u8 {
         match *self {
             ChangeData::UChars(d) => d.as_ptr() as *const _,
             ChangeData::UShorts(d) => d.as_ptr() as *const _,
@@ -27,7 +27,7 @@ impl<'a> ChangeData<'a> {
         }
     }
 
-    pub fn len(&'a self) -> usize {
+    pub fn len(&self) -> usize {
         match *self {
             ChangeData::UChars(d) => d.len(),
             ChangeData::UShorts(d) => d.len(),
@@ -36,7 +36,7 @@ impl<'a> ChangeData<'a> {
         }
     }
 
-    pub fn is_empty(&'a self) -> bool {
+    pub fn is_empty(&self) -> bool {
         self.len() != 0
     }
 }
