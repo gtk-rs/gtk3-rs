@@ -2,10 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::PixbufAnimation;
+use crate::PixbufAnimationIter;
 use glib::object::IsA;
 use glib::translate::*;
-use PixbufAnimation;
-use PixbufAnimationIter;
 
 use std::ptr;
 use std::time::SystemTime;

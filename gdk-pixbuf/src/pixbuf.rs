@@ -4,12 +4,9 @@
 
 use gdk_pixbuf_sys;
 use gio;
-use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::Error;
-use glib_sys;
-use gobject_sys;
 use libc::{c_uchar, c_void};
 use std::io::Read;
 use std::mem;
@@ -20,7 +17,7 @@ use std::slice;
 
 use std::future::Future;
 
-use {Colorspace, Pixbuf, PixbufFormat};
+use crate::{Colorspace, Pixbuf, PixbufFormat};
 
 impl Pixbuf {
     pub fn from_mut_slice<T: AsMut<[u8]>>(
@@ -177,9 +174,9 @@ impl Pixbuf {
         unsafe extern "C" fn from_stream_async_trampoline<
             R: FnOnce(Result<Pixbuf, Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut gio::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let ptr = gdk_pixbuf_sys::gdk_pixbuf_new_from_stream_finish(res, &mut error);
@@ -234,9 +231,9 @@ impl Pixbuf {
         unsafe extern "C" fn from_stream_at_scale_async_trampoline<
             R: FnOnce(Result<Pixbuf, Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut gio::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let ptr = gdk_pixbuf_sys::gdk_pixbuf_new_from_stream_finish(res, &mut error);
@@ -359,9 +356,9 @@ impl Pixbuf {
         unsafe extern "C" fn get_file_info_async_trampoline<
             Q: FnOnce(Result<Option<(PixbufFormat, i32, i32)>, Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut gio::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let mut width = mem::MaybeUninit::uninit();
@@ -491,9 +488,9 @@ impl Pixbuf {
         unsafe extern "C" fn save_to_streamv_async_trampoline<
             R: FnOnce(Result<(), Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut gio::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let _ = gdk_pixbuf_sys::gdk_pixbuf_save_to_stream_finish(res, &mut error);

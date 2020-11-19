@@ -1,6 +1,6 @@
 //! Traits inteded for blanket imports.
 
-pub use auto::traits::*;
+pub use crate::auto::traits::*;
+pub use crate::pixbuf_animation::PixbufAnimationExtManual;
 #[doc(hidden)]
 pub use glib::prelude::*;
-pub use pixbuf_animation::PixbufAnimationExtManual;

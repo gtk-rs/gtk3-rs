@@ -2,13 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use super::Pixbuf;
+use crate::Pixbuf;
 use gdk_pixbuf_sys;
+use glib;
 use glib::translate::*;
 
 use std::time::SystemTime;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     pub struct PixbufAnimationIter(Object<gdk_pixbuf_sys::GdkPixbufAnimationIter>);
 
     match fn {
