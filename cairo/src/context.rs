@@ -603,7 +603,7 @@ impl Context {
             ffi::cairo_show_text_glyphs(
                 self.0.as_ptr(),
                 text.as_ptr(),
-                -1 as c_int, //NULL terminated
+                -1_i32, //NULL terminated
                 glyphs.as_ptr(),
                 glyphs.len() as c_int,
                 clusters.as_ptr(),

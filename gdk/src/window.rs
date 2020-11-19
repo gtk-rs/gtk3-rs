@@ -79,7 +79,7 @@ impl WindowAttr {
     }
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
+#[allow(clippy::type_complexity)]
 impl<'a> ToGlibPtr<'a, *mut gdk_sys::GdkWindowAttr> for WindowAttr {
     type Storage = (
         Box<gdk_sys::GdkWindowAttr>,
@@ -146,7 +146,7 @@ impl Window {
 pub trait WindowExtManual: 'static {
     unsafe fn set_user_data<T>(&self, user_data: &mut T);
 
-    #[cfg_attr(feature = "cargo-clippy", allow(mut_from_ref))]
+    #[allow(clippy::mut_from_ref)]
     unsafe fn get_user_data<T>(&self) -> &mut T;
 
     fn get_default_root_window() -> Window;

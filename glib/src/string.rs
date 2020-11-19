@@ -232,7 +232,6 @@ mod tests {
         let a1 = ::String::new("a");
         let a2 = ::String::new("a");
         let b = ::String::new("b");
-        assert_eq!(a1, a1);
         assert_eq!(a1, a2);
         assert_ne!(a1, b);
         assert_ne!(a2, b);

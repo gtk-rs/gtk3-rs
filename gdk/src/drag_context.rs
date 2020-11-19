@@ -54,6 +54,7 @@ impl DragContext {
         }
     }
 
+    #[allow(clippy::too_many_arguments)]
     pub fn drag_motion(
         &self,
         dest_window: &Window,

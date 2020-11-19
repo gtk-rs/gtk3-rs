@@ -66,7 +66,7 @@ fn too_small_slice_should_panic() {
 #[test]
 fn last_row_with_incomplete_rowstride_works() {
     // 1-pixel wide, RGB, 3 32-bit rows, no extra padding byte on the fourth row
-    let data = vec![0u8; 1 * 4 * 3 + 3];
+    let data = vec![0u8; 4 * 3 + 3];
 
     Pixbuf::from_mut_slice(data, Colorspace::Rgb, false, 8, 1, 4, 4);
 }
@@ -74,7 +74,7 @@ fn last_row_with_incomplete_rowstride_works() {
 #[test]
 fn last_row_with_full_rowstride_works() {
     // 1-pixel wide, RGB, 4 32-bit rows
-    let data = vec![0u8; 1 * 4 * 4];
+    let data = vec![0u8; 4 * 4];
 
     Pixbuf::from_mut_slice(data, Colorspace::Rgb, false, 8, 1, 4, 4);
 }
@@ -82,7 +82,7 @@ fn last_row_with_full_rowstride_works() {
 #[test]
 fn extra_data_after_last_row_works() {
     // 1-pixel wide, RGB, 4 32-bit rows, plus some extra space
-    let data = vec![0u8; 1 * 4 * 4 + 42];
+    let data = vec![0u8; 4 * 4 + 42];
 
     Pixbuf::from_mut_slice(data, Colorspace::Rgb, false, 8, 1, 4, 4);
 }

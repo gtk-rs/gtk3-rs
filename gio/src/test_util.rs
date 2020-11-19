@@ -23,6 +23,5 @@ pub fn run_async<T: Send + 'static, Q: FnOnce(Sender<T>, MainLoop) + Send + 'sta
     l.run();
     c.pop_thread_default();
 
-    let ret = rx.recv().unwrap();
-    ret
+    rx.recv().unwrap()
 }

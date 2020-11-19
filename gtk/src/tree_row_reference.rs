@@ -12,7 +12,8 @@ use TreePath;
 use TreeRowReference;
 
 impl TreeRowReference {
-    // This is unsafe because new_order bounds can't be checked.
+    /// This is unsafe because new_order bounds can't be checked.
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn reordered<T: IsA<glib::Object>>(
         proxy: &T,
         path: &TreePath,

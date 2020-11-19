@@ -163,7 +163,6 @@ impl Pixbuf {
     }
 
     pub fn from_stream_async<
-        'a,
         P: IsA<gio::InputStream>,
         Q: IsA<gio::Cancellable>,
         R: FnOnce(Result<Pixbuf, Error>) + Send + 'static,
@@ -217,7 +216,6 @@ impl Pixbuf {
     }
 
     pub fn from_stream_at_scale_async<
-        'a,
         P: IsA<gio::InputStream>,
         Q: IsA<gio::Cancellable>,
         R: FnOnce(Result<Pixbuf, Error>) + Send + 'static,
@@ -286,7 +284,8 @@ impl Pixbuf {
         }))
     }
 
-    #[cfg_attr(feature = "cargo-clippy", allow(mut_from_ref))]
+    #[allow(clippy::mut_from_ref)]
+    #[allow(clippy::missing_safety_doc)]
     pub unsafe fn get_pixels(&self) -> &mut [u8] {
         let mut len = 0;
         let ptr =
@@ -399,6 +398,7 @@ impl Pixbuf {
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+    #[allow(clippy::type_complexity)]
     pub fn get_file_info_async_future<T: AsRef<Path> + Clone + 'static>(
         filename: T,
     ) -> Pin<Box<dyn Future<Output = Result<Option<(PixbufFormat, i32, i32)>, Error>> + 'static>>
@@ -442,7 +442,7 @@ impl Pixbuf {
 
     #[cfg(any(feature = "v2_36", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
-    pub fn save_to_streamv<'a, P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable>>(
+    pub fn save_to_streamv<P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable>>(
         &self,
         stream: &P,
         type_: &str,
@@ -474,7 +474,6 @@ impl Pixbuf {
     #[cfg(any(feature = "v2_36", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
     pub fn save_to_streamv_async<
-        'a,
         P: IsA<gio::OutputStream>,
         Q: IsA<gio::Cancellable>,
         R: FnOnce(Result<(), Error>) + Send + 'static,

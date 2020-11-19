@@ -71,9 +71,7 @@ impl Application {
                     let _ = tx.send(None);
                 });
 
-                let active = active.clone();
-                let widgets = widgets.clone();
-                rx.attach(None, move |value| match value {
+                rx.attach(None, clone!(@weak active, @weak widgets => @default-return glib::Continue(false), move |value| match value {
                     Some(value) => {
                         widgets
                             .main_view
@@ -85,14 +83,13 @@ impl Application {
                                 .view_stack
                                 .set_visible_child(&widgets.complete_view.container);
 
-                            let widgets = widgets.clone();
-                            glib::timeout_add_local(Duration::from_millis(1500), move || {
+                            glib::timeout_add_local(Duration::from_millis(1500), clone!(@weak widgets => @default-return glib::Continue(false), move || {
                                 widgets.main_view.progress.set_fraction(0.0);
                                 widgets
                                     .view_stack
                                     .set_visible_child(&widgets.main_view.container);
                                 glib::Continue(false)
-                            });
+                            }));
                         }
 
                         glib::Continue(true)
@@ -101,7 +98,7 @@ impl Application {
                         active.set(false);
                         glib::Continue(false)
                     }
-                });
+                }));
             }),
         );
     }
@@ -156,6 +153,7 @@ pub struct Header {
 }
 
 impl Header {
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         let container = gtk::HeaderBar::new();
         container.set_title(Some("Progress Tracker"));
@@ -170,6 +168,7 @@ pub struct CompleteView {
 }
 
 impl CompleteView {
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         let label = gtk::Label::new(None);
         label.set_markup("Task complete");
@@ -194,6 +193,7 @@ pub struct MainView {
 }
 
 impl MainView {
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         let progress = gtk::ProgressBar::new();
         progress.set_text(Some("Progress Bar"));

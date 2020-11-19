@@ -14,7 +14,7 @@ fn read_and_print_file(
 ) -> impl Future<Output = Result<(), String>> + std::marker::Unpin {
     file.read_async_future(glib::PRIORITY_DEFAULT)
         .map_err(|err| format!("Failed to open file: {}", err))
-        .and_then(|strm| read_and_print_chunks(strm))
+        .and_then(read_and_print_chunks)
 }
 
 // Read the input stream in chunks of 64 bytes, always into the same buffer

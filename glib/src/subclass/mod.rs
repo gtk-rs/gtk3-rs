@@ -172,13 +172,13 @@
 //!
 //!         // Called whenever a property is retrieved from this instance. The id
 //!         // is the same as the index of the property in the PROPERTIES array.
-//!         fn get_property(&self, _obj: &Self::Type, id: usize) -> Result<glib::Value, ()> {
+//!         fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
 //!             let prop = &PROPERTIES[id];
 //!
 //!             match *prop {
-//!                 subclass::Property("name", ..) => Ok(self.name.borrow().to_value()),
-//!                 subclass::Property("animal", ..) => Ok(self.animal.get().to_value()),
-//!                 subclass::Property("flags", ..) => Ok(self.flags.get().to_value()),
+//!                 subclass::Property("name", ..) => self.name.borrow().to_value(),
+//!                 subclass::Property("animal", ..) => self.animal.get().to_value(),
+//!                 subclass::Property("flags", ..) => self.flags.get().to_value(),
 //!                 _ => unimplemented!(),
 //!             }
 //!         }

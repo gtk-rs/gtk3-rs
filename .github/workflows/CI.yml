@@ -223,6 +223,74 @@ jobs:
           command: fmt
           args: --all -- --check
 
+  clippy:
+    name: clippy
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:20.10
+    steps:
+      - run: apt-get update -y
+      - run: apt-get install -y libgtk-3-dev libglib2.0-dev libgraphene-1.0-dev git xvfb curl libcairo-gobject2 libcairo2-dev
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - run: rustup component add clippy
+
+      - working-directory: atk
+        name: atk
+        run: cargo clippy --features "v2_34" --all-targets -- -D warnings
+
+      - working-directory: cairo
+        name: cairo
+        run: cargo clippy --features "png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface" --all-targets -- -D warnings
+
+      - working-directory: examples
+        name: examples
+        run: cargo clippy --all-features --all-targets -- -D warnings
+
+      - working-directory: gdk
+        name: gdk
+        run: cargo clippy --features "v3_24" --all-targets -- -D warnings
+
+      - working-directory: gdk-pixbuf
+        name: gdk-pixbuf
+        run: cargo clippy --features "v2_40" --all-targets -- -D warnings
+
+      - working-directory: gdkx11
+        name: gdkx11
+        run: cargo clippy --features "v3_24" --all-targets -- -D warnings
+
+      - working-directory: gio
+        name: gio
+        run: cargo clippy --features "v2_66" --all-targets -- -D warnings
+
+      - working-directory: glib
+        name: glib
+        run: cargo clippy --features "v2_66" --all-targets -- -D warnings
+
+      - working-directory: glib-macros
+        name: glib-macros
+        run: cargo clippy --all-targets -- -D warnings
+
+      - working-directory:  graphene
+        name: graphene
+        run: cargo clippy --features "v1_10" --all-targets -- -D warnings
+
+      - working-directory: gtk
+        name: gtk
+        run: cargo clippy --features "v3_24_9" --all-targets -- -D warnings
+
+      - working-directory: pango
+        name: pango
+        run: cargo clippy --features "v1_46" --all-targets -- -D warnings
+
+      - working-directory: pangocairo
+        name: pangocairo
+        run: cargo clippy --all-targets -- -D warnings
+
   checker:
     name: gtk-rs checker
     runs-on: ubuntu-latest

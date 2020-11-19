@@ -17,8 +17,10 @@ extern crate bitflags;
 extern crate libc;
 extern crate once_cell;
 
-#[cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
-#[cfg_attr(feature = "cargo-clippy", allow(should_implement_trait))]
+#[allow(clippy::too_many_arguments)]
+#[allow(clippy::should_implement_trait)]
+#[allow(clippy::derive_hash_xor_eq)]
+#[allow(clippy::let_and_return)]
 #[allow(unused_imports)]
 mod auto;
 pub use auto::functions::*;

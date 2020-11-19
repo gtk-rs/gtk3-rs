@@ -14,6 +14,7 @@ use translate::*;
 use types::StaticType;
 use types::Type;
 use value::{FromValueOptional, SetValue, SetValueOptional, Value};
+use BoolError;
 
 /// Describes `Variant` types.
 ///
@@ -34,7 +35,7 @@ impl VariantType {
     /// Tries to create a `VariantType` from a string slice.
     ///
     /// Returns `Ok` if the string is a valid type string, `Err` otherwise.
-    pub fn new(type_string: &str) -> Result<VariantType, ()> {
+    pub fn new(type_string: &str) -> Result<VariantType, BoolError> {
         VariantTy::new(type_string).map(ToOwned::to_owned)
     }
 }
@@ -137,7 +138,7 @@ impl VariantTy {
     /// Tries to create a `&VariantTy` from a string slice.
     ///
     /// Returns `Ok` if the string is a valid type string, `Err` otherwise.
-    pub fn new(type_string: &str) -> Result<&VariantTy, ()> {
+    pub fn new(type_string: &str) -> Result<&VariantTy, BoolError> {
         let ptr = type_string.as_ptr();
         let limit = ptr as usize + type_string.len();
         let mut end = 0_usize;
@@ -150,7 +151,7 @@ impl VariantTy {
             if ok && end == limit {
                 Ok(&*(type_string.as_bytes() as *const [u8] as *const VariantTy))
             } else {
-                Err(())
+                Err(glib_bool_error!("Invalid type string: '{}'", type_string))
             }
         }
     }

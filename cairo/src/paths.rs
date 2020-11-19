@@ -138,7 +138,7 @@ mod tests {
         Context::new(&surface)
     }
 
-    fn assert_path_equals_segments(expected: &Path, actual: &Vec<PathSegment>) {
+    fn assert_path_equals_segments(expected: &Path, actual: &[PathSegment]) {
         // First ensure the lengths are equal
 
         let expected_iter = expected.iter();
@@ -151,9 +151,8 @@ mod tests {
         let expected_iter = expected.iter();
         let actual_iter = actual.iter();
 
-        let mut iter = expected_iter.zip(actual_iter);
-
-        while let Some((e, a)) = iter.next() {
+        let iter = expected_iter.zip(actual_iter);
+        for (e, a) in iter {
             assert_eq!(e, *a);
         }
     }
@@ -175,7 +174,7 @@ mod tests {
 
         let path = cr.copy_path();
 
-        assert_path_equals_segments(&path, &vec![PathSegment::MoveTo((1.0, 2.0))]);
+        assert_path_equals_segments(&path, &[PathSegment::MoveTo((1.0, 2.0))]);
     }
 
     #[test]
@@ -190,7 +189,7 @@ mod tests {
 
         assert_path_equals_segments(
             &path,
-            &vec![
+            &[
                 PathSegment::MoveTo((1.0, 2.0)),
                 PathSegment::LineTo((3.0, 4.0)),
                 PathSegment::MoveTo((5.0, 6.0)),
@@ -212,7 +211,7 @@ mod tests {
         // from the extra moveto.
         assert_path_equals_segments(
             &path,
-            &vec![
+            &[
                 PathSegment::MoveTo((1.0, 2.0)),
                 PathSegment::ClosePath,
                 PathSegment::MoveTo((1.0, 2.0)),
@@ -232,7 +231,7 @@ mod tests {
 
         assert_path_equals_segments(
             &path,
-            &vec![
+            &[
                 PathSegment::MoveTo((1.0, 2.0)),
                 PathSegment::CurveTo((3.0, 4.0), (5.0, 6.0), (7.0, 8.0)),
                 PathSegment::ClosePath,

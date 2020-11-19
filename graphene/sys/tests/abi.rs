@@ -2,6 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+#![allow(unused)]
+
 extern crate graphene_sys;
 extern crate shell_words;
 extern crate tempfile;

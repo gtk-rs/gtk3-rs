@@ -19,7 +19,7 @@ extern crate glib;
 extern crate bitflags;
 extern crate libc;
 
-#[cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
+#[allow(clippy::too_many_arguments)]
 #[allow(unused_imports)]
 mod auto;
 

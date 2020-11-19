@@ -59,7 +59,7 @@ pub fn setting_get(name: &str) -> Option<glib::Value> {
             name.to_glib_none().0,
             value.to_glib_none_mut().0,
         ));
-        if done == true {
+        if done {
             Some(value)
         } else {
             None

@@ -61,7 +61,7 @@ impl Event {
             event: *mut gdk_sys::GdkEvent,
             ptr: glib_sys::gpointer,
         ) {
-            if ptr != ptr::null_mut() {
+            if !ptr.is_null() {
                 let f: &F = &*(ptr as *mut _);
                 let mut event = from_glib_none(event);
                 f(&mut event)
@@ -70,7 +70,7 @@ impl Event {
         unsafe extern "C" fn event_handler_destroy<F: Fn(&mut Event) + 'static>(
             ptr: glib_sys::gpointer,
         ) {
-            if ptr != ptr::null_mut() {
+            if !ptr.is_null() {
                 // convert back to Box and free
                 let _boxed: Box<F> = Box::from_raw(ptr as *mut _);
             }
@@ -338,7 +338,7 @@ impl Event {
     }
 
     /// Returns whether the event was sent explicitly.
-    #[cfg_attr(feature = "cargo-clippy", allow(cast_lossless))]
+    #[allow(clippy::cast_lossless)]
     pub fn get_send_event(&self) -> bool {
         from_glib(self.as_ref().send_event as i32)
     }
@@ -468,10 +468,7 @@ macro_rules! event_subtype {
             #[inline]
             fn is(ev: &::event::Event) -> bool {
                 skip_assert_initialized!();
-                match ev.as_ref().type_ {
-                    $($ty)|+ => true,
-                    _ => false,
-                }
+                matches!(ev.as_ref().type_, $($ty)|+)
             }
 
             #[inline]
@@ -479,8 +476,7 @@ macro_rules! event_subtype {
                 skip_assert_initialized!();
                 if Self::is(&ev) {
                     Ok($name(ev))
-                }
-                else {
+                } else {
                     Err(ev)
                 }
             }
@@ -499,7 +495,7 @@ macro_rules! event_subtype {
                 &mut self.0
             }
         }
-    }
+    };
 }
 
 impl FromEvent for Event {
