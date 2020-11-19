@@ -84,6 +84,14 @@ impl GString {
     }
 }
 
+impl Clone for GString {
+    fn clone(&self) -> GString {
+        let cstring = CString::new(self.as_str().to_string()).expect("CString::new failed");
+
+        GString(Inner::Native(Some(cstring)))
+    }
+}
+
 impl Drop for GString {
     fn drop(&mut self) {
         if let GString(Inner::Foreign(ptr, _len)) = self {
