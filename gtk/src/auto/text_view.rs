@@ -160,11 +160,8 @@ impl TextViewBuilder {
             properties.push(("accepts-tab", accepts_tab));
         }
         #[cfg(any(feature = "v3_18", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
-        {
-            if let Some(ref bottom_margin) = self.bottom_margin {
-                properties.push(("bottom-margin", bottom_margin));
-            }
+        if let Some(ref bottom_margin) = self.bottom_margin {
+            properties.push(("bottom-margin", bottom_margin));
         }
         if let Some(ref buffer) = self.buffer {
             properties.push(("buffer", buffer));
@@ -218,11 +215,8 @@ impl TextViewBuilder {
             properties.push(("tabs", tabs));
         }
         #[cfg(any(feature = "v3_18", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
-        {
-            if let Some(ref top_margin) = self.top_margin {
-                properties.push(("top-margin", top_margin));
-            }
+        if let Some(ref top_margin) = self.top_margin {
+            properties.push(("top-margin", top_margin));
         }
         if let Some(ref wrap_mode) = self.wrap_mode {
             properties.push(("wrap-mode", wrap_mode));
@@ -252,11 +246,8 @@ impl TextViewBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref focus_on_click) = self.focus_on_click {
-                properties.push(("focus-on-click", focus_on_click));
-            }
+        if let Some(ref focus_on_click) = self.focus_on_click {
+            properties.push(("focus-on-click", focus_on_click));
         }
         if let Some(ref halign) = self.halign {
             properties.push(("halign", halign));

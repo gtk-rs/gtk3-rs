@@ -218,18 +218,12 @@ impl ShortcutLabelBuilder {
     pub fn build(self) -> ShortcutLabel {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         #[cfg(any(feature = "v3_22", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-        {
-            if let Some(ref accelerator) = self.accelerator {
-                properties.push(("accelerator", accelerator));
-            }
+        if let Some(ref accelerator) = self.accelerator {
+            properties.push(("accelerator", accelerator));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-        {
-            if let Some(ref disabled_text) = self.disabled_text {
-                properties.push(("disabled-text", disabled_text));
-            }
+        if let Some(ref disabled_text) = self.disabled_text {
+            properties.push(("disabled-text", disabled_text));
         }
         if let Some(ref baseline_position) = self.baseline_position {
             properties.push(("baseline-position", baseline_position));
@@ -265,11 +259,8 @@ impl ShortcutLabelBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref focus_on_click) = self.focus_on_click {
-                properties.push(("focus-on-click", focus_on_click));
-            }
+        if let Some(ref focus_on_click) = self.focus_on_click {
+            properties.push(("focus-on-click", focus_on_click));
         }
         if let Some(ref halign) = self.halign {
             properties.push(("halign", halign));

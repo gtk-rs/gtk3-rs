@@ -668,67 +668,40 @@ impl ModelButtonBuilder {
     pub fn build(self) -> ModelButton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref active) = self.active {
-                properties.push(("active", active));
-            }
+        if let Some(ref active) = self.active {
+            properties.push(("active", active));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref centered) = self.centered {
-                properties.push(("centered", centered));
-            }
+        if let Some(ref centered) = self.centered {
+            properties.push(("centered", centered));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref icon) = self.icon {
-                properties.push(("icon", icon));
-            }
+        if let Some(ref icon) = self.icon {
+            properties.push(("icon", icon));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref iconic) = self.iconic {
-                properties.push(("iconic", iconic));
-            }
+        if let Some(ref iconic) = self.iconic {
+            properties.push(("iconic", iconic));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref inverted) = self.inverted {
-                properties.push(("inverted", inverted));
-            }
+        if let Some(ref inverted) = self.inverted {
+            properties.push(("inverted", inverted));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref menu_name) = self.menu_name {
-                properties.push(("menu-name", menu_name));
-            }
+        if let Some(ref menu_name) = self.menu_name {
+            properties.push(("menu-name", menu_name));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref role) = self.role {
-                properties.push(("role", role));
-            }
+        if let Some(ref role) = self.role {
+            properties.push(("role", role));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref text) = self.text {
-                properties.push(("text", text));
-            }
+        if let Some(ref text) = self.text {
+            properties.push(("text", text));
         }
         #[cfg(any(feature = "v3_24", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-        {
-            if let Some(ref use_markup) = self.use_markup {
-                properties.push(("use-markup", use_markup));
-            }
+        if let Some(ref use_markup) = self.use_markup {
+            properties.push(("use-markup", use_markup));
         }
         if let Some(ref always_show_image) = self.always_show_image {
             properties.push(("always-show-image", always_show_image));
@@ -773,11 +746,8 @@ impl ModelButtonBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref focus_on_click) = self.focus_on_click {
-                properties.push(("focus-on-click", focus_on_click));
-            }
+        if let Some(ref focus_on_click) = self.focus_on_click {
+            properties.push(("focus-on-click", focus_on_click));
         }
         if let Some(ref halign) = self.halign {
             properties.push(("halign", halign));

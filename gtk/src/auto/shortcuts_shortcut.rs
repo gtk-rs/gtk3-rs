@@ -624,11 +624,8 @@ impl ShortcutsShortcutBuilder {
             properties.push(("accelerator", accelerator));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-        {
-            if let Some(ref action_name) = self.action_name {
-                properties.push(("action-name", action_name));
-            }
+        if let Some(ref action_name) = self.action_name {
+            properties.push(("action-name", action_name));
         }
         if let Some(ref direction) = self.direction {
             properties.push(("direction", direction));
@@ -688,11 +685,8 @@ impl ShortcutsShortcutBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref focus_on_click) = self.focus_on_click {
-                properties.push(("focus-on-click", focus_on_click));
-            }
+        if let Some(ref focus_on_click) = self.focus_on_click {
+            properties.push(("focus-on-click", focus_on_click));
         }
         if let Some(ref halign) = self.halign {
             properties.push(("halign", halign));

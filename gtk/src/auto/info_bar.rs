@@ -117,11 +117,8 @@ impl InfoBarBuilder {
             properties.push(("message-type", message_type));
         }
         #[cfg(any(feature = "v3_22_29", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
-        {
-            if let Some(ref revealed) = self.revealed {
-                properties.push(("revealed", revealed));
-            }
+        if let Some(ref revealed) = self.revealed {
+            properties.push(("revealed", revealed));
         }
         if let Some(ref show_close_button) = self.show_close_button {
             properties.push(("show-close-button", show_close_button));
@@ -160,11 +157,8 @@ impl InfoBarBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref focus_on_click) = self.focus_on_click {
-                properties.push(("focus-on-click", focus_on_click));
-            }
+        if let Some(ref focus_on_click) = self.focus_on_click {
+            properties.push(("focus-on-click", focus_on_click));
         }
         if let Some(ref halign) = self.halign {
             properties.push(("halign", halign));

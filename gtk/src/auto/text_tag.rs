@@ -165,11 +165,8 @@ impl TextTagBuilder {
             properties.push(("editable-set", editable_set));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref fallback) = self.fallback {
-                properties.push(("fallback", fallback));
-            }
+        if let Some(ref fallback) = self.fallback {
+            properties.push(("fallback", fallback));
         }
         if let Some(ref fallback_set) = self.fallback_set {
             properties.push(("fallback-set", fallback_set));
@@ -187,11 +184,8 @@ impl TextTagBuilder {
             properties.push(("font-desc", font_desc));
         }
         #[cfg(any(feature = "v3_18", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
-        {
-            if let Some(ref font_features) = self.font_features {
-                properties.push(("font-features", font_features));
-            }
+        if let Some(ref font_features) = self.font_features {
+            properties.push(("font-features", font_features));
         }
         if let Some(ref font_features_set) = self.font_features_set {
             properties.push(("font-features-set", font_features_set));
@@ -236,11 +230,8 @@ impl TextTagBuilder {
             properties.push(("left-margin-set", left_margin_set));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref letter_spacing) = self.letter_spacing {
-                properties.push(("letter-spacing", letter_spacing));
-            }
+        if let Some(ref letter_spacing) = self.letter_spacing {
+            properties.push(("letter-spacing", letter_spacing));
         }
         if let Some(ref letter_spacing_set) = self.letter_spacing_set {
             properties.push(("letter-spacing-set", letter_spacing_set));
@@ -312,18 +303,12 @@ impl TextTagBuilder {
             properties.push(("strikethrough", strikethrough));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref strikethrough_rgba) = self.strikethrough_rgba {
-                properties.push(("strikethrough-rgba", strikethrough_rgba));
-            }
+        if let Some(ref strikethrough_rgba) = self.strikethrough_rgba {
+            properties.push(("strikethrough-rgba", strikethrough_rgba));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref strikethrough_rgba_set) = self.strikethrough_rgba_set {
-                properties.push(("strikethrough-rgba-set", strikethrough_rgba_set));
-            }
+        if let Some(ref strikethrough_rgba_set) = self.strikethrough_rgba_set {
+            properties.push(("strikethrough-rgba-set", strikethrough_rgba_set));
         }
         if let Some(ref strikethrough_set) = self.strikethrough_set {
             properties.push(("strikethrough-set", strikethrough_set));
@@ -344,18 +329,12 @@ impl TextTagBuilder {
             properties.push(("underline", underline));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref underline_rgba) = self.underline_rgba {
-                properties.push(("underline-rgba", underline_rgba));
-            }
+        if let Some(ref underline_rgba) = self.underline_rgba {
+            properties.push(("underline-rgba", underline_rgba));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref underline_rgba_set) = self.underline_rgba_set {
-                properties.push(("underline-rgba-set", underline_rgba_set));
-            }
+        if let Some(ref underline_rgba_set) = self.underline_rgba_set {
+            properties.push(("underline-rgba-set", underline_rgba_set));
         }
         if let Some(ref underline_set) = self.underline_set {
             properties.push(("underline-set", underline_set));

@@ -110,11 +110,8 @@ impl StackSwitcherBuilder {
     pub fn build(self) -> StackSwitcher {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref icon_size) = self.icon_size {
-                properties.push(("icon-size", icon_size));
-            }
+        if let Some(ref icon_size) = self.icon_size {
+            properties.push(("icon-size", icon_size));
         }
         if let Some(ref stack) = self.stack {
             properties.push(("stack", stack));
@@ -153,11 +150,8 @@ impl StackSwitcherBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref focus_on_click) = self.focus_on_click {
-                properties.push(("focus-on-click", focus_on_click));
-            }
+        if let Some(ref focus_on_click) = self.focus_on_click {
+            properties.push(("focus-on-click", focus_on_click));
         }
         if let Some(ref halign) = self.halign {
             properties.push(("halign", halign));

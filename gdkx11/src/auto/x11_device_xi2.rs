@@ -84,25 +84,16 @@ impl X11DeviceXI2Builder {
             properties.push(("name", name));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref num_touches) = self.num_touches {
-                properties.push(("num-touches", num_touches));
-            }
+        if let Some(ref num_touches) = self.num_touches {
+            properties.push(("num-touches", num_touches));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref product_id) = self.product_id {
-                properties.push(("product-id", product_id));
-            }
+        if let Some(ref product_id) = self.product_id {
+            properties.push(("product-id", product_id));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref vendor_id) = self.vendor_id {
-                properties.push(("vendor-id", vendor_id));
-            }
+        if let Some(ref vendor_id) = self.vendor_id {
+            properties.push(("vendor-id", vendor_id));
         }
         let ret = glib::Object::new(X11DeviceXI2::static_type(), &properties)
             .expect("object new")

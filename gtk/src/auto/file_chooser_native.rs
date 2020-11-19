@@ -100,32 +100,20 @@ impl FileChooserNativeBuilder {
             properties.push(("cancel-label", cancel_label));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref modal) = self.modal {
-                properties.push(("modal", modal));
-            }
+        if let Some(ref modal) = self.modal {
+            properties.push(("modal", modal));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref title) = self.title {
-                properties.push(("title", title));
-            }
+        if let Some(ref title) = self.title {
+            properties.push(("title", title));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref transient_for) = self.transient_for {
-                properties.push(("transient-for", transient_for));
-            }
+        if let Some(ref transient_for) = self.transient_for {
+            properties.push(("transient-for", transient_for));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref visible) = self.visible {
-                properties.push(("visible", visible));
-            }
+        if let Some(ref visible) = self.visible {
+            properties.push(("visible", visible));
         }
         if let Some(ref action) = self.action {
             properties.push(("action", action));

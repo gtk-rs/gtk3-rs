@@ -174,18 +174,12 @@ impl AccelLabelBuilder {
             properties.push(("wrap-mode", wrap_mode));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref xalign) = self.xalign {
-                properties.push(("xalign", xalign));
-            }
+        if let Some(ref xalign) = self.xalign {
+            properties.push(("xalign", xalign));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref yalign) = self.yalign {
-                properties.push(("yalign", yalign));
-            }
+        if let Some(ref yalign) = self.yalign {
+            properties.push(("yalign", yalign));
         }
         if let Some(ref app_paintable) = self.app_paintable {
             properties.push(("app-paintable", app_paintable));
@@ -203,11 +197,8 @@ impl AccelLabelBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref focus_on_click) = self.focus_on_click {
-                properties.push(("focus-on-click", focus_on_click));
-            }
+        if let Some(ref focus_on_click) = self.focus_on_click {
+            properties.push(("focus-on-click", focus_on_click));
         }
         if let Some(ref halign) = self.halign {
             properties.push(("halign", halign));

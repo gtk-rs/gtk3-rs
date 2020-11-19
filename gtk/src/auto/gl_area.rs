@@ -128,39 +128,24 @@ impl GLAreaBuilder {
     pub fn build(self) -> GLArea {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref auto_render) = self.auto_render {
-                properties.push(("auto-render", auto_render));
-            }
+        if let Some(ref auto_render) = self.auto_render {
+            properties.push(("auto-render", auto_render));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref has_alpha) = self.has_alpha {
-                properties.push(("has-alpha", has_alpha));
-            }
+        if let Some(ref has_alpha) = self.has_alpha {
+            properties.push(("has-alpha", has_alpha));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref has_depth_buffer) = self.has_depth_buffer {
-                properties.push(("has-depth-buffer", has_depth_buffer));
-            }
+        if let Some(ref has_depth_buffer) = self.has_depth_buffer {
+            properties.push(("has-depth-buffer", has_depth_buffer));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref has_stencil_buffer) = self.has_stencil_buffer {
-                properties.push(("has-stencil-buffer", has_stencil_buffer));
-            }
+        if let Some(ref has_stencil_buffer) = self.has_stencil_buffer {
+            properties.push(("has-stencil-buffer", has_stencil_buffer));
         }
         #[cfg(any(feature = "v3_22", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-        {
-            if let Some(ref use_es) = self.use_es {
-                properties.push(("use-es", use_es));
-            }
+        if let Some(ref use_es) = self.use_es {
+            properties.push(("use-es", use_es));
         }
         if let Some(ref app_paintable) = self.app_paintable {
             properties.push(("app-paintable", app_paintable));
@@ -178,11 +163,8 @@ impl GLAreaBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref focus_on_click) = self.focus_on_click {
-                properties.push(("focus-on-click", focus_on_click));
-            }
+        if let Some(ref focus_on_click) = self.focus_on_click {
+            properties.push(("focus-on-click", focus_on_click));
         }
         if let Some(ref halign) = self.halign {
             properties.push(("halign", halign));

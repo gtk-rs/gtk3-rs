@@ -48,11 +48,8 @@ impl ListStoreBuilder {
     pub fn build(self) -> ListStore {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         #[cfg(any(feature = "v2_44", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-        {
-            if let Some(ref item_type) = self.item_type {
-                properties.push(("item-type", item_type));
-            }
+        if let Some(ref item_type) = self.item_type {
+            properties.push(("item-type", item_type));
         }
         let ret = glib::Object::new(ListStore::static_type(), &properties)
             .expect("object new")

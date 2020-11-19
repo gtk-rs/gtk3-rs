@@ -107,11 +107,8 @@ impl StackBuilder {
     pub fn build(self) -> Stack {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref hhomogeneous) = self.hhomogeneous {
-                properties.push(("hhomogeneous", hhomogeneous));
-            }
+        if let Some(ref hhomogeneous) = self.hhomogeneous {
+            properties.push(("hhomogeneous", hhomogeneous));
         }
         if let Some(ref homogeneous) = self.homogeneous {
             properties.push(("homogeneous", homogeneous));
@@ -126,11 +123,8 @@ impl StackBuilder {
             properties.push(("transition-type", transition_type));
         }
         #[cfg(any(feature = "v3_16", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-        {
-            if let Some(ref vhomogeneous) = self.vhomogeneous {
-                properties.push(("vhomogeneous", vhomogeneous));
-            }
+        if let Some(ref vhomogeneous) = self.vhomogeneous {
+            properties.push(("vhomogeneous", vhomogeneous));
         }
         if let Some(ref visible_child) = self.visible_child {
             properties.push(("visible-child", visible_child));
@@ -163,11 +157,8 @@ impl StackBuilder {
             properties.push(("expand", expand));
         }
         #[cfg(any(feature = "v3_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-        {
-            if let Some(ref focus_on_click) = self.focus_on_click {
-                properties.push(("focus-on-click", focus_on_click));
-            }
+        if let Some(ref focus_on_click) = self.focus_on_click {
+            properties.push(("focus-on-click", focus_on_click));
         }
         if let Some(ref halign) = self.halign {
             properties.push(("halign", halign));
