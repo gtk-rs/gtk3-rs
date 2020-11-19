@@ -235,13 +235,61 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: nightly
+          toolchain: stable
           override: true
       - run: rustup component add clippy
-      - uses: actions-rs/cargo@v1
-        with:
-          command: clippy
-          args: --all-features --all-targets -- -D warnings
+
+      - working-directory: atk
+        name: atk
+        run: cargo clippy --features "v2_34" --all-targets -- -D warnings
+
+      - working-directory: cairo
+        name: cairo
+        run: cargo clippy --features "png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface" --all-targets -- -D warnings
+
+      - working-directory: examples
+        name: examples
+        run: cargo clippy --all-features --all-targets -- -D warnings
+
+      - working-directory: gdk
+        name: gdk
+        run: cargo clippy --features "v3_24" --all-targets -- -D warnings
+
+      - working-directory: gdk-pixbuf
+        name: gdk-pixbuf
+        run: cargo clippy --features "v2_40" --all-targets -- -D warnings
+
+      - working-directory: gdkx11
+        name: gdkx11
+        run: cargo clippy --features "v3_24" --all-targets -- -D warnings
+
+      - working-directory: gio
+        name: gio
+        run: cargo clippy --features "v2_66" --all-targets -- -D warnings
+
+      - working-directory: glib
+        name: glib
+        run: cargo clippy --features "v2_66" --all-targets -- -D warnings
+
+      - working-directory: glib-macros
+        name: glib-macros
+        run: cargo clippy --all-targets -- -D warnings
+
+      - working-directory:  graphene
+        name: graphene
+        run: cargo clippy --features "v1_10" --all-targets -- -D warnings
+
+      - working-directory: gtk
+        name: gtk
+        run: cargo clippy --features "v3_24_9" --all-targets -- -D warnings
+
+      - working-directory: pango
+        name: pango
+        run: cargo clippy --features "v1_46" --all-targets -- -D warnings
+
+      - working-directory: pangocairo
+        name: pangocairo
+        run: cargo clippy --all-targets -- -D warnings
 
   checker:
     name: gtk-rs checker
