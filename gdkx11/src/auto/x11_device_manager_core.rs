@@ -2,16 +2,17 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use gdk;
-use gdk_x11_sys;
+use glib;
 use glib::translate::*;
 use std::fmt;
 
-glib_wrapper! {
-    pub struct X11DeviceManagerCore(Object<gdk_x11_sys::GdkX11DeviceManagerCore, gdk_x11_sys::GdkX11DeviceManagerCoreClass>) @extends gdk::DeviceManager;
+glib::glib_wrapper! {
+    pub struct X11DeviceManagerCore(Object<ffi::GdkX11DeviceManagerCore, ffi::GdkX11DeviceManagerCoreClass>) @extends gdk::DeviceManager;
 
     match fn {
-        get_type => || gdk_x11_sys::gdk_x11_device_manager_core_get_type(),
+        get_type => || ffi::gdk_x11_device_manager_core_get_type(),
     }
 }
 

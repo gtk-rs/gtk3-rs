@@ -6,28 +6,11 @@
 #![cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-#[macro_use]
-extern crate glib;
-extern crate gdk;
-extern crate gdk_pixbuf;
-extern crate gdk_sys;
-#[doc(hidden)]
-pub extern crate gdk_x11_sys;
 pub use gdk_x11_sys as ffi;
-extern crate gio;
-extern crate gio_sys;
-extern crate glib_sys;
-extern crate gobject_sys;
-extern crate pango;
-
-extern crate libc;
-extern crate x11;
-
-pub(crate) use x11::xlib;
 
 #[macro_use]
 mod rt;
 #[allow(unused_imports)]
 mod auto;
 
-pub use auto::*;
+pub use self::auto::*;

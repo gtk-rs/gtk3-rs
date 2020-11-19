@@ -2,23 +2,24 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use gdk;
-use gdk_x11_sys;
+use glib;
 use glib::translate::*;
 use std::fmt;
-use xlib;
+use x11::xlib;
 
-glib_wrapper! {
-    pub struct X11Cursor(Object<gdk_x11_sys::GdkX11Cursor, gdk_x11_sys::GdkX11CursorClass>) @extends gdk::Cursor;
+glib::glib_wrapper! {
+    pub struct X11Cursor(Object<ffi::GdkX11Cursor, ffi::GdkX11CursorClass>) @extends gdk::Cursor;
 
     match fn {
-        get_type => || gdk_x11_sys::gdk_x11_cursor_get_type(),
+        get_type => || ffi::gdk_x11_cursor_get_type(),
     }
 }
 
 impl X11Cursor {
     pub fn get_xcursor(&self) -> xlib::Cursor {
-        unsafe { gdk_x11_sys::gdk_x11_cursor_get_xcursor(self.to_glib_none().0) }
+        unsafe { ffi::gdk_x11_cursor_get_xcursor(self.to_glib_none().0) }
     }
 }
 

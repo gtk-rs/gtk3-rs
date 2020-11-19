@@ -2,19 +2,20 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::X11Display;
 use gdk;
-use gdk_x11_sys;
+use glib;
 use glib::object::Cast;
 use glib::translate::*;
 use std::fmt;
-use xlib;
-use X11Display;
+use x11::xlib;
 
-glib_wrapper! {
-    pub struct X11Window(Object<gdk_x11_sys::GdkX11Window, gdk_x11_sys::GdkX11WindowClass>) @extends gdk::Window;
+glib::glib_wrapper! {
+    pub struct X11Window(Object<ffi::GdkX11Window, ffi::GdkX11WindowClass>) @extends gdk::Window;
 
     match fn {
-        get_type => || gdk_x11_sys::gdk_x11_window_get_type(),
+        get_type => || ffi::gdk_x11_window_get_type(),
     }
 }
 
@@ -22,7 +23,7 @@ impl X11Window {
     pub fn foreign_new_for_display(display: &X11Display, window: xlib::Window) -> X11Window {
         skip_assert_initialized!();
         unsafe {
-            gdk::Window::from_glib_full(gdk_x11_sys::gdk_x11_window_foreign_new_for_display(
+            gdk::Window::from_glib_full(ffi::gdk_x11_window_foreign_new_for_display(
                 display.to_glib_none().0,
                 window,
             ))
@@ -31,28 +32,28 @@ impl X11Window {
     }
 
     pub fn get_desktop(&self) -> u32 {
-        unsafe { gdk_x11_sys::gdk_x11_window_get_desktop(self.to_glib_none().0) }
+        unsafe { ffi::gdk_x11_window_get_desktop(self.to_glib_none().0) }
     }
 
     pub fn get_xid(&self) -> xlib::Window {
-        unsafe { gdk_x11_sys::gdk_x11_window_get_xid(self.to_glib_none().0) }
+        unsafe { ffi::gdk_x11_window_get_xid(self.to_glib_none().0) }
     }
 
     pub fn move_to_current_desktop(&self) {
         unsafe {
-            gdk_x11_sys::gdk_x11_window_move_to_current_desktop(self.to_glib_none().0);
+            ffi::gdk_x11_window_move_to_current_desktop(self.to_glib_none().0);
         }
     }
 
     pub fn move_to_desktop(&self, desktop: u32) {
         unsafe {
-            gdk_x11_sys::gdk_x11_window_move_to_desktop(self.to_glib_none().0, desktop);
+            ffi::gdk_x11_window_move_to_desktop(self.to_glib_none().0, desktop);
         }
     }
 
     pub fn set_frame_sync_enabled(&self, frame_sync_enabled: bool) {
         unsafe {
-            gdk_x11_sys::gdk_x11_window_set_frame_sync_enabled(
+            ffi::gdk_x11_window_set_frame_sync_enabled(
                 self.to_glib_none().0,
                 frame_sync_enabled.to_glib(),
             );
@@ -61,7 +62,7 @@ impl X11Window {
 
     pub fn set_hide_titlebar_when_maximized(&self, hide_titlebar_when_maximized: bool) {
         unsafe {
-            gdk_x11_sys::gdk_x11_window_set_hide_titlebar_when_maximized(
+            ffi::gdk_x11_window_set_hide_titlebar_when_maximized(
                 self.to_glib_none().0,
                 hide_titlebar_when_maximized.to_glib(),
             );
@@ -70,22 +71,19 @@ impl X11Window {
 
     pub fn set_theme_variant(&self, variant: &str) {
         unsafe {
-            gdk_x11_sys::gdk_x11_window_set_theme_variant(
-                self.to_glib_none().0,
-                variant.to_glib_none().0,
-            );
+            ffi::gdk_x11_window_set_theme_variant(self.to_glib_none().0, variant.to_glib_none().0);
         }
     }
 
     pub fn set_user_time(&self, timestamp: u32) {
         unsafe {
-            gdk_x11_sys::gdk_x11_window_set_user_time(self.to_glib_none().0, timestamp);
+            ffi::gdk_x11_window_set_user_time(self.to_glib_none().0, timestamp);
         }
     }
 
     pub fn set_utf8_property(&self, name: &str, value: Option<&str>) {
         unsafe {
-            gdk_x11_sys::gdk_x11_window_set_utf8_property(
+            ffi::gdk_x11_window_set_utf8_property(
                 self.to_glib_none().0,
                 name.to_glib_none().0,
                 value.to_glib_none().0,
@@ -96,7 +94,7 @@ impl X11Window {
     pub fn lookup_for_display(display: &X11Display, window: xlib::Window) -> Option<X11Window> {
         skip_assert_initialized!();
         unsafe {
-            from_glib_none(gdk_x11_sys::gdk_x11_window_lookup_for_display(
+            from_glib_none(ffi::gdk_x11_window_lookup_for_display(
                 display.to_glib_none().0,
                 window,
             ))
