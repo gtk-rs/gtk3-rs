@@ -208,7 +208,7 @@ fn get_full_ident(parts: &mut Peekable<ProcIter>, borrow_kind: BorrowKind) -> St
                         panic!("Unexpected `.` after `{}`", borrow_kind.to_str());
                     }
                     prev_is_ident = false;
-                    name.push_str(".");
+                    name.push('.');
                     parts.next();
                 } else if name.is_empty() {
                     panic!("Expected ident, found `{}`", p_s);
@@ -251,7 +251,7 @@ fn get_keyword(parts: &mut Peekable<ProcIter>) -> String {
                 }
                 prev_is_ident = true;
                 if stored {
-                    ret.push_str("-");
+                    ret.push('-');
                     stored = false;
                 }
                 ret.push_str(&i.to_string());
@@ -304,9 +304,9 @@ fn parse_ident(parts: &mut Peekable<ProcIter>, elements: &mut Vec<ElemToClone>) 
             "Can't use `self` as variable name. Try storing it in a temporary variable or \
                 rename it using `as`."
         );
-    } else if name.ends_with(".") {
+    } else if name.ends_with('.') {
         panic!("Invalid variable name: `{}`", name);
-    } else if name.contains(".") && alias.is_none() {
+    } else if name.contains('.') && alias.is_none() {
         panic!(
             "`{}`: Field accesses are not allowed as is, you must rename it!",
             name
@@ -368,7 +368,7 @@ fn get_expr(parts: &mut Peekable<ProcIter>) -> String {
             }
             Some(TokenTree::Group(g)) => ret.push_str(&group_to_string(g)),
             Some(x) => {
-                if total == 0 && !ret.ends_with(":") {
+                if total == 0 && !ret.ends_with(':') {
                     return ret;
                 }
                 ret.push_str(&x.to_string())
@@ -467,19 +467,19 @@ fn get_closure(parts: &mut Peekable<ProcIter>) -> String {
     ret
 }
 
-pub fn tokens_to_string(mut parts: Peekable<ProcIter>) -> String {
+pub fn tokens_to_string(parts: Peekable<ProcIter>) -> String {
     let mut ret = String::new();
     // This is used in case of "if ident" or other similar cases.
     let mut prev_is_ident = false;
     let handle_ident_like = |i: String, ret: &mut String, prev_is_ident: &mut bool| {
         if *prev_is_ident {
-            ret.push_str(" ");
+            ret.push(' ');
         }
         ret.push_str(&i);
         *prev_is_ident = true;
     };
 
-    while let Some(token) = parts.next() {
+    for token in parts {
         match token {
             TokenTree::Punct(p) => {
                 prev_is_ident = false;
