@@ -1,7 +1,11 @@
+// Copyright 2020, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
+use crate::IconSize;
+use crate::ResponseType;
 use glib::translate::{from_glib, ToGlib};
 use gtk_sys;
-use IconSize;
-use ResponseType;
 
 impl IconSize {
     pub fn unscaled() -> IconSize {

@@ -2,12 +2,12 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::Notebook;
+use crate::Widget;
 use glib::translate::*;
 use glib::IsA;
 use gtk_sys;
 use libc::c_int;
-use Notebook;
-use Widget;
 
 pub trait NotebookExtManual: 'static {
     fn append_page<T: IsA<Widget>, U: IsA<Widget>>(&self, child: &T, tab_label: Option<&U>) -> u32;

@@ -5,8 +5,8 @@
 use glib::translate::*;
 use gtk_sys;
 
-use PageRange;
-use PrintSettings;
+use crate::PageRange;
+use crate::PrintSettings;
 
 impl PrintSettings {
     pub fn set_page_ranges(&self, page_ranges: &[PageRange]) {

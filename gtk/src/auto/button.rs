@@ -2,6 +2,17 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Actionable;
+use crate::Align;
+use crate::Bin;
+use crate::Buildable;
+use crate::Container;
+use crate::IconSize;
+use crate::PositionType;
+use crate::ReliefStyle;
+use crate::ResizeMode;
+use crate::Widget;
 use gdk;
 use glib;
 use glib::object::Cast;
@@ -10,44 +21,30 @@ use glib::object::ObjectExt;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Actionable;
-use Align;
-use Bin;
-use Buildable;
-use Container;
-use IconSize;
-use PositionType;
-use ReliefStyle;
-use ResizeMode;
-use Widget;
 
-glib_wrapper! {
-    pub struct Button(Object<gtk_sys::GtkButton, gtk_sys::GtkButtonClass>) @extends Bin, Container, Widget, @implements Buildable, Actionable;
+glib::glib_wrapper! {
+    pub struct Button(Object<ffi::GtkButton, ffi::GtkButtonClass>) @extends Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || gtk_sys::gtk_button_get_type(),
+        get_type => || ffi::gtk_button_get_type(),
     }
 }
 
 impl Button {
     pub fn new() -> Button {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_button_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_button_new()).unsafe_cast() }
     }
 
     pub fn from_icon_name(icon_name: Option<&str>, size: IconSize) -> Button {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_button_new_from_icon_name(
+            Widget::from_glib_none(ffi::gtk_button_new_from_icon_name(
                 icon_name.to_glib_none().0,
                 size.to_glib(),
             ))
@@ -58,7 +55,7 @@ impl Button {
     pub fn with_label(label: &str) -> Button {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_button_new_with_label(label.to_glib_none().0))
+            Widget::from_glib_none(ffi::gtk_button_new_with_label(label.to_glib_none().0))
                 .unsafe_cast()
         }
     }
@@ -66,10 +63,8 @@ impl Button {
     pub fn with_mnemonic(label: &str) -> Button {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_button_new_with_mnemonic(
-                label.to_glib_none().0,
-            ))
-            .unsafe_cast()
+            Widget::from_glib_none(ffi::gtk_button_new_with_mnemonic(label.to_glib_none().0))
+                .unsafe_cast()
         }
     }
 }
@@ -512,7 +507,7 @@ pub trait ButtonExt: 'static {
 
     fn get_image_position(&self) -> PositionType;
 
-    fn get_label(&self) -> Option<GString>;
+    fn get_label(&self) -> Option<glib::GString>;
 
     fn get_relief(&self) -> ReliefStyle;
 
@@ -568,13 +563,13 @@ pub trait ButtonExt: 'static {
 impl<O: IsA<Button>> ButtonExt for O {
     fn clicked(&self) {
         unsafe {
-            gtk_sys::gtk_button_clicked(self.as_ref().to_glib_none().0);
+            ffi::gtk_button_clicked(self.as_ref().to_glib_none().0);
         }
     }
 
     fn get_always_show_image(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_button_get_always_show_image(
+            from_glib(ffi::gtk_button_get_always_show_image(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -582,7 +577,7 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     fn get_event_window(&self) -> Option<gdk::Window> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_button_get_event_window(
+            from_glib_none(ffi::gtk_button_get_event_window(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -592,47 +587,35 @@ impl<O: IsA<Button>> ButtonExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
     fn get_focus_on_click(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_button_get_focus_on_click(
+            from_glib(ffi::gtk_button_get_focus_on_click(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_image(&self) -> Option<Widget> {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_button_get_image(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gtk_button_get_image(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_image_position(&self) -> PositionType {
         unsafe {
-            from_glib(gtk_sys::gtk_button_get_image_position(
+            from_glib(ffi::gtk_button_get_image_position(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_label(&self) -> Option<GString> {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_button_get_label(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+    fn get_label(&self) -> Option<glib::GString> {
+        unsafe { from_glib_none(ffi::gtk_button_get_label(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_relief(&self) -> ReliefStyle {
-        unsafe {
-            from_glib(gtk_sys::gtk_button_get_relief(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_button_get_relief(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_use_underline(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_button_get_use_underline(
+            from_glib(ffi::gtk_button_get_use_underline(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -640,7 +623,7 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     fn set_always_show_image(&self, always_show: bool) {
         unsafe {
-            gtk_sys::gtk_button_set_always_show_image(
+            ffi::gtk_button_set_always_show_image(
                 self.as_ref().to_glib_none().0,
                 always_show.to_glib(),
             );
@@ -651,7 +634,7 @@ impl<O: IsA<Button>> ButtonExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
     fn set_focus_on_click(&self, focus_on_click: bool) {
         unsafe {
-            gtk_sys::gtk_button_set_focus_on_click(
+            ffi::gtk_button_set_focus_on_click(
                 self.as_ref().to_glib_none().0,
                 focus_on_click.to_glib(),
             );
@@ -660,7 +643,7 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     fn set_image<P: IsA<Widget>>(&self, image: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_button_set_image(
+            ffi::gtk_button_set_image(
                 self.as_ref().to_glib_none().0,
                 image.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -669,28 +652,25 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     fn set_image_position(&self, position: PositionType) {
         unsafe {
-            gtk_sys::gtk_button_set_image_position(
-                self.as_ref().to_glib_none().0,
-                position.to_glib(),
-            );
+            ffi::gtk_button_set_image_position(self.as_ref().to_glib_none().0, position.to_glib());
         }
     }
 
     fn set_label(&self, label: &str) {
         unsafe {
-            gtk_sys::gtk_button_set_label(self.as_ref().to_glib_none().0, label.to_glib_none().0);
+            ffi::gtk_button_set_label(self.as_ref().to_glib_none().0, label.to_glib_none().0);
         }
     }
 
     fn set_relief(&self, relief: ReliefStyle) {
         unsafe {
-            gtk_sys::gtk_button_set_relief(self.as_ref().to_glib_none().0, relief.to_glib());
+            ffi::gtk_button_set_relief(self.as_ref().to_glib_none().0, relief.to_glib());
         }
     }
 
     fn set_use_underline(&self, use_underline: bool) {
         unsafe {
-            gtk_sys::gtk_button_set_use_underline(
+            ffi::gtk_button_set_use_underline(
                 self.as_ref().to_glib_none().0,
                 use_underline.to_glib(),
             );
@@ -699,8 +679,8 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkButton,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkButton,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Button>,
         {
@@ -722,7 +702,7 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     fn emit_activate(&self) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("activate", &[])
                 .unwrap()
         };
@@ -730,8 +710,8 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     fn connect_clicked<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn clicked_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkButton,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkButton,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Button>,
         {
@@ -753,7 +733,7 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     fn emit_clicked(&self) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("clicked", &[])
                 .unwrap()
         };
@@ -764,9 +744,9 @@ impl<O: IsA<Button>> ButtonExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_always_show_image_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Button>,
         {
@@ -788,9 +768,9 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     fn connect_property_image_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_image_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Button>,
         {
@@ -815,9 +795,9 @@ impl<O: IsA<Button>> ButtonExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_image_position_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Button>,
         {
@@ -839,9 +819,9 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     fn connect_property_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Button>,
         {
@@ -863,9 +843,9 @@ impl<O: IsA<Button>> ButtonExt for O {
 
     fn connect_property_relief_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_relief_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Button>,
         {
@@ -890,9 +870,9 @@ impl<O: IsA<Button>> ButtonExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_underline_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Button>,
         {

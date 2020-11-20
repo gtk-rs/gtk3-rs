@@ -2,10 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::TreePath;
 use glib::translate::*;
 use gtk_sys;
 use std::slice;
-use TreePath;
 
 impl TreePath {
     pub fn get_indices(&self) -> Vec<i32> {

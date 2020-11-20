@@ -2,14 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::ColorButton;
+use crate::Widget;
 use gdk;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use gtk_sys;
 use std::mem;
-use ColorButton;
-use Widget;
 
 pub trait ColorButtonExtManual: 'static {
     fn with_color(color: &gdk::Color) -> ColorButton;

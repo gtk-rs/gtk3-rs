@@ -1,15 +1,17 @@
+// Copyright 2020, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
+use glib;
+use glib::subclass::prelude::*;
+use glib::translate::*;
+use glib::Cast;
 use gtk_sys;
 
-use glib::translate::*;
-
-use glib::subclass::prelude::*;
-
-use glib::Cast;
-
 use super::bin::BinImpl;
-use Bin;
-use Widget;
-use Window;
+use crate::Bin;
+use crate::Widget;
+use crate::Window;
 
 pub trait WindowImpl: WindowImplExt + BinImpl {
     fn set_focus(&self, window: &Self::Type, focus: Option<&Widget>) {
@@ -102,7 +104,7 @@ impl<T: WindowImpl> WindowImplExt for T {
 }
 
 unsafe impl<T: WindowImpl> IsSubclassable<T> for Window {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
+    fn override_vfuncs(class: &mut glib::Class<Self>) {
         <Bin as IsSubclassable<T>>::override_vfuncs(class);
 
         let klass = class.as_mut();

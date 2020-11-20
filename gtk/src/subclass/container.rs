@@ -1,15 +1,18 @@
+// Copyright 2020, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
 use gtk_sys;
 
-use glib::translate::*;
-
+use glib;
 use glib::subclass::prelude::*;
-
+use glib::translate::*;
 use glib::Cast;
 
 use super::widget::WidgetImpl;
-use Container;
-use Widget;
-use WidgetPath;
+use crate::Container;
+use crate::Widget;
+use crate::WidgetPath;
 
 pub trait ContainerImpl: ContainerImplExt + WidgetImpl {
     fn add(&self, container: &Self::Type, widget: &Widget) {
@@ -144,7 +147,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
 }
 
 unsafe impl<T: ContainerImpl> IsSubclassable<T> for Container {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
+    fn override_vfuncs(class: &mut glib::Class<Self>) {
         <Widget as IsSubclassable<T>>::override_vfuncs(class);
 
         let klass = class.as_mut();

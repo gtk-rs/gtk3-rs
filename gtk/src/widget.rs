@@ -4,18 +4,17 @@
 
 use gdk;
 use gdk::{DragAction, Event, ModifierType};
-use gdk_sys;
+use glib::ffi::gboolean;
 use glib::object::{Cast, IsA, WeakRef};
 use glib::signal::{connect_raw, Inhibit, SignalHandlerId};
 use glib::translate::*;
 use glib::ObjectExt;
-use glib_sys::gboolean;
 use gtk_sys;
 use std::mem::transmute;
 use std::ptr;
 
+use crate::{DestDefaults, Rectangle, TargetEntry, Widget};
 use glib::Continue;
-use {DestDefaults, Rectangle, TargetEntry, Widget};
 
 pub struct TickCallbackId {
     id: u32,
@@ -134,7 +133,7 @@ impl<O: IsA<Widget>> WidgetExtManual for O {
     ) -> SignalHandlerId {
         unsafe extern "C" fn event_any_trampoline<T, F: Fn(&T, &Event) -> Inhibit + 'static>(
             this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventAny,
+            event: *mut gdk::ffi::GdkEventAny,
             f: &F,
         ) -> gboolean
         where
@@ -165,7 +164,7 @@ impl<O: IsA<Widget>> WidgetExtManual for O {
     ) -> SignalHandlerId {
         unsafe extern "C" fn event_any_trampoline<T, F: Fn(&T, &Event) -> Inhibit + 'static>(
             this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventAny,
+            event: *mut gdk::ffi::GdkEventAny,
             f: &F,
         ) -> gboolean
         where
@@ -201,7 +200,7 @@ impl<O: IsA<Widget>> WidgetExtManual for O {
             P: Fn(&O, &gdk::FrameClock) -> Continue + 'static,
         >(
             widget: *mut gtk_sys::GtkWidget,
-            frame_clock: *mut gdk_sys::GdkFrameClock,
+            frame_clock: *mut gdk::ffi::GdkFrameClock,
             user_data: glib_sys::gpointer,
         ) -> glib_sys::gboolean {
             let widget: Borrowed<Widget> = from_glib_borrow(widget);

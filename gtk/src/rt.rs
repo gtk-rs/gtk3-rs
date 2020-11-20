@@ -8,6 +8,7 @@ use glib::translate::*;
 use gtk_sys;
 use libc::c_uint;
 use std::cell::Cell;
+use std::env;
 use std::sync::atomic::{AtomicBool, Ordering, ATOMIC_BOOL_INIT};
 
 #[cfg(target_os = "macos")]
@@ -24,8 +25,8 @@ static INITIALIZED: AtomicBool = ATOMIC_BOOL_INIT;
 /// Asserts that this is the main thread and `gtk::init` has been called.
 macro_rules! assert_initialized_main_thread {
     () => {
-        if !::rt::is_initialized_main_thread() {
-            if ::rt::is_initialized() {
+        if !crate::rt::is_initialized_main_thread() {
+            if crate::rt::is_initialized() {
                 panic!("GTK may only be used from the main thread.");
             } else {
                 panic!("GTK has not been initialized. Call `gtk::init` first.");
@@ -43,7 +44,7 @@ macro_rules! skip_assert_initialized {
 #[allow(unused_macros)]
 macro_rules! assert_not_initialized {
     () => {
-        if ::rt::is_initialized() {
+        if crate::rt::is_initialized() {
             panic!("This function has to be called before `gtk::init`.");
         }
     };
@@ -119,17 +120,19 @@ pub fn init() -> Result<(), glib::BoolError> {
     unsafe {
         // We just want to keep the program's name since more arguments could lead to unwanted
         // behaviors...
-        let argv = ::std::env::args().take(1).collect::<Vec<_>>();
+        let argv = env::args().take(1).collect::<Vec<_>>();
 
         if from_glib(gtk_sys::gtk_init_check(&mut 1, &mut argv.to_glib_none().0)) {
             if !glib::MainContext::default().acquire() {
-                return Err(glib_bool_error!("Failed to acquire default main context"));
+                return Err(glib::glib_bool_error!(
+                    "Failed to acquire default main context"
+                ));
             }
 
             set_initialized();
             Ok(())
         } else {
-            Err(glib_bool_error!("Failed to initialize GTK"))
+            Err(glib::glib_bool_error!("Failed to initialize GTK"))
         }
     }
 }

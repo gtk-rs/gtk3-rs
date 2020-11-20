@@ -2,6 +2,18 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Actionable;
+use crate::Align;
+use crate::Bin;
+use crate::Buildable;
+use crate::Container;
+use crate::RadioButton;
+use crate::ResizeMode;
+use crate::ToggleToolButton;
+use crate::ToolButton;
+use crate::ToolItem;
+use crate::Widget;
 use gdk;
 use glib;
 use glib::object::Cast;
@@ -9,25 +21,13 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use gtk_sys;
 use std::fmt;
-use Actionable;
-use Align;
-use Bin;
-use Buildable;
-use Container;
-use RadioButton;
-use ResizeMode;
-use ToggleToolButton;
-use ToolButton;
-use ToolItem;
-use Widget;
 
-glib_wrapper! {
-    pub struct RadioToolButton(Object<gtk_sys::GtkRadioToolButton, gtk_sys::GtkRadioToolButtonClass>) @extends ToggleToolButton, ToolButton, ToolItem, Bin, Container, Widget, @implements Buildable, Actionable;
+glib::glib_wrapper! {
+    pub struct RadioToolButton(Object<ffi::GtkRadioToolButton, ffi::GtkRadioToolButtonClass>) @extends ToggleToolButton, ToolButton, ToolItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || gtk_sys::gtk_radio_tool_button_get_type(),
+        get_type => || ffi::gtk_radio_tool_button_get_type(),
     }
 }
 
@@ -35,7 +35,7 @@ impl RadioToolButton {
     pub fn from_widget<P: IsA<RadioToolButton>>(group: &P) -> RadioToolButton {
         skip_assert_initialized!();
         unsafe {
-            ToolItem::from_glib_none(gtk_sys::gtk_radio_tool_button_new_from_widget(
+            ToolItem::from_glib_none(ffi::gtk_radio_tool_button_new_from_widget(
                 group.as_ref().to_glib_none().0,
             ))
             .unsafe_cast()
@@ -493,7 +493,7 @@ pub trait RadioToolButtonExt: 'static {
 impl<O: IsA<RadioToolButton>> RadioToolButtonExt for O {
     fn get_group(&self) -> Vec<RadioButton> {
         unsafe {
-            FromGlibPtrContainer::from_glib_none(gtk_sys::gtk_radio_tool_button_get_group(
+            FromGlibPtrContainer::from_glib_none(ffi::gtk_radio_tool_button_get_group(
                 self.as_ref().to_glib_none().0,
             ))
         }

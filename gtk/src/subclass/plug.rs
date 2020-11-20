@@ -2,14 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use glib;
 use glib::subclass::prelude::*;
-
 use glib::translate::*;
 use glib::Cast;
 
 use super::window::WindowImpl;
-use Plug;
-use Window;
+use crate::Plug;
+use crate::Window;
 
 pub trait PlugImpl: PlugImplExt + WindowImpl {
     fn embedded(&self, plug: &Self::Type) {
@@ -34,7 +34,7 @@ impl<T: PlugImpl> PlugImplExt for T {
 }
 
 unsafe impl<T: PlugImpl> IsSubclassable<T> for Plug {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
+    fn override_vfuncs(class: &mut glib::Class<Self>) {
         <Window as IsSubclassable<T>>::override_vfuncs(class);
 
         let klass = class.as_mut();

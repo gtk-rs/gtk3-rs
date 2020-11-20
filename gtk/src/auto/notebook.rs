@@ -2,6 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Align;
+use crate::Buildable;
+use crate::Container;
+use crate::DirectionType;
+use crate::NotebookTab;
+use crate::PackType;
+use crate::PositionType;
+use crate::ResizeMode;
+use crate::Widget;
 use gdk;
 use glib;
 use glib::object::Cast;
@@ -10,39 +20,26 @@ use glib::object::ObjectExt;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Align;
-use Buildable;
-use Container;
-use DirectionType;
-use NotebookTab;
-use PackType;
-use PositionType;
-use ResizeMode;
-use Widget;
 
-glib_wrapper! {
-    pub struct Notebook(Object<gtk_sys::GtkNotebook, gtk_sys::GtkNotebookClass>) @extends Container, Widget, @implements Buildable;
+glib::glib_wrapper! {
+    pub struct Notebook(Object<ffi::GtkNotebook, ffi::GtkNotebookClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_notebook_get_type(),
+        get_type => || ffi::gtk_notebook_get_type(),
     }
 }
 
 impl Notebook {
     pub fn new() -> Notebook {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_notebook_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_notebook_new()).unsafe_cast() }
     }
 }
 
@@ -466,11 +463,11 @@ pub trait NotebookExt: 'static {
 
     fn get_action_widget(&self, pack_type: PackType) -> Option<Widget>;
 
-    fn get_group_name(&self) -> Option<GString>;
+    fn get_group_name(&self) -> Option<glib::GString>;
 
     fn get_menu_label<P: IsA<Widget>>(&self, child: &P) -> Option<Widget>;
 
-    fn get_menu_label_text<P: IsA<Widget>>(&self, child: &P) -> Option<GString>;
+    fn get_menu_label_text<P: IsA<Widget>>(&self, child: &P) -> Option<glib::GString>;
 
     fn get_scrollable(&self) -> bool;
 
@@ -482,7 +479,7 @@ pub trait NotebookExt: 'static {
 
     fn get_tab_label<P: IsA<Widget>>(&self, child: &P) -> Option<Widget>;
 
-    fn get_tab_label_text<P: IsA<Widget>>(&self, child: &P) -> Option<GString>;
+    fn get_tab_label_text<P: IsA<Widget>>(&self, child: &P) -> Option<glib::GString>;
 
     fn get_tab_pos(&self) -> PositionType;
 
@@ -535,7 +532,7 @@ pub trait NotebookExt: 'static {
     fn set_child_detachable<T: IsA<Widget>>(&self, item: &T, detachable: bool);
 
     #[doc(hidden)]
-    fn get_child_menu_label<T: IsA<Widget>>(&self, item: &T) -> Option<GString>;
+    fn get_child_menu_label<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString>;
 
     #[doc(hidden)]
     fn set_child_menu_label<T: IsA<Widget>>(&self, item: &T, menu_label: Option<&str>);
@@ -565,7 +562,7 @@ pub trait NotebookExt: 'static {
     fn set_child_tab_fill<T: IsA<Widget>>(&self, item: &T, tab_fill: bool);
 
     #[doc(hidden)]
-    fn get_child_tab_label<T: IsA<Widget>>(&self, item: &T) -> Option<GString>;
+    fn get_child_tab_label<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString>;
 
     #[doc(hidden)]
     fn set_child_tab_label<T: IsA<Widget>>(&self, item: &T, tab_label: Option<&str>);
@@ -637,7 +634,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn detach_tab<P: IsA<Widget>>(&self, child: &P) {
         unsafe {
-            gtk_sys::gtk_notebook_detach_tab(
+            ffi::gtk_notebook_detach_tab(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
             );
@@ -646,16 +643,16 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn get_action_widget(&self, pack_type: PackType) -> Option<Widget> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_notebook_get_action_widget(
+            from_glib_none(ffi::gtk_notebook_get_action_widget(
                 self.as_ref().to_glib_none().0,
                 pack_type.to_glib(),
             ))
         }
     }
 
-    fn get_group_name(&self) -> Option<GString> {
+    fn get_group_name(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_notebook_get_group_name(
+            from_glib_none(ffi::gtk_notebook_get_group_name(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -663,16 +660,16 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn get_menu_label<P: IsA<Widget>>(&self, child: &P) -> Option<Widget> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_notebook_get_menu_label(
+            from_glib_none(ffi::gtk_notebook_get_menu_label(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_menu_label_text<P: IsA<Widget>>(&self, child: &P) -> Option<GString> {
+    fn get_menu_label_text<P: IsA<Widget>>(&self, child: &P) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_notebook_get_menu_label_text(
+            from_glib_none(ffi::gtk_notebook_get_menu_label_text(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
             ))
@@ -681,7 +678,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn get_scrollable(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_notebook_get_scrollable(
+            from_glib(ffi::gtk_notebook_get_scrollable(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -689,7 +686,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn get_show_border(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_notebook_get_show_border(
+            from_glib(ffi::gtk_notebook_get_show_border(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -697,7 +694,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn get_show_tabs(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_notebook_get_show_tabs(
+            from_glib(ffi::gtk_notebook_get_show_tabs(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -705,7 +702,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn get_tab_detachable<P: IsA<Widget>>(&self, child: &P) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_notebook_get_tab_detachable(
+            from_glib(ffi::gtk_notebook_get_tab_detachable(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
             ))
@@ -714,16 +711,16 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn get_tab_label<P: IsA<Widget>>(&self, child: &P) -> Option<Widget> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_notebook_get_tab_label(
+            from_glib_none(ffi::gtk_notebook_get_tab_label(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_tab_label_text<P: IsA<Widget>>(&self, child: &P) -> Option<GString> {
+    fn get_tab_label_text<P: IsA<Widget>>(&self, child: &P) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_notebook_get_tab_label_text(
+            from_glib_none(ffi::gtk_notebook_get_tab_label_text(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
             ))
@@ -732,7 +729,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn get_tab_pos(&self) -> PositionType {
         unsafe {
-            from_glib(gtk_sys::gtk_notebook_get_tab_pos(
+            from_glib(ffi::gtk_notebook_get_tab_pos(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -740,7 +737,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn get_tab_reorderable<P: IsA<Widget>>(&self, child: &P) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_notebook_get_tab_reorderable(
+            from_glib(ffi::gtk_notebook_get_tab_reorderable(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
             ))
@@ -749,31 +746,31 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn next_page(&self) {
         unsafe {
-            gtk_sys::gtk_notebook_next_page(self.as_ref().to_glib_none().0);
+            ffi::gtk_notebook_next_page(self.as_ref().to_glib_none().0);
         }
     }
 
     fn popup_disable(&self) {
         unsafe {
-            gtk_sys::gtk_notebook_popup_disable(self.as_ref().to_glib_none().0);
+            ffi::gtk_notebook_popup_disable(self.as_ref().to_glib_none().0);
         }
     }
 
     fn popup_enable(&self) {
         unsafe {
-            gtk_sys::gtk_notebook_popup_enable(self.as_ref().to_glib_none().0);
+            ffi::gtk_notebook_popup_enable(self.as_ref().to_glib_none().0);
         }
     }
 
     fn prev_page(&self) {
         unsafe {
-            gtk_sys::gtk_notebook_prev_page(self.as_ref().to_glib_none().0);
+            ffi::gtk_notebook_prev_page(self.as_ref().to_glib_none().0);
         }
     }
 
     fn set_action_widget<P: IsA<Widget>>(&self, widget: &P, pack_type: PackType) {
         unsafe {
-            gtk_sys::gtk_notebook_set_action_widget(
+            ffi::gtk_notebook_set_action_widget(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
                 pack_type.to_glib(),
@@ -783,7 +780,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn set_group_name(&self, group_name: Option<&str>) {
         unsafe {
-            gtk_sys::gtk_notebook_set_group_name(
+            ffi::gtk_notebook_set_group_name(
                 self.as_ref().to_glib_none().0,
                 group_name.to_glib_none().0,
             );
@@ -792,7 +789,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn set_menu_label<P: IsA<Widget>, Q: IsA<Widget>>(&self, child: &P, menu_label: Option<&Q>) {
         unsafe {
-            gtk_sys::gtk_notebook_set_menu_label(
+            ffi::gtk_notebook_set_menu_label(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
                 menu_label.map(|p| p.as_ref()).to_glib_none().0,
@@ -802,7 +799,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn set_menu_label_text<P: IsA<Widget>>(&self, child: &P, menu_text: &str) {
         unsafe {
-            gtk_sys::gtk_notebook_set_menu_label_text(
+            ffi::gtk_notebook_set_menu_label_text(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
                 menu_text.to_glib_none().0,
@@ -812,16 +809,13 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn set_scrollable(&self, scrollable: bool) {
         unsafe {
-            gtk_sys::gtk_notebook_set_scrollable(
-                self.as_ref().to_glib_none().0,
-                scrollable.to_glib(),
-            );
+            ffi::gtk_notebook_set_scrollable(self.as_ref().to_glib_none().0, scrollable.to_glib());
         }
     }
 
     fn set_show_border(&self, show_border: bool) {
         unsafe {
-            gtk_sys::gtk_notebook_set_show_border(
+            ffi::gtk_notebook_set_show_border(
                 self.as_ref().to_glib_none().0,
                 show_border.to_glib(),
             );
@@ -830,16 +824,13 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn set_show_tabs(&self, show_tabs: bool) {
         unsafe {
-            gtk_sys::gtk_notebook_set_show_tabs(
-                self.as_ref().to_glib_none().0,
-                show_tabs.to_glib(),
-            );
+            ffi::gtk_notebook_set_show_tabs(self.as_ref().to_glib_none().0, show_tabs.to_glib());
         }
     }
 
     fn set_tab_detachable<P: IsA<Widget>>(&self, child: &P, detachable: bool) {
         unsafe {
-            gtk_sys::gtk_notebook_set_tab_detachable(
+            ffi::gtk_notebook_set_tab_detachable(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
                 detachable.to_glib(),
@@ -849,7 +840,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn set_tab_label<P: IsA<Widget>, Q: IsA<Widget>>(&self, child: &P, tab_label: Option<&Q>) {
         unsafe {
-            gtk_sys::gtk_notebook_set_tab_label(
+            ffi::gtk_notebook_set_tab_label(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
                 tab_label.map(|p| p.as_ref()).to_glib_none().0,
@@ -859,7 +850,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn set_tab_label_text<P: IsA<Widget>>(&self, child: &P, tab_text: &str) {
         unsafe {
-            gtk_sys::gtk_notebook_set_tab_label_text(
+            ffi::gtk_notebook_set_tab_label_text(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
                 tab_text.to_glib_none().0,
@@ -869,13 +860,13 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn set_tab_pos(&self, pos: PositionType) {
         unsafe {
-            gtk_sys::gtk_notebook_set_tab_pos(self.as_ref().to_glib_none().0, pos.to_glib());
+            ffi::gtk_notebook_set_tab_pos(self.as_ref().to_glib_none().0, pos.to_glib());
         }
     }
 
     fn set_tab_reorderable<P: IsA<Widget>>(&self, child: &P, reorderable: bool) {
         unsafe {
-            gtk_sys::gtk_notebook_set_tab_reorderable(
+            ffi::gtk_notebook_set_tab_reorderable(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
                 reorderable.to_glib(),
@@ -886,8 +877,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     fn get_property_enable_popup(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"enable-popup\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -900,8 +891,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn set_property_enable_popup(&self, enable_popup: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"enable-popup\0".as_ptr() as *const _,
                 Value::from(&enable_popup).to_glib_none().0,
             );
@@ -911,8 +902,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     fn get_property_page(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"page\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -925,8 +916,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn set_property_page(&self, page: i32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"page\0".as_ptr() as *const _,
                 Value::from(&page).to_glib_none().0,
             );
@@ -937,8 +928,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     fn get_child_detachable<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"detachable\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -953,8 +944,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     #[doc(hidden)]
     fn set_child_detachable<T: IsA<Widget>>(&self, item: &T, detachable: bool) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"detachable\0".as_ptr() as *const _,
                 Value::from(&detachable).to_glib_none().0,
@@ -963,11 +954,11 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     }
 
     #[doc(hidden)]
-    fn get_child_menu_label<T: IsA<Widget>>(&self, item: &T) -> Option<GString> {
+    fn get_child_menu_label<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"menu-label\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -981,8 +972,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     #[doc(hidden)]
     fn set_child_menu_label<T: IsA<Widget>>(&self, item: &T, menu_label: Option<&str>) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"menu-label\0".as_ptr() as *const _,
                 Value::from(menu_label).to_glib_none().0,
@@ -994,8 +985,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     fn get_child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"position\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -1010,8 +1001,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     #[doc(hidden)]
     fn set_child_position<T: IsA<Widget>>(&self, item: &T, position: i32) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"position\0".as_ptr() as *const _,
                 Value::from(&position).to_glib_none().0,
@@ -1023,8 +1014,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     fn get_child_reorderable<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"reorderable\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -1039,8 +1030,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     #[doc(hidden)]
     fn set_child_reorderable<T: IsA<Widget>>(&self, item: &T, reorderable: bool) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"reorderable\0".as_ptr() as *const _,
                 Value::from(&reorderable).to_glib_none().0,
@@ -1052,8 +1043,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     fn get_child_tab_expand<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"tab-expand\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -1068,8 +1059,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     #[doc(hidden)]
     fn set_child_tab_expand<T: IsA<Widget>>(&self, item: &T, tab_expand: bool) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"tab-expand\0".as_ptr() as *const _,
                 Value::from(&tab_expand).to_glib_none().0,
@@ -1081,8 +1072,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     fn get_child_tab_fill<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"tab-fill\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -1097,8 +1088,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     #[doc(hidden)]
     fn set_child_tab_fill<T: IsA<Widget>>(&self, item: &T, tab_fill: bool) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"tab-fill\0".as_ptr() as *const _,
                 Value::from(&tab_fill).to_glib_none().0,
@@ -1107,11 +1098,11 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     }
 
     #[doc(hidden)]
-    fn get_child_tab_label<T: IsA<Widget>>(&self, item: &T) -> Option<GString> {
+    fn get_child_tab_label<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"tab-label\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -1125,8 +1116,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     #[doc(hidden)]
     fn set_child_tab_label<T: IsA<Widget>>(&self, item: &T, tab_label: Option<&str>) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"tab-label\0".as_ptr() as *const _,
                 Value::from(tab_label).to_glib_none().0,
@@ -1139,10 +1130,10 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn change_current_page_trampoline<P, F: Fn(&P, i32) -> bool + 'static>(
-            this: *mut gtk_sys::GtkNotebook,
+            this: *mut ffi::GtkNotebook,
             object: libc::c_int,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Notebook>,
         {
@@ -1164,7 +1155,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn emit_change_current_page(&self, object: i32) -> bool {
         let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("change-current-page", &[&object])
                 .unwrap()
         };
@@ -1182,12 +1173,12 @@ impl<O: IsA<Notebook>> NotebookExt for O {
             P,
             F: Fn(&P, &Widget, i32, i32) -> Notebook + 'static,
         >(
-            this: *mut gtk_sys::GtkNotebook,
-            page: *mut gtk_sys::GtkWidget,
+            this: *mut ffi::GtkNotebook,
+            page: *mut ffi::GtkWidget,
             x: libc::c_int,
             y: libc::c_int,
-            f: glib_sys::gpointer,
-        ) -> *mut gtk_sys::GtkNotebook
+            f: glib::ffi::gpointer,
+        ) -> *mut ffi::GtkNotebook
         where
             P: IsA<Notebook>,
         {
@@ -1219,10 +1210,10 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn focus_tab_trampoline<P, F: Fn(&P, NotebookTab) -> bool + 'static>(
-            this: *mut gtk_sys::GtkNotebook,
-            object: gtk_sys::GtkNotebookTab,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkNotebook,
+            object: ffi::GtkNotebookTab,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Notebook>,
         {
@@ -1248,7 +1239,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn emit_focus_tab(&self, object: NotebookTab) -> bool {
         let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("focus-tab", &[&object])
                 .unwrap()
         };
@@ -1263,9 +1254,9 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn move_focus_out_trampoline<P, F: Fn(&P, DirectionType) + 'static>(
-            this: *mut gtk_sys::GtkNotebook,
-            object: gtk_sys::GtkDirectionType,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkNotebook,
+            object: ffi::GtkDirectionType,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Notebook>,
         {
@@ -1290,7 +1281,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn emit_move_focus_out(&self, object: DirectionType) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("move-focus-out", &[&object])
                 .unwrap()
         };
@@ -1298,10 +1289,10 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn connect_page_added<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn page_added_trampoline<P, F: Fn(&P, &Widget, u32) + 'static>(
-            this: *mut gtk_sys::GtkNotebook,
-            child: *mut gtk_sys::GtkWidget,
+            this: *mut ffi::GtkNotebook,
+            child: *mut ffi::GtkWidget,
             page_num: libc::c_uint,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Notebook>,
         {
@@ -1327,10 +1318,10 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn connect_page_removed<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn page_removed_trampoline<P, F: Fn(&P, &Widget, u32) + 'static>(
-            this: *mut gtk_sys::GtkNotebook,
-            child: *mut gtk_sys::GtkWidget,
+            this: *mut ffi::GtkNotebook,
+            child: *mut ffi::GtkWidget,
             page_num: libc::c_uint,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Notebook>,
         {
@@ -1359,10 +1350,10 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn page_reordered_trampoline<P, F: Fn(&P, &Widget, u32) + 'static>(
-            this: *mut gtk_sys::GtkNotebook,
-            child: *mut gtk_sys::GtkWidget,
+            this: *mut ffi::GtkNotebook,
+            child: *mut ffi::GtkWidget,
             page_num: libc::c_uint,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Notebook>,
         {
@@ -1394,11 +1385,11 @@ impl<O: IsA<Notebook>> NotebookExt for O {
             P,
             F: Fn(&P, DirectionType, bool) -> bool + 'static,
         >(
-            this: *mut gtk_sys::GtkNotebook,
-            object: gtk_sys::GtkDirectionType,
-            p0: glib_sys::gboolean,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkNotebook,
+            object: ffi::GtkDirectionType,
+            p0: glib::ffi::gboolean,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Notebook>,
         {
@@ -1425,7 +1416,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn emit_reorder_tab(&self, object: DirectionType, p0: bool) -> bool {
         let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("reorder-tab", &[&object, &p0])
                 .unwrap()
         };
@@ -1437,10 +1428,10 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn connect_select_page<F: Fn(&Self, bool) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn select_page_trampoline<P, F: Fn(&P, bool) -> bool + 'static>(
-            this: *mut gtk_sys::GtkNotebook,
-            object: glib_sys::gboolean,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkNotebook,
+            object: glib::ffi::gboolean,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Notebook>,
         {
@@ -1466,7 +1457,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn emit_select_page(&self, object: bool) -> bool {
         let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("select-page", &[&object])
                 .unwrap()
         };
@@ -1478,10 +1469,10 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn connect_switch_page<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn switch_page_trampoline<P, F: Fn(&P, &Widget, u32) + 'static>(
-            this: *mut gtk_sys::GtkNotebook,
-            page: *mut gtk_sys::GtkWidget,
+            this: *mut ffi::GtkNotebook,
+            page: *mut ffi::GtkWidget,
             page_num: libc::c_uint,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Notebook>,
         {
@@ -1510,9 +1501,9 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_enable_popup_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkNotebook,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkNotebook,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Notebook>,
         {
@@ -1534,9 +1525,9 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn connect_property_group_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_group_name_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkNotebook,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkNotebook,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Notebook>,
         {
@@ -1558,9 +1549,9 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn connect_property_page_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_page_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkNotebook,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkNotebook,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Notebook>,
         {
@@ -1582,9 +1573,9 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn connect_property_scrollable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_scrollable_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkNotebook,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkNotebook,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Notebook>,
         {
@@ -1606,9 +1597,9 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn connect_property_show_border_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_border_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkNotebook,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkNotebook,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Notebook>,
         {
@@ -1630,9 +1621,9 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn connect_property_show_tabs_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_tabs_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkNotebook,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkNotebook,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Notebook>,
         {
@@ -1654,9 +1645,9 @@ impl<O: IsA<Notebook>> NotebookExt for O {
 
     fn connect_property_tab_pos_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tab_pos_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkNotebook,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkNotebook,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Notebook>,
         {

@@ -1,17 +1,21 @@
-use glib_sys;
+// Copyright 2020, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
 use gtk_sys;
 
 use libc::c_int;
 
+use glib;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 use glib::Cast;
 
 use super::container::ContainerImpl;
-use Container;
-use IconView;
-use MovementStep;
-use TreePath;
+use crate::Container;
+use crate::IconView;
+use crate::MovementStep;
+use crate::TreePath;
 
 pub trait IconViewImpl: IconViewImplExt + ContainerImpl {
     fn item_activated(&self, icon_view: &Self::Type, path: &TreePath) {
@@ -145,7 +149,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
 }
 
 unsafe impl<T: IconViewImpl> IsSubclassable<T> for IconView {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
+    fn override_vfuncs(class: &mut glib::Class<Self>) {
         <Container as IsSubclassable<T>>::override_vfuncs(class);
 
         let klass = class.as_mut();
@@ -216,7 +220,7 @@ unsafe extern "C" fn icon_view_move_cursor<T: IconViewImpl>(
     ptr: *mut gtk_sys::GtkIconView,
     step: gtk_sys::GtkMovementStep,
     count: c_int,
-) -> glib_sys::gboolean {
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<IconView> = from_glib_borrow(ptr);
@@ -227,7 +231,7 @@ unsafe extern "C" fn icon_view_move_cursor<T: IconViewImpl>(
 
 unsafe extern "C" fn icon_view_activate_cursor_item<T: IconViewImpl>(
     ptr: *mut gtk_sys::GtkIconView,
-) -> glib_sys::gboolean {
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<IconView> = from_glib_borrow(ptr);

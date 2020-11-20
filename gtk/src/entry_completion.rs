@@ -2,13 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::Entry;
+use crate::EntryCompletion;
+use crate::Widget;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::Cast;
 use gtk_sys;
-use Entry;
-use EntryCompletion;
-use Widget;
 
 pub trait EntryCompletionExtManual: 'static {
     fn get_entry(&self) -> Option<Entry>;

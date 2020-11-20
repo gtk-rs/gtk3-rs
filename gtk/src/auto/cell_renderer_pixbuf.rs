@@ -2,43 +2,39 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::CellRenderer;
+use crate::CellRendererMode;
 use cairo;
 use gdk;
 use gdk_pixbuf;
 use gio;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::value::SetValueOptional;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use CellRenderer;
-use CellRendererMode;
 
-glib_wrapper! {
-    pub struct CellRendererPixbuf(Object<gtk_sys::GtkCellRendererPixbuf, gtk_sys::GtkCellRendererPixbufClass>) @extends CellRenderer;
+glib::glib_wrapper! {
+    pub struct CellRendererPixbuf(Object<ffi::GtkCellRendererPixbuf, ffi::GtkCellRendererPixbufClass>) @extends CellRenderer;
 
     match fn {
-        get_type => || gtk_sys::gtk_cell_renderer_pixbuf_get_type(),
+        get_type => || ffi::gtk_cell_renderer_pixbuf_get_type(),
     }
 }
 
 impl CellRendererPixbuf {
     pub fn new() -> CellRendererPixbuf {
         assert_initialized_main_thread!();
-        unsafe {
-            CellRenderer::from_glib_none(gtk_sys::gtk_cell_renderer_pixbuf_new()).unsafe_cast()
-        }
+        unsafe { CellRenderer::from_glib_none(ffi::gtk_cell_renderer_pixbuf_new()).unsafe_cast() }
     }
 }
 
@@ -287,7 +283,7 @@ pub trait CellRendererPixbufExt: 'static {
 
     fn set_property_gicon<P: IsA<gio::Icon> + SetValueOptional>(&self, gicon: Option<&P>);
 
-    fn get_property_icon_name(&self) -> Option<GString>;
+    fn get_property_icon_name(&self) -> Option<glib::GString>;
 
     fn set_property_icon_name(&self, icon_name: Option<&str>);
 
@@ -306,7 +302,7 @@ pub trait CellRendererPixbufExt: 'static {
 
     fn set_property_pixbuf_expander_open(&self, pixbuf_expander_open: Option<&gdk_pixbuf::Pixbuf>);
 
-    fn get_property_stock_detail(&self) -> Option<GString>;
+    fn get_property_stock_detail(&self) -> Option<glib::GString>;
 
     fn set_property_stock_detail(&self, stock_detail: Option<&str>);
 
@@ -346,8 +342,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
     fn get_property_follow_state(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"follow-state\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -360,8 +356,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     fn set_property_follow_state(&self, follow_state: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"follow-state\0".as_ptr() as *const _,
                 Value::from(&follow_state).to_glib_none().0,
             );
@@ -371,8 +367,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
     fn get_property_gicon(&self) -> Option<gio::Icon> {
         unsafe {
             let mut value = Value::from_type(<gio::Icon as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gicon\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -384,19 +380,19 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     fn set_property_gicon<P: IsA<gio::Icon> + SetValueOptional>(&self, gicon: Option<&P>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gicon\0".as_ptr() as *const _,
                 Value::from(gicon).to_glib_none().0,
             );
         }
     }
 
-    fn get_property_icon_name(&self) -> Option<GString> {
+    fn get_property_icon_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-name\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -408,8 +404,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     fn set_property_icon_name(&self, icon_name: Option<&str>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-name\0".as_ptr() as *const _,
                 Value::from(icon_name).to_glib_none().0,
             );
@@ -419,8 +415,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
     fn get_property_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe {
             let mut value = Value::from_type(<gdk_pixbuf::Pixbuf as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -432,8 +428,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     fn set_property_pixbuf(&self, pixbuf: Option<&gdk_pixbuf::Pixbuf>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf\0".as_ptr() as *const _,
                 Value::from(pixbuf).to_glib_none().0,
             );
@@ -443,8 +439,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
     fn get_property_pixbuf_expander_closed(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe {
             let mut value = Value::from_type(<gdk_pixbuf::Pixbuf as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf-expander-closed\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -459,8 +455,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         pixbuf_expander_closed: Option<&gdk_pixbuf::Pixbuf>,
     ) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf-expander-closed\0".as_ptr() as *const _,
                 Value::from(pixbuf_expander_closed).to_glib_none().0,
             );
@@ -470,8 +466,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
     fn get_property_pixbuf_expander_open(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe {
             let mut value = Value::from_type(<gdk_pixbuf::Pixbuf as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf-expander-open\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -483,19 +479,19 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     fn set_property_pixbuf_expander_open(&self, pixbuf_expander_open: Option<&gdk_pixbuf::Pixbuf>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf-expander-open\0".as_ptr() as *const _,
                 Value::from(pixbuf_expander_open).to_glib_none().0,
             );
         }
     }
 
-    fn get_property_stock_detail(&self) -> Option<GString> {
+    fn get_property_stock_detail(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"stock-detail\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -507,8 +503,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     fn set_property_stock_detail(&self, stock_detail: Option<&str>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"stock-detail\0".as_ptr() as *const _,
                 Value::from(stock_detail).to_glib_none().0,
             );
@@ -518,8 +514,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
     fn get_property_surface(&self) -> Option<cairo::Surface> {
         unsafe {
             let mut value = Value::from_type(<cairo::Surface as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"surface\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -531,8 +527,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     fn set_property_surface(&self, surface: Option<&cairo::Surface>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"surface\0".as_ptr() as *const _,
                 Value::from(surface).to_glib_none().0,
             );
@@ -544,9 +540,9 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_follow_state_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererPixbuf,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererPixbuf,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererPixbuf>,
         {
@@ -568,9 +564,9 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     fn connect_property_gicon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_gicon_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererPixbuf,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererPixbuf,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererPixbuf>,
         {
@@ -592,9 +588,9 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     fn connect_property_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_name_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererPixbuf,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererPixbuf,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererPixbuf>,
         {
@@ -616,9 +612,9 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     fn connect_property_pixbuf_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pixbuf_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererPixbuf,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererPixbuf,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererPixbuf>,
         {
@@ -643,9 +639,9 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_pixbuf_expander_closed_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererPixbuf,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererPixbuf,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererPixbuf>,
         {
@@ -670,9 +666,9 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_pixbuf_expander_open_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererPixbuf,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererPixbuf,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererPixbuf>,
         {
@@ -697,9 +693,9 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_stock_detail_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererPixbuf,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererPixbuf,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererPixbuf>,
         {
@@ -721,9 +717,9 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     fn connect_property_stock_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_stock_size_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererPixbuf,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererPixbuf,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererPixbuf>,
         {
@@ -745,9 +741,9 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
     fn connect_property_surface_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_surface_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererPixbuf,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererPixbuf,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererPixbuf>,
         {

@@ -2,14 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::TreeIter;
+use crate::TreeModel;
+use crate::TreeStore;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use glib::{ToValue, Type, Value};
 use gtk_sys;
 use libc::c_int;
-use TreeIter;
-use TreeModel;
-use TreeStore;
 
 impl TreeStore {
     pub fn new(column_types: &[Type]) -> TreeStore {

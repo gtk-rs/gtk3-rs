@@ -2,10 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::PadActionEntry;
+use crate::PadController;
 use glib::translate::*;
 use gtk_sys;
-use PadActionEntry;
-use PadController;
 
 impl PadController {
     pub fn set_action_entries(&self, entries: &[PadActionEntry]) {

@@ -2,41 +2,40 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Align;
+use crate::AppChooser;
+use crate::Bin;
+use crate::Buildable;
+use crate::CellArea;
+use crate::CellEditable;
+use crate::CellLayout;
+use crate::ComboBox;
+use crate::Container;
+use crate::ResizeMode;
+use crate::SensitivityType;
+use crate::TreeModel;
+use crate::Widget;
 use gdk;
 use gio;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Align;
-use AppChooser;
-use Bin;
-use Buildable;
-use CellArea;
-use CellEditable;
-use CellLayout;
-use ComboBox;
-use Container;
-use ResizeMode;
-use SensitivityType;
-use TreeModel;
-use Widget;
 
-glib_wrapper! {
-    pub struct AppChooserButton(Object<gtk_sys::GtkAppChooserButton, gtk_sys::GtkAppChooserButtonClass>) @extends ComboBox, Bin, Container, Widget, @implements Buildable, CellEditable, CellLayout, AppChooser;
+glib::glib_wrapper! {
+    pub struct AppChooserButton(Object<ffi::GtkAppChooserButton, ffi::GtkAppChooserButtonClass>) @extends ComboBox, Bin, Container, Widget, @implements Buildable, CellEditable, CellLayout, AppChooser;
 
     match fn {
-        get_type => || gtk_sys::gtk_app_chooser_button_get_type(),
+        get_type => || ffi::gtk_app_chooser_button_get_type(),
     }
 }
 
@@ -44,7 +43,7 @@ impl AppChooserButton {
     pub fn new(content_type: &str) -> AppChooserButton {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_app_chooser_button_new(
+            Widget::from_glib_none(ffi::gtk_app_chooser_button_new(
                 content_type.to_glib_none().0,
             ))
             .unsafe_cast()
@@ -563,7 +562,7 @@ pub trait AppChooserButtonExt: 'static {
 
     fn append_separator(&self);
 
-    fn get_heading(&self) -> Option<GString>;
+    fn get_heading(&self) -> Option<glib::GString>;
 
     fn get_show_default_item(&self) -> bool;
 
@@ -595,7 +594,7 @@ pub trait AppChooserButtonExt: 'static {
 impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
     fn append_custom_item<P: IsA<gio::Icon>>(&self, name: &str, label: &str, icon: &P) {
         unsafe {
-            gtk_sys::gtk_app_chooser_button_append_custom_item(
+            ffi::gtk_app_chooser_button_append_custom_item(
                 self.as_ref().to_glib_none().0,
                 name.to_glib_none().0,
                 label.to_glib_none().0,
@@ -606,13 +605,13 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
 
     fn append_separator(&self) {
         unsafe {
-            gtk_sys::gtk_app_chooser_button_append_separator(self.as_ref().to_glib_none().0);
+            ffi::gtk_app_chooser_button_append_separator(self.as_ref().to_glib_none().0);
         }
     }
 
-    fn get_heading(&self) -> Option<GString> {
+    fn get_heading(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_app_chooser_button_get_heading(
+            from_glib_none(ffi::gtk_app_chooser_button_get_heading(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -620,7 +619,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
 
     fn get_show_default_item(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_app_chooser_button_get_show_default_item(
+            from_glib(ffi::gtk_app_chooser_button_get_show_default_item(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -628,7 +627,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
 
     fn get_show_dialog_item(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_app_chooser_button_get_show_dialog_item(
+            from_glib(ffi::gtk_app_chooser_button_get_show_dialog_item(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -636,7 +635,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
 
     fn set_active_custom_item(&self, name: &str) {
         unsafe {
-            gtk_sys::gtk_app_chooser_button_set_active_custom_item(
+            ffi::gtk_app_chooser_button_set_active_custom_item(
                 self.as_ref().to_glib_none().0,
                 name.to_glib_none().0,
             );
@@ -645,7 +644,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
 
     fn set_heading(&self, heading: &str) {
         unsafe {
-            gtk_sys::gtk_app_chooser_button_set_heading(
+            ffi::gtk_app_chooser_button_set_heading(
                 self.as_ref().to_glib_none().0,
                 heading.to_glib_none().0,
             );
@@ -654,7 +653,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
 
     fn set_show_default_item(&self, setting: bool) {
         unsafe {
-            gtk_sys::gtk_app_chooser_button_set_show_default_item(
+            ffi::gtk_app_chooser_button_set_show_default_item(
                 self.as_ref().to_glib_none().0,
                 setting.to_glib(),
             );
@@ -663,7 +662,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
 
     fn set_show_dialog_item(&self, setting: bool) {
         unsafe {
-            gtk_sys::gtk_app_chooser_button_set_show_dialog_item(
+            ffi::gtk_app_chooser_button_set_show_dialog_item(
                 self.as_ref().to_glib_none().0,
                 setting.to_glib(),
             );
@@ -672,16 +671,16 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
 
     fn connect_custom_item_activated<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn custom_item_activated_trampoline<P, F: Fn(&P, &str) + 'static>(
-            this: *mut gtk_sys::GtkAppChooserButton,
+            this: *mut ffi::GtkAppChooserButton,
             item_name: *mut libc::c_char,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<AppChooserButton>,
         {
             let f: &F = &*(f as *const F);
             f(
                 &AppChooserButton::from_glib_borrow(this).unsafe_cast_ref(),
-                &GString::from_glib_borrow(item_name),
+                &glib::GString::from_glib_borrow(item_name),
             )
         }
         unsafe {
@@ -699,9 +698,9 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
 
     fn connect_property_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_heading_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkAppChooserButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkAppChooserButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<AppChooserButton>,
         {
@@ -726,9 +725,9 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_default_item_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkAppChooserButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkAppChooserButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<AppChooserButton>,
         {
@@ -753,9 +752,9 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_dialog_item_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkAppChooserButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkAppChooserButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<AppChooserButton>,
         {

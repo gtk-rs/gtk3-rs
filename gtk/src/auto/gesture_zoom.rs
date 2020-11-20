@@ -2,7 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::EventController;
+use crate::Gesture;
+use crate::PropagationPhase;
+use crate::Widget;
 use gdk;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
@@ -11,22 +17,16 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use EventController;
-use Gesture;
-use PropagationPhase;
-use Widget;
 
-glib_wrapper! {
-    pub struct GestureZoom(Object<gtk_sys::GtkGestureZoom, gtk_sys::GtkGestureZoomClass>) @extends Gesture, EventController;
+glib::glib_wrapper! {
+    pub struct GestureZoom(Object<ffi::GtkGestureZoom, ffi::GtkGestureZoomClass>) @extends Gesture, EventController;
 
     match fn {
-        get_type => || gtk_sys::gtk_gesture_zoom_get_type(),
+        get_type => || ffi::gtk_gesture_zoom_get_type(),
     }
 }
 
@@ -34,15 +34,13 @@ impl GestureZoom {
     pub fn new<P: IsA<Widget>>(widget: &P) -> GestureZoom {
         skip_assert_initialized!();
         unsafe {
-            Gesture::from_glib_full(gtk_sys::gtk_gesture_zoom_new(
-                widget.as_ref().to_glib_none().0,
-            ))
-            .unsafe_cast()
+            Gesture::from_glib_full(ffi::gtk_gesture_zoom_new(widget.as_ref().to_glib_none().0))
+                .unsafe_cast()
         }
     }
 
     pub fn get_scale_delta(&self) -> f64 {
-        unsafe { gtk_sys::gtk_gesture_zoom_get_scale_delta(self.to_glib_none().0) }
+        unsafe { ffi::gtk_gesture_zoom_get_scale_delta(self.to_glib_none().0) }
     }
 
     pub fn connect_scale_changed<F: Fn(&GestureZoom, f64) + 'static>(
@@ -50,9 +48,9 @@ impl GestureZoom {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn scale_changed_trampoline<F: Fn(&GestureZoom, f64) + 'static>(
-            this: *mut gtk_sys::GtkGestureZoom,
+            this: *mut ffi::GtkGestureZoom,
             scale: libc::c_double,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), scale)

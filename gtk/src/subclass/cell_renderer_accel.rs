@@ -1,15 +1,20 @@
-use gdk_sys;
+// Copyright 2020, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
 use gtk_sys;
 
 use libc::{c_char, c_uint};
 
+use gdk;
+use glib;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 use glib::{Cast, GString};
 
 use super::cell_renderer_text::CellRendererTextImpl;
-use CellRendererAccel;
-use CellRendererText;
+use crate::CellRendererAccel;
+use crate::CellRendererText;
 
 pub trait CellRendererAccelImpl: CellRendererAccelImplExt + CellRendererTextImpl {
     fn accel_edited(
@@ -87,7 +92,7 @@ impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
 }
 
 unsafe impl<T: CellRendererAccelImpl> IsSubclassable<T> for CellRendererAccel {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
+    fn override_vfuncs(class: &mut glib::Class<Self>) {
         <CellRendererText as IsSubclassable<T>>::override_vfuncs(class);
 
         let klass = class.as_mut();
@@ -100,7 +105,7 @@ unsafe extern "C" fn cell_renderer_accel_edited<T: CellRendererAccelImpl>(
     ptr: *mut gtk_sys::GtkCellRendererAccel,
     path: *const c_char,
     accel_key: c_uint,
-    accel_mods: gdk_sys::GdkModifierType,
+    accel_mods: gdk::ffi::GdkModifierType,
     hardware_keycode: c_uint,
 ) {
     let instance = &*(ptr as *mut T::Instance);

@@ -2,10 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::ComboBox;
 use glib::object::IsA;
 use glib::translate::*;
 use gtk_sys;
-use ComboBox;
 
 pub trait ComboBoxExtManual: 'static {
     fn set_active(&self, index_: Option<u32>);

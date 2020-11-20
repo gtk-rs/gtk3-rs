@@ -2,31 +2,28 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::IconTheme;
+use crate::StyleContext;
 use cairo;
 use gdk;
 use gdk_pixbuf;
 use gio;
-use gio_sys;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use std;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::pin::Pin;
 use std::ptr;
-use IconTheme;
-use StyleContext;
 
-glib_wrapper! {
-    pub struct IconInfo(Object<gtk_sys::GtkIconInfo, gtk_sys::GtkIconInfoClass>);
+glib::glib_wrapper! {
+    pub struct IconInfo(Object<ffi::GtkIconInfo, ffi::GtkIconInfoClass>);
 
     match fn {
-        get_type => || gtk_sys::gtk_icon_info_get_type(),
+        get_type => || ffi::gtk_icon_info_get_type(),
     }
 }
 
@@ -37,7 +34,7 @@ impl IconInfo {
     ) -> IconInfo {
         skip_assert_initialized!();
         unsafe {
-            from_glib_full(gtk_sys::gtk_icon_info_new_for_pixbuf(
+            from_glib_full(ffi::gtk_icon_info_new_for_pixbuf(
                 icon_theme.as_ref().to_glib_none().0,
                 pixbuf.to_glib_none().0,
             ))
@@ -45,25 +42,25 @@ impl IconInfo {
     }
 
     pub fn get_base_scale(&self) -> i32 {
-        unsafe { gtk_sys::gtk_icon_info_get_base_scale(self.to_glib_none().0) }
+        unsafe { ffi::gtk_icon_info_get_base_scale(self.to_glib_none().0) }
     }
 
     pub fn get_base_size(&self) -> i32 {
-        unsafe { gtk_sys::gtk_icon_info_get_base_size(self.to_glib_none().0) }
+        unsafe { ffi::gtk_icon_info_get_base_size(self.to_glib_none().0) }
     }
 
     pub fn get_filename(&self) -> Option<std::path::PathBuf> {
-        unsafe { from_glib_none(gtk_sys::gtk_icon_info_get_filename(self.to_glib_none().0)) }
+        unsafe { from_glib_none(ffi::gtk_icon_info_get_filename(self.to_glib_none().0)) }
     }
 
     pub fn is_symbolic(&self) -> bool {
-        unsafe { from_glib(gtk_sys::gtk_icon_info_is_symbolic(self.to_glib_none().0)) }
+        unsafe { from_glib(ffi::gtk_icon_info_is_symbolic(self.to_glib_none().0)) }
     }
 
     pub fn load_icon(&self) -> Result<gdk_pixbuf::Pixbuf, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gtk_sys::gtk_icon_info_load_icon(self.to_glib_none().0, &mut error);
+            let ret = ffi::gtk_icon_info_load_icon(self.to_glib_none().0, &mut error);
             if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -84,13 +81,13 @@ impl IconInfo {
         unsafe extern "C" fn load_icon_async_trampoline<
             Q: FnOnce(Result<gdk_pixbuf::Pixbuf, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut gio::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let ret =
-                gtk_sys::gtk_icon_info_load_icon_finish(_source_object as *mut _, res, &mut error);
+                ffi::gtk_icon_info_load_icon_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -101,7 +98,7 @@ impl IconInfo {
         }
         let callback = load_icon_async_trampoline::<Q>;
         unsafe {
-            gtk_sys::gtk_icon_info_load_icon_async(
+            ffi::gtk_icon_info_load_icon_async(
                 self.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -131,7 +128,7 @@ impl IconInfo {
     ) -> Result<cairo::Surface, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gtk_sys::gtk_icon_info_load_surface(
+            let ret = ffi::gtk_icon_info_load_surface(
                 self.to_glib_none().0,
                 for_window.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -154,7 +151,7 @@ impl IconInfo {
         unsafe {
             let mut was_symbolic = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
-            let ret = gtk_sys::gtk_icon_info_load_symbolic(
+            let ret = ffi::gtk_icon_info_load_symbolic(
                 self.to_glib_none().0,
                 fg.to_glib_none().0,
                 success_color.to_glib_none().0,
@@ -188,13 +185,13 @@ impl IconInfo {
         unsafe extern "C" fn load_symbolic_async_trampoline<
             Q: FnOnce(Result<(gdk_pixbuf::Pixbuf, bool), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut gio::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let mut was_symbolic = mem::MaybeUninit::uninit();
-            let ret = gtk_sys::gtk_icon_info_load_symbolic_finish(
+            let ret = ffi::gtk_icon_info_load_symbolic_finish(
                 _source_object as *mut _,
                 res,
                 was_symbolic.as_mut_ptr(),
@@ -211,7 +208,7 @@ impl IconInfo {
         }
         let callback = load_symbolic_async_trampoline::<Q>;
         unsafe {
-            gtk_sys::gtk_icon_info_load_symbolic_async(
+            ffi::gtk_icon_info_load_symbolic_async(
                 self.to_glib_none().0,
                 fg.to_glib_none().0,
                 success_color.to_glib_none().0,
@@ -264,7 +261,7 @@ impl IconInfo {
         unsafe {
             let mut was_symbolic = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
-            let ret = gtk_sys::gtk_icon_info_load_symbolic_for_context(
+            let ret = ffi::gtk_icon_info_load_symbolic_for_context(
                 self.to_glib_none().0,
                 context.as_ref().to_glib_none().0,
                 was_symbolic.as_mut_ptr(),
@@ -293,13 +290,13 @@ impl IconInfo {
         unsafe extern "C" fn load_symbolic_for_context_async_trampoline<
             R: FnOnce(Result<(gdk_pixbuf::Pixbuf, bool), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut gio::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let mut was_symbolic = mem::MaybeUninit::uninit();
-            let ret = gtk_sys::gtk_icon_info_load_symbolic_for_context_finish(
+            let ret = ffi::gtk_icon_info_load_symbolic_for_context_finish(
                 _source_object as *mut _,
                 res,
                 was_symbolic.as_mut_ptr(),
@@ -316,7 +313,7 @@ impl IconInfo {
         }
         let callback = load_symbolic_for_context_async_trampoline::<R>;
         unsafe {
-            gtk_sys::gtk_icon_info_load_symbolic_for_context_async(
+            ffi::gtk_icon_info_load_symbolic_for_context_async(
                 self.to_glib_none().0,
                 context.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,

@@ -2,6 +2,18 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Actionable;
+use crate::Align;
+use crate::Bin;
+use crate::Buildable;
+use crate::Button;
+use crate::Container;
+use crate::PositionType;
+use crate::ReliefStyle;
+use crate::ResizeMode;
+use crate::ToggleButton;
+use crate::Widget;
 use gdk;
 use glib;
 use glib::object::Cast;
@@ -9,48 +21,34 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use gtk_sys;
 use std::fmt;
-use Actionable;
-use Align;
-use Bin;
-use Buildable;
-use Button;
-use Container;
-use PositionType;
-use ReliefStyle;
-use ResizeMode;
-use ToggleButton;
-use Widget;
 
-glib_wrapper! {
-    pub struct CheckButton(Object<gtk_sys::GtkCheckButton, gtk_sys::GtkCheckButtonClass>) @extends ToggleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable;
+glib::glib_wrapper! {
+    pub struct CheckButton(Object<ffi::GtkCheckButton, ffi::GtkCheckButtonClass>) @extends ToggleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || gtk_sys::gtk_check_button_get_type(),
+        get_type => || ffi::gtk_check_button_get_type(),
     }
 }
 
 impl CheckButton {
     pub fn new() -> CheckButton {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_check_button_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_check_button_new()).unsafe_cast() }
     }
 
     pub fn with_label(label: &str) -> CheckButton {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_check_button_new_with_label(
-                label.to_glib_none().0,
-            ))
-            .unsafe_cast()
+            Widget::from_glib_none(ffi::gtk_check_button_new_with_label(label.to_glib_none().0))
+                .unsafe_cast()
         }
     }
 
     pub fn with_mnemonic(label: &str) -> CheckButton {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_check_button_new_with_mnemonic(
+            Widget::from_glib_none(ffi::gtk_check_button_new_with_mnemonic(
                 label.to_glib_none().0,
             ))
             .unsafe_cast()

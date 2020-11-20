@@ -2,34 +2,35 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Align;
+use crate::Bin;
+use crate::Buildable;
+use crate::Container;
+use crate::ResizeMode;
+use crate::Widget;
 use gdk;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use gtk_sys;
 use std::fmt;
-use Align;
-use Bin;
-use Buildable;
-use Container;
-use ResizeMode;
-use Widget;
 
-glib_wrapper! {
-    pub struct Overlay(Object<gtk_sys::GtkOverlay, gtk_sys::GtkOverlayClass>) @extends Bin, Container, Widget, @implements Buildable;
+glib::glib_wrapper! {
+    pub struct Overlay(Object<ffi::GtkOverlay, ffi::GtkOverlayClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_overlay_get_type(),
+        get_type => || ffi::gtk_overlay_get_type(),
     }
 }
 
 impl Overlay {
     pub fn new() -> Overlay {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_overlay_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_overlay_new()).unsafe_cast() }
     }
 }
 
@@ -408,7 +409,7 @@ pub trait OverlayExt: 'static {
 impl<O: IsA<Overlay>> OverlayExt for O {
     fn add_overlay<P: IsA<Widget>>(&self, widget: &P) {
         unsafe {
-            gtk_sys::gtk_overlay_add_overlay(
+            ffi::gtk_overlay_add_overlay(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
             );
@@ -419,7 +420,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn get_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_overlay_get_overlay_pass_through(
+            from_glib(ffi::gtk_overlay_get_overlay_pass_through(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
             ))
@@ -430,7 +431,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn reorder_overlay<P: IsA<Widget>>(&self, child: &P, index_: i32) {
         unsafe {
-            gtk_sys::gtk_overlay_reorder_overlay(
+            ffi::gtk_overlay_reorder_overlay(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
                 index_,
@@ -442,7 +443,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P, pass_through: bool) {
         unsafe {
-            gtk_sys::gtk_overlay_set_overlay_pass_through(
+            ffi::gtk_overlay_set_overlay_pass_through(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
                 pass_through.to_glib(),
@@ -453,8 +454,8 @@ impl<O: IsA<Overlay>> OverlayExt for O {
     fn get_child_index<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"index\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -468,8 +469,8 @@ impl<O: IsA<Overlay>> OverlayExt for O {
 
     fn set_child_index<T: IsA<Widget>>(&self, item: &T, index: i32) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"index\0".as_ptr() as *const _,
                 Value::from(&index).to_glib_none().0,

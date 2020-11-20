@@ -1,14 +1,19 @@
+// Copyright 2020, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
 use gtk_sys;
 
 use libc::c_char;
 
+use glib;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 use glib::{Cast, GString};
 
 use super::cell_renderer::CellRendererImpl;
-use CellRenderer;
-use CellRendererText;
+use crate::CellRenderer;
+use crate::CellRendererText;
 
 pub trait CellRendererTextImpl: CellRendererTextImplExt + CellRendererImpl {
     fn edited(&self, renderer: &Self::Type, path: &str, new_text: &str) {
@@ -41,7 +46,7 @@ impl<T: CellRendererTextImpl> CellRendererTextImplExt for T {
 }
 
 unsafe impl<T: CellRendererTextImpl> IsSubclassable<T> for CellRendererText {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
+    fn override_vfuncs(class: &mut glib::Class<Self>) {
         <CellRenderer as IsSubclassable<T>>::override_vfuncs(class);
 
         let klass = class.as_mut();

@@ -2,11 +2,11 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::FlowBox;
 use glib::object::IsA;
 use glib::translate::*;
 use gtk_sys;
 use std::ptr;
-use FlowBox;
 
 pub trait FlowBoxExtManual: 'static {
     #[cfg(any(feature = "v3_18", feature = "dox"))]

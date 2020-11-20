@@ -2,14 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::AccelFlags;
+use crate::AccelGroup;
 use gdk;
 use glib;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use glib::ToValue;
 use gtk_sys;
-use AccelFlags;
-use AccelGroup;
 
 pub trait AccelGroupExtManual: 'static {
     fn connect_accel_group<F>(

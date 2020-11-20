@@ -1,8 +1,10 @@
 // Copyright 2020, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
 use gtk_sys;
 
+use glib;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 use glib::Cast;
@@ -11,10 +13,10 @@ use super::{container::ContainerImpl, widget::WidgetImpl};
 
 use libc::c_int;
 
-use Container;
-use ListBox;
-use ListBoxRow;
-use MovementStep;
+use crate::Container;
+use crate::ListBox;
+use crate::ListBoxRow;
+use crate::MovementStep;
 
 pub trait ListBoxImpl: ListBoxImplExt + ContainerImpl + WidgetImpl {
     fn activate_cursor_row(&self, list_box: &Self::Type) {
@@ -154,7 +156,7 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
 }
 
 unsafe impl<T: ListBoxImpl> IsSubclassable<T> for ListBox {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
+    fn override_vfuncs(class: &mut glib::Class<Self>) {
         <Container as IsSubclassable<T>>::override_vfuncs(class);
 
         let klass = class.as_mut();

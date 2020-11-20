@@ -2,13 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+#[cfg(any(feature = "v3_24", feature = "dox"))]
+use crate::GestureStylus;
 use gdk::AxisUse;
 use gdk_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use gtk_sys;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-use GestureStylus;
 
 pub trait GestureStylusExtManual: 'static {
     #[cfg(any(feature = "v3_24", feature = "dox"))]

@@ -2,13 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::Widget;
 use gio::AppInfo;
+use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use gtk_sys;
-use Widget;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     pub struct AppChooser(Interface<gtk_sys::GtkAppChooser>) @requires Widget;
 
     match fn {

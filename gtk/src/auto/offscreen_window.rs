@@ -2,39 +2,40 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Align;
+use crate::Application;
+use crate::Bin;
+use crate::Buildable;
+use crate::Container;
+use crate::ResizeMode;
+use crate::Widget;
+use crate::Window;
+use crate::WindowPosition;
+use crate::WindowType;
 use cairo;
 use gdk;
 use gdk_pixbuf;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use gtk_sys;
 use std::fmt;
-use Align;
-use Application;
-use Bin;
-use Buildable;
-use Container;
-use ResizeMode;
-use Widget;
-use Window;
-use WindowPosition;
-use WindowType;
 
-glib_wrapper! {
-    pub struct OffscreenWindow(Object<gtk_sys::GtkOffscreenWindow, gtk_sys::GtkOffscreenWindowClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
+glib::glib_wrapper! {
+    pub struct OffscreenWindow(Object<ffi::GtkOffscreenWindow, ffi::GtkOffscreenWindowClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_offscreen_window_get_type(),
+        get_type => || ffi::gtk_offscreen_window_get_type(),
     }
 }
 
 impl OffscreenWindow {
     pub fn new() -> OffscreenWindow {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_offscreen_window_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_offscreen_window_new()).unsafe_cast() }
     }
 }
 
@@ -649,7 +650,7 @@ pub trait OffscreenWindowExt: 'static {
 impl<O: IsA<OffscreenWindow>> OffscreenWindowExt for O {
     fn get_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe {
-            from_glib_full(gtk_sys::gtk_offscreen_window_get_pixbuf(
+            from_glib_full(ffi::gtk_offscreen_window_get_pixbuf(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -657,7 +658,7 @@ impl<O: IsA<OffscreenWindow>> OffscreenWindowExt for O {
 
     fn get_surface(&self) -> Option<cairo::Surface> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_offscreen_window_get_surface(
+            from_glib_none(ffi::gtk_offscreen_window_get_surface(
                 self.as_ref().to_glib_none().0,
             ))
         }

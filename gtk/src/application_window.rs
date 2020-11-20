@@ -1,10 +1,14 @@
+// Copyright 2020, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
+use crate::Application;
+use crate::ApplicationWindow;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use gtk_sys;
-use Application;
-use ApplicationWindow;
-use Widget;
 
 impl ApplicationWindow {
     pub fn new<P: IsA<Application>>(application: &P) -> ApplicationWindow {

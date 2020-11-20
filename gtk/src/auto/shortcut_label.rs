@@ -2,7 +2,18 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Align;
+use crate::BaselinePosition;
+use crate::Box;
+use crate::Buildable;
+use crate::Container;
+use crate::Orientable;
+use crate::Orientation;
+use crate::ResizeMode;
+use crate::Widget;
 use gdk;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
@@ -15,15 +26,8 @@ use glib::signal::connect_raw;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-use glib_sys;
-use gtk_sys;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use std::boxed::Box as Box_;
@@ -31,21 +35,12 @@ use std::fmt;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use std::mem::transmute;
-use Align;
-use BaselinePosition;
-use Box;
-use Buildable;
-use Container;
-use Orientable;
-use Orientation;
-use ResizeMode;
-use Widget;
 
-glib_wrapper! {
-    pub struct ShortcutLabel(Object<gtk_sys::GtkShortcutLabel, gtk_sys::GtkShortcutLabelClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
+glib::glib_wrapper! {
+    pub struct ShortcutLabel(Object<ffi::GtkShortcutLabel, ffi::GtkShortcutLabelClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || gtk_sys::gtk_shortcut_label_get_type(),
+        get_type => || ffi::gtk_shortcut_label_get_type(),
     }
 }
 
@@ -55,18 +50,16 @@ impl ShortcutLabel {
     pub fn new(accelerator: &str) -> ShortcutLabel {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_shortcut_label_new(
-                accelerator.to_glib_none().0,
-            ))
-            .unsafe_cast()
+            Widget::from_glib_none(ffi::gtk_shortcut_label_new(accelerator.to_glib_none().0))
+                .unsafe_cast()
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    pub fn get_accelerator(&self) -> Option<GString> {
+    pub fn get_accelerator(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_shortcut_label_get_accelerator(
+            from_glib_none(ffi::gtk_shortcut_label_get_accelerator(
                 self.to_glib_none().0,
             ))
         }
@@ -74,9 +67,9 @@ impl ShortcutLabel {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    pub fn get_disabled_text(&self) -> Option<GString> {
+    pub fn get_disabled_text(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_shortcut_label_get_disabled_text(
+            from_glib_none(ffi::gtk_shortcut_label_get_disabled_text(
                 self.to_glib_none().0,
             ))
         }
@@ -86,7 +79,7 @@ impl ShortcutLabel {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn set_accelerator(&self, accelerator: &str) {
         unsafe {
-            gtk_sys::gtk_shortcut_label_set_accelerator(
+            ffi::gtk_shortcut_label_set_accelerator(
                 self.to_glib_none().0,
                 accelerator.to_glib_none().0,
             );
@@ -97,7 +90,7 @@ impl ShortcutLabel {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn set_disabled_text(&self, disabled_text: &str) {
         unsafe {
-            gtk_sys::gtk_shortcut_label_set_disabled_text(
+            ffi::gtk_shortcut_label_set_disabled_text(
                 self.to_glib_none().0,
                 disabled_text.to_glib_none().0,
             );
@@ -111,9 +104,9 @@ impl ShortcutLabel {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_accelerator_trampoline<F: Fn(&ShortcutLabel) + 'static>(
-            this: *mut gtk_sys::GtkShortcutLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -138,9 +131,9 @@ impl ShortcutLabel {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_disabled_text_trampoline<F: Fn(&ShortcutLabel) + 'static>(
-            this: *mut gtk_sys::GtkShortcutLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))

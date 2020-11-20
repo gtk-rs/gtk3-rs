@@ -2,7 +2,17 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Adjustment;
+use crate::Align;
+use crate::Buildable;
+use crate::Container;
+use crate::ResizeMode;
+use crate::Scrollable;
+use crate::ScrollablePolicy;
+use crate::Widget;
 use gdk;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -11,27 +21,16 @@ use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
-use Adjustment;
-use Align;
-use Buildable;
-use Container;
-use ResizeMode;
-use Scrollable;
-use ScrollablePolicy;
-use Widget;
 
-glib_wrapper! {
-    pub struct Layout(Object<gtk_sys::GtkLayout, gtk_sys::GtkLayoutClass>) @extends Container, Widget, @implements Buildable, Scrollable;
+glib::glib_wrapper! {
+    pub struct Layout(Object<ffi::GtkLayout, ffi::GtkLayoutClass>) @extends Container, Widget, @implements Buildable, Scrollable;
 
     match fn {
-        get_type => || gtk_sys::gtk_layout_get_type(),
+        get_type => || ffi::gtk_layout_get_type(),
     }
 }
 
@@ -42,7 +41,7 @@ impl Layout {
     ) -> Layout {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_layout_new(
+            Widget::from_glib_none(ffi::gtk_layout_new(
                 hadjustment.map(|p| p.as_ref()).to_glib_none().0,
                 vadjustment.map(|p| p.as_ref()).to_glib_none().0,
             ))
@@ -484,7 +483,7 @@ pub trait LayoutExt: 'static {
 impl<O: IsA<Layout>> LayoutExt for O {
     fn get_bin_window(&self) -> Option<gdk::Window> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_layout_get_bin_window(
+            from_glib_none(ffi::gtk_layout_get_bin_window(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -494,7 +493,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();
-            gtk_sys::gtk_layout_get_size(
+            ffi::gtk_layout_get_size(
                 self.as_ref().to_glib_none().0,
                 width.as_mut_ptr(),
                 height.as_mut_ptr(),
@@ -507,7 +506,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
 
     fn move_<P: IsA<Widget>>(&self, child_widget: &P, x: i32, y: i32) {
         unsafe {
-            gtk_sys::gtk_layout_move(
+            ffi::gtk_layout_move(
                 self.as_ref().to_glib_none().0,
                 child_widget.as_ref().to_glib_none().0,
                 x,
@@ -518,7 +517,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
 
     fn put<P: IsA<Widget>>(&self, child_widget: &P, x: i32, y: i32) {
         unsafe {
-            gtk_sys::gtk_layout_put(
+            ffi::gtk_layout_put(
                 self.as_ref().to_glib_none().0,
                 child_widget.as_ref().to_glib_none().0,
                 x,
@@ -529,15 +528,15 @@ impl<O: IsA<Layout>> LayoutExt for O {
 
     fn set_size(&self, width: u32, height: u32) {
         unsafe {
-            gtk_sys::gtk_layout_set_size(self.as_ref().to_glib_none().0, width, height);
+            ffi::gtk_layout_set_size(self.as_ref().to_glib_none().0, width, height);
         }
     }
 
     fn get_property_height(&self) -> u32 {
         unsafe {
             let mut value = Value::from_type(<u32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"height\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -550,8 +549,8 @@ impl<O: IsA<Layout>> LayoutExt for O {
 
     fn set_property_height(&self, height: u32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"height\0".as_ptr() as *const _,
                 Value::from(&height).to_glib_none().0,
             );
@@ -561,8 +560,8 @@ impl<O: IsA<Layout>> LayoutExt for O {
     fn get_property_width(&self) -> u32 {
         unsafe {
             let mut value = Value::from_type(<u32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"width\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -575,8 +574,8 @@ impl<O: IsA<Layout>> LayoutExt for O {
 
     fn set_property_width(&self, width: u32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"width\0".as_ptr() as *const _,
                 Value::from(&width).to_glib_none().0,
             );
@@ -586,8 +585,8 @@ impl<O: IsA<Layout>> LayoutExt for O {
     fn get_child_x<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"x\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -601,8 +600,8 @@ impl<O: IsA<Layout>> LayoutExt for O {
 
     fn set_child_x<T: IsA<Widget>>(&self, item: &T, x: i32) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"x\0".as_ptr() as *const _,
                 Value::from(&x).to_glib_none().0,
@@ -613,8 +612,8 @@ impl<O: IsA<Layout>> LayoutExt for O {
     fn get_child_y<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"y\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -628,8 +627,8 @@ impl<O: IsA<Layout>> LayoutExt for O {
 
     fn set_child_y<T: IsA<Widget>>(&self, item: &T, y: i32) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"y\0".as_ptr() as *const _,
                 Value::from(&y).to_glib_none().0,
@@ -639,9 +638,9 @@ impl<O: IsA<Layout>> LayoutExt for O {
 
     fn connect_property_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_height_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLayout,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLayout,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Layout>,
         {
@@ -663,9 +662,9 @@ impl<O: IsA<Layout>> LayoutExt for O {
 
     fn connect_property_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_width_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLayout,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLayout,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Layout>,
         {

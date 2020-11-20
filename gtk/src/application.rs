@@ -1,3 +1,9 @@
+// Copyright 2020, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
+use crate::rt;
+use crate::Application;
 use gio::ApplicationExt;
 use gio::ApplicationFlags;
 use glib;
@@ -5,8 +11,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::ObjectExt;
 use gtk_sys;
-use rt;
-use Application;
 
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -41,7 +45,7 @@ impl Application {
                 application_id.to_glib_none().0,
                 flags.to_glib(),
             ))
-            .ok_or_else(|| glib_bool_error!("Failed to create application"))?
+            .ok_or_else(|| glib::glib_bool_error!("Failed to create application"))?
         };
         Application::register_startup_hook(&app);
         Ok(app)

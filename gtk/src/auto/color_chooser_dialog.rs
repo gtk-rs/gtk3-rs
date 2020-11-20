@@ -2,8 +2,22 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Align;
+use crate::Application;
+use crate::Bin;
+use crate::Buildable;
+use crate::ColorChooser;
+use crate::Container;
+use crate::Dialog;
+use crate::ResizeMode;
+use crate::Widget;
+use crate::Window;
+use crate::WindowPosition;
+use crate::WindowType;
 use gdk;
 use gdk_pixbuf;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -12,30 +26,15 @@ use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Align;
-use Application;
-use Bin;
-use Buildable;
-use ColorChooser;
-use Container;
-use Dialog;
-use ResizeMode;
-use Widget;
-use Window;
-use WindowPosition;
-use WindowType;
 
-glib_wrapper! {
-    pub struct ColorChooserDialog(Object<gtk_sys::GtkColorChooserDialog, gtk_sys::GtkColorChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, ColorChooser;
+glib::glib_wrapper! {
+    pub struct ColorChooserDialog(Object<ffi::GtkColorChooserDialog, ffi::GtkColorChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, ColorChooser;
 
     match fn {
-        get_type => || gtk_sys::gtk_color_chooser_dialog_get_type(),
+        get_type => || ffi::gtk_color_chooser_dialog_get_type(),
     }
 }
 
@@ -43,7 +42,7 @@ impl ColorChooserDialog {
     pub fn new<P: IsA<Window>>(title: Option<&str>, parent: Option<&P>) -> ColorChooserDialog {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_color_chooser_dialog_new(
+            Widget::from_glib_none(ffi::gtk_color_chooser_dialog_new(
                 title.to_glib_none().0,
                 parent.map(|p| p.as_ref()).to_glib_none().0,
             ))
@@ -696,8 +695,8 @@ impl<O: IsA<ColorChooserDialog>> ColorChooserDialogExt for O {
     fn get_property_show_editor(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-editor\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -710,8 +709,8 @@ impl<O: IsA<ColorChooserDialog>> ColorChooserDialogExt for O {
 
     fn set_property_show_editor(&self, show_editor: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-editor\0".as_ptr() as *const _,
                 Value::from(&show_editor).to_glib_none().0,
             );
@@ -720,9 +719,9 @@ impl<O: IsA<ColorChooserDialog>> ColorChooserDialogExt for O {
 
     fn connect_property_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_editor_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkColorChooserDialog,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkColorChooserDialog,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<ColorChooserDialog>,
         {

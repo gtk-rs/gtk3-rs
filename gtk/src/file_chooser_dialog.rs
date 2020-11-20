@@ -2,16 +2,16 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::FileChooserAction;
+use crate::FileChooserDialog;
+use crate::ResponseType;
+use crate::Widget;
+use crate::Window;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use gtk_sys;
 use libc::c_char;
 use std::ptr;
-use FileChooserAction;
-use FileChooserDialog;
-use ResponseType;
-use Widget;
-use Window;
 
 impl FileChooserDialog {
     // TODO: Keep the other constructor with buttons support as the only constructor (this one was

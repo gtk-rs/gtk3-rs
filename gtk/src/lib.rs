@@ -158,29 +158,7 @@
 #![allow(deprecated)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate libc;
-#[macro_use]
-extern crate bitflags;
-extern crate once_cell;
-
-extern crate cairo_sys;
-extern crate gdk_pixbuf_sys;
-extern crate gdk_sys;
-extern crate gio_sys;
-extern crate glib_sys;
-extern crate gobject_sys;
-#[doc(hidden)]
-pub extern crate gtk_sys;
 pub use gtk_sys as ffi;
-extern crate pango_sys;
-#[macro_use]
-extern crate glib;
-extern crate atk;
-extern crate cairo;
-extern crate gdk;
-extern crate gdk_pixbuf;
-extern crate gio;
-extern crate pango;
 
 pub mod xlib;
 
@@ -273,23 +251,23 @@ pub mod subclass;
 
 pub mod prelude;
 
-pub use auto::functions::*;
-pub use auto::*;
-pub use rt::*;
-pub use signal::*;
+pub use self::auto::functions::*;
+pub use self::auto::*;
+pub use self::rt::*;
+pub use self::signal::*;
 
 pub use gdk::Rectangle as Allocation;
 pub use gdk::Rectangle;
 
-pub use app_chooser::AppChooser;
-pub use border::Border;
-pub use entry_buffer::EntryBuffer;
+pub use self::app_chooser::AppChooser;
+pub use self::border::Border;
+pub use self::entry_buffer::EntryBuffer;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-pub use pad_action_entry::PadActionEntry;
-pub use page_range::PageRange;
-pub use recent_data::RecentData;
-pub use requisition::Requisition;
-pub use response_type::ResponseType;
-pub use target_entry::TargetEntry;
-pub use tree_sortable::SortColumn;
-pub use widget::TickCallbackId;
+pub use self::pad_action_entry::PadActionEntry;
+pub use self::page_range::PageRange;
+pub use self::recent_data::RecentData;
+pub use self::requisition::Requisition;
+pub use self::response_type::ResponseType;
+pub use self::target_entry::TargetEntry;
+pub use self::tree_sortable::SortColumn;
+pub use self::widget::TickCallbackId;

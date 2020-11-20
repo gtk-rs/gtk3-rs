@@ -6,7 +6,7 @@ use glib::object::{Cast, IsA};
 use glib::translate::*;
 use gtk_sys;
 
-use {TreeModel, TreeModelFilter, TreePath};
+use crate::{TreeModel, TreeModelFilter, TreePath};
 
 impl TreeModelFilter {
     pub fn new<T: IsA<TreeModel>>(child_model: &T, root: Option<&TreePath>) -> TreeModelFilter {

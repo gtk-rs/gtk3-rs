@@ -2,6 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::Switch;
 use glib::object::{Cast, IsA};
 use glib::signal::{connect_raw, SignalHandlerId};
 use glib::translate::*;
@@ -9,7 +10,6 @@ use glib_sys;
 use gtk_sys;
 use std::boxed::Box as Box_;
 use std::mem::transmute;
-use Switch;
 
 pub trait SwitchExtManual: 'static {
     fn connect_changed_active<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

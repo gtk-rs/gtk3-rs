@@ -2,6 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::Menu;
+use crate::Widget;
 use glib::object::Cast;
 use glib::translate::*;
 use glib::IsA;
@@ -10,8 +12,6 @@ use gtk_sys;
 use libc::c_int;
 use std::boxed::Box as Box_;
 use std::ptr;
-use Menu;
-use Widget;
 
 pub trait GtkMenuExtManual: 'static {
     fn popup<T: IsA<Widget>, U: IsA<Widget>, F: Fn(&Self, &mut i32, &mut i32) -> bool + 'static>(

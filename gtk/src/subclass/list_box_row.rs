@@ -2,9 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use Bin;
-use ListBoxRow;
+use crate::Bin;
+use crate::ListBoxRow;
 
+use glib;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 use glib::Cast;
@@ -22,7 +23,7 @@ pub trait ListBoxRowImplExt: ObjectSubclass {
 }
 
 unsafe impl<T: ListBoxRowImpl> IsSubclassable<T> for ListBoxRow {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
+    fn override_vfuncs(class: &mut glib::Class<Self>) {
         <Bin as IsSubclassable<T>>::override_vfuncs(class);
 
         let klass = class.as_mut();

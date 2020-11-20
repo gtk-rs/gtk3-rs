@@ -2,51 +2,48 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Align;
+use crate::Buildable;
+use crate::Container;
+use crate::LevelBarMode;
+use crate::Orientable;
+use crate::Orientation;
+use crate::Widget;
 use gdk;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
-use Align;
-use Buildable;
-use Container;
-use LevelBarMode;
-use Orientable;
-use Orientation;
-use Widget;
 
-glib_wrapper! {
-    pub struct LevelBar(Object<gtk_sys::GtkLevelBar, gtk_sys::GtkLevelBarClass>) @extends Widget, @implements Buildable, Orientable;
+glib::glib_wrapper! {
+    pub struct LevelBar(Object<ffi::GtkLevelBar, ffi::GtkLevelBarClass>) @extends Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || gtk_sys::gtk_level_bar_get_type(),
+        get_type => || ffi::gtk_level_bar_get_type(),
     }
 }
 
 impl LevelBar {
     pub fn new() -> LevelBar {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_level_bar_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_level_bar_new()).unsafe_cast() }
     }
 
     pub fn new_for_interval(min_value: f64, max_value: f64) -> LevelBar {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_level_bar_new_for_interval(
-                min_value, max_value,
-            ))
-            .unsafe_cast()
+            Widget::from_glib_none(ffi::gtk_level_bar_new_for_interval(min_value, max_value))
+                .unsafe_cast()
         }
     }
 }
@@ -471,7 +468,7 @@ pub trait LevelBarExt: 'static {
 impl<O: IsA<LevelBar>> LevelBarExt for O {
     fn add_offset_value(&self, name: &str, value: f64) {
         unsafe {
-            gtk_sys::gtk_level_bar_add_offset_value(
+            ffi::gtk_level_bar_add_offset_value(
                 self.as_ref().to_glib_none().0,
                 name.to_glib_none().0,
                 value,
@@ -481,32 +478,28 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
 
     fn get_inverted(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_level_bar_get_inverted(
+            from_glib(ffi::gtk_level_bar_get_inverted(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_max_value(&self) -> f64 {
-        unsafe { gtk_sys::gtk_level_bar_get_max_value(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_level_bar_get_max_value(self.as_ref().to_glib_none().0) }
     }
 
     fn get_min_value(&self) -> f64 {
-        unsafe { gtk_sys::gtk_level_bar_get_min_value(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_level_bar_get_min_value(self.as_ref().to_glib_none().0) }
     }
 
     fn get_mode(&self) -> LevelBarMode {
-        unsafe {
-            from_glib(gtk_sys::gtk_level_bar_get_mode(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_level_bar_get_mode(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_offset_value(&self, name: Option<&str>) -> Option<f64> {
         unsafe {
             let mut value = mem::MaybeUninit::uninit();
-            let ret = from_glib(gtk_sys::gtk_level_bar_get_offset_value(
+            let ret = from_glib(ffi::gtk_level_bar_get_offset_value(
                 self.as_ref().to_glib_none().0,
                 name.to_glib_none().0,
                 value.as_mut_ptr(),
@@ -521,12 +514,12 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
     }
 
     fn get_value(&self) -> f64 {
-        unsafe { gtk_sys::gtk_level_bar_get_value(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_level_bar_get_value(self.as_ref().to_glib_none().0) }
     }
 
     fn remove_offset_value(&self, name: Option<&str>) {
         unsafe {
-            gtk_sys::gtk_level_bar_remove_offset_value(
+            ffi::gtk_level_bar_remove_offset_value(
                 self.as_ref().to_glib_none().0,
                 name.to_glib_none().0,
             );
@@ -535,46 +528,46 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
 
     fn set_inverted(&self, inverted: bool) {
         unsafe {
-            gtk_sys::gtk_level_bar_set_inverted(self.as_ref().to_glib_none().0, inverted.to_glib());
+            ffi::gtk_level_bar_set_inverted(self.as_ref().to_glib_none().0, inverted.to_glib());
         }
     }
 
     fn set_max_value(&self, value: f64) {
         unsafe {
-            gtk_sys::gtk_level_bar_set_max_value(self.as_ref().to_glib_none().0, value);
+            ffi::gtk_level_bar_set_max_value(self.as_ref().to_glib_none().0, value);
         }
     }
 
     fn set_min_value(&self, value: f64) {
         unsafe {
-            gtk_sys::gtk_level_bar_set_min_value(self.as_ref().to_glib_none().0, value);
+            ffi::gtk_level_bar_set_min_value(self.as_ref().to_glib_none().0, value);
         }
     }
 
     fn set_mode(&self, mode: LevelBarMode) {
         unsafe {
-            gtk_sys::gtk_level_bar_set_mode(self.as_ref().to_glib_none().0, mode.to_glib());
+            ffi::gtk_level_bar_set_mode(self.as_ref().to_glib_none().0, mode.to_glib());
         }
     }
 
     fn set_value(&self, value: f64) {
         unsafe {
-            gtk_sys::gtk_level_bar_set_value(self.as_ref().to_glib_none().0, value);
+            ffi::gtk_level_bar_set_value(self.as_ref().to_glib_none().0, value);
         }
     }
 
     fn connect_offset_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn offset_changed_trampoline<P, F: Fn(&P, &str) + 'static>(
-            this: *mut gtk_sys::GtkLevelBar,
+            this: *mut ffi::GtkLevelBar,
             name: *mut libc::c_char,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<LevelBar>,
         {
             let f: &F = &*(f as *const F);
             f(
                 &LevelBar::from_glib_borrow(this).unsafe_cast_ref(),
-                &GString::from_glib_borrow(name),
+                &glib::GString::from_glib_borrow(name),
             )
         }
         unsafe {
@@ -592,9 +585,9 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
 
     fn connect_property_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inverted_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLevelBar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLevelBar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<LevelBar>,
         {
@@ -616,9 +609,9 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
 
     fn connect_property_max_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_max_value_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLevelBar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLevelBar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<LevelBar>,
         {
@@ -640,9 +633,9 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
 
     fn connect_property_min_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_min_value_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLevelBar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLevelBar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<LevelBar>,
         {
@@ -664,9 +657,9 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
 
     fn connect_property_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_mode_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLevelBar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLevelBar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<LevelBar>,
         {
@@ -688,9 +681,9 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
 
     fn connect_property_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_value_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLevelBar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLevelBar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<LevelBar>,
         {

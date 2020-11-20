@@ -2,6 +2,17 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Align;
+use crate::Application;
+use crate::Bin;
+use crate::Buildable;
+use crate::Container;
+use crate::ResizeMode;
+use crate::Widget;
+use crate::Window;
+use crate::WindowPosition;
+use crate::WindowType;
 use gdk;
 use gdk_pixbuf;
 use glib;
@@ -11,32 +22,18 @@ use glib::object::ObjectExt;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Align;
-use Application;
-use Bin;
-use Buildable;
-use Container;
-use ResizeMode;
-use Widget;
-use Window;
-use WindowPosition;
-use WindowType;
 
-glib_wrapper! {
-    pub struct ShortcutsWindow(Object<gtk_sys::GtkShortcutsWindow, gtk_sys::GtkShortcutsWindowClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
+glib::glib_wrapper! {
+    pub struct ShortcutsWindow(Object<ffi::GtkShortcutsWindow, ffi::GtkShortcutsWindowClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_shortcuts_window_get_type(),
+        get_type => || ffi::gtk_shortcuts_window_get_type(),
     }
 }
 
@@ -655,11 +652,11 @@ impl ShortcutsWindowBuilder {
 pub const NONE_SHORTCUTS_WINDOW: Option<&ShortcutsWindow> = None;
 
 pub trait ShortcutsWindowExt: 'static {
-    fn get_property_section_name(&self) -> Option<GString>;
+    fn get_property_section_name(&self) -> Option<glib::GString>;
 
     fn set_property_section_name(&self, section_name: Option<&str>);
 
-    fn get_property_view_name(&self) -> Option<GString>;
+    fn get_property_view_name(&self) -> Option<glib::GString>;
 
     fn set_property_view_name(&self, view_name: Option<&str>);
 
@@ -678,11 +675,11 @@ pub trait ShortcutsWindowExt: 'static {
 }
 
 impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
-    fn get_property_section_name(&self) -> Option<GString> {
+    fn get_property_section_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"section-name\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -694,19 +691,19 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
 
     fn set_property_section_name(&self, section_name: Option<&str>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"section-name\0".as_ptr() as *const _,
                 Value::from(section_name).to_glib_none().0,
             );
         }
     }
 
-    fn get_property_view_name(&self) -> Option<GString> {
+    fn get_property_view_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"view-name\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -718,8 +715,8 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
 
     fn set_property_view_name(&self, view_name: Option<&str>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"view-name\0".as_ptr() as *const _,
                 Value::from(view_name).to_glib_none().0,
             );
@@ -728,8 +725,8 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
 
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn close_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkShortcutsWindow,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsWindow,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<ShortcutsWindow>,
         {
@@ -751,7 +748,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
 
     fn emit_close(&self) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("close", &[])
                 .unwrap()
         };
@@ -759,8 +756,8 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
 
     fn connect_search<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn search_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkShortcutsWindow,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsWindow,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<ShortcutsWindow>,
         {
@@ -782,7 +779,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
 
     fn emit_search(&self) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("search", &[])
                 .unwrap()
         };
@@ -793,9 +790,9 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_section_name_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkShortcutsWindow,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsWindow,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<ShortcutsWindow>,
         {
@@ -817,9 +814,9 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
 
     fn connect_property_view_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_view_name_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkShortcutsWindow,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsWindow,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<ShortcutsWindow>,
         {

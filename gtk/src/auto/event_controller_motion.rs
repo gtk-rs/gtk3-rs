@@ -2,6 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::EventController;
+#[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+use crate::Widget;
+use glib;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use glib::object::Cast;
@@ -12,22 +18,16 @@ use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib_sys;
-use gtk_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use EventController;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-use Widget;
 
-glib_wrapper! {
-    pub struct EventControllerMotion(Object<gtk_sys::GtkEventControllerMotion, gtk_sys::GtkEventControllerMotionClass>) @extends EventController;
+glib::glib_wrapper! {
+    pub struct EventControllerMotion(Object<ffi::GtkEventControllerMotion, ffi::GtkEventControllerMotionClass>) @extends EventController;
 
     match fn {
-        get_type => || gtk_sys::gtk_event_controller_motion_get_type(),
+        get_type => || ffi::gtk_event_controller_motion_get_type(),
     }
 }
 
@@ -37,7 +37,7 @@ impl EventControllerMotion {
     pub fn new<P: IsA<Widget>>(widget: &P) -> EventControllerMotion {
         skip_assert_initialized!();
         unsafe {
-            EventController::from_glib_full(gtk_sys::gtk_event_controller_motion_new(
+            EventController::from_glib_full(ffi::gtk_event_controller_motion_new(
                 widget.as_ref().to_glib_none().0,
             ))
             .unsafe_cast()
@@ -49,10 +49,10 @@ impl EventControllerMotion {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn enter_trampoline<F: Fn(&EventControllerMotion, f64, f64) + 'static>(
-            this: *mut gtk_sys::GtkEventControllerMotion,
+            this: *mut ffi::GtkEventControllerMotion,
             x: libc::c_double,
             y: libc::c_double,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), x, y)
@@ -72,8 +72,8 @@ impl EventControllerMotion {
 
     pub fn connect_leave<F: Fn(&EventControllerMotion) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn leave_trampoline<F: Fn(&EventControllerMotion) + 'static>(
-            this: *mut gtk_sys::GtkEventControllerMotion,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkEventControllerMotion,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -98,10 +98,10 @@ impl EventControllerMotion {
         unsafe extern "C" fn motion_trampoline<
             F: Fn(&EventControllerMotion, f64, f64) + 'static,
         >(
-            this: *mut gtk_sys::GtkEventControllerMotion,
+            this: *mut ffi::GtkEventControllerMotion,
             x: libc::c_double,
             y: libc::c_double,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), x, y)

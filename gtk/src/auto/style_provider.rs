@@ -2,19 +2,19 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::StateFlags;
+use crate::WidgetPath;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use gtk_sys;
 use std::fmt;
-use StateFlags;
-use WidgetPath;
 
-glib_wrapper! {
-    pub struct StyleProvider(Interface<gtk_sys::GtkStyleProvider>);
+glib::glib_wrapper! {
+    pub struct StyleProvider(Interface<ffi::GtkStyleProvider>);
 
     match fn {
-        get_type => || gtk_sys::gtk_style_provider_get_type(),
+        get_type => || ffi::gtk_style_provider_get_type(),
     }
 }
 
@@ -38,7 +38,7 @@ impl<O: IsA<StyleProvider>> StyleProviderExt for O {
     ) -> Option<glib::Value> {
         unsafe {
             let mut value = glib::Value::uninitialized();
-            let ret = from_glib(gtk_sys::gtk_style_provider_get_style_property(
+            let ret = from_glib(ffi::gtk_style_provider_get_style_property(
                 self.as_ref().to_glib_none().0,
                 path.to_glib_none().0,
                 state.to_glib(),

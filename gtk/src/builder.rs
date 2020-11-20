@@ -2,6 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::Builder;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use glib::GString;
@@ -9,7 +10,7 @@ use glib::Object;
 use glib::ObjectExt;
 use gtk_sys;
 use std::path::Path;
-use Builder;
+use std::ptr;
 
 impl Builder {
     pub fn from_file<T: AsRef<Path>>(file_path: T) -> Builder {
@@ -46,7 +47,7 @@ impl<O: IsA<Builder>> BuilderExtManual for O {
 
     fn add_from_file<T: AsRef<Path>>(&self, file_path: T) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ::std::ptr::null_mut();
+            let mut error = ptr::null_mut();
             gtk_sys::gtk_builder_add_from_file(
                 self.upcast_ref().to_glib_none().0,
                 file_path.as_ref().to_glib_none().0,

@@ -2,12 +2,12 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::Fixed;
+use crate::Widget;
 use glib::translate::*;
 use glib::IsA;
 use glib_sys;
 use gtk_sys;
-use Fixed;
-use Widget;
 
 // All this is in order to avoid the segfault. More info in :
 // https://github.com/gtk-rs/gtk/issues/565

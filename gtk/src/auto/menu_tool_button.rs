@@ -2,6 +2,17 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Actionable;
+use crate::Align;
+use crate::Bin;
+use crate::Buildable;
+use crate::Container;
+use crate::Menu;
+use crate::ResizeMode;
+use crate::ToolButton;
+use crate::ToolItem;
+use crate::Widget;
 use gdk;
 use glib;
 use glib::object::Cast;
@@ -11,27 +22,15 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Actionable;
-use Align;
-use Bin;
-use Buildable;
-use Container;
-use Menu;
-use ResizeMode;
-use ToolButton;
-use ToolItem;
-use Widget;
 
-glib_wrapper! {
-    pub struct MenuToolButton(Object<gtk_sys::GtkMenuToolButton, gtk_sys::GtkMenuToolButtonClass>) @extends ToolButton, ToolItem, Bin, Container, Widget, @implements Buildable, Actionable;
+glib::glib_wrapper! {
+    pub struct MenuToolButton(Object<ffi::GtkMenuToolButton, ffi::GtkMenuToolButtonClass>) @extends ToolButton, ToolItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || gtk_sys::gtk_menu_tool_button_get_type(),
+        get_type => || ffi::gtk_menu_tool_button_get_type(),
     }
 }
 
@@ -39,7 +38,7 @@ impl MenuToolButton {
     pub fn new<P: IsA<Widget>>(icon_widget: Option<&P>, label: Option<&str>) -> MenuToolButton {
         assert_initialized_main_thread!();
         unsafe {
-            ToolItem::from_glib_none(gtk_sys::gtk_menu_tool_button_new(
+            ToolItem::from_glib_none(ffi::gtk_menu_tool_button_new(
                 icon_widget.map(|p| p.as_ref()).to_glib_none().0,
                 label.to_glib_none().0,
             ))
@@ -508,7 +507,7 @@ pub trait MenuToolButtonExt: 'static {
 impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
     fn get_menu(&self) -> Option<Widget> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_menu_tool_button_get_menu(
+            from_glib_none(ffi::gtk_menu_tool_button_get_menu(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -516,7 +515,7 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
 
     fn set_arrow_tooltip_markup(&self, markup: &str) {
         unsafe {
-            gtk_sys::gtk_menu_tool_button_set_arrow_tooltip_markup(
+            ffi::gtk_menu_tool_button_set_arrow_tooltip_markup(
                 self.as_ref().to_glib_none().0,
                 markup.to_glib_none().0,
             );
@@ -525,7 +524,7 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
 
     fn set_arrow_tooltip_text(&self, text: &str) {
         unsafe {
-            gtk_sys::gtk_menu_tool_button_set_arrow_tooltip_text(
+            ffi::gtk_menu_tool_button_set_arrow_tooltip_text(
                 self.as_ref().to_glib_none().0,
                 text.to_glib_none().0,
             );
@@ -534,7 +533,7 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
 
     fn set_menu<P: IsA<Widget>>(&self, menu: &P) {
         unsafe {
-            gtk_sys::gtk_menu_tool_button_set_menu(
+            ffi::gtk_menu_tool_button_set_menu(
                 self.as_ref().to_glib_none().0,
                 menu.as_ref().to_glib_none().0,
             );
@@ -543,8 +542,8 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
 
     fn connect_show_menu<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn show_menu_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkMenuToolButton,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkMenuToolButton,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuToolButton>,
         {
@@ -566,9 +565,9 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
 
     fn connect_property_menu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_menu_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkMenuToolButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkMenuToolButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuToolButton>,
         {

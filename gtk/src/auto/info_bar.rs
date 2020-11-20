@@ -2,6 +2,19 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Align;
+use crate::BaselinePosition;
+use crate::Box;
+use crate::Buildable;
+use crate::Button;
+use crate::Container;
+use crate::MessageType;
+use crate::Orientable;
+use crate::Orientation;
+use crate::ResizeMode;
+use crate::ResponseType;
+use crate::Widget;
 use gdk;
 use glib;
 use glib::object::Cast;
@@ -12,41 +25,26 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Align;
-use BaselinePosition;
-use Box;
-use Buildable;
-use Button;
-use Container;
-use MessageType;
-use Orientable;
-use Orientation;
-use ResizeMode;
-use ResponseType;
-use Widget;
 
-glib_wrapper! {
-    pub struct InfoBar(Object<gtk_sys::GtkInfoBar, gtk_sys::GtkInfoBarClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
+glib::glib_wrapper! {
+    pub struct InfoBar(Object<ffi::GtkInfoBar, ffi::GtkInfoBarClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || gtk_sys::gtk_info_bar_get_type(),
+        get_type => || ffi::gtk_info_bar_get_type(),
     }
 }
 
 impl InfoBar {
     pub fn new() -> InfoBar {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_info_bar_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_info_bar_new()).unsafe_cast() }
     }
 
     //pub fn with_buttons(first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> InfoBar {
-    //    unsafe { TODO: call gtk_sys:gtk_info_bar_new_with_buttons() }
+    //    unsafe { TODO: call ffi:gtk_info_bar_new_with_buttons() }
     //}
 }
 
@@ -526,7 +524,7 @@ pub trait InfoBarExt: 'static {
 impl<O: IsA<InfoBar>> InfoBarExt for O {
     fn add_action_widget<P: IsA<Widget>>(&self, child: &P, response_id: ResponseType) {
         unsafe {
-            gtk_sys::gtk_info_bar_add_action_widget(
+            ffi::gtk_info_bar_add_action_widget(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
                 response_id.to_glib(),
@@ -536,7 +534,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     fn add_button(&self, button_text: &str, response_id: ResponseType) -> Option<Button> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_info_bar_add_button(
+            from_glib_none(ffi::gtk_info_bar_add_button(
                 self.as_ref().to_glib_none().0,
                 button_text.to_glib_none().0,
                 response_id.to_glib(),
@@ -545,12 +543,12 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
     }
 
     //fn add_buttons(&self, first_button_text: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-    //    unsafe { TODO: call gtk_sys:gtk_info_bar_add_buttons() }
+    //    unsafe { TODO: call ffi:gtk_info_bar_add_buttons() }
     //}
 
     fn get_action_area(&self) -> Option<Box> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_info_bar_get_action_area(
+            from_glib_none(ffi::gtk_info_bar_get_action_area(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -558,7 +556,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     fn get_content_area(&self) -> Box {
         unsafe {
-            from_glib_none(gtk_sys::gtk_info_bar_get_content_area(
+            from_glib_none(ffi::gtk_info_bar_get_content_area(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -566,7 +564,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     fn get_message_type(&self) -> MessageType {
         unsafe {
-            from_glib(gtk_sys::gtk_info_bar_get_message_type(
+            from_glib(ffi::gtk_info_bar_get_message_type(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -576,7 +574,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
     fn get_revealed(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_info_bar_get_revealed(
+            from_glib(ffi::gtk_info_bar_get_revealed(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -584,7 +582,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     fn get_show_close_button(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_info_bar_get_show_close_button(
+            from_glib(ffi::gtk_info_bar_get_show_close_button(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -592,13 +590,13 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     fn response(&self, response_id: ResponseType) {
         unsafe {
-            gtk_sys::gtk_info_bar_response(self.as_ref().to_glib_none().0, response_id.to_glib());
+            ffi::gtk_info_bar_response(self.as_ref().to_glib_none().0, response_id.to_glib());
         }
     }
 
     fn set_default_response(&self, response_id: ResponseType) {
         unsafe {
-            gtk_sys::gtk_info_bar_set_default_response(
+            ffi::gtk_info_bar_set_default_response(
                 self.as_ref().to_glib_none().0,
                 response_id.to_glib(),
             );
@@ -607,7 +605,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     fn set_message_type(&self, message_type: MessageType) {
         unsafe {
-            gtk_sys::gtk_info_bar_set_message_type(
+            ffi::gtk_info_bar_set_message_type(
                 self.as_ref().to_glib_none().0,
                 message_type.to_glib(),
             );
@@ -616,7 +614,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     fn set_response_sensitive(&self, response_id: ResponseType, setting: bool) {
         unsafe {
-            gtk_sys::gtk_info_bar_set_response_sensitive(
+            ffi::gtk_info_bar_set_response_sensitive(
                 self.as_ref().to_glib_none().0,
                 response_id.to_glib(),
                 setting.to_glib(),
@@ -628,13 +626,13 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
     fn set_revealed(&self, revealed: bool) {
         unsafe {
-            gtk_sys::gtk_info_bar_set_revealed(self.as_ref().to_glib_none().0, revealed.to_glib());
+            ffi::gtk_info_bar_set_revealed(self.as_ref().to_glib_none().0, revealed.to_glib());
         }
     }
 
     fn set_show_close_button(&self, setting: bool) {
         unsafe {
-            gtk_sys::gtk_info_bar_set_show_close_button(
+            ffi::gtk_info_bar_set_show_close_button(
                 self.as_ref().to_glib_none().0,
                 setting.to_glib(),
             );
@@ -643,8 +641,8 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn close_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkInfoBar,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkInfoBar,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InfoBar>,
         {
@@ -666,7 +664,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     fn emit_close(&self) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("close", &[])
                 .unwrap()
         };
@@ -674,9 +672,9 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
     fn connect_response<F: Fn(&Self, ResponseType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn response_trampoline<P, F: Fn(&P, ResponseType) + 'static>(
-            this: *mut gtk_sys::GtkInfoBar,
-            response_id: gtk_sys::GtkResponseType,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkInfoBar,
+            response_id: ffi::GtkResponseType,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InfoBar>,
         {
@@ -704,9 +702,9 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_message_type_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkInfoBar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkInfoBar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InfoBar>,
         {
@@ -730,9 +728,9 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
     fn connect_property_revealed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_revealed_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkInfoBar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkInfoBar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InfoBar>,
         {
@@ -757,9 +755,9 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_close_button_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkInfoBar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkInfoBar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InfoBar>,
         {

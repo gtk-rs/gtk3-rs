@@ -2,31 +2,32 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Align;
+use crate::Buildable;
+use crate::Container;
+use crate::Widget;
 use gdk;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use gtk_sys;
 use std::fmt;
-use Align;
-use Buildable;
-use Container;
-use Widget;
 
-glib_wrapper! {
-    pub struct DrawingArea(Object<gtk_sys::GtkDrawingArea, gtk_sys::GtkDrawingAreaClass>) @extends Widget, @implements Buildable;
+glib::glib_wrapper! {
+    pub struct DrawingArea(Object<ffi::GtkDrawingArea, ffi::GtkDrawingAreaClass>) @extends Widget, @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_drawing_area_get_type(),
+        get_type => || ffi::gtk_drawing_area_get_type(),
     }
 }
 
 impl DrawingArea {
     pub fn new() -> DrawingArea {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_drawing_area_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_drawing_area_new()).unsafe_cast() }
     }
 }
 

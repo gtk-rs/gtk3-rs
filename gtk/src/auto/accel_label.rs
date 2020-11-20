@@ -2,6 +2,14 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Align;
+use crate::Buildable;
+use crate::Container;
+use crate::Justification;
+use crate::Label;
+use crate::Misc;
+use crate::Widget;
 use gdk;
 use glib;
 use glib::object::Cast;
@@ -12,27 +20,17 @@ use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use pango;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
-use Align;
-use Buildable;
-use Container;
-use Justification;
-use Label;
-use Misc;
-use Widget;
 
-glib_wrapper! {
-    pub struct AccelLabel(Object<gtk_sys::GtkAccelLabel, gtk_sys::GtkAccelLabelClass>) @extends Label, Misc, Widget, @implements Buildable;
+glib::glib_wrapper! {
+    pub struct AccelLabel(Object<ffi::GtkAccelLabel, ffi::GtkAccelLabelClass>) @extends Label, Misc, Widget, @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_accel_label_get_type(),
+        get_type => || ffi::gtk_accel_label_get_type(),
     }
 }
 
@@ -40,8 +38,7 @@ impl AccelLabel {
     pub fn new(string: &str) -> AccelLabel {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_accel_label_new(string.to_glib_none().0))
-                .unsafe_cast()
+            Widget::from_glib_none(ffi::gtk_accel_label_new(string.to_glib_none().0)).unsafe_cast()
         }
     }
 }
@@ -599,7 +596,7 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         unsafe {
             let mut accelerator_key = mem::MaybeUninit::uninit();
             let mut accelerator_mods = mem::MaybeUninit::uninit();
-            gtk_sys::gtk_accel_label_get_accel(
+            ffi::gtk_accel_label_get_accel(
                 self.as_ref().to_glib_none().0,
                 accelerator_key.as_mut_ptr(),
                 accelerator_mods.as_mut_ptr(),
@@ -612,27 +609,23 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
 
     fn get_accel_widget(&self) -> Option<Widget> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_accel_label_get_accel_widget(
+            from_glib_none(ffi::gtk_accel_label_get_accel_widget(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_accel_width(&self) -> u32 {
-        unsafe { gtk_sys::gtk_accel_label_get_accel_width(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_accel_label_get_accel_width(self.as_ref().to_glib_none().0) }
     }
 
     fn refetch(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_accel_label_refetch(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_accel_label_refetch(self.as_ref().to_glib_none().0)) }
     }
 
     fn set_accel(&self, accelerator_key: u32, accelerator_mods: gdk::ModifierType) {
         unsafe {
-            gtk_sys::gtk_accel_label_set_accel(
+            ffi::gtk_accel_label_set_accel(
                 self.as_ref().to_glib_none().0,
                 accelerator_key,
                 accelerator_mods.to_glib(),
@@ -642,7 +635,7 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
 
     fn set_accel_closure(&self, accel_closure: Option<&glib::Closure>) {
         unsafe {
-            gtk_sys::gtk_accel_label_set_accel_closure(
+            ffi::gtk_accel_label_set_accel_closure(
                 self.as_ref().to_glib_none().0,
                 accel_closure.to_glib_none().0,
             );
@@ -651,7 +644,7 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
 
     fn set_accel_widget<P: IsA<Widget>>(&self, accel_widget: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_accel_label_set_accel_widget(
+            ffi::gtk_accel_label_set_accel_widget(
                 self.as_ref().to_glib_none().0,
                 accel_widget.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -661,8 +654,8 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
     fn get_property_accel_closure(&self) -> Option<glib::Closure> {
         unsafe {
             let mut value = Value::from_type(<glib::Closure as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accel-closure\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -677,9 +670,9 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_closure_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkAccelLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkAccelLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<AccelLabel>,
         {
@@ -704,9 +697,9 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_widget_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkAccelLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkAccelLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<AccelLabel>,
         {

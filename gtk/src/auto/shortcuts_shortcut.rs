@@ -2,8 +2,22 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Align;
+use crate::BaselinePosition;
+use crate::Box;
+use crate::Buildable;
+use crate::Container;
+use crate::Orientable;
+use crate::Orientation;
+use crate::ResizeMode;
+use crate::ShortcutType;
+use crate::SizeGroup;
+use crate::TextDirection;
+use crate::Widget;
 use gdk;
 use gio;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
@@ -11,34 +25,18 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::value::SetValueOptional;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Align;
-use BaselinePosition;
-use Box;
-use Buildable;
-use Container;
-use Orientable;
-use Orientation;
-use ResizeMode;
-use ShortcutType;
-use SizeGroup;
-use TextDirection;
-use Widget;
 
-glib_wrapper! {
-    pub struct ShortcutsShortcut(Object<gtk_sys::GtkShortcutsShortcut, gtk_sys::GtkShortcutsShortcutClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
+glib::glib_wrapper! {
+    pub struct ShortcutsShortcut(Object<ffi::GtkShortcutsShortcut, ffi::GtkShortcutsShortcutClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || gtk_sys::gtk_shortcuts_shortcut_get_type(),
+        get_type => || ffi::gtk_shortcuts_shortcut_get_type(),
     }
 }
 
@@ -48,19 +46,19 @@ impl ShortcutsShortcut {
         accel_size_group: Option<&P>,
     ) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"accel-size-group\0".as_ptr() as *const _,
                 Value::from(accel_size_group).to_glib_none().0,
             );
         }
     }
 
-    pub fn get_property_accelerator(&self) -> Option<GString> {
+    pub fn get_property_accelerator(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"accelerator\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -72,8 +70,8 @@ impl ShortcutsShortcut {
 
     pub fn set_property_accelerator(&self, accelerator: Option<&str>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"accelerator\0".as_ptr() as *const _,
                 Value::from(accelerator).to_glib_none().0,
             );
@@ -82,11 +80,11 @@ impl ShortcutsShortcut {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    pub fn get_property_action_name(&self) -> Option<GString> {
+    pub fn get_property_action_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"action-name\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -100,8 +98,8 @@ impl ShortcutsShortcut {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn set_property_action_name(&self, action_name: Option<&str>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"action-name\0".as_ptr() as *const _,
                 Value::from(action_name).to_glib_none().0,
             );
@@ -111,8 +109,8 @@ impl ShortcutsShortcut {
     pub fn get_property_icon(&self) -> Option<gio::Icon> {
         unsafe {
             let mut value = Value::from_type(<gio::Icon as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"icon\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -124,8 +122,8 @@ impl ShortcutsShortcut {
 
     pub fn set_property_icon<P: IsA<gio::Icon> + SetValueOptional>(&self, icon: Option<&P>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"icon\0".as_ptr() as *const _,
                 Value::from(icon).to_glib_none().0,
             );
@@ -135,8 +133,8 @@ impl ShortcutsShortcut {
     pub fn get_property_icon_set(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"icon-set\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -149,8 +147,8 @@ impl ShortcutsShortcut {
 
     pub fn set_property_icon_set(&self, icon_set: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"icon-set\0".as_ptr() as *const _,
                 Value::from(&icon_set).to_glib_none().0,
             );
@@ -160,8 +158,8 @@ impl ShortcutsShortcut {
     pub fn get_property_shortcut_type(&self) -> ShortcutType {
         unsafe {
             let mut value = Value::from_type(<ShortcutType as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"shortcut-type\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -174,19 +172,19 @@ impl ShortcutsShortcut {
 
     pub fn set_property_shortcut_type(&self, shortcut_type: ShortcutType) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"shortcut-type\0".as_ptr() as *const _,
                 Value::from(&shortcut_type).to_glib_none().0,
             );
         }
     }
 
-    pub fn get_property_subtitle(&self) -> Option<GString> {
+    pub fn get_property_subtitle(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"subtitle\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -198,8 +196,8 @@ impl ShortcutsShortcut {
 
     pub fn set_property_subtitle(&self, subtitle: Option<&str>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"subtitle\0".as_ptr() as *const _,
                 Value::from(subtitle).to_glib_none().0,
             );
@@ -209,8 +207,8 @@ impl ShortcutsShortcut {
     pub fn get_property_subtitle_set(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"subtitle-set\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -223,19 +221,19 @@ impl ShortcutsShortcut {
 
     pub fn set_property_subtitle_set(&self, subtitle_set: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"subtitle-set\0".as_ptr() as *const _,
                 Value::from(&subtitle_set).to_glib_none().0,
             );
         }
     }
 
-    pub fn get_property_title(&self) -> Option<GString> {
+    pub fn get_property_title(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"title\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -247,8 +245,8 @@ impl ShortcutsShortcut {
 
     pub fn set_property_title(&self, title: Option<&str>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"title\0".as_ptr() as *const _,
                 Value::from(title).to_glib_none().0,
             );
@@ -260,8 +258,8 @@ impl ShortcutsShortcut {
         title_size_group: Option<&P>,
     ) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"title-size-group\0".as_ptr() as *const _,
                 Value::from(title_size_group).to_glib_none().0,
             );
@@ -275,9 +273,9 @@ impl ShortcutsShortcut {
         unsafe extern "C" fn notify_accel_size_group_trampoline<
             F: Fn(&ShortcutsShortcut) + 'static,
         >(
-            this: *mut gtk_sys::GtkShortcutsShortcut,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsShortcut,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -300,9 +298,9 @@ impl ShortcutsShortcut {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_accelerator_trampoline<F: Fn(&ShortcutsShortcut) + 'static>(
-            this: *mut gtk_sys::GtkShortcutsShortcut,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsShortcut,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -327,9 +325,9 @@ impl ShortcutsShortcut {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_action_name_trampoline<F: Fn(&ShortcutsShortcut) + 'static>(
-            this: *mut gtk_sys::GtkShortcutsShortcut,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsShortcut,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -352,9 +350,9 @@ impl ShortcutsShortcut {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_direction_trampoline<F: Fn(&ShortcutsShortcut) + 'static>(
-            this: *mut gtk_sys::GtkShortcutsShortcut,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsShortcut,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -377,9 +375,9 @@ impl ShortcutsShortcut {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_trampoline<F: Fn(&ShortcutsShortcut) + 'static>(
-            this: *mut gtk_sys::GtkShortcutsShortcut,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsShortcut,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -402,9 +400,9 @@ impl ShortcutsShortcut {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_set_trampoline<F: Fn(&ShortcutsShortcut) + 'static>(
-            this: *mut gtk_sys::GtkShortcutsShortcut,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsShortcut,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -429,9 +427,9 @@ impl ShortcutsShortcut {
         unsafe extern "C" fn notify_shortcut_type_trampoline<
             F: Fn(&ShortcutsShortcut) + 'static,
         >(
-            this: *mut gtk_sys::GtkShortcutsShortcut,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsShortcut,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -454,9 +452,9 @@ impl ShortcutsShortcut {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_subtitle_trampoline<F: Fn(&ShortcutsShortcut) + 'static>(
-            this: *mut gtk_sys::GtkShortcutsShortcut,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsShortcut,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -479,9 +477,9 @@ impl ShortcutsShortcut {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_subtitle_set_trampoline<F: Fn(&ShortcutsShortcut) + 'static>(
-            this: *mut gtk_sys::GtkShortcutsShortcut,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsShortcut,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -504,9 +502,9 @@ impl ShortcutsShortcut {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_title_trampoline<F: Fn(&ShortcutsShortcut) + 'static>(
-            this: *mut gtk_sys::GtkShortcutsShortcut,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsShortcut,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -531,9 +529,9 @@ impl ShortcutsShortcut {
         unsafe extern "C" fn notify_title_size_group_trampoline<
             F: Fn(&ShortcutsShortcut) + 'static,
         >(
-            this: *mut gtk_sys::GtkShortcutsShortcut,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsShortcut,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))

@@ -1,3 +1,8 @@
+// Copyright 2020, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
+use crate::Widget;
 use cairo;
 use gdk;
 use gdk_pixbuf;
@@ -5,7 +10,6 @@ use gio;
 use glib::object::IsA;
 use glib::translate::*;
 use gtk_sys;
-use Widget;
 
 pub trait DragContextExtManual: 'static {
     fn drag_finish(&self, success: bool, del: bool, time_: u32);

@@ -1,12 +1,15 @@
-use cairo_sys;
-use gdk_sys;
-use glib_sys;
+// Copyright 2020, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
 use gtk_sys;
 
 use libc::{c_char, c_int};
 use std::mem;
 
 use cairo;
+use gdk;
+use glib;
 use glib::object::IsA;
 use glib::subclass::prelude::*;
 use glib::translate::*;
@@ -14,11 +17,11 @@ use glib::Cast;
 use glib::GString;
 use glib::Object;
 
-use CellEditable;
-use CellRenderer;
-use CellRendererState;
-use SizeRequestMode;
-use Widget;
+use crate::CellEditable;
+use crate::CellRenderer;
+use crate::CellRendererState;
+use crate::SizeRequestMode;
+use crate::Widget;
 
 pub trait CellRendererImpl: CellRendererImplExt + ObjectImpl {
     fn get_request_mode(&self, renderer: &Self::Type) -> SizeRequestMode {
@@ -436,7 +439,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
 }
 
 unsafe impl<T: CellRendererImpl> IsSubclassable<T> for CellRenderer {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
+    fn override_vfuncs(class: &mut glib::Class<Self>) {
         <Object as IsSubclassable<T>>::override_vfuncs(class);
 
         let klass = class.as_mut();
@@ -554,8 +557,8 @@ unsafe extern "C" fn cell_renderer_get_aligned_area<T: CellRendererImpl>(
     ptr: *mut gtk_sys::GtkCellRenderer,
     wdgtptr: *mut gtk_sys::GtkWidget,
     flags: gtk_sys::GtkCellRendererState,
-    cellarea: *const gdk_sys::GdkRectangle,
-    alignedptr: *mut gdk_sys::GdkRectangle,
+    cellarea: *const gdk::ffi::GdkRectangle,
+    alignedptr: *mut gdk::ffi::GdkRectangle,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -573,10 +576,10 @@ unsafe extern "C" fn cell_renderer_get_aligned_area<T: CellRendererImpl>(
 
 unsafe extern "C" fn cell_renderer_render<T: CellRendererImpl>(
     ptr: *mut gtk_sys::GtkCellRenderer,
-    crptr: *mut cairo_sys::cairo_t,
+    crptr: *mut cairo::ffi::cairo_t,
     wdgtptr: *mut gtk_sys::GtkWidget,
-    bgptr: *const gdk_sys::GdkRectangle,
-    cellptr: *const gdk_sys::GdkRectangle,
+    bgptr: *const gdk::ffi::GdkRectangle,
+    cellptr: *const gdk::ffi::GdkRectangle,
     flags: gtk_sys::GtkCellRendererState,
 ) {
     let instance = &*(ptr as *mut T::Instance);
@@ -597,13 +600,13 @@ unsafe extern "C" fn cell_renderer_render<T: CellRendererImpl>(
 
 unsafe extern "C" fn cell_renderer_activate<T: CellRendererImpl>(
     ptr: *mut gtk_sys::GtkCellRenderer,
-    evtptr: *mut gdk_sys::GdkEvent,
+    evtptr: *mut gdk::ffi::GdkEvent,
     wdgtptr: *mut gtk_sys::GtkWidget,
     pathptr: *const c_char,
-    bgptr: *const gdk_sys::GdkRectangle,
-    cellptr: *const gdk_sys::GdkRectangle,
+    bgptr: *const gdk::ffi::GdkRectangle,
+    cellptr: *const gdk::ffi::GdkRectangle,
     flags: gtk_sys::GtkCellRendererState,
-) -> glib_sys::gboolean {
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<CellRenderer> = from_glib_borrow(ptr);
@@ -624,11 +627,11 @@ unsafe extern "C" fn cell_renderer_activate<T: CellRendererImpl>(
 
 unsafe extern "C" fn cell_renderer_start_editing<T: CellRendererImpl>(
     ptr: *mut gtk_sys::GtkCellRenderer,
-    evtptr: *mut gdk_sys::GdkEvent,
+    evtptr: *mut gdk::ffi::GdkEvent,
     wdgtptr: *mut gtk_sys::GtkWidget,
     pathptr: *const c_char,
-    bgptr: *const gdk_sys::GdkRectangle,
-    cellptr: *const gdk_sys::GdkRectangle,
+    bgptr: *const gdk::ffi::GdkRectangle,
+    cellptr: *const gdk::ffi::GdkRectangle,
     flags: gtk_sys::GtkCellRendererState,
 ) -> *mut gtk_sys::GtkCellEditable {
     let instance = &*(ptr as *mut T::Instance);

@@ -2,7 +2,18 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Align;
+use crate::BaselinePosition;
+use crate::Buildable;
+use crate::Container;
+use crate::Orientable;
+use crate::Orientation;
+use crate::PositionType;
+use crate::ResizeMode;
+use crate::Widget;
 use gdk;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -11,33 +22,22 @@ use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Align;
-use BaselinePosition;
-use Buildable;
-use Container;
-use Orientable;
-use Orientation;
-use PositionType;
-use ResizeMode;
-use Widget;
 
-glib_wrapper! {
-    pub struct Grid(Object<gtk_sys::GtkGrid, gtk_sys::GtkGridClass>) @extends Container, Widget, @implements Buildable, Orientable;
+glib::glib_wrapper! {
+    pub struct Grid(Object<ffi::GtkGrid, ffi::GtkGridClass>) @extends Container, Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || gtk_sys::gtk_grid_get_type(),
+        get_type => || ffi::gtk_grid_get_type(),
     }
 }
 
 impl Grid {
     pub fn new() -> Grid {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_grid_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_grid_new()).unsafe_cast() }
     }
 }
 
@@ -533,7 +533,7 @@ pub trait GridExt: 'static {
 impl<O: IsA<Grid>> GridExt for O {
     fn attach<P: IsA<Widget>>(&self, child: &P, left: i32, top: i32, width: i32, height: i32) {
         unsafe {
-            gtk_sys::gtk_grid_attach(
+            ffi::gtk_grid_attach(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
                 left,
@@ -553,7 +553,7 @@ impl<O: IsA<Grid>> GridExt for O {
         height: i32,
     ) {
         unsafe {
-            gtk_sys::gtk_grid_attach_next_to(
+            ffi::gtk_grid_attach_next_to(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
                 sibling.map(|p| p.as_ref()).to_glib_none().0,
@@ -565,12 +565,12 @@ impl<O: IsA<Grid>> GridExt for O {
     }
 
     fn get_baseline_row(&self) -> i32 {
-        unsafe { gtk_sys::gtk_grid_get_baseline_row(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_grid_get_baseline_row(self.as_ref().to_glib_none().0) }
     }
 
     fn get_child_at(&self, left: i32, top: i32) -> Option<Widget> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_grid_get_child_at(
+            from_glib_none(ffi::gtk_grid_get_child_at(
                 self.as_ref().to_glib_none().0,
                 left,
                 top,
@@ -580,19 +580,19 @@ impl<O: IsA<Grid>> GridExt for O {
 
     fn get_column_homogeneous(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_grid_get_column_homogeneous(
+            from_glib(ffi::gtk_grid_get_column_homogeneous(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_column_spacing(&self) -> u32 {
-        unsafe { gtk_sys::gtk_grid_get_column_spacing(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_grid_get_column_spacing(self.as_ref().to_glib_none().0) }
     }
 
     fn get_row_baseline_position(&self, row: i32) -> BaselinePosition {
         unsafe {
-            from_glib(gtk_sys::gtk_grid_get_row_baseline_position(
+            from_glib(ffi::gtk_grid_get_row_baseline_position(
                 self.as_ref().to_glib_none().0,
                 row,
             ))
@@ -601,25 +601,25 @@ impl<O: IsA<Grid>> GridExt for O {
 
     fn get_row_homogeneous(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_grid_get_row_homogeneous(
+            from_glib(ffi::gtk_grid_get_row_homogeneous(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_row_spacing(&self) -> u32 {
-        unsafe { gtk_sys::gtk_grid_get_row_spacing(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_grid_get_row_spacing(self.as_ref().to_glib_none().0) }
     }
 
     fn insert_column(&self, position: i32) {
         unsafe {
-            gtk_sys::gtk_grid_insert_column(self.as_ref().to_glib_none().0, position);
+            ffi::gtk_grid_insert_column(self.as_ref().to_glib_none().0, position);
         }
     }
 
     fn insert_next_to<P: IsA<Widget>>(&self, sibling: &P, side: PositionType) {
         unsafe {
-            gtk_sys::gtk_grid_insert_next_to(
+            ffi::gtk_grid_insert_next_to(
                 self.as_ref().to_glib_none().0,
                 sibling.as_ref().to_glib_none().0,
                 side.to_glib(),
@@ -629,31 +629,31 @@ impl<O: IsA<Grid>> GridExt for O {
 
     fn insert_row(&self, position: i32) {
         unsafe {
-            gtk_sys::gtk_grid_insert_row(self.as_ref().to_glib_none().0, position);
+            ffi::gtk_grid_insert_row(self.as_ref().to_glib_none().0, position);
         }
     }
 
     fn remove_column(&self, position: i32) {
         unsafe {
-            gtk_sys::gtk_grid_remove_column(self.as_ref().to_glib_none().0, position);
+            ffi::gtk_grid_remove_column(self.as_ref().to_glib_none().0, position);
         }
     }
 
     fn remove_row(&self, position: i32) {
         unsafe {
-            gtk_sys::gtk_grid_remove_row(self.as_ref().to_glib_none().0, position);
+            ffi::gtk_grid_remove_row(self.as_ref().to_glib_none().0, position);
         }
     }
 
     fn set_baseline_row(&self, row: i32) {
         unsafe {
-            gtk_sys::gtk_grid_set_baseline_row(self.as_ref().to_glib_none().0, row);
+            ffi::gtk_grid_set_baseline_row(self.as_ref().to_glib_none().0, row);
         }
     }
 
     fn set_column_homogeneous(&self, homogeneous: bool) {
         unsafe {
-            gtk_sys::gtk_grid_set_column_homogeneous(
+            ffi::gtk_grid_set_column_homogeneous(
                 self.as_ref().to_glib_none().0,
                 homogeneous.to_glib(),
             );
@@ -662,13 +662,13 @@ impl<O: IsA<Grid>> GridExt for O {
 
     fn set_column_spacing(&self, spacing: u32) {
         unsafe {
-            gtk_sys::gtk_grid_set_column_spacing(self.as_ref().to_glib_none().0, spacing);
+            ffi::gtk_grid_set_column_spacing(self.as_ref().to_glib_none().0, spacing);
         }
     }
 
     fn set_row_baseline_position(&self, row: i32, pos: BaselinePosition) {
         unsafe {
-            gtk_sys::gtk_grid_set_row_baseline_position(
+            ffi::gtk_grid_set_row_baseline_position(
                 self.as_ref().to_glib_none().0,
                 row,
                 pos.to_glib(),
@@ -678,7 +678,7 @@ impl<O: IsA<Grid>> GridExt for O {
 
     fn set_row_homogeneous(&self, homogeneous: bool) {
         unsafe {
-            gtk_sys::gtk_grid_set_row_homogeneous(
+            ffi::gtk_grid_set_row_homogeneous(
                 self.as_ref().to_glib_none().0,
                 homogeneous.to_glib(),
             );
@@ -687,15 +687,15 @@ impl<O: IsA<Grid>> GridExt for O {
 
     fn set_row_spacing(&self, spacing: u32) {
         unsafe {
-            gtk_sys::gtk_grid_set_row_spacing(self.as_ref().to_glib_none().0, spacing);
+            ffi::gtk_grid_set_row_spacing(self.as_ref().to_glib_none().0, spacing);
         }
     }
 
     fn get_cell_height<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"height\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -709,8 +709,8 @@ impl<O: IsA<Grid>> GridExt for O {
 
     fn set_cell_height<T: IsA<Widget>>(&self, item: &T, height: i32) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"height\0".as_ptr() as *const _,
                 Value::from(&height).to_glib_none().0,
@@ -721,8 +721,8 @@ impl<O: IsA<Grid>> GridExt for O {
     fn get_cell_width<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"width\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -736,8 +736,8 @@ impl<O: IsA<Grid>> GridExt for O {
 
     fn set_cell_width<T: IsA<Widget>>(&self, item: &T, width: i32) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"width\0".as_ptr() as *const _,
                 Value::from(&width).to_glib_none().0,
@@ -748,8 +748,8 @@ impl<O: IsA<Grid>> GridExt for O {
     fn get_cell_left_attach<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"left-attach\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -763,8 +763,8 @@ impl<O: IsA<Grid>> GridExt for O {
 
     fn set_cell_left_attach<T: IsA<Widget>>(&self, item: &T, left_attach: i32) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"left-attach\0".as_ptr() as *const _,
                 Value::from(&left_attach).to_glib_none().0,
@@ -775,8 +775,8 @@ impl<O: IsA<Grid>> GridExt for O {
     fn get_cell_top_attach<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"top-attach\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -790,8 +790,8 @@ impl<O: IsA<Grid>> GridExt for O {
 
     fn set_cell_top_attach<T: IsA<Widget>>(&self, item: &T, top_attach: i32) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"top-attach\0".as_ptr() as *const _,
                 Value::from(&top_attach).to_glib_none().0,
@@ -804,9 +804,9 @@ impl<O: IsA<Grid>> GridExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_baseline_row_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkGrid,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkGrid,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Grid>,
         {
@@ -831,9 +831,9 @@ impl<O: IsA<Grid>> GridExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_column_homogeneous_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkGrid,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkGrid,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Grid>,
         {
@@ -858,9 +858,9 @@ impl<O: IsA<Grid>> GridExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_column_spacing_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkGrid,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkGrid,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Grid>,
         {
@@ -885,9 +885,9 @@ impl<O: IsA<Grid>> GridExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_row_homogeneous_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkGrid,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkGrid,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Grid>,
         {
@@ -909,9 +909,9 @@ impl<O: IsA<Grid>> GridExt for O {
 
     fn connect_property_row_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_row_spacing_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkGrid,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkGrid,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Grid>,
         {

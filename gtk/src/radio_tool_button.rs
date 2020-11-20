@@ -1,11 +1,15 @@
+// Copyright 2020, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
+use crate::RadioToolButton;
+use crate::ToolItem;
 use glib::object::{Cast, ObjectType};
 use glib::translate::*;
 use glib::Value;
 use gobject_sys;
 use gtk_sys;
 use std::ptr;
-use RadioToolButton;
-use ToolItem;
 
 impl RadioToolButton {
     pub fn new() -> RadioToolButton {

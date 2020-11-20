@@ -2,7 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Align;
+use crate::Buildable;
+use crate::Container;
+use crate::Widget;
 use gdk;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -10,37 +16,29 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Align;
-use Buildable;
-use Container;
-use Widget;
 
-glib_wrapper! {
-    pub struct Invisible(Object<gtk_sys::GtkInvisible, gtk_sys::GtkInvisibleClass>) @extends Widget, @implements Buildable;
+glib::glib_wrapper! {
+    pub struct Invisible(Object<ffi::GtkInvisible, ffi::GtkInvisibleClass>) @extends Widget, @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_invisible_get_type(),
+        get_type => || ffi::gtk_invisible_get_type(),
     }
 }
 
 impl Invisible {
     pub fn new() -> Invisible {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_invisible_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_invisible_new()).unsafe_cast() }
     }
 
     pub fn new_for_screen(screen: &gdk::Screen) -> Invisible {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_invisible_new_for_screen(
-                screen.to_glib_none().0,
-            ))
-            .unsafe_cast()
+            Widget::from_glib_none(ffi::gtk_invisible_new_for_screen(screen.to_glib_none().0))
+                .unsafe_cast()
         }
     }
 }
@@ -386,18 +384,15 @@ pub trait InvisibleExt: 'static {
 impl<O: IsA<Invisible>> InvisibleExt for O {
     fn set_screen(&self, screen: &gdk::Screen) {
         unsafe {
-            gtk_sys::gtk_invisible_set_screen(
-                self.as_ref().to_glib_none().0,
-                screen.to_glib_none().0,
-            );
+            ffi::gtk_invisible_set_screen(self.as_ref().to_glib_none().0, screen.to_glib_none().0);
         }
     }
 
     fn connect_property_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_screen_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkInvisible,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkInvisible,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Invisible>,
         {

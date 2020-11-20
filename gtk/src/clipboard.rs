@@ -2,14 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::Clipboard;
+use crate::SelectionData;
+use crate::TargetEntry;
 use glib::translate::*;
 use glib_sys::gpointer;
 use gtk_sys;
 use libc::{c_char, c_uint};
 use std::boxed::Box as Box_;
-use Clipboard;
-use SelectionData;
-use TargetEntry;
 
 impl Clipboard {
     pub fn set_with_data<F: Fn(&Clipboard, &SelectionData, u32) + 'static>(

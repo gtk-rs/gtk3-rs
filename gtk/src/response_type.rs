@@ -1,7 +1,10 @@
+// Copyright 2020, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
 use glib::translate::{from_glib, FromGlib, ToGlib, ToGlibPtr, ToGlibPtrMut};
 use glib::value::{FromValue, FromValueOptional, SetValue};
 use glib::{StaticType, Type, Value};
-use gobject_sys;
 use gtk_sys;
 use std::fmt;
 
@@ -62,7 +65,7 @@ impl FromGlib<gtk_sys::GtkResponseType> for ResponseType {
             -9 => ResponseType::No,
             -10 => ResponseType::Apply,
             -11 => ResponseType::Help,
-            value if value >= 0 && value <= ::std::u16::MAX as i32 => {
+            value if value >= 0 && value <= std::u16::MAX as i32 => {
                 ResponseType::Other(value as u16)
             }
             value => ResponseType::__Unknown(value),
@@ -108,12 +111,12 @@ impl<'a> FromValueOptional<'a> for ResponseType {
 
 impl<'a> FromValue<'a> for ResponseType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for ResponseType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }

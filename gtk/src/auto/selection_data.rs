@@ -2,81 +2,61 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::TextBuffer;
 use gdk;
 use gdk_pixbuf;
+use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use glib::GString;
-use gtk_sys;
 use std::mem;
 use std::ptr;
-use TextBuffer;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct SelectionData(Boxed<gtk_sys::GtkSelectionData>);
+    pub struct SelectionData(Boxed<ffi::GtkSelectionData>);
 
     match fn {
-        copy => |ptr| gtk_sys::gtk_selection_data_copy(mut_override(ptr)),
-        free => |ptr| gtk_sys::gtk_selection_data_free(ptr),
-        get_type => || gtk_sys::gtk_selection_data_get_type(),
+        copy => |ptr| ffi::gtk_selection_data_copy(mut_override(ptr)),
+        free => |ptr| ffi::gtk_selection_data_free(ptr),
+        get_type => || ffi::gtk_selection_data_get_type(),
     }
 }
 
 impl SelectionData {
     pub fn get_data_type(&self) -> gdk::Atom {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_selection_data_get_data_type(
-                self.to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gtk_selection_data_get_data_type(self.to_glib_none().0)) }
     }
 
     pub fn get_display(&self) -> Option<gdk::Display> {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_selection_data_get_display(
-                self.to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gtk_selection_data_get_display(self.to_glib_none().0)) }
     }
 
     pub fn get_format(&self) -> i32 {
-        unsafe { gtk_sys::gtk_selection_data_get_format(self.to_glib_none().0) }
+        unsafe { ffi::gtk_selection_data_get_format(self.to_glib_none().0) }
     }
 
     pub fn get_length(&self) -> i32 {
-        unsafe { gtk_sys::gtk_selection_data_get_length(self.to_glib_none().0) }
+        unsafe { ffi::gtk_selection_data_get_length(self.to_glib_none().0) }
     }
 
     pub fn get_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
-        unsafe {
-            from_glib_full(gtk_sys::gtk_selection_data_get_pixbuf(
-                self.to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_full(ffi::gtk_selection_data_get_pixbuf(self.to_glib_none().0)) }
     }
 
     pub fn get_selection(&self) -> gdk::Atom {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_selection_data_get_selection(
-                self.to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gtk_selection_data_get_selection(self.to_glib_none().0)) }
     }
 
     pub fn get_target(&self) -> gdk::Atom {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_selection_data_get_target(
-                self.to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gtk_selection_data_get_target(self.to_glib_none().0)) }
     }
 
     pub fn get_targets(&self) -> Option<Vec<gdk::Atom>> {
         unsafe {
             let mut targets = ptr::null_mut();
             let mut n_atoms = mem::MaybeUninit::uninit();
-            let ret = from_glib(gtk_sys::gtk_selection_data_get_targets(
+            let ret = from_glib(ffi::gtk_selection_data_get_targets(
                 self.to_glib_none().0,
                 &mut targets,
                 n_atoms.as_mut_ptr(),
@@ -92,13 +72,13 @@ impl SelectionData {
         }
     }
 
-    pub fn get_text(&self) -> Option<GString> {
-        unsafe { from_glib_full(gtk_sys::gtk_selection_data_get_text(self.to_glib_none().0)) }
+    pub fn get_text(&self) -> Option<glib::GString> {
+        unsafe { from_glib_full(ffi::gtk_selection_data_get_text(self.to_glib_none().0)) }
     }
 
-    pub fn get_uris(&self) -> Vec<GString> {
+    pub fn get_uris(&self) -> Vec<glib::GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gtk_sys::gtk_selection_data_get_uris(
+            FromGlibPtrContainer::from_glib_full(ffi::gtk_selection_data_get_uris(
                 self.to_glib_none().0,
             ))
         }
@@ -107,7 +87,7 @@ impl SelectionData {
     pub fn set(&self, type_: &gdk::Atom, format: i32, data: &[u8]) {
         let length = data.len() as i32;
         unsafe {
-            gtk_sys::gtk_selection_data_set(
+            ffi::gtk_selection_data_set(
                 mut_override(self.to_glib_none().0),
                 type_.to_glib_none().0,
                 format,
@@ -119,7 +99,7 @@ impl SelectionData {
 
     pub fn set_pixbuf(&self, pixbuf: &gdk_pixbuf::Pixbuf) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_selection_data_set_pixbuf(
+            from_glib(ffi::gtk_selection_data_set_pixbuf(
                 mut_override(self.to_glib_none().0),
                 pixbuf.to_glib_none().0,
             ))
@@ -129,7 +109,7 @@ impl SelectionData {
     pub fn set_text(&self, str: &str) -> bool {
         let len = str.len() as i32;
         unsafe {
-            from_glib(gtk_sys::gtk_selection_data_set_text(
+            from_glib(ffi::gtk_selection_data_set_text(
                 mut_override(self.to_glib_none().0),
                 str.to_glib_none().0,
                 len,
@@ -139,7 +119,7 @@ impl SelectionData {
 
     pub fn set_uris(&self, uris: &[&str]) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_selection_data_set_uris(
+            from_glib(ffi::gtk_selection_data_set_uris(
                 mut_override(self.to_glib_none().0),
                 uris.to_glib_none().0,
             ))
@@ -148,7 +128,7 @@ impl SelectionData {
 
     pub fn targets_include_image(&self, writable: bool) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_selection_data_targets_include_image(
+            from_glib(ffi::gtk_selection_data_targets_include_image(
                 self.to_glib_none().0,
                 writable.to_glib(),
             ))
@@ -157,7 +137,7 @@ impl SelectionData {
 
     pub fn targets_include_rich_text<P: IsA<TextBuffer>>(&self, buffer: &P) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_selection_data_targets_include_rich_text(
+            from_glib(ffi::gtk_selection_data_targets_include_rich_text(
                 self.to_glib_none().0,
                 buffer.as_ref().to_glib_none().0,
             ))
@@ -166,7 +146,7 @@ impl SelectionData {
 
     pub fn targets_include_text(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_selection_data_targets_include_text(
+            from_glib(ffi::gtk_selection_data_targets_include_text(
                 self.to_glib_none().0,
             ))
         }
@@ -174,7 +154,7 @@ impl SelectionData {
 
     pub fn targets_include_uri(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_selection_data_targets_include_uri(
+            from_glib(ffi::gtk_selection_data_targets_include_uri(
                 self.to_glib_none().0,
             ))
         }

@@ -1,24 +1,27 @@
+// Copyright 2020, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
 use gtk_sys;
 
 use libc::c_int;
 use std::mem;
 
-use glib::translate::*;
-
+use cairo;
+use glib;
 use glib::subclass::prelude::*;
+use glib::translate::*;
 use glib::{Cast, Object};
 
+use crate::Allocation;
 use crate::DragResult;
 use crate::Inhibit;
 use crate::Orientation;
 use crate::SelectionData;
+use crate::SizeRequestMode;
 use crate::TextDirection;
-use cairo;
-use cairo_sys;
-use Allocation;
-use SizeRequestMode;
-use Widget;
-use WidgetExt;
+use crate::Widget;
+use crate::WidgetExt;
 
 pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
     fn adjust_baseline_allocation(&self, widget: &Self::Type, baseline: &mut i32) {
@@ -991,7 +994,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
 }
 
 unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
+    fn override_vfuncs(class: &mut glib::Class<Self>) {
         <Object as IsSubclassable<T>>::override_vfuncs(class);
 
         let klass = class.as_mut();
@@ -1406,7 +1409,7 @@ unsafe extern "C" fn widget_drag_motion<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_draw<T: WidgetImpl>(
     ptr: *mut gtk_sys::GtkWidget,
-    cr_ptr: *mut cairo_sys::cairo_t,
+    cr_ptr: *mut cairo::ffi::cairo_t,
 ) -> glib_sys::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();

@@ -2,14 +2,14 @@
 // See the COPYRIGHT recent at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE recent or <http://opensource.org/licenses/MIT>
 
+use crate::RecentChooserDialog;
+use crate::RecentManager;
+use crate::Widget;
+use crate::Window;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use gtk_sys;
 use std::ptr;
-use RecentChooserDialog;
-use RecentManager;
-use Widget;
-use Window;
 
 impl RecentChooserDialog {
     pub fn new<T: IsA<Window>>(title: Option<&str>, parent: Option<&T>) -> RecentChooserDialog {

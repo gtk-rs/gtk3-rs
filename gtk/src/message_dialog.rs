@@ -2,17 +2,17 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::ButtonsType;
+use crate::DialogFlags;
+use crate::MessageDialog;
+use crate::MessageType;
+use crate::Widget;
+use crate::Window;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use gtk_sys;
 use libc::c_char;
 use std::ptr;
-use ButtonsType;
-use DialogFlags;
-use MessageDialog;
-use MessageType;
-use Widget;
-use Window;
 
 impl MessageDialog {
     pub fn new<T: IsA<Window>>(

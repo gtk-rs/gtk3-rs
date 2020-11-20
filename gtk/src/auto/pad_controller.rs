@@ -2,8 +2,19 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::EventController;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+use crate::PadActionType;
+use crate::PropagationPhase;
+use crate::Widget;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+use crate::Window;
 use gdk;
 use gio;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
@@ -11,24 +22,13 @@ use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use gobject_sys;
-use gtk_sys;
 use std::fmt;
-use EventController;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-use PadActionType;
-use PropagationPhase;
-use Widget;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-use Window;
 
-glib_wrapper! {
-    pub struct PadController(Object<gtk_sys::GtkPadController, gtk_sys::GtkPadControllerClass>) @extends EventController;
+glib::glib_wrapper! {
+    pub struct PadController(Object<ffi::GtkPadController, ffi::GtkPadControllerClass>) @extends EventController;
 
     match fn {
-        get_type => || gtk_sys::gtk_pad_controller_get_type(),
+        get_type => || ffi::gtk_pad_controller_get_type(),
     }
 }
 
@@ -42,7 +42,7 @@ impl PadController {
     ) -> PadController {
         skip_assert_initialized!();
         unsafe {
-            from_glib_full(gtk_sys::gtk_pad_controller_new(
+            from_glib_full(ffi::gtk_pad_controller_new(
                 window.as_ref().to_glib_none().0,
                 group.as_ref().to_glib_none().0,
                 pad.to_glib_none().0,
@@ -61,7 +61,7 @@ impl PadController {
         action_name: &str,
     ) {
         unsafe {
-            gtk_sys::gtk_pad_controller_set_action(
+            ffi::gtk_pad_controller_set_action(
                 self.to_glib_none().0,
                 type_.to_glib(),
                 index,
@@ -75,8 +75,8 @@ impl PadController {
     pub fn get_property_action_group(&self) -> Option<gio::ActionGroup> {
         unsafe {
             let mut value = Value::from_type(<gio::ActionGroup as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"action-group\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -89,8 +89,8 @@ impl PadController {
     pub fn get_property_pad(&self) -> Option<gdk::Device> {
         unsafe {
             let mut value = Value::from_type(<gdk::Device as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"pad\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );

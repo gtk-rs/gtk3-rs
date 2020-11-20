@@ -2,6 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Adjustment;
+use crate::Buildable;
+use crate::Orientable;
+use crate::ScrollType;
+use crate::SensitivityType;
+use crate::Widget;
 use gdk;
 use glib;
 use glib::object::Cast;
@@ -10,26 +17,17 @@ use glib::object::ObjectExt;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
-use Adjustment;
-use Buildable;
-use Orientable;
-use ScrollType;
-use SensitivityType;
-use Widget;
 
-glib_wrapper! {
-    pub struct Range(Object<gtk_sys::GtkRange, gtk_sys::GtkRangeClass>) @extends Widget, @implements Buildable, Orientable;
+glib::glib_wrapper! {
+    pub struct Range(Object<ffi::GtkRange, ffi::GtkRangeClass>) @extends Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || gtk_sys::gtk_range_get_type(),
+        get_type => || ffi::gtk_range_get_type(),
     }
 }
 
@@ -140,48 +138,40 @@ pub trait RangeExt: 'static {
 impl<O: IsA<Range>> RangeExt for O {
     fn get_adjustment(&self) -> Adjustment {
         unsafe {
-            from_glib_none(gtk_sys::gtk_range_get_adjustment(
+            from_glib_none(ffi::gtk_range_get_adjustment(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_fill_level(&self) -> f64 {
-        unsafe { gtk_sys::gtk_range_get_fill_level(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_range_get_fill_level(self.as_ref().to_glib_none().0) }
     }
 
     fn get_flippable(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_range_get_flippable(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_range_get_flippable(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_inverted(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_range_get_inverted(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_range_get_inverted(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_lower_stepper_sensitivity(&self) -> SensitivityType {
         unsafe {
-            from_glib(gtk_sys::gtk_range_get_lower_stepper_sensitivity(
+            from_glib(ffi::gtk_range_get_lower_stepper_sensitivity(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_min_slider_size(&self) -> i32 {
-        unsafe { gtk_sys::gtk_range_get_min_slider_size(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_range_get_min_slider_size(self.as_ref().to_glib_none().0) }
     }
 
     fn get_range_rect(&self) -> gdk::Rectangle {
         unsafe {
             let mut range_rect = gdk::Rectangle::uninitialized();
-            gtk_sys::gtk_range_get_range_rect(
+            ffi::gtk_range_get_range_rect(
                 self.as_ref().to_glib_none().0,
                 range_rect.to_glib_none_mut().0,
             );
@@ -191,19 +181,19 @@ impl<O: IsA<Range>> RangeExt for O {
 
     fn get_restrict_to_fill_level(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_range_get_restrict_to_fill_level(
+            from_glib(ffi::gtk_range_get_restrict_to_fill_level(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_round_digits(&self) -> i32 {
-        unsafe { gtk_sys::gtk_range_get_round_digits(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_range_get_round_digits(self.as_ref().to_glib_none().0) }
     }
 
     fn get_show_fill_level(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_range_get_show_fill_level(
+            from_glib(ffi::gtk_range_get_show_fill_level(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -213,7 +203,7 @@ impl<O: IsA<Range>> RangeExt for O {
         unsafe {
             let mut slider_start = mem::MaybeUninit::uninit();
             let mut slider_end = mem::MaybeUninit::uninit();
-            gtk_sys::gtk_range_get_slider_range(
+            ffi::gtk_range_get_slider_range(
                 self.as_ref().to_glib_none().0,
                 slider_start.as_mut_ptr(),
                 slider_end.as_mut_ptr(),
@@ -226,7 +216,7 @@ impl<O: IsA<Range>> RangeExt for O {
 
     fn get_slider_size_fixed(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_range_get_slider_size_fixed(
+            from_glib(ffi::gtk_range_get_slider_size_fixed(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -234,19 +224,19 @@ impl<O: IsA<Range>> RangeExt for O {
 
     fn get_upper_stepper_sensitivity(&self) -> SensitivityType {
         unsafe {
-            from_glib(gtk_sys::gtk_range_get_upper_stepper_sensitivity(
+            from_glib(ffi::gtk_range_get_upper_stepper_sensitivity(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_value(&self) -> f64 {
-        unsafe { gtk_sys::gtk_range_get_value(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_range_get_value(self.as_ref().to_glib_none().0) }
     }
 
     fn set_adjustment<P: IsA<Adjustment>>(&self, adjustment: &P) {
         unsafe {
-            gtk_sys::gtk_range_set_adjustment(
+            ffi::gtk_range_set_adjustment(
                 self.as_ref().to_glib_none().0,
                 adjustment.as_ref().to_glib_none().0,
             );
@@ -255,31 +245,31 @@ impl<O: IsA<Range>> RangeExt for O {
 
     fn set_fill_level(&self, fill_level: f64) {
         unsafe {
-            gtk_sys::gtk_range_set_fill_level(self.as_ref().to_glib_none().0, fill_level);
+            ffi::gtk_range_set_fill_level(self.as_ref().to_glib_none().0, fill_level);
         }
     }
 
     fn set_flippable(&self, flippable: bool) {
         unsafe {
-            gtk_sys::gtk_range_set_flippable(self.as_ref().to_glib_none().0, flippable.to_glib());
+            ffi::gtk_range_set_flippable(self.as_ref().to_glib_none().0, flippable.to_glib());
         }
     }
 
     fn set_increments(&self, step: f64, page: f64) {
         unsafe {
-            gtk_sys::gtk_range_set_increments(self.as_ref().to_glib_none().0, step, page);
+            ffi::gtk_range_set_increments(self.as_ref().to_glib_none().0, step, page);
         }
     }
 
     fn set_inverted(&self, setting: bool) {
         unsafe {
-            gtk_sys::gtk_range_set_inverted(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_range_set_inverted(self.as_ref().to_glib_none().0, setting.to_glib());
         }
     }
 
     fn set_lower_stepper_sensitivity(&self, sensitivity: SensitivityType) {
         unsafe {
-            gtk_sys::gtk_range_set_lower_stepper_sensitivity(
+            ffi::gtk_range_set_lower_stepper_sensitivity(
                 self.as_ref().to_glib_none().0,
                 sensitivity.to_glib(),
             );
@@ -288,19 +278,19 @@ impl<O: IsA<Range>> RangeExt for O {
 
     fn set_min_slider_size(&self, min_size: i32) {
         unsafe {
-            gtk_sys::gtk_range_set_min_slider_size(self.as_ref().to_glib_none().0, min_size);
+            ffi::gtk_range_set_min_slider_size(self.as_ref().to_glib_none().0, min_size);
         }
     }
 
     fn set_range(&self, min: f64, max: f64) {
         unsafe {
-            gtk_sys::gtk_range_set_range(self.as_ref().to_glib_none().0, min, max);
+            ffi::gtk_range_set_range(self.as_ref().to_glib_none().0, min, max);
         }
     }
 
     fn set_restrict_to_fill_level(&self, restrict_to_fill_level: bool) {
         unsafe {
-            gtk_sys::gtk_range_set_restrict_to_fill_level(
+            ffi::gtk_range_set_restrict_to_fill_level(
                 self.as_ref().to_glib_none().0,
                 restrict_to_fill_level.to_glib(),
             );
@@ -309,13 +299,13 @@ impl<O: IsA<Range>> RangeExt for O {
 
     fn set_round_digits(&self, round_digits: i32) {
         unsafe {
-            gtk_sys::gtk_range_set_round_digits(self.as_ref().to_glib_none().0, round_digits);
+            ffi::gtk_range_set_round_digits(self.as_ref().to_glib_none().0, round_digits);
         }
     }
 
     fn set_show_fill_level(&self, show_fill_level: bool) {
         unsafe {
-            gtk_sys::gtk_range_set_show_fill_level(
+            ffi::gtk_range_set_show_fill_level(
                 self.as_ref().to_glib_none().0,
                 show_fill_level.to_glib(),
             );
@@ -324,7 +314,7 @@ impl<O: IsA<Range>> RangeExt for O {
 
     fn set_slider_size_fixed(&self, size_fixed: bool) {
         unsafe {
-            gtk_sys::gtk_range_set_slider_size_fixed(
+            ffi::gtk_range_set_slider_size_fixed(
                 self.as_ref().to_glib_none().0,
                 size_fixed.to_glib(),
             );
@@ -333,7 +323,7 @@ impl<O: IsA<Range>> RangeExt for O {
 
     fn set_upper_stepper_sensitivity(&self, sensitivity: SensitivityType) {
         unsafe {
-            gtk_sys::gtk_range_set_upper_stepper_sensitivity(
+            ffi::gtk_range_set_upper_stepper_sensitivity(
                 self.as_ref().to_glib_none().0,
                 sensitivity.to_glib(),
             );
@@ -342,15 +332,15 @@ impl<O: IsA<Range>> RangeExt for O {
 
     fn set_value(&self, value: f64) {
         unsafe {
-            gtk_sys::gtk_range_set_value(self.as_ref().to_glib_none().0, value);
+            ffi::gtk_range_set_value(self.as_ref().to_glib_none().0, value);
         }
     }
 
     fn connect_adjust_bounds<F: Fn(&Self, f64) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn adjust_bounds_trampoline<P, F: Fn(&P, f64) + 'static>(
-            this: *mut gtk_sys::GtkRange,
+            this: *mut ffi::GtkRange,
             value: libc::c_double,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Range>,
         {
@@ -378,11 +368,11 @@ impl<O: IsA<Range>> RangeExt for O {
             P,
             F: Fn(&P, ScrollType, f64) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkRange,
-            scroll: gtk_sys::GtkScrollType,
+            this: *mut ffi::GtkRange,
+            scroll: ffi::GtkScrollType,
             value: libc::c_double,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Range>,
         {
@@ -409,9 +399,9 @@ impl<O: IsA<Range>> RangeExt for O {
 
     fn connect_move_slider<F: Fn(&Self, ScrollType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn move_slider_trampoline<P, F: Fn(&P, ScrollType) + 'static>(
-            this: *mut gtk_sys::GtkRange,
-            step: gtk_sys::GtkScrollType,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkRange,
+            step: ffi::GtkScrollType,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Range>,
         {
@@ -436,7 +426,7 @@ impl<O: IsA<Range>> RangeExt for O {
 
     fn emit_move_slider(&self, step: ScrollType) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("move-slider", &[&step])
                 .unwrap()
         };
@@ -444,8 +434,8 @@ impl<O: IsA<Range>> RangeExt for O {
 
     fn connect_value_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn value_changed_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkRange,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkRange,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Range>,
         {
@@ -467,9 +457,9 @@ impl<O: IsA<Range>> RangeExt for O {
 
     fn connect_property_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_adjustment_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkRange,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkRange,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Range>,
         {
@@ -491,9 +481,9 @@ impl<O: IsA<Range>> RangeExt for O {
 
     fn connect_property_fill_level_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_fill_level_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkRange,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkRange,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Range>,
         {
@@ -515,9 +505,9 @@ impl<O: IsA<Range>> RangeExt for O {
 
     fn connect_property_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inverted_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkRange,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkRange,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Range>,
         {
@@ -542,9 +532,9 @@ impl<O: IsA<Range>> RangeExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_lower_stepper_sensitivity_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkRange,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkRange,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Range>,
         {
@@ -569,9 +559,9 @@ impl<O: IsA<Range>> RangeExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_restrict_to_fill_level_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkRange,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkRange,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Range>,
         {
@@ -596,9 +586,9 @@ impl<O: IsA<Range>> RangeExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_round_digits_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkRange,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkRange,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Range>,
         {
@@ -623,9 +613,9 @@ impl<O: IsA<Range>> RangeExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_fill_level_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkRange,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkRange,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Range>,
         {
@@ -650,9 +640,9 @@ impl<O: IsA<Range>> RangeExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_upper_stepper_sensitivity_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkRange,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkRange,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Range>,
         {

@@ -2,35 +2,36 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Align;
+use crate::Bin;
+use crate::Buildable;
+use crate::Container;
+use crate::PackType;
+use crate::ResizeMode;
+use crate::Widget;
 use gdk;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use gtk_sys;
 use std::fmt;
-use Align;
-use Bin;
-use Buildable;
-use Container;
-use PackType;
-use ResizeMode;
-use Widget;
 
-glib_wrapper! {
-    pub struct ActionBar(Object<gtk_sys::GtkActionBar, gtk_sys::GtkActionBarClass>) @extends Bin, Container, Widget, @implements Buildable;
+glib::glib_wrapper! {
+    pub struct ActionBar(Object<ffi::GtkActionBar, ffi::GtkActionBarClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_action_bar_get_type(),
+        get_type => || ffi::gtk_action_bar_get_type(),
     }
 }
 
 impl ActionBar {
     pub fn new() -> ActionBar {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_action_bar_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_action_bar_new()).unsafe_cast() }
     }
 }
 
@@ -405,7 +406,7 @@ pub trait ActionBarExt: 'static {
 impl<O: IsA<ActionBar>> ActionBarExt for O {
     fn get_center_widget(&self) -> Option<Widget> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_action_bar_get_center_widget(
+            from_glib_none(ffi::gtk_action_bar_get_center_widget(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -413,7 +414,7 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
 
     fn pack_end<P: IsA<Widget>>(&self, child: &P) {
         unsafe {
-            gtk_sys::gtk_action_bar_pack_end(
+            ffi::gtk_action_bar_pack_end(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
             );
@@ -422,7 +423,7 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
 
     fn pack_start<P: IsA<Widget>>(&self, child: &P) {
         unsafe {
-            gtk_sys::gtk_action_bar_pack_start(
+            ffi::gtk_action_bar_pack_start(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
             );
@@ -431,7 +432,7 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
 
     fn set_center_widget<P: IsA<Widget>>(&self, center_widget: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_action_bar_set_center_widget(
+            ffi::gtk_action_bar_set_center_widget(
                 self.as_ref().to_glib_none().0,
                 center_widget.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -441,8 +442,8 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
     fn get_child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType {
         unsafe {
             let mut value = Value::from_type(<PackType as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"pack-type\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -456,8 +457,8 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
 
     fn set_child_pack_type<T: IsA<Widget>>(&self, item: &T, pack_type: PackType) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"pack-type\0".as_ptr() as *const _,
                 Value::from(&pack_type).to_glib_none().0,
@@ -468,8 +469,8 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
     fn get_child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"position\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -483,8 +484,8 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
 
     fn set_child_position<T: IsA<Widget>>(&self, item: &T, position: i32) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"position\0".as_ptr() as *const _,
                 Value::from(&position).to_glib_none().0,

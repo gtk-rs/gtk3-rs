@@ -2,29 +2,30 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Adjustment;
+use crate::Align;
+use crate::Buildable;
+use crate::Container;
+use crate::Orientable;
+use crate::Orientation;
+use crate::Range;
+use crate::SensitivityType;
+use crate::Widget;
 use gdk;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use gtk_sys;
 use std::fmt;
-use Adjustment;
-use Align;
-use Buildable;
-use Container;
-use Orientable;
-use Orientation;
-use Range;
-use SensitivityType;
-use Widget;
 
-glib_wrapper! {
-    pub struct Scrollbar(Object<gtk_sys::GtkScrollbar, gtk_sys::GtkScrollbarClass>) @extends Range, Widget, @implements Buildable, Orientable;
+glib::glib_wrapper! {
+    pub struct Scrollbar(Object<ffi::GtkScrollbar, ffi::GtkScrollbarClass>) @extends Range, Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || gtk_sys::gtk_scrollbar_get_type(),
+        get_type => || ffi::gtk_scrollbar_get_type(),
     }
 }
 
@@ -32,7 +33,7 @@ impl Scrollbar {
     pub fn new<P: IsA<Adjustment>>(orientation: Orientation, adjustment: Option<&P>) -> Scrollbar {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_scrollbar_new(
+            Widget::from_glib_none(ffi::gtk_scrollbar_new(
                 orientation.to_glib(),
                 adjustment.map(|p| p.as_ref()).to_glib_none().0,
             ))

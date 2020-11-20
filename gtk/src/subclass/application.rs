@@ -1,13 +1,16 @@
+// Copyright 2020, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
 use gtk_sys;
 
+use glib;
+use glib::subclass::prelude::*;
+use glib::translate::*;
 use glib::Cast;
 
-use glib::translate::*;
-
-use glib::subclass::prelude::*;
-
-use Application;
-use Window;
+use crate::Application;
+use crate::Window;
 
 pub trait GtkApplicationImpl:
     GtkApplicationImplExt + gio::subclass::prelude::ApplicationImpl
@@ -63,7 +66,7 @@ impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {
 }
 
 unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
+    fn override_vfuncs(class: &mut glib::Class<Self>) {
         unsafe extern "C" fn application_window_added<T: GtkApplicationImpl>(
             ptr: *mut gtk_sys::GtkApplication,
             wptr: *mut gtk_sys::GtkWindow,

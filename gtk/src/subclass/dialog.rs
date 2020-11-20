@@ -1,15 +1,18 @@
+// Copyright 2020, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
 use gtk_sys;
 
-use glib::translate::*;
-
+use glib;
 use glib::subclass::prelude::*;
-
+use glib::translate::*;
 use glib::Cast;
 
 use super::window::WindowImpl;
-use Dialog;
-use ResponseType;
-use Window;
+use crate::Dialog;
+use crate::ResponseType;
+use crate::Window;
 
 pub trait DialogImpl: DialogImplExt + WindowImpl {
     fn response(&self, dialog: &Self::Type, response: ResponseType) {
@@ -52,7 +55,7 @@ impl<T: DialogImpl> DialogImplExt for T {
 }
 
 unsafe impl<T: DialogImpl> IsSubclassable<T> for Dialog {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
+    fn override_vfuncs(class: &mut glib::Class<Self>) {
         <Window as IsSubclassable<T>>::override_vfuncs(class);
 
         let klass = class.as_mut();

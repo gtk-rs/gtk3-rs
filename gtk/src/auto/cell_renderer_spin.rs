@@ -2,7 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Adjustment;
+use crate::CellRenderer;
+use crate::CellRendererMode;
+use crate::CellRendererText;
 use gdk;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -12,30 +18,23 @@ use glib::value::SetValueOptional;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use pango;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Adjustment;
-use CellRenderer;
-use CellRendererMode;
-use CellRendererText;
 
-glib_wrapper! {
-    pub struct CellRendererSpin(Object<gtk_sys::GtkCellRendererSpin, gtk_sys::GtkCellRendererSpinClass>) @extends CellRendererText, CellRenderer;
+glib::glib_wrapper! {
+    pub struct CellRendererSpin(Object<ffi::GtkCellRendererSpin, ffi::GtkCellRendererSpinClass>) @extends CellRendererText, CellRenderer;
 
     match fn {
-        get_type => || gtk_sys::gtk_cell_renderer_spin_get_type(),
+        get_type => || ffi::gtk_cell_renderer_spin_get_type(),
     }
 }
 
 impl CellRendererSpin {
     pub fn new() -> CellRendererSpin {
         assert_initialized_main_thread!();
-        unsafe { CellRenderer::from_glib_none(gtk_sys::gtk_cell_renderer_spin_new()).unsafe_cast() }
+        unsafe { CellRenderer::from_glib_none(ffi::gtk_cell_renderer_spin_new()).unsafe_cast() }
     }
 }
 
@@ -660,8 +659,8 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
     fn get_property_adjustment(&self) -> Option<Adjustment> {
         unsafe {
             let mut value = Value::from_type(<Adjustment as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"adjustment\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -676,8 +675,8 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         adjustment: Option<&P>,
     ) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"adjustment\0".as_ptr() as *const _,
                 Value::from(adjustment).to_glib_none().0,
             );
@@ -687,8 +686,8 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
     fn get_property_climb_rate(&self) -> f64 {
         unsafe {
             let mut value = Value::from_type(<f64 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"climb-rate\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -701,8 +700,8 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
 
     fn set_property_climb_rate(&self, climb_rate: f64) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"climb-rate\0".as_ptr() as *const _,
                 Value::from(&climb_rate).to_glib_none().0,
             );
@@ -712,8 +711,8 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
     fn get_property_digits(&self) -> u32 {
         unsafe {
             let mut value = Value::from_type(<u32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"digits\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -726,8 +725,8 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
 
     fn set_property_digits(&self, digits: u32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"digits\0".as_ptr() as *const _,
                 Value::from(&digits).to_glib_none().0,
             );
@@ -736,9 +735,9 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
 
     fn connect_property_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_adjustment_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererSpin,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererSpin,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererSpin>,
         {
@@ -760,9 +759,9 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
 
     fn connect_property_climb_rate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_climb_rate_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererSpin,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererSpin,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererSpin>,
         {
@@ -784,9 +783,9 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
 
     fn connect_property_digits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_digits_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererSpin,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererSpin,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererSpin>,
         {

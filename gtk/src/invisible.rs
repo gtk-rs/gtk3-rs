@@ -2,11 +2,11 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::Invisible;
 use gdk;
 use glib::translate::{from_glib_none, ToGlibPtr};
 use glib::IsA;
 use gtk_sys;
-use Invisible;
 
 // For some reasons, it's not generated...
 pub trait InvisibleExtManual: 'static {

@@ -2,17 +2,16 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::SortType;
 use glib::object::IsA;
 use glib::translate::*;
-use gtk_sys;
 use std::cmp::Ordering;
 use std::fmt;
 use std::mem;
-use SortType;
 
-use glib_sys::gpointer;
-use gtk_sys::{GtkTreeIter, GtkTreeModel};
-use {TreeIter, TreeModel, TreeSortable};
+use crate::{TreeIter, TreeModel, TreeSortable};
+use glib::ffi::gpointer;
+use gtk_sys::{self, GtkTreeIter, GtkTreeModel};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum SortColumn {

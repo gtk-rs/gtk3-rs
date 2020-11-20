@@ -2,24 +2,24 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Buildable;
+use crate::IconSize;
+use crate::Orientation;
+use crate::ReliefStyle;
+use crate::SizeGroup;
+use crate::ToolbarStyle;
+use crate::Widget;
 use glib::object::IsA;
 use glib::translate::*;
-use gtk_sys;
 use pango;
 use std::fmt;
-use Buildable;
-use IconSize;
-use Orientation;
-use ReliefStyle;
-use SizeGroup;
-use ToolbarStyle;
-use Widget;
 
-glib_wrapper! {
-    pub struct ToolShell(Interface<gtk_sys::GtkToolShell>) @requires Widget, Buildable;
+glib::glib_wrapper! {
+    pub struct ToolShell(Interface<ffi::GtkToolShell>) @requires Widget, Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_tool_shell_get_type(),
+        get_type => || ffi::gtk_tool_shell_get_type(),
     }
 }
 
@@ -48,7 +48,7 @@ pub trait ToolShellExt: 'static {
 impl<O: IsA<ToolShell>> ToolShellExt for O {
     fn get_ellipsize_mode(&self) -> pango::EllipsizeMode {
         unsafe {
-            from_glib(gtk_sys::gtk_tool_shell_get_ellipsize_mode(
+            from_glib(ffi::gtk_tool_shell_get_ellipsize_mode(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -56,7 +56,7 @@ impl<O: IsA<ToolShell>> ToolShellExt for O {
 
     fn get_icon_size(&self) -> IconSize {
         unsafe {
-            from_glib(gtk_sys::gtk_tool_shell_get_icon_size(
+            from_glib(ffi::gtk_tool_shell_get_icon_size(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -64,7 +64,7 @@ impl<O: IsA<ToolShell>> ToolShellExt for O {
 
     fn get_orientation(&self) -> Orientation {
         unsafe {
-            from_glib(gtk_sys::gtk_tool_shell_get_orientation(
+            from_glib(ffi::gtk_tool_shell_get_orientation(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -72,7 +72,7 @@ impl<O: IsA<ToolShell>> ToolShellExt for O {
 
     fn get_relief_style(&self) -> ReliefStyle {
         unsafe {
-            from_glib(gtk_sys::gtk_tool_shell_get_relief_style(
+            from_glib(ffi::gtk_tool_shell_get_relief_style(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -80,19 +80,19 @@ impl<O: IsA<ToolShell>> ToolShellExt for O {
 
     fn get_style(&self) -> ToolbarStyle {
         unsafe {
-            from_glib(gtk_sys::gtk_tool_shell_get_style(
+            from_glib(ffi::gtk_tool_shell_get_style(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_text_alignment(&self) -> f32 {
-        unsafe { gtk_sys::gtk_tool_shell_get_text_alignment(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_tool_shell_get_text_alignment(self.as_ref().to_glib_none().0) }
     }
 
     fn get_text_orientation(&self) -> Orientation {
         unsafe {
-            from_glib(gtk_sys::gtk_tool_shell_get_text_orientation(
+            from_glib(ffi::gtk_tool_shell_get_text_orientation(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -100,7 +100,7 @@ impl<O: IsA<ToolShell>> ToolShellExt for O {
 
     fn get_text_size_group(&self) -> Option<SizeGroup> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_tool_shell_get_text_size_group(
+            from_glib_none(ffi::gtk_tool_shell_get_text_size_group(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -108,7 +108,7 @@ impl<O: IsA<ToolShell>> ToolShellExt for O {
 
     fn rebuild_menu(&self) {
         unsafe {
-            gtk_sys::gtk_tool_shell_rebuild_menu(self.as_ref().to_glib_none().0);
+            ffi::gtk_tool_shell_rebuild_menu(self.as_ref().to_glib_none().0);
         }
     }
 }

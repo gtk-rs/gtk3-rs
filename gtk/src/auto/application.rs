@@ -2,30 +2,28 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::ApplicationInhibitFlags;
+use crate::Window;
 use gio;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use ApplicationInhibitFlags;
-use Window;
 
-glib_wrapper! {
-    pub struct Application(Object<gtk_sys::GtkApplication, gtk_sys::GtkApplicationClass>) @extends gio::Application, @implements gio::ActionGroup, gio::ActionMap;
+glib::glib_wrapper! {
+    pub struct Application(Object<ffi::GtkApplication, ffi::GtkApplicationClass>) @extends gio::Application, @implements gio::ActionGroup, gio::ActionMap;
 
     match fn {
-        get_type => || gtk_sys::gtk_application_get_type(),
+        get_type => || ffi::gtk_application_get_type(),
     }
 }
 
@@ -128,9 +126,9 @@ pub const NONE_APPLICATION: Option<&Application> = None;
 pub trait GtkApplicationExt: 'static {
     fn add_window<P: IsA<Window>>(&self, window: &P);
 
-    fn get_accels_for_action(&self, detailed_action_name: &str) -> Vec<GString>;
+    fn get_accels_for_action(&self, detailed_action_name: &str) -> Vec<glib::GString>;
 
-    fn get_actions_for_accel(&self, accel: &str) -> Vec<GString>;
+    fn get_actions_for_accel(&self, accel: &str) -> Vec<glib::GString>;
 
     fn get_active_window(&self) -> Option<Window>;
 
@@ -153,7 +151,7 @@ pub trait GtkApplicationExt: 'static {
 
     fn is_inhibited(&self, flags: ApplicationInhibitFlags) -> bool;
 
-    fn list_action_descriptions(&self) -> Vec<GString>;
+    fn list_action_descriptions(&self) -> Vec<glib::GString>;
 
     fn prefers_app_menu(&self) -> bool;
 
@@ -208,25 +206,25 @@ pub trait GtkApplicationExt: 'static {
 impl<O: IsA<Application>> GtkApplicationExt for O {
     fn add_window<P: IsA<Window>>(&self, window: &P) {
         unsafe {
-            gtk_sys::gtk_application_add_window(
+            ffi::gtk_application_add_window(
                 self.as_ref().to_glib_none().0,
                 window.as_ref().to_glib_none().0,
             );
         }
     }
 
-    fn get_accels_for_action(&self, detailed_action_name: &str) -> Vec<GString> {
+    fn get_accels_for_action(&self, detailed_action_name: &str) -> Vec<glib::GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gtk_sys::gtk_application_get_accels_for_action(
+            FromGlibPtrContainer::from_glib_full(ffi::gtk_application_get_accels_for_action(
                 self.as_ref().to_glib_none().0,
                 detailed_action_name.to_glib_none().0,
             ))
         }
     }
 
-    fn get_actions_for_accel(&self, accel: &str) -> Vec<GString> {
+    fn get_actions_for_accel(&self, accel: &str) -> Vec<glib::GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gtk_sys::gtk_application_get_actions_for_accel(
+            FromGlibPtrContainer::from_glib_full(ffi::gtk_application_get_actions_for_accel(
                 self.as_ref().to_glib_none().0,
                 accel.to_glib_none().0,
             ))
@@ -235,7 +233,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn get_active_window(&self) -> Option<Window> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_application_get_active_window(
+            from_glib_none(ffi::gtk_application_get_active_window(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -243,7 +241,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn get_app_menu(&self) -> Option<gio::MenuModel> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_application_get_app_menu(
+            from_glib_none(ffi::gtk_application_get_app_menu(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -251,7 +249,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn get_menu_by_id(&self, id: &str) -> Option<gio::Menu> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_application_get_menu_by_id(
+            from_glib_none(ffi::gtk_application_get_menu_by_id(
                 self.as_ref().to_glib_none().0,
                 id.to_glib_none().0,
             ))
@@ -260,7 +258,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn get_menubar(&self) -> Option<gio::MenuModel> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_application_get_menubar(
+            from_glib_none(ffi::gtk_application_get_menubar(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -268,7 +266,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn get_window_by_id(&self, id: u32) -> Option<Window> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_application_get_window_by_id(
+            from_glib_none(ffi::gtk_application_get_window_by_id(
                 self.as_ref().to_glib_none().0,
                 id,
             ))
@@ -277,7 +275,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn get_windows(&self) -> Vec<Window> {
         unsafe {
-            FromGlibPtrContainer::from_glib_none(gtk_sys::gtk_application_get_windows(
+            FromGlibPtrContainer::from_glib_none(ffi::gtk_application_get_windows(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -290,7 +288,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         reason: Option<&str>,
     ) -> u32 {
         unsafe {
-            gtk_sys::gtk_application_inhibit(
+            ffi::gtk_application_inhibit(
                 self.as_ref().to_glib_none().0,
                 window.map(|p| p.as_ref()).to_glib_none().0,
                 flags.to_glib(),
@@ -301,16 +299,16 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn is_inhibited(&self, flags: ApplicationInhibitFlags) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_application_is_inhibited(
+            from_glib(ffi::gtk_application_is_inhibited(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
             ))
         }
     }
 
-    fn list_action_descriptions(&self) -> Vec<GString> {
+    fn list_action_descriptions(&self) -> Vec<glib::GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gtk_sys::gtk_application_list_action_descriptions(
+            FromGlibPtrContainer::from_glib_full(ffi::gtk_application_list_action_descriptions(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -318,7 +316,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn prefers_app_menu(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_application_prefers_app_menu(
+            from_glib(ffi::gtk_application_prefers_app_menu(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -326,7 +324,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn remove_window<P: IsA<Window>>(&self, window: &P) {
         unsafe {
-            gtk_sys::gtk_application_remove_window(
+            ffi::gtk_application_remove_window(
                 self.as_ref().to_glib_none().0,
                 window.as_ref().to_glib_none().0,
             );
@@ -335,7 +333,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn set_accels_for_action(&self, detailed_action_name: &str, accels: &[&str]) {
         unsafe {
-            gtk_sys::gtk_application_set_accels_for_action(
+            ffi::gtk_application_set_accels_for_action(
                 self.as_ref().to_glib_none().0,
                 detailed_action_name.to_glib_none().0,
                 accels.to_glib_none().0,
@@ -345,7 +343,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn set_app_menu<P: IsA<gio::MenuModel>>(&self, app_menu: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_application_set_app_menu(
+            ffi::gtk_application_set_app_menu(
                 self.as_ref().to_glib_none().0,
                 app_menu.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -354,7 +352,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn set_menubar<P: IsA<gio::MenuModel>>(&self, menubar: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_application_set_menubar(
+            ffi::gtk_application_set_menubar(
                 self.as_ref().to_glib_none().0,
                 menubar.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -363,15 +361,15 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn uninhibit(&self, cookie: u32) {
         unsafe {
-            gtk_sys::gtk_application_uninhibit(self.as_ref().to_glib_none().0, cookie);
+            ffi::gtk_application_uninhibit(self.as_ref().to_glib_none().0, cookie);
         }
     }
 
     fn get_property_register_session(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"register-session\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -384,8 +382,8 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn set_property_register_session(&self, register_session: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"register-session\0".as_ptr() as *const _,
                 Value::from(&register_session).to_glib_none().0,
             );
@@ -397,8 +395,8 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
     fn get_property_screensaver_active(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"screensaver-active\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -413,8 +411,8 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_8")))]
     fn connect_query_end<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn query_end_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkApplication,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkApplication,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -436,9 +434,9 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn connect_window_added<F: Fn(&Self, &Window) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn window_added_trampoline<P, F: Fn(&P, &Window) + 'static>(
-            this: *mut gtk_sys::GtkApplication,
-            window: *mut gtk_sys::GtkWindow,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkApplication,
+            window: *mut ffi::GtkWindow,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -463,9 +461,9 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn connect_window_removed<F: Fn(&Self, &Window) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn window_removed_trampoline<P, F: Fn(&P, &Window) + 'static>(
-            this: *mut gtk_sys::GtkApplication,
-            window: *mut gtk_sys::GtkWindow,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkApplication,
+            window: *mut ffi::GtkWindow,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -493,9 +491,9 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_window_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkApplication,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkApplication,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -517,9 +515,9 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn connect_property_app_menu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_app_menu_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkApplication,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkApplication,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -541,9 +539,9 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
 
     fn connect_property_menubar_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_menubar_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkApplication,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkApplication,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -568,9 +566,9 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_register_session_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkApplication,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkApplication,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {
@@ -597,9 +595,9 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_screensaver_active_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkApplication,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkApplication,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Application>,
         {

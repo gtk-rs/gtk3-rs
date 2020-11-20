@@ -2,40 +2,38 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Application;
+use crate::Widget;
 use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
-use glib_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
-use Application;
-use Widget;
 
-glib_wrapper! {
-    pub struct Builder(Object<gtk_sys::GtkBuilder, gtk_sys::GtkBuilderClass>);
+glib::glib_wrapper! {
+    pub struct Builder(Object<ffi::GtkBuilder, ffi::GtkBuilderClass>);
 
     match fn {
-        get_type => || gtk_sys::gtk_builder_get_type(),
+        get_type => || ffi::gtk_builder_get_type(),
     }
 }
 
 impl Builder {
     pub fn new() -> Builder {
         assert_initialized_main_thread!();
-        unsafe { from_glib_full(gtk_sys::gtk_builder_new()) }
+        unsafe { from_glib_full(ffi::gtk_builder_new()) }
     }
 
     pub fn from_resource(resource_path: &str) -> Builder {
         assert_initialized_main_thread!();
         unsafe {
-            from_glib_full(gtk_sys::gtk_builder_new_from_resource(
+            from_glib_full(ffi::gtk_builder_new_from_resource(
                 resource_path.to_glib_none().0,
             ))
         }
@@ -45,7 +43,7 @@ impl Builder {
         assert_initialized_main_thread!();
         let length = string.len() as isize;
         unsafe {
-            from_glib_full(gtk_sys::gtk_builder_new_from_string(
+            from_glib_full(ffi::gtk_builder_new_from_string(
                 string.to_glib_none().0,
                 length,
             ))
@@ -94,7 +92,7 @@ pub trait BuilderExt: 'static {
 
     fn get_objects(&self) -> Vec<glib::Object>;
 
-    fn get_translation_domain(&self) -> Option<GString>;
+    fn get_translation_domain(&self) -> Option<glib::GString>;
 
     fn get_type_from_name(&self, type_name: &str) -> glib::types::Type;
 
@@ -124,17 +122,17 @@ pub trait BuilderExt: 'static {
 
 impl<O: IsA<Builder>> BuilderExt for O {
     //fn add_callback_symbol<P: FnOnce() + 'static>(&self, callback_name: &str, callback_symbol: P) {
-    //    unsafe { TODO: call gtk_sys:gtk_builder_add_callback_symbol() }
+    //    unsafe { TODO: call ffi:gtk_builder_add_callback_symbol() }
     //}
 
     //fn add_callback_symbols<P: FnOnce() + 'static>(&self, first_callback_name: &str, first_callback_symbol: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-    //    unsafe { TODO: call gtk_sys:gtk_builder_add_callback_symbols() }
+    //    unsafe { TODO: call ffi:gtk_builder_add_callback_symbols() }
     //}
 
     fn add_from_resource(&self, resource_path: &str) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gtk_sys::gtk_builder_add_from_resource(
+            let _ = ffi::gtk_builder_add_from_resource(
                 self.as_ref().to_glib_none().0,
                 resource_path.to_glib_none().0,
                 &mut error,
@@ -151,7 +149,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
         let length = buffer.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gtk_sys::gtk_builder_add_from_string(
+            let _ = ffi::gtk_builder_add_from_string(
                 self.as_ref().to_glib_none().0,
                 buffer.to_glib_none().0,
                 length,
@@ -172,7 +170,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gtk_sys::gtk_builder_add_objects_from_resource(
+            let _ = ffi::gtk_builder_add_objects_from_resource(
                 self.as_ref().to_glib_none().0,
                 resource_path.to_glib_none().0,
                 object_ids.to_glib_none().0,
@@ -194,7 +192,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
         let length = buffer.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gtk_sys::gtk_builder_add_objects_from_string(
+            let _ = ffi::gtk_builder_add_objects_from_string(
                 self.as_ref().to_glib_none().0,
                 buffer.to_glib_none().0,
                 length,
@@ -210,12 +208,12 @@ impl<O: IsA<Builder>> BuilderExt for O {
     }
 
     //fn connect_signals(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-    //    unsafe { TODO: call gtk_sys:gtk_builder_connect_signals() }
+    //    unsafe { TODO: call ffi:gtk_builder_connect_signals() }
     //}
 
     fn expose_object<P: IsA<glib::Object>>(&self, name: &str, object: &P) {
         unsafe {
-            gtk_sys::gtk_builder_expose_object(
+            ffi::gtk_builder_expose_object(
                 self.as_ref().to_glib_none().0,
                 name.to_glib_none().0,
                 object.as_ref().to_glib_none().0,
@@ -232,7 +230,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
         let length = buffer.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gtk_sys::gtk_builder_extend_with_template(
+            let _ = ffi::gtk_builder_extend_with_template(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
                 template_type.to_glib(),
@@ -250,7 +248,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
 
     fn get_application(&self) -> Option<Application> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_builder_get_application(
+            from_glib_none(ffi::gtk_builder_get_application(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -258,15 +256,15 @@ impl<O: IsA<Builder>> BuilderExt for O {
 
     fn get_objects(&self) -> Vec<glib::Object> {
         unsafe {
-            FromGlibPtrContainer::from_glib_container(gtk_sys::gtk_builder_get_objects(
+            FromGlibPtrContainer::from_glib_container(ffi::gtk_builder_get_objects(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_translation_domain(&self) -> Option<GString> {
+    fn get_translation_domain(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_builder_get_translation_domain(
+            from_glib_none(ffi::gtk_builder_get_translation_domain(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -274,7 +272,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
 
     fn get_type_from_name(&self, type_name: &str) -> glib::types::Type {
         unsafe {
-            from_glib(gtk_sys::gtk_builder_get_type_from_name(
+            from_glib(ffi::gtk_builder_get_type_from_name(
                 self.as_ref().to_glib_none().0,
                 type_name.to_glib_none().0,
             ))
@@ -282,12 +280,12 @@ impl<O: IsA<Builder>> BuilderExt for O {
     }
 
     //fn lookup_callback_symbol(&self, callback_name: &str) -> Option<Box_<dyn Fn() + 'static>> {
-    //    unsafe { TODO: call gtk_sys:gtk_builder_lookup_callback_symbol() }
+    //    unsafe { TODO: call ffi:gtk_builder_lookup_callback_symbol() }
     //}
 
     fn set_application<P: IsA<Application>>(&self, application: &P) {
         unsafe {
-            gtk_sys::gtk_builder_set_application(
+            ffi::gtk_builder_set_application(
                 self.as_ref().to_glib_none().0,
                 application.as_ref().to_glib_none().0,
             );
@@ -296,7 +294,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
 
     fn set_translation_domain(&self, domain: Option<&str>) {
         unsafe {
-            gtk_sys::gtk_builder_set_translation_domain(
+            ffi::gtk_builder_set_translation_domain(
                 self.as_ref().to_glib_none().0,
                 domain.to_glib_none().0,
             );
@@ -311,7 +309,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
         unsafe {
             let mut value = glib::Value::uninitialized();
             let mut error = ptr::null_mut();
-            let _ = gtk_sys::gtk_builder_value_from_string(
+            let _ = ffi::gtk_builder_value_from_string(
                 self.as_ref().to_glib_none().0,
                 pspec.to_glib_none().0,
                 string.to_glib_none().0,
@@ -334,7 +332,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
         unsafe {
             let mut value = glib::Value::uninitialized();
             let mut error = ptr::null_mut();
-            let _ = gtk_sys::gtk_builder_value_from_string_type(
+            let _ = ffi::gtk_builder_value_from_string_type(
                 self.as_ref().to_glib_none().0,
                 type_.to_glib(),
                 string.to_glib_none().0,
@@ -354,9 +352,9 @@ impl<O: IsA<Builder>> BuilderExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_translation_domain_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkBuilder,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkBuilder,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Builder>,
         {

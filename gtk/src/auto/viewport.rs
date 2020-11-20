@@ -2,7 +2,19 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use crate::Adjustment;
+use crate::Align;
+use crate::Bin;
+use crate::Buildable;
+use crate::Container;
+use crate::ResizeMode;
+use crate::Scrollable;
+use crate::ScrollablePolicy;
+use crate::ShadowType;
+use crate::Widget;
 use gdk;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -10,27 +22,15 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Adjustment;
-use Align;
-use Bin;
-use Buildable;
-use Container;
-use ResizeMode;
-use Scrollable;
-use ScrollablePolicy;
-use ShadowType;
-use Widget;
 
-glib_wrapper! {
-    pub struct Viewport(Object<gtk_sys::GtkViewport, gtk_sys::GtkViewportClass>) @extends Bin, Container, Widget, @implements Buildable, Scrollable;
+glib::glib_wrapper! {
+    pub struct Viewport(Object<ffi::GtkViewport, ffi::GtkViewportClass>) @extends Bin, Container, Widget, @implements Buildable, Scrollable;
 
     match fn {
-        get_type => || gtk_sys::gtk_viewport_get_type(),
+        get_type => || ffi::gtk_viewport_get_type(),
     }
 }
 
@@ -41,7 +41,7 @@ impl Viewport {
     ) -> Viewport {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_viewport_new(
+            Widget::from_glib_none(ffi::gtk_viewport_new(
                 hadjustment.map(|p| p.as_ref()).to_glib_none().0,
                 vadjustment.map(|p| p.as_ref()).to_glib_none().0,
             ))
@@ -454,7 +454,7 @@ pub trait ViewportExt: 'static {
 impl<O: IsA<Viewport>> ViewportExt for O {
     fn get_bin_window(&self) -> Option<gdk::Window> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_viewport_get_bin_window(
+            from_glib_none(ffi::gtk_viewport_get_bin_window(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -462,7 +462,7 @@ impl<O: IsA<Viewport>> ViewportExt for O {
 
     fn get_shadow_type(&self) -> ShadowType {
         unsafe {
-            from_glib(gtk_sys::gtk_viewport_get_shadow_type(
+            from_glib(ffi::gtk_viewport_get_shadow_type(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -470,7 +470,7 @@ impl<O: IsA<Viewport>> ViewportExt for O {
 
     fn get_view_window(&self) -> Option<gdk::Window> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_viewport_get_view_window(
+            from_glib_none(ffi::gtk_viewport_get_view_window(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -478,15 +478,15 @@ impl<O: IsA<Viewport>> ViewportExt for O {
 
     fn set_shadow_type(&self, type_: ShadowType) {
         unsafe {
-            gtk_sys::gtk_viewport_set_shadow_type(self.as_ref().to_glib_none().0, type_.to_glib());
+            ffi::gtk_viewport_set_shadow_type(self.as_ref().to_glib_none().0, type_.to_glib());
         }
     }
 
     fn connect_property_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_shadow_type_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkViewport,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkViewport,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Viewport>,
         {

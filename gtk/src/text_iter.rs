@@ -2,11 +2,11 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::TextAttributes;
+use crate::TextIter;
 use glib::translate::*;
 use gtk_sys;
 use std::convert::TryFrom;
-use TextAttributes;
-use TextIter;
 
 impl TextIter {
     pub fn get_attributes(&self, values: &TextAttributes) -> bool {

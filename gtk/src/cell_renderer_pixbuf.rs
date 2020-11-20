@@ -2,14 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::CellRendererPixbuf;
+use crate::IconSize;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
 use glib::Value;
 use gobject_sys;
-use CellRendererPixbuf;
-use IconSize;
 
 pub trait CellRendererPixbufExtManual: 'static {
     fn get_property_stock_size(&self) -> IconSize;

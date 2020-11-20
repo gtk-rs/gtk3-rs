@@ -2,12 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use glib;
 use glib::translate::*;
 use gtk_sys;
 use std::fmt;
 use std::ops;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Border(Boxed<gtk_sys::GtkBorder>);
 

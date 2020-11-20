@@ -2,33 +2,34 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+use glib;
 use glib::translate::*;
-use gtk_sys;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct TextAttributes(Shared<gtk_sys::GtkTextAttributes>);
+    pub struct TextAttributes(Shared<ffi::GtkTextAttributes>);
 
     match fn {
-        ref => |ptr| gtk_sys::gtk_text_attributes_ref(ptr),
-        unref => |ptr| gtk_sys::gtk_text_attributes_unref(ptr),
-        get_type => || gtk_sys::gtk_text_attributes_get_type(),
+        ref => |ptr| ffi::gtk_text_attributes_ref(ptr),
+        unref => |ptr| ffi::gtk_text_attributes_unref(ptr),
+        get_type => || ffi::gtk_text_attributes_get_type(),
     }
 }
 
 impl TextAttributes {
     pub fn new() -> TextAttributes {
         assert_initialized_main_thread!();
-        unsafe { from_glib_full(gtk_sys::gtk_text_attributes_new()) }
+        unsafe { from_glib_full(ffi::gtk_text_attributes_new()) }
     }
 
     pub fn copy(&self) -> Option<TextAttributes> {
-        unsafe { from_glib_full(gtk_sys::gtk_text_attributes_copy(self.to_glib_none().0)) }
+        unsafe { from_glib_full(ffi::gtk_text_attributes_copy(self.to_glib_none().0)) }
     }
 
     pub fn copy_values(&self, dest: &TextAttributes) {
         unsafe {
-            gtk_sys::gtk_text_attributes_copy_values(self.to_glib_none().0, dest.to_glib_none().0);
+            ffi::gtk_text_attributes_copy_values(self.to_glib_none().0, dest.to_glib_none().0);
         }
     }
 }

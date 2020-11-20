@@ -2,11 +2,12 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use glib;
 use glib::translate::*;
 use gtk_sys;
 use libc::{c_int, c_uint};
 
-glib_wrapper! {
+glib::glib_wrapper! {
     pub struct EntryBuffer(Object<gtk_sys::GtkEntryBuffer, gtk_sys::GtkEntryBufferClass>);
 
     match fn {
