@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["build_ui",""],["create_list_model",""],["main",""]],"struct":[["Data",""]]});

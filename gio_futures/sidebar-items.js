@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["main",""],["read_and_print_chunks",""],["read_and_print_file",""],["read_and_print_next_chunk",""]]});

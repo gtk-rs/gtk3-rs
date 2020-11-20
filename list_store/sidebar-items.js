@@ -1,1 +1,0 @@
-initSidebarItems({"enum":[["Columns",""]],"fn":[["add_columns",""],["build_ui",""],["create_model",""],["fixed_toggled",""],["main",""],["spinner_timeout",""]],"struct":[["Data",""]]});

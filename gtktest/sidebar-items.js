@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["about_clicked",""],["build_ui",""],["main",""]]});

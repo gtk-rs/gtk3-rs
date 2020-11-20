@@ -774,7 +774,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
                         <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unexpected `.` after `{}`&quot;</span>, <span class="ident">borrow_kind</span>.<span class="ident">to_str</span>());
                     }
                     <span class="ident">prev_is_ident</span> <span class="op">=</span> <span class="bool-val">false</span>;
-                    <span class="ident">name</span>.<span class="ident">push_str</span>(<span class="string">&quot;.&quot;</span>);
+                    <span class="ident">name</span>.<span class="ident">push</span>(<span class="string">&#39;.&#39;</span>);
                     <span class="ident">parts</span>.<span class="ident">next</span>();
                 } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">is_empty</span>() {
                     <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Expected ident, found `{}`&quot;</span>, <span class="ident">p_s</span>);
@@ -817,7 +817,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
                 }
                 <span class="ident">prev_is_ident</span> <span class="op">=</span> <span class="bool-val">true</span>;
                 <span class="kw">if</span> <span class="ident">stored</span> {
-                    <span class="ident">ret</span>.<span class="ident">push_str</span>(<span class="string">&quot;-&quot;</span>);
+                    <span class="ident">ret</span>.<span class="ident">push</span>(<span class="string">&#39;-&#39;</span>);
                     <span class="ident">stored</span> <span class="op">=</span> <span class="bool-val">false</span>;
                 }
                 <span class="ident">ret</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">i</span>.<span class="ident">to_string</span>());
@@ -870,9 +870,9 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
             <span class="string">&quot;Can&#39;t use `self` as variable name. Try storing it in a temporary variable or \
                 rename it using `as`.&quot;</span>
         );
-    } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">ends_with</span>(<span class="string">&quot;.&quot;</span>) {
+    } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">ends_with</span>(<span class="string">&#39;.&#39;</span>) {
         <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Invalid variable name: `{}`&quot;</span>, <span class="ident">name</span>);
-    } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">contains</span>(<span class="string">&quot;.&quot;</span>) <span class="op">&amp;&amp;</span> <span class="ident">alias</span>.<span class="ident">is_none</span>() {
+    } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">contains</span>(<span class="string">&#39;.&#39;</span>) <span class="op">&amp;&amp;</span> <span class="ident">alias</span>.<span class="ident">is_none</span>() {
         <span class="macro">panic</span><span class="macro">!</span>(
             <span class="string">&quot;`{}`: Field accesses are not allowed as is, you must rename it!&quot;</span>,
             <span class="ident">name</span>
@@ -934,7 +934,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
             }
             <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Group</span>(<span class="ident">g</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ret</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">group_to_string</span>(<span class="ident">g</span>)),
             <span class="prelude-val">Some</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">if</span> <span class="ident">total</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">ret</span>.<span class="ident">ends_with</span>(<span class="string">&quot;:&quot;</span>) {
+                <span class="kw">if</span> <span class="ident">total</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">ret</span>.<span class="ident">ends_with</span>(<span class="string">&#39;:&#39;</span>) {
                     <span class="kw">return</span> <span class="ident">ret</span>;
                 }
                 <span class="ident">ret</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">to_string</span>())
@@ -1033,19 +1033,19 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
     <span class="ident">ret</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tokens_to_string</span>(<span class="kw-2">mut</span> <span class="ident">parts</span>: <span class="ident">Peekable</span><span class="op">&lt;</span><span class="ident">ProcIter</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tokens_to_string</span>(<span class="ident">parts</span>: <span class="ident">Peekable</span><span class="op">&lt;</span><span class="ident">ProcIter</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">String</span>::<span class="ident">new</span>();
     <span class="comment">// This is used in case of &quot;if ident&quot; or other similar cases.</span>
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">prev_is_ident</span> <span class="op">=</span> <span class="bool-val">false</span>;
     <span class="kw">let</span> <span class="ident">handle_ident_like</span> <span class="op">=</span> <span class="op">|</span><span class="ident">i</span>: <span class="ident">String</span>, <span class="ident">ret</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">String</span>, <span class="ident">prev_is_ident</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bool</span><span class="op">|</span> {
         <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">prev_is_ident</span> {
-            <span class="ident">ret</span>.<span class="ident">push_str</span>(<span class="string">&quot; &quot;</span>);
+            <span class="ident">ret</span>.<span class="ident">push</span>(<span class="string">&#39; &#39;</span>);
         }
         <span class="ident">ret</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">i</span>);
         <span class="kw-2">*</span><span class="ident">prev_is_ident</span> <span class="op">=</span> <span class="bool-val">true</span>;
     };
 
-    <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">token</span>) <span class="op">=</span> <span class="ident">parts</span>.<span class="ident">next</span>() {
+    <span class="kw">for</span> <span class="ident">token</span> <span class="kw">in</span> <span class="ident">parts</span> {
         <span class="kw">match</span> <span class="ident">token</span> {
             <span class="ident">TokenTree</span>::<span class="ident">Punct</span>(<span class="ident">p</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">prev_is_ident</span> <span class="op">=</span> <span class="bool-val">false</span>;

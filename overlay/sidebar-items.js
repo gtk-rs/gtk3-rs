@@ -1,1 +1,0 @@
-initSidebarItems({"constant":[["STYLE",""]],"fn":[["build_ui",""],["button_clicked",""],["main",""]],"macro":[["upgrade_weak",""]]});

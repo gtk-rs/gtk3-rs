@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["append_text_column",""],["build_ui",""],["main",""]]});

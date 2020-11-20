@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["main",""]],"mod":[["imp_app",""],["imp_win",""]],"struct":[["SimpleApplication",""],["SimpleWindow",""],["WindowWidgets",""]]});

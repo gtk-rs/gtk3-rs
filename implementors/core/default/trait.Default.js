@@ -2,7 +2,6 @@
 implementors["atk"] = [{"text":"impl Default for NoOpObjectFactory","synthetic":false,"types":[]},{"text":"impl Default for Plug","synthetic":false,"types":[]},{"text":"impl Default for RelationSet","synthetic":false,"types":[]},{"text":"impl Default for Socket","synthetic":false,"types":[]},{"text":"impl Default for StateSet","synthetic":false,"types":[]}];
 implementors["cairo"] = [{"text":"impl Default for FontOptions","synthetic":false,"types":[]},{"text":"impl Default for Matrix","synthetic":false,"types":[]},{"text":"impl Default for Mesh","synthetic":false,"types":[]}];
 implementors["cairo_sys"] = [{"text":"impl Default for cairo_user_data_key_t","synthetic":false,"types":[]}];
-implementors["clone_macro"] = [{"text":"impl Default for State","synthetic":false,"types":[]}];
 implementors["gdk"] = [{"text":"impl Default for WindowAttr","synthetic":false,"types":[]}];
 implementors["gdk_pixbuf"] = [{"text":"impl Default for PixbufLoader","synthetic":false,"types":[]}];
 implementors["gdkx11"] = [{"text":"impl Default for X11DeviceManagerXI2Builder","synthetic":false,"types":[]},{"text":"impl Default for X11DeviceXI2Builder","synthetic":false,"types":[]}];
