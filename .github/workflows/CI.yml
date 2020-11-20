@@ -291,6 +291,14 @@ jobs:
         name: pangocairo
         run: cargo clippy --all-targets -- -D warnings
 
+  generator:
+    name: regen check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: python3 generator.py --yes
+      - run: git diff -R --exit-code
+ 
   checker:
     name: gtk-rs checker
     runs-on: ubuntu-latest
