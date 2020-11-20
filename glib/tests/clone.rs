@@ -453,12 +453,14 @@ fn test_clone_macro_default_return() {
 
     let _closure = clone!(@weak v => @default-return Foo(0), move || { Foo(1) });
 
+    #[allow(dead_code)]
     struct Bar {
         x: i32,
     }
 
     let _closure = clone!(@weak v => @default-return Bar { x: 0 }, move || { Bar { x: 1 } });
 
+    #[allow(dead_code)]
     enum Enum {
         A,
         B(i32),
