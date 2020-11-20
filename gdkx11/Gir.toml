@@ -8,6 +8,9 @@ work_mode = "normal"
 single_version_file = true
 generate_safety_asserts = true
 deprecate_by_min_version = true
+extra_versions = [
+  "3.22"
+]
 
 generate = [
   "GdkX11.X11AppLaunchContext",
