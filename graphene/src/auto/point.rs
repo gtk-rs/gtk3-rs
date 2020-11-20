@@ -4,7 +4,6 @@
 
 use crate::ffi;
 use crate::Vec2;
-use glib;
 use glib::translate::*;
 use std::mem;
 

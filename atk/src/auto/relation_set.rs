@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::Object;
 use crate::Relation;
 use crate::RelationType;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

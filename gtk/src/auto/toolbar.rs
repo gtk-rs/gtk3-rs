@@ -653,8 +653,8 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
     fn get_item_expand<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"expand\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -668,8 +668,8 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     fn set_item_expand<T: IsA<Widget>>(&self, item: &T, expand: bool) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"expand\0".as_ptr() as *const _,
                 Value::from(&expand).to_glib_none().0,
@@ -680,8 +680,8 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
     fn get_item_homogeneous<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"homogeneous\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -695,8 +695,8 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     fn set_item_homogeneous<T: IsA<Widget>>(&self, item: &T, homogeneous: bool) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"homogeneous\0".as_ptr() as *const _,
                 Value::from(&homogeneous).to_glib_none().0,

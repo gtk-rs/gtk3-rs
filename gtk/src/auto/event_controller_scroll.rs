@@ -10,7 +10,6 @@ use crate::EventControllerScrollFlags;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use crate::Widget;
-use glib;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use glib::object::Cast;

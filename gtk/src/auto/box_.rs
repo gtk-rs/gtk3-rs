@@ -13,7 +13,6 @@ use crate::PackType;
 use crate::ResizeMode;
 use crate::Widget;
 use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -633,8 +632,8 @@ impl<O: IsA<Box>> BoxExt for O {
     fn get_child_expand<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"expand\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -649,8 +648,8 @@ impl<O: IsA<Box>> BoxExt for O {
     #[doc(hidden)]
     fn set_child_expand<T: IsA<Widget>>(&self, item: &T, expand: bool) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"expand\0".as_ptr() as *const _,
                 Value::from(&expand).to_glib_none().0,
@@ -662,8 +661,8 @@ impl<O: IsA<Box>> BoxExt for O {
     fn get_child_fill<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"fill\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -678,8 +677,8 @@ impl<O: IsA<Box>> BoxExt for O {
     #[doc(hidden)]
     fn set_child_fill<T: IsA<Widget>>(&self, item: &T, fill: bool) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"fill\0".as_ptr() as *const _,
                 Value::from(&fill).to_glib_none().0,
@@ -691,8 +690,8 @@ impl<O: IsA<Box>> BoxExt for O {
     fn get_child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType {
         unsafe {
             let mut value = Value::from_type(<PackType as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"pack-type\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -707,8 +706,8 @@ impl<O: IsA<Box>> BoxExt for O {
     #[doc(hidden)]
     fn set_child_pack_type<T: IsA<Widget>>(&self, item: &T, pack_type: PackType) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"pack-type\0".as_ptr() as *const _,
                 Value::from(&pack_type).to_glib_none().0,
@@ -720,8 +719,8 @@ impl<O: IsA<Box>> BoxExt for O {
     fn get_child_padding<T: IsA<Widget>>(&self, item: &T) -> u32 {
         unsafe {
             let mut value = Value::from_type(<u32 as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"padding\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -736,8 +735,8 @@ impl<O: IsA<Box>> BoxExt for O {
     #[doc(hidden)]
     fn set_child_padding<T: IsA<Widget>>(&self, item: &T, padding: u32) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"padding\0".as_ptr() as *const _,
                 Value::from(&padding).to_glib_none().0,
@@ -748,8 +747,8 @@ impl<O: IsA<Box>> BoxExt for O {
     fn get_child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"position\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -763,8 +762,8 @@ impl<O: IsA<Box>> BoxExt for O {
 
     fn set_child_position<T: IsA<Widget>>(&self, item: &T, position: i32) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"position\0".as_ptr() as *const _,
                 Value::from(&position).to_glib_none().0,

@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::Buildable;
 use crate::SizeGroupMode;
 use crate::Widget;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

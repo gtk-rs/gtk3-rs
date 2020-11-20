@@ -9,7 +9,6 @@ use crate::Matrix;
 use crate::Point3D;
 use crate::Vec3;
 use crate::Vec4;
-use glib;
 use glib::translate::*;
 
 glib::glib_wrapper! {

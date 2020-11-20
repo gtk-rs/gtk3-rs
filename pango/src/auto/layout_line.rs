@@ -4,7 +4,6 @@
 
 use crate::ffi;
 use crate::Rectangle;
-use glib;
 use glib::translate::*;
 use std::mem;
 use std::ptr;

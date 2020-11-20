@@ -10,7 +10,6 @@ use crate::InputStream;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use crate::OutputStream;
-use glib;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::object::Cast;

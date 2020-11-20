@@ -9,7 +9,6 @@ use crate::CellLayout;
 use crate::CellRenderer;
 use crate::Orientable;
 use crate::Orientation;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

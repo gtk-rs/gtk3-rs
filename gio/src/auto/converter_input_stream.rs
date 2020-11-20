@@ -7,7 +7,6 @@ use crate::Converter;
 use crate::FilterInputStream;
 use crate::InputStream;
 use crate::PollableInputStream;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;

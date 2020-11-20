@@ -4,7 +4,6 @@
 
 use crate::ffi;
 use crate::Permission;
-use glib;
 use glib::object::Cast;
 use glib::translate::*;
 use std::fmt;

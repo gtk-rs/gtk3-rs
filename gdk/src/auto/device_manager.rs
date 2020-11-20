@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::Device;
 use crate::DeviceType;
 use crate::Display;
-use glib;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;

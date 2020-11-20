@@ -8,7 +8,6 @@ use crate::Plane;
 use crate::Point3D;
 use crate::Vec2;
 use crate::Vec3;
-use glib;
 use glib::translate::*;
 
 glib::glib_wrapper! {

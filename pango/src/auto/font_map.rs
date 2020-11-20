@@ -9,7 +9,6 @@ use crate::FontDescription;
 use crate::FontFamily;
 use crate::Fontset;
 use crate::Language;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

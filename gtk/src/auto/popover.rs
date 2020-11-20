@@ -15,7 +15,6 @@ use crate::ResizeMode;
 use crate::Widget;
 use gdk;
 use gio;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

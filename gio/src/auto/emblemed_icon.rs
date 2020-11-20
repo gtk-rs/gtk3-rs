@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::Emblem;
 use crate::Icon;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;

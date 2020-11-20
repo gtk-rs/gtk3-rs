@@ -13,7 +13,6 @@ use crate::TreePath;
 use crate::Widget;
 use cairo;
 use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

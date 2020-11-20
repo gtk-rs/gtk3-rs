@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::EmblemOrigin;
 use crate::Icon;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

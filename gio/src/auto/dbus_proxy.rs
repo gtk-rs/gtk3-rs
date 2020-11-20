@@ -109,7 +109,7 @@ impl DBusProxy {
             Q: FnOnce(Result<DBusProxy, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -188,7 +188,7 @@ impl DBusProxy {
             Q: FnOnce(Result<DBusProxy, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -399,7 +399,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
             Q: FnOnce(Result<glib::Variant, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -502,7 +502,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
             R: FnOnce(Result<(glib::Variant, UnixFDList), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();

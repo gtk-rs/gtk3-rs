@@ -236,7 +236,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     //fn get_property_bytes(&self) -> /*Unimplemented*/Fundamental: Pointer {
     //    unsafe {
     //        let mut value = Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-    //        glib::gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut glib ::gobject_ffi::GObject, b"bytes\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+    //        glib::gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut glib::gobject_ffi::GObject, b"bytes\0".as_ptr() as *const _, value.to_glib_none_mut().0);
     //        value.get().expect("Return Value for property `bytes` getter").unwrap()
     //    }
     //}

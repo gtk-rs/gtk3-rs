@@ -90,7 +90,7 @@ impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
             Q: FnOnce(Result<(InputStream, glib::GString), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();

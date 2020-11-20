@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::Font;
 use crate::Fontset;
 use crate::Language;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

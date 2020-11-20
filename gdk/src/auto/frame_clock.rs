@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::FrameClockPhase;
 use crate::FrameTimings;
-use glib;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;

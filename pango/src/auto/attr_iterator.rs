@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::AttrType;
 use crate::Attribute;
-use glib;
 use glib::translate::*;
 use std::mem;
 

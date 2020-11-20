@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::AttrIterator;
 use crate::Attribute;
-use glib;
 use glib::translate::*;
 
 glib::glib_wrapper! {

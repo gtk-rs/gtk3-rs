@@ -17,7 +17,6 @@ use crate::WindowPosition;
 use crate::WindowType;
 use gdk;
 use gdk_pixbuf;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

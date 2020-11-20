@@ -6,7 +6,6 @@ use crate::ffi;
 use cairo;
 use glib::object::IsA;
 use glib::translate::*;
-use pango;
 use std::fmt;
 
 glib::glib_wrapper! {

@@ -4,7 +4,6 @@
 
 use crate::ffi;
 use crate::GlyphItem;
-use glib;
 use glib::translate::*;
 
 glib::glib_wrapper! {

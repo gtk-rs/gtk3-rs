@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use crate::ffi;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

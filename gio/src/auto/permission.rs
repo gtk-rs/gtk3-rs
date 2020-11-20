@@ -93,7 +93,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -191,7 +191,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();

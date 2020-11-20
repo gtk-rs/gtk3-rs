@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::ActionGroup;
 use crate::ActionMap;
-use glib;
 use glib::translate::*;
 use std::fmt;
 

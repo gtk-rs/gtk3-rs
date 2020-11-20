@@ -13,12 +13,12 @@ use glib::ObjectExt;
 use gtk_sys;
 
 use std::cell::RefCell;
-use std::rc::Rc;
 
 impl Application {
     pub(crate) fn register_startup_hook(app: &Application) {
         skip_assert_initialized!();
-        let signalid: Rc<RefCell<Option<SignalHandlerId>>> = Rc::new(RefCell::new(None));
+        let signalid: std::rc::Rc<RefCell<Option<SignalHandlerId>>> =
+            std::rc::Rc::new(RefCell::new(None));
         {
             let signalid_ = signalid.clone();
 

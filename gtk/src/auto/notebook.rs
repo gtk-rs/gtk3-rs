@@ -928,8 +928,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     fn get_child_detachable<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"detachable\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -944,8 +944,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     #[doc(hidden)]
     fn set_child_detachable<T: IsA<Widget>>(&self, item: &T, detachable: bool) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"detachable\0".as_ptr() as *const _,
                 Value::from(&detachable).to_glib_none().0,
@@ -957,8 +957,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     fn get_child_menu_label<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
         unsafe {
             let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"menu-label\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -972,8 +972,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     #[doc(hidden)]
     fn set_child_menu_label<T: IsA<Widget>>(&self, item: &T, menu_label: Option<&str>) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"menu-label\0".as_ptr() as *const _,
                 Value::from(menu_label).to_glib_none().0,
@@ -985,8 +985,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     fn get_child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"position\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -1001,8 +1001,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     #[doc(hidden)]
     fn set_child_position<T: IsA<Widget>>(&self, item: &T, position: i32) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"position\0".as_ptr() as *const _,
                 Value::from(&position).to_glib_none().0,
@@ -1014,8 +1014,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     fn get_child_reorderable<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"reorderable\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -1030,8 +1030,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     #[doc(hidden)]
     fn set_child_reorderable<T: IsA<Widget>>(&self, item: &T, reorderable: bool) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"reorderable\0".as_ptr() as *const _,
                 Value::from(&reorderable).to_glib_none().0,
@@ -1043,8 +1043,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     fn get_child_tab_expand<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"tab-expand\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -1059,8 +1059,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     #[doc(hidden)]
     fn set_child_tab_expand<T: IsA<Widget>>(&self, item: &T, tab_expand: bool) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"tab-expand\0".as_ptr() as *const _,
                 Value::from(&tab_expand).to_glib_none().0,
@@ -1072,8 +1072,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     fn get_child_tab_fill<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"tab-fill\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -1088,8 +1088,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     #[doc(hidden)]
     fn set_child_tab_fill<T: IsA<Widget>>(&self, item: &T, tab_fill: bool) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"tab-fill\0".as_ptr() as *const _,
                 Value::from(&tab_fill).to_glib_none().0,
@@ -1101,8 +1101,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     fn get_child_tab_label<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
         unsafe {
             let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"tab-label\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -1116,8 +1116,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     #[doc(hidden)]
     fn set_child_tab_label<T: IsA<Widget>>(&self, item: &T, tab_label: Option<&str>) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"tab-label\0".as_ptr() as *const _,
                 Value::from(tab_label).to_glib_none().0,

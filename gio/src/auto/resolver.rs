@@ -215,7 +215,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
             R: FnOnce(Result<glib::GString, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -292,7 +292,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
             Q: FnOnce(Result<Vec<InetAddress>, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -376,7 +376,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
             Q: FnOnce(Result<Vec<InetAddress>, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -463,7 +463,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
             Q: FnOnce(Result<Vec<glib::Variant>, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -549,7 +549,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
             Q: FnOnce(Result<Vec<SrvTarget>, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();

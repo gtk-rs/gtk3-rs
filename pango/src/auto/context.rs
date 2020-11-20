@@ -14,7 +14,6 @@ use crate::Gravity;
 use crate::GravityHint;
 use crate::Language;
 use crate::Matrix;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

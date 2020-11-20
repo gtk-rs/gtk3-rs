@@ -17,7 +17,6 @@ use crate::Orientation;
 use crate::ResizeMode;
 use crate::Widget;
 use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -512,7 +511,7 @@ impl<O: IsA<FontChooserWidget>> FontChooserWidgetExt for O {
     //fn get_property_tweak_action(&self) -> /*Ignored*/Option<gio::Action> {
     //    unsafe {
     //        let mut value = Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-    //        glib::gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut glib ::gobject_ffi::GObject, b"tweak-action\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+    //        glib::gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut glib::gobject_ffi::GObject, b"tweak-action\0".as_ptr() as *const _, value.to_glib_none_mut().0);
     //        value.get().expect("Return Value for property `tweak-action` getter")
     //    }
     //}

@@ -108,7 +108,7 @@ impl DBusConnection {
             Q: FnOnce(Result<glib::Variant, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -239,7 +239,7 @@ impl DBusConnection {
             R: FnOnce(Result<(glib::Variant, UnixFDList), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -377,7 +377,7 @@ impl DBusConnection {
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -470,7 +470,7 @@ impl DBusConnection {
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -624,7 +624,7 @@ impl DBusConnection {
             Q: FnOnce(Result<DBusMessage, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -773,7 +773,7 @@ impl DBusConnection {
             R: FnOnce(Result<DBusConnection, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -842,7 +842,7 @@ impl DBusConnection {
             Q: FnOnce(Result<DBusConnection, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();

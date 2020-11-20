@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::EventController;
 use crate::EventSequenceState;
 use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

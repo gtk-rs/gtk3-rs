@@ -3,9 +3,6 @@
 // DO NOT EDIT
 
 use crate::ffi;
-use gdk;
-use gio;
-use glib;
 use glib::translate::*;
 use std::fmt;
 

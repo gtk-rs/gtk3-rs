@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::Analysis;
 use crate::Font;
 use crate::Rectangle;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::mem;

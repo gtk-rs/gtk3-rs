@@ -8,7 +8,6 @@ use crate::Matrix;
 use crate::Plane;
 use crate::Point3D;
 use crate::Sphere;
-use glib;
 use glib::translate::*;
 
 glib::glib_wrapper! {

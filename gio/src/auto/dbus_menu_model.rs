@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::DBusConnection;
 use crate::MenuModel;
-use glib;
 use glib::translate::*;
 use std::fmt;
 

@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::CssSectionType;
 use gio;
-use glib;
 use glib::translate::*;
 
 glib::glib_wrapper! {

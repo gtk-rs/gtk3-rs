@@ -14,7 +14,6 @@ use crate::Rect;
 use crate::Sphere;
 use crate::Vec3;
 use crate::Vec4;
-use glib;
 use glib::translate::*;
 use std::mem;
 

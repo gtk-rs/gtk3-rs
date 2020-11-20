@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::AxisFlags;
 use crate::DeviceToolType;
-use glib;
 use glib::object::ObjectType as ObjectType_;
 use glib::translate::*;
 use glib::StaticType;

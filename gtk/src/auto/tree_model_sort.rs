@@ -8,7 +8,6 @@ use crate::TreeIter;
 use crate::TreeModel;
 use crate::TreePath;
 use crate::TreeSortable;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

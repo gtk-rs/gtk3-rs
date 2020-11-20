@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::ByteOrder;
 use crate::Screen;
 use crate::VisualType;
-use glib;
 use glib::translate::*;
 use std::fmt;
 use std::mem;

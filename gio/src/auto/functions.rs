@@ -36,7 +36,7 @@ pub fn bus_get<
         Q: FnOnce(Result<DBusConnection, glib::Error>) + Send + 'static,
     >(
         _source_object: *mut glib::gobject_ffi::GObject,
-        res: *mut ffi::GAsyncResult,
+        res: *mut crate::ffi::GAsyncResult,
         user_data: glib::ffi::gpointer,
     ) {
         let mut error = ptr::null_mut();
@@ -262,7 +262,7 @@ pub fn dbus_address_get_stream<
         Q: FnOnce(Result<(IOStream, glib::GString), glib::Error>) + Send + 'static,
     >(
         _source_object: *mut glib::gobject_ffi::GObject,
-        res: *mut ffi::GAsyncResult,
+        res: *mut crate::ffi::GAsyncResult,
         user_data: glib::ffi::gpointer,
     ) {
         let mut error = ptr::null_mut();

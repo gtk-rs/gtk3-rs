@@ -4,7 +4,6 @@
 
 use crate::ffi;
 use crate::AttrClass;
-use glib;
 use glib::translate::*;
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]

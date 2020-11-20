@@ -4,6 +4,8 @@
 
 use crate::ffi;
 use crate::ListModel;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib;
 use glib::object::Cast;
 use glib::object::IsA;

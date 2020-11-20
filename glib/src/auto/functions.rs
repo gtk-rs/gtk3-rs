@@ -1025,11 +1025,11 @@ pub fn set_application_name(application_name: &str) {
 //    unsafe { TODO: call ffi:g_set_error() }
 //}
 
-//pub fn set_print_handler<P: Fn(crate::GString) + Send + Sync + 'static>(func: P) -> Fn(crate::GString) + 'static {
+//pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) -> Fn(&str) + 'static {
 //    unsafe { TODO: call ffi:g_set_print_handler() }
 //}
 
-//pub fn set_printerr_handler<P: Fn(crate::GString) + Send + Sync + 'static>(func: P) -> Fn(crate::GString) + 'static {
+//pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) -> Fn(&str) + 'static {
 //    unsafe { TODO: call ffi:g_set_printerr_handler() }
 //}
 

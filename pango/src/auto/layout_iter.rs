@@ -7,7 +7,6 @@ use crate::Layout;
 use crate::LayoutLine;
 use crate::LayoutRun;
 use crate::Rectangle;
-use glib;
 use glib::translate::*;
 use std::mem;
 

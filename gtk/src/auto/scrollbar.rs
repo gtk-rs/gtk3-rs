@@ -13,7 +13,6 @@ use crate::Range;
 use crate::SensitivityType;
 use crate::Widget;
 use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;

@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::IMContext;
 use crate::InputHints;
 use crate::InputPurpose;
-use glib;
 use glib::object::Cast;
 use glib::translate::*;
 use glib::StaticType;

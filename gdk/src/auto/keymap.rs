@@ -7,7 +7,6 @@ use crate::Display;
 use crate::KeymapKey;
 use crate::ModifierIntent;
 use crate::ModifierType;
-use glib;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;

@@ -11,7 +11,6 @@ use crate::DragAction;
 use crate::DragCancelReason;
 use crate::DragProtocol;
 use crate::Window;
-use glib;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::object::IsA;

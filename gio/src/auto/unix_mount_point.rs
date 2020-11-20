@@ -6,6 +6,8 @@ use crate::ffi;
 #[cfg(any(feature = "v2_54", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
 use crate::Icon;
+#[cfg(any(feature = "v2_54", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
 use glib;
 #[cfg(any(feature = "v2_54", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]

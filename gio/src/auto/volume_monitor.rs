@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::Drive;
 use crate::Mount;
 use crate::Volume;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

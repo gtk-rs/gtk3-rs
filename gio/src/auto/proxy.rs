@@ -108,7 +108,7 @@ impl<O: IsA<Proxy>> ProxyExt for O {
             S: FnOnce(Result<IOStream, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut ffi::GAsyncResult,
+            res: *mut crate::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();

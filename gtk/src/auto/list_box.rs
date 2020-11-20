@@ -16,6 +16,8 @@ use gdk;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use gio;
+#[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib;
 use glib::object::Cast;
 use glib::object::IsA;

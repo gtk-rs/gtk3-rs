@@ -14,7 +14,6 @@ use crate::Widget;
 use crate::Window;
 use gdk;
 use gio;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;

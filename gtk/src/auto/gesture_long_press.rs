@@ -9,7 +9,6 @@ use crate::GestureSingle;
 use crate::PropagationPhase;
 use crate::Widget;
 use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;

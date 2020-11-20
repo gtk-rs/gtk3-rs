@@ -12,7 +12,6 @@ use crate::Widget;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use gdk;
-use glib;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use glib::object::Cast;

@@ -12,7 +12,6 @@ use crate::Layout;
 use crate::LayoutLine;
 use crate::Matrix;
 use crate::RenderPart;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

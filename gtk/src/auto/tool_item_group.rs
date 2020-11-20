@@ -638,8 +638,8 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
     fn get_item_expand<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"expand\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -653,8 +653,8 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
 
     fn set_item_expand<T: IsA<ToolItem>>(&self, item: &T, expand: bool) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"expand\0".as_ptr() as *const _,
                 Value::from(&expand).to_glib_none().0,
@@ -665,8 +665,8 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
     fn get_item_fill<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"fill\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -680,8 +680,8 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
 
     fn set_item_fill<T: IsA<ToolItem>>(&self, item: &T, fill: bool) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"fill\0".as_ptr() as *const _,
                 Value::from(&fill).to_glib_none().0,
@@ -692,8 +692,8 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
     fn get_item_homogeneous<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"homogeneous\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -707,8 +707,8 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
 
     fn set_item_homogeneous<T: IsA<ToolItem>>(&self, item: &T, homogeneous: bool) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"homogeneous\0".as_ptr() as *const _,
                 Value::from(&homogeneous).to_glib_none().0,
@@ -719,8 +719,8 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
     fn get_item_new_row<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"new-row\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -734,8 +734,8 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
 
     fn set_item_new_row<T: IsA<ToolItem>>(&self, item: &T, new_row: bool) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"new-row\0".as_ptr() as *const _,
                 Value::from(&new_row).to_glib_none().0,

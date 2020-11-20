@@ -8,6 +8,8 @@ use crate::Rectangle;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use crate::SubpixelLayout;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use glib;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;

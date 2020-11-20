@@ -13,7 +13,6 @@ use crate::PositionType;
 use crate::ResizeMode;
 use crate::Widget;
 use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -694,8 +693,8 @@ impl<O: IsA<Grid>> GridExt for O {
     fn get_cell_height<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"height\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -709,8 +708,8 @@ impl<O: IsA<Grid>> GridExt for O {
 
     fn set_cell_height<T: IsA<Widget>>(&self, item: &T, height: i32) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"height\0".as_ptr() as *const _,
                 Value::from(&height).to_glib_none().0,
@@ -721,8 +720,8 @@ impl<O: IsA<Grid>> GridExt for O {
     fn get_cell_width<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"width\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -736,8 +735,8 @@ impl<O: IsA<Grid>> GridExt for O {
 
     fn set_cell_width<T: IsA<Widget>>(&self, item: &T, width: i32) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"width\0".as_ptr() as *const _,
                 Value::from(&width).to_glib_none().0,
@@ -748,8 +747,8 @@ impl<O: IsA<Grid>> GridExt for O {
     fn get_cell_left_attach<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"left-attach\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -763,8 +762,8 @@ impl<O: IsA<Grid>> GridExt for O {
 
     fn set_cell_left_attach<T: IsA<Widget>>(&self, item: &T, left_attach: i32) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"left-attach\0".as_ptr() as *const _,
                 Value::from(&left_attach).to_glib_none().0,
@@ -775,8 +774,8 @@ impl<O: IsA<Grid>> GridExt for O {
     fn get_cell_top_attach<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"top-attach\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -790,8 +789,8 @@ impl<O: IsA<Grid>> GridExt for O {
 
     fn set_cell_top_attach<T: IsA<Widget>>(&self, item: &T, top_attach: i32) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"top-attach\0".as_ptr() as *const _,
                 Value::from(&top_attach).to_glib_none().0,

@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::Component;
 use crate::Object;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;

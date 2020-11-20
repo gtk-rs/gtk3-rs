@@ -16,7 +16,6 @@ use crate::TreePath;
 use crate::Widget;
 use gdk;
 use gdk_pixbuf;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

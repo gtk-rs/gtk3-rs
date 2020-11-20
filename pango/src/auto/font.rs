@@ -14,7 +14,6 @@ use crate::FontMetrics;
 use crate::Glyph;
 use crate::Language;
 use crate::Rectangle;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

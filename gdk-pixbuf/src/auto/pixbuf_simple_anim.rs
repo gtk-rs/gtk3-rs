@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::Pixbuf;
 use crate::PixbufAnimation;
-use glib;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;

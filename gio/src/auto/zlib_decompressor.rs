@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::Converter;
 use crate::FileInfo;
 use crate::ZlibCompressorFormat;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

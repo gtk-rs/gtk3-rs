@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::Widget;
 use crate::Window;
 use gdk;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

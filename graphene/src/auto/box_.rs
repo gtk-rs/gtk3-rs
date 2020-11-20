@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::Point3D;
 use crate::Sphere;
 use crate::Vec3;
-use glib;
 use glib::translate::*;
 
 glib::glib_wrapper! {

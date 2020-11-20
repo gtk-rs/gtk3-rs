@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::Buildable;
 use crate::Container;
 use crate::Widget;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

@@ -7,7 +7,6 @@ use crate::TreeDragSource;
 use crate::TreeIter;
 use crate::TreeModel;
 use crate::TreePath;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;

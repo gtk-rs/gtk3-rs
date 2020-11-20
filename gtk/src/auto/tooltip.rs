@@ -8,7 +8,6 @@ use crate::Widget;
 use gdk;
 use gdk_pixbuf;
 use gio;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

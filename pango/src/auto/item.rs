@@ -6,7 +6,6 @@ use crate::ffi;
 #[cfg(any(feature = "v1_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 use crate::AttrIterator;
-use glib;
 use glib::translate::*;
 
 glib::glib_wrapper! {

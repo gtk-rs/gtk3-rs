@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::Vec2;
 use crate::Vec4;
-use glib;
 use glib::translate::*;
 
 glib::glib_wrapper! {

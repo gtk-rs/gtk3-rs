@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use crate::ffi;
-use glib;
 
 glib::glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]

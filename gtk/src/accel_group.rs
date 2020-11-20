@@ -5,7 +5,6 @@
 use crate::AccelFlags;
 use crate::AccelGroup;
 use gdk;
-use glib;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use glib::ToValue;

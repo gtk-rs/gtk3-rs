@@ -7,7 +7,6 @@ use crate::EulerOrder;
 use crate::Matrix;
 use crate::Quaternion;
 use crate::Vec3;
-use glib;
 use glib::translate::*;
 
 glib::glib_wrapper! {

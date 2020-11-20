@@ -664,8 +664,8 @@ impl<O: IsA<Paned>> PanedExt for O {
     fn get_child_resize<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"resize\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -679,8 +679,8 @@ impl<O: IsA<Paned>> PanedExt for O {
 
     fn set_child_resize<T: IsA<Widget>>(&self, item: &T, resize: bool) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"resize\0".as_ptr() as *const _,
                 Value::from(&resize).to_glib_none().0,
@@ -691,8 +691,8 @@ impl<O: IsA<Paned>> PanedExt for O {
     fn get_child_shrink<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"shrink\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -706,8 +706,8 @@ impl<O: IsA<Paned>> PanedExt for O {
 
     fn set_child_shrink<T: IsA<Widget>>(&self, item: &T, shrink: bool) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"shrink\0".as_ptr() as *const _,
                 Value::from(&shrink).to_glib_none().0,

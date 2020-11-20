@@ -12,7 +12,6 @@ use crate::Scrollable;
 use crate::ScrollablePolicy;
 use crate::Widget;
 use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -585,8 +584,8 @@ impl<O: IsA<Layout>> LayoutExt for O {
     fn get_child_x<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"x\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -600,8 +599,8 @@ impl<O: IsA<Layout>> LayoutExt for O {
 
     fn set_child_x<T: IsA<Widget>>(&self, item: &T, x: i32) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"x\0".as_ptr() as *const _,
                 Value::from(&x).to_glib_none().0,
@@ -612,8 +611,8 @@ impl<O: IsA<Layout>> LayoutExt for O {
     fn get_child_y<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            ffi::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"y\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -627,8 +626,8 @@ impl<O: IsA<Layout>> LayoutExt for O {
 
     fn set_child_y<T: IsA<Widget>>(&self, item: &T, y: i32) {
         unsafe {
-            ffi::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut ffi::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"y\0".as_ptr() as *const _,
                 Value::from(&y).to_glib_none().0,

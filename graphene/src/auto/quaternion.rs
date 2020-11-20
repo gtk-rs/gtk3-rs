@@ -7,7 +7,6 @@ use crate::Euler;
 use crate::Matrix;
 use crate::Vec3;
 use crate::Vec4;
-use glib;
 use glib::translate::*;
 use std::mem;
 

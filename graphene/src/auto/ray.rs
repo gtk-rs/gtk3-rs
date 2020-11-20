@@ -18,7 +18,6 @@ use crate::Sphere;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 use crate::Triangle;
 use crate::Vec3;
-use glib;
 use glib::translate::*;
 #[cfg(any(feature = "v1_10", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]

@@ -18,7 +18,6 @@ use crate::Widget;
 use gdk;
 use gdk_pixbuf;
 use gio;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 #[cfg(any(feature = "v3_16", feature = "dox"))]

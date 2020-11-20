@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::Point;
 use crate::Rect;
-use glib;
 use glib::translate::*;
 
 glib::glib_wrapper! {

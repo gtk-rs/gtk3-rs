@@ -16,7 +16,6 @@ use crate::ResizeMode;
 use crate::ResponseType;
 use crate::Widget;
 use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectExt;

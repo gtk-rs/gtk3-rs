@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use crate::ffi;
-use glib;
 use glib::translate::*;
 #[cfg(any(feature = "v1_38", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
