@@ -1,8 +1,7 @@
+use crate::Point3D;
+use crate::Triangle;
+use crate::Vec3;
 use glib::translate::*;
-use graphene_sys;
-use Point3D;
-use Triangle;
-use Vec3;
 
 impl Triangle {
     pub fn new_from_point3d(
@@ -12,8 +11,8 @@ impl Triangle {
     ) -> Triangle {
         assert_initialized_main_thread!();
         unsafe {
-            let alloc = graphene_sys::graphene_triangle_alloc();
-            graphene_sys::graphene_triangle_init_from_point3d(
+            let alloc = ffi::graphene_triangle_alloc();
+            ffi::graphene_triangle_init_from_point3d(
                 alloc,
                 a.to_glib_none().0,
                 b.to_glib_none().0,
@@ -26,8 +25,8 @@ impl Triangle {
     pub fn new_from_vec3(a: Option<&Vec3>, b: Option<&Vec3>, c: Option<&Vec3>) -> Triangle {
         assert_initialized_main_thread!();
         unsafe {
-            let alloc = graphene_sys::graphene_triangle_alloc();
-            graphene_sys::graphene_triangle_init_from_vec3(
+            let alloc = ffi::graphene_triangle_alloc();
+            ffi::graphene_triangle_init_from_vec3(
                 alloc,
                 a.to_glib_none().0,
                 b.to_glib_none().0,

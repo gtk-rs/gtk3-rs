@@ -1,8 +1,7 @@
+use crate::Point3D;
+use crate::Sphere;
+use crate::Vec3;
 use glib::translate::*;
-use graphene_sys;
-use Point3D;
-use Sphere;
-use Vec3;
 
 impl Sphere {
     pub fn init_from_points(&mut self, points: &[&Point3D], center: Option<&Point3D>) {
@@ -13,7 +12,7 @@ impl Sphere {
         let n = vec.len() as u32;
 
         unsafe {
-            graphene_sys::graphene_sphere_init_from_points(
+            ffi::graphene_sphere_init_from_points(
                 self.to_glib_none_mut().0,
                 n,
                 vec.as_ptr(),
@@ -30,7 +29,7 @@ impl Sphere {
         let n = vec.len() as u32;
 
         unsafe {
-            graphene_sys::graphene_sphere_init_from_vectors(
+            ffi::graphene_sphere_init_from_vectors(
                 self.to_glib_none_mut().0,
                 n,
                 vec.as_ptr(),
@@ -42,8 +41,8 @@ impl Sphere {
     pub fn new(center: Option<&Point3D>, radius: f32) -> Sphere {
         assert_initialized_main_thread!();
         unsafe {
-            let alloc = graphene_sys::graphene_sphere_alloc();
-            graphene_sys::graphene_sphere_init(alloc, center.to_glib_none().0, radius);
+            let alloc = ffi::graphene_sphere_alloc();
+            ffi::graphene_sphere_init(alloc, center.to_glib_none().0, radius);
             from_glib_full(alloc)
         }
     }
@@ -58,13 +57,8 @@ impl Sphere {
         let n = vec.len() as u32;
 
         unsafe {
-            let alloc = graphene_sys::graphene_sphere_alloc();
-            graphene_sys::graphene_sphere_init_from_points(
-                alloc,
-                n,
-                vec.as_ptr(),
-                center.to_glib_none().0,
-            );
+            let alloc = ffi::graphene_sphere_alloc();
+            ffi::graphene_sphere_init_from_points(alloc, n, vec.as_ptr(), center.to_glib_none().0);
             from_glib_full(alloc)
         }
     }
@@ -79,13 +73,8 @@ impl Sphere {
         let n = vec.len() as u32;
 
         unsafe {
-            let alloc = graphene_sys::graphene_sphere_alloc();
-            graphene_sys::graphene_sphere_init_from_vectors(
-                alloc,
-                n,
-                vec.as_ptr(),
-                center.to_glib_none().0,
-            );
+            let alloc = ffi::graphene_sphere_alloc();
+            ffi::graphene_sphere_init_from_vectors(alloc, n, vec.as_ptr(), center.to_glib_none().0);
             from_glib_full(alloc)
         }
     }
