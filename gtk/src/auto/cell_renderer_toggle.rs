@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::ffi;
 use crate::CellRenderer;
 use crate::CellRendererMode;
 use crate::TreePath;
@@ -380,7 +379,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
             P: IsA<CellRendererToggle>,
         {
             let f: &F = &*(f as *const F);
-            let path = from_glib_full(gtk_sys::gtk_tree_path_new_from_string(path));
+            let path = from_glib_full(crate::ffi::gtk_tree_path_new_from_string(path));
             f(
                 &CellRendererToggle::from_glib_borrow(this).unsafe_cast_ref(),
                 path,

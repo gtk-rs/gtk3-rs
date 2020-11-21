@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::ffi;
 #[cfg(any(feature = "v2_54", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
 use crate::Icon;

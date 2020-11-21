@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use crate::error::ErrorDomain;
-use crate::ffi;
 use crate::translate::*;
 use crate::Quark;
 use std::fmt;

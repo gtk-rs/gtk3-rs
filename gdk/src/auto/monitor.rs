@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::ffi;
 use crate::Display;
 use crate::Rectangle;
 #[cfg(any(feature = "v3_22", feature = "dox"))]

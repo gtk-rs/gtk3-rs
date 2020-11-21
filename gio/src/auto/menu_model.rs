@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::ffi;
 use crate::MenuAttributeIter;
 use crate::MenuLinkIter;
 use glib::object::Cast;

@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::ffi;
 use crate::Cancellable;
 use crate::InetAddress;
 #[cfg(any(feature = "v2_60", feature = "dox"))]

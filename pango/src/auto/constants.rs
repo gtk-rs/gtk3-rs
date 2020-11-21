@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::ffi;
 use std::ffi::CStr;
 
 #[cfg_attr(feature = "v1_38", deprecated)]

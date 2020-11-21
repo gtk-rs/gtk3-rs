@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::ffi;
 use crate::CoordType;
 #[cfg(any(feature = "v2_32", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
