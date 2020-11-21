@@ -2,19 +2,19 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::pollable_input_stream::PollableInputStreamExtManual;
+use crate::pollable_output_stream::PollableOutputStreamExtManual;
+use crate::IOStream;
+use crate::IOStreamExt;
+use crate::InputStreamAsyncRead;
+use crate::OutputStreamAsyncWrite;
+use crate::PollableInputStream;
+use crate::PollableOutputStream;
 use futures_core::task::{Context, Poll};
 use futures_io::{AsyncRead, AsyncWrite};
 use glib::object::{Cast, IsA};
-use pollable_input_stream::PollableInputStreamExtManual;
-use pollable_output_stream::PollableOutputStreamExtManual;
 use std::io;
 use std::pin::Pin;
-use IOStream;
-use IOStreamExt;
-use InputStreamAsyncRead;
-use OutputStreamAsyncWrite;
-use PollableInputStream;
-use PollableOutputStream;
 
 pub trait IOStreamExtManual: Sized + IsA<IOStream> {
     fn into_async_read_write(self) -> Result<IOStreamAsyncReadWrite<Self>, Self> {

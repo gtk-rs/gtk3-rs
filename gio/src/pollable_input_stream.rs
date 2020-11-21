@@ -2,20 +2,17 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::Cancellable;
+use crate::PollableInputStream;
+use crate::PollableInputStreamExt;
 use futures_core::task::{Context, Poll};
 use futures_io::AsyncRead;
-use gio_sys;
-use glib;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
-use glib_sys;
 use std::cell::RefCell;
 use std::io;
 use std::mem::transmute;
 use std::ptr;
-use Cancellable;
-use PollableInputStream;
-use PollableInputStreamExt;
 
 use futures_core::stream::Stream;
 use std::pin::Pin;
@@ -78,38 +75,38 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
             O: IsA<PollableInputStream>,
             F: FnMut(&O) -> glib::Continue + 'static,
         >(
-            stream: *mut gio_sys::GPollableInputStream,
-            func: glib_sys::gpointer,
-        ) -> glib_sys::gboolean {
+            stream: *mut ffi::GPollableInputStream,
+            func: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean {
             let func: &RefCell<F> = &*(func as *const RefCell<F>);
             let mut func = func.borrow_mut();
             (&mut *func)(&PollableInputStream::from_glib_borrow(stream).unsafe_cast_ref()).to_glib()
         }
-        unsafe extern "C" fn destroy_closure<O, F>(ptr: glib_sys::gpointer) {
+        unsafe extern "C" fn destroy_closure<O, F>(ptr: glib::ffi::gpointer) {
             Box::<RefCell<F>>::from_raw(ptr as *mut _);
         }
         let cancellable = cancellable.map(|c| c.as_ref());
         let gcancellable = cancellable.to_glib_none();
         unsafe {
-            let source = gio_sys::g_pollable_input_stream_create_source(
+            let source = ffi::g_pollable_input_stream_create_source(
                 self.as_ref().to_glib_none().0,
                 gcancellable.0,
             );
 
-            let trampoline = trampoline::<Self, F> as glib_sys::gpointer;
-            glib_sys::g_source_set_callback(
+            let trampoline = trampoline::<Self, F> as glib::ffi::gpointer;
+            glib::ffi::g_source_set_callback(
                 source,
                 Some(transmute::<
                     _,
-                    unsafe extern "C" fn(glib_sys::gpointer) -> glib_sys::gboolean,
+                    unsafe extern "C" fn(glib::ffi::gpointer) -> glib::ffi::gboolean,
                 >(trampoline)),
-                Box::into_raw(Box::new(RefCell::new(func))) as glib_sys::gpointer,
+                Box::into_raw(Box::new(RefCell::new(func))) as glib::ffi::gpointer,
                 Some(destroy_closure::<Self, F>),
             );
-            glib_sys::g_source_set_priority(source, priority.to_glib());
+            glib::ffi::g_source_set_priority(source, priority.to_glib());
 
             if let Some(name) = name {
-                glib_sys::g_source_set_name(source, name.to_glib_none().0);
+                glib::ffi::g_source_set_name(source, name.to_glib_none().0);
             }
 
             from_glib_full(source)
@@ -126,7 +123,7 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
         let count = buffer.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_pollable_input_stream_read_nonblocking(
+            let ret = ffi::g_pollable_input_stream_read_nonblocking(
                 self.as_ref().to_glib_none().0,
                 buffer.to_glib_none().0,
                 count,
@@ -198,7 +195,10 @@ impl<T: IsA<PollableInputStream>> AsyncRead for InputStreamAsyncRead<T> {
         buf: &mut [u8],
     ) -> Poll<io::Result<usize>> {
         let stream = Pin::get_ref(self.as_ref());
-        let gio_result = stream.0.as_ref().read_nonblocking(buf, ::NONE_CANCELLABLE);
+        let gio_result = stream
+            .0
+            .as_ref()
+            .read_nonblocking(buf, crate::NONE_CANCELLABLE);
 
         match gio_result {
             Ok(size) => Poll::Ready(Ok(size as usize)),
@@ -207,7 +207,7 @@ impl<T: IsA<PollableInputStream>> AsyncRead for InputStreamAsyncRead<T> {
                 if kind == crate::IOErrorEnum::WouldBlock {
                     let mut waker = Some(cx.waker().clone());
                     let source = stream.0.as_ref().create_source(
-                        ::NONE_CANCELLABLE,
+                        crate::NONE_CANCELLABLE,
                         None,
                         glib::PRIORITY_DEFAULT,
                         move |_| {

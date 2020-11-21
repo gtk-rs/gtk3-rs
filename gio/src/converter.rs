@@ -1,11 +1,10 @@
-use gio_sys;
+use crate::Converter;
+use crate::ConverterFlags;
+use crate::ConverterResult;
 use glib::object::IsA;
 use glib::translate::*;
 use std::mem;
 use std::ptr;
-use Converter;
-use ConverterFlags;
-use ConverterResult;
 
 pub trait ConverterExtManual {
     fn convert<IN: AsRef<[u8]>, OUT: AsMut<[u8]>>(
@@ -37,7 +36,7 @@ impl<O: IsA<Converter>> ConverterExtManual for O {
             let mut bytes_read = mem::MaybeUninit::uninit();
             let mut bytes_written = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_converter_convert(
+            let ret = ffi::g_converter_convert(
                 self.as_ref().to_glib_none().0,
                 mut_override(inbuf),
                 inbuf_size,

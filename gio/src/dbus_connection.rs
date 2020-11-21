@@ -2,20 +2,19 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gio_sys;
+use crate::ActionGroup;
+use crate::DBusConnection;
+#[cfg(any(feature = "v2_46", feature = "dox"))]
+use crate::DBusInterfaceInfo;
+use crate::DBusMessage;
+#[cfg(any(feature = "v2_46", feature = "dox"))]
+use crate::DBusMethodInvocation;
+use crate::DBusSignalFlags;
+use crate::MenuModel;
 use glib::object::IsA;
 use glib::translate::*;
 use std::boxed::Box as Box_;
 use std::num::NonZeroU32;
-use ActionGroup;
-use DBusConnection;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-use DBusInterfaceInfo;
-use DBusMessage;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-use DBusMethodInvocation;
-use DBusSignalFlags;
-use MenuModel;
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct RegistrationId(NonZeroU32);
@@ -56,7 +55,7 @@ impl DBusConnection {
         use glib::ToValue;
         unsafe {
             let mut error = std::ptr::null_mut();
-            let id = gio_sys::g_dbus_connection_register_object_with_closures(
+            let id = ffi::g_dbus_connection_register_object_with_closures(
                 self.to_glib_none().0,
                 object_path.to_glib_none().0,
                 interface_info.to_glib_none().0,
@@ -127,8 +126,8 @@ impl DBusConnection {
         registration_id: RegistrationId,
     ) -> Result<(), glib::error::BoolError> {
         unsafe {
-            glib_result_from_gboolean!(
-                gio_sys::g_dbus_connection_unregister_object(
+            glib::glib_result_from_gboolean!(
+                ffi::g_dbus_connection_unregister_object(
                     self.to_glib_none().0,
                     registration_id.0.into()
                 ),
@@ -144,7 +143,7 @@ impl DBusConnection {
     ) -> Result<ActionGroupExportId, glib::Error> {
         unsafe {
             let mut error = std::ptr::null_mut();
-            let id = gio_sys::g_dbus_connection_export_action_group(
+            let id = ffi::g_dbus_connection_export_action_group(
                 self.to_glib_none().0,
                 object_path.to_glib_none().0,
                 action_group.as_ref().to_glib_none().0,
@@ -160,10 +159,7 @@ impl DBusConnection {
 
     pub fn unexport_action_group(&self, export_id: ActionGroupExportId) {
         unsafe {
-            gio_sys::g_dbus_connection_unexport_action_group(
-                self.to_glib_none().0,
-                export_id.0.into(),
-            );
+            ffi::g_dbus_connection_unexport_action_group(self.to_glib_none().0, export_id.0.into());
         }
     }
 
@@ -174,7 +170,7 @@ impl DBusConnection {
     ) -> Result<MenuModelExportId, glib::Error> {
         unsafe {
             let mut error = std::ptr::null_mut();
-            let id = gio_sys::g_dbus_connection_export_menu_model(
+            let id = ffi::g_dbus_connection_export_menu_model(
                 self.to_glib_none().0,
                 object_path.to_glib_none().0,
                 menu.as_ref().to_glib_none().0,
@@ -190,10 +186,7 @@ impl DBusConnection {
 
     pub fn unexport_menu_model(&self, export_id: MenuModelExportId) {
         unsafe {
-            gio_sys::g_dbus_connection_unexport_menu_model(
-                self.to_glib_none().0,
-                export_id.0.into(),
-            );
+            ffi::g_dbus_connection_unexport_menu_model(self.to_glib_none().0, export_id.0.into());
         }
     }
 
@@ -207,11 +200,11 @@ impl DBusConnection {
         unsafe extern "C" fn filter_function_func<
             P: Fn(&DBusConnection, &DBusMessage, bool) -> Option<DBusMessage> + 'static,
         >(
-            connection: *mut gio_sys::GDBusConnection,
-            message: *mut gio_sys::GDBusMessage,
-            incoming: glib_sys::gboolean,
-            user_data: glib_sys::gpointer,
-        ) -> *mut gio_sys::GDBusMessage {
+            connection: *mut ffi::GDBusConnection,
+            message: *mut ffi::GDBusMessage,
+            incoming: glib::ffi::gboolean,
+            user_data: glib::ffi::gpointer,
+        ) -> *mut ffi::GDBusMessage {
             let connection = from_glib_borrow(connection);
             let message = from_glib_full(message);
             let incoming = from_glib(incoming);
@@ -223,14 +216,14 @@ impl DBusConnection {
         unsafe extern "C" fn user_data_free_func_func<
             P: Fn(&DBusConnection, &DBusMessage, bool) -> Option<DBusMessage> + 'static,
         >(
-            data: glib_sys::gpointer,
+            data: glib::ffi::gpointer,
         ) {
             let _callback: Box_<P> = Box_::from_raw(data as *mut _);
         }
         let destroy_call3 = Some(user_data_free_func_func::<P> as _);
         let super_callback0: Box_<P> = filter_function_data;
         unsafe {
-            let id = gio_sys::g_dbus_connection_add_filter(
+            let id = ffi::g_dbus_connection_add_filter(
                 self.to_glib_none().0,
                 filter_function,
                 Box_::into_raw(super_callback0) as *mut _,
@@ -242,7 +235,7 @@ impl DBusConnection {
 
     pub fn remove_filter(&self, filter_id: FilterId) {
         unsafe {
-            gio_sys::g_dbus_connection_remove_filter(self.to_glib_none().0, filter_id.0.into());
+            ffi::g_dbus_connection_remove_filter(self.to_glib_none().0, filter_id.0.into());
         }
     }
 
@@ -262,13 +255,13 @@ impl DBusConnection {
         unsafe extern "C" fn callback_func<
             P: Fn(&DBusConnection, &str, &str, &str, &str, &glib::Variant) + 'static,
         >(
-            connection: *mut gio_sys::GDBusConnection,
+            connection: *mut ffi::GDBusConnection,
             sender_name: *const libc::c_char,
             object_path: *const libc::c_char,
             interface_name: *const libc::c_char,
             signal_name: *const libc::c_char,
-            parameters: *mut glib_sys::GVariant,
-            user_data: glib_sys::gpointer,
+            parameters: *mut glib::ffi::GVariant,
+            user_data: glib::ffi::gpointer,
         ) {
             let connection = from_glib_borrow(connection);
             let sender_name: Borrowed<glib::GString> = from_glib_borrow(sender_name);
@@ -290,14 +283,14 @@ impl DBusConnection {
         unsafe extern "C" fn user_data_free_func_func<
             P: Fn(&DBusConnection, &str, &str, &str, &str, &glib::Variant) + 'static,
         >(
-            data: glib_sys::gpointer,
+            data: glib::ffi::gpointer,
         ) {
             let _callback: Box_<P> = Box_::from_raw(data as *mut _);
         }
         let destroy_call9 = Some(user_data_free_func_func::<P> as _);
         let super_callback0: Box_<P> = callback_data;
         unsafe {
-            let id = gio_sys::g_dbus_connection_signal_subscribe(
+            let id = ffi::g_dbus_connection_signal_subscribe(
                 self.to_glib_none().0,
                 sender.to_glib_none().0,
                 interface_name.to_glib_none().0,
@@ -315,7 +308,7 @@ impl DBusConnection {
 
     pub fn signal_unsubscribe(&self, subscription_id: SignalSubscriptionId) {
         unsafe {
-            gio_sys::g_dbus_connection_signal_unsubscribe(
+            ffi::g_dbus_connection_signal_unsubscribe(
                 self.to_glib_none().0,
                 subscription_id.0.into(),
             );

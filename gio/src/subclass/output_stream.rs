@@ -2,7 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gio_sys;
 use glib_sys;
 
 use glib::subclass::prelude::*;
@@ -10,10 +9,10 @@ use glib::translate::*;
 
 use glib::{Cast, Error};
 
-use Cancellable;
-use InputStream;
-use OutputStream;
-use OutputStreamSpliceFlags;
+use crate::Cancellable;
+use crate::InputStream;
+use crate::OutputStream;
+use crate::OutputStreamSpliceFlags;
 
 use std::mem;
 use std::ptr;
@@ -85,7 +84,7 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
     ) -> Result<usize, Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GOutputStreamClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GOutputStreamClass;
             let f = (*parent_class)
                 .write_fn
                 .expect("No parent class implementation for \"write\"");
@@ -115,7 +114,7 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
     ) -> Result<(), Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GOutputStreamClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GOutputStreamClass;
             let mut err = ptr::null_mut();
             if let Some(f) = (*parent_class).close_fn {
                 if from_glib(f(
@@ -140,7 +139,7 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
     ) -> Result<(), Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GOutputStreamClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GOutputStreamClass;
             let mut err = ptr::null_mut();
             if let Some(f) = (*parent_class).flush {
                 if from_glib(f(
@@ -167,7 +166,7 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
     ) -> Result<usize, Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GOutputStreamClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GOutputStreamClass;
             let mut err = ptr::null_mut();
             let f = (*parent_class)
                 .splice
@@ -203,10 +202,10 @@ unsafe impl<T: OutputStreamImpl> IsSubclassable<T> for OutputStream {
 }
 
 unsafe extern "C" fn stream_write<T: OutputStreamImpl>(
-    ptr: *mut gio_sys::GOutputStream,
+    ptr: *mut ffi::GOutputStream,
     buffer: *mut u8,
     count: usize,
-    cancellable: *mut gio_sys::GCancellable,
+    cancellable: *mut ffi::GCancellable,
     err: *mut *mut glib_sys::GError,
 ) -> isize {
     use std::isize;
@@ -239,8 +238,8 @@ unsafe extern "C" fn stream_write<T: OutputStreamImpl>(
 }
 
 unsafe extern "C" fn stream_close<T: OutputStreamImpl>(
-    ptr: *mut gio_sys::GOutputStream,
-    cancellable: *mut gio_sys::GCancellable,
+    ptr: *mut ffi::GOutputStream,
+    cancellable: *mut ffi::GCancellable,
     err: *mut *mut glib_sys::GError,
 ) -> glib_sys::gboolean {
     let instance = &*(ptr as *mut T::Instance);
@@ -263,8 +262,8 @@ unsafe extern "C" fn stream_close<T: OutputStreamImpl>(
 }
 
 unsafe extern "C" fn stream_flush<T: OutputStreamImpl>(
-    ptr: *mut gio_sys::GOutputStream,
-    cancellable: *mut gio_sys::GCancellable,
+    ptr: *mut ffi::GOutputStream,
+    cancellable: *mut ffi::GCancellable,
     err: *mut *mut glib_sys::GError,
 ) -> glib_sys::gboolean {
     let instance = &*(ptr as *mut T::Instance);
@@ -287,10 +286,10 @@ unsafe extern "C" fn stream_flush<T: OutputStreamImpl>(
 }
 
 unsafe extern "C" fn stream_splice<T: OutputStreamImpl>(
-    ptr: *mut gio_sys::GOutputStream,
-    input_stream: *mut gio_sys::GInputStream,
-    flags: gio_sys::GOutputStreamSpliceFlags,
-    cancellable: *mut gio_sys::GCancellable,
+    ptr: *mut ffi::GOutputStream,
+    input_stream: *mut ffi::GInputStream,
+    flags: ffi::GOutputStreamSpliceFlags,
+    cancellable: *mut ffi::GCancellable,
     err: *mut *mut glib_sys::GError,
 ) -> isize {
     let instance = &*(ptr as *mut T::Instance);

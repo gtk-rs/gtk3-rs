@@ -2,26 +2,22 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::AppInfo;
 #[cfg(any(feature = "v2_60", feature = "dox"))]
-use gio_sys;
+use crate::AppLaunchContext;
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+use crate::Cancellable;
 use glib::object::IsA;
 #[cfg(any(feature = "v2_60", feature = "dox"))]
 use glib::translate::*;
 #[cfg(any(feature = "v2_60", feature = "dox"))]
-use glib_sys;
 #[cfg(any(feature = "v2_60", feature = "dox"))]
-use gobject_sys;
 #[cfg(any(feature = "v2_60", feature = "dox"))]
 use std::boxed::Box as Box_;
 #[cfg(any(feature = "v2_60", feature = "dox"))]
 use std::pin::Pin;
 #[cfg(any(feature = "v2_60", feature = "dox"))]
 use std::ptr;
-use AppInfo;
-#[cfg(any(feature = "v2_60", feature = "dox"))]
-use AppLaunchContext;
-#[cfg(any(feature = "v2_60", feature = "dox"))]
-use Cancellable;
 
 pub trait AppInfoExtManual: 'static {
     #[cfg(any(feature = "v2_60", feature = "dox"))]
@@ -66,13 +62,12 @@ impl<O: IsA<AppInfo>> AppInfoExtManual for O {
         unsafe extern "C" fn launch_uris_async_trampoline<
             R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ =
-                gio_sys::g_app_info_launch_uris_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_app_info_launch_uris_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -80,11 +75,11 @@ impl<O: IsA<AppInfo>> AppInfoExtManual for O {
             };
             let callback: Box_<(R, *mut *mut libc::c_char)> = Box_::from_raw(user_data as *mut _);
             (callback.0)(result);
-            glib_sys::g_strfreev(callback.1);
+            glib::ffi::g_strfreev(callback.1);
         }
         let callback = launch_uris_async_trampoline::<R>;
         unsafe {
-            gio_sys::g_app_info_launch_uris_async(
+            ffi::g_app_info_launch_uris_async(
                 self.as_ref().to_glib_none().0,
                 uris.to_glib_none().0,
                 context.map(|p| p.as_ref()).to_glib_none().0,

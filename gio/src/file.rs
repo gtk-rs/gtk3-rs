@@ -2,17 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gio_sys;
-use glib;
+use crate::Cancellable;
+use crate::File;
+use crate::FileCreateFlags;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_sys;
-use gobject_sys;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
-use File;
-use FileCreateFlags;
 
 pub trait FileExtManual: Sized {
     fn replace_contents_async<
@@ -71,16 +67,16 @@ impl<O: IsA<File>> FileExtManual for O {
             B: AsRef<[u8]> + Send + 'static,
             R: FnOnce(Result<(B, glib::GString), (B, glib::Error)>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut user_data: Box<Option<(R, B)>> = Box::from_raw(user_data as *mut _);
             let (callback, contents) = user_data.take().unwrap();
 
             let mut error = ptr::null_mut();
             let mut new_etag = ptr::null_mut();
-            let _ = gio_sys::g_file_replace_contents_finish(
+            let _ = ffi::g_file_replace_contents_finish(
                 _source_object as *mut _,
                 res,
                 &mut new_etag,
@@ -95,7 +91,7 @@ impl<O: IsA<File>> FileExtManual for O {
         }
         let callback = replace_contents_async_trampoline::<B, R>;
         unsafe {
-            gio_sys::g_file_replace_contents_async(
+            ffi::g_file_replace_contents_async(
                 self.as_ref().to_glib_none().0,
                 mut_override(contents_ptr),
                 count,

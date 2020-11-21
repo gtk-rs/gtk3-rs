@@ -2,24 +2,21 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use error::to_std_io_result;
+use crate::error::to_std_io_result;
+use crate::Cancellable;
+use crate::InputStream;
+use crate::Seekable;
+use crate::SeekableExt;
 use futures_core::task::{Context, Poll};
 use futures_io::{AsyncBufRead, AsyncRead};
 use futures_util::future::FutureExt;
-use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::Priority;
-use glib_sys;
-use gobject_sys;
 use std::io;
 use std::mem;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
-use InputStream;
-use Seekable;
-use SeekableExt;
 
 pub trait InputStreamExtManual: Sized {
     fn read<B: AsMut<[u8]>, C: IsA<Cancellable>>(
@@ -108,7 +105,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         let count = buffer.len();
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_input_stream_read(
+            let ret = ffi::g_input_stream_read(
                 self.as_ref().to_glib_none().0,
                 buffer_ptr,
                 count,
@@ -136,7 +133,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         unsafe {
             let mut bytes_read = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_input_stream_read_all(
+            let _ = ffi::g_input_stream_read_all(
                 self.as_ref().to_glib_none().0,
                 buffer_ptr,
                 count,
@@ -182,16 +179,16 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
             B: AsMut<[u8]> + Send + 'static,
             Q: FnOnce(Result<(B, usize, Option<glib::Error>), (B, glib::Error)>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut user_data: Box<Option<(Q, B)>> = Box::from_raw(user_data as *mut _);
             let (callback, buffer) = user_data.take().unwrap();
 
             let mut error = ptr::null_mut();
             let mut bytes_read = mem::MaybeUninit::uninit();
-            let _ = gio_sys::g_input_stream_read_all_finish(
+            let _ = ffi::g_input_stream_read_all_finish(
                 _source_object as *mut _,
                 res,
                 bytes_read.as_mut_ptr(),
@@ -211,7 +208,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         }
         let callback = read_all_async_trampoline::<B, Q>;
         unsafe {
-            gio_sys::g_input_stream_read_all_async(
+            ffi::g_input_stream_read_all_async(
                 self.as_ref().to_glib_none().0,
                 buffer_ptr,
                 count,
@@ -247,16 +244,15 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
             B: AsMut<[u8]> + Send + 'static,
             Q: FnOnce(Result<(B, usize), (B, glib::Error)>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut user_data: Box<Option<(Q, B)>> = Box::from_raw(user_data as *mut _);
             let (callback, buffer) = user_data.take().unwrap();
 
             let mut error = ptr::null_mut();
-            let ret =
-                gio_sys::g_input_stream_read_finish(_source_object as *mut _, res, &mut error);
+            let ret = ffi::g_input_stream_read_finish(_source_object as *mut _, res, &mut error);
 
             let result = if error.is_null() {
                 Ok((buffer, ret as usize))
@@ -268,7 +264,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         }
         let callback = read_async_trampoline::<B, Q>;
         unsafe {
-            gio_sys::g_input_stream_read_async(
+            ffi::g_input_stream_read_async(
                 self.as_ref().to_glib_none().0,
                 buffer_ptr,
                 count,
@@ -335,7 +331,7 @@ impl<T: IsA<InputStream>> InputStreamRead<T> {
 
 impl<T: IsA<InputStream>> io::Read for InputStreamRead<T> {
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
-        let gio_result = self.0.as_ref().read(buf, ::NONE_CANCELLABLE);
+        let gio_result = self.0.as_ref().read(buf, crate::NONE_CANCELLABLE);
         to_std_io_result(gio_result)
     }
 }
@@ -349,7 +345,7 @@ impl<T: IsA<InputStream> + IsA<Seekable>> io::Seek for InputStreamRead<T> {
         };
         let seekable: &Seekable = self.0.as_ref();
         let gio_result = seekable
-            .seek(pos, type_, ::NONE_CANCELLABLE)
+            .seek(pos, type_, crate::NONE_CANCELLABLE)
             .map(|_| seekable.tell() as u64);
         to_std_io_result(gio_result)
     }
@@ -579,10 +575,10 @@ impl<T: IsA<InputStream>> Unpin for InputStreamAsyncBufRead<T> {}
 #[cfg(test)]
 mod tests {
     use crate::prelude::*;
+    use crate::test_util::run_async;
     use crate::MemoryInputStream;
     use glib::Bytes;
     use std::io::Read;
-    use test_util::run_async;
 
     #[test]
     #[cfg(feature = "v2_44")]
@@ -617,7 +613,7 @@ mod tests {
         let strm = MemoryInputStream::from_bytes(&b);
         let mut buf = vec![0; 10];
 
-        let ret = strm.read_all(&mut buf, ::NONE_CANCELLABLE).unwrap();
+        let ret = strm.read_all(&mut buf, crate::NONE_CANCELLABLE).unwrap();
 
         assert_eq!(ret.0, 3);
         assert!(ret.1.is_none());
@@ -632,7 +628,7 @@ mod tests {
         let strm = MemoryInputStream::from_bytes(&b);
         let mut buf = vec![0; 10];
 
-        let ret = strm.read(&mut buf, ::NONE_CANCELLABLE);
+        let ret = strm.read(&mut buf, crate::NONE_CANCELLABLE);
 
         assert_eq!(ret.unwrap(), 3);
         assert_eq!(buf[0], 1);
@@ -650,7 +646,7 @@ mod tests {
             strm.read_async(
                 buf,
                 glib::PRIORITY_DEFAULT_IDLE,
-                ::NONE_CANCELLABLE,
+                crate::NONE_CANCELLABLE,
                 move |ret| {
                     tx.send(ret).unwrap();
                     l.quit();
@@ -674,7 +670,7 @@ mod tests {
             strm.read_bytes_async(
                 10,
                 glib::PRIORITY_DEFAULT_IDLE,
-                ::NONE_CANCELLABLE,
+                crate::NONE_CANCELLABLE,
                 move |ret| {
                     tx.send(ret).unwrap();
                     l.quit();
@@ -695,7 +691,7 @@ mod tests {
             strm.skip_async(
                 10,
                 glib::PRIORITY_DEFAULT_IDLE,
-                ::NONE_CANCELLABLE,
+                crate::NONE_CANCELLABLE,
                 move |ret| {
                     tx.send(ret).unwrap();
                     l.quit();

@@ -2,13 +2,12 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gio_sys;
+use crate::BusNameOwnerFlags;
+use crate::BusNameWatcherFlags;
+use crate::BusType;
+use crate::DBusConnection;
 use glib::translate::*;
 use std::num::NonZeroU32;
-use BusNameOwnerFlags;
-use BusNameWatcherFlags;
-use BusType;
-use DBusConnection;
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct OwnerId(NonZeroU32);
@@ -52,7 +51,7 @@ where
     NameLost: Fn(DBusConnection, &str) + Send + Sync + 'static,
 {
     unsafe {
-        let id = gio_sys::g_bus_own_name_on_connection_with_closures(
+        let id = ffi::g_bus_own_name_on_connection_with_closures(
             connection.to_glib_none().0,
             name.to_glib_none().0,
             flags.to_glib(),
@@ -77,7 +76,7 @@ where
     NameLost: Fn(Option<DBusConnection>, &str) + Send + Sync + 'static,
 {
     unsafe {
-        let id = gio_sys::g_bus_own_name_with_closures(
+        let id = ffi::g_bus_own_name_with_closures(
             bus_type.to_glib(),
             name.to_glib_none().0,
             flags.to_glib(),
@@ -98,7 +97,7 @@ where
 
 pub fn bus_unown_name(owner_id: OwnerId) {
     unsafe {
-        gio_sys::g_bus_unown_name(owner_id.0.into());
+        ffi::g_bus_unown_name(owner_id.0.into());
     }
 }
 
@@ -114,7 +113,7 @@ where
     NameVanished: Fn(DBusConnection, &str, &str) + Send + Sync + 'static,
 {
     unsafe {
-        let id = gio_sys::g_bus_watch_name_on_connection_with_closures(
+        let id = ffi::g_bus_watch_name_on_connection_with_closures(
             connection.to_glib_none().0,
             name.to_glib_none().0,
             flags.to_glib(),
@@ -137,7 +136,7 @@ where
     NameVanished: Fn(DBusConnection, &str, &str) + Send + Sync + 'static,
 {
     unsafe {
-        let id = gio_sys::g_bus_watch_name_with_closures(
+        let id = ffi::g_bus_watch_name_with_closures(
             bus_type.to_glib(),
             name.to_glib_none().0,
             flags.to_glib(),
@@ -150,6 +149,6 @@ where
 
 pub fn bus_unwatch_name(watcher_id: WatcherId) {
     unsafe {
-        gio_sys::g_bus_unwatch_name(watcher_id.0.into());
+        ffi::g_bus_unwatch_name(watcher_id.0.into());
     }
 }

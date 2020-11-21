@@ -2,7 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gio_sys;
 use glib_sys;
 
 use glib::translate::*;
@@ -11,7 +10,7 @@ use glib::subclass::prelude::*;
 
 use glib::{Cast, VariantDict};
 
-use Application;
+use crate::Application;
 
 use libc::{c_char, c_int, c_void};
 use std::ffi::OsString;
@@ -91,7 +90,7 @@ pub trait ApplicationImpl: ObjectImpl + ApplicationImplExt {
     fn command_line(
         &self,
         application: &Self::Type,
-        command_line: &::ApplicationCommandLine,
+        command_line: &crate::ApplicationCommandLine,
     ) -> i32 {
         self.parent_command_line(application, command_line)
     }
@@ -104,7 +103,7 @@ pub trait ApplicationImpl: ObjectImpl + ApplicationImplExt {
         self.parent_local_command_line(application, arguments)
     }
 
-    fn open(&self, application: &Self::Type, files: &[::File], hint: &str) {
+    fn open(&self, application: &Self::Type, files: &[crate::File], hint: &str) {
         self.parent_open(application, files, hint)
     }
 
@@ -136,14 +135,14 @@ pub trait ApplicationImplExt: ObjectSubclass {
     fn parent_command_line(
         &self,
         application: &Self::Type,
-        command_line: &::ApplicationCommandLine,
+        command_line: &crate::ApplicationCommandLine,
     ) -> i32;
     fn parent_local_command_line(
         &self,
         application: &Self::Type,
         arguments: &mut ArgumentList,
     ) -> Option<i32>;
-    fn parent_open(&self, application: &Self::Type, files: &[::File], hint: &str);
+    fn parent_open(&self, application: &Self::Type, files: &[crate::File], hint: &str);
     fn parent_quit_mainloop(&self, application: &Self::Type);
     fn parent_run_mainloop(&self, application: &Self::Type);
     fn parent_shutdown(&self, application: &Self::Type);
@@ -155,7 +154,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_activate(&self, application: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .activate
                 .expect("No parent class implementation for \"activate\"");
@@ -169,7 +168,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_after_emit(&self, application: &Self::Type, platform_data: &glib::Variant) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .after_emit
                 .expect("No parent class implementation for \"after_emit\"");
@@ -186,7 +185,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_before_emit(&self, application: &Self::Type, platform_data: &glib::Variant) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .before_emit
                 .expect("No parent class implementation for \"before_emit\"");
@@ -203,11 +202,11 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_command_line(
         &self,
         application: &Self::Type,
-        command_line: &::ApplicationCommandLine,
+        command_line: &crate::ApplicationCommandLine,
     ) -> i32 {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .command_line
                 .expect("No parent class implementation for \"command_line\"");
@@ -228,7 +227,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     ) -> Option<i32> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .local_command_line
                 .expect("No parent class implementation for \"local_command_line\"");
@@ -251,10 +250,10 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
         }
     }
 
-    fn parent_open(&self, application: &Self::Type, files: &[::File], hint: &str) {
+    fn parent_open(&self, application: &Self::Type, files: &[crate::File], hint: &str) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .open
                 .expect("No parent class implementation for \"open\"");
@@ -273,7 +272,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_quit_mainloop(&self, application: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .quit_mainloop
                 .expect("No parent class implementation for \"quit_mainloop\"");
@@ -287,7 +286,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_run_mainloop(&self, application: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .run_mainloop
                 .expect("No parent class implementation for \"run_mainloop\"");
@@ -301,7 +300,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_shutdown(&self, application: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .shutdown
                 .expect("No parent class implementation for \"shutdown\"");
@@ -315,7 +314,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_startup(&self, application: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
             let f = (*parent_class)
                 .startup
                 .expect("No parent class implementation for \"startup\"");
@@ -329,7 +328,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
     fn parent_handle_local_options(&self, application: &Self::Type, options: &VariantDict) -> i32 {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GApplicationClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GApplicationClass;
             if let Some(f) = (*parent_class).handle_local_options {
                 f(
                     application
@@ -365,7 +364,7 @@ unsafe impl<T: ApplicationImpl> IsSubclassable<T> for Application {
     }
 }
 
-unsafe extern "C" fn application_activate<T: ApplicationImpl>(ptr: *mut gio_sys::GApplication) {
+unsafe extern "C" fn application_activate<T: ApplicationImpl>(ptr: *mut ffi::GApplication) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
@@ -374,7 +373,7 @@ unsafe extern "C" fn application_activate<T: ApplicationImpl>(ptr: *mut gio_sys:
 }
 
 unsafe extern "C" fn application_after_emit<T: ApplicationImpl>(
-    ptr: *mut gio_sys::GApplication,
+    ptr: *mut ffi::GApplication,
     platform_data: *mut glib_sys::GVariant,
 ) {
     let instance = &*(ptr as *mut T::Instance);
@@ -384,7 +383,7 @@ unsafe extern "C" fn application_after_emit<T: ApplicationImpl>(
     imp.after_emit(wrap.unsafe_cast_ref(), &from_glib_borrow(platform_data))
 }
 unsafe extern "C" fn application_before_emit<T: ApplicationImpl>(
-    ptr: *mut gio_sys::GApplication,
+    ptr: *mut ffi::GApplication,
     platform_data: *mut glib_sys::GVariant,
 ) {
     let instance = &*(ptr as *mut T::Instance);
@@ -394,8 +393,8 @@ unsafe extern "C" fn application_before_emit<T: ApplicationImpl>(
     imp.before_emit(wrap.unsafe_cast_ref(), &from_glib_borrow(platform_data))
 }
 unsafe extern "C" fn application_command_line<T: ApplicationImpl>(
-    ptr: *mut gio_sys::GApplication,
-    command_line: *mut gio_sys::GApplicationCommandLine,
+    ptr: *mut ffi::GApplication,
+    command_line: *mut ffi::GApplicationCommandLine,
 ) -> i32 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -404,7 +403,7 @@ unsafe extern "C" fn application_command_line<T: ApplicationImpl>(
     imp.command_line(wrap.unsafe_cast_ref(), &from_glib_borrow(command_line))
 }
 unsafe extern "C" fn application_local_command_line<T: ApplicationImpl>(
-    ptr: *mut gio_sys::GApplication,
+    ptr: *mut ffi::GApplication,
     arguments: *mut *mut *mut c_char,
     exit_status: *mut i32,
 ) -> glib_sys::gboolean {
@@ -425,8 +424,8 @@ unsafe extern "C" fn application_local_command_line<T: ApplicationImpl>(
     }
 }
 unsafe extern "C" fn application_open<T: ApplicationImpl>(
-    ptr: *mut gio_sys::GApplication,
-    files: *mut *mut gio_sys::GFile,
+    ptr: *mut ffi::GApplication,
+    files: *mut *mut ffi::GFile,
     num_files: i32,
     hint: *const c_char,
 ) {
@@ -434,37 +433,35 @@ unsafe extern "C" fn application_open<T: ApplicationImpl>(
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
-    let files: Vec<::File> = FromGlibContainer::from_glib_none_num(files, num_files as usize);
+    let files: Vec<crate::File> = FromGlibContainer::from_glib_none_num(files, num_files as usize);
     imp.open(
         wrap.unsafe_cast_ref(),
         files.as_slice(),
         &glib::GString::from_glib_borrow(hint),
     )
 }
-unsafe extern "C" fn application_quit_mainloop<T: ApplicationImpl>(
-    ptr: *mut gio_sys::GApplication,
-) {
+unsafe extern "C" fn application_quit_mainloop<T: ApplicationImpl>(ptr: *mut ffi::GApplication) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.quit_mainloop(wrap.unsafe_cast_ref())
 }
-unsafe extern "C" fn application_run_mainloop<T: ApplicationImpl>(ptr: *mut gio_sys::GApplication) {
+unsafe extern "C" fn application_run_mainloop<T: ApplicationImpl>(ptr: *mut ffi::GApplication) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.run_mainloop(wrap.unsafe_cast_ref())
 }
-unsafe extern "C" fn application_shutdown<T: ApplicationImpl>(ptr: *mut gio_sys::GApplication) {
+unsafe extern "C" fn application_shutdown<T: ApplicationImpl>(ptr: *mut ffi::GApplication) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
 
     imp.shutdown(wrap.unsafe_cast_ref())
 }
-unsafe extern "C" fn application_startup<T: ApplicationImpl>(ptr: *mut gio_sys::GApplication) {
+unsafe extern "C" fn application_startup<T: ApplicationImpl>(ptr: *mut ffi::GApplication) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
@@ -473,7 +470,7 @@ unsafe extern "C" fn application_startup<T: ApplicationImpl>(ptr: *mut gio_sys::
 }
 
 unsafe extern "C" fn application_handle_local_options<T: ApplicationImpl>(
-    ptr: *mut gio_sys::GApplication,
+    ptr: *mut ffi::GApplication,
     options: *mut glib_sys::GVariantDict,
 ) -> c_int {
     let instance = &*(ptr as *mut T::Instance);
@@ -541,7 +538,7 @@ mod tests {
             fn command_line(
                 &self,
                 _application: &Self::Type,
-                cmd_line: &::ApplicationCommandLine,
+                cmd_line: &crate::ApplicationCommandLine,
             ) -> i32 {
                 let arguments = cmd_line.get_arguments();
 
@@ -566,11 +563,11 @@ mod tests {
             SimpleApplication::static_type(),
             &[
                 ("application-id", &"org.gtk-rs.SimpleApplication"),
-                ("flags", &::ApplicationFlags::empty()),
+                ("flags", &crate::ApplicationFlags::empty()),
             ],
         )
         .unwrap()
-        .downcast::<::Application>()
+        .downcast::<crate::Application>()
         .unwrap();
 
         app.set_inactivity_timeout(10000);

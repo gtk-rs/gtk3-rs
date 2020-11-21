@@ -13,24 +13,25 @@ build = "build.rs"
 exclude = [
     "gir-files/*",
 ]
+edition = "2018"
 
 [lib]
 name = "gio"
 
 [features]
-v2_44 = ["gio-sys/v2_44", "glib/v2_44"]
-v2_46 = ["v2_44", "gio-sys/v2_46", "glib/v2_46"]
-v2_48 = ["v2_46", "gio-sys/v2_48", "glib/v2_48"]
-v2_50 = ["v2_48", "gio-sys/v2_50", "glib/v2_50"]
-v2_52 = ["v2_50", "gio-sys/v2_52", "glib/v2_52"]
-v2_54 = ["v2_52", "gio-sys/v2_54", "glib/v2_54"]
-v2_56 = ["v2_54", "gio-sys/v2_56", "glib/v2_56"]
-v2_58 = ["v2_56", "gio-sys/v2_58", "glib/v2_58"]
-v2_60 = ["v2_58", "gio-sys/v2_60", "glib/v2_60"]
-v2_62 = ["v2_60", "gio-sys/v2_62", "glib/v2_62"]
-v2_64 = ["v2_62", "gio-sys/v2_64", "glib/v2_64"]
-v2_66 = ["v2_64", "gio-sys/v2_66", "glib/v2_66"]
-dox = ["gio-sys/dox", "glib/dox"]
+v2_44 = ["ffi/v2_44", "glib/v2_44"]
+v2_46 = ["v2_44", "ffi/v2_46", "glib/v2_46"]
+v2_48 = ["v2_46", "ffi/v2_48", "glib/v2_48"]
+v2_50 = ["v2_48", "ffi/v2_50", "glib/v2_50"]
+v2_52 = ["v2_50", "ffi/v2_52", "glib/v2_52"]
+v2_54 = ["v2_52", "ffi/v2_54", "glib/v2_54"]
+v2_56 = ["v2_54", "ffi/v2_56", "glib/v2_56"]
+v2_58 = ["v2_56", "ffi/v2_58", "glib/v2_58"]
+v2_60 = ["v2_58", "ffi/v2_60", "glib/v2_60"]
+v2_62 = ["v2_60", "ffi/v2_62", "glib/v2_62"]
+v2_64 = ["v2_62", "ffi/v2_64", "glib/v2_64"]
+v2_66 = ["v2_64", "ffi/v2_66", "glib/v2_66"]
+dox = ["ffi/dox", "glib/dox"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 
@@ -51,7 +52,7 @@ futures-core = "0.3"
 futures-channel = "0.3"
 futures-util = "0.3"
 futures-io = "0.3"
-gio-sys = { path = "../gio/sys" }
+ffi = { package = "gio-sys", path = "sys" }
 glib-sys = { path = "../glib/sys" }
 glib = { path = "../glib" }
 gobject-sys = { path = "../glib/gobject-sys" }

@@ -2,7 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gio_sys;
 use glib_sys;
 
 use glib::subclass::prelude::*;
@@ -10,8 +9,8 @@ use glib::translate::*;
 
 use glib::{Cast, Error};
 
-use Cancellable;
-use InputStream;
+use crate::Cancellable;
+use crate::InputStream;
 
 use std::mem;
 use std::ptr;
@@ -71,7 +70,7 @@ impl<T: InputStreamImpl> InputStreamImplExt for T {
     ) -> Result<usize, Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GInputStreamClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GInputStreamClass;
             let f = (*parent_class)
                 .read_fn
                 .expect("No parent class implementation for \"read\"");
@@ -101,7 +100,7 @@ impl<T: InputStreamImpl> InputStreamImplExt for T {
     ) -> Result<(), Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GInputStreamClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GInputStreamClass;
             let mut err = ptr::null_mut();
             if let Some(f) = (*parent_class).close_fn {
                 if from_glib(f(
@@ -127,7 +126,7 @@ impl<T: InputStreamImpl> InputStreamImplExt for T {
     ) -> Result<usize, Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GInputStreamClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GInputStreamClass;
             let mut err = ptr::null_mut();
             let f = (*parent_class)
                 .skip
@@ -162,10 +161,10 @@ unsafe impl<T: InputStreamImpl> IsSubclassable<T> for InputStream {
 }
 
 unsafe extern "C" fn stream_read<T: InputStreamImpl>(
-    ptr: *mut gio_sys::GInputStream,
+    ptr: *mut ffi::GInputStream,
     buffer: glib_sys::gpointer,
     count: usize,
-    cancellable: *mut gio_sys::GCancellable,
+    cancellable: *mut ffi::GCancellable,
     err: *mut *mut glib_sys::GError,
 ) -> isize {
     use std::isize;
@@ -198,8 +197,8 @@ unsafe extern "C" fn stream_read<T: InputStreamImpl>(
 }
 
 unsafe extern "C" fn stream_close<T: InputStreamImpl>(
-    ptr: *mut gio_sys::GInputStream,
-    cancellable: *mut gio_sys::GCancellable,
+    ptr: *mut ffi::GInputStream,
+    cancellable: *mut ffi::GCancellable,
     err: *mut *mut glib_sys::GError,
 ) -> glib_sys::gboolean {
     let instance = &*(ptr as *mut T::Instance);
@@ -222,9 +221,9 @@ unsafe extern "C" fn stream_close<T: InputStreamImpl>(
 }
 
 unsafe extern "C" fn stream_skip<T: InputStreamImpl>(
-    ptr: *mut gio_sys::GInputStream,
+    ptr: *mut ffi::GInputStream,
     count: usize,
-    cancellable: *mut gio_sys::GCancellable,
+    cancellable: *mut ffi::GCancellable,
     err: *mut *mut glib_sys::GError,
 ) -> isize {
     use std::isize;

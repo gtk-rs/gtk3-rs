@@ -1,6 +1,6 @@
+use crate::auto::TlsConnection;
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 use auto::TlsChannelBindingType;
-use auto::TlsConnection;
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 use glib::translate::*;
 use glib::IsA;
@@ -26,7 +26,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionManualExt for O {
         unsafe {
             let data = ptr::null_mut();
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_tls_connection_get_channel_binding_data(
+            let _ = ffi::g_tls_connection_get_channel_binding_data(
                 self.as_ptr() as *mut _,
                 type_.to_glib(),
                 data,

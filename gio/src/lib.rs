@@ -7,26 +7,7 @@
 #![allow(clippy::missing_safety_doc)]
 #![allow(deprecated)]
 
-#[macro_use]
-extern crate bitflags;
-extern crate once_cell;
-#[macro_use]
-extern crate glib;
-#[cfg_attr(test, macro_use)]
-#[cfg(test)]
-extern crate serial_test_derive;
-
-#[doc(hidden)]
-pub extern crate gio_sys;
-pub use gio_sys as ffi;
-extern crate glib_sys;
-extern crate gobject_sys;
-extern crate libc;
-
-extern crate futures_channel;
-extern crate futures_core;
-extern crate futures_io;
-extern crate futures_util;
+pub use ffi;
 
 mod app_info;
 mod application;
@@ -35,9 +16,9 @@ mod cancellable;
 mod converter;
 mod data_input_stream;
 mod dbus;
-pub use dbus::*;
+pub use self::dbus::*;
 mod dbus_connection;
-pub use dbus_connection::{
+pub use self::dbus_connection::{
     ActionGroupExportId, FilterId, MenuModelExportId, RegistrationId, SignalSubscriptionId,
     WatcherId,
 };
@@ -48,26 +29,26 @@ mod desktop_app_info;
 mod error;
 mod file;
 mod file_attribute_matcher;
-pub use file_attribute_matcher::FileAttributematcherIter;
+pub use crate::file_attribute_matcher::FileAttributematcherIter;
 mod file_enumerator;
 mod file_info;
 mod flags;
 mod inet_address;
 mod inet_socket_address;
 mod io_stream;
-pub use io_stream::IOStreamAsyncReadWrite;
+pub use crate::io_stream::IOStreamAsyncReadWrite;
 mod input_stream;
-pub use input_stream::{InputStreamAsyncBufRead, InputStreamRead};
+pub use crate::input_stream::{InputStreamAsyncBufRead, InputStreamRead};
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 mod list_store;
 mod memory_input_stream;
 mod memory_output_stream;
 mod output_stream;
-pub use output_stream::OutputStreamWrite;
+pub use crate::output_stream::OutputStreamWrite;
 mod pollable_input_stream;
-pub use pollable_input_stream::InputStreamAsyncRead;
+pub use crate::pollable_input_stream::InputStreamAsyncRead;
 mod pollable_output_stream;
-pub use pollable_output_stream::OutputStreamAsyncWrite;
+pub use crate::pollable_output_stream::OutputStreamAsyncWrite;
 mod resource;
 mod settings;
 mod socket;
@@ -88,13 +69,13 @@ mod unix_mount_point;
 mod unix_output_stream;
 #[cfg(any(unix, feature = "dox"))]
 mod unix_socket_address;
-pub use inet_address::InetAddressBytes;
+pub use crate::inet_address::InetAddressBytes;
 
 #[cfg(test)]
 mod test_util;
 
-pub use auto::functions::*;
-pub use auto::*;
+pub use crate::auto::functions::*;
+pub use crate::auto::*;
 
 pub mod prelude;
 
@@ -107,13 +88,13 @@ pub mod prelude;
 mod auto;
 
 mod gio_future;
-pub use gio_future::*;
+pub use crate::gio_future::*;
 
 #[macro_use]
 pub mod subclass;
 mod read_input_stream;
-pub use read_input_stream::ReadInputStream;
+pub use crate::read_input_stream::ReadInputStream;
 mod write_output_stream;
-pub use write_output_stream::WriteOutputStream;
+pub use crate::write_output_stream::WriteOutputStream;
 mod tls_connection;
-pub use tls_connection::TlsConnectionManualExt;
+pub use crate::tls_connection::TlsConnectionManualExt;

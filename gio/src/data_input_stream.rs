@@ -2,18 +2,15 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gio_sys;
+use crate::Cancellable;
+use crate::DataInputStream;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::GString;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::mem;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
-use DataInputStream;
 
 pub trait DataInputStreamExtManual: 'static {
     fn read_line<P: IsA<Cancellable>>(
@@ -114,7 +111,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExtManual for O {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_data_input_stream_read_line(
+            let ret = ffi::g_data_input_stream_read_line(
                 self.as_ref().to_glib_none().0,
                 length.as_mut_ptr(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -142,13 +139,13 @@ impl<O: IsA<DataInputStream>> DataInputStreamExtManual for O {
         unsafe extern "C" fn read_line_async_trampoline<
             Q: FnOnce(Result<Vec<u8>, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let mut length = mem::MaybeUninit::uninit();
-            let ret = gio_sys::g_data_input_stream_read_line_finish(
+            let ret = ffi::g_data_input_stream_read_line_finish(
                 _source_object as *mut _,
                 res,
                 length.as_mut_ptr(),
@@ -165,7 +162,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExtManual for O {
         }
         let callback = read_line_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_data_input_stream_read_line_async(
+            ffi::g_data_input_stream_read_line_async(
                 self.as_ref().to_glib_none().0,
                 io_priority.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -195,7 +192,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExtManual for O {
     ) -> Result<Option<GString>, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_data_input_stream_read_line_utf8(
+            let ret = ffi::g_data_input_stream_read_line_utf8(
                 self.as_ref().to_glib_none().0,
                 ptr::null_mut(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -222,12 +219,12 @@ impl<O: IsA<DataInputStream>> DataInputStreamExtManual for O {
         unsafe extern "C" fn read_line_async_trampoline<
             Q: FnOnce(Result<Option<GString>, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_data_input_stream_read_line_finish(
+            let ret = ffi::g_data_input_stream_read_line_finish(
                 _source_object as *mut _,
                 res,
                 ptr::null_mut(),
@@ -243,7 +240,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExtManual for O {
         }
         let callback = read_line_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_data_input_stream_read_line_async(
+            ffi::g_data_input_stream_read_line_async(
                 self.as_ref().to_glib_none().0,
                 io_priority.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -284,7 +281,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExtManual for O {
         unsafe {
             let mut error = ptr::null_mut();
             let mut length = mem::MaybeUninit::uninit();
-            let ret = gio_sys::g_data_input_stream_read_until(
+            let ret = ffi::g_data_input_stream_read_until(
                 self.as_ref().to_glib_none().0,
                 stop_chars.to_glib_none().0 as *const _,
                 length.as_mut_ptr(),
@@ -317,13 +314,13 @@ impl<O: IsA<DataInputStream>> DataInputStreamExtManual for O {
         unsafe extern "C" fn read_until_async_trampoline<
             Q: FnOnce(Result<Vec<u8>, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let mut length = mem::MaybeUninit::uninit();
-            let ret = gio_sys::g_data_input_stream_read_until_finish(
+            let ret = ffi::g_data_input_stream_read_until_finish(
                 _source_object as *mut _,
                 res,
                 length.as_mut_ptr(),
@@ -351,7 +348,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExtManual for O {
 
         let callback = read_until_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_data_input_stream_read_until_async(
+            ffi::g_data_input_stream_read_until_async(
                 self.as_ref().to_glib_none().0,
                 stop_chars.to_glib_none().0 as *const _,
                 io_priority.to_glib(),
@@ -387,7 +384,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExtManual for O {
         unsafe {
             let mut error = ptr::null_mut();
             let mut length = mem::MaybeUninit::uninit();
-            let ret = gio_sys::g_data_input_stream_read_upto(
+            let ret = ffi::g_data_input_stream_read_upto(
                 self.as_ref().to_glib_none().0,
                 stop_chars.to_glib_none().0 as *const _,
                 stop_chars_len,
@@ -422,13 +419,13 @@ impl<O: IsA<DataInputStream>> DataInputStreamExtManual for O {
         unsafe extern "C" fn read_upto_async_trampoline<
             Q: FnOnce(Result<Vec<u8>, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let mut length = mem::MaybeUninit::uninit();
-            let ret = gio_sys::g_data_input_stream_read_upto_finish(
+            let ret = ffi::g_data_input_stream_read_upto_finish(
                 _source_object as *mut _,
                 res,
                 length.as_mut_ptr(),
@@ -448,7 +445,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExtManual for O {
         }
         let callback = read_upto_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_data_input_stream_read_upto_async(
+            ffi::g_data_input_stream_read_upto_async(
                 self.as_ref().to_glib_none().0,
                 stop_chars.to_glib_none().0 as *const _,
                 stop_chars_len,

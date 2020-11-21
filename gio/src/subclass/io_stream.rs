@@ -2,7 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gio_sys;
 use glib_sys;
 
 use glib::prelude::*;
@@ -11,8 +10,8 @@ use glib::translate::*;
 
 use glib::{Cast, Error};
 
-use Cancellable;
-use IOStream;
+use crate::Cancellable;
+use crate::IOStream;
 
 use std::mem;
 use std::ptr;
@@ -49,7 +48,7 @@ impl<T: IOStreamImpl> IOStreamImplExt for T {
     fn parent_get_input_stream(&self, stream: &Self::Type) -> crate::InputStream {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GIOStreamClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GIOStreamClass;
             let f = (*parent_class)
                 .get_input_stream
                 .expect("No parent class implementation for \"get_input_stream\"");
@@ -60,7 +59,7 @@ impl<T: IOStreamImpl> IOStreamImplExt for T {
     fn parent_get_output_stream(&self, stream: &Self::Type) -> crate::OutputStream {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GIOStreamClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GIOStreamClass;
             let f = (*parent_class)
                 .get_output_stream
                 .expect("No parent class implementation for \"get_output_stream\"");
@@ -75,7 +74,7 @@ impl<T: IOStreamImpl> IOStreamImplExt for T {
     ) -> Result<(), Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GIOStreamClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GIOStreamClass;
             let mut err = ptr::null_mut();
             if let Some(f) = (*parent_class).close_fn {
                 if from_glib(f(
@@ -111,8 +110,8 @@ static INPUT_STREAM_QUARK: Lazy<glib::Quark> =
     Lazy::new(|| glib::Quark::from_string("gtk-rs-subclass-input-stream"));
 
 unsafe extern "C" fn stream_get_input_stream<T: IOStreamImpl>(
-    ptr: *mut gio_sys::GIOStream,
-) -> *mut gio_sys::GInputStream {
+    ptr: *mut ffi::GIOStream,
+) -> *mut ffi::GInputStream {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
@@ -145,8 +144,8 @@ unsafe extern "C" fn stream_get_input_stream<T: IOStreamImpl>(
 }
 
 unsafe extern "C" fn stream_get_output_stream<T: IOStreamImpl>(
-    ptr: *mut gio_sys::GIOStream,
-) -> *mut gio_sys::GOutputStream {
+    ptr: *mut ffi::GIOStream,
+) -> *mut ffi::GOutputStream {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
@@ -179,8 +178,8 @@ unsafe extern "C" fn stream_get_output_stream<T: IOStreamImpl>(
 }
 
 unsafe extern "C" fn stream_close<T: IOStreamImpl>(
-    ptr: *mut gio_sys::GIOStream,
-    cancellable: *mut gio_sys::GCancellable,
+    ptr: *mut ffi::GIOStream,
+    cancellable: *mut ffi::GCancellable,
     err: *mut *mut glib_sys::GError,
 ) -> glib_sys::gboolean {
     let instance = &*(ptr as *mut T::Instance);
