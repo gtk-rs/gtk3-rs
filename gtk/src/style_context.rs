@@ -2,11 +2,11 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::StateFlags;
+use crate::StyleContext;
+use crate::StyleContextExt;
 use glib::object::IsA;
 use pango::FontDescription;
-use StateFlags;
-use StyleContext;
-use StyleContextExt;
 
 pub trait StyleContextExtManual: 'static {
     fn get_font(&self, state: StateFlags) -> FontDescription;

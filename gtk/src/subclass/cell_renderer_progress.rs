@@ -1,8 +1,8 @@
 use glib::subclass::prelude::*;
 
 use super::cell_renderer::CellRendererImpl;
-use CellRenderer;
-use CellRendererProgress;
+use crate::CellRenderer;
+use crate::CellRendererProgress;
 
 pub trait CellRendererProgressImpl: CellRendererImpl {}
 

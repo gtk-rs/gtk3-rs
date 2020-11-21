@@ -1,8 +1,8 @@
 use glib::subclass::prelude::*;
 
 use super::widget::WidgetImpl;
-use DrawingArea;
-use Widget;
+use crate::DrawingArea;
+use crate::Widget;
 
 pub trait DrawingAreaImpl: WidgetImpl {}
 

@@ -1,7 +1,6 @@
+use crate::IconSize;
+use crate::ResponseType;
 use glib::translate::{from_glib, ToGlib};
-use gtk_sys;
-use IconSize;
-use ResponseType;
 
 impl IconSize {
     pub fn unscaled() -> IconSize {
@@ -20,7 +19,7 @@ impl From<IconSize> for i32 {
 impl From<i32> for IconSize {
     fn from(val: i32) -> Self {
         skip_assert_initialized!();
-        from_glib(val as gtk_sys::GtkIconSize)
+        from_glib(val as ffi::GtkIconSize)
     }
 }
 
@@ -34,6 +33,6 @@ impl From<ResponseType> for i32 {
 impl From<i32> for ResponseType {
     fn from(val: i32) -> Self {
         skip_assert_initialized!();
-        from_glib(val as gtk_sys::GtkResponseType)
+        from_glib(val as ffi::GtkResponseType)
     }
 }

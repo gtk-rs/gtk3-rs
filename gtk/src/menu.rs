@@ -2,16 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::Menu;
+use crate::Widget;
 use glib::object::Cast;
 use glib::translate::*;
 use glib::IsA;
-use glib_sys;
-use gtk_sys;
 use libc::c_int;
 use std::boxed::Box as Box_;
 use std::ptr;
-use Menu;
-use Widget;
 
 pub trait GtkMenuExtManual: 'static {
     fn popup<T: IsA<Widget>, U: IsA<Widget>, F: Fn(&Self, &mut i32, &mut i32) -> bool + 'static>(
@@ -43,11 +41,11 @@ impl<O: IsA<Menu>> GtkMenuExtManual for O {
             T,
             F: FnOnce(&T, &mut i32, &mut i32) -> bool + 'static,
         >(
-            this: *mut gtk_sys::GtkMenu,
+            this: *mut ffi::GtkMenu,
             x: *mut c_int,
             y: *mut c_int,
-            push_in: *mut glib_sys::gboolean,
-            f: glib_sys::gpointer,
+            push_in: *mut glib::ffi::gboolean,
+            f: glib::ffi::gpointer,
         ) where
             T: IsA<Menu>,
         {
@@ -62,7 +60,7 @@ impl<O: IsA<Menu>> GtkMenuExtManual for O {
         }
         unsafe {
             let f: Box_<Option<F>> = Box_::new(Some(f));
-            gtk_sys::gtk_menu_popup(
+            ffi::gtk_menu_popup(
                 self.as_ref().to_glib_none().0,
                 parent_menu_shell.map(|p| p.as_ref()).to_glib_none().0,
                 parent_menu_item.map(|p| p.as_ref()).to_glib_none().0,
@@ -76,7 +74,7 @@ impl<O: IsA<Menu>> GtkMenuExtManual for O {
 
     fn popup_easy(&self, button: u32, activate_time: u32) {
         unsafe {
-            gtk_sys::gtk_menu_popup(
+            ffi::gtk_menu_popup(
                 self.as_ref().to_glib_none().0,
                 ptr::null_mut(),
                 ptr::null_mut(),

@@ -1,5 +1,3 @@
-use gtk_sys;
-
 use glib::translate::*;
 
 use glib::subclass::prelude::*;
@@ -7,9 +5,9 @@ use glib::subclass::prelude::*;
 use glib::Cast;
 
 use super::widget::WidgetImpl;
-use Container;
-use Widget;
-use WidgetPath;
+use crate::Container;
+use crate::Widget;
+use crate::WidgetPath;
 
 pub trait ContainerImpl: ContainerImplExt + WidgetImpl {
     fn add(&self, container: &Self::Type, widget: &Widget) {
@@ -55,7 +53,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
     fn parent_add(&self, container: &Self::Type, widget: &Widget) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkContainerClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).add {
                 f(
                     container.unsafe_cast_ref::<Container>().to_glib_none().0,
@@ -68,7 +66,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
     fn parent_remove(&self, container: &Self::Type, widget: &Widget) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkContainerClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).remove {
                 f(
                     container.unsafe_cast_ref::<Container>().to_glib_none().0,
@@ -81,7 +79,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
     fn parent_check_resize(&self, container: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkContainerClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).check_resize {
                 f(container.unsafe_cast_ref::<Container>().to_glib_none().0)
             }
@@ -91,7 +89,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
     fn parent_set_focus_child(&self, container: &Self::Type, widget: Option<&Widget>) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkContainerClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).set_focus_child {
                 f(
                     container.unsafe_cast_ref::<Container>().to_glib_none().0,
@@ -104,7 +102,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
     fn parent_child_type(&self, container: &Self::Type) -> glib::Type {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkContainerClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).child_type {
                 from_glib(f(container.unsafe_cast_ref::<Container>().to_glib_none().0))
             } else {
@@ -116,7 +114,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
     fn parent_get_path_for_child(&self, container: &Self::Type, widget: &Widget) -> WidgetPath {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkContainerClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkContainerClass;
             let f = (*parent_class)
                 .get_path_for_child
                 .expect("No parent class impl for \"get_path_for_child\"");
@@ -130,7 +128,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
     fn parent_forall(&self, container: &Self::Type, include_internals: bool, callback: &Callback) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkContainerClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).forall {
                 f(
                     container.unsafe_cast_ref::<Container>().to_glib_none().0,
@@ -159,8 +157,8 @@ unsafe impl<T: ContainerImpl> IsSubclassable<T> for Container {
 }
 
 unsafe extern "C" fn container_add<T: ContainerImpl>(
-    ptr: *mut gtk_sys::GtkContainer,
-    wdgtptr: *mut gtk_sys::GtkWidget,
+    ptr: *mut ffi::GtkContainer,
+    wdgtptr: *mut ffi::GtkWidget,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -171,8 +169,8 @@ unsafe extern "C" fn container_add<T: ContainerImpl>(
 }
 
 unsafe extern "C" fn container_remove<T: ContainerImpl>(
-    ptr: *mut gtk_sys::GtkContainer,
-    wdgtptr: *mut gtk_sys::GtkWidget,
+    ptr: *mut ffi::GtkContainer,
+    wdgtptr: *mut ffi::GtkWidget,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -182,7 +180,7 @@ unsafe extern "C" fn container_remove<T: ContainerImpl>(
     imp.remove(wrap.unsafe_cast_ref(), &widget)
 }
 
-unsafe extern "C" fn container_check_resize<T: ContainerImpl>(ptr: *mut gtk_sys::GtkContainer) {
+unsafe extern "C" fn container_check_resize<T: ContainerImpl>(ptr: *mut ffi::GtkContainer) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
@@ -191,8 +189,8 @@ unsafe extern "C" fn container_check_resize<T: ContainerImpl>(ptr: *mut gtk_sys:
 }
 
 unsafe extern "C" fn container_set_focus_child<T: ContainerImpl>(
-    ptr: *mut gtk_sys::GtkContainer,
-    wdgtptr: *mut gtk_sys::GtkWidget,
+    ptr: *mut ffi::GtkContainer,
+    wdgtptr: *mut ffi::GtkWidget,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -203,8 +201,8 @@ unsafe extern "C" fn container_set_focus_child<T: ContainerImpl>(
 }
 
 unsafe extern "C" fn container_child_type<T: ContainerImpl>(
-    ptr: *mut gtk_sys::GtkContainer,
-) -> glib_sys::GType {
+    ptr: *mut ffi::GtkContainer,
+) -> glib::ffi::GType {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
@@ -213,9 +211,9 @@ unsafe extern "C" fn container_child_type<T: ContainerImpl>(
 }
 
 unsafe extern "C" fn container_get_path_for_child<T: ContainerImpl>(
-    ptr: *mut gtk_sys::GtkContainer,
-    wdgtptr: *mut gtk_sys::GtkWidget,
-) -> *mut gtk_sys::GtkWidgetPath {
+    ptr: *mut ffi::GtkContainer,
+    wdgtptr: *mut ffi::GtkWidget,
+) -> *mut ffi::GtkWidgetPath {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Container> = from_glib_borrow(ptr);
@@ -227,10 +225,10 @@ unsafe extern "C" fn container_get_path_for_child<T: ContainerImpl>(
 }
 
 unsafe extern "C" fn container_forall<T: ObjectSubclass>(
-    ptr: *mut gtk_sys::GtkContainer,
-    include_internals: glib_sys::gboolean,
-    callback: gtk_sys::GtkCallback,
-    user_data: glib_sys::gpointer,
+    ptr: *mut ffi::GtkContainer,
+    include_internals: glib::ffi::gboolean,
+    callback: ffi::GtkCallback,
+    user_data: glib::ffi::gpointer,
 ) where
     T: ContainerImpl,
 {
@@ -251,8 +249,8 @@ unsafe extern "C" fn container_forall<T: ObjectSubclass>(
 
 #[derive(Debug)]
 pub struct Callback {
-    callback: gtk_sys::GtkCallback,
-    user_data: glib_sys::gpointer,
+    callback: ffi::GtkCallback,
+    user_data: glib::ffi::gpointer,
 }
 
 impl Callback {

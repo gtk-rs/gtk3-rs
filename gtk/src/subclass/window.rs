@@ -1,5 +1,3 @@
-use gtk_sys;
-
 use glib::translate::*;
 
 use glib::subclass::prelude::*;
@@ -7,9 +5,9 @@ use glib::subclass::prelude::*;
 use glib::Cast;
 
 use super::bin::BinImpl;
-use Bin;
-use Widget;
-use Window;
+use crate::Bin;
+use crate::Widget;
+use crate::Window;
 
 pub trait WindowImpl: WindowImplExt + BinImpl {
     fn set_focus(&self, window: &Self::Type, focus: Option<&Widget>) {
@@ -45,7 +43,7 @@ impl<T: WindowImpl> WindowImplExt for T {
     fn parent_set_focus(&self, window: &Self::Type, focus: Option<&Widget>) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWindowClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWindowClass;
             if let Some(f) = (*parent_class).set_focus {
                 f(
                     window.unsafe_cast_ref::<Window>().to_glib_none().0,
@@ -58,7 +56,7 @@ impl<T: WindowImpl> WindowImplExt for T {
     fn parent_activate_focus(&self, window: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWindowClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWindowClass;
             if let Some(f) = (*parent_class).activate_focus {
                 f(window.unsafe_cast_ref::<Window>().to_glib_none().0)
             }
@@ -68,7 +66,7 @@ impl<T: WindowImpl> WindowImplExt for T {
     fn parent_activate_default(&self, window: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWindowClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWindowClass;
             if let Some(f) = (*parent_class).activate_default {
                 f(window.unsafe_cast_ref::<Window>().to_glib_none().0)
             }
@@ -78,7 +76,7 @@ impl<T: WindowImpl> WindowImplExt for T {
     fn parent_keys_changed(&self, window: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWindowClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWindowClass;
             if let Some(f) = (*parent_class).keys_changed {
                 f(window.unsafe_cast_ref::<Window>().to_glib_none().0)
             }
@@ -88,7 +86,7 @@ impl<T: WindowImpl> WindowImplExt for T {
     fn parent_enable_debugging(&self, window: &Self::Type, toggle: bool) -> bool {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWindowClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWindowClass;
             if let Some(f) = (*parent_class).enable_debugging {
                 from_glib(f(
                     window.unsafe_cast_ref::<Window>().to_glib_none().0,
@@ -115,8 +113,8 @@ unsafe impl<T: WindowImpl> IsSubclassable<T> for Window {
 }
 
 unsafe extern "C" fn window_set_focus<T: WindowImpl>(
-    ptr: *mut gtk_sys::GtkWindow,
-    widgetptr: *mut gtk_sys::GtkWidget,
+    ptr: *mut ffi::GtkWindow,
+    widgetptr: *mut ffi::GtkWidget,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -126,7 +124,7 @@ unsafe extern "C" fn window_set_focus<T: WindowImpl>(
     imp.set_focus(wrap.unsafe_cast_ref(), widget.as_ref().as_ref())
 }
 
-unsafe extern "C" fn window_activate_focus<T: WindowImpl>(ptr: *mut gtk_sys::GtkWindow) {
+unsafe extern "C" fn window_activate_focus<T: WindowImpl>(ptr: *mut ffi::GtkWindow) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Window> = from_glib_borrow(ptr);
@@ -134,7 +132,7 @@ unsafe extern "C" fn window_activate_focus<T: WindowImpl>(ptr: *mut gtk_sys::Gtk
     imp.activate_focus(wrap.unsafe_cast_ref())
 }
 
-unsafe extern "C" fn window_activate_default<T: WindowImpl>(ptr: *mut gtk_sys::GtkWindow) {
+unsafe extern "C" fn window_activate_default<T: WindowImpl>(ptr: *mut ffi::GtkWindow) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Window> = from_glib_borrow(ptr);
@@ -142,7 +140,7 @@ unsafe extern "C" fn window_activate_default<T: WindowImpl>(ptr: *mut gtk_sys::G
     imp.activate_default(wrap.unsafe_cast_ref())
 }
 
-unsafe extern "C" fn window_keys_changed<T: WindowImpl>(ptr: *mut gtk_sys::GtkWindow) {
+unsafe extern "C" fn window_keys_changed<T: WindowImpl>(ptr: *mut ffi::GtkWindow) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Window> = from_glib_borrow(ptr);
@@ -151,9 +149,9 @@ unsafe extern "C" fn window_keys_changed<T: WindowImpl>(ptr: *mut gtk_sys::GtkWi
 }
 
 unsafe extern "C" fn window_enable_debugging<T: WindowImpl>(
-    ptr: *mut gtk_sys::GtkWindow,
-    toggleptr: glib_sys::gboolean,
-) -> glib_sys::gboolean {
+    ptr: *mut ffi::GtkWindow,
+    toggleptr: glib::ffi::gboolean,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Window> = from_glib_borrow(ptr);

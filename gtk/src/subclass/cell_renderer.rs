@@ -1,7 +1,5 @@
 use cairo_sys;
 use gdk_sys;
-use glib_sys;
-use gtk_sys;
 
 use libc::{c_char, c_int};
 use std::mem;
@@ -14,11 +12,11 @@ use glib::Cast;
 use glib::GString;
 use glib::Object;
 
-use CellEditable;
-use CellRenderer;
-use CellRendererState;
-use SizeRequestMode;
-use Widget;
+use crate::CellEditable;
+use crate::CellRenderer;
+use crate::CellRendererState;
+use crate::SizeRequestMode;
+use crate::Widget;
 
 pub trait CellRendererImpl: CellRendererImplExt + ObjectImpl {
     fn get_request_mode(&self, renderer: &Self::Type) -> SizeRequestMode {
@@ -196,8 +194,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     fn parent_get_request_mode(&self, renderer: &Self::Type) -> SizeRequestMode {
         unsafe {
             let data = T::type_data();
-            let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
             let f = (*parent_class).get_request_mode.unwrap();
             from_glib(f(renderer
                 .unsafe_cast_ref::<CellRenderer>()
@@ -213,8 +210,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     ) -> (i32, i32) {
         unsafe {
             let data = T::type_data();
-            let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
             let f = (*parent_class).get_preferred_width.unwrap();
 
             let mut minimum_size = mem::MaybeUninit::uninit();
@@ -237,8 +233,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     ) -> (i32, i32) {
         unsafe {
             let data = T::type_data();
-            let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
             let f = (*parent_class).get_preferred_width_for_height.unwrap();
 
             let mut minimum_size = mem::MaybeUninit::uninit();
@@ -260,8 +255,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     ) -> (i32, i32) {
         unsafe {
             let data = T::type_data();
-            let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
             let f = (*parent_class).get_preferred_height.unwrap();
             let mut minimum_size = mem::MaybeUninit::uninit();
             let mut natural_size = mem::MaybeUninit::uninit();
@@ -282,8 +276,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     ) -> (i32, i32) {
         unsafe {
             let data = T::type_data();
-            let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
             let f = (*parent_class).get_preferred_height_for_width.unwrap();
             let mut minimum_size = mem::MaybeUninit::uninit();
             let mut natural_size = mem::MaybeUninit::uninit();
@@ -307,8 +300,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     ) -> gdk::Rectangle {
         unsafe {
             let data = T::type_data();
-            let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
             let mut aligned_area = gdk::Rectangle::uninitialized();
             let f = (*parent_class).get_aligned_area.unwrap();
             f(
@@ -333,8 +325,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     ) {
         unsafe {
             let data = T::type_data();
-            let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
             if let Some(f) = (*parent_class).render {
                 f(
                     renderer.unsafe_cast_ref::<CellRenderer>().to_glib_none().0,
@@ -360,8 +351,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     ) -> bool {
         unsafe {
             let data = T::type_data();
-            let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
             if let Some(f) = (*parent_class).activate {
                 from_glib(f(
                     renderer.unsafe_cast_ref::<CellRenderer>().to_glib_none().0,
@@ -390,8 +380,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     ) -> Option<CellEditable> {
         unsafe {
             let data = T::type_data();
-            let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
             if let Some(f) = (*parent_class).start_editing {
                 from_glib_none(f(
                     renderer.unsafe_cast_ref::<CellRenderer>().to_glib_none().0,
@@ -411,8 +400,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     fn parent_editing_canceled(&self, renderer: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
             if let Some(f) = (*parent_class).editing_canceled {
                 f(renderer.unsafe_cast_ref::<CellRenderer>().to_glib_none().0)
             }
@@ -422,8 +410,7 @@ impl<T: CellRendererImpl> CellRendererImplExt for T {
     fn parent_editing_started(&self, renderer: &Self::Type, editable: &CellEditable, path: &str) {
         unsafe {
             let data = T::type_data();
-            let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererClass;
             if let Some(f) = (*parent_class).editing_started {
                 f(
                     renderer.unsafe_cast_ref::<CellRenderer>().to_glib_none().0,
@@ -457,8 +444,8 @@ unsafe impl<T: CellRendererImpl> IsSubclassable<T> for CellRenderer {
 }
 
 unsafe extern "C" fn cell_renderer_get_request_mode<T: CellRendererImpl>(
-    ptr: *mut gtk_sys::GtkCellRenderer,
-) -> gtk_sys::GtkSizeRequestMode {
+    ptr: *mut ffi::GtkCellRenderer,
+) -> ffi::GtkSizeRequestMode {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<CellRenderer> = from_glib_borrow(ptr);
@@ -467,8 +454,8 @@ unsafe extern "C" fn cell_renderer_get_request_mode<T: CellRendererImpl>(
 }
 
 unsafe extern "C" fn cell_renderer_get_preferred_width<T: CellRendererImpl>(
-    ptr: *mut gtk_sys::GtkCellRenderer,
-    wdgtptr: *mut gtk_sys::GtkWidget,
+    ptr: *mut ffi::GtkCellRenderer,
+    wdgtptr: *mut ffi::GtkWidget,
     minptr: *mut c_int,
     natptr: *mut c_int,
 ) {
@@ -487,8 +474,8 @@ unsafe extern "C" fn cell_renderer_get_preferred_width<T: CellRendererImpl>(
 }
 
 unsafe extern "C" fn cell_renderer_get_preferred_height_for_width<T: CellRendererImpl>(
-    ptr: *mut gtk_sys::GtkCellRenderer,
-    wdgtptr: *mut gtk_sys::GtkWidget,
+    ptr: *mut ffi::GtkCellRenderer,
+    wdgtptr: *mut ffi::GtkWidget,
     width: c_int,
     min_height_ptr: *mut c_int,
     nat_height_ptr: *mut c_int,
@@ -509,8 +496,8 @@ unsafe extern "C" fn cell_renderer_get_preferred_height_for_width<T: CellRendere
 }
 
 unsafe extern "C" fn cell_renderer_get_preferred_height<T: CellRendererImpl>(
-    ptr: *mut gtk_sys::GtkCellRenderer,
-    wdgtptr: *mut gtk_sys::GtkWidget,
+    ptr: *mut ffi::GtkCellRenderer,
+    wdgtptr: *mut ffi::GtkWidget,
     minptr: *mut c_int,
     natptr: *mut c_int,
 ) {
@@ -529,8 +516,8 @@ unsafe extern "C" fn cell_renderer_get_preferred_height<T: CellRendererImpl>(
 }
 
 unsafe extern "C" fn cell_renderer_get_preferred_width_for_height<T: CellRendererImpl>(
-    ptr: *mut gtk_sys::GtkCellRenderer,
-    wdgtptr: *mut gtk_sys::GtkWidget,
+    ptr: *mut ffi::GtkCellRenderer,
+    wdgtptr: *mut ffi::GtkWidget,
     height: c_int,
     min_width_ptr: *mut c_int,
     nat_width_ptr: *mut c_int,
@@ -551,9 +538,9 @@ unsafe extern "C" fn cell_renderer_get_preferred_width_for_height<T: CellRendere
 }
 
 unsafe extern "C" fn cell_renderer_get_aligned_area<T: CellRendererImpl>(
-    ptr: *mut gtk_sys::GtkCellRenderer,
-    wdgtptr: *mut gtk_sys::GtkWidget,
-    flags: gtk_sys::GtkCellRendererState,
+    ptr: *mut ffi::GtkCellRenderer,
+    wdgtptr: *mut ffi::GtkWidget,
+    flags: ffi::GtkCellRendererState,
     cellarea: *const gdk_sys::GdkRectangle,
     alignedptr: *mut gdk_sys::GdkRectangle,
 ) {
@@ -572,12 +559,12 @@ unsafe extern "C" fn cell_renderer_get_aligned_area<T: CellRendererImpl>(
 }
 
 unsafe extern "C" fn cell_renderer_render<T: CellRendererImpl>(
-    ptr: *mut gtk_sys::GtkCellRenderer,
+    ptr: *mut ffi::GtkCellRenderer,
     crptr: *mut cairo_sys::cairo_t,
-    wdgtptr: *mut gtk_sys::GtkWidget,
+    wdgtptr: *mut ffi::GtkWidget,
     bgptr: *const gdk_sys::GdkRectangle,
     cellptr: *const gdk_sys::GdkRectangle,
-    flags: gtk_sys::GtkCellRendererState,
+    flags: ffi::GtkCellRendererState,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -596,14 +583,14 @@ unsafe extern "C" fn cell_renderer_render<T: CellRendererImpl>(
 }
 
 unsafe extern "C" fn cell_renderer_activate<T: CellRendererImpl>(
-    ptr: *mut gtk_sys::GtkCellRenderer,
+    ptr: *mut ffi::GtkCellRenderer,
     evtptr: *mut gdk_sys::GdkEvent,
-    wdgtptr: *mut gtk_sys::GtkWidget,
+    wdgtptr: *mut ffi::GtkWidget,
     pathptr: *const c_char,
     bgptr: *const gdk_sys::GdkRectangle,
     cellptr: *const gdk_sys::GdkRectangle,
-    flags: gtk_sys::GtkCellRendererState,
-) -> glib_sys::gboolean {
+    flags: ffi::GtkCellRendererState,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<CellRenderer> = from_glib_borrow(ptr);
@@ -623,14 +610,14 @@ unsafe extern "C" fn cell_renderer_activate<T: CellRendererImpl>(
 }
 
 unsafe extern "C" fn cell_renderer_start_editing<T: CellRendererImpl>(
-    ptr: *mut gtk_sys::GtkCellRenderer,
+    ptr: *mut ffi::GtkCellRenderer,
     evtptr: *mut gdk_sys::GdkEvent,
-    wdgtptr: *mut gtk_sys::GtkWidget,
+    wdgtptr: *mut ffi::GtkWidget,
     pathptr: *const c_char,
     bgptr: *const gdk_sys::GdkRectangle,
     cellptr: *const gdk_sys::GdkRectangle,
-    flags: gtk_sys::GtkCellRendererState,
-) -> *mut gtk_sys::GtkCellEditable {
+    flags: ffi::GtkCellRendererState,
+) -> *mut ffi::GtkCellEditable {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<CellRenderer> = from_glib_borrow(ptr);
@@ -651,7 +638,7 @@ unsafe extern "C" fn cell_renderer_start_editing<T: CellRendererImpl>(
 }
 
 unsafe extern "C" fn cell_renderer_editing_canceled<T: CellRendererImpl>(
-    ptr: *mut gtk_sys::GtkCellRenderer,
+    ptr: *mut ffi::GtkCellRenderer,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -661,8 +648,8 @@ unsafe extern "C" fn cell_renderer_editing_canceled<T: CellRendererImpl>(
 }
 
 unsafe extern "C" fn cell_renderer_editing_started<T: CellRendererImpl>(
-    ptr: *mut gtk_sys::GtkCellRenderer,
-    editableptr: *mut gtk_sys::GtkCellEditable,
+    ptr: *mut ffi::GtkCellRenderer,
+    editableptr: *mut ffi::GtkCellEditable,
     pathptr: *const c_char,
 ) {
     let instance = &*(ptr as *mut T::Instance);

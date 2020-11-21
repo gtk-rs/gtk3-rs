@@ -1,8 +1,8 @@
 use glib::subclass::prelude::*;
 
 use super::cell_renderer_text::CellRendererTextImpl;
-use CellRendererSpin;
-use CellRendererText;
+use crate::CellRendererSpin;
+use crate::CellRendererText;
 
 pub trait CellRendererSpinImpl: CellRendererTextImpl {}
 

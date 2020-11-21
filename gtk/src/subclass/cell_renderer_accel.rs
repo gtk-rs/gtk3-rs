@@ -1,5 +1,4 @@
 use gdk_sys;
-use gtk_sys;
 
 use libc::{c_char, c_uint};
 
@@ -8,8 +7,8 @@ use glib::translate::*;
 use glib::{Cast, GString};
 
 use super::cell_renderer_text::CellRendererTextImpl;
-use CellRendererAccel;
-use CellRendererText;
+use crate::CellRendererAccel;
+use crate::CellRendererText;
 
 pub trait CellRendererAccelImpl: CellRendererAccelImplExt + CellRendererTextImpl {
     fn accel_edited(
@@ -52,7 +51,7 @@ impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
         unsafe {
             let data = T::type_data();
             let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererAccelClass;
+                data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererAccelClass;
             if let Some(f) = (*parent_class).accel_edited {
                 f(
                     renderer
@@ -72,7 +71,7 @@ impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
         unsafe {
             let data = T::type_data();
             let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererAccelClass;
+                data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererAccelClass;
             if let Some(f) = (*parent_class).accel_cleared {
                 f(
                     renderer
@@ -97,7 +96,7 @@ unsafe impl<T: CellRendererAccelImpl> IsSubclassable<T> for CellRendererAccel {
 }
 
 unsafe extern "C" fn cell_renderer_accel_edited<T: CellRendererAccelImpl>(
-    ptr: *mut gtk_sys::GtkCellRendererAccel,
+    ptr: *mut ffi::GtkCellRendererAccel,
     path: *const c_char,
     accel_key: c_uint,
     accel_mods: gdk_sys::GdkModifierType,
@@ -117,7 +116,7 @@ unsafe extern "C" fn cell_renderer_accel_edited<T: CellRendererAccelImpl>(
 }
 
 unsafe extern "C" fn cell_renderer_accel_cleared<T: CellRendererAccelImpl>(
-    ptr: *mut gtk_sys::GtkCellRendererAccel,
+    ptr: *mut ffi::GtkCellRendererAccel,
     path: *const c_char,
 ) {
     let instance = &*(ptr as *mut T::Instance);

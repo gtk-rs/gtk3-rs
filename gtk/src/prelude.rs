@@ -7,38 +7,38 @@
 #[doc(hidden)]
 pub use glib::prelude::*;
 
-pub use auto::traits::*;
+pub use crate::auto::traits::*;
 
-pub use accel_group::AccelGroupExtManual;
-pub use app_chooser::AppChooserExt;
-pub use buildable::BuildableExtManual;
-pub use builder::BuilderExtManual;
-pub use cell_renderer_pixbuf::CellRendererPixbufExtManual;
-pub use color_button::ColorButtonExtManual;
-pub use color_chooser::ColorChooserExtManual;
-pub use combo_box::ComboBoxExtManual;
-pub use dialog::DialogExtManual;
-pub use drag_context::DragContextExtManual;
-pub use entry::EntryExtManual;
-pub use entry_completion::EntryCompletionExtManual;
-pub use fixed::FixedExtManual;
+pub use crate::accel_group::AccelGroupExtManual;
+pub use crate::app_chooser::AppChooserExt;
+pub use crate::buildable::BuildableExtManual;
+pub use crate::builder::BuilderExtManual;
+pub use crate::cell_renderer_pixbuf::CellRendererPixbufExtManual;
+pub use crate::color_button::ColorButtonExtManual;
+pub use crate::color_chooser::ColorChooserExtManual;
+pub use crate::combo_box::ComboBoxExtManual;
+pub use crate::dialog::DialogExtManual;
+pub use crate::drag_context::DragContextExtManual;
+pub use crate::entry::EntryExtManual;
+pub use crate::entry_completion::EntryCompletionExtManual;
+pub use crate::fixed::FixedExtManual;
 #[cfg(any(feature = "v3_18", feature = "dox"))]
-pub use flow_box::FlowBoxExtManual;
+pub use crate::flow_box::FlowBoxExtManual;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
-pub use gesture_stylus::GestureStylusExtManual;
-pub use im_context_simple::IMContextSimpleExtManual;
-pub use invisible::InvisibleExtManual;
+pub use crate::gesture_stylus::GestureStylusExtManual;
+pub use crate::im_context_simple::IMContextSimpleExtManual;
+pub use crate::invisible::InvisibleExtManual;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
-pub use list_box::ListBoxExtManual;
-pub use list_store::GtkListStoreExtManual;
-pub use menu::GtkMenuExtManual;
-pub use notebook::NotebookExtManual;
-pub use style_context::StyleContextExtManual;
-pub use switch::SwitchExtManual;
-pub use text_buffer::TextBufferExtManual;
-pub use tree_sortable::TreeSortableExtManual;
-pub use tree_store::TreeStoreExtManual;
-pub use widget::WidgetExtManual;
-pub use window::GtkWindowExtManual;
+pub use crate::list_box::ListBoxExtManual;
+pub use crate::list_store::GtkListStoreExtManual;
+pub use crate::menu::GtkMenuExtManual;
+pub use crate::notebook::NotebookExtManual;
+pub use crate::style_context::StyleContextExtManual;
+pub use crate::switch::SwitchExtManual;
+pub use crate::text_buffer::TextBufferExtManual;
+pub use crate::tree_sortable::TreeSortableExtManual;
+pub use crate::tree_store::TreeStoreExtManual;
+pub use crate::widget::WidgetExtManual;
+pub use crate::window::GtkWindowExtManual;
 
-pub use signal::*;
+pub use crate::signal::*;

@@ -1,8 +1,8 @@
 use glib::subclass::prelude::*;
 
 use super::bin::BinImpl;
-use Bin;
-use EventBox;
+use crate::Bin;
+use crate::EventBox;
 
 pub trait EventBoxImpl: BinImpl {}
 

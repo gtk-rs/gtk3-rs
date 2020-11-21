@@ -2,17 +2,16 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use auto::DialogExt;
+use crate::auto::DialogExt;
+use crate::Dialog;
+use crate::DialogFlags;
+use crate::ResponseType;
+use crate::Widget;
+use crate::Window;
 use glib::object::Cast;
 use glib::translate::*;
 use glib::IsA;
-use gtk_sys;
 use std::ptr;
-use Dialog;
-use DialogFlags;
-use ResponseType;
-use Widget;
-use Window;
 
 impl Dialog {
     pub fn with_buttons<T: IsA<Window>>(
@@ -23,7 +22,7 @@ impl Dialog {
     ) -> Dialog {
         assert_initialized_main_thread!();
         let ret: Dialog = unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_dialog_new_with_buttons(
+            Widget::from_glib_none(ffi::gtk_dialog_new_with_buttons(
                 title.to_glib_none().0,
                 parent.map(|p| p.as_ref()).to_glib_none().0,
                 flags.to_glib(),

@@ -1,8 +1,8 @@
 use glib::subclass::prelude::*;
 
 use super::container::ContainerImpl;
-use Container;
-use HeaderBar;
+use crate::Container;
+use crate::HeaderBar;
 
 pub trait HeaderBarImpl: ContainerImpl {}
 

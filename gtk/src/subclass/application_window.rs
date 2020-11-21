@@ -1,8 +1,8 @@
 use glib::subclass::prelude::*;
 
 use super::window::WindowImpl;
-use ApplicationWindow;
-use Window;
+use crate::ApplicationWindow;
+use crate::Window;
 
 pub trait ApplicationWindowImpl: WindowImpl {}
 

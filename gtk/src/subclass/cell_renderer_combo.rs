@@ -1,8 +1,8 @@
 use glib::subclass::prelude::*;
 
 use super::cell_renderer_text::CellRendererTextImpl;
-use CellRendererCombo;
-use CellRendererText;
+use crate::CellRendererCombo;
+use crate::CellRendererText;
 
 pub trait CellRendererComboImpl: CellRendererTextImpl {}
 
