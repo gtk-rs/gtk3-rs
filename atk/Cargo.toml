@@ -14,6 +14,7 @@ build = "build.rs"
 exclude = [
     "gir-files/*",
 ]
+edition = "2018"
 
 [lib]
 name = "atk"
@@ -21,10 +22,10 @@ name = "atk"
 [features]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
-dox = ["atk-sys/dox"]
-v2_30 = ["atk-sys/v2_30"]
-v2_32 = ["v2_30", "atk-sys/v2_32"]
-v2_34 = ["v2_32", "atk-sys/v2_34"]
+dox = ["ffi/dox"]
+v2_30 = ["ffi/v2_30"]
+v2_32 = ["v2_30", "ffi/v2_32"]
+v2_34 = ["v2_32", "ffi/v2_34"]
 
 [package.metadata.docs.rs]
 features = ["dox", "embed-lgpl-docs"]
@@ -37,7 +38,7 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 [dependencies]
 libc = "0.2"
 bitflags = "1.0"
-atk-sys = { path = "sys" }
+ffi = { package = "atk-sys", path = "sys" }
 glib-sys = { path = "../glib/sys" }
 gobject-sys = { path = "../glib/gobject-sys" }
 glib = { path = "../glib" }
