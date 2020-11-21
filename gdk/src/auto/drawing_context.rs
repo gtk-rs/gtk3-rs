@@ -6,9 +6,6 @@ use crate::ffi;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use crate::Window;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-use cairo;
 use glib::translate::*;
 use std::fmt;
 

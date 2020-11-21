@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use crate::ffi;
-use glib::gobject_ffi;
 use glib::translate::*;
 use glib::value::FromValue;
 use glib::value::FromValueOptional;

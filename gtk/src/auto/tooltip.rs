@@ -5,9 +5,6 @@
 use crate::ffi;
 use crate::IconSize;
 use crate::Widget;
-use gdk;
-use gdk_pixbuf;
-use gio;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

@@ -4,7 +4,6 @@
 
 use crate::ffi;
 use crate::SocketConnectable;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

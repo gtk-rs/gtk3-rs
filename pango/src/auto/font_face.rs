@@ -7,7 +7,6 @@ use crate::FontDescription;
 #[cfg(any(feature = "v1_46", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 use crate::FontFamily;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

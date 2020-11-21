@@ -3,11 +3,7 @@
 // DO NOT EDIT
 
 use crate::ffi;
-use gdk_pixbuf;
-use gio;
-use glib;
 use glib::translate::*;
-use libc;
 use std::mem;
 use std::ptr;
 

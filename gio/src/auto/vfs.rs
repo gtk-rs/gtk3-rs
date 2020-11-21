@@ -4,7 +4,6 @@
 
 use crate::ffi;
 use crate::File;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 #[cfg(any(feature = "v2_50", feature = "dox"))]

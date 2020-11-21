@@ -8,8 +8,6 @@ use crate::Buildable;
 use crate::ResizeMode;
 use crate::Widget;
 use crate::WidgetPath;
-use cairo;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

@@ -7,7 +7,6 @@ use crate::Cancellable;
 use crate::DBusAuthObserver;
 use crate::DBusConnection;
 use crate::DBusServerFlags;
-use glib;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;

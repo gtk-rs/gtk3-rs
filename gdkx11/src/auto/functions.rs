@@ -7,8 +7,6 @@ use crate::X11DeviceCore;
 use crate::X11DeviceManagerCore;
 use crate::X11Display;
 use crate::X11Window;
-use gdk;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use x11::xlib;

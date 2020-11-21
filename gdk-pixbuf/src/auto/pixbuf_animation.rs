@@ -4,11 +4,8 @@
 
 use crate::ffi;
 use crate::Pixbuf;
-use gio;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use std;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::pin::Pin;

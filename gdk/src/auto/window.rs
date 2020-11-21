@@ -37,17 +37,11 @@ use crate::WindowState;
 use crate::WindowType;
 use crate::WindowTypeHint;
 use crate::RGBA;
-use cairo;
-use gdk_pixbuf;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;

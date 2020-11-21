@@ -7,8 +7,6 @@ use crate::CellRenderer;
 use crate::CellRendererMode;
 use crate::Orientable;
 use crate::Orientation;
-use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

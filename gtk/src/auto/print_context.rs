@@ -4,9 +4,7 @@
 
 use crate::ffi;
 use crate::PageSetup;
-use cairo;
 use glib::translate::*;
-use pango;
 use std::fmt;
 use std::mem;
 

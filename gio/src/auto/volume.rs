@@ -11,7 +11,6 @@ use crate::Mount;
 use crate::MountMountFlags;
 use crate::MountOperation;
 use crate::MountUnmountFlags;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

@@ -14,11 +14,6 @@ use crate::Orientation;
 use crate::ResizeMode;
 use crate::SelectionMode;
 use crate::Widget;
-use gdk;
-#[cfg(any(feature = "v3_18", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
-use gio;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectExt;
@@ -27,7 +22,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;

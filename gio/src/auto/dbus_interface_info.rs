@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::DBusMethodInfo;
 use crate::DBusPropertyInfo;
 use crate::DBusSignalInfo;
-use glib;
 use glib::translate::*;
 
 glib::glib_wrapper! {

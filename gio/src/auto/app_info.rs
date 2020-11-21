@@ -10,10 +10,8 @@ use crate::AppLaunchContext;
 use crate::Cancellable;
 use crate::File;
 use crate::Icon;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use std;
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 use std::boxed::Box as Box_;

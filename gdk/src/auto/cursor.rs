@@ -5,8 +5,6 @@
 use crate::ffi;
 use crate::CursorType;
 use crate::Display;
-use cairo;
-use gdk_pixbuf;
 use glib::translate::*;
 use std::fmt;
 use std::mem;

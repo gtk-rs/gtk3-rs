@@ -13,8 +13,6 @@ use crate::PositionType;
 use crate::ReliefStyle;
 use crate::ResizeMode;
 use crate::Widget;
-use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectExt;

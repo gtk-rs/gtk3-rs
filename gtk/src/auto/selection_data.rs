@@ -4,9 +4,6 @@
 
 use crate::ffi;
 use crate::TextBuffer;
-use gdk;
-use gdk_pixbuf;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::mem;

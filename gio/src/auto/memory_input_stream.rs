@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::InputStream;
 use crate::PollableInputStream;
 use crate::Seekable;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;

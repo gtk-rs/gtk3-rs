@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::Buildable;
 use crate::RecentFilterFlags;
-use glib;
 use glib::translate::*;
 use std::fmt;
 

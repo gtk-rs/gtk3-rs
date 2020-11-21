@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::Cancellable;
 use crate::InputStream;
 use crate::OutputStream;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

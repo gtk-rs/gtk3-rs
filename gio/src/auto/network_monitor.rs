@@ -8,7 +8,6 @@ use crate::Cancellable;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use crate::NetworkConnectivity;
 use crate::SocketConnectable;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

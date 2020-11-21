@@ -8,7 +8,6 @@ use crate::DataStreamByteOrder;
 use crate::FilterOutputStream;
 use crate::OutputStream;
 use crate::Seekable;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

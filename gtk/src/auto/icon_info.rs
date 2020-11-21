@@ -5,14 +5,8 @@
 use crate::ffi;
 use crate::IconTheme;
 use crate::StyleContext;
-use cairo;
-use gdk;
-use gdk_pixbuf;
-use gio;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use std;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;

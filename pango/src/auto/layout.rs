@@ -16,7 +16,6 @@ use crate::LayoutLine;
 use crate::Rectangle;
 use crate::TabArray;
 use crate::WrapMode;
-use glib;
 use glib::translate::*;
 use std::fmt;
 use std::mem;

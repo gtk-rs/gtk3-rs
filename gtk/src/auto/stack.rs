@@ -9,8 +9,6 @@ use crate::Container;
 use crate::ResizeMode;
 use crate::StackTransitionType;
 use crate::Widget;
-use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

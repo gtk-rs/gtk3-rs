@@ -10,7 +10,6 @@ use crate::Icon;
 use crate::MountOperation;
 use crate::MountUnmountFlags;
 use crate::Volume;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

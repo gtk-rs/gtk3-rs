@@ -13,8 +13,6 @@ use crate::Orientation;
 use crate::ResizeMode;
 use crate::SizeGroup;
 use crate::Widget;
-use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;

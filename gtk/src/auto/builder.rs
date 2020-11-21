@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::Application;
 use crate::Widget;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

@@ -5,12 +5,10 @@
 use crate::ffi;
 use crate::SocketConnectable;
 use crate::TlsCertificateFlags;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
 use glib::Value;
-use std;
 use std::fmt;
 use std::ptr;
 

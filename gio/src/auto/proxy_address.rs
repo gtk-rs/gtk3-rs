@@ -7,7 +7,6 @@ use crate::InetAddress;
 use crate::InetSocketAddress;
 use crate::SocketAddress;
 use crate::SocketConnectable;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;

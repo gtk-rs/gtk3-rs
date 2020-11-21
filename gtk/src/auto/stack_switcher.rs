@@ -13,7 +13,6 @@ use crate::Orientation;
 use crate::ResizeMode;
 use crate::Stack;
 use crate::Widget;
-use gdk;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

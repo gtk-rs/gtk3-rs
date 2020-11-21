@@ -8,7 +8,6 @@ use crate::TlsCertificateRequestFlags;
 use crate::TlsConnection;
 use crate::TlsInteractionResult;
 use crate::TlsPassword;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::boxed::Box as Box_;

@@ -26,7 +26,6 @@ use crate::Screen;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::Seat;
 use crate::Window;
-use glib;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;

@@ -4,8 +4,6 @@
 
 use crate::ffi;
 use crate::X11Visual;
-use gdk;
-use glib;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;

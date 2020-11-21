@@ -10,7 +10,6 @@ use crate::InetAddress;
 use crate::ResolverNameLookupFlags;
 use crate::ResolverRecordType;
 use crate::SrvTarget;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

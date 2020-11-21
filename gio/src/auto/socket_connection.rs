@@ -9,7 +9,6 @@ use crate::Socket;
 use crate::SocketAddress;
 use crate::SocketFamily;
 use crate::SocketType;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::boxed::Box as Box_;

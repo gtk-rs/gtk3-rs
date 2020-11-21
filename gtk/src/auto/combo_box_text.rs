@@ -15,8 +15,6 @@ use crate::ResizeMode;
 use crate::SensitivityType;
 use crate::TreeModel;
 use crate::Widget;
-use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;

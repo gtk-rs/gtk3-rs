@@ -4,7 +4,6 @@
 
 use crate::ffi;
 use crate::Cancellable;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::boxed::Box as Box_;

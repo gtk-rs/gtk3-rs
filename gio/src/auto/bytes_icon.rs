@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::Icon;
 use crate::LoadableIcon;
-use glib;
 use glib::translate::*;
 use std::fmt;
 

@@ -8,11 +8,8 @@ use crate::TextChildAnchor;
 use crate::TextMark;
 use crate::TextSearchFlags;
 use crate::TextTag;
-use gdk_pixbuf;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use pango;
 use std::cmp;
 
 glib::glib_wrapper! {

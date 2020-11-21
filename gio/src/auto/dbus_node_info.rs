@@ -4,7 +4,6 @@
 
 use crate::ffi;
 use crate::DBusInterfaceInfo;
-use glib;
 use glib::translate::*;
 use std::ptr;
 

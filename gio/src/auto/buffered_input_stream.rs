@@ -7,7 +7,6 @@ use crate::Cancellable;
 use crate::FilterInputStream;
 use crate::InputStream;
 use crate::Seekable;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

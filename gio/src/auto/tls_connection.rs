@@ -10,7 +10,6 @@ use crate::TlsCertificateFlags;
 use crate::TlsDatabase;
 use crate::TlsInteraction;
 use crate::TlsRehandshakeMode;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

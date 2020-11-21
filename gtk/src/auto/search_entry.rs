@@ -15,9 +15,6 @@ use crate::InputHints;
 use crate::InputPurpose;
 use crate::ShadowType;
 use crate::Widget;
-use gdk;
-use gdk_pixbuf;
-use gio;
 use glib::object::Cast;
 use glib::object::IsA;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
@@ -28,7 +25,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use pango;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;

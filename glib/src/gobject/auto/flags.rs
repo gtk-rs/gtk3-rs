@@ -51,13 +51,15 @@ impl<'a> FromValueOptional<'a> for BindingFlags {
 
 impl<'a> FromValue<'a> for BindingFlags {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_ffi::g_value_get_flags(value.to_glib_none().0))
+        from_glib(crate::gobject_ffi::g_value_get_flags(
+            value.to_glib_none().0,
+        ))
     }
 }
 
 impl SetValue for BindingFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+        crate::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 

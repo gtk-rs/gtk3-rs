@@ -16,7 +16,6 @@ use crate::TableCell;
 use crate::Text;
 use crate::Value;
 use crate::Window;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;

@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::Object;
 use crate::RelationType;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

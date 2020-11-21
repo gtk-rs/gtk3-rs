@@ -8,10 +8,8 @@ use crate::FileAttributeStatus;
 use crate::FileAttributeType;
 use crate::FileType;
 use crate::Icon;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use std;
 use std::fmt;
 
 glib::glib_wrapper! {

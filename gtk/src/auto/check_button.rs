@@ -14,8 +14,6 @@ use crate::ReliefStyle;
 use crate::ResizeMode;
 use crate::ToggleButton;
 use crate::Widget;
-use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;

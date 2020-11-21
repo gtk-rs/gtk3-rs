@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::Buildable;
 use crate::TextTag;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

@@ -4,9 +4,7 @@
 
 use crate::ffi;
 use crate::SettingsSchema;
-use glib;
 use glib::translate::*;
-use std;
 use std::ptr;
 
 glib::glib_wrapper! {

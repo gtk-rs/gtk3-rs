@@ -16,8 +16,6 @@ use crate::Pid;
 use crate::Source;
 use crate::SpawnFlags;
 use crate::UserDirectory;
-use libc;
-use std;
 use std::boxed::Box as Box_;
 use std::mem;
 use std::ptr;

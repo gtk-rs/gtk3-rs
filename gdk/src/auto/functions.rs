@@ -12,13 +12,8 @@ use crate::Screen;
 use crate::Visual;
 use crate::Window;
 use crate::WindowState;
-use cairo;
-use gdk_pixbuf;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use libc;
-use pango;
 use std::mem;
 use std::ptr;
 

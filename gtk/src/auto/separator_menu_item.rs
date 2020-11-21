@@ -12,8 +12,6 @@ use crate::Menu;
 use crate::MenuItem;
 use crate::ResizeMode;
 use crate::Widget;
-use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;

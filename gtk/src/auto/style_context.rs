@@ -13,8 +13,6 @@ use crate::StyleContextPrintFlags;
 use crate::StyleProvider;
 use crate::TextDirection;
 use crate::WidgetPath;
-use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

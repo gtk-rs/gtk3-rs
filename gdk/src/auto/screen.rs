@@ -7,8 +7,6 @@ use crate::Display;
 use crate::Rectangle;
 use crate::Visual;
 use crate::Window;
-use cairo;
-use glib;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;

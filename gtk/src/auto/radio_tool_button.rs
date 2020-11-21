@@ -14,8 +14,6 @@ use crate::ToggleToolButton;
 use crate::ToolButton;
 use crate::ToolItem;
 use crate::Widget;
-use gdk;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;

@@ -11,7 +11,6 @@ use crate::SocketConnection;
 use crate::SocketFamily;
 use crate::SocketProtocol;
 use crate::SocketType;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

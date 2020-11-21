@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::Display;
 use crate::Screen;
-use gio;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::translate::*;

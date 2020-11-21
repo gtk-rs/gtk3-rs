@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use crate::ffi;
-use gdk;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;

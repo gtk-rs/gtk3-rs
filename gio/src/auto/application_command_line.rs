@@ -5,13 +5,11 @@
 use crate::ffi;
 use crate::File;
 use crate::InputStream;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use std;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;

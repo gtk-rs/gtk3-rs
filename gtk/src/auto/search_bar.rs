@@ -10,7 +10,6 @@ use crate::Container;
 use crate::Entry;
 use crate::ResizeMode;
 use crate::Widget;
-use gdk;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

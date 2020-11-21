@@ -3,10 +3,8 @@
 // DO NOT EDIT
 
 use crate::ffi;
-use cairo;
 use glib::object::IsA;
 use glib::translate::*;
-use pango;
 
 pub fn context_get_resolution(context: &pango::Context) -> f64 {
     unsafe { ffi::pango_cairo_context_get_resolution(context.to_glib_none().0) }

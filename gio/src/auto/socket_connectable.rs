@@ -4,9 +4,6 @@
 
 use crate::ffi;
 use crate::SocketAddressEnumerator;
-#[cfg(any(feature = "v2_48", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

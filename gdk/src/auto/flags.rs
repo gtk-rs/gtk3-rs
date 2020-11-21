@@ -4,7 +4,6 @@
 
 use crate::ffi;
 use bitflags::bitflags;
-use glib::gobject_ffi;
 use glib::translate::*;
 use glib::value::FromValue;
 use glib::value::FromValueOptional;

@@ -4,7 +4,6 @@
 
 use crate::ffi;
 use crate::TextBuffer;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;

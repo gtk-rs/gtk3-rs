@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::Buildable;
 use crate::Widget;
-use gdk;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

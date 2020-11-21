@@ -10,7 +10,6 @@ use crate::TlsCertificateFlags;
 use crate::TlsDatabaseLookupFlags;
 use crate::TlsDatabaseVerifyFlags;
 use crate::TlsInteraction;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::boxed::Box as Box_;

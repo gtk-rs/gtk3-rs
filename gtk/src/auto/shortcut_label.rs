@@ -12,10 +12,6 @@ use crate::Orientable;
 use crate::Orientation;
 use crate::ResizeMode;
 use crate::Widget;
-use gdk;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 #[cfg(any(feature = "v3_22", feature = "dox"))]

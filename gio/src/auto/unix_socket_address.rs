@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::SocketAddress;
 use crate::SocketConnectable;
 use crate::UnixSocketAddressType;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;

@@ -5,9 +5,7 @@
 use crate::ffi;
 use crate::InputStream;
 use crate::ResourceLookupFlags;
-use glib;
 use glib::translate::*;
-use std;
 use std::mem;
 use std::ptr;
 

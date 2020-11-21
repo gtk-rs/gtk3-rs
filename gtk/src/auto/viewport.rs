@@ -13,7 +13,6 @@ use crate::Scrollable;
 use crate::ScrollablePolicy;
 use crate::ShadowType;
 use crate::Widget;
-use gdk;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

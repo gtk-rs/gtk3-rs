@@ -12,7 +12,6 @@ use crate::ToolbarStyle;
 use crate::Widget;
 use glib::object::IsA;
 use glib::translate::*;
-use pango;
 use std::fmt;
 
 glib::glib_wrapper! {

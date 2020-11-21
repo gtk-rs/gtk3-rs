@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use crate::ffi;
-use crate::gobject_ffi;
 use crate::translate::*;
 use crate::value::FromValue;
 use crate::value::FromValueOptional;
@@ -136,13 +135,15 @@ impl<'a> FromValueOptional<'a> for IOCondition {
 
 impl<'a> FromValue<'a> for IOCondition {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_ffi::g_value_get_flags(value.to_glib_none().0))
+        from_glib(crate::gobject_ffi::g_value_get_flags(
+            value.to_glib_none().0,
+        ))
     }
 }
 
 impl SetValue for IOCondition {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+        crate::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 

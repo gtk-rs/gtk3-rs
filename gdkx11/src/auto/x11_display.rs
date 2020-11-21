@@ -3,8 +3,6 @@
 // DO NOT EDIT
 
 use crate::ffi;
-use gdk;
-use glib;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::object::IsA;

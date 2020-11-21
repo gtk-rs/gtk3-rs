@@ -9,7 +9,6 @@ use crate::Stretch;
 use crate::Style;
 use crate::Variant;
 use crate::Weight;
-use glib;
 use glib::translate::*;
 use std::fmt;
 use std::hash;

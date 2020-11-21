@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::StateFlags;
 use crate::Widget;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

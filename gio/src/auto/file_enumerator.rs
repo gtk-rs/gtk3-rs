@@ -6,7 +6,6 @@ use crate::ffi;
 use crate::Cancellable;
 use crate::File;
 use crate::FileInfo;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::boxed::Box as Box_;

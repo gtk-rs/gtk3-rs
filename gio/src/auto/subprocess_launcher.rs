@@ -5,9 +5,7 @@
 use crate::ffi;
 use crate::Subprocess;
 use crate::SubprocessFlags;
-use glib;
 use glib::translate::*;
-use std;
 #[cfg(any(unix, feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(unix)))]
 use std::boxed::Box as Box_;

@@ -7,7 +7,6 @@ use crate::DBusConnection;
 use crate::DBusInterface;
 use crate::DBusInterfaceSkeletonFlags;
 use crate::DBusMethodInvocation;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

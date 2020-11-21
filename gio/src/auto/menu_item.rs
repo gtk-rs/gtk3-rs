@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::Icon;
 use crate::MenuModel;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;

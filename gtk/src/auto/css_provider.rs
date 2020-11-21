@@ -5,8 +5,6 @@
 use crate::ffi;
 use crate::CssSection;
 use crate::StyleProvider;
-use gio;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

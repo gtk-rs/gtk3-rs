@@ -5,7 +5,6 @@
 use crate::ffi;
 use crate::TreeModel;
 use crate::TreePath;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 

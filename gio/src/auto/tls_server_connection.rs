@@ -7,7 +7,6 @@ use crate::IOStream;
 use crate::TlsAuthenticationMode;
 use crate::TlsCertificate;
 use crate::TlsConnection;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

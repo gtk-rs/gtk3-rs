@@ -9,7 +9,6 @@ use crate::translate::*;
 use crate::Bytes;
 use crate::Error;
 use crate::KeyFileFlags;
-use std;
 use std::mem;
 use std::ptr;
 

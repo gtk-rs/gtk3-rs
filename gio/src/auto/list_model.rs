@@ -5,9 +5,6 @@
 use crate::ffi;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-use glib;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::object::Cast;
 use glib::object::IsA;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
@@ -17,9 +14,6 @@ use glib::signal::connect_raw;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-use libc;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use std::boxed::Box as Box_;

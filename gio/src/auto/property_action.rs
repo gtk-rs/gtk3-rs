@@ -4,7 +4,6 @@
 
 use crate::ffi;
 use crate::Action;
-use glib;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;

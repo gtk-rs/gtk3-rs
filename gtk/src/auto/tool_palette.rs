@@ -21,7 +21,6 @@ use crate::ToolItemGroup;
 use crate::ToolPaletteDragTargets;
 use crate::ToolbarStyle;
 use crate::Widget;
-use gdk;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;

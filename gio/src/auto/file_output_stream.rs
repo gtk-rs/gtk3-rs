@@ -7,7 +7,6 @@ use crate::Cancellable;
 use crate::FileInfo;
 use crate::OutputStream;
 use crate::Seekable;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::boxed::Box as Box_;

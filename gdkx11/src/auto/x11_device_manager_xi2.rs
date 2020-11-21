@@ -4,7 +4,6 @@
 
 use crate::ffi;
 use crate::X11DeviceManagerCore;
-use gdk;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;

@@ -7,8 +7,6 @@ use crate::Colorspace;
 use crate::InterpType;
 use crate::PixbufFormat;
 use crate::PixbufRotation;
-use gio;
-use glib;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::translate::*;

@@ -5,10 +5,8 @@
 use crate::ffi;
 use crate::AppInfo;
 use crate::AppLaunchContext;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use std;
 use std::boxed::Box as Box_;
 use std::fmt;
 #[cfg(any(feature = "v2_60", feature = "dox"))]

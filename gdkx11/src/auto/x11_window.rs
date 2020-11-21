@@ -4,7 +4,6 @@
 
 use crate::ffi;
 use crate::X11Display;
-use gdk;
 use glib::object::Cast;
 use glib::translate::*;
 use std::fmt;

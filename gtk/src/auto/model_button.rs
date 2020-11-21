@@ -16,11 +16,6 @@ use crate::PositionType;
 use crate::ReliefStyle;
 use crate::ResizeMode;
 use crate::Widget;
-use gdk;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-use gio;
-use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
