@@ -13,8 +13,8 @@ static INITIALIZED: AtomicBool = ATOMIC_BOOL_INIT;
 
 macro_rules! assert_initialized_main_thread {
     () => {
-        if !::rt::is_initialized_main_thread() {
-            if ::rt::is_initialized() {
+        if !crate::rt::is_initialized_main_thread() {
+            if crate::rt::is_initialized() {
                 panic!("GDK may only be used from the main thread.");
             } else {
                 panic!("GDK has not been initialized. Call `gdk::init` or `gtk::init` first.");
