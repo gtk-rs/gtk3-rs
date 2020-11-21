@@ -2,10 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::PixbufAnimation;
+use crate::PixbufAnimationIter;
 use glib::object::IsA;
 use glib::translate::*;
-use PixbufAnimation;
-use PixbufAnimationIter;
 
 use std::ptr;
 use std::time::SystemTime;
@@ -20,18 +20,18 @@ impl<T: IsA<PixbufAnimation>> PixbufAnimationExtManual for T {
             let diff = s
                 .duration_since(SystemTime::UNIX_EPOCH)
                 .expect("failed to convert time");
-            glib_sys::GTimeVal {
+            glib::ffi::GTimeVal {
                 tv_sec: diff.as_secs() as _,
                 tv_usec: diff.subsec_micros() as _,
             }
         });
 
         unsafe {
-            from_glib_full(gdk_pixbuf_sys::gdk_pixbuf_animation_get_iter(
+            from_glib_full(ffi::gdk_pixbuf_animation_get_iter(
                 self.as_ref().to_glib_none().0,
                 start_time
                     .as_ref()
-                    .map(|t| t as *const glib_sys::GTimeVal)
+                    .map(|t| t as *const glib::ffi::GTimeVal)
                     .unwrap_or(ptr::null()),
             ))
         }

@@ -13,16 +13,17 @@ build = "build.rs"
 exclude = [
     "gir-files/*",
 ]
+edition = "2018"
 
 [lib]
 name = "gdk_pixbuf"
 
 [features]
-v2_32 = ["gdk-pixbuf-sys/v2_32"]
-v2_36 = ["v2_32", "gdk-pixbuf-sys/v2_36"]
-v2_36_8 = ["v2_36", "gdk-pixbuf-sys/v2_36_8"]
-v2_40 = ["v2_36_8", "gdk-pixbuf-sys/v2_40"]
-dox = ["glib/dox", "gdk-pixbuf-sys/dox"]
+v2_32 = ["ffi/v2_32"]
+v2_36 = ["v2_32", "ffi/v2_36"]
+v2_36_8 = ["v2_36", "ffi/v2_36_8"]
+v2_40 = ["v2_36_8", "ffi/v2_40"]
+dox = ["glib/dox", "ffi/dox"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 
@@ -36,7 +37,7 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 
 [dependencies]
 libc = "0.2"
-gdk-pixbuf-sys = { path = "sys" }
+ffi = { package = "gdk-pixbuf-sys", path = "sys" }
 glib = { path = "../glib" }
 glib-sys = { path = "../glib/sys" }
 gobject-sys = { path = "../glib/gobject-sys" }
