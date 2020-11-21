@@ -112,13 +112,13 @@ impl Default for String {
 
 impl fmt::Debug for String {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", self.to_string_lossy())
+        f.write_str(&self.to_string_lossy())
     }
 }
 
 impl fmt::Display for String {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", self.to_string_lossy())
+        f.write_str(&self.to_string_lossy())
     }
 }
 

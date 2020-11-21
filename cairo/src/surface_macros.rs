@@ -94,7 +94,7 @@ macro_rules! declare_surface {
 
         impl fmt::Display for $surf_name {
             fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-                write!(f, "{}", stringify!($surf_name))
+                f.write_str(stringify!($surf_name))
             }
         }
     };
