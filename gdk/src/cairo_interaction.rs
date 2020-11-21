@@ -2,13 +2,12 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::{Rectangle, Window, RGBA};
 use cairo::Surface;
 use cairo::{Context, Region};
 use gdk_pixbuf::Pixbuf;
-use gdk_sys;
 use glib::object::IsA;
 use glib::translate::*;
-use {Rectangle, Window, RGBA};
 
 pub trait GdkSurfaceExt {
     fn create_region(&self) -> Option<Region>;
@@ -17,7 +16,7 @@ pub trait GdkSurfaceExt {
 impl GdkSurfaceExt for Surface {
     fn create_region(&self) -> Option<Region> {
         unsafe {
-            from_glib_full(gdk_sys::gdk_cairo_region_create_from_surface(
+            from_glib_full(ffi::gdk_cairo_region_create_from_surface(
                 self.to_glib_none().0,
             ))
         }
@@ -36,7 +35,7 @@ impl GdkPixbufExt for Pixbuf {
         for_window: Option<&W>,
     ) -> Option<Surface> {
         unsafe {
-            from_glib_full(gdk_sys::gdk_cairo_surface_create_from_pixbuf(
+            from_glib_full(ffi::gdk_cairo_surface_create_from_pixbuf(
                 self.to_glib_none().0,
                 scale,
                 for_window.map(std::convert::AsRef::as_ref).to_glib_none().0,
@@ -79,7 +78,7 @@ pub trait GdkContextExt {
 impl GdkContextExt for Context {
     fn create_from_window<W: IsA<Window>>(window: &W) -> Context {
         skip_assert_initialized!();
-        unsafe { from_glib_full(gdk_sys::gdk_cairo_create(window.as_ref().to_glib_none().0)) }
+        unsafe { from_glib_full(ffi::gdk_cairo_create(window.as_ref().to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
@@ -96,7 +95,7 @@ impl GdkContextExt for Context {
         height: i32,
     ) {
         skip_assert_initialized!();
-        gdk_sys::gdk_cairo_draw_from_gl(
+        ffi::gdk_cairo_draw_from_gl(
             mut_override(self.to_glib_none().0),
             window.as_ref().to_glib_none().0,
             source,
@@ -112,7 +111,7 @@ impl GdkContextExt for Context {
     fn get_clip_rectangle(&self) -> Option<Rectangle> {
         unsafe {
             let mut rectangle = Rectangle::uninitialized();
-            if from_glib(gdk_sys::gdk_cairo_get_clip_rectangle(
+            if from_glib(ffi::gdk_cairo_get_clip_rectangle(
                 self.to_glib_none().0,
                 rectangle.to_glib_none_mut().0,
             )) {
@@ -125,24 +124,19 @@ impl GdkContextExt for Context {
 
     fn set_source_rgba(&self, rgba: &RGBA) {
         unsafe {
-            gdk_sys::gdk_cairo_set_source_rgba(self.to_glib_none().0, rgba.to_glib_none().0);
+            ffi::gdk_cairo_set_source_rgba(self.to_glib_none().0, rgba.to_glib_none().0);
         }
     }
 
     fn set_source_pixbuf(&self, pixbuf: &Pixbuf, x: f64, y: f64) {
         unsafe {
-            gdk_sys::gdk_cairo_set_source_pixbuf(
-                self.to_glib_none().0,
-                pixbuf.to_glib_none().0,
-                x,
-                y,
-            );
+            ffi::gdk_cairo_set_source_pixbuf(self.to_glib_none().0, pixbuf.to_glib_none().0, x, y);
         }
     }
 
     fn set_source_window<W: IsA<Window>>(&self, window: &W, x: f64, y: f64) {
         unsafe {
-            gdk_sys::gdk_cairo_set_source_window(
+            ffi::gdk_cairo_set_source_window(
                 self.to_glib_none().0,
                 window.as_ref().to_glib_none().0,
                 x,
@@ -153,13 +147,13 @@ impl GdkContextExt for Context {
 
     fn rectangle(&self, rectangle: &Rectangle) {
         unsafe {
-            gdk_sys::gdk_cairo_rectangle(self.to_glib_none().0, rectangle.to_glib_none().0);
+            ffi::gdk_cairo_rectangle(self.to_glib_none().0, rectangle.to_glib_none().0);
         }
     }
 
     fn add_region(&self, region: &Region) {
         unsafe {
-            gdk_sys::gdk_cairo_region(self.to_glib_none().0, region.to_glib_none().0);
+            ffi::gdk_cairo_region(self.to_glib_none().0, region.to_glib_none().0);
         }
     }
 }

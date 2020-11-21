@@ -5,10 +5,10 @@
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventGrabBroken(::Event);
+pub struct EventGrabBroken(crate::Event);
 
 event_wrapper!(EventGrabBroken, GdkEventGrabBroken);
-event_subtype!(EventGrabBroken, gdk_sys::GDK_GRAB_BROKEN);
+event_subtype!(EventGrabBroken, ffi::GDK_GRAB_BROKEN);
 
 impl EventGrabBroken {
     pub fn is_keyboard(&self) -> bool {
@@ -19,7 +19,7 @@ impl EventGrabBroken {
         from_glib(self.as_ref().implicit)
     }
 
-    pub fn get_grab_window(&self) -> Option<::Window> {
+    pub fn get_grab_window(&self) -> Option<crate::Window> {
         unsafe { from_glib_none(self.as_ref().grab_window) }
     }
 }

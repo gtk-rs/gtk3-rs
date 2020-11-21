@@ -2,15 +2,15 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::Rectangle;
 use cairo;
 use glib::translate::*;
-use Rectangle;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventExpose(::Event);
+pub struct EventExpose(crate::Event);
 
 event_wrapper!(EventExpose, GdkEventExpose);
-event_subtype!(EventExpose, gdk_sys::GDK_EXPOSE | gdk_sys::GDK_DAMAGE);
+event_subtype!(EventExpose, ffi::GDK_EXPOSE | ffi::GDK_DAMAGE);
 
 impl EventExpose {
     pub fn get_region(&self) -> Option<cairo::Region> {

@@ -5,15 +5,12 @@
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventTouch(::Event);
+pub struct EventTouch(crate::Event);
 
 event_wrapper!(EventTouch, GdkEventTouch);
 event_subtype!(
     EventTouch,
-    gdk_sys::GDK_TOUCH_BEGIN
-        | gdk_sys::GDK_TOUCH_UPDATE
-        | gdk_sys::GDK_TOUCH_END
-        | gdk_sys::GDK_TOUCH_CANCEL
+    ffi::GDK_TOUCH_BEGIN | ffi::GDK_TOUCH_UPDATE | ffi::GDK_TOUCH_END | ffi::GDK_TOUCH_CANCEL
 );
 
 impl EventTouch {
@@ -27,7 +24,7 @@ impl EventTouch {
         (x, y)
     }
 
-    pub fn get_state(&self) -> ::ModifierType {
+    pub fn get_state(&self) -> crate::ModifierType {
         from_glib(self.as_ref().state)
     }
 
@@ -35,7 +32,7 @@ impl EventTouch {
         from_glib(self.as_ref().emulating_pointer)
     }
 
-    pub fn get_device(&self) -> Option<::Device> {
+    pub fn get_device(&self) -> Option<crate::Device> {
         unsafe { from_glib_none(self.as_ref().device) }
     }
 
@@ -55,7 +52,7 @@ impl EventTouch {
         (x_root, y_root)
     }
 
-    pub fn get_event_sequence(&self) -> Option<::EventSequence> {
+    pub fn get_event_sequence(&self) -> Option<crate::EventSequence> {
         unsafe { from_glib_none(self.as_ref().sequence) }
     }
 }

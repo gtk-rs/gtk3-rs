@@ -4,8 +4,8 @@
 
 //! Traits intended for blanket imports.
 
-pub use auto::traits::*;
-pub use cairo_interaction::{GdkContextExt, GdkPixbufExt, GdkSurfaceExt};
+pub use crate::auto::traits::*;
+pub use crate::cairo_interaction::{GdkContextExt, GdkPixbufExt, GdkSurfaceExt};
+pub use crate::window::WindowExtManual;
 #[doc(hidden)]
 pub use glib::prelude::*;
-pub use window::WindowExtManual;

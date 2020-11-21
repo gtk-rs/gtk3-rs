@@ -5,10 +5,10 @@
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventConfigure(::Event);
+pub struct EventConfigure(crate::Event);
 
 event_wrapper!(EventConfigure, GdkEventConfigure);
-event_subtype!(EventConfigure, gdk_sys::GDK_CONFIGURE);
+event_subtype!(EventConfigure, ffi::GDK_CONFIGURE);
 
 impl EventConfigure {
     pub fn get_position(&self) -> (i32, i32) {
