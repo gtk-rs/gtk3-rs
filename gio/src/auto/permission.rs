@@ -2,27 +2,23 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::Cancellable;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
 
-glib_wrapper! {
-    pub struct Permission(Object<gio_sys::GPermission, gio_sys::GPermissionClass>);
+glib::glib_wrapper! {
+    pub struct Permission(Object<ffi::GPermission, ffi::GPermissionClass>);
 
     match fn {
-        get_type => || gio_sys::g_permission_get_type(),
+        get_type => || ffi::g_permission_get_type(),
     }
 }
 
@@ -72,7 +68,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
     fn acquire<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_permission_acquire(
+            let _ = ffi::g_permission_acquire(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -94,12 +90,12 @@ impl<O: IsA<Permission>> PermissionExt for O {
         unsafe extern "C" fn acquire_async_trampoline<
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_permission_acquire_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_permission_acquire_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -110,7 +106,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
         }
         let callback = acquire_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_permission_acquire_async(
+            ffi::g_permission_acquire_async(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -134,7 +130,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
 
     fn get_allowed(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_permission_get_allowed(
+            from_glib(ffi::g_permission_get_allowed(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -142,7 +138,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
 
     fn get_can_acquire(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_permission_get_can_acquire(
+            from_glib(ffi::g_permission_get_can_acquire(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -150,7 +146,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
 
     fn get_can_release(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_permission_get_can_release(
+            from_glib(ffi::g_permission_get_can_release(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -158,7 +154,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
 
     fn impl_update(&self, allowed: bool, can_acquire: bool, can_release: bool) {
         unsafe {
-            gio_sys::g_permission_impl_update(
+            ffi::g_permission_impl_update(
                 self.as_ref().to_glib_none().0,
                 allowed.to_glib(),
                 can_acquire.to_glib(),
@@ -170,7 +166,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
     fn release<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_permission_release(
+            let _ = ffi::g_permission_release(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -192,12 +188,12 @@ impl<O: IsA<Permission>> PermissionExt for O {
         unsafe extern "C" fn release_async_trampoline<
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_permission_release_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_permission_release_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -208,7 +204,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
         }
         let callback = release_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_permission_release_async(
+            ffi::g_permission_release_async(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -232,9 +228,9 @@ impl<O: IsA<Permission>> PermissionExt for O {
 
     fn connect_property_allowed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_allowed_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GPermission,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GPermission,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Permission>,
         {
@@ -256,9 +252,9 @@ impl<O: IsA<Permission>> PermissionExt for O {
 
     fn connect_property_can_acquire_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_can_acquire_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GPermission,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GPermission,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Permission>,
         {
@@ -280,9 +276,9 @@ impl<O: IsA<Permission>> PermissionExt for O {
 
     fn connect_property_can_release_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_can_release_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GPermission,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GPermission,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Permission>,
         {

@@ -2,24 +2,21 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::DBusInterface;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
-use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use DBusInterface;
 
-glib_wrapper! {
-    pub struct DBusObject(Interface<gio_sys::GDBusObject>);
+glib::glib_wrapper! {
+    pub struct DBusObject(Interface<ffi::GDBusObject>);
 
     match fn {
-        get_type => || gio_sys::g_dbus_object_get_type(),
+        get_type => || ffi::g_dbus_object_get_type(),
     }
 }
 
@@ -30,7 +27,7 @@ pub trait DBusObjectExt: 'static {
 
     fn get_interfaces(&self) -> Vec<DBusInterface>;
 
-    fn get_object_path(&self) -> Option<GString>;
+    fn get_object_path(&self) -> Option<glib::GString>;
 
     fn connect_interface_added<F: Fn(&Self, &DBusInterface) + 'static>(
         &self,
@@ -46,7 +43,7 @@ pub trait DBusObjectExt: 'static {
 impl<O: IsA<DBusObject>> DBusObjectExt for O {
     fn get_interface(&self, interface_name: &str) -> Option<DBusInterface> {
         unsafe {
-            from_glib_full(gio_sys::g_dbus_object_get_interface(
+            from_glib_full(ffi::g_dbus_object_get_interface(
                 self.as_ref().to_glib_none().0,
                 interface_name.to_glib_none().0,
             ))
@@ -55,15 +52,15 @@ impl<O: IsA<DBusObject>> DBusObjectExt for O {
 
     fn get_interfaces(&self) -> Vec<DBusInterface> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gio_sys::g_dbus_object_get_interfaces(
+            FromGlibPtrContainer::from_glib_full(ffi::g_dbus_object_get_interfaces(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_object_path(&self) -> Option<GString> {
+    fn get_object_path(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_object_get_object_path(
+            from_glib_none(ffi::g_dbus_object_get_object_path(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -74,9 +71,9 @@ impl<O: IsA<DBusObject>> DBusObjectExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn interface_added_trampoline<P, F: Fn(&P, &DBusInterface) + 'static>(
-            this: *mut gio_sys::GDBusObject,
-            interface: *mut gio_sys::GDBusInterface,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDBusObject,
+            interface: *mut ffi::GDBusInterface,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<DBusObject>,
         {
@@ -104,9 +101,9 @@ impl<O: IsA<DBusObject>> DBusObjectExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn interface_removed_trampoline<P, F: Fn(&P, &DBusInterface) + 'static>(
-            this: *mut gio_sys::GDBusObject,
-            interface: *mut gio_sys::GDBusInterface,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDBusObject,
+            interface: *mut ffi::GDBusInterface,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<DBusObject>,
         {

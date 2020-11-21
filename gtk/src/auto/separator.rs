@@ -2,26 +2,24 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
+use crate::Align;
+use crate::Buildable;
+use crate::Container;
+use crate::Orientable;
+use crate::Orientation;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use gtk_sys;
 use std::fmt;
-use Align;
-use Buildable;
-use Container;
-use Orientable;
-use Orientation;
-use Widget;
 
-glib_wrapper! {
-    pub struct Separator(Object<gtk_sys::GtkSeparator, gtk_sys::GtkSeparatorClass>) @extends Widget, @implements Buildable, Orientable;
+glib::glib_wrapper! {
+    pub struct Separator(Object<ffi::GtkSeparator, ffi::GtkSeparatorClass>) @extends Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || gtk_sys::gtk_separator_get_type(),
+        get_type => || ffi::gtk_separator_get_type(),
     }
 }
 
@@ -29,7 +27,7 @@ impl Separator {
     pub fn new(orientation: Orientation) -> Separator {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_separator_new(orientation.to_glib())).unsafe_cast()
+            Widget::from_glib_none(ffi::gtk_separator_new(orientation.to_glib())).unsafe_cast()
         }
     }
 }

@@ -35,6 +35,7 @@ name = "graphene-sys"
 repository = "https://github.com/gtk-rs/gtk-rs"
 version = "0.13.0"
 link = "graphene-1.0"
+edition = "2018"
 [package.metadata.docs.rs]
 features = ["dox"]
 [package.metadata.system-deps.graphene_gobject_1_0]

@@ -2,8 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::BufferedInputStream;
+use crate::Cancellable;
+use crate::DataStreamByteOrder;
+use crate::DataStreamNewlineType;
+use crate::FilterInputStream;
+use crate::InputStream;
+use crate::Seekable;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -11,31 +16,23 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
-use BufferedInputStream;
-use Cancellable;
-use DataStreamByteOrder;
-use DataStreamNewlineType;
-use FilterInputStream;
-use InputStream;
-use Seekable;
 
-glib_wrapper! {
-    pub struct DataInputStream(Object<gio_sys::GDataInputStream, gio_sys::GDataInputStreamClass>) @extends BufferedInputStream, FilterInputStream, InputStream, @implements Seekable;
+glib::glib_wrapper! {
+    pub struct DataInputStream(Object<ffi::GDataInputStream, ffi::GDataInputStreamClass>) @extends BufferedInputStream, FilterInputStream, InputStream, @implements Seekable;
 
     match fn {
-        get_type => || gio_sys::g_data_input_stream_get_type(),
+        get_type => || ffi::g_data_input_stream_get_type(),
     }
 }
 
 impl DataInputStream {
     pub fn new<P: IsA<InputStream>>(base_stream: &P) -> DataInputStream {
         unsafe {
-            from_glib_full(gio_sys::g_data_input_stream_new(
+            from_glib_full(ffi::g_data_input_stream_new(
                 base_stream.as_ref().to_glib_none().0,
             ))
         }
@@ -121,7 +118,7 @@ pub trait DataInputStreamExt: 'static {
 
     fn read_int64<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<i64, glib::Error>;
 
-    //fn read_line_finish_utf8(&self, result: /*Ignored*/&AsyncResult) -> Result<(Option<GString>, usize), glib::Error>;
+    //fn read_line_finish_utf8(&self, result: /*Ignored*/&AsyncResult) -> Result<(Option<glib::GString>, usize), glib::Error>;
 
     fn read_uint16<P: IsA<Cancellable>>(&self, cancellable: Option<&P>)
         -> Result<u16, glib::Error>;
@@ -145,7 +142,7 @@ pub trait DataInputStreamExt: 'static {
 impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
     fn get_byte_order(&self) -> DataStreamByteOrder {
         unsafe {
-            from_glib(gio_sys::g_data_input_stream_get_byte_order(
+            from_glib(ffi::g_data_input_stream_get_byte_order(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -153,7 +150,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
 
     fn get_newline_type(&self) -> DataStreamNewlineType {
         unsafe {
-            from_glib(gio_sys::g_data_input_stream_get_newline_type(
+            from_glib(ffi::g_data_input_stream_get_newline_type(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -162,7 +159,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
     fn read_byte<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<u8, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_data_input_stream_read_byte(
+            let ret = ffi::g_data_input_stream_read_byte(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -178,7 +175,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
     fn read_int16<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<i16, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_data_input_stream_read_int16(
+            let ret = ffi::g_data_input_stream_read_int16(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -194,7 +191,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
     fn read_int32<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<i32, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_data_input_stream_read_int32(
+            let ret = ffi::g_data_input_stream_read_int32(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -210,7 +207,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
     fn read_int64<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<i64, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_data_input_stream_read_int64(
+            let ret = ffi::g_data_input_stream_read_int64(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -223,8 +220,8 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         }
     }
 
-    //fn read_line_finish_utf8(&self, result: /*Ignored*/&AsyncResult) -> Result<(Option<GString>, usize), glib::Error> {
-    //    unsafe { TODO: call gio_sys:g_data_input_stream_read_line_finish_utf8() }
+    //fn read_line_finish_utf8(&self, result: /*Ignored*/&AsyncResult) -> Result<(Option<glib::GString>, usize), glib::Error> {
+    //    unsafe { TODO: call ffi:g_data_input_stream_read_line_finish_utf8() }
     //}
 
     fn read_uint16<P: IsA<Cancellable>>(
@@ -233,7 +230,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
     ) -> Result<u16, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_data_input_stream_read_uint16(
+            let ret = ffi::g_data_input_stream_read_uint16(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -252,7 +249,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
     ) -> Result<u32, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_data_input_stream_read_uint32(
+            let ret = ffi::g_data_input_stream_read_uint32(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -271,7 +268,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
     ) -> Result<u64, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_data_input_stream_read_uint64(
+            let ret = ffi::g_data_input_stream_read_uint64(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -286,7 +283,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
 
     fn set_byte_order(&self, order: DataStreamByteOrder) {
         unsafe {
-            gio_sys::g_data_input_stream_set_byte_order(
+            ffi::g_data_input_stream_set_byte_order(
                 self.as_ref().to_glib_none().0,
                 order.to_glib(),
             );
@@ -295,7 +292,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
 
     fn set_newline_type(&self, type_: DataStreamNewlineType) {
         unsafe {
-            gio_sys::g_data_input_stream_set_newline_type(
+            ffi::g_data_input_stream_set_newline_type(
                 self.as_ref().to_glib_none().0,
                 type_.to_glib(),
             );
@@ -304,9 +301,9 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
 
     fn connect_property_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_byte_order_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GDataInputStream,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDataInputStream,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<DataInputStream>,
         {
@@ -331,9 +328,9 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_newline_type_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GDataInputStream,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDataInputStream,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<DataInputStream>,
         {

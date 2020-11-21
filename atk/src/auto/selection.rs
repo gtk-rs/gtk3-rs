@@ -2,23 +2,21 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk_sys;
+use crate::Object;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Object;
 
-glib_wrapper! {
-    pub struct Selection(Interface<atk_sys::AtkSelection>);
+glib::glib_wrapper! {
+    pub struct Selection(Interface<ffi::AtkSelection>);
 
     match fn {
-        get_type => || atk_sys::atk_selection_get_type(),
+        get_type => || ffi::atk_selection_get_type(),
     }
 }
 
@@ -45,7 +43,7 @@ pub trait SelectionExt: 'static {
 impl<O: IsA<Selection>> SelectionExt for O {
     fn add_selection(&self, i: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_selection_add_selection(
+            from_glib(ffi::atk_selection_add_selection(
                 self.as_ref().to_glib_none().0,
                 i,
             ))
@@ -54,19 +52,19 @@ impl<O: IsA<Selection>> SelectionExt for O {
 
     fn clear_selection(&self) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_selection_clear_selection(
+            from_glib(ffi::atk_selection_clear_selection(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_selection_count(&self) -> i32 {
-        unsafe { atk_sys::atk_selection_get_selection_count(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::atk_selection_get_selection_count(self.as_ref().to_glib_none().0) }
     }
 
     fn is_child_selected(&self, i: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_selection_is_child_selected(
+            from_glib(ffi::atk_selection_is_child_selected(
                 self.as_ref().to_glib_none().0,
                 i,
             ))
@@ -75,7 +73,7 @@ impl<O: IsA<Selection>> SelectionExt for O {
 
     fn ref_selection(&self, i: i32) -> Option<Object> {
         unsafe {
-            from_glib_full(atk_sys::atk_selection_ref_selection(
+            from_glib_full(ffi::atk_selection_ref_selection(
                 self.as_ref().to_glib_none().0,
                 i,
             ))
@@ -84,7 +82,7 @@ impl<O: IsA<Selection>> SelectionExt for O {
 
     fn remove_selection(&self, i: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_selection_remove_selection(
+            from_glib(ffi::atk_selection_remove_selection(
                 self.as_ref().to_glib_none().0,
                 i,
             ))
@@ -93,7 +91,7 @@ impl<O: IsA<Selection>> SelectionExt for O {
 
     fn select_all_selection(&self) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_selection_select_all_selection(
+            from_glib(ffi::atk_selection_select_all_selection(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -101,8 +99,8 @@ impl<O: IsA<Selection>> SelectionExt for O {
 
     fn connect_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn selection_changed_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkSelection,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkSelection,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Selection>,
         {

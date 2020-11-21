@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 #[allow(unused_imports)]
-use auto::*;
+use crate::auto::*;
 
 pub type Glyph = u32;
 pub type GlyphUnit = i32;

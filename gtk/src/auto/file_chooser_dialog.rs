@@ -2,41 +2,38 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use gdk_pixbuf;
+use crate::Align;
+use crate::Application;
+use crate::Bin;
+use crate::Buildable;
+use crate::Container;
+use crate::Dialog;
+use crate::FileChooser;
+use crate::FileChooserAction;
+use crate::FileFilter;
+use crate::ResizeMode;
+use crate::Widget;
+use crate::Window;
+use crate::WindowPosition;
+use crate::WindowType;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use gtk_sys;
 use std::fmt;
-use Align;
-use Application;
-use Bin;
-use Buildable;
-use Container;
-use Dialog;
-use FileChooser;
-use FileChooserAction;
-use FileFilter;
-use ResizeMode;
-use Widget;
-use Window;
-use WindowPosition;
-use WindowType;
 
-glib_wrapper! {
-    pub struct FileChooserDialog(Object<gtk_sys::GtkFileChooserDialog, gtk_sys::GtkFileChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, FileChooser;
+glib::glib_wrapper! {
+    pub struct FileChooserDialog(Object<ffi::GtkFileChooserDialog, ffi::GtkFileChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, FileChooser;
 
     match fn {
-        get_type => || gtk_sys::gtk_file_chooser_dialog_get_type(),
+        get_type => || ffi::gtk_file_chooser_dialog_get_type(),
     }
 }
 
 impl FileChooserDialog {
     //pub fn new<P: IsA<Window>>(title: Option<&str>, parent: Option<&P>, action: FileChooserAction, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> FileChooserDialog {
-    //    unsafe { TODO: call gtk_sys:gtk_file_chooser_dialog_new() }
+    //    unsafe { TODO: call ffi:gtk_file_chooser_dialog_new() }
     //}
 }
 

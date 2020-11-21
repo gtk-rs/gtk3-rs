@@ -10,10 +10,9 @@
 )]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate gio_sys as gio;
-extern crate glib_sys as glib;
-extern crate gobject_sys as gobject;
-extern crate libc;
+use gio_sys as gio;
+use glib_sys as glib;
+use gobject_sys as gobject;
 
 #[allow(unused_imports)]
 use libc::{
@@ -167,10 +166,6 @@ impl ::std::fmt::Debug for GdkPixbufSimpleAnimIter {
 
 #[link(name = "gdk_pixbuf-2.0")]
 extern "C" {
-
-    //=========================================================================
-    // GdkColorspace
-    //=========================================================================
     pub fn gdk_colorspace_get_type() -> GType;
 
     //=========================================================================

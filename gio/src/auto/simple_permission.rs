@@ -2,24 +2,23 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::Permission;
 use glib::object::Cast;
 use glib::translate::*;
 use std::fmt;
-use Permission;
 
-glib_wrapper! {
-    pub struct SimplePermission(Object<gio_sys::GSimplePermission>) @extends Permission;
+glib::glib_wrapper! {
+    pub struct SimplePermission(Object<ffi::GSimplePermission>) @extends Permission;
 
     match fn {
-        get_type => || gio_sys::g_simple_permission_get_type(),
+        get_type => || ffi::g_simple_permission_get_type(),
     }
 }
 
 impl SimplePermission {
     pub fn new(allowed: bool) -> SimplePermission {
         unsafe {
-            Permission::from_glib_full(gio_sys::g_simple_permission_new(allowed.to_glib()))
+            Permission::from_glib_full(ffi::g_simple_permission_new(allowed.to_glib()))
                 .unsafe_cast()
         }
     }

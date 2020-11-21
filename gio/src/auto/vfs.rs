@@ -2,31 +2,29 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::File;
 use glib::object::IsA;
 use glib::translate::*;
-use glib::GString;
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 use std::boxed::Box as Box_;
 use std::fmt;
-use File;
 
-glib_wrapper! {
-    pub struct Vfs(Object<gio_sys::GVfs, gio_sys::GVfsClass>);
+glib::glib_wrapper! {
+    pub struct Vfs(Object<ffi::GVfs, ffi::GVfsClass>);
 
     match fn {
-        get_type => || gio_sys::g_vfs_get_type(),
+        get_type => || ffi::g_vfs_get_type(),
     }
 }
 
 impl Vfs {
     pub fn get_default() -> Option<Vfs> {
-        unsafe { from_glib_none(gio_sys::g_vfs_get_default()) }
+        unsafe { from_glib_none(ffi::g_vfs_get_default()) }
     }
 
     pub fn get_local() -> Option<Vfs> {
-        unsafe { from_glib_none(gio_sys::g_vfs_get_local()) }
+        unsafe { from_glib_none(ffi::g_vfs_get_local()) }
     }
 }
 
@@ -40,7 +38,7 @@ pub trait VfsExt: 'static {
 
     fn get_file_for_uri(&self, uri: &str) -> Option<File>;
 
-    fn get_supported_uri_schemes(&self) -> Vec<GString>;
+    fn get_supported_uri_schemes(&self) -> Vec<glib::GString>;
 
     fn is_active(&self) -> bool;
 
@@ -63,7 +61,7 @@ pub trait VfsExt: 'static {
 impl<O: IsA<Vfs>> VfsExt for O {
     fn get_file_for_path(&self, path: &str) -> Option<File> {
         unsafe {
-            from_glib_full(gio_sys::g_vfs_get_file_for_path(
+            from_glib_full(ffi::g_vfs_get_file_for_path(
                 self.as_ref().to_glib_none().0,
                 path.to_glib_none().0,
             ))
@@ -72,28 +70,28 @@ impl<O: IsA<Vfs>> VfsExt for O {
 
     fn get_file_for_uri(&self, uri: &str) -> Option<File> {
         unsafe {
-            from_glib_full(gio_sys::g_vfs_get_file_for_uri(
+            from_glib_full(ffi::g_vfs_get_file_for_uri(
                 self.as_ref().to_glib_none().0,
                 uri.to_glib_none().0,
             ))
         }
     }
 
-    fn get_supported_uri_schemes(&self) -> Vec<GString> {
+    fn get_supported_uri_schemes(&self) -> Vec<glib::GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_none(gio_sys::g_vfs_get_supported_uri_schemes(
+            FromGlibPtrContainer::from_glib_none(ffi::g_vfs_get_supported_uri_schemes(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn is_active(&self) -> bool {
-        unsafe { from_glib(gio_sys::g_vfs_is_active(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib(ffi::g_vfs_is_active(self.as_ref().to_glib_none().0)) }
     }
 
     fn parse_name(&self, parse_name: &str) -> Option<File> {
         unsafe {
-            from_glib_full(gio_sys::g_vfs_parse_name(
+            from_glib_full(ffi::g_vfs_parse_name(
                 self.as_ref().to_glib_none().0,
                 parse_name.to_glib_none().0,
             ))
@@ -111,12 +109,12 @@ impl<O: IsA<Vfs>> VfsExt for O {
         let uri_func_data: Box_<Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>>> =
             Box_::new(uri_func);
         unsafe extern "C" fn uri_func_func(
-            vfs: *mut gio_sys::GVfs,
+            vfs: *mut ffi::GVfs,
             identifier: *const libc::c_char,
-            user_data: glib_sys::gpointer,
-        ) -> *mut gio_sys::GFile {
+            user_data: glib::ffi::gpointer,
+        ) -> *mut ffi::GFile {
             let vfs = from_glib_borrow(vfs);
-            let identifier: Borrowed<GString> = from_glib_borrow(identifier);
+            let identifier: Borrowed<glib::GString> = from_glib_borrow(identifier);
             let callback: &Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>> =
                 &*(user_data as *mut _);
             let res = if let Some(ref callback) = *callback {
@@ -134,12 +132,12 @@ impl<O: IsA<Vfs>> VfsExt for O {
         let parse_name_func_data: Box_<Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>>> =
             Box_::new(parse_name_func);
         unsafe extern "C" fn parse_name_func_func(
-            vfs: *mut gio_sys::GVfs,
+            vfs: *mut ffi::GVfs,
             identifier: *const libc::c_char,
-            user_data: glib_sys::gpointer,
-        ) -> *mut gio_sys::GFile {
+            user_data: glib::ffi::gpointer,
+        ) -> *mut ffi::GFile {
             let vfs = from_glib_borrow(vfs);
-            let identifier: Borrowed<GString> = from_glib_borrow(identifier);
+            let identifier: Borrowed<glib::GString> = from_glib_borrow(identifier);
             let callback: &Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>> =
                 &*(user_data as *mut _);
             let res = if let Some(ref callback) = *callback {
@@ -154,12 +152,12 @@ impl<O: IsA<Vfs>> VfsExt for O {
         } else {
             None
         };
-        unsafe extern "C" fn uri_destroy_func(data: glib_sys::gpointer) {
+        unsafe extern "C" fn uri_destroy_func(data: glib::ffi::gpointer) {
             let _callback: Box_<Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>>> =
                 Box_::from_raw(data as *mut _);
         }
         let destroy_call4 = Some(uri_destroy_func as _);
-        unsafe extern "C" fn parse_name_destroy_func(data: glib_sys::gpointer) {
+        unsafe extern "C" fn parse_name_destroy_func(data: glib::ffi::gpointer) {
             let _callback: Box_<Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>>> =
                 Box_::from_raw(data as *mut _);
         }
@@ -169,7 +167,7 @@ impl<O: IsA<Vfs>> VfsExt for O {
         let super_callback1: Box_<Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>>> =
             parse_name_func_data;
         unsafe {
-            from_glib(gio_sys::g_vfs_register_uri_scheme(
+            from_glib(ffi::g_vfs_register_uri_scheme(
                 self.as_ref().to_glib_none().0,
                 scheme.to_glib_none().0,
                 uri_func,
@@ -186,7 +184,7 @@ impl<O: IsA<Vfs>> VfsExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     fn unregister_uri_scheme(&self, scheme: &str) -> bool {
         unsafe {
-            from_glib(gio_sys::g_vfs_unregister_uri_scheme(
+            from_glib(ffi::g_vfs_unregister_uri_scheme(
                 self.as_ref().to_glib_none().0,
                 scheme.to_glib_none().0,
             ))

@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::SocketConnection;
+use crate::SocketListener;
+use crate::SocketService;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -11,20 +12,15 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use SocketConnection;
-use SocketListener;
-use SocketService;
 
-glib_wrapper! {
-    pub struct ThreadedSocketService(Object<gio_sys::GThreadedSocketService, gio_sys::GThreadedSocketServiceClass>) @extends SocketService, SocketListener;
+glib::glib_wrapper! {
+    pub struct ThreadedSocketService(Object<ffi::GThreadedSocketService, ffi::GThreadedSocketServiceClass>) @extends SocketService, SocketListener;
 
     match fn {
-        get_type => || gio_sys::g_threaded_socket_service_get_type(),
+        get_type => || ffi::g_threaded_socket_service_get_type(),
     }
 }
 
@@ -43,8 +39,8 @@ impl<O: IsA<ThreadedSocketService>> ThreadedSocketServiceExt for O {
     fn get_property_max_threads(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"max-threads\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -63,11 +59,11 @@ impl<O: IsA<ThreadedSocketService>> ThreadedSocketServiceExt for O {
             P,
             F: Fn(&P, &SocketConnection, Option<&glib::Object>) -> bool + 'static,
         >(
-            this: *mut gio_sys::GThreadedSocketService,
-            connection: *mut gio_sys::GSocketConnection,
-            source_object: *mut gobject_sys::GObject,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GThreadedSocketService,
+            connection: *mut ffi::GSocketConnection,
+            source_object: *mut glib::gobject_ffi::GObject,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<ThreadedSocketService>,
         {

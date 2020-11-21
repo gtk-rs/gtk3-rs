@@ -2,30 +2,25 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::Converter;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
-use Converter;
 
-glib_wrapper! {
-    pub struct CharsetConverter(Object<gio_sys::GCharsetConverter, gio_sys::GCharsetConverterClass>) @implements Converter;
+glib::glib_wrapper! {
+    pub struct CharsetConverter(Object<ffi::GCharsetConverter, ffi::GCharsetConverterClass>) @implements Converter;
 
     match fn {
-        get_type => || gio_sys::g_charset_converter_get_type(),
+        get_type => || ffi::g_charset_converter_get_type(),
     }
 }
 
@@ -33,7 +28,7 @@ impl CharsetConverter {
     pub fn new(to_charset: &str, from_charset: &str) -> Result<CharsetConverter, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_charset_converter_new(
+            let ret = ffi::g_charset_converter_new(
                 to_charset.to_glib_none().0,
                 from_charset.to_glib_none().0,
                 &mut error,
@@ -102,9 +97,9 @@ pub trait CharsetConverterExt: 'static {
 
     fn set_use_fallback(&self, use_fallback: bool);
 
-    fn get_property_from_charset(&self) -> Option<GString>;
+    fn get_property_from_charset(&self) -> Option<glib::GString>;
 
-    fn get_property_to_charset(&self) -> Option<GString>;
+    fn get_property_to_charset(&self) -> Option<glib::GString>;
 
     fn connect_property_use_fallback_notify<F: Fn(&Self) + 'static>(&self, f: F)
         -> SignalHandlerId;
@@ -112,12 +107,12 @@ pub trait CharsetConverterExt: 'static {
 
 impl<O: IsA<CharsetConverter>> CharsetConverterExt for O {
     fn get_num_fallbacks(&self) -> u32 {
-        unsafe { gio_sys::g_charset_converter_get_num_fallbacks(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::g_charset_converter_get_num_fallbacks(self.as_ref().to_glib_none().0) }
     }
 
     fn get_use_fallback(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_charset_converter_get_use_fallback(
+            from_glib(ffi::g_charset_converter_get_use_fallback(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -125,18 +120,18 @@ impl<O: IsA<CharsetConverter>> CharsetConverterExt for O {
 
     fn set_use_fallback(&self, use_fallback: bool) {
         unsafe {
-            gio_sys::g_charset_converter_set_use_fallback(
+            ffi::g_charset_converter_set_use_fallback(
                 self.as_ref().to_glib_none().0,
                 use_fallback.to_glib(),
             );
         }
     }
 
-    fn get_property_from_charset(&self) -> Option<GString> {
+    fn get_property_from_charset(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"from-charset\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -146,11 +141,11 @@ impl<O: IsA<CharsetConverter>> CharsetConverterExt for O {
         }
     }
 
-    fn get_property_to_charset(&self) -> Option<GString> {
+    fn get_property_to_charset(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"to-charset\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -165,9 +160,9 @@ impl<O: IsA<CharsetConverter>> CharsetConverterExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_fallback_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GCharsetConverter,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GCharsetConverter,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CharsetConverter>,
         {

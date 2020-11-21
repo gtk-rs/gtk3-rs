@@ -2,23 +2,22 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::Converter;
+use crate::FilterInputStream;
+use crate::InputStream;
+use crate::PollableInputStream;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
 use std::fmt;
-use Converter;
-use FilterInputStream;
-use InputStream;
-use PollableInputStream;
 
-glib_wrapper! {
-    pub struct ConverterInputStream(Object<gio_sys::GConverterInputStream, gio_sys::GConverterInputStreamClass>) @extends FilterInputStream, InputStream, @implements PollableInputStream;
+glib::glib_wrapper! {
+    pub struct ConverterInputStream(Object<ffi::GConverterInputStream, ffi::GConverterInputStreamClass>) @extends FilterInputStream, InputStream, @implements PollableInputStream;
 
     match fn {
-        get_type => || gio_sys::g_converter_input_stream_get_type(),
+        get_type => || ffi::g_converter_input_stream_get_type(),
     }
 }
 
@@ -28,7 +27,7 @@ impl ConverterInputStream {
         converter: &Q,
     ) -> ConverterInputStream {
         unsafe {
-            InputStream::from_glib_full(gio_sys::g_converter_input_stream_new(
+            InputStream::from_glib_full(ffi::g_converter_input_stream_new(
                 base_stream.as_ref().to_glib_none().0,
                 converter.as_ref().to_glib_none().0,
             ))
@@ -92,7 +91,7 @@ pub trait ConverterInputStreamExt: 'static {
 impl<O: IsA<ConverterInputStream>> ConverterInputStreamExt for O {
     fn get_converter(&self) -> Option<Converter> {
         unsafe {
-            from_glib_none(gio_sys::g_converter_input_stream_get_converter(
+            from_glib_none(ffi::g_converter_input_stream_get_converter(
                 self.as_ref().to_glib_none().0,
             ))
         }

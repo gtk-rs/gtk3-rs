@@ -2,37 +2,32 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use glib;
+use crate::Actionable;
+use crate::Align;
+use crate::Bin;
+use crate::Buildable;
+use crate::Button;
+use crate::Container;
+use crate::PositionType;
+use crate::ReliefStyle;
+use crate::ResizeMode;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Actionable;
-use Align;
-use Bin;
-use Buildable;
-use Button;
-use Container;
-use PositionType;
-use ReliefStyle;
-use ResizeMode;
-use Widget;
 
-glib_wrapper! {
-    pub struct LinkButton(Object<gtk_sys::GtkLinkButton, gtk_sys::GtkLinkButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable;
+glib::glib_wrapper! {
+    pub struct LinkButton(Object<ffi::GtkLinkButton, ffi::GtkLinkButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || gtk_sys::gtk_link_button_get_type(),
+        get_type => || ffi::gtk_link_button_get_type(),
     }
 }
 
@@ -40,14 +35,14 @@ impl LinkButton {
     pub fn new(uri: &str) -> LinkButton {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_link_button_new(uri.to_glib_none().0)).unsafe_cast()
+            Widget::from_glib_none(ffi::gtk_link_button_new(uri.to_glib_none().0)).unsafe_cast()
         }
     }
 
     pub fn with_label(uri: &str, label: Option<&str>) -> LinkButton {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_link_button_new_with_label(
+            Widget::from_glib_none(ffi::gtk_link_button_new_with_label(
                 uri.to_glib_none().0,
                 label.to_glib_none().0,
             ))
@@ -488,7 +483,7 @@ impl LinkButtonBuilder {
 pub const NONE_LINK_BUTTON: Option<&LinkButton> = None;
 
 pub trait LinkButtonExt: 'static {
-    fn get_uri(&self) -> Option<GString>;
+    fn get_uri(&self) -> Option<glib::GString>;
 
     fn get_visited(&self) -> bool;
 
@@ -507,17 +502,13 @@ pub trait LinkButtonExt: 'static {
 }
 
 impl<O: IsA<LinkButton>> LinkButtonExt for O {
-    fn get_uri(&self) -> Option<GString> {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_link_button_get_uri(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+    fn get_uri(&self) -> Option<glib::GString> {
+        unsafe { from_glib_none(ffi::gtk_link_button_get_uri(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_visited(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_link_button_get_visited(
+            from_glib(ffi::gtk_link_button_get_visited(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -525,13 +516,13 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
 
     fn set_uri(&self, uri: &str) {
         unsafe {
-            gtk_sys::gtk_link_button_set_uri(self.as_ref().to_glib_none().0, uri.to_glib_none().0);
+            ffi::gtk_link_button_set_uri(self.as_ref().to_glib_none().0, uri.to_glib_none().0);
         }
     }
 
     fn set_visited(&self, visited: bool) {
         unsafe {
-            gtk_sys::gtk_link_button_set_visited(self.as_ref().to_glib_none().0, visited.to_glib());
+            ffi::gtk_link_button_set_visited(self.as_ref().to_glib_none().0, visited.to_glib());
         }
     }
 
@@ -543,9 +534,9 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
             P,
             F: Fn(&P) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkLinkButton,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkLinkButton,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<LinkButton>,
         {
@@ -567,9 +558,9 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
 
     fn connect_property_uri_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_uri_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLinkButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLinkButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<LinkButton>,
         {
@@ -591,9 +582,9 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
 
     fn connect_property_visited_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visited_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLinkButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLinkButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<LinkButton>,
         {

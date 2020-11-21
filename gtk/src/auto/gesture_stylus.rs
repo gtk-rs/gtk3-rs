@@ -2,9 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::EventController;
+use crate::Gesture;
+use crate::GestureSingle;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-use gdk;
+use crate::Widget;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use glib::object::Cast;
@@ -15,27 +18,18 @@ use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib_sys;
-use gtk_sys;
-use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use std::mem;
 use std::mem::transmute;
-use EventController;
-use Gesture;
-use GestureSingle;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-use Widget;
 
-glib_wrapper! {
-    pub struct GestureStylus(Object<gtk_sys::GtkGestureStylus, gtk_sys::GtkGestureStylusClass>) @extends GestureSingle, Gesture, EventController;
+glib::glib_wrapper! {
+    pub struct GestureStylus(Object<ffi::GtkGestureStylus, ffi::GtkGestureStylusClass>) @extends GestureSingle, Gesture, EventController;
 
     match fn {
-        get_type => || gtk_sys::gtk_gesture_stylus_get_type(),
+        get_type => || ffi::gtk_gesture_stylus_get_type(),
     }
 }
 
@@ -45,7 +39,7 @@ impl GestureStylus {
     pub fn new<P: IsA<Widget>>(widget: &P) -> GestureStylus {
         skip_assert_initialized!();
         unsafe {
-            Gesture::from_glib_full(gtk_sys::gtk_gesture_stylus_new(
+            Gesture::from_glib_full(ffi::gtk_gesture_stylus_new(
                 widget.as_ref().to_glib_none().0,
             ))
             .unsafe_cast()
@@ -57,7 +51,7 @@ impl GestureStylus {
     pub fn get_axis(&self, axis: gdk::AxisUse) -> Option<f64> {
         unsafe {
             let mut value = mem::MaybeUninit::uninit();
-            let ret = from_glib(gtk_sys::gtk_gesture_stylus_get_axis(
+            let ret = from_glib(ffi::gtk_gesture_stylus_get_axis(
                 self.to_glib_none().0,
                 axis.to_glib(),
                 value.as_mut_ptr(),
@@ -75,7 +69,7 @@ impl GestureStylus {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn get_device_tool(&self) -> Option<gdk::DeviceTool> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_gesture_stylus_get_device_tool(
+            from_glib_none(ffi::gtk_gesture_stylus_get_device_tool(
                 self.to_glib_none().0,
             ))
         }
@@ -83,10 +77,10 @@ impl GestureStylus {
 
     pub fn connect_down<F: Fn(&GestureStylus, f64, f64) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn down_trampoline<F: Fn(&GestureStylus, f64, f64) + 'static>(
-            this: *mut gtk_sys::GtkGestureStylus,
+            this: *mut ffi::GtkGestureStylus,
             object: libc::c_double,
             p0: libc::c_double,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), object, p0)
@@ -109,10 +103,10 @@ impl GestureStylus {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn motion_trampoline<F: Fn(&GestureStylus, f64, f64) + 'static>(
-            this: *mut gtk_sys::GtkGestureStylus,
+            this: *mut ffi::GtkGestureStylus,
             object: libc::c_double,
             p0: libc::c_double,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), object, p0)
@@ -135,10 +129,10 @@ impl GestureStylus {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn proximity_trampoline<F: Fn(&GestureStylus, f64, f64) + 'static>(
-            this: *mut gtk_sys::GtkGestureStylus,
+            this: *mut ffi::GtkGestureStylus,
             object: libc::c_double,
             p0: libc::c_double,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), object, p0)
@@ -158,10 +152,10 @@ impl GestureStylus {
 
     pub fn connect_up<F: Fn(&GestureStylus, f64, f64) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn up_trampoline<F: Fn(&GestureStylus, f64, f64) + 'static>(
-            this: *mut gtk_sys::GtkGestureStylus,
+            this: *mut ffi::GtkGestureStylus,
             object: libc::c_double,
             p0: libc::c_double,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), object, p0)

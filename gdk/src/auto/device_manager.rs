@@ -2,24 +2,22 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk_sys;
+use crate::Device;
+use crate::DeviceType;
+use crate::Display;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Device;
-use DeviceType;
-use Display;
 
-glib_wrapper! {
-    pub struct DeviceManager(Object<gdk_sys::GdkDeviceManager>);
+glib::glib_wrapper! {
+    pub struct DeviceManager(Object<ffi::GdkDeviceManager>);
 
     match fn {
-        get_type => || gdk_sys::gdk_device_manager_get_type(),
+        get_type => || ffi::gdk_device_manager_get_type(),
     }
 }
 
@@ -27,24 +25,20 @@ impl DeviceManager {
     #[cfg_attr(feature = "v3_20", deprecated)]
     pub fn get_client_pointer(&self) -> Option<Device> {
         unsafe {
-            from_glib_none(gdk_sys::gdk_device_manager_get_client_pointer(
+            from_glib_none(ffi::gdk_device_manager_get_client_pointer(
                 self.to_glib_none().0,
             ))
         }
     }
 
     pub fn get_display(&self) -> Option<Display> {
-        unsafe {
-            from_glib_none(gdk_sys::gdk_device_manager_get_display(
-                self.to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gdk_device_manager_get_display(self.to_glib_none().0)) }
     }
 
     #[cfg_attr(feature = "v3_20", deprecated)]
     pub fn list_devices(&self, type_: DeviceType) -> Vec<Device> {
         unsafe {
-            FromGlibPtrContainer::from_glib_container(gdk_sys::gdk_device_manager_list_devices(
+            FromGlibPtrContainer::from_glib_container(ffi::gdk_device_manager_list_devices(
                 self.to_glib_none().0,
                 type_.to_glib(),
             ))
@@ -56,9 +50,9 @@ impl DeviceManager {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn device_added_trampoline<F: Fn(&DeviceManager, &Device) + 'static>(
-            this: *mut gdk_sys::GdkDeviceManager,
-            device: *mut gdk_sys::GdkDevice,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GdkDeviceManager,
+            device: *mut ffi::GdkDevice,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), &from_glib_borrow(device))
@@ -81,9 +75,9 @@ impl DeviceManager {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn device_changed_trampoline<F: Fn(&DeviceManager, &Device) + 'static>(
-            this: *mut gdk_sys::GdkDeviceManager,
-            device: *mut gdk_sys::GdkDevice,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GdkDeviceManager,
+            device: *mut ffi::GdkDevice,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), &from_glib_borrow(device))
@@ -106,9 +100,9 @@ impl DeviceManager {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn device_removed_trampoline<F: Fn(&DeviceManager, &Device) + 'static>(
-            this: *mut gdk_sys::GdkDeviceManager,
-            device: *mut gdk_sys::GdkDevice,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GdkDeviceManager,
+            device: *mut ffi::GdkDevice,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), &from_glib_borrow(device))

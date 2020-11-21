@@ -2,34 +2,29 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::Cancellable;
+use crate::DriveStartFlags;
+use crate::DriveStartStopType;
+use crate::Icon;
+use crate::MountOperation;
+use crate::MountUnmountFlags;
+use crate::Volume;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
-use DriveStartFlags;
-use DriveStartStopType;
-use Icon;
-use MountOperation;
-use MountUnmountFlags;
-use Volume;
 
-glib_wrapper! {
-    pub struct Drive(Interface<gio_sys::GDrive>);
+glib::glib_wrapper! {
+    pub struct Drive(Interface<ffi::GDrive>);
 
     match fn {
-        get_type => || gio_sys::g_drive_get_type(),
+        get_type => || ffi::g_drive_get_type(),
     }
 }
 
@@ -64,15 +59,15 @@ pub trait DriveExt: 'static {
         mount_operation: Option<&P>,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
-    fn enumerate_identifiers(&self) -> Vec<GString>;
+    fn enumerate_identifiers(&self) -> Vec<glib::GString>;
 
     fn get_icon(&self) -> Icon;
 
-    fn get_identifier(&self, kind: &str) -> Option<GString>;
+    fn get_identifier(&self, kind: &str) -> Option<glib::GString>;
 
-    fn get_name(&self) -> GString;
+    fn get_name(&self) -> glib::GString;
 
-    fn get_sort_key(&self) -> Option<GString>;
+    fn get_sort_key(&self) -> Option<glib::GString>;
 
     fn get_start_stop_type(&self) -> DriveStartStopType;
 
@@ -149,31 +144,31 @@ pub trait DriveExt: 'static {
 
 impl<O: IsA<Drive>> DriveExt for O {
     fn can_eject(&self) -> bool {
-        unsafe { from_glib(gio_sys::g_drive_can_eject(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib(ffi::g_drive_can_eject(self.as_ref().to_glib_none().0)) }
     }
 
     fn can_poll_for_media(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_drive_can_poll_for_media(
+            from_glib(ffi::g_drive_can_poll_for_media(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn can_start(&self) -> bool {
-        unsafe { from_glib(gio_sys::g_drive_can_start(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib(ffi::g_drive_can_start(self.as_ref().to_glib_none().0)) }
     }
 
     fn can_start_degraded(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_drive_can_start_degraded(
+            from_glib(ffi::g_drive_can_start_degraded(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn can_stop(&self) -> bool {
-        unsafe { from_glib(gio_sys::g_drive_can_stop(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib(ffi::g_drive_can_stop(self.as_ref().to_glib_none().0)) }
     }
 
     fn eject_with_operation<
@@ -191,16 +186,13 @@ impl<O: IsA<Drive>> DriveExt for O {
         unsafe extern "C" fn eject_with_operation_trampoline<
             R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_drive_eject_with_operation_finish(
-                _source_object as *mut _,
-                res,
-                &mut error,
-            );
+            let _ =
+                ffi::g_drive_eject_with_operation_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -211,7 +203,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
         let callback = eject_with_operation_trampoline::<R>;
         unsafe {
-            gio_sys::g_drive_eject_with_operation(
+            ffi::g_drive_eject_with_operation(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
@@ -243,42 +235,38 @@ impl<O: IsA<Drive>> DriveExt for O {
         }))
     }
 
-    fn enumerate_identifiers(&self) -> Vec<GString> {
+    fn enumerate_identifiers(&self) -> Vec<glib::GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gio_sys::g_drive_enumerate_identifiers(
+            FromGlibPtrContainer::from_glib_full(ffi::g_drive_enumerate_identifiers(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_icon(&self) -> Icon {
-        unsafe { from_glib_full(gio_sys::g_drive_get_icon(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib_full(ffi::g_drive_get_icon(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_identifier(&self, kind: &str) -> Option<GString> {
+    fn get_identifier(&self, kind: &str) -> Option<glib::GString> {
         unsafe {
-            from_glib_full(gio_sys::g_drive_get_identifier(
+            from_glib_full(ffi::g_drive_get_identifier(
                 self.as_ref().to_glib_none().0,
                 kind.to_glib_none().0,
             ))
         }
     }
 
-    fn get_name(&self) -> GString {
-        unsafe { from_glib_full(gio_sys::g_drive_get_name(self.as_ref().to_glib_none().0)) }
+    fn get_name(&self) -> glib::GString {
+        unsafe { from_glib_full(ffi::g_drive_get_name(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_sort_key(&self) -> Option<GString> {
-        unsafe {
-            from_glib_none(gio_sys::g_drive_get_sort_key(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+    fn get_sort_key(&self) -> Option<glib::GString> {
+        unsafe { from_glib_none(ffi::g_drive_get_sort_key(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_start_stop_type(&self) -> DriveStartStopType {
         unsafe {
-            from_glib(gio_sys::g_drive_get_start_stop_type(
+            from_glib(ffi::g_drive_get_start_stop_type(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -286,7 +274,7 @@ impl<O: IsA<Drive>> DriveExt for O {
 
     fn get_symbolic_icon(&self) -> Icon {
         unsafe {
-            from_glib_full(gio_sys::g_drive_get_symbolic_icon(
+            from_glib_full(ffi::g_drive_get_symbolic_icon(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -294,23 +282,23 @@ impl<O: IsA<Drive>> DriveExt for O {
 
     fn get_volumes(&self) -> Vec<Volume> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gio_sys::g_drive_get_volumes(
+            FromGlibPtrContainer::from_glib_full(ffi::g_drive_get_volumes(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn has_media(&self) -> bool {
-        unsafe { from_glib(gio_sys::g_drive_has_media(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib(ffi::g_drive_has_media(self.as_ref().to_glib_none().0)) }
     }
 
     fn has_volumes(&self) -> bool {
-        unsafe { from_glib(gio_sys::g_drive_has_volumes(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib(ffi::g_drive_has_volumes(self.as_ref().to_glib_none().0)) }
     }
 
     fn is_media_check_automatic(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_drive_is_media_check_automatic(
+            from_glib(ffi::g_drive_is_media_check_automatic(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -318,7 +306,7 @@ impl<O: IsA<Drive>> DriveExt for O {
 
     fn is_media_removable(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_drive_is_media_removable(
+            from_glib(ffi::g_drive_is_media_removable(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -327,11 +315,7 @@ impl<O: IsA<Drive>> DriveExt for O {
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     fn is_removable(&self) -> bool {
-        unsafe {
-            from_glib(gio_sys::g_drive_is_removable(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::g_drive_is_removable(self.as_ref().to_glib_none().0)) }
     }
 
     fn poll_for_media<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
@@ -343,13 +327,12 @@ impl<O: IsA<Drive>> DriveExt for O {
         unsafe extern "C" fn poll_for_media_trampoline<
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ =
-                gio_sys::g_drive_poll_for_media_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_drive_poll_for_media_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -360,7 +343,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
         let callback = poll_for_media_trampoline::<Q>;
         unsafe {
-            gio_sys::g_drive_poll_for_media(
+            ffi::g_drive_poll_for_media(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -397,12 +380,12 @@ impl<O: IsA<Drive>> DriveExt for O {
         unsafe extern "C" fn start_trampoline<
             R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_drive_start_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_drive_start_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -413,7 +396,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
         let callback = start_trampoline::<R>;
         unsafe {
-            gio_sys::g_drive_start(
+            ffi::g_drive_start(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
@@ -460,12 +443,12 @@ impl<O: IsA<Drive>> DriveExt for O {
         unsafe extern "C" fn stop_trampoline<
             R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_drive_stop_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_drive_stop_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -476,7 +459,7 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
         let callback = stop_trampoline::<R>;
         unsafe {
-            gio_sys::g_drive_stop(
+            ffi::g_drive_stop(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
@@ -510,8 +493,8 @@ impl<O: IsA<Drive>> DriveExt for O {
 
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn changed_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GDrive,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDrive,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Drive>,
         {
@@ -533,8 +516,8 @@ impl<O: IsA<Drive>> DriveExt for O {
 
     fn connect_disconnected<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn disconnected_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GDrive,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDrive,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Drive>,
         {
@@ -556,8 +539,8 @@ impl<O: IsA<Drive>> DriveExt for O {
 
     fn connect_eject_button<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn eject_button_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GDrive,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDrive,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Drive>,
         {
@@ -579,8 +562,8 @@ impl<O: IsA<Drive>> DriveExt for O {
 
     fn connect_stop_button<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn stop_button_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GDrive,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDrive,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Drive>,
         {

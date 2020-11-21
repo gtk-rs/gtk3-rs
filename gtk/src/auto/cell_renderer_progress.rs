@@ -2,41 +2,34 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
+use crate::CellRenderer;
+use crate::CellRendererMode;
+use crate::Orientable;
+use crate::Orientation;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use CellRenderer;
-use CellRendererMode;
-use Orientable;
-use Orientation;
 
-glib_wrapper! {
-    pub struct CellRendererProgress(Object<gtk_sys::GtkCellRendererProgress, gtk_sys::GtkCellRendererProgressClass>) @extends CellRenderer, @implements Orientable;
+glib::glib_wrapper! {
+    pub struct CellRendererProgress(Object<ffi::GtkCellRendererProgress, ffi::GtkCellRendererProgressClass>) @extends CellRenderer, @implements Orientable;
 
     match fn {
-        get_type => || gtk_sys::gtk_cell_renderer_progress_get_type(),
+        get_type => || ffi::gtk_cell_renderer_progress_get_type(),
     }
 }
 
 impl CellRendererProgress {
     pub fn new() -> CellRendererProgress {
         assert_initialized_main_thread!();
-        unsafe {
-            CellRenderer::from_glib_none(gtk_sys::gtk_cell_renderer_progress_new()).unsafe_cast()
-        }
+        unsafe { CellRenderer::from_glib_none(ffi::gtk_cell_renderer_progress_new()).unsafe_cast() }
     }
 }
 
@@ -265,7 +258,7 @@ pub trait CellRendererProgressExt: 'static {
 
     fn set_property_pulse(&self, pulse: i32);
 
-    fn get_property_text(&self) -> Option<GString>;
+    fn get_property_text(&self) -> Option<glib::GString>;
 
     fn set_property_text(&self, text: Option<&str>);
 
@@ -298,8 +291,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
     fn get_property_inverted(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"inverted\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -312,8 +305,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     fn set_property_inverted(&self, inverted: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"inverted\0".as_ptr() as *const _,
                 Value::from(&inverted).to_glib_none().0,
             );
@@ -323,8 +316,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
     fn get_property_pulse(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pulse\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -337,19 +330,19 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     fn set_property_pulse(&self, pulse: i32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pulse\0".as_ptr() as *const _,
                 Value::from(&pulse).to_glib_none().0,
             );
         }
     }
 
-    fn get_property_text(&self) -> Option<GString> {
+    fn get_property_text(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"text\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -361,8 +354,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     fn set_property_text(&self, text: Option<&str>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"text\0".as_ptr() as *const _,
                 Value::from(text).to_glib_none().0,
             );
@@ -372,8 +365,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
     fn get_property_text_xalign(&self) -> f32 {
         unsafe {
             let mut value = Value::from_type(<f32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"text-xalign\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -386,8 +379,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     fn set_property_text_xalign(&self, text_xalign: f32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"text-xalign\0".as_ptr() as *const _,
                 Value::from(&text_xalign).to_glib_none().0,
             );
@@ -397,8 +390,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
     fn get_property_text_yalign(&self) -> f32 {
         unsafe {
             let mut value = Value::from_type(<f32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"text-yalign\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -411,8 +404,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     fn set_property_text_yalign(&self, text_yalign: f32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"text-yalign\0".as_ptr() as *const _,
                 Value::from(&text_yalign).to_glib_none().0,
             );
@@ -422,8 +415,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
     fn get_property_value(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"value\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -436,8 +429,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     fn set_property_value(&self, value: i32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"value\0".as_ptr() as *const _,
                 Value::from(&value).to_glib_none().0,
             );
@@ -446,9 +439,9 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     fn connect_property_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inverted_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererProgress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererProgress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererProgress>,
         {
@@ -470,9 +463,9 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     fn connect_property_pulse_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pulse_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererProgress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererProgress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererProgress>,
         {
@@ -494,9 +487,9 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     fn connect_property_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererProgress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererProgress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererProgress>,
         {
@@ -518,9 +511,9 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     fn connect_property_text_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_xalign_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererProgress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererProgress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererProgress>,
         {
@@ -542,9 +535,9 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     fn connect_property_text_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_yalign_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererProgress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererProgress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererProgress>,
         {
@@ -566,9 +559,9 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
 
     fn connect_property_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_value_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCellRendererProgress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCellRendererProgress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CellRendererProgress>,
         {

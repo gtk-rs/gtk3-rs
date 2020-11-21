@@ -2,8 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use glib;
+use crate::Actionable;
+use crate::Align;
+use crate::Bin;
+use crate::Buildable;
+use crate::CheckMenuItem;
+use crate::Container;
+use crate::Menu;
+use crate::MenuItem;
+use crate::ResizeMode;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -11,27 +19,15 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Actionable;
-use Align;
-use Bin;
-use Buildable;
-use CheckMenuItem;
-use Container;
-use Menu;
-use MenuItem;
-use ResizeMode;
-use Widget;
 
-glib_wrapper! {
-    pub struct RadioMenuItem(Object<gtk_sys::GtkRadioMenuItem, gtk_sys::GtkRadioMenuItemClass>) @extends CheckMenuItem, MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
+glib::glib_wrapper! {
+    pub struct RadioMenuItem(Object<ffi::GtkRadioMenuItem, ffi::GtkRadioMenuItemClass>) @extends CheckMenuItem, MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || gtk_sys::gtk_radio_menu_item_get_type(),
+        get_type => || ffi::gtk_radio_menu_item_get_type(),
     }
 }
 
@@ -39,7 +35,7 @@ impl RadioMenuItem {
     pub fn from_widget<P: IsA<RadioMenuItem>>(group: &P) -> RadioMenuItem {
         skip_assert_initialized!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_radio_menu_item_new_from_widget(
+            Widget::from_glib_none(ffi::gtk_radio_menu_item_new_from_widget(
                 group.as_ref().to_glib_none().0,
             ))
             .unsafe_cast()
@@ -52,7 +48,7 @@ impl RadioMenuItem {
     ) -> RadioMenuItem {
         skip_assert_initialized!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_radio_menu_item_new_with_label_from_widget(
+            Widget::from_glib_none(ffi::gtk_radio_menu_item_new_with_label_from_widget(
                 group.as_ref().to_glib_none().0,
                 label.to_glib_none().0,
             ))
@@ -66,7 +62,7 @@ impl RadioMenuItem {
     ) -> RadioMenuItem {
         skip_assert_initialized!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_radio_menu_item_new_with_mnemonic_from_widget(
+            Widget::from_glib_none(ffi::gtk_radio_menu_item_new_with_mnemonic_from_widget(
                 group.as_ref().to_glib_none().0,
                 label.to_glib_none().0,
             ))
@@ -519,7 +515,7 @@ pub trait RadioMenuItemExt: 'static {
 impl<O: IsA<RadioMenuItem>> RadioMenuItemExt for O {
     fn get_group(&self) -> Vec<RadioMenuItem> {
         unsafe {
-            FromGlibPtrContainer::from_glib_none(gtk_sys::gtk_radio_menu_item_get_group(
+            FromGlibPtrContainer::from_glib_none(ffi::gtk_radio_menu_item_get_group(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -529,7 +525,7 @@ impl<O: IsA<RadioMenuItem>> RadioMenuItemExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn join_group<P: IsA<RadioMenuItem>>(&self, group_source: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_radio_menu_item_join_group(
+            ffi::gtk_radio_menu_item_join_group(
                 self.as_ref().to_glib_none().0,
                 group_source.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -538,8 +534,8 @@ impl<O: IsA<RadioMenuItem>> RadioMenuItemExt for O {
 
     fn connect_group_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn group_changed_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkRadioMenuItem,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkRadioMenuItem,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<RadioMenuItem>,
         {

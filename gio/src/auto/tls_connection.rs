@@ -2,38 +2,31 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::Cancellable;
+use crate::IOStream;
+use crate::TlsCertificate;
+use crate::TlsCertificateFlags;
+use crate::TlsDatabase;
+use crate::TlsInteraction;
+use crate::TlsRehandshakeMode;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-#[cfg(any(feature = "v2_60", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
-use glib::GString;
 use glib::StaticType;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
-use IOStream;
-use TlsCertificate;
-use TlsCertificateFlags;
-use TlsDatabase;
-use TlsInteraction;
-use TlsRehandshakeMode;
 
-glib_wrapper! {
-    pub struct TlsConnection(Object<gio_sys::GTlsConnection, gio_sys::GTlsConnectionClass>) @extends IOStream;
+glib::glib_wrapper! {
+    pub struct TlsConnection(Object<ffi::GTlsConnection, ffi::GTlsConnectionClass>) @extends IOStream;
 
     match fn {
-        get_type => || gio_sys::g_tls_connection_get_type(),
+        get_type => || ffi::g_tls_connection_get_type(),
     }
 }
 
@@ -54,7 +47,7 @@ pub trait TlsConnectionExt: 'static {
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
-    fn get_negotiated_protocol(&self) -> Option<GString>;
+    fn get_negotiated_protocol(&self) -> Option<glib::GString>;
 
     fn get_peer_certificate(&self) -> Option<TlsCertificate>;
 
@@ -96,7 +89,7 @@ pub trait TlsConnectionExt: 'static {
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
-    fn get_property_advertised_protocols(&self) -> Vec<GString>;
+    fn get_property_advertised_protocols(&self) -> Vec<glib::GString>;
 
     fn get_property_base_io_stream(&self) -> Option<IOStream>;
 
@@ -156,7 +149,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         errors: TlsCertificateFlags,
     ) -> bool {
         unsafe {
-            from_glib(gio_sys::g_tls_connection_emit_accept_certificate(
+            from_glib(ffi::g_tls_connection_emit_accept_certificate(
                 self.as_ref().to_glib_none().0,
                 peer_cert.as_ref().to_glib_none().0,
                 errors.to_glib(),
@@ -166,7 +159,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn get_certificate(&self) -> Option<TlsCertificate> {
         unsafe {
-            from_glib_none(gio_sys::g_tls_connection_get_certificate(
+            from_glib_none(ffi::g_tls_connection_get_certificate(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -174,7 +167,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn get_database(&self) -> Option<TlsDatabase> {
         unsafe {
-            from_glib_none(gio_sys::g_tls_connection_get_database(
+            from_glib_none(ffi::g_tls_connection_get_database(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -182,7 +175,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn get_interaction(&self) -> Option<TlsInteraction> {
         unsafe {
-            from_glib_none(gio_sys::g_tls_connection_get_interaction(
+            from_glib_none(ffi::g_tls_connection_get_interaction(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -190,9 +183,9 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
-    fn get_negotiated_protocol(&self) -> Option<GString> {
+    fn get_negotiated_protocol(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gio_sys::g_tls_connection_get_negotiated_protocol(
+            from_glib_none(ffi::g_tls_connection_get_negotiated_protocol(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -200,7 +193,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn get_peer_certificate(&self) -> Option<TlsCertificate> {
         unsafe {
-            from_glib_none(gio_sys::g_tls_connection_get_peer_certificate(
+            from_glib_none(ffi::g_tls_connection_get_peer_certificate(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -208,7 +201,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn get_peer_certificate_errors(&self) -> TlsCertificateFlags {
         unsafe {
-            from_glib(gio_sys::g_tls_connection_get_peer_certificate_errors(
+            from_glib(ffi::g_tls_connection_get_peer_certificate_errors(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -216,7 +209,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn get_rehandshake_mode(&self) -> TlsRehandshakeMode {
         unsafe {
-            from_glib(gio_sys::g_tls_connection_get_rehandshake_mode(
+            from_glib(ffi::g_tls_connection_get_rehandshake_mode(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -224,7 +217,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn get_require_close_notify(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_tls_connection_get_require_close_notify(
+            from_glib(ffi::g_tls_connection_get_require_close_notify(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -233,7 +226,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     fn handshake<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_tls_connection_handshake(
+            let _ = ffi::g_tls_connection_handshake(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -256,16 +249,13 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         unsafe extern "C" fn handshake_async_trampoline<
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_tls_connection_handshake_finish(
-                _source_object as *mut _,
-                res,
-                &mut error,
-            );
+            let _ =
+                ffi::g_tls_connection_handshake_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -276,7 +266,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
         let callback = handshake_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_tls_connection_handshake_async(
+            ffi::g_tls_connection_handshake_async(
                 self.as_ref().to_glib_none().0,
                 io_priority.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -304,7 +294,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn set_advertised_protocols(&self, protocols: &[&str]) {
         unsafe {
-            gio_sys::g_tls_connection_set_advertised_protocols(
+            ffi::g_tls_connection_set_advertised_protocols(
                 self.as_ref().to_glib_none().0,
                 protocols.to_glib_none().0,
             );
@@ -313,7 +303,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn set_certificate<P: IsA<TlsCertificate>>(&self, certificate: &P) {
         unsafe {
-            gio_sys::g_tls_connection_set_certificate(
+            ffi::g_tls_connection_set_certificate(
                 self.as_ref().to_glib_none().0,
                 certificate.as_ref().to_glib_none().0,
             );
@@ -322,7 +312,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn set_database<P: IsA<TlsDatabase>>(&self, database: Option<&P>) {
         unsafe {
-            gio_sys::g_tls_connection_set_database(
+            ffi::g_tls_connection_set_database(
                 self.as_ref().to_glib_none().0,
                 database.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -331,7 +321,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn set_interaction<P: IsA<TlsInteraction>>(&self, interaction: Option<&P>) {
         unsafe {
-            gio_sys::g_tls_connection_set_interaction(
+            ffi::g_tls_connection_set_interaction(
                 self.as_ref().to_glib_none().0,
                 interaction.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -340,7 +330,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn set_rehandshake_mode(&self, mode: TlsRehandshakeMode) {
         unsafe {
-            gio_sys::g_tls_connection_set_rehandshake_mode(
+            ffi::g_tls_connection_set_rehandshake_mode(
                 self.as_ref().to_glib_none().0,
                 mode.to_glib(),
             );
@@ -349,7 +339,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn set_require_close_notify(&self, require_close_notify: bool) {
         unsafe {
-            gio_sys::g_tls_connection_set_require_close_notify(
+            ffi::g_tls_connection_set_require_close_notify(
                 self.as_ref().to_glib_none().0,
                 require_close_notify.to_glib(),
             );
@@ -358,11 +348,11 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
-    fn get_property_advertised_protocols(&self) -> Vec<GString> {
+    fn get_property_advertised_protocols(&self) -> Vec<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<Vec<GString> as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<Vec<glib::GString> as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"advertised-protocols\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -376,8 +366,8 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     fn get_property_base_io_stream(&self) -> Option<IOStream> {
         unsafe {
             let mut value = Value::from_type(<IOStream as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"base-io-stream\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -397,11 +387,11 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
             P,
             F: Fn(&P, &TlsCertificate, TlsCertificateFlags) -> bool + 'static,
         >(
-            this: *mut gio_sys::GTlsConnection,
-            peer_cert: *mut gio_sys::GTlsCertificate,
-            errors: gio_sys::GTlsCertificateFlags,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GTlsConnection,
+            peer_cert: *mut ffi::GTlsCertificate,
+            errors: ffi::GTlsCertificateFlags,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<TlsConnection>,
         {
@@ -433,9 +423,9 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_advertised_protocols_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GTlsConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GTlsConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TlsConnection>,
         {
@@ -457,9 +447,9 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn connect_property_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_certificate_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GTlsConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GTlsConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TlsConnection>,
         {
@@ -481,9 +471,9 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn connect_property_database_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_database_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GTlsConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GTlsConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TlsConnection>,
         {
@@ -505,9 +495,9 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn connect_property_interaction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_interaction_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GTlsConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GTlsConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TlsConnection>,
         {
@@ -534,9 +524,9 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_negotiated_protocol_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GTlsConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GTlsConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TlsConnection>,
         {
@@ -561,9 +551,9 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_peer_certificate_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GTlsConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GTlsConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TlsConnection>,
         {
@@ -588,9 +578,9 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_peer_certificate_errors_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GTlsConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GTlsConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TlsConnection>,
         {
@@ -615,9 +605,9 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_rehandshake_mode_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GTlsConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GTlsConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TlsConnection>,
         {
@@ -642,9 +632,9 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_require_close_notify_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GTlsConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GTlsConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TlsConnection>,
         {

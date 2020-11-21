@@ -2,29 +2,27 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::Box;
+use crate::Point3D;
 use glib::translate::*;
-use gobject_sys;
-use graphene_sys;
-use Box;
-use Point3D;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
-    pub struct Sphere(Boxed<graphene_sys::graphene_sphere_t>);
+    pub struct Sphere(Boxed<ffi::graphene_sphere_t>);
 
     match fn {
-        copy => |ptr| gobject_sys::g_boxed_copy(graphene_sys::graphene_sphere_get_type(), ptr as *mut _) as *mut graphene_sys::graphene_sphere_t,
-        free => |ptr| gobject_sys::g_boxed_free(graphene_sys::graphene_sphere_get_type(), ptr as *mut _),
+        copy => |ptr| glib::gobject_ffi::g_boxed_copy(ffi::graphene_sphere_get_type(), ptr as *mut _) as *mut ffi::graphene_sphere_t,
+        free => |ptr| glib::gobject_ffi::g_boxed_free(ffi::graphene_sphere_get_type(), ptr as *mut _),
         init => |_ptr| (),
         clear => |_ptr| (),
-        get_type => || graphene_sys::graphene_sphere_get_type(),
+        get_type => || ffi::graphene_sphere_get_type(),
     }
 }
 
 impl Sphere {
     pub fn contains_point(&self, point: &Point3D) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_sphere_contains_point(
+            from_glib(ffi::graphene_sphere_contains_point(
                 self.to_glib_none().0,
                 point.to_glib_none().0,
             ))
@@ -32,14 +30,12 @@ impl Sphere {
     }
 
     pub fn distance(&self, point: &Point3D) -> f32 {
-        unsafe {
-            graphene_sys::graphene_sphere_distance(self.to_glib_none().0, point.to_glib_none().0)
-        }
+        unsafe { ffi::graphene_sphere_distance(self.to_glib_none().0, point.to_glib_none().0) }
     }
 
     fn equal(&self, b: &Sphere) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_sphere_equal(
+            from_glib(ffi::graphene_sphere_equal(
                 self.to_glib_none().0,
                 b.to_glib_none().0,
             ))
@@ -49,10 +45,7 @@ impl Sphere {
     pub fn get_bounding_box(&self) -> Box {
         unsafe {
             let mut box_ = Box::uninitialized();
-            graphene_sys::graphene_sphere_get_bounding_box(
-                self.to_glib_none().0,
-                box_.to_glib_none_mut().0,
-            );
+            ffi::graphene_sphere_get_bounding_box(self.to_glib_none().0, box_.to_glib_none_mut().0);
             box_
         }
     }
@@ -60,40 +53,29 @@ impl Sphere {
     pub fn get_center(&self) -> Point3D {
         unsafe {
             let mut center = Point3D::uninitialized();
-            graphene_sys::graphene_sphere_get_center(
-                self.to_glib_none().0,
-                center.to_glib_none_mut().0,
-            );
+            ffi::graphene_sphere_get_center(self.to_glib_none().0, center.to_glib_none_mut().0);
             center
         }
     }
 
     pub fn get_radius(&self) -> f32 {
-        unsafe { graphene_sys::graphene_sphere_get_radius(self.to_glib_none().0) }
+        unsafe { ffi::graphene_sphere_get_radius(self.to_glib_none().0) }
     }
 
     pub fn init(&mut self, center: Option<&Point3D>, radius: f32) {
         unsafe {
-            graphene_sys::graphene_sphere_init(
-                self.to_glib_none_mut().0,
-                center.to_glib_none().0,
-                radius,
-            );
+            ffi::graphene_sphere_init(self.to_glib_none_mut().0, center.to_glib_none().0, radius);
         }
     }
 
     pub fn is_empty(&self) -> bool {
-        unsafe {
-            from_glib(graphene_sys::graphene_sphere_is_empty(
-                self.to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::graphene_sphere_is_empty(self.to_glib_none().0)) }
     }
 
     pub fn translate(&self, point: &Point3D) -> Sphere {
         unsafe {
             let mut res = Sphere::uninitialized();
-            graphene_sys::graphene_sphere_translate(
+            ffi::graphene_sphere_translate(
                 self.to_glib_none().0,
                 point.to_glib_none().0,
                 res.to_glib_none_mut().0,

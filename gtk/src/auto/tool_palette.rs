@@ -2,7 +2,24 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
+use crate::Adjustment;
+use crate::Align;
+use crate::Buildable;
+use crate::Container;
+use crate::DestDefaults;
+use crate::IconSize;
+use crate::Orientable;
+use crate::Orientation;
+use crate::ResizeMode;
+use crate::Scrollable;
+use crate::ScrollablePolicy;
+use crate::SelectionData;
+use crate::TargetEntry;
+use crate::ToolItem;
+use crate::ToolItemGroup;
+use crate::ToolPaletteDragTargets;
+use crate::ToolbarStyle;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -11,53 +28,32 @@ use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Adjustment;
-use Align;
-use Buildable;
-use Container;
-use DestDefaults;
-use IconSize;
-use Orientable;
-use Orientation;
-use ResizeMode;
-use Scrollable;
-use ScrollablePolicy;
-use SelectionData;
-use TargetEntry;
-use ToolItem;
-use ToolItemGroup;
-use ToolPaletteDragTargets;
-use ToolbarStyle;
-use Widget;
 
-glib_wrapper! {
-    pub struct ToolPalette(Object<gtk_sys::GtkToolPalette, gtk_sys::GtkToolPaletteClass>) @extends Container, Widget, @implements Buildable, Orientable, Scrollable;
+glib::glib_wrapper! {
+    pub struct ToolPalette(Object<ffi::GtkToolPalette, ffi::GtkToolPaletteClass>) @extends Container, Widget, @implements Buildable, Orientable, Scrollable;
 
     match fn {
-        get_type => || gtk_sys::gtk_tool_palette_get_type(),
+        get_type => || ffi::gtk_tool_palette_get_type(),
     }
 }
 
 impl ToolPalette {
     pub fn new() -> ToolPalette {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_tool_palette_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_tool_palette_new()).unsafe_cast() }
     }
 
     pub fn get_drag_target_group() -> Option<TargetEntry> {
         assert_initialized_main_thread!();
-        unsafe { from_glib_none(gtk_sys::gtk_tool_palette_get_drag_target_group()) }
+        unsafe { from_glib_none(ffi::gtk_tool_palette_get_drag_target_group()) }
     }
 
     pub fn get_drag_target_item() -> Option<TargetEntry> {
         assert_initialized_main_thread!();
-        unsafe { from_glib_none(gtk_sys::gtk_tool_palette_get_drag_target_item()) }
+        unsafe { from_glib_none(ffi::gtk_tool_palette_get_drag_target_item()) }
     }
 }
 
@@ -551,7 +547,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         actions: gdk::DragAction,
     ) {
         unsafe {
-            gtk_sys::gtk_tool_palette_add_drag_dest(
+            ffi::gtk_tool_palette_add_drag_dest(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
                 flags.to_glib(),
@@ -563,7 +559,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn get_drag_item(&self, selection: &SelectionData) -> Option<Widget> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_tool_palette_get_drag_item(
+            from_glib_none(ffi::gtk_tool_palette_get_drag_item(
                 self.as_ref().to_glib_none().0,
                 selection.to_glib_none().0,
             ))
@@ -572,7 +568,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn get_drop_group(&self, x: i32, y: i32) -> Option<ToolItemGroup> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_tool_palette_get_drop_group(
+            from_glib_none(ffi::gtk_tool_palette_get_drop_group(
                 self.as_ref().to_glib_none().0,
                 x,
                 y,
@@ -582,7 +578,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn get_drop_item(&self, x: i32, y: i32) -> Option<ToolItem> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_tool_palette_get_drop_item(
+            from_glib_none(ffi::gtk_tool_palette_get_drop_item(
                 self.as_ref().to_glib_none().0,
                 x,
                 y,
@@ -592,7 +588,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn get_exclusive<P: IsA<ToolItemGroup>>(&self, group: &P) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_tool_palette_get_exclusive(
+            from_glib(ffi::gtk_tool_palette_get_exclusive(
                 self.as_ref().to_glib_none().0,
                 group.as_ref().to_glib_none().0,
             ))
@@ -601,7 +597,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn get_expand<P: IsA<ToolItemGroup>>(&self, group: &P) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_tool_palette_get_expand(
+            from_glib(ffi::gtk_tool_palette_get_expand(
                 self.as_ref().to_glib_none().0,
                 group.as_ref().to_glib_none().0,
             ))
@@ -610,7 +606,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn get_group_position<P: IsA<ToolItemGroup>>(&self, group: &P) -> i32 {
         unsafe {
-            gtk_sys::gtk_tool_palette_get_group_position(
+            ffi::gtk_tool_palette_get_group_position(
                 self.as_ref().to_glib_none().0,
                 group.as_ref().to_glib_none().0,
             )
@@ -619,7 +615,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn get_icon_size(&self) -> IconSize {
         unsafe {
-            from_glib(gtk_sys::gtk_tool_palette_get_icon_size(
+            from_glib(ffi::gtk_tool_palette_get_icon_size(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -627,7 +623,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn get_style(&self) -> ToolbarStyle {
         unsafe {
-            from_glib(gtk_sys::gtk_tool_palette_get_style(
+            from_glib(ffi::gtk_tool_palette_get_style(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -635,7 +631,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn set_drag_source(&self, targets: ToolPaletteDragTargets) {
         unsafe {
-            gtk_sys::gtk_tool_palette_set_drag_source(
+            ffi::gtk_tool_palette_set_drag_source(
                 self.as_ref().to_glib_none().0,
                 targets.to_glib(),
             );
@@ -644,7 +640,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn set_exclusive<P: IsA<ToolItemGroup>>(&self, group: &P, exclusive: bool) {
         unsafe {
-            gtk_sys::gtk_tool_palette_set_exclusive(
+            ffi::gtk_tool_palette_set_exclusive(
                 self.as_ref().to_glib_none().0,
                 group.as_ref().to_glib_none().0,
                 exclusive.to_glib(),
@@ -654,7 +650,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn set_expand<P: IsA<ToolItemGroup>>(&self, group: &P, expand: bool) {
         unsafe {
-            gtk_sys::gtk_tool_palette_set_expand(
+            ffi::gtk_tool_palette_set_expand(
                 self.as_ref().to_glib_none().0,
                 group.as_ref().to_glib_none().0,
                 expand.to_glib(),
@@ -664,7 +660,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn set_group_position<P: IsA<ToolItemGroup>>(&self, group: &P, position: i32) {
         unsafe {
-            gtk_sys::gtk_tool_palette_set_group_position(
+            ffi::gtk_tool_palette_set_group_position(
                 self.as_ref().to_glib_none().0,
                 group.as_ref().to_glib_none().0,
                 position,
@@ -674,7 +670,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn set_icon_size(&self, icon_size: IconSize) {
         unsafe {
-            gtk_sys::gtk_tool_palette_set_icon_size(
+            ffi::gtk_tool_palette_set_icon_size(
                 self.as_ref().to_glib_none().0,
                 icon_size.to_glib(),
             );
@@ -683,27 +679,27 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn set_style(&self, style: ToolbarStyle) {
         unsafe {
-            gtk_sys::gtk_tool_palette_set_style(self.as_ref().to_glib_none().0, style.to_glib());
+            ffi::gtk_tool_palette_set_style(self.as_ref().to_glib_none().0, style.to_glib());
         }
     }
 
     fn unset_icon_size(&self) {
         unsafe {
-            gtk_sys::gtk_tool_palette_unset_icon_size(self.as_ref().to_glib_none().0);
+            ffi::gtk_tool_palette_unset_icon_size(self.as_ref().to_glib_none().0);
         }
     }
 
     fn unset_style(&self) {
         unsafe {
-            gtk_sys::gtk_tool_palette_unset_style(self.as_ref().to_glib_none().0);
+            ffi::gtk_tool_palette_unset_style(self.as_ref().to_glib_none().0);
         }
     }
 
     fn get_property_icon_size_set(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-size-set\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -716,8 +712,8 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn set_property_icon_size_set(&self, icon_size_set: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-size-set\0".as_ptr() as *const _,
                 Value::from(&icon_size_set).to_glib_none().0,
             );
@@ -727,8 +723,8 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
     fn get_property_toolbar_style(&self) -> ToolbarStyle {
         unsafe {
             let mut value = Value::from_type(<ToolbarStyle as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"toolbar-style\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -741,8 +737,8 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn set_property_toolbar_style(&self, toolbar_style: ToolbarStyle) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"toolbar-style\0".as_ptr() as *const _,
                 Value::from(&toolbar_style).to_glib_none().0,
             );
@@ -751,9 +747,9 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn connect_property_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkToolPalette,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkToolPalette,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<ToolPalette>,
         {
@@ -778,9 +774,9 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_set_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkToolPalette,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkToolPalette,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<ToolPalette>,
         {
@@ -805,9 +801,9 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_toolbar_style_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkToolPalette,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkToolPalette,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<ToolPalette>,
         {

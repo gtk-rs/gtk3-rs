@@ -2,19 +2,17 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::Cancellable;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 use std::ptr;
-use Cancellable;
 
-glib_wrapper! {
-    pub struct Seekable(Interface<gio_sys::GSeekable>);
+glib::glib_wrapper! {
+    pub struct Seekable(Interface<ffi::GSeekable>);
 
     match fn {
-        get_type => || gio_sys::g_seekable_get_type(),
+        get_type => || ffi::g_seekable_get_type(),
     }
 }
 
@@ -43,15 +41,11 @@ pub trait SeekableExt: 'static {
 
 impl<O: IsA<Seekable>> SeekableExt for O {
     fn can_seek(&self) -> bool {
-        unsafe { from_glib(gio_sys::g_seekable_can_seek(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib(ffi::g_seekable_can_seek(self.as_ref().to_glib_none().0)) }
     }
 
     fn can_truncate(&self) -> bool {
-        unsafe {
-            from_glib(gio_sys::g_seekable_can_truncate(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::g_seekable_can_truncate(self.as_ref().to_glib_none().0)) }
     }
 
     fn seek<P: IsA<Cancellable>>(
@@ -62,7 +56,7 @@ impl<O: IsA<Seekable>> SeekableExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_seekable_seek(
+            let _ = ffi::g_seekable_seek(
                 self.as_ref().to_glib_none().0,
                 offset,
                 type_.to_glib(),
@@ -78,7 +72,7 @@ impl<O: IsA<Seekable>> SeekableExt for O {
     }
 
     fn tell(&self) -> i64 {
-        unsafe { gio_sys::g_seekable_tell(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::g_seekable_tell(self.as_ref().to_glib_none().0) }
     }
 
     fn truncate<P: IsA<Cancellable>>(
@@ -88,7 +82,7 @@ impl<O: IsA<Seekable>> SeekableExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_seekable_truncate(
+            let _ = ffi::g_seekable_truncate(
                 self.as_ref().to_glib_none().0,
                 offset,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,

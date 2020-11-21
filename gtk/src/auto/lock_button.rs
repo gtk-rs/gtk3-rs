@@ -2,40 +2,33 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use gio;
-use glib;
+use crate::Actionable;
+use crate::Align;
+use crate::Bin;
+use crate::Buildable;
+use crate::Button;
+use crate::Container;
+use crate::PositionType;
+use crate::ReliefStyle;
+use crate::ResizeMode;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Actionable;
-use Align;
-use Bin;
-use Buildable;
-use Button;
-use Container;
-use PositionType;
-use ReliefStyle;
-use ResizeMode;
-use Widget;
 
-glib_wrapper! {
-    pub struct LockButton(Object<gtk_sys::GtkLockButton, gtk_sys::GtkLockButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable;
+glib::glib_wrapper! {
+    pub struct LockButton(Object<ffi::GtkLockButton, ffi::GtkLockButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || gtk_sys::gtk_lock_button_get_type(),
+        get_type => || ffi::gtk_lock_button_get_type(),
     }
 }
 
@@ -43,7 +36,7 @@ impl LockButton {
     pub fn new<P: IsA<gio::Permission>>(permission: Option<&P>) -> LockButton {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_lock_button_new(
+            Widget::from_glib_none(ffi::gtk_lock_button_new(
                 permission.map(|p| p.as_ref()).to_glib_none().0,
             ))
             .unsafe_cast()
@@ -523,23 +516,23 @@ pub trait LockButtonExt: 'static {
 
     fn set_permission<P: IsA<gio::Permission>>(&self, permission: Option<&P>);
 
-    fn get_property_text_lock(&self) -> Option<GString>;
+    fn get_property_text_lock(&self) -> Option<glib::GString>;
 
     fn set_property_text_lock(&self, text_lock: Option<&str>);
 
-    fn get_property_text_unlock(&self) -> Option<GString>;
+    fn get_property_text_unlock(&self) -> Option<glib::GString>;
 
     fn set_property_text_unlock(&self, text_unlock: Option<&str>);
 
-    fn get_property_tooltip_lock(&self) -> Option<GString>;
+    fn get_property_tooltip_lock(&self) -> Option<glib::GString>;
 
     fn set_property_tooltip_lock(&self, tooltip_lock: Option<&str>);
 
-    fn get_property_tooltip_not_authorized(&self) -> Option<GString>;
+    fn get_property_tooltip_not_authorized(&self) -> Option<glib::GString>;
 
     fn set_property_tooltip_not_authorized(&self, tooltip_not_authorized: Option<&str>);
 
-    fn get_property_tooltip_unlock(&self) -> Option<GString>;
+    fn get_property_tooltip_unlock(&self) -> Option<glib::GString>;
 
     fn set_property_tooltip_unlock(&self, tooltip_unlock: Option<&str>);
 
@@ -566,7 +559,7 @@ pub trait LockButtonExt: 'static {
 impl<O: IsA<LockButton>> LockButtonExt for O {
     fn get_permission(&self) -> Option<gio::Permission> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_lock_button_get_permission(
+            from_glib_none(ffi::gtk_lock_button_get_permission(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -574,18 +567,18 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
 
     fn set_permission<P: IsA<gio::Permission>>(&self, permission: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_lock_button_set_permission(
+            ffi::gtk_lock_button_set_permission(
                 self.as_ref().to_glib_none().0,
                 permission.map(|p| p.as_ref()).to_glib_none().0,
             );
         }
     }
 
-    fn get_property_text_lock(&self) -> Option<GString> {
+    fn get_property_text_lock(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"text-lock\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -597,19 +590,19 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
 
     fn set_property_text_lock(&self, text_lock: Option<&str>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"text-lock\0".as_ptr() as *const _,
                 Value::from(text_lock).to_glib_none().0,
             );
         }
     }
 
-    fn get_property_text_unlock(&self) -> Option<GString> {
+    fn get_property_text_unlock(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"text-unlock\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -621,19 +614,19 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
 
     fn set_property_text_unlock(&self, text_unlock: Option<&str>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"text-unlock\0".as_ptr() as *const _,
                 Value::from(text_unlock).to_glib_none().0,
             );
         }
     }
 
-    fn get_property_tooltip_lock(&self) -> Option<GString> {
+    fn get_property_tooltip_lock(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"tooltip-lock\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -645,19 +638,19 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
 
     fn set_property_tooltip_lock(&self, tooltip_lock: Option<&str>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"tooltip-lock\0".as_ptr() as *const _,
                 Value::from(tooltip_lock).to_glib_none().0,
             );
         }
     }
 
-    fn get_property_tooltip_not_authorized(&self) -> Option<GString> {
+    fn get_property_tooltip_not_authorized(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"tooltip-not-authorized\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -669,19 +662,19 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
 
     fn set_property_tooltip_not_authorized(&self, tooltip_not_authorized: Option<&str>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"tooltip-not-authorized\0".as_ptr() as *const _,
                 Value::from(tooltip_not_authorized).to_glib_none().0,
             );
         }
     }
 
-    fn get_property_tooltip_unlock(&self) -> Option<GString> {
+    fn get_property_tooltip_unlock(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"tooltip-unlock\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -693,8 +686,8 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
 
     fn set_property_tooltip_unlock(&self, tooltip_unlock: Option<&str>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"tooltip-unlock\0".as_ptr() as *const _,
                 Value::from(tooltip_unlock).to_glib_none().0,
             );
@@ -703,9 +696,9 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
 
     fn connect_property_permission_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_permission_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLockButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLockButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<LockButton>,
         {
@@ -727,9 +720,9 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
 
     fn connect_property_text_lock_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_lock_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLockButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLockButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<LockButton>,
         {
@@ -751,9 +744,9 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
 
     fn connect_property_text_unlock_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_unlock_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLockButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLockButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<LockButton>,
         {
@@ -778,9 +771,9 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_tooltip_lock_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLockButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLockButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<LockButton>,
         {
@@ -805,9 +798,9 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_tooltip_not_authorized_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLockButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLockButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<LockButton>,
         {
@@ -832,9 +825,9 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_tooltip_unlock_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLockButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLockButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<LockButton>,
         {

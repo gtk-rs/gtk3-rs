@@ -10,9 +10,8 @@
 )]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate glib_sys as glib;
-extern crate gobject_sys as gobject;
-extern crate libc;
+use glib_sys as glib;
+use gobject_sys as gobject;
 
 #[allow(unused_imports)]
 use libc::{
@@ -365,10 +364,6 @@ impl ::std::fmt::Debug for graphene_vec4_t {
 
 #[link(name = "graphene-1.0")]
 extern "C" {
-
-    //=========================================================================
-    // graphene_box_t
-    //=========================================================================
     pub fn graphene_box_get_type() -> GType;
     pub fn graphene_box_alloc() -> *mut graphene_box_t;
     pub fn graphene_box_contains_box(

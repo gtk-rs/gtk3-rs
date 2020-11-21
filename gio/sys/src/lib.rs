@@ -10,9 +10,8 @@
 )]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate glib_sys as glib;
-extern crate gobject_sys as gobject;
-extern crate libc;
+use glib_sys as glib;
+use gobject_sys as gobject;
 
 mod manual;
 
@@ -8762,10 +8761,6 @@ impl ::std::fmt::Debug for GVolume {
 
 #[link(name = "gio-2.0")]
 extern "C" {
-
-    //=========================================================================
-    // GBusType
-    //=========================================================================
     pub fn g_bus_type_get_type() -> GType;
 
     //=========================================================================

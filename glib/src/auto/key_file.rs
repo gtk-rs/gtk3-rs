@@ -2,39 +2,39 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use glib_sys;
-use std;
-use std::mem;
-use std::ptr;
-use translate::*;
+use crate::translate::*;
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
-use Bytes;
-use Char;
-use Error;
-use GString;
-use KeyFileFlags;
+use crate::Bytes;
+use crate::Error;
+use crate::KeyFileFlags;
+use std::mem;
+use std::ptr;
 
-glib_wrapper! {
+crate::glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct KeyFile(Shared<glib_sys::GKeyFile>);
+    pub struct KeyFile(Shared<ffi::GKeyFile>);
 
     match fn {
-        ref => |ptr| glib_sys::g_key_file_ref(ptr),
-        unref => |ptr| glib_sys::g_key_file_unref(ptr),
-        get_type => || glib_sys::g_key_file_get_type(),
+        ref => |ptr| ffi::g_key_file_ref(ptr),
+        unref => |ptr| ffi::g_key_file_unref(ptr),
+        get_type => || ffi::g_key_file_get_type(),
     }
 }
 
 impl KeyFile {
     pub fn new() -> KeyFile {
-        unsafe { from_glib_full(glib_sys::g_key_file_new()) }
+        unsafe { from_glib_full(ffi::g_key_file_new()) }
     }
 
-    pub fn get_comment(&self, group_name: Option<&str>, key: &str) -> Result<GString, Error> {
+    pub fn get_comment(
+        &self,
+        group_name: Option<&str>,
+        key: &str,
+    ) -> Result<crate::GString, crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_comment(
+            let ret = ffi::g_key_file_get_comment(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -48,10 +48,10 @@ impl KeyFile {
         }
     }
 
-    pub fn get_double(&self, group_name: &str, key: &str) -> Result<f64, Error> {
+    pub fn get_double(&self, group_name: &str, key: &str) -> Result<f64, crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_double(
+            let ret = ffi::g_key_file_get_double(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -65,11 +65,11 @@ impl KeyFile {
         }
     }
 
-    pub fn get_double_list(&self, group_name: &str, key: &str) -> Result<Vec<f64>, Error> {
+    pub fn get_double_list(&self, group_name: &str, key: &str) -> Result<Vec<f64>, crate::Error> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_double_list(
+            let ret = ffi::g_key_file_get_double_list(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -87,10 +87,10 @@ impl KeyFile {
         }
     }
 
-    pub fn get_groups(&self) -> (Vec<GString>, usize) {
+    pub fn get_groups(&self) -> (Vec<crate::GString>, usize) {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
-            let ret = FromGlibPtrContainer::from_glib_full(glib_sys::g_key_file_get_groups(
+            let ret = FromGlibPtrContainer::from_glib_full(ffi::g_key_file_get_groups(
                 self.to_glib_none().0,
                 length.as_mut_ptr(),
             ));
@@ -99,10 +99,10 @@ impl KeyFile {
         }
     }
 
-    pub fn get_int64(&self, group_name: &str, key: &str) -> Result<i64, Error> {
+    pub fn get_int64(&self, group_name: &str, key: &str) -> Result<i64, crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_int64(
+            let ret = ffi::g_key_file_get_int64(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -116,10 +116,10 @@ impl KeyFile {
         }
     }
 
-    pub fn get_integer(&self, group_name: &str, key: &str) -> Result<i32, Error> {
+    pub fn get_integer(&self, group_name: &str, key: &str) -> Result<i32, crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_integer(
+            let ret = ffi::g_key_file_get_integer(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -133,11 +133,11 @@ impl KeyFile {
         }
     }
 
-    pub fn get_integer_list(&self, group_name: &str, key: &str) -> Result<Vec<i32>, Error> {
+    pub fn get_integer_list(&self, group_name: &str, key: &str) -> Result<Vec<i32>, crate::Error> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_integer_list(
+            let ret = ffi::g_key_file_get_integer_list(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -155,11 +155,11 @@ impl KeyFile {
         }
     }
 
-    pub fn get_keys(&self, group_name: &str) -> Result<(Vec<GString>, usize), Error> {
+    pub fn get_keys(&self, group_name: &str) -> Result<(Vec<crate::GString>, usize), crate::Error> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_keys(
+            let ret = ffi::g_key_file_get_keys(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 length.as_mut_ptr(),
@@ -181,9 +181,9 @@ impl KeyFile {
         group_name: &str,
         key: &str,
         locale: Option<&str>,
-    ) -> Option<GString> {
+    ) -> Option<crate::GString> {
         unsafe {
-            from_glib_full(glib_sys::g_key_file_get_locale_for_key(
+            from_glib_full(ffi::g_key_file_get_locale_for_key(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -192,14 +192,14 @@ impl KeyFile {
         }
     }
 
-    pub fn get_start_group(&self) -> Option<GString> {
-        unsafe { from_glib_full(glib_sys::g_key_file_get_start_group(self.to_glib_none().0)) }
+    pub fn get_start_group(&self) -> Option<crate::GString> {
+        unsafe { from_glib_full(ffi::g_key_file_get_start_group(self.to_glib_none().0)) }
     }
 
-    pub fn get_uint64(&self, group_name: &str, key: &str) -> Result<u64, Error> {
+    pub fn get_uint64(&self, group_name: &str, key: &str) -> Result<u64, crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_uint64(
+            let ret = ffi::g_key_file_get_uint64(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -213,10 +213,10 @@ impl KeyFile {
         }
     }
 
-    pub fn get_value(&self, group_name: &str, key: &str) -> Result<GString, Error> {
+    pub fn get_value(&self, group_name: &str, key: &str) -> Result<crate::GString, crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_value(
+            let ret = ffi::g_key_file_get_value(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -232,7 +232,7 @@ impl KeyFile {
 
     pub fn has_group(&self, group_name: &str) -> bool {
         unsafe {
-            from_glib(glib_sys::g_key_file_has_group(
+            from_glib(ffi::g_key_file_has_group(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
             ))
@@ -241,10 +241,10 @@ impl KeyFile {
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
-    pub fn load_from_bytes(&self, bytes: &Bytes, flags: KeyFileFlags) -> Result<(), Error> {
+    pub fn load_from_bytes(&self, bytes: &Bytes, flags: KeyFileFlags) -> Result<(), crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = glib_sys::g_key_file_load_from_bytes(
+            let _ = ffi::g_key_file_load_from_bytes(
                 self.to_glib_none().0,
                 bytes.to_glib_none().0,
                 flags.to_glib(),
@@ -258,11 +258,11 @@ impl KeyFile {
         }
     }
 
-    pub fn load_from_data(&self, data: &str, flags: KeyFileFlags) -> Result<(), Error> {
+    pub fn load_from_data(&self, data: &str, flags: KeyFileFlags) -> Result<(), crate::Error> {
         let length = data.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = glib_sys::g_key_file_load_from_data(
+            let _ = ffi::g_key_file_load_from_data(
                 self.to_glib_none().0,
                 data.to_glib_none().0,
                 length,
@@ -281,10 +281,10 @@ impl KeyFile {
         &self,
         file: P,
         flags: KeyFileFlags,
-    ) -> Result<(), Error> {
+    ) -> Result<(), crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = glib_sys::g_key_file_load_from_file(
+            let _ = ffi::g_key_file_load_from_file(
                 self.to_glib_none().0,
                 file.as_ref().to_glib_none().0,
                 flags.to_glib(),
@@ -298,10 +298,14 @@ impl KeyFile {
         }
     }
 
-    pub fn remove_comment(&self, group_name: Option<&str>, key: Option<&str>) -> Result<(), Error> {
+    pub fn remove_comment(
+        &self,
+        group_name: Option<&str>,
+        key: Option<&str>,
+    ) -> Result<(), crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = glib_sys::g_key_file_remove_comment(
+            let _ = ffi::g_key_file_remove_comment(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -315,10 +319,10 @@ impl KeyFile {
         }
     }
 
-    pub fn remove_group(&self, group_name: &str) -> Result<(), Error> {
+    pub fn remove_group(&self, group_name: &str) -> Result<(), crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = glib_sys::g_key_file_remove_group(
+            let _ = ffi::g_key_file_remove_group(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 &mut error,
@@ -331,10 +335,10 @@ impl KeyFile {
         }
     }
 
-    pub fn remove_key(&self, group_name: &str, key: &str) -> Result<(), Error> {
+    pub fn remove_key(&self, group_name: &str, key: &str) -> Result<(), crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = glib_sys::g_key_file_remove_key(
+            let _ = ffi::g_key_file_remove_key(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -350,7 +354,7 @@ impl KeyFile {
 
     pub fn set_boolean(&self, group_name: &str, key: &str, value: bool) {
         unsafe {
-            glib_sys::g_key_file_set_boolean(
+            ffi::g_key_file_set_boolean(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -360,7 +364,7 @@ impl KeyFile {
     }
 
     //pub fn set_boolean_list(&self, group_name: &str, key: &str, list: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 1 }) {
-    //    unsafe { TODO: call glib_sys:g_key_file_set_boolean_list() }
+    //    unsafe { TODO: call ffi:g_key_file_set_boolean_list() }
     //}
 
     pub fn set_comment(
@@ -368,10 +372,10 @@ impl KeyFile {
         group_name: Option<&str>,
         key: Option<&str>,
         comment: &str,
-    ) -> Result<(), Error> {
+    ) -> Result<(), crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = glib_sys::g_key_file_set_comment(
+            let _ = ffi::g_key_file_set_comment(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -388,7 +392,7 @@ impl KeyFile {
 
     pub fn set_double(&self, group_name: &str, key: &str, value: f64) {
         unsafe {
-            glib_sys::g_key_file_set_double(
+            ffi::g_key_file_set_double(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -399,7 +403,7 @@ impl KeyFile {
 
     pub fn set_int64(&self, group_name: &str, key: &str, value: i64) {
         unsafe {
-            glib_sys::g_key_file_set_int64(
+            ffi::g_key_file_set_int64(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -410,7 +414,7 @@ impl KeyFile {
 
     pub fn set_integer(&self, group_name: &str, key: &str, value: i32) {
         unsafe {
-            glib_sys::g_key_file_set_integer(
+            ffi::g_key_file_set_integer(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -419,15 +423,15 @@ impl KeyFile {
         }
     }
 
-    pub fn set_list_separator(&self, separator: Char) {
+    pub fn set_list_separator(&self, separator: crate::Char) {
         unsafe {
-            glib_sys::g_key_file_set_list_separator(self.to_glib_none().0, separator.to_glib());
+            ffi::g_key_file_set_list_separator(self.to_glib_none().0, separator.to_glib());
         }
     }
 
     pub fn set_locale_string(&self, group_name: &str, key: &str, locale: &str, string: &str) {
         unsafe {
-            glib_sys::g_key_file_set_locale_string(
+            ffi::g_key_file_set_locale_string(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -439,7 +443,7 @@ impl KeyFile {
 
     pub fn set_string(&self, group_name: &str, key: &str, string: &str) {
         unsafe {
-            glib_sys::g_key_file_set_string(
+            ffi::g_key_file_set_string(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -450,7 +454,7 @@ impl KeyFile {
 
     pub fn set_uint64(&self, group_name: &str, key: &str, value: u64) {
         unsafe {
-            glib_sys::g_key_file_set_uint64(
+            ffi::g_key_file_set_uint64(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -461,7 +465,7 @@ impl KeyFile {
 
     pub fn set_value(&self, group_name: &str, key: &str, value: &str) {
         unsafe {
-            glib_sys::g_key_file_set_value(
+            ffi::g_key_file_set_value(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,

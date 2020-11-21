@@ -2,16 +2,14 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use gdk_x11_sys;
 use glib::translate::*;
 use std::fmt;
 
-glib_wrapper! {
-    pub struct X11DisplayManager(Object<gdk_x11_sys::GdkX11DisplayManager, gdk_x11_sys::GdkX11DisplayManagerClass>) @extends gdk::DisplayManager;
+glib::glib_wrapper! {
+    pub struct X11DisplayManager(Object<ffi::GdkX11DisplayManager, ffi::GdkX11DisplayManagerClass>) @extends gdk::DisplayManager;
 
     match fn {
-        get_type => || gdk_x11_sys::gdk_x11_display_manager_get_type(),
+        get_type => || ffi::gdk_x11_display_manager_get_type(),
     }
 }
 

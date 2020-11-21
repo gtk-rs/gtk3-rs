@@ -10,15 +10,14 @@
 )]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate atk_sys as atk;
-extern crate cairo_sys as cairo;
-extern crate gdk_pixbuf_sys as gdk_pixbuf;
-extern crate gdk_sys as gdk;
-extern crate gio_sys as gio;
-extern crate glib_sys as glib;
-extern crate gobject_sys as gobject;
-extern crate libc;
-extern crate pango_sys as pango;
+use atk_sys as atk;
+use cairo_sys as cairo;
+use gdk_pixbuf_sys as gdk_pixbuf;
+use gdk_sys as gdk;
+use gio_sys as gio;
+use glib_sys as glib;
+use gobject_sys as gobject;
+use pango_sys as pango;
 
 mod manual;
 
@@ -15155,10 +15154,6 @@ impl ::std::fmt::Debug for GtkTreeSortable {
 #[link(name = "gtk-3")]
 #[link(name = "gdk-3")]
 extern "C" {
-
-    //=========================================================================
-    // GtkAlign
-    //=========================================================================
     pub fn gtk_align_get_type() -> GType;
 
     //=========================================================================

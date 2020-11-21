@@ -2,7 +2,30 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk_sys;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+use crate::Cursor;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+use crate::Device;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+use crate::DeviceTool;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+use crate::Display;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+use crate::Event;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+use crate::GrabStatus;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+use crate::SeatCapabilities;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+use crate::Window;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::object::IsA;
@@ -18,44 +41,17 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use glib_sys;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use std::boxed::Box as Box_;
 use std::fmt;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use std::mem::transmute;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use Cursor;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use Device;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-use DeviceTool;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use Display;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use Event;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use GrabStatus;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use SeatCapabilities;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use Window;
 
-glib_wrapper! {
-    pub struct Seat(Object<gdk_sys::GdkSeat>);
+glib::glib_wrapper! {
+    pub struct Seat(Object<ffi::GdkSeat>);
 
     match fn {
-        get_type => || gdk_sys::gdk_seat_get_type(),
+        get_type => || ffi::gdk_seat_get_type(),
     }
 }
 
@@ -63,32 +59,32 @@ impl Seat {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn get_capabilities(&self) -> SeatCapabilities {
-        unsafe { from_glib(gdk_sys::gdk_seat_get_capabilities(self.to_glib_none().0)) }
+        unsafe { from_glib(ffi::gdk_seat_get_capabilities(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn get_display(&self) -> Option<Display> {
-        unsafe { from_glib_none(gdk_sys::gdk_seat_get_display(self.to_glib_none().0)) }
+        unsafe { from_glib_none(ffi::gdk_seat_get_display(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn get_keyboard(&self) -> Option<Device> {
-        unsafe { from_glib_none(gdk_sys::gdk_seat_get_keyboard(self.to_glib_none().0)) }
+        unsafe { from_glib_none(ffi::gdk_seat_get_keyboard(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn get_pointer(&self) -> Option<Device> {
-        unsafe { from_glib_none(gdk_sys::gdk_seat_get_pointer(self.to_glib_none().0)) }
+        unsafe { from_glib_none(ffi::gdk_seat_get_pointer(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn get_slaves(&self, capabilities: SeatCapabilities) -> Vec<Device> {
         unsafe {
-            FromGlibPtrContainer::from_glib_container(gdk_sys::gdk_seat_get_slaves(
+            FromGlibPtrContainer::from_glib_container(ffi::gdk_seat_get_slaves(
                 self.to_glib_none().0,
                 capabilities.to_glib(),
             ))
@@ -108,9 +104,9 @@ impl Seat {
     ) -> GrabStatus {
         let prepare_func_data: Option<&mut dyn (FnMut(&Seat, &Window))> = prepare_func;
         unsafe extern "C" fn prepare_func_func<P: IsA<Window>>(
-            seat: *mut gdk_sys::GdkSeat,
-            window: *mut gdk_sys::GdkWindow,
-            user_data: glib_sys::gpointer,
+            seat: *mut ffi::GdkSeat,
+            window: *mut ffi::GdkWindow,
+            user_data: glib::ffi::gpointer,
         ) {
             let seat = from_glib_borrow(seat);
             let window = from_glib_borrow(window);
@@ -129,7 +125,7 @@ impl Seat {
         };
         let super_callback0: &Option<&mut dyn (FnMut(&Seat, &Window))> = &prepare_func_data;
         unsafe {
-            from_glib(gdk_sys::gdk_seat_grab(
+            from_glib(ffi::gdk_seat_grab(
                 self.to_glib_none().0,
                 window.as_ref().to_glib_none().0,
                 capabilities.to_glib(),
@@ -146,7 +142,7 @@ impl Seat {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn ungrab(&self) {
         unsafe {
-            gdk_sys::gdk_seat_ungrab(self.to_glib_none().0);
+            ffi::gdk_seat_ungrab(self.to_glib_none().0);
         }
     }
 
@@ -154,9 +150,9 @@ impl Seat {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn connect_device_added<F: Fn(&Seat, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn device_added_trampoline<F: Fn(&Seat, &Device) + 'static>(
-            this: *mut gdk_sys::GdkSeat,
-            device: *mut gdk_sys::GdkDevice,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GdkSeat,
+            device: *mut ffi::GdkDevice,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), &from_glib_borrow(device))
@@ -178,9 +174,9 @@ impl Seat {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn connect_device_removed<F: Fn(&Seat, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn device_removed_trampoline<F: Fn(&Seat, &Device) + 'static>(
-            this: *mut gdk_sys::GdkSeat,
-            device: *mut gdk_sys::GdkDevice,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GdkSeat,
+            device: *mut ffi::GdkDevice,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), &from_glib_borrow(device))
@@ -202,9 +198,9 @@ impl Seat {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn connect_tool_added<F: Fn(&Seat, &DeviceTool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn tool_added_trampoline<F: Fn(&Seat, &DeviceTool) + 'static>(
-            this: *mut gdk_sys::GdkSeat,
-            tool: *mut gdk_sys::GdkDeviceTool,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GdkSeat,
+            tool: *mut ffi::GdkDeviceTool,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), &from_glib_borrow(tool))
@@ -229,9 +225,9 @@ impl Seat {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn tool_removed_trampoline<F: Fn(&Seat, &DeviceTool) + 'static>(
-            this: *mut gdk_sys::GdkSeat,
-            tool: *mut gdk_sys::GdkDeviceTool,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GdkSeat,
+            tool: *mut ffi::GdkDeviceTool,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), &from_glib_borrow(tool))

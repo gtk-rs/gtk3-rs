@@ -2,33 +2,27 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio;
-use glib;
+use crate::Buildable;
+use crate::Container;
+use crate::DirectionType;
+use crate::MenuDirectionType;
+use crate::MenuItem;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectExt;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
-use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Buildable;
-use Container;
-use DirectionType;
-use MenuDirectionType;
-use MenuItem;
-use Widget;
 
-glib_wrapper! {
-    pub struct MenuShell(Object<gtk_sys::GtkMenuShell, gtk_sys::GtkMenuShellClass>) @extends Container, Widget, @implements Buildable;
+glib::glib_wrapper! {
+    pub struct MenuShell(Object<ffi::GtkMenuShell, ffi::GtkMenuShellClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_menu_shell_get_type(),
+        get_type => || ffi::gtk_menu_shell_get_type(),
     }
 }
 
@@ -104,7 +98,7 @@ pub trait MenuShellExt: 'static {
 impl<O: IsA<MenuShell>> MenuShellExt for O {
     fn activate_item<P: IsA<Widget>>(&self, menu_item: &P, force_deactivate: bool) {
         unsafe {
-            gtk_sys::gtk_menu_shell_activate_item(
+            ffi::gtk_menu_shell_activate_item(
                 self.as_ref().to_glib_none().0,
                 menu_item.as_ref().to_glib_none().0,
                 force_deactivate.to_glib(),
@@ -114,7 +108,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn append<P: IsA<MenuItem>>(&self, child: &P) {
         unsafe {
-            gtk_sys::gtk_menu_shell_append(
+            ffi::gtk_menu_shell_append(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
             );
@@ -128,7 +122,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         with_separators: bool,
     ) {
         unsafe {
-            gtk_sys::gtk_menu_shell_bind_model(
+            ffi::gtk_menu_shell_bind_model(
                 self.as_ref().to_glib_none().0,
                 model.map(|p| p.as_ref()).to_glib_none().0,
                 action_namespace.to_glib_none().0,
@@ -139,25 +133,25 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn cancel(&self) {
         unsafe {
-            gtk_sys::gtk_menu_shell_cancel(self.as_ref().to_glib_none().0);
+            ffi::gtk_menu_shell_cancel(self.as_ref().to_glib_none().0);
         }
     }
 
     fn deactivate(&self) {
         unsafe {
-            gtk_sys::gtk_menu_shell_deactivate(self.as_ref().to_glib_none().0);
+            ffi::gtk_menu_shell_deactivate(self.as_ref().to_glib_none().0);
         }
     }
 
     fn deselect(&self) {
         unsafe {
-            gtk_sys::gtk_menu_shell_deselect(self.as_ref().to_glib_none().0);
+            ffi::gtk_menu_shell_deselect(self.as_ref().to_glib_none().0);
         }
     }
 
     fn get_parent_shell(&self) -> Option<Widget> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_menu_shell_get_parent_shell(
+            from_glib_none(ffi::gtk_menu_shell_get_parent_shell(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -165,7 +159,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn get_selected_item(&self) -> Option<Widget> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_menu_shell_get_selected_item(
+            from_glib_none(ffi::gtk_menu_shell_get_selected_item(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -173,7 +167,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn get_take_focus(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_menu_shell_get_take_focus(
+            from_glib(ffi::gtk_menu_shell_get_take_focus(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -181,7 +175,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn insert<P: IsA<Widget>>(&self, child: &P, position: i32) {
         unsafe {
-            gtk_sys::gtk_menu_shell_insert(
+            ffi::gtk_menu_shell_insert(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
                 position,
@@ -191,7 +185,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn prepend<P: IsA<Widget>>(&self, child: &P) {
         unsafe {
-            gtk_sys::gtk_menu_shell_prepend(
+            ffi::gtk_menu_shell_prepend(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
             );
@@ -200,7 +194,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn select_first(&self, search_sensitive: bool) {
         unsafe {
-            gtk_sys::gtk_menu_shell_select_first(
+            ffi::gtk_menu_shell_select_first(
                 self.as_ref().to_glib_none().0,
                 search_sensitive.to_glib(),
             );
@@ -209,7 +203,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn select_item<P: IsA<Widget>>(&self, menu_item: &P) {
         unsafe {
-            gtk_sys::gtk_menu_shell_select_item(
+            ffi::gtk_menu_shell_select_item(
                 self.as_ref().to_glib_none().0,
                 menu_item.as_ref().to_glib_none().0,
             );
@@ -218,7 +212,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn set_take_focus(&self, take_focus: bool) {
         unsafe {
-            gtk_sys::gtk_menu_shell_set_take_focus(
+            ffi::gtk_menu_shell_set_take_focus(
                 self.as_ref().to_glib_none().0,
                 take_focus.to_glib(),
             );
@@ -227,9 +221,9 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn connect_activate_current<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_current_trampoline<P, F: Fn(&P, bool) + 'static>(
-            this: *mut gtk_sys::GtkMenuShell,
-            force_hide: glib_sys::gboolean,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkMenuShell,
+            force_hide: glib::ffi::gboolean,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuShell>,
         {
@@ -254,7 +248,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn emit_activate_current(&self, force_hide: bool) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("activate-current", &[&force_hide])
                 .unwrap()
         };
@@ -262,8 +256,8 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn connect_cancel<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn cancel_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkMenuShell,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkMenuShell,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuShell>,
         {
@@ -285,7 +279,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn emit_cancel(&self) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("cancel", &[])
                 .unwrap()
         };
@@ -293,9 +287,9 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn connect_cycle_focus<F: Fn(&Self, DirectionType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn cycle_focus_trampoline<P, F: Fn(&P, DirectionType) + 'static>(
-            this: *mut gtk_sys::GtkMenuShell,
-            direction: gtk_sys::GtkDirectionType,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkMenuShell,
+            direction: ffi::GtkDirectionType,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuShell>,
         {
@@ -320,7 +314,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn emit_cycle_focus(&self, direction: DirectionType) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("cycle-focus", &[&direction])
                 .unwrap()
         };
@@ -328,8 +322,8 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn connect_deactivate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn deactivate_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkMenuShell,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkMenuShell,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuShell>,
         {
@@ -351,10 +345,10 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn connect_insert<F: Fn(&Self, &Widget, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn insert_trampoline<P, F: Fn(&P, &Widget, i32) + 'static>(
-            this: *mut gtk_sys::GtkMenuShell,
-            child: *mut gtk_sys::GtkWidget,
+            this: *mut ffi::GtkMenuShell,
+            child: *mut ffi::GtkWidget,
             position: libc::c_int,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuShell>,
         {
@@ -383,9 +377,9 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn move_current_trampoline<P, F: Fn(&P, MenuDirectionType) + 'static>(
-            this: *mut gtk_sys::GtkMenuShell,
-            direction: gtk_sys::GtkMenuDirectionType,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkMenuShell,
+            direction: ffi::GtkMenuDirectionType,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuShell>,
         {
@@ -410,7 +404,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn emit_move_current(&self, direction: MenuDirectionType) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("move-current", &[&direction])
                 .unwrap()
         };
@@ -424,10 +418,10 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
             P,
             F: Fn(&P, i32) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkMenuShell,
+            this: *mut ffi::GtkMenuShell,
             distance: libc::c_int,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<MenuShell>,
         {
@@ -453,8 +447,8 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn connect_selection_done<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn selection_done_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkMenuShell,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkMenuShell,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuShell>,
         {
@@ -476,9 +470,9 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
     fn connect_property_take_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_take_focus_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkMenuShell,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkMenuShell,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuShell>,
         {

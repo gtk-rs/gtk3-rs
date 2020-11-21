@@ -2,8 +2,10 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::Cancellable;
+use crate::FilterInputStream;
+use crate::InputStream;
+use crate::Seekable;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -11,31 +13,25 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
-use FilterInputStream;
-use InputStream;
-use Seekable;
 
-glib_wrapper! {
-    pub struct BufferedInputStream(Object<gio_sys::GBufferedInputStream, gio_sys::GBufferedInputStreamClass>) @extends FilterInputStream, InputStream, @implements Seekable;
+glib::glib_wrapper! {
+    pub struct BufferedInputStream(Object<ffi::GBufferedInputStream, ffi::GBufferedInputStreamClass>) @extends FilterInputStream, InputStream, @implements Seekable;
 
     match fn {
-        get_type => || gio_sys::g_buffered_input_stream_get_type(),
+        get_type => || ffi::g_buffered_input_stream_get_type(),
     }
 }
 
 impl BufferedInputStream {
     pub fn new<P: IsA<InputStream>>(base_stream: &P) -> BufferedInputStream {
         unsafe {
-            InputStream::from_glib_full(gio_sys::g_buffered_input_stream_new(
+            InputStream::from_glib_full(ffi::g_buffered_input_stream_new(
                 base_stream.as_ref().to_glib_none().0,
             ))
             .unsafe_cast()
@@ -44,7 +40,7 @@ impl BufferedInputStream {
 
     pub fn new_sized<P: IsA<InputStream>>(base_stream: &P, size: usize) -> BufferedInputStream {
         unsafe {
-            InputStream::from_glib_full(gio_sys::g_buffered_input_stream_new_sized(
+            InputStream::from_glib_full(ffi::g_buffered_input_stream_new_sized(
                 base_stream.as_ref().to_glib_none().0,
                 size,
             ))
@@ -143,7 +139,7 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
     ) -> Result<isize, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_buffered_input_stream_fill(
+            let ret = ffi::g_buffered_input_stream_fill(
                 self.as_ref().to_glib_none().0,
                 count,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -168,16 +164,13 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
         unsafe extern "C" fn fill_async_trampoline<
             Q: FnOnce(Result<isize, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_buffered_input_stream_fill_finish(
-                _source_object as *mut _,
-                res,
-                &mut error,
-            );
+            let ret =
+                ffi::g_buffered_input_stream_fill_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(ret)
             } else {
@@ -188,7 +181,7 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
         }
         let callback = fill_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_buffered_input_stream_fill_async(
+            ffi::g_buffered_input_stream_fill_async(
                 self.as_ref().to_glib_none().0,
                 count,
                 io_priority.to_glib(),
@@ -215,18 +208,18 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
     }
 
     fn get_available(&self) -> usize {
-        unsafe { gio_sys::g_buffered_input_stream_get_available(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::g_buffered_input_stream_get_available(self.as_ref().to_glib_none().0) }
     }
 
     fn get_buffer_size(&self) -> usize {
-        unsafe { gio_sys::g_buffered_input_stream_get_buffer_size(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::g_buffered_input_stream_get_buffer_size(self.as_ref().to_glib_none().0) }
     }
 
     fn peek_buffer(&self) -> Vec<u8> {
         unsafe {
             let mut count = mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_none_num(
-                gio_sys::g_buffered_input_stream_peek_buffer(
+                ffi::g_buffered_input_stream_peek_buffer(
                     self.as_ref().to_glib_none().0,
                     count.as_mut_ptr(),
                 ),
@@ -239,7 +232,7 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
     fn read_byte<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<i32, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_buffered_input_stream_read_byte(
+            let ret = ffi::g_buffered_input_stream_read_byte(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -254,15 +247,15 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
 
     fn set_buffer_size(&self, size: usize) {
         unsafe {
-            gio_sys::g_buffered_input_stream_set_buffer_size(self.as_ref().to_glib_none().0, size);
+            ffi::g_buffered_input_stream_set_buffer_size(self.as_ref().to_glib_none().0, size);
         }
     }
 
     fn connect_property_buffer_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_buffer_size_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GBufferedInputStream,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GBufferedInputStream,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<BufferedInputStream>,
         {

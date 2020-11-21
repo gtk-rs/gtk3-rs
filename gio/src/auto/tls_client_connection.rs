@@ -2,28 +2,25 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::IOStream;
+use crate::SocketConnectable;
+use crate::TlsCertificateFlags;
+use crate::TlsConnection;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
-use IOStream;
-use SocketConnectable;
-use TlsCertificateFlags;
-use TlsConnection;
 
-glib_wrapper! {
-    pub struct TlsClientConnection(Interface<gio_sys::GTlsClientConnection>) @requires TlsConnection, IOStream;
+glib::glib_wrapper! {
+    pub struct TlsClientConnection(Interface<ffi::GTlsClientConnection>) @requires TlsConnection, IOStream;
 
     match fn {
-        get_type => || gio_sys::g_tls_client_connection_get_type(),
+        get_type => || ffi::g_tls_client_connection_get_type(),
     }
 }
 
@@ -34,7 +31,7 @@ impl TlsClientConnection {
     ) -> Result<TlsClientConnection, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_tls_client_connection_new(
+            let ret = ffi::g_tls_client_connection_new(
                 base_io_stream.as_ref().to_glib_none().0,
                 server_identity.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -93,7 +90,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     fn copy_session_state<P: IsA<TlsClientConnection>>(&self, source: &P) {
         unsafe {
-            gio_sys::g_tls_client_connection_copy_session_state(
+            ffi::g_tls_client_connection_copy_session_state(
                 self.as_ref().to_glib_none().0,
                 source.as_ref().to_glib_none().0,
             );
@@ -102,7 +99,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
 
     fn get_accepted_cas(&self) -> Vec<glib::ByteArray> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gio_sys::g_tls_client_connection_get_accepted_cas(
+            FromGlibPtrContainer::from_glib_full(ffi::g_tls_client_connection_get_accepted_cas(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -110,7 +107,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
 
     fn get_server_identity(&self) -> Option<SocketConnectable> {
         unsafe {
-            from_glib_none(gio_sys::g_tls_client_connection_get_server_identity(
+            from_glib_none(ffi::g_tls_client_connection_get_server_identity(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -118,7 +115,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
 
     fn get_use_ssl3(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_tls_client_connection_get_use_ssl3(
+            from_glib(ffi::g_tls_client_connection_get_use_ssl3(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -126,7 +123,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
 
     fn get_validation_flags(&self) -> TlsCertificateFlags {
         unsafe {
-            from_glib(gio_sys::g_tls_client_connection_get_validation_flags(
+            from_glib(ffi::g_tls_client_connection_get_validation_flags(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -134,7 +131,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
 
     fn set_server_identity<P: IsA<SocketConnectable>>(&self, identity: &P) {
         unsafe {
-            gio_sys::g_tls_client_connection_set_server_identity(
+            ffi::g_tls_client_connection_set_server_identity(
                 self.as_ref().to_glib_none().0,
                 identity.as_ref().to_glib_none().0,
             );
@@ -143,7 +140,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
 
     fn set_use_ssl3(&self, use_ssl3: bool) {
         unsafe {
-            gio_sys::g_tls_client_connection_set_use_ssl3(
+            ffi::g_tls_client_connection_set_use_ssl3(
                 self.as_ref().to_glib_none().0,
                 use_ssl3.to_glib(),
             );
@@ -152,7 +149,7 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
 
     fn set_validation_flags(&self, flags: TlsCertificateFlags) {
         unsafe {
-            gio_sys::g_tls_client_connection_set_validation_flags(
+            ffi::g_tls_client_connection_set_validation_flags(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
             );
@@ -164,9 +161,9 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_accepted_cas_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GTlsClientConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GTlsClientConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TlsClientConnection>,
         {
@@ -191,9 +188,9 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_server_identity_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GTlsClientConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GTlsClientConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TlsClientConnection>,
         {
@@ -215,9 +212,9 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
 
     fn connect_property_use_ssl3_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_ssl3_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GTlsClientConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GTlsClientConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TlsClientConnection>,
         {
@@ -242,9 +239,9 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_validation_flags_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GTlsClientConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GTlsClientConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TlsClientConnection>,
         {

@@ -2,7 +2,10 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
+use crate::EventController;
+use crate::Gesture;
+use crate::PropagationPhase;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
@@ -11,22 +14,15 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
-use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use EventController;
-use Gesture;
-use PropagationPhase;
-use Widget;
 
-glib_wrapper! {
-    pub struct GestureRotate(Object<gtk_sys::GtkGestureRotate, gtk_sys::GtkGestureRotateClass>) @extends Gesture, EventController;
+glib::glib_wrapper! {
+    pub struct GestureRotate(Object<ffi::GtkGestureRotate, ffi::GtkGestureRotateClass>) @extends Gesture, EventController;
 
     match fn {
-        get_type => || gtk_sys::gtk_gesture_rotate_get_type(),
+        get_type => || ffi::gtk_gesture_rotate_get_type(),
     }
 }
 
@@ -34,7 +30,7 @@ impl GestureRotate {
     pub fn new<P: IsA<Widget>>(widget: &P) -> GestureRotate {
         skip_assert_initialized!();
         unsafe {
-            Gesture::from_glib_full(gtk_sys::gtk_gesture_rotate_new(
+            Gesture::from_glib_full(ffi::gtk_gesture_rotate_new(
                 widget.as_ref().to_glib_none().0,
             ))
             .unsafe_cast()
@@ -42,7 +38,7 @@ impl GestureRotate {
     }
 
     pub fn get_angle_delta(&self) -> f64 {
-        unsafe { gtk_sys::gtk_gesture_rotate_get_angle_delta(self.to_glib_none().0) }
+        unsafe { ffi::gtk_gesture_rotate_get_angle_delta(self.to_glib_none().0) }
     }
 
     pub fn connect_angle_changed<F: Fn(&GestureRotate, f64, f64) + 'static>(
@@ -50,10 +46,10 @@ impl GestureRotate {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn angle_changed_trampoline<F: Fn(&GestureRotate, f64, f64) + 'static>(
-            this: *mut gtk_sys::GtkGestureRotate,
+            this: *mut ffi::GtkGestureRotate,
             angle: libc::c_double,
             angle_delta: libc::c_double,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), angle, angle_delta)

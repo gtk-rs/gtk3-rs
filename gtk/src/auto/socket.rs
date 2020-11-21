@@ -2,7 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
+use crate::xlib;
+use crate::Align;
+use crate::Buildable;
+use crate::Container;
+use crate::ResizeMode;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -10,30 +15,22 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use xlib;
-use Align;
-use Buildable;
-use Container;
-use ResizeMode;
-use Widget;
 
-glib_wrapper! {
-    pub struct Socket(Object<gtk_sys::GtkSocket, gtk_sys::GtkSocketClass>) @extends Container, Widget, @implements Buildable;
+glib::glib_wrapper! {
+    pub struct Socket(Object<ffi::GtkSocket, ffi::GtkSocketClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_socket_get_type(),
+        get_type => || ffi::gtk_socket_get_type(),
     }
 }
 
 impl Socket {
     pub fn new() -> Socket {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_socket_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_socket_new()).unsafe_cast() }
     }
 }
 
@@ -399,17 +396,17 @@ pub trait GtkSocketExt: 'static {
 impl<O: IsA<Socket>> GtkSocketExt for O {
     fn add_id(&self, window: xlib::Window) {
         unsafe {
-            gtk_sys::gtk_socket_add_id(self.as_ref().to_glib_none().0, window);
+            ffi::gtk_socket_add_id(self.as_ref().to_glib_none().0, window);
         }
     }
 
     fn get_id(&self) -> xlib::Window {
-        unsafe { gtk_sys::gtk_socket_get_id(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_socket_get_id(self.as_ref().to_glib_none().0) }
     }
 
     fn get_plug_window(&self) -> Option<gdk::Window> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_socket_get_plug_window(
+            from_glib_none(ffi::gtk_socket_get_plug_window(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -417,8 +414,8 @@ impl<O: IsA<Socket>> GtkSocketExt for O {
 
     fn connect_plug_added<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn plug_added_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkSocket,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkSocket,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Socket>,
         {
@@ -440,9 +437,9 @@ impl<O: IsA<Socket>> GtkSocketExt for O {
 
     fn connect_plug_removed<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn plug_removed_trampoline<P, F: Fn(&P) -> bool + 'static>(
-            this: *mut gtk_sys::GtkSocket,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkSocket,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Socket>,
         {

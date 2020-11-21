@@ -2,27 +2,23 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::Cancellable;
+use crate::TlsCertificateRequestFlags;
+use crate::TlsConnection;
+use crate::TlsInteractionResult;
+use crate::TlsPassword;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
-use TlsCertificateRequestFlags;
-use TlsConnection;
-use TlsInteractionResult;
-use TlsPassword;
 
-glib_wrapper! {
-    pub struct TlsInteraction(Object<gio_sys::GTlsInteraction, gio_sys::GTlsInteractionClass>);
+glib::glib_wrapper! {
+    pub struct TlsInteraction(Object<ffi::GTlsInteraction, ffi::GTlsInteractionClass>);
 
     match fn {
-        get_type => || gio_sys::g_tls_interaction_get_type(),
+        get_type => || ffi::g_tls_interaction_get_type(),
     }
 }
 
@@ -102,7 +98,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
     ) -> Result<TlsInteractionResult, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_tls_interaction_ask_password(
+            let ret = ffi::g_tls_interaction_ask_password(
                 self.as_ref().to_glib_none().0,
                 password.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -130,12 +126,12 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
         unsafe extern "C" fn ask_password_async_trampoline<
             R: FnOnce(Result<TlsInteractionResult, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_tls_interaction_ask_password_finish(
+            let ret = ffi::g_tls_interaction_ask_password_finish(
                 _source_object as *mut _,
                 res,
                 &mut error,
@@ -150,7 +146,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
         }
         let callback = ask_password_async_trampoline::<R>;
         unsafe {
-            gio_sys::g_tls_interaction_ask_password_async(
+            ffi::g_tls_interaction_ask_password_async(
                 self.as_ref().to_glib_none().0,
                 password.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -184,7 +180,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
     ) -> Result<TlsInteractionResult, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_tls_interaction_invoke_ask_password(
+            let ret = ffi::g_tls_interaction_invoke_ask_password(
                 self.as_ref().to_glib_none().0,
                 password.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -206,7 +202,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
     ) -> Result<TlsInteractionResult, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_tls_interaction_invoke_request_certificate(
+            let ret = ffi::g_tls_interaction_invoke_request_certificate(
                 self.as_ref().to_glib_none().0,
                 connection.as_ref().to_glib_none().0,
                 flags.to_glib(),
@@ -229,7 +225,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
     ) -> Result<TlsInteractionResult, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_tls_interaction_request_certificate(
+            let ret = ffi::g_tls_interaction_request_certificate(
                 self.as_ref().to_glib_none().0,
                 connection.as_ref().to_glib_none().0,
                 flags.to_glib(),
@@ -259,12 +255,12 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
         unsafe extern "C" fn request_certificate_async_trampoline<
             R: FnOnce(Result<TlsInteractionResult, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_tls_interaction_request_certificate_finish(
+            let ret = ffi::g_tls_interaction_request_certificate_finish(
                 _source_object as *mut _,
                 res,
                 &mut error,
@@ -279,7 +275,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
         }
         let callback = request_certificate_async_trampoline::<R>;
         unsafe {
-            gio_sys::g_tls_interaction_request_certificate_async(
+            ffi::g_tls_interaction_request_certificate_async(
                 self.as_ref().to_glib_none().0,
                 connection.as_ref().to_glib_none().0,
                 flags.to_glib(),

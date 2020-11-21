@@ -3,14 +3,13 @@
 // DO NOT EDIT
 
 use glib::translate::*;
-use pango_sys;
 use std::fmt;
 
-glib_wrapper! {
-    pub struct EngineShape(Object<pango_sys::PangoEngineShape, pango_sys::PangoEngineShapeClass>);
+glib::glib_wrapper! {
+    pub struct EngineShape(Object<ffi::PangoEngineShape, ffi::PangoEngineShapeClass>);
 
     match fn {
-        get_type => || pango_sys::pango_engine_shape_get_type(),
+        get_type => || ffi::pango_engine_shape_get_type(),
     }
 }
 

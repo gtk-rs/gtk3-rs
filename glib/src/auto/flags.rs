@@ -2,15 +2,14 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use glib_sys;
-use gobject_sys;
-use translate::*;
-use value::FromValue;
-use value::FromValueOptional;
-use value::SetValue;
-use value::Value;
-use StaticType;
-use Type;
+use crate::translate::*;
+use crate::value::FromValue;
+use crate::value::FromValueOptional;
+use crate::value::SetValue;
+use crate::value::Value;
+use crate::StaticType;
+use crate::Type;
+use bitflags::bitflags;
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
@@ -27,9 +26,9 @@ bitflags! {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl ToGlib for FileSetContentsFlags {
-    type GlibType = glib_sys::GFileSetContentsFlags;
+    type GlibType = ffi::GFileSetContentsFlags;
 
-    fn to_glib(&self) -> glib_sys::GFileSetContentsFlags {
+    fn to_glib(&self) -> ffi::GFileSetContentsFlags {
         self.bits()
     }
 }
@@ -37,8 +36,8 @@ impl ToGlib for FileSetContentsFlags {
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
-impl FromGlib<glib_sys::GFileSetContentsFlags> for FileSetContentsFlags {
-    fn from_glib(value: glib_sys::GFileSetContentsFlags) -> FileSetContentsFlags {
+impl FromGlib<ffi::GFileSetContentsFlags> for FileSetContentsFlags {
+    fn from_glib(value: ffi::GFileSetContentsFlags) -> FileSetContentsFlags {
         FileSetContentsFlags::from_bits_truncate(value)
     }
 }
@@ -55,16 +54,16 @@ bitflags! {
 
 #[doc(hidden)]
 impl ToGlib for FileTest {
-    type GlibType = glib_sys::GFileTest;
+    type GlibType = ffi::GFileTest;
 
-    fn to_glib(&self) -> glib_sys::GFileTest {
+    fn to_glib(&self) -> ffi::GFileTest {
         self.bits()
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<glib_sys::GFileTest> for FileTest {
-    fn from_glib(value: glib_sys::GFileTest) -> FileTest {
+impl FromGlib<ffi::GFileTest> for FileTest {
+    fn from_glib(value: ffi::GFileTest) -> FileTest {
         FileTest::from_bits_truncate(value)
     }
 }
@@ -80,16 +79,16 @@ bitflags! {
 
 #[doc(hidden)]
 impl ToGlib for FormatSizeFlags {
-    type GlibType = glib_sys::GFormatSizeFlags;
+    type GlibType = ffi::GFormatSizeFlags;
 
-    fn to_glib(&self) -> glib_sys::GFormatSizeFlags {
+    fn to_glib(&self) -> ffi::GFormatSizeFlags {
         self.bits()
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<glib_sys::GFormatSizeFlags> for FormatSizeFlags {
-    fn from_glib(value: glib_sys::GFormatSizeFlags) -> FormatSizeFlags {
+impl FromGlib<ffi::GFormatSizeFlags> for FormatSizeFlags {
+    fn from_glib(value: ffi::GFormatSizeFlags) -> FormatSizeFlags {
         FormatSizeFlags::from_bits_truncate(value)
     }
 }
@@ -107,23 +106,23 @@ bitflags! {
 
 #[doc(hidden)]
 impl ToGlib for IOCondition {
-    type GlibType = glib_sys::GIOCondition;
+    type GlibType = ffi::GIOCondition;
 
-    fn to_glib(&self) -> glib_sys::GIOCondition {
+    fn to_glib(&self) -> ffi::GIOCondition {
         self.bits()
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<glib_sys::GIOCondition> for IOCondition {
-    fn from_glib(value: glib_sys::GIOCondition) -> IOCondition {
+impl FromGlib<ffi::GIOCondition> for IOCondition {
+    fn from_glib(value: ffi::GIOCondition) -> IOCondition {
         IOCondition::from_bits_truncate(value)
     }
 }
 
 impl StaticType for IOCondition {
     fn static_type() -> Type {
-        unsafe { from_glib(glib_sys::g_io_condition_get_type()) }
+        unsafe { from_glib(ffi::g_io_condition_get_type()) }
     }
 }
 
@@ -135,13 +134,15 @@ impl<'a> FromValueOptional<'a> for IOCondition {
 
 impl<'a> FromValue<'a> for IOCondition {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
+        from_glib(crate::gobject_ffi::g_value_get_flags(
+            value.to_glib_none().0,
+        ))
     }
 }
 
 impl SetValue for IOCondition {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+        crate::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -155,16 +156,16 @@ bitflags! {
 
 #[doc(hidden)]
 impl ToGlib for KeyFileFlags {
-    type GlibType = glib_sys::GKeyFileFlags;
+    type GlibType = ffi::GKeyFileFlags;
 
-    fn to_glib(&self) -> glib_sys::GKeyFileFlags {
+    fn to_glib(&self) -> ffi::GKeyFileFlags {
         self.bits()
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<glib_sys::GKeyFileFlags> for KeyFileFlags {
-    fn from_glib(value: glib_sys::GKeyFileFlags) -> KeyFileFlags {
+impl FromGlib<ffi::GKeyFileFlags> for KeyFileFlags {
+    fn from_glib(value: ffi::GKeyFileFlags) -> KeyFileFlags {
         KeyFileFlags::from_bits_truncate(value)
     }
 }
@@ -185,16 +186,16 @@ bitflags! {
 
 #[doc(hidden)]
 impl ToGlib for LogLevelFlags {
-    type GlibType = glib_sys::GLogLevelFlags;
+    type GlibType = ffi::GLogLevelFlags;
 
-    fn to_glib(&self) -> glib_sys::GLogLevelFlags {
+    fn to_glib(&self) -> ffi::GLogLevelFlags {
         self.bits()
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<glib_sys::GLogLevelFlags> for LogLevelFlags {
-    fn from_glib(value: glib_sys::GLogLevelFlags) -> LogLevelFlags {
+impl FromGlib<ffi::GLogLevelFlags> for LogLevelFlags {
+    fn from_glib(value: ffi::GLogLevelFlags) -> LogLevelFlags {
         LogLevelFlags::from_bits_truncate(value)
     }
 }
@@ -214,16 +215,16 @@ bitflags! {
 
 #[doc(hidden)]
 impl ToGlib for OptionFlags {
-    type GlibType = glib_sys::GOptionFlags;
+    type GlibType = ffi::GOptionFlags;
 
-    fn to_glib(&self) -> glib_sys::GOptionFlags {
+    fn to_glib(&self) -> ffi::GOptionFlags {
         self.bits()
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<glib_sys::GOptionFlags> for OptionFlags {
-    fn from_glib(value: glib_sys::GOptionFlags) -> OptionFlags {
+impl FromGlib<ffi::GOptionFlags> for OptionFlags {
+    fn from_glib(value: ffi::GOptionFlags) -> OptionFlags {
         OptionFlags::from_bits_truncate(value)
     }
 }
@@ -245,16 +246,16 @@ bitflags! {
 
 #[doc(hidden)]
 impl ToGlib for SpawnFlags {
-    type GlibType = glib_sys::GSpawnFlags;
+    type GlibType = ffi::GSpawnFlags;
 
-    fn to_glib(&self) -> glib_sys::GSpawnFlags {
+    fn to_glib(&self) -> ffi::GSpawnFlags {
         self.bits()
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<glib_sys::GSpawnFlags> for SpawnFlags {
-    fn from_glib(value: glib_sys::GSpawnFlags) -> SpawnFlags {
+impl FromGlib<ffi::GSpawnFlags> for SpawnFlags {
+    fn from_glib(value: ffi::GSpawnFlags) -> SpawnFlags {
         SpawnFlags::from_bits_truncate(value)
     }
 }
@@ -279,9 +280,9 @@ bitflags! {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl ToGlib for UriFlags {
-    type GlibType = glib_sys::GUriFlags;
+    type GlibType = ffi::GUriFlags;
 
-    fn to_glib(&self) -> glib_sys::GUriFlags {
+    fn to_glib(&self) -> ffi::GUriFlags {
         self.bits()
     }
 }
@@ -289,8 +290,8 @@ impl ToGlib for UriFlags {
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
-impl FromGlib<glib_sys::GUriFlags> for UriFlags {
-    fn from_glib(value: glib_sys::GUriFlags) -> UriFlags {
+impl FromGlib<ffi::GUriFlags> for UriFlags {
+    fn from_glib(value: ffi::GUriFlags) -> UriFlags {
         UriFlags::from_bits_truncate(value)
     }
 }
@@ -312,9 +313,9 @@ bitflags! {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl ToGlib for UriHideFlags {
-    type GlibType = glib_sys::GUriHideFlags;
+    type GlibType = ffi::GUriHideFlags;
 
-    fn to_glib(&self) -> glib_sys::GUriHideFlags {
+    fn to_glib(&self) -> ffi::GUriHideFlags {
         self.bits()
     }
 }
@@ -322,8 +323,8 @@ impl ToGlib for UriHideFlags {
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
-impl FromGlib<glib_sys::GUriHideFlags> for UriHideFlags {
-    fn from_glib(value: glib_sys::GUriHideFlags) -> UriHideFlags {
+impl FromGlib<ffi::GUriHideFlags> for UriHideFlags {
+    fn from_glib(value: ffi::GUriHideFlags) -> UriHideFlags {
         UriHideFlags::from_bits_truncate(value)
     }
 }
@@ -343,9 +344,9 @@ bitflags! {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl ToGlib for UriParamsFlags {
-    type GlibType = glib_sys::GUriParamsFlags;
+    type GlibType = ffi::GUriParamsFlags;
 
-    fn to_glib(&self) -> glib_sys::GUriParamsFlags {
+    fn to_glib(&self) -> ffi::GUriParamsFlags {
         self.bits()
     }
 }
@@ -353,8 +354,8 @@ impl ToGlib for UriParamsFlags {
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
-impl FromGlib<glib_sys::GUriParamsFlags> for UriParamsFlags {
-    fn from_glib(value: glib_sys::GUriParamsFlags) -> UriParamsFlags {
+impl FromGlib<ffi::GUriParamsFlags> for UriParamsFlags {
+    fn from_glib(value: ffi::GUriParamsFlags) -> UriParamsFlags {
         UriParamsFlags::from_bits_truncate(value)
     }
 }

@@ -2,37 +2,33 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use gdk_pixbuf;
+use crate::Align;
+use crate::Application;
+use crate::Bin;
+use crate::Buildable;
+use crate::Container;
+use crate::Dialog;
+use crate::FontChooser;
+#[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+use crate::FontChooserLevel;
+use crate::ResizeMode;
+use crate::Widget;
+use crate::Window;
+use crate::WindowPosition;
+use crate::WindowType;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use gtk_sys;
-use pango;
 use std::fmt;
-use Align;
-use Application;
-use Bin;
-use Buildable;
-use Container;
-use Dialog;
-use FontChooser;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-use FontChooserLevel;
-use ResizeMode;
-use Widget;
-use Window;
-use WindowPosition;
-use WindowType;
 
-glib_wrapper! {
-    pub struct FontChooserDialog(Object<gtk_sys::GtkFontChooserDialog, gtk_sys::GtkFontChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, FontChooser;
+glib::glib_wrapper! {
+    pub struct FontChooserDialog(Object<ffi::GtkFontChooserDialog, ffi::GtkFontChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, FontChooser;
 
     match fn {
-        get_type => || gtk_sys::gtk_font_chooser_dialog_get_type(),
+        get_type => || ffi::gtk_font_chooser_dialog_get_type(),
     }
 }
 
@@ -40,7 +36,7 @@ impl FontChooserDialog {
     pub fn new<P: IsA<Window>>(title: Option<&str>, parent: Option<&P>) -> FontChooserDialog {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_font_chooser_dialog_new(
+            Widget::from_glib_none(ffi::gtk_font_chooser_dialog_new(
                 title.to_glib_none().0,
                 parent.map(|p| p.as_ref()).to_glib_none().0,
             ))

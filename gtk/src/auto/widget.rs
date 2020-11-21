@@ -2,76 +2,62 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk;
-use cairo;
-use cairo_sys;
-use gdk;
-use gdk_pixbuf;
-use gdk_sys;
-use gio;
-use glib;
+use crate::AccelFlags;
+use crate::AccelGroup;
+use crate::Align;
+use crate::Allocation;
+use crate::Buildable;
+use crate::Clipboard;
+use crate::DirectionType;
+use crate::DragResult;
+use crate::Orientation;
+use crate::Requisition;
+use crate::SelectionData;
+use crate::Settings;
+use crate::SizeRequestMode;
+use crate::StateFlags;
+use crate::StyleContext;
+use crate::TargetList;
+use crate::TextDirection;
+use crate::Tooltip;
+use crate::WidgetHelpType;
+use crate::WidgetPath;
+use crate::Window;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectExt;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
-use libc;
-use pango;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
-use AccelFlags;
-use AccelGroup;
-use Align;
-use Allocation;
-use Buildable;
-use Clipboard;
-use DirectionType;
-use DragResult;
-use Orientation;
-use Requisition;
-use SelectionData;
-use Settings;
-use SizeRequestMode;
-use StateFlags;
-use StyleContext;
-use TargetList;
-use TextDirection;
-use Tooltip;
-use WidgetHelpType;
-use WidgetPath;
-use Window;
 
-glib_wrapper! {
-    pub struct Widget(Object<gtk_sys::GtkWidget, gtk_sys::GtkWidgetClass>) @implements Buildable;
+glib::glib_wrapper! {
+    pub struct Widget(Object<ffi::GtkWidget, ffi::GtkWidgetClass>) @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_widget_get_type(),
+        get_type => || ffi::gtk_widget_get_type(),
     }
 }
 
 impl Widget {
     //pub fn new(type_: glib::types::Type, first_property_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Widget {
-    //    unsafe { TODO: call gtk_sys:gtk_widget_new() }
+    //    unsafe { TODO: call ffi:gtk_widget_new() }
     //}
 
     pub fn get_default_direction() -> TextDirection {
         assert_initialized_main_thread!();
-        unsafe { from_glib(gtk_sys::gtk_widget_get_default_direction()) }
+        unsafe { from_glib(ffi::gtk_widget_get_default_direction()) }
     }
 
     pub fn set_default_direction(dir: TextDirection) {
         assert_initialized_main_thread!();
         unsafe {
-            gtk_sys::gtk_widget_set_default_direction(dir.to_glib());
+            ffi::gtk_widget_set_default_direction(dir.to_glib());
         }
     }
 }
@@ -268,7 +254,7 @@ pub trait WidgetExt: 'static {
 
     fn get_modifier_mask(&self, intent: gdk::ModifierIntent) -> gdk::ModifierType;
 
-    fn get_widget_name(&self) -> GString;
+    fn get_widget_name(&self) -> glib::GString;
 
     fn get_no_show_all(&self) -> bool;
 
@@ -322,9 +308,9 @@ pub trait WidgetExt: 'static {
         name: &str,
     ) -> Option<glib::Object>;
 
-    fn get_tooltip_markup(&self) -> Option<GString>;
+    fn get_tooltip_markup(&self) -> Option<glib::GString>;
 
-    fn get_tooltip_text(&self) -> Option<GString>;
+    fn get_tooltip_text(&self) -> Option<glib::GString>;
 
     fn get_tooltip_window(&self) -> Option<Window>;
 
@@ -393,7 +379,7 @@ pub trait WidgetExt: 'static {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    fn list_action_prefixes(&self) -> Vec<GString>;
+    fn list_action_prefixes(&self) -> Vec<glib::GString>;
 
     fn list_mnemonic_labels(&self) -> Vec<Widget>;
 
@@ -1029,7 +1015,7 @@ pub trait WidgetExt: 'static {
 
 impl<O: IsA<Widget>> WidgetExt for O {
     fn activate(&self) -> bool {
-        unsafe { from_glib(gtk_sys::gtk_widget_activate(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib(ffi::gtk_widget_activate(self.as_ref().to_glib_none().0)) }
     }
 
     fn add_accelerator<P: IsA<AccelGroup>>(
@@ -1041,7 +1027,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         accel_flags: AccelFlags,
     ) {
         unsafe {
-            gtk_sys::gtk_widget_add_accelerator(
+            ffi::gtk_widget_add_accelerator(
                 self.as_ref().to_glib_none().0,
                 accel_signal.to_glib_none().0,
                 accel_group.as_ref().to_glib_none().0,
@@ -1054,7 +1040,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn add_device_events(&self, device: &gdk::Device, events: gdk::EventMask) {
         unsafe {
-            gtk_sys::gtk_widget_add_device_events(
+            ffi::gtk_widget_add_device_events(
                 self.as_ref().to_glib_none().0,
                 device.to_glib_none().0,
                 events.to_glib(),
@@ -1064,7 +1050,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn add_mnemonic_label<P: IsA<Widget>>(&self, label: &P) {
         unsafe {
-            gtk_sys::gtk_widget_add_mnemonic_label(
+            ffi::gtk_widget_add_mnemonic_label(
                 self.as_ref().to_glib_none().0,
                 label.as_ref().to_glib_none().0,
             );
@@ -1073,7 +1059,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn can_activate_accel(&self, signal_id: u32) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_can_activate_accel(
+            from_glib(ffi::gtk_widget_can_activate_accel(
                 self.as_ref().to_glib_none().0,
                 signal_id,
             ))
@@ -1082,7 +1068,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn child_focus(&self, direction: DirectionType) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_child_focus(
+            from_glib(ffi::gtk_widget_child_focus(
                 self.as_ref().to_glib_none().0,
                 direction.to_glib(),
             ))
@@ -1091,7 +1077,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn child_notify(&self, child_property: &str) {
         unsafe {
-            gtk_sys::gtk_widget_child_notify(
+            ffi::gtk_widget_child_notify(
                 self.as_ref().to_glib_none().0,
                 child_property.to_glib_none().0,
             );
@@ -1100,7 +1086,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn compute_expand(&self, orientation: Orientation) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_compute_expand(
+            from_glib(ffi::gtk_widget_compute_expand(
                 self.as_ref().to_glib_none().0,
                 orientation.to_glib(),
             ))
@@ -1109,7 +1095,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn create_pango_context(&self) -> pango::Context {
         unsafe {
-            from_glib_full(gtk_sys::gtk_widget_create_pango_context(
+            from_glib_full(ffi::gtk_widget_create_pango_context(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1117,7 +1103,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn create_pango_layout(&self, text: Option<&str>) -> pango::Layout {
         unsafe {
-            from_glib_full(gtk_sys::gtk_widget_create_pango_layout(
+            from_glib_full(ffi::gtk_widget_create_pango_layout(
                 self.as_ref().to_glib_none().0,
                 text.to_glib_none().0,
             ))
@@ -1125,12 +1111,12 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     //fn destroyed<P: IsA<Widget>>(&self, widget_pointer: &P) {
-    //    unsafe { TODO: call gtk_sys:gtk_widget_destroyed() }
+    //    unsafe { TODO: call ffi:gtk_widget_destroyed() }
     //}
 
     fn device_is_shadowed(&self, device: &gdk::Device) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_device_is_shadowed(
+            from_glib(ffi::gtk_widget_device_is_shadowed(
                 self.as_ref().to_glib_none().0,
                 device.to_glib_none().0,
             ))
@@ -1147,7 +1133,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         y: i32,
     ) -> Option<gdk::DragContext> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_drag_begin_with_coordinates(
+            from_glib_none(ffi::gtk_drag_begin_with_coordinates(
                 self.as_ref().to_glib_none().0,
                 targets.to_glib_none().0,
                 actions.to_glib(),
@@ -1167,7 +1153,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         current_y: i32,
     ) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_drag_check_threshold(
+            from_glib(ffi::gtk_drag_check_threshold(
                 self.as_ref().to_glib_none().0,
                 start_x,
                 start_y,
@@ -1179,19 +1165,19 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn drag_dest_add_image_targets(&self) {
         unsafe {
-            gtk_sys::gtk_drag_dest_add_image_targets(self.as_ref().to_glib_none().0);
+            ffi::gtk_drag_dest_add_image_targets(self.as_ref().to_glib_none().0);
         }
     }
 
     fn drag_dest_add_text_targets(&self) {
         unsafe {
-            gtk_sys::gtk_drag_dest_add_text_targets(self.as_ref().to_glib_none().0);
+            ffi::gtk_drag_dest_add_text_targets(self.as_ref().to_glib_none().0);
         }
     }
 
     fn drag_dest_add_uri_targets(&self) {
         unsafe {
-            gtk_sys::gtk_drag_dest_add_uri_targets(self.as_ref().to_glib_none().0);
+            ffi::gtk_drag_dest_add_uri_targets(self.as_ref().to_glib_none().0);
         }
     }
 
@@ -1201,7 +1187,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         target_list: Option<&TargetList>,
     ) -> Option<gdk::Atom> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_drag_dest_find_target(
+            from_glib_none(ffi::gtk_drag_dest_find_target(
                 self.as_ref().to_glib_none().0,
                 context.to_glib_none().0,
                 target_list.to_glib_none().0,
@@ -1211,7 +1197,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn drag_dest_get_target_list(&self) -> Option<TargetList> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_drag_dest_get_target_list(
+            from_glib_none(ffi::gtk_drag_dest_get_target_list(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1219,7 +1205,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn drag_dest_get_track_motion(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_drag_dest_get_track_motion(
+            from_glib(ffi::gtk_drag_dest_get_track_motion(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1232,7 +1218,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         use_coordinates: bool,
     ) {
         unsafe {
-            gtk_sys::gtk_drag_dest_set_proxy(
+            ffi::gtk_drag_dest_set_proxy(
                 self.as_ref().to_glib_none().0,
                 proxy_window.as_ref().to_glib_none().0,
                 protocol.to_glib(),
@@ -1243,7 +1229,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn drag_dest_set_target_list(&self, target_list: Option<&TargetList>) {
         unsafe {
-            gtk_sys::gtk_drag_dest_set_target_list(
+            ffi::gtk_drag_dest_set_target_list(
                 self.as_ref().to_glib_none().0,
                 target_list.to_glib_none().0,
             );
@@ -1252,7 +1238,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn drag_dest_set_track_motion(&self, track_motion: bool) {
         unsafe {
-            gtk_sys::gtk_drag_dest_set_track_motion(
+            ffi::gtk_drag_dest_set_track_motion(
                 self.as_ref().to_glib_none().0,
                 track_motion.to_glib(),
             );
@@ -1261,13 +1247,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn drag_dest_unset(&self) {
         unsafe {
-            gtk_sys::gtk_drag_dest_unset(self.as_ref().to_glib_none().0);
+            ffi::gtk_drag_dest_unset(self.as_ref().to_glib_none().0);
         }
     }
 
     fn drag_get_data(&self, context: &gdk::DragContext, target: &gdk::Atom, time_: u32) {
         unsafe {
-            gtk_sys::gtk_drag_get_data(
+            ffi::gtk_drag_get_data(
                 self.as_ref().to_glib_none().0,
                 context.to_glib_none().0,
                 target.to_glib_none().0,
@@ -1278,31 +1264,31 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn drag_highlight(&self) {
         unsafe {
-            gtk_sys::gtk_drag_highlight(self.as_ref().to_glib_none().0);
+            ffi::gtk_drag_highlight(self.as_ref().to_glib_none().0);
         }
     }
 
     fn drag_source_add_image_targets(&self) {
         unsafe {
-            gtk_sys::gtk_drag_source_add_image_targets(self.as_ref().to_glib_none().0);
+            ffi::gtk_drag_source_add_image_targets(self.as_ref().to_glib_none().0);
         }
     }
 
     fn drag_source_add_text_targets(&self) {
         unsafe {
-            gtk_sys::gtk_drag_source_add_text_targets(self.as_ref().to_glib_none().0);
+            ffi::gtk_drag_source_add_text_targets(self.as_ref().to_glib_none().0);
         }
     }
 
     fn drag_source_add_uri_targets(&self) {
         unsafe {
-            gtk_sys::gtk_drag_source_add_uri_targets(self.as_ref().to_glib_none().0);
+            ffi::gtk_drag_source_add_uri_targets(self.as_ref().to_glib_none().0);
         }
     }
 
     fn drag_source_get_target_list(&self) -> Option<TargetList> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_drag_source_get_target_list(
+            from_glib_none(ffi::gtk_drag_source_get_target_list(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1310,7 +1296,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn drag_source_set_icon_gicon<P: IsA<gio::Icon>>(&self, icon: &P) {
         unsafe {
-            gtk_sys::gtk_drag_source_set_icon_gicon(
+            ffi::gtk_drag_source_set_icon_gicon(
                 self.as_ref().to_glib_none().0,
                 icon.as_ref().to_glib_none().0,
             );
@@ -1319,7 +1305,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn drag_source_set_icon_name(&self, icon_name: &str) {
         unsafe {
-            gtk_sys::gtk_drag_source_set_icon_name(
+            ffi::gtk_drag_source_set_icon_name(
                 self.as_ref().to_glib_none().0,
                 icon_name.to_glib_none().0,
             );
@@ -1328,7 +1314,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn drag_source_set_icon_pixbuf(&self, pixbuf: &gdk_pixbuf::Pixbuf) {
         unsafe {
-            gtk_sys::gtk_drag_source_set_icon_pixbuf(
+            ffi::gtk_drag_source_set_icon_pixbuf(
                 self.as_ref().to_glib_none().0,
                 pixbuf.to_glib_none().0,
             );
@@ -1337,7 +1323,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn drag_source_set_target_list(&self, target_list: Option<&TargetList>) {
         unsafe {
-            gtk_sys::gtk_drag_source_set_target_list(
+            ffi::gtk_drag_source_set_target_list(
                 self.as_ref().to_glib_none().0,
                 target_list.to_glib_none().0,
             );
@@ -1346,19 +1332,19 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn drag_source_unset(&self) {
         unsafe {
-            gtk_sys::gtk_drag_source_unset(self.as_ref().to_glib_none().0);
+            ffi::gtk_drag_source_unset(self.as_ref().to_glib_none().0);
         }
     }
 
     fn drag_unhighlight(&self) {
         unsafe {
-            gtk_sys::gtk_drag_unhighlight(self.as_ref().to_glib_none().0);
+            ffi::gtk_drag_unhighlight(self.as_ref().to_glib_none().0);
         }
     }
 
     fn draw(&self, cr: &cairo::Context) {
         unsafe {
-            gtk_sys::gtk_widget_draw(
+            ffi::gtk_widget_draw(
                 self.as_ref().to_glib_none().0,
                 mut_override(cr.to_glib_none().0),
             );
@@ -1367,13 +1353,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn error_bell(&self) {
         unsafe {
-            gtk_sys::gtk_widget_error_bell(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_error_bell(self.as_ref().to_glib_none().0);
         }
     }
 
     fn event(&self, event: &gdk::Event) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_event(
+            from_glib(ffi::gtk_widget_event(
                 self.as_ref().to_glib_none().0,
                 mut_override(event.to_glib_none().0),
             ))
@@ -1382,13 +1368,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn freeze_child_notify(&self) {
         unsafe {
-            gtk_sys::gtk_widget_freeze_child_notify(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_freeze_child_notify(self.as_ref().to_glib_none().0);
         }
     }
 
     fn get_accessible(&self) -> Option<atk::Object> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_accessible(
+            from_glib_none(ffi::gtk_widget_get_accessible(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1398,7 +1384,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_action_group(&self, prefix: &str) -> Option<gio::ActionGroup> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_action_group(
+            from_glib_none(ffi::gtk_widget_get_action_group(
                 self.as_ref().to_glib_none().0,
                 prefix.to_glib_none().0,
             ))
@@ -1406,11 +1392,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     fn get_allocated_baseline(&self) -> i32 {
-        unsafe { gtk_sys::gtk_widget_get_allocated_baseline(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_widget_get_allocated_baseline(self.as_ref().to_glib_none().0) }
     }
 
     fn get_allocated_height(&self) -> i32 {
-        unsafe { gtk_sys::gtk_widget_get_allocated_height(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_widget_get_allocated_height(self.as_ref().to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
@@ -1419,7 +1405,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         unsafe {
             let mut allocation = Allocation::uninitialized();
             let mut baseline = mem::MaybeUninit::uninit();
-            gtk_sys::gtk_widget_get_allocated_size(
+            ffi::gtk_widget_get_allocated_size(
                 self.as_ref().to_glib_none().0,
                 allocation.to_glib_none_mut().0,
                 baseline.as_mut_ptr(),
@@ -1430,13 +1416,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     fn get_allocated_width(&self) -> i32 {
-        unsafe { gtk_sys::gtk_widget_get_allocated_width(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_widget_get_allocated_width(self.as_ref().to_glib_none().0) }
     }
 
     fn get_allocation(&self) -> Allocation {
         unsafe {
             let mut allocation = Allocation::uninitialized();
-            gtk_sys::gtk_widget_get_allocation(
+            ffi::gtk_widget_get_allocation(
                 self.as_ref().to_glib_none().0,
                 allocation.to_glib_none_mut().0,
             );
@@ -1446,7 +1432,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_ancestor(&self, widget_type: glib::types::Type) -> Option<Widget> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_ancestor(
+            from_glib_none(ffi::gtk_widget_get_ancestor(
                 self.as_ref().to_glib_none().0,
                 widget_type.to_glib(),
             ))
@@ -1455,7 +1441,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_app_paintable(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_app_paintable(
+            from_glib(ffi::gtk_widget_get_app_paintable(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1463,7 +1449,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_can_default(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_can_default(
+            from_glib(ffi::gtk_widget_get_can_default(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1471,7 +1457,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_can_focus(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_can_focus(
+            from_glib(ffi::gtk_widget_get_can_focus(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1479,7 +1465,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_child_visible(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_child_visible(
+            from_glib(ffi::gtk_widget_get_child_visible(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1488,14 +1474,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
     fn get_clip(&self) -> Allocation {
         unsafe {
             let mut clip = Allocation::uninitialized();
-            gtk_sys::gtk_widget_get_clip(self.as_ref().to_glib_none().0, clip.to_glib_none_mut().0);
+            ffi::gtk_widget_get_clip(self.as_ref().to_glib_none().0, clip.to_glib_none_mut().0);
             clip
         }
     }
 
     fn get_clipboard(&self, selection: &gdk::Atom) -> Clipboard {
         unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_clipboard(
+            from_glib_none(ffi::gtk_widget_get_clipboard(
                 self.as_ref().to_glib_none().0,
                 selection.to_glib_none().0,
             ))
@@ -1504,7 +1490,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_device_enabled(&self, device: &gdk::Device) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_device_enabled(
+            from_glib(ffi::gtk_widget_get_device_enabled(
                 self.as_ref().to_glib_none().0,
                 device.to_glib_none().0,
             ))
@@ -1513,7 +1499,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_device_events(&self, device: &gdk::Device) -> gdk::EventMask {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_device_events(
+            from_glib(ffi::gtk_widget_get_device_events(
                 self.as_ref().to_glib_none().0,
                 device.to_glib_none().0,
             ))
@@ -1522,23 +1508,19 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_direction(&self) -> TextDirection {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_direction(
+            from_glib(ffi::gtk_widget_get_direction(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_display(&self) -> gdk::Display {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_display(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gtk_widget_get_display(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_double_buffered(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_double_buffered(
+            from_glib(ffi::gtk_widget_get_double_buffered(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1548,7 +1530,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_focus_on_click(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_focus_on_click(
+            from_glib(ffi::gtk_widget_get_focus_on_click(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1557,18 +1539,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn get_font_map(&self) -> Option<pango::FontMap> {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_font_map(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gtk_widget_get_font_map(self.as_ref().to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn get_font_options(&self) -> Option<cairo::FontOptions> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_font_options(
+            from_glib_none(ffi::gtk_widget_get_font_options(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1576,23 +1554,19 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_frame_clock(&self) -> Option<gdk::FrameClock> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_frame_clock(
+            from_glib_none(ffi::gtk_widget_get_frame_clock(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_halign(&self) -> Align {
-        unsafe {
-            from_glib(gtk_sys::gtk_widget_get_halign(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_widget_get_halign(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_has_tooltip(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_has_tooltip(
+            from_glib(ffi::gtk_widget_get_has_tooltip(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1600,110 +1574,98 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_has_window(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_has_window(
+            from_glib(ffi::gtk_widget_get_has_window(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_hexpand(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_widget_get_hexpand(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_widget_get_hexpand(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_hexpand_set(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_hexpand_set(
+            from_glib(ffi::gtk_widget_get_hexpand_set(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_mapped(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_widget_get_mapped(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_widget_get_mapped(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_margin_bottom(&self) -> i32 {
-        unsafe { gtk_sys::gtk_widget_get_margin_bottom(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_widget_get_margin_bottom(self.as_ref().to_glib_none().0) }
     }
 
     fn get_margin_end(&self) -> i32 {
-        unsafe { gtk_sys::gtk_widget_get_margin_end(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_widget_get_margin_end(self.as_ref().to_glib_none().0) }
     }
 
     fn get_margin_start(&self) -> i32 {
-        unsafe { gtk_sys::gtk_widget_get_margin_start(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_widget_get_margin_start(self.as_ref().to_glib_none().0) }
     }
 
     fn get_margin_top(&self) -> i32 {
-        unsafe { gtk_sys::gtk_widget_get_margin_top(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_widget_get_margin_top(self.as_ref().to_glib_none().0) }
     }
 
     fn get_modifier_mask(&self, intent: gdk::ModifierIntent) -> gdk::ModifierType {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_modifier_mask(
+            from_glib(ffi::gtk_widget_get_modifier_mask(
                 self.as_ref().to_glib_none().0,
                 intent.to_glib(),
             ))
         }
     }
 
-    fn get_widget_name(&self) -> GString {
-        unsafe { from_glib_none(gtk_sys::gtk_widget_get_name(self.as_ref().to_glib_none().0)) }
+    fn get_widget_name(&self) -> glib::GString {
+        unsafe { from_glib_none(ffi::gtk_widget_get_name(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_no_show_all(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_no_show_all(
+            from_glib(ffi::gtk_widget_get_no_show_all(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_opacity(&self) -> f64 {
-        unsafe { gtk_sys::gtk_widget_get_opacity(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_widget_get_opacity(self.as_ref().to_glib_none().0) }
     }
 
     fn get_pango_context(&self) -> pango::Context {
         unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_pango_context(
+            from_glib_none(ffi::gtk_widget_get_pango_context(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_parent(&self) -> Option<Widget> {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_parent(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gtk_widget_get_parent(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_parent_window(&self) -> Option<gdk::Window> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_parent_window(
+            from_glib_none(ffi::gtk_widget_get_parent_window(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_path(&self) -> WidgetPath {
-        unsafe { from_glib_none(gtk_sys::gtk_widget_get_path(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib_none(ffi::gtk_widget_get_path(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_preferred_height(&self) -> (i32, i32) {
         unsafe {
             let mut minimum_height = mem::MaybeUninit::uninit();
             let mut natural_height = mem::MaybeUninit::uninit();
-            gtk_sys::gtk_widget_get_preferred_height(
+            ffi::gtk_widget_get_preferred_height(
                 self.as_ref().to_glib_none().0,
                 minimum_height.as_mut_ptr(),
                 natural_height.as_mut_ptr(),
@@ -1720,7 +1682,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             let mut natural_height = mem::MaybeUninit::uninit();
             let mut minimum_baseline = mem::MaybeUninit::uninit();
             let mut natural_baseline = mem::MaybeUninit::uninit();
-            gtk_sys::gtk_widget_get_preferred_height_and_baseline_for_width(
+            ffi::gtk_widget_get_preferred_height_and_baseline_for_width(
                 self.as_ref().to_glib_none().0,
                 width,
                 minimum_height.as_mut_ptr(),
@@ -1745,7 +1707,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         unsafe {
             let mut minimum_height = mem::MaybeUninit::uninit();
             let mut natural_height = mem::MaybeUninit::uninit();
-            gtk_sys::gtk_widget_get_preferred_height_for_width(
+            ffi::gtk_widget_get_preferred_height_for_width(
                 self.as_ref().to_glib_none().0,
                 width,
                 minimum_height.as_mut_ptr(),
@@ -1761,7 +1723,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         unsafe {
             let mut minimum_size = Requisition::uninitialized();
             let mut natural_size = Requisition::uninitialized();
-            gtk_sys::gtk_widget_get_preferred_size(
+            ffi::gtk_widget_get_preferred_size(
                 self.as_ref().to_glib_none().0,
                 minimum_size.to_glib_none_mut().0,
                 natural_size.to_glib_none_mut().0,
@@ -1774,7 +1736,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         unsafe {
             let mut minimum_width = mem::MaybeUninit::uninit();
             let mut natural_width = mem::MaybeUninit::uninit();
-            gtk_sys::gtk_widget_get_preferred_width(
+            ffi::gtk_widget_get_preferred_width(
                 self.as_ref().to_glib_none().0,
                 minimum_width.as_mut_ptr(),
                 natural_width.as_mut_ptr(),
@@ -1789,7 +1751,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         unsafe {
             let mut minimum_width = mem::MaybeUninit::uninit();
             let mut natural_width = mem::MaybeUninit::uninit();
-            gtk_sys::gtk_widget_get_preferred_width_for_height(
+            ffi::gtk_widget_get_preferred_width_for_height(
                 self.as_ref().to_glib_none().0,
                 height,
                 minimum_width.as_mut_ptr(),
@@ -1802,16 +1764,12 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     fn get_realized(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_widget_get_realized(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_widget_get_realized(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_receives_default(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_receives_default(
+            from_glib(ffi::gtk_widget_get_receives_default(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1819,45 +1777,37 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_request_mode(&self) -> SizeRequestMode {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_request_mode(
+            from_glib(ffi::gtk_widget_get_request_mode(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_scale_factor(&self) -> i32 {
-        unsafe { gtk_sys::gtk_widget_get_scale_factor(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_widget_get_scale_factor(self.as_ref().to_glib_none().0) }
     }
 
     fn get_screen(&self) -> Option<gdk::Screen> {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_screen(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gtk_widget_get_screen(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_sensitive(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_sensitive(
+            from_glib(ffi::gtk_widget_get_sensitive(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_settings(&self) -> Option<Settings> {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_settings(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gtk_widget_get_settings(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_size_request(&self) -> (i32, i32) {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();
-            gtk_sys::gtk_widget_get_size_request(
+            ffi::gtk_widget_get_size_request(
                 self.as_ref().to_glib_none().0,
                 width.as_mut_ptr(),
                 height.as_mut_ptr(),
@@ -1870,7 +1820,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_state_flags(&self) -> StateFlags {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_state_flags(
+            from_glib(ffi::gtk_widget_get_state_flags(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1878,7 +1828,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_style_context(&self) -> StyleContext {
         unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_style_context(
+            from_glib_none(ffi::gtk_widget_get_style_context(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1886,7 +1836,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_support_multidevice(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_support_multidevice(
+            from_glib(ffi::gtk_widget_get_support_multidevice(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1898,7 +1848,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         name: &str,
     ) -> Option<glib::Object> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_template_child(
+            from_glib_none(ffi::gtk_widget_get_template_child(
                 self.as_ref().to_glib_none().0,
                 widget_type.to_glib(),
                 name.to_glib_none().0,
@@ -1906,17 +1856,17 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn get_tooltip_markup(&self) -> Option<GString> {
+    fn get_tooltip_markup(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_full(gtk_sys::gtk_widget_get_tooltip_markup(
+            from_glib_full(ffi::gtk_widget_get_tooltip_markup(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_tooltip_text(&self) -> Option<GString> {
+    fn get_tooltip_text(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_full(gtk_sys::gtk_widget_get_tooltip_text(
+            from_glib_full(ffi::gtk_widget_get_tooltip_text(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -1924,131 +1874,95 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_tooltip_window(&self) -> Option<Window> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_tooltip_window(
+            from_glib_none(ffi::gtk_widget_get_tooltip_window(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_toplevel(&self) -> Option<Widget> {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_toplevel(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gtk_widget_get_toplevel(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_valign(&self) -> Align {
-        unsafe {
-            from_glib(gtk_sys::gtk_widget_get_valign(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_widget_get_valign(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_valign_with_baseline(&self) -> Align {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_valign_with_baseline(
+            from_glib(ffi::gtk_widget_get_valign_with_baseline(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_vexpand(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_widget_get_vexpand(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_widget_get_vexpand(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_vexpand_set(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_get_vexpand_set(
+            from_glib(ffi::gtk_widget_get_vexpand_set(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_visible(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_widget_get_visible(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_widget_get_visible(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_visual(&self) -> Option<gdk::Visual> {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_visual(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gtk_widget_get_visual(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_window(&self) -> Option<gdk::Window> {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_widget_get_window(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gtk_widget_get_window(self.as_ref().to_glib_none().0)) }
     }
 
     fn grab_add(&self) {
         unsafe {
-            gtk_sys::gtk_grab_add(self.as_ref().to_glib_none().0);
+            ffi::gtk_grab_add(self.as_ref().to_glib_none().0);
         }
     }
 
     fn grab_default(&self) {
         unsafe {
-            gtk_sys::gtk_widget_grab_default(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_grab_default(self.as_ref().to_glib_none().0);
         }
     }
 
     fn grab_focus(&self) {
         unsafe {
-            gtk_sys::gtk_widget_grab_focus(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_grab_focus(self.as_ref().to_glib_none().0);
         }
     }
 
     fn grab_remove(&self) {
         unsafe {
-            gtk_sys::gtk_grab_remove(self.as_ref().to_glib_none().0);
+            ffi::gtk_grab_remove(self.as_ref().to_glib_none().0);
         }
     }
 
     fn has_default(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_widget_has_default(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_widget_has_default(self.as_ref().to_glib_none().0)) }
     }
 
     fn has_focus(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_widget_has_focus(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_widget_has_focus(self.as_ref().to_glib_none().0)) }
     }
 
     fn has_grab(&self) -> bool {
-        unsafe { from_glib(gtk_sys::gtk_widget_has_grab(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib(ffi::gtk_widget_has_grab(self.as_ref().to_glib_none().0)) }
     }
 
     fn has_screen(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_widget_has_screen(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_widget_has_screen(self.as_ref().to_glib_none().0)) }
     }
 
     fn has_visible_focus(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_has_visible_focus(
+            from_glib(ffi::gtk_widget_has_visible_focus(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -2056,13 +1970,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn hide(&self) {
         unsafe {
-            gtk_sys::gtk_widget_hide(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_hide(self.as_ref().to_glib_none().0);
         }
     }
 
     fn in_destruction(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_in_destruction(
+            from_glib(ffi::gtk_widget_in_destruction(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -2070,13 +1984,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn init_template(&self) {
         unsafe {
-            gtk_sys::gtk_widget_init_template(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_init_template(self.as_ref().to_glib_none().0);
         }
     }
 
     fn input_shape_combine_region(&self, region: Option<&cairo::Region>) {
         unsafe {
-            gtk_sys::gtk_widget_input_shape_combine_region(
+            ffi::gtk_widget_input_shape_combine_region(
                 self.as_ref().to_glib_none().0,
                 mut_override(region.to_glib_none().0),
             );
@@ -2085,7 +1999,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn insert_action_group<P: IsA<gio::ActionGroup>>(&self, name: &str, group: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_widget_insert_action_group(
+            ffi::gtk_widget_insert_action_group(
                 self.as_ref().to_glib_none().0,
                 name.to_glib_none().0,
                 group.map(|p| p.as_ref()).to_glib_none().0,
@@ -2095,7 +2009,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn is_ancestor<P: IsA<Widget>>(&self, ancestor: &P) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_is_ancestor(
+            from_glib(ffi::gtk_widget_is_ancestor(
                 self.as_ref().to_glib_none().0,
                 ancestor.as_ref().to_glib_none().0,
             ))
@@ -2104,51 +2018,35 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn is_composited(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_is_composited(
+            from_glib(ffi::gtk_widget_is_composited(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn is_drawable(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_widget_is_drawable(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_widget_is_drawable(self.as_ref().to_glib_none().0)) }
     }
 
     fn is_focus(&self) -> bool {
-        unsafe { from_glib(gtk_sys::gtk_widget_is_focus(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib(ffi::gtk_widget_is_focus(self.as_ref().to_glib_none().0)) }
     }
 
     fn is_sensitive(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_widget_is_sensitive(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_widget_is_sensitive(self.as_ref().to_glib_none().0)) }
     }
 
     fn is_toplevel(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_widget_is_toplevel(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_widget_is_toplevel(self.as_ref().to_glib_none().0)) }
     }
 
     fn is_visible(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_widget_is_visible(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_widget_is_visible(self.as_ref().to_glib_none().0)) }
     }
 
     fn keynav_failed(&self, direction: DirectionType) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_keynav_failed(
+            from_glib(ffi::gtk_widget_keynav_failed(
                 self.as_ref().to_glib_none().0,
                 direction.to_glib(),
             ))
@@ -2157,7 +2055,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn list_accel_closures(&self) -> Vec<glib::Closure> {
         unsafe {
-            FromGlibPtrContainer::from_glib_container(gtk_sys::gtk_widget_list_accel_closures(
+            FromGlibPtrContainer::from_glib_container(ffi::gtk_widget_list_accel_closures(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -2165,9 +2063,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    fn list_action_prefixes(&self) -> Vec<GString> {
+    fn list_action_prefixes(&self) -> Vec<glib::GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_container(gtk_sys::gtk_widget_list_action_prefixes(
+            FromGlibPtrContainer::from_glib_container(ffi::gtk_widget_list_action_prefixes(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -2175,7 +2073,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn list_mnemonic_labels(&self) -> Vec<Widget> {
         unsafe {
-            FromGlibPtrContainer::from_glib_container(gtk_sys::gtk_widget_list_mnemonic_labels(
+            FromGlibPtrContainer::from_glib_container(ffi::gtk_widget_list_mnemonic_labels(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -2183,13 +2081,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn map(&self) {
         unsafe {
-            gtk_sys::gtk_widget_map(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_map(self.as_ref().to_glib_none().0);
         }
     }
 
     fn mnemonic_activate(&self, group_cycling: bool) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_mnemonic_activate(
+            from_glib(ffi::gtk_widget_mnemonic_activate(
                 self.as_ref().to_glib_none().0,
                 group_cycling.to_glib(),
             ))
@@ -2198,7 +2096,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn override_background_color(&self, state: StateFlags, color: Option<&gdk::RGBA>) {
         unsafe {
-            gtk_sys::gtk_widget_override_background_color(
+            ffi::gtk_widget_override_background_color(
                 self.as_ref().to_glib_none().0,
                 state.to_glib(),
                 color.to_glib_none().0,
@@ -2208,7 +2106,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn override_color(&self, state: StateFlags, color: Option<&gdk::RGBA>) {
         unsafe {
-            gtk_sys::gtk_widget_override_color(
+            ffi::gtk_widget_override_color(
                 self.as_ref().to_glib_none().0,
                 state.to_glib(),
                 color.to_glib_none().0,
@@ -2218,7 +2116,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn override_cursor(&self, cursor: Option<&gdk::RGBA>, secondary_cursor: Option<&gdk::RGBA>) {
         unsafe {
-            gtk_sys::gtk_widget_override_cursor(
+            ffi::gtk_widget_override_cursor(
                 self.as_ref().to_glib_none().0,
                 cursor.to_glib_none().0,
                 secondary_cursor.to_glib_none().0,
@@ -2228,7 +2126,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn override_font(&self, font_desc: &pango::FontDescription) {
         unsafe {
-            gtk_sys::gtk_widget_override_font(
+            ffi::gtk_widget_override_font(
                 self.as_ref().to_glib_none().0,
                 font_desc.to_glib_none().0,
             );
@@ -2237,7 +2135,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn override_symbolic_color(&self, name: &str, color: Option<&gdk::RGBA>) {
         unsafe {
-            gtk_sys::gtk_widget_override_symbolic_color(
+            ffi::gtk_widget_override_symbolic_color(
                 self.as_ref().to_glib_none().0,
                 name.to_glib_none().0,
                 color.to_glib_none().0,
@@ -2249,37 +2147,31 @@ impl<O: IsA<Widget>> WidgetExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn queue_allocate(&self) {
         unsafe {
-            gtk_sys::gtk_widget_queue_allocate(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_queue_allocate(self.as_ref().to_glib_none().0);
         }
     }
 
     fn queue_compute_expand(&self) {
         unsafe {
-            gtk_sys::gtk_widget_queue_compute_expand(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_queue_compute_expand(self.as_ref().to_glib_none().0);
         }
     }
 
     fn queue_draw(&self) {
         unsafe {
-            gtk_sys::gtk_widget_queue_draw(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_queue_draw(self.as_ref().to_glib_none().0);
         }
     }
 
     fn queue_draw_area(&self, x: i32, y: i32, width: i32, height: i32) {
         unsafe {
-            gtk_sys::gtk_widget_queue_draw_area(
-                self.as_ref().to_glib_none().0,
-                x,
-                y,
-                width,
-                height,
-            );
+            ffi::gtk_widget_queue_draw_area(self.as_ref().to_glib_none().0, x, y, width, height);
         }
     }
 
     fn queue_draw_region(&self, region: &cairo::Region) {
         unsafe {
-            gtk_sys::gtk_widget_queue_draw_region(
+            ffi::gtk_widget_queue_draw_region(
                 self.as_ref().to_glib_none().0,
                 region.to_glib_none().0,
             );
@@ -2288,25 +2180,25 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn queue_resize(&self) {
         unsafe {
-            gtk_sys::gtk_widget_queue_resize(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_queue_resize(self.as_ref().to_glib_none().0);
         }
     }
 
     fn queue_resize_no_redraw(&self) {
         unsafe {
-            gtk_sys::gtk_widget_queue_resize_no_redraw(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_queue_resize_no_redraw(self.as_ref().to_glib_none().0);
         }
     }
 
     fn realize(&self) {
         unsafe {
-            gtk_sys::gtk_widget_realize(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_realize(self.as_ref().to_glib_none().0);
         }
     }
 
     fn register_window<P: IsA<gdk::Window>>(&self, window: &P) {
         unsafe {
-            gtk_sys::gtk_widget_register_window(
+            ffi::gtk_widget_register_window(
                 self.as_ref().to_glib_none().0,
                 window.as_ref().to_glib_none().0,
             );
@@ -2320,7 +2212,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         accel_mods: gdk::ModifierType,
     ) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_remove_accelerator(
+            from_glib(ffi::gtk_widget_remove_accelerator(
                 self.as_ref().to_glib_none().0,
                 accel_group.as_ref().to_glib_none().0,
                 accel_key,
@@ -2331,7 +2223,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn remove_mnemonic_label<P: IsA<Widget>>(&self, label: &P) {
         unsafe {
-            gtk_sys::gtk_widget_remove_mnemonic_label(
+            ffi::gtk_widget_remove_mnemonic_label(
                 self.as_ref().to_glib_none().0,
                 label.as_ref().to_glib_none().0,
             );
@@ -2340,13 +2232,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn reset_style(&self) {
         unsafe {
-            gtk_sys::gtk_widget_reset_style(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_reset_style(self.as_ref().to_glib_none().0);
         }
     }
 
     fn send_expose(&self, event: &gdk::Event) -> i32 {
         unsafe {
-            gtk_sys::gtk_widget_send_expose(
+            ffi::gtk_widget_send_expose(
                 self.as_ref().to_glib_none().0,
                 mut_override(event.to_glib_none().0),
             )
@@ -2355,7 +2247,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn send_focus_change(&self, event: &gdk::Event) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_widget_send_focus_change(
+            from_glib(ffi::gtk_widget_send_focus_change(
                 self.as_ref().to_glib_none().0,
                 mut_override(event.to_glib_none().0),
             ))
@@ -2368,7 +2260,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         accel_group: Option<&P>,
     ) {
         unsafe {
-            gtk_sys::gtk_widget_set_accel_path(
+            ffi::gtk_widget_set_accel_path(
                 self.as_ref().to_glib_none().0,
                 accel_path.to_glib_none().0,
                 accel_group.map(|p| p.as_ref()).to_glib_none().0,
@@ -2378,7 +2270,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_allocation(&self, allocation: &Allocation) {
         unsafe {
-            gtk_sys::gtk_widget_set_allocation(
+            ffi::gtk_widget_set_allocation(
                 self.as_ref().to_glib_none().0,
                 allocation.to_glib_none().0,
             );
@@ -2387,7 +2279,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_app_paintable(&self, app_paintable: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_app_paintable(
+            ffi::gtk_widget_set_app_paintable(
                 self.as_ref().to_glib_none().0,
                 app_paintable.to_glib(),
             );
@@ -2396,37 +2288,31 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_can_default(&self, can_default: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_can_default(
-                self.as_ref().to_glib_none().0,
-                can_default.to_glib(),
-            );
+            ffi::gtk_widget_set_can_default(self.as_ref().to_glib_none().0, can_default.to_glib());
         }
     }
 
     fn set_can_focus(&self, can_focus: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_can_focus(self.as_ref().to_glib_none().0, can_focus.to_glib());
+            ffi::gtk_widget_set_can_focus(self.as_ref().to_glib_none().0, can_focus.to_glib());
         }
     }
 
     fn set_child_visible(&self, is_visible: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_child_visible(
-                self.as_ref().to_glib_none().0,
-                is_visible.to_glib(),
-            );
+            ffi::gtk_widget_set_child_visible(self.as_ref().to_glib_none().0, is_visible.to_glib());
         }
     }
 
     fn set_clip(&self, clip: &Allocation) {
         unsafe {
-            gtk_sys::gtk_widget_set_clip(self.as_ref().to_glib_none().0, clip.to_glib_none().0);
+            ffi::gtk_widget_set_clip(self.as_ref().to_glib_none().0, clip.to_glib_none().0);
         }
     }
 
     fn set_device_enabled(&self, device: &gdk::Device, enabled: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_device_enabled(
+            ffi::gtk_widget_set_device_enabled(
                 self.as_ref().to_glib_none().0,
                 device.to_glib_none().0,
                 enabled.to_glib(),
@@ -2436,7 +2322,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_device_events(&self, device: &gdk::Device, events: gdk::EventMask) {
         unsafe {
-            gtk_sys::gtk_widget_set_device_events(
+            ffi::gtk_widget_set_device_events(
                 self.as_ref().to_glib_none().0,
                 device.to_glib_none().0,
                 events.to_glib(),
@@ -2446,7 +2332,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_direction(&self, dir: TextDirection) {
         unsafe {
-            gtk_sys::gtk_widget_set_direction(self.as_ref().to_glib_none().0, dir.to_glib());
+            ffi::gtk_widget_set_direction(self.as_ref().to_glib_none().0, dir.to_glib());
         }
     }
 
@@ -2454,7 +2340,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_focus_on_click(&self, focus_on_click: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_focus_on_click(
+            ffi::gtk_widget_set_focus_on_click(
                 self.as_ref().to_glib_none().0,
                 focus_on_click.to_glib(),
             );
@@ -2465,7 +2351,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_font_map<P: IsA<pango::FontMap>>(&self, font_map: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_widget_set_font_map(
+            ffi::gtk_widget_set_font_map(
                 self.as_ref().to_glib_none().0,
                 font_map.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -2476,7 +2362,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_font_options(&self, options: Option<&cairo::FontOptions>) {
         unsafe {
-            gtk_sys::gtk_widget_set_font_options(
+            ffi::gtk_widget_set_font_options(
                 self.as_ref().to_glib_none().0,
                 options.to_glib_none().0,
             );
@@ -2485,94 +2371,85 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_halign(&self, align: Align) {
         unsafe {
-            gtk_sys::gtk_widget_set_halign(self.as_ref().to_glib_none().0, align.to_glib());
+            ffi::gtk_widget_set_halign(self.as_ref().to_glib_none().0, align.to_glib());
         }
     }
 
     fn set_has_tooltip(&self, has_tooltip: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_has_tooltip(
-                self.as_ref().to_glib_none().0,
-                has_tooltip.to_glib(),
-            );
+            ffi::gtk_widget_set_has_tooltip(self.as_ref().to_glib_none().0, has_tooltip.to_glib());
         }
     }
 
     fn set_has_window(&self, has_window: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_has_window(
-                self.as_ref().to_glib_none().0,
-                has_window.to_glib(),
-            );
+            ffi::gtk_widget_set_has_window(self.as_ref().to_glib_none().0, has_window.to_glib());
         }
     }
 
     fn set_hexpand(&self, expand: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_hexpand(self.as_ref().to_glib_none().0, expand.to_glib());
+            ffi::gtk_widget_set_hexpand(self.as_ref().to_glib_none().0, expand.to_glib());
         }
     }
 
     fn set_hexpand_set(&self, set: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_hexpand_set(self.as_ref().to_glib_none().0, set.to_glib());
+            ffi::gtk_widget_set_hexpand_set(self.as_ref().to_glib_none().0, set.to_glib());
         }
     }
 
     fn set_mapped(&self, mapped: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_mapped(self.as_ref().to_glib_none().0, mapped.to_glib());
+            ffi::gtk_widget_set_mapped(self.as_ref().to_glib_none().0, mapped.to_glib());
         }
     }
 
     fn set_margin_bottom(&self, margin: i32) {
         unsafe {
-            gtk_sys::gtk_widget_set_margin_bottom(self.as_ref().to_glib_none().0, margin);
+            ffi::gtk_widget_set_margin_bottom(self.as_ref().to_glib_none().0, margin);
         }
     }
 
     fn set_margin_end(&self, margin: i32) {
         unsafe {
-            gtk_sys::gtk_widget_set_margin_end(self.as_ref().to_glib_none().0, margin);
+            ffi::gtk_widget_set_margin_end(self.as_ref().to_glib_none().0, margin);
         }
     }
 
     fn set_margin_start(&self, margin: i32) {
         unsafe {
-            gtk_sys::gtk_widget_set_margin_start(self.as_ref().to_glib_none().0, margin);
+            ffi::gtk_widget_set_margin_start(self.as_ref().to_glib_none().0, margin);
         }
     }
 
     fn set_margin_top(&self, margin: i32) {
         unsafe {
-            gtk_sys::gtk_widget_set_margin_top(self.as_ref().to_glib_none().0, margin);
+            ffi::gtk_widget_set_margin_top(self.as_ref().to_glib_none().0, margin);
         }
     }
 
     fn set_widget_name(&self, name: &str) {
         unsafe {
-            gtk_sys::gtk_widget_set_name(self.as_ref().to_glib_none().0, name.to_glib_none().0);
+            ffi::gtk_widget_set_name(self.as_ref().to_glib_none().0, name.to_glib_none().0);
         }
     }
 
     fn set_no_show_all(&self, no_show_all: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_no_show_all(
-                self.as_ref().to_glib_none().0,
-                no_show_all.to_glib(),
-            );
+            ffi::gtk_widget_set_no_show_all(self.as_ref().to_glib_none().0, no_show_all.to_glib());
         }
     }
 
     fn set_opacity(&self, opacity: f64) {
         unsafe {
-            gtk_sys::gtk_widget_set_opacity(self.as_ref().to_glib_none().0, opacity);
+            ffi::gtk_widget_set_opacity(self.as_ref().to_glib_none().0, opacity);
         }
     }
 
     fn set_parent<P: IsA<Widget>>(&self, parent: &P) {
         unsafe {
-            gtk_sys::gtk_widget_set_parent(
+            ffi::gtk_widget_set_parent(
                 self.as_ref().to_glib_none().0,
                 parent.as_ref().to_glib_none().0,
             );
@@ -2581,7 +2458,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_parent_window<P: IsA<gdk::Window>>(&self, parent_window: &P) {
         unsafe {
-            gtk_sys::gtk_widget_set_parent_window(
+            ffi::gtk_widget_set_parent_window(
                 self.as_ref().to_glib_none().0,
                 parent_window.as_ref().to_glib_none().0,
             );
@@ -2590,13 +2467,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_realized(&self, realized: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_realized(self.as_ref().to_glib_none().0, realized.to_glib());
+            ffi::gtk_widget_set_realized(self.as_ref().to_glib_none().0, realized.to_glib());
         }
     }
 
     fn set_receives_default(&self, receives_default: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_receives_default(
+            ffi::gtk_widget_set_receives_default(
                 self.as_ref().to_glib_none().0,
                 receives_default.to_glib(),
             );
@@ -2605,7 +2482,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_redraw_on_allocate(&self, redraw_on_allocate: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_redraw_on_allocate(
+            ffi::gtk_widget_set_redraw_on_allocate(
                 self.as_ref().to_glib_none().0,
                 redraw_on_allocate.to_glib(),
             );
@@ -2614,19 +2491,19 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_sensitive(&self, sensitive: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_sensitive(self.as_ref().to_glib_none().0, sensitive.to_glib());
+            ffi::gtk_widget_set_sensitive(self.as_ref().to_glib_none().0, sensitive.to_glib());
         }
     }
 
     fn set_size_request(&self, width: i32, height: i32) {
         unsafe {
-            gtk_sys::gtk_widget_set_size_request(self.as_ref().to_glib_none().0, width, height);
+            ffi::gtk_widget_set_size_request(self.as_ref().to_glib_none().0, width, height);
         }
     }
 
     fn set_state_flags(&self, flags: StateFlags, clear: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_state_flags(
+            ffi::gtk_widget_set_state_flags(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 clear.to_glib(),
@@ -2636,7 +2513,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_support_multidevice(&self, support_multidevice: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_support_multidevice(
+            ffi::gtk_widget_set_support_multidevice(
                 self.as_ref().to_glib_none().0,
                 support_multidevice.to_glib(),
             );
@@ -2645,7 +2522,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_tooltip_markup(&self, markup: Option<&str>) {
         unsafe {
-            gtk_sys::gtk_widget_set_tooltip_markup(
+            ffi::gtk_widget_set_tooltip_markup(
                 self.as_ref().to_glib_none().0,
                 markup.to_glib_none().0,
             );
@@ -2654,16 +2531,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_tooltip_text(&self, text: Option<&str>) {
         unsafe {
-            gtk_sys::gtk_widget_set_tooltip_text(
-                self.as_ref().to_glib_none().0,
-                text.to_glib_none().0,
-            );
+            ffi::gtk_widget_set_tooltip_text(self.as_ref().to_glib_none().0, text.to_glib_none().0);
         }
     }
 
     fn set_tooltip_window<P: IsA<Window>>(&self, custom_window: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_widget_set_tooltip_window(
+            ffi::gtk_widget_set_tooltip_window(
                 self.as_ref().to_glib_none().0,
                 custom_window.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -2672,37 +2546,37 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_valign(&self, align: Align) {
         unsafe {
-            gtk_sys::gtk_widget_set_valign(self.as_ref().to_glib_none().0, align.to_glib());
+            ffi::gtk_widget_set_valign(self.as_ref().to_glib_none().0, align.to_glib());
         }
     }
 
     fn set_vexpand(&self, expand: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_vexpand(self.as_ref().to_glib_none().0, expand.to_glib());
+            ffi::gtk_widget_set_vexpand(self.as_ref().to_glib_none().0, expand.to_glib());
         }
     }
 
     fn set_vexpand_set(&self, set: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_vexpand_set(self.as_ref().to_glib_none().0, set.to_glib());
+            ffi::gtk_widget_set_vexpand_set(self.as_ref().to_glib_none().0, set.to_glib());
         }
     }
 
     fn set_visible(&self, visible: bool) {
         unsafe {
-            gtk_sys::gtk_widget_set_visible(self.as_ref().to_glib_none().0, visible.to_glib());
+            ffi::gtk_widget_set_visible(self.as_ref().to_glib_none().0, visible.to_glib());
         }
     }
 
     fn set_visual(&self, visual: Option<&gdk::Visual>) {
         unsafe {
-            gtk_sys::gtk_widget_set_visual(self.as_ref().to_glib_none().0, visual.to_glib_none().0);
+            ffi::gtk_widget_set_visual(self.as_ref().to_glib_none().0, visual.to_glib_none().0);
         }
     }
 
     fn set_window<P: IsA<gdk::Window>>(&self, window: &P) {
         unsafe {
-            gtk_sys::gtk_widget_set_window(
+            ffi::gtk_widget_set_window(
                 self.as_ref().to_glib_none().0,
                 window.as_ref().to_glib_full(),
             );
@@ -2711,7 +2585,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn shape_combine_region(&self, region: Option<&cairo::Region>) {
         unsafe {
-            gtk_sys::gtk_widget_shape_combine_region(
+            ffi::gtk_widget_shape_combine_region(
                 self.as_ref().to_glib_none().0,
                 mut_override(region.to_glib_none().0),
             );
@@ -2720,25 +2594,25 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn show(&self) {
         unsafe {
-            gtk_sys::gtk_widget_show(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_show(self.as_ref().to_glib_none().0);
         }
     }
 
     fn show_all(&self) {
         unsafe {
-            gtk_sys::gtk_widget_show_all(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_show_all(self.as_ref().to_glib_none().0);
         }
     }
 
     fn show_now(&self) {
         unsafe {
-            gtk_sys::gtk_widget_show_now(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_show_now(self.as_ref().to_glib_none().0);
         }
     }
 
     fn size_allocate(&self, allocation: &Allocation) {
         unsafe {
-            gtk_sys::gtk_widget_size_allocate(
+            ffi::gtk_widget_size_allocate(
                 self.as_ref().to_glib_none().0,
                 mut_override(allocation.to_glib_none().0),
             );
@@ -2747,7 +2621,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn size_allocate_with_baseline(&self, allocation: &mut Allocation, baseline: i32) {
         unsafe {
-            gtk_sys::gtk_widget_size_allocate_with_baseline(
+            ffi::gtk_widget_size_allocate_with_baseline(
                 self.as_ref().to_glib_none().0,
                 allocation.to_glib_none_mut().0,
                 baseline,
@@ -2756,13 +2630,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     //fn style_get(&self, first_property_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-    //    unsafe { TODO: call gtk_sys:gtk_widget_style_get() }
+    //    unsafe { TODO: call ffi:gtk_widget_style_get() }
     //}
 
     fn style_get_property(&self, property_name: &str) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
-            gtk_sys::gtk_widget_style_get_property(
+            ffi::gtk_widget_style_get_property(
                 self.as_ref().to_glib_none().0,
                 property_name.to_glib_none().0,
                 value.to_glib_none_mut().0,
@@ -2772,12 +2646,12 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     //fn style_get_valist(&self, first_property_name: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
-    //    unsafe { TODO: call gtk_sys:gtk_widget_style_get_valist() }
+    //    unsafe { TODO: call ffi:gtk_widget_style_get_valist() }
     //}
 
     fn thaw_child_notify(&self) {
         unsafe {
-            gtk_sys::gtk_widget_thaw_child_notify(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_thaw_child_notify(self.as_ref().to_glib_none().0);
         }
     }
 
@@ -2790,7 +2664,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         unsafe {
             let mut dest_x = mem::MaybeUninit::uninit();
             let mut dest_y = mem::MaybeUninit::uninit();
-            let ret = from_glib(gtk_sys::gtk_widget_translate_coordinates(
+            let ret = from_glib(ffi::gtk_widget_translate_coordinates(
                 self.as_ref().to_glib_none().0,
                 dest_widget.as_ref().to_glib_none().0,
                 src_x,
@@ -2810,31 +2684,31 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn trigger_tooltip_query(&self) {
         unsafe {
-            gtk_sys::gtk_widget_trigger_tooltip_query(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_trigger_tooltip_query(self.as_ref().to_glib_none().0);
         }
     }
 
     fn unmap(&self) {
         unsafe {
-            gtk_sys::gtk_widget_unmap(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_unmap(self.as_ref().to_glib_none().0);
         }
     }
 
     fn unparent(&self) {
         unsafe {
-            gtk_sys::gtk_widget_unparent(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_unparent(self.as_ref().to_glib_none().0);
         }
     }
 
     fn unrealize(&self) {
         unsafe {
-            gtk_sys::gtk_widget_unrealize(self.as_ref().to_glib_none().0);
+            ffi::gtk_widget_unrealize(self.as_ref().to_glib_none().0);
         }
     }
 
     fn unregister_window<P: IsA<gdk::Window>>(&self, window: &P) {
         unsafe {
-            gtk_sys::gtk_widget_unregister_window(
+            ffi::gtk_widget_unregister_window(
                 self.as_ref().to_glib_none().0,
                 window.as_ref().to_glib_none().0,
             );
@@ -2843,15 +2717,15 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn unset_state_flags(&self, flags: StateFlags) {
         unsafe {
-            gtk_sys::gtk_widget_unset_state_flags(self.as_ref().to_glib_none().0, flags.to_glib());
+            ffi::gtk_widget_unset_state_flags(self.as_ref().to_glib_none().0, flags.to_glib());
         }
     }
 
     fn get_property_composite_child(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"composite-child\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -2865,8 +2739,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
     fn get_property_expand(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"expand\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -2879,8 +2753,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_property_expand(&self, expand: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"expand\0".as_ptr() as *const _,
                 Value::from(&expand).to_glib_none().0,
             );
@@ -2890,8 +2764,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
     fn get_property_has_default(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"has-default\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -2904,8 +2778,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_property_has_default(&self, has_default: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"has-default\0".as_ptr() as *const _,
                 Value::from(&has_default).to_glib_none().0,
             );
@@ -2915,8 +2789,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
     fn get_property_has_focus(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"has-focus\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -2929,8 +2803,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_property_has_focus(&self, has_focus: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"has-focus\0".as_ptr() as *const _,
                 Value::from(&has_focus).to_glib_none().0,
             );
@@ -2940,8 +2814,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
     fn get_property_height_request(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"height-request\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -2954,8 +2828,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_property_height_request(&self, height_request: i32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"height-request\0".as_ptr() as *const _,
                 Value::from(&height_request).to_glib_none().0,
             );
@@ -2965,8 +2839,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
     fn get_property_is_focus(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"is-focus\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -2979,8 +2853,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_property_is_focus(&self, is_focus: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"is-focus\0".as_ptr() as *const _,
                 Value::from(&is_focus).to_glib_none().0,
             );
@@ -2990,8 +2864,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
     fn get_property_margin(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"margin\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -3004,8 +2878,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_property_margin(&self, margin: i32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"margin\0".as_ptr() as *const _,
                 Value::from(&margin).to_glib_none().0,
             );
@@ -3015,8 +2889,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
     fn get_property_width_request(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"width-request\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -3029,8 +2903,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn set_property_width_request(&self, width_request: i32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"width-request\0".as_ptr() as *const _,
                 Value::from(&width_request).to_glib_none().0,
             );
@@ -3039,8 +2913,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_accel_closures_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn accel_closures_changed_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -3070,10 +2944,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventButton) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventButton,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventButton,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -3107,10 +2981,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventButton) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventButton,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventButton,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -3139,10 +3013,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn can_activate_accel_trampoline<P, F: Fn(&P, u32) -> bool + 'static>(
-            this: *mut gtk_sys::GtkWidget,
+            this: *mut ffi::GtkWidget,
             signal_id: libc::c_uint,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -3167,9 +3041,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn child_notify_trampoline<P, F: Fn(&P, &glib::ParamSpec) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            child_property: *mut gobject_sys::GParamSpec,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            child_property: *mut glib::gobject_ffi::GParamSpec,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -3194,8 +3068,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_composited_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn composited_changed_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -3217,7 +3091,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn emit_composited_changed(&self) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("composited-changed", &[])
                 .unwrap()
         };
@@ -3231,10 +3105,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventConfigure) -> bool + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventConfigure,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventConfigure,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -3266,10 +3140,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventExpose) -> bool + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventExpose,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventExpose,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -3301,10 +3175,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::Event) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEvent,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEvent,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -3330,8 +3204,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_destroy<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn destroy_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -3359,10 +3233,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::Event) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEvent,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEvent,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -3391,9 +3265,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn direction_changed_trampoline<P, F: Fn(&P, TextDirection) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            previous_direction: gtk_sys::GtkTextDirection,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            previous_direction: ffi::GtkTextDirection,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -3421,9 +3295,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn drag_begin_trampoline<P, F: Fn(&P, &gdk::DragContext) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            context: *mut gdk_sys::GdkDragContext,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            context: *mut gdk::ffi::GdkDragContext,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -3454,9 +3328,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::DragContext) + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            context: *mut gdk_sys::GdkDragContext,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            context: *mut gdk::ffi::GdkDragContext,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -3489,12 +3363,12 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::DragContext, &SelectionData, u32, u32) + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            context: *mut gdk_sys::GdkDragContext,
-            data: *mut gtk_sys::GtkSelectionData,
+            this: *mut ffi::GtkWidget,
+            context: *mut gdk::ffi::GdkDragContext,
+            data: *mut ffi::GtkSelectionData,
             info: libc::c_uint,
             time: libc::c_uint,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -3530,14 +3404,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::DragContext, i32, i32, &SelectionData, u32, u32) + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            context: *mut gdk_sys::GdkDragContext,
+            this: *mut ffi::GtkWidget,
+            context: *mut gdk::ffi::GdkDragContext,
             x: libc::c_int,
             y: libc::c_int,
-            data: *mut gtk_sys::GtkSelectionData,
+            data: *mut ffi::GtkSelectionData,
             info: libc::c_uint,
             time: libc::c_uint,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -3575,13 +3449,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::DragContext, i32, i32, u32) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            context: *mut gdk_sys::GdkDragContext,
+            this: *mut ffi::GtkWidget,
+            context: *mut gdk::ffi::GdkDragContext,
             x: libc::c_int,
             y: libc::c_int,
             time: libc::c_uint,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -3610,9 +3484,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_drag_end<F: Fn(&Self, &gdk::DragContext) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn drag_end_trampoline<P, F: Fn(&P, &gdk::DragContext) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            context: *mut gdk_sys::GdkDragContext,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            context: *mut gdk::ffi::GdkDragContext,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -3645,11 +3519,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::DragContext, DragResult) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            context: *mut gdk_sys::GdkDragContext,
-            result: gtk_sys::GtkDragResult,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            context: *mut gdk::ffi::GdkDragContext,
+            result: ffi::GtkDragResult,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -3679,10 +3553,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn drag_leave_trampoline<P, F: Fn(&P, &gdk::DragContext, u32) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            context: *mut gdk_sys::GdkDragContext,
+            this: *mut ffi::GtkWidget,
+            context: *mut gdk::ffi::GdkDragContext,
             time: libc::c_uint,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -3716,13 +3590,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::DragContext, i32, i32, u32) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            context: *mut gdk_sys::GdkDragContext,
+            this: *mut ffi::GtkWidget,
+            context: *mut gdk::ffi::GdkDragContext,
             x: libc::c_int,
             y: libc::c_int,
             time: libc::c_uint,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -3757,10 +3631,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &cairo::Context) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            cr: *mut cairo_sys::cairo_t,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            cr: *mut cairo::ffi::cairo_t,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -3794,10 +3668,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventCrossing) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventCrossing,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventCrossing,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -3829,10 +3703,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::Event) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEvent,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEvent,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -3858,9 +3732,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_event_after<F: Fn(&Self, &gdk::Event) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn event_after_trampoline<P, F: Fn(&P, &gdk::Event) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEvent,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEvent,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -3891,10 +3765,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, DirectionType) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            direction: gtk_sys::GtkDirectionType,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            direction: ffi::GtkDirectionType,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -3926,10 +3800,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventFocus) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventFocus,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventFocus,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -3963,10 +3837,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventFocus) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventFocus,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventFocus,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4000,10 +3874,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventGrabBroken) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventGrabBroken,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventGrabBroken,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4029,8 +3903,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_grab_focus<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn grab_focus_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -4052,7 +3926,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn emit_grab_focus(&self) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("grab-focus", &[])
                 .unwrap()
         };
@@ -4060,9 +3934,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_grab_notify<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn grab_notify_trampoline<P, F: Fn(&P, bool) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            was_grabbed: glib_sys::gboolean,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            was_grabbed: glib::ffi::gboolean,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -4087,8 +3961,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_hide<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn hide_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -4113,9 +3987,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn hierarchy_changed_trampoline<P, F: Fn(&P, Option<&Widget>) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            previous_toplevel: *mut gtk_sys::GtkWidget,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            previous_toplevel: *mut ffi::GtkWidget,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -4148,10 +4022,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventKey) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventKey,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventKey,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4185,10 +4059,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventKey) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventKey,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventKey,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4220,10 +4094,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, DirectionType) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            direction: gtk_sys::GtkDirectionType,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            direction: ffi::GtkDirectionType,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4257,10 +4131,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventCrossing) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventCrossing,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventCrossing,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4286,8 +4160,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_map<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn map_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -4315,10 +4189,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, bool) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            group_cycling: glib_sys::gboolean,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            group_cycling: glib::ffi::gboolean,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4352,10 +4226,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventMotion) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventMotion,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventMotion,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4381,9 +4255,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_move_focus<F: Fn(&Self, DirectionType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn move_focus_trampoline<P, F: Fn(&P, DirectionType) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            direction: gtk_sys::GtkDirectionType,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            direction: ffi::GtkDirectionType,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -4408,7 +4282,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn emit_move_focus(&self, direction: DirectionType) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("move-focus", &[&direction])
                 .unwrap()
         };
@@ -4416,9 +4290,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_parent_set<F: Fn(&Self, Option<&Widget>) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn parent_set_trampoline<P, F: Fn(&P, Option<&Widget>) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            old_parent: *mut gtk_sys::GtkWidget,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            old_parent: *mut ffi::GtkWidget,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -4445,9 +4319,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_popup_menu<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn popup_menu_trampoline<P, F: Fn(&P) -> bool + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4469,7 +4343,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn emit_popup_menu(&self) -> bool {
         let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("popup-menu", &[])
                 .unwrap()
         };
@@ -4489,10 +4363,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventProperty) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventProperty,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventProperty,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4526,10 +4400,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventProximity) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventProximity,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventProximity,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4563,10 +4437,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventProximity) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventProximity,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventProximity,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4598,13 +4472,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, i32, i32, bool, &Tooltip) -> bool + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
+            this: *mut ffi::GtkWidget,
             x: libc::c_int,
             y: libc::c_int,
-            keyboard_mode: glib_sys::gboolean,
-            tooltip: *mut gtk_sys::GtkTooltip,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            keyboard_mode: glib::ffi::gboolean,
+            tooltip: *mut ffi::GtkTooltip,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4633,8 +4507,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_realize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn realize_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -4662,9 +4536,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, Option<&gdk::Screen>) + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            previous_screen: *mut gdk_sys::GdkScreen,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            previous_screen: *mut gdk::ffi::GdkScreen,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -4697,10 +4571,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventScroll) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventScroll,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventScroll,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4734,10 +4608,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventSelection,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventSelection,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4769,11 +4643,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &SelectionData, u32, u32) + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            data: *mut gtk_sys::GtkSelectionData,
+            this: *mut ffi::GtkWidget,
+            data: *mut ffi::GtkSelectionData,
             info: libc::c_uint,
             time: libc::c_uint,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -4808,10 +4682,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventSelection,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventSelection,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4843,10 +4717,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &SelectionData, u32) + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            data: *mut gtk_sys::GtkSelectionData,
+            this: *mut ffi::GtkWidget,
+            data: *mut ffi::GtkSelectionData,
             time: libc::c_uint,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -4880,10 +4754,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventSelection,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventSelection,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4909,8 +4783,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_show<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn show_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -4935,10 +4809,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn show_help_trampoline<P, F: Fn(&P, WidgetHelpType) -> bool + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            help_type: gtk_sys::GtkWidgetHelpType,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            help_type: ffi::GtkWidgetHelpType,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -4964,7 +4838,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn emit_show_help(&self, help_type: WidgetHelpType) -> bool {
         let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("show-help", &[&help_type])
                 .unwrap()
         };
@@ -4976,9 +4850,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_size_allocate<F: Fn(&Self, &Allocation) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn size_allocate_trampoline<P, F: Fn(&P, &Allocation) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            allocation: *mut gtk_sys::GtkAllocation,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            allocation: *mut ffi::GtkAllocation,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5006,9 +4880,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn state_flags_changed_trampoline<P, F: Fn(&P, StateFlags) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            flags: gtk_sys::GtkStateFlags,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            flags: ffi::GtkStateFlags,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5033,8 +4907,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_style_updated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn style_updated_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5062,10 +4936,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::Event) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            object: *mut gdk_sys::GdkEvent,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            object: *mut gdk::ffi::GdkEvent,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -5091,8 +4965,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_unmap<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn unmap_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5114,8 +4988,8 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_unrealize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn unrealize_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5145,10 +5019,10 @@ impl<O: IsA<Widget>> WidgetExt for O {
             P,
             F: Fn(&P, &gdk::EventWindowState) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkWidget,
-            event: *mut gdk_sys::GdkEventWindowState,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkWidget,
+            event: *mut gdk::ffi::GdkEventWindowState,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Widget>,
         {
@@ -5177,9 +5051,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_app_paintable_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5201,9 +5075,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_can_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_can_default_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5225,9 +5099,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_can_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_can_focus_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5252,9 +5126,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_composite_child_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5276,9 +5150,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_events_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_events_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5300,9 +5174,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_expand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_expand_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5329,9 +5203,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_focus_on_click_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5353,9 +5227,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_halign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_halign_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5377,9 +5251,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_has_default_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_default_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5401,9 +5275,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_has_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_focus_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5425,9 +5299,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_has_tooltip_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_tooltip_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5452,9 +5326,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_height_request_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5476,9 +5350,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_hexpand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_hexpand_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5500,9 +5374,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_hexpand_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_hexpand_set_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5524,9 +5398,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_is_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_focus_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5548,9 +5422,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_margin_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5575,9 +5449,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_margin_bottom_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5599,9 +5473,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_margin_end_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_margin_end_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5626,9 +5500,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_margin_start_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5650,9 +5524,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_margin_top_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_margin_top_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5674,9 +5548,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_name_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5698,9 +5572,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_no_show_all_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_no_show_all_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5722,9 +5596,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_opacity_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_opacity_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5746,9 +5620,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_parent_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5773,9 +5647,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_receives_default_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5800,9 +5674,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_scale_factor_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5824,9 +5698,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_sensitive_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_sensitive_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5851,9 +5725,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_tooltip_markup_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5878,9 +5752,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_tooltip_text_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5902,9 +5776,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_valign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_valign_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5926,9 +5800,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_vexpand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_vexpand_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5950,9 +5824,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_vexpand_set_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_vexpand_set_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -5974,9 +5848,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_visible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visible_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -6001,9 +5875,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_width_request_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {
@@ -6025,9 +5899,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_property_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_window_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Widget>,
         {

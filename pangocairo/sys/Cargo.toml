@@ -34,6 +34,7 @@ links = "pangocairo-1.0"
 name = "pangocairo-sys"
 repository = "https://github.com/gtk-rs/gtk-rs"
 version = "0.13.0"
+edition = "2018"
 [package.metadata.docs.rs]
 features = ["dox"]
 [package.metadata.system-deps.pangocairo]

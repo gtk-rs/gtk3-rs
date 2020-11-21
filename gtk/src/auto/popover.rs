@@ -2,8 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use gio;
+use crate::Align;
+use crate::Bin;
+use crate::Buildable;
+use crate::Container;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+use crate::PopoverConstraint;
+use crate::PositionType;
+use crate::ResizeMode;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -11,27 +19,15 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Align;
-use Bin;
-use Buildable;
-use Container;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use PopoverConstraint;
-use PositionType;
-use ResizeMode;
-use Widget;
 
-glib_wrapper! {
-    pub struct Popover(Object<gtk_sys::GtkPopover, gtk_sys::GtkPopoverClass>) @extends Bin, Container, Widget, @implements Buildable;
+glib::glib_wrapper! {
+    pub struct Popover(Object<ffi::GtkPopover, ffi::GtkPopoverClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_popover_get_type(),
+        get_type => || ffi::gtk_popover_get_type(),
     }
 }
 
@@ -39,7 +35,7 @@ impl Popover {
     pub fn new<P: IsA<Widget>>(relative_to: Option<&P>) -> Popover {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_popover_new(
+            Widget::from_glib_none(ffi::gtk_popover_new(
                 relative_to.map(|p| p.as_ref()).to_glib_none().0,
             ))
             .unsafe_cast()
@@ -52,7 +48,7 @@ impl Popover {
     ) -> Popover {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_popover_new_from_model(
+            Widget::from_glib_none(ffi::gtk_popover_new_from_model(
                 relative_to.map(|p| p.as_ref()).to_glib_none().0,
                 model.as_ref().to_glib_none().0,
             ))
@@ -550,7 +546,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
         action_namespace: Option<&str>,
     ) {
         unsafe {
-            gtk_sys::gtk_popover_bind_model(
+            ffi::gtk_popover_bind_model(
                 self.as_ref().to_glib_none().0,
                 model.map(|p| p.as_ref()).to_glib_none().0,
                 action_namespace.to_glib_none().0,
@@ -562,7 +558,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_constrain_to(&self) -> PopoverConstraint {
         unsafe {
-            from_glib(gtk_sys::gtk_popover_get_constrain_to(
+            from_glib(ffi::gtk_popover_get_constrain_to(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -572,24 +568,20 @@ impl<O: IsA<Popover>> PopoverExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn get_default_widget(&self) -> Option<Widget> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_popover_get_default_widget(
+            from_glib_none(ffi::gtk_popover_get_default_widget(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_modal(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_popover_get_modal(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_popover_get_modal(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_pointing_to(&self) -> Option<gdk::Rectangle> {
         unsafe {
             let mut rect = gdk::Rectangle::uninitialized();
-            let ret = from_glib(gtk_sys::gtk_popover_get_pointing_to(
+            let ret = from_glib(ffi::gtk_popover_get_pointing_to(
                 self.as_ref().to_glib_none().0,
                 rect.to_glib_none_mut().0,
             ));
@@ -603,7 +595,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
 
     fn get_position(&self) -> PositionType {
         unsafe {
-            from_glib(gtk_sys::gtk_popover_get_position(
+            from_glib(ffi::gtk_popover_get_position(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -611,7 +603,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
 
     fn get_relative_to(&self) -> Option<Widget> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_popover_get_relative_to(
+            from_glib_none(ffi::gtk_popover_get_relative_to(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -621,7 +613,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_transitions_enabled(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_popover_get_transitions_enabled(
+            from_glib(ffi::gtk_popover_get_transitions_enabled(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -631,7 +623,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn popdown(&self) {
         unsafe {
-            gtk_sys::gtk_popover_popdown(self.as_ref().to_glib_none().0);
+            ffi::gtk_popover_popdown(self.as_ref().to_glib_none().0);
         }
     }
 
@@ -639,7 +631,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn popup(&self) {
         unsafe {
-            gtk_sys::gtk_popover_popup(self.as_ref().to_glib_none().0);
+            ffi::gtk_popover_popup(self.as_ref().to_glib_none().0);
         }
     }
 
@@ -647,10 +639,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_constrain_to(&self, constraint: PopoverConstraint) {
         unsafe {
-            gtk_sys::gtk_popover_set_constrain_to(
-                self.as_ref().to_glib_none().0,
-                constraint.to_glib(),
-            );
+            ffi::gtk_popover_set_constrain_to(self.as_ref().to_glib_none().0, constraint.to_glib());
         }
     }
 
@@ -658,7 +647,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     fn set_default_widget<P: IsA<Widget>>(&self, widget: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_popover_set_default_widget(
+            ffi::gtk_popover_set_default_widget(
                 self.as_ref().to_glib_none().0,
                 widget.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -667,28 +656,25 @@ impl<O: IsA<Popover>> PopoverExt for O {
 
     fn set_modal(&self, modal: bool) {
         unsafe {
-            gtk_sys::gtk_popover_set_modal(self.as_ref().to_glib_none().0, modal.to_glib());
+            ffi::gtk_popover_set_modal(self.as_ref().to_glib_none().0, modal.to_glib());
         }
     }
 
     fn set_pointing_to(&self, rect: &gdk::Rectangle) {
         unsafe {
-            gtk_sys::gtk_popover_set_pointing_to(
-                self.as_ref().to_glib_none().0,
-                rect.to_glib_none().0,
-            );
+            ffi::gtk_popover_set_pointing_to(self.as_ref().to_glib_none().0, rect.to_glib_none().0);
         }
     }
 
     fn set_position(&self, position: PositionType) {
         unsafe {
-            gtk_sys::gtk_popover_set_position(self.as_ref().to_glib_none().0, position.to_glib());
+            ffi::gtk_popover_set_position(self.as_ref().to_glib_none().0, position.to_glib());
         }
     }
 
     fn set_relative_to<P: IsA<Widget>>(&self, relative_to: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_popover_set_relative_to(
+            ffi::gtk_popover_set_relative_to(
                 self.as_ref().to_glib_none().0,
                 relative_to.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -699,7 +685,7 @@ impl<O: IsA<Popover>> PopoverExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_transitions_enabled(&self, transitions_enabled: bool) {
         unsafe {
-            gtk_sys::gtk_popover_set_transitions_enabled(
+            ffi::gtk_popover_set_transitions_enabled(
                 self.as_ref().to_glib_none().0,
                 transitions_enabled.to_glib(),
             );
@@ -708,8 +694,8 @@ impl<O: IsA<Popover>> PopoverExt for O {
 
     fn connect_closed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn closed_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkPopover,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPopover,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Popover>,
         {
@@ -736,9 +722,9 @@ impl<O: IsA<Popover>> PopoverExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_constrain_to_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkPopover,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPopover,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Popover>,
         {
@@ -760,9 +746,9 @@ impl<O: IsA<Popover>> PopoverExt for O {
 
     fn connect_property_modal_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_modal_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkPopover,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPopover,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Popover>,
         {
@@ -784,9 +770,9 @@ impl<O: IsA<Popover>> PopoverExt for O {
 
     fn connect_property_pointing_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pointing_to_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkPopover,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPopover,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Popover>,
         {
@@ -808,9 +794,9 @@ impl<O: IsA<Popover>> PopoverExt for O {
 
     fn connect_property_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_position_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkPopover,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPopover,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Popover>,
         {
@@ -832,9 +818,9 @@ impl<O: IsA<Popover>> PopoverExt for O {
 
     fn connect_property_relative_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_relative_to_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkPopover,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPopover,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Popover>,
         {
@@ -861,9 +847,9 @@ impl<O: IsA<Popover>> PopoverExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_transitions_enabled_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkPopover,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPopover,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Popover>,
         {

@@ -2,8 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::Cancellable;
+use crate::DataStreamByteOrder;
+use crate::FilterOutputStream;
+use crate::OutputStream;
+use crate::Seekable;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -11,29 +14,23 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
-use Cancellable;
-use DataStreamByteOrder;
-use FilterOutputStream;
-use OutputStream;
-use Seekable;
 
-glib_wrapper! {
-    pub struct DataOutputStream(Object<gio_sys::GDataOutputStream, gio_sys::GDataOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements Seekable;
+glib::glib_wrapper! {
+    pub struct DataOutputStream(Object<ffi::GDataOutputStream, ffi::GDataOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements Seekable;
 
     match fn {
-        get_type => || gio_sys::g_data_output_stream_get_type(),
+        get_type => || ffi::g_data_output_stream_get_type(),
     }
 }
 
 impl DataOutputStream {
     pub fn new<P: IsA<OutputStream>>(base_stream: &P) -> DataOutputStream {
         unsafe {
-            from_glib_full(gio_sys::g_data_output_stream_new(
+            from_glib_full(ffi::g_data_output_stream_new(
                 base_stream.as_ref().to_glib_none().0,
             ))
         }
@@ -147,7 +144,7 @@ pub trait DataOutputStreamExt: 'static {
 impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     fn get_byte_order(&self) -> DataStreamByteOrder {
         unsafe {
-            from_glib(gio_sys::g_data_output_stream_get_byte_order(
+            from_glib(ffi::g_data_output_stream_get_byte_order(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -160,7 +157,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_data_output_stream_put_byte(
+            let _ = ffi::g_data_output_stream_put_byte(
                 self.as_ref().to_glib_none().0,
                 data,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -181,7 +178,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_data_output_stream_put_int16(
+            let _ = ffi::g_data_output_stream_put_int16(
                 self.as_ref().to_glib_none().0,
                 data,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -202,7 +199,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_data_output_stream_put_int32(
+            let _ = ffi::g_data_output_stream_put_int32(
                 self.as_ref().to_glib_none().0,
                 data,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -223,7 +220,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_data_output_stream_put_int64(
+            let _ = ffi::g_data_output_stream_put_int64(
                 self.as_ref().to_glib_none().0,
                 data,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -244,7 +241,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_data_output_stream_put_string(
+            let _ = ffi::g_data_output_stream_put_string(
                 self.as_ref().to_glib_none().0,
                 str.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -265,7 +262,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_data_output_stream_put_uint16(
+            let _ = ffi::g_data_output_stream_put_uint16(
                 self.as_ref().to_glib_none().0,
                 data,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -286,7 +283,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_data_output_stream_put_uint32(
+            let _ = ffi::g_data_output_stream_put_uint32(
                 self.as_ref().to_glib_none().0,
                 data,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -307,7 +304,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_data_output_stream_put_uint64(
+            let _ = ffi::g_data_output_stream_put_uint64(
                 self.as_ref().to_glib_none().0,
                 data,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -323,7 +320,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
 
     fn set_byte_order(&self, order: DataStreamByteOrder) {
         unsafe {
-            gio_sys::g_data_output_stream_set_byte_order(
+            ffi::g_data_output_stream_set_byte_order(
                 self.as_ref().to_glib_none().0,
                 order.to_glib(),
             );
@@ -332,9 +329,9 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
 
     fn connect_property_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_byte_order_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GDataOutputStream,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDataOutputStream,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<DataOutputStream>,
         {

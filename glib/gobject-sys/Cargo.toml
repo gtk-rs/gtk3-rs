@@ -34,6 +34,7 @@ links = "gobject-2.0"
 name = "gobject-sys"
 repository = "https://github.com/gtk-rs/gtk-rs"
 version = "0.13.0"
+edition = "2018"
 [package.metadata.docs.rs]
 features = ["dox"]
 [package.metadata.system-deps.gobject_2_0]

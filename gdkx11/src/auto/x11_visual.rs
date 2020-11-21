@@ -2,16 +2,14 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use gdk_x11_sys;
 use glib::translate::*;
 use std::fmt;
 
-glib_wrapper! {
-    pub struct X11Visual(Object<gdk_x11_sys::GdkX11Visual, gdk_x11_sys::GdkX11VisualClass>) @extends gdk::Visual;
+glib::glib_wrapper! {
+    pub struct X11Visual(Object<ffi::GdkX11Visual, ffi::GdkX11VisualClass>) @extends gdk::Visual;
 
     match fn {
-        get_type => || gdk_x11_sys::gdk_x11_visual_get_type(),
+        get_type => || ffi::gdk_x11_visual_get_type(),
     }
 }
 

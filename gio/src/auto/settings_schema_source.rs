@@ -2,22 +2,18 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::SettingsSchema;
 use glib::translate::*;
-use glib::GString;
-use std;
 use std::ptr;
-use SettingsSchema;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct SettingsSchemaSource(Shared<gio_sys::GSettingsSchemaSource>);
+    pub struct SettingsSchemaSource(Shared<ffi::GSettingsSchemaSource>);
 
     match fn {
-        ref => |ptr| gio_sys::g_settings_schema_source_ref(ptr),
-        unref => |ptr| gio_sys::g_settings_schema_source_unref(ptr),
-        get_type => || gio_sys::g_settings_schema_source_get_type(),
+        ref => |ptr| ffi::g_settings_schema_source_ref(ptr),
+        unref => |ptr| ffi::g_settings_schema_source_unref(ptr),
+        get_type => || ffi::g_settings_schema_source_get_type(),
     }
 }
 
@@ -29,7 +25,7 @@ impl SettingsSchemaSource {
     ) -> Result<SettingsSchemaSource, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_settings_schema_source_new_from_directory(
+            let ret = ffi::g_settings_schema_source_new_from_directory(
                 directory.as_ref().to_glib_none().0,
                 parent.to_glib_none().0,
                 trusted.to_glib(),
@@ -43,11 +39,11 @@ impl SettingsSchemaSource {
         }
     }
 
-    pub fn list_schemas(&self, recursive: bool) -> (Vec<GString>, Vec<GString>) {
+    pub fn list_schemas(&self, recursive: bool) -> (Vec<glib::GString>, Vec<glib::GString>) {
         unsafe {
             let mut non_relocatable = ptr::null_mut();
             let mut relocatable = ptr::null_mut();
-            gio_sys::g_settings_schema_source_list_schemas(
+            ffi::g_settings_schema_source_list_schemas(
                 self.to_glib_none().0,
                 recursive.to_glib(),
                 &mut non_relocatable,
@@ -62,7 +58,7 @@ impl SettingsSchemaSource {
 
     pub fn lookup(&self, schema_id: &str, recursive: bool) -> Option<SettingsSchema> {
         unsafe {
-            from_glib_full(gio_sys::g_settings_schema_source_lookup(
+            from_glib_full(ffi::g_settings_schema_source_lookup(
                 self.to_glib_none().0,
                 schema_id.to_glib_none().0,
                 recursive.to_glib(),
@@ -71,6 +67,6 @@ impl SettingsSchemaSource {
     }
 
     pub fn get_default() -> Option<SettingsSchemaSource> {
-        unsafe { from_glib_none(gio_sys::g_settings_schema_source_get_default()) }
+        unsafe { from_glib_none(ffi::g_settings_schema_source_get_default()) }
     }
 }

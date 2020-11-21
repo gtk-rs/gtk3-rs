@@ -2,33 +2,29 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use glib;
+use crate::Buildable;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
-use glib_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Buildable;
-use Widget;
 
-glib_wrapper! {
-    pub struct Actionable(Interface<gtk_sys::GtkActionable>) @requires Widget, Buildable;
+glib::glib_wrapper! {
+    pub struct Actionable(Interface<ffi::GtkActionable>) @requires Widget, Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_actionable_get_type(),
+        get_type => || ffi::gtk_actionable_get_type(),
     }
 }
 
 pub const NONE_ACTIONABLE: Option<&Actionable> = None;
 
 pub trait ActionableExt: 'static {
-    fn get_action_name(&self) -> Option<GString>;
+    fn get_action_name(&self) -> Option<glib::GString>;
 
     fn get_action_target_value(&self) -> Option<glib::Variant>;
 
@@ -49,9 +45,9 @@ pub trait ActionableExt: 'static {
 }
 
 impl<O: IsA<Actionable>> ActionableExt for O {
-    fn get_action_name(&self) -> Option<GString> {
+    fn get_action_name(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_actionable_get_action_name(
+            from_glib_none(ffi::gtk_actionable_get_action_name(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -59,7 +55,7 @@ impl<O: IsA<Actionable>> ActionableExt for O {
 
     fn get_action_target_value(&self) -> Option<glib::Variant> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_actionable_get_action_target_value(
+            from_glib_none(ffi::gtk_actionable_get_action_target_value(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -67,7 +63,7 @@ impl<O: IsA<Actionable>> ActionableExt for O {
 
     fn set_action_name(&self, action_name: Option<&str>) {
         unsafe {
-            gtk_sys::gtk_actionable_set_action_name(
+            ffi::gtk_actionable_set_action_name(
                 self.as_ref().to_glib_none().0,
                 action_name.to_glib_none().0,
             );
@@ -75,12 +71,12 @@ impl<O: IsA<Actionable>> ActionableExt for O {
     }
 
     //fn set_action_target(&self, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-    //    unsafe { TODO: call gtk_sys:gtk_actionable_set_action_target() }
+    //    unsafe { TODO: call ffi:gtk_actionable_set_action_target() }
     //}
 
     fn set_action_target_value(&self, target_value: Option<&glib::Variant>) {
         unsafe {
-            gtk_sys::gtk_actionable_set_action_target_value(
+            ffi::gtk_actionable_set_action_target_value(
                 self.as_ref().to_glib_none().0,
                 target_value.to_glib_none().0,
             );
@@ -89,7 +85,7 @@ impl<O: IsA<Actionable>> ActionableExt for O {
 
     fn set_detailed_action_name(&self, detailed_action_name: &str) {
         unsafe {
-            gtk_sys::gtk_actionable_set_detailed_action_name(
+            ffi::gtk_actionable_set_detailed_action_name(
                 self.as_ref().to_glib_none().0,
                 detailed_action_name.to_glib_none().0,
             );
@@ -98,9 +94,9 @@ impl<O: IsA<Actionable>> ActionableExt for O {
 
     fn connect_property_action_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_action_name_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkActionable,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkActionable,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Actionable>,
         {
@@ -125,9 +121,9 @@ impl<O: IsA<Actionable>> ActionableExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_action_target_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkActionable,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkActionable,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Actionable>,
         {

@@ -2,20 +2,19 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::Rectangle;
 use glib::translate::*;
-use pango_sys;
 use std::mem;
 use std::ptr;
-use Rectangle;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct LayoutLine(Shared<pango_sys::PangoLayoutLine>);
+    pub struct LayoutLine(Shared<ffi::PangoLayoutLine>);
 
     match fn {
-        ref => |ptr| pango_sys::pango_layout_line_ref(ptr),
-        unref => |ptr| pango_sys::pango_layout_line_unref(ptr),
-        get_type => || pango_sys::pango_layout_line_get_type(),
+        ref => |ptr| ffi::pango_layout_line_ref(ptr),
+        unref => |ptr| ffi::pango_layout_line_unref(ptr),
+        get_type => || ffi::pango_layout_line_get_type(),
     }
 }
 
@@ -24,7 +23,7 @@ impl LayoutLine {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();
-            pango_sys::pango_layout_line_get_extents(
+            ffi::pango_layout_line_get_extents(
                 self.to_glib_none().0,
                 ink_rect.to_glib_none_mut().0,
                 logical_rect.to_glib_none_mut().0,
@@ -38,7 +37,7 @@ impl LayoutLine {
     pub fn get_height(&self) -> i32 {
         unsafe {
             let mut height = mem::MaybeUninit::uninit();
-            pango_sys::pango_layout_line_get_height(self.to_glib_none().0, height.as_mut_ptr());
+            ffi::pango_layout_line_get_height(self.to_glib_none().0, height.as_mut_ptr());
             let height = height.assume_init();
             height
         }
@@ -48,7 +47,7 @@ impl LayoutLine {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();
-            pango_sys::pango_layout_line_get_pixel_extents(
+            ffi::pango_layout_line_get_pixel_extents(
                 self.to_glib_none().0,
                 ink_rect.to_glib_none_mut().0,
                 logical_rect.to_glib_none_mut().0,
@@ -61,7 +60,7 @@ impl LayoutLine {
         unsafe {
             let mut ranges = ptr::null_mut();
             let mut n_ranges = mem::MaybeUninit::uninit();
-            pango_sys::pango_layout_line_get_x_ranges(
+            ffi::pango_layout_line_get_x_ranges(
                 self.to_glib_none().0,
                 start_index,
                 end_index,
@@ -75,7 +74,7 @@ impl LayoutLine {
     pub fn index_to_x(&self, index_: i32, trailing: bool) -> i32 {
         unsafe {
             let mut x_pos = mem::MaybeUninit::uninit();
-            pango_sys::pango_layout_line_index_to_x(
+            ffi::pango_layout_line_index_to_x(
                 self.to_glib_none().0,
                 index_,
                 trailing.to_glib(),
@@ -90,7 +89,7 @@ impl LayoutLine {
         unsafe {
             let mut index_ = mem::MaybeUninit::uninit();
             let mut trailing = mem::MaybeUninit::uninit();
-            let ret = from_glib(pango_sys::pango_layout_line_x_to_index(
+            let ret = from_glib(ffi::pango_layout_line_x_to_index(
                 self.to_glib_none().0,
                 x_pos,
                 index_.as_mut_ptr(),

@@ -2,42 +2,39 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::DBusConnection;
+use crate::DBusMessage;
+use crate::DBusMethodInfo;
+use crate::DBusPropertyInfo;
+#[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+use crate::UnixFDList;
 #[cfg(any(unix, feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(unix)))]
 use glib::object::IsA;
 use glib::translate::*;
-use glib::GString;
 use std::fmt;
-use DBusConnection;
-use DBusMessage;
-use DBusMethodInfo;
-use DBusPropertyInfo;
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
-use UnixFDList;
 
-glib_wrapper! {
-    pub struct DBusMethodInvocation(Object<gio_sys::GDBusMethodInvocation>);
+glib::glib_wrapper! {
+    pub struct DBusMethodInvocation(Object<ffi::GDBusMethodInvocation>);
 
     match fn {
-        get_type => || gio_sys::g_dbus_method_invocation_get_type(),
+        get_type => || ffi::g_dbus_method_invocation_get_type(),
     }
 }
 
 impl DBusMethodInvocation {
     pub fn get_connection(&self) -> Option<DBusConnection> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_method_invocation_get_connection(
+            from_glib_none(ffi::g_dbus_method_invocation_get_connection(
                 self.to_glib_none().0,
             ))
         }
     }
 
-    pub fn get_interface_name(&self) -> Option<GString> {
+    pub fn get_interface_name(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_method_invocation_get_interface_name(
+            from_glib_none(ffi::g_dbus_method_invocation_get_interface_name(
                 self.to_glib_none().0,
             ))
         }
@@ -45,7 +42,7 @@ impl DBusMethodInvocation {
 
     pub fn get_message(&self) -> Option<DBusMessage> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_method_invocation_get_message(
+            from_glib_none(ffi::g_dbus_method_invocation_get_message(
                 self.to_glib_none().0,
             ))
         }
@@ -53,23 +50,23 @@ impl DBusMethodInvocation {
 
     pub fn get_method_info(&self) -> Option<DBusMethodInfo> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_method_invocation_get_method_info(
+            from_glib_none(ffi::g_dbus_method_invocation_get_method_info(
                 self.to_glib_none().0,
             ))
         }
     }
 
-    pub fn get_method_name(&self) -> Option<GString> {
+    pub fn get_method_name(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_method_invocation_get_method_name(
+            from_glib_none(ffi::g_dbus_method_invocation_get_method_name(
                 self.to_glib_none().0,
             ))
         }
     }
 
-    pub fn get_object_path(&self) -> Option<GString> {
+    pub fn get_object_path(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_method_invocation_get_object_path(
+            from_glib_none(ffi::g_dbus_method_invocation_get_object_path(
                 self.to_glib_none().0,
             ))
         }
@@ -77,7 +74,7 @@ impl DBusMethodInvocation {
 
     pub fn get_parameters(&self) -> Option<glib::Variant> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_method_invocation_get_parameters(
+            from_glib_none(ffi::g_dbus_method_invocation_get_parameters(
                 self.to_glib_none().0,
             ))
         }
@@ -85,27 +82,27 @@ impl DBusMethodInvocation {
 
     pub fn get_property_info(&self) -> Option<DBusPropertyInfo> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_method_invocation_get_property_info(
+            from_glib_none(ffi::g_dbus_method_invocation_get_property_info(
                 self.to_glib_none().0,
             ))
         }
     }
 
-    pub fn get_sender(&self) -> Option<GString> {
+    pub fn get_sender(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_method_invocation_get_sender(
+            from_glib_none(ffi::g_dbus_method_invocation_get_sender(
                 self.to_glib_none().0,
             ))
         }
     }
 
     //pub fn get_user_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-    //    unsafe { TODO: call gio_sys:g_dbus_method_invocation_get_user_data() }
+    //    unsafe { TODO: call ffi:g_dbus_method_invocation_get_user_data() }
     //}
 
     pub fn return_dbus_error(&self, error_name: &str, error_message: &str) {
         unsafe {
-            gio_sys::g_dbus_method_invocation_return_dbus_error(
+            ffi::g_dbus_method_invocation_return_dbus_error(
                 self.to_glib_full(),
                 error_name.to_glib_none().0,
                 error_message.to_glib_none().0,
@@ -114,16 +111,16 @@ impl DBusMethodInvocation {
     }
 
     //pub fn return_error(&self, domain: glib::Quark, code: i32, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-    //    unsafe { TODO: call gio_sys:g_dbus_method_invocation_return_error() }
+    //    unsafe { TODO: call ffi:g_dbus_method_invocation_return_error() }
     //}
 
     //pub fn return_error_valist(&self, domain: glib::Quark, code: i32, format: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
-    //    unsafe { TODO: call gio_sys:g_dbus_method_invocation_return_error_valist() }
+    //    unsafe { TODO: call ffi:g_dbus_method_invocation_return_error_valist() }
     //}
 
     pub fn return_value(&self, parameters: Option<&glib::Variant>) {
         unsafe {
-            gio_sys::g_dbus_method_invocation_return_value(
+            ffi::g_dbus_method_invocation_return_value(
                 self.to_glib_full(),
                 parameters.to_glib_none().0,
             );
@@ -138,7 +135,7 @@ impl DBusMethodInvocation {
         fd_list: Option<&P>,
     ) {
         unsafe {
-            gio_sys::g_dbus_method_invocation_return_value_with_unix_fd_list(
+            ffi::g_dbus_method_invocation_return_value_with_unix_fd_list(
                 self.to_glib_full(),
                 parameters.to_glib_none().0,
                 fd_list.map(|p| p.as_ref()).to_glib_none().0,

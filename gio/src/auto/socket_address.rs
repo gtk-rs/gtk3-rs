@@ -2,30 +2,28 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::SocketConnectable;
+use crate::SocketFamily;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use SocketConnectable;
-use SocketFamily;
 
-glib_wrapper! {
-    pub struct SocketAddress(Object<gio_sys::GSocketAddress, gio_sys::GSocketAddressClass>) @implements SocketConnectable;
+glib::glib_wrapper! {
+    pub struct SocketAddress(Object<ffi::GSocketAddress, ffi::GSocketAddressClass>) @implements SocketConnectable;
 
     match fn {
-        get_type => || gio_sys::g_socket_address_get_type(),
+        get_type => || ffi::g_socket_address_get_type(),
     }
 }
 
 impl SocketAddress {
     //pub fn from_native(native: /*Unimplemented*/Fundamental: Pointer, len: usize) -> SocketAddress {
-    //    unsafe { TODO: call gio_sys:g_socket_address_new_from_native() }
+    //    unsafe { TODO: call ffi:g_socket_address_new_from_native() }
     //}
 }
 
@@ -50,18 +48,18 @@ pub trait SocketAddressExt: 'static {
 impl<O: IsA<SocketAddress>> SocketAddressExt for O {
     fn get_family(&self) -> SocketFamily {
         unsafe {
-            from_glib(gio_sys::g_socket_address_get_family(
+            from_glib(ffi::g_socket_address_get_family(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_native_size(&self) -> isize {
-        unsafe { gio_sys::g_socket_address_get_native_size(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::g_socket_address_get_native_size(self.as_ref().to_glib_none().0) }
     }
 
     //fn to_native(&self, dest: /*Unimplemented*/Option<Fundamental: Pointer>, destlen: usize) -> Result<(), glib::Error> {
-    //    unsafe { TODO: call gio_sys:g_socket_address_to_native() }
+    //    unsafe { TODO: call ffi:g_socket_address_to_native() }
     //}
 
     fn connect_property_family_notify<F: Fn(&Self) + Send + Sync + 'static>(
@@ -69,9 +67,9 @@ impl<O: IsA<SocketAddress>> SocketAddressExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_family_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(
-            this: *mut gio_sys::GSocketAddress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GSocketAddress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<SocketAddress>,
         {

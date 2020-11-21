@@ -2,42 +2,37 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::Cancellable;
+use crate::Credentials;
+use crate::DBusAuthObserver;
+use crate::DBusCallFlags;
+use crate::DBusCapabilityFlags;
+use crate::DBusConnectionFlags;
+use crate::DBusMessage;
+use crate::DBusSendMessageFlags;
+use crate::IOStream;
+#[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+use crate::UnixFDList;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
-use Credentials;
-use DBusAuthObserver;
-use DBusCallFlags;
-use DBusCapabilityFlags;
-use DBusConnectionFlags;
-use DBusMessage;
-use DBusSendMessageFlags;
-use IOStream;
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
-use UnixFDList;
 
-glib_wrapper! {
-    pub struct DBusConnection(Object<gio_sys::GDBusConnection>);
+glib::glib_wrapper! {
+    pub struct DBusConnection(Object<ffi::GDBusConnection>);
 
     match fn {
-        get_type => || gio_sys::g_dbus_connection_get_type(),
+        get_type => || ffi::g_dbus_connection_get_type(),
     }
 }
 
@@ -50,7 +45,7 @@ impl DBusConnection {
     ) -> Result<DBusConnection, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_dbus_connection_new_for_address_sync(
+            let ret = ffi::g_dbus_connection_new_for_address_sync(
                 address.to_glib_none().0,
                 flags.to_glib(),
                 observer.to_glib_none().0,
@@ -74,7 +69,7 @@ impl DBusConnection {
     ) -> Result<DBusConnection, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_dbus_connection_new_sync(
+            let ret = ffi::g_dbus_connection_new_sync(
                 stream.as_ref().to_glib_none().0,
                 guid.to_glib_none().0,
                 flags.to_glib(),
@@ -110,13 +105,12 @@ impl DBusConnection {
         unsafe extern "C" fn call_trampoline<
             Q: FnOnce(Result<glib::Variant, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret =
-                gio_sys::g_dbus_connection_call_finish(_source_object as *mut _, res, &mut error);
+            let ret = ffi::g_dbus_connection_call_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -127,7 +121,7 @@ impl DBusConnection {
         }
         let callback = call_trampoline::<Q>;
         unsafe {
-            gio_sys::g_dbus_connection_call(
+            ffi::g_dbus_connection_call(
                 self.to_glib_none().0,
                 bus_name.to_glib_none().0,
                 object_path.to_glib_none().0,
@@ -197,7 +191,7 @@ impl DBusConnection {
     ) -> Result<glib::Variant, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_dbus_connection_call_sync(
+            let ret = ffi::g_dbus_connection_call_sync(
                 self.to_glib_none().0,
                 bus_name.to_glib_none().0,
                 object_path.to_glib_none().0,
@@ -242,13 +236,13 @@ impl DBusConnection {
         unsafe extern "C" fn call_with_unix_fd_list_trampoline<
             R: FnOnce(Result<(glib::Variant, UnixFDList), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let mut out_fd_list = ptr::null_mut();
-            let ret = gio_sys::g_dbus_connection_call_with_unix_fd_list_finish(
+            let ret = ffi::g_dbus_connection_call_with_unix_fd_list_finish(
                 _source_object as *mut _,
                 &mut out_fd_list,
                 res,
@@ -264,7 +258,7 @@ impl DBusConnection {
         }
         let callback = call_with_unix_fd_list_trampoline::<R>;
         unsafe {
-            gio_sys::g_dbus_connection_call_with_unix_fd_list(
+            ffi::g_dbus_connection_call_with_unix_fd_list(
                 self.to_glib_none().0,
                 bus_name.to_glib_none().0,
                 object_path.to_glib_none().0,
@@ -348,7 +342,7 @@ impl DBusConnection {
         unsafe {
             let mut out_fd_list = ptr::null_mut();
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_dbus_connection_call_with_unix_fd_list_sync(
+            let ret = ffi::g_dbus_connection_call_with_unix_fd_list_sync(
                 self.to_glib_none().0,
                 bus_name.to_glib_none().0,
                 object_path.to_glib_none().0,
@@ -380,13 +374,12 @@ impl DBusConnection {
         unsafe extern "C" fn close_trampoline<
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ =
-                gio_sys::g_dbus_connection_close_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_dbus_connection_close_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -397,7 +390,7 @@ impl DBusConnection {
         }
         let callback = close_trampoline::<Q>;
         unsafe {
-            gio_sys::g_dbus_connection_close(
+            ffi::g_dbus_connection_close(
                 self.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -425,7 +418,7 @@ impl DBusConnection {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_dbus_connection_close_sync(
+            let _ = ffi::g_dbus_connection_close_sync(
                 self.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -448,7 +441,7 @@ impl DBusConnection {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_dbus_connection_emit_signal(
+            let _ = ffi::g_dbus_connection_emit_signal(
                 self.to_glib_none().0,
                 destination_bus_name.to_glib_none().0,
                 object_path.to_glib_none().0,
@@ -474,13 +467,12 @@ impl DBusConnection {
         unsafe extern "C" fn flush_trampoline<
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ =
-                gio_sys::g_dbus_connection_flush_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_dbus_connection_flush_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -491,7 +483,7 @@ impl DBusConnection {
         }
         let callback = flush_trampoline::<Q>;
         unsafe {
-            gio_sys::g_dbus_connection_flush(
+            ffi::g_dbus_connection_flush(
                 self.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -519,7 +511,7 @@ impl DBusConnection {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_dbus_connection_flush_sync(
+            let _ = ffi::g_dbus_connection_flush_sync(
                 self.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -534,7 +526,7 @@ impl DBusConnection {
 
     pub fn get_capabilities(&self) -> DBusCapabilityFlags {
         unsafe {
-            from_glib(gio_sys::g_dbus_connection_get_capabilities(
+            from_glib(ffi::g_dbus_connection_get_capabilities(
                 self.to_glib_none().0,
             ))
         }
@@ -542,7 +534,7 @@ impl DBusConnection {
 
     pub fn get_exit_on_close(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_dbus_connection_get_exit_on_close(
+            from_glib(ffi::g_dbus_connection_get_exit_on_close(
                 self.to_glib_none().0,
             ))
         }
@@ -551,43 +543,43 @@ impl DBusConnection {
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     pub fn get_flags(&self) -> DBusConnectionFlags {
-        unsafe { from_glib(gio_sys::g_dbus_connection_get_flags(self.to_glib_none().0)) }
+        unsafe { from_glib(ffi::g_dbus_connection_get_flags(self.to_glib_none().0)) }
     }
 
-    pub fn get_guid(&self) -> Option<GString> {
-        unsafe { from_glib_none(gio_sys::g_dbus_connection_get_guid(self.to_glib_none().0)) }
+    pub fn get_guid(&self) -> Option<glib::GString> {
+        unsafe { from_glib_none(ffi::g_dbus_connection_get_guid(self.to_glib_none().0)) }
     }
 
     pub fn get_last_serial(&self) -> u32 {
-        unsafe { gio_sys::g_dbus_connection_get_last_serial(self.to_glib_none().0) }
+        unsafe { ffi::g_dbus_connection_get_last_serial(self.to_glib_none().0) }
     }
 
     pub fn get_peer_credentials(&self) -> Option<Credentials> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_connection_get_peer_credentials(
+            from_glib_none(ffi::g_dbus_connection_get_peer_credentials(
                 self.to_glib_none().0,
             ))
         }
     }
 
     pub fn get_stream(&self) -> Option<IOStream> {
-        unsafe { from_glib_none(gio_sys::g_dbus_connection_get_stream(self.to_glib_none().0)) }
+        unsafe { from_glib_none(ffi::g_dbus_connection_get_stream(self.to_glib_none().0)) }
     }
 
-    pub fn get_unique_name(&self) -> Option<GString> {
+    pub fn get_unique_name(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_connection_get_unique_name(
+            from_glib_none(ffi::g_dbus_connection_get_unique_name(
                 self.to_glib_none().0,
             ))
         }
     }
 
     pub fn is_closed(&self) -> bool {
-        unsafe { from_glib(gio_sys::g_dbus_connection_is_closed(self.to_glib_none().0)) }
+        unsafe { from_glib(ffi::g_dbus_connection_is_closed(self.to_glib_none().0)) }
     }
 
     //pub fn register_object(&self, object_path: &str, interface_info: &DBusInterfaceInfo, vtable: /*Ignored*/Option<&DBusInterfaceVTable>, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), glib::Error> {
-    //    unsafe { TODO: call gio_sys:g_dbus_connection_register_object() }
+    //    unsafe { TODO: call ffi:g_dbus_connection_register_object() }
     //}
 
     pub fn send_message(
@@ -598,7 +590,7 @@ impl DBusConnection {
         unsafe {
             let mut out_serial = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_dbus_connection_send_message(
+            let _ = ffi::g_dbus_connection_send_message(
                 self.to_glib_none().0,
                 message.to_glib_none().0,
                 flags.to_glib(),
@@ -629,12 +621,12 @@ impl DBusConnection {
         unsafe extern "C" fn send_message_with_reply_trampoline<
             Q: FnOnce(Result<DBusMessage, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_dbus_connection_send_message_with_reply_finish(
+            let ret = ffi::g_dbus_connection_send_message_with_reply_finish(
                 _source_object as *mut _,
                 res,
                 &mut error,
@@ -650,7 +642,7 @@ impl DBusConnection {
         let callback = send_message_with_reply_trampoline::<Q>;
         unsafe {
             let mut out_serial = mem::MaybeUninit::uninit();
-            gio_sys::g_dbus_connection_send_message_with_reply(
+            ffi::g_dbus_connection_send_message_with_reply(
                 self.to_glib_none().0,
                 message.to_glib_none().0,
                 flags.to_glib(),
@@ -699,7 +691,7 @@ impl DBusConnection {
         unsafe {
             let mut out_serial = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_dbus_connection_send_message_with_reply_sync(
+            let ret = ffi::g_dbus_connection_send_message_with_reply_sync(
                 self.to_glib_none().0,
                 message.to_glib_none().0,
                 flags.to_glib(),
@@ -719,7 +711,7 @@ impl DBusConnection {
 
     pub fn set_exit_on_close(&self, exit_on_close: bool) {
         unsafe {
-            gio_sys::g_dbus_connection_set_exit_on_close(
+            ffi::g_dbus_connection_set_exit_on_close(
                 self.to_glib_none().0,
                 exit_on_close.to_glib(),
             );
@@ -728,15 +720,15 @@ impl DBusConnection {
 
     pub fn start_message_processing(&self) {
         unsafe {
-            gio_sys::g_dbus_connection_start_message_processing(self.to_glib_none().0);
+            ffi::g_dbus_connection_start_message_processing(self.to_glib_none().0);
         }
     }
 
     pub fn get_property_closed(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"closed\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -750,8 +742,8 @@ impl DBusConnection {
     pub fn get_property_flags(&self) -> DBusConnectionFlags {
         unsafe {
             let mut value = Value::from_type(<DBusConnectionFlags as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"flags\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -778,12 +770,12 @@ impl DBusConnection {
         unsafe extern "C" fn new_trampoline<
             R: FnOnce(Result<DBusConnection, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_dbus_connection_new_finish(res, &mut error);
+            let ret = ffi::g_dbus_connection_new_finish(res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -794,7 +786,7 @@ impl DBusConnection {
         }
         let callback = new_trampoline::<R>;
         unsafe {
-            gio_sys::g_dbus_connection_new(
+            ffi::g_dbus_connection_new(
                 stream.as_ref().to_glib_none().0,
                 guid.to_glib_none().0,
                 flags.to_glib(),
@@ -847,12 +839,12 @@ impl DBusConnection {
         unsafe extern "C" fn new_for_address_trampoline<
             Q: FnOnce(Result<DBusConnection, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_dbus_connection_new_for_address_finish(res, &mut error);
+            let ret = ffi::g_dbus_connection_new_for_address_finish(res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -863,7 +855,7 @@ impl DBusConnection {
         }
         let callback = new_for_address_trampoline::<Q>;
         unsafe {
-            gio_sys::g_dbus_connection_new_for_address(
+            ffi::g_dbus_connection_new_for_address(
                 address.to_glib_none().0,
                 flags.to_glib(),
                 observer.to_glib_none().0,
@@ -905,10 +897,10 @@ impl DBusConnection {
         unsafe extern "C" fn closed_trampoline<
             F: Fn(&DBusConnection, bool, Option<&glib::Error>) + 'static,
         >(
-            this: *mut gio_sys::GDBusConnection,
-            remote_peer_vanished: glib_sys::gboolean,
-            error: *mut glib_sys::GError,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDBusConnection,
+            remote_peer_vanished: glib::ffi::gboolean,
+            error: *mut glib::ffi::GError,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(
@@ -937,9 +929,9 @@ impl DBusConnection {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_capabilities_trampoline<F: Fn(&DBusConnection) + 'static>(
-            this: *mut gio_sys::GDBusConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDBusConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -962,9 +954,9 @@ impl DBusConnection {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_closed_trampoline<F: Fn(&DBusConnection) + 'static>(
-            this: *mut gio_sys::GDBusConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDBusConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -987,9 +979,9 @@ impl DBusConnection {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_exit_on_close_trampoline<F: Fn(&DBusConnection) + 'static>(
-            this: *mut gio_sys::GDBusConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDBusConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -1012,9 +1004,9 @@ impl DBusConnection {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_unique_name_trampoline<F: Fn(&DBusConnection) + 'static>(
-            this: *mut gio_sys::GDBusConnection,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDBusConnection,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))

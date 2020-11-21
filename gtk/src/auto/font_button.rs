@@ -2,55 +2,49 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use glib;
+use crate::Actionable;
+use crate::Align;
+use crate::Bin;
+use crate::Buildable;
+use crate::Button;
+use crate::Container;
+use crate::FontChooser;
+#[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+use crate::FontChooserLevel;
+use crate::PositionType;
+use crate::ReliefStyle;
+use crate::ResizeMode;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
-use pango;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Actionable;
-use Align;
-use Bin;
-use Buildable;
-use Button;
-use Container;
-use FontChooser;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-use FontChooserLevel;
-use PositionType;
-use ReliefStyle;
-use ResizeMode;
-use Widget;
 
-glib_wrapper! {
-    pub struct FontButton(Object<gtk_sys::GtkFontButton, gtk_sys::GtkFontButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable, FontChooser;
+glib::glib_wrapper! {
+    pub struct FontButton(Object<ffi::GtkFontButton, ffi::GtkFontButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable, FontChooser;
 
     match fn {
-        get_type => || gtk_sys::gtk_font_button_get_type(),
+        get_type => || ffi::gtk_font_button_get_type(),
     }
 }
 
 impl FontButton {
     pub fn new() -> FontButton {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_font_button_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_font_button_new()).unsafe_cast() }
     }
 
     pub fn with_font(fontname: &str) -> FontButton {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_font_button_new_with_font(
+            Widget::from_glib_none(ffi::gtk_font_button_new_with_font(
                 fontname.to_glib_none().0,
             ))
             .unsafe_cast()
@@ -597,13 +591,13 @@ pub const NONE_FONT_BUTTON: Option<&FontButton> = None;
 
 pub trait FontButtonExt: 'static {
     #[cfg_attr(feature = "v3_22", deprecated)]
-    fn get_font_name(&self) -> Option<GString>;
+    fn get_font_name(&self) -> Option<glib::GString>;
 
     fn get_show_size(&self) -> bool;
 
     fn get_show_style(&self) -> bool;
 
-    fn get_title(&self) -> Option<GString>;
+    fn get_title(&self) -> Option<glib::GString>;
 
     fn get_use_font(&self) -> bool;
 
@@ -639,9 +633,9 @@ pub trait FontButtonExt: 'static {
 }
 
 impl<O: IsA<FontButton>> FontButtonExt for O {
-    fn get_font_name(&self) -> Option<GString> {
+    fn get_font_name(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_font_button_get_font_name(
+            from_glib_none(ffi::gtk_font_button_get_font_name(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -649,7 +643,7 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     fn get_show_size(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_font_button_get_show_size(
+            from_glib(ffi::gtk_font_button_get_show_size(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -657,15 +651,15 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     fn get_show_style(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_font_button_get_show_style(
+            from_glib(ffi::gtk_font_button_get_show_style(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_title(&self) -> Option<GString> {
+    fn get_title(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_font_button_get_title(
+            from_glib_none(ffi::gtk_font_button_get_title(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -673,7 +667,7 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     fn get_use_font(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_font_button_get_use_font(
+            from_glib(ffi::gtk_font_button_get_use_font(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -681,7 +675,7 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     fn get_use_size(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_font_button_get_use_size(
+            from_glib(ffi::gtk_font_button_get_use_size(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -689,7 +683,7 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     fn set_font_name(&self, fontname: &str) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_font_button_set_font_name(
+            from_glib(ffi::gtk_font_button_set_font_name(
                 self.as_ref().to_glib_none().0,
                 fontname.to_glib_none().0,
             ))
@@ -698,16 +692,13 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     fn set_show_size(&self, show_size: bool) {
         unsafe {
-            gtk_sys::gtk_font_button_set_show_size(
-                self.as_ref().to_glib_none().0,
-                show_size.to_glib(),
-            );
+            ffi::gtk_font_button_set_show_size(self.as_ref().to_glib_none().0, show_size.to_glib());
         }
     }
 
     fn set_show_style(&self, show_style: bool) {
         unsafe {
-            gtk_sys::gtk_font_button_set_show_style(
+            ffi::gtk_font_button_set_show_style(
                 self.as_ref().to_glib_none().0,
                 show_style.to_glib(),
             );
@@ -716,35 +707,26 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     fn set_title(&self, title: &str) {
         unsafe {
-            gtk_sys::gtk_font_button_set_title(
-                self.as_ref().to_glib_none().0,
-                title.to_glib_none().0,
-            );
+            ffi::gtk_font_button_set_title(self.as_ref().to_glib_none().0, title.to_glib_none().0);
         }
     }
 
     fn set_use_font(&self, use_font: bool) {
         unsafe {
-            gtk_sys::gtk_font_button_set_use_font(
-                self.as_ref().to_glib_none().0,
-                use_font.to_glib(),
-            );
+            ffi::gtk_font_button_set_use_font(self.as_ref().to_glib_none().0, use_font.to_glib());
         }
     }
 
     fn set_use_size(&self, use_size: bool) {
         unsafe {
-            gtk_sys::gtk_font_button_set_use_size(
-                self.as_ref().to_glib_none().0,
-                use_size.to_glib(),
-            );
+            ffi::gtk_font_button_set_use_size(self.as_ref().to_glib_none().0, use_size.to_glib());
         }
     }
 
     fn connect_font_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn font_set_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkFontButton,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkFontButton,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<FontButton>,
         {
@@ -766,9 +748,9 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     fn connect_property_font_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_font_name_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkFontButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkFontButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<FontButton>,
         {
@@ -790,9 +772,9 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     fn connect_property_show_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_size_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkFontButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkFontButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<FontButton>,
         {
@@ -814,9 +796,9 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     fn connect_property_show_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_style_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkFontButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkFontButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<FontButton>,
         {
@@ -838,9 +820,9 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     fn connect_property_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_title_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkFontButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkFontButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<FontButton>,
         {
@@ -862,9 +844,9 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     fn connect_property_use_font_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_font_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkFontButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkFontButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<FontButton>,
         {
@@ -886,9 +868,9 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
     fn connect_property_use_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_size_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkFontButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkFontButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<FontButton>,
         {

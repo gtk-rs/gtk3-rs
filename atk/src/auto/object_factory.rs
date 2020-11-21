@@ -2,18 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk_sys;
-use glib;
+use crate::Object;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
-use Object;
 
-glib_wrapper! {
-    pub struct ObjectFactory(Object<atk_sys::AtkObjectFactory, atk_sys::AtkObjectFactoryClass>);
+glib::glib_wrapper! {
+    pub struct ObjectFactory(Object<ffi::AtkObjectFactory, ffi::AtkObjectFactoryClass>);
 
     match fn {
-        get_type => || atk_sys::atk_object_factory_get_type(),
+        get_type => || ffi::atk_object_factory_get_type(),
     }
 }
 
@@ -30,7 +28,7 @@ pub trait ObjectFactoryExt: 'static {
 impl<O: IsA<ObjectFactory>> ObjectFactoryExt for O {
     fn create_accessible<P: IsA<glib::Object>>(&self, obj: &P) -> Option<Object> {
         unsafe {
-            from_glib_full(atk_sys::atk_object_factory_create_accessible(
+            from_glib_full(ffi::atk_object_factory_create_accessible(
                 self.as_ref().to_glib_none().0,
                 obj.as_ref().to_glib_none().0,
             ))
@@ -39,7 +37,7 @@ impl<O: IsA<ObjectFactory>> ObjectFactoryExt for O {
 
     fn get_accessible_type(&self) -> glib::types::Type {
         unsafe {
-            from_glib(atk_sys::atk_object_factory_get_accessible_type(
+            from_glib(ffi::atk_object_factory_get_accessible_type(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -47,7 +45,7 @@ impl<O: IsA<ObjectFactory>> ObjectFactoryExt for O {
 
     fn invalidate(&self) {
         unsafe {
-            atk_sys::atk_object_factory_invalidate(self.as_ref().to_glib_none().0);
+            ffi::atk_object_factory_invalidate(self.as_ref().to_glib_none().0);
         }
     }
 }

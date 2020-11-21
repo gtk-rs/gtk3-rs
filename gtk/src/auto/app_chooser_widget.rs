@@ -2,39 +2,33 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use gio;
-use gio_sys;
+use crate::Align;
+use crate::AppChooser;
+use crate::BaselinePosition;
+use crate::Box;
+use crate::Buildable;
+use crate::Container;
+use crate::Menu;
+use crate::Orientable;
+use crate::Orientation;
+use crate::ResizeMode;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Align;
-use AppChooser;
-use BaselinePosition;
-use Box;
-use Buildable;
-use Container;
-use Menu;
-use Orientable;
-use Orientation;
-use ResizeMode;
-use Widget;
 
-glib_wrapper! {
-    pub struct AppChooserWidget(Object<gtk_sys::GtkAppChooserWidget, gtk_sys::GtkAppChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, AppChooser;
+glib::glib_wrapper! {
+    pub struct AppChooserWidget(Object<ffi::GtkAppChooserWidget, ffi::GtkAppChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, AppChooser;
 
     match fn {
-        get_type => || gtk_sys::gtk_app_chooser_widget_get_type(),
+        get_type => || ffi::gtk_app_chooser_widget_get_type(),
     }
 }
 
@@ -42,7 +36,7 @@ impl AppChooserWidget {
     pub fn new(content_type: &str) -> AppChooserWidget {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_app_chooser_widget_new(
+            Widget::from_glib_none(ffi::gtk_app_chooser_widget_new(
                 content_type.to_glib_none().0,
             ))
             .unsafe_cast()
@@ -491,7 +485,7 @@ impl AppChooserWidgetBuilder {
 pub const NONE_APP_CHOOSER_WIDGET: Option<&AppChooserWidget> = None;
 
 pub trait AppChooserWidgetExt: 'static {
-    fn get_default_text(&self) -> Option<GString>;
+    fn get_default_text(&self) -> Option<glib::GString>;
 
     fn get_show_all(&self) -> bool;
 
@@ -552,9 +546,9 @@ pub trait AppChooserWidgetExt: 'static {
 }
 
 impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
-    fn get_default_text(&self) -> Option<GString> {
+    fn get_default_text(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_app_chooser_widget_get_default_text(
+            from_glib_none(ffi::gtk_app_chooser_widget_get_default_text(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -562,7 +556,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
 
     fn get_show_all(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_app_chooser_widget_get_show_all(
+            from_glib(ffi::gtk_app_chooser_widget_get_show_all(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -570,7 +564,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
 
     fn get_show_default(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_app_chooser_widget_get_show_default(
+            from_glib(ffi::gtk_app_chooser_widget_get_show_default(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -578,7 +572,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
 
     fn get_show_fallback(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_app_chooser_widget_get_show_fallback(
+            from_glib(ffi::gtk_app_chooser_widget_get_show_fallback(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -586,7 +580,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
 
     fn get_show_other(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_app_chooser_widget_get_show_other(
+            from_glib(ffi::gtk_app_chooser_widget_get_show_other(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -594,7 +588,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
 
     fn get_show_recommended(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_app_chooser_widget_get_show_recommended(
+            from_glib(ffi::gtk_app_chooser_widget_get_show_recommended(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -602,7 +596,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
 
     fn set_default_text(&self, text: &str) {
         unsafe {
-            gtk_sys::gtk_app_chooser_widget_set_default_text(
+            ffi::gtk_app_chooser_widget_set_default_text(
                 self.as_ref().to_glib_none().0,
                 text.to_glib_none().0,
             );
@@ -611,7 +605,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
 
     fn set_show_all(&self, setting: bool) {
         unsafe {
-            gtk_sys::gtk_app_chooser_widget_set_show_all(
+            ffi::gtk_app_chooser_widget_set_show_all(
                 self.as_ref().to_glib_none().0,
                 setting.to_glib(),
             );
@@ -620,7 +614,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
 
     fn set_show_default(&self, setting: bool) {
         unsafe {
-            gtk_sys::gtk_app_chooser_widget_set_show_default(
+            ffi::gtk_app_chooser_widget_set_show_default(
                 self.as_ref().to_glib_none().0,
                 setting.to_glib(),
             );
@@ -629,7 +623,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
 
     fn set_show_fallback(&self, setting: bool) {
         unsafe {
-            gtk_sys::gtk_app_chooser_widget_set_show_fallback(
+            ffi::gtk_app_chooser_widget_set_show_fallback(
                 self.as_ref().to_glib_none().0,
                 setting.to_glib(),
             );
@@ -638,7 +632,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
 
     fn set_show_other(&self, setting: bool) {
         unsafe {
-            gtk_sys::gtk_app_chooser_widget_set_show_other(
+            ffi::gtk_app_chooser_widget_set_show_other(
                 self.as_ref().to_glib_none().0,
                 setting.to_glib(),
             );
@@ -647,7 +641,7 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
 
     fn set_show_recommended(&self, setting: bool) {
         unsafe {
-            gtk_sys::gtk_app_chooser_widget_set_show_recommended(
+            ffi::gtk_app_chooser_widget_set_show_recommended(
                 self.as_ref().to_glib_none().0,
                 setting.to_glib(),
             );
@@ -662,9 +656,9 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
             P,
             F: Fn(&P, &gio::AppInfo) + 'static,
         >(
-            this: *mut gtk_sys::GtkAppChooserWidget,
-            application: *mut gio_sys::GAppInfo,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkAppChooserWidget,
+            application: *mut gio::ffi::GAppInfo,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<AppChooserWidget>,
         {
@@ -695,9 +689,9 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
             P,
             F: Fn(&P, &gio::AppInfo) + 'static,
         >(
-            this: *mut gtk_sys::GtkAppChooserWidget,
-            application: *mut gio_sys::GAppInfo,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkAppChooserWidget,
+            application: *mut gio::ffi::GAppInfo,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<AppChooserWidget>,
         {
@@ -728,10 +722,10 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
             P,
             F: Fn(&P, &Menu, &gio::AppInfo) + 'static,
         >(
-            this: *mut gtk_sys::GtkAppChooserWidget,
-            menu: *mut gtk_sys::GtkMenu,
-            application: *mut gio_sys::GAppInfo,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkAppChooserWidget,
+            menu: *mut ffi::GtkMenu,
+            application: *mut gio::ffi::GAppInfo,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<AppChooserWidget>,
         {
@@ -760,9 +754,9 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_default_text_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkAppChooserWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkAppChooserWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<AppChooserWidget>,
         {
@@ -784,9 +778,9 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
 
     fn connect_property_show_all_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_all_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkAppChooserWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkAppChooserWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<AppChooserWidget>,
         {
@@ -811,9 +805,9 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_default_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkAppChooserWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkAppChooserWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<AppChooserWidget>,
         {
@@ -838,9 +832,9 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_fallback_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkAppChooserWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkAppChooserWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<AppChooserWidget>,
         {
@@ -862,9 +856,9 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
 
     fn connect_property_show_other_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_other_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkAppChooserWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkAppChooserWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<AppChooserWidget>,
         {
@@ -889,9 +883,9 @@ impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_recommended_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkAppChooserWidget,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkAppChooserWidget,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<AppChooserWidget>,
         {

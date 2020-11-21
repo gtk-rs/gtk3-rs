@@ -2,44 +2,38 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::AppInfo;
+use crate::Cancellable;
+use crate::DriveStartFlags;
+use crate::FileCopyFlags;
+use crate::FileCreateFlags;
+use crate::FileEnumerator;
+use crate::FileIOStream;
+use crate::FileInfo;
+use crate::FileInputStream;
+use crate::FileMeasureFlags;
+use crate::FileMonitor;
+use crate::FileMonitorFlags;
+use crate::FileOutputStream;
+use crate::FileQueryInfoFlags;
+use crate::FileType;
+use crate::Mount;
+use crate::MountMountFlags;
+use crate::MountOperation;
+use crate::MountUnmountFlags;
 use glib::object::IsA;
 use glib::translate::*;
-use glib::GString;
-use glib_sys;
-use gobject_sys;
-use std;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::pin::Pin;
 use std::ptr;
-use AppInfo;
-use Cancellable;
-use DriveStartFlags;
-use FileCopyFlags;
-use FileCreateFlags;
-use FileEnumerator;
-use FileIOStream;
-use FileInfo;
-use FileInputStream;
-use FileMeasureFlags;
-use FileMonitor;
-use FileMonitorFlags;
-use FileOutputStream;
-use FileQueryInfoFlags;
-use FileType;
-use Mount;
-use MountMountFlags;
-use MountOperation;
-use MountUnmountFlags;
 
-glib_wrapper! {
-    pub struct File(Interface<gio_sys::GFile>);
+glib::glib_wrapper! {
+    pub struct File(Interface<ffi::GFile>);
 
     match fn {
-        get_type => || gio_sys::g_file_get_type(),
+        get_type => || ffi::g_file_get_type(),
     }
 }
 
@@ -47,12 +41,12 @@ impl File {
     //#[cfg(any(feature = "v2_56", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     //pub fn new_build_filename<P: AsRef<std::path::Path>>(first_element: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<File> {
-    //    unsafe { TODO: call gio_sys:g_file_new_build_filename() }
+    //    unsafe { TODO: call ffi:g_file_new_build_filename() }
     //}
 
     pub fn new_for_commandline_arg<P: AsRef<std::ffi::OsStr>>(arg: P) -> File {
         unsafe {
-            from_glib_full(gio_sys::g_file_new_for_commandline_arg(
+            from_glib_full(ffi::g_file_new_for_commandline_arg(
                 arg.as_ref().to_glib_none().0,
             ))
         }
@@ -63,7 +57,7 @@ impl File {
         cwd: Q,
     ) -> File {
         unsafe {
-            from_glib_full(gio_sys::g_file_new_for_commandline_arg_and_cwd(
+            from_glib_full(ffi::g_file_new_for_commandline_arg_and_cwd(
                 arg.as_ref().to_glib_none().0,
                 cwd.as_ref().to_glib_none().0,
             ))
@@ -71,11 +65,11 @@ impl File {
     }
 
     pub fn new_for_path<P: AsRef<std::path::Path>>(path: P) -> File {
-        unsafe { from_glib_full(gio_sys::g_file_new_for_path(path.as_ref().to_glib_none().0)) }
+        unsafe { from_glib_full(ffi::g_file_new_for_path(path.as_ref().to_glib_none().0)) }
     }
 
     pub fn new_for_uri(uri: &str) -> File {
-        unsafe { from_glib_full(gio_sys::g_file_new_for_uri(uri.to_glib_none().0)) }
+        unsafe { from_glib_full(ffi::g_file_new_for_uri(uri.to_glib_none().0)) }
     }
 
     pub fn new_tmp<P: AsRef<std::path::Path>>(
@@ -85,7 +79,7 @@ impl File {
             let mut iostream = ptr::null_mut();
             let mut error = ptr::null_mut();
             let ret =
-                gio_sys::g_file_new_tmp(tmpl.as_ref().to_glib_none().0, &mut iostream, &mut error);
+                ffi::g_file_new_tmp(tmpl.as_ref().to_glib_none().0, &mut iostream, &mut error);
             if error.is_null() {
                 Ok((from_glib_full(ret), from_glib_full(iostream)))
             } else {
@@ -95,7 +89,7 @@ impl File {
     }
 
     pub fn parse_name(parse_name: &str) -> Option<File> {
-        unsafe { from_glib_full(gio_sys::g_file_parse_name(parse_name.to_glib_none().0)) }
+        unsafe { from_glib_full(ffi::g_file_parse_name(parse_name.to_glib_none().0)) }
     }
 }
 
@@ -250,15 +244,15 @@ pub trait FileExt: 'static {
 
     fn get_parent(&self) -> Option<File>;
 
-    fn get_parse_name(&self) -> Option<GString>;
+    fn get_parse_name(&self) -> Option<glib::GString>;
 
     fn get_path(&self) -> Option<std::path::PathBuf>;
 
     fn get_relative_path<P: IsA<File>>(&self, descendant: &P) -> Option<std::path::PathBuf>;
 
-    fn get_uri(&self) -> GString;
+    fn get_uri(&self) -> glib::GString;
 
-    fn get_uri_scheme(&self) -> GString;
+    fn get_uri_scheme(&self) -> glib::GString;
 
     fn has_parent<P: IsA<File>>(&self, parent: Option<&P>) -> bool;
 
@@ -273,13 +267,13 @@ pub trait FileExt: 'static {
     fn load_bytes<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<(glib::Bytes, Option<GString>), glib::Error>;
+    ) -> Result<(glib::Bytes, Option<glib::GString>), glib::Error>;
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn load_bytes_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(glib::Bytes, Option<GString>), glib::Error>) + Send + 'static,
+        Q: FnOnce(Result<(glib::Bytes, Option<glib::GString>), glib::Error>) + Send + 'static,
     >(
         &self,
         cancellable: Option<&P>,
@@ -292,19 +286,20 @@ pub trait FileExt: 'static {
         &self,
     ) -> Pin<
         Box_<
-            dyn std::future::Future<Output = Result<(glib::Bytes, Option<GString>), glib::Error>>
-                + 'static,
+            dyn std::future::Future<
+                    Output = Result<(glib::Bytes, Option<glib::GString>), glib::Error>,
+                > + 'static,
         >,
     >;
 
     fn load_contents<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<(Vec<u8>, GString), glib::Error>;
+    ) -> Result<(Vec<u8>, glib::GString), glib::Error>;
 
     fn load_contents_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static,
+        Q: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static,
     >(
         &self,
         cancellable: Option<&P>,
@@ -314,13 +309,16 @@ pub trait FileExt: 'static {
     fn load_contents_async_future(
         &self,
     ) -> Pin<
-        Box_<dyn std::future::Future<Output = Result<(Vec<u8>, GString), glib::Error>> + 'static>,
+        Box_<
+            dyn std::future::Future<Output = Result<(Vec<u8>, glib::GString), glib::Error>>
+                + 'static,
+        >,
     >;
 
-    //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static, R: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R);
+    //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static, R: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R);
 
     //
-    //fn load_partial_contents_async_future<Q: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static>(&self, read_more_callback: Q) -> Pin<Box_<dyn std::future::Future<Output = Result<(Vec<u8>, GString), glib::Error>> + 'static>>;
+    //fn load_partial_contents_async_future<Q: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static>(&self, read_more_callback: Q) -> Pin<Box_<dyn std::future::Future<Output = Result<(Vec<u8>, glib::GString), glib::Error>> + 'static>>;
 
     fn make_directory<P: IsA<Cancellable>>(
         &self,
@@ -602,7 +600,7 @@ pub trait FileExt: 'static {
         make_backup: bool,
         flags: FileCreateFlags,
         cancellable: Option<&P>,
-    ) -> Result<GString, glib::Error>;
+    ) -> Result<glib::GString, glib::Error>;
 
     //fn replace_contents_bytes_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + 'static>(&self, contents: &glib::Bytes, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, cancellable: Option<&P>, callback: Q);
 
@@ -815,7 +813,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<FileOutputStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_append_to(
+            let ret = ffi::g_file_append_to(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -843,12 +841,12 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn append_to_async_trampoline<
             Q: FnOnce(Result<FileOutputStream, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_append_to_finish(_source_object as *mut _, res, &mut error);
+            let ret = ffi::g_file_append_to_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -859,7 +857,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = append_to_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_append_to_async(
+            ffi::g_file_append_to_async(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 io_priority.to_glib(),
@@ -897,7 +895,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn progress_callback_func<P: IsA<File>, Q: IsA<Cancellable>>(
             current_num_bytes: i64,
             total_num_bytes: i64,
-            user_data: glib_sys::gpointer,
+            user_data: glib::ffi::gpointer,
         ) {
             let callback: *mut Option<&mut dyn (FnMut(i64, i64))> =
                 user_data as *const _ as usize as *mut Option<&mut dyn (FnMut(i64, i64))>;
@@ -915,7 +913,7 @@ impl<O: IsA<File>> FileExt for O {
         let super_callback0: &Option<&mut dyn (FnMut(i64, i64))> = &progress_callback_data;
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_copy(
+            let _ = ffi::g_file_copy(
                 self.as_ref().to_glib_none().0,
                 destination.as_ref().to_glib_none().0,
                 flags.to_glib(),
@@ -933,7 +931,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     //fn copy_async<P: IsA<File>, Q: IsA<Cancellable>, R: FnOnce(Result<(), glib::Error>) + Send + 'static, S: FnOnce(Result<(), glib::Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, cancellable: Option<&Q>, progress_callback: R, callback: S) {
-    //    unsafe { TODO: call gio_sys:g_file_copy_async() }
+    //    unsafe { TODO: call ffi:g_file_copy_async() }
     //}
 
     //
@@ -966,7 +964,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_copy_attributes(
+            let _ = ffi::g_file_copy_attributes(
                 self.as_ref().to_glib_none().0,
                 destination.as_ref().to_glib_none().0,
                 flags.to_glib(),
@@ -988,7 +986,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<FileOutputStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_create(
+            let ret = ffi::g_file_create(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -1016,12 +1014,12 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn create_async_trampoline<
             Q: FnOnce(Result<FileOutputStream, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_create_finish(_source_object as *mut _, res, &mut error);
+            let ret = ffi::g_file_create_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -1032,7 +1030,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = create_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_create_async(
+            ffi::g_file_create_async(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 io_priority.to_glib(),
@@ -1066,7 +1064,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<FileIOStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_create_readwrite(
+            let ret = ffi::g_file_create_readwrite(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -1094,13 +1092,13 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn create_readwrite_async_trampoline<
             Q: FnOnce(Result<FileIOStream, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let ret =
-                gio_sys::g_file_create_readwrite_finish(_source_object as *mut _, res, &mut error);
+                ffi::g_file_create_readwrite_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -1111,7 +1109,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = create_readwrite_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_create_readwrite_async(
+            ffi::g_file_create_readwrite_async(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 io_priority.to_glib(),
@@ -1141,7 +1139,7 @@ impl<O: IsA<File>> FileExt for O {
     fn delete<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_delete(
+            let _ = ffi::g_file_delete(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -1164,12 +1162,12 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn delete_async_trampoline<
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_delete_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_file_delete_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -1180,7 +1178,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = delete_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_delete_async(
+            ffi::g_file_delete_async(
                 self.as_ref().to_glib_none().0,
                 io_priority.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -1205,7 +1203,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     fn dup(&self) -> Option<File> {
-        unsafe { from_glib_full(gio_sys::g_file_dup(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib_full(ffi::g_file_dup(self.as_ref().to_glib_none().0)) }
     }
 
     fn eject_mountable_with_operation<
@@ -1223,12 +1221,12 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn eject_mountable_with_operation_trampoline<
             R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_eject_mountable_with_operation_finish(
+            let _ = ffi::g_file_eject_mountable_with_operation_finish(
                 _source_object as *mut _,
                 res,
                 &mut error,
@@ -1243,7 +1241,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = eject_mountable_with_operation_trampoline::<R>;
         unsafe {
-            gio_sys::g_file_eject_mountable_with_operation(
+            ffi::g_file_eject_mountable_with_operation(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
@@ -1283,7 +1281,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<FileEnumerator, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_enumerate_children(
+            let ret = ffi::g_file_enumerate_children(
                 self.as_ref().to_glib_none().0,
                 attributes.to_glib_none().0,
                 flags.to_glib(),
@@ -1300,7 +1298,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn equal<P: IsA<File>>(&self, file2: &P) -> bool {
         unsafe {
-            from_glib(gio_sys::g_file_equal(
+            from_glib(ffi::g_file_equal(
                 self.as_ref().to_glib_none().0,
                 file2.as_ref().to_glib_none().0,
             ))
@@ -1313,7 +1311,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<Mount, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_find_enclosing_mount(
+            let ret = ffi::g_file_find_enclosing_mount(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -1327,12 +1325,12 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     fn get_basename(&self) -> Option<std::path::PathBuf> {
-        unsafe { from_glib_full(gio_sys::g_file_get_basename(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib_full(ffi::g_file_get_basename(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_child<P: AsRef<std::path::Path>>(&self, name: P) -> Option<File> {
         unsafe {
-            from_glib_full(gio_sys::g_file_get_child(
+            from_glib_full(ffi::g_file_get_child(
                 self.as_ref().to_glib_none().0,
                 name.as_ref().to_glib_none().0,
             ))
@@ -1342,7 +1340,7 @@ impl<O: IsA<File>> FileExt for O {
     fn get_child_for_display_name(&self, display_name: &str) -> Result<File, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_get_child_for_display_name(
+            let ret = ffi::g_file_get_child_for_display_name(
                 self.as_ref().to_glib_none().0,
                 display_name.to_glib_none().0,
                 &mut error,
@@ -1356,45 +1354,37 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     fn get_parent(&self) -> Option<File> {
-        unsafe { from_glib_full(gio_sys::g_file_get_parent(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib_full(ffi::g_file_get_parent(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_parse_name(&self) -> Option<GString> {
-        unsafe {
-            from_glib_full(gio_sys::g_file_get_parse_name(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+    fn get_parse_name(&self) -> Option<glib::GString> {
+        unsafe { from_glib_full(ffi::g_file_get_parse_name(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_path(&self) -> Option<std::path::PathBuf> {
-        unsafe { from_glib_full(gio_sys::g_file_get_path(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib_full(ffi::g_file_get_path(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_relative_path<P: IsA<File>>(&self, descendant: &P) -> Option<std::path::PathBuf> {
         unsafe {
-            from_glib_full(gio_sys::g_file_get_relative_path(
+            from_glib_full(ffi::g_file_get_relative_path(
                 self.as_ref().to_glib_none().0,
                 descendant.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_uri(&self) -> GString {
-        unsafe { from_glib_full(gio_sys::g_file_get_uri(self.as_ref().to_glib_none().0)) }
+    fn get_uri(&self) -> glib::GString {
+        unsafe { from_glib_full(ffi::g_file_get_uri(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_uri_scheme(&self) -> GString {
-        unsafe {
-            from_glib_full(gio_sys::g_file_get_uri_scheme(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+    fn get_uri_scheme(&self) -> glib::GString {
+        unsafe { from_glib_full(ffi::g_file_get_uri_scheme(self.as_ref().to_glib_none().0)) }
     }
 
     fn has_parent<P: IsA<File>>(&self, parent: Option<&P>) -> bool {
         unsafe {
-            from_glib(gio_sys::g_file_has_parent(
+            from_glib(ffi::g_file_has_parent(
                 self.as_ref().to_glib_none().0,
                 parent.map(|p| p.as_ref()).to_glib_none().0,
             ))
@@ -1403,7 +1393,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn has_prefix<P: IsA<File>>(&self, prefix: &P) -> bool {
         unsafe {
-            from_glib(gio_sys::g_file_has_prefix(
+            from_glib(ffi::g_file_has_prefix(
                 self.as_ref().to_glib_none().0,
                 prefix.as_ref().to_glib_none().0,
             ))
@@ -1412,7 +1402,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn has_uri_scheme(&self, uri_scheme: &str) -> bool {
         unsafe {
-            from_glib(gio_sys::g_file_has_uri_scheme(
+            from_glib(ffi::g_file_has_uri_scheme(
                 self.as_ref().to_glib_none().0,
                 uri_scheme.to_glib_none().0,
             ))
@@ -1420,7 +1410,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     fn is_native(&self) -> bool {
-        unsafe { from_glib(gio_sys::g_file_is_native(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib(ffi::g_file_is_native(self.as_ref().to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
@@ -1428,11 +1418,11 @@ impl<O: IsA<File>> FileExt for O {
     fn load_bytes<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<(glib::Bytes, Option<GString>), glib::Error> {
+    ) -> Result<(glib::Bytes, Option<glib::GString>), glib::Error> {
         unsafe {
             let mut etag_out = ptr::null_mut();
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_load_bytes(
+            let ret = ffi::g_file_load_bytes(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut etag_out,
@@ -1450,7 +1440,7 @@ impl<O: IsA<File>> FileExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn load_bytes_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(glib::Bytes, Option<GString>), glib::Error>) + Send + 'static,
+        Q: FnOnce(Result<(glib::Bytes, Option<glib::GString>), glib::Error>) + Send + 'static,
     >(
         &self,
         cancellable: Option<&P>,
@@ -1458,15 +1448,15 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn load_bytes_async_trampoline<
-            Q: FnOnce(Result<(glib::Bytes, Option<GString>), glib::Error>) + Send + 'static,
+            Q: FnOnce(Result<(glib::Bytes, Option<glib::GString>), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let mut etag_out = ptr::null_mut();
-            let ret = gio_sys::g_file_load_bytes_finish(
+            let ret = ffi::g_file_load_bytes_finish(
                 _source_object as *mut _,
                 res,
                 &mut etag_out,
@@ -1482,7 +1472,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = load_bytes_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_load_bytes_async(
+            ffi::g_file_load_bytes_async(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -1497,8 +1487,9 @@ impl<O: IsA<File>> FileExt for O {
         &self,
     ) -> Pin<
         Box_<
-            dyn std::future::Future<Output = Result<(glib::Bytes, Option<GString>), glib::Error>>
-                + 'static,
+            dyn std::future::Future<
+                    Output = Result<(glib::Bytes, Option<glib::GString>), glib::Error>,
+                > + 'static,
         >,
     > {
         Box_::pin(crate::GioFuture::new(self, move |obj, send| {
@@ -1514,13 +1505,13 @@ impl<O: IsA<File>> FileExt for O {
     fn load_contents<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<(Vec<u8>, GString), glib::Error> {
+    ) -> Result<(Vec<u8>, glib::GString), glib::Error> {
         unsafe {
             let mut contents = ptr::null_mut();
             let mut length = mem::MaybeUninit::uninit();
             let mut etag_out = ptr::null_mut();
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_load_contents(
+            let _ = ffi::g_file_load_contents(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut contents,
@@ -1541,7 +1532,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn load_contents_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static,
+        Q: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static,
     >(
         &self,
         cancellable: Option<&P>,
@@ -1549,17 +1540,17 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn load_contents_async_trampoline<
-            Q: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static,
+            Q: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let mut contents = ptr::null_mut();
             let mut length = mem::MaybeUninit::uninit();
             let mut etag_out = ptr::null_mut();
-            let _ = gio_sys::g_file_load_contents_finish(
+            let _ = ffi::g_file_load_contents_finish(
                 _source_object as *mut _,
                 res,
                 &mut contents,
@@ -1580,7 +1571,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = load_contents_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_load_contents_async(
+            ffi::g_file_load_contents_async(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -1592,7 +1583,10 @@ impl<O: IsA<File>> FileExt for O {
     fn load_contents_async_future(
         &self,
     ) -> Pin<
-        Box_<dyn std::future::Future<Output = Result<(Vec<u8>, GString), glib::Error>> + 'static>,
+        Box_<
+            dyn std::future::Future<Output = Result<(Vec<u8>, glib::GString), glib::Error>>
+                + 'static,
+        >,
     > {
         Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
@@ -1604,12 +1598,12 @@ impl<O: IsA<File>> FileExt for O {
         }))
     }
 
-    //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static, R: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R) {
-    //    unsafe { TODO: call gio_sys:g_file_load_partial_contents_async() }
+    //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static, R: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R) {
+    //    unsafe { TODO: call ffi:g_file_load_partial_contents_async() }
     //}
 
     //
-    //fn load_partial_contents_async_future<Q: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static>(&self, read_more_callback: Q) -> Pin<Box_<dyn std::future::Future<Output = Result<(Vec<u8>, GString), glib::Error>> + 'static>> {
+    //fn load_partial_contents_async_future<Q: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static>(&self, read_more_callback: Q) -> Pin<Box_<dyn std::future::Future<Output = Result<(Vec<u8>, glib::GString), glib::Error>> + 'static>> {
 
     //Box_::pin(crate::GioFuture::new(self, move |obj, send| {
     //    let cancellable = Cancellable::new();
@@ -1631,7 +1625,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_make_directory(
+            let _ = ffi::g_file_make_directory(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -1657,13 +1651,12 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn make_directory_async_trampoline<
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ =
-                gio_sys::g_file_make_directory_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_file_make_directory_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -1674,7 +1667,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = make_directory_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_make_directory_async(
+            ffi::g_file_make_directory_async(
                 self.as_ref().to_glib_none().0,
                 io_priority.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -1704,7 +1697,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_make_directory_with_parents(
+            let _ = ffi::g_file_make_directory_with_parents(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -1724,7 +1717,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_make_symbolic_link(
+            let _ = ffi::g_file_make_symbolic_link(
                 self.as_ref().to_glib_none().0,
                 symlink_value.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -1747,11 +1740,11 @@ impl<O: IsA<File>> FileExt for O {
         let progress_callback_data: Box_<Option<Box_<dyn Fn(bool, u64, u64, u64) + 'static>>> =
             Box_::new(progress_callback);
         unsafe extern "C" fn progress_callback_func<P: IsA<Cancellable>>(
-            reporting: glib_sys::gboolean,
+            reporting: glib::ffi::gboolean,
             current_size: u64,
             num_dirs: u64,
             num_files: u64,
-            user_data: glib_sys::gpointer,
+            user_data: glib::ffi::gpointer,
         ) {
             let reporting = from_glib(reporting);
             let callback: &Option<Box_<dyn Fn(bool, u64, u64, u64) + 'static>> =
@@ -1774,7 +1767,7 @@ impl<O: IsA<File>> FileExt for O {
             let mut num_dirs = mem::MaybeUninit::uninit();
             let mut num_files = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_measure_disk_usage(
+            let _ = ffi::g_file_measure_disk_usage(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -1797,7 +1790,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     //fn measure_disk_usage_async<P: IsA<Cancellable>, Q: FnOnce(Result<(u64, u64, u64), glib::Error>) + Send + 'static, R: FnOnce(Result<(u64, u64, u64), glib::Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, cancellable: Option<&P>, progress_callback: Q, callback: R) {
-    //    unsafe { TODO: call gio_sys:g_file_measure_disk_usage_async() }
+    //    unsafe { TODO: call ffi:g_file_measure_disk_usage_async() }
     //}
 
     //
@@ -1827,7 +1820,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<FileMonitor, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_monitor(
+            let ret = ffi::g_file_monitor(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -1848,7 +1841,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<FileMonitor, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_monitor_directory(
+            let ret = ffi::g_file_monitor_directory(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -1869,7 +1862,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<FileMonitor, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_monitor_file(
+            let ret = ffi::g_file_monitor_file(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -1898,12 +1891,12 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn mount_enclosing_volume_trampoline<
             R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_mount_enclosing_volume_finish(
+            let _ = ffi::g_file_mount_enclosing_volume_finish(
                 _source_object as *mut _,
                 res,
                 &mut error,
@@ -1918,7 +1911,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = mount_enclosing_volume_trampoline::<R>;
         unsafe {
-            gio_sys::g_file_mount_enclosing_volume(
+            ffi::g_file_mount_enclosing_volume(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
@@ -1965,13 +1958,12 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn mount_mountable_trampoline<
             R: FnOnce(Result<File, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret =
-                gio_sys::g_file_mount_mountable_finish(_source_object as *mut _, res, &mut error);
+            let ret = ffi::g_file_mount_mountable_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -1982,7 +1974,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = mount_mountable_trampoline::<R>;
         unsafe {
-            gio_sys::g_file_mount_mountable(
+            ffi::g_file_mount_mountable(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
@@ -2025,7 +2017,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn progress_callback_func<P: IsA<File>, Q: IsA<Cancellable>>(
             current_num_bytes: i64,
             total_num_bytes: i64,
-            user_data: glib_sys::gpointer,
+            user_data: glib::ffi::gpointer,
         ) {
             let callback: *mut Option<&mut dyn (FnMut(i64, i64))> =
                 user_data as *const _ as usize as *mut Option<&mut dyn (FnMut(i64, i64))>;
@@ -2043,7 +2035,7 @@ impl<O: IsA<File>> FileExt for O {
         let super_callback0: &Option<&mut dyn (FnMut(i64, i64))> = &progress_callback_data;
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_move(
+            let _ = ffi::g_file_move(
                 self.as_ref().to_glib_none().0,
                 destination.as_ref().to_glib_none().0,
                 flags.to_glib(),
@@ -2066,7 +2058,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<FileIOStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_open_readwrite(
+            let ret = ffi::g_file_open_readwrite(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -2092,13 +2084,12 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn open_readwrite_async_trampoline<
             Q: FnOnce(Result<FileIOStream, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret =
-                gio_sys::g_file_open_readwrite_finish(_source_object as *mut _, res, &mut error);
+            let ret = ffi::g_file_open_readwrite_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -2109,7 +2100,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = open_readwrite_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_open_readwrite_async(
+            ffi::g_file_open_readwrite_async(
                 self.as_ref().to_glib_none().0,
                 io_priority.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -2137,7 +2128,7 @@ impl<O: IsA<File>> FileExt for O {
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn peek_path(&self) -> Option<std::path::PathBuf> {
-        unsafe { from_glib_none(gio_sys::g_file_peek_path(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib_none(ffi::g_file_peek_path(self.as_ref().to_glib_none().0)) }
     }
 
     fn poll_mountable<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
@@ -2149,13 +2140,12 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn poll_mountable_trampoline<
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ =
-                gio_sys::g_file_poll_mountable_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_file_poll_mountable_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -2166,7 +2156,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = poll_mountable_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_poll_mountable(
+            ffi::g_file_poll_mountable(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -2194,7 +2184,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<AppInfo, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_query_default_handler(
+            let ret = ffi::g_file_query_default_handler(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -2222,16 +2212,13 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn query_default_handler_async_trampoline<
             Q: FnOnce(Result<AppInfo, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_query_default_handler_finish(
-                _source_object as *mut _,
-                res,
-                &mut error,
-            );
+            let ret =
+                ffi::g_file_query_default_handler_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -2242,7 +2229,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = query_default_handler_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_query_default_handler_async(
+            ffi::g_file_query_default_handler_async(
                 self.as_ref().to_glib_none().0,
                 io_priority.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -2270,7 +2257,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn query_exists<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> bool {
         unsafe {
-            from_glib(gio_sys::g_file_query_exists(
+            from_glib(ffi::g_file_query_exists(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
             ))
@@ -2283,7 +2270,7 @@ impl<O: IsA<File>> FileExt for O {
         cancellable: Option<&P>,
     ) -> FileType {
         unsafe {
-            from_glib(gio_sys::g_file_query_file_type(
+            from_glib(ffi::g_file_query_file_type(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -2298,7 +2285,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<FileInfo, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_query_filesystem_info(
+            let ret = ffi::g_file_query_filesystem_info(
                 self.as_ref().to_glib_none().0,
                 attributes.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -2326,16 +2313,13 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn query_filesystem_info_async_trampoline<
             Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_query_filesystem_info_finish(
-                _source_object as *mut _,
-                res,
-                &mut error,
-            );
+            let ret =
+                ffi::g_file_query_filesystem_info_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -2346,7 +2330,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = query_filesystem_info_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_query_filesystem_info_async(
+            ffi::g_file_query_filesystem_info_async(
                 self.as_ref().to_glib_none().0,
                 attributes.to_glib_none().0,
                 io_priority.to_glib(),
@@ -2386,7 +2370,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<FileInfo, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_query_info(
+            let ret = ffi::g_file_query_info(
                 self.as_ref().to_glib_none().0,
                 attributes.to_glib_none().0,
                 flags.to_glib(),
@@ -2416,12 +2400,12 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn query_info_async_trampoline<
             Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_query_info_finish(_source_object as *mut _, res, &mut error);
+            let ret = ffi::g_file_query_info_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -2432,7 +2416,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = query_info_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_query_info_async(
+            ffi::g_file_query_info_async(
                 self.as_ref().to_glib_none().0,
                 attributes.to_glib_none().0,
                 flags.to_glib(),
@@ -2468,11 +2452,11 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     //fn query_settable_attributes<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result</*Ignored*/FileAttributeInfoList, glib::Error> {
-    //    unsafe { TODO: call gio_sys:g_file_query_settable_attributes() }
+    //    unsafe { TODO: call ffi:g_file_query_settable_attributes() }
     //}
 
     //fn query_writable_namespaces<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result</*Ignored*/FileAttributeInfoList, glib::Error> {
-    //    unsafe { TODO: call gio_sys:g_file_query_writable_namespaces() }
+    //    unsafe { TODO: call ffi:g_file_query_writable_namespaces() }
     //}
 
     fn read<P: IsA<Cancellable>>(
@@ -2481,7 +2465,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<FileInputStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_read(
+            let ret = ffi::g_file_read(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -2507,12 +2491,12 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn read_async_trampoline<
             Q: FnOnce(Result<FileInputStream, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_read_finish(_source_object as *mut _, res, &mut error);
+            let ret = ffi::g_file_read_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -2523,7 +2507,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = read_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_read_async(
+            ffi::g_file_read_async(
                 self.as_ref().to_glib_none().0,
                 io_priority.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -2557,7 +2541,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<FileOutputStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_replace(
+            let ret = ffi::g_file_replace(
                 self.as_ref().to_glib_none().0,
                 etag.to_glib_none().0,
                 make_backup.to_glib(),
@@ -2589,12 +2573,12 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn replace_async_trampoline<
             Q: FnOnce(Result<FileOutputStream, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_replace_finish(_source_object as *mut _, res, &mut error);
+            let ret = ffi::g_file_replace_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -2605,7 +2589,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = replace_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_replace_async(
+            ffi::g_file_replace_async(
                 self.as_ref().to_glib_none().0,
                 etag.to_glib_none().0,
                 make_backup.to_glib(),
@@ -2651,12 +2635,12 @@ impl<O: IsA<File>> FileExt for O {
         make_backup: bool,
         flags: FileCreateFlags,
         cancellable: Option<&P>,
-    ) -> Result<GString, glib::Error> {
+    ) -> Result<glib::GString, glib::Error> {
         let length = contents.len() as usize;
         unsafe {
             let mut new_etag = ptr::null_mut();
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_replace_contents(
+            let _ = ffi::g_file_replace_contents(
                 self.as_ref().to_glib_none().0,
                 contents.to_glib_none().0,
                 length,
@@ -2676,7 +2660,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     //fn replace_contents_bytes_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + 'static>(&self, contents: &glib::Bytes, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, cancellable: Option<&P>, callback: Q) {
-    //    unsafe { TODO: call gio_sys:g_file_replace_contents_bytes_async() }
+    //    unsafe { TODO: call ffi:g_file_replace_contents_bytes_async() }
     //}
 
     fn replace_readwrite<P: IsA<Cancellable>>(
@@ -2688,7 +2672,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<FileIOStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_replace_readwrite(
+            let ret = ffi::g_file_replace_readwrite(
                 self.as_ref().to_glib_none().0,
                 etag.to_glib_none().0,
                 make_backup.to_glib(),
@@ -2720,13 +2704,13 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn replace_readwrite_async_trampoline<
             Q: FnOnce(Result<FileIOStream, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let ret =
-                gio_sys::g_file_replace_readwrite_finish(_source_object as *mut _, res, &mut error);
+                ffi::g_file_replace_readwrite_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -2737,7 +2721,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = replace_readwrite_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_replace_readwrite_async(
+            ffi::g_file_replace_readwrite_async(
                 self.as_ref().to_glib_none().0,
                 etag.to_glib_none().0,
                 make_backup.to_glib(),
@@ -2778,7 +2762,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn resolve_relative_path<P: AsRef<std::path::Path>>(&self, relative_path: P) -> Option<File> {
         unsafe {
-            from_glib_full(gio_sys::g_file_resolve_relative_path(
+            from_glib_full(ffi::g_file_resolve_relative_path(
                 self.as_ref().to_glib_none().0,
                 relative_path.as_ref().to_glib_none().0,
             ))
@@ -2786,7 +2770,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     //fn set_attribute<P: IsA<Cancellable>>(&self, attribute: &str, type_: FileAttributeType, value_p: /*Unimplemented*/Option<Fundamental: Pointer>, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result<(), glib::Error> {
-    //    unsafe { TODO: call gio_sys:g_file_set_attribute() }
+    //    unsafe { TODO: call ffi:g_file_set_attribute() }
     //}
 
     fn set_attribute_byte_string<P: IsA<Cancellable>>(
@@ -2798,7 +2782,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_set_attribute_byte_string(
+            let _ = ffi::g_file_set_attribute_byte_string(
                 self.as_ref().to_glib_none().0,
                 attribute.to_glib_none().0,
                 value.to_glib_none().0,
@@ -2823,7 +2807,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_set_attribute_int32(
+            let _ = ffi::g_file_set_attribute_int32(
                 self.as_ref().to_glib_none().0,
                 attribute.to_glib_none().0,
                 value,
@@ -2848,7 +2832,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_set_attribute_int64(
+            let _ = ffi::g_file_set_attribute_int64(
                 self.as_ref().to_glib_none().0,
                 attribute.to_glib_none().0,
                 value,
@@ -2873,7 +2857,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_set_attribute_string(
+            let _ = ffi::g_file_set_attribute_string(
                 self.as_ref().to_glib_none().0,
                 attribute.to_glib_none().0,
                 value.to_glib_none().0,
@@ -2898,7 +2882,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_set_attribute_uint32(
+            let _ = ffi::g_file_set_attribute_uint32(
                 self.as_ref().to_glib_none().0,
                 attribute.to_glib_none().0,
                 value,
@@ -2923,7 +2907,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_set_attribute_uint64(
+            let _ = ffi::g_file_set_attribute_uint64(
                 self.as_ref().to_glib_none().0,
                 attribute.to_glib_none().0,
                 value,
@@ -2954,13 +2938,13 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn set_attributes_async_trampoline<
             Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let mut info = ptr::null_mut();
-            let _ = gio_sys::g_file_set_attributes_finish(
+            let _ = ffi::g_file_set_attributes_finish(
                 _source_object as *mut _,
                 res,
                 &mut info,
@@ -2976,7 +2960,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = set_attributes_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_set_attributes_async(
+            ffi::g_file_set_attributes_async(
                 self.as_ref().to_glib_none().0,
                 info.to_glib_none().0,
                 flags.to_glib(),
@@ -3013,7 +2997,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_set_attributes_from_info(
+            let _ = ffi::g_file_set_attributes_from_info(
                 self.as_ref().to_glib_none().0,
                 info.to_glib_none().0,
                 flags.to_glib(),
@@ -3035,7 +3019,7 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<File, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_set_display_name(
+            let ret = ffi::g_file_set_display_name(
                 self.as_ref().to_glib_none().0,
                 display_name.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -3063,13 +3047,13 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn set_display_name_async_trampoline<
             Q: FnOnce(Result<File, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let ret =
-                gio_sys::g_file_set_display_name_finish(_source_object as *mut _, res, &mut error);
+                ffi::g_file_set_display_name_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -3080,7 +3064,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = set_display_name_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_set_display_name_async(
+            ffi::g_file_set_display_name_async(
                 self.as_ref().to_glib_none().0,
                 display_name.to_glib_none().0,
                 io_priority.to_glib(),
@@ -3127,13 +3111,12 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn start_mountable_trampoline<
             R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ =
-                gio_sys::g_file_start_mountable_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_file_start_mountable_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -3144,7 +3127,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = start_mountable_trampoline::<R>;
         unsafe {
-            gio_sys::g_file_start_mountable(
+            ffi::g_file_start_mountable(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 start_operation.map(|p| p.as_ref()).to_glib_none().0,
@@ -3191,13 +3174,12 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn stop_mountable_trampoline<
             R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ =
-                gio_sys::g_file_stop_mountable_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_file_stop_mountable_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -3208,7 +3190,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = stop_mountable_trampoline::<R>;
         unsafe {
-            gio_sys::g_file_stop_mountable(
+            ffi::g_file_stop_mountable(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
@@ -3242,7 +3224,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn supports_thread_contexts(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_file_supports_thread_contexts(
+            from_glib(ffi::g_file_supports_thread_contexts(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -3251,7 +3233,7 @@ impl<O: IsA<File>> FileExt for O {
     fn trash<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_trash(
+            let _ = ffi::g_file_trash(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -3274,12 +3256,12 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn trash_async_trampoline<
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_trash_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_file_trash_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -3290,7 +3272,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = trash_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_trash_async(
+            ffi::g_file_trash_async(
                 self.as_ref().to_glib_none().0,
                 io_priority.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -3329,12 +3311,12 @@ impl<O: IsA<File>> FileExt for O {
         unsafe extern "C" fn unmount_mountable_with_operation_trampoline<
             R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_unmount_mountable_with_operation_finish(
+            let _ = ffi::g_file_unmount_mountable_with_operation_finish(
                 _source_object as *mut _,
                 res,
                 &mut error,
@@ -3349,7 +3331,7 @@ impl<O: IsA<File>> FileExt for O {
         }
         let callback = unmount_mountable_with_operation_trampoline::<R>;
         unsafe {
-            gio_sys::g_file_unmount_mountable_with_operation(
+            ffi::g_file_unmount_mountable_with_operation(
                 self.as_ref().to_glib_none().0,
                 flags.to_glib(),
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,

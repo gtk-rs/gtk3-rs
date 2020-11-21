@@ -2,18 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::ActionGroup;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
-use ActionGroup;
 
-glib_wrapper! {
-    pub struct RemoteActionGroup(Interface<gio_sys::GRemoteActionGroup>) @requires ActionGroup;
+glib::glib_wrapper! {
+    pub struct RemoteActionGroup(Interface<ffi::GRemoteActionGroup>) @requires ActionGroup;
 
     match fn {
-        get_type => || gio_sys::g_remote_action_group_get_type(),
+        get_type => || ffi::g_remote_action_group_get_type(),
     }
 }
 
@@ -43,7 +41,7 @@ impl<O: IsA<RemoteActionGroup>> RemoteActionGroupExt for O {
         platform_data: &glib::Variant,
     ) {
         unsafe {
-            gio_sys::g_remote_action_group_activate_action_full(
+            ffi::g_remote_action_group_activate_action_full(
                 self.as_ref().to_glib_none().0,
                 action_name.to_glib_none().0,
                 parameter.to_glib_none().0,
@@ -59,7 +57,7 @@ impl<O: IsA<RemoteActionGroup>> RemoteActionGroupExt for O {
         platform_data: &glib::Variant,
     ) {
         unsafe {
-            gio_sys::g_remote_action_group_change_action_state_full(
+            ffi::g_remote_action_group_change_action_state_full(
                 self.as_ref().to_glib_none().0,
                 action_name.to_glib_none().0,
                 value.to_glib_none().0,

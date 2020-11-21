@@ -2,56 +2,48 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use gio;
-use gio_sys;
+use crate::Adjustment;
+use crate::Align;
+use crate::Bin;
+use crate::Buildable;
+use crate::Container;
+use crate::CornerType;
+use crate::PlacesOpenFlags;
+use crate::PolicyType;
+use crate::ResizeMode;
+use crate::ScrolledWindow;
+use crate::ShadowType;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
-use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Adjustment;
-use Align;
-use Bin;
-use Buildable;
-use Container;
-use CornerType;
-use PlacesOpenFlags;
-use PolicyType;
-use ResizeMode;
-use ScrolledWindow;
-use ShadowType;
-use Widget;
 
-glib_wrapper! {
-    pub struct PlacesSidebar(Object<gtk_sys::GtkPlacesSidebar, gtk_sys::GtkPlacesSidebarClass>) @extends ScrolledWindow, Bin, Container, Widget, @implements Buildable;
+glib::glib_wrapper! {
+    pub struct PlacesSidebar(Object<ffi::GtkPlacesSidebar, ffi::GtkPlacesSidebarClass>) @extends ScrolledWindow, Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_places_sidebar_get_type(),
+        get_type => || ffi::gtk_places_sidebar_get_type(),
     }
 }
 
 impl PlacesSidebar {
     pub fn new() -> PlacesSidebar {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_places_sidebar_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_places_sidebar_new()).unsafe_cast() }
     }
 
     pub fn add_shortcut<P: IsA<gio::File>>(&self, location: &P) {
         unsafe {
-            gtk_sys::gtk_places_sidebar_add_shortcut(
+            ffi::gtk_places_sidebar_add_shortcut(
                 self.to_glib_none().0,
                 location.as_ref().to_glib_none().0,
             );
@@ -60,23 +52,19 @@ impl PlacesSidebar {
 
     pub fn get_local_only(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_places_sidebar_get_local_only(
+            from_glib(ffi::gtk_places_sidebar_get_local_only(
                 self.to_glib_none().0,
             ))
         }
     }
 
     pub fn get_location(&self) -> Option<gio::File> {
-        unsafe {
-            from_glib_full(gtk_sys::gtk_places_sidebar_get_location(
-                self.to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_full(ffi::gtk_places_sidebar_get_location(self.to_glib_none().0)) }
     }
 
     pub fn get_nth_bookmark(&self, n: i32) -> Option<gio::File> {
         unsafe {
-            from_glib_full(gtk_sys::gtk_places_sidebar_get_nth_bookmark(
+            from_glib_full(ffi::gtk_places_sidebar_get_nth_bookmark(
                 self.to_glib_none().0,
                 n,
             ))
@@ -85,7 +73,7 @@ impl PlacesSidebar {
 
     pub fn get_open_flags(&self) -> PlacesOpenFlags {
         unsafe {
-            from_glib(gtk_sys::gtk_places_sidebar_get_open_flags(
+            from_glib(ffi::gtk_places_sidebar_get_open_flags(
                 self.to_glib_none().0,
             ))
         }
@@ -94,7 +82,7 @@ impl PlacesSidebar {
     #[cfg_attr(feature = "v3_18", deprecated)]
     pub fn get_show_connect_to_server(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_places_sidebar_get_show_connect_to_server(
+            from_glib(ffi::gtk_places_sidebar_get_show_connect_to_server(
                 self.to_glib_none().0,
             ))
         }
@@ -102,7 +90,7 @@ impl PlacesSidebar {
 
     pub fn get_show_desktop(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_places_sidebar_get_show_desktop(
+            from_glib(ffi::gtk_places_sidebar_get_show_desktop(
                 self.to_glib_none().0,
             ))
         }
@@ -110,7 +98,7 @@ impl PlacesSidebar {
 
     pub fn get_show_enter_location(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_places_sidebar_get_show_enter_location(
+            from_glib(ffi::gtk_places_sidebar_get_show_enter_location(
                 self.to_glib_none().0,
             ))
         }
@@ -120,7 +108,7 @@ impl PlacesSidebar {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn get_show_other_locations(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_places_sidebar_get_show_other_locations(
+            from_glib(ffi::gtk_places_sidebar_get_show_other_locations(
                 self.to_glib_none().0,
             ))
         }
@@ -130,7 +118,7 @@ impl PlacesSidebar {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn get_show_recent(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_places_sidebar_get_show_recent(
+            from_glib(ffi::gtk_places_sidebar_get_show_recent(
                 self.to_glib_none().0,
             ))
         }
@@ -140,7 +128,7 @@ impl PlacesSidebar {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     pub fn get_show_starred_location(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_places_sidebar_get_show_starred_location(
+            from_glib(ffi::gtk_places_sidebar_get_show_starred_location(
                 self.to_glib_none().0,
             ))
         }
@@ -150,7 +138,7 @@ impl PlacesSidebar {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn get_show_trash(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_places_sidebar_get_show_trash(
+            from_glib(ffi::gtk_places_sidebar_get_show_trash(
                 self.to_glib_none().0,
             ))
         }
@@ -158,7 +146,7 @@ impl PlacesSidebar {
 
     pub fn list_shortcuts(&self) -> Vec<gio::File> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gtk_sys::gtk_places_sidebar_list_shortcuts(
+            FromGlibPtrContainer::from_glib_full(ffi::gtk_places_sidebar_list_shortcuts(
                 self.to_glib_none().0,
             ))
         }
@@ -166,7 +154,7 @@ impl PlacesSidebar {
 
     pub fn remove_shortcut<P: IsA<gio::File>>(&self, location: &P) {
         unsafe {
-            gtk_sys::gtk_places_sidebar_remove_shortcut(
+            ffi::gtk_places_sidebar_remove_shortcut(
                 self.to_glib_none().0,
                 location.as_ref().to_glib_none().0,
             );
@@ -177,7 +165,7 @@ impl PlacesSidebar {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn set_drop_targets_visible(&self, visible: bool, context: &gdk::DragContext) {
         unsafe {
-            gtk_sys::gtk_places_sidebar_set_drop_targets_visible(
+            ffi::gtk_places_sidebar_set_drop_targets_visible(
                 self.to_glib_none().0,
                 visible.to_glib(),
                 context.to_glib_none().0,
@@ -187,13 +175,13 @@ impl PlacesSidebar {
 
     pub fn set_local_only(&self, local_only: bool) {
         unsafe {
-            gtk_sys::gtk_places_sidebar_set_local_only(self.to_glib_none().0, local_only.to_glib());
+            ffi::gtk_places_sidebar_set_local_only(self.to_glib_none().0, local_only.to_glib());
         }
     }
 
     pub fn set_location<P: IsA<gio::File>>(&self, location: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_places_sidebar_set_location(
+            ffi::gtk_places_sidebar_set_location(
                 self.to_glib_none().0,
                 location.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -202,14 +190,14 @@ impl PlacesSidebar {
 
     pub fn set_open_flags(&self, flags: PlacesOpenFlags) {
         unsafe {
-            gtk_sys::gtk_places_sidebar_set_open_flags(self.to_glib_none().0, flags.to_glib());
+            ffi::gtk_places_sidebar_set_open_flags(self.to_glib_none().0, flags.to_glib());
         }
     }
 
     #[cfg_attr(feature = "v3_18", deprecated)]
     pub fn set_show_connect_to_server(&self, show_connect_to_server: bool) {
         unsafe {
-            gtk_sys::gtk_places_sidebar_set_show_connect_to_server(
+            ffi::gtk_places_sidebar_set_show_connect_to_server(
                 self.to_glib_none().0,
                 show_connect_to_server.to_glib(),
             );
@@ -218,16 +206,13 @@ impl PlacesSidebar {
 
     pub fn set_show_desktop(&self, show_desktop: bool) {
         unsafe {
-            gtk_sys::gtk_places_sidebar_set_show_desktop(
-                self.to_glib_none().0,
-                show_desktop.to_glib(),
-            );
+            ffi::gtk_places_sidebar_set_show_desktop(self.to_glib_none().0, show_desktop.to_glib());
         }
     }
 
     pub fn set_show_enter_location(&self, show_enter_location: bool) {
         unsafe {
-            gtk_sys::gtk_places_sidebar_set_show_enter_location(
+            ffi::gtk_places_sidebar_set_show_enter_location(
                 self.to_glib_none().0,
                 show_enter_location.to_glib(),
             );
@@ -238,7 +223,7 @@ impl PlacesSidebar {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn set_show_other_locations(&self, show_other_locations: bool) {
         unsafe {
-            gtk_sys::gtk_places_sidebar_set_show_other_locations(
+            ffi::gtk_places_sidebar_set_show_other_locations(
                 self.to_glib_none().0,
                 show_other_locations.to_glib(),
             );
@@ -249,10 +234,7 @@ impl PlacesSidebar {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn set_show_recent(&self, show_recent: bool) {
         unsafe {
-            gtk_sys::gtk_places_sidebar_set_show_recent(
-                self.to_glib_none().0,
-                show_recent.to_glib(),
-            );
+            ffi::gtk_places_sidebar_set_show_recent(self.to_glib_none().0, show_recent.to_glib());
         }
     }
 
@@ -260,7 +242,7 @@ impl PlacesSidebar {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
     pub fn set_show_starred_location(&self, show_starred_location: bool) {
         unsafe {
-            gtk_sys::gtk_places_sidebar_set_show_starred_location(
+            ffi::gtk_places_sidebar_set_show_starred_location(
                 self.to_glib_none().0,
                 show_starred_location.to_glib(),
             );
@@ -271,7 +253,7 @@ impl PlacesSidebar {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn set_show_trash(&self, show_trash: bool) {
         unsafe {
-            gtk_sys::gtk_places_sidebar_set_show_trash(self.to_glib_none().0, show_trash.to_glib());
+            ffi::gtk_places_sidebar_set_show_trash(self.to_glib_none().0, show_trash.to_glib());
         }
     }
 
@@ -280,8 +262,8 @@ impl PlacesSidebar {
     pub fn get_property_populate_all(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"populate-all\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -296,8 +278,8 @@ impl PlacesSidebar {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn set_property_populate_all(&self, populate_all: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"populate-all\0".as_ptr() as *const _,
                 Value::from(&populate_all).to_glib_none().0,
             );
@@ -307,8 +289,8 @@ impl PlacesSidebar {
     pub fn get_property_show_other_locations(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"show-other-locations\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -321,8 +303,8 @@ impl PlacesSidebar {
 
     pub fn set_property_show_other_locations(&self, show_other_locations: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"show-other-locations\0".as_ptr() as *const _,
                 Value::from(&show_other_locations).to_glib_none().0,
             );
@@ -332,8 +314,8 @@ impl PlacesSidebar {
     pub fn get_property_show_recent(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"show-recent\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -346,8 +328,8 @@ impl PlacesSidebar {
 
     pub fn set_property_show_recent(&self, show_recent: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"show-recent\0".as_ptr() as *const _,
                 Value::from(&show_recent).to_glib_none().0,
             );
@@ -357,8 +339,8 @@ impl PlacesSidebar {
     pub fn get_property_show_trash(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"show-trash\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -371,8 +353,8 @@ impl PlacesSidebar {
 
     pub fn set_property_show_trash(&self, show_trash: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"show-trash\0".as_ptr() as *const _,
                 Value::from(&show_trash).to_glib_none().0,
             );
@@ -386,9 +368,9 @@ impl PlacesSidebar {
         unsafe extern "C" fn drag_action_ask_trampoline<
             F: Fn(&PlacesSidebar, i32) -> i32 + 'static,
         >(
-            this: *mut gtk_sys::GtkPlacesSidebar,
+            this: *mut ffi::GtkPlacesSidebar,
             actions: libc::c_int,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) -> libc::c_int {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), actions)
@@ -415,9 +397,9 @@ impl PlacesSidebar {
         unsafe extern "C" fn mount_trampoline<
             F: Fn(&PlacesSidebar, &gio::MountOperation) + 'static,
         >(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            mount_operation: *mut gio_sys::GMountOperation,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            mount_operation: *mut gio::ffi::GMountOperation,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), &from_glib_borrow(mount_operation))
@@ -442,10 +424,10 @@ impl PlacesSidebar {
         unsafe extern "C" fn open_location_trampoline<
             F: Fn(&PlacesSidebar, &gio::File, PlacesOpenFlags) + 'static,
         >(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            location: *mut gio_sys::GFile,
-            open_flags: gtk_sys::GtkPlacesOpenFlags,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            location: *mut gio::ffi::GFile,
+            open_flags: ffi::GtkPlacesOpenFlags,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(
@@ -477,8 +459,8 @@ impl PlacesSidebar {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn show_connect_to_server_trampoline<F: Fn(&PlacesSidebar) + 'static>(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -501,8 +483,8 @@ impl PlacesSidebar {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn show_enter_location_trampoline<F: Fn(&PlacesSidebar) + 'static>(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -527,16 +509,16 @@ impl PlacesSidebar {
         unsafe extern "C" fn show_error_message_trampoline<
             F: Fn(&PlacesSidebar, &str, &str) + 'static,
         >(
-            this: *mut gtk_sys::GtkPlacesSidebar,
+            this: *mut ffi::GtkPlacesSidebar,
             primary: *mut libc::c_char,
             secondary: *mut libc::c_char,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(
                 &from_glib_borrow(this),
-                &GString::from_glib_borrow(primary),
-                &GString::from_glib_borrow(secondary),
+                &glib::GString::from_glib_borrow(primary),
+                &glib::GString::from_glib_borrow(secondary),
             )
         }
         unsafe {
@@ -560,8 +542,8 @@ impl PlacesSidebar {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn show_other_locations_trampoline<F: Fn(&PlacesSidebar) + 'static>(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -590,9 +572,9 @@ impl PlacesSidebar {
         unsafe extern "C" fn show_other_locations_with_flags_trampoline<
             F: Fn(&PlacesSidebar, PlacesOpenFlags) + 'static,
         >(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            open_flags: gtk_sys::GtkPlacesOpenFlags,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            open_flags: ffi::GtkPlacesOpenFlags,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), from_glib(open_flags))
@@ -619,9 +601,9 @@ impl PlacesSidebar {
         unsafe extern "C" fn show_starred_location_trampoline<
             F: Fn(&PlacesSidebar, PlacesOpenFlags) + 'static,
         >(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            open_flags: gtk_sys::GtkPlacesOpenFlags,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            open_flags: ffi::GtkPlacesOpenFlags,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), from_glib(open_flags))
@@ -648,9 +630,9 @@ impl PlacesSidebar {
         unsafe extern "C" fn unmount_trampoline<
             F: Fn(&PlacesSidebar, &gio::MountOperation) + 'static,
         >(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            mount_operation: *mut gio_sys::GMountOperation,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            mount_operation: *mut gio::ffi::GMountOperation,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), &from_glib_borrow(mount_operation))
@@ -673,9 +655,9 @@ impl PlacesSidebar {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_local_only_trampoline<F: Fn(&PlacesSidebar) + 'static>(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -698,9 +680,9 @@ impl PlacesSidebar {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_location_trampoline<F: Fn(&PlacesSidebar) + 'static>(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -723,9 +705,9 @@ impl PlacesSidebar {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_open_flags_trampoline<F: Fn(&PlacesSidebar) + 'static>(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -750,9 +732,9 @@ impl PlacesSidebar {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_populate_all_trampoline<F: Fn(&PlacesSidebar) + 'static>(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -777,9 +759,9 @@ impl PlacesSidebar {
         unsafe extern "C" fn notify_show_connect_to_server_trampoline<
             F: Fn(&PlacesSidebar) + 'static,
         >(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -802,9 +784,9 @@ impl PlacesSidebar {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_desktop_trampoline<F: Fn(&PlacesSidebar) + 'static>(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -829,9 +811,9 @@ impl PlacesSidebar {
         unsafe extern "C" fn notify_show_enter_location_trampoline<
             F: Fn(&PlacesSidebar) + 'static,
         >(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -856,9 +838,9 @@ impl PlacesSidebar {
         unsafe extern "C" fn notify_show_other_locations_trampoline<
             F: Fn(&PlacesSidebar) + 'static,
         >(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -881,9 +863,9 @@ impl PlacesSidebar {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_recent_trampoline<F: Fn(&PlacesSidebar) + 'static>(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -910,9 +892,9 @@ impl PlacesSidebar {
         unsafe extern "C" fn notify_show_starred_location_trampoline<
             F: Fn(&PlacesSidebar) + 'static,
         >(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -935,9 +917,9 @@ impl PlacesSidebar {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_trash_trampoline<F: Fn(&PlacesSidebar) + 'static>(
-            this: *mut gtk_sys::GtkPlacesSidebar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkPlacesSidebar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))

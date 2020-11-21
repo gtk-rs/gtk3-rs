@@ -2,31 +2,29 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk_sys;
-use glib;
+use crate::Action;
+use crate::Component;
+use crate::Document;
+use crate::EditableText;
+use crate::Hypertext;
+use crate::Image;
+use crate::Object;
+use crate::Selection;
+use crate::Table;
+use crate::TableCell;
+use crate::Text;
+use crate::Value;
+use crate::Window;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
-use Action;
-use Component;
-use Document;
-use EditableText;
-use Hypertext;
-use Image;
-use Object;
-use Selection;
-use Table;
-use TableCell;
-use Text;
-use Value;
-use Window;
 
-glib_wrapper! {
-    pub struct NoOpObject(Object<atk_sys::AtkNoOpObject, atk_sys::AtkNoOpObjectClass>) @extends Object, @implements Action, Component, Document, EditableText, Hypertext, Image, Selection, Table, TableCell, Text, Value, Window;
+glib::glib_wrapper! {
+    pub struct NoOpObject(Object<ffi::AtkNoOpObject, ffi::AtkNoOpObjectClass>) @extends Object, @implements Action, Component, Document, EditableText, Hypertext, Image, Selection, Table, TableCell, Text, Value, Window;
 
     match fn {
-        get_type => || atk_sys::atk_no_op_object_get_type(),
+        get_type => || ffi::atk_no_op_object_get_type(),
     }
 }
 
@@ -34,7 +32,7 @@ impl NoOpObject {
     pub fn new<P: IsA<glib::Object>>(obj: &P) -> NoOpObject {
         assert_initialized_main_thread!();
         unsafe {
-            Object::from_glib_full(atk_sys::atk_no_op_object_new(obj.as_ref().to_glib_none().0))
+            Object::from_glib_full(ffi::atk_no_op_object_new(obj.as_ref().to_glib_none().0))
                 .unsafe_cast()
         }
     }

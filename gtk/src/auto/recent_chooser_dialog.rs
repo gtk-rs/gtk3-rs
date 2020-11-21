@@ -2,46 +2,43 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use gdk_pixbuf;
+use crate::Align;
+use crate::Application;
+use crate::Bin;
+use crate::Buildable;
+use crate::Container;
+use crate::Dialog;
+use crate::RecentChooser;
+use crate::RecentFilter;
+use crate::RecentManager;
+use crate::RecentSortType;
+use crate::ResizeMode;
+use crate::Widget;
+use crate::Window;
+use crate::WindowPosition;
+use crate::WindowType;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use gtk_sys;
 use std::fmt;
-use Align;
-use Application;
-use Bin;
-use Buildable;
-use Container;
-use Dialog;
-use RecentChooser;
-use RecentFilter;
-use RecentManager;
-use RecentSortType;
-use ResizeMode;
-use Widget;
-use Window;
-use WindowPosition;
-use WindowType;
 
-glib_wrapper! {
-    pub struct RecentChooserDialog(Object<gtk_sys::GtkRecentChooserDialog, gtk_sys::GtkRecentChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, RecentChooser;
+glib::glib_wrapper! {
+    pub struct RecentChooserDialog(Object<ffi::GtkRecentChooserDialog, ffi::GtkRecentChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, RecentChooser;
 
     match fn {
-        get_type => || gtk_sys::gtk_recent_chooser_dialog_get_type(),
+        get_type => || ffi::gtk_recent_chooser_dialog_get_type(),
     }
 }
 
 impl RecentChooserDialog {
     //pub fn new<P: IsA<Window>>(title: Option<&str>, parent: Option<&P>, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> RecentChooserDialog {
-    //    unsafe { TODO: call gtk_sys:gtk_recent_chooser_dialog_new() }
+    //    unsafe { TODO: call ffi:gtk_recent_chooser_dialog_new() }
     //}
 
     //pub fn new_for_manager<P: IsA<Window>, Q: IsA<RecentManager>>(title: Option<&str>, parent: Option<&P>, manager: &Q, first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> RecentChooserDialog {
-    //    unsafe { TODO: call gtk_sys:gtk_recent_chooser_dialog_new_for_manager() }
+    //    unsafe { TODO: call ffi:gtk_recent_chooser_dialog_new_for_manager() }
     //}
 }
 

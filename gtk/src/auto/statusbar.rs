@@ -2,43 +2,38 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
+use crate::Align;
+use crate::BaselinePosition;
+use crate::Box;
+use crate::Buildable;
+use crate::Container;
+use crate::Orientable;
+use crate::Orientation;
+use crate::ResizeMode;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
-use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Align;
-use BaselinePosition;
-use Box;
-use Buildable;
-use Container;
-use Orientable;
-use Orientation;
-use ResizeMode;
-use Widget;
 
-glib_wrapper! {
-    pub struct Statusbar(Object<gtk_sys::GtkStatusbar, gtk_sys::GtkStatusbarClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
+glib::glib_wrapper! {
+    pub struct Statusbar(Object<ffi::GtkStatusbar, ffi::GtkStatusbarClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || gtk_sys::gtk_statusbar_get_type(),
+        get_type => || ffi::gtk_statusbar_get_type(),
     }
 }
 
 impl Statusbar {
     pub fn new() -> Statusbar {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_statusbar_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_statusbar_new()).unsafe_cast() }
     }
 }
 
@@ -446,7 +441,7 @@ pub trait StatusbarExt: 'static {
 impl<O: IsA<Statusbar>> StatusbarExt for O {
     fn get_context_id(&self, context_description: &str) -> u32 {
         unsafe {
-            gtk_sys::gtk_statusbar_get_context_id(
+            ffi::gtk_statusbar_get_context_id(
                 self.as_ref().to_glib_none().0,
                 context_description.to_glib_none().0,
             )
@@ -455,7 +450,7 @@ impl<O: IsA<Statusbar>> StatusbarExt for O {
 
     fn get_message_area(&self) -> Option<Box> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_statusbar_get_message_area(
+            from_glib_none(ffi::gtk_statusbar_get_message_area(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -463,13 +458,13 @@ impl<O: IsA<Statusbar>> StatusbarExt for O {
 
     fn pop(&self, context_id: u32) {
         unsafe {
-            gtk_sys::gtk_statusbar_pop(self.as_ref().to_glib_none().0, context_id);
+            ffi::gtk_statusbar_pop(self.as_ref().to_glib_none().0, context_id);
         }
     }
 
     fn push(&self, context_id: u32, text: &str) -> u32 {
         unsafe {
-            gtk_sys::gtk_statusbar_push(
+            ffi::gtk_statusbar_push(
                 self.as_ref().to_glib_none().0,
                 context_id,
                 text.to_glib_none().0,
@@ -479,22 +474,22 @@ impl<O: IsA<Statusbar>> StatusbarExt for O {
 
     fn remove(&self, context_id: u32, message_id: u32) {
         unsafe {
-            gtk_sys::gtk_statusbar_remove(self.as_ref().to_glib_none().0, context_id, message_id);
+            ffi::gtk_statusbar_remove(self.as_ref().to_glib_none().0, context_id, message_id);
         }
     }
 
     fn remove_all(&self, context_id: u32) {
         unsafe {
-            gtk_sys::gtk_statusbar_remove_all(self.as_ref().to_glib_none().0, context_id);
+            ffi::gtk_statusbar_remove_all(self.as_ref().to_glib_none().0, context_id);
         }
     }
 
     fn connect_text_popped<F: Fn(&Self, u32, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_popped_trampoline<P, F: Fn(&P, u32, &str) + 'static>(
-            this: *mut gtk_sys::GtkStatusbar,
+            this: *mut ffi::GtkStatusbar,
             context_id: libc::c_uint,
             text: *mut libc::c_char,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Statusbar>,
         {
@@ -502,7 +497,7 @@ impl<O: IsA<Statusbar>> StatusbarExt for O {
             f(
                 &Statusbar::from_glib_borrow(this).unsafe_cast_ref(),
                 context_id,
-                &GString::from_glib_borrow(text),
+                &glib::GString::from_glib_borrow(text),
             )
         }
         unsafe {
@@ -520,10 +515,10 @@ impl<O: IsA<Statusbar>> StatusbarExt for O {
 
     fn connect_text_pushed<F: Fn(&Self, u32, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_pushed_trampoline<P, F: Fn(&P, u32, &str) + 'static>(
-            this: *mut gtk_sys::GtkStatusbar,
+            this: *mut ffi::GtkStatusbar,
             context_id: libc::c_uint,
             text: *mut libc::c_char,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Statusbar>,
         {
@@ -531,7 +526,7 @@ impl<O: IsA<Statusbar>> StatusbarExt for O {
             f(
                 &Statusbar::from_glib_borrow(this).unsafe_cast_ref(),
                 context_id,
-                &GString::from_glib_borrow(text),
+                &glib::GString::from_glib_borrow(text),
             )
         }
         unsafe {

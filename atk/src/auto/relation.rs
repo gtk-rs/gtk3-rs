@@ -2,27 +2,23 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk_sys;
-use glib;
+use crate::Object;
+use crate::RelationType;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Object;
-use RelationType;
 
-glib_wrapper! {
-    pub struct Relation(Object<atk_sys::AtkRelation, atk_sys::AtkRelationClass>);
+glib::glib_wrapper! {
+    pub struct Relation(Object<ffi::AtkRelation, ffi::AtkRelationClass>);
 
     match fn {
-        get_type => || atk_sys::atk_relation_get_type(),
+        get_type => || ffi::atk_relation_get_type(),
     }
 }
 
@@ -31,7 +27,7 @@ impl Relation {
         assert_initialized_main_thread!();
         let n_targets = targets.len() as i32;
         unsafe {
-            from_glib_full(atk_sys::atk_relation_new(
+            from_glib_full(ffi::atk_relation_new(
                 targets.to_glib_none().0,
                 n_targets,
                 relationship.to_glib(),
@@ -66,7 +62,7 @@ pub trait RelationExt: 'static {
 impl<O: IsA<Relation>> RelationExt for O {
     fn add_target<P: IsA<Object>>(&self, target: &P) {
         unsafe {
-            atk_sys::atk_relation_add_target(
+            ffi::atk_relation_add_target(
                 self.as_ref().to_glib_none().0,
                 target.as_ref().to_glib_none().0,
             );
@@ -75,7 +71,7 @@ impl<O: IsA<Relation>> RelationExt for O {
 
     fn get_relation_type(&self) -> RelationType {
         unsafe {
-            from_glib(atk_sys::atk_relation_get_relation_type(
+            from_glib(ffi::atk_relation_get_relation_type(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -83,7 +79,7 @@ impl<O: IsA<Relation>> RelationExt for O {
 
     fn get_target(&self) -> Vec<Object> {
         unsafe {
-            FromGlibPtrContainer::from_glib_none(atk_sys::atk_relation_get_target(
+            FromGlibPtrContainer::from_glib_none(ffi::atk_relation_get_target(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -91,7 +87,7 @@ impl<O: IsA<Relation>> RelationExt for O {
 
     fn remove_target<P: IsA<Object>>(&self, target: &P) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_relation_remove_target(
+            from_glib(ffi::atk_relation_remove_target(
                 self.as_ref().to_glib_none().0,
                 target.as_ref().to_glib_none().0,
             ))
@@ -100,8 +96,8 @@ impl<O: IsA<Relation>> RelationExt for O {
 
     fn set_property_relation_type(&self, relation_type: RelationType) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"relation-type\0".as_ptr() as *const _,
                 Value::from(&relation_type).to_glib_none().0,
             );
@@ -110,8 +106,8 @@ impl<O: IsA<Relation>> RelationExt for O {
 
     fn set_property_target(&self, target: Option<&glib::ValueArray>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"target\0".as_ptr() as *const _,
                 Value::from(target).to_glib_none().0,
             );
@@ -123,9 +119,9 @@ impl<O: IsA<Relation>> RelationExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_relation_type_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkRelation,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkRelation,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Relation>,
         {
@@ -147,9 +143,9 @@ impl<O: IsA<Relation>> RelationExt for O {
 
     fn connect_property_target_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_target_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkRelation,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkRelation,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Relation>,
         {

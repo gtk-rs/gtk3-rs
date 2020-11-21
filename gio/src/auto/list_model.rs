@@ -2,10 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-use glib;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::object::Cast;
@@ -19,23 +15,17 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-use glib_sys;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-use libc;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use std::boxed::Box as Box_;
 use std::fmt;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use std::mem::transmute;
 
-glib_wrapper! {
-    pub struct ListModel(Interface<gio_sys::GListModel>);
+glib::glib_wrapper! {
+    pub struct ListModel(Interface<ffi::GListModel>);
 
     match fn {
-        get_type => || gio_sys::g_list_model_get_type(),
+        get_type => || ffi::g_list_model_get_type(),
     }
 }
 
@@ -72,14 +62,14 @@ impl<O: IsA<ListModel>> ListModelExt for O {
     //#[cfg(any(feature = "v2_44", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     //fn get_item(&self, position: u32) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-    //    unsafe { TODO: call gio_sys:g_list_model_get_item() }
+    //    unsafe { TODO: call ffi:g_list_model_get_item() }
     //}
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn get_item_type(&self) -> glib::types::Type {
         unsafe {
-            from_glib(gio_sys::g_list_model_get_item_type(
+            from_glib(ffi::g_list_model_get_item_type(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -88,14 +78,14 @@ impl<O: IsA<ListModel>> ListModelExt for O {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn get_n_items(&self) -> u32 {
-        unsafe { gio_sys::g_list_model_get_n_items(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::g_list_model_get_n_items(self.as_ref().to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn get_object(&self, position: u32) -> Option<glib::Object> {
         unsafe {
-            from_glib_full(gio_sys::g_list_model_get_object(
+            from_glib_full(ffi::g_list_model_get_object(
                 self.as_ref().to_glib_none().0,
                 position,
             ))
@@ -106,7 +96,7 @@ impl<O: IsA<ListModel>> ListModelExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn items_changed(&self, position: u32, removed: u32, added: u32) {
         unsafe {
-            gio_sys::g_list_model_items_changed(
+            ffi::g_list_model_items_changed(
                 self.as_ref().to_glib_none().0,
                 position,
                 removed,
@@ -122,11 +112,11 @@ impl<O: IsA<ListModel>> ListModelExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn items_changed_trampoline<P, F: Fn(&P, u32, u32, u32) + 'static>(
-            this: *mut gio_sys::GListModel,
+            this: *mut ffi::GListModel,
             position: libc::c_uint,
             removed: libc::c_uint,
             added: libc::c_uint,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<ListModel>,
         {

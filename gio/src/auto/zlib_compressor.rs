@@ -2,7 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::Converter;
+use crate::FileInfo;
+use crate::ZlibCompressorFormat;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -10,26 +12,21 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Converter;
-use FileInfo;
-use ZlibCompressorFormat;
 
-glib_wrapper! {
-    pub struct ZlibCompressor(Object<gio_sys::GZlibCompressor, gio_sys::GZlibCompressorClass>) @implements Converter;
+glib::glib_wrapper! {
+    pub struct ZlibCompressor(Object<ffi::GZlibCompressor, ffi::GZlibCompressorClass>) @implements Converter;
 
     match fn {
-        get_type => || gio_sys::g_zlib_compressor_get_type(),
+        get_type => || ffi::g_zlib_compressor_get_type(),
     }
 }
 
 impl ZlibCompressor {
     pub fn new(format: ZlibCompressorFormat, level: i32) -> ZlibCompressor {
-        unsafe { from_glib_full(gio_sys::g_zlib_compressor_new(format.to_glib(), level)) }
+        unsafe { from_glib_full(ffi::g_zlib_compressor_new(format.to_glib(), level)) }
     }
 }
 
@@ -50,7 +47,7 @@ pub trait ZlibCompressorExt: 'static {
 impl<O: IsA<ZlibCompressor>> ZlibCompressorExt for O {
     fn get_file_info(&self) -> Option<FileInfo> {
         unsafe {
-            from_glib_none(gio_sys::g_zlib_compressor_get_file_info(
+            from_glib_none(ffi::g_zlib_compressor_get_file_info(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -58,7 +55,7 @@ impl<O: IsA<ZlibCompressor>> ZlibCompressorExt for O {
 
     fn set_file_info(&self, file_info: Option<&FileInfo>) {
         unsafe {
-            gio_sys::g_zlib_compressor_set_file_info(
+            ffi::g_zlib_compressor_set_file_info(
                 self.as_ref().to_glib_none().0,
                 file_info.to_glib_none().0,
             );
@@ -68,8 +65,8 @@ impl<O: IsA<ZlibCompressor>> ZlibCompressorExt for O {
     fn get_property_format(&self) -> ZlibCompressorFormat {
         unsafe {
             let mut value = Value::from_type(<ZlibCompressorFormat as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"format\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -83,8 +80,8 @@ impl<O: IsA<ZlibCompressor>> ZlibCompressorExt for O {
     fn get_property_level(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"level\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -97,9 +94,9 @@ impl<O: IsA<ZlibCompressor>> ZlibCompressorExt for O {
 
     fn connect_property_file_info_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_file_info_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GZlibCompressor,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GZlibCompressor,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<ZlibCompressor>,
         {

@@ -2,18 +2,17 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::OutputStream;
+use crate::PollableOutputStream;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
-use OutputStream;
-use PollableOutputStream;
 
-glib_wrapper! {
-    pub struct UnixOutputStream(Object<gio_sys::GUnixOutputStream, gio_sys::GUnixOutputStreamClass>) @extends OutputStream, @implements PollableOutputStream;
+glib::glib_wrapper! {
+    pub struct UnixOutputStream(Object<ffi::GUnixOutputStream, ffi::GUnixOutputStreamClass>) @extends OutputStream, @implements PollableOutputStream;
 
     match fn {
-        get_type => || gio_sys::g_unix_output_stream_get_type(),
+        get_type => || ffi::g_unix_output_stream_get_type(),
     }
 }
 
@@ -26,7 +25,7 @@ pub trait UnixOutputStreamExt: 'static {
 impl<O: IsA<UnixOutputStream>> UnixOutputStreamExt for O {
     fn get_close_fd(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_unix_output_stream_get_close_fd(
+            from_glib(ffi::g_unix_output_stream_get_close_fd(
                 self.as_ref().to_glib_none().0,
             ))
         }
