@@ -5,7 +5,7 @@
 #![allow(deprecated)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-pub use pango_cairo_sys as ffi;
+pub use ffi;
 
 #[cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
 #[allow(unused_imports)]

@@ -6,7 +6,7 @@
 #![cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-pub use gdk_x11_sys as ffi;
+pub use ffi;
 
 #[macro_use]
 mod rt;

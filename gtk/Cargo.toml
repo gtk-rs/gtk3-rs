@@ -20,21 +20,21 @@ edition = "2018"
 name = "gtk"
 
 [features]
-v3_16 = ["gtk-sys/v3_16", "gio/v2_44", "gdk/v3_16"]
-v3_18 = ["v3_16", "gtk-sys/v3_18"]
-v3_20 = ["v3_18", "gtk-sys/v3_20"]
-v3_22 = ["v3_20", "gtk-sys/v3_22", "gdk/v3_22"]
-v3_22_20 = ["v3_22", "gtk-sys/v3_22"]
-v3_22_26 = ["v3_22_20", "gtk-sys/v3_22_26"]
-v3_22_27 = ["v3_22_26", "gtk-sys/v3_22_27"]
-v3_22_29 = ["v3_22_27", "gtk-sys/v3_22_29"]
-v3_22_30 = ["v3_22_29", "gtk-sys/v3_22_30"]
-v3_24 = ["v3_22_30", "gtk-sys/v3_24"]
-v3_24_8 = ["v3_24", "gtk-sys/v3_24_8"]
-v3_24_9 = ["v3_24_8", "gtk-sys/v3_24_9"]
+v3_16 = ["ffi/v3_16", "gio/v2_44", "gdk/v3_16"]
+v3_18 = ["v3_16", "ffi/v3_18"]
+v3_20 = ["v3_18", "ffi/v3_20"]
+v3_22 = ["v3_20", "ffi/v3_22", "gdk/v3_22"]
+v3_22_20 = ["v3_22", "ffi/v3_22"]
+v3_22_26 = ["v3_22_20", "ffi/v3_22_26"]
+v3_22_27 = ["v3_22_26", "ffi/v3_22_27"]
+v3_22_29 = ["v3_22_27", "ffi/v3_22_29"]
+v3_22_30 = ["v3_22_29", "ffi/v3_22_30"]
+v3_24 = ["v3_22_30", "ffi/v3_24"]
+v3_24_8 = ["v3_24", "ffi/v3_24_8"]
+v3_24_9 = ["v3_24_8", "ffi/v3_24_9"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs", "gdk/purge-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs", "gdk/embed-lgpl-docs"]
-dox = ["gdk/dox", "gtk-sys/dox"]
+dox = ["gdk/dox", "ffi/dox"]
 
 [package.metadata.docs.rs]
 features = ["dox", "embed-lgpl-docs"]
@@ -61,7 +61,7 @@ gdk-pixbuf-sys = { path = "../gdk-pixbuf/sys" }
 gio-sys = { path = "../gio/sys" }
 glib-sys = { path = "../glib/sys" }
 gobject-sys = { path = "../glib/gobject-sys" }
-gtk-sys = { path = "../gtk/sys" }
+ffi = { package = "gtk-sys", path = "sys" }
 pango-sys = { path = "../pango/sys" }
 cairo-rs = { path = "../cairo" }
 gio = { path = "../gio" }

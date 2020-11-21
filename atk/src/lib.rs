@@ -15,7 +15,7 @@
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 #![allow(deprecated)]
 
-pub use atk_sys as ffi;
+pub use ffi;
 
 #[macro_use]
 mod rt;

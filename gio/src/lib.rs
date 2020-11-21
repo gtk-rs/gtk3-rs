@@ -8,7 +8,7 @@
 #![allow(clippy::type_complexity)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-pub use gio_sys as ffi;
+pub use ffi;
 
 mod app_info;
 mod application;

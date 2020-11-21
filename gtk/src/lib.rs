@@ -158,7 +158,7 @@
 #![allow(deprecated)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-pub use gtk_sys as ffi;
+pub use ffi;
 
 pub mod xlib;
 

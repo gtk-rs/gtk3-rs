@@ -9,7 +9,7 @@
 #![cfg_attr(feature = "cargo-clippy", allow(trivially_copy_pass_by_ref))]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-pub use graphene_sys as ffi;
+pub use ffi;
 
 // Graphene has no runtime to initialize
 macro_rules! assert_initialized_main_thread {

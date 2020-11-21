@@ -7,7 +7,7 @@
 #![cfg_attr(feature = "cargo-clippy", allow(trivially_copy_pass_by_ref))]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-pub use gdk_sys as ffi;
+pub use ffi;
 
 #[macro_use]
 mod rt;

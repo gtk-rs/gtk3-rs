@@ -78,8 +78,8 @@
 #![allow(clippy::unreadable_literal)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-pub use glib_sys as ffi;
-pub use gobject_sys as gobject_ffi;
+pub use ffi;
+pub use gobject_ffi;
 
 pub use glib_macros::{gflags, GBoxed, GEnum};
 
