@@ -1,8 +1,7 @@
+use crate::GlyphItem;
+use crate::GlyphString;
+use crate::Item;
 use glib::translate::*;
-use pango_sys;
-use GlyphItem;
-use GlyphString;
-use Item;
 
 impl GlyphString {
     pub fn num_glyphs(&self) -> i32 {
@@ -15,7 +14,7 @@ impl GlyphString {
         }
         let num_glyphs = self.num_glyphs() as usize;
         unsafe {
-            let glyphs: *mut pango_sys::PangoGlyphInfo = (*self.to_glib_none().0).glyphs;
+            let glyphs: *mut ffi::PangoGlyphInfo = (*self.to_glib_none().0).glyphs;
             FromGlibContainer::from_glib_none_num(glyphs, num_glyphs)
         }
     }
@@ -32,7 +31,7 @@ impl GlyphItem {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-pub struct GlyphInfo(*mut pango_sys::PangoGlyphInfo);
+pub struct GlyphInfo(*mut ffi::PangoGlyphInfo);
 
 impl GlyphInfo {
     pub fn glyph(&self) -> u32 {
@@ -44,13 +43,8 @@ impl GlyphInfo {
     }
 }
 
-impl FromGlibContainerAsVec<*mut pango_sys::PangoGlyphInfo, *mut pango_sys::PangoGlyphInfo>
-    for GlyphInfo
-{
-    unsafe fn from_glib_none_num_as_vec(
-        ptr: *mut pango_sys::PangoGlyphInfo,
-        num: usize,
-    ) -> Vec<Self> {
+impl FromGlibContainerAsVec<*mut ffi::PangoGlyphInfo, *mut ffi::PangoGlyphInfo> for GlyphInfo {
+    unsafe fn from_glib_none_num_as_vec(ptr: *mut ffi::PangoGlyphInfo, num: usize) -> Vec<Self> {
         if num == 0 || ptr.is_null() {
             return Vec::new();
         }
@@ -62,68 +56,65 @@ impl FromGlibContainerAsVec<*mut pango_sys::PangoGlyphInfo, *mut pango_sys::Pang
     }
 
     unsafe fn from_glib_container_num_as_vec(
-        ptr: *mut pango_sys::PangoGlyphInfo,
+        ptr: *mut ffi::PangoGlyphInfo,
         num: usize,
     ) -> Vec<Self> {
         let res = FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
-        glib_sys::g_free(ptr as *mut _);
+        glib::ffi::g_free(ptr as *mut _);
         res
     }
 
-    unsafe fn from_glib_full_num_as_vec(
-        ptr: *mut pango_sys::PangoGlyphInfo,
-        num: usize,
-    ) -> Vec<Self> {
+    unsafe fn from_glib_full_num_as_vec(ptr: *mut ffi::PangoGlyphInfo, num: usize) -> Vec<Self> {
         FromGlibContainerAsVec::from_glib_container_num_as_vec(ptr, num)
     }
 }
 
 #[doc(hidden)]
-impl<'a> ToGlibPtr<'a, *mut pango_sys::PangoGlyphInfo> for &'a GlyphInfo {
+impl<'a> ToGlibPtr<'a, *mut ffi::PangoGlyphInfo> for &'a GlyphInfo {
     type Storage = &'a GlyphInfo;
 
-    fn to_glib_none(&self) -> Stash<'a, *mut pango_sys::PangoGlyphInfo, Self> {
+    fn to_glib_none(&self) -> Stash<'a, *mut ffi::PangoGlyphInfo, Self> {
         Stash(self.0, *self)
     }
 }
 
 #[doc(hidden)]
-impl<'a> ToGlibPtrMut<'a, *mut pango_sys::PangoGlyphInfo> for GlyphInfo {
+impl<'a> ToGlibPtrMut<'a, *mut ffi::PangoGlyphInfo> for GlyphInfo {
     type Storage = &'a mut Self;
 
     #[inline]
-    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut pango_sys::PangoGlyphInfo, Self> {
+    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut ffi::PangoGlyphInfo, Self> {
         StashMut(self.0, self)
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrNone<*mut pango_sys::PangoGlyphInfo> for GlyphInfo {
-    unsafe fn from_glib_none(ptr: *mut pango_sys::PangoGlyphInfo) -> Self {
+impl FromGlibPtrNone<*mut ffi::PangoGlyphInfo> for GlyphInfo {
+    unsafe fn from_glib_none(ptr: *mut ffi::PangoGlyphInfo) -> Self {
         assert!(!ptr.is_null());
         GlyphInfo(ptr)
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrFull<*mut pango_sys::PangoGlyphInfo> for GlyphInfo {
-    unsafe fn from_glib_full(ptr: *mut pango_sys::PangoGlyphInfo) -> Self {
+impl FromGlibPtrFull<*mut ffi::PangoGlyphInfo> for GlyphInfo {
+    unsafe fn from_glib_full(ptr: *mut ffi::PangoGlyphInfo) -> Self {
         assert!(!ptr.is_null());
         GlyphInfo(ptr)
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrNone<*const pango_sys::PangoGlyphInfo> for GlyphInfo {
-    unsafe fn from_glib_none(ptr: *const pango_sys::PangoGlyphInfo) -> Self {
+impl FromGlibPtrNone<*const ffi::PangoGlyphInfo> for GlyphInfo {
+    unsafe fn from_glib_none(ptr: *const ffi::PangoGlyphInfo) -> Self {
         assert!(!ptr.is_null());
         GlyphInfo(ptr as *mut _)
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrFull<*const pango_sys::PangoGlyphInfo> for GlyphInfo {
-    unsafe fn from_glib_full(ptr: *const pango_sys::PangoGlyphInfo) -> Self {
+impl FromGlibPtrFull<*const ffi::PangoGlyphInfo> for GlyphInfo {
+    unsafe fn from_glib_full(ptr: *const ffi::PangoGlyphInfo) -> Self {
         assert!(!ptr.is_null());
         GlyphInfo(ptr as *mut _)
     }
@@ -131,7 +122,7 @@ impl FromGlibPtrFull<*const pango_sys::PangoGlyphInfo> for GlyphInfo {
 
 #[derive(Clone, Copy, Debug)]
 #[repr(C)]
-pub struct GlyphGeometry(pango_sys::PangoGlyphGeometry);
+pub struct GlyphGeometry(ffi::PangoGlyphGeometry);
 
 impl GlyphGeometry {
     pub fn width(&self) -> i32 {
@@ -148,19 +139,19 @@ impl GlyphGeometry {
 }
 
 #[doc(hidden)]
-impl<'a> ToGlibPtr<'a, *const pango_sys::PangoGlyphGeometry> for GlyphGeometry {
+impl<'a> ToGlibPtr<'a, *const ffi::PangoGlyphGeometry> for GlyphGeometry {
     type Storage = &'a Self;
 
     #[inline]
-    fn to_glib_none(&'a self) -> Stash<'a, *const pango_sys::PangoGlyphGeometry, Self> {
-        let ptr: *const pango_sys::PangoGlyphGeometry = &self.0;
+    fn to_glib_none(&'a self) -> Stash<'a, *const ffi::PangoGlyphGeometry, Self> {
+        let ptr: *const ffi::PangoGlyphGeometry = &self.0;
         Stash(ptr, self)
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrNone<*const pango_sys::PangoGlyphGeometry> for GlyphGeometry {
-    unsafe fn from_glib_none(ptr: *const pango_sys::PangoGlyphGeometry) -> Self {
+impl FromGlibPtrNone<*const ffi::PangoGlyphGeometry> for GlyphGeometry {
+    unsafe fn from_glib_none(ptr: *const ffi::PangoGlyphGeometry) -> Self {
         GlyphGeometry(*ptr)
     }
 }

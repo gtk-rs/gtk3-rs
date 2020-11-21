@@ -3,7 +3,6 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 use glib::translate::*;
-use pango_sys;
 use std::mem;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -35,37 +34,37 @@ impl Uninitialized for Rectangle {
 }
 
 #[doc(hidden)]
-impl<'a> ToGlibPtr<'a, *const pango_sys::PangoRectangle> for Rectangle {
+impl<'a> ToGlibPtr<'a, *const ffi::PangoRectangle> for Rectangle {
     type Storage = &'a Self;
 
     #[inline]
-    fn to_glib_none(&'a self) -> Stash<'a, *const pango_sys::PangoRectangle, Self> {
+    fn to_glib_none(&'a self) -> Stash<'a, *const ffi::PangoRectangle, Self> {
         let ptr: *const Rectangle = &*self;
-        Stash(ptr as *const pango_sys::PangoRectangle, self)
+        Stash(ptr as *const ffi::PangoRectangle, self)
     }
 }
 
 #[doc(hidden)]
-impl<'a> ToGlibPtrMut<'a, *mut pango_sys::PangoRectangle> for Rectangle {
+impl<'a> ToGlibPtrMut<'a, *mut ffi::PangoRectangle> for Rectangle {
     type Storage = &'a mut Self;
 
     #[inline]
-    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut pango_sys::PangoRectangle, Self> {
+    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut ffi::PangoRectangle, Self> {
         let ptr: *mut Rectangle = &mut *self;
-        StashMut(ptr as *mut pango_sys::PangoRectangle, self)
+        StashMut(ptr as *mut ffi::PangoRectangle, self)
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrNone<*const pango_sys::PangoRectangle> for Rectangle {
-    unsafe fn from_glib_none(ptr: *const pango_sys::PangoRectangle) -> Self {
+impl FromGlibPtrNone<*const ffi::PangoRectangle> for Rectangle {
+    unsafe fn from_glib_none(ptr: *const ffi::PangoRectangle) -> Self {
         *(ptr as *const Rectangle)
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrNone<*mut pango_sys::PangoRectangle> for Rectangle {
-    unsafe fn from_glib_none(ptr: *mut pango_sys::PangoRectangle) -> Self {
+impl FromGlibPtrNone<*mut ffi::PangoRectangle> for Rectangle {
+    unsafe fn from_glib_none(ptr: *mut ffi::PangoRectangle) -> Self {
         *(ptr as *mut Rectangle)
     }
 }

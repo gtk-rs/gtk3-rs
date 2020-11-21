@@ -2,19 +2,15 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::AttrList;
+use crate::Attribute;
 use glib::translate::*;
-use pango_sys;
 use std::mem;
-use AttrList;
-use Attribute;
 
 impl AttrList {
     pub fn change(&self, attr: Attribute) {
         unsafe {
-            pango_sys::pango_attr_list_change(
-                self.to_glib_none().0,
-                attr.to_glib_none().0 as *mut _,
-            );
+            ffi::pango_attr_list_change(self.to_glib_none().0, attr.to_glib_none().0 as *mut _);
             mem::forget(attr); //As attr transferred fully
         }
     }
@@ -23,7 +19,7 @@ impl AttrList {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
     fn equal(&self, other_list: &AttrList) -> bool {
         unsafe {
-            from_glib(pango_sys::pango_attr_list_equal(
+            from_glib(ffi::pango_attr_list_equal(
                 self.to_glib_none().0,
                 other_list.to_glib_none().0,
             ))
@@ -32,17 +28,14 @@ impl AttrList {
 
     pub fn insert(&self, attr: Attribute) {
         unsafe {
-            pango_sys::pango_attr_list_insert(
-                self.to_glib_none().0,
-                attr.to_glib_none().0 as *mut _,
-            );
+            ffi::pango_attr_list_insert(self.to_glib_none().0, attr.to_glib_none().0 as *mut _);
             mem::forget(attr); //As attr transferred fully
         }
     }
 
     pub fn insert_before(&self, attr: Attribute) {
         unsafe {
-            pango_sys::pango_attr_list_insert_before(
+            ffi::pango_attr_list_insert_before(
                 self.to_glib_none().0,
                 attr.to_glib_none().0 as *mut _,
             );
