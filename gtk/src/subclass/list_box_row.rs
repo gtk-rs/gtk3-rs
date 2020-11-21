@@ -31,7 +31,7 @@ unsafe impl<T: ListBoxRowImpl> IsSubclassable<T> for ListBoxRow {
     }
 }
 
-unsafe extern "C" fn list_box_row_activate<T: ListBoxRowImpl>(ptr: *mut gtk_sys::GtkListBoxRow) {
+unsafe extern "C" fn list_box_row_activate<T: ListBoxRowImpl>(ptr: *mut ffi::GtkListBoxRow) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<ListBoxRow> = from_glib_borrow(ptr);

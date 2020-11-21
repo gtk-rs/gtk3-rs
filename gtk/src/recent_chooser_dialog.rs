@@ -8,14 +8,13 @@ use crate::Widget;
 use crate::Window;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
-use gtk_sys;
 use std::ptr;
 
 impl RecentChooserDialog {
     pub fn new<T: IsA<Window>>(title: Option<&str>, parent: Option<&T>) -> RecentChooserDialog {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_recent_chooser_dialog_new(
+            Widget::from_glib_none(ffi::gtk_recent_chooser_dialog_new(
                 title.to_glib_none().0,
                 parent.map(|p| p.as_ref()).to_glib_none().0,
                 ptr::null_mut(),
@@ -31,7 +30,7 @@ impl RecentChooserDialog {
     ) -> RecentChooserDialog {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_recent_chooser_dialog_new_for_manager(
+            Widget::from_glib_none(ffi::gtk_recent_chooser_dialog_new_for_manager(
                 title.to_glib_none().0,
                 parent.map(|p| p.as_ref()).to_glib_none().0,
                 manager.to_glib_none().0,

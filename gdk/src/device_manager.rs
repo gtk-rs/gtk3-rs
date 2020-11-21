@@ -3,11 +3,10 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 use crate::DeviceManager;
-use gdk_sys;
 
 impl DeviceManager {
     pub fn disable_multidevice() {
         assert_not_initialized!();
-        unsafe { gdk_sys::gdk_disable_multidevice() }
+        unsafe { ffi::gdk_disable_multidevice() }
     }
 }

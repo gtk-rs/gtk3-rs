@@ -7,24 +7,19 @@ use crate::GravityHint;
 use crate::Matrix;
 use crate::Script;
 use glib::translate::*;
-use pango_sys;
 
 impl Gravity {
     pub fn to_rotation(&self) -> f64 {
-        unsafe { pango_sys::pango_gravity_to_rotation(self.to_glib()) }
+        unsafe { ffi::pango_gravity_to_rotation(self.to_glib()) }
     }
 
     pub fn get_for_matrix(matrix: &Matrix) -> Gravity {
-        unsafe {
-            from_glib(pango_sys::pango_gravity_get_for_matrix(
-                matrix.to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::pango_gravity_get_for_matrix(matrix.to_glib_none().0)) }
     }
 
     pub fn get_for_script(script: Script, base_gravity: Gravity, hint: GravityHint) -> Gravity {
         unsafe {
-            from_glib(pango_sys::pango_gravity_get_for_script(
+            from_glib(ffi::pango_gravity_get_for_script(
                 script.to_glib(),
                 base_gravity.to_glib(),
                 hint.to_glib(),
@@ -39,7 +34,7 @@ impl Gravity {
         hint: GravityHint,
     ) -> Gravity {
         unsafe {
-            from_glib(pango_sys::pango_gravity_get_for_script_and_width(
+            from_glib(ffi::pango_gravity_get_for_script_and_width(
                 script.to_glib(),
                 wide.to_glib(),
                 base_gravity.to_glib(),

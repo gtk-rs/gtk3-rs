@@ -22,11 +22,11 @@ pub trait EditableSignals: 'static {
 
 mod editable {
     use crate::Editable;
+    use ffi::GtkEditable;
     use glib::object::Cast;
     use glib::signal::{connect_raw, SignalHandlerId};
     use glib::translate::*;
     use glib::IsA;
-    use gtk_sys::GtkEditable;
     use libc::{c_char, c_int, c_uchar};
     use std::ffi::CStr;
     use std::mem::transmute;
@@ -154,13 +154,13 @@ mod spin_button {
     use crate::Inhibit;
     use crate::ScrollType;
     use crate::SpinButton;
+    use ffi::{GtkScrollType, GtkSpinButton, GTK_INPUT_ERROR};
     use glib::ffi::gboolean;
     use glib::ffi::{GFALSE, GTRUE};
     use glib::object::Cast;
     use glib::signal::{connect_raw, SignalHandlerId};
     use glib::translate::*;
     use glib::IsA;
-    use gtk_sys::{GtkScrollType, GtkSpinButton, GTK_INPUT_ERROR};
     use libc::{c_double, c_int};
     use std::boxed::Box as Box_;
     use std::mem::transmute;
@@ -310,6 +310,7 @@ pub trait OverlaySignals: 'static {
 mod overlay {
     use crate::Overlay;
     use crate::Widget;
+    use ffi::{GtkOverlay, GtkWidget};
     use gdk::ffi::GdkRectangle;
     use gdk::Rectangle;
     use glib::ffi::{gboolean, gpointer};
@@ -317,7 +318,6 @@ mod overlay {
     use glib::signal::{connect_raw, SignalHandlerId};
     use glib::translate::*;
     use glib::IsA;
-    use gtk_sys::{GtkOverlay, GtkWidget};
     use std::mem::transmute;
     use std::ptr;
 

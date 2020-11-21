@@ -2,7 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use atk_sys;
 use glib::translate::*;
 use glib::GString;
 use std::fmt;
@@ -22,8 +21,8 @@ impl fmt::Display for Attribute {
 }
 
 #[doc(hidden)]
-impl FromGlib<atk_sys::AtkAttribute> for Attribute {
-    fn from_glib(value: atk_sys::AtkAttribute) -> Self {
+impl FromGlib<ffi::AtkAttribute> for Attribute {
+    fn from_glib(value: ffi::AtkAttribute) -> Self {
         skip_assert_initialized!();
         unsafe {
             Attribute {
@@ -36,10 +35,10 @@ impl FromGlib<atk_sys::AtkAttribute> for Attribute {
 
 #[doc(hidden)]
 impl ToGlib for Attribute {
-    type GlibType = atk_sys::AtkAttribute;
+    type GlibType = ffi::AtkAttribute;
 
-    fn to_glib(&self) -> atk_sys::AtkAttribute {
-        atk_sys::AtkAttribute {
+    fn to_glib(&self) -> ffi::AtkAttribute {
+        ffi::AtkAttribute {
             name: self.name.to_glib_none().0,
             value: self.value.to_glib_none().0,
         }

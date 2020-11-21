@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use gtk_sys;
+use ffi;
 
 use libc::c_char;
 
@@ -30,7 +30,7 @@ impl<T: CellRendererTextImpl> CellRendererTextImplExt for T {
         unsafe {
             let data = T::type_data();
             let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererTextClass;
+                data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererTextClass;
             if let Some(f) = (*parent_class).edited {
                 f(
                     renderer
@@ -55,7 +55,7 @@ unsafe impl<T: CellRendererTextImpl> IsSubclassable<T> for CellRendererText {
 }
 
 unsafe extern "C" fn cell_renderer_text_edited<T: CellRendererTextImpl>(
-    ptr: *mut gtk_sys::GtkCellRendererText,
+    ptr: *mut ffi::GtkCellRendererText,
     path: *const c_char,
     new_text: *const c_char,
 ) {

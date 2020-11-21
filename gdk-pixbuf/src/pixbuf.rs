@@ -2,7 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gdk_pixbuf_sys;
 use gio;
 use glib::object::IsA;
 use glib::translate::*;
@@ -60,7 +59,7 @@ impl Pixbuf {
         };
 
         unsafe {
-            from_glib_full(gdk_pixbuf_sys::gdk_pixbuf_new_from_data(
+            from_glib_full(ffi::gdk_pixbuf_new_from_data(
                 ptr,
                 colorspace.to_glib(),
                 has_alpha.to_glib(),
@@ -90,9 +89,9 @@ impl Pixbuf {
 
     pub fn from_file<T: AsRef<Path>>(filename: T) -> Result<Pixbuf, Error> {
         #[cfg(not(windows))]
-        use gdk_pixbuf_sys::gdk_pixbuf_new_from_file;
+        use ffi::gdk_pixbuf_new_from_file;
         #[cfg(windows)]
-        use gdk_pixbuf_sys::gdk_pixbuf_new_from_file_utf8 as gdk_pixbuf_new_from_file;
+        use ffi::gdk_pixbuf_new_from_file_utf8 as gdk_pixbuf_new_from_file;
 
         unsafe {
             let mut error = ptr::null_mut();
@@ -111,9 +110,9 @@ impl Pixbuf {
         height: i32,
     ) -> Result<Pixbuf, Error> {
         #[cfg(not(windows))]
-        use gdk_pixbuf_sys::gdk_pixbuf_new_from_file_at_size;
+        use ffi::gdk_pixbuf_new_from_file_at_size;
         #[cfg(windows)]
-        use gdk_pixbuf_sys::gdk_pixbuf_new_from_file_at_size_utf8 as gdk_pixbuf_new_from_file_at_size;
+        use ffi::gdk_pixbuf_new_from_file_at_size_utf8 as gdk_pixbuf_new_from_file_at_size;
 
         unsafe {
             let mut error = ptr::null_mut();
@@ -138,9 +137,9 @@ impl Pixbuf {
         preserve_aspect_ratio: bool,
     ) -> Result<Pixbuf, Error> {
         #[cfg(not(windows))]
-        use gdk_pixbuf_sys::gdk_pixbuf_new_from_file_at_scale;
+        use ffi::gdk_pixbuf_new_from_file_at_scale;
         #[cfg(windows)]
-        use gdk_pixbuf_sys::gdk_pixbuf_new_from_file_at_scale_utf8 as gdk_pixbuf_new_from_file_at_scale;
+        use ffi::gdk_pixbuf_new_from_file_at_scale_utf8 as gdk_pixbuf_new_from_file_at_scale;
 
         unsafe {
             let mut error = ptr::null_mut();
@@ -179,7 +178,7 @@ impl Pixbuf {
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ptr = gdk_pixbuf_sys::gdk_pixbuf_new_from_stream_finish(res, &mut error);
+            let ptr = ffi::gdk_pixbuf_new_from_stream_finish(res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ptr))
             } else {
@@ -190,7 +189,7 @@ impl Pixbuf {
         }
         let callback = from_stream_async_trampoline::<R>;
         unsafe {
-            gdk_pixbuf_sys::gdk_pixbuf_new_from_stream_async(
+            ffi::gdk_pixbuf_new_from_stream_async(
                 stream.as_ref().to_glib_none().0,
                 cancellable.to_glib_none().0,
                 Some(callback),
@@ -236,7 +235,7 @@ impl Pixbuf {
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ptr = gdk_pixbuf_sys::gdk_pixbuf_new_from_stream_finish(res, &mut error);
+            let ptr = ffi::gdk_pixbuf_new_from_stream_finish(res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ptr))
             } else {
@@ -247,7 +246,7 @@ impl Pixbuf {
         }
         let callback = from_stream_at_scale_async_trampoline::<R>;
         unsafe {
-            gdk_pixbuf_sys::gdk_pixbuf_new_from_stream_at_scale_async(
+            ffi::gdk_pixbuf_new_from_stream_at_scale_async(
                 stream.as_ref().to_glib_none().0,
                 width,
                 height,
@@ -286,8 +285,7 @@ impl Pixbuf {
     #[cfg_attr(feature = "cargo-clippy", allow(mut_from_ref))]
     pub unsafe fn get_pixels(&self) -> &mut [u8] {
         let mut len = 0;
-        let ptr =
-            gdk_pixbuf_sys::gdk_pixbuf_get_pixels_with_length(self.to_glib_none().0, &mut len);
+        let ptr = ffi::gdk_pixbuf_get_pixels_with_length(self.to_glib_none().0, &mut len);
         slice::from_raw_parts_mut(ptr, len as usize)
     }
 
@@ -323,7 +321,7 @@ impl Pixbuf {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();
-            let ret = gdk_pixbuf_sys::gdk_pixbuf_get_file_info(
+            let ret = ffi::gdk_pixbuf_get_file_info(
                 filename.as_ref().to_glib_none().0,
                 width.as_mut_ptr(),
                 height.as_mut_ptr(),
@@ -363,7 +361,7 @@ impl Pixbuf {
             let mut error = ptr::null_mut();
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();
-            let ret = gdk_pixbuf_sys::gdk_pixbuf_get_file_info_finish(
+            let ret = ffi::gdk_pixbuf_get_file_info_finish(
                 res,
                 width.as_mut_ptr(),
                 height.as_mut_ptr(),
@@ -385,7 +383,7 @@ impl Pixbuf {
         }
         let callback = get_file_info_async_trampoline::<Q>;
         unsafe {
-            gdk_pixbuf_sys::gdk_pixbuf_get_file_info_async(
+            ffi::gdk_pixbuf_get_file_info_async(
                 filename.as_ref().to_glib_none().0,
                 cancellable.to_glib_none().0,
                 Some(callback),
@@ -417,7 +415,7 @@ impl Pixbuf {
             let mut error = ptr::null_mut();
             let option_keys: Vec<&str> = options.iter().map(|o| o.0).collect();
             let option_values: Vec<&str> = options.iter().map(|o| o.1).collect();
-            let _ = gdk_pixbuf_sys::gdk_pixbuf_save_to_bufferv(
+            let _ = ffi::gdk_pixbuf_save_to_bufferv(
                 self.to_glib_none().0,
                 &mut buffer,
                 buffer_size.as_mut_ptr(),
@@ -451,7 +449,7 @@ impl Pixbuf {
             let mut error = ptr::null_mut();
             let option_keys: Vec<&str> = options.iter().map(|o| o.0).collect();
             let option_values: Vec<&str> = options.iter().map(|o| o.1).collect();
-            let _ = gdk_pixbuf_sys::gdk_pixbuf_save_to_streamv(
+            let _ = ffi::gdk_pixbuf_save_to_streamv(
                 self.to_glib_none().0,
                 stream.as_ref().to_glib_none().0,
                 type_.to_glib_none().0,
@@ -493,7 +491,7 @@ impl Pixbuf {
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ = gdk_pixbuf_sys::gdk_pixbuf_save_to_stream_finish(res, &mut error);
+            let _ = ffi::gdk_pixbuf_save_to_stream_finish(res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -506,7 +504,7 @@ impl Pixbuf {
         unsafe {
             let option_keys: Vec<&str> = options.iter().map(|o| o.0).collect();
             let option_values: Vec<&str> = options.iter().map(|o| o.1).collect();
-            gdk_pixbuf_sys::gdk_pixbuf_save_to_streamv_async(
+            ffi::gdk_pixbuf_save_to_streamv_async(
                 self.to_glib_none().0,
                 stream.as_ref().to_glib_none().0,
                 type_.to_glib_none().0,
@@ -564,7 +562,7 @@ impl Pixbuf {
             let mut error = ptr::null_mut();
             let option_keys: Vec<&str> = options.iter().map(|o| o.0).collect();
             let option_values: Vec<&str> = options.iter().map(|o| o.1).collect();
-            let _ = gdk_pixbuf_sys::gdk_pixbuf_savev(
+            let _ = ffi::gdk_pixbuf_savev(
                 self.to_glib_none().0,
                 filename.as_ref().to_glib_none().0,
                 type_.to_glib_none().0,

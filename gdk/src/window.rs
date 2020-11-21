@@ -8,7 +8,6 @@ use crate::Visual;
 use crate::Window;
 use cairo::{self, Surface};
 use gdk_pixbuf;
-use gdk_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use libc::{c_char, c_int};
@@ -53,47 +52,47 @@ impl Default for WindowAttr {
 
 impl WindowAttr {
     fn get_mask(&self) -> u32 {
-        let mut mask: gdk_sys::GdkWindowAttributesType = 0;
+        let mut mask: ffi::GdkWindowAttributesType = 0;
         if self.title.is_some() {
-            mask |= gdk_sys::GDK_WA_TITLE;
+            mask |= ffi::GDK_WA_TITLE;
         }
         if self.x.is_some() {
-            mask |= gdk_sys::GDK_WA_X;
+            mask |= ffi::GDK_WA_X;
         }
         if self.y.is_some() {
-            mask |= gdk_sys::GDK_WA_Y;
+            mask |= ffi::GDK_WA_Y;
         }
         if self.cursor.is_some() {
-            mask |= gdk_sys::GDK_WA_CURSOR;
+            mask |= ffi::GDK_WA_CURSOR;
         }
         if self.visual.is_some() {
-            mask |= gdk_sys::GDK_WA_VISUAL;
+            mask |= ffi::GDK_WA_VISUAL;
         }
         if self.override_redirect {
-            mask |= gdk_sys::GDK_WA_NOREDIR;
+            mask |= ffi::GDK_WA_NOREDIR;
         }
         if self.type_hint.is_some() {
-            mask |= gdk_sys::GDK_WA_TYPE_HINT;
+            mask |= ffi::GDK_WA_TYPE_HINT;
         }
         mask
     }
 }
 
 #[cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
-impl<'a> ToGlibPtr<'a, *mut gdk_sys::GdkWindowAttr> for WindowAttr {
+impl<'a> ToGlibPtr<'a, *mut ffi::GdkWindowAttr> for WindowAttr {
     type Storage = (
-        Box<gdk_sys::GdkWindowAttr>,
-        Stash<'a, *mut gdk_sys::GdkVisual, Option<Visual>>,
-        Stash<'a, *mut gdk_sys::GdkCursor, Option<Cursor>>,
+        Box<ffi::GdkWindowAttr>,
+        Stash<'a, *mut ffi::GdkVisual, Option<Visual>>,
+        Stash<'a, *mut ffi::GdkCursor, Option<Cursor>>,
         Stash<'a, *const c_char, Option<String>>,
     );
 
-    fn to_glib_none(&'a self) -> Stash<'a, *mut gdk_sys::GdkWindowAttr, Self> {
+    fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::GdkWindowAttr, Self> {
         let title = self.title.to_glib_none();
         let visual = self.visual.to_glib_none();
         let cursor = self.cursor.to_glib_none();
 
-        let mut attrs = Box::new(gdk_sys::GdkWindowAttr {
+        let mut attrs = Box::new(ffi::GdkWindowAttr {
             title: title.0 as *mut c_char,
             event_mask: self.event_mask.bits() as i32,
             x: self.x.unwrap_or(0),
@@ -118,7 +117,7 @@ impl Window {
     pub fn new(parent: Option<&Window>, attributes: &WindowAttr) -> Window {
         assert_initialized_main_thread!();
         unsafe {
-            from_glib_full(gdk_sys::gdk_window_new(
+            from_glib_full(ffi::gdk_window_new(
                 parent.to_glib_none().0,
                 attributes.to_glib_none().0,
                 attributes.get_mask() as c_int,
@@ -133,7 +132,7 @@ impl Window {
         height: i32,
     ) -> Option<Surface> {
         unsafe {
-            from_glib_full(gdk_sys::gdk_window_create_similar_surface(
+            from_glib_full(ffi::gdk_window_create_similar_surface(
                 self.to_glib_none().0,
                 content.into(),
                 width,
@@ -172,7 +171,7 @@ pub trait WindowExtManual: 'static {
 
 impl<O: IsA<Window>> WindowExtManual for O {
     unsafe fn set_user_data<T>(&self, user_data: &mut T) {
-        gdk_sys::gdk_window_set_user_data(
+        ffi::gdk_window_set_user_data(
             self.as_ref().to_glib_none().0,
             user_data as *mut T as *mut _,
         )
@@ -180,18 +179,18 @@ impl<O: IsA<Window>> WindowExtManual for O {
 
     unsafe fn get_user_data<T>(&self) -> &mut T {
         let mut pointer = ::std::ptr::null_mut();
-        gdk_sys::gdk_window_get_user_data(self.as_ref().to_glib_none().0, &mut pointer);
+        ffi::gdk_window_get_user_data(self.as_ref().to_glib_none().0, &mut pointer);
         &mut *(pointer as *mut T)
     }
 
     fn get_default_root_window() -> Window {
         assert_initialized_main_thread!();
-        unsafe { from_glib_none(gdk_sys::gdk_get_default_root_window()) }
+        unsafe { from_glib_none(ffi::gdk_get_default_root_window()) }
     }
 
     fn offscreen_window_set_embedder(&self, embedder: &Window) {
         unsafe {
-            gdk_sys::gdk_offscreen_window_set_embedder(
+            ffi::gdk_offscreen_window_set_embedder(
                 self.as_ref().to_glib_none().0,
                 embedder.to_glib_none().0,
             )
@@ -200,7 +199,7 @@ impl<O: IsA<Window>> WindowExtManual for O {
 
     fn offscreen_window_get_embedder(&self) -> Option<Window> {
         unsafe {
-            from_glib_none(gdk_sys::gdk_offscreen_window_get_embedder(
+            from_glib_none(ffi::gdk_offscreen_window_get_embedder(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -209,7 +208,7 @@ impl<O: IsA<Window>> WindowExtManual for O {
     fn offscreen_window_get_surface(&self) -> Option<Surface> {
         skip_assert_initialized!();
         unsafe {
-            from_glib_none(gdk_sys::gdk_offscreen_window_get_surface(
+            from_glib_none(ffi::gdk_offscreen_window_get_surface(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -224,7 +223,7 @@ impl<O: IsA<Window>> WindowExtManual for O {
     ) -> Option<gdk_pixbuf::Pixbuf> {
         skip_assert_initialized!();
         unsafe {
-            from_glib_full(gdk_sys::gdk_pixbuf_get_from_window(
+            from_glib_full(ffi::gdk_pixbuf_get_from_window(
                 self.as_ref().to_glib_none().0,
                 src_x,
                 src_y,
@@ -236,7 +235,7 @@ impl<O: IsA<Window>> WindowExtManual for O {
 
     fn get_background_pattern(&self) -> Option<cairo::Pattern> {
         unsafe {
-            let ret = gdk_sys::gdk_window_get_background_pattern(self.as_ref().to_glib_none().0);
+            let ret = ffi::gdk_window_get_background_pattern(self.as_ref().to_glib_none().0);
             if ret.is_null() {
                 None
             } else {
@@ -252,7 +251,7 @@ impl<O: IsA<Window>> WindowExtManual for O {
             } else {
                 ::std::ptr::null_mut()
             };
-            gdk_sys::gdk_window_set_background_pattern(self.as_ref().to_glib_none().0, ptr);
+            ffi::gdk_window_set_background_pattern(self.as_ref().to_glib_none().0, ptr);
         }
     }
 }

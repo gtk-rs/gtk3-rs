@@ -5,7 +5,6 @@
 use crate::PadActionEntry;
 use crate::PadController;
 use glib::translate::*;
-use gtk_sys;
 
 impl PadController {
     pub fn set_action_entries(&self, entries: &[PadActionEntry]) {
@@ -22,7 +21,7 @@ impl PadController {
         let entries = entries
             .iter()
             .zip(entry_strings.iter())
-            .map(|(e, (label, action_name))| gtk_sys::GtkPadActionEntry {
+            .map(|(e, (label, action_name))| ffi::GtkPadActionEntry {
                 type_: e.get_type().to_glib(),
                 index: e.get_index(),
                 mode: e.get_mode(),
@@ -31,7 +30,7 @@ impl PadController {
             })
             .collect::<Vec<_>>();
         unsafe {
-            gtk_sys::gtk_pad_controller_set_action_entries(
+            ffi::gtk_pad_controller_set_action_entries(
                 self.to_glib_none().0,
                 entries.as_ptr(),
                 n_entries,

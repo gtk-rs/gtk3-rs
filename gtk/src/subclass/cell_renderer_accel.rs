@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use gtk_sys;
+use ffi;
 
 use libc::{c_char, c_uint};
 
@@ -57,7 +57,7 @@ impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
         unsafe {
             let data = T::type_data();
             let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererAccelClass;
+                data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererAccelClass;
             if let Some(f) = (*parent_class).accel_edited {
                 f(
                     renderer
@@ -77,7 +77,7 @@ impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
         unsafe {
             let data = T::type_data();
             let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererAccelClass;
+                data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererAccelClass;
             if let Some(f) = (*parent_class).accel_cleared {
                 f(
                     renderer
@@ -102,7 +102,7 @@ unsafe impl<T: CellRendererAccelImpl> IsSubclassable<T> for CellRendererAccel {
 }
 
 unsafe extern "C" fn cell_renderer_accel_edited<T: CellRendererAccelImpl>(
-    ptr: *mut gtk_sys::GtkCellRendererAccel,
+    ptr: *mut ffi::GtkCellRendererAccel,
     path: *const c_char,
     accel_key: c_uint,
     accel_mods: gdk::ffi::GdkModifierType,
@@ -122,7 +122,7 @@ unsafe extern "C" fn cell_renderer_accel_edited<T: CellRendererAccelImpl>(
 }
 
 unsafe extern "C" fn cell_renderer_accel_cleared<T: CellRendererAccelImpl>(
-    ptr: *mut gtk_sys::GtkCellRendererAccel,
+    ptr: *mut ffi::GtkCellRendererAccel,
     path: *const c_char,
 ) {
     let instance = &*(ptr as *mut T::Instance);

@@ -9,7 +9,6 @@ use crate::Widget;
 use crate::Window;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
-use gtk_sys;
 use libc::c_char;
 use std::ptr;
 
@@ -23,7 +22,7 @@ impl FileChooserDialog {
     ) -> FileChooserDialog {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_file_chooser_dialog_new(
+            Widget::from_glib_none(ffi::gtk_file_chooser_dialog_new(
                 title.to_glib_none().0,
                 parent.map(|p| p.as_ref()).to_glib_none().0,
                 action.to_glib(),
@@ -43,7 +42,7 @@ impl FileChooserDialog {
         unsafe {
             Widget::from_glib_none(match buttons.len() {
                 0 => {
-                    gtk_sys::gtk_file_chooser_dialog_new(
+                    ffi::gtk_file_chooser_dialog_new(
                         title.to_glib_none().0,
                         parent.map(|p| p.as_ref()).to_glib_none().0,
                         action.to_glib(),
@@ -51,7 +50,7 @@ impl FileChooserDialog {
                     )
                 },
                 1 => {
-                    gtk_sys::gtk_file_chooser_dialog_new(
+                    ffi::gtk_file_chooser_dialog_new(
                         title.to_glib_none().0,
                         parent.map(|p| p.as_ref()).to_glib_none().0,
                         action.to_glib(),
@@ -61,7 +60,7 @@ impl FileChooserDialog {
                     )
                 },
                 2 => {
-                    gtk_sys::gtk_file_chooser_dialog_new(
+                    ffi::gtk_file_chooser_dialog_new(
                         title.to_glib_none().0,
                         parent.map(|p| p.as_ref()).to_glib_none().0,
                         action.to_glib(),
@@ -73,7 +72,7 @@ impl FileChooserDialog {
                     )
                 },
                 3 => {
-                    gtk_sys::gtk_file_chooser_dialog_new(
+                    ffi::gtk_file_chooser_dialog_new(
                         title.to_glib_none().0,
                         parent.map(|p| p.as_ref()).to_glib_none().0,
                         action.to_glib(),

@@ -5,7 +5,6 @@
 use crate::ListBox;
 use glib::object::IsA;
 use glib::translate::*;
-use gtk_sys;
 use std::ptr;
 
 pub trait ListBoxExtManual: 'static {
@@ -19,7 +18,7 @@ impl<O: IsA<ListBox>> ListBoxExtManual for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn unbind_model(&self) {
         unsafe {
-            gtk_sys::gtk_list_box_bind_model(
+            ffi::gtk_list_box_bind_model(
                 self.as_ref().to_glib_none().0,
                 ptr::null_mut(),
                 None,

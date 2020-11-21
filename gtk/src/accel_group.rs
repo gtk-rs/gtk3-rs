@@ -8,7 +8,6 @@ use gdk;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use glib::ToValue;
-use gtk_sys;
 
 pub trait AccelGroupExtManual: 'static {
     fn connect_accel_group<F>(
@@ -64,7 +63,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExtManual for O {
         });
 
         unsafe {
-            gtk_sys::gtk_accel_group_connect(
+            ffi::gtk_accel_group_connect(
                 self.as_ref().to_glib_none().0,
                 accel_key,
                 accel_mods.to_glib(),
@@ -106,7 +105,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExtManual for O {
         });
 
         unsafe {
-            gtk_sys::gtk_accel_group_connect_by_path(
+            ffi::gtk_accel_group_connect_by_path(
                 self.as_ref().to_glib_none().0,
                 accel_path.to_glib_none().0,
                 closure.to_glib_none().0,

@@ -2,14 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventMotion(crate::Event);
 
 event_wrapper!(EventMotion, GdkEventMotion);
-event_subtype!(EventMotion, gdk_sys::GDK_MOTION_NOTIFY);
+event_subtype!(EventMotion, ffi::GDK_MOTION_NOTIFY);
 
 impl EventMotion {
     pub fn get_position(&self) -> (f64, f64) {
@@ -27,7 +26,7 @@ impl EventMotion {
     }
 
     pub fn request_motions(&self) {
-        unsafe { gdk_sys::gdk_event_request_motions(self.as_ref()) }
+        unsafe { ffi::gdk_event_request_motions(self.as_ref()) }
     }
 
     pub fn get_device(&self) -> Option<crate::Device> {

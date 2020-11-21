@@ -27,7 +27,7 @@ impl<T: IsA<PixbufAnimation>> PixbufAnimationExtManual for T {
         });
 
         unsafe {
-            from_glib_full(gdk_pixbuf_sys::gdk_pixbuf_animation_get_iter(
+            from_glib_full(ffi::gdk_pixbuf_animation_get_iter(
                 self.as_ref().to_glib_none().0,
                 start_time
                     .as_ref()

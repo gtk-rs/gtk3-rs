@@ -8,7 +8,6 @@ use crate::FontDescription;
 use crate::Language;
 use glib::translate::*;
 use glib_sys;
-use pango_sys;
 
 use std::ptr;
 
@@ -26,7 +25,7 @@ impl AttrIterator {
                 list = glib_sys::g_slist_prepend(list, Ptr::to(stash.0));
             }
 
-            pango_sys::pango_attr_iterator_get_font(
+            ffi::pango_attr_iterator_get_font(
                 self.to_glib_none_mut().0,
                 desc.to_glib_none_mut().0,
                 &mut language.to_glib_none().0,

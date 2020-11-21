@@ -3,7 +3,6 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 use crate::Visual;
-use gdk_sys;
 use std::{ptr, slice};
 
 impl Visual {
@@ -13,7 +12,7 @@ impl Visual {
         let mut count = 0;
 
         unsafe {
-            gdk_sys::gdk_query_depths(&mut ptr, &mut count);
+            ffi::gdk_query_depths(&mut ptr, &mut count);
             Vec::from(slice::from_raw_parts(ptr as *const i32, count as usize))
         }
     }

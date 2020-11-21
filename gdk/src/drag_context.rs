@@ -9,26 +9,25 @@ use crate::DragContext;
 use crate::DragProtocol;
 use crate::Screen;
 use crate::Window;
-use gdk_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::ptr;
 
 impl DragContext {
     pub fn drag_get_selection(&self) -> Atom {
-        unsafe { from_glib_none(gdk_sys::gdk_drag_get_selection(self.to_glib_none().0) as *mut _) }
+        unsafe { from_glib_none(ffi::gdk_drag_get_selection(self.to_glib_none().0) as *mut _) }
     }
 
     pub fn drag_abort(&self, time_: u32) {
-        unsafe { gdk_sys::gdk_drag_abort(self.to_glib_none().0, time_) }
+        unsafe { ffi::gdk_drag_abort(self.to_glib_none().0, time_) }
     }
 
     pub fn drop_reply(&self, accepted: bool, time_: u32) {
-        unsafe { gdk_sys::gdk_drop_reply(self.to_glib_none().0, accepted.to_glib(), time_) }
+        unsafe { ffi::gdk_drop_reply(self.to_glib_none().0, accepted.to_glib(), time_) }
     }
 
     pub fn drop(&self, time_: u32) {
-        unsafe { gdk_sys::gdk_drag_drop(self.to_glib_none().0, time_) }
+        unsafe { ffi::gdk_drag_drop(self.to_glib_none().0, time_) }
     }
 
     pub fn drag_find_window_for_screen(
@@ -40,8 +39,8 @@ impl DragContext {
     ) -> (Option<Window>, DragProtocol) {
         unsafe {
             let mut dest_window = ptr::null_mut();
-            let mut protocol = gdk_sys::GDK_DRAG_PROTO_NONE;
-            gdk_sys::gdk_drag_find_window_for_screen(
+            let mut protocol = ffi::GDK_DRAG_PROTO_NONE;
+            ffi::gdk_drag_find_window_for_screen(
                 self.to_glib_none().0,
                 drag_window.to_glib_none().0,
                 screen.to_glib_none().0,
@@ -65,7 +64,7 @@ impl DragContext {
         time_: u32,
     ) -> bool {
         unsafe {
-            from_glib(gdk_sys::gdk_drag_motion(
+            from_glib(ffi::gdk_drag_motion(
                 self.to_glib_none().0,
                 dest_window.to_glib_none().0,
                 protocol.to_glib(),
@@ -79,21 +78,21 @@ impl DragContext {
     }
 
     pub fn drop_finish(&self, success: bool, time_: u32) {
-        unsafe { gdk_sys::gdk_drop_finish(self.to_glib_none().0, success.to_glib(), time_) }
+        unsafe { ffi::gdk_drop_finish(self.to_glib_none().0, success.to_glib(), time_) }
     }
 
     pub fn drag_status(&self, action: DragAction, time_: u32) {
-        unsafe { gdk_sys::gdk_drag_status(self.to_glib_none().0, action.to_glib(), time_) }
+        unsafe { ffi::gdk_drag_status(self.to_glib_none().0, action.to_glib(), time_) }
     }
 
     pub fn drag_drop_succeeded(&self) -> bool {
-        unsafe { from_glib(gdk_sys::gdk_drag_drop_succeeded(self.to_glib_none().0)) }
+        unsafe { from_glib(ffi::gdk_drag_drop_succeeded(self.to_glib_none().0)) }
     }
 
     pub fn drag_begin(window: &Window, targets: &[&Atom]) -> Option<DragContext> {
         skip_assert_initialized!();
         unsafe {
-            from_glib_full(gdk_sys::gdk_drag_begin(
+            from_glib_full(ffi::gdk_drag_begin(
                 window.to_glib_none().0,
                 targets.to_glib_none().0,
             ))
@@ -107,7 +106,7 @@ impl DragContext {
     ) -> Option<DragContext> {
         skip_assert_initialized!();
         unsafe {
-            from_glib_full(gdk_sys::gdk_drag_begin_for_device(
+            from_glib_full(ffi::gdk_drag_begin_for_device(
                 window.to_glib_none().0,
                 device.as_ref().to_glib_none().0,
                 targets.to_glib_none().0,
@@ -126,7 +125,7 @@ impl DragContext {
     ) -> Option<DragContext> {
         skip_assert_initialized!();
         unsafe {
-            from_glib_full(gdk_sys::gdk_drag_begin_from_point(
+            from_glib_full(ffi::gdk_drag_begin_from_point(
                 window.to_glib_none().0,
                 device.as_ref().to_glib_none().0,
                 targets.to_glib_none().0,
@@ -141,7 +140,7 @@ impl DragContext {
     pub fn drag_drop_done(&self, success: bool) {
         skip_assert_initialized!();
         unsafe {
-            gdk_sys::gdk_drag_drop_done(self.to_glib_none().0, success.to_glib());
+            ffi::gdk_drag_drop_done(self.to_glib_none().0, success.to_glib());
         }
     }
 }

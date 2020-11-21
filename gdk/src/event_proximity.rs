@@ -2,7 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -11,7 +10,7 @@ pub struct EventProximity(crate::Event);
 event_wrapper!(EventProximity, GdkEventProximity);
 event_subtype!(
     EventProximity,
-    gdk_sys::GDK_PROXIMITY_IN | gdk_sys::GDK_PROXIMITY_OUT
+    ffi::GDK_PROXIMITY_IN | ffi::GDK_PROXIMITY_OUT
 );
 
 impl EventProximity {

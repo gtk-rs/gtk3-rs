@@ -2,14 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventTouchpadPinch(crate::Event);
 
 event_wrapper!(EventTouchpadPinch, GdkEventTouchpadPinch);
-event_subtype!(EventTouchpadPinch, gdk_sys::GDK_TOUCHPAD_PINCH);
+event_subtype!(EventTouchpadPinch, ffi::GDK_TOUCHPAD_PINCH);
 
 impl EventTouchpadPinch {
     pub fn is_phase(&self) -> bool {

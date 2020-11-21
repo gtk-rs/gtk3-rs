@@ -2,7 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -11,10 +10,7 @@ pub struct EventTouch(crate::Event);
 event_wrapper!(EventTouch, GdkEventTouch);
 event_subtype!(
     EventTouch,
-    gdk_sys::GDK_TOUCH_BEGIN
-        | gdk_sys::GDK_TOUCH_UPDATE
-        | gdk_sys::GDK_TOUCH_END
-        | gdk_sys::GDK_TOUCH_CANCEL
+    ffi::GDK_TOUCH_BEGIN | ffi::GDK_TOUCH_UPDATE | ffi::GDK_TOUCH_END | ffi::GDK_TOUCH_CANCEL
 );
 
 impl EventTouch {

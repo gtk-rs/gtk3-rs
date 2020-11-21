@@ -2,7 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gdk_sys;
 use glib::translate::*;
 use glib::GString;
 
@@ -10,7 +9,7 @@ use glib::GString;
 pub struct EventSetting(crate::Event);
 
 event_wrapper!(EventSetting, GdkEventSetting);
-event_subtype!(EventSetting, gdk_sys::GDK_SETTING);
+event_subtype!(EventSetting, ffi::GDK_SETTING);
 
 impl EventSetting {
     pub fn get_name(&self) -> Option<GString> {

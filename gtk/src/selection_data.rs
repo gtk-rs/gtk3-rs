@@ -4,7 +4,6 @@
 
 use crate::SelectionData;
 use glib::translate::*;
-use gtk_sys;
 use std::mem;
 
 impl SelectionData {
@@ -12,7 +11,7 @@ impl SelectionData {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
             FromGlibContainer::from_glib_none_num(
-                gtk_sys::gtk_selection_data_get_data_with_length(
+                ffi::gtk_selection_data_get_data_with_length(
                     self.to_glib_none().0,
                     length.as_mut_ptr(),
                 ),

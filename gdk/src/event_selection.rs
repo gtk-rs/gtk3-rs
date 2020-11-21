@@ -2,7 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -11,7 +10,7 @@ pub struct EventSelection(crate::Event);
 event_wrapper!(EventSelection, GdkEventSelection);
 event_subtype!(
     EventSelection,
-    gdk_sys::GDK_SELECTION_CLEAR | gdk_sys::GDK_SELECTION_NOTIFY | gdk_sys::GDK_SELECTION_REQUEST
+    ffi::GDK_SELECTION_CLEAR | ffi::GDK_SELECTION_NOTIFY | ffi::GDK_SELECTION_REQUEST
 );
 
 impl EventSelection {

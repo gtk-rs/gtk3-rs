@@ -3,7 +3,6 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 use crate::FrameClock;
-use gdk_sys;
 use glib::translate::*;
 
 impl FrameClock {
@@ -11,7 +10,7 @@ impl FrameClock {
         unsafe {
             let mut refresh_interval = 0;
             let mut presentation_time = 0;
-            gdk_sys::gdk_frame_clock_get_refresh_info(
+            ffi::gdk_frame_clock_get_refresh_info(
                 self.to_glib_none().0,
                 base_time,
                 &mut refresh_interval,

@@ -8,7 +8,6 @@ use crate::TreeRowReference;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use gtk_sys;
 use libc::c_int;
 
 impl TreeRowReference {
@@ -24,7 +23,7 @@ impl TreeRowReference {
             iter.is_some() || path.get_depth() == 0,
             "If 'iter' is None, 'path' must point to the root."
         );
-        gtk_sys::gtk_tree_row_reference_reordered(
+        ffi::gtk_tree_row_reference_reordered(
             proxy.as_ref().to_glib_none().0,
             mut_override(path.to_glib_none().0),
             mut_override(iter.to_glib_none().0),

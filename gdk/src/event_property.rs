@@ -2,14 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventProperty(crate::Event);
 
 event_wrapper!(EventProperty, GdkEventProperty);
-event_subtype!(EventProperty, gdk_sys::GDK_PROPERTY_NOTIFY);
+event_subtype!(EventProperty, ffi::GDK_PROPERTY_NOTIFY);
 
 impl EventProperty {
     pub fn get_atom(&self) -> crate::Atom {

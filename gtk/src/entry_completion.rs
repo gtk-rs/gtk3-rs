@@ -8,7 +8,6 @@ use crate::Widget;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::Cast;
-use gtk_sys;
 
 pub trait EntryCompletionExtManual: 'static {
     fn get_entry(&self) -> Option<Entry>;
@@ -17,7 +16,7 @@ pub trait EntryCompletionExtManual: 'static {
 impl<O: IsA<EntryCompletion>> EntryCompletionExtManual for O {
     fn get_entry(&self) -> Option<Entry> {
         unsafe {
-            Option::<Widget>::from_glib_none(gtk_sys::gtk_entry_completion_get_entry(
+            Option::<Widget>::from_glib_none(ffi::gtk_entry_completion_get_entry(
                 self.as_ref().to_glib_none().0,
             ))
             .map(|widget| {

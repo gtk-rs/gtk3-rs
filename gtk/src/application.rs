@@ -10,7 +10,6 @@ use glib;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::ObjectExt;
-use gtk_sys;
 
 use std::cell::RefCell;
 
@@ -41,7 +40,7 @@ impl Application {
     ) -> Result<Application, glib::BoolError> {
         skip_assert_initialized!();
         let app: Application = unsafe {
-            Option::from_glib_full(gtk_sys::gtk_application_new(
+            Option::from_glib_full(ffi::gtk_application_new(
                 application_id.to_glib_none().0,
                 flags.to_glib(),
             ))

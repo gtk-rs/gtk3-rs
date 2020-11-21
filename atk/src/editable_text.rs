@@ -3,7 +3,6 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 use crate::EditableText;
-use atk_sys;
 use glib::object::IsA;
 use glib::translate::*;
 
@@ -15,7 +14,7 @@ impl<O: IsA<EditableText>> EditableTextExtManual for O {
     fn insert_text(&self, string: &str, mut position: i32) -> i32 {
         let length = string.len() as i32;
         unsafe {
-            atk_sys::atk_editable_text_insert_text(
+            ffi::atk_editable_text_insert_text(
                 self.as_ref().to_glib_none().0,
                 string.to_glib_none().0,
                 length,

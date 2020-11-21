@@ -72,7 +72,7 @@ mod time_coord;
 mod visual;
 mod window;
 
-pub use gdk_sys::GdkColor as Color;
+pub use ffi::GdkColor as Color;
 
 pub use self::rt::{init, set_initialized};
 
@@ -136,16 +136,16 @@ pub use self::window::WindowAttr;
 pub type key = i32;
 
 /// The primary button. This is typically the left mouse button, or the right button in a left-handed setup.
-pub const BUTTON_PRIMARY: u32 = gdk_sys::GDK_BUTTON_PRIMARY as u32;
+pub const BUTTON_PRIMARY: u32 = ffi::GDK_BUTTON_PRIMARY as u32;
 
 /// The middle button.
-pub const BUTTON_MIDDLE: u32 = gdk_sys::GDK_BUTTON_MIDDLE as u32;
+pub const BUTTON_MIDDLE: u32 = ffi::GDK_BUTTON_MIDDLE as u32;
 
 /// The secondary button. This is typically the right mouse button, or the left button in a left-handed setup.
-pub const BUTTON_SECONDARY: u32 = gdk_sys::GDK_BUTTON_SECONDARY as u32;
+pub const BUTTON_SECONDARY: u32 = ffi::GDK_BUTTON_SECONDARY as u32;
 
 // Used as the return value for stopping the propagation of an event handler.
-pub const EVENT_STOP: u32 = gdk_sys::GDK_EVENT_STOP as u32;
+pub const EVENT_STOP: u32 = ffi::GDK_EVENT_STOP as u32;
 
 // Used as the return value for continuing the propagation of an event handler.
-pub const EVENT_PROPAGATE: u32 = gdk_sys::GDK_EVENT_PROPAGATE as u32;
+pub const EVENT_PROPAGATE: u32 = ffi::GDK_EVENT_PROPAGATE as u32;

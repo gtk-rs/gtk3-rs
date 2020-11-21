@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use gtk_sys;
+use ffi;
 
 use libc::c_char;
 
@@ -30,7 +30,7 @@ impl<T: CellRendererToggleImpl> CellRendererToggleImplExt for T {
         unsafe {
             let data = T::type_data();
             let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererToggleClass;
+                data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererToggleClass;
             if let Some(f) = (*parent_class).toggled {
                 f(
                     renderer
@@ -54,7 +54,7 @@ unsafe impl<T: CellRendererToggleImpl> IsSubclassable<T> for CellRendererToggle 
 }
 
 unsafe extern "C" fn cell_renderer_toggle_toggled<T: CellRendererToggleImpl>(
-    ptr: *mut gtk_sys::GtkCellRendererToggle,
+    ptr: *mut ffi::GtkCellRendererToggle,
     path: *const c_char,
 ) {
     let instance = &*(ptr as *mut T::Instance);

@@ -10,7 +10,6 @@ use crate::Widget;
 use crate::Window;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
-use gtk_sys;
 use libc::c_char;
 use std::ptr;
 
@@ -25,7 +24,7 @@ impl MessageDialog {
         assert_initialized_main_thread!();
         unsafe {
             let message: Stash<*const c_char, _> = message.to_glib_none();
-            Widget::from_glib_none(gtk_sys::gtk_message_dialog_new(
+            Widget::from_glib_none(ffi::gtk_message_dialog_new(
                 parent.map(|p| p.as_ref()).to_glib_none().0,
                 flags.to_glib(),
                 type_.to_glib(),
@@ -50,7 +49,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         match message {
             Some(m) => unsafe {
                 let message: Stash<*const c_char, _> = m.to_glib_none();
-                gtk_sys::gtk_message_dialog_format_secondary_markup(
+                ffi::gtk_message_dialog_format_secondary_markup(
                     self.as_ref().to_glib_none().0,
                     b"%s\0".as_ptr() as *const c_char,
                     message.0,
@@ -58,7 +57,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
                 )
             },
             None => unsafe {
-                gtk_sys::gtk_message_dialog_format_secondary_markup(
+                ffi::gtk_message_dialog_format_secondary_markup(
                     self.as_ref().to_glib_none().0,
                     ptr::null::<c_char>(),
                 )
@@ -70,7 +69,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         match message {
             Some(m) => unsafe {
                 let message: Stash<*const c_char, _> = m.to_glib_none();
-                gtk_sys::gtk_message_dialog_format_secondary_text(
+                ffi::gtk_message_dialog_format_secondary_text(
                     self.as_ref().to_glib_none().0,
                     b"%s\0".as_ptr() as *const c_char,
                     message.0,
@@ -78,7 +77,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
                 )
             },
             None => unsafe {
-                gtk_sys::gtk_message_dialog_format_secondary_text(
+                ffi::gtk_message_dialog_format_secondary_text(
                     self.as_ref().to_glib_none().0,
                     ptr::null::<c_char>(),
                 )

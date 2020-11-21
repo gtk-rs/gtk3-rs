@@ -15,7 +15,7 @@ pub use self::auto::functions::*;
 pub use self::auto::*;
 pub use self::functions::*;
 
-pub use pango_sys::PANGO_SCALE as SCALE;
+pub use ffi::PANGO_SCALE as SCALE;
 
 /// The scale factor for three shrinking steps (1 / (1.2 * 1.2 * 1.2)).
 pub const SCALE_XX_SMALL: f64 = 0.5787037037037;

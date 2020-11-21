@@ -2,14 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gdk_sys;
 use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventTouchpadSwipe(crate::Event);
 
 event_wrapper!(EventTouchpadSwipe, GdkEventTouchpadSwipe);
-event_subtype!(EventTouchpadSwipe, gdk_sys::GDK_TOUCHPAD_SWIPE);
+event_subtype!(EventTouchpadSwipe, ffi::GDK_TOUCHPAD_SWIPE);
 
 impl EventTouchpadSwipe {
     pub fn is_phase(&self) -> bool {

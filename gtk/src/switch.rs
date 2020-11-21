@@ -7,7 +7,6 @@ use glib::object::{Cast, IsA};
 use glib::signal::{connect_raw, SignalHandlerId};
 use glib::translate::*;
 use glib_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::mem::transmute;
 
@@ -18,7 +17,7 @@ pub trait SwitchExtManual: 'static {
 impl<O: IsA<Switch>> SwitchExtManual for O {
     fn connect_changed_active<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn changed_active_trampoline<T, F: Fn(&T) + 'static>(
-            this: *mut gtk_sys::GtkSwitch,
+            this: *mut ffi::GtkSwitch,
             _gparamspec: glib_sys::gpointer,
             f: glib_sys::gpointer,
         ) where

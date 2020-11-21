@@ -11,7 +11,6 @@ use crate::Window;
 use glib::object::Cast;
 use glib::translate::*;
 use glib::IsA;
-use gtk_sys;
 use std::ptr;
 
 impl Dialog {
@@ -23,7 +22,7 @@ impl Dialog {
     ) -> Dialog {
         assert_initialized_main_thread!();
         let ret: Dialog = unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_dialog_new_with_buttons(
+            Widget::from_glib_none(ffi::gtk_dialog_new_with_buttons(
                 title.to_glib_none().0,
                 parent.map(|p| p.as_ref()).to_glib_none().0,
                 flags.to_glib(),
