@@ -7,7 +7,7 @@
 //! structs and don't provide any new virtual methods.
 
 use super::prelude::*;
-use object::ObjectType;
+use crate::object::ObjectType;
 
 use std::fmt;
 use std::ops;
@@ -56,7 +56,7 @@ unsafe impl<T: ObjectSubclass> super::types::ClassStruct for ClassStruct<T> {
 }
 
 impl<T: ObjectSubclass> ops::Deref for ClassStruct<T> {
-    type Target = ::Class<<T as ObjectSubclass>::Type>;
+    type Target = crate::Class<<T as ObjectSubclass>::Type>;
 
     fn deref(&self) -> &Self::Target {
         unsafe { &*(self as *const _ as *const Self::Target) }

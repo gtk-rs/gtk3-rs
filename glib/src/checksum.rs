@@ -2,11 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use glib_sys;
+use crate::translate::*;
+use crate::Checksum;
 use libc::size_t;
 use std::vec::Vec;
-use translate::*;
-use Checksum;
 
 impl Checksum {
     pub fn get_digest(self) -> Vec<u8> {
@@ -15,7 +14,7 @@ impl Checksum {
             let mut digest_len: size_t = 512 / 8;
             let mut vec = Vec::with_capacity(digest_len as usize);
 
-            glib_sys::g_checksum_get_digest(
+            ffi::g_checksum_get_digest(
                 mut_override(self.to_glib_none().0),
                 vec.as_mut_ptr(),
                 &mut digest_len,
@@ -28,7 +27,7 @@ impl Checksum {
 
     pub fn get_string(self) -> Option<String> {
         unsafe {
-            from_glib_none(glib_sys::g_checksum_get_string(mut_override(
+            from_glib_none(ffi::g_checksum_get_string(mut_override(
                 self.to_glib_none().0,
             )))
         }
@@ -37,7 +36,7 @@ impl Checksum {
 
 #[cfg(test)]
 mod tests {
-    use {Checksum, ChecksumType};
+    use crate::{Checksum, ChecksumType};
 
     const CS_TYPE: ChecksumType = ChecksumType::Md5;
     const CS_VALUE: &str = "fc3ff98e8c6a0d3087d515c0473f8677";

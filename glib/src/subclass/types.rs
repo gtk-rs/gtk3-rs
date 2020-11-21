@@ -4,15 +4,13 @@
 
 //! Module that contains the basic infrastructure for subclassing `GObject`.
 
-use glib_sys;
-use gobject_sys;
-use object::{ObjectSubclassIs, ObjectType};
+use crate::object::{ObjectSubclassIs, ObjectType};
+use crate::translate::*;
+use crate::{Closure, SignalFlags, StaticType, Type, Value};
 use std::fmt;
 use std::marker;
 use std::mem;
 use std::ptr;
-use translate::*;
-use {Closure, SignalFlags, StaticType, Type, Value};
 
 /// A newly registered `glib::Type` that is currently still being initialized.
 ///
@@ -25,12 +23,12 @@ impl<T: ObjectSubclass> InitializingType<T> {
     /// Adds an interface implementation for `I` to the type.
     pub fn add_interface<I: IsImplementable<T>>(&mut self) {
         unsafe {
-            let iface_info = gobject_sys::GInterfaceInfo {
+            let iface_info = gobject_ffi::GInterfaceInfo {
                 interface_init: Some(I::interface_init),
                 interface_finalize: None,
                 interface_data: ptr::null_mut(),
             };
-            gobject_sys::g_type_add_interface_static(
+            gobject_ffi::g_type_add_interface_static(
                 self.0.to_glib(),
                 I::static_type().to_glib(),
                 &iface_info,
@@ -40,9 +38,9 @@ impl<T: ObjectSubclass> InitializingType<T> {
 }
 
 impl<T> ToGlib for InitializingType<T> {
-    type GlibType = glib_sys::GType;
+    type GlibType = ffi::GType;
 
-    fn to_glib(&self) -> glib_sys::GType {
+    fn to_glib(&self) -> ffi::GType {
         self.0.to_glib()
     }
 }
@@ -105,8 +103,8 @@ pub unsafe trait ClassStruct: Sized + 'static {
         <Self::Type as ObjectSubclass>::ParentType: IsSubclassable<Self::Type>,
     {
         unsafe {
-            let base =
-                &mut *(self as *mut _ as *mut ::Class<<Self::Type as ObjectSubclass>::ParentType>);
+            let base = &mut *(self as *mut _
+                as *mut crate::Class<<Self::Type as ObjectSubclass>::ParentType>);
             <<Self::Type as ObjectSubclass>::ParentType as IsSubclassable<Self::Type>>::override_vfuncs(base);
         }
     }
@@ -117,7 +115,7 @@ pub unsafe trait IsSubclassable<T: ObjectSubclass>: ObjectType {
     /// Override the virtual methods of this class for the given subclass.
     ///
     /// This is automatically called during type initialization.
-    fn override_vfuncs(class: &mut ::Class<Self>);
+    fn override_vfuncs(class: &mut crate::Class<Self>);
 }
 
 /// Trait for implementable interfaces.
@@ -128,7 +126,7 @@ pub unsafe trait IsImplementable<T: ObjectSubclass>: StaticType {
     ///
     /// It is the responsibility of the implementor of the interface to
     /// correctly type the pointers when working on the vtables they point at.
-    unsafe extern "C" fn interface_init(iface: glib_sys::gpointer, _iface_data: glib_sys::gpointer);
+    unsafe extern "C" fn interface_init(iface: ffi::gpointer, _iface_data: ffi::gpointer);
 }
 
 /// Type-specific data that is filled in during type creation.
@@ -136,9 +134,9 @@ pub struct TypeData {
     #[doc(hidden)]
     pub type_: Type,
     #[doc(hidden)]
-    pub parent_class: glib_sys::gpointer,
+    pub parent_class: ffi::gpointer,
     #[doc(hidden)]
-    pub interface_data: *const Vec<(glib_sys::GType, glib_sys::gpointer)>,
+    pub interface_data: *const Vec<(ffi::GType, ffi::gpointer)>,
     #[doc(hidden)]
     pub private_offset: isize,
 }
@@ -156,14 +154,14 @@ impl TypeData {
     ///
     /// This is used for chaining up to the parent class' implementation
     /// of virtual methods.
-    pub fn get_parent_class(&self) -> glib_sys::gpointer {
+    pub fn get_parent_class(&self) -> ffi::gpointer {
         self.parent_class
     }
 
     /// Returns a pointer to the interface implementation specific data.
     ///
     /// This is used for interface implementations to store additional data.
-    pub fn get_interface_data(&self, type_: glib_sys::GType) -> glib_sys::gpointer {
+    pub fn get_interface_data(&self, type_: ffi::GType) -> ffi::gpointer {
         unsafe {
             if self.interface_data.is_null() {
                 return ptr::null_mut();
@@ -192,19 +190,19 @@ impl TypeData {
 /// [`ObjectSubclass`]: subclass/types/trait.ObjectSubclass.html
 macro_rules! glib_object_subclass {
     () => {
-        fn type_data() -> ::std::ptr::NonNull<$crate::subclass::TypeData> {
+        fn type_data() -> std::ptr::NonNull<$crate::subclass::TypeData> {
             static mut DATA: $crate::subclass::TypeData = $crate::subclass::TypeData {
                 type_: $crate::Type::Invalid,
-                parent_class: ::std::ptr::null_mut(),
-                interface_data: ::std::ptr::null_mut(),
+                parent_class: std::ptr::null_mut(),
+                interface_data: std::ptr::null_mut(),
                 private_offset: 0,
             };
 
-            unsafe { ::std::ptr::NonNull::new_unchecked(&mut DATA) }
+            unsafe { std::ptr::NonNull::new_unchecked(&mut DATA) }
         }
 
         fn get_type() -> $crate::Type {
-            static ONCE: ::std::sync::Once = ::std::sync::Once::new();
+            static ONCE: std::sync::Once = std::sync::Once::new();
 
             ONCE.call_once(|| {
                 $crate::subclass::register_type::<Self>();
@@ -311,11 +309,11 @@ pub trait ObjectSubclass: Sized + 'static {
             // The object might just be finalized, and in that case it's unsafe to access
             // it and use any API on it. This can only happen from inside the Drop impl
             // of Self.
-            assert_ne!((*(ptr as *mut gobject_sys::GObject)).ref_count, 0);
+            assert_ne!((*(ptr as *mut gobject_ffi::GObject)).ref_count, 0);
 
             // Don't steal floating reference here via from_glib_none() but
             // preserve it if needed by reffing manually.
-            gobject_sys::g_object_ref(ptr as *mut gobject_sys::GObject);
+            gobject_ffi::g_object_ref(ptr as *mut gobject_ffi::GObject);
             from_glib_full(ptr)
         }
     }
@@ -373,10 +371,8 @@ pub trait ObjectSubclass: Sized + 'static {
     }
 }
 
-unsafe extern "C" fn class_init<T: ObjectSubclass>(
-    klass: glib_sys::gpointer,
-    _klass_data: glib_sys::gpointer,
-) where
+unsafe extern "C" fn class_init<T: ObjectSubclass>(klass: ffi::gpointer, _klass_data: ffi::gpointer)
+where
     <T as ObjectSubclass>::ParentType: IsSubclassable<T>,
 {
     let mut data = T::type_data();
@@ -385,13 +381,13 @@ unsafe extern "C" fn class_init<T: ObjectSubclass>(
     // being initialized.
     if mem::size_of::<T>() != 0 {
         let mut private_offset = data.as_ref().private_offset as i32;
-        gobject_sys::g_type_class_adjust_private_offset(klass, &mut private_offset);
+        gobject_ffi::g_type_class_adjust_private_offset(klass, &mut private_offset);
         (*data.as_mut()).private_offset = private_offset as isize;
     }
 
     // Set trampolines for the basic GObject virtual methods.
     {
-        let gobject_klass = &mut *(klass as *mut gobject_sys::GObjectClass);
+        let gobject_klass = &mut *(klass as *mut gobject_ffi::GObjectClass);
 
         gobject_klass.finalize = Some(finalize::<T>);
     }
@@ -401,12 +397,11 @@ unsafe extern "C" fn class_init<T: ObjectSubclass>(
     // class initialization function.
     {
         let klass = &mut *(klass as *mut T::Class);
-        let parent_class =
-            gobject_sys::g_type_class_peek_parent(klass as *mut _ as glib_sys::gpointer)
-                as *mut <T::ParentType as ObjectType>::GlibClassType;
+        let parent_class = gobject_ffi::g_type_class_peek_parent(klass as *mut _ as ffi::gpointer)
+            as *mut <T::ParentType as ObjectType>::GlibClassType;
         assert!(!parent_class.is_null());
 
-        (*data.as_mut()).parent_class = parent_class as glib_sys::gpointer;
+        (*data.as_mut()).parent_class = parent_class as ffi::gpointer;
 
         klass.override_vfuncs();
         T::class_init(klass);
@@ -414,8 +409,8 @@ unsafe extern "C" fn class_init<T: ObjectSubclass>(
 }
 
 unsafe extern "C" fn instance_init<T: ObjectSubclass>(
-    obj: *mut gobject_sys::GTypeInstance,
-    klass: glib_sys::gpointer,
+    obj: *mut gobject_ffi::GTypeInstance,
+    klass: ffi::gpointer,
 ) {
     // Get offset to the storage of our private struct, create it
     // and actually store it in that place.
@@ -432,7 +427,7 @@ unsafe extern "C" fn instance_init<T: ObjectSubclass>(
     ptr::write(imp_storage, imp);
 }
 
-unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_sys::GObject) {
+unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject) {
     // Retrieve the private struct and drop it for freeing all associated memory.
     let mut data = T::type_data();
     let private_offset = (*data.as_mut()).private_offset;
@@ -442,7 +437,7 @@ unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_sys::GObject)
     ptr::drop_in_place(imp_storage);
 
     // Chain up to the parent class' finalize implementation, if any.
-    let parent_class = &*(data.as_ref().get_parent_class() as *const gobject_sys::GObjectClass);
+    let parent_class = &*(data.as_ref().get_parent_class() as *const gobject_ffi::GObjectClass);
     if let Some(ref func) = parent_class.finalize {
         func(obj);
     }
@@ -474,14 +469,14 @@ where
         use std::ffi::CString;
 
         let type_name = CString::new(T::NAME).unwrap();
-        if gobject_sys::g_type_from_name(type_name.as_ptr()) != gobject_sys::G_TYPE_INVALID {
+        if gobject_ffi::g_type_from_name(type_name.as_ptr()) != gobject_ffi::G_TYPE_INVALID {
             panic!(
                 "Type {} has already been registered",
                 type_name.to_str().unwrap()
             );
         }
 
-        let type_ = from_glib(gobject_sys::g_type_register_static_simple(
+        let type_ = from_glib(gobject_ffi::g_type_register_static_simple(
             <T::ParentType as StaticType>::static_type().to_glib(),
             type_name.as_ptr(),
             mem::size_of::<T::Class>() as u32,
@@ -489,7 +484,7 @@ where
             mem::size_of::<T::Instance>() as u32,
             Some(instance_init::<T>),
             if T::ABSTRACT {
-                gobject_sys::G_TYPE_FLAG_ABSTRACT
+                gobject_ffi::G_TYPE_FLAG_ABSTRACT
             } else {
                 0
             },
@@ -501,7 +496,7 @@ where
         let private_offset = if mem::size_of::<T>() == 0 {
             0
         } else {
-            gobject_sys::g_type_add_instance_private(type_.to_glib(), mem::size_of::<T>())
+            gobject_ffi::g_type_add_instance_private(type_.to_glib(), mem::size_of::<T>())
         };
         (*data.as_mut()).private_offset = private_offset as isize;
 
@@ -512,7 +507,7 @@ where
 }
 
 pub(crate) unsafe fn add_signal(
-    type_: glib_sys::GType,
+    type_: ffi::GType,
     name: &str,
     flags: SignalFlags,
     arg_types: &[Type],
@@ -520,7 +515,7 @@ pub(crate) unsafe fn add_signal(
 ) {
     let arg_types = arg_types.iter().map(ToGlib::to_glib).collect::<Vec<_>>();
 
-    gobject_sys::g_signal_newv(
+    gobject_ffi::g_signal_newv(
         name.to_glib_none().0,
         type_,
         flags.to_glib(),
@@ -535,10 +530,10 @@ pub(crate) unsafe fn add_signal(
 }
 
 #[repr(transparent)]
-pub struct SignalInvocationHint(gobject_sys::GSignalInvocationHint);
+pub struct SignalInvocationHint(gobject_ffi::GSignalInvocationHint);
 
 impl SignalInvocationHint {
-    pub fn detail(&self) -> ::Quark {
+    pub fn detail(&self) -> crate::Quark {
         from_glib(self.0.detail)
     }
 
@@ -557,7 +552,7 @@ impl fmt::Debug for SignalInvocationHint {
 }
 
 pub(crate) unsafe fn add_signal_with_accumulator<F>(
-    type_: glib_sys::GType,
+    type_: ffi::GType,
     name: &str,
     flags: SignalFlags,
     arg_types: &[Type],
@@ -573,11 +568,11 @@ pub(crate) unsafe fn add_signal_with_accumulator<F>(
     unsafe extern "C" fn accumulator_trampoline<
         F: Fn(&SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
     >(
-        ihint: *mut gobject_sys::GSignalInvocationHint,
-        return_accu: *mut gobject_sys::GValue,
-        handler_return: *const gobject_sys::GValue,
-        data: glib_sys::gpointer,
-    ) -> glib_sys::gboolean {
+        ihint: *mut gobject_ffi::GSignalInvocationHint,
+        return_accu: *mut gobject_ffi::GValue,
+        handler_return: *const gobject_ffi::GValue,
+        data: ffi::gpointer,
+    ) -> ffi::gboolean {
         let accumulator: &F = &*(data as *const &F);
         accumulator(
             &*(ihint as *const SignalInvocationHint),
@@ -587,13 +582,13 @@ pub(crate) unsafe fn add_signal_with_accumulator<F>(
         .to_glib()
     }
 
-    gobject_sys::g_signal_newv(
+    gobject_ffi::g_signal_newv(
         name.to_glib_none().0,
         type_,
         flags.to_glib(),
         ptr::null_mut(),
         Some(accumulator_trampoline::<F>),
-        Box::into_raw(accumulator) as glib_sys::gpointer,
+        Box::into_raw(accumulator) as ffi::gpointer,
         None,
         ret_type.to_glib(),
         arg_types.len() as u32,
@@ -601,18 +596,18 @@ pub(crate) unsafe fn add_signal_with_accumulator<F>(
     );
 }
 
-pub struct SignalClassHandlerToken(*mut gobject_sys::GTypeInstance);
+pub struct SignalClassHandlerToken(*mut gobject_ffi::GTypeInstance);
 
 impl fmt::Debug for SignalClassHandlerToken {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
         f.debug_tuple("SignalClassHandlerToken")
-            .field(&unsafe { ::Object::from_glib_borrow(self.0 as *mut gobject_sys::GObject) })
+            .field(&unsafe { crate::Object::from_glib_borrow(self.0 as *mut gobject_ffi::GObject) })
             .finish()
     }
 }
 
 pub(crate) unsafe fn add_signal_with_class_handler<F>(
-    type_: glib_sys::GType,
+    type_: ffi::GType,
     name: &str,
     flags: SignalFlags,
     arg_types: &[Type],
@@ -623,11 +618,11 @@ pub(crate) unsafe fn add_signal_with_class_handler<F>(
 {
     let arg_types = arg_types.iter().map(ToGlib::to_glib).collect::<Vec<_>>();
     let class_handler = Closure::new(move |values| {
-        let instance = gobject_sys::g_value_get_object(values[0].to_glib_none().0);
+        let instance = gobject_ffi::g_value_get_object(values[0].to_glib_none().0);
         class_handler(&SignalClassHandlerToken(instance as *mut _), values)
     });
 
-    gobject_sys::g_signal_newv(
+    gobject_ffi::g_signal_newv(
         name.to_glib_none().0,
         type_,
         flags.to_glib(),
@@ -642,7 +637,7 @@ pub(crate) unsafe fn add_signal_with_class_handler<F>(
 }
 
 pub(crate) unsafe fn add_signal_with_class_handler_and_accumulator<F, G>(
-    type_: glib_sys::GType,
+    type_: ffi::GType,
     name: &str,
     flags: SignalFlags,
     arg_types: &[Type],
@@ -656,7 +651,7 @@ pub(crate) unsafe fn add_signal_with_class_handler_and_accumulator<F, G>(
     let arg_types = arg_types.iter().map(ToGlib::to_glib).collect::<Vec<_>>();
 
     let class_handler = Closure::new(move |values| {
-        let instance = gobject_sys::g_value_get_object(values[0].to_glib_none().0);
+        let instance = gobject_ffi::g_value_get_object(values[0].to_glib_none().0);
         class_handler(&SignalClassHandlerToken(instance as *mut _), values)
     });
     let accumulator: Box<G> = Box::new(accumulator);
@@ -664,11 +659,11 @@ pub(crate) unsafe fn add_signal_with_class_handler_and_accumulator<F, G>(
     unsafe extern "C" fn accumulator_trampoline<
         G: Fn(&SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
     >(
-        ihint: *mut gobject_sys::GSignalInvocationHint,
-        return_accu: *mut gobject_sys::GValue,
-        handler_return: *const gobject_sys::GValue,
-        data: glib_sys::gpointer,
-    ) -> glib_sys::gboolean {
+        ihint: *mut gobject_ffi::GSignalInvocationHint,
+        return_accu: *mut gobject_ffi::GValue,
+        handler_return: *const gobject_ffi::GValue,
+        data: ffi::gpointer,
+    ) -> ffi::gboolean {
         let accumulator: &G = &*(data as *const &G);
         accumulator(
             &SignalInvocationHint(*ihint),
@@ -678,13 +673,13 @@ pub(crate) unsafe fn add_signal_with_class_handler_and_accumulator<F, G>(
         .to_glib()
     }
 
-    gobject_sys::g_signal_newv(
+    gobject_ffi::g_signal_newv(
         name.to_glib_none().0,
         type_,
         flags.to_glib(),
         class_handler.to_glib_none().0,
         Some(accumulator_trampoline::<G>),
-        Box::into_raw(accumulator) as glib_sys::gpointer,
+        Box::into_raw(accumulator) as ffi::gpointer,
         None,
         ret_type.to_glib(),
         arg_types.len() as u32,
@@ -694,18 +689,18 @@ pub(crate) unsafe fn add_signal_with_class_handler_and_accumulator<F, G>(
 
 pub(crate) unsafe fn signal_override_class_handler<F>(
     name: &str,
-    type_: glib_sys::GType,
+    type_: ffi::GType,
     class_handler: F,
 ) where
     F: Fn(&super::SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
 {
     let class_handler = Closure::new(move |values| {
-        let instance = gobject_sys::g_value_get_object(values[0].to_glib_none().0);
+        let instance = gobject_ffi::g_value_get_object(values[0].to_glib_none().0);
         class_handler(&SignalClassHandlerToken(instance as *mut _), values)
     });
 
     let mut signal_id = 0;
-    let found: bool = from_glib(gobject_sys::g_signal_parse_name(
+    let found: bool = from_glib(gobject_ffi::g_signal_parse_name(
         name.to_glib_none().0,
         type_,
         &mut signal_id,
@@ -717,18 +712,18 @@ pub(crate) unsafe fn signal_override_class_handler<F>(
         panic!("Signal '{}' not found", name);
     }
 
-    gobject_sys::g_signal_override_class_closure(signal_id, type_, class_handler.to_glib_none().0);
+    gobject_ffi::g_signal_override_class_closure(signal_id, type_, class_handler.to_glib_none().0);
 }
 
 pub(crate) unsafe fn signal_chain_from_overridden(
-    instance: *mut gobject_sys::GTypeInstance,
+    instance: *mut gobject_ffi::GTypeInstance,
     token: &SignalClassHandlerToken,
     values: &[Value],
 ) -> Option<Value> {
     assert_eq!(instance, token.0);
     let mut result = Value::uninitialized();
-    gobject_sys::g_signal_chain_from_overridden(
-        values.as_ptr() as *mut Value as *mut gobject_sys::GValue,
+    gobject_ffi::g_signal_chain_from_overridden(
+        values.as_ptr() as *mut Value as *mut gobject_ffi::GValue,
         result.to_glib_none_mut().0,
     );
     if result.type_() != Type::Unit && result.type_() != Type::Invalid {

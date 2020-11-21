@@ -3,8 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 use crate::log as glib_log;
-use glib_sys;
-use translate::*;
+use crate::translate::*;
 
 /// Enumeration of the possible formatting behaviours for a
 /// [`GlibLogger`](struct.GlibLogger.html).

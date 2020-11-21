@@ -2,8 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use glib_sys;
-use gobject_sys;
+use crate::translate::*;
 use std::borrow;
 use std::cmp;
 use std::convert;
@@ -13,16 +12,15 @@ use std::ops;
 use std::ptr;
 use std::slice;
 use std::str;
-use translate::*;
 
 glib_wrapper! {
     /// A mutable text buffer that grows automatically.
-    pub struct String(Boxed<glib_sys::GString>);
+    pub struct String(Boxed<ffi::GString>);
 
     match fn {
-        copy => |ptr| gobject_sys::g_boxed_copy(glib_sys::g_gstring_get_type(), ptr as *mut _) as *mut glib_sys::GString,
-        free => |ptr| gobject_sys::g_boxed_free(glib_sys::g_gstring_get_type(), ptr as *mut _),
-        get_type => || glib_sys::g_gstring_get_type(),
+        copy => |ptr| gobject_ffi::g_boxed_copy(ffi::g_gstring_get_type(), ptr as *mut _) as *mut ffi::GString,
+        free => |ptr| gobject_ffi::g_boxed_free(ffi::g_gstring_get_type(), ptr as *mut _),
+        get_type => || ffi::g_gstring_get_type(),
     }
 }
 
@@ -33,7 +31,7 @@ impl String {
     pub fn new<T: AsRef<[u8]>>(data: T) -> String {
         let bytes = data.as_ref();
         unsafe {
-            from_glib_full(glib_sys::g_string_new_len(
+            from_glib_full(ffi::g_string_new_len(
                 bytes.as_ptr() as *const _,
                 bytes.len() as isize,
             ))
@@ -42,7 +40,7 @@ impl String {
 
     pub fn append(&mut self, val: &str) -> &mut Self {
         unsafe {
-            glib_sys::g_string_append_len(
+            ffi::g_string_append_len(
                 self.to_glib_none_mut().0,
                 val.to_glib_none().0,
                 val.len() as isize,
@@ -53,7 +51,7 @@ impl String {
 
     pub fn insert(&mut self, pos: isize, val: &str) -> &mut Self {
         unsafe {
-            glib_sys::g_string_insert_len(
+            ffi::g_string_insert_len(
                 self.to_glib_none_mut().0,
                 pos,
                 val.to_glib_none().0,
@@ -65,7 +63,7 @@ impl String {
 
     pub fn overwrite(&mut self, pos: usize, val: &str) -> &mut Self {
         unsafe {
-            glib_sys::g_string_overwrite_len(
+            ffi::g_string_overwrite_len(
                 self.to_glib_none_mut().0,
                 pos,
                 val.to_glib_none().0,
@@ -77,7 +75,7 @@ impl String {
 
     pub fn prepend(&mut self, val: &str) -> &mut Self {
         unsafe {
-            glib_sys::g_string_prepend_len(
+            ffi::g_string_prepend_len(
                 self.to_glib_none_mut().0,
                 val.to_glib_none().0,
                 val.len() as isize,
@@ -88,7 +86,7 @@ impl String {
 
     pub fn truncate(&mut self, len: usize) -> &mut Self {
         unsafe {
-            glib_sys::g_string_truncate(self.to_glib_none_mut().0, len);
+            ffi::g_string_truncate(self.to_glib_none_mut().0, len);
         }
         self
     }
@@ -101,14 +99,14 @@ impl String {
     /// Returns `Cow<str>` containing UTF-8 data. Invalid UTF-8 sequences are replaced with
     /// replacement character.
     pub fn to_string_lossy(&self) -> borrow::Cow<str> {
-        ::std::string::String::from_utf8_lossy(self.as_ref())
+        std::string::String::from_utf8_lossy(self.as_ref())
     }
 }
 
 impl Default for String {
     /// Creates a new empty string.
     fn default() -> String {
-        unsafe { from_glib_full(glib_sys::g_string_new(ptr::null())) }
+        unsafe { from_glib_full(ffi::g_string_new(ptr::null())) }
     }
 }
 
@@ -127,7 +125,7 @@ impl fmt::Display for String {
 impl PartialEq for String {
     fn eq(&self, other: &Self) -> bool {
         unsafe {
-            from_glib(glib_sys::g_string_equal(
+            from_glib(ffi::g_string_equal(
                 self.to_glib_none().0,
                 other.to_glib_none().0,
             ))
@@ -180,35 +178,35 @@ impl ops::Deref for String {
 mod tests {
     #[test]
     fn append() {
-        let mut s = ::String::new("");
+        let mut s = crate::String::new("");
         s.append("Hello").append(" ").append("there!");
         assert_eq!(&*s, b"Hello there!");
     }
 
     #[test]
     fn insert() {
-        let mut s = ::String::new("foobaz");
+        let mut s = crate::String::new("foobaz");
         s.insert(3, "bar");
         assert_eq!(&*s, b"foobarbaz");
     }
 
     #[test]
     fn overwrite() {
-        let mut s = ::String::new("abc");
+        let mut s = crate::String::new("abc");
         s.overwrite(2, "de");
         assert_eq!(&*s, b"abde");
     }
 
     #[test]
     fn prepend() {
-        let mut s = ::String::new("456");
+        let mut s = crate::String::new("456");
         s.prepend("123");
         assert_eq!(&*s, b"123456");
     }
 
     #[test]
     fn truncate() {
-        let mut s = ::String::new("12345");
+        let mut s = crate::String::new("12345");
         s.truncate(10);
         assert_eq!(&*s, b"12345");
         s.truncate(2);
@@ -217,21 +215,21 @@ mod tests {
 
     #[test]
     fn default() {
-        let s1: ::String = Default::default();
+        let s1: crate::String = Default::default();
         assert_eq!(&*s1, b"");
     }
 
     #[test]
     fn display() {
-        let s: ::String = ::String::new("This is a string.");
+        let s: crate::String = crate::String::new("This is a string.");
         assert_eq!(&format!("{}", s), "This is a string.");
     }
 
     #[test]
     fn eq() {
-        let a1 = ::String::new("a");
-        let a2 = ::String::new("a");
-        let b = ::String::new("b");
+        let a1 = crate::String::new("a");
+        let a2 = crate::String::new("a");
+        let b = crate::String::new("b");
         assert_eq!(a1, a2);
         assert_ne!(a1, b);
         assert_ne!(a2, b);
@@ -239,7 +237,7 @@ mod tests {
 
     #[test]
     fn invalid_utf8() {
-        let s = ::String::new(b"Hello \xF0\x90\x80World");
+        let s = crate::String::new(b"Hello \xF0\x90\x80World");
         assert!(s.to_str().is_err());
         assert_eq!(s.to_string_lossy(), "Hello �World");
     }

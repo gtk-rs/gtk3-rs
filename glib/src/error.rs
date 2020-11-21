@@ -4,24 +4,23 @@
 
 //! `Error` binding and helper trait.
 
-use glib_sys;
+use crate::translate::*;
+use crate::Quark;
 use std::borrow::Cow;
 use std::error;
 use std::ffi::CStr;
 use std::fmt;
 use std::str;
-use translate::*;
-use Quark;
 
 glib_wrapper! {
     /// A generic error capable of representing various error domains (types).
     #[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct Error(Boxed<glib_sys::GError>);
+    pub struct Error(Boxed<ffi::GError>);
 
     match fn {
-        copy => |ptr| glib_sys::g_error_copy(ptr),
-        free => |ptr| glib_sys::g_error_free(ptr),
-        get_type => || glib_sys::g_error_get_type(),
+        copy => |ptr| ffi::g_error_copy(ptr),
+        free => |ptr| ffi::g_error_free(ptr),
+        get_type => || ffi::g_error_get_type(),
     }
 }
 
@@ -32,7 +31,7 @@ impl Error {
     /// Creates an error with supplied error enum variant and message.
     pub fn new<T: ErrorDomain>(error: T, message: &str) -> Error {
         unsafe {
-            from_glib_full(glib_sys::g_error_new_literal(
+            from_glib_full(ffi::g_error_new_literal(
                 T::domain().to_glib(),
                 error.code(),
                 message.to_glib_none().0,
@@ -95,7 +94,7 @@ impl fmt::Display for Error {
 impl fmt::Debug for Error {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.debug_struct("Error")
-            .field("domain", &::Quark::from_glib(self.0.domain))
+            .field("domain", &crate::Quark::from_glib(self.0.domain))
             .field("code", &self.0.code)
             .field("message", &self.message())
             .finish()
@@ -185,14 +184,14 @@ impl BoolError {
     }
 
     pub fn from_glib<Msg: Into<Cow<'static, str>>>(
-        b: glib_sys::gboolean,
+        b: ffi::gboolean,
         message: Msg,
         filename: &'static str,
         function: &'static str,
         line: u32,
     ) -> Result<(), Self> {
         match b {
-            glib_sys::GFALSE => Err(BoolError::new(message, filename, function, line)),
+            ffi::GFALSE => Err(BoolError::new(message, filename, function, line)),
             _ => Ok(()),
         }
     }
@@ -218,21 +217,20 @@ mod tests {
         let from_dynamic_msg = glib_bool_error!("{} message", "Dynamic");
         assert_eq!(from_dynamic_msg.to_string(), "Dynamic message");
 
-        let false_static_res = glib_result_from_gboolean!(glib_sys::GFALSE, "Static message");
+        let false_static_res = glib_result_from_gboolean!(ffi::GFALSE, "Static message");
         assert!(false_static_res.is_err());
         let static_err = false_static_res.err().unwrap();
         assert_eq!(static_err.to_string(), "Static message");
 
-        let true_static_res = glib_result_from_gboolean!(glib_sys::GTRUE, "Static message");
+        let true_static_res = glib_result_from_gboolean!(ffi::GTRUE, "Static message");
         assert!(true_static_res.is_ok());
 
-        let false_dynamic_res =
-            glib_result_from_gboolean!(glib_sys::GFALSE, "{} message", "Dynamic");
+        let false_dynamic_res = glib_result_from_gboolean!(ffi::GFALSE, "{} message", "Dynamic");
         assert!(false_dynamic_res.is_err());
         let dynamic_err = false_dynamic_res.err().unwrap();
         assert_eq!(dynamic_err.to_string(), "Dynamic message");
 
-        let true_dynamic_res = glib_result_from_gboolean!(glib_sys::GTRUE, "{} message", "Dynamic");
+        let true_dynamic_res = glib_result_from_gboolean!(ffi::GTRUE, "{} message", "Dynamic");
         assert!(true_dynamic_res.is_ok());
     }
 }

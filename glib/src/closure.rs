@@ -10,23 +10,22 @@ use std::slice;
 
 use libc::{c_uint, c_void};
 
-use gobject_sys;
-use translate::{from_glib_none, mut_override, ToGlibPtr, ToGlibPtrMut, Uninitialized};
-use types::Type;
-use ToValue;
-use Value;
+use crate::translate::{from_glib_none, mut_override, ToGlibPtr, ToGlibPtrMut, Uninitialized};
+use crate::types::Type;
+use crate::ToValue;
+use crate::Value;
 
 glib_wrapper! {
     #[derive(PartialEq, Eq, PartialOrd, Ord, Debug, Hash)]
-    pub struct Closure(Shared<gobject_sys::GClosure>);
+    pub struct Closure(Shared<gobject_ffi::GClosure>);
 
     match fn {
         ref => |ptr| {
-            gobject_sys::g_closure_ref(ptr);
-            gobject_sys::g_closure_sink(ptr);
+            gobject_ffi::g_closure_ref(ptr);
+            gobject_ffi::g_closure_sink(ptr);
         },
-        unref => |ptr| gobject_sys::g_closure_unref(ptr),
-        get_type => || gobject_sys::g_closure_get_type(),
+        unref => |ptr| gobject_ffi::g_closure_unref(ptr),
+        get_type => || gobject_ffi::g_closure_get_type(),
     }
 }
 
@@ -43,10 +42,10 @@ impl Closure {
 
     pub unsafe fn new_unsafe<F: Fn(&[Value]) -> Option<Value>>(callback: F) -> Self {
         unsafe extern "C" fn marshal<F>(
-            _closure: *mut gobject_sys::GClosure,
-            return_value: *mut gobject_sys::GValue,
+            _closure: *mut gobject_ffi::GClosure,
+            return_value: *mut gobject_ffi::GValue,
             n_param_values: c_uint,
-            param_values: *const gobject_sys::GValue,
+            param_values: *const gobject_ffi::GValue,
             _invocation_hint: *mut c_void,
             marshal_data: *mut c_void,
         ) where
@@ -68,7 +67,7 @@ impl Closure {
 
         unsafe extern "C" fn finalize<F>(
             notify_data: *mut c_void,
-            _closure: *mut gobject_sys::GClosure,
+            _closure: *mut gobject_ffi::GClosure,
         ) where
             F: Fn(&[Value]) -> Option<Value>,
         {
@@ -83,13 +82,13 @@ impl Closure {
         // We don't store any custom data ourselves in the GClosure
         let size = u32::max(4, mem::align_of::<*mut c_void>() as u32)
             + 3 * mem::size_of::<*mut c_void>() as u32;
-        let closure = gobject_sys::g_closure_new_simple(size, ptr::null_mut());
+        let closure = gobject_ffi::g_closure_new_simple(size, ptr::null_mut());
         assert_ne!(closure, ptr::null_mut());
         let callback = Box::new(callback);
         let ptr: *mut F = Box::into_raw(callback);
         let ptr: *mut c_void = ptr as *mut _;
-        gobject_sys::g_closure_set_meta_marshal(closure, ptr, Some(marshal::<F>));
-        gobject_sys::g_closure_add_finalize_notifier(closure, ptr, Some(finalize::<F>));
+        gobject_ffi::g_closure_set_meta_marshal(closure, ptr, Some(marshal::<F>));
+        gobject_ffi::g_closure_add_finalize_notifier(closure, ptr, Some(finalize::<F>));
         from_glib_none(closure)
     }
 
@@ -106,11 +105,11 @@ impl Closure {
     pub fn invoke_generic(&self, values: &[Value]) -> Option<Value> {
         let result = unsafe {
             let mut result = Value::uninitialized();
-            gobject_sys::g_closure_invoke(
+            gobject_ffi::g_closure_invoke(
                 self.to_glib_none().0 as *mut _,
                 result.to_glib_none_mut().0,
                 values.len() as u32,
-                mut_override(values.as_ptr()) as *mut gobject_sys::GValue,
+                mut_override(values.as_ptr()) as *mut gobject_ffi::GValue,
                 ptr::null_mut(),
             );
 

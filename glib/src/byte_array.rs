@@ -14,7 +14,7 @@
 //! assert_eq!(ba, "abcghi".as_bytes());
 //! ```
 
-use glib_sys;
+use crate::translate::*;
 use std::borrow::Borrow;
 use std::cmp::Ordering;
 use std::fmt;
@@ -23,33 +23,32 @@ use std::mem;
 use std::ops::Deref;
 use std::ptr::NonNull;
 use std::slice;
-use translate::*;
 
-use Bytes;
+use crate::Bytes;
 
 glib_wrapper! {
-    pub struct ByteArray(Shared<glib_sys::GByteArray>);
+    pub struct ByteArray(Shared<ffi::GByteArray>);
 
     match fn {
-        ref => |ptr| glib_sys::g_byte_array_ref(ptr),
-        unref => |ptr| glib_sys::g_byte_array_unref(ptr),
-        get_type => || glib_sys::g_byte_array_get_type(),
+        ref => |ptr| ffi::g_byte_array_ref(ptr),
+        unref => |ptr| ffi::g_byte_array_unref(ptr),
+        get_type => || ffi::g_byte_array_get_type(),
     }
 }
 
 impl ByteArray {
     pub fn new() -> ByteArray {
-        unsafe { from_glib_full(glib_sys::g_byte_array_new()) }
+        unsafe { from_glib_full(ffi::g_byte_array_new()) }
     }
 
     pub fn with_capacity(size: usize) -> ByteArray {
-        unsafe { from_glib_full(glib_sys::g_byte_array_sized_new(size as u32)) }
+        unsafe { from_glib_full(ffi::g_byte_array_sized_new(size as u32)) }
     }
 
     pub fn into_gbytes(self) -> Bytes {
         unsafe {
             let s = mem::ManuallyDrop::new(self);
-            from_glib_full(glib_sys::g_byte_array_free_to_bytes(mut_override(
+            from_glib_full(ffi::g_byte_array_free_to_bytes(mut_override(
                 s.to_glib_none().0,
             )))
         }
@@ -58,7 +57,7 @@ impl ByteArray {
     pub fn append<T: ?Sized + AsRef<[u8]>>(&self, data: &T) -> &Self {
         let bytes = data.as_ref();
         unsafe {
-            glib_sys::g_byte_array_append(
+            ffi::g_byte_array_append(
                 self.to_glib_none().0,
                 bytes.as_ptr() as *const _,
                 bytes.len() as u32,
@@ -70,7 +69,7 @@ impl ByteArray {
     pub fn prepend<T: ?Sized + AsRef<[u8]>>(&self, data: &T) -> &Self {
         let bytes = data.as_ref();
         unsafe {
-            glib_sys::g_byte_array_prepend(
+            ffi::g_byte_array_prepend(
                 self.to_glib_none().0,
                 bytes.as_ptr() as *const _,
                 bytes.len() as u32,
@@ -81,31 +80,31 @@ impl ByteArray {
 
     pub fn remove_index(&self, index: usize) {
         unsafe {
-            glib_sys::g_byte_array_remove_index(self.to_glib_none().0, index as u32);
+            ffi::g_byte_array_remove_index(self.to_glib_none().0, index as u32);
         }
     }
 
     pub fn remove_index_fast(&self, index: usize) {
         unsafe {
-            glib_sys::g_byte_array_remove_index_fast(self.to_glib_none().0, index as u32);
+            ffi::g_byte_array_remove_index_fast(self.to_glib_none().0, index as u32);
         }
     }
 
     pub fn remove_range(&self, index: usize, length: usize) {
         unsafe {
-            glib_sys::g_byte_array_remove_range(self.to_glib_none().0, index as u32, length as u32);
+            ffi::g_byte_array_remove_range(self.to_glib_none().0, index as u32, length as u32);
         }
     }
 
     pub unsafe fn set_size(&self, size: usize) {
-        glib_sys::g_byte_array_set_size(self.to_glib_none().0, size as u32);
+        ffi::g_byte_array_set_size(self.to_glib_none().0, size as u32);
     }
 
     pub fn sort<F: FnMut(&u8, &u8) -> Ordering>(&self, compare_func: F) {
         unsafe extern "C" fn compare_func_trampoline(
-            a: glib_sys::gconstpointer,
-            b: glib_sys::gconstpointer,
-            func: glib_sys::gpointer,
+            a: ffi::gconstpointer,
+            b: ffi::gconstpointer,
+            func: ffi::gpointer,
         ) -> i32 {
             let func = func as *mut &mut (dyn FnMut(&u8, &u8) -> Ordering);
 
@@ -122,9 +121,9 @@ impl ByteArray {
             let mut func = compare_func;
             let func_obj: &mut (dyn FnMut(&u8, &u8) -> Ordering) = &mut func;
             let func_ptr =
-                &func_obj as *const &mut (dyn FnMut(&u8, &u8) -> Ordering) as glib_sys::gpointer;
+                &func_obj as *const &mut (dyn FnMut(&u8, &u8) -> Ordering) as ffi::gpointer;
 
-            glib_sys::g_byte_array_sort_with_data(
+            ffi::g_byte_array_sort_with_data(
                 self.to_glib_none().0,
                 Some(compare_func_trampoline),
                 func_ptr,

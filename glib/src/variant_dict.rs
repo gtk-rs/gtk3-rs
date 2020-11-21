@@ -9,8 +9,6 @@ use crate::translate::*;
 use crate::variant::*;
 use crate::variant_type::*;
 
-use glib_sys;
-
 glib_wrapper! {
     /// `VariantDict` is a mutable key/value store where the keys are always
     /// strings and the values are [`Variant`s](variant/struct.Variant.html).
@@ -22,12 +20,12 @@ glib_wrapper! {
     ///
     /// Note, pretty much all methods on this struct will panic if the
     /// [`end_unsafe()`](#method.end_unsafe) method was called on the instance.
-    pub struct VariantDict(Shared<glib_sys::GVariantDict>);
+    pub struct VariantDict(Shared<ffi::GVariantDict>);
 
     match fn {
-        ref => |ptr| glib_sys::g_variant_dict_ref(ptr),
-        unref => |ptr| glib_sys::g_variant_dict_unref(ptr),
-        get_type => || glib_sys::g_variant_dict_get_type(),
+        ref => |ptr| ffi::g_variant_dict_ref(ptr),
+        unref => |ptr| ffi::g_variant_dict_unref(ptr),
+        get_type => || ffi::g_variant_dict_get_type(),
     }
 }
 
@@ -44,7 +42,7 @@ impl VariantDict {
         if let Some(var) = from_asv {
             assert_eq!(var.type_(), VariantDict::static_variant_type());
         }
-        unsafe { from_glib_full(glib_sys::g_variant_dict_new(from_asv.to_glib_none().0)) }
+        unsafe { from_glib_full(ffi::g_variant_dict_new(from_asv.to_glib_none().0)) }
     }
 
     /// Check if this `VariantDict` contains the given key.
@@ -53,7 +51,7 @@ impl VariantDict {
     /// is present in `self`.
     pub fn contains(&self, key: &str) -> bool {
         unsafe {
-            from_glib(glib_sys::g_variant_dict_contains(
+            from_glib(ffi::g_variant_dict_contains(
                 self.to_glib_none().0,
                 key.to_glib_none().0,
             ))
@@ -71,7 +69,7 @@ impl VariantDict {
     /// the `value` is an instance of [`Variant`](variant/struct.Variant.html).
     pub fn lookup_value(&self, key: &str, expected_type: Option<&VariantTy>) -> Option<Variant> {
         unsafe {
-            from_glib_none(glib_sys::g_variant_dict_lookup_value(
+            from_glib_none(ffi::g_variant_dict_lookup_value(
                 self.to_glib_none().0,
                 key.to_glib_none().0,
                 expected_type.to_glib_none().0,
@@ -88,7 +86,7 @@ impl VariantDict {
     /// you have a value which implements [`ToVariant`](variant/trait.ToVariant.html).
     pub fn insert_value(&self, key: &str, value: &Variant) {
         unsafe {
-            glib_sys::g_variant_dict_insert_value(
+            ffi::g_variant_dict_insert_value(
                 self.to_glib_none().0,
                 key.to_glib_none().0,
                 value.to_glib_none().0,
@@ -110,7 +108,7 @@ impl VariantDict {
     /// method instead.
     pub fn insert<T: ToVariant>(&self, key: &str, value: &T) {
         unsafe {
-            glib_sys::g_variant_dict_insert_value(
+            ffi::g_variant_dict_insert_value(
                 self.to_glib_none().0,
                 key.to_glib_none().0,
                 value.to_variant().to_glib_none().0,
@@ -127,7 +125,7 @@ impl VariantDict {
     /// returned.  If `key` was not present then `false` is returned instead.
     pub fn remove(&self, key: &str) -> bool {
         unsafe {
-            from_glib(glib_sys::g_variant_dict_remove(
+            from_glib(ffi::g_variant_dict_remove(
                 self.to_glib_none().0,
                 key.to_glib_none().0,
             ))
@@ -149,7 +147,7 @@ impl VariantDict {
     /// You should only use this function if the extra cost of the safe function
     /// is too much for your performance critical codepaths
     pub unsafe fn end_unsafe(&self) -> Variant {
-        from_glib_none(glib_sys::g_variant_dict_end(self.to_glib_none().0))
+        from_glib_none(ffi::g_variant_dict_end(self.to_glib_none().0))
     }
 
     /// Convert this dictionary to a [`Variant`](variant/struct.Variant.html)
@@ -165,7 +163,7 @@ impl VariantDict {
         unsafe {
             let ret = self.end_unsafe();
             // Reinitialise the dict so that we can continue safely
-            glib_sys::g_variant_dict_init(self.to_glib_none().0, None::<Variant>.to_glib_none().0);
+            ffi::g_variant_dict_init(self.to_glib_none().0, None::<Variant>.to_glib_none().0);
             ret
         }
     }

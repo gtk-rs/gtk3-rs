@@ -2,24 +2,21 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use auto::KeyFileFlags;
-use error::Error;
-use glib_sys;
-use gstring::GString;
-use libc;
-use std;
+use crate::error::Error;
+use crate::gstring::GString;
+use crate::translate::*;
+use crate::KeyFileFlags;
 use std::mem;
 use std::path;
 use std::ptr;
-use translate::*;
 
-use KeyFile;
+use crate::KeyFile;
 
 impl KeyFile {
     pub fn save_to_file<T: AsRef<std::path::Path>>(&self, filename: T) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = glib_sys::g_key_file_save_to_file(
+            let _ = ffi::g_key_file_save_to_file(
                 self.to_glib_none().0,
                 filename.as_ref().to_glib_none().0,
                 &mut error,
@@ -40,7 +37,7 @@ impl KeyFile {
         unsafe {
             let mut error = ptr::null_mut();
             let mut full_path: *mut libc::c_char = ptr::null_mut();
-            let _ = glib_sys::g_key_file_load_from_data_dirs(
+            let _ = ffi::g_key_file_load_from_data_dirs(
                 self.to_glib_none().0,
                 file.as_ref().to_glib_none().0,
                 &mut full_path,
@@ -67,7 +64,7 @@ impl KeyFile {
                 search_dirs.iter().map(AsRef::as_ref).collect();
             let mut error = ptr::null_mut();
             let mut full_path: *mut libc::c_char = ptr::null_mut();
-            let _ = glib_sys::g_key_file_load_from_dirs(
+            let _ = ffi::g_key_file_load_from_dirs(
                 self.to_glib_none().0,
                 file.as_ref().to_glib_none().0,
                 search_dirs.to_glib_none().0,
@@ -86,11 +83,8 @@ impl KeyFile {
 
     pub fn to_data(&self) -> GString {
         unsafe {
-            let ret = glib_sys::g_key_file_to_data(
-                self.to_glib_none().0,
-                ptr::null_mut(),
-                ptr::null_mut(),
-            );
+            let ret =
+                ffi::g_key_file_to_data(self.to_glib_none().0, ptr::null_mut(), ptr::null_mut());
             from_glib_full(ret)
         }
     }
@@ -98,7 +92,7 @@ impl KeyFile {
     pub fn get_boolean(&self, group_name: &str, key: &str) -> Result<bool, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_boolean(
+            let ret = ffi::g_key_file_get_boolean(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -115,7 +109,7 @@ impl KeyFile {
     pub fn has_key(&self, group_name: &str, key: &str) -> Result<bool, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_has_key(
+            let ret = ffi::g_key_file_has_key(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -133,7 +127,7 @@ impl KeyFile {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_boolean_list(
+            let ret = ffi::g_key_file_get_boolean_list(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -153,7 +147,7 @@ impl KeyFile {
     pub fn get_string(&self, group_name: &str, key: &str) -> Result<GString, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_string(
+            let ret = ffi::g_key_file_get_string(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -163,7 +157,7 @@ impl KeyFile {
                 Ok(from_glib_full(ret))
             } else {
                 if !ret.is_null() {
-                    glib_sys::g_free(ret as *mut _);
+                    ffi::g_free(ret as *mut _);
                 }
                 Err(from_glib_full(error))
             }
@@ -174,7 +168,7 @@ impl KeyFile {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_string_list(
+            let ret = ffi::g_key_file_get_string_list(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -188,7 +182,7 @@ impl KeyFile {
                 ))
             } else {
                 if !ret.is_null() {
-                    glib_sys::g_strfreev(ret);
+                    ffi::g_strfreev(ret);
                 }
                 Err(from_glib_full(error))
             }
@@ -203,7 +197,7 @@ impl KeyFile {
     ) -> Result<GString, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_locale_string(
+            let ret = ffi::g_key_file_get_locale_string(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -214,7 +208,7 @@ impl KeyFile {
                 Ok(from_glib_full(ret))
             } else {
                 if !ret.is_null() {
-                    glib_sys::g_free(ret as *mut _);
+                    ffi::g_free(ret as *mut _);
                 }
                 Err(from_glib_full(error))
             }
@@ -230,7 +224,7 @@ impl KeyFile {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_locale_string_list(
+            let ret = ffi::g_key_file_get_locale_string_list(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
@@ -245,7 +239,7 @@ impl KeyFile {
                 ))
             } else {
                 if !ret.is_null() {
-                    glib_sys::g_strfreev(ret);
+                    ffi::g_strfreev(ret);
                 }
                 Err(from_glib_full(error))
             }

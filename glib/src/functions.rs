@@ -1,7 +1,3 @@
-use glib_sys;
-#[cfg(any(feature = "v2_58", feature = "dox"))]
-#[cfg(not(windows))]
-use std;
 #[cfg(not(windows))]
 use std::boxed::Box as Box_;
 #[cfg(not(windows))]
@@ -14,15 +10,15 @@ use std::os::unix::io::FromRawFd;
 // #[cfg(windows)]
 // #[cfg(any(feature = "v2_58", feature = "dox"))]
 // use std::os::windows::io::AsRawHandle;
+use crate::translate::*;
+#[cfg(not(windows))]
+use crate::Error;
+use crate::GString;
+#[cfg(not(windows))]
+use crate::Pid;
+#[cfg(not(windows))]
+use crate::SpawnFlags;
 use std::ptr;
-use translate::*;
-#[cfg(not(windows))]
-use Error;
-use GString;
-#[cfg(not(windows))]
-use Pid;
-#[cfg(not(windows))]
-use SpawnFlags;
 
 #[cfg(any(feature = "v2_58", feature = "dox"))]
 #[cfg(not(windows))]
@@ -39,9 +35,7 @@ pub fn spawn_async_with_fds<P: AsRef<std::path::Path>, T: AsRawFd, U: AsRawFd, V
     stderr_fd: V,
 ) -> Result<Pid, Error> {
     let child_setup_data: Box_<Option<Box_<dyn FnOnce() + 'static>>> = Box_::new(child_setup);
-    unsafe extern "C" fn child_setup_func<P: AsRef<std::path::Path>>(
-        user_data: glib_sys::gpointer,
-    ) {
+    unsafe extern "C" fn child_setup_func<P: AsRef<std::path::Path>>(user_data: ffi::gpointer) {
         let callback: Box_<Option<Box_<dyn FnOnce() + 'static>>> =
             Box_::from_raw(user_data as *mut _);
         let callback = (*callback).expect("cannot get closure...");
@@ -56,7 +50,7 @@ pub fn spawn_async_with_fds<P: AsRef<std::path::Path>, T: AsRawFd, U: AsRawFd, V
     unsafe {
         let mut child_pid = mem::MaybeUninit::uninit();
         let mut error = ptr::null_mut();
-        let _ = glib_sys::g_spawn_async_with_fds(
+        let _ = ffi::g_spawn_async_with_fds(
             working_directory.as_ref().to_glib_none().0,
             argv.to_glib_none().0,
             envp.to_glib_none().0,
@@ -97,7 +91,7 @@ pub fn spawn_async_with_fds<P: AsRef<std::path::Path>, T: AsRawFd, U: AsRawFd, V
 // ) -> Result<Pid, Error> {
 //     let child_setup_data: Box_<Option<Box_<dyn FnOnce() + 'static>>> = Box_::new(child_setup);
 //     unsafe extern "C" fn child_setup_func<P: AsRef<std::path::Path>>(
-//         user_data: glib_sys::gpointer,
+//         user_data: ffi::gpointer,
 //     ) {
 //         let callback: Box_<Option<Box_<dyn FnOnce() + 'static>>> =
 //             Box_::from_raw(user_data as *mut _);
@@ -113,7 +107,7 @@ pub fn spawn_async_with_fds<P: AsRef<std::path::Path>, T: AsRawFd, U: AsRawFd, V
 //     unsafe {
 //         let mut child_pid = mem::MaybeUninit::uninit();
 //         let mut error = ptr::null_mut();
-//         let _ = glib_sys::g_spawn_async_with_fds(
+//         let _ = ffi::g_spawn_async_with_fds(
 //             working_directory.as_ref().to_glib_none().0,
 //             argv.to_glib_none().0,
 //             envp.to_glib_none().0,
@@ -150,9 +144,7 @@ pub fn spawn_async_with_pipes<
     child_setup: Option<Box_<dyn FnOnce() + 'static>>,
 ) -> Result<(Pid, T, U, V), Error> {
     let child_setup_data: Box_<Option<Box_<dyn FnOnce() + 'static>>> = Box_::new(child_setup);
-    unsafe extern "C" fn child_setup_func<P: AsRef<std::path::Path>>(
-        user_data: glib_sys::gpointer,
-    ) {
+    unsafe extern "C" fn child_setup_func<P: AsRef<std::path::Path>>(user_data: ffi::gpointer) {
         let callback: Box_<Option<Box_<dyn FnOnce() + 'static>>> =
             Box_::from_raw(user_data as *mut _);
         let callback = (*callback).expect("cannot get closure...");
@@ -170,7 +162,7 @@ pub fn spawn_async_with_pipes<
         let mut standard_output = mem::MaybeUninit::uninit();
         let mut standard_error = mem::MaybeUninit::uninit();
         let mut error = ptr::null_mut();
-        let _ = glib_sys::g_spawn_async_with_pipes(
+        let _ = ffi::g_spawn_async_with_pipes(
             working_directory.as_ref().to_glib_none().0,
             argv.to_glib_none().0,
             envp.to_glib_none().0,
@@ -220,7 +212,7 @@ pub fn spawn_async_with_pipes<
 pub fn get_charset() -> (bool, Option<GString>) {
     unsafe {
         let mut out_charset = ptr::null();
-        let is_utf8 = from_glib(glib_sys::g_get_charset(&mut out_charset));
+        let is_utf8 = from_glib(ffi::g_get_charset(&mut out_charset));
         let charset = from_glib_none(out_charset);
         (is_utf8, charset)
     }

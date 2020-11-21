@@ -14,10 +14,10 @@ use std::pin;
 use std::pin::Pin;
 use std::time::Duration;
 
-use Continue;
-use MainContext;
-use Priority;
-use Source;
+use crate::Continue;
+use crate::MainContext;
+use crate::Priority;
+use crate::Source;
 
 /// Represents a `Future` around a `glib::Source`. The future will
 /// be resolved once the source has provided a value
@@ -110,7 +110,7 @@ impl<T, F> Drop for SourceFuture<T, F> {
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn timeout_future(value: Duration) -> Pin<Box<dyn Future<Output = ()> + Send + 'static>> {
-    timeout_future_with_priority(::PRIORITY_DEFAULT, value)
+    timeout_future_with_priority(crate::PRIORITY_DEFAULT, value)
 }
 
 /// Create a `Future` that will resolve after the given number of milliseconds.
@@ -122,7 +122,7 @@ pub fn timeout_future_with_priority(
 ) -> Pin<Box<dyn Future<Output = ()> + Send + 'static>> {
     Box::pin(SourceFuture::new(move |send| {
         let mut send = Some(send);
-        ::timeout_source_new(value, None, priority, move || {
+        crate::timeout_source_new(value, None, priority, move || {
             let _ = send.take().unwrap().send(());
             Continue(false)
         })
@@ -133,7 +133,7 @@ pub fn timeout_future_with_priority(
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn timeout_future_seconds(value: u32) -> Pin<Box<dyn Future<Output = ()> + Send + 'static>> {
-    timeout_future_seconds_with_priority(::PRIORITY_DEFAULT, value)
+    timeout_future_seconds_with_priority(crate::PRIORITY_DEFAULT, value)
 }
 
 /// Create a `Future` that will resolve after the given number of seconds.
@@ -145,7 +145,7 @@ pub fn timeout_future_seconds_with_priority(
 ) -> Pin<Box<dyn Future<Output = ()> + Send + 'static>> {
     Box::pin(SourceFuture::new(move |send| {
         let mut send = Some(send);
-        ::timeout_source_new_seconds(value, None, priority, move || {
+        crate::timeout_source_new_seconds(value, None, priority, move || {
             let _ = send.take().unwrap().send(());
             Continue(false)
         })
@@ -158,9 +158,9 @@ pub fn timeout_future_seconds_with_priority(
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn child_watch_future(
-    pid: ::Pid,
-) -> Pin<Box<dyn Future<Output = (::Pid, i32)> + Send + 'static>> {
-    child_watch_future_with_priority(::PRIORITY_DEFAULT, pid)
+    pid: crate::Pid,
+) -> Pin<Box<dyn Future<Output = (crate::Pid, i32)> + Send + 'static>> {
+    child_watch_future_with_priority(crate::PRIORITY_DEFAULT, pid)
 }
 
 /// Create a `Future` that will resolve once the child process with the given pid exits
@@ -170,11 +170,11 @@ pub fn child_watch_future(
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn child_watch_future_with_priority(
     priority: Priority,
-    pid: ::Pid,
-) -> Pin<Box<dyn Future<Output = (::Pid, i32)> + Send + 'static>> {
+    pid: crate::Pid,
+) -> Pin<Box<dyn Future<Output = (crate::Pid, i32)> + Send + 'static>> {
     Box::pin(SourceFuture::new(move |send| {
         let mut send = Some(send);
-        ::child_watch_source_new(pid, None, priority, move |pid, code| {
+        crate::child_watch_source_new(pid, None, priority, move |pid, code| {
             let _ = send.take().unwrap().send((pid, code));
         })
     }))
@@ -186,7 +186,7 @@ pub fn child_watch_future_with_priority(
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn unix_signal_future(signum: i32) -> Pin<Box<dyn Future<Output = ()> + Send + 'static>> {
-    unix_signal_future_with_priority(::PRIORITY_DEFAULT, signum)
+    unix_signal_future_with_priority(crate::PRIORITY_DEFAULT, signum)
 }
 
 #[cfg(any(unix, feature = "dox"))]
@@ -200,7 +200,7 @@ pub fn unix_signal_future_with_priority(
 ) -> Pin<Box<dyn Future<Output = ()> + Send + 'static>> {
     Box::pin(SourceFuture::new(move |send| {
         let mut send = Some(send);
-        ::unix_signal_source_new(signum, None, priority, move || {
+        crate::unix_signal_source_new(signum, None, priority, move || {
             let _ = send.take().unwrap().send(());
             Continue(false)
         })
@@ -299,7 +299,7 @@ impl<T, F> Drop for SourceStream<T, F> {
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn interval_stream(value: Duration) -> Pin<Box<dyn Stream<Item = ()> + Send + 'static>> {
-    interval_stream_with_priority(::PRIORITY_DEFAULT, value)
+    interval_stream_with_priority(crate::PRIORITY_DEFAULT, value)
 }
 
 /// Create a `Stream` that will provide a value every given number of milliseconds.
@@ -310,7 +310,7 @@ pub fn interval_stream_with_priority(
     value: Duration,
 ) -> Pin<Box<dyn Stream<Item = ()> + Send + 'static>> {
     Box::pin(SourceStream::new(move |send| {
-        ::timeout_source_new(value, None, priority, move || {
+        crate::timeout_source_new(value, None, priority, move || {
             if send.unbounded_send(()).is_err() {
                 Continue(false)
             } else {
@@ -324,7 +324,7 @@ pub fn interval_stream_with_priority(
 ///
 /// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn interval_stream_seconds(value: u32) -> Pin<Box<dyn Stream<Item = ()> + Send + 'static>> {
-    interval_stream_seconds_with_priority(::PRIORITY_DEFAULT, value)
+    interval_stream_seconds_with_priority(crate::PRIORITY_DEFAULT, value)
 }
 
 /// Create a `Stream` that will provide a value every given number of seconds.
@@ -335,7 +335,7 @@ pub fn interval_stream_seconds_with_priority(
     value: u32,
 ) -> Pin<Box<dyn Stream<Item = ()> + Send + 'static>> {
     Box::pin(SourceStream::new(move |send| {
-        ::timeout_source_new_seconds(value, None, priority, move || {
+        crate::timeout_source_new_seconds(value, None, priority, move || {
             if send.unbounded_send(()).is_err() {
                 Continue(false)
             } else {
@@ -351,7 +351,7 @@ pub fn interval_stream_seconds_with_priority(
 ///
 /// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn unix_signal_stream(signum: i32) -> Pin<Box<dyn Stream<Item = ()> + Send + 'static>> {
-    unix_signal_stream_with_priority(::PRIORITY_DEFAULT, signum)
+    unix_signal_stream_with_priority(crate::PRIORITY_DEFAULT, signum)
 }
 
 #[cfg(any(unix, feature = "dox"))]
@@ -364,7 +364,7 @@ pub fn unix_signal_stream_with_priority(
     signum: i32,
 ) -> Pin<Box<dyn Stream<Item = ()> + Send + 'static>> {
     Box::pin(SourceStream::new(move |send| {
-        ::unix_signal_source_new(signum, None, priority, move || {
+        crate::unix_signal_source_new(signum, None, priority, move || {
             if send.unbounded_send(()).is_err() {
                 Continue(false)
             } else {
@@ -390,7 +390,7 @@ mod tests {
     #[test]
     fn test_timeout_send() {
         let c = MainContext::new();
-        let l = ::MainLoop::new(Some(&c), false);
+        let l = crate::MainLoop::new(Some(&c), false);
 
         let l_clone = l.clone();
         c.spawn(timeout_future(Duration::from_millis(20)).then(move |()| {

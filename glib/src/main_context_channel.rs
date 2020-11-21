@@ -2,24 +2,23 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use glib_sys;
+use crate::translate::{mut_override, FromGlibPtrFull, ToGlib};
+use crate::Continue;
+use crate::MainContext;
+use crate::Priority;
+use crate::Source;
+use crate::SourceId;
+use crate::ThreadGuard;
 use std::collections::VecDeque;
 use std::fmt;
 use std::mem;
 use std::ptr;
 use std::sync::mpsc;
 use std::sync::{Arc, Condvar, Mutex};
-use translate::{mut_override, FromGlibPtrFull, ToGlib};
-use Continue;
-use MainContext;
-use Priority;
-use Source;
-use SourceId;
-use ThreadGuard;
 
 enum ChannelSourceState {
     NotAttached,
-    Attached(*mut glib_sys::GSource),
+    Attached(*mut ffi::GSource),
     Destroyed,
 }
 
@@ -38,7 +37,7 @@ impl<T> ChannelInner<T> {
             ChannelSourceState::Destroyed => true,
             // Receiver exists but is already destroyed
             ChannelSourceState::Attached(source)
-                if unsafe { glib_sys::g_source_is_destroyed(source) } != glib_sys::GFALSE =>
+                if unsafe { ffi::g_source_is_destroyed(source) } != ffi::GFALSE =>
             {
                 true
             }
@@ -52,7 +51,7 @@ impl<T> ChannelInner<T> {
     fn set_ready_time(&mut self, ready_time: i64) {
         if let ChannelSourceState::Attached(source) = self.source {
             unsafe {
-                glib_sys::g_source_set_ready_time(source, ready_time);
+                ffi::g_source_set_ready_time(source, ready_time);
             }
         }
     }
@@ -203,23 +202,23 @@ impl<T> Channel<T> {
 
 #[repr(C)]
 struct ChannelSource<T, F: FnMut(T) -> Continue + 'static> {
-    source: glib_sys::GSource,
-    source_funcs: Option<Box<glib_sys::GSourceFuncs>>,
+    source: ffi::GSource,
+    source_funcs: Option<Box<ffi::GSourceFuncs>>,
     channel: Option<Channel<T>>,
     callback: Option<ThreadGuard<F>>,
 }
 
 unsafe extern "C" fn dispatch<T, F: FnMut(T) -> Continue + 'static>(
-    source: *mut glib_sys::GSource,
-    callback: glib_sys::GSourceFunc,
-    _user_data: glib_sys::gpointer,
-) -> glib_sys::gboolean {
+    source: *mut ffi::GSource,
+    callback: ffi::GSourceFunc,
+    _user_data: ffi::gpointer,
+) -> ffi::gboolean {
     let source = &mut *(source as *mut ChannelSource<T, F>);
     assert!(callback.is_none());
 
     // Set ready-time to -1 so that we won't get called again before a new item is added
     // to the channel queue.
-    glib_sys::g_source_set_ready_time(&mut source.source, -1);
+    ffi::g_source_set_ready_time(&mut source.source, -1);
 
     // Get a reference to the callback. This will panic if we're called from a different
     // thread than where the source was attached to the main context.
@@ -239,21 +238,19 @@ unsafe extern "C" fn dispatch<T, F: FnMut(T) -> Continue + 'static>(
     loop {
         match channel.try_recv() {
             Err(mpsc::TryRecvError::Empty) => break,
-            Err(mpsc::TryRecvError::Disconnected) => return glib_sys::G_SOURCE_REMOVE,
+            Err(mpsc::TryRecvError::Disconnected) => return ffi::G_SOURCE_REMOVE,
             Ok(item) => {
                 if callback(item) == Continue(false) {
-                    return glib_sys::G_SOURCE_REMOVE;
+                    return ffi::G_SOURCE_REMOVE;
                 }
             }
         }
     }
 
-    glib_sys::G_SOURCE_CONTINUE
+    ffi::G_SOURCE_CONTINUE
 }
 
-unsafe extern "C" fn finalize<T, F: FnMut(T) -> Continue + 'static>(
-    source: *mut glib_sys::GSource,
-) {
+unsafe extern "C" fn finalize<T, F: FnMut(T) -> Continue + 'static>(source: *mut ffi::GSource) {
     let source = &mut *(source as *mut ChannelSource<T, F>);
 
     // Drop all memory we own by taking it out of the Options
@@ -424,7 +421,7 @@ impl<T> Receiver<T> {
         unsafe {
             let channel = self.0.take().expect("Receiver without channel");
 
-            let source_funcs = Box::new(glib_sys::GSourceFuncs {
+            let source_funcs = Box::new(ffi::GSourceFuncs {
                 check: None,
                 prepare: None,
                 dispatch: Some(dispatch::<T, F>),
@@ -433,7 +430,7 @@ impl<T> Receiver<T> {
                 closure_marshal: None,
             });
 
-            let source = glib_sys::g_source_new(
+            let source = ffi::g_source_new(
                 mut_override(&*source_funcs),
                 mem::size_of::<ChannelSource<T, F>>() as u32,
             ) as *mut ChannelSource<T, F>;
@@ -444,10 +441,10 @@ impl<T> Receiver<T> {
                 let source = &mut *source;
                 let mut inner = (channel.0).0.lock().unwrap();
 
-                glib_sys::g_source_set_priority(mut_override(&source.source), self.1.to_glib());
+                ffi::g_source_set_priority(mut_override(&source.source), self.1.to_glib());
 
                 // We're immediately ready if the queue is not empty or if no sender is left at this point
-                glib_sys::g_source_set_ready_time(
+                ffi::g_source_set_ready_time(
                     mut_override(&source.source),
                     if !inner.queue.is_empty() || inner.num_senders == 0 {
                         0

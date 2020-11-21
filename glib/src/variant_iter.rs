@@ -8,7 +8,7 @@
 
 use std::iter::{DoubleEndedIterator, ExactSizeIterator, Iterator};
 
-use variant::Variant;
+use crate::variant::Variant;
 
 /// Iterator over items in a variant.
 #[derive(Debug)]

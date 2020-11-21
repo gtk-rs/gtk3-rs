@@ -2,7 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use libc;
+use crate::translate::*;
+use crate::types::{StaticType, Type};
 use std::borrow::Borrow;
 use std::cmp::Ordering;
 use std::ffi::{CStr, CString, OsStr};
@@ -13,12 +14,8 @@ use std::os::raw::c_char;
 use std::ptr;
 use std::slice;
 use std::string::String;
-use translate::*;
-use types::{StaticType, Type};
 
-use glib_sys;
-use gobject_sys;
-use value::{FromValueOptional, SetValue, SetValueOptional, Value};
+use crate::value::{FromValueOptional, SetValue, SetValueOptional, Value};
 
 #[derive(Debug)]
 pub struct GString(Inner);
@@ -96,7 +93,7 @@ impl Drop for GString {
     fn drop(&mut self) {
         if let GString(Inner::Foreign(ptr, _len)) = self {
             unsafe {
-                glib_sys::g_free(*ptr as *mut _);
+                ffi::g_free(*ptr as *mut _);
             }
         }
     }
@@ -383,7 +380,7 @@ impl<'a> ToGlibPtr<'a, *const c_char> for GString {
     #[inline]
     fn to_glib_full(&self) -> *const c_char {
         unsafe {
-            glib_sys::g_strndup(self.as_ptr() as *const c_char, self.len() as libc::size_t)
+            ffi::g_strndup(self.as_ptr() as *const c_char, self.len() as libc::size_t)
                 as *const c_char
         }
     }
@@ -401,7 +398,7 @@ impl<'a> ToGlibPtr<'a, *mut c_char> for GString {
     #[inline]
     fn to_glib_full(&self) -> *mut c_char {
         unsafe {
-            glib_sys::g_strndup(self.as_ptr() as *const c_char, self.len() as libc::size_t)
+            ffi::g_strndup(self.as_ptr() as *const c_char, self.len() as libc::size_t)
                 as *mut c_char
         }
     }
@@ -419,7 +416,7 @@ impl StaticType for GString {
 
 impl StaticType for Vec<GString> {
     fn static_type() -> Type {
-        unsafe { from_glib(glib_sys::g_strv_get_type()) }
+        unsafe { from_glib(ffi::g_strv_get_type()) }
     }
 }
 
@@ -429,7 +426,7 @@ impl<'a> FromValueOptional<'a> for GString {
         if val.is_null() {
             None
         } else {
-            let ptr = gobject_sys::g_value_dup_string(val);
+            let ptr = gobject_ffi::g_value_dup_string(val);
             Some(GString::new(ptr))
         }
     }
@@ -437,13 +434,13 @@ impl<'a> FromValueOptional<'a> for GString {
 
 impl SetValue for GString {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
     }
 }
 
 impl SetValueOptional for GString {
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-        gobject_sys::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
     }
 }
 
@@ -453,7 +450,6 @@ impl_from_glib_container_as_vec_string!(GString, *mut c_char);
 #[cfg(test)]
 #[allow(clippy::blacklisted_name)]
 mod tests {
-    use glib_sys;
     use gstring::GString;
     use std::ffi::CString;
 
@@ -463,7 +459,7 @@ mod tests {
         let ptr = data.as_ptr();
 
         unsafe {
-            let ptr_copy = glib_sys::g_strdup(ptr);
+            let ptr_copy = ffi::g_strdup(ptr);
             let gstring = GString::new(ptr_copy);
             assert_eq!(gstring.as_str(), "foo");
             let foo: Box<str> = gstring.into();
@@ -476,7 +472,7 @@ mod tests {
         let data = CString::new("foo").unwrap();
         let ptr = data.as_ptr();
         unsafe {
-            let ptr_copy = glib_sys::g_strdup(ptr);
+            let ptr_copy = ffi::g_strdup(ptr);
             let gstr = GString::new(ptr_copy);
             assert_eq!(gstr, "foo");
         }

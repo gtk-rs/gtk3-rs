@@ -12,6 +12,7 @@ license = "MIT"
 exclude = [
     "gir-files/*",
 ]
+edition = "2018"
 
 [lib]
 name = "glib"
@@ -25,8 +26,8 @@ futures-task = "0.3"
 futures-executor = "0.3"
 futures-util = "0.3"
 futures-channel = "0.3"
-glib-sys = { path = "sys" }
-gobject-sys = { path = "gobject-sys" }
+ffi = { package = "glib-sys", path = "sys" }
+gobject_ffi = { package = "gobject-sys", path = "gobject-sys" }
 glib-macros = { path = "../glib-macros" }
 log = { version = "0.4", optional = true }
 smallvec = "1.0"
@@ -35,20 +36,20 @@ smallvec = "1.0"
 tempfile = "3"
 
 [features]
-v2_44 = ["glib-sys/v2_44", "gobject-sys/v2_44"]
-v2_46 = ["v2_44", "glib-sys/v2_46", "gobject-sys/v2_46"]
-v2_48 = ["v2_46", "glib-sys/v2_48"]
-v2_50 = ["v2_48", "glib-sys/v2_50"]
-v2_52 = ["v2_50", "glib-sys/v2_52"]
-v2_54 = ["v2_52", "glib-sys/v2_54", "gobject-sys/v2_54"]
-v2_56 = ["v2_54", "glib-sys/v2_56"]
-v2_58 = ["v2_56", "glib-sys/v2_58", "gobject-sys/v2_58"]
-v2_60 = ["v2_58", "glib-sys/v2_60"]
-v2_62 = ["v2_60", "glib-sys/v2_62", "gobject-sys/v2_62"]
-v2_64 = ["v2_62", "glib-sys/v2_64"]
-v2_66 = ["v2_64", "glib-sys/v2_66"]
+v2_44 = ["ffi/v2_44", "gobject_ffi/v2_44"]
+v2_46 = ["v2_44", "ffi/v2_46", "gobject_ffi/v2_46"]
+v2_48 = ["v2_46", "ffi/v2_48"]
+v2_50 = ["v2_48", "ffi/v2_50"]
+v2_52 = ["v2_50", "ffi/v2_52"]
+v2_54 = ["v2_52", "ffi/v2_54", "gobject_ffi/v2_54"]
+v2_56 = ["v2_54", "ffi/v2_56"]
+v2_58 = ["v2_56", "ffi/v2_58", "gobject_ffi/v2_58"]
+v2_60 = ["v2_58", "ffi/v2_60"]
+v2_62 = ["v2_60", "ffi/v2_62", "gobject_ffi/v2_62"]
+v2_64 = ["v2_62", "ffi/v2_64"]
+v2_66 = ["v2_64", "ffi/v2_66"]
 log_macros = ["log"]
-dox = ["glib-sys/dox", "gobject-sys/dox", "log_macros"]
+dox = ["ffi/dox", "ffi/dox", "log_macros"]
 
 [package.metadata.docs.rs]
 features = ["dox"]

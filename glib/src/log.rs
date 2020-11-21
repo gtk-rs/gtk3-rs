@@ -2,13 +2,12 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use glib_sys;
+use crate::translate::*;
+use crate::GString;
 use once_cell::sync::Lazy;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::sync::{Arc, Mutex};
-use translate::*;
-use GString;
 
 #[derive(Debug)]
 pub struct LogHandlerId(u32);
@@ -45,12 +44,12 @@ impl ToGlib for LogLevel {
 
     fn to_glib(&self) -> u32 {
         match *self {
-            LogLevel::Error => glib_sys::G_LOG_LEVEL_ERROR,
-            LogLevel::Critical => glib_sys::G_LOG_LEVEL_CRITICAL,
-            LogLevel::Warning => glib_sys::G_LOG_LEVEL_WARNING,
-            LogLevel::Message => glib_sys::G_LOG_LEVEL_MESSAGE,
-            LogLevel::Info => glib_sys::G_LOG_LEVEL_INFO,
-            LogLevel::Debug => glib_sys::G_LOG_LEVEL_DEBUG,
+            LogLevel::Error => ffi::G_LOG_LEVEL_ERROR,
+            LogLevel::Critical => ffi::G_LOG_LEVEL_CRITICAL,
+            LogLevel::Warning => ffi::G_LOG_LEVEL_WARNING,
+            LogLevel::Message => ffi::G_LOG_LEVEL_MESSAGE,
+            LogLevel::Info => ffi::G_LOG_LEVEL_INFO,
+            LogLevel::Debug => ffi::G_LOG_LEVEL_DEBUG,
         }
     }
 }
@@ -58,17 +57,17 @@ impl ToGlib for LogLevel {
 #[doc(hidden)]
 impl FromGlib<u32> for LogLevel {
     fn from_glib(value: u32) -> LogLevel {
-        if value & glib_sys::G_LOG_LEVEL_ERROR != 0 {
+        if value & ffi::G_LOG_LEVEL_ERROR != 0 {
             LogLevel::Error
-        } else if value & glib_sys::G_LOG_LEVEL_CRITICAL != 0 {
+        } else if value & ffi::G_LOG_LEVEL_CRITICAL != 0 {
             LogLevel::Critical
-        } else if value & glib_sys::G_LOG_LEVEL_WARNING != 0 {
+        } else if value & ffi::G_LOG_LEVEL_WARNING != 0 {
             LogLevel::Warning
-        } else if value & glib_sys::G_LOG_LEVEL_MESSAGE != 0 {
+        } else if value & ffi::G_LOG_LEVEL_MESSAGE != 0 {
             LogLevel::Message
-        } else if value & glib_sys::G_LOG_LEVEL_INFO != 0 {
+        } else if value & ffi::G_LOG_LEVEL_INFO != 0 {
             LogLevel::Info
-        } else if value & glib_sys::G_LOG_LEVEL_DEBUG != 0 {
+        } else if value & ffi::G_LOG_LEVEL_DEBUG != 0 {
             LogLevel::Debug
         } else {
             panic!("Unknown log level: {}", value)
@@ -76,38 +75,38 @@ impl FromGlib<u32> for LogLevel {
     }
 }
 
-bitflags! {
+bitflags::bitflags! {
     pub struct LogLevels: u32 {
-        const LEVEL_ERROR = glib_sys::G_LOG_LEVEL_ERROR;
-        const LEVEL_CRITICAL = glib_sys::G_LOG_LEVEL_CRITICAL;
-        const LEVEL_WARNING = glib_sys::G_LOG_LEVEL_WARNING;
-        const LEVEL_MESSAGE = glib_sys::G_LOG_LEVEL_MESSAGE;
-        const LEVEL_INFO = glib_sys::G_LOG_LEVEL_INFO;
-        const LEVEL_DEBUG = glib_sys::G_LOG_LEVEL_DEBUG;
+        const LEVEL_ERROR = ffi::G_LOG_LEVEL_ERROR;
+        const LEVEL_CRITICAL = ffi::G_LOG_LEVEL_CRITICAL;
+        const LEVEL_WARNING = ffi::G_LOG_LEVEL_WARNING;
+        const LEVEL_MESSAGE = ffi::G_LOG_LEVEL_MESSAGE;
+        const LEVEL_INFO = ffi::G_LOG_LEVEL_INFO;
+        const LEVEL_DEBUG = ffi::G_LOG_LEVEL_DEBUG;
     }
 }
 
 #[doc(hidden)]
 impl ToGlib for LogLevels {
-    type GlibType = glib_sys::GLogLevelFlags;
+    type GlibType = ffi::GLogLevelFlags;
 
-    fn to_glib(&self) -> glib_sys::GLogLevelFlags {
+    fn to_glib(&self) -> ffi::GLogLevelFlags {
         self.bits()
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<glib_sys::GLogLevelFlags> for LogLevels {
-    fn from_glib(value: glib_sys::GLogLevelFlags) -> LogLevels {
+impl FromGlib<ffi::GLogLevelFlags> for LogLevels {
+    fn from_glib(value: ffi::GLogLevelFlags) -> LogLevels {
         LogLevels::from_bits_truncate(value)
     }
 }
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 fn to_log_flags(fatal: bool, recursion: bool) -> u32 {
-    (if fatal { glib_sys::G_LOG_FLAG_FATAL } else { 0 })
+    (if fatal { ffi::G_LOG_FLAG_FATAL } else { 0 })
         | if recursion {
-            glib_sys::G_LOG_FLAG_RECURSION
+            ffi::G_LOG_FLAG_RECURSION
         } else {
             0
         }
@@ -126,9 +125,9 @@ pub fn log_set_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'stat
         P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static,
     >(
         log_domain: *const libc::c_char,
-        log_level: glib_sys::GLogLevelFlags,
+        log_level: ffi::GLogLevelFlags,
         message: *const libc::c_char,
-        user_data: glib_sys::gpointer,
+        user_data: ffi::gpointer,
     ) {
         let log_domain: Borrowed<Option<GString>> = from_glib_borrow(log_domain);
         let message: Borrowed<GString> = from_glib_borrow(message);
@@ -143,14 +142,14 @@ pub fn log_set_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'stat
     unsafe extern "C" fn destroy_func<
         P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static,
     >(
-        data: glib_sys::gpointer,
+        data: ffi::gpointer,
     ) {
         let _callback: Box_<P> = Box_::from_raw(data as *mut _);
     }
     let destroy_call4 = Some(destroy_func::<P> as _);
     let super_callback0: Box_<P> = log_func_data;
     unsafe {
-        from_glib(glib_sys::g_log_set_handler_full(
+        from_glib(ffi::g_log_set_handler_full(
             log_domain.to_glib_none().0,
             log_levels.to_glib() | to_log_flags(fatal, recursion),
             log_func,
@@ -162,17 +161,17 @@ pub fn log_set_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'stat
 
 pub fn log_remove_handler(log_domain: Option<&str>, handler_id: LogHandlerId) {
     unsafe {
-        glib_sys::g_log_remove_handler(log_domain.to_glib_none().0, handler_id.to_glib());
+        ffi::g_log_remove_handler(log_domain.to_glib_none().0, handler_id.to_glib());
     }
 }
 
 pub fn log_set_always_fatal(fatal_levels: LogLevels) -> LogLevels {
-    unsafe { from_glib(glib_sys::g_log_set_always_fatal(fatal_levels.to_glib())) }
+    unsafe { from_glib(ffi::g_log_set_always_fatal(fatal_levels.to_glib())) }
 }
 
 pub fn log_set_fatal_mask(log_domain: Option<&str>, fatal_levels: LogLevels) -> LogLevels {
     unsafe {
-        from_glib(glib_sys::g_log_set_fatal_mask(
+        from_glib(ffi::g_log_set_fatal_mask(
             log_domain.to_glib_none().0,
             fatal_levels.to_glib(),
         ))
@@ -182,7 +181,7 @@ pub fn log_set_fatal_mask(log_domain: Option<&str>, fatal_levels: LogLevels) -> 
 // #[cfg(any(feature = "v2_50", feature = "dox"))]
 // pub fn log_variant(log_domain: Option<&str>, log_level: LogLevel, fields: &Variant) {
 //     unsafe {
-//         glib_sys::g_log_variant(
+//         ffi::g_log_variant(
 //             log_domain.to_glib_none().0,
 //             log_level.to_glib(),
 //             fields.to_glib_none().0,
@@ -208,7 +207,7 @@ pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
     *PRINT_HANDLER
         .lock()
         .expect("Failed to lock PRINT_HANDLER to change callback") = Some(Arc::new(func));
-    unsafe { glib_sys::g_set_print_handler(Some(func_func as _)) };
+    unsafe { ffi::g_set_print_handler(Some(func_func as _)) };
 }
 
 /// To set the default print handler, use the [`set_print_handler`] function.
@@ -216,7 +215,7 @@ pub fn unset_print_handler() {
     *PRINT_HANDLER
         .lock()
         .expect("Failed to lock PRINT_HANDLER to remove callback") = None;
-    unsafe { glib_sys::g_set_print_handler(None) };
+    unsafe { ffi::g_set_print_handler(None) };
 }
 
 static PRINTERR_HANDLER: Lazy<Mutex<Option<Arc<PrintCallback>>>> = Lazy::new(|| Mutex::new(None));
@@ -238,7 +237,7 @@ pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
     *PRINTERR_HANDLER
         .lock()
         .expect("Failed to lock PRINTERR_HANDLER to change callback") = Some(Arc::new(func));
-    unsafe { glib_sys::g_set_printerr_handler(Some(func_func as _)) };
+    unsafe { ffi::g_set_printerr_handler(Some(func_func as _)) };
 }
 
 /// To set the default print handler, use the [`set_printerr_handler`] function.
@@ -246,7 +245,7 @@ pub fn unset_printerr_handler() {
     *PRINTERR_HANDLER
         .lock()
         .expect("Failed to lock PRINTERR_HANDLER to remove callback") = None;
-    unsafe { glib_sys::g_set_printerr_handler(None) };
+    unsafe { ffi::g_set_printerr_handler(None) };
 }
 
 type LogCallback = dyn Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static;
@@ -259,9 +258,9 @@ pub fn log_set_default_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync
 ) {
     unsafe extern "C" fn func_func(
         log_domain: *const libc::c_char,
-        log_levels: glib_sys::GLogLevelFlags,
+        log_levels: ffi::GLogLevelFlags,
         message: *const libc::c_char,
-        _user_data: glib_sys::gpointer,
+        _user_data: ffi::gpointer,
     ) {
         if let Some(callback) = match *DEFAULT_HANDLER
             .lock()
@@ -282,7 +281,7 @@ pub fn log_set_default_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync
     *DEFAULT_HANDLER
         .lock()
         .expect("Failed to lock DEFAULT_HANDLER to change callback") = Some(Arc::new(log_func));
-    unsafe { glib_sys::g_log_set_default_handler(Some(func_func as _), ::std::ptr::null_mut()) };
+    unsafe { ffi::g_log_set_default_handler(Some(func_func as _), std::ptr::null_mut()) };
 }
 
 /// To set the default print handler, use the [`log_set_default_handler`] function.
@@ -291,20 +290,17 @@ pub fn log_unset_default_handler() {
         .lock()
         .expect("Failed to lock DEFAULT_HANDLER to remove callback") = None;
     unsafe {
-        glib_sys::g_log_set_default_handler(
-            Some(glib_sys::g_log_default_handler),
-            ::std::ptr::null_mut(),
-        )
+        ffi::g_log_set_default_handler(Some(ffi::g_log_default_handler), std::ptr::null_mut())
     };
 }
 
 pub fn log_default_handler(log_domain: Option<&str>, log_level: LogLevel, message: Option<&str>) {
     unsafe {
-        glib_sys::g_log_default_handler(
+        ffi::g_log_default_handler(
             log_domain.to_glib_none().0,
             log_level.to_glib(),
             message.to_glib_none().0,
-            ::std::ptr::null_mut(),
+            std::ptr::null_mut(),
         )
     }
 }
@@ -360,8 +356,8 @@ macro_rules! g_log {
         // to prevent the glib formatter to look for arguments which don't exist
         let f = format!($format, $($arg),*).replace("%", "%%");
         unsafe {
-            $crate::glib_sys::g_log(
-                ::std::ptr::null(),
+            $crate::ffi::g_log(
+                std::ptr::null(),
                 $log_level.to_glib(),
                 f.to_glib_none().0,
             );
@@ -377,8 +373,8 @@ macro_rules! g_log {
         // to prevent the glib formatter to look for arguments which don't exist
         let f = $format.replace("%", "%%");
         unsafe {
-            $crate::glib_sys::g_log(
-                ::std::ptr::null(),
+            $crate::ffi::g_log(
+                std::ptr::null(),
                 $log_level.to_glib(),
                 f.to_glib_none().0,
             );
@@ -396,7 +392,7 @@ macro_rules! g_log {
         // to prevent the glib formatter to look for arguments which don't exist
         let f = format!($format, $($arg),*).replace("%", "%%");
         unsafe {
-            $crate::glib_sys::g_log(
+            $crate::ffi::g_log(
                 log_domain.to_glib_none().0,
                 $log_level.to_glib(),
                 f.to_glib_none().0,
@@ -415,7 +411,7 @@ macro_rules! g_log {
         // to prevent the glib formatter to look for arguments which don't exist
         let f = $format.replace("%", "%%");
         unsafe {
-            $crate::glib_sys::g_log(
+            $crate::ffi::g_log(
                 log_domain.to_glib_none().0,
                 $log_level.to_glib(),
                 f.to_glib_none().0,
@@ -652,7 +648,7 @@ macro_rules! g_print_inner {
         // to prevent the glib formatter to look for arguments which don't exist
         let f = $format.replace("%", "%%");
         unsafe {
-            $crate::glib_sys::$func(f.to_glib_none().0);
+            $crate::ffi::$func(f.to_glib_none().0);
         }
     }};
     ($func:ident, $format:expr, $($arg:expr),*) => {{
@@ -664,7 +660,7 @@ macro_rules! g_print_inner {
         // to prevent the glib formatter to look for arguments which don't exist
         let f = format!($format, $($arg),*).replace("%", "%%");
         unsafe {
-            $crate::glib_sys::$func(f.to_glib_none().0);
+            $crate::ffi::$func(f.to_glib_none().0);
         }
     }};
 }
@@ -752,7 +748,7 @@ macro_rules! g_printerr {
 
 //         check_log_args(&$log_domain, $log_level);
 //         unsafe {
-//             glib_sys::g_log_structured(
+//             ffi::g_log_structured(
 //                 $log_domain.to_glib_none().0,
 //                 $log_level.to_glib(),
 //                 $(check_key($key).0, check_key(format!("{}", $value).as_str()).0 ),+
