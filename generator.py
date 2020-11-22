@@ -72,12 +72,12 @@ def build_gir_if_needed(updated_submodule):
     return True
 
 
-def regen_crates(path, conf, level=0):
+def regen_crates(path, conf):
     if path.is_dir():
-        for entry in path.iterdir():
-            if level < 3 and not regen_crates(entry, conf, level + 1):
+        for entry in path.rglob("Gir*.toml"):
+            if not regen_crates(entry, conf):
                 return False
-    elif path.name.startswith("Gir") and path.suffix == ".toml":
+    elif path.match("Gir*.toml"):
         print('==> Regenerating "{}"...'.format(path))
 
         args = [conf.gir_path, '-c', path, '-o', path.parent, '-d', conf.gir_files_path]
@@ -93,6 +93,9 @@ def regen_crates(path, conf, level=0):
             if not ask_yes_no_question('Do you want to continue?', conf):
                 return False
         print('<== Done!')
+    else:
+        print('==> {} is not a valid Gir*.toml file'.format(path))
+        return False
     return True
 
 
