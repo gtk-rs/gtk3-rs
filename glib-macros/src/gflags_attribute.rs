@@ -65,7 +65,7 @@ fn gen_gflags_values(
 
         n += 1;
         quote_spanned! {v.span()=>
-            #crate_ident::gobject_sys::GFlagsValue {
+            #crate_ident::gobject_ffi::GFlagsValue {
                 value: #enum_name::#name.bits(),
                 value_name: #value_name as *const _ as *const _,
                 value_nick: #value_nick as *const _ as *const _,
@@ -144,14 +144,14 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
         impl<'a> #crate_ident::value::FromValue<'a> for #name {
             unsafe fn from_value(value: &#crate_ident::Value) -> Self {
                 #crate_ident::translate::from_glib(
-                    #crate_ident::gobject_sys::g_value_get_flags(
+                    #crate_ident::gobject_ffi::g_value_get_flags(
                         #crate_ident::translate::ToGlibPtr::to_glib_none(value).0))
             }
         }
 
         impl #crate_ident::value::SetValue for #name {
             unsafe fn set_value(value: &mut #crate_ident::Value, this: &Self) {
-                #crate_ident::gobject_sys::g_value_set_flags(
+                #crate_ident::gobject_ffi::g_value_set_flags(
                     #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
                     #crate_ident::translate::ToGlib::to_glib(this))
             }
@@ -168,9 +168,9 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
             static mut TYPE: #crate_ident::Type = #crate_ident::Type::Invalid;
 
             ONCE.call_once(|| {
-                static mut VALUES: [#crate_ident::gobject_sys::GFlagsValue; #nb_gflags_values] = [
+                static mut VALUES: [#crate_ident::gobject_ffi::GFlagsValue; #nb_gflags_values] = [
                     #gflags_values
-                    #crate_ident::gobject_sys::GFlagsValue {
+                    #crate_ident::gobject_ffi::GFlagsValue {
                         value: 0,
                         value_name: std::ptr::null(),
                         value_nick: std::ptr::null(),
@@ -179,7 +179,7 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
 
                 let name = std::ffi::CString::new(#gtype_name).expect("CString::new failed");
                 unsafe {
-                    let type_ = #crate_ident::gobject_sys::g_flags_register_static(name.as_ptr(), VALUES.as_ptr());
+                    let type_ = #crate_ident::gobject_ffi::g_flags_register_static(name.as_ptr(), VALUES.as_ptr());
                     TYPE = #crate_ident::translate::from_glib(type_);
                 }
             });

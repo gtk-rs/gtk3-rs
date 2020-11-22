@@ -38,7 +38,7 @@ fn gen_impl_from_value(name: &Ident, crate_ident: &Ident) -> TokenStream {
     quote! {
         impl<'a> #crate_ident::value::FromValue<'a> for &'a #name {
             unsafe fn from_value(value: &'a #crate_ident::value::Value) -> Self {
-                let ptr = #crate_ident::gobject_sys::g_value_get_boxed(
+                let ptr = #crate_ident::gobject_ffi::g_value_get_boxed(
                     #crate_ident::translate::ToGlibPtr::to_glib_none(value).0,
                 );
                 assert!(!ptr.is_null());
@@ -55,7 +55,7 @@ fn gen_impl_set_value_optional(name: &Ident, crate_ident: &Ident) -> TokenStream
         impl #crate_ident::value::SetValueOptional for #name {
             unsafe fn set_value_optional(value: &mut #crate_ident::value::Value, this: Option<&Self>) {
                 let ptr: *mut #name = #option_to_ptr;
-                #crate_ident::gobject_sys::g_value_take_boxed(
+                #crate_ident::gobject_ffi::g_value_take_boxed(
                     #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
                     ptr as *mut _,
                 );
@@ -122,7 +122,7 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
         impl #crate_ident::value::SetValue for #name {
             unsafe fn set_value(value: &mut #crate_ident::value::Value, this: &Self) {
                 let ptr: *mut #name = Box::into_raw(Box::new(this.clone()));
-                #crate_ident::gobject_sys::g_value_take_boxed(
+                #crate_ident::gobject_ffi::g_value_take_boxed(
                     #crate_ident::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
                     ptr as *mut _,
                 );
@@ -133,7 +133,7 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
 
         impl<'a> #crate_ident::value::FromValueOptional<'a> for &'a #name {
             unsafe fn from_value_optional(value: &'a #crate_ident::value::Value) -> Option<Self> {
-                let ptr = #crate_ident::gobject_sys::g_value_get_boxed(
+                let ptr = #crate_ident::gobject_ffi::g_value_get_boxed(
                     #crate_ident::translate::ToGlibPtr::to_glib_none(value).0,
                 );
                 #ptr_to_option
