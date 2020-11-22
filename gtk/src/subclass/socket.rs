@@ -8,9 +8,9 @@ use glib::translate::*;
 use glib::Cast;
 
 use super::container::ContainerImpl;
+use crate::Container;
 use crate::Inhibit;
-use Container;
-use Socket;
+use crate::Socket;
 
 pub trait SocketImpl: SocketImplExt + ContainerImpl {
     fn plug_added(&self, socket: &Self::Type) {
@@ -31,7 +31,7 @@ impl<T: SocketImpl> SocketImplExt for T {
     fn parent_plug_added(&self, socket: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkSocketClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkSocketClass;
             if let Some(f) = (*parent_class).plug_added {
                 f(socket.unsafe_cast_ref::<Socket>().to_glib_none().0)
             }
@@ -41,7 +41,7 @@ impl<T: SocketImpl> SocketImplExt for T {
     fn parent_plug_removed(&self, socket: &Self::Type) -> Inhibit {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkSocketClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkSocketClass;
             if let Some(f) = (*parent_class).plug_removed {
                 Inhibit(from_glib(f(socket
                     .unsafe_cast_ref::<Socket>()
@@ -64,7 +64,7 @@ unsafe impl<T: SocketImpl> IsSubclassable<T> for Socket {
     }
 }
 
-unsafe extern "C" fn socket_plug_added<T: SocketImpl>(ptr: *mut gtk_sys::GtkSocket) {
+unsafe extern "C" fn socket_plug_added<T: SocketImpl>(ptr: *mut ffi::GtkSocket) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Socket> = from_glib_borrow(ptr);
@@ -73,8 +73,8 @@ unsafe extern "C" fn socket_plug_added<T: SocketImpl>(ptr: *mut gtk_sys::GtkSock
 }
 
 unsafe extern "C" fn socket_plug_removed<T: SocketImpl>(
-    ptr: *mut gtk_sys::GtkSocket,
-) -> glib_sys::gboolean {
+    ptr: *mut ffi::GtkSocket,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Socket> = from_glib_borrow(ptr);

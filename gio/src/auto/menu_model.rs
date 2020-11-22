@@ -2,26 +2,22 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::MenuAttributeIter;
+use crate::MenuLinkIter;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib_sys;
-use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use MenuAttributeIter;
-use MenuLinkIter;
 
-glib_wrapper! {
-    pub struct MenuModel(Object<gio_sys::GMenuModel, gio_sys::GMenuModelClass>);
+glib::glib_wrapper! {
+    pub struct MenuModel(Object<ffi::GMenuModel, ffi::GMenuModelClass>);
 
     match fn {
-        get_type => || gio_sys::g_menu_model_get_type(),
+        get_type => || ffi::g_menu_model_get_type(),
     }
 }
 
@@ -55,7 +51,7 @@ pub trait MenuModelExt: 'static {
 
 impl<O: IsA<MenuModel>> MenuModelExt for O {
     //fn get_item_attribute(&self, item_index: i32, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
-    //    unsafe { TODO: call gio_sys:g_menu_model_get_item_attribute() }
+    //    unsafe { TODO: call ffi:g_menu_model_get_item_attribute() }
     //}
 
     fn get_item_attribute_value(
@@ -65,7 +61,7 @@ impl<O: IsA<MenuModel>> MenuModelExt for O {
         expected_type: Option<&glib::VariantTy>,
     ) -> Option<glib::Variant> {
         unsafe {
-            from_glib_full(gio_sys::g_menu_model_get_item_attribute_value(
+            from_glib_full(ffi::g_menu_model_get_item_attribute_value(
                 self.as_ref().to_glib_none().0,
                 item_index,
                 attribute.to_glib_none().0,
@@ -76,7 +72,7 @@ impl<O: IsA<MenuModel>> MenuModelExt for O {
 
     fn get_item_link(&self, item_index: i32, link: &str) -> Option<MenuModel> {
         unsafe {
-            from_glib_full(gio_sys::g_menu_model_get_item_link(
+            from_glib_full(ffi::g_menu_model_get_item_link(
                 self.as_ref().to_glib_none().0,
                 item_index,
                 link.to_glib_none().0,
@@ -85,20 +81,16 @@ impl<O: IsA<MenuModel>> MenuModelExt for O {
     }
 
     fn get_n_items(&self) -> i32 {
-        unsafe { gio_sys::g_menu_model_get_n_items(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::g_menu_model_get_n_items(self.as_ref().to_glib_none().0) }
     }
 
     fn is_mutable(&self) -> bool {
-        unsafe {
-            from_glib(gio_sys::g_menu_model_is_mutable(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::g_menu_model_is_mutable(self.as_ref().to_glib_none().0)) }
     }
 
     fn items_changed(&self, position: i32, removed: i32, added: i32) {
         unsafe {
-            gio_sys::g_menu_model_items_changed(
+            ffi::g_menu_model_items_changed(
                 self.as_ref().to_glib_none().0,
                 position,
                 removed,
@@ -109,7 +101,7 @@ impl<O: IsA<MenuModel>> MenuModelExt for O {
 
     fn iterate_item_attributes(&self, item_index: i32) -> Option<MenuAttributeIter> {
         unsafe {
-            from_glib_full(gio_sys::g_menu_model_iterate_item_attributes(
+            from_glib_full(ffi::g_menu_model_iterate_item_attributes(
                 self.as_ref().to_glib_none().0,
                 item_index,
             ))
@@ -118,7 +110,7 @@ impl<O: IsA<MenuModel>> MenuModelExt for O {
 
     fn iterate_item_links(&self, item_index: i32) -> Option<MenuLinkIter> {
         unsafe {
-            from_glib_full(gio_sys::g_menu_model_iterate_item_links(
+            from_glib_full(ffi::g_menu_model_iterate_item_links(
                 self.as_ref().to_glib_none().0,
                 item_index,
             ))
@@ -130,11 +122,11 @@ impl<O: IsA<MenuModel>> MenuModelExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn items_changed_trampoline<P, F: Fn(&P, i32, i32, i32) + 'static>(
-            this: *mut gio_sys::GMenuModel,
+            this: *mut ffi::GMenuModel,
             position: libc::c_int,
             removed: libc::c_int,
             added: libc::c_int,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuModel>,
         {

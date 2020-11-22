@@ -2,24 +2,21 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use error::to_std_io_result;
+use crate::error::to_std_io_result;
+use crate::Cancellable;
+use crate::OutputStreamExt;
+use crate::PollableOutputStream;
+use crate::PollableOutputStreamExt;
 use futures_channel::oneshot;
 use futures_core::task::{Context, Poll};
 use futures_core::Future;
 use futures_io::AsyncWrite;
-use gio_sys;
-use glib;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
-use glib_sys;
 use std::cell::RefCell;
 use std::io;
 use std::mem::transmute;
 use std::pin::Pin;
-use Cancellable;
-use OutputStreamExt;
-use PollableOutputStream;
-use PollableOutputStreamExt;
 
 use futures_core::stream::Stream;
 
@@ -75,39 +72,39 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
             O: IsA<PollableOutputStream>,
             F: FnMut(&O) -> glib::Continue + 'static,
         >(
-            stream: *mut gio_sys::GPollableOutputStream,
-            func: glib_sys::gpointer,
-        ) -> glib_sys::gboolean {
+            stream: *mut ffi::GPollableOutputStream,
+            func: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean {
             let func: &RefCell<F> = &*(func as *const RefCell<F>);
             let mut func = func.borrow_mut();
             (&mut *func)(&PollableOutputStream::from_glib_borrow(stream).unsafe_cast_ref())
                 .to_glib()
         }
-        unsafe extern "C" fn destroy_closure<O, F>(ptr: glib_sys::gpointer) {
+        unsafe extern "C" fn destroy_closure<O, F>(ptr: glib::ffi::gpointer) {
             Box::<RefCell<F>>::from_raw(ptr as *mut _);
         }
         let cancellable = cancellable.map(|c| c.as_ref());
         let gcancellable = cancellable.to_glib_none();
         unsafe {
-            let source = gio_sys::g_pollable_output_stream_create_source(
+            let source = ffi::g_pollable_output_stream_create_source(
                 self.as_ref().to_glib_none().0,
                 gcancellable.0,
             );
 
-            let trampoline = trampoline::<Self, F> as glib_sys::gpointer;
-            glib_sys::g_source_set_callback(
+            let trampoline = trampoline::<Self, F> as glib::ffi::gpointer;
+            glib::ffi::g_source_set_callback(
                 source,
                 Some(transmute::<
                     _,
-                    unsafe extern "C" fn(glib_sys::gpointer) -> glib_sys::gboolean,
+                    unsafe extern "C" fn(glib::ffi::gpointer) -> glib::ffi::gboolean,
                 >(trampoline)),
-                Box::into_raw(Box::new(RefCell::new(func))) as glib_sys::gpointer,
+                Box::into_raw(Box::new(RefCell::new(func))) as glib::ffi::gpointer,
                 Some(destroy_closure::<Self, F>),
             );
-            glib_sys::g_source_set_priority(source, priority.to_glib());
+            glib::ffi::g_source_set_priority(source, priority.to_glib());
 
             if let Some(name) = name {
-                glib_sys::g_source_set_name(source, name.to_glib_none().0);
+                glib::ffi::g_source_set_name(source, name.to_glib_none().0);
             }
 
             from_glib_full(source)
@@ -171,7 +168,10 @@ impl<T: IsA<PollableOutputStream>> OutputStreamAsyncWrite<T> {
 impl<T: IsA<PollableOutputStream>> AsyncWrite for OutputStreamAsyncWrite<T> {
     fn poll_write(self: Pin<&mut Self>, cx: &mut Context, buf: &[u8]) -> Poll<io::Result<usize>> {
         let stream = Pin::get_ref(self.as_ref());
-        let gio_result = stream.0.as_ref().write_nonblocking(buf, ::NONE_CANCELLABLE);
+        let gio_result = stream
+            .0
+            .as_ref()
+            .write_nonblocking(buf, crate::NONE_CANCELLABLE);
 
         match gio_result {
             Ok(size) => Poll::Ready(Ok(size as usize)),
@@ -180,7 +180,7 @@ impl<T: IsA<PollableOutputStream>> AsyncWrite for OutputStreamAsyncWrite<T> {
                 if kind == crate::IOErrorEnum::WouldBlock {
                     let mut waker = Some(cx.waker().clone());
                     let source = stream.0.as_ref().create_source(
-                        ::NONE_CANCELLABLE,
+                        crate::NONE_CANCELLABLE,
                         None,
                         glib::PRIORITY_DEFAULT,
                         move |_| {
@@ -208,12 +208,13 @@ impl<T: IsA<PollableOutputStream>> AsyncWrite for OutputStreamAsyncWrite<T> {
             rx
         } else {
             let (tx, rx) = oneshot::channel();
-            stream
-                .0
-                .as_ref()
-                .close_async(glib::PRIORITY_DEFAULT, ::NONE_CANCELLABLE, move |res| {
+            stream.0.as_ref().close_async(
+                glib::PRIORITY_DEFAULT,
+                crate::NONE_CANCELLABLE,
+                move |res| {
                     let _ = tx.send(res);
-                });
+                },
+            );
 
             stream.1 = Some(rx);
             stream.1.as_mut().unwrap()
@@ -239,12 +240,13 @@ impl<T: IsA<PollableOutputStream>> AsyncWrite for OutputStreamAsyncWrite<T> {
             rx
         } else {
             let (tx, rx) = oneshot::channel();
-            stream
-                .0
-                .as_ref()
-                .flush_async(glib::PRIORITY_DEFAULT, ::NONE_CANCELLABLE, move |res| {
+            stream.0.as_ref().flush_async(
+                glib::PRIORITY_DEFAULT,
+                crate::NONE_CANCELLABLE,
+                move |res| {
                     let _ = tx.send(res);
-                });
+                },
+            );
 
             stream.1 = Some(rx);
             stream.1.as_mut().unwrap()

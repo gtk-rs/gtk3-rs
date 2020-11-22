@@ -2,23 +2,19 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::Cancellable;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
 
-glib_wrapper! {
-    pub struct InputStream(Object<gio_sys::GInputStream, gio_sys::GInputStreamClass>);
+glib::glib_wrapper! {
+    pub struct InputStream(Object<ffi::GInputStream, ffi::GInputStreamClass>);
 
     match fn {
-        get_type => || gio_sys::g_input_stream_get_type(),
+        get_type => || ffi::g_input_stream_get_type(),
     }
 }
 
@@ -94,14 +90,14 @@ pub trait InputStreamExt: 'static {
 impl<O: IsA<InputStream>> InputStreamExt for O {
     fn clear_pending(&self) {
         unsafe {
-            gio_sys::g_input_stream_clear_pending(self.as_ref().to_glib_none().0);
+            ffi::g_input_stream_clear_pending(self.as_ref().to_glib_none().0);
         }
     }
 
     fn close<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_input_stream_close(
+            let _ = ffi::g_input_stream_close(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -124,12 +120,12 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
         unsafe extern "C" fn close_async_trampoline<
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_input_stream_close_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_input_stream_close_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -140,7 +136,7 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
         }
         let callback = close_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_input_stream_close_async(
+            ffi::g_input_stream_close_async(
                 self.as_ref().to_glib_none().0,
                 io_priority.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -166,7 +162,7 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
 
     fn has_pending(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_input_stream_has_pending(
+            from_glib(ffi::g_input_stream_has_pending(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -174,7 +170,7 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
 
     fn is_closed(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_input_stream_is_closed(
+            from_glib(ffi::g_input_stream_is_closed(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -187,7 +183,7 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
     ) -> Result<glib::Bytes, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_input_stream_read_bytes(
+            let ret = ffi::g_input_stream_read_bytes(
                 self.as_ref().to_glib_none().0,
                 count,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -215,16 +211,13 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
         unsafe extern "C" fn read_bytes_async_trampoline<
             Q: FnOnce(Result<glib::Bytes, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_input_stream_read_bytes_finish(
-                _source_object as *mut _,
-                res,
-                &mut error,
-            );
+            let ret =
+                ffi::g_input_stream_read_bytes_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -235,7 +228,7 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
         }
         let callback = read_bytes_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_input_stream_read_bytes_async(
+            ffi::g_input_stream_read_bytes_async(
                 self.as_ref().to_glib_none().0,
                 count,
                 io_priority.to_glib(),
@@ -265,7 +258,7 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
     fn set_pending(&self) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_input_stream_set_pending(self.as_ref().to_glib_none().0, &mut error);
+            let _ = ffi::g_input_stream_set_pending(self.as_ref().to_glib_none().0, &mut error);
             if error.is_null() {
                 Ok(())
             } else {
@@ -281,7 +274,7 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
     ) -> Result<isize, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_input_stream_skip(
+            let ret = ffi::g_input_stream_skip(
                 self.as_ref().to_glib_none().0,
                 count,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -306,13 +299,12 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
         unsafe extern "C" fn skip_async_trampoline<
             Q: FnOnce(Result<isize, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret =
-                gio_sys::g_input_stream_skip_finish(_source_object as *mut _, res, &mut error);
+            let ret = ffi::g_input_stream_skip_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(ret)
             } else {
@@ -323,7 +315,7 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
         }
         let callback = skip_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_input_stream_skip_async(
+            ffi::g_input_stream_skip_async(
                 self.as_ref().to_glib_none().0,
                 count,
                 io_priority.to_glib(),

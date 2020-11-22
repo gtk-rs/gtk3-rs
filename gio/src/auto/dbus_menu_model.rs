@@ -2,17 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::DBusConnection;
+use crate::MenuModel;
 use glib::translate::*;
 use std::fmt;
-use DBusConnection;
-use MenuModel;
 
-glib_wrapper! {
-    pub struct DBusMenuModel(Object<gio_sys::GDBusMenuModel>) @extends MenuModel;
+glib::glib_wrapper! {
+    pub struct DBusMenuModel(Object<ffi::GDBusMenuModel>) @extends MenuModel;
 
     match fn {
-        get_type => || gio_sys::g_dbus_menu_model_get_type(),
+        get_type => || ffi::g_dbus_menu_model_get_type(),
     }
 }
 
@@ -23,7 +22,7 @@ impl DBusMenuModel {
         object_path: &str,
     ) -> Option<DBusMenuModel> {
         unsafe {
-            from_glib_full(gio_sys::g_dbus_menu_model_get(
+            from_glib_full(ffi::g_dbus_menu_model_get(
                 connection.to_glib_none().0,
                 bus_name.to_glib_none().0,
                 object_path.to_glib_none().0,

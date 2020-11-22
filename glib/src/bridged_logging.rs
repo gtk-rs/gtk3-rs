@@ -3,8 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 use crate::log as glib_log;
-use glib_sys;
-use translate::*;
+use crate::translate::*;
 
 /// Enumeration of the possible formatting behaviours for a
 /// [`GlibLogger`](struct.GlibLogger.html).
@@ -58,9 +57,7 @@ pub enum GlibLoggerDomain {
 ///
 /// Example:
 ///
-/// ```no_run
-/// extern crate log;
-///
+/// ```no_compile
 /// static glib_logger: glib::GlibLogger = glib::GlibLogger::new(
 ///     glib::GlibLoggerFormat::Plain,
 ///     glib::GlibLoggerDomain::CrateTarget,
@@ -84,9 +81,7 @@ impl GlibLogger {
     ///
     /// Example:
     ///
-    /// ```no_run
-    /// extern crate log;
-    ///
+    /// ```no_compile
     /// static glib_logger: glib::GlibLogger = glib::GlibLogger::new(
     ///     glib::GlibLoggerFormat::Plain,
     ///     glib::GlibLoggerDomain::CrateTarget,
@@ -101,21 +96,21 @@ impl GlibLogger {
         GlibLogger { format, domain }
     }
 
-    fn level_to_glib(level: rs_log::Level) -> glib_sys::GLogLevelFlags {
+    fn level_to_glib(level: rs_log::Level) -> crate::ffi::GLogLevelFlags {
         match level {
             // Errors are mapped to critical to avoid automatic termination
-            rs_log::Level::Error => glib_sys::G_LOG_LEVEL_CRITICAL,
-            rs_log::Level::Warn => glib_sys::G_LOG_LEVEL_WARNING,
-            rs_log::Level::Info => glib_sys::G_LOG_LEVEL_INFO,
-            rs_log::Level::Debug => glib_sys::G_LOG_LEVEL_DEBUG,
+            rs_log::Level::Error => crate::ffi::G_LOG_LEVEL_CRITICAL,
+            rs_log::Level::Warn => crate::ffi::G_LOG_LEVEL_WARNING,
+            rs_log::Level::Info => crate::ffi::G_LOG_LEVEL_INFO,
+            rs_log::Level::Debug => crate::ffi::G_LOG_LEVEL_DEBUG,
             // There is no equivalent to trace level in glib
-            rs_log::Level::Trace => glib_sys::G_LOG_LEVEL_DEBUG,
+            rs_log::Level::Trace => crate::ffi::G_LOG_LEVEL_DEBUG,
         }
     }
 
     fn write_log(domain: Option<&str>, level: rs_log::Level, message: &str) {
         unsafe {
-            crate::glib_sys::g_log(
+            crate::ffi::g_log(
                 domain.to_glib_none().0,
                 GlibLogger::level_to_glib(level),
                 message.replace("%", "%%").to_glib_none().0,
@@ -127,7 +122,7 @@ impl GlibLogger {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     fn write_log_structured(
         domain: Option<&str>,
-        level: log::Level,
+        level: rs_log::Level,
         file: Option<&str>,
         line: Option<u32>,
         func: Option<&str>,
@@ -139,7 +134,7 @@ impl GlibLogger {
         };
 
         unsafe {
-            crate::glib_sys::g_log_structured_standard(
+            crate::ffi::g_log_structured_standard(
                 domain.to_glib_none().0,
                 GlibLogger::level_to_glib(level),
                 file.to_glib_none().0,
@@ -216,10 +211,10 @@ impl rs_log::Log for GlibLogger {
 /// ```
 pub fn rust_log_handler(domain: Option<&str>, level: glib_log::LogLevel, message: &str) {
     let level = match level {
-        glib_log::LogLevel::Error | glib_log::LogLevel::Critical => log::Level::Error,
-        glib_log::LogLevel::Warning => log::Level::Warn,
-        glib_log::LogLevel::Message | glib_log::LogLevel::Info => log::Level::Info,
-        glib_log::LogLevel::Debug => log::Level::Debug,
+        glib_log::LogLevel::Error | glib_log::LogLevel::Critical => rs_log::Level::Error,
+        glib_log::LogLevel::Warning => rs_log::Level::Warn,
+        glib_log::LogLevel::Message | glib_log::LogLevel::Info => rs_log::Level::Info,
+        glib_log::LogLevel::Debug => rs_log::Level::Debug,
     };
 
     rs_log::log!(target: domain.unwrap_or("<null>"), level, "{}", message);
@@ -234,21 +229,19 @@ pub fn rust_log_handler(domain: Option<&str>, level: glib_log::LogLevel, message
 /// initialized using [`GlibLoggerDomain::CrateTarget`](enum.GlibLoggerDomain.html).
 ///
 /// ```no_run
-/// #[macro_use] extern crate glib;
-///
 /// static G_LOG_DOMAIN: &str = "my-domain";
 ///
-/// error!("This will be logged under 'my-domain'");
+/// glib::error!("This will be logged under 'my-domain'");
 /// ```
 #[macro_export]
 #[cfg(any(feature = "dox", feature = "log_macros"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "log_macros")))]
 macro_rules! error {
     (target: $target:expr, $($arg:tt)+) => (
-        log::log!(target: $target, log::Level::Error, $($arg)+);
+        $crate::rs_log::log!(target: $target, $crate::rs_log::Level::Error, $($arg)+);
     );
     ($($arg:tt)+) => (
-        log::log!(target: G_LOG_DOMAIN, log::Level::Error, $($arg)+);
+        $crate::rs_log::log!(target: G_LOG_DOMAIN, $crate::rs_log::Level::Error, $($arg)+);
     )
 }
 
@@ -261,21 +254,19 @@ macro_rules! error {
 /// initialized using [`GlibLoggerDomain::CrateTarget`](enum.GlibLoggerDomain.html).
 ///
 /// ```no_run
-/// #[macro_use] extern crate glib;
-///
 /// static G_LOG_DOMAIN: &str = "my-domain";
 ///
-/// warn!("This will be logged under 'my-domain'");
+/// glib::warn!("This will be logged under 'my-domain'");
 /// ```
 #[macro_export]
 #[cfg(any(feature = "dox", feature = "log_macros"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "log_macros")))]
 macro_rules! warn {
     (target: $target:expr, $($arg:tt)+) => (
-        log::log!(target: $target, log::Level::Warn, $($arg)+);
+        $crate::rs_log::log!(target: $target, $crate::rs_log::Level::Warn, $($arg)+);
     );
     ($($arg:tt)+) => (
-        log::log!(target: G_LOG_DOMAIN, log::Level::Warn, $($arg)+);
+        $crate::rs_log::log!(target: G_LOG_DOMAIN, $crate::rs_log::Level::Warn, $($arg)+);
     )
 }
 
@@ -288,21 +279,19 @@ macro_rules! warn {
 /// initialized using [`GlibLoggerDomain::CrateTarget`](enum.GlibLoggerDomain.html).
 ///
 /// ```no_run
-/// #[macro_use] extern crate glib;
-///
 /// static G_LOG_DOMAIN: &str = "my-domain";
 ///
-/// info!("This will be logged under 'my-domain'");
+/// glib::info!("This will be logged under 'my-domain'");
 /// ```
 #[macro_export]
 #[cfg(any(feature = "dox", feature = "log_macros"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "log_macros")))]
 macro_rules! info {
     (target: $target:expr, $($arg:tt)+) => (
-        log::log!(target: $target, log::Level::Info, $($arg)+);
+        $crate::rs_log::log!(target: $target, $crate::rs_log::Level::Info, $($arg)+);
     );
     ($($arg:tt)+) => (
-        log::log!(target: G_LOG_DOMAIN, log::Level::Info, $($arg)+);
+        $crate::rs_log::log!(target: G_LOG_DOMAIN, $crate::rs_log::Level::Info, $($arg)+);
     )
 }
 
@@ -315,21 +304,19 @@ macro_rules! info {
 /// initialized using [`GlibLoggerDomain::CrateTarget`](enum.GlibLoggerDomain.html).
 ///
 /// ```no_run
-/// #[macro_use] extern crate glib;
-///
 /// static G_LOG_DOMAIN: &str = "my-domain";
 ///
-/// debug!("This will be logged under 'my-domain'");
+/// glib::debug!("This will be logged under 'my-domain'");
 /// ```
 #[macro_export]
 #[cfg(any(feature = "dox", feature = "log_macros"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "log_macros")))]
 macro_rules! debug {
     (target: $target:expr, $($arg:tt)+) => (
-        log::log!(target: $target, log::Level::Debug, $($arg)+);
+        $crate::rs_log::log!(target: $target, $crate::rs_log::Level::Debug, $($arg)+);
     );
     ($($arg:tt)+) => (
-        log::log!(target: G_LOG_DOMAIN, log::Level::Debug, $($arg)+);
+        $crate::rs_log::log!(target: G_LOG_DOMAIN, $crate::rs_log::Level::Debug, $($arg)+);
     )
 }
 
@@ -342,20 +329,18 @@ macro_rules! debug {
 /// initialized using [`GlibLoggerDomain::CrateTarget`](enum.GlibLoggerDomain.html).
 ///
 /// ```no_run
-/// #[macro_use] extern crate glib;
-///
 /// static G_LOG_DOMAIN: &str = "my-domain";
 ///
-/// trace!("This will be logged under 'my-domain'");
+/// glib::trace!("This will be logged under 'my-domain'");
 /// ```
 #[macro_export]
 #[cfg(any(feature = "dox", feature = "log_macros"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "log_macros")))]
 macro_rules! trace {
     (target: $target:expr, $($arg:tt)+) => (
-        log::log!(target: $target, log::Level::Trace, $($arg)+);
+        $crate::rs_log::log!(target: $target, $crate::rs_log::Level::Trace, $($arg)+);
     );
     ($($arg:tt)+) => (
-        log::log!(target: G_LOG_DOMAIN, log::Level::Trace, $($arg)+);
+        $crate::rs_log::log!(target: G_LOG_DOMAIN, $crate::rs_log::Level::Trace, $($arg)+);
     )
 }

@@ -2,47 +2,42 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
+use crate::Align;
+use crate::BaselinePosition;
+use crate::Box;
+use crate::Buildable;
+use crate::Container;
+use crate::Orientable;
+use crate::Orientation;
+use crate::ResizeMode;
+use crate::SizeGroup;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Align;
-use BaselinePosition;
-use Box;
-use Buildable;
-use Container;
-use Orientable;
-use Orientation;
-use ResizeMode;
-use SizeGroup;
-use Widget;
 
-glib_wrapper! {
-    pub struct ShortcutsGroup(Object<gtk_sys::GtkShortcutsGroup, gtk_sys::GtkShortcutsGroupClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
+glib::glib_wrapper! {
+    pub struct ShortcutsGroup(Object<ffi::GtkShortcutsGroup, ffi::GtkShortcutsGroupClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {
-        get_type => || gtk_sys::gtk_shortcuts_group_get_type(),
+        get_type => || ffi::gtk_shortcuts_group_get_type(),
     }
 }
 
 impl ShortcutsGroup {
     pub fn set_property_accel_size_group<P: IsA<SizeGroup>>(&self, accel_size_group: Option<&P>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"accel-size-group\0".as_ptr() as *const _,
                 Value::from(accel_size_group).to_glib_none().0,
             );
@@ -52,8 +47,8 @@ impl ShortcutsGroup {
     pub fn get_property_height(&self) -> u32 {
         unsafe {
             let mut value = Value::from_type(<u32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"height\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -64,11 +59,11 @@ impl ShortcutsGroup {
         }
     }
 
-    pub fn get_property_title(&self) -> Option<GString> {
+    pub fn get_property_title(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"title\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -80,8 +75,8 @@ impl ShortcutsGroup {
 
     pub fn set_property_title(&self, title: Option<&str>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"title\0".as_ptr() as *const _,
                 Value::from(title).to_glib_none().0,
             );
@@ -90,19 +85,19 @@ impl ShortcutsGroup {
 
     pub fn set_property_title_size_group<P: IsA<SizeGroup>>(&self, title_size_group: Option<&P>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"title-size-group\0".as_ptr() as *const _,
                 Value::from(title_size_group).to_glib_none().0,
             );
         }
     }
 
-    pub fn get_property_view(&self) -> Option<GString> {
+    pub fn get_property_view(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"view\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -114,8 +109,8 @@ impl ShortcutsGroup {
 
     pub fn set_property_view(&self, view: Option<&str>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.as_ptr() as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"view\0".as_ptr() as *const _,
                 Value::from(view).to_glib_none().0,
             );
@@ -129,9 +124,9 @@ impl ShortcutsGroup {
         unsafe extern "C" fn notify_accel_size_group_trampoline<
             F: Fn(&ShortcutsGroup) + 'static,
         >(
-            this: *mut gtk_sys::GtkShortcutsGroup,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsGroup,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -154,9 +149,9 @@ impl ShortcutsGroup {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_height_trampoline<F: Fn(&ShortcutsGroup) + 'static>(
-            this: *mut gtk_sys::GtkShortcutsGroup,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsGroup,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -179,9 +174,9 @@ impl ShortcutsGroup {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_title_trampoline<F: Fn(&ShortcutsGroup) + 'static>(
-            this: *mut gtk_sys::GtkShortcutsGroup,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsGroup,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -206,9 +201,9 @@ impl ShortcutsGroup {
         unsafe extern "C" fn notify_title_size_group_trampoline<
             F: Fn(&ShortcutsGroup) + 'static,
         >(
-            this: *mut gtk_sys::GtkShortcutsGroup,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsGroup,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
@@ -231,9 +226,9 @@ impl ShortcutsGroup {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_view_trampoline<F: Fn(&ShortcutsGroup) + 'static>(
-            this: *mut gtk_sys::GtkShortcutsGroup,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkShortcutsGroup,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))

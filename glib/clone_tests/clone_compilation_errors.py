@@ -74,7 +74,7 @@ def exec_command(command):
 
 def run_test(code, expected_str):
     with open("{}/{}.rs".format(TEST_FOLDER, TEST_FILENAME), 'w') as f:
-        f.write('extern crate glib;use glib::clone;use std::rc::Rc;fn main(){{let v = Rc::new(1);{};}}'.format(code))
+        f.write('use glib::clone;use std::rc::Rc;fn main(){{let v = Rc::new(1);{};}}'.format(code))
     code, stdout, stderr = exec_command([
         "bash",
         "-c",

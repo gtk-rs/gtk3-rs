@@ -6,12 +6,11 @@ use std::convert::TryFrom;
 use std::fmt;
 use std::ops::Deref;
 
-use enums::{Format, SurfaceType};
-use error::Error;
-use ffi;
+use crate::enums::{Format, SurfaceType};
+use crate::error::Error;
+use crate::surface::Surface;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
-use surface::Surface;
 
 use ffi::CGContextRef;
 

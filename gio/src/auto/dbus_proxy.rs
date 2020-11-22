@@ -2,39 +2,34 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::BusType;
+use crate::Cancellable;
+use crate::DBusCallFlags;
+use crate::DBusConnection;
+use crate::DBusInterface;
+use crate::DBusInterfaceInfo;
+use crate::DBusProxyFlags;
+#[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+use crate::UnixFDList;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::pin::Pin;
 use std::ptr;
-use BusType;
-use Cancellable;
-use DBusCallFlags;
-use DBusConnection;
-use DBusInterface;
-use DBusInterfaceInfo;
-use DBusProxyFlags;
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
-use UnixFDList;
 
-glib_wrapper! {
-    pub struct DBusProxy(Object<gio_sys::GDBusProxy, gio_sys::GDBusProxyClass>) @implements DBusInterface;
+glib::glib_wrapper! {
+    pub struct DBusProxy(Object<ffi::GDBusProxy, ffi::GDBusProxyClass>) @implements DBusInterface;
 
     match fn {
-        get_type => || gio_sys::g_dbus_proxy_get_type(),
+        get_type => || ffi::g_dbus_proxy_get_type(),
     }
 }
 
@@ -50,7 +45,7 @@ impl DBusProxy {
     ) -> Result<DBusProxy, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_dbus_proxy_new_for_bus_sync(
+            let ret = ffi::g_dbus_proxy_new_for_bus_sync(
                 bus_type.to_glib(),
                 flags.to_glib(),
                 info.to_glib_none().0,
@@ -79,7 +74,7 @@ impl DBusProxy {
     ) -> Result<DBusProxy, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_dbus_proxy_new_sync(
+            let ret = ffi::g_dbus_proxy_new_sync(
                 connection.to_glib_none().0,
                 flags.to_glib(),
                 info.to_glib_none().0,
@@ -111,12 +106,12 @@ impl DBusProxy {
         unsafe extern "C" fn new_trampoline<
             Q: FnOnce(Result<DBusProxy, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_dbus_proxy_new_finish(res, &mut error);
+            let ret = ffi::g_dbus_proxy_new_finish(res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -127,7 +122,7 @@ impl DBusProxy {
         }
         let callback = new_trampoline::<Q>;
         unsafe {
-            gio_sys::g_dbus_proxy_new(
+            ffi::g_dbus_proxy_new(
                 connection.to_glib_none().0,
                 flags.to_glib(),
                 info.to_glib_none().0,
@@ -190,12 +185,12 @@ impl DBusProxy {
         unsafe extern "C" fn new_for_bus_trampoline<
             Q: FnOnce(Result<DBusProxy, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_dbus_proxy_new_for_bus_finish(res, &mut error);
+            let ret = ffi::g_dbus_proxy_new_for_bus_finish(res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -206,7 +201,7 @@ impl DBusProxy {
         }
         let callback = new_for_bus_trampoline::<Q>;
         unsafe {
-            gio_sys::g_dbus_proxy_new_for_bus(
+            ffi::g_dbus_proxy_new_for_bus(
                 bus_type.to_glib(),
                 flags.to_glib(),
                 info.to_glib_none().0,
@@ -329,7 +324,7 @@ pub trait DBusProxyExt: 'static {
 
     fn get_cached_property(&self, property_name: &str) -> Option<glib::Variant>;
 
-    fn get_cached_property_names(&self) -> Vec<GString>;
+    fn get_cached_property_names(&self) -> Vec<glib::GString>;
 
     fn get_connection(&self) -> Option<DBusConnection>;
 
@@ -339,13 +334,13 @@ pub trait DBusProxyExt: 'static {
 
     fn get_interface_info(&self) -> Option<DBusInterfaceInfo>;
 
-    fn get_interface_name(&self) -> Option<GString>;
+    fn get_interface_name(&self) -> Option<glib::GString>;
 
-    fn get_name(&self) -> Option<GString>;
+    fn get_name(&self) -> Option<glib::GString>;
 
-    fn get_name_owner(&self) -> Option<GString>;
+    fn get_name_owner(&self) -> Option<glib::GString>;
 
-    fn get_object_path(&self) -> Option<GString>;
+    fn get_object_path(&self) -> Option<glib::GString>;
 
     fn set_cached_property(&self, property_name: &str, value: Option<&glib::Variant>);
 
@@ -365,13 +360,13 @@ pub trait DBusProxyExt: 'static {
 
     fn set_property_g_interface_info(&self, g_interface_info: Option<&DBusInterfaceInfo>);
 
-    fn get_property_g_interface_name(&self) -> Option<GString>;
+    fn get_property_g_interface_name(&self) -> Option<glib::GString>;
 
-    fn get_property_g_name(&self) -> Option<GString>;
+    fn get_property_g_name(&self) -> Option<glib::GString>;
 
-    fn get_property_g_name_owner(&self) -> Option<GString>;
+    fn get_property_g_name_owner(&self) -> Option<glib::GString>;
 
-    fn get_property_g_object_path(&self) -> Option<GString>;
+    fn get_property_g_object_path(&self) -> Option<glib::GString>;
 
     fn connect_property_g_default_timeout_notify<F: Fn(&Self) + 'static>(
         &self,
@@ -401,12 +396,12 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         unsafe extern "C" fn call_trampoline<
             Q: FnOnce(Result<glib::Variant, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_dbus_proxy_call_finish(_source_object as *mut _, res, &mut error);
+            let ret = ffi::g_dbus_proxy_call_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -417,7 +412,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
         let callback = call_trampoline::<Q>;
         unsafe {
-            gio_sys::g_dbus_proxy_call(
+            ffi::g_dbus_proxy_call(
                 self.as_ref().to_glib_none().0,
                 method_name.to_glib_none().0,
                 parameters.to_glib_none().0,
@@ -467,7 +462,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
     ) -> Result<glib::Variant, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_dbus_proxy_call_sync(
+            let ret = ffi::g_dbus_proxy_call_sync(
                 self.as_ref().to_glib_none().0,
                 method_name.to_glib_none().0,
                 parameters.to_glib_none().0,
@@ -504,13 +499,13 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         unsafe extern "C" fn call_with_unix_fd_list_trampoline<
             R: FnOnce(Result<(glib::Variant, UnixFDList), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let mut out_fd_list = ptr::null_mut();
-            let ret = gio_sys::g_dbus_proxy_call_with_unix_fd_list_finish(
+            let ret = ffi::g_dbus_proxy_call_with_unix_fd_list_finish(
                 _source_object as *mut _,
                 &mut out_fd_list,
                 res,
@@ -526,7 +521,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
         let callback = call_with_unix_fd_list_trampoline::<R>;
         unsafe {
-            gio_sys::g_dbus_proxy_call_with_unix_fd_list(
+            ffi::g_dbus_proxy_call_with_unix_fd_list(
                 self.as_ref().to_glib_none().0,
                 method_name.to_glib_none().0,
                 parameters.to_glib_none().0,
@@ -590,7 +585,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         unsafe {
             let mut out_fd_list = ptr::null_mut();
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_dbus_proxy_call_with_unix_fd_list_sync(
+            let ret = ffi::g_dbus_proxy_call_with_unix_fd_list_sync(
                 self.as_ref().to_glib_none().0,
                 method_name.to_glib_none().0,
                 parameters.to_glib_none().0,
@@ -611,16 +606,16 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
 
     fn get_cached_property(&self, property_name: &str) -> Option<glib::Variant> {
         unsafe {
-            from_glib_full(gio_sys::g_dbus_proxy_get_cached_property(
+            from_glib_full(ffi::g_dbus_proxy_get_cached_property(
                 self.as_ref().to_glib_none().0,
                 property_name.to_glib_none().0,
             ))
         }
     }
 
-    fn get_cached_property_names(&self) -> Vec<GString> {
+    fn get_cached_property_names(&self) -> Vec<glib::GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gio_sys::g_dbus_proxy_get_cached_property_names(
+            FromGlibPtrContainer::from_glib_full(ffi::g_dbus_proxy_get_cached_property_names(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -628,59 +623,51 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
 
     fn get_connection(&self) -> Option<DBusConnection> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_proxy_get_connection(
+            from_glib_none(ffi::g_dbus_proxy_get_connection(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_default_timeout(&self) -> i32 {
-        unsafe { gio_sys::g_dbus_proxy_get_default_timeout(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::g_dbus_proxy_get_default_timeout(self.as_ref().to_glib_none().0) }
     }
 
     fn get_flags(&self) -> DBusProxyFlags {
-        unsafe {
-            from_glib(gio_sys::g_dbus_proxy_get_flags(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::g_dbus_proxy_get_flags(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_interface_info(&self) -> Option<DBusInterfaceInfo> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_proxy_get_interface_info(
+            from_glib_none(ffi::g_dbus_proxy_get_interface_info(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_interface_name(&self) -> Option<GString> {
+    fn get_interface_name(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_proxy_get_interface_name(
+            from_glib_none(ffi::g_dbus_proxy_get_interface_name(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_name(&self) -> Option<GString> {
+    fn get_name(&self) -> Option<glib::GString> {
+        unsafe { from_glib_none(ffi::g_dbus_proxy_get_name(self.as_ref().to_glib_none().0)) }
+    }
+
+    fn get_name_owner(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_proxy_get_name(
+            from_glib_full(ffi::g_dbus_proxy_get_name_owner(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_name_owner(&self) -> Option<GString> {
+    fn get_object_path(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_full(gio_sys::g_dbus_proxy_get_name_owner(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
-    fn get_object_path(&self) -> Option<GString> {
-        unsafe {
-            from_glib_none(gio_sys::g_dbus_proxy_get_object_path(
+            from_glib_none(ffi::g_dbus_proxy_get_object_path(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -688,7 +675,7 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
 
     fn set_cached_property(&self, property_name: &str, value: Option<&glib::Variant>) {
         unsafe {
-            gio_sys::g_dbus_proxy_set_cached_property(
+            ffi::g_dbus_proxy_set_cached_property(
                 self.as_ref().to_glib_none().0,
                 property_name.to_glib_none().0,
                 value.to_glib_none().0,
@@ -698,13 +685,13 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
 
     fn set_default_timeout(&self, timeout_msec: i32) {
         unsafe {
-            gio_sys::g_dbus_proxy_set_default_timeout(self.as_ref().to_glib_none().0, timeout_msec);
+            ffi::g_dbus_proxy_set_default_timeout(self.as_ref().to_glib_none().0, timeout_msec);
         }
     }
 
     fn set_interface_info(&self, info: Option<&DBusInterfaceInfo>) {
         unsafe {
-            gio_sys::g_dbus_proxy_set_interface_info(
+            ffi::g_dbus_proxy_set_interface_info(
                 self.as_ref().to_glib_none().0,
                 info.to_glib_none().0,
             );
@@ -714,8 +701,8 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
     fn get_property_g_connection(&self) -> Option<DBusConnection> {
         unsafe {
             let mut value = Value::from_type(<DBusConnection as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"g-connection\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -728,8 +715,8 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
     fn get_property_g_default_timeout(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"g-default-timeout\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -742,8 +729,8 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
 
     fn set_property_g_default_timeout(&self, g_default_timeout: i32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"g-default-timeout\0".as_ptr() as *const _,
                 Value::from(&g_default_timeout).to_glib_none().0,
             );
@@ -753,8 +740,8 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
     fn get_property_g_flags(&self) -> DBusProxyFlags {
         unsafe {
             let mut value = Value::from_type(<DBusProxyFlags as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"g-flags\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -768,8 +755,8 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
     fn get_property_g_interface_info(&self) -> Option<DBusInterfaceInfo> {
         unsafe {
             let mut value = Value::from_type(<DBusInterfaceInfo as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"g-interface-info\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -781,19 +768,19 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
 
     fn set_property_g_interface_info(&self, g_interface_info: Option<&DBusInterfaceInfo>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"g-interface-info\0".as_ptr() as *const _,
                 Value::from(g_interface_info).to_glib_none().0,
             );
         }
     }
 
-    fn get_property_g_interface_name(&self) -> Option<GString> {
+    fn get_property_g_interface_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"g-interface-name\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -803,11 +790,11 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_property_g_name(&self) -> Option<GString> {
+    fn get_property_g_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"g-name\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -817,11 +804,11 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_property_g_name_owner(&self) -> Option<GString> {
+    fn get_property_g_name_owner(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"g-name-owner\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -831,11 +818,11 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    fn get_property_g_object_path(&self) -> Option<GString> {
+    fn get_property_g_object_path(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"g-object-path\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -850,9 +837,9 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_g_default_timeout_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GDBusProxy,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDBusProxy,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<DBusProxy>,
         {
@@ -877,9 +864,9 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_g_interface_info_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GDBusProxy,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDBusProxy,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<DBusProxy>,
         {
@@ -904,9 +891,9 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_g_name_owner_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GDBusProxy,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GDBusProxy,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<DBusProxy>,
         {

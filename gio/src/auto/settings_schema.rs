@@ -2,43 +2,41 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::SettingsSchemaKey;
 use glib::translate::*;
-use glib::GString;
-use SettingsSchemaKey;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct SettingsSchema(Shared<gio_sys::GSettingsSchema>);
+    pub struct SettingsSchema(Shared<ffi::GSettingsSchema>);
 
     match fn {
-        ref => |ptr| gio_sys::g_settings_schema_ref(ptr),
-        unref => |ptr| gio_sys::g_settings_schema_unref(ptr),
-        get_type => || gio_sys::g_settings_schema_get_type(),
+        ref => |ptr| ffi::g_settings_schema_ref(ptr),
+        unref => |ptr| ffi::g_settings_schema_unref(ptr),
+        get_type => || ffi::g_settings_schema_get_type(),
     }
 }
 
 impl SettingsSchema {
-    pub fn get_id(&self) -> Option<GString> {
-        unsafe { from_glib_none(gio_sys::g_settings_schema_get_id(self.to_glib_none().0)) }
+    pub fn get_id(&self) -> Option<glib::GString> {
+        unsafe { from_glib_none(ffi::g_settings_schema_get_id(self.to_glib_none().0)) }
     }
 
     pub fn get_key(&self, name: &str) -> Option<SettingsSchemaKey> {
         unsafe {
-            from_glib_full(gio_sys::g_settings_schema_get_key(
+            from_glib_full(ffi::g_settings_schema_get_key(
                 self.to_glib_none().0,
                 name.to_glib_none().0,
             ))
         }
     }
 
-    pub fn get_path(&self) -> Option<GString> {
-        unsafe { from_glib_none(gio_sys::g_settings_schema_get_path(self.to_glib_none().0)) }
+    pub fn get_path(&self) -> Option<glib::GString> {
+        unsafe { from_glib_none(ffi::g_settings_schema_get_path(self.to_glib_none().0)) }
     }
 
     pub fn has_key(&self, name: &str) -> bool {
         unsafe {
-            from_glib(gio_sys::g_settings_schema_has_key(
+            from_glib(ffi::g_settings_schema_has_key(
                 self.to_glib_none().0,
                 name.to_glib_none().0,
             ))
@@ -47,9 +45,9 @@ impl SettingsSchema {
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-    pub fn list_children(&self) -> Vec<GString> {
+    pub fn list_children(&self) -> Vec<glib::GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gio_sys::g_settings_schema_list_children(
+            FromGlibPtrContainer::from_glib_full(ffi::g_settings_schema_list_children(
                 self.to_glib_none().0,
             ))
         }
@@ -57,9 +55,9 @@ impl SettingsSchema {
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-    pub fn list_keys(&self) -> Vec<GString> {
+    pub fn list_keys(&self) -> Vec<glib::GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gio_sys::g_settings_schema_list_keys(
+            FromGlibPtrContainer::from_glib_full(ffi::g_settings_schema_list_keys(
                 self.to_glib_none().0,
             ))
         }

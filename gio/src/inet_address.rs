@@ -1,9 +1,8 @@
-use gio_sys;
+use crate::InetAddress;
+use crate::InetAddressExt;
+use crate::SocketFamily;
 use glib::object::IsA;
 use glib::translate::*;
-use InetAddress;
-use InetAddressExt;
-use SocketFamily;
 
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
 
@@ -33,7 +32,7 @@ impl InetAddress {
             InetAddressBytes::V6(_) => SocketFamily::Ipv6,
         };
         unsafe {
-            from_glib_full(gio_sys::g_inet_address_new_from_bytes(
+            from_glib_full(ffi::g_inet_address_new_from_bytes(
                 bytes.to_glib_none().0,
                 family.to_glib(),
             ))
@@ -50,7 +49,7 @@ impl<O: IsA<InetAddress>> InetAddressExtManual for O {
     fn to_bytes(&self) -> Option<InetAddressBytes<'_>> {
         let size = self.get_native_size();
         unsafe {
-            let bytes = gio_sys::g_inet_address_to_bytes(self.as_ref().to_glib_none().0);
+            let bytes = ffi::g_inet_address_to_bytes(self.as_ref().to_glib_none().0);
             if size == 4 {
                 Some(InetAddressBytes::V4(&*(bytes as *const [u8; 4])))
             } else if size == 16 {
@@ -75,7 +74,7 @@ impl From<InetAddress> for IpAddr {
     fn from(addr: InetAddress) -> IpAddr {
         let size = addr.get_native_size();
         unsafe {
-            let bytes = gio_sys::g_inet_address_to_bytes(addr.to_glib_none().0);
+            let bytes = ffi::g_inet_address_to_bytes(addr.to_glib_none().0);
             if size == 4 {
                 IpAddr::V4(Ipv4Addr::from(*(bytes as *const [u8; 4])))
             } else if size == 16 {

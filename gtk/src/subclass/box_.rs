@@ -1,8 +1,8 @@
 use glib::subclass::prelude::*;
 
 use super::container::ContainerImpl;
-use Box;
-use Container;
+use crate::Box;
+use crate::Container;
 
 pub trait BoxImpl: ContainerImpl {}
 

@@ -9,17 +9,7 @@
 
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate libc;
-#[macro_use]
-extern crate bitflags;
-
-#[doc(hidden)]
-pub extern crate atk_sys;
-pub use atk_sys as ffi;
-extern crate glib_sys;
-extern crate gobject_sys;
-#[macro_use]
-extern crate glib;
+pub use ffi;
 
 #[macro_use]
 mod rt;
@@ -27,13 +17,13 @@ mod rt;
 #[allow(unused_imports)]
 mod auto;
 
-pub use auto::*;
+pub use crate::auto::*;
 
 pub mod prelude;
 
-pub use attribute::Attribute;
-pub use attribute_set::AttributeSet;
-pub use text_rectangle::TextRectangle;
+pub use crate::attribute::Attribute;
+pub use crate::attribute_set::AttributeSet;
+pub use crate::text_rectangle::TextRectangle;
 
 mod attribute;
 mod attribute_set;

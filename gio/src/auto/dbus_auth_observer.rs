@@ -2,37 +2,33 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::Credentials;
+use crate::IOStream;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
-use glib_sys;
-use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Credentials;
-use IOStream;
 
-glib_wrapper! {
-    pub struct DBusAuthObserver(Object<gio_sys::GDBusAuthObserver>);
+glib::glib_wrapper! {
+    pub struct DBusAuthObserver(Object<ffi::GDBusAuthObserver>);
 
     match fn {
-        get_type => || gio_sys::g_dbus_auth_observer_get_type(),
+        get_type => || ffi::g_dbus_auth_observer_get_type(),
     }
 }
 
 impl DBusAuthObserver {
     pub fn new() -> DBusAuthObserver {
-        unsafe { from_glib_full(gio_sys::g_dbus_auth_observer_new()) }
+        unsafe { from_glib_full(ffi::g_dbus_auth_observer_new()) }
     }
 
     pub fn allow_mechanism(&self, mechanism: &str) -> bool {
         unsafe {
-            from_glib(gio_sys::g_dbus_auth_observer_allow_mechanism(
+            from_glib(ffi::g_dbus_auth_observer_allow_mechanism(
                 self.to_glib_none().0,
                 mechanism.to_glib_none().0,
             ))
@@ -45,7 +41,7 @@ impl DBusAuthObserver {
         credentials: Option<&Credentials>,
     ) -> bool {
         unsafe {
-            from_glib(gio_sys::g_dbus_auth_observer_authorize_authenticated_peer(
+            from_glib(ffi::g_dbus_auth_observer_authorize_authenticated_peer(
                 self.to_glib_none().0,
                 stream.as_ref().to_glib_none().0,
                 credentials.to_glib_none().0,
@@ -60,14 +56,14 @@ impl DBusAuthObserver {
         unsafe extern "C" fn allow_mechanism_trampoline<
             F: Fn(&DBusAuthObserver, &str) -> bool + 'static,
         >(
-            this: *mut gio_sys::GDBusAuthObserver,
+            this: *mut ffi::GDBusAuthObserver,
             mechanism: *mut libc::c_char,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean {
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &from_glib_borrow(this),
-                &GString::from_glib_borrow(mechanism),
+                &glib::GString::from_glib_borrow(mechanism),
             )
             .to_glib()
         }
@@ -93,11 +89,11 @@ impl DBusAuthObserver {
         unsafe extern "C" fn authorize_authenticated_peer_trampoline<
             F: Fn(&DBusAuthObserver, &IOStream, Option<&Credentials>) -> bool + 'static,
         >(
-            this: *mut gio_sys::GDBusAuthObserver,
-            stream: *mut gio_sys::GIOStream,
-            credentials: *mut gio_sys::GCredentials,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean {
+            this: *mut ffi::GDBusAuthObserver,
+            stream: *mut ffi::GIOStream,
+            credentials: *mut ffi::GCredentials,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean {
             let f: &F = &*(f as *const F);
             f(
                 &from_glib_borrow(this),

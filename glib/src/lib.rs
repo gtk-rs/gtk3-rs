@@ -79,51 +79,36 @@
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 #![allow(clippy::missing_safety_doc)]
 
-#[doc(hidden)]
-#[macro_use]
-pub extern crate bitflags;
-extern crate libc;
-extern crate once_cell;
-extern crate smallvec;
+pub use ffi;
+pub use gobject_ffi;
 
 #[doc(hidden)]
-pub extern crate glib_sys as glib_sys;
-pub use glib_sys as ffi;
-#[doc(hidden)]
-pub extern crate gobject_sys as gobject_sys;
-pub use gobject_sys as gobject_ffi;
+pub use bitflags;
 
-extern crate glib_macros;
 pub use glib_macros::{clone, gflags, GBoxed, GEnum};
 
-extern crate futures_channel;
-extern crate futures_core;
-extern crate futures_executor;
-extern crate futures_task;
-extern crate futures_util;
-
-pub use byte_array::ByteArray;
-pub use bytes::Bytes;
-pub use closure::Closure;
-pub use error::{BoolError, Error};
-pub use file_error::FileError;
-pub use object::{
+pub use self::byte_array::ByteArray;
+pub use self::bytes::Bytes;
+pub use self::closure::Closure;
+pub use self::error::{BoolError, Error};
+pub use self::file_error::FileError;
+pub use self::object::{
     Cast, Class, InitiallyUnowned, IsA, Object, ObjectExt, ObjectType, SendWeakRef, WeakRef,
 };
-pub use signal::{
+pub use self::signal::{
     signal_handler_block, signal_handler_disconnect, signal_handler_unblock,
     signal_stop_emission_by_name, SignalHandlerId,
 };
+pub use self::string::String;
 use std::ffi::CStr;
-pub use string::String;
 
-pub use enums::{EnumClass, EnumValue, FlagsBuilder, FlagsClass, FlagsValue, UserDirectory};
-pub use types::{StaticType, Type};
-pub use value::{SendValue, ToSendValue, ToValue, TypedValue, Value};
-pub use variant::{FromVariant, StaticVariantType, ToVariant, Variant};
-pub use variant_dict::VariantDict;
-pub use variant_iter::VariantIter;
-pub use variant_type::{VariantTy, VariantType};
+pub use self::enums::{EnumClass, EnumValue, FlagsBuilder, FlagsClass, FlagsValue, UserDirectory};
+pub use self::types::{StaticType, Type};
+pub use self::value::{SendValue, ToSendValue, ToValue, TypedValue, Value};
+pub use self::variant::{FromVariant, StaticVariantType, ToVariant, Variant};
+pub use self::variant_dict::VariantDict;
+pub use self::variant_iter::VariantIter;
+pub use self::variant_type::{VariantTy, VariantType};
 
 pub mod clone;
 #[macro_use]
@@ -137,8 +122,8 @@ pub mod error;
 #[macro_use]
 pub mod object;
 
-pub use auto::functions::*;
-pub use auto::*;
+pub use self::auto::functions::*;
+pub use self::auto::*;
 #[allow(clippy::let_and_return)]
 #[allow(clippy::let_unit_value)]
 #[allow(clippy::too_many_arguments)]
@@ -148,32 +133,32 @@ pub use auto::*;
 #[allow(unused_imports)]
 mod auto;
 
-pub use gobject::*;
+pub use self::gobject::*;
 mod gobject;
 
 mod byte_array;
 mod bytes;
 pub mod char;
 mod string;
-pub use char::*;
+pub use self::char::*;
 mod checksum;
 pub mod closure;
 mod enums;
 mod file_error;
 mod functions;
-pub use functions::*;
+pub use self::functions::*;
 mod key_file;
 pub mod prelude;
 pub mod signal;
 pub mod source;
-pub use source::*;
+pub use self::source::*;
 #[macro_use]
 pub mod translate;
 mod gstring;
-pub use gstring::GString;
+pub use self::gstring::GString;
 pub mod types;
 mod utils;
-pub use utils::*;
+pub use self::utils::*;
 mod main_context;
 mod main_context_channel;
 pub mod value;
@@ -181,49 +166,51 @@ pub mod variant;
 mod variant_dict;
 mod variant_iter;
 mod variant_type;
-pub use main_context_channel::{Receiver, Sender, SyncSender};
+pub use self::main_context_channel::{Receiver, Sender, SyncSender};
 mod date;
-pub use date::Date;
+pub use self::date::Date;
 mod value_array;
-pub use value_array::ValueArray;
+pub use self::value_array::ValueArray;
 mod param_spec;
-pub use param_spec::*;
+pub use self::param_spec::*;
 mod quark;
-pub use quark::Quark;
+pub use self::quark::Quark;
 #[macro_use]
 mod log;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
-pub use log::log_set_handler;
+pub use self::log::log_set_handler;
 
 // #[cfg(any(feature = "v2_50", feature = "dox"))]
 // pub use log::log_variant;
-pub use log::{
+pub use self::log::{
     log_default_handler, log_remove_handler, log_set_always_fatal, log_set_default_handler,
     log_set_fatal_mask, log_unset_default_handler, set_print_handler, set_printerr_handler,
     unset_print_handler, unset_printerr_handler, LogHandlerId, LogLevel, LogLevels,
 };
 
-#[cfg(any(feature = "log", feature = "dox"))]
-extern crate log as rs_log;
+#[doc(hidden)]
+#[cfg(any(feature = "dox", feature = "log_macros"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "log_macros")))]
+pub use rs_log;
 
 #[cfg(any(feature = "log", feature = "dox"))]
 #[macro_use]
 mod bridged_logging;
 #[cfg(any(feature = "log", feature = "dox"))]
-pub use bridged_logging::{rust_log_handler, GlibLogger, GlibLoggerDomain, GlibLoggerFormat};
+pub use self::bridged_logging::{rust_log_handler, GlibLogger, GlibLoggerDomain, GlibLoggerFormat};
 
 pub mod send_unique;
-pub use send_unique::{SendUnique, SendUniqueCell};
+pub use self::send_unique::{SendUnique, SendUniqueCell};
 
 #[macro_use]
 pub mod subclass;
 
 mod main_context_futures;
 mod source_futures;
-pub use source_futures::*;
+pub use self::source_futures::*;
 
 mod thread_pool;
-pub use thread_pool::ThreadPool;
+pub use self::thread_pool::ThreadPool;
 
 /// This is the log domain used by the [`clone!`][crate::clone!] macro. If you want to use a custom
 /// logger (it prints to stdout by default), you can set your own logger using the corresponding

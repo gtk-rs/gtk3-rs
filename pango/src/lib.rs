@@ -5,17 +5,7 @@
 #![allow(deprecated)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate glib_sys;
-extern crate gobject_sys;
-#[doc(hidden)]
-pub extern crate pango_sys;
-pub use pango_sys as ffi;
-#[macro_use]
-extern crate glib;
-#[macro_use]
-extern crate bitflags;
-extern crate libc;
-extern crate once_cell;
+pub use ffi;
 
 #[allow(clippy::too_many_arguments)]
 #[allow(clippy::should_implement_trait)]
@@ -23,11 +13,11 @@ extern crate once_cell;
 #[allow(clippy::let_and_return)]
 #[allow(unused_imports)]
 mod auto;
-pub use auto::functions::*;
-pub use auto::*;
-pub use functions::*;
+pub use crate::auto::functions::*;
+pub use crate::auto::*;
+pub use crate::functions::*;
 
-pub use pango_sys::PANGO_SCALE as SCALE;
+pub use ffi::PANGO_SCALE as SCALE;
 
 /// The scale factor for three shrinking steps (1 / (1.2 * 1.2 * 1.2)).
 pub const SCALE_XX_SMALL: f64 = 0.5787037037037;
@@ -53,9 +43,9 @@ pub const SCALE_XX_LARGE: f64 = 1.728;
 pub mod prelude;
 
 pub mod analysis;
-pub use analysis::Analysis;
+pub use crate::analysis::Analysis;
 pub mod attr_class;
-pub use attr_class::AttrClass;
+pub use crate::attr_class::AttrClass;
 pub mod attr_iterator;
 pub mod attr_list;
 pub mod attribute;
@@ -63,10 +53,10 @@ mod functions;
 pub mod gravity;
 pub mod item;
 pub mod language;
-pub use language::Language;
+pub use crate::language::Language;
 pub mod rectangle;
-pub use rectangle::Rectangle;
+pub use crate::rectangle::Rectangle;
 pub mod glyph;
 
 mod coverage;
-pub use coverage::*;
+pub use crate::coverage::*;

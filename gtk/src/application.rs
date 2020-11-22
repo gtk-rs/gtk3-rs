@@ -1,12 +1,10 @@
+use crate::rt;
+use crate::Application;
 use gio::ApplicationExt;
 use gio::ApplicationFlags;
-use glib;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::ObjectExt;
-use gtk_sys;
-use rt;
-use Application;
 
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -37,11 +35,11 @@ impl Application {
     ) -> Result<Application, glib::BoolError> {
         skip_assert_initialized!();
         let app: Application = unsafe {
-            Option::from_glib_full(gtk_sys::gtk_application_new(
+            Option::from_glib_full(ffi::gtk_application_new(
                 application_id.to_glib_none().0,
                 flags.to_glib(),
             ))
-            .ok_or_else(|| glib_bool_error!("Failed to create application"))?
+            .ok_or_else(|| glib::glib_bool_error!("Failed to create application"))?
         };
         Application::register_startup_hook(&app);
         Ok(app)

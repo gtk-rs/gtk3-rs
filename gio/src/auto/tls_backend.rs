@@ -2,24 +2,22 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::TlsDatabase;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
-use TlsDatabase;
 
-glib_wrapper! {
-    pub struct TlsBackend(Interface<gio_sys::GTlsBackend>);
+glib::glib_wrapper! {
+    pub struct TlsBackend(Interface<ffi::GTlsBackend>);
 
     match fn {
-        get_type => || gio_sys::g_tls_backend_get_type(),
+        get_type => || ffi::g_tls_backend_get_type(),
     }
 }
 
 impl TlsBackend {
     pub fn get_default() -> Option<TlsBackend> {
-        unsafe { from_glib_none(gio_sys::g_tls_backend_get_default()) }
+        unsafe { from_glib_none(ffi::g_tls_backend_get_default()) }
     }
 }
 
@@ -58,7 +56,7 @@ pub trait TlsBackendExt: 'static {
 impl<O: IsA<TlsBackend>> TlsBackendExt for O {
     fn get_certificate_type(&self) -> glib::types::Type {
         unsafe {
-            from_glib(gio_sys::g_tls_backend_get_certificate_type(
+            from_glib(ffi::g_tls_backend_get_certificate_type(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -66,7 +64,7 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
 
     fn get_client_connection_type(&self) -> glib::types::Type {
         unsafe {
-            from_glib(gio_sys::g_tls_backend_get_client_connection_type(
+            from_glib(ffi::g_tls_backend_get_client_connection_type(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -74,7 +72,7 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
 
     fn get_default_database(&self) -> Option<TlsDatabase> {
         unsafe {
-            from_glib_full(gio_sys::g_tls_backend_get_default_database(
+            from_glib_full(ffi::g_tls_backend_get_default_database(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -84,7 +82,7 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     fn get_dtls_client_connection_type(&self) -> glib::types::Type {
         unsafe {
-            from_glib(gio_sys::g_tls_backend_get_dtls_client_connection_type(
+            from_glib(ffi::g_tls_backend_get_dtls_client_connection_type(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -94,7 +92,7 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     fn get_dtls_server_connection_type(&self) -> glib::types::Type {
         unsafe {
-            from_glib(gio_sys::g_tls_backend_get_dtls_server_connection_type(
+            from_glib(ffi::g_tls_backend_get_dtls_server_connection_type(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -102,7 +100,7 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
 
     fn get_file_database_type(&self) -> glib::types::Type {
         unsafe {
-            from_glib(gio_sys::g_tls_backend_get_file_database_type(
+            from_glib(ffi::g_tls_backend_get_file_database_type(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -110,7 +108,7 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
 
     fn get_server_connection_type(&self) -> glib::types::Type {
         unsafe {
-            from_glib(gio_sys::g_tls_backend_get_server_connection_type(
+            from_glib(ffi::g_tls_backend_get_server_connection_type(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -120,7 +118,7 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     fn set_default_database<P: IsA<TlsDatabase>>(&self, database: Option<&P>) {
         unsafe {
-            gio_sys::g_tls_backend_set_default_database(
+            ffi::g_tls_backend_set_default_database(
                 self.as_ref().to_glib_none().0,
                 database.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -131,7 +129,7 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     fn supports_dtls(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_tls_backend_supports_dtls(
+            from_glib(ffi::g_tls_backend_supports_dtls(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -139,7 +137,7 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
 
     fn supports_tls(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_tls_backend_supports_tls(
+            from_glib(ffi::g_tls_backend_supports_tls(
                 self.as_ref().to_glib_none().0,
             ))
         }

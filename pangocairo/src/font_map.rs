@@ -3,11 +3,8 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 use crate::FontMap;
-use cairo;
 use glib::object::IsA;
 use glib::translate::*;
-use pango;
-use pango_cairo_sys;
 
 pub trait FontMapExtManual {
     fn get_font_type(&self) -> cairo::FontType;
@@ -15,30 +12,23 @@ pub trait FontMapExtManual {
 
 impl<O: IsA<FontMap>> FontMapExtManual for O {
     fn get_font_type(&self) -> cairo::FontType {
-        unsafe {
-            pango_cairo_sys::pango_cairo_font_map_get_font_type(self.as_ref().to_glib_none().0)
-                .into()
-        }
+        unsafe { ffi::pango_cairo_font_map_get_font_type(self.as_ref().to_glib_none().0).into() }
     }
 }
 
 impl FontMap {
     pub fn new_for_font_type(fonttype: cairo::FontType) -> Option<pango::FontMap> {
-        unsafe {
-            from_glib_full(pango_cairo_sys::pango_cairo_font_map_new_for_font_type(
-                fonttype.into(),
-            ))
-        }
+        unsafe { from_glib_full(ffi::pango_cairo_font_map_new_for_font_type(fonttype.into())) }
     }
 
     #[allow(clippy::new_ret_no_self)]
     pub fn new() -> Option<pango::FontMap> {
-        unsafe { from_glib_full(pango_cairo_sys::pango_cairo_font_map_new()) }
+        unsafe { from_glib_full(ffi::pango_cairo_font_map_new()) }
     }
 
     pub fn set_default(font_map: Option<Self>) {
         unsafe {
-            pango_cairo_sys::pango_cairo_font_map_set_default(font_map.as_ref().to_glib_none().0);
+            ffi::pango_cairo_font_map_set_default(font_map.as_ref().to_glib_none().0);
         }
     }
 }

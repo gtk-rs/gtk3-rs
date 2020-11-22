@@ -1,5 +1,3 @@
-use gtk_sys;
-
 use libc::c_char;
 
 use glib::subclass::prelude::*;
@@ -7,8 +5,8 @@ use glib::translate::*;
 use glib::{Cast, GString};
 
 use super::cell_renderer::CellRendererImpl;
-use CellRenderer;
-use CellRendererText;
+use crate::CellRenderer;
+use crate::CellRendererText;
 
 pub trait CellRendererTextImpl: CellRendererTextImplExt + CellRendererImpl {
     fn edited(&self, renderer: &Self::Type, path: &str, new_text: &str) {
@@ -25,7 +23,7 @@ impl<T: CellRendererTextImpl> CellRendererTextImplExt for T {
         unsafe {
             let data = T::type_data();
             let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererTextClass;
+                data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererTextClass;
             if let Some(f) = (*parent_class).edited {
                 f(
                     renderer
@@ -50,7 +48,7 @@ unsafe impl<T: CellRendererTextImpl> IsSubclassable<T> for CellRendererText {
 }
 
 unsafe extern "C" fn cell_renderer_text_edited<T: CellRendererTextImpl>(
-    ptr: *mut gtk_sys::GtkCellRendererText,
+    ptr: *mut ffi::GtkCellRendererText,
     path: *const c_char,
     new_text: *const c_char,
 ) {

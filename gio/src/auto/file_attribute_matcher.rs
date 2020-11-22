@@ -2,26 +2,24 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
 use glib::translate::*;
-use glib::GString;
 use std::fmt;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct FileAttributeMatcher(Shared<gio_sys::GFileAttributeMatcher>);
+    pub struct FileAttributeMatcher(Shared<ffi::GFileAttributeMatcher>);
 
     match fn {
-        ref => |ptr| gio_sys::g_file_attribute_matcher_ref(ptr),
-        unref => |ptr| gio_sys::g_file_attribute_matcher_unref(ptr),
-        get_type => || gio_sys::g_file_attribute_matcher_get_type(),
+        ref => |ptr| ffi::g_file_attribute_matcher_ref(ptr),
+        unref => |ptr| ffi::g_file_attribute_matcher_unref(ptr),
+        get_type => || ffi::g_file_attribute_matcher_get_type(),
     }
 }
 
 impl FileAttributeMatcher {
     pub fn new(attributes: &str) -> FileAttributeMatcher {
         unsafe {
-            from_glib_full(gio_sys::g_file_attribute_matcher_new(
+            from_glib_full(ffi::g_file_attribute_matcher_new(
                 attributes.to_glib_none().0,
             ))
         }
@@ -29,7 +27,7 @@ impl FileAttributeMatcher {
 
     pub fn enumerate_namespace(&self, ns: &str) -> bool {
         unsafe {
-            from_glib(gio_sys::g_file_attribute_matcher_enumerate_namespace(
+            from_glib(ffi::g_file_attribute_matcher_enumerate_namespace(
                 self.to_glib_none().0,
                 ns.to_glib_none().0,
             ))
@@ -38,7 +36,7 @@ impl FileAttributeMatcher {
 
     pub fn matches(&self, attribute: &str) -> bool {
         unsafe {
-            from_glib(gio_sys::g_file_attribute_matcher_matches(
+            from_glib(ffi::g_file_attribute_matcher_matches(
                 self.to_glib_none().0,
                 attribute.to_glib_none().0,
             ))
@@ -47,7 +45,7 @@ impl FileAttributeMatcher {
 
     pub fn matches_only(&self, attribute: &str) -> bool {
         unsafe {
-            from_glib(gio_sys::g_file_attribute_matcher_matches_only(
+            from_glib(ffi::g_file_attribute_matcher_matches_only(
                 self.to_glib_none().0,
                 attribute.to_glib_none().0,
             ))
@@ -59,16 +57,16 @@ impl FileAttributeMatcher {
         subtract: Option<&FileAttributeMatcher>,
     ) -> Option<FileAttributeMatcher> {
         unsafe {
-            from_glib_full(gio_sys::g_file_attribute_matcher_subtract(
+            from_glib_full(ffi::g_file_attribute_matcher_subtract(
                 self.to_glib_none().0,
                 subtract.to_glib_none().0,
             ))
         }
     }
 
-    fn to_string(&self) -> GString {
+    fn to_string(&self) -> glib::GString {
         unsafe {
-            from_glib_full(gio_sys::g_file_attribute_matcher_to_string(
+            from_glib_full(ffi::g_file_attribute_matcher_to_string(
                 self.to_glib_none().0,
             ))
         }

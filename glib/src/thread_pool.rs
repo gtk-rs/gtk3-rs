@@ -2,28 +2,27 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use glib_sys;
-use translate::*;
+use crate::translate::*;
 
 use futures_channel::oneshot;
 use std::future::Future;
 use std::ptr;
 
 #[derive(Debug)]
-pub struct ThreadPool(ptr::NonNull<glib_sys::GThreadPool>);
+pub struct ThreadPool(ptr::NonNull<ffi::GThreadPool>);
 
 unsafe impl Send for ThreadPool {}
 unsafe impl Sync for ThreadPool {}
 
 impl ThreadPool {
-    pub fn new_shared(max_threads: Option<u32>) -> Result<Self, ::Error> {
+    pub fn new_shared(max_threads: Option<u32>) -> Result<Self, crate::Error> {
         unsafe {
             let mut err = ptr::null_mut();
-            let pool = glib_sys::g_thread_pool_new(
+            let pool = ffi::g_thread_pool_new(
                 Some(spawn_func),
                 ptr::null_mut(),
                 max_threads.map(|v| v as i32).unwrap_or(-1),
-                glib_sys::GFALSE,
+                ffi::GFALSE,
                 &mut err,
             );
             if pool.is_null() {
@@ -34,14 +33,14 @@ impl ThreadPool {
         }
     }
 
-    pub fn new_exclusive(max_threads: u32) -> Result<Self, ::Error> {
+    pub fn new_exclusive(max_threads: u32) -> Result<Self, crate::Error> {
         unsafe {
             let mut err = ptr::null_mut();
-            let pool = glib_sys::g_thread_pool_new(
+            let pool = ffi::g_thread_pool_new(
                 Some(spawn_func),
                 ptr::null_mut(),
                 max_threads as i32,
-                glib_sys::GTRUE,
+                ffi::GTRUE,
                 &mut err,
             );
             if pool.is_null() {
@@ -52,14 +51,14 @@ impl ThreadPool {
         }
     }
 
-    pub fn push<F: FnOnce() + Send + 'static>(&self, func: F) -> Result<(), ::Error> {
+    pub fn push<F: FnOnce() + Send + 'static>(&self, func: F) -> Result<(), crate::Error> {
         unsafe {
             let func: Box<dyn FnOnce() + Send + 'static> = Box::new(func);
             let func = Box::new(func);
             let mut err = ptr::null_mut();
 
             let func = Box::into_raw(func);
-            let ret: bool = from_glib(glib_sys::g_thread_pool_push(
+            let ret: bool = from_glib(ffi::g_thread_pool_push(
                 self.0.as_ptr(),
                 func as *mut _,
                 &mut err,
@@ -76,7 +75,7 @@ impl ThreadPool {
     pub fn push_future<T: Send + 'static, F: FnOnce() -> T + Send + 'static>(
         &self,
         func: F,
-    ) -> Result<impl Future<Output = T>, ::Error> {
+    ) -> Result<impl Future<Output = T>, crate::Error> {
         use futures_util::future::FutureExt;
 
         let (sender, receiver) = oneshot::channel();
@@ -88,10 +87,10 @@ impl ThreadPool {
         Ok(receiver.map(|res| res.expect("Dropped before executing")))
     }
 
-    pub fn set_max_threads(&self, max_threads: Option<u32>) -> Result<(), ::Error> {
+    pub fn set_max_threads(&self, max_threads: Option<u32>) -> Result<(), crate::Error> {
         unsafe {
             let mut err = ptr::null_mut();
-            let ret: bool = from_glib(glib_sys::g_thread_pool_set_max_threads(
+            let ret: bool = from_glib(ffi::g_thread_pool_set_max_threads(
                 self.0.as_ptr(),
                 max_threads.map(|v| v as i32).unwrap_or(-1),
                 &mut err,
@@ -106,7 +105,7 @@ impl ThreadPool {
 
     pub fn get_max_threads(&self) -> Option<u32> {
         unsafe {
-            let max_threads = glib_sys::g_thread_pool_get_max_threads(self.0.as_ptr());
+            let max_threads = ffi::g_thread_pool_get_max_threads(self.0.as_ptr());
             if max_threads == -1 {
                 None
             } else {
@@ -116,24 +115,22 @@ impl ThreadPool {
     }
 
     pub fn get_num_threads(&self) -> u32 {
-        unsafe { glib_sys::g_thread_pool_get_num_threads(self.0.as_ptr()) }
+        unsafe { ffi::g_thread_pool_get_num_threads(self.0.as_ptr()) }
     }
 
     pub fn get_unprocessed(&self) -> u32 {
-        unsafe { glib_sys::g_thread_pool_unprocessed(self.0.as_ptr()) }
+        unsafe { ffi::g_thread_pool_unprocessed(self.0.as_ptr()) }
     }
 
     pub fn set_max_unused_threads(max_threads: Option<u32>) {
         unsafe {
-            glib_sys::g_thread_pool_set_max_unused_threads(
-                max_threads.map(|v| v as i32).unwrap_or(-1),
-            )
+            ffi::g_thread_pool_set_max_unused_threads(max_threads.map(|v| v as i32).unwrap_or(-1))
         }
     }
 
     pub fn get_max_unused_threads() -> Option<u32> {
         unsafe {
-            let max_unused_threads = glib_sys::g_thread_pool_get_max_unused_threads();
+            let max_unused_threads = ffi::g_thread_pool_get_max_unused_threads();
             if max_unused_threads == -1 {
                 None
             } else {
@@ -143,33 +140,33 @@ impl ThreadPool {
     }
 
     pub fn get_num_unused_threads() -> u32 {
-        unsafe { glib_sys::g_thread_pool_get_num_unused_threads() }
+        unsafe { ffi::g_thread_pool_get_num_unused_threads() }
     }
 
     pub fn stop_unused_threads() {
         unsafe {
-            glib_sys::g_thread_pool_stop_unused_threads();
+            ffi::g_thread_pool_stop_unused_threads();
         }
     }
 
     pub fn set_max_idle_time(max_idle_time: u32) {
-        unsafe { glib_sys::g_thread_pool_set_max_idle_time(max_idle_time) }
+        unsafe { ffi::g_thread_pool_set_max_idle_time(max_idle_time) }
     }
 
     pub fn get_max_idle_time() -> u32 {
-        unsafe { glib_sys::g_thread_pool_get_max_idle_time() }
+        unsafe { ffi::g_thread_pool_get_max_idle_time() }
     }
 }
 
 impl Drop for ThreadPool {
     fn drop(&mut self) {
         unsafe {
-            glib_sys::g_thread_pool_free(self.0.as_ptr(), glib_sys::GFALSE, glib_sys::GTRUE);
+            ffi::g_thread_pool_free(self.0.as_ptr(), ffi::GFALSE, ffi::GTRUE);
         }
     }
 }
 
-unsafe extern "C" fn spawn_func(func: glib_sys::gpointer, _data: glib_sys::gpointer) {
+unsafe extern "C" fn spawn_func(func: ffi::gpointer, _data: ffi::gpointer) {
     let func: Box<Box<dyn FnOnce()>> = Box::from_raw(func as *mut _);
     func()
 }
@@ -195,7 +192,7 @@ mod tests {
 
     #[test]
     fn test_push_future() {
-        let c = ::MainContext::new();
+        let c = crate::MainContext::new();
         let p = ThreadPool::new_shared(None).unwrap();
 
         let fut = p.push_future(|| true).unwrap();

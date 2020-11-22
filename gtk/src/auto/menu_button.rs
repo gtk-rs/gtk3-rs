@@ -2,9 +2,20 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use gio;
-use glib;
+use crate::Actionable;
+use crate::Align;
+use crate::ArrowType;
+use crate::Bin;
+use crate::Buildable;
+use crate::Button;
+use crate::Container;
+use crate::Menu;
+use crate::Popover;
+use crate::PositionType;
+use crate::ReliefStyle;
+use crate::ResizeMode;
+use crate::ToggleButton;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -12,38 +23,22 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Actionable;
-use Align;
-use ArrowType;
-use Bin;
-use Buildable;
-use Button;
-use Container;
-use Menu;
-use Popover;
-use PositionType;
-use ReliefStyle;
-use ResizeMode;
-use ToggleButton;
-use Widget;
 
-glib_wrapper! {
-    pub struct MenuButton(Object<gtk_sys::GtkMenuButton, gtk_sys::GtkMenuButtonClass>) @extends ToggleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable;
+glib::glib_wrapper! {
+    pub struct MenuButton(Object<ffi::GtkMenuButton, ffi::GtkMenuButtonClass>) @extends ToggleButton, Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || gtk_sys::gtk_menu_button_get_type(),
+        get_type => || ffi::gtk_menu_button_get_type(),
     }
 }
 
 impl MenuButton {
     pub fn new() -> MenuButton {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_menu_button_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_menu_button_new()).unsafe_cast() }
     }
 }
 
@@ -589,7 +584,7 @@ pub trait MenuButtonExt: 'static {
 impl<O: IsA<MenuButton>> MenuButtonExt for O {
     fn get_align_widget(&self) -> Option<Widget> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_menu_button_get_align_widget(
+            from_glib_none(ffi::gtk_menu_button_get_align_widget(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -597,7 +592,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     fn get_direction(&self) -> ArrowType {
         unsafe {
-            from_glib(gtk_sys::gtk_menu_button_get_direction(
+            from_glib(ffi::gtk_menu_button_get_direction(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -605,7 +600,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     fn get_menu_model(&self) -> Option<gio::MenuModel> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_menu_button_get_menu_model(
+            from_glib_none(ffi::gtk_menu_button_get_menu_model(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -613,7 +608,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     fn get_popover(&self) -> Option<Popover> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_menu_button_get_popover(
+            from_glib_none(ffi::gtk_menu_button_get_popover(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -621,7 +616,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     fn get_popup(&self) -> Option<Menu> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_menu_button_get_popup(
+            from_glib_none(ffi::gtk_menu_button_get_popup(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -629,7 +624,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     fn get_use_popover(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_menu_button_get_use_popover(
+            from_glib(ffi::gtk_menu_button_get_use_popover(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -637,7 +632,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     fn set_align_widget<P: IsA<Widget>>(&self, align_widget: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_menu_button_set_align_widget(
+            ffi::gtk_menu_button_set_align_widget(
                 self.as_ref().to_glib_none().0,
                 align_widget.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -646,16 +641,13 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     fn set_direction(&self, direction: ArrowType) {
         unsafe {
-            gtk_sys::gtk_menu_button_set_direction(
-                self.as_ref().to_glib_none().0,
-                direction.to_glib(),
-            );
+            ffi::gtk_menu_button_set_direction(self.as_ref().to_glib_none().0, direction.to_glib());
         }
     }
 
     fn set_menu_model<P: IsA<gio::MenuModel>>(&self, menu_model: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_menu_button_set_menu_model(
+            ffi::gtk_menu_button_set_menu_model(
                 self.as_ref().to_glib_none().0,
                 menu_model.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -664,7 +656,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     fn set_popover<P: IsA<Widget>>(&self, popover: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_menu_button_set_popover(
+            ffi::gtk_menu_button_set_popover(
                 self.as_ref().to_glib_none().0,
                 popover.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -673,7 +665,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     fn set_popup<P: IsA<Widget>>(&self, menu: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_menu_button_set_popup(
+            ffi::gtk_menu_button_set_popup(
                 self.as_ref().to_glib_none().0,
                 menu.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -682,7 +674,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     fn set_use_popover(&self, use_popover: bool) {
         unsafe {
-            gtk_sys::gtk_menu_button_set_use_popover(
+            ffi::gtk_menu_button_set_use_popover(
                 self.as_ref().to_glib_none().0,
                 use_popover.to_glib(),
             );
@@ -694,9 +686,9 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_align_widget_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkMenuButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkMenuButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuButton>,
         {
@@ -718,9 +710,9 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     fn connect_property_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_direction_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkMenuButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkMenuButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuButton>,
         {
@@ -742,9 +734,9 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     fn connect_property_menu_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_menu_model_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkMenuButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkMenuButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuButton>,
         {
@@ -766,9 +758,9 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     fn connect_property_popover_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_popover_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkMenuButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkMenuButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuButton>,
         {
@@ -790,9 +782,9 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     fn connect_property_popup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_popup_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkMenuButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkMenuButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuButton>,
         {
@@ -814,9 +806,9 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
     fn connect_property_use_popover_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_popover_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkMenuButton,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkMenuButton,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MenuButton>,
         {

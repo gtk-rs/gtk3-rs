@@ -7,16 +7,15 @@ use std::ops::{Deref, DerefMut};
 use std::rc::Rc;
 use std::slice;
 
-use enums::{Format, SurfaceType};
-use error::Error;
-use ffi;
+use crate::enums::{Format, SurfaceType};
+use crate::error::Error;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 
+use crate::surface::Surface;
+use crate::utils::status_to_result;
+use crate::BorrowError;
 use std::fmt;
-use surface::Surface;
-use utils::status_to_result;
-use BorrowError;
 
 declare_surface!(ImageSurface, SurfaceType::Image);
 

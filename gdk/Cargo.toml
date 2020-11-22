@@ -13,17 +13,18 @@ build = "build.rs"
 exclude = [
     "gir-files/*",
 ]
+edition = "2018"
 
 [lib]
 name = "gdk"
 
 [features]
-v3_16 = ["gdk-sys/v3_16"]
-v3_18 = ["v3_16", "gdk-sys/v3_18"]
-v3_20 = ["v3_18", "gdk-sys/v3_20"]
-v3_22 = ["v3_20", "gdk-sys/v3_22"]
-v3_24 = ["v3_22", "gdk-sys/v3_24"]
-dox = ["gdk-sys/dox", "glib/dox", "gio/dox", "gdk-pixbuf/dox", "cairo-rs/dox", "pango/dox"]
+v3_16 = ["ffi/v3_16"]
+v3_18 = ["v3_16", "ffi/v3_18"]
+v3_20 = ["v3_18", "ffi/v3_20"]
+v3_22 = ["v3_20", "ffi/v3_22"]
+v3_24 = ["v3_22", "ffi/v3_24"]
+dox = ["ffi/dox", "glib/dox", "gio/dox", "gdk-pixbuf/dox", "cairo-rs/dox", "pango/dox"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs", "cairo-rs/purge-lgpl-docs", "gdk-pixbuf/purge-lgpl-docs", "gio/purge-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs", "cairo-rs/embed-lgpl-docs", "gdk-pixbuf/embed-lgpl-docs", "gio/embed-lgpl-docs"]
 
@@ -38,11 +39,7 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 [dependencies]
 libc = "0.2"
 bitflags = "1.0"
-glib-sys = { path = "../glib/sys" }
-gdk-sys = { path = "../gdk/sys" }
-gio-sys = { path = "../gio/sys" }
-gobject-sys = { path = "../glib/gobject-sys" }
-cairo-sys-rs = { path = "../cairo/sys" }
+ffi = { package = "gdk-sys", path = "sys" }
 cairo-rs = { path = "../cairo" }
 gdk-pixbuf = { path = "../gdk-pixbuf" }
 gio = { path = "../gio" }

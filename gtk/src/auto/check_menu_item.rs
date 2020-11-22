@@ -2,8 +2,15 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use glib;
+use crate::Actionable;
+use crate::Align;
+use crate::Bin;
+use crate::Buildable;
+use crate::Container;
+use crate::Menu;
+use crate::MenuItem;
+use crate::ResizeMode;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -11,39 +18,28 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Actionable;
-use Align;
-use Bin;
-use Buildable;
-use Container;
-use Menu;
-use MenuItem;
-use ResizeMode;
-use Widget;
 
-glib_wrapper! {
-    pub struct CheckMenuItem(Object<gtk_sys::GtkCheckMenuItem, gtk_sys::GtkCheckMenuItemClass>) @extends MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
+glib::glib_wrapper! {
+    pub struct CheckMenuItem(Object<ffi::GtkCheckMenuItem, ffi::GtkCheckMenuItemClass>) @extends MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || gtk_sys::gtk_check_menu_item_get_type(),
+        get_type => || ffi::gtk_check_menu_item_get_type(),
     }
 }
 
 impl CheckMenuItem {
     pub fn new() -> CheckMenuItem {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_check_menu_item_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_check_menu_item_new()).unsafe_cast() }
     }
 
     pub fn with_label(label: &str) -> CheckMenuItem {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_check_menu_item_new_with_label(
+            Widget::from_glib_none(ffi::gtk_check_menu_item_new_with_label(
                 label.to_glib_none().0,
             ))
             .unsafe_cast()
@@ -53,7 +49,7 @@ impl CheckMenuItem {
     pub fn with_mnemonic(label: &str) -> CheckMenuItem {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_check_menu_item_new_with_mnemonic(
+            Widget::from_glib_none(ffi::gtk_check_menu_item_new_with_mnemonic(
                 label.to_glib_none().0,
             ))
             .unsafe_cast()
@@ -529,7 +525,7 @@ pub trait CheckMenuItemExt: 'static {
 impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
     fn get_active(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_check_menu_item_get_active(
+            from_glib(ffi::gtk_check_menu_item_get_active(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -537,7 +533,7 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
 
     fn get_draw_as_radio(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_check_menu_item_get_draw_as_radio(
+            from_glib(ffi::gtk_check_menu_item_get_draw_as_radio(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -545,7 +541,7 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
 
     fn get_inconsistent(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_check_menu_item_get_inconsistent(
+            from_glib(ffi::gtk_check_menu_item_get_inconsistent(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -553,7 +549,7 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
 
     fn set_active(&self, is_active: bool) {
         unsafe {
-            gtk_sys::gtk_check_menu_item_set_active(
+            ffi::gtk_check_menu_item_set_active(
                 self.as_ref().to_glib_none().0,
                 is_active.to_glib(),
             );
@@ -562,7 +558,7 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
 
     fn set_draw_as_radio(&self, draw_as_radio: bool) {
         unsafe {
-            gtk_sys::gtk_check_menu_item_set_draw_as_radio(
+            ffi::gtk_check_menu_item_set_draw_as_radio(
                 self.as_ref().to_glib_none().0,
                 draw_as_radio.to_glib(),
             );
@@ -571,7 +567,7 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
 
     fn set_inconsistent(&self, setting: bool) {
         unsafe {
-            gtk_sys::gtk_check_menu_item_set_inconsistent(
+            ffi::gtk_check_menu_item_set_inconsistent(
                 self.as_ref().to_glib_none().0,
                 setting.to_glib(),
             );
@@ -580,14 +576,14 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
 
     fn toggled(&self) {
         unsafe {
-            gtk_sys::gtk_check_menu_item_toggled(self.as_ref().to_glib_none().0);
+            ffi::gtk_check_menu_item_toggled(self.as_ref().to_glib_none().0);
         }
     }
 
     fn connect_toggled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggled_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCheckMenuItem,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCheckMenuItem,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CheckMenuItem>,
         {
@@ -609,9 +605,9 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
 
     fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCheckMenuItem,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCheckMenuItem,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CheckMenuItem>,
         {
@@ -636,9 +632,9 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_draw_as_radio_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCheckMenuItem,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCheckMenuItem,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CheckMenuItem>,
         {
@@ -663,9 +659,9 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_inconsistent_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCheckMenuItem,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCheckMenuItem,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<CheckMenuItem>,
         {

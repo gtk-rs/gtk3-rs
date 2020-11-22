@@ -2,10 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use gdk;
-use glib;
 use glib::translate::*;
-use gtk_sys;
 use libc::c_uint;
 use std::cell::Cell;
 use std::sync::atomic::{AtomicBool, Ordering, ATOMIC_BOOL_INIT};
@@ -24,8 +21,8 @@ static INITIALIZED: AtomicBool = ATOMIC_BOOL_INIT;
 /// Asserts that this is the main thread and `gtk::init` has been called.
 macro_rules! assert_initialized_main_thread {
     () => {
-        if !::rt::is_initialized_main_thread() {
-            if ::rt::is_initialized() {
+        if !crate::rt::is_initialized_main_thread() {
+            if crate::rt::is_initialized() {
                 panic!("GTK may only be used from the main thread.");
             } else {
                 panic!("GTK has not been initialized. Call `gtk::init` first.");
@@ -121,15 +118,17 @@ pub fn init() -> Result<(), glib::BoolError> {
         // behaviors...
         let argv = ::std::env::args().take(1).collect::<Vec<_>>();
 
-        if from_glib(gtk_sys::gtk_init_check(&mut 1, &mut argv.to_glib_none().0)) {
+        if from_glib(ffi::gtk_init_check(&mut 1, &mut argv.to_glib_none().0)) {
             if !glib::MainContext::default().acquire() {
-                return Err(glib_bool_error!("Failed to acquire default main context"));
+                return Err(glib::glib_bool_error!(
+                    "Failed to acquire default main context"
+                ));
             }
 
             set_initialized();
             Ok(())
         } else {
-            Err(glib_bool_error!("Failed to initialize GTK"))
+            Err(glib::glib_bool_error!("Failed to initialize GTK"))
         }
     }
 }
@@ -137,8 +136,8 @@ pub fn init() -> Result<(), glib::BoolError> {
 pub fn main_quit() {
     assert_initialized_main_thread!();
     unsafe {
-        if gtk_sys::gtk_main_level() > 0 {
-            gtk_sys::gtk_main_quit();
+        if ffi::gtk_main_level() > 0 {
+            ffi::gtk_main_quit();
         } else if cfg!(debug_assertions) {
             panic!("Attempted to quit a GTK main loop when none is running.");
         }
@@ -147,27 +146,27 @@ pub fn main_quit() {
 
 pub fn get_major_version() -> u32 {
     skip_assert_initialized!();
-    unsafe { gtk_sys::gtk_get_major_version() as u32 }
+    unsafe { ffi::gtk_get_major_version() as u32 }
 }
 
 pub fn get_minor_version() -> u32 {
     skip_assert_initialized!();
-    unsafe { gtk_sys::gtk_get_minor_version() as u32 }
+    unsafe { ffi::gtk_get_minor_version() as u32 }
 }
 
 pub fn get_micro_version() -> u32 {
     skip_assert_initialized!();
-    unsafe { gtk_sys::gtk_get_micro_version() as u32 }
+    unsafe { ffi::gtk_get_micro_version() as u32 }
 }
 
 pub fn get_binary_age() -> u32 {
     skip_assert_initialized!();
-    unsafe { gtk_sys::gtk_get_binary_age() as u32 }
+    unsafe { ffi::gtk_get_binary_age() as u32 }
 }
 
 pub fn get_interface_age() -> u32 {
     skip_assert_initialized!();
-    unsafe { gtk_sys::gtk_get_interface_age() as u32 }
+    unsafe { ffi::gtk_get_interface_age() as u32 }
 }
 
 pub fn check_version(
@@ -177,7 +176,7 @@ pub fn check_version(
 ) -> Option<String> {
     skip_assert_initialized!();
     unsafe {
-        from_glib_none(gtk_sys::gtk_check_version(
+        from_glib_none(ffi::gtk_check_version(
             required_major as c_uint,
             required_minor as c_uint,
             required_micro as c_uint,

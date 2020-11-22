@@ -2,18 +2,17 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk_sys;
+use crate::Object;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 use std::mem;
-use Object;
 
-glib_wrapper! {
-    pub struct TableCell(Interface<atk_sys::AtkTableCell>) @requires Object;
+glib::glib_wrapper! {
+    pub struct TableCell(Interface<ffi::AtkTableCell>) @requires Object;
 
     match fn {
-        get_type => || atk_sys::atk_table_cell_get_type(),
+        get_type => || ffi::atk_table_cell_get_type(),
     }
 }
 
@@ -38,21 +37,21 @@ pub trait TableCellExt: 'static {
 impl<O: IsA<TableCell>> TableCellExt for O {
     fn get_column_header_cells(&self) -> Vec<Object> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(atk_sys::atk_table_cell_get_column_header_cells(
+            FromGlibPtrContainer::from_glib_full(ffi::atk_table_cell_get_column_header_cells(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_column_span(&self) -> i32 {
-        unsafe { atk_sys::atk_table_cell_get_column_span(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::atk_table_cell_get_column_span(self.as_ref().to_glib_none().0) }
     }
 
     fn get_position(&self) -> Option<(i32, i32)> {
         unsafe {
             let mut row = mem::MaybeUninit::uninit();
             let mut column = mem::MaybeUninit::uninit();
-            let ret = from_glib(atk_sys::atk_table_cell_get_position(
+            let ret = from_glib(ffi::atk_table_cell_get_position(
                 self.as_ref().to_glib_none().0,
                 row.as_mut_ptr(),
                 column.as_mut_ptr(),
@@ -73,7 +72,7 @@ impl<O: IsA<TableCell>> TableCellExt for O {
             let mut column = mem::MaybeUninit::uninit();
             let mut row_span = mem::MaybeUninit::uninit();
             let mut column_span = mem::MaybeUninit::uninit();
-            let ret = from_glib(atk_sys::atk_table_cell_get_row_column_span(
+            let ret = from_glib(ffi::atk_table_cell_get_row_column_span(
                 self.as_ref().to_glib_none().0,
                 row.as_mut_ptr(),
                 column.as_mut_ptr(),
@@ -94,19 +93,19 @@ impl<O: IsA<TableCell>> TableCellExt for O {
 
     fn get_row_header_cells(&self) -> Vec<Object> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(atk_sys::atk_table_cell_get_row_header_cells(
+            FromGlibPtrContainer::from_glib_full(ffi::atk_table_cell_get_row_header_cells(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_row_span(&self) -> i32 {
-        unsafe { atk_sys::atk_table_cell_get_row_span(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::atk_table_cell_get_row_span(self.as_ref().to_glib_none().0) }
     }
 
     fn get_table(&self) -> Option<Object> {
         unsafe {
-            from_glib_full(atk_sys::atk_table_cell_get_table(
+            from_glib_full(ffi::atk_table_cell_get_table(
                 self.as_ref().to_glib_none().0,
             ))
         }

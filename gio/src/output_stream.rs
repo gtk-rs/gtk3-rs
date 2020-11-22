@@ -2,22 +2,19 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::error::to_std_io_result;
 use crate::prelude::*;
-use error::to_std_io_result;
-use gio_sys;
+use crate::Cancellable;
+use crate::OutputStream;
+use crate::Seekable;
+use crate::SeekableExt;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::Priority;
-use glib_sys;
-use gobject_sys;
 use std::io;
 use std::mem;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
-use OutputStream;
-use Seekable;
-use SeekableExt;
 
 pub trait OutputStreamExtManual: Sized + OutputStreamExt {
     fn write_async<
@@ -105,16 +102,15 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
             B: AsRef<[u8]> + Send + 'static,
             Q: FnOnce(Result<(B, usize), (B, glib::Error)>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut user_data: Box<Option<(Q, B)>> = Box::from_raw(user_data as *mut _);
             let (callback, buffer) = user_data.take().unwrap();
 
             let mut error = ptr::null_mut();
-            let ret =
-                gio_sys::g_output_stream_write_finish(_source_object as *mut _, res, &mut error);
+            let ret = ffi::g_output_stream_write_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok((buffer, ret as usize))
             } else {
@@ -124,7 +120,7 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         }
         let callback = write_async_trampoline::<B, Q>;
         unsafe {
-            gio_sys::g_output_stream_write_async(
+            ffi::g_output_stream_write_async(
                 self.as_ref().to_glib_none().0,
                 mut_override(buffer_ptr),
                 count,
@@ -147,7 +143,7 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         unsafe {
             let mut bytes_written = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_output_stream_write_all(
+            let _ = ffi::g_output_stream_write_all(
                 self.as_ref().to_glib_none().0,
                 buffer.to_glib_none().0,
                 count,
@@ -193,16 +189,16 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
             B: AsRef<[u8]> + Send + 'static,
             Q: FnOnce(Result<(B, usize, Option<glib::Error>), (B, glib::Error)>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut user_data: Box<Option<(Q, B)>> = Box::from_raw(user_data as *mut _);
             let (callback, buffer) = user_data.take().unwrap();
 
             let mut error = ptr::null_mut();
             let mut bytes_written = mem::MaybeUninit::uninit();
-            let _ = gio_sys::g_output_stream_write_all_finish(
+            let _ = ffi::g_output_stream_write_all_finish(
                 _source_object as *mut _,
                 res,
                 bytes_written.as_mut_ptr(),
@@ -220,7 +216,7 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         }
         let callback = write_all_async_trampoline::<B, Q>;
         unsafe {
-            gio_sys::g_output_stream_write_all_async(
+            ffi::g_output_stream_write_all_async(
                 self.as_ref().to_glib_none().0,
                 mut_override(buffer_ptr),
                 count,
@@ -290,13 +286,13 @@ impl<T: IsA<OutputStream>> io::Write for OutputStreamWrite<T> {
         let result = self
             .0
             .as_ref()
-            .write(buf, ::NONE_CANCELLABLE)
+            .write(buf, crate::NONE_CANCELLABLE)
             .map(|size| size as usize);
         to_std_io_result(result)
     }
 
     fn flush(&mut self) -> io::Result<()> {
-        let gio_result = self.0.as_ref().flush(::NONE_CANCELLABLE);
+        let gio_result = self.0.as_ref().flush(crate::NONE_CANCELLABLE);
         to_std_io_result(gio_result)
     }
 }
@@ -310,7 +306,7 @@ impl<T: IsA<OutputStream> + IsA<Seekable>> io::Seek for OutputStreamWrite<T> {
         };
         let seekable: &Seekable = self.0.as_ref();
         let gio_result = seekable
-            .seek(pos, type_, ::NONE_CANCELLABLE)
+            .seek(pos, type_, crate::NONE_CANCELLABLE)
             .map(|_| seekable.tell() as u64);
         to_std_io_result(gio_result)
     }
@@ -319,11 +315,11 @@ impl<T: IsA<OutputStream> + IsA<Seekable>> io::Seek for OutputStreamWrite<T> {
 #[cfg(test)]
 mod tests {
     use crate::prelude::*;
+    use crate::test_util::run_async;
     use crate::MemoryInputStream;
     use crate::MemoryOutputStream;
     use glib::Bytes;
     use std::io::Write;
-    use test_util::run_async;
 
     #[test]
     fn splice_async() {
@@ -337,7 +333,7 @@ mod tests {
                 &input,
                 crate::OutputStreamSpliceFlags::CLOSE_SOURCE,
                 glib::PRIORITY_DEFAULT_IDLE,
-                ::NONE_CANCELLABLE,
+                crate::NONE_CANCELLABLE,
                 move |ret| {
                     tx.send(ret).unwrap();
                     l.quit();
@@ -357,7 +353,7 @@ mod tests {
             strm.write_async(
                 buf,
                 glib::PRIORITY_DEFAULT_IDLE,
-                ::NONE_CANCELLABLE,
+                crate::NONE_CANCELLABLE,
                 move |ret| {
                     tx.send(ret).unwrap();
                     l.quit();
@@ -380,7 +376,7 @@ mod tests {
             strm.write_all_async(
                 buf,
                 glib::PRIORITY_DEFAULT_IDLE,
-                ::NONE_CANCELLABLE,
+                crate::NONE_CANCELLABLE,
                 move |ret| {
                     tx.send(ret).unwrap();
                     l.quit();
@@ -403,7 +399,7 @@ mod tests {
             strm.write_bytes_async(
                 &b,
                 glib::PRIORITY_DEFAULT_IDLE,
-                ::NONE_CANCELLABLE,
+                crate::NONE_CANCELLABLE,
                 move |ret| {
                     tx.send(ret).unwrap();
                     l.quit();
@@ -422,7 +418,7 @@ mod tests {
         let ret = write.write(&b);
 
         let stream = write.into_output_stream();
-        stream.close(::NONE_CANCELLABLE).unwrap();
+        stream.close(crate::NONE_CANCELLABLE).unwrap();
         assert_eq!(ret.unwrap(), 3);
         assert_eq!(stream.steal_as_bytes().unwrap(), [1, 2, 3].as_ref());
     }

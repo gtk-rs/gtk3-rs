@@ -2,29 +2,24 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::InetAddress;
+use crate::SocketFamily;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
-use InetAddress;
-use SocketFamily;
 
-glib_wrapper! {
-    pub struct InetAddressMask(Object<gio_sys::GInetAddressMask, gio_sys::GInetAddressMaskClass>);
+glib::glib_wrapper! {
+    pub struct InetAddressMask(Object<ffi::GInetAddressMask, ffi::GInetAddressMaskClass>);
 
     match fn {
-        get_type => || gio_sys::g_inet_address_mask_get_type(),
+        get_type => || ffi::g_inet_address_mask_get_type(),
     }
 }
 
@@ -32,11 +27,8 @@ impl InetAddressMask {
     pub fn new<P: IsA<InetAddress>>(addr: &P, length: u32) -> Result<InetAddressMask, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_inet_address_mask_new(
-                addr.as_ref().to_glib_none().0,
-                length,
-                &mut error,
-            );
+            let ret =
+                ffi::g_inet_address_mask_new(addr.as_ref().to_glib_none().0, length, &mut error);
             if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -48,10 +40,8 @@ impl InetAddressMask {
     pub fn from_string(mask_string: &str) -> Result<InetAddressMask, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_inet_address_mask_new_from_string(
-                mask_string.to_glib_none().0,
-                &mut error,
-            );
+            let ret =
+                ffi::g_inet_address_mask_new_from_string(mask_string.to_glib_none().0, &mut error);
             if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -77,7 +67,7 @@ pub trait InetAddressMaskExt: 'static {
 
     fn matches<P: IsA<InetAddress>>(&self, address: &P) -> bool;
 
-    fn to_string(&self) -> GString;
+    fn to_string(&self) -> glib::GString;
 
     fn set_property_address<P: IsA<InetAddress>>(&self, address: Option<&P>);
 
@@ -102,7 +92,7 @@ pub trait InetAddressMaskExt: 'static {
 impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
     fn equal<P: IsA<InetAddressMask>>(&self, mask2: &P) -> bool {
         unsafe {
-            from_glib(gio_sys::g_inet_address_mask_equal(
+            from_glib(ffi::g_inet_address_mask_equal(
                 self.as_ref().to_glib_none().0,
                 mask2.as_ref().to_glib_none().0,
             ))
@@ -111,7 +101,7 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
 
     fn get_address(&self) -> InetAddress {
         unsafe {
-            from_glib_none(gio_sys::g_inet_address_mask_get_address(
+            from_glib_none(ffi::g_inet_address_mask_get_address(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -119,28 +109,28 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
 
     fn get_family(&self) -> SocketFamily {
         unsafe {
-            from_glib(gio_sys::g_inet_address_mask_get_family(
+            from_glib(ffi::g_inet_address_mask_get_family(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_length(&self) -> u32 {
-        unsafe { gio_sys::g_inet_address_mask_get_length(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::g_inet_address_mask_get_length(self.as_ref().to_glib_none().0) }
     }
 
     fn matches<P: IsA<InetAddress>>(&self, address: &P) -> bool {
         unsafe {
-            from_glib(gio_sys::g_inet_address_mask_matches(
+            from_glib(ffi::g_inet_address_mask_matches(
                 self.as_ref().to_glib_none().0,
                 address.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn to_string(&self) -> GString {
+    fn to_string(&self) -> glib::GString {
         unsafe {
-            from_glib_full(gio_sys::g_inet_address_mask_to_string(
+            from_glib_full(ffi::g_inet_address_mask_to_string(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -148,8 +138,8 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
 
     fn set_property_address<P: IsA<InetAddress>>(&self, address: Option<&P>) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"address\0".as_ptr() as *const _,
                 Value::from(address).to_glib_none().0,
             );
@@ -158,8 +148,8 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
 
     fn set_property_length(&self, length: u32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"length\0".as_ptr() as *const _,
                 Value::from(&length).to_glib_none().0,
             );
@@ -171,9 +161,9 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_address_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(
-            this: *mut gio_sys::GInetAddressMask,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GInetAddressMask,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InetAddressMask>,
         {
@@ -198,9 +188,9 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_family_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(
-            this: *mut gio_sys::GInetAddressMask,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GInetAddressMask,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InetAddressMask>,
         {
@@ -225,9 +215,9 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_length_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(
-            this: *mut gio_sys::GInetAddressMask,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GInetAddressMask,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InetAddressMask>,
         {

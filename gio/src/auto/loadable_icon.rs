@@ -2,26 +2,21 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::Cancellable;
+use crate::Icon;
+use crate::InputStream;
 use glib::object::IsA;
 use glib::translate::*;
-use glib::GString;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
-use Icon;
-use InputStream;
 
-glib_wrapper! {
-    pub struct LoadableIcon(Interface<gio_sys::GLoadableIcon>) @requires Icon;
+glib::glib_wrapper! {
+    pub struct LoadableIcon(Interface<ffi::GLoadableIcon>) @requires Icon;
 
     match fn {
-        get_type => || gio_sys::g_loadable_icon_get_type(),
+        get_type => || ffi::g_loadable_icon_get_type(),
     }
 }
 
@@ -32,11 +27,11 @@ pub trait LoadableIconExt: 'static {
         &self,
         size: i32,
         cancellable: Option<&P>,
-    ) -> Result<(InputStream, GString), glib::Error>;
+    ) -> Result<(InputStream, glib::GString), glib::Error>;
 
     fn load_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(InputStream, GString), glib::Error>) + Send + 'static,
+        Q: FnOnce(Result<(InputStream, glib::GString), glib::Error>) + Send + 'static,
     >(
         &self,
         size: i32,
@@ -49,7 +44,8 @@ pub trait LoadableIconExt: 'static {
         size: i32,
     ) -> Pin<
         Box_<
-            dyn std::future::Future<Output = Result<(InputStream, GString), glib::Error>> + 'static,
+            dyn std::future::Future<Output = Result<(InputStream, glib::GString), glib::Error>>
+                + 'static,
         >,
     >;
 }
@@ -59,11 +55,11 @@ impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
         &self,
         size: i32,
         cancellable: Option<&P>,
-    ) -> Result<(InputStream, GString), glib::Error> {
+    ) -> Result<(InputStream, glib::GString), glib::Error> {
         unsafe {
             let mut type_ = ptr::null_mut();
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_loadable_icon_load(
+            let ret = ffi::g_loadable_icon_load(
                 self.as_ref().to_glib_none().0,
                 size,
                 &mut type_,
@@ -80,7 +76,7 @@ impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
 
     fn load_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(InputStream, GString), glib::Error>) + Send + 'static,
+        Q: FnOnce(Result<(InputStream, glib::GString), glib::Error>) + Send + 'static,
     >(
         &self,
         size: i32,
@@ -89,15 +85,15 @@ impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn load_async_trampoline<
-            Q: FnOnce(Result<(InputStream, GString), glib::Error>) + Send + 'static,
+            Q: FnOnce(Result<(InputStream, glib::GString), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let mut type_ = ptr::null_mut();
-            let ret = gio_sys::g_loadable_icon_load_finish(
+            let ret = ffi::g_loadable_icon_load_finish(
                 _source_object as *mut _,
                 res,
                 &mut type_,
@@ -113,7 +109,7 @@ impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
         }
         let callback = load_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_loadable_icon_load_async(
+            ffi::g_loadable_icon_load_async(
                 self.as_ref().to_glib_none().0,
                 size,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -128,7 +124,8 @@ impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
         size: i32,
     ) -> Pin<
         Box_<
-            dyn std::future::Future<Output = Result<(InputStream, GString), glib::Error>> + 'static,
+            dyn std::future::Future<Output = Result<(InputStream, glib::GString), glib::Error>>
+                + 'static,
         >,
     > {
         Box_::pin(crate::GioFuture::new(self, move |obj, send| {

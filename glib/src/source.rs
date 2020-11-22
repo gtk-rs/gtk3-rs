@@ -2,7 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use glib_sys::{self, gboolean, gpointer};
+use crate::translate::{from_glib, from_glib_full, FromGlib, ToGlib, ToGlibPtr};
+#[cfg(any(unix, feature = "dox"))]
+use crate::IOCondition;
+use ffi::{self, gboolean, gpointer};
 #[cfg(all(not(unix), feature = "dox"))]
 use libc::c_int as RawFd;
 use std::cell::RefCell;
@@ -11,12 +14,9 @@ use std::num::NonZeroU32;
 #[cfg(unix)]
 use std::os::unix::io::RawFd;
 use std::time::Duration;
-use translate::{from_glib, from_glib_full, FromGlib, ToGlib, ToGlibPtr};
-#[cfg(any(unix, feature = "dox"))]
-use IOCondition;
 
-use MainContext;
-use Source;
+use crate::MainContext;
+use crate::Source;
 
 /// The id of a source that is returned by `idle_add` and `timeout_add`.
 #[derive(Debug, Eq, PartialEq)]
@@ -43,25 +43,25 @@ impl FromGlib<u32> for SourceId {
 
 /// Process identificator
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
-pub struct Pid(pub glib_sys::GPid);
+pub struct Pid(pub ffi::GPid);
 
 unsafe impl Send for Pid {}
 unsafe impl Sync for Pid {}
 
 #[doc(hidden)]
 impl ToGlib for Pid {
-    type GlibType = glib_sys::GPid;
+    type GlibType = ffi::GPid;
 
     #[inline]
-    fn to_glib(&self) -> glib_sys::GPid {
+    fn to_glib(&self) -> ffi::GPid {
         self.0
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<glib_sys::GPid> for Pid {
+impl FromGlib<ffi::GPid> for Pid {
     #[inline]
-    fn from_glib(val: glib_sys::GPid) -> Pid {
+    fn from_glib(val: ffi::GPid) -> Pid {
         Pid(val)
     }
 }
@@ -101,7 +101,7 @@ fn into_raw<F: FnMut() -> Continue + 'static>(func: F) -> gpointer {
 }
 
 unsafe extern "C" fn trampoline_child_watch<F: FnMut(Pid, i32) + 'static>(
-    pid: glib_sys::GPid,
+    pid: ffi::GPid,
     status: i32,
     func: gpointer,
 ) {
@@ -122,7 +122,7 @@ fn into_raw_child_watch<F: FnMut(Pid, i32) + 'static>(func: F) -> gpointer {
 #[cfg_attr(feature = "dox", doc(cfg(unix)))]
 unsafe extern "C" fn trampoline_unix_fd<F: FnMut(RawFd, IOCondition) -> Continue + 'static>(
     fd: i32,
-    condition: glib_sys::GIOCondition,
+    condition: ffi::GIOCondition,
     func: gpointer,
 ) -> gboolean {
     let func: &RefCell<F> = &*(func as *const RefCell<F>);
@@ -155,8 +155,8 @@ where
     F: FnMut() -> Continue + Send + 'static,
 {
     unsafe {
-        from_glib(glib_sys::g_idle_add_full(
-            glib_sys::G_PRIORITY_DEFAULT_IDLE,
+        from_glib(ffi::g_idle_add_full(
+            ffi::G_PRIORITY_DEFAULT_IDLE,
             Some(trampoline::<F>),
             into_raw(func),
             Some(destroy_closure::<F>),
@@ -182,8 +182,8 @@ where
 {
     unsafe {
         assert!(MainContext::default().is_owner());
-        from_glib(glib_sys::g_idle_add_full(
-            glib_sys::G_PRIORITY_DEFAULT_IDLE,
+        from_glib(ffi::g_idle_add_full(
+            ffi::G_PRIORITY_DEFAULT_IDLE,
             Some(trampoline::<F>),
             into_raw(func),
             Some(destroy_closure::<F>),
@@ -206,8 +206,8 @@ where
     F: FnMut() -> Continue + Send + 'static,
 {
     unsafe {
-        from_glib(glib_sys::g_timeout_add_full(
-            glib_sys::G_PRIORITY_DEFAULT,
+        from_glib(ffi::g_timeout_add_full(
+            ffi::G_PRIORITY_DEFAULT,
             interval.as_millis() as _,
             Some(trampoline::<F>),
             into_raw(func),
@@ -238,8 +238,8 @@ where
 {
     unsafe {
         assert!(MainContext::default().is_owner());
-        from_glib(glib_sys::g_timeout_add_full(
-            glib_sys::G_PRIORITY_DEFAULT,
+        from_glib(ffi::g_timeout_add_full(
+            ffi::G_PRIORITY_DEFAULT,
             interval.as_millis() as _,
             Some(trampoline::<F>),
             into_raw(func),
@@ -262,8 +262,8 @@ where
     F: FnMut() -> Continue + Send + 'static,
 {
     unsafe {
-        from_glib(glib_sys::g_timeout_add_seconds_full(
-            glib_sys::G_PRIORITY_DEFAULT,
+        from_glib(ffi::g_timeout_add_seconds_full(
+            ffi::G_PRIORITY_DEFAULT,
             interval,
             Some(trampoline::<F>),
             into_raw(func),
@@ -293,8 +293,8 @@ where
 {
     unsafe {
         assert!(MainContext::default().is_owner());
-        from_glib(glib_sys::g_timeout_add_seconds_full(
-            glib_sys::G_PRIORITY_DEFAULT,
+        from_glib(ffi::g_timeout_add_seconds_full(
+            ffi::G_PRIORITY_DEFAULT,
             interval,
             Some(trampoline::<F>),
             into_raw(func),
@@ -312,8 +312,8 @@ where
     F: FnMut(Pid, i32) + Send + 'static,
 {
     unsafe {
-        from_glib(glib_sys::g_child_watch_add_full(
-            glib_sys::G_PRIORITY_DEFAULT,
+        from_glib(ffi::g_child_watch_add_full(
+            ffi::G_PRIORITY_DEFAULT,
             pid.0,
             Some(trampoline_child_watch::<F>),
             into_raw_child_watch(func),
@@ -338,8 +338,8 @@ where
 {
     unsafe {
         assert!(MainContext::default().is_owner());
-        from_glib(glib_sys::g_child_watch_add_full(
-            glib_sys::G_PRIORITY_DEFAULT,
+        from_glib(ffi::g_child_watch_add_full(
+            ffi::G_PRIORITY_DEFAULT,
             pid.0,
             Some(trampoline_child_watch::<F>),
             into_raw_child_watch(func),
@@ -362,8 +362,8 @@ where
     F: FnMut() -> Continue + Send + 'static,
 {
     unsafe {
-        from_glib(glib_sys::g_unix_signal_add_full(
-            glib_sys::G_PRIORITY_DEFAULT,
+        from_glib(ffi::g_unix_signal_add_full(
+            ffi::G_PRIORITY_DEFAULT,
             signum,
             Some(trampoline::<F>),
             into_raw(func),
@@ -393,8 +393,8 @@ where
 {
     unsafe {
         assert!(MainContext::default().is_owner());
-        from_glib(glib_sys::g_unix_signal_add_full(
-            glib_sys::G_PRIORITY_DEFAULT,
+        from_glib(ffi::g_unix_signal_add_full(
+            ffi::G_PRIORITY_DEFAULT,
             signum,
             Some(trampoline::<F>),
             into_raw(func),
@@ -418,8 +418,8 @@ where
     F: FnMut(RawFd, IOCondition) -> Continue + Send + 'static,
 {
     unsafe {
-        from_glib(glib_sys::g_unix_fd_add_full(
-            glib_sys::G_PRIORITY_DEFAULT,
+        from_glib(ffi::g_unix_fd_add_full(
+            ffi::G_PRIORITY_DEFAULT,
             fd,
             condition.to_glib(),
             Some(trampoline_unix_fd::<F>),
@@ -451,8 +451,8 @@ where
 {
     unsafe {
         assert!(MainContext::default().is_owner());
-        from_glib(glib_sys::g_unix_fd_add_full(
-            glib_sys::G_PRIORITY_DEFAULT,
+        from_glib(ffi::g_unix_fd_add_full(
+            ffi::G_PRIORITY_DEFAULT,
             fd,
             condition.to_glib(),
             Some(trampoline_unix_fd::<F>),
@@ -472,7 +472,7 @@ where
 #[allow(clippy::needless_pass_by_value)]
 pub fn source_remove(source_id: SourceId) {
     unsafe {
-        glib_sys::g_source_remove(source_id.to_glib());
+        ffi::g_source_remove(source_id.to_glib());
     }
 }
 
@@ -505,11 +505,11 @@ impl Default for Priority {
     }
 }
 
-pub const PRIORITY_HIGH: Priority = Priority(glib_sys::G_PRIORITY_HIGH);
-pub const PRIORITY_DEFAULT: Priority = Priority(glib_sys::G_PRIORITY_DEFAULT);
-pub const PRIORITY_HIGH_IDLE: Priority = Priority(glib_sys::G_PRIORITY_HIGH_IDLE);
-pub const PRIORITY_DEFAULT_IDLE: Priority = Priority(glib_sys::G_PRIORITY_DEFAULT_IDLE);
-pub const PRIORITY_LOW: Priority = Priority(glib_sys::G_PRIORITY_LOW);
+pub const PRIORITY_HIGH: Priority = Priority(ffi::G_PRIORITY_HIGH);
+pub const PRIORITY_DEFAULT: Priority = Priority(ffi::G_PRIORITY_DEFAULT);
+pub const PRIORITY_HIGH_IDLE: Priority = Priority(ffi::G_PRIORITY_HIGH_IDLE);
+pub const PRIORITY_DEFAULT_IDLE: Priority = Priority(ffi::G_PRIORITY_DEFAULT_IDLE);
+pub const PRIORITY_LOW: Priority = Priority(ffi::G_PRIORITY_LOW);
 
 /// Adds a closure to be called by the main loop the return `Source` is attached to when it's idle.
 ///
@@ -519,17 +519,17 @@ where
     F: FnMut() -> Continue + Send + 'static,
 {
     unsafe {
-        let source = glib_sys::g_idle_source_new();
-        glib_sys::g_source_set_callback(
+        let source = ffi::g_idle_source_new();
+        ffi::g_source_set_callback(
             source,
             Some(trampoline::<F>),
             into_raw(func),
             Some(destroy_closure::<F>),
         );
-        glib_sys::g_source_set_priority(source, priority.to_glib());
+        ffi::g_source_set_priority(source, priority.to_glib());
 
         if let Some(name) = name {
-            glib_sys::g_source_set_name(source, name.to_glib_none().0);
+            ffi::g_source_set_name(source, name.to_glib_none().0);
         }
 
         from_glib_full(source)
@@ -553,17 +553,17 @@ where
     F: FnMut() -> Continue + Send + 'static,
 {
     unsafe {
-        let source = glib_sys::g_timeout_source_new(interval.as_millis() as _);
-        glib_sys::g_source_set_callback(
+        let source = ffi::g_timeout_source_new(interval.as_millis() as _);
+        ffi::g_source_set_callback(
             source,
             Some(trampoline::<F>),
             into_raw(func),
             Some(destroy_closure::<F>),
         );
-        glib_sys::g_source_set_priority(source, priority.to_glib());
+        ffi::g_source_set_priority(source, priority.to_glib());
 
         if let Some(name) = name {
-            glib_sys::g_source_set_name(source, name.to_glib_none().0);
+            ffi::g_source_set_name(source, name.to_glib_none().0);
         }
 
         from_glib_full(source)
@@ -586,17 +586,17 @@ where
     F: FnMut() -> Continue + Send + 'static,
 {
     unsafe {
-        let source = glib_sys::g_timeout_source_new_seconds(interval);
-        glib_sys::g_source_set_callback(
+        let source = ffi::g_timeout_source_new_seconds(interval);
+        ffi::g_source_set_callback(
             source,
             Some(trampoline::<F>),
             into_raw(func),
             Some(destroy_closure::<F>),
         );
-        glib_sys::g_source_set_priority(source, priority.to_glib());
+        ffi::g_source_set_priority(source, priority.to_glib());
 
         if let Some(name) = name {
-            glib_sys::g_source_set_name(source, name.to_glib_none().0);
+            ffi::g_source_set_name(source, name.to_glib_none().0);
         }
 
         from_glib_full(source)
@@ -617,20 +617,20 @@ where
     F: FnMut(Pid, i32) + Send + 'static,
 {
     unsafe {
-        let source = glib_sys::g_child_watch_source_new(pid.0);
-        glib_sys::g_source_set_callback(
+        let source = ffi::g_child_watch_source_new(pid.0);
+        ffi::g_source_set_callback(
             source,
             Some(transmute::<
                 _,
-                unsafe extern "C" fn(glib_sys::gpointer) -> glib_sys::gboolean,
+                unsafe extern "C" fn(ffi::gpointer) -> ffi::gboolean,
             >(trampoline_child_watch::<F> as *const ())),
             into_raw_child_watch(func),
             Some(destroy_closure_child_watch::<F>),
         );
-        glib_sys::g_source_set_priority(source, priority.to_glib());
+        ffi::g_source_set_priority(source, priority.to_glib());
 
         if let Some(name) = name {
-            glib_sys::g_source_set_name(source, name.to_glib_none().0);
+            ffi::g_source_set_name(source, name.to_glib_none().0);
         }
 
         from_glib_full(source)
@@ -654,17 +654,17 @@ where
     F: FnMut() -> Continue + Send + 'static,
 {
     unsafe {
-        let source = glib_sys::g_unix_signal_source_new(signum);
-        glib_sys::g_source_set_callback(
+        let source = ffi::g_unix_signal_source_new(signum);
+        ffi::g_source_set_callback(
             source,
             Some(trampoline::<F>),
             into_raw(func),
             Some(destroy_closure::<F>),
         );
-        glib_sys::g_source_set_priority(source, priority.to_glib());
+        ffi::g_source_set_priority(source, priority.to_glib());
 
         if let Some(name) = name {
-            glib_sys::g_source_set_name(source, name.to_glib_none().0);
+            ffi::g_source_set_name(source, name.to_glib_none().0);
         }
 
         from_glib_full(source)
@@ -689,20 +689,20 @@ where
     F: FnMut(RawFd, IOCondition) -> Continue + Send + 'static,
 {
     unsafe {
-        let source = glib_sys::g_unix_fd_source_new(fd, condition.to_glib());
-        glib_sys::g_source_set_callback(
+        let source = ffi::g_unix_fd_source_new(fd, condition.to_glib());
+        ffi::g_source_set_callback(
             source,
             Some(transmute::<
                 _,
-                unsafe extern "C" fn(glib_sys::gpointer) -> glib_sys::gboolean,
+                unsafe extern "C" fn(ffi::gpointer) -> ffi::gboolean,
             >(trampoline_unix_fd::<F> as *const ())),
             into_raw_unix_fd(func),
             Some(destroy_closure_unix_fd::<F>),
         );
-        glib_sys::g_source_set_priority(source, priority.to_glib());
+        ffi::g_source_set_priority(source, priority.to_glib());
 
         if let Some(name) = name {
-            glib_sys::g_source_set_name(source, name.to_glib_none().0);
+            ffi::g_source_set_name(source, name.to_glib_none().0);
         }
 
         from_glib_full(source)
@@ -712,17 +712,17 @@ where
 impl Source {
     pub fn attach(&self, context: Option<&MainContext>) -> SourceId {
         unsafe {
-            from_glib(glib_sys::g_source_attach(
+            from_glib(ffi::g_source_attach(
                 self.to_glib_none().0,
                 context.to_glib_none().0,
             ))
         }
     }
 
-    pub fn remove(tag: SourceId) -> Result<(), ::BoolError> {
+    pub fn remove(tag: SourceId) -> Result<(), crate::BoolError> {
         unsafe {
             glib_result_from_gboolean!(
-                glib_sys::g_source_remove(tag.to_glib()),
+                ffi::g_source_remove(tag.to_glib()),
                 "Failed to remove source"
             )
         }

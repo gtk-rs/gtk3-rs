@@ -6,17 +6,17 @@ use glib::translate::*;
 use glib::GString;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct EventSetting(::Event);
+pub struct EventSetting(crate::Event);
 
 event_wrapper!(EventSetting, GdkEventSetting);
-event_subtype!(EventSetting, gdk_sys::GDK_SETTING);
+event_subtype!(EventSetting, ffi::GDK_SETTING);
 
 impl EventSetting {
     pub fn get_name(&self) -> Option<GString> {
         unsafe { from_glib_none(self.as_ref().name) }
     }
 
-    pub fn get_action(&self) -> ::SettingAction {
+    pub fn get_action(&self) -> crate::SettingAction {
         from_glib(self.as_ref().action)
     }
 }

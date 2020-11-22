@@ -2,19 +2,17 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::TextBuffer;
+use crate::TextChildAnchor;
+use crate::TextIter;
+use crate::TextTag;
 use glib::object::{Cast, IsA};
 use glib::signal::{connect_raw, SignalHandlerId};
 use glib::translate::*;
-use glib_sys;
-use gtk_sys;
 use libc::{c_char, c_int};
 use std::boxed::Box as Box_;
 use std::mem::transmute;
 use std::{slice, str};
-use TextBuffer;
-use TextChildAnchor;
-use TextIter;
-use TextTag;
 
 pub trait TextBufferExtManual: 'static {
     fn connect_apply_tag<F: Fn(&Self, &TextTag, &mut TextIter, &mut TextIter) + 'static>(
@@ -57,11 +55,11 @@ impl<O: IsA<TextBuffer>> TextBufferExtManual for O {
             P,
             F: Fn(&P, &TextTag, &mut TextIter, &mut TextIter) + 'static,
         >(
-            this: *mut gtk_sys::GtkTextBuffer,
-            tag: *mut gtk_sys::GtkTextTag,
-            start: *mut gtk_sys::GtkTextIter,
-            end: *mut gtk_sys::GtkTextIter,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkTextBuffer,
+            tag: *mut ffi::GtkTextTag,
+            start: *mut ffi::GtkTextIter,
+            end: *mut ffi::GtkTextIter,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TextBuffer>,
         {
@@ -100,10 +98,10 @@ impl<O: IsA<TextBuffer>> TextBufferExtManual for O {
             P,
             F: Fn(&P, &mut TextIter, &mut TextIter) + 'static,
         >(
-            this: *mut gtk_sys::GtkTextBuffer,
-            start: *mut gtk_sys::GtkTextIter,
-            end: *mut gtk_sys::GtkTextIter,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkTextBuffer,
+            start: *mut ffi::GtkTextIter,
+            end: *mut ffi::GtkTextIter,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TextBuffer>,
         {
@@ -141,10 +139,10 @@ impl<O: IsA<TextBuffer>> TextBufferExtManual for O {
             P,
             F: Fn(&P, &mut TextIter, &TextChildAnchor) + 'static,
         >(
-            this: *mut gtk_sys::GtkTextBuffer,
-            location: *mut gtk_sys::GtkTextIter,
-            anchor: *mut gtk_sys::GtkTextChildAnchor,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkTextBuffer,
+            location: *mut ffi::GtkTextIter,
+            anchor: *mut ffi::GtkTextChildAnchor,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TextBuffer>,
         {
@@ -180,10 +178,10 @@ impl<O: IsA<TextBuffer>> TextBufferExtManual for O {
             P,
             F: Fn(&P, &mut TextIter, &gdk_pixbuf::Pixbuf) + 'static,
         >(
-            this: *mut gtk_sys::GtkTextBuffer,
-            location: *mut gtk_sys::GtkTextIter,
-            pixbuf: *mut gdk_pixbuf_sys::GdkPixbuf,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkTextBuffer,
+            location: *mut ffi::GtkTextIter,
+            pixbuf: *mut gdk_pixbuf::ffi::GdkPixbuf,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TextBuffer>,
         {
@@ -216,11 +214,11 @@ impl<O: IsA<TextBuffer>> TextBufferExtManual for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn insert_text_trampoline<T, F: Fn(&T, &mut TextIter, &str) + 'static>(
-            this: *mut gtk_sys::GtkTextBuffer,
-            location: *mut gtk_sys::GtkTextIter,
+            this: *mut ffi::GtkTextBuffer,
+            location: *mut ffi::GtkTextIter,
             text: *mut c_char,
             len: c_int,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             T: IsA<TextBuffer>,
         {
@@ -256,11 +254,11 @@ impl<O: IsA<TextBuffer>> TextBufferExtManual for O {
             P,
             F: Fn(&P, &TextTag, &mut TextIter, &mut TextIter) + 'static,
         >(
-            this: *mut gtk_sys::GtkTextBuffer,
-            tag: *mut gtk_sys::GtkTextTag,
-            start: *mut gtk_sys::GtkTextIter,
-            end: *mut gtk_sys::GtkTextIter,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkTextBuffer,
+            tag: *mut ffi::GtkTextTag,
+            start: *mut ffi::GtkTextIter,
+            end: *mut ffi::GtkTextIter,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TextBuffer>,
         {

@@ -2,10 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use ::glib_macros::{gflags, GBoxed, GEnum};
 use glib::prelude::*;
 use glib::subclass::prelude::*;
 use glib::translate::{FromGlib, ToGlib};
+use glib::{gflags, GBoxed, GEnum};
 
 #[test]
 fn derive_genum() {

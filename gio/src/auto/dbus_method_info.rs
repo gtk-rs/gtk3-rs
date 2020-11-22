@@ -2,16 +2,15 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
 use glib::translate::*;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct DBusMethodInfo(Shared<gio_sys::GDBusMethodInfo>);
+    pub struct DBusMethodInfo(Shared<ffi::GDBusMethodInfo>);
 
     match fn {
-        ref => |ptr| gio_sys::g_dbus_method_info_ref(ptr),
-        unref => |ptr| gio_sys::g_dbus_method_info_unref(ptr),
-        get_type => || gio_sys::g_dbus_method_info_get_type(),
+        ref => |ptr| ffi::g_dbus_method_info_ref(ptr),
+        unref => |ptr| ffi::g_dbus_method_info_unref(ptr),
+        get_type => || ffi::g_dbus_method_info_get_type(),
     }
 }

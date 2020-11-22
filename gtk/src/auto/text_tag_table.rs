@@ -2,31 +2,29 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::Buildable;
+use crate::TextTag;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Buildable;
-use TextTag;
 
-glib_wrapper! {
-    pub struct TextTagTable(Object<gtk_sys::GtkTextTagTable, gtk_sys::GtkTextTagTableClass>) @implements Buildable;
+glib::glib_wrapper! {
+    pub struct TextTagTable(Object<ffi::GtkTextTagTable, ffi::GtkTextTagTableClass>) @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_text_tag_table_get_type(),
+        get_type => || ffi::gtk_text_tag_table_get_type(),
     }
 }
 
 impl TextTagTable {
     pub fn new() -> TextTagTable {
         assert_initialized_main_thread!();
-        unsafe { from_glib_full(gtk_sys::gtk_text_tag_table_new()) }
+        unsafe { from_glib_full(ffi::gtk_text_tag_table_new()) }
     }
 }
 
@@ -59,7 +57,7 @@ pub trait TextTagTableExt: 'static {
 impl<O: IsA<TextTagTable>> TextTagTableExt for O {
     fn add<P: IsA<TextTag>>(&self, tag: &P) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_text_tag_table_add(
+            from_glib(ffi::gtk_text_tag_table_add(
                 self.as_ref().to_glib_none().0,
                 tag.as_ref().to_glib_none().0,
             ))
@@ -69,8 +67,8 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
     fn foreach<P: FnMut(&TextTag)>(&self, func: P) {
         let func_data: P = func;
         unsafe extern "C" fn func_func<P: FnMut(&TextTag)>(
-            tag: *mut gtk_sys::GtkTextTag,
-            data: glib_sys::gpointer,
+            tag: *mut ffi::GtkTextTag,
+            data: glib::ffi::gpointer,
         ) {
             let tag = from_glib_borrow(tag);
             let callback: *mut P = data as *const _ as usize as *mut P;
@@ -79,7 +77,7 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
         let func = Some(func_func::<P> as _);
         let super_callback0: &P = &func_data;
         unsafe {
-            gtk_sys::gtk_text_tag_table_foreach(
+            ffi::gtk_text_tag_table_foreach(
                 self.as_ref().to_glib_none().0,
                 func,
                 super_callback0 as *const _ as usize as *mut _,
@@ -88,12 +86,12 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
     }
 
     fn get_size(&self) -> i32 {
-        unsafe { gtk_sys::gtk_text_tag_table_get_size(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_text_tag_table_get_size(self.as_ref().to_glib_none().0) }
     }
 
     fn lookup(&self, name: &str) -> Option<TextTag> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_text_tag_table_lookup(
+            from_glib_none(ffi::gtk_text_tag_table_lookup(
                 self.as_ref().to_glib_none().0,
                 name.to_glib_none().0,
             ))
@@ -102,7 +100,7 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
 
     fn remove<P: IsA<TextTag>>(&self, tag: &P) {
         unsafe {
-            gtk_sys::gtk_text_tag_table_remove(
+            ffi::gtk_text_tag_table_remove(
                 self.as_ref().to_glib_none().0,
                 tag.as_ref().to_glib_none().0,
             );
@@ -111,9 +109,9 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
 
     fn connect_tag_added<F: Fn(&Self, &TextTag) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn tag_added_trampoline<P, F: Fn(&P, &TextTag) + 'static>(
-            this: *mut gtk_sys::GtkTextTagTable,
-            tag: *mut gtk_sys::GtkTextTag,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkTextTagTable,
+            tag: *mut ffi::GtkTextTag,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TextTagTable>,
         {
@@ -138,10 +136,10 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
 
     fn connect_tag_changed<F: Fn(&Self, &TextTag, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn tag_changed_trampoline<P, F: Fn(&P, &TextTag, bool) + 'static>(
-            this: *mut gtk_sys::GtkTextTagTable,
-            tag: *mut gtk_sys::GtkTextTag,
-            size_changed: glib_sys::gboolean,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkTextTagTable,
+            tag: *mut ffi::GtkTextTag,
+            size_changed: glib::ffi::gboolean,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TextTagTable>,
         {
@@ -167,9 +165,9 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
 
     fn connect_tag_removed<F: Fn(&Self, &TextTag) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn tag_removed_trampoline<P, F: Fn(&P, &TextTag) + 'static>(
-            this: *mut gtk_sys::GtkTextTagTable,
-            tag: *mut gtk_sys::GtkTextTag,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkTextTagTable,
+            tag: *mut ffi::GtkTextTag,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<TextTagTable>,
         {

@@ -2,7 +2,7 @@ use glib::object::IsA;
 use glib::translate::ToGlibPtr;
 use std::convert::TryFrom;
 
-use Entry;
+use crate::Entry;
 
 pub trait EntryExtManual: 'static {
     fn get_invisible_char(&self) -> Option<char>;
@@ -10,7 +10,7 @@ pub trait EntryExtManual: 'static {
 
 impl<O: IsA<Entry>> EntryExtManual for O {
     fn get_invisible_char(&self) -> Option<char> {
-        let ret = unsafe { gtk_sys::gtk_entry_get_invisible_char(self.as_ref().to_glib_none().0) };
+        let ret = unsafe { ffi::gtk_entry_get_invisible_char(self.as_ref().to_glib_none().0) };
 
         if ret == 0 {
             return None;

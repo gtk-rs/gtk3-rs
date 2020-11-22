@@ -5,7 +5,6 @@
 use crate::prelude::*;
 use crate::subclass::prelude::*;
 use crate::OutputStream;
-use glib;
 use glib::subclass;
 
 use std::any::Any;
@@ -33,7 +32,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::glib_object_subclass!();
 
         fn new() -> Self {
             Self {
@@ -188,7 +187,7 @@ mod imp {
     }
 }
 
-glib_wrapper! {
+glib::glib_wrapper! {
     pub struct WriteOutputStream(ObjectSubclass<imp::WriteOutputStream>) @extends crate::OutputStream, @implements crate::Seekable;
 }
 

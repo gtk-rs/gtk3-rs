@@ -4,6 +4,12 @@
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+use crate::ResponseType;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+use crate::Window;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::object::Cast;
 use glib::object::IsA;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
@@ -15,17 +21,7 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use glib::GString;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::Value;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use glib_sys;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use gobject_sys;
-use gtk_sys;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use std::boxed::Box as Box_;
@@ -33,18 +29,12 @@ use std::fmt;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use std::mem::transmute;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use ResponseType;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use Window;
 
-glib_wrapper! {
-    pub struct NativeDialog(Object<gtk_sys::GtkNativeDialog, gtk_sys::GtkNativeDialogClass>);
+glib::glib_wrapper! {
+    pub struct NativeDialog(Object<ffi::GtkNativeDialog, ffi::GtkNativeDialogClass>);
 
     match fn {
-        get_type => || gtk_sys::gtk_native_dialog_get_type(),
+        get_type => || ffi::gtk_native_dialog_get_type(),
     }
 }
 
@@ -61,7 +51,7 @@ pub trait NativeDialogExt: 'static {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn get_title(&self) -> Option<GString>;
+    fn get_title(&self) -> Option<glib::GString>;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -128,7 +118,7 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn destroy(&self) {
         unsafe {
-            gtk_sys::gtk_native_dialog_destroy(self.as_ref().to_glib_none().0);
+            ffi::gtk_native_dialog_destroy(self.as_ref().to_glib_none().0);
         }
     }
 
@@ -136,7 +126,7 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_modal(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_native_dialog_get_modal(
+            from_glib(ffi::gtk_native_dialog_get_modal(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -144,9 +134,9 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    fn get_title(&self) -> Option<GString> {
+    fn get_title(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_native_dialog_get_title(
+            from_glib_none(ffi::gtk_native_dialog_get_title(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -156,7 +146,7 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_transient_for(&self) -> Option<Window> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_native_dialog_get_transient_for(
+            from_glib_none(ffi::gtk_native_dialog_get_transient_for(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -166,7 +156,7 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_visible(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_native_dialog_get_visible(
+            from_glib(ffi::gtk_native_dialog_get_visible(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -176,25 +166,21 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn hide(&self) {
         unsafe {
-            gtk_sys::gtk_native_dialog_hide(self.as_ref().to_glib_none().0);
+            ffi::gtk_native_dialog_hide(self.as_ref().to_glib_none().0);
         }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn run(&self) -> ResponseType {
-        unsafe {
-            from_glib(gtk_sys::gtk_native_dialog_run(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_native_dialog_run(self.as_ref().to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_modal(&self, modal: bool) {
         unsafe {
-            gtk_sys::gtk_native_dialog_set_modal(self.as_ref().to_glib_none().0, modal.to_glib());
+            ffi::gtk_native_dialog_set_modal(self.as_ref().to_glib_none().0, modal.to_glib());
         }
     }
 
@@ -202,7 +188,7 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_title(&self, title: &str) {
         unsafe {
-            gtk_sys::gtk_native_dialog_set_title(
+            ffi::gtk_native_dialog_set_title(
                 self.as_ref().to_glib_none().0,
                 title.to_glib_none().0,
             );
@@ -213,7 +199,7 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_transient_for<P: IsA<Window>>(&self, parent: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_native_dialog_set_transient_for(
+            ffi::gtk_native_dialog_set_transient_for(
                 self.as_ref().to_glib_none().0,
                 parent.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -224,7 +210,7 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn show(&self) {
         unsafe {
-            gtk_sys::gtk_native_dialog_show(self.as_ref().to_glib_none().0);
+            ffi::gtk_native_dialog_show(self.as_ref().to_glib_none().0);
         }
     }
 
@@ -232,8 +218,8 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn set_property_visible(&self, visible: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"visible\0".as_ptr() as *const _,
                 Value::from(&visible).to_glib_none().0,
             );
@@ -244,9 +230,9 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn connect_response<F: Fn(&Self, ResponseType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn response_trampoline<P, F: Fn(&P, ResponseType) + 'static>(
-            this: *mut gtk_sys::GtkNativeDialog,
-            response_id: gtk_sys::GtkResponseType,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkNativeDialog,
+            response_id: ffi::GtkResponseType,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<NativeDialog>,
         {
@@ -273,9 +259,9 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn connect_property_modal_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_modal_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkNativeDialog,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkNativeDialog,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<NativeDialog>,
         {
@@ -299,9 +285,9 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn connect_property_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_title_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkNativeDialog,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkNativeDialog,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<NativeDialog>,
         {
@@ -328,9 +314,9 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_transient_for_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkNativeDialog,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkNativeDialog,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<NativeDialog>,
         {
@@ -354,9 +340,9 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn connect_property_visible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visible_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkNativeDialog,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkNativeDialog,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<NativeDialog>,
         {

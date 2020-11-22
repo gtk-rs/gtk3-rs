@@ -2,8 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use glib;
+use crate::Actionable;
+use crate::Align;
+use crate::Buildable;
+use crate::Container;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectExt;
@@ -12,30 +15,22 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Actionable;
-use Align;
-use Buildable;
-use Container;
-use Widget;
 
-glib_wrapper! {
-    pub struct Switch(Object<gtk_sys::GtkSwitch, gtk_sys::GtkSwitchClass>) @extends Widget, @implements Buildable, Actionable;
+glib::glib_wrapper! {
+    pub struct Switch(Object<ffi::GtkSwitch, ffi::GtkSwitchClass>) @extends Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || gtk_sys::gtk_switch_get_type(),
+        get_type => || ffi::gtk_switch_get_type(),
     }
 }
 
 impl Switch {
     pub fn new() -> Switch {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_switch_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_switch_new()).unsafe_cast() }
     }
 }
 
@@ -420,37 +415,29 @@ pub trait SwitchExt: 'static {
 
 impl<O: IsA<Switch>> SwitchExt for O {
     fn get_active(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_switch_get_active(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_switch_get_active(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_state(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_switch_get_state(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_switch_get_state(self.as_ref().to_glib_none().0)) }
     }
 
     fn set_active(&self, is_active: bool) {
         unsafe {
-            gtk_sys::gtk_switch_set_active(self.as_ref().to_glib_none().0, is_active.to_glib());
+            ffi::gtk_switch_set_active(self.as_ref().to_glib_none().0, is_active.to_glib());
         }
     }
 
     fn set_state(&self, state: bool) {
         unsafe {
-            gtk_sys::gtk_switch_set_state(self.as_ref().to_glib_none().0, state.to_glib());
+            ffi::gtk_switch_set_state(self.as_ref().to_glib_none().0, state.to_glib());
         }
     }
 
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkSwitch,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkSwitch,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Switch>,
         {
@@ -472,7 +459,7 @@ impl<O: IsA<Switch>> SwitchExt for O {
 
     fn emit_activate(&self) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("activate", &[])
                 .unwrap()
         };
@@ -486,10 +473,10 @@ impl<O: IsA<Switch>> SwitchExt for O {
             P,
             F: Fn(&P, bool) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkSwitch,
-            state: glib_sys::gboolean,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkSwitch,
+            state: glib::ffi::gboolean,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Switch>,
         {
@@ -515,9 +502,9 @@ impl<O: IsA<Switch>> SwitchExt for O {
 
     fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkSwitch,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkSwitch,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Switch>,
         {
@@ -539,9 +526,9 @@ impl<O: IsA<Switch>> SwitchExt for O {
 
     fn connect_property_state_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_state_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkSwitch,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkSwitch,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Switch>,
         {

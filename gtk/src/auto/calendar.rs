@@ -2,7 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
+use crate::Align;
+use crate::Buildable;
+use crate::CalendarDisplayOptions;
+use crate::Container;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -11,31 +15,23 @@ use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
-use Align;
-use Buildable;
-use CalendarDisplayOptions;
-use Container;
-use Widget;
 
-glib_wrapper! {
-    pub struct Calendar(Object<gtk_sys::GtkCalendar, gtk_sys::GtkCalendarClass>) @extends Widget, @implements Buildable;
+glib::glib_wrapper! {
+    pub struct Calendar(Object<ffi::GtkCalendar, ffi::GtkCalendarClass>) @extends Widget, @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_calendar_get_type(),
+        get_type => || ffi::gtk_calendar_get_type(),
     }
 }
 
 impl Calendar {
     pub fn new() -> Calendar {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_calendar_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_calendar_new()).unsafe_cast() }
     }
 }
 
@@ -565,7 +561,7 @@ pub trait CalendarExt: 'static {
 impl<O: IsA<Calendar>> CalendarExt for O {
     fn clear_marks(&self) {
         unsafe {
-            gtk_sys::gtk_calendar_clear_marks(self.as_ref().to_glib_none().0);
+            ffi::gtk_calendar_clear_marks(self.as_ref().to_glib_none().0);
         }
     }
 
@@ -574,7 +570,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             let mut year = mem::MaybeUninit::uninit();
             let mut month = mem::MaybeUninit::uninit();
             let mut day = mem::MaybeUninit::uninit();
-            gtk_sys::gtk_calendar_get_date(
+            ffi::gtk_calendar_get_date(
                 self.as_ref().to_glib_none().0,
                 year.as_mut_ptr(),
                 month.as_mut_ptr(),
@@ -589,7 +585,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn get_day_is_marked(&self, day: u32) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_calendar_get_day_is_marked(
+            from_glib(ffi::gtk_calendar_get_day_is_marked(
                 self.as_ref().to_glib_none().0,
                 day,
             ))
@@ -597,16 +593,16 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     }
 
     fn get_detail_height_rows(&self) -> i32 {
-        unsafe { gtk_sys::gtk_calendar_get_detail_height_rows(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_calendar_get_detail_height_rows(self.as_ref().to_glib_none().0) }
     }
 
     fn get_detail_width_chars(&self) -> i32 {
-        unsafe { gtk_sys::gtk_calendar_get_detail_width_chars(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_calendar_get_detail_width_chars(self.as_ref().to_glib_none().0) }
     }
 
     fn get_display_options(&self) -> CalendarDisplayOptions {
         unsafe {
-            from_glib(gtk_sys::gtk_calendar_get_display_options(
+            from_glib(ffi::gtk_calendar_get_display_options(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -614,19 +610,19 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn mark_day(&self, day: u32) {
         unsafe {
-            gtk_sys::gtk_calendar_mark_day(self.as_ref().to_glib_none().0, day);
+            ffi::gtk_calendar_mark_day(self.as_ref().to_glib_none().0, day);
         }
     }
 
     fn select_day(&self, day: u32) {
         unsafe {
-            gtk_sys::gtk_calendar_select_day(self.as_ref().to_glib_none().0, day);
+            ffi::gtk_calendar_select_day(self.as_ref().to_glib_none().0, day);
         }
     }
 
     fn select_month(&self, month: u32, year: u32) {
         unsafe {
-            gtk_sys::gtk_calendar_select_month(self.as_ref().to_glib_none().0, month, year);
+            ffi::gtk_calendar_select_month(self.as_ref().to_glib_none().0, month, year);
         }
     }
 
@@ -638,11 +634,11 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         unsafe extern "C" fn func_func<
             P: Fn(&Calendar, u32, u32, u32) -> Option<String> + 'static,
         >(
-            calendar: *mut gtk_sys::GtkCalendar,
+            calendar: *mut ffi::GtkCalendar,
             year: libc::c_uint,
             month: libc::c_uint,
             day: libc::c_uint,
-            user_data: glib_sys::gpointer,
+            user_data: glib::ffi::gpointer,
         ) -> *mut libc::c_char {
             let calendar = from_glib_borrow(calendar);
             let callback: &P = &*(user_data as *mut _);
@@ -653,14 +649,14 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         unsafe extern "C" fn destroy_func<
             P: Fn(&Calendar, u32, u32, u32) -> Option<String> + 'static,
         >(
-            data: glib_sys::gpointer,
+            data: glib::ffi::gpointer,
         ) {
             let _callback: Box_<P> = Box_::from_raw(data as *mut _);
         }
         let destroy_call3 = Some(destroy_func::<P> as _);
         let super_callback0: Box_<P> = func_data;
         unsafe {
-            gtk_sys::gtk_calendar_set_detail_func(
+            ffi::gtk_calendar_set_detail_func(
                 self.as_ref().to_glib_none().0,
                 func,
                 Box_::into_raw(super_callback0) as *mut _,
@@ -671,36 +667,33 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn set_detail_height_rows(&self, rows: i32) {
         unsafe {
-            gtk_sys::gtk_calendar_set_detail_height_rows(self.as_ref().to_glib_none().0, rows);
+            ffi::gtk_calendar_set_detail_height_rows(self.as_ref().to_glib_none().0, rows);
         }
     }
 
     fn set_detail_width_chars(&self, chars: i32) {
         unsafe {
-            gtk_sys::gtk_calendar_set_detail_width_chars(self.as_ref().to_glib_none().0, chars);
+            ffi::gtk_calendar_set_detail_width_chars(self.as_ref().to_glib_none().0, chars);
         }
     }
 
     fn set_display_options(&self, flags: CalendarDisplayOptions) {
         unsafe {
-            gtk_sys::gtk_calendar_set_display_options(
-                self.as_ref().to_glib_none().0,
-                flags.to_glib(),
-            );
+            ffi::gtk_calendar_set_display_options(self.as_ref().to_glib_none().0, flags.to_glib());
         }
     }
 
     fn unmark_day(&self, day: u32) {
         unsafe {
-            gtk_sys::gtk_calendar_unmark_day(self.as_ref().to_glib_none().0, day);
+            ffi::gtk_calendar_unmark_day(self.as_ref().to_glib_none().0, day);
         }
     }
 
     fn get_property_day(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"day\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -713,8 +706,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn set_property_day(&self, day: i32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"day\0".as_ptr() as *const _,
                 Value::from(&day).to_glib_none().0,
             );
@@ -724,8 +717,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     fn get_property_month(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"month\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -738,8 +731,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn set_property_month(&self, month: i32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"month\0".as_ptr() as *const _,
                 Value::from(&month).to_glib_none().0,
             );
@@ -749,8 +742,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     fn get_property_no_month_change(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"no-month-change\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -763,8 +756,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn set_property_no_month_change(&self, no_month_change: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"no-month-change\0".as_ptr() as *const _,
                 Value::from(&no_month_change).to_glib_none().0,
             );
@@ -774,8 +767,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     fn get_property_show_day_names(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-day-names\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -788,8 +781,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn set_property_show_day_names(&self, show_day_names: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-day-names\0".as_ptr() as *const _,
                 Value::from(&show_day_names).to_glib_none().0,
             );
@@ -799,8 +792,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     fn get_property_show_details(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-details\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -813,8 +806,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn set_property_show_details(&self, show_details: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-details\0".as_ptr() as *const _,
                 Value::from(&show_details).to_glib_none().0,
             );
@@ -824,8 +817,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     fn get_property_show_heading(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-heading\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -838,8 +831,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn set_property_show_heading(&self, show_heading: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-heading\0".as_ptr() as *const _,
                 Value::from(&show_heading).to_glib_none().0,
             );
@@ -849,8 +842,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     fn get_property_show_week_numbers(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-week-numbers\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -863,8 +856,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn set_property_show_week_numbers(&self, show_week_numbers: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-week-numbers\0".as_ptr() as *const _,
                 Value::from(&show_week_numbers).to_glib_none().0,
             );
@@ -874,8 +867,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     fn get_property_year(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"year\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -888,8 +881,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn set_property_year(&self, year: i32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"year\0".as_ptr() as *const _,
                 Value::from(&year).to_glib_none().0,
             );
@@ -898,8 +891,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn connect_day_selected<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn day_selected_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {
@@ -921,8 +914,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn connect_day_selected_double_click<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn day_selected_double_click_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {
@@ -944,8 +937,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn connect_month_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn month_changed_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {
@@ -967,8 +960,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn connect_next_month<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn next_month_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {
@@ -990,8 +983,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn connect_next_year<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn next_year_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {
@@ -1013,8 +1006,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn connect_prev_month<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn prev_month_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {
@@ -1036,8 +1029,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn connect_prev_year<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn prev_year_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {
@@ -1059,9 +1052,9 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn connect_property_day_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_day_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {
@@ -1086,9 +1079,9 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_detail_height_rows_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {
@@ -1113,9 +1106,9 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_detail_width_chars_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {
@@ -1137,9 +1130,9 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn connect_property_month_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_month_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {
@@ -1164,9 +1157,9 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_no_month_change_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {
@@ -1191,9 +1184,9 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_day_names_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {
@@ -1218,9 +1211,9 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_details_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {
@@ -1245,9 +1238,9 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_heading_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {
@@ -1272,9 +1265,9 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_week_numbers_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {
@@ -1296,9 +1289,9 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn connect_property_year_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_year_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkCalendar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkCalendar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Calendar>,
         {

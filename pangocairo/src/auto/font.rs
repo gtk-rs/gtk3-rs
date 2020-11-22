@@ -2,18 +2,15 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use cairo;
 use glib::object::IsA;
 use glib::translate::*;
-use pango;
-use pango_cairo_sys;
 use std::fmt;
 
-glib_wrapper! {
-    pub struct Font(Interface<pango_cairo_sys::PangoCairoFont>) @requires pango::Font;
+glib::glib_wrapper! {
+    pub struct Font(Interface<ffi::PangoCairoFont>) @requires pango::Font;
 
     match fn {
-        get_type => || pango_cairo_sys::pango_cairo_font_get_type(),
+        get_type => || ffi::pango_cairo_font_get_type(),
     }
 }
 
@@ -26,7 +23,7 @@ pub trait FontExt: 'static {
 impl<O: IsA<Font>> FontExt for O {
     fn get_scaled_font(&self) -> Option<cairo::ScaledFont> {
         unsafe {
-            from_glib_none(pango_cairo_sys::pango_cairo_font_get_scaled_font(
+            from_glib_none(ffi::pango_cairo_font_get_scaled_font(
                 self.as_ref().to_glib_none().0,
             ))
         }

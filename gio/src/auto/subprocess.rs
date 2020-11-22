@@ -2,34 +2,28 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::Cancellable;
+use crate::InputStream;
+use crate::OutputStream;
+use crate::SubprocessFlags;
 use glib::object::IsA;
 use glib::translate::*;
-use glib::GString;
-use glib_sys;
-use gobject_sys;
-use std;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
-use InputStream;
-use OutputStream;
-use SubprocessFlags;
 
-glib_wrapper! {
-    pub struct Subprocess(Object<gio_sys::GSubprocess>);
+glib::glib_wrapper! {
+    pub struct Subprocess(Object<ffi::GSubprocess>);
 
     match fn {
-        get_type => || gio_sys::g_subprocess_get_type(),
+        get_type => || ffi::g_subprocess_get_type(),
     }
 }
 
 impl Subprocess {
     //pub fn new(flags: SubprocessFlags, error: Option<&mut glib::Error>, argv0: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Subprocess {
-    //    unsafe { TODO: call gio_sys:g_subprocess_new() }
+    //    unsafe { TODO: call ffi:g_subprocess_new() }
     //}
 
     pub fn newv(
@@ -38,8 +32,7 @@ impl Subprocess {
     ) -> Result<Subprocess, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret =
-                gio_sys::g_subprocess_newv(argv.to_glib_none().0, flags.to_glib(), &mut error);
+            let ret = ffi::g_subprocess_newv(argv.to_glib_none().0, flags.to_glib(), &mut error);
             if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -57,7 +50,7 @@ impl Subprocess {
             let mut stdout_buf = ptr::null_mut();
             let mut stderr_buf = ptr::null_mut();
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_subprocess_communicate(
+            let _ = ffi::g_subprocess_communicate(
                 self.to_glib_none().0,
                 stdin_buf.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -88,14 +81,14 @@ impl Subprocess {
                 + Send
                 + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let mut stdout_buf = ptr::null_mut();
             let mut stderr_buf = ptr::null_mut();
-            let _ = gio_sys::g_subprocess_communicate_finish(
+            let _ = ffi::g_subprocess_communicate_finish(
                 _source_object as *mut _,
                 res,
                 &mut stdout_buf,
@@ -112,7 +105,7 @@ impl Subprocess {
         }
         let callback = communicate_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_subprocess_communicate_async(
+            ffi::g_subprocess_communicate_async(
                 self.to_glib_none().0,
                 stdin_buf.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -151,12 +144,12 @@ impl Subprocess {
         &self,
         stdin_buf: Option<&str>,
         cancellable: Option<&P>,
-    ) -> Result<(Option<GString>, Option<GString>), glib::Error> {
+    ) -> Result<(Option<glib::GString>, Option<glib::GString>), glib::Error> {
         unsafe {
             let mut stdout_buf = ptr::null_mut();
             let mut stderr_buf = ptr::null_mut();
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_subprocess_communicate_utf8(
+            let _ = ffi::g_subprocess_communicate_utf8(
                 self.to_glib_none().0,
                 stdin_buf.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -174,62 +167,62 @@ impl Subprocess {
 
     pub fn force_exit(&self) {
         unsafe {
-            gio_sys::g_subprocess_force_exit(self.to_glib_none().0);
+            ffi::g_subprocess_force_exit(self.to_glib_none().0);
         }
     }
 
     pub fn get_exit_status(&self) -> i32 {
-        unsafe { gio_sys::g_subprocess_get_exit_status(self.to_glib_none().0) }
+        unsafe { ffi::g_subprocess_get_exit_status(self.to_glib_none().0) }
     }
 
-    pub fn get_identifier(&self) -> Option<GString> {
-        unsafe { from_glib_none(gio_sys::g_subprocess_get_identifier(self.to_glib_none().0)) }
+    pub fn get_identifier(&self) -> Option<glib::GString> {
+        unsafe { from_glib_none(ffi::g_subprocess_get_identifier(self.to_glib_none().0)) }
     }
 
     pub fn get_if_exited(&self) -> bool {
-        unsafe { from_glib(gio_sys::g_subprocess_get_if_exited(self.to_glib_none().0)) }
+        unsafe { from_glib(ffi::g_subprocess_get_if_exited(self.to_glib_none().0)) }
     }
 
     pub fn get_if_signaled(&self) -> bool {
-        unsafe { from_glib(gio_sys::g_subprocess_get_if_signaled(self.to_glib_none().0)) }
+        unsafe { from_glib(ffi::g_subprocess_get_if_signaled(self.to_glib_none().0)) }
     }
 
     pub fn get_status(&self) -> i32 {
-        unsafe { gio_sys::g_subprocess_get_status(self.to_glib_none().0) }
+        unsafe { ffi::g_subprocess_get_status(self.to_glib_none().0) }
     }
 
     pub fn get_stderr_pipe(&self) -> Option<InputStream> {
-        unsafe { from_glib_none(gio_sys::g_subprocess_get_stderr_pipe(self.to_glib_none().0)) }
+        unsafe { from_glib_none(ffi::g_subprocess_get_stderr_pipe(self.to_glib_none().0)) }
     }
 
     pub fn get_stdin_pipe(&self) -> Option<OutputStream> {
-        unsafe { from_glib_none(gio_sys::g_subprocess_get_stdin_pipe(self.to_glib_none().0)) }
+        unsafe { from_glib_none(ffi::g_subprocess_get_stdin_pipe(self.to_glib_none().0)) }
     }
 
     pub fn get_stdout_pipe(&self) -> Option<InputStream> {
-        unsafe { from_glib_none(gio_sys::g_subprocess_get_stdout_pipe(self.to_glib_none().0)) }
+        unsafe { from_glib_none(ffi::g_subprocess_get_stdout_pipe(self.to_glib_none().0)) }
     }
 
     pub fn get_successful(&self) -> bool {
-        unsafe { from_glib(gio_sys::g_subprocess_get_successful(self.to_glib_none().0)) }
+        unsafe { from_glib(ffi::g_subprocess_get_successful(self.to_glib_none().0)) }
     }
 
     pub fn get_term_sig(&self) -> i32 {
-        unsafe { gio_sys::g_subprocess_get_term_sig(self.to_glib_none().0) }
+        unsafe { ffi::g_subprocess_get_term_sig(self.to_glib_none().0) }
     }
 
     #[cfg(any(not(windows), feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(not(windows))))]
     pub fn send_signal(&self, signal_num: i32) {
         unsafe {
-            gio_sys::g_subprocess_send_signal(self.to_glib_none().0, signal_num);
+            ffi::g_subprocess_send_signal(self.to_glib_none().0, signal_num);
         }
     }
 
     pub fn wait<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_subprocess_wait(
+            let _ = ffi::g_subprocess_wait(
                 self.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -251,12 +244,12 @@ impl Subprocess {
         unsafe extern "C" fn wait_async_trampoline<
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_subprocess_wait_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_subprocess_wait_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -267,7 +260,7 @@ impl Subprocess {
         }
         let callback = wait_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_subprocess_wait_async(
+            ffi::g_subprocess_wait_async(
                 self.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -295,7 +288,7 @@ impl Subprocess {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_subprocess_wait_check(
+            let _ = ffi::g_subprocess_wait_check(
                 self.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -320,13 +313,12 @@ impl Subprocess {
         unsafe extern "C" fn wait_check_async_trampoline<
             Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let _ =
-                gio_sys::g_subprocess_wait_check_finish(_source_object as *mut _, res, &mut error);
+            let _ = ffi::g_subprocess_wait_check_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(())
             } else {
@@ -337,7 +329,7 @@ impl Subprocess {
         }
         let callback = wait_check_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_subprocess_wait_check_async(
+            ffi::g_subprocess_wait_check_async(
                 self.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),

@@ -1,18 +1,17 @@
-use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use std::ffi::CString;
 use std::ptr;
 
-use enums::FontType;
-use ffi::{FontExtents, Glyph, TextCluster, TextExtents};
-use matrices::Matrix;
-use utils::status_to_result;
+use crate::enums::FontType;
+use crate::ffi::{FontExtents, Glyph, TextCluster, TextExtents};
+use crate::matrices::Matrix;
+use crate::utils::status_to_result;
 
 use super::{FontFace, FontOptions};
 
 #[cfg(feature = "use_glib")]
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug)]
     pub struct ScaledFont(Shared<ffi::cairo_scaled_font_t>);
 

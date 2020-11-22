@@ -25,4 +25,3 @@ proc-macro = true
 
 [dev-dependencies]
 glib = { path = "../glib" }
-gobject-sys = { path = "../glib/gobject-sys" }

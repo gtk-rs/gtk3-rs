@@ -1,5 +1,3 @@
-use gtk_sys;
-
 use libc::c_int;
 use std::mem;
 
@@ -8,17 +6,15 @@ use glib::translate::*;
 use glib::subclass::prelude::*;
 use glib::{Cast, Object};
 
+use crate::Allocation;
 use crate::DragResult;
 use crate::Inhibit;
 use crate::Orientation;
 use crate::SelectionData;
+use crate::SizeRequestMode;
 use crate::TextDirection;
-use cairo;
-use cairo_sys;
-use Allocation;
-use SizeRequestMode;
-use Widget;
-use WidgetExt;
+use crate::Widget;
+use crate::WidgetExt;
 
 pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
     fn adjust_baseline_allocation(&self, widget: &Self::Type, baseline: &mut i32) {
@@ -349,7 +345,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_adjust_baseline_allocation(&self, widget: &Self::Type, baseline: &mut i32) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             let f = (*parent_class)
                 .adjust_baseline_allocation
                 .expect("No parent class impl for \"adjust_baseline_allocation\"");
@@ -368,7 +364,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     ) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             let f = (*parent_class)
                 .adjust_baseline_request
                 .expect("No parent class impl for \"adjust_baseline_request\"");
@@ -391,7 +387,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     ) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             let f = (*parent_class)
                 .adjust_size_allocation
                 .expect("No parent class impl for \"adjust_size_allocation\"");
@@ -415,7 +411,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     ) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             let f = (*parent_class)
                 .adjust_size_request
                 .expect("No parent class impl for \"adjust_size_request\"");
@@ -431,7 +427,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_button_press_event(&self, widget: &Self::Type, event: &gdk::EventButton) -> Inhibit {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).button_press_event {
                 let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
                 Inhibit(from_glib(f(
@@ -451,7 +447,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     ) -> Inhibit {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).button_release_event {
                 let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
                 Inhibit(from_glib(f(
@@ -468,7 +464,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     //     unsafe {
     //         let data = T::type_data();
     //         let parent_class =
-    //             data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+    //             data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
     //         let f = (*parent_class)
     //             .can_activate_accel
     //             .expect("No parent class impl for \"can_activate_accel\"");
@@ -479,7 +475,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_child_notify(&self, widget: &Self::Type, child_property: &glib::ParamSpec) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).child_notify {
                 let pspec_glib = glib::translate::mut_override(child_property.to_glib_none().0);
                 f(
@@ -493,7 +489,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_composited_changed(&self, widget: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).composited_changed {
                 f(widget.unsafe_cast_ref::<Widget>().to_glib_none().0)
             }
@@ -508,7 +504,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     ) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             let widget = widget.unsafe_cast_ref::<Widget>();
             if let Some(f) = (*parent_class).compute_expand {
                 let mut h: i32 = hexpand_p.to_glib();
@@ -528,7 +524,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_configure_event(&self, widget: &Self::Type, event: &gdk::EventConfigure) -> Inhibit {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).configure_event {
                 let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
                 Inhibit(from_glib(f(
@@ -544,7 +540,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_damage_event(&self, widget: &Self::Type, event: &gdk::EventExpose) -> Inhibit {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).damage_event {
                 let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
                 Inhibit(from_glib(f(
@@ -560,7 +556,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_delete_event(&self, widget: &Self::Type, event: &gdk::Event) -> Inhibit {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).delete_event {
                 let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
                 Inhibit(from_glib(f(
@@ -576,7 +572,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_destroy(&self, widget: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).destroy {
                 f(widget.unsafe_cast_ref::<Widget>().to_glib_none().0)
             }
@@ -586,7 +582,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_destroy_event(&self, widget: &Self::Type, event: &gdk::Event) -> Inhibit {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).destroy_event {
                 let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
                 Inhibit(from_glib(f(
@@ -602,7 +598,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_direction_changed(&self, widget: &Self::Type, previous_direction: TextDirection) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).direction_changed {
                 f(
                     widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
@@ -619,7 +615,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     ) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).dispatch_child_properties_changed {
                 let mut pspecs_array = pspecs
                     .iter()
@@ -638,7 +634,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_drag_begin(&self, widget: &Self::Type, context: &gdk::DragContext) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).drag_begin {
                 f(
                     widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
@@ -651,7 +647,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_drag_data_delete(&self, widget: &Self::Type, context: &gdk::DragContext) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).drag_data_delete {
                 f(
                     widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
@@ -671,7 +667,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     ) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).drag_data_get {
                 let selection_mut = glib::translate::mut_override(selection_data.to_glib_none().0);
                 f(
@@ -697,7 +693,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     ) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).drag_data_received {
                 let selection_mut = glib::translate::mut_override(selection_data.to_glib_none().0);
                 f(
@@ -723,7 +719,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     ) -> Inhibit {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).drag_drop {
                 Inhibit(from_glib(f(
                     widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
@@ -741,7 +737,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_drag_end(&self, widget: &Self::Type, context: &gdk::DragContext) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).drag_end {
                 f(
                     widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
@@ -759,7 +755,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     ) -> Inhibit {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).drag_failed {
                 Inhibit(from_glib(f(
                     widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
@@ -775,7 +771,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_drag_leave(&self, widget: &Self::Type, context: &gdk::DragContext, time: u32) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).drag_leave {
                 f(
                     widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
@@ -796,7 +792,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     ) -> Inhibit {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).drag_motion {
                 Inhibit(from_glib(f(
                     widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
@@ -814,7 +810,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_draw(&self, widget: &Self::Type, cr: &cairo::Context) -> Inhibit {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).draw {
                 Inhibit(from_glib(f(
                     widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
@@ -829,7 +825,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_get_request_mode(&self, widget: &Self::Type) -> SizeRequestMode {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             let f = (*parent_class).get_request_mode.unwrap();
             from_glib(f(widget.unsafe_cast_ref::<Widget>().to_glib_none().0))
         }
@@ -838,7 +834,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_get_preferred_width(&self, widget: &Self::Type) -> (i32, i32) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             let f = (*parent_class).get_preferred_width.unwrap();
 
             let mut minimum_size = mem::MaybeUninit::uninit();
@@ -859,7 +855,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     ) -> (i32, i32) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             let f = (*parent_class).get_preferred_width_for_height.unwrap();
 
             let mut minimum_size = mem::MaybeUninit::uninit();
@@ -876,7 +872,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_get_preferred_height(&self, widget: &Self::Type) -> (i32, i32) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             let f = (*parent_class).get_preferred_height.unwrap();
             let mut minimum_size = mem::MaybeUninit::uninit();
             let mut natural_size = mem::MaybeUninit::uninit();
@@ -891,7 +887,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_get_preferred_height_for_width(&self, widget: &Self::Type, width: i32) -> (i32, i32) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             let f = (*parent_class).get_preferred_height_for_width.unwrap();
             let mut minimum_size = mem::MaybeUninit::uninit();
             let mut natural_size = mem::MaybeUninit::uninit();
@@ -908,7 +904,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_size_allocate(&self, widget: &Self::Type, allocation: &Allocation) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             let f = (*parent_class)
                 .size_allocate
                 .expect("No parent class impl for \"size_allocate\"");
@@ -922,7 +918,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_realize(&self, widget: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).realize {
                 f(widget.unsafe_cast_ref::<Widget>().to_glib_none().0);
             }
@@ -932,7 +928,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_unrealize(&self, widget: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).unrealize {
                 f(widget.unsafe_cast_ref::<Widget>().to_glib_none().0);
             }
@@ -942,7 +938,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_map(&self, widget: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).map {
                 f(widget.unsafe_cast_ref::<Widget>().to_glib_none().0);
             }
@@ -952,7 +948,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_unmap(&self, widget: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).unmap {
                 f(widget.unsafe_cast_ref::<Widget>().to_glib_none().0);
             }
@@ -962,7 +958,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_motion_notify_event(&self, widget: &Self::Type, event: &gdk::EventMotion) -> Inhibit {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).motion_notify_event {
                 Inhibit(from_glib(f(
                     widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
@@ -977,7 +973,7 @@ impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_scroll_event(&self, widget: &Self::Type, event: &gdk::EventScroll) -> Inhibit {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkWidgetClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).scroll_event {
                 Inhibit(from_glib(f(
                     widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
@@ -1039,7 +1035,7 @@ unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
 }
 
 unsafe extern "C" fn widget_adjust_baseline_allocation<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
+    ptr: *mut ffi::GtkWidget,
     baseptr: *mut i32,
 ) {
     let instance = &*(ptr as *mut T::Instance);
@@ -1050,7 +1046,7 @@ unsafe extern "C" fn widget_adjust_baseline_allocation<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_adjust_baseline_request<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
+    ptr: *mut ffi::GtkWidget,
     minptr: *mut i32,
     natptr: *mut i32,
 ) {
@@ -1062,8 +1058,8 @@ unsafe extern "C" fn widget_adjust_baseline_request<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_adjust_size_allocation<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    orientation: gtk_sys::GtkOrientation,
+    ptr: *mut ffi::GtkWidget,
+    orientation: ffi::GtkOrientation,
     minptr: *mut i32,
     natptr: *mut i32,
     posptr: *mut i32,
@@ -1085,8 +1081,8 @@ unsafe extern "C" fn widget_adjust_size_allocation<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_adjust_size_request<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    orientation: gtk_sys::GtkOrientation,
+    ptr: *mut ffi::GtkWidget,
+    orientation: ffi::GtkOrientation,
     minptr: *mut i32,
     natptr: *mut i32,
 ) {
@@ -1104,9 +1100,9 @@ unsafe extern "C" fn widget_adjust_size_request<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_button_press_event<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    btnptr: *mut gdk_sys::GdkEventButton,
-) -> glib_sys::gboolean {
+    ptr: *mut ffi::GtkWidget,
+    btnptr: *mut gdk::ffi::GdkEventButton,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1117,9 +1113,9 @@ unsafe extern "C" fn widget_button_press_event<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_button_release_event<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    btnptr: *mut gdk_sys::GdkEventButton,
-) -> glib_sys::gboolean {
+    ptr: *mut ffi::GtkWidget,
+    btnptr: *mut gdk::ffi::GdkEventButton,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1130,20 +1126,20 @@ unsafe extern "C" fn widget_button_release_event<T: WidgetImpl>(
 }
 
 // unsafe extern "C" fn widget_can_activate_accel<T: WidgetImpl>(
-//     ptr: *mut gtk_sys::GtkWidget,
+//     ptr: *mut ffi::GtkWidget,
 //     signal_id: u32,
-// ) -> glib_sys::gboolean
+// ) -> glib::ffi::gboolean
 // {
 //     let instance = &*(ptr as *mut T::Instance);
 //     let imp = instance.get_impl();
 //     let wrap: Widget = from_glib_borrow(ptr);
 
-//     imp.can_activate_accel(wrap.unsafe_cast_ref(), signal_id) as glib_sys::gboolean
+//     imp.can_activate_accel(wrap.unsafe_cast_ref(), signal_id) as glib::ffi::gboolean
 // }
 
 unsafe extern "C" fn widget_child_notify<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    paramptr: *mut gobject_sys::GParamSpec,
+    ptr: *mut ffi::GtkWidget,
+    paramptr: *mut glib::gobject_ffi::GParamSpec,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1153,7 +1149,7 @@ unsafe extern "C" fn widget_child_notify<T: WidgetImpl>(
     imp.child_notify(wrap.unsafe_cast_ref(), &paramwrap)
 }
 
-unsafe extern "C" fn widget_composited_changed<T: WidgetImpl>(ptr: *mut gtk_sys::GtkWidget) {
+unsafe extern "C" fn widget_composited_changed<T: WidgetImpl>(ptr: *mut ffi::GtkWidget) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1162,9 +1158,9 @@ unsafe extern "C" fn widget_composited_changed<T: WidgetImpl>(ptr: *mut gtk_sys:
 }
 
 unsafe extern "C" fn widget_compute_expand<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    hexpand_ptr: *mut glib_sys::gboolean,
-    vexpand_ptr: *mut glib_sys::gboolean,
+    ptr: *mut ffi::GtkWidget,
+    hexpand_ptr: *mut glib::ffi::gboolean,
+    vexpand_ptr: *mut glib::ffi::gboolean,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1178,9 +1174,9 @@ unsafe extern "C" fn widget_compute_expand<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_configure_event<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    confptr: *mut gdk_sys::GdkEventConfigure,
-) -> glib_sys::gboolean {
+    ptr: *mut ffi::GtkWidget,
+    confptr: *mut gdk::ffi::GdkEventConfigure,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1191,9 +1187,9 @@ unsafe extern "C" fn widget_configure_event<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_damage_event<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    exposeptr: *mut gdk_sys::GdkEventExpose,
-) -> glib_sys::gboolean {
+    ptr: *mut ffi::GtkWidget,
+    exposeptr: *mut gdk::ffi::GdkEventExpose,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1203,9 +1199,9 @@ unsafe extern "C" fn widget_damage_event<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_delete_event<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    anyptr: *mut gdk_sys::GdkEventAny,
-) -> glib_sys::gboolean {
+    ptr: *mut ffi::GtkWidget,
+    anyptr: *mut gdk::ffi::GdkEventAny,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1214,7 +1210,7 @@ unsafe extern "C" fn widget_delete_event<T: WidgetImpl>(
     imp.delete_event(wrap.unsafe_cast_ref(), &evwrap).to_glib()
 }
 
-unsafe extern "C" fn widget_destroy<T: WidgetImpl>(ptr: *mut gtk_sys::GtkWidget) {
+unsafe extern "C" fn widget_destroy<T: WidgetImpl>(ptr: *mut ffi::GtkWidget) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1223,9 +1219,9 @@ unsafe extern "C" fn widget_destroy<T: WidgetImpl>(ptr: *mut gtk_sys::GtkWidget)
 }
 
 unsafe extern "C" fn widget_destroy_event<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    anyptr: *mut gdk_sys::GdkEventAny,
-) -> glib_sys::gboolean {
+    ptr: *mut ffi::GtkWidget,
+    anyptr: *mut gdk::ffi::GdkEventAny,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1235,8 +1231,8 @@ unsafe extern "C" fn widget_destroy_event<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_direction_changed<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    directnptr: gtk_sys::GtkTextDirection,
+    ptr: *mut ffi::GtkWidget,
+    directnptr: ffi::GtkTextDirection,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1247,9 +1243,9 @@ unsafe extern "C" fn widget_direction_changed<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_dispatch_child_properties_changed<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
+    ptr: *mut ffi::GtkWidget,
     n_pspec_ptr: u32,
-    pspecsptr: *mut *mut gobject_sys::GParamSpec,
+    pspecsptr: *mut *mut glib::gobject_ffi::GParamSpec,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1261,8 +1257,8 @@ unsafe extern "C" fn widget_dispatch_child_properties_changed<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_drag_begin<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
+    ptr: *mut ffi::GtkWidget,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1273,8 +1269,8 @@ unsafe extern "C" fn widget_drag_begin<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_drag_data_delete<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
+    ptr: *mut ffi::GtkWidget,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1285,9 +1281,9 @@ unsafe extern "C" fn widget_drag_data_delete<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_drag_data_get<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
-    selectptr: *mut gtk_sys::GtkSelectionData,
+    ptr: *mut ffi::GtkWidget,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
+    selectptr: *mut ffi::GtkSelectionData,
     info: u32,
     time: u32,
 ) {
@@ -1307,11 +1303,11 @@ unsafe extern "C" fn widget_drag_data_get<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_drag_data_received<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
+    ptr: *mut ffi::GtkWidget,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
     x: i32,
     y: i32,
-    selectptr: *mut gtk_sys::GtkSelectionData,
+    selectptr: *mut ffi::GtkSelectionData,
     info: u32,
     time: u32,
 ) {
@@ -1333,12 +1329,12 @@ unsafe extern "C" fn widget_drag_data_received<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_drag_drop<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
+    ptr: *mut ffi::GtkWidget,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
     x: i32,
     y: i32,
     time: u32,
-) -> glib_sys::gboolean {
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1349,8 +1345,8 @@ unsafe extern "C" fn widget_drag_drop<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_drag_end<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
+    ptr: *mut ffi::GtkWidget,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1361,10 +1357,10 @@ unsafe extern "C" fn widget_drag_end<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_drag_failed<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
-    resultptr: gtk_sys::GtkDragResult,
-) -> glib_sys::gboolean {
+    ptr: *mut ffi::GtkWidget,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
+    resultptr: ffi::GtkDragResult,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1376,8 +1372,8 @@ unsafe extern "C" fn widget_drag_failed<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_drag_leave<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
+    ptr: *mut ffi::GtkWidget,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
     time: u32,
 ) {
     let instance = &*(ptr as *mut T::Instance);
@@ -1389,12 +1385,12 @@ unsafe extern "C" fn widget_drag_leave<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_drag_motion<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
+    ptr: *mut ffi::GtkWidget,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
     x: i32,
     y: i32,
     time: u32,
-) -> glib_sys::gboolean {
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1405,9 +1401,9 @@ unsafe extern "C" fn widget_drag_motion<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_draw<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    cr_ptr: *mut cairo_sys::cairo_t,
-) -> glib_sys::gboolean {
+    ptr: *mut ffi::GtkWidget,
+    cr_ptr: *mut cairo::ffi::cairo_t,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1417,8 +1413,8 @@ unsafe extern "C" fn widget_draw<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_get_request_mode<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-) -> gtk_sys::GtkSizeRequestMode {
+    ptr: *mut ffi::GtkWidget,
+) -> ffi::GtkSizeRequestMode {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1427,7 +1423,7 @@ unsafe extern "C" fn widget_get_request_mode<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_get_preferred_height<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
+    ptr: *mut ffi::GtkWidget,
     minptr: *mut c_int,
     natptr: *mut c_int,
 ) {
@@ -1445,7 +1441,7 @@ unsafe extern "C" fn widget_get_preferred_height<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_get_preferred_width_for_height<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
+    ptr: *mut ffi::GtkWidget,
     height: c_int,
     min_width_ptr: *mut c_int,
     nat_width_ptr: *mut c_int,
@@ -1464,7 +1460,7 @@ unsafe extern "C" fn widget_get_preferred_width_for_height<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_get_preferred_width<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
+    ptr: *mut ffi::GtkWidget,
     minptr: *mut c_int,
     natptr: *mut c_int,
 ) {
@@ -1481,7 +1477,7 @@ unsafe extern "C" fn widget_get_preferred_width<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_get_preferred_height_for_width<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
+    ptr: *mut ffi::GtkWidget,
     width: c_int,
     min_height_ptr: *mut c_int,
     nat_height_ptr: *mut c_int,
@@ -1501,8 +1497,8 @@ unsafe extern "C" fn widget_get_preferred_height_for_width<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_size_allocate<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    allocation: *mut gtk_sys::GtkAllocation,
+    ptr: *mut ffi::GtkWidget,
+    allocation: *mut ffi::GtkAllocation,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1512,7 +1508,7 @@ unsafe extern "C" fn widget_size_allocate<T: WidgetImpl>(
     imp.size_allocate(wrap.unsafe_cast_ref(), allocate);
 }
 
-unsafe extern "C" fn widget_realize<T: WidgetImpl>(ptr: *mut gtk_sys::GtkWidget) {
+unsafe extern "C" fn widget_realize<T: WidgetImpl>(ptr: *mut ffi::GtkWidget) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1520,7 +1516,7 @@ unsafe extern "C" fn widget_realize<T: WidgetImpl>(ptr: *mut gtk_sys::GtkWidget)
     imp.realize(wrap.unsafe_cast_ref());
 }
 
-unsafe extern "C" fn widget_unrealize<T: WidgetImpl>(ptr: *mut gtk_sys::GtkWidget) {
+unsafe extern "C" fn widget_unrealize<T: WidgetImpl>(ptr: *mut ffi::GtkWidget) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1528,14 +1524,14 @@ unsafe extern "C" fn widget_unrealize<T: WidgetImpl>(ptr: *mut gtk_sys::GtkWidge
     imp.unrealize(wrap.unsafe_cast_ref());
 }
 
-unsafe extern "C" fn widget_map<T: WidgetImpl>(ptr: *mut gtk_sys::GtkWidget) {
+unsafe extern "C" fn widget_map<T: WidgetImpl>(ptr: *mut ffi::GtkWidget) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
     imp.map(wrap.unsafe_cast_ref());
 }
 
-unsafe extern "C" fn widget_unmap<T: WidgetImpl>(ptr: *mut gtk_sys::GtkWidget) {
+unsafe extern "C" fn widget_unmap<T: WidgetImpl>(ptr: *mut ffi::GtkWidget) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1543,9 +1539,9 @@ unsafe extern "C" fn widget_unmap<T: WidgetImpl>(ptr: *mut gtk_sys::GtkWidget) {
 }
 
 unsafe extern "C" fn widget_motion_notify_event<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    mptr: *mut gdk_sys::GdkEventMotion,
-) -> glib_sys::gboolean {
+    ptr: *mut ffi::GtkWidget,
+    mptr: *mut gdk::ffi::GdkEventMotion,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
@@ -1556,9 +1552,9 @@ unsafe extern "C" fn widget_motion_notify_event<T: WidgetImpl>(
 }
 
 unsafe extern "C" fn widget_scroll_event<T: WidgetImpl>(
-    ptr: *mut gtk_sys::GtkWidget,
-    mptr: *mut gdk_sys::GdkEventScroll,
-) -> glib_sys::gboolean {
+    ptr: *mut ffi::GtkWidget,
+    mptr: *mut gdk::ffi::GdkEventScroll,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);

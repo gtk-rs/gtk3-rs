@@ -1,14 +1,11 @@
-use gio_sys;
+use crate::Cancellable;
+use crate::Subprocess;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::GString;
-use glib_sys;
-use gobject_sys;
 use libc::c_char;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
-use Subprocess;
 
 impl Subprocess {
     pub fn communicate_utf8_async<
@@ -27,14 +24,14 @@ impl Subprocess {
         unsafe extern "C" fn communicate_utf8_async_trampoline<
             R: FnOnce(Result<(Option<GString>, Option<GString>), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let mut stdout_buf = ptr::null_mut();
             let mut stderr_buf = ptr::null_mut();
-            let _ = gio_sys::g_subprocess_communicate_utf8_finish(
+            let _ = ffi::g_subprocess_communicate_utf8_finish(
                 _source_object as *mut _,
                 res,
                 &mut stdout_buf,
@@ -47,11 +44,11 @@ impl Subprocess {
                 Err(from_glib_full(error))
             };
             let callback: Box<(R, *mut c_char)> = Box::from_raw(user_data as *mut _);
-            glib_sys::g_free(callback.1 as *mut _);
+            glib::ffi::g_free(callback.1 as *mut _);
             callback.0(result);
         }
         unsafe {
-            gio_sys::g_subprocess_communicate_utf8_async(
+            ffi::g_subprocess_communicate_utf8_async(
                 self.to_glib_none().0,
                 stdin_buf,
                 gcancellable.0,

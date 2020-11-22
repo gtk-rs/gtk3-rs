@@ -43,35 +43,14 @@
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 #![allow(clippy::missing_safety_doc)]
 
-pub extern crate cairo_sys as ffi;
-extern crate libc;
-extern crate thiserror;
-
-#[macro_use]
-extern crate bitflags;
-
-#[cfg(feature = "use_glib")]
-#[macro_use]
-extern crate glib;
-
-#[cfg(feature = "use_glib")]
-extern crate glib_sys as glib_ffi;
-
-#[cfg(feature = "use_glib")]
-extern crate gobject_sys as gobject_ffi;
-
-#[cfg(test)]
-extern crate tempfile;
+pub use ffi;
 
 // Helper macro for our GValue related trait impls
 #[cfg(feature = "use_glib")]
 macro_rules! gvalue_impl {
     ($name:ty, $ffi_name:ty, $get_type:expr) => {
-        use glib;
         #[allow(unused_imports)]
         use glib::translate::*;
-        use glib_ffi;
-        use gobject_ffi;
 
         impl glib::types::StaticType for $name {
             fn static_type() -> glib::types::Type {
@@ -81,7 +60,7 @@ macro_rules! gvalue_impl {
 
         impl<'a> glib::value::FromValueOptional<'a> for $name {
             unsafe fn from_value_optional(v: &'a glib::value::Value) -> Option<Self> {
-                let ptr = gobject_ffi::g_value_get_boxed(v.to_glib_none().0);
+                let ptr = glib::gobject_ffi::g_value_get_boxed(v.to_glib_none().0);
                 assert!(!ptr.is_null());
                 from_glib_none(ptr as *mut $ffi_name)
             }
@@ -89,9 +68,9 @@ macro_rules! gvalue_impl {
 
         impl glib::value::SetValue for $name {
             unsafe fn set_value(v: &mut glib::value::Value, s: &Self) {
-                gobject_ffi::g_value_set_boxed(
+                glib::gobject_ffi::g_value_set_boxed(
                     v.to_glib_none_mut().0,
-                    s.to_glib_none().0 as glib_ffi::gpointer,
+                    s.to_glib_none().0 as glib::ffi::gpointer,
                 );
             }
         }
@@ -99,50 +78,53 @@ macro_rules! gvalue_impl {
         impl glib::value::SetValueOptional for $name {
             unsafe fn set_value_optional(v: &mut glib::value::Value, s: Option<&Self>) {
                 if let Some(s) = s {
-                    gobject_ffi::g_value_set_boxed(
+                    glib::gobject_ffi::g_value_set_boxed(
                         v.to_glib_none_mut().0,
-                        s.to_glib_none().0 as glib_ffi::gpointer,
+                        s.to_glib_none().0 as glib::ffi::gpointer,
                     );
                 } else {
-                    gobject_ffi::g_value_set_boxed(v.to_glib_none_mut().0, ::std::ptr::null_mut());
+                    glib::gobject_ffi::g_value_set_boxed(
+                        v.to_glib_none_mut().0,
+                        ::std::ptr::null_mut(),
+                    );
                 }
             }
         }
     };
 }
 
-pub use user_data::UserDataKey;
+pub use crate::user_data::UserDataKey;
 
-pub use context::{Context, RectangleList};
+pub use crate::context::{Context, RectangleList};
 
-pub use paths::{Path, PathSegment, PathSegments};
+pub use crate::paths::{Path, PathSegment, PathSegments};
 
-pub use device::Device;
+pub use crate::device::Device;
 
-pub use enums::*;
+pub use crate::enums::*;
 
-pub use error::{BorrowError, Error, IoError};
+pub use crate::error::{BorrowError, Error, IoError};
 
-pub use patterns::{
+pub use crate::patterns::{
     Gradient, LinearGradient, Mesh, Pattern, RadialGradient, SolidPattern, SurfacePattern,
 };
 
-pub use font::{
+pub use crate::font::{
     FontExtents, FontFace, FontOptions, FontSlant, FontType, FontWeight, Glyph, ScaledFont,
     TextCluster, TextExtents,
 };
 
-pub use matrices::Matrix;
+pub use crate::matrices::Matrix;
 
-pub use recording_surface::RecordingSurface;
-pub use rectangle::Rectangle;
-pub use rectangle_int::RectangleInt;
+pub use crate::recording_surface::RecordingSurface;
+pub use crate::rectangle::Rectangle;
+pub use crate::rectangle_int::RectangleInt;
 
-pub use region::Region;
+pub use crate::region::Region;
 
-pub use surface::{MappedImageSurface, Surface};
+pub use crate::surface::{MappedImageSurface, Surface};
 
-pub use image_surface::{ImageSurface, ImageSurfaceData};
+pub use crate::image_surface::{ImageSurface, ImageSurfaceData};
 
 #[cfg(any(feature = "pdf", feature = "svg", feature = "ps", feature = "dox"))]
 pub use stream::StreamWithError;
@@ -167,9 +149,9 @@ mod surface_macros;
 #[macro_use]
 mod user_data;
 mod constants;
-pub use constants::*;
+pub use crate::constants::*;
 mod utils;
-pub use utils::{debug_reset_static_data, get_version_string, Version};
+pub use crate::utils::{debug_reset_static_data, get_version_string, Version};
 mod context;
 mod device;
 mod enums;

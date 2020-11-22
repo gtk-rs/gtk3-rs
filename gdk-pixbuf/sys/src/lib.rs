@@ -10,10 +10,9 @@
 )]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate gio_sys as gio;
-extern crate glib_sys as glib;
-extern crate gobject_sys as gobject;
-extern crate libc;
+use gio_sys as gio;
+use glib_sys as glib;
+use gobject_sys as gobject;
 
 #[allow(unused_imports)]
 use libc::{

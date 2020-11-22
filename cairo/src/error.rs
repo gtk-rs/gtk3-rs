@@ -210,7 +210,7 @@ pub enum IoError {
 #[derive(Error, Debug)]
 pub enum BorrowError {
     #[error("Failed to borrow with Cairo error: {0}")]
-    Cairo(#[from] ::Error),
+    Cairo(#[from] crate::Error),
     #[error("Can't get exclusive access")]
     NonExclusive,
 }

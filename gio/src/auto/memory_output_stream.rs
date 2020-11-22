@@ -2,34 +2,30 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::OutputStream;
+use crate::PollableOutputStream;
+use crate::Seekable;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use OutputStream;
-use PollableOutputStream;
-use Seekable;
 
-glib_wrapper! {
-    pub struct MemoryOutputStream(Object<gio_sys::GMemoryOutputStream, gio_sys::GMemoryOutputStreamClass>) @extends OutputStream, @implements PollableOutputStream, Seekable;
+glib::glib_wrapper! {
+    pub struct MemoryOutputStream(Object<ffi::GMemoryOutputStream, ffi::GMemoryOutputStreamClass>) @extends OutputStream, @implements PollableOutputStream, Seekable;
 
     match fn {
-        get_type => || gio_sys::g_memory_output_stream_get_type(),
+        get_type => || ffi::g_memory_output_stream_get_type(),
     }
 }
 
 impl MemoryOutputStream {
     pub fn new_resizable() -> MemoryOutputStream {
         unsafe {
-            OutputStream::from_glib_full(gio_sys::g_memory_output_stream_new_resizable())
-                .unsafe_cast()
+            OutputStream::from_glib_full(ffi::g_memory_output_stream_new_resizable()).unsafe_cast()
         }
     }
 }
@@ -46,12 +42,12 @@ pub trait MemoryOutputStreamExt: 'static {
 
 impl<O: IsA<MemoryOutputStream>> MemoryOutputStreamExt for O {
     fn get_data_size(&self) -> usize {
-        unsafe { gio_sys::g_memory_output_stream_get_data_size(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::g_memory_output_stream_get_data_size(self.as_ref().to_glib_none().0) }
     }
 
     fn steal_as_bytes(&self) -> Option<glib::Bytes> {
         unsafe {
-            from_glib_full(gio_sys::g_memory_output_stream_steal_as_bytes(
+            from_glib_full(ffi::g_memory_output_stream_steal_as_bytes(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -59,9 +55,9 @@ impl<O: IsA<MemoryOutputStream>> MemoryOutputStreamExt for O {
 
     fn connect_property_data_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_data_size_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GMemoryOutputStream,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GMemoryOutputStream,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MemoryOutputStream>,
         {

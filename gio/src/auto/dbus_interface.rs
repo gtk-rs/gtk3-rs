@@ -2,18 +2,17 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::DBusInterfaceInfo;
+use crate::DBusObject;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
-use DBusInterfaceInfo;
-use DBusObject;
 
-glib_wrapper! {
-    pub struct DBusInterface(Interface<gio_sys::GDBusInterface>);
+glib::glib_wrapper! {
+    pub struct DBusInterface(Interface<ffi::GDBusInterface>);
 
     match fn {
-        get_type => || gio_sys::g_dbus_interface_get_type(),
+        get_type => || ffi::g_dbus_interface_get_type(),
     }
 }
 
@@ -30,7 +29,7 @@ pub trait DBusInterfaceExt: 'static {
 impl<O: IsA<DBusInterface>> DBusInterfaceExt for O {
     fn get(&self) -> Option<DBusObject> {
         unsafe {
-            from_glib_full(gio_sys::g_dbus_interface_dup_object(
+            from_glib_full(ffi::g_dbus_interface_dup_object(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -38,7 +37,7 @@ impl<O: IsA<DBusInterface>> DBusInterfaceExt for O {
 
     fn get_info(&self) -> Option<DBusInterfaceInfo> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_interface_get_info(
+            from_glib_none(ffi::g_dbus_interface_get_info(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -46,7 +45,7 @@ impl<O: IsA<DBusInterface>> DBusInterfaceExt for O {
 
     fn set_object<P: IsA<DBusObject>>(&self, object: Option<&P>) {
         unsafe {
-            gio_sys::g_dbus_interface_set_object(
+            ffi::g_dbus_interface_set_object(
                 self.as_ref().to_glib_none().0,
                 object.map(|p| p.as_ref()).to_glib_none().0,
             );

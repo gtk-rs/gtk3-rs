@@ -12,14 +12,15 @@ license = "MIT"
 exclude = [
     "gir-files/*",
 ]
+edition = "2018"
 
 [features]
-v1_38 = ["pango-sys/v1_38"]
+v1_38 = ["ffi/v1_38"]
 v1_40 = ["v1_38"]
-v1_42 = ["v1_40", "pango-sys/v1_42"]
-v1_44 = ["v1_42", "pango-sys/v1_44"]
-v1_46 = ["v1_44", "pango-sys/v1_46"]
-dox = ["pango-sys/dox", "glib/dox"]
+v1_42 = ["v1_40", "ffi/v1_42"]
+v1_44 = ["v1_42", "ffi/v1_44"]
+v1_46 = ["v1_44", "ffi/v1_46"]
+dox = ["ffi/dox", "glib/dox"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 
@@ -35,10 +36,8 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 libc = "0.2"
 bitflags = "1.0"
 once_cell = "1.0"
-pango-sys = { path = "../pango/sys" }
+ffi = { package = "pango-sys", path = "sys" }
 glib = { path = "../glib" }
-glib-sys = { path = "../glib/sys" }
-gobject-sys = { path = "../glib/gobject-sys" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"

@@ -1,8 +1,8 @@
 use glib::subclass::prelude::*;
 
 use super::cell_renderer::CellRendererImpl;
-use CellRenderer;
-use CellRendererPixbuf;
+use crate::CellRenderer;
+use crate::CellRendererPixbuf;
 
 pub trait CellRendererPixbufImpl: CellRendererImpl {}
 

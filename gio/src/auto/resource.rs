@@ -2,24 +2,20 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::InputStream;
+use crate::ResourceLookupFlags;
 use glib::translate::*;
-use glib::GString;
-use std;
 use std::mem;
 use std::ptr;
-use InputStream;
-use ResourceLookupFlags;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct Resource(Shared<gio_sys::GResource>);
+    pub struct Resource(Shared<ffi::GResource>);
 
     match fn {
-        ref => |ptr| gio_sys::g_resource_ref(ptr),
-        unref => |ptr| gio_sys::g_resource_unref(ptr),
-        get_type => || gio_sys::g_resource_get_type(),
+        ref => |ptr| ffi::g_resource_ref(ptr),
+        unref => |ptr| ffi::g_resource_unref(ptr),
+        get_type => || ffi::g_resource_get_type(),
     }
 }
 
@@ -28,10 +24,10 @@ impl Resource {
         &self,
         path: &str,
         lookup_flags: ResourceLookupFlags,
-    ) -> Result<Vec<GString>, glib::Error> {
+    ) -> Result<Vec<glib::GString>, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_resource_enumerate_children(
+            let ret = ffi::g_resource_enumerate_children(
                 self.to_glib_none().0,
                 path.to_glib_none().0,
                 lookup_flags.to_glib(),
@@ -54,7 +50,7 @@ impl Resource {
             let mut size = mem::MaybeUninit::uninit();
             let mut flags = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_resource_get_info(
+            let _ = ffi::g_resource_get_info(
                 self.to_glib_none().0,
                 path.to_glib_none().0,
                 lookup_flags.to_glib(),
@@ -79,7 +75,7 @@ impl Resource {
     ) -> Result<glib::Bytes, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_resource_lookup_data(
+            let ret = ffi::g_resource_lookup_data(
                 self.to_glib_none().0,
                 path.to_glib_none().0,
                 lookup_flags.to_glib(),
@@ -100,7 +96,7 @@ impl Resource {
     ) -> Result<InputStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_resource_open_stream(
+            let ret = ffi::g_resource_open_stream(
                 self.to_glib_none().0,
                 path.to_glib_none().0,
                 lookup_flags.to_glib(),
@@ -117,7 +113,7 @@ impl Resource {
     pub fn load<P: AsRef<std::path::Path>>(filename: P) -> Result<Resource, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_resource_load(filename.as_ref().to_glib_none().0, &mut error);
+            let ret = ffi::g_resource_load(filename.as_ref().to_glib_none().0, &mut error);
             if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {

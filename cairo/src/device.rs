@@ -2,10 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use enums::DeviceType;
-use error::Error;
-use ffi;
-use utils::status_to_result;
+use crate::enums::DeviceType;
+use crate::error::Error;
+use crate::utils::status_to_result;
 
 use std::fmt;
 use std::ptr;
@@ -14,17 +13,17 @@ use std::ptr;
 use glib::translate::*;
 
 #[cfg(any(feature = "script", feature = "dox"))]
-use enums::Content;
+use crate::enums::Content;
 #[cfg(any(feature = "script", feature = "dox"))]
-use enums::ScriptMode;
+use crate::enums::ScriptMode;
 #[cfg(any(feature = "script", feature = "dox"))]
-use recording_surface::RecordingSurface;
+use crate::recording_surface::RecordingSurface;
+#[cfg(any(feature = "script", feature = "dox"))]
+use crate::surface::Surface;
 #[cfg(any(feature = "script", feature = "dox"))]
 use std::ffi::CString;
 #[cfg(any(feature = "script", feature = "dox"))]
 use std::path::Path;
-#[cfg(any(feature = "script", feature = "dox"))]
-use surface::Surface;
 
 #[derive(Debug)]
 pub struct DeviceAcquireGuard<'a>(&'a Device);
@@ -45,9 +44,9 @@ impl Device {
         Device(ptr::NonNull::new_unchecked(ptr))
     }
 
-    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_device_t) -> ::Borrowed<Device> {
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_device_t) -> crate::Borrowed<Device> {
         assert!(!ptr.is_null());
-        ::Borrowed::new(Device(ptr::NonNull::new_unchecked(ptr)))
+        crate::Borrowed::new(Device(ptr::NonNull::new_unchecked(ptr)))
     }
 
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_device_t) -> Device {
@@ -305,7 +304,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_device_t> for Device {
 #[cfg(feature = "use_glib")]
 impl FromGlibPtrBorrow<*mut ffi::cairo_device_t> for Device {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_device_t) -> ::Borrowed<Device> {
+    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_device_t) -> crate::Borrowed<Device> {
         Self::from_raw_borrow(ptr)
     }
 }

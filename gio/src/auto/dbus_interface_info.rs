@@ -2,28 +2,26 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::DBusMethodInfo;
+use crate::DBusPropertyInfo;
+use crate::DBusSignalInfo;
 use glib::translate::*;
-use DBusMethodInfo;
-use DBusPropertyInfo;
-use DBusSignalInfo;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct DBusInterfaceInfo(Shared<gio_sys::GDBusInterfaceInfo>);
+    pub struct DBusInterfaceInfo(Shared<ffi::GDBusInterfaceInfo>);
 
     match fn {
-        ref => |ptr| gio_sys::g_dbus_interface_info_ref(ptr),
-        unref => |ptr| gio_sys::g_dbus_interface_info_unref(ptr),
-        get_type => || gio_sys::g_dbus_interface_info_get_type(),
+        ref => |ptr| ffi::g_dbus_interface_info_ref(ptr),
+        unref => |ptr| ffi::g_dbus_interface_info_unref(ptr),
+        get_type => || ffi::g_dbus_interface_info_get_type(),
     }
 }
 
 impl DBusInterfaceInfo {
     pub fn generate_xml(&self, indent: u32, string_builder: &mut glib::String) {
         unsafe {
-            gio_sys::g_dbus_interface_info_generate_xml(
+            ffi::g_dbus_interface_info_generate_xml(
                 self.to_glib_none().0,
                 indent,
                 string_builder.to_glib_none_mut().0,
@@ -33,7 +31,7 @@ impl DBusInterfaceInfo {
 
     pub fn lookup_method(&self, name: &str) -> Option<DBusMethodInfo> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_interface_info_lookup_method(
+            from_glib_none(ffi::g_dbus_interface_info_lookup_method(
                 self.to_glib_none().0,
                 name.to_glib_none().0,
             ))
@@ -42,7 +40,7 @@ impl DBusInterfaceInfo {
 
     pub fn lookup_property(&self, name: &str) -> Option<DBusPropertyInfo> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_interface_info_lookup_property(
+            from_glib_none(ffi::g_dbus_interface_info_lookup_property(
                 self.to_glib_none().0,
                 name.to_glib_none().0,
             ))
@@ -51,7 +49,7 @@ impl DBusInterfaceInfo {
 
     pub fn lookup_signal(&self, name: &str) -> Option<DBusSignalInfo> {
         unsafe {
-            from_glib_none(gio_sys::g_dbus_interface_info_lookup_signal(
+            from_glib_none(ffi::g_dbus_interface_info_lookup_signal(
                 self.to_glib_none().0,
                 name.to_glib_none().0,
             ))

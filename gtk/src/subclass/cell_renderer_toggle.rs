@@ -1,5 +1,3 @@
-use gtk_sys;
-
 use libc::c_char;
 
 use glib::subclass::prelude::*;
@@ -7,8 +5,8 @@ use glib::translate::*;
 use glib::{Cast, GString};
 
 use super::cell_renderer::CellRendererImpl;
-use CellRenderer;
-use CellRendererToggle;
+use crate::CellRenderer;
+use crate::CellRendererToggle;
 
 pub trait CellRendererToggleImpl: CellRendererToggleImplExt + CellRendererImpl {
     fn toggled(&self, renderer: &Self::Type, path: &str) {
@@ -25,7 +23,7 @@ impl<T: CellRendererToggleImpl> CellRendererToggleImplExt for T {
         unsafe {
             let data = T::type_data();
             let parent_class =
-                data.as_ref().get_parent_class() as *mut gtk_sys::GtkCellRendererToggleClass;
+                data.as_ref().get_parent_class() as *mut ffi::GtkCellRendererToggleClass;
             if let Some(f) = (*parent_class).toggled {
                 f(
                     renderer
@@ -49,7 +47,7 @@ unsafe impl<T: CellRendererToggleImpl> IsSubclassable<T> for CellRendererToggle 
 }
 
 unsafe extern "C" fn cell_renderer_toggle_toggled<T: CellRendererToggleImpl>(
-    ptr: *mut gtk_sys::GtkCellRendererToggle,
+    ptr: *mut ffi::GtkCellRendererToggle,
     path: *const c_char,
 ) {
     let instance = &*(ptr as *mut T::Instance);

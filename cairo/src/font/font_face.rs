@@ -1,4 +1,3 @@
-use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use libc::{c_char, c_int};
@@ -6,15 +5,15 @@ use std::ffi::{CStr, CString};
 #[cfg(not(feature = "use_glib"))]
 use std::ptr;
 
-use enums::{FontSlant, FontType, FontWeight};
+use crate::enums::{FontSlant, FontType, FontWeight};
 
 #[cfg(any(feature = "freetype", feature = "dox"))]
-use enums::FtSynthesize;
+use crate::enums::FtSynthesize;
 
-use utils::status_to_result;
+use crate::utils::status_to_result;
 
 #[cfg(feature = "use_glib")]
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug)]
     pub struct FontFace(Shared<ffi::cairo_font_face_t>);
 

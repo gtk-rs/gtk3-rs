@@ -8,7 +8,7 @@
 
 use std::iter::{DoubleEndedIterator, ExactSizeIterator, Iterator};
 
-use variant::Variant;
+use crate::variant::Variant;
 
 /// Iterator over items in a variant.
 #[derive(Debug)]
@@ -63,10 +63,9 @@ impl ExactSizeIterator for VariantIter {}
 
 #[cfg(test)]
 mod tests {
-    use prelude::*;
+    use crate::prelude::*;
+    use crate::variant::{DictEntry, Variant};
     use std::collections::HashMap;
-    use variant::DictEntry;
-    use variant::Variant;
 
     #[test]
     fn test_variant_iter_variant() {

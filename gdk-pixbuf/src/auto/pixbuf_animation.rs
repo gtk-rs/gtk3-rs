@@ -2,26 +2,19 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk_pixbuf_sys;
-use gio;
-use gio_sys;
-use glib;
+use crate::Pixbuf;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_sys;
-use gobject_sys;
-use std;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::pin::Pin;
 use std::ptr;
-use Pixbuf;
 
-glib_wrapper! {
-    pub struct PixbufAnimation(Object<gdk_pixbuf_sys::GdkPixbufAnimation>);
+glib::glib_wrapper! {
+    pub struct PixbufAnimation(Object<ffi::GdkPixbufAnimation>);
 
     match fn {
-        get_type => || gdk_pixbuf_sys::gdk_pixbuf_animation_get_type(),
+        get_type => || ffi::gdk_pixbuf_animation_get_type(),
     }
 }
 
@@ -31,7 +24,7 @@ impl PixbufAnimation {
     ) -> Result<PixbufAnimation, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gdk_pixbuf_sys::gdk_pixbuf_animation_new_from_file(
+            let ret = ffi::gdk_pixbuf_animation_new_from_file(
                 filename.as_ref().to_glib_none().0,
                 &mut error,
             );
@@ -46,7 +39,7 @@ impl PixbufAnimation {
     pub fn from_resource(resource_path: &str) -> Result<PixbufAnimation, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gdk_pixbuf_sys::gdk_pixbuf_animation_new_from_resource(
+            let ret = ffi::gdk_pixbuf_animation_new_from_resource(
                 resource_path.to_glib_none().0,
                 &mut error,
             );
@@ -64,7 +57,7 @@ impl PixbufAnimation {
     ) -> Result<PixbufAnimation, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gdk_pixbuf_sys::gdk_pixbuf_animation_new_from_stream(
+            let ret = ffi::gdk_pixbuf_animation_new_from_stream(
                 stream.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -90,12 +83,12 @@ impl PixbufAnimation {
         unsafe extern "C" fn new_from_stream_async_trampoline<
             R: FnOnce(Result<PixbufAnimation, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut gio::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gdk_pixbuf_sys::gdk_pixbuf_animation_new_from_stream_finish(res, &mut error);
+            let ret = ffi::gdk_pixbuf_animation_new_from_stream_finish(res, &mut error);
             let result = if error.is_null() {
                 Ok(from_glib_full(ret))
             } else {
@@ -106,7 +99,7 @@ impl PixbufAnimation {
         }
         let callback = new_from_stream_async_trampoline::<R>;
         unsafe {
-            gdk_pixbuf_sys::gdk_pixbuf_animation_new_from_stream_async(
+            ffi::gdk_pixbuf_animation_new_from_stream_async(
                 stream.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -145,24 +138,24 @@ pub trait PixbufAnimationExt: 'static {
 
 impl<O: IsA<PixbufAnimation>> PixbufAnimationExt for O {
     fn get_height(&self) -> i32 {
-        unsafe { gdk_pixbuf_sys::gdk_pixbuf_animation_get_height(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gdk_pixbuf_animation_get_height(self.as_ref().to_glib_none().0) }
     }
 
     fn get_static_image(&self) -> Option<Pixbuf> {
         unsafe {
-            from_glib_none(gdk_pixbuf_sys::gdk_pixbuf_animation_get_static_image(
+            from_glib_none(ffi::gdk_pixbuf_animation_get_static_image(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_width(&self) -> i32 {
-        unsafe { gdk_pixbuf_sys::gdk_pixbuf_animation_get_width(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gdk_pixbuf_animation_get_width(self.as_ref().to_glib_none().0) }
     }
 
     fn is_static_image(&self) -> bool {
         unsafe {
-            from_glib(gdk_pixbuf_sys::gdk_pixbuf_animation_is_static_image(
+            from_glib(ffi::gdk_pixbuf_animation_is_static_image(
                 self.as_ref().to_glib_none().0,
             ))
         }

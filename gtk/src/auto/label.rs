@@ -2,56 +2,46 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use glib;
+use crate::Align;
+use crate::Buildable;
+use crate::Container;
+use crate::Justification;
+use crate::Menu;
+use crate::Misc;
+use crate::MovementStep;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectExt;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
-use libc;
-use pango;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
-use Align;
-use Buildable;
-use Container;
-use Justification;
-use Menu;
-use Misc;
-use MovementStep;
-use Widget;
 
-glib_wrapper! {
-    pub struct Label(Object<gtk_sys::GtkLabel, gtk_sys::GtkLabelClass>) @extends Misc, Widget, @implements Buildable;
+glib::glib_wrapper! {
+    pub struct Label(Object<ffi::GtkLabel, ffi::GtkLabelClass>) @extends Misc, Widget, @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_label_get_type(),
+        get_type => || ffi::gtk_label_get_type(),
     }
 }
 
 impl Label {
     pub fn new(str: Option<&str>) -> Label {
         assert_initialized_main_thread!();
-        unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_label_new(str.to_glib_none().0)).unsafe_cast()
-        }
+        unsafe { Widget::from_glib_none(ffi::gtk_label_new(str.to_glib_none().0)).unsafe_cast() }
     }
 
     pub fn with_mnemonic(str: Option<&str>) -> Label {
         assert_initialized_main_thread!();
         unsafe {
-            Widget::from_glib_none(gtk_sys::gtk_label_new_with_mnemonic(str.to_glib_none().0))
+            Widget::from_glib_none(ffi::gtk_label_new_with_mnemonic(str.to_glib_none().0))
                 .unsafe_cast()
         }
     }
@@ -557,13 +547,13 @@ pub trait LabelExt: 'static {
 
     fn get_attributes(&self) -> Option<pango::AttrList>;
 
-    fn get_current_uri(&self) -> Option<GString>;
+    fn get_current_uri(&self) -> Option<glib::GString>;
 
     fn get_ellipsize(&self) -> pango::EllipsizeMode;
 
     fn get_justify(&self) -> Justification;
 
-    fn get_label(&self) -> GString;
+    fn get_label(&self) -> glib::GString;
 
     fn get_layout(&self) -> Option<pango::Layout>;
 
@@ -587,7 +577,7 @@ pub trait LabelExt: 'static {
 
     fn get_single_line_mode(&self) -> bool;
 
-    fn get_text(&self) -> GString;
+    fn get_text(&self) -> glib::GString;
 
     fn get_track_visited_links(&self) -> bool;
 
@@ -766,58 +756,46 @@ pub trait LabelExt: 'static {
 
 impl<O: IsA<Label>> LabelExt for O {
     fn get_angle(&self) -> f64 {
-        unsafe { gtk_sys::gtk_label_get_angle(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_label_get_angle(self.as_ref().to_glib_none().0) }
     }
 
     fn get_attributes(&self) -> Option<pango::AttrList> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_label_get_attributes(
+            from_glib_none(ffi::gtk_label_get_attributes(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_current_uri(&self) -> Option<GString> {
+    fn get_current_uri(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_label_get_current_uri(
+            from_glib_none(ffi::gtk_label_get_current_uri(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_ellipsize(&self) -> pango::EllipsizeMode {
-        unsafe {
-            from_glib(gtk_sys::gtk_label_get_ellipsize(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_label_get_ellipsize(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_justify(&self) -> Justification {
-        unsafe {
-            from_glib(gtk_sys::gtk_label_get_justify(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_label_get_justify(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_label(&self) -> GString {
-        unsafe { from_glib_none(gtk_sys::gtk_label_get_label(self.as_ref().to_glib_none().0)) }
+    fn get_label(&self) -> glib::GString {
+        unsafe { from_glib_none(ffi::gtk_label_get_label(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_layout(&self) -> Option<pango::Layout> {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_label_get_layout(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gtk_label_get_layout(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_layout_offsets(&self) -> (i32, i32) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
             let mut y = mem::MaybeUninit::uninit();
-            gtk_sys::gtk_label_get_layout_offsets(
+            ffi::gtk_label_get_layout_offsets(
                 self.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
@@ -829,36 +807,32 @@ impl<O: IsA<Label>> LabelExt for O {
     }
 
     fn get_line_wrap(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_label_get_line_wrap(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_label_get_line_wrap(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_line_wrap_mode(&self) -> pango::WrapMode {
         unsafe {
-            from_glib(gtk_sys::gtk_label_get_line_wrap_mode(
+            from_glib(ffi::gtk_label_get_line_wrap_mode(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_lines(&self) -> i32 {
-        unsafe { gtk_sys::gtk_label_get_lines(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_label_get_lines(self.as_ref().to_glib_none().0) }
     }
 
     fn get_max_width_chars(&self) -> i32 {
-        unsafe { gtk_sys::gtk_label_get_max_width_chars(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_label_get_max_width_chars(self.as_ref().to_glib_none().0) }
     }
 
     fn get_mnemonic_keyval(&self) -> u32 {
-        unsafe { gtk_sys::gtk_label_get_mnemonic_keyval(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_label_get_mnemonic_keyval(self.as_ref().to_glib_none().0) }
     }
 
     fn get_mnemonic_widget(&self) -> Option<Widget> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_label_get_mnemonic_widget(
+            from_glib_none(ffi::gtk_label_get_mnemonic_widget(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -866,7 +840,7 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn get_selectable(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_label_get_selectable(
+            from_glib(ffi::gtk_label_get_selectable(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -876,7 +850,7 @@ impl<O: IsA<Label>> LabelExt for O {
         unsafe {
             let mut start = mem::MaybeUninit::uninit();
             let mut end = mem::MaybeUninit::uninit();
-            let ret = from_glib(gtk_sys::gtk_label_get_selection_bounds(
+            let ret = from_glib(ffi::gtk_label_get_selection_bounds(
                 self.as_ref().to_glib_none().0,
                 start.as_mut_ptr(),
                 end.as_mut_ptr(),
@@ -893,19 +867,19 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn get_single_line_mode(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_label_get_single_line_mode(
+            from_glib(ffi::gtk_label_get_single_line_mode(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_text(&self) -> GString {
-        unsafe { from_glib_none(gtk_sys::gtk_label_get_text(self.as_ref().to_glib_none().0)) }
+    fn get_text(&self) -> glib::GString {
+        unsafe { from_glib_none(ffi::gtk_label_get_text(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_track_visited_links(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_label_get_track_visited_links(
+            from_glib(ffi::gtk_label_get_track_visited_links(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -913,7 +887,7 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn get_use_markup(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_label_get_use_markup(
+            from_glib(ffi::gtk_label_get_use_markup(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -921,101 +895,91 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn get_use_underline(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_label_get_use_underline(
+            from_glib(ffi::gtk_label_get_use_underline(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_width_chars(&self) -> i32 {
-        unsafe { gtk_sys::gtk_label_get_width_chars(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_label_get_width_chars(self.as_ref().to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_xalign(&self) -> f32 {
-        unsafe { gtk_sys::gtk_label_get_xalign(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_label_get_xalign(self.as_ref().to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_yalign(&self) -> f32 {
-        unsafe { gtk_sys::gtk_label_get_yalign(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_label_get_yalign(self.as_ref().to_glib_none().0) }
     }
 
     fn select_region(&self, start_offset: i32, end_offset: i32) {
         unsafe {
-            gtk_sys::gtk_label_select_region(
-                self.as_ref().to_glib_none().0,
-                start_offset,
-                end_offset,
-            );
+            ffi::gtk_label_select_region(self.as_ref().to_glib_none().0, start_offset, end_offset);
         }
     }
 
     fn set_angle(&self, angle: f64) {
         unsafe {
-            gtk_sys::gtk_label_set_angle(self.as_ref().to_glib_none().0, angle);
+            ffi::gtk_label_set_angle(self.as_ref().to_glib_none().0, angle);
         }
     }
 
     fn set_attributes(&self, attrs: Option<&pango::AttrList>) {
         unsafe {
-            gtk_sys::gtk_label_set_attributes(
-                self.as_ref().to_glib_none().0,
-                attrs.to_glib_none().0,
-            );
+            ffi::gtk_label_set_attributes(self.as_ref().to_glib_none().0, attrs.to_glib_none().0);
         }
     }
 
     fn set_ellipsize(&self, mode: pango::EllipsizeMode) {
         unsafe {
-            gtk_sys::gtk_label_set_ellipsize(self.as_ref().to_glib_none().0, mode.to_glib());
+            ffi::gtk_label_set_ellipsize(self.as_ref().to_glib_none().0, mode.to_glib());
         }
     }
 
     fn set_justify(&self, jtype: Justification) {
         unsafe {
-            gtk_sys::gtk_label_set_justify(self.as_ref().to_glib_none().0, jtype.to_glib());
+            ffi::gtk_label_set_justify(self.as_ref().to_glib_none().0, jtype.to_glib());
         }
     }
 
     fn set_label(&self, str: &str) {
         unsafe {
-            gtk_sys::gtk_label_set_label(self.as_ref().to_glib_none().0, str.to_glib_none().0);
+            ffi::gtk_label_set_label(self.as_ref().to_glib_none().0, str.to_glib_none().0);
         }
     }
 
     fn set_line_wrap(&self, wrap: bool) {
         unsafe {
-            gtk_sys::gtk_label_set_line_wrap(self.as_ref().to_glib_none().0, wrap.to_glib());
+            ffi::gtk_label_set_line_wrap(self.as_ref().to_glib_none().0, wrap.to_glib());
         }
     }
 
     fn set_line_wrap_mode(&self, wrap_mode: pango::WrapMode) {
         unsafe {
-            gtk_sys::gtk_label_set_line_wrap_mode(
-                self.as_ref().to_glib_none().0,
-                wrap_mode.to_glib(),
-            );
+            ffi::gtk_label_set_line_wrap_mode(self.as_ref().to_glib_none().0, wrap_mode.to_glib());
         }
     }
 
     fn set_lines(&self, lines: i32) {
         unsafe {
-            gtk_sys::gtk_label_set_lines(self.as_ref().to_glib_none().0, lines);
+            ffi::gtk_label_set_lines(self.as_ref().to_glib_none().0, lines);
         }
     }
 
     fn set_markup(&self, str: &str) {
         unsafe {
-            gtk_sys::gtk_label_set_markup(self.as_ref().to_glib_none().0, str.to_glib_none().0);
+            ffi::gtk_label_set_markup(self.as_ref().to_glib_none().0, str.to_glib_none().0);
         }
     }
 
     fn set_markup_with_mnemonic(&self, str: &str) {
         unsafe {
-            gtk_sys::gtk_label_set_markup_with_mnemonic(
+            ffi::gtk_label_set_markup_with_mnemonic(
                 self.as_ref().to_glib_none().0,
                 str.to_glib_none().0,
             );
@@ -1024,13 +988,13 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn set_max_width_chars(&self, n_chars: i32) {
         unsafe {
-            gtk_sys::gtk_label_set_max_width_chars(self.as_ref().to_glib_none().0, n_chars);
+            ffi::gtk_label_set_max_width_chars(self.as_ref().to_glib_none().0, n_chars);
         }
     }
 
     fn set_mnemonic_widget<P: IsA<Widget>>(&self, widget: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_label_set_mnemonic_widget(
+            ffi::gtk_label_set_mnemonic_widget(
                 self.as_ref().to_glib_none().0,
                 widget.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -1039,22 +1003,19 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn set_pattern(&self, pattern: &str) {
         unsafe {
-            gtk_sys::gtk_label_set_pattern(
-                self.as_ref().to_glib_none().0,
-                pattern.to_glib_none().0,
-            );
+            ffi::gtk_label_set_pattern(self.as_ref().to_glib_none().0, pattern.to_glib_none().0);
         }
     }
 
     fn set_selectable(&self, setting: bool) {
         unsafe {
-            gtk_sys::gtk_label_set_selectable(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_label_set_selectable(self.as_ref().to_glib_none().0, setting.to_glib());
         }
     }
 
     fn set_single_line_mode(&self, single_line_mode: bool) {
         unsafe {
-            gtk_sys::gtk_label_set_single_line_mode(
+            ffi::gtk_label_set_single_line_mode(
                 self.as_ref().to_glib_none().0,
                 single_line_mode.to_glib(),
             );
@@ -1063,13 +1024,13 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn set_text(&self, str: &str) {
         unsafe {
-            gtk_sys::gtk_label_set_text(self.as_ref().to_glib_none().0, str.to_glib_none().0);
+            ffi::gtk_label_set_text(self.as_ref().to_glib_none().0, str.to_glib_none().0);
         }
     }
 
     fn set_text_with_mnemonic(&self, str: &str) {
         unsafe {
-            gtk_sys::gtk_label_set_text_with_mnemonic(
+            ffi::gtk_label_set_text_with_mnemonic(
                 self.as_ref().to_glib_none().0,
                 str.to_glib_none().0,
             );
@@ -1078,7 +1039,7 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn set_track_visited_links(&self, track_links: bool) {
         unsafe {
-            gtk_sys::gtk_label_set_track_visited_links(
+            ffi::gtk_label_set_track_visited_links(
                 self.as_ref().to_glib_none().0,
                 track_links.to_glib(),
             );
@@ -1087,19 +1048,19 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn set_use_markup(&self, setting: bool) {
         unsafe {
-            gtk_sys::gtk_label_set_use_markup(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_label_set_use_markup(self.as_ref().to_glib_none().0, setting.to_glib());
         }
     }
 
     fn set_use_underline(&self, setting: bool) {
         unsafe {
-            gtk_sys::gtk_label_set_use_underline(self.as_ref().to_glib_none().0, setting.to_glib());
+            ffi::gtk_label_set_use_underline(self.as_ref().to_glib_none().0, setting.to_glib());
         }
     }
 
     fn set_width_chars(&self, n_chars: i32) {
         unsafe {
-            gtk_sys::gtk_label_set_width_chars(self.as_ref().to_glib_none().0, n_chars);
+            ffi::gtk_label_set_width_chars(self.as_ref().to_glib_none().0, n_chars);
         }
     }
 
@@ -1107,7 +1068,7 @@ impl<O: IsA<Label>> LabelExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_xalign(&self, xalign: f32) {
         unsafe {
-            gtk_sys::gtk_label_set_xalign(self.as_ref().to_glib_none().0, xalign);
+            ffi::gtk_label_set_xalign(self.as_ref().to_glib_none().0, xalign);
         }
     }
 
@@ -1115,15 +1076,15 @@ impl<O: IsA<Label>> LabelExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_yalign(&self, yalign: f32) {
         unsafe {
-            gtk_sys::gtk_label_set_yalign(self.as_ref().to_glib_none().0, yalign);
+            ffi::gtk_label_set_yalign(self.as_ref().to_glib_none().0, yalign);
         }
     }
 
     fn get_property_cursor_position(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"cursor-position\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -1137,8 +1098,8 @@ impl<O: IsA<Label>> LabelExt for O {
     fn get_property_selection_bound(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"selection-bound\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -1152,8 +1113,8 @@ impl<O: IsA<Label>> LabelExt for O {
     fn get_property_wrap(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"wrap\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -1166,8 +1127,8 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn set_property_wrap(&self, wrap: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"wrap\0".as_ptr() as *const _,
                 Value::from(&wrap).to_glib_none().0,
             );
@@ -1177,8 +1138,8 @@ impl<O: IsA<Label>> LabelExt for O {
     fn get_property_wrap_mode(&self) -> pango::WrapMode {
         unsafe {
             let mut value = Value::from_type(<pango::WrapMode as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"wrap-mode\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -1191,8 +1152,8 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn set_property_wrap_mode(&self, wrap_mode: pango::WrapMode) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"wrap-mode\0".as_ptr() as *const _,
                 Value::from(&wrap_mode).to_glib_none().0,
             );
@@ -1201,8 +1162,8 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn connect_activate_current_link<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_current_link_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1224,7 +1185,7 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn emit_activate_current_link(&self) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("activate-current-link", &[])
                 .unwrap()
         };
@@ -1238,17 +1199,17 @@ impl<O: IsA<Label>> LabelExt for O {
             P,
             F: Fn(&P, &str) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkLabel,
+            this: *mut ffi::GtkLabel,
             uri: *mut libc::c_char,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Label>,
         {
             let f: &F = &*(f as *const F);
             f(
                 &Label::from_glib_borrow(this).unsafe_cast_ref(),
-                &GString::from_glib_borrow(uri),
+                &glib::GString::from_glib_borrow(uri),
             )
             .to_glib()
         }
@@ -1267,8 +1228,8 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn connect_copy_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn copy_clipboard_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1290,7 +1251,7 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn emit_copy_clipboard(&self) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("copy-clipboard", &[])
                 .unwrap()
         };
@@ -1304,11 +1265,11 @@ impl<O: IsA<Label>> LabelExt for O {
             P,
             F: Fn(&P, MovementStep, i32, bool) + 'static,
         >(
-            this: *mut gtk_sys::GtkLabel,
-            step: gtk_sys::GtkMovementStep,
+            this: *mut ffi::GtkLabel,
+            step: ffi::GtkMovementStep,
             count: libc::c_int,
-            extend_selection: glib_sys::gboolean,
-            f: glib_sys::gpointer,
+            extend_selection: glib::ffi::gboolean,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1335,7 +1296,7 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn emit_move_cursor(&self, step: MovementStep, count: i32, extend_selection: bool) {
         let _ = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("move-cursor", &[&step, &count, &extend_selection])
                 .unwrap()
         };
@@ -1343,9 +1304,9 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn connect_populate_popup<F: Fn(&Self, &Menu) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn populate_popup_trampoline<P, F: Fn(&P, &Menu) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            menu: *mut gtk_sys::GtkMenu,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            menu: *mut ffi::GtkMenu,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1370,9 +1331,9 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn connect_property_angle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_angle_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1394,9 +1355,9 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn connect_property_attributes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_attributes_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1421,9 +1382,9 @@ impl<O: IsA<Label>> LabelExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_cursor_position_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1445,9 +1406,9 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn connect_property_ellipsize_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_ellipsize_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1469,9 +1430,9 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn connect_property_justify_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_justify_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1493,9 +1454,9 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn connect_property_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1517,9 +1478,9 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn connect_property_lines_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_lines_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1544,9 +1505,9 @@ impl<O: IsA<Label>> LabelExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_max_width_chars_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1571,9 +1532,9 @@ impl<O: IsA<Label>> LabelExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_mnemonic_keyval_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1598,9 +1559,9 @@ impl<O: IsA<Label>> LabelExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_mnemonic_widget_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1622,9 +1583,9 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn connect_property_pattern_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pattern_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1646,9 +1607,9 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn connect_property_selectable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_selectable_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1673,9 +1634,9 @@ impl<O: IsA<Label>> LabelExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_selection_bound_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1700,9 +1661,9 @@ impl<O: IsA<Label>> LabelExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_single_line_mode_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1727,9 +1688,9 @@ impl<O: IsA<Label>> LabelExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_track_visited_links_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1751,9 +1712,9 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn connect_property_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_markup_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1778,9 +1739,9 @@ impl<O: IsA<Label>> LabelExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_underline_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1802,9 +1763,9 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn connect_property_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_width_chars_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1826,9 +1787,9 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn connect_property_wrap_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_wrap_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1850,9 +1811,9 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn connect_property_wrap_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_wrap_mode_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1876,9 +1837,9 @@ impl<O: IsA<Label>> LabelExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_property_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_xalign_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {
@@ -1902,9 +1863,9 @@ impl<O: IsA<Label>> LabelExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn connect_property_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_yalign_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkLabel,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkLabel,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Label>,
         {

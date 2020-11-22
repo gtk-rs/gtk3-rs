@@ -1,9 +1,9 @@
+use crate::Keymap;
+use crate::KeymapKey;
+use crate::ModifierType;
 use glib::translate::*;
 use std::mem;
 use std::ptr;
-use Keymap;
-use KeymapKey;
-use ModifierType;
 
 impl Keymap {
     pub fn get_entries_for_keycode(&self, hardware_keycode: u32) -> Vec<(KeymapKey, u32)> {
@@ -11,7 +11,7 @@ impl Keymap {
             let mut keys = ptr::null_mut();
             let mut keyvals = ptr::null_mut();
             let mut n_entries = mem::MaybeUninit::uninit();
-            let ret = from_glib(gdk_sys::gdk_keymap_get_entries_for_keycode(
+            let ret = from_glib(ffi::gdk_keymap_get_entries_for_keycode(
                 self.to_glib_none().0,
                 hardware_keycode,
                 &mut keys,
@@ -24,8 +24,8 @@ impl Keymap {
                 for i in 0..n_entries {
                     entries.push((from_glib_none(keys.add(i)), ptr::read(keyvals.add(i))));
                 }
-                glib_sys::g_free(keys as *mut _);
-                glib_sys::g_free(keyvals as *mut _);
+                glib::ffi::g_free(keys as *mut _);
+                glib::ffi::g_free(keyvals as *mut _);
                 entries
             } else {
                 Vec::new()
@@ -37,7 +37,7 @@ impl Keymap {
         unsafe {
             let mut keys = ptr::null_mut();
             let mut n_keys = mem::MaybeUninit::uninit();
-            let ret = from_glib(gdk_sys::gdk_keymap_get_entries_for_keyval(
+            let ret = from_glib(ffi::gdk_keymap_get_entries_for_keyval(
                 self.to_glib_none().0,
                 keyval,
                 &mut keys,
@@ -49,7 +49,7 @@ impl Keymap {
                 for i in 0..n_keys {
                     r_keys.push(from_glib_none(keys.add(i)));
                 }
-                glib_sys::g_free(keys as *mut _);
+                glib::ffi::g_free(keys as *mut _);
                 r_keys
             } else {
                 Vec::new()
@@ -60,7 +60,7 @@ impl Keymap {
     pub fn add_virtual_modifiers(&self, state: &mut ModifierType) {
         unsafe {
             let mut s = state.to_glib();
-            gdk_sys::gdk_keymap_add_virtual_modifiers(self.to_glib_none().0, &mut s);
+            ffi::gdk_keymap_add_virtual_modifiers(self.to_glib_none().0, &mut s);
             *state = from_glib(s);
         }
     }
@@ -68,7 +68,7 @@ impl Keymap {
     pub fn map_virtual_modifiers(&self, state: &mut ModifierType) -> bool {
         unsafe {
             let mut s = state.to_glib();
-            let ret = from_glib(gdk_sys::gdk_keymap_map_virtual_modifiers(
+            let ret = from_glib(ffi::gdk_keymap_map_virtual_modifiers(
                 self.to_glib_none().0,
                 &mut s,
             ));

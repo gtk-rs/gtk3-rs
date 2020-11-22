@@ -2,8 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-extern crate proc_macro;
-
 mod clone;
 mod gboxed_derive;
 mod genum_derive;
@@ -256,11 +254,10 @@ pub fn genum_derive(input: TokenStream) -> TokenStream {
 /// # Example
 ///
 /// ```
-/// #[macro_use] extern crate glib;
 /// use glib::prelude::*;
 /// use glib::subclass::prelude::*;
 ///
-/// #[derive(Clone, Debug, PartialEq, Eq, GBoxed)]
+/// #[derive(Clone, Debug, PartialEq, Eq, glib::GBoxed)]
 /// #[gboxed(type_name = "MyBoxed")]
 /// struct MyBoxed(String);
 /// ```
@@ -289,11 +286,10 @@ pub fn gboxed_derive(input: TokenStream) -> TokenStream {
 /// # Example
 ///
 /// ```
-/// #[macro_use] extern crate glib;
 /// use glib::prelude::*;
 /// use glib::subclass::prelude::*;
 ///
-/// #[gflags("MyFlags")]
+/// #[glib::gflags("MyFlags")]
 /// enum MyFlags {
 ///     #[gflags(name = "Flag A", nick = "nick-a")]
 ///     A = 0b00000001,

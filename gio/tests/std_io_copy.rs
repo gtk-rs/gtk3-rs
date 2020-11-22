@@ -1,8 +1,5 @@
 #![cfg(feature = "v2_36")]
 
-extern crate gio;
-extern crate glib;
-
 use gio::prelude::*;
 use std::io;
 

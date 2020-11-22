@@ -1,21 +1,20 @@
-use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use std::cmp::PartialEq;
 use std::hash;
 
 #[cfg(any(feature = "v1_16", feature = "dox"))]
-use font::font_face::to_optional_string;
+use crate::font::font_face::to_optional_string;
 #[cfg(any(feature = "v1_16", feature = "dox"))]
 use std::ffi::CString;
 #[cfg(not(feature = "use_glib"))]
 use std::ptr;
 
-use enums::{Antialias, HintMetrics, HintStyle, SubpixelOrder};
-use utils::status_to_result;
+use crate::enums::{Antialias, HintMetrics, HintStyle, SubpixelOrder};
+use crate::utils::status_to_result;
 
 #[cfg(feature = "use_glib")]
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug)]
     pub struct FontOptions(Boxed<ffi::cairo_font_options_t>);
 

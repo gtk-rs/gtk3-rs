@@ -12,12 +12,11 @@ use std::path::Path;
 use std::ptr;
 
 #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
-use enums::{PdfMetadata, PdfOutline};
-use enums::{PdfVersion, SurfaceType};
-use error::Error;
-use ffi;
-use surface::Surface;
-use utils::status_to_result;
+use crate::enums::{PdfMetadata, PdfOutline};
+use crate::enums::{PdfVersion, SurfaceType};
+use crate::error::Error;
+use crate::surface::Surface;
+use crate::utils::status_to_result;
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
@@ -137,7 +136,7 @@ impl PdfSurface {
 #[cfg(test)]
 mod test {
     use super::*;
-    use context::*;
+    use crate::context::*;
     use tempfile::tempfile;
 
     fn draw(surface: &Surface) {

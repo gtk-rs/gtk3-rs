@@ -2,21 +2,20 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::translate::{from_glib_borrow, from_glib_full, mut_override, Borrowed, ToGlib};
+use crate::ThreadGuard;
 use futures_core::future::Future;
 use futures_core::task::{Context, Poll, RawWaker, RawWakerVTable, Waker};
 use futures_task::{FutureObj, LocalFutureObj, LocalSpawn, Spawn, SpawnError};
 use futures_util::future::FutureExt;
-use glib_sys;
 use std::mem;
 use std::pin;
 use std::ptr;
-use translate::{from_glib_borrow, from_glib_full, mut_override, Borrowed, ToGlib};
-use ThreadGuard;
 
-use MainContext;
-use MainLoop;
-use Priority;
-use Source;
+use crate::MainContext;
+use crate::MainLoop;
+use crate::Priority;
+use crate::Source;
 
 // Wrapper around Send Futures and non-Send Futures that will panic
 // if the non-Send Future is polled/dropped from a different thread
@@ -46,35 +45,35 @@ impl Future for FutureWrapper {
 // whenever it is ready also the TaskSource is ready.
 #[repr(C)]
 struct TaskSource {
-    source: glib_sys::GSource,
+    source: ffi::GSource,
     future: FutureWrapper,
     waker: Waker,
 }
 
 #[repr(C)]
 struct WakerSource {
-    source: glib_sys::GSource,
+    source: ffi::GSource,
 }
 
 impl TaskSource {
     unsafe extern "C" fn dispatch(
-        source: *mut glib_sys::GSource,
-        callback: glib_sys::GSourceFunc,
-        _user_data: glib_sys::gpointer,
-    ) -> glib_sys::gboolean {
+        source: *mut ffi::GSource,
+        callback: ffi::GSourceFunc,
+        _user_data: ffi::gpointer,
+    ) -> ffi::gboolean {
         let source = &mut *(source as *mut TaskSource);
         assert!(callback.is_none());
 
         // Poll the TaskSource and ensure we're never called again if the
         // contained Future resolved now.
         if let Poll::Ready(()) = source.poll() {
-            glib_sys::G_SOURCE_REMOVE
+            ffi::G_SOURCE_REMOVE
         } else {
-            glib_sys::G_SOURCE_CONTINUE
+            ffi::G_SOURCE_CONTINUE
         }
     }
 
-    unsafe extern "C" fn finalize(source: *mut glib_sys::GSource) {
+    unsafe extern "C" fn finalize(source: *mut ffi::GSource) {
         let source = source as *mut TaskSource;
 
         // This will panic if the future was a local future and is dropped from
@@ -95,8 +94,8 @@ impl WakerSource {
             WakerSource::drop_raw,
         );
 
-        let waker = waker as *const glib_sys::GSource;
-        glib_sys::g_source_ref(mut_override(waker));
+        let waker = waker as *const ffi::GSource;
+        ffi::g_source_ref(mut_override(waker));
         RawWaker::new(waker as *const (), &VTABLE)
     }
 
@@ -106,24 +105,24 @@ impl WakerSource {
     }
 
     unsafe fn wake_by_ref_raw(waker: *const ()) {
-        let waker = waker as *const glib_sys::GSource;
-        glib_sys::g_source_set_ready_time(mut_override(waker), 0);
+        let waker = waker as *const ffi::GSource;
+        ffi::g_source_set_ready_time(mut_override(waker), 0);
     }
 
     unsafe fn drop_raw(waker: *const ()) {
-        let waker = waker as *const glib_sys::GSource;
-        glib_sys::g_source_unref(mut_override(waker));
+        let waker = waker as *const ffi::GSource;
+        ffi::g_source_unref(mut_override(waker));
     }
 
     unsafe extern "C" fn dispatch(
-        source: *mut glib_sys::GSource,
-        _callback: glib_sys::GSourceFunc,
-        _user_data: glib_sys::gpointer,
-    ) -> glib_sys::gboolean {
+        source: *mut ffi::GSource,
+        _callback: ffi::GSourceFunc,
+        _user_data: ffi::gpointer,
+    ) -> ffi::gboolean {
         // Set ready-time to -1 so that we're not called again before
         // being woken up another time.
-        glib_sys::g_source_set_ready_time(mut_override(source), -1);
-        glib_sys::G_SOURCE_CONTINUE
+        ffi::g_source_set_ready_time(mut_override(source), -1);
+        ffi::G_SOURCE_CONTINUE
     }
 }
 
@@ -137,7 +136,7 @@ impl TaskSource {
     #[allow(clippy::new_ret_no_self)]
     fn new(priority: Priority, future: FutureWrapper) -> Source {
         unsafe {
-            static TASK_SOURCE_FUNCS: glib_sys::GSourceFuncs = glib_sys::GSourceFuncs {
+            static TASK_SOURCE_FUNCS: ffi::GSourceFuncs = ffi::GSourceFuncs {
                 check: None,
                 prepare: None,
                 dispatch: Some(TaskSource::dispatch),
@@ -146,7 +145,7 @@ impl TaskSource {
                 closure_marshal: None,
             };
 
-            static WAKER_SOURCE_FUNCS: glib_sys::GSourceFuncs = glib_sys::GSourceFuncs {
+            static WAKER_SOURCE_FUNCS: ffi::GSourceFuncs = ffi::GSourceFuncs {
                 check: None,
                 prepare: None,
                 dispatch: Some(WakerSource::dispatch),
@@ -155,18 +154,18 @@ impl TaskSource {
                 closure_marshal: None,
             };
 
-            let source = glib_sys::g_source_new(
+            let source = ffi::g_source_new(
                 mut_override(&TASK_SOURCE_FUNCS),
                 mem::size_of::<TaskSource>() as u32,
             );
 
-            let waker_source = glib_sys::g_source_new(
+            let waker_source = ffi::g_source_new(
                 mut_override(&WAKER_SOURCE_FUNCS),
                 mem::size_of::<WakerSource>() as u32,
             );
 
-            glib_sys::g_source_set_priority(source, priority.to_glib());
-            glib_sys::g_source_add_child_source(source, waker_source);
+            ffi::g_source_set_priority(source, priority.to_glib());
+            ffi::g_source_add_child_source(source, waker_source);
 
             {
                 let source = &mut *(source as *mut TaskSource);
@@ -180,11 +179,11 @@ impl TaskSource {
             // Set ready time to 0 so that the source is immediately dispatched
             // for doing the initial polling. This will then either resolve the
             // future or register the waker wherever necessary.
-            glib_sys::g_source_set_ready_time(waker_source, 0);
+            ffi::g_source_set_ready_time(waker_source, 0);
 
             // Unref the waker source, a strong reference to it is stored inside
             // the task source directly and inside the task source as child source.
-            glib_sys::g_source_unref(waker_source);
+            ffi::g_source_unref(waker_source);
 
             from_glib_full(source)
         }
@@ -193,7 +192,7 @@ impl TaskSource {
     fn poll(&mut self) -> Poll<()> {
         let source = &self.source as *const _;
         let executor: Borrowed<MainContext> =
-            unsafe { from_glib_borrow(glib_sys::g_source_get_context(mut_override(source))) };
+            unsafe { from_glib_borrow(ffi::g_source_get_context(mut_override(source))) };
 
         assert!(
             executor.is_owner(),
@@ -217,7 +216,7 @@ impl MainContext {
     /// This can be called from any thread and will execute the future from the thread
     /// where main context is running, e.g. via a `MainLoop`.
     pub fn spawn<F: Future<Output = ()> + Send + 'static>(&self, f: F) {
-        self.spawn_with_priority(::PRIORITY_DEFAULT, f);
+        self.spawn_with_priority(crate::PRIORITY_DEFAULT, f);
     }
 
     /// Spawn a new infallible `Future` on the main context.
@@ -228,7 +227,7 @@ impl MainContext {
     /// from any other `Future` that is executed on this main context, or after calling
     /// `push_thread_default` or `acquire` on the main context.
     pub fn spawn_local<F: Future<Output = ()> + 'static>(&self, f: F) {
-        self.spawn_local_with_priority(::PRIORITY_DEFAULT, f);
+        self.spawn_local_with_priority(crate::PRIORITY_DEFAULT, f);
     }
 
     /// Spawn a new infallible `Future` on the main context, with a non-default priority.
@@ -291,7 +290,7 @@ impl MainContext {
             let f: LocalFutureObj<'static, ()> = mem::transmute(f);
 
             let source = TaskSource::new(
-                ::PRIORITY_DEFAULT,
+                crate::PRIORITY_DEFAULT,
                 FutureWrapper::NonSend(ThreadGuard::new(f)),
             );
             source.attach(Some(&*self));
@@ -305,7 +304,7 @@ impl MainContext {
 
 impl Spawn for MainContext {
     fn spawn_obj(&self, f: FutureObj<'static, ()>) -> Result<(), SpawnError> {
-        let source = TaskSource::new(::PRIORITY_DEFAULT, FutureWrapper::Send(f));
+        let source = TaskSource::new(crate::PRIORITY_DEFAULT, FutureWrapper::Send(f));
         source.attach(Some(&*self));
         Ok(())
     }
@@ -314,7 +313,7 @@ impl Spawn for MainContext {
 impl LocalSpawn for MainContext {
     fn spawn_local_obj(&self, f: LocalFutureObj<'static, ()>) -> Result<(), SpawnError> {
         let source = TaskSource::new(
-            ::PRIORITY_DEFAULT,
+            crate::PRIORITY_DEFAULT,
             FutureWrapper::NonSend(ThreadGuard::new(f)),
         );
         source.attach(Some(&*self));
@@ -333,7 +332,7 @@ mod tests {
     #[test]
     fn test_spawn() {
         let c = MainContext::new();
-        let l = ::MainLoop::new(Some(&c), false);
+        let l = crate::MainLoop::new(Some(&c), false);
 
         let (sender, receiver) = mpsc::channel();
         let (o_sender, o_receiver) = oneshot::channel();
@@ -365,7 +364,7 @@ mod tests {
     #[test]
     fn test_spawn_local() {
         let c = MainContext::new();
-        let l = ::MainLoop::new(Some(&c), false);
+        let l = crate::MainLoop::new(Some(&c), false);
 
         c.push_thread_default();
         let l_clone = l.clone();

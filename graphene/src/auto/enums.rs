@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use glib::translate::*;
-use graphene_sys;
 use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -89,49 +88,49 @@ impl fmt::Display for EulerOrder {
 
 #[doc(hidden)]
 impl ToGlib for EulerOrder {
-    type GlibType = graphene_sys::graphene_euler_order_t;
+    type GlibType = ffi::graphene_euler_order_t;
 
-    fn to_glib(&self) -> graphene_sys::graphene_euler_order_t {
+    fn to_glib(&self) -> ffi::graphene_euler_order_t {
         match *self {
-            EulerOrder::Default => graphene_sys::GRAPHENE_EULER_ORDER_DEFAULT,
-            EulerOrder::Xyz => graphene_sys::GRAPHENE_EULER_ORDER_XYZ,
-            EulerOrder::Yzx => graphene_sys::GRAPHENE_EULER_ORDER_YZX,
-            EulerOrder::Zxy => graphene_sys::GRAPHENE_EULER_ORDER_ZXY,
-            EulerOrder::Xzy => graphene_sys::GRAPHENE_EULER_ORDER_XZY,
-            EulerOrder::Yxz => graphene_sys::GRAPHENE_EULER_ORDER_YXZ,
-            EulerOrder::Zyx => graphene_sys::GRAPHENE_EULER_ORDER_ZYX,
-            EulerOrder::Sxyz => graphene_sys::GRAPHENE_EULER_ORDER_SXYZ,
-            EulerOrder::Sxyx => graphene_sys::GRAPHENE_EULER_ORDER_SXYX,
-            EulerOrder::Sxzy => graphene_sys::GRAPHENE_EULER_ORDER_SXZY,
-            EulerOrder::Sxzx => graphene_sys::GRAPHENE_EULER_ORDER_SXZX,
-            EulerOrder::Syzx => graphene_sys::GRAPHENE_EULER_ORDER_SYZX,
-            EulerOrder::Syzy => graphene_sys::GRAPHENE_EULER_ORDER_SYZY,
-            EulerOrder::Syxz => graphene_sys::GRAPHENE_EULER_ORDER_SYXZ,
-            EulerOrder::Syxy => graphene_sys::GRAPHENE_EULER_ORDER_SYXY,
-            EulerOrder::Szxy => graphene_sys::GRAPHENE_EULER_ORDER_SZXY,
-            EulerOrder::Szxz => graphene_sys::GRAPHENE_EULER_ORDER_SZXZ,
-            EulerOrder::Szyx => graphene_sys::GRAPHENE_EULER_ORDER_SZYX,
-            EulerOrder::Szyz => graphene_sys::GRAPHENE_EULER_ORDER_SZYZ,
-            EulerOrder::Rzyx => graphene_sys::GRAPHENE_EULER_ORDER_RZYX,
-            EulerOrder::Rxyx => graphene_sys::GRAPHENE_EULER_ORDER_RXYX,
-            EulerOrder::Ryzx => graphene_sys::GRAPHENE_EULER_ORDER_RYZX,
-            EulerOrder::Rxzx => graphene_sys::GRAPHENE_EULER_ORDER_RXZX,
-            EulerOrder::Rxzy => graphene_sys::GRAPHENE_EULER_ORDER_RXZY,
-            EulerOrder::Ryzy => graphene_sys::GRAPHENE_EULER_ORDER_RYZY,
-            EulerOrder::Rzxy => graphene_sys::GRAPHENE_EULER_ORDER_RZXY,
-            EulerOrder::Ryxy => graphene_sys::GRAPHENE_EULER_ORDER_RYXY,
-            EulerOrder::Ryxz => graphene_sys::GRAPHENE_EULER_ORDER_RYXZ,
-            EulerOrder::Rzxz => graphene_sys::GRAPHENE_EULER_ORDER_RZXZ,
-            EulerOrder::Rxyz => graphene_sys::GRAPHENE_EULER_ORDER_RXYZ,
-            EulerOrder::Rzyz => graphene_sys::GRAPHENE_EULER_ORDER_RZYZ,
+            EulerOrder::Default => ffi::GRAPHENE_EULER_ORDER_DEFAULT,
+            EulerOrder::Xyz => ffi::GRAPHENE_EULER_ORDER_XYZ,
+            EulerOrder::Yzx => ffi::GRAPHENE_EULER_ORDER_YZX,
+            EulerOrder::Zxy => ffi::GRAPHENE_EULER_ORDER_ZXY,
+            EulerOrder::Xzy => ffi::GRAPHENE_EULER_ORDER_XZY,
+            EulerOrder::Yxz => ffi::GRAPHENE_EULER_ORDER_YXZ,
+            EulerOrder::Zyx => ffi::GRAPHENE_EULER_ORDER_ZYX,
+            EulerOrder::Sxyz => ffi::GRAPHENE_EULER_ORDER_SXYZ,
+            EulerOrder::Sxyx => ffi::GRAPHENE_EULER_ORDER_SXYX,
+            EulerOrder::Sxzy => ffi::GRAPHENE_EULER_ORDER_SXZY,
+            EulerOrder::Sxzx => ffi::GRAPHENE_EULER_ORDER_SXZX,
+            EulerOrder::Syzx => ffi::GRAPHENE_EULER_ORDER_SYZX,
+            EulerOrder::Syzy => ffi::GRAPHENE_EULER_ORDER_SYZY,
+            EulerOrder::Syxz => ffi::GRAPHENE_EULER_ORDER_SYXZ,
+            EulerOrder::Syxy => ffi::GRAPHENE_EULER_ORDER_SYXY,
+            EulerOrder::Szxy => ffi::GRAPHENE_EULER_ORDER_SZXY,
+            EulerOrder::Szxz => ffi::GRAPHENE_EULER_ORDER_SZXZ,
+            EulerOrder::Szyx => ffi::GRAPHENE_EULER_ORDER_SZYX,
+            EulerOrder::Szyz => ffi::GRAPHENE_EULER_ORDER_SZYZ,
+            EulerOrder::Rzyx => ffi::GRAPHENE_EULER_ORDER_RZYX,
+            EulerOrder::Rxyx => ffi::GRAPHENE_EULER_ORDER_RXYX,
+            EulerOrder::Ryzx => ffi::GRAPHENE_EULER_ORDER_RYZX,
+            EulerOrder::Rxzx => ffi::GRAPHENE_EULER_ORDER_RXZX,
+            EulerOrder::Rxzy => ffi::GRAPHENE_EULER_ORDER_RXZY,
+            EulerOrder::Ryzy => ffi::GRAPHENE_EULER_ORDER_RYZY,
+            EulerOrder::Rzxy => ffi::GRAPHENE_EULER_ORDER_RZXY,
+            EulerOrder::Ryxy => ffi::GRAPHENE_EULER_ORDER_RYXY,
+            EulerOrder::Ryxz => ffi::GRAPHENE_EULER_ORDER_RYXZ,
+            EulerOrder::Rzxz => ffi::GRAPHENE_EULER_ORDER_RZXZ,
+            EulerOrder::Rxyz => ffi::GRAPHENE_EULER_ORDER_RXYZ,
+            EulerOrder::Rzyz => ffi::GRAPHENE_EULER_ORDER_RZYZ,
             EulerOrder::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<graphene_sys::graphene_euler_order_t> for EulerOrder {
-    fn from_glib(value: graphene_sys::graphene_euler_order_t) -> Self {
+impl FromGlib<ffi::graphene_euler_order_t> for EulerOrder {
+    fn from_glib(value: ffi::graphene_euler_order_t) -> Self {
         skip_assert_initialized!();
         match value {
             -1 => EulerOrder::Default,
@@ -203,13 +202,13 @@ impl fmt::Display for RayIntersectionKind {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 #[doc(hidden)]
 impl ToGlib for RayIntersectionKind {
-    type GlibType = graphene_sys::graphene_ray_intersection_kind_t;
+    type GlibType = ffi::graphene_ray_intersection_kind_t;
 
-    fn to_glib(&self) -> graphene_sys::graphene_ray_intersection_kind_t {
+    fn to_glib(&self) -> ffi::graphene_ray_intersection_kind_t {
         match *self {
-            RayIntersectionKind::None => graphene_sys::GRAPHENE_RAY_INTERSECTION_KIND_NONE,
-            RayIntersectionKind::Enter => graphene_sys::GRAPHENE_RAY_INTERSECTION_KIND_ENTER,
-            RayIntersectionKind::Leave => graphene_sys::GRAPHENE_RAY_INTERSECTION_KIND_LEAVE,
+            RayIntersectionKind::None => ffi::GRAPHENE_RAY_INTERSECTION_KIND_NONE,
+            RayIntersectionKind::Enter => ffi::GRAPHENE_RAY_INTERSECTION_KIND_ENTER,
+            RayIntersectionKind::Leave => ffi::GRAPHENE_RAY_INTERSECTION_KIND_LEAVE,
             RayIntersectionKind::__Unknown(value) => value,
         }
     }
@@ -218,8 +217,8 @@ impl ToGlib for RayIntersectionKind {
 #[cfg(any(feature = "v1_10", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 #[doc(hidden)]
-impl FromGlib<graphene_sys::graphene_ray_intersection_kind_t> for RayIntersectionKind {
-    fn from_glib(value: graphene_sys::graphene_ray_intersection_kind_t) -> Self {
+impl FromGlib<ffi::graphene_ray_intersection_kind_t> for RayIntersectionKind {
+    fn from_glib(value: ffi::graphene_ray_intersection_kind_t) -> Self {
         skip_assert_initialized!();
         match value {
             0 => RayIntersectionKind::None,

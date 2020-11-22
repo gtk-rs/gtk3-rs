@@ -2,34 +2,30 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk_sys;
+use crate::CoordType;
+#[cfg(any(feature = "v2_32", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+use crate::ScrollType;
+use crate::TextBoundary;
+use crate::TextClipType;
+use crate::TextGranularity;
+use crate::TextRange;
+use crate::TextRectangle;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
-use glib_sys;
-use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
-use CoordType;
-#[cfg(any(feature = "v2_32", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
-use ScrollType;
-use TextBoundary;
-use TextClipType;
-use TextGranularity;
-use TextRange;
-use TextRectangle;
 
-glib_wrapper! {
-    pub struct Text(Interface<atk_sys::AtkText>);
+glib::glib_wrapper! {
+    pub struct Text(Interface<ffi::AtkText>);
 
     match fn {
-        get_type => || atk_sys::atk_text_get_type(),
+        get_type => || ffi::atk_text_get_type(),
     }
 }
 
@@ -69,17 +65,21 @@ pub trait TextExt: 'static {
 
     //fn get_run_attributes(&self, offset: i32) -> (/*Ignored*/AttributeSet, i32, i32);
 
-    fn get_selection(&self, selection_num: i32) -> (GString, i32, i32);
+    fn get_selection(&self, selection_num: i32) -> (glib::GString, i32, i32);
 
     fn get_string_at_offset(
         &self,
         offset: i32,
         granularity: TextGranularity,
-    ) -> (Option<GString>, i32, i32);
+    ) -> (Option<glib::GString>, i32, i32);
 
-    fn get_text(&self, start_offset: i32, end_offset: i32) -> Option<GString>;
+    fn get_text(&self, start_offset: i32, end_offset: i32) -> Option<glib::GString>;
 
-    fn get_text_at_offset(&self, offset: i32, boundary_type: TextBoundary) -> (GString, i32, i32);
+    fn get_text_at_offset(
+        &self,
+        offset: i32,
+        boundary_type: TextBoundary,
+    ) -> (glib::GString, i32, i32);
 
     fn remove_selection(&self, selection_num: i32) -> bool;
 
@@ -116,7 +116,7 @@ pub trait TextExt: 'static {
 impl<O: IsA<Text>> TextExt for O {
     fn add_selection(&self, start_offset: i32, end_offset: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_text_add_selection(
+            from_glib(ffi::atk_text_add_selection(
                 self.as_ref().to_glib_none().0,
                 start_offset,
                 end_offset,
@@ -132,7 +132,7 @@ impl<O: IsA<Text>> TextExt for O {
         y_clip_type: TextClipType,
     ) -> Vec<TextRange> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(atk_sys::atk_text_get_bounded_ranges(
+            FromGlibPtrContainer::from_glib_full(ffi::atk_text_get_bounded_ranges(
                 self.as_ref().to_glib_none().0,
                 rect.to_glib_none_mut().0,
                 coord_type.to_glib(),
@@ -143,12 +143,12 @@ impl<O: IsA<Text>> TextExt for O {
     }
 
     fn get_caret_offset(&self) -> i32 {
-        unsafe { atk_sys::atk_text_get_caret_offset(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::atk_text_get_caret_offset(self.as_ref().to_glib_none().0) }
     }
 
     fn get_character_at_offset(&self, offset: i32) -> char {
         unsafe {
-            std::convert::TryFrom::try_from(atk_sys::atk_text_get_character_at_offset(
+            std::convert::TryFrom::try_from(ffi::atk_text_get_character_at_offset(
                 self.as_ref().to_glib_none().0,
                 offset,
             ))
@@ -157,7 +157,7 @@ impl<O: IsA<Text>> TextExt for O {
     }
 
     fn get_character_count(&self) -> i32 {
-        unsafe { atk_sys::atk_text_get_character_count(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::atk_text_get_character_count(self.as_ref().to_glib_none().0) }
     }
 
     fn get_character_extents(&self, offset: i32, coords: CoordType) -> (i32, i32, i32, i32) {
@@ -166,7 +166,7 @@ impl<O: IsA<Text>> TextExt for O {
             let mut y = mem::MaybeUninit::uninit();
             let mut width = mem::MaybeUninit::uninit();
             let mut height = mem::MaybeUninit::uninit();
-            atk_sys::atk_text_get_character_extents(
+            ffi::atk_text_get_character_extents(
                 self.as_ref().to_glib_none().0,
                 offset,
                 x.as_mut_ptr(),
@@ -184,16 +184,16 @@ impl<O: IsA<Text>> TextExt for O {
     }
 
     //fn get_default_attributes(&self) -> /*Ignored*/Option<AttributeSet> {
-    //    unsafe { TODO: call atk_sys:atk_text_get_default_attributes() }
+    //    unsafe { TODO: call ffi:atk_text_get_default_attributes() }
     //}
 
     fn get_n_selections(&self) -> i32 {
-        unsafe { atk_sys::atk_text_get_n_selections(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::atk_text_get_n_selections(self.as_ref().to_glib_none().0) }
     }
 
     fn get_offset_at_point(&self, x: i32, y: i32, coords: CoordType) -> i32 {
         unsafe {
-            atk_sys::atk_text_get_offset_at_point(
+            ffi::atk_text_get_offset_at_point(
                 self.as_ref().to_glib_none().0,
                 x,
                 y,
@@ -210,7 +210,7 @@ impl<O: IsA<Text>> TextExt for O {
     ) -> TextRectangle {
         unsafe {
             let mut rect = TextRectangle::uninitialized();
-            atk_sys::atk_text_get_range_extents(
+            ffi::atk_text_get_range_extents(
                 self.as_ref().to_glib_none().0,
                 start_offset,
                 end_offset,
@@ -222,14 +222,14 @@ impl<O: IsA<Text>> TextExt for O {
     }
 
     //fn get_run_attributes(&self, offset: i32) -> (/*Ignored*/AttributeSet, i32, i32) {
-    //    unsafe { TODO: call atk_sys:atk_text_get_run_attributes() }
+    //    unsafe { TODO: call ffi:atk_text_get_run_attributes() }
     //}
 
-    fn get_selection(&self, selection_num: i32) -> (GString, i32, i32) {
+    fn get_selection(&self, selection_num: i32) -> (glib::GString, i32, i32) {
         unsafe {
             let mut start_offset = mem::MaybeUninit::uninit();
             let mut end_offset = mem::MaybeUninit::uninit();
-            let ret = from_glib_full(atk_sys::atk_text_get_selection(
+            let ret = from_glib_full(ffi::atk_text_get_selection(
                 self.as_ref().to_glib_none().0,
                 selection_num,
                 start_offset.as_mut_ptr(),
@@ -245,11 +245,11 @@ impl<O: IsA<Text>> TextExt for O {
         &self,
         offset: i32,
         granularity: TextGranularity,
-    ) -> (Option<GString>, i32, i32) {
+    ) -> (Option<glib::GString>, i32, i32) {
         unsafe {
             let mut start_offset = mem::MaybeUninit::uninit();
             let mut end_offset = mem::MaybeUninit::uninit();
-            let ret = from_glib_full(atk_sys::atk_text_get_string_at_offset(
+            let ret = from_glib_full(ffi::atk_text_get_string_at_offset(
                 self.as_ref().to_glib_none().0,
                 offset,
                 granularity.to_glib(),
@@ -262,9 +262,9 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    fn get_text(&self, start_offset: i32, end_offset: i32) -> Option<GString> {
+    fn get_text(&self, start_offset: i32, end_offset: i32) -> Option<glib::GString> {
         unsafe {
-            from_glib_full(atk_sys::atk_text_get_text(
+            from_glib_full(ffi::atk_text_get_text(
                 self.as_ref().to_glib_none().0,
                 start_offset,
                 end_offset,
@@ -272,11 +272,15 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    fn get_text_at_offset(&self, offset: i32, boundary_type: TextBoundary) -> (GString, i32, i32) {
+    fn get_text_at_offset(
+        &self,
+        offset: i32,
+        boundary_type: TextBoundary,
+    ) -> (glib::GString, i32, i32) {
         unsafe {
             let mut start_offset = mem::MaybeUninit::uninit();
             let mut end_offset = mem::MaybeUninit::uninit();
-            let ret = from_glib_full(atk_sys::atk_text_get_text_at_offset(
+            let ret = from_glib_full(ffi::atk_text_get_text_at_offset(
                 self.as_ref().to_glib_none().0,
                 offset,
                 boundary_type.to_glib(),
@@ -291,7 +295,7 @@ impl<O: IsA<Text>> TextExt for O {
 
     fn remove_selection(&self, selection_num: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_text_remove_selection(
+            from_glib(ffi::atk_text_remove_selection(
                 self.as_ref().to_glib_none().0,
                 selection_num,
             ))
@@ -302,7 +306,7 @@ impl<O: IsA<Text>> TextExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
     fn scroll_substring_to(&self, start_offset: i32, end_offset: i32, type_: ScrollType) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_text_scroll_substring_to(
+            from_glib(ffi::atk_text_scroll_substring_to(
                 self.as_ref().to_glib_none().0,
                 start_offset,
                 end_offset,
@@ -322,7 +326,7 @@ impl<O: IsA<Text>> TextExt for O {
         y: i32,
     ) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_text_scroll_substring_to_point(
+            from_glib(ffi::atk_text_scroll_substring_to_point(
                 self.as_ref().to_glib_none().0,
                 start_offset,
                 end_offset,
@@ -335,7 +339,7 @@ impl<O: IsA<Text>> TextExt for O {
 
     fn set_caret_offset(&self, offset: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_text_set_caret_offset(
+            from_glib(ffi::atk_text_set_caret_offset(
                 self.as_ref().to_glib_none().0,
                 offset,
             ))
@@ -344,7 +348,7 @@ impl<O: IsA<Text>> TextExt for O {
 
     fn set_selection(&self, selection_num: i32, start_offset: i32, end_offset: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_text_set_selection(
+            from_glib(ffi::atk_text_set_selection(
                 self.as_ref().to_glib_none().0,
                 selection_num,
                 start_offset,
@@ -355,8 +359,8 @@ impl<O: IsA<Text>> TextExt for O {
 
     fn connect_text_attributes_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_attributes_changed_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkText,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkText,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Text>,
         {
@@ -378,9 +382,9 @@ impl<O: IsA<Text>> TextExt for O {
 
     fn connect_text_caret_moved<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_caret_moved_trampoline<P, F: Fn(&P, i32) + 'static>(
-            this: *mut atk_sys::AtkText,
+            this: *mut ffi::AtkText,
             arg1: libc::c_int,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Text>,
         {
@@ -402,11 +406,11 @@ impl<O: IsA<Text>> TextExt for O {
 
     fn connect_text_insert<F: Fn(&Self, i32, i32, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_insert_trampoline<P, F: Fn(&P, i32, i32, &str) + 'static>(
-            this: *mut atk_sys::AtkText,
+            this: *mut ffi::AtkText,
             arg1: libc::c_int,
             arg2: libc::c_int,
             arg3: *mut libc::c_char,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Text>,
         {
@@ -415,7 +419,7 @@ impl<O: IsA<Text>> TextExt for O {
                 &Text::from_glib_borrow(this).unsafe_cast_ref(),
                 arg1,
                 arg2,
-                &GString::from_glib_borrow(arg3),
+                &glib::GString::from_glib_borrow(arg3),
             )
         }
         unsafe {
@@ -433,11 +437,11 @@ impl<O: IsA<Text>> TextExt for O {
 
     fn connect_text_remove<F: Fn(&Self, i32, i32, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_remove_trampoline<P, F: Fn(&P, i32, i32, &str) + 'static>(
-            this: *mut atk_sys::AtkText,
+            this: *mut ffi::AtkText,
             arg1: libc::c_int,
             arg2: libc::c_int,
             arg3: *mut libc::c_char,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Text>,
         {
@@ -446,7 +450,7 @@ impl<O: IsA<Text>> TextExt for O {
                 &Text::from_glib_borrow(this).unsafe_cast_ref(),
                 arg1,
                 arg2,
-                &GString::from_glib_borrow(arg3),
+                &glib::GString::from_glib_borrow(arg3),
             )
         }
         unsafe {
@@ -464,8 +468,8 @@ impl<O: IsA<Text>> TextExt for O {
 
     fn connect_text_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_selection_changed_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut atk_sys::AtkText,
-            f: glib_sys::gpointer,
+            this: *mut ffi::AtkText,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Text>,
         {

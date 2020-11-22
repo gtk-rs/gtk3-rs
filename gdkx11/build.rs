@@ -4,7 +4,6 @@ fn main() {
 
 #[cfg(any(feature = "embed-lgpl-docs", feature = "purge-lgpl-docs"))]
 fn manage_docs() {
-    extern crate lgpl_docs;
     const PATH: &str = "src";
     const IGNORES: &[&str] = &["lib.rs"];
     lgpl_docs::purge(PATH, IGNORES);

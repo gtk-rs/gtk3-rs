@@ -2,8 +2,17 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use glib;
+use crate::Align;
+use crate::Buildable;
+use crate::Container;
+use crate::IconSize;
+use crate::Orientable;
+use crate::Orientation;
+use crate::ResizeMode;
+use crate::ToolItem;
+use crate::ToolShell;
+use crate::ToolbarStyle;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectExt;
@@ -13,37 +22,22 @@ use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
-use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Align;
-use Buildable;
-use Container;
-use IconSize;
-use Orientable;
-use Orientation;
-use ResizeMode;
-use ToolItem;
-use ToolShell;
-use ToolbarStyle;
-use Widget;
 
-glib_wrapper! {
-    pub struct Toolbar(Object<gtk_sys::GtkToolbar, gtk_sys::GtkToolbarClass>) @extends Container, Widget, @implements Buildable, Orientable, ToolShell;
+glib::glib_wrapper! {
+    pub struct Toolbar(Object<ffi::GtkToolbar, ffi::GtkToolbarClass>) @extends Container, Widget, @implements Buildable, Orientable, ToolShell;
 
     match fn {
-        get_type => || gtk_sys::gtk_toolbar_get_type(),
+        get_type => || ffi::gtk_toolbar_get_type(),
     }
 }
 
 impl Toolbar {
     pub fn new() -> Toolbar {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_toolbar_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_toolbar_new()).unsafe_cast() }
     }
 }
 
@@ -516,12 +510,12 @@ pub trait ToolbarExt: 'static {
 
 impl<O: IsA<Toolbar>> ToolbarExt for O {
     fn get_drop_index(&self, x: i32, y: i32) -> i32 {
-        unsafe { gtk_sys::gtk_toolbar_get_drop_index(self.as_ref().to_glib_none().0, x, y) }
+        unsafe { ffi::gtk_toolbar_get_drop_index(self.as_ref().to_glib_none().0, x, y) }
     }
 
     fn get_item_index<P: IsA<ToolItem>>(&self, item: &P) -> i32 {
         unsafe {
-            gtk_sys::gtk_toolbar_get_item_index(
+            ffi::gtk_toolbar_get_item_index(
                 self.as_ref().to_glib_none().0,
                 item.as_ref().to_glib_none().0,
             )
@@ -529,12 +523,12 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
     }
 
     fn get_n_items(&self) -> i32 {
-        unsafe { gtk_sys::gtk_toolbar_get_n_items(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::gtk_toolbar_get_n_items(self.as_ref().to_glib_none().0) }
     }
 
     fn get_nth_item(&self, n: i32) -> Option<ToolItem> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_toolbar_get_nth_item(
+            from_glib_none(ffi::gtk_toolbar_get_nth_item(
                 self.as_ref().to_glib_none().0,
                 n,
             ))
@@ -543,7 +537,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     fn get_show_arrow(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_toolbar_get_show_arrow(
+            from_glib(ffi::gtk_toolbar_get_show_arrow(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -551,7 +545,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     fn insert<P: IsA<ToolItem>>(&self, item: &P, pos: i32) {
         unsafe {
-            gtk_sys::gtk_toolbar_insert(
+            ffi::gtk_toolbar_insert(
                 self.as_ref().to_glib_none().0,
                 item.as_ref().to_glib_none().0,
                 pos,
@@ -561,7 +555,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     fn set_drop_highlight_item<P: IsA<ToolItem>>(&self, tool_item: Option<&P>, index_: i32) {
         unsafe {
-            gtk_sys::gtk_toolbar_set_drop_highlight_item(
+            ffi::gtk_toolbar_set_drop_highlight_item(
                 self.as_ref().to_glib_none().0,
                 tool_item.map(|p| p.as_ref()).to_glib_none().0,
                 index_,
@@ -571,42 +565,39 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     fn set_icon_size(&self, icon_size: IconSize) {
         unsafe {
-            gtk_sys::gtk_toolbar_set_icon_size(self.as_ref().to_glib_none().0, icon_size.to_glib());
+            ffi::gtk_toolbar_set_icon_size(self.as_ref().to_glib_none().0, icon_size.to_glib());
         }
     }
 
     fn set_show_arrow(&self, show_arrow: bool) {
         unsafe {
-            gtk_sys::gtk_toolbar_set_show_arrow(
-                self.as_ref().to_glib_none().0,
-                show_arrow.to_glib(),
-            );
+            ffi::gtk_toolbar_set_show_arrow(self.as_ref().to_glib_none().0, show_arrow.to_glib());
         }
     }
 
     fn set_style(&self, style: ToolbarStyle) {
         unsafe {
-            gtk_sys::gtk_toolbar_set_style(self.as_ref().to_glib_none().0, style.to_glib());
+            ffi::gtk_toolbar_set_style(self.as_ref().to_glib_none().0, style.to_glib());
         }
     }
 
     fn unset_icon_size(&self) {
         unsafe {
-            gtk_sys::gtk_toolbar_unset_icon_size(self.as_ref().to_glib_none().0);
+            ffi::gtk_toolbar_unset_icon_size(self.as_ref().to_glib_none().0);
         }
     }
 
     fn unset_style(&self) {
         unsafe {
-            gtk_sys::gtk_toolbar_unset_style(self.as_ref().to_glib_none().0);
+            ffi::gtk_toolbar_unset_style(self.as_ref().to_glib_none().0);
         }
     }
 
     fn get_property_icon_size_set(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-size-set\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -619,8 +610,8 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     fn set_property_icon_size_set(&self, icon_size_set: bool) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-size-set\0".as_ptr() as *const _,
                 Value::from(&icon_size_set).to_glib_none().0,
             );
@@ -630,8 +621,8 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
     fn get_property_toolbar_style(&self) -> ToolbarStyle {
         unsafe {
             let mut value = Value::from_type(<ToolbarStyle as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"toolbar-style\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -644,8 +635,8 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     fn set_property_toolbar_style(&self, toolbar_style: ToolbarStyle) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"toolbar-style\0".as_ptr() as *const _,
                 Value::from(&toolbar_style).to_glib_none().0,
             );
@@ -655,8 +646,8 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
     fn get_item_expand<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"expand\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -670,8 +661,8 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     fn set_item_expand<T: IsA<Widget>>(&self, item: &T, expand: bool) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"expand\0".as_ptr() as *const _,
                 Value::from(&expand).to_glib_none().0,
@@ -682,8 +673,8 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
     fn get_item_homogeneous<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gtk_sys::gtk_container_child_get_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            crate::ffi::gtk_container_child_get_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"homogeneous\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
@@ -697,8 +688,8 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     fn set_item_homogeneous<T: IsA<Widget>>(&self, item: &T, homogeneous: bool) {
         unsafe {
-            gtk_sys::gtk_container_child_set_property(
-                self.to_glib_none().0 as *mut gtk_sys::GtkContainer,
+            crate::ffi::gtk_container_child_set_property(
+                self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"homogeneous\0".as_ptr() as *const _,
                 Value::from(&homogeneous).to_glib_none().0,
@@ -711,10 +702,10 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn focus_home_or_end_trampoline<P, F: Fn(&P, bool) -> bool + 'static>(
-            this: *mut gtk_sys::GtkToolbar,
-            focus_home: glib_sys::gboolean,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            this: *mut ffi::GtkToolbar,
+            focus_home: glib::ffi::gboolean,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Toolbar>,
         {
@@ -740,7 +731,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     fn emit_focus_home_or_end(&self, focus_home: bool) -> bool {
         let res = unsafe {
-            glib::Object::from_glib_borrow(self.as_ptr() as *mut gobject_sys::GObject)
+            glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
                 .emit("focus-home-or-end", &[&focus_home])
                 .unwrap()
         };
@@ -755,9 +746,9 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn orientation_changed_trampoline<P, F: Fn(&P, Orientation) + 'static>(
-            this: *mut gtk_sys::GtkToolbar,
-            orientation: gtk_sys::GtkOrientation,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkToolbar,
+            orientation: ffi::GtkOrientation,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Toolbar>,
         {
@@ -790,12 +781,12 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
             P,
             F: Fn(&P, i32, i32, i32) -> glib::signal::Inhibit + 'static,
         >(
-            this: *mut gtk_sys::GtkToolbar,
+            this: *mut ffi::GtkToolbar,
             x: libc::c_int,
             y: libc::c_int,
             button: libc::c_int,
-            f: glib_sys::gpointer,
-        ) -> glib_sys::gboolean
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean
         where
             P: IsA<Toolbar>,
         {
@@ -823,9 +814,9 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     fn connect_style_changed<F: Fn(&Self, ToolbarStyle) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn style_changed_trampoline<P, F: Fn(&P, ToolbarStyle) + 'static>(
-            this: *mut gtk_sys::GtkToolbar,
-            style: gtk_sys::GtkToolbarStyle,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkToolbar,
+            style: ffi::GtkToolbarStyle,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Toolbar>,
         {
@@ -850,9 +841,9 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     fn connect_property_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkToolbar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkToolbar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Toolbar>,
         {
@@ -877,9 +868,9 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_set_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkToolbar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkToolbar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Toolbar>,
         {
@@ -901,9 +892,9 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
 
     fn connect_property_show_arrow_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_arrow_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkToolbar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkToolbar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Toolbar>,
         {
@@ -928,9 +919,9 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_toolbar_style_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkToolbar,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkToolbar,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Toolbar>,
         {

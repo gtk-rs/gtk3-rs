@@ -13,6 +13,7 @@ build = "build.rs"
 exclude = [
     "gir-files/*",
 ]
+edition = "2018"
 
 [features]
 dox = ["glib/dox", "pango/dox", "cairo-rs/dox"]
@@ -30,11 +31,7 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 [dependencies]
 libc = "0.2"
 bitflags = "1.0"
-glib-sys = { path = "../glib/sys" }
-gobject-sys = { path = "../glib/gobject-sys" }
-pango-sys = { path = "../pango/sys" }
-cairo-sys-rs = { path = "../cairo/sys" }
-pangocairo-sys = { path = "../pangocairo/sys" }
+ffi = { package = "pangocairo-sys", path = "sys" }
 glib = { path = "../glib" }
 pango = { path = "../pango" }
 cairo-rs = { path = "../cairo" }

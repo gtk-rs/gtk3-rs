@@ -10,10 +10,9 @@
 )]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate cairo_sys as cairo;
-extern crate glib_sys as glib;
-extern crate libc;
-extern crate pango_sys as pango;
+use cairo_sys as cairo;
+use glib_sys as glib;
+use pango_sys as pango;
 
 #[allow(unused_imports)]
 use libc::{

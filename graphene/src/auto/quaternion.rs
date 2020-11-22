@@ -2,25 +2,23 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::Euler;
+use crate::Matrix;
+use crate::Vec3;
+use crate::Vec4;
 use glib::translate::*;
-use gobject_sys;
-use graphene_sys;
 use std::mem;
-use Euler;
-use Matrix;
-use Vec3;
-use Vec4;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
-    pub struct Quaternion(Boxed<graphene_sys::graphene_quaternion_t>);
+    pub struct Quaternion(Boxed<ffi::graphene_quaternion_t>);
 
     match fn {
-        copy => |ptr| gobject_sys::g_boxed_copy(graphene_sys::graphene_quaternion_get_type(), ptr as *mut _) as *mut graphene_sys::graphene_quaternion_t,
-        free => |ptr| gobject_sys::g_boxed_free(graphene_sys::graphene_quaternion_get_type(), ptr as *mut _),
+        copy => |ptr| glib::gobject_ffi::g_boxed_copy(ffi::graphene_quaternion_get_type(), ptr as *mut _) as *mut ffi::graphene_quaternion_t,
+        free => |ptr| glib::gobject_ffi::g_boxed_free(ffi::graphene_quaternion_get_type(), ptr as *mut _),
         init => |_ptr| (),
         clear => |_ptr| (),
-        get_type => || graphene_sys::graphene_quaternion_get_type(),
+        get_type => || ffi::graphene_quaternion_get_type(),
     }
 }
 
@@ -30,7 +28,7 @@ impl Quaternion {
     pub fn add(&self, b: &Quaternion) -> Quaternion {
         unsafe {
             let mut res = Quaternion::uninitialized();
-            graphene_sys::graphene_quaternion_add(
+            ffi::graphene_quaternion_add(
                 self.to_glib_none().0,
                 b.to_glib_none().0,
                 res.to_glib_none_mut().0,
@@ -40,12 +38,12 @@ impl Quaternion {
     }
 
     pub fn dot(&self, b: &Quaternion) -> f32 {
-        unsafe { graphene_sys::graphene_quaternion_dot(self.to_glib_none().0, b.to_glib_none().0) }
+        unsafe { ffi::graphene_quaternion_dot(self.to_glib_none().0, b.to_glib_none().0) }
     }
 
     fn equal(&self, b: &Quaternion) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_quaternion_equal(
+            from_glib(ffi::graphene_quaternion_equal(
                 self.to_glib_none().0,
                 b.to_glib_none().0,
             ))
@@ -54,13 +52,13 @@ impl Quaternion {
 
     pub fn init(&mut self, x: f32, y: f32, z: f32, w: f32) {
         unsafe {
-            graphene_sys::graphene_quaternion_init(self.to_glib_none_mut().0, x, y, z, w);
+            ffi::graphene_quaternion_init(self.to_glib_none_mut().0, x, y, z, w);
         }
     }
 
     pub fn init_from_angle_vec3(&mut self, angle: f32, axis: &Vec3) {
         unsafe {
-            graphene_sys::graphene_quaternion_init_from_angle_vec3(
+            ffi::graphene_quaternion_init_from_angle_vec3(
                 self.to_glib_none_mut().0,
                 angle,
                 axis.to_glib_none().0,
@@ -70,7 +68,7 @@ impl Quaternion {
 
     pub fn init_from_angles(&mut self, deg_x: f32, deg_y: f32, deg_z: f32) {
         unsafe {
-            graphene_sys::graphene_quaternion_init_from_angles(
+            ffi::graphene_quaternion_init_from_angles(
                 self.to_glib_none_mut().0,
                 deg_x,
                 deg_y,
@@ -81,16 +79,13 @@ impl Quaternion {
 
     pub fn init_from_euler(&mut self, e: &Euler) {
         unsafe {
-            graphene_sys::graphene_quaternion_init_from_euler(
-                self.to_glib_none_mut().0,
-                e.to_glib_none().0,
-            );
+            ffi::graphene_quaternion_init_from_euler(self.to_glib_none_mut().0, e.to_glib_none().0);
         }
     }
 
     pub fn init_from_matrix(&mut self, m: &Matrix) {
         unsafe {
-            graphene_sys::graphene_quaternion_init_from_matrix(
+            ffi::graphene_quaternion_init_from_matrix(
                 self.to_glib_none_mut().0,
                 m.to_glib_none().0,
             );
@@ -99,7 +94,7 @@ impl Quaternion {
 
     pub fn init_from_quaternion(&mut self, src: &Quaternion) {
         unsafe {
-            graphene_sys::graphene_quaternion_init_from_quaternion(
+            ffi::graphene_quaternion_init_from_quaternion(
                 self.to_glib_none_mut().0,
                 src.to_glib_none().0,
             );
@@ -108,7 +103,7 @@ impl Quaternion {
 
     pub fn init_from_radians(&mut self, rad_x: f32, rad_y: f32, rad_z: f32) {
         unsafe {
-            graphene_sys::graphene_quaternion_init_from_radians(
+            ffi::graphene_quaternion_init_from_radians(
                 self.to_glib_none_mut().0,
                 rad_x,
                 rad_y,
@@ -119,7 +114,7 @@ impl Quaternion {
 
     pub fn init_from_vec4(&mut self, src: &Vec4) {
         unsafe {
-            graphene_sys::graphene_quaternion_init_from_vec4(
+            ffi::graphene_quaternion_init_from_vec4(
                 self.to_glib_none_mut().0,
                 src.to_glib_none().0,
             );
@@ -128,17 +123,14 @@ impl Quaternion {
 
     pub fn init_identity(&mut self) {
         unsafe {
-            graphene_sys::graphene_quaternion_init_identity(self.to_glib_none_mut().0);
+            ffi::graphene_quaternion_init_identity(self.to_glib_none_mut().0);
         }
     }
 
     pub fn invert(&self) -> Quaternion {
         unsafe {
             let mut res = Quaternion::uninitialized();
-            graphene_sys::graphene_quaternion_invert(
-                self.to_glib_none().0,
-                res.to_glib_none_mut().0,
-            );
+            ffi::graphene_quaternion_invert(self.to_glib_none().0, res.to_glib_none_mut().0);
             res
         }
     }
@@ -148,7 +140,7 @@ impl Quaternion {
     pub fn multiply(&self, b: &Quaternion) -> Quaternion {
         unsafe {
             let mut res = Quaternion::uninitialized();
-            graphene_sys::graphene_quaternion_multiply(
+            ffi::graphene_quaternion_multiply(
                 self.to_glib_none().0,
                 b.to_glib_none().0,
                 res.to_glib_none_mut().0,
@@ -160,10 +152,7 @@ impl Quaternion {
     pub fn normalize(&self) -> Quaternion {
         unsafe {
             let mut res = Quaternion::uninitialized();
-            graphene_sys::graphene_quaternion_normalize(
-                self.to_glib_none().0,
-                res.to_glib_none_mut().0,
-            );
+            ffi::graphene_quaternion_normalize(self.to_glib_none().0, res.to_glib_none_mut().0);
             res
         }
     }
@@ -173,11 +162,7 @@ impl Quaternion {
     pub fn scale(&self, factor: f32) -> Quaternion {
         unsafe {
             let mut res = Quaternion::uninitialized();
-            graphene_sys::graphene_quaternion_scale(
-                self.to_glib_none().0,
-                factor,
-                res.to_glib_none_mut().0,
-            );
+            ffi::graphene_quaternion_scale(self.to_glib_none().0, factor, res.to_glib_none_mut().0);
             res
         }
     }
@@ -185,7 +170,7 @@ impl Quaternion {
     pub fn slerp(&self, b: &Quaternion, factor: f32) -> Quaternion {
         unsafe {
             let mut res = Quaternion::uninitialized();
-            graphene_sys::graphene_quaternion_slerp(
+            ffi::graphene_quaternion_slerp(
                 self.to_glib_none().0,
                 b.to_glib_none().0,
                 factor,
@@ -199,7 +184,7 @@ impl Quaternion {
         unsafe {
             let mut angle = mem::MaybeUninit::uninit();
             let mut axis = Vec3::uninitialized();
-            graphene_sys::graphene_quaternion_to_angle_vec3(
+            ffi::graphene_quaternion_to_angle_vec3(
                 self.to_glib_none().0,
                 angle.as_mut_ptr(),
                 axis.to_glib_none_mut().0,
@@ -214,7 +199,7 @@ impl Quaternion {
             let mut deg_x = mem::MaybeUninit::uninit();
             let mut deg_y = mem::MaybeUninit::uninit();
             let mut deg_z = mem::MaybeUninit::uninit();
-            graphene_sys::graphene_quaternion_to_angles(
+            ffi::graphene_quaternion_to_angles(
                 self.to_glib_none().0,
                 deg_x.as_mut_ptr(),
                 deg_y.as_mut_ptr(),
@@ -230,10 +215,7 @@ impl Quaternion {
     pub fn to_matrix(&self) -> Matrix {
         unsafe {
             let mut m = Matrix::uninitialized();
-            graphene_sys::graphene_quaternion_to_matrix(
-                self.to_glib_none().0,
-                m.to_glib_none_mut().0,
-            );
+            ffi::graphene_quaternion_to_matrix(self.to_glib_none().0, m.to_glib_none_mut().0);
             m
         }
     }
@@ -243,7 +225,7 @@ impl Quaternion {
             let mut rad_x = mem::MaybeUninit::uninit();
             let mut rad_y = mem::MaybeUninit::uninit();
             let mut rad_z = mem::MaybeUninit::uninit();
-            graphene_sys::graphene_quaternion_to_radians(
+            ffi::graphene_quaternion_to_radians(
                 self.to_glib_none().0,
                 rad_x.as_mut_ptr(),
                 rad_y.as_mut_ptr(),
@@ -259,10 +241,7 @@ impl Quaternion {
     pub fn to_vec4(&self) -> Vec4 {
         unsafe {
             let mut res = Vec4::uninitialized();
-            graphene_sys::graphene_quaternion_to_vec4(
-                self.to_glib_none().0,
-                res.to_glib_none_mut().0,
-            );
+            ffi::graphene_quaternion_to_vec4(self.to_glib_none().0, res.to_glib_none_mut().0);
             res
         }
     }

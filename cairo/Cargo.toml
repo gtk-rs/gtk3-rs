@@ -10,6 +10,7 @@ version = "0.13.0"
 description = "Rust bindings for the Cairo library"
 repository = "https://github.com/gtk-rs/gtk-rs"
 build = "build.rs"
+edition = "2018"
 
 [badges]
 appveyor = { repository = "GuillaumeGomez/cairo", service = "github" }
@@ -20,21 +21,21 @@ name = "cairo"
 
 [features]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
-png = ["cairo-sys-rs/png"]
-pdf = ["cairo-sys-rs/pdf"]
-svg = ["cairo-sys-rs/svg"]
-ps = ["cairo-sys-rs/ps"]
-use_glib = ["glib", "glib-sys", "gobject-sys", "cairo-sys-rs/use_glib"]
+png = ["ffi/png"]
+pdf = ["ffi/pdf"]
+svg = ["ffi/svg"]
+ps = ["ffi/ps"]
+use_glib = ["glib", "ffi/use_glib"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
-v1_14 = ["cairo-sys-rs/v1_14"]
-v1_16 = ["v1_14", "cairo-sys-rs/v1_16"]
+v1_14 = ["ffi/v1_14"]
+v1_16 = ["v1_14", "ffi/v1_16"]
 default = ["use_glib", "freetype"]
-freetype = ["cairo-sys-rs/freetype", "freetype-crate"]
-script = ["cairo-sys-rs/script"]
-xcb = ["cairo-sys-rs/xcb"]
-xlib = ["cairo-sys-rs/xlib"]
-dox = ["cairo-sys-rs/dox", "glib/dox"]
-win32-surface = ["cairo-sys-rs/win32-surface"]
+freetype = ["ffi/freetype", "freetype-crate"]
+script = ["ffi/script"]
+xcb = ["ffi/xcb"]
+xlib = ["ffi/xlib"]
+dox = ["ffi/dox", "glib/dox"]
+win32-surface = ["ffi/win32-surface"]
 
 [package.metadata.docs.rs]
 features = ["dox", "embed-lgpl-docs"]
@@ -44,20 +45,13 @@ version = "0.1.8"
 optional = true
 git = "https://github.com/gtk-rs/lgpl-docs"
 
-[dependencies.cairo-sys-rs]
+[dependencies.ffi]
+package = "cairo-sys-rs"
 path = "sys"
 
 [dependencies.glib]
 optional = true
 path = "../glib"
-
-[dependencies.glib-sys]
-optional = true
-path = "../glib/sys"
-
-[dependencies.gobject-sys]
-optional = true
-path = "../glib/gobject-sys"
 
 [dependencies.freetype-crate]
 package = "freetype"

@@ -1,8 +1,8 @@
 use glib::subclass::prelude::*;
 
 use super::container::ContainerImpl;
-use Container;
-use TreeView;
+use crate::Container;
+use crate::TreeView;
 
 pub trait TreeViewImpl: ContainerImpl {}
 

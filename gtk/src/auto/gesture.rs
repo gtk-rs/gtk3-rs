@@ -2,8 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use gdk_sys;
+use crate::EventController;
+use crate::EventSequenceState;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -11,21 +11,16 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
-use EventController;
-use EventSequenceState;
 
-glib_wrapper! {
-    pub struct Gesture(Object<gtk_sys::GtkGesture, gtk_sys::GtkGestureClass>) @extends EventController;
+glib::glib_wrapper! {
+    pub struct Gesture(Object<ffi::GtkGesture, ffi::GtkGestureClass>) @extends EventController;
 
     match fn {
-        get_type => || gtk_sys::gtk_gesture_get_type(),
+        get_type => || ffi::gtk_gesture_get_type(),
     }
 }
 
@@ -106,7 +101,7 @@ impl<O: IsA<Gesture>> GestureExt for O {
     fn get_bounding_box(&self) -> Option<gdk::Rectangle> {
         unsafe {
             let mut rect = gdk::Rectangle::uninitialized();
-            let ret = from_glib(gtk_sys::gtk_gesture_get_bounding_box(
+            let ret = from_glib(ffi::gtk_gesture_get_bounding_box(
                 self.as_ref().to_glib_none().0,
                 rect.to_glib_none_mut().0,
             ));
@@ -122,7 +117,7 @@ impl<O: IsA<Gesture>> GestureExt for O {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
             let mut y = mem::MaybeUninit::uninit();
-            let ret = from_glib(gtk_sys::gtk_gesture_get_bounding_box_center(
+            let ret = from_glib(ffi::gtk_gesture_get_bounding_box_center(
                 self.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
@@ -138,16 +133,12 @@ impl<O: IsA<Gesture>> GestureExt for O {
     }
 
     fn get_device(&self) -> Option<gdk::Device> {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_gesture_get_device(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gtk_gesture_get_device(self.as_ref().to_glib_none().0)) }
     }
 
     fn get_group(&self) -> Vec<Gesture> {
         unsafe {
-            FromGlibPtrContainer::from_glib_container(gtk_sys::gtk_gesture_get_group(
+            FromGlibPtrContainer::from_glib_container(ffi::gtk_gesture_get_group(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -155,7 +146,7 @@ impl<O: IsA<Gesture>> GestureExt for O {
 
     fn get_last_event(&self, sequence: Option<&gdk::EventSequence>) -> Option<gdk::Event> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_gesture_get_last_event(
+            from_glib_none(ffi::gtk_gesture_get_last_event(
                 self.as_ref().to_glib_none().0,
                 mut_override(sequence.to_glib_none().0),
             ))
@@ -164,7 +155,7 @@ impl<O: IsA<Gesture>> GestureExt for O {
 
     fn get_last_updated_sequence(&self) -> Option<gdk::EventSequence> {
         unsafe {
-            from_glib_none(gtk_sys::gtk_gesture_get_last_updated_sequence(
+            from_glib_none(ffi::gtk_gesture_get_last_updated_sequence(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -174,7 +165,7 @@ impl<O: IsA<Gesture>> GestureExt for O {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
             let mut y = mem::MaybeUninit::uninit();
-            let ret = from_glib(gtk_sys::gtk_gesture_get_point(
+            let ret = from_glib(ffi::gtk_gesture_get_point(
                 self.as_ref().to_glib_none().0,
                 mut_override(sequence.to_glib_none().0),
                 x.as_mut_ptr(),
@@ -192,7 +183,7 @@ impl<O: IsA<Gesture>> GestureExt for O {
 
     fn get_sequence_state(&self, sequence: &gdk::EventSequence) -> EventSequenceState {
         unsafe {
-            from_glib(gtk_sys::gtk_gesture_get_sequence_state(
+            from_glib(ffi::gtk_gesture_get_sequence_state(
                 self.as_ref().to_glib_none().0,
                 mut_override(sequence.to_glib_none().0),
             ))
@@ -201,23 +192,19 @@ impl<O: IsA<Gesture>> GestureExt for O {
 
     fn get_sequences(&self) -> Vec<gdk::EventSequence> {
         unsafe {
-            FromGlibPtrContainer::from_glib_container(gtk_sys::gtk_gesture_get_sequences(
+            FromGlibPtrContainer::from_glib_container(ffi::gtk_gesture_get_sequences(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_window(&self) -> Option<gdk::Window> {
-        unsafe {
-            from_glib_none(gtk_sys::gtk_gesture_get_window(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_none(ffi::gtk_gesture_get_window(self.as_ref().to_glib_none().0)) }
     }
 
     fn group<P: IsA<Gesture>>(&self, gesture: &P) {
         unsafe {
-            gtk_sys::gtk_gesture_group(
+            ffi::gtk_gesture_group(
                 self.as_ref().to_glib_none().0,
                 gesture.as_ref().to_glib_none().0,
             );
@@ -226,7 +213,7 @@ impl<O: IsA<Gesture>> GestureExt for O {
 
     fn handles_sequence(&self, sequence: Option<&gdk::EventSequence>) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_gesture_handles_sequence(
+            from_glib(ffi::gtk_gesture_handles_sequence(
                 self.as_ref().to_glib_none().0,
                 mut_override(sequence.to_glib_none().0),
             ))
@@ -234,16 +221,12 @@ impl<O: IsA<Gesture>> GestureExt for O {
     }
 
     fn is_active(&self) -> bool {
-        unsafe {
-            from_glib(gtk_sys::gtk_gesture_is_active(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::gtk_gesture_is_active(self.as_ref().to_glib_none().0)) }
     }
 
     fn is_grouped_with<P: IsA<Gesture>>(&self, other: &P) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_gesture_is_grouped_with(
+            from_glib(ffi::gtk_gesture_is_grouped_with(
                 self.as_ref().to_glib_none().0,
                 other.as_ref().to_glib_none().0,
             ))
@@ -252,7 +235,7 @@ impl<O: IsA<Gesture>> GestureExt for O {
 
     fn is_recognized(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_gesture_is_recognized(
+            from_glib(ffi::gtk_gesture_is_recognized(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -260,7 +243,7 @@ impl<O: IsA<Gesture>> GestureExt for O {
 
     fn set_sequence_state(&self, sequence: &gdk::EventSequence, state: EventSequenceState) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_gesture_set_sequence_state(
+            from_glib(ffi::gtk_gesture_set_sequence_state(
                 self.as_ref().to_glib_none().0,
                 mut_override(sequence.to_glib_none().0),
                 state.to_glib(),
@@ -270,7 +253,7 @@ impl<O: IsA<Gesture>> GestureExt for O {
 
     fn set_state(&self, state: EventSequenceState) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_gesture_set_state(
+            from_glib(ffi::gtk_gesture_set_state(
                 self.as_ref().to_glib_none().0,
                 state.to_glib(),
             ))
@@ -279,7 +262,7 @@ impl<O: IsA<Gesture>> GestureExt for O {
 
     fn set_window<P: IsA<gdk::Window>>(&self, window: Option<&P>) {
         unsafe {
-            gtk_sys::gtk_gesture_set_window(
+            ffi::gtk_gesture_set_window(
                 self.as_ref().to_glib_none().0,
                 window.map(|p| p.as_ref()).to_glib_none().0,
             );
@@ -288,15 +271,15 @@ impl<O: IsA<Gesture>> GestureExt for O {
 
     fn ungroup(&self) {
         unsafe {
-            gtk_sys::gtk_gesture_ungroup(self.as_ref().to_glib_none().0);
+            ffi::gtk_gesture_ungroup(self.as_ref().to_glib_none().0);
         }
     }
 
     fn get_property_n_points(&self) -> u32 {
         unsafe {
             let mut value = Value::from_type(<u32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"n-points\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -312,9 +295,9 @@ impl<O: IsA<Gesture>> GestureExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn begin_trampoline<P, F: Fn(&P, Option<&gdk::EventSequence>) + 'static>(
-            this: *mut gtk_sys::GtkGesture,
-            sequence: *mut gdk_sys::GdkEventSequence,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkGesture,
+            sequence: *mut gdk::ffi::GdkEventSequence,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Gesture>,
         {
@@ -347,9 +330,9 @@ impl<O: IsA<Gesture>> GestureExt for O {
             P,
             F: Fn(&P, Option<&gdk::EventSequence>) + 'static,
         >(
-            this: *mut gtk_sys::GtkGesture,
-            sequence: *mut gdk_sys::GdkEventSequence,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkGesture,
+            sequence: *mut gdk::ffi::GdkEventSequence,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Gesture>,
         {
@@ -379,9 +362,9 @@ impl<O: IsA<Gesture>> GestureExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn end_trampoline<P, F: Fn(&P, Option<&gdk::EventSequence>) + 'static>(
-            this: *mut gtk_sys::GtkGesture,
-            sequence: *mut gdk_sys::GdkEventSequence,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkGesture,
+            sequence: *mut gdk::ffi::GdkEventSequence,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Gesture>,
         {
@@ -416,10 +399,10 @@ impl<O: IsA<Gesture>> GestureExt for O {
             P,
             F: Fn(&P, Option<&gdk::EventSequence>, EventSequenceState) + 'static,
         >(
-            this: *mut gtk_sys::GtkGesture,
-            sequence: *mut gdk_sys::GdkEventSequence,
-            state: gtk_sys::GtkEventSequenceState,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkGesture,
+            sequence: *mut gdk::ffi::GdkEventSequence,
+            state: ffi::GtkEventSequenceState,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Gesture>,
         {
@@ -453,9 +436,9 @@ impl<O: IsA<Gesture>> GestureExt for O {
             P,
             F: Fn(&P, Option<&gdk::EventSequence>) + 'static,
         >(
-            this: *mut gtk_sys::GtkGesture,
-            sequence: *mut gdk_sys::GdkEventSequence,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkGesture,
+            sequence: *mut gdk::ffi::GdkEventSequence,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Gesture>,
         {
@@ -482,9 +465,9 @@ impl<O: IsA<Gesture>> GestureExt for O {
 
     fn connect_property_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_window_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkGesture,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkGesture,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<Gesture>,
         {

@@ -2,18 +2,17 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use enums::MeshCorner;
-use enums::{Extend, Filter, PatternType};
-use error::Error;
-use ffi;
-use ffi::{cairo_pattern_t, cairo_surface_t};
+use crate::enums::MeshCorner;
+use crate::enums::{Extend, Filter, PatternType};
+use crate::error::Error;
+use crate::ffi::{cairo_pattern_t, cairo_surface_t};
+use crate::utils::status_to_result;
+use crate::{Matrix, Path, Surface};
 use libc::{c_double, c_int, c_uint};
 use std::convert::TryFrom;
 use std::fmt;
 use std::ops::Deref;
 use std::ptr;
-use utils::status_to_result;
-use {Matrix, Path, Surface};
 
 // See https://cairographics.org/manual/bindings-patterns.html for more info
 #[derive(Debug)]

@@ -6,12 +6,12 @@ mod font_face;
 mod font_options;
 mod scaled_font;
 
-pub use enums::{
+pub use crate::enums::{
     Antialias, FontSlant, FontType, FontWeight, HintMetrics, HintStyle, SubpixelOrder,
     TextClusterFlags,
 };
 
-pub use ffi::{FontExtents, Glyph, TextCluster, TextExtents};
+pub use crate::ffi::{FontExtents, Glyph, TextCluster, TextExtents};
 
 /* TODO
  Allocates an array of cairo_glyph_t's. This function is only useful in

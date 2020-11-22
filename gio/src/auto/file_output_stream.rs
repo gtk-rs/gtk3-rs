@@ -2,34 +2,29 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::Cancellable;
+use crate::FileInfo;
+use crate::OutputStream;
+use crate::Seekable;
 use glib::object::IsA;
 use glib::translate::*;
-use glib::GString;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
-use FileInfo;
-use OutputStream;
-use Seekable;
 
-glib_wrapper! {
-    pub struct FileOutputStream(Object<gio_sys::GFileOutputStream, gio_sys::GFileOutputStreamClass>) @extends OutputStream, @implements Seekable;
+glib::glib_wrapper! {
+    pub struct FileOutputStream(Object<ffi::GFileOutputStream, ffi::GFileOutputStreamClass>) @extends OutputStream, @implements Seekable;
 
     match fn {
-        get_type => || gio_sys::g_file_output_stream_get_type(),
+        get_type => || ffi::g_file_output_stream_get_type(),
     }
 }
 
 pub const NONE_FILE_OUTPUT_STREAM: Option<&FileOutputStream> = None;
 
 pub trait FileOutputStreamExt: 'static {
-    fn get_etag(&self) -> Option<GString>;
+    fn get_etag(&self) -> Option<glib::GString>;
 
     fn query_info<P: IsA<Cancellable>>(
         &self,
@@ -56,9 +51,9 @@ pub trait FileOutputStreamExt: 'static {
 }
 
 impl<O: IsA<FileOutputStream>> FileOutputStreamExt for O {
-    fn get_etag(&self) -> Option<GString> {
+    fn get_etag(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_full(gio_sys::g_file_output_stream_get_etag(
+            from_glib_full(ffi::g_file_output_stream_get_etag(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -71,7 +66,7 @@ impl<O: IsA<FileOutputStream>> FileOutputStreamExt for O {
     ) -> Result<FileInfo, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_output_stream_query_info(
+            let ret = ffi::g_file_output_stream_query_info(
                 self.as_ref().to_glib_none().0,
                 attributes.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -99,12 +94,12 @@ impl<O: IsA<FileOutputStream>> FileOutputStreamExt for O {
         unsafe extern "C" fn query_info_async_trampoline<
             Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_file_output_stream_query_info_finish(
+            let ret = ffi::g_file_output_stream_query_info_finish(
                 _source_object as *mut _,
                 res,
                 &mut error,
@@ -119,7 +114,7 @@ impl<O: IsA<FileOutputStream>> FileOutputStreamExt for O {
         }
         let callback = query_info_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_output_stream_query_info_async(
+            ffi::g_file_output_stream_query_info_async(
                 self.as_ref().to_glib_none().0,
                 attributes.to_glib_none().0,
                 io_priority.to_glib(),

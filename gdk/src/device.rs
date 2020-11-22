@@ -2,13 +2,12 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gdk_sys;
+use crate::AxisUse;
+use crate::Device;
+use crate::TimeCoord;
+use crate::Window;
 use glib::object::IsA;
 use glib::translate::*;
-use AxisUse;
-use Device;
-use TimeCoord;
-use Window;
 
 use std::mem;
 use std::ptr;
@@ -16,7 +15,7 @@ use std::ptr;
 impl Device {
     pub fn get_axis(&self, axes: &mut [f64], use_: AxisUse, value: &mut f64) -> bool {
         unsafe {
-            from_glib(gdk_sys::gdk_device_get_axis(
+            from_glib(ffi::gdk_device_get_axis(
                 self.to_glib_none().0,
                 axes.as_mut_ptr(),
                 use_.to_glib(),
@@ -29,7 +28,7 @@ impl Device {
         unsafe {
             let mut events = ptr::null_mut();
             let mut n_events = mem::MaybeUninit::uninit();
-            let ret: bool = from_glib(gdk_sys::gdk_device_get_history(
+            let ret: bool = from_glib(ffi::gdk_device_get_history(
                 self.to_glib_none().0,
                 window.as_ref().to_glib_none().0,
                 start,
@@ -45,7 +44,7 @@ impl Device {
             for i in 0..n_events {
                 r_events.push((*(events.add(i) as *mut TimeCoord)).clone());
             }
-            gdk_sys::gdk_device_free_history(events, n_events as _);
+            ffi::gdk_device_free_history(events, n_events as _);
             r_events
         }
     }

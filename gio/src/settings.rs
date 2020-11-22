@@ -1,6 +1,6 @@
+use crate::{Settings, SettingsExt};
 use glib::variant::FromVariant;
 use glib::{BoolError, IsA, ToVariant};
-use {Settings, SettingsExt};
 
 pub trait SettingsExtManual {
     fn get<U: FromVariant>(&self, key: &str) -> U;
@@ -65,7 +65,7 @@ mod test {
     }
 
     #[test]
-    #[serial]
+    #[serial_test::serial]
     fn string_get() {
         set_env();
         let settings = Settings::new("com.github.gtk-rs.test");
@@ -73,7 +73,7 @@ mod test {
     }
 
     #[test]
-    #[serial]
+    #[serial_test::serial]
     fn bool_set_get() {
         set_env();
         let settings = Settings::new("com.github.gtk-rs.test");
@@ -83,7 +83,7 @@ mod test {
 
     #[test]
     #[should_panic]
-    #[serial]
+    #[serial_test::serial]
     fn wrong_type() {
         set_env();
         let settings = Settings::new("com.github.gtk-rs.test");

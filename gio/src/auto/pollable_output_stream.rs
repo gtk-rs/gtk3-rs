@@ -2,20 +2,18 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::Cancellable;
+use crate::OutputStream;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 use std::ptr;
-use Cancellable;
-use OutputStream;
 
-glib_wrapper! {
-    pub struct PollableOutputStream(Interface<gio_sys::GPollableOutputStream>) @requires OutputStream;
+glib::glib_wrapper! {
+    pub struct PollableOutputStream(Interface<ffi::GPollableOutputStream>) @requires OutputStream;
 
     match fn {
-        get_type => || gio_sys::g_pollable_output_stream_get_type(),
+        get_type => || ffi::g_pollable_output_stream_get_type(),
     }
 }
 
@@ -40,7 +38,7 @@ pub trait PollableOutputStreamExt: 'static {
 impl<O: IsA<PollableOutputStream>> PollableOutputStreamExt for O {
     fn can_poll(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_pollable_output_stream_can_poll(
+            from_glib(ffi::g_pollable_output_stream_can_poll(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -48,7 +46,7 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExt for O {
 
     fn is_writable(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_pollable_output_stream_is_writable(
+            from_glib(ffi::g_pollable_output_stream_is_writable(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -62,7 +60,7 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExt for O {
         let count = buffer.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_pollable_output_stream_write_nonblocking(
+            let ret = ffi::g_pollable_output_stream_write_nonblocking(
                 self.as_ref().to_glib_none().0,
                 buffer.to_glib_none().0,
                 count,
@@ -80,7 +78,7 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExt for O {
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
     //fn writev_nonblocking<P: IsA<Cancellable>>(&self, vectors: /*Ignored*/&[&OutputVector], cancellable: Option<&P>) -> Result<(/*Ignored*/PollableReturn, usize), glib::Error> {
-    //    unsafe { TODO: call gio_sys:g_pollable_output_stream_writev_nonblocking() }
+    //    unsafe { TODO: call ffi:g_pollable_output_stream_writev_nonblocking() }
     //}
 }
 

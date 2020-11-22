@@ -2,8 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use glib_ffi;
-
 extern "C" {
     pub fn cairo_gobject_context_get_type() -> glib_ffi::GType;
     pub fn cairo_gobject_device_get_type() -> glib_ffi::GType;

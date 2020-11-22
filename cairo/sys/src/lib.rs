@@ -282,7 +282,6 @@ pub type FT_Face = *mut c_void;
 pub type FcPattern = c_void;
 
 extern "C" {
-    // CAIRO CONTEXT
     pub fn cairo_create(target: *mut cairo_surface_t) -> *mut cairo_t;
     pub fn cairo_reference(cr: *mut cairo_t) -> *mut cairo_t;
     pub fn cairo_destroy(cr: *mut cairo_t);

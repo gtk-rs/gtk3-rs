@@ -2,32 +2,30 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::Box;
+use crate::Plane;
+use crate::Point3D;
+use crate::Vec2;
+use crate::Vec3;
 use glib::translate::*;
-use gobject_sys;
-use graphene_sys;
-use Box;
-use Plane;
-use Point3D;
-use Vec2;
-use Vec3;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
-    pub struct Triangle(Boxed<graphene_sys::graphene_triangle_t>);
+    pub struct Triangle(Boxed<ffi::graphene_triangle_t>);
 
     match fn {
-        copy => |ptr| gobject_sys::g_boxed_copy(graphene_sys::graphene_triangle_get_type(), ptr as *mut _) as *mut graphene_sys::graphene_triangle_t,
-        free => |ptr| gobject_sys::g_boxed_free(graphene_sys::graphene_triangle_get_type(), ptr as *mut _),
+        copy => |ptr| glib::gobject_ffi::g_boxed_copy(ffi::graphene_triangle_get_type(), ptr as *mut _) as *mut ffi::graphene_triangle_t,
+        free => |ptr| glib::gobject_ffi::g_boxed_free(ffi::graphene_triangle_get_type(), ptr as *mut _),
         init => |_ptr| (),
         clear => |_ptr| (),
-        get_type => || graphene_sys::graphene_triangle_get_type(),
+        get_type => || ffi::graphene_triangle_get_type(),
     }
 }
 
 impl Triangle {
     pub fn contains_point(&self, p: &Point3D) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_triangle_contains_point(
+            from_glib(ffi::graphene_triangle_contains_point(
                 self.to_glib_none().0,
                 p.to_glib_none().0,
             ))
@@ -36,7 +34,7 @@ impl Triangle {
 
     fn equal(&self, b: &Triangle) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_triangle_equal(
+            from_glib(ffi::graphene_triangle_equal(
                 self.to_glib_none().0,
                 b.to_glib_none().0,
             ))
@@ -44,13 +42,13 @@ impl Triangle {
     }
 
     pub fn get_area(&self) -> f32 {
-        unsafe { graphene_sys::graphene_triangle_get_area(self.to_glib_none().0) }
+        unsafe { ffi::graphene_triangle_get_area(self.to_glib_none().0) }
     }
 
     pub fn get_barycoords(&self, p: Option<&Point3D>) -> Option<Vec2> {
         unsafe {
             let mut res = Vec2::uninitialized();
-            let ret = from_glib(graphene_sys::graphene_triangle_get_barycoords(
+            let ret = from_glib(ffi::graphene_triangle_get_barycoords(
                 self.to_glib_none().0,
                 p.to_glib_none().0,
                 res.to_glib_none_mut().0,
@@ -66,7 +64,7 @@ impl Triangle {
     pub fn get_bounding_box(&self) -> Box {
         unsafe {
             let mut res = Box::uninitialized();
-            graphene_sys::graphene_triangle_get_bounding_box(
+            ffi::graphene_triangle_get_bounding_box(
                 self.to_glib_none().0,
                 res.to_glib_none_mut().0,
             );
@@ -77,10 +75,7 @@ impl Triangle {
     pub fn get_midpoint(&self) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
-            graphene_sys::graphene_triangle_get_midpoint(
-                self.to_glib_none().0,
-                res.to_glib_none_mut().0,
-            );
+            ffi::graphene_triangle_get_midpoint(self.to_glib_none().0, res.to_glib_none_mut().0);
             res
         }
     }
@@ -88,10 +83,7 @@ impl Triangle {
     pub fn get_normal(&self) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
-            graphene_sys::graphene_triangle_get_normal(
-                self.to_glib_none().0,
-                res.to_glib_none_mut().0,
-            );
+            ffi::graphene_triangle_get_normal(self.to_glib_none().0, res.to_glib_none_mut().0);
             res
         }
     }
@@ -99,10 +91,7 @@ impl Triangle {
     pub fn get_plane(&self) -> Plane {
         unsafe {
             let mut res = Plane::uninitialized();
-            graphene_sys::graphene_triangle_get_plane(
-                self.to_glib_none().0,
-                res.to_glib_none_mut().0,
-            );
+            ffi::graphene_triangle_get_plane(self.to_glib_none().0, res.to_glib_none_mut().0);
             res
         }
     }
@@ -112,7 +101,7 @@ impl Triangle {
             let mut a = Point3D::uninitialized();
             let mut b = Point3D::uninitialized();
             let mut c = Point3D::uninitialized();
-            graphene_sys::graphene_triangle_get_points(
+            ffi::graphene_triangle_get_points(
                 self.to_glib_none().0,
                 a.to_glib_none_mut().0,
                 b.to_glib_none_mut().0,
@@ -133,7 +122,7 @@ impl Triangle {
     ) -> Option<Vec2> {
         unsafe {
             let mut res = Vec2::uninitialized();
-            let ret = from_glib(graphene_sys::graphene_triangle_get_uv(
+            let ret = from_glib(ffi::graphene_triangle_get_uv(
                 self.to_glib_none().0,
                 p.to_glib_none().0,
                 uv_a.to_glib_none().0,
@@ -154,7 +143,7 @@ impl Triangle {
             let mut a = Vec3::uninitialized();
             let mut b = Vec3::uninitialized();
             let mut c = Vec3::uninitialized();
-            graphene_sys::graphene_triangle_get_vertices(
+            ffi::graphene_triangle_get_vertices(
                 self.to_glib_none().0,
                 a.to_glib_none_mut().0,
                 b.to_glib_none_mut().0,
@@ -167,7 +156,7 @@ impl Triangle {
     //#[cfg(any(feature = "v1_10", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
     //pub fn init_from_float(&mut self, a: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 3, b: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 3, c: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 3) -> Option<Triangle> {
-    //    unsafe { TODO: call graphene_sys:graphene_triangle_init_from_float() }
+    //    unsafe { TODO: call ffi:graphene_triangle_init_from_float() }
     //}
 
     pub fn init_from_point3d(
@@ -177,7 +166,7 @@ impl Triangle {
         c: Option<&Point3D>,
     ) {
         unsafe {
-            graphene_sys::graphene_triangle_init_from_point3d(
+            ffi::graphene_triangle_init_from_point3d(
                 self.to_glib_none_mut().0,
                 a.to_glib_none().0,
                 b.to_glib_none().0,
@@ -188,7 +177,7 @@ impl Triangle {
 
     pub fn init_from_vec3(&mut self, a: Option<&Vec3>, b: Option<&Vec3>, c: Option<&Vec3>) {
         unsafe {
-            graphene_sys::graphene_triangle_init_from_vec3(
+            ffi::graphene_triangle_init_from_vec3(
                 self.to_glib_none_mut().0,
                 a.to_glib_none().0,
                 b.to_glib_none().0,

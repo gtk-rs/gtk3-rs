@@ -11,10 +11,9 @@ use std::ops::Deref;
 use std::path::Path;
 use std::ptr;
 
-use enums::{PsLevel, SurfaceType};
-use error::Error;
-use ffi;
-use surface::Surface;
+use crate::enums::{PsLevel, SurfaceType};
+use crate::error::Error;
+use crate::surface::Surface;
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
@@ -98,7 +97,7 @@ impl PsSurface {
 #[cfg(test)]
 mod test {
     use super::*;
-    use context::*;
+    use crate::context::*;
     use tempfile::tempfile;
 
     fn draw(surface: &Surface) {

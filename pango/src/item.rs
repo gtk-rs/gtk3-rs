@@ -4,8 +4,8 @@
 
 use glib::translate::ToGlibPtr;
 
-use Analysis;
-use Item;
+use crate::Analysis;
+use crate::Item;
 
 impl Item {
     pub fn offset(&self) -> i32 {

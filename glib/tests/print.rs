@@ -1,5 +1,3 @@
-extern crate glib;
-
 use glib::*;
 
 use std::sync::{Arc, Mutex};

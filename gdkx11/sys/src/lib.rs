@@ -10,13 +10,8 @@
 )]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate gdk_pixbuf_sys as gdk_pixbuf;
-extern crate gdk_sys as gdk;
-extern crate gio_sys as gio;
-extern crate glib_sys as glib;
-extern crate gobject_sys as gobject;
-extern crate libc;
-extern crate pango_sys as pango;
+use gdk_sys as gdk;
+use glib_sys as glib;
 
 mod manual;
 

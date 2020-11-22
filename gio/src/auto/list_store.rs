@@ -2,10 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-use glib;
+use crate::ListModel;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
@@ -15,13 +12,12 @@ use std::fmt;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 use std::mem;
-use ListModel;
 
-glib_wrapper! {
-    pub struct ListStore(Object<gio_sys::GListStore, gio_sys::GListStoreClass>) @implements ListModel;
+glib::glib_wrapper! {
+    pub struct ListStore(Object<ffi::GListStore, ffi::GListStoreClass>) @implements ListModel;
 
     match fn {
-        get_type => || gio_sys::g_list_store_get_type(),
+        get_type => || ffi::g_list_store_get_type(),
     }
 }
 
@@ -29,7 +25,7 @@ impl ListStore {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub fn new(item_type: glib::types::Type) -> ListStore {
-        unsafe { from_glib_full(gio_sys::g_list_store_new(item_type.to_glib())) }
+        unsafe { from_glib_full(ffi::g_list_store_new(item_type.to_glib())) }
     }
 }
 
@@ -103,7 +99,7 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn append<P: IsA<glib::Object>>(&self, item: &P) {
         unsafe {
-            gio_sys::g_list_store_append(
+            ffi::g_list_store_append(
                 self.as_ref().to_glib_none().0,
                 item.as_ref().to_glib_none().0,
             );
@@ -115,7 +111,7 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
     fn find<P: IsA<glib::Object>>(&self, item: &P) -> Option<u32> {
         unsafe {
             let mut position = mem::MaybeUninit::uninit();
-            let ret = from_glib(gio_sys::g_list_store_find(
+            let ret = from_glib(ffi::g_list_store_find(
                 self.as_ref().to_glib_none().0,
                 item.as_ref().to_glib_none().0,
                 position.as_mut_ptr(),
@@ -132,14 +128,14 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
     //#[cfg(any(feature = "v2_64", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     //fn find_with_equal_func<P: IsA<glib::Object>>(&self, item: &P, equal_func: /*Unimplemented*/FnMut(/*Unimplemented*/Option<Fundamental: Pointer>, /*Unimplemented*/Option<Fundamental: Pointer>) -> bool) -> Option<u32> {
-    //    unsafe { TODO: call gio_sys:g_list_store_find_with_equal_func() }
+    //    unsafe { TODO: call ffi:g_list_store_find_with_equal_func() }
     //}
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn insert<P: IsA<glib::Object>>(&self, position: u32, item: &P) {
         unsafe {
-            gio_sys::g_list_store_insert(
+            ffi::g_list_store_insert(
                 self.as_ref().to_glib_none().0,
                 position,
                 item.as_ref().to_glib_none().0,
@@ -151,7 +147,7 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn remove(&self, position: u32) {
         unsafe {
-            gio_sys::g_list_store_remove(self.as_ref().to_glib_none().0, position);
+            ffi::g_list_store_remove(self.as_ref().to_glib_none().0, position);
         }
     }
 
@@ -159,7 +155,7 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     fn remove_all(&self) {
         unsafe {
-            gio_sys::g_list_store_remove_all(self.as_ref().to_glib_none().0);
+            ffi::g_list_store_remove_all(self.as_ref().to_glib_none().0);
         }
     }
 
@@ -168,7 +164,7 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
     fn splice(&self, position: u32, n_removals: u32, additions: &[glib::Object]) {
         let n_additions = additions.len() as u32;
         unsafe {
-            gio_sys::g_list_store_splice(
+            ffi::g_list_store_splice(
                 self.as_ref().to_glib_none().0,
                 position,
                 n_removals,

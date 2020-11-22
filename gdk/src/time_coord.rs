@@ -2,16 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gdk_sys;
 use glib::translate::*;
-use glib_sys;
 use std::mem;
 
 #[derive(Clone)]
 #[repr(C)]
 pub struct TimeCoord {
     pub time: u32,
-    pub axes: [f64; gdk_sys::GDK_MAX_TIMECOORD_AXES as usize],
+    pub axes: [f64; ffi::GDK_MAX_TIMECOORD_AXES as usize],
 }
 
 #[doc(hidden)]
@@ -23,77 +21,75 @@ impl Uninitialized for TimeCoord {
 }
 
 #[doc(hidden)]
-impl<'a> ToGlibPtr<'a, *const gdk_sys::GdkTimeCoord> for TimeCoord {
+impl<'a> ToGlibPtr<'a, *const ffi::GdkTimeCoord> for TimeCoord {
     type Storage = &'a Self;
 
     #[inline]
-    fn to_glib_none(&'a self) -> Stash<'a, *const gdk_sys::GdkTimeCoord, Self> {
+    fn to_glib_none(&'a self) -> Stash<'a, *const ffi::GdkTimeCoord, Self> {
         let ptr: *const TimeCoord = &*self;
-        Stash(ptr as *const gdk_sys::GdkTimeCoord, self)
+        Stash(ptr as *const ffi::GdkTimeCoord, self)
     }
 }
 
 #[doc(hidden)]
-impl<'a> ToGlibPtrMut<'a, *mut gdk_sys::GdkTimeCoord> for TimeCoord {
+impl<'a> ToGlibPtrMut<'a, *mut ffi::GdkTimeCoord> for TimeCoord {
     type Storage = &'a mut Self;
 
     #[inline]
-    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut gdk_sys::GdkTimeCoord, Self> {
+    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut ffi::GdkTimeCoord, Self> {
         let ptr: *mut TimeCoord = &mut *self;
-        StashMut(ptr as *mut gdk_sys::GdkTimeCoord, self)
+        StashMut(ptr as *mut ffi::GdkTimeCoord, self)
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrNone<*const gdk_sys::GdkTimeCoord> for TimeCoord {
-    unsafe fn from_glib_none(ptr: *const gdk_sys::GdkTimeCoord) -> Self {
+impl FromGlibPtrNone<*const ffi::GdkTimeCoord> for TimeCoord {
+    unsafe fn from_glib_none(ptr: *const ffi::GdkTimeCoord) -> Self {
         (*(ptr as *const TimeCoord)).clone()
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrNone<*mut gdk_sys::GdkTimeCoord> for TimeCoord {
-    unsafe fn from_glib_none(ptr: *mut gdk_sys::GdkTimeCoord) -> Self {
+impl FromGlibPtrNone<*mut ffi::GdkTimeCoord> for TimeCoord {
+    unsafe fn from_glib_none(ptr: *mut ffi::GdkTimeCoord) -> Self {
         (*(ptr as *mut TimeCoord)).clone()
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrBorrow<*const gdk_sys::GdkTimeCoord> for TimeCoord {
-    unsafe fn from_glib_borrow(
-        ptr: *const gdk_sys::GdkTimeCoord,
-    ) -> glib::translate::Borrowed<Self> {
+impl FromGlibPtrBorrow<*const ffi::GdkTimeCoord> for TimeCoord {
+    unsafe fn from_glib_borrow(ptr: *const ffi::GdkTimeCoord) -> glib::translate::Borrowed<Self> {
         glib::translate::Borrowed::new((*(ptr as *const TimeCoord)).clone())
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrBorrow<*mut gdk_sys::GdkTimeCoord> for TimeCoord {
-    unsafe fn from_glib_borrow(ptr: *mut gdk_sys::GdkTimeCoord) -> glib::translate::Borrowed<Self> {
+impl FromGlibPtrBorrow<*mut ffi::GdkTimeCoord> for TimeCoord {
+    unsafe fn from_glib_borrow(ptr: *mut ffi::GdkTimeCoord) -> glib::translate::Borrowed<Self> {
         glib::translate::Borrowed::new((*(ptr as *mut TimeCoord)).clone())
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrFull<*mut gdk_sys::GdkTimeCoord> for TimeCoord {
-    unsafe fn from_glib_full(ptr: *mut gdk_sys::GdkTimeCoord) -> Self {
+impl FromGlibPtrFull<*mut ffi::GdkTimeCoord> for TimeCoord {
+    unsafe fn from_glib_full(ptr: *mut ffi::GdkTimeCoord) -> Self {
         let time_coord = (*(ptr as *mut TimeCoord)).clone();
-        glib_sys::g_free(ptr as *mut _);
+        glib::ffi::g_free(ptr as *mut _);
         time_coord
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrFull<*const gdk_sys::GdkTimeCoord> for TimeCoord {
-    unsafe fn from_glib_full(ptr: *const gdk_sys::GdkTimeCoord) -> Self {
+impl FromGlibPtrFull<*const ffi::GdkTimeCoord> for TimeCoord {
+    unsafe fn from_glib_full(ptr: *const ffi::GdkTimeCoord) -> Self {
         let time_coord = (*(ptr as *const TimeCoord)).clone();
-        glib_sys::g_free(ptr as *mut _);
+        glib::ffi::g_free(ptr as *mut _);
         time_coord
     }
 }
 
-impl FromGlibContainerAsVec<gdk_sys::GdkTimeCoord, *mut gdk_sys::GdkTimeCoord> for TimeCoord {
-    unsafe fn from_glib_none_num_as_vec(ptr: *mut gdk_sys::GdkTimeCoord, num: usize) -> Vec<Self> {
+impl FromGlibContainerAsVec<ffi::GdkTimeCoord, *mut ffi::GdkTimeCoord> for TimeCoord {
+    unsafe fn from_glib_none_num_as_vec(ptr: *mut ffi::GdkTimeCoord, num: usize) -> Vec<Self> {
         if num == 0 || ptr.is_null() {
             return Vec::new();
         }
@@ -105,16 +101,13 @@ impl FromGlibContainerAsVec<gdk_sys::GdkTimeCoord, *mut gdk_sys::GdkTimeCoord> f
         res
     }
 
-    unsafe fn from_glib_container_num_as_vec(
-        ptr: *mut gdk_sys::GdkTimeCoord,
-        num: usize,
-    ) -> Vec<Self> {
+    unsafe fn from_glib_container_num_as_vec(ptr: *mut ffi::GdkTimeCoord, num: usize) -> Vec<Self> {
         let res = FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
-        glib_sys::g_free(ptr as *mut _);
+        glib::ffi::g_free(ptr as *mut _);
         res
     }
 
-    unsafe fn from_glib_full_num_as_vec(ptr: *mut gdk_sys::GdkTimeCoord, num: usize) -> Vec<Self> {
+    unsafe fn from_glib_full_num_as_vec(ptr: *mut ffi::GdkTimeCoord, num: usize) -> Vec<Self> {
         if num == 0 || ptr.is_null() {
             return Vec::new();
         }
@@ -123,7 +116,7 @@ impl FromGlibContainerAsVec<gdk_sys::GdkTimeCoord, *mut gdk_sys::GdkTimeCoord> f
         for i in 0..num {
             res.push((*(ptr.add(i) as *mut TimeCoord)).clone());
         }
-        glib_sys::g_free(ptr as *mut _);
+        glib::ffi::g_free(ptr as *mut _);
         res
     }
 }

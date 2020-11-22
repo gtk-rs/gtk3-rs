@@ -2,22 +2,20 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::InetAddress;
+use crate::InetSocketAddress;
+use crate::SocketAddress;
+use crate::SocketConnectable;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
-use glib::GString;
 use std::fmt;
-use InetAddress;
-use InetSocketAddress;
-use SocketAddress;
-use SocketConnectable;
 
-glib_wrapper! {
-    pub struct ProxyAddress(Object<gio_sys::GProxyAddress, gio_sys::GProxyAddressClass>) @extends InetSocketAddress, SocketAddress, @implements SocketConnectable;
+glib::glib_wrapper! {
+    pub struct ProxyAddress(Object<ffi::GProxyAddress, ffi::GProxyAddressClass>) @extends InetSocketAddress, SocketAddress, @implements SocketConnectable;
 
     match fn {
-        get_type => || gio_sys::g_proxy_address_get_type(),
+        get_type => || ffi::g_proxy_address_get_type(),
     }
 }
 
@@ -32,7 +30,7 @@ impl ProxyAddress {
         password: Option<&str>,
     ) -> ProxyAddress {
         unsafe {
-            SocketAddress::from_glib_full(gio_sys::g_proxy_address_new(
+            SocketAddress::from_glib_full(ffi::g_proxy_address_new(
                 inetaddr.as_ref().to_glib_none().0,
                 port,
                 protocol.to_glib_none().0,
@@ -52,69 +50,65 @@ unsafe impl Sync for ProxyAddress {}
 pub const NONE_PROXY_ADDRESS: Option<&ProxyAddress> = None;
 
 pub trait ProxyAddressExt: 'static {
-    fn get_destination_hostname(&self) -> GString;
+    fn get_destination_hostname(&self) -> glib::GString;
 
     fn get_destination_port(&self) -> u16;
 
-    fn get_destination_protocol(&self) -> Option<GString>;
+    fn get_destination_protocol(&self) -> Option<glib::GString>;
 
-    fn get_password(&self) -> Option<GString>;
+    fn get_password(&self) -> Option<glib::GString>;
 
-    fn get_protocol(&self) -> GString;
+    fn get_protocol(&self) -> glib::GString;
 
-    fn get_uri(&self) -> Option<GString>;
+    fn get_uri(&self) -> Option<glib::GString>;
 
-    fn get_username(&self) -> Option<GString>;
+    fn get_username(&self) -> Option<glib::GString>;
 }
 
 impl<O: IsA<ProxyAddress>> ProxyAddressExt for O {
-    fn get_destination_hostname(&self) -> GString {
+    fn get_destination_hostname(&self) -> glib::GString {
         unsafe {
-            from_glib_none(gio_sys::g_proxy_address_get_destination_hostname(
+            from_glib_none(ffi::g_proxy_address_get_destination_hostname(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_destination_port(&self) -> u16 {
-        unsafe { gio_sys::g_proxy_address_get_destination_port(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::g_proxy_address_get_destination_port(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_destination_protocol(&self) -> Option<GString> {
+    fn get_destination_protocol(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gio_sys::g_proxy_address_get_destination_protocol(
+            from_glib_none(ffi::g_proxy_address_get_destination_protocol(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_password(&self) -> Option<GString> {
+    fn get_password(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gio_sys::g_proxy_address_get_password(
+            from_glib_none(ffi::g_proxy_address_get_password(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_protocol(&self) -> GString {
+    fn get_protocol(&self) -> glib::GString {
         unsafe {
-            from_glib_none(gio_sys::g_proxy_address_get_protocol(
+            from_glib_none(ffi::g_proxy_address_get_protocol(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
-    fn get_uri(&self) -> Option<GString> {
-        unsafe {
-            from_glib_none(gio_sys::g_proxy_address_get_uri(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+    fn get_uri(&self) -> Option<glib::GString> {
+        unsafe { from_glib_none(ffi::g_proxy_address_get_uri(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_username(&self) -> Option<GString> {
+    fn get_username(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(gio_sys::g_proxy_address_get_username(
+            from_glib_none(ffi::g_proxy_address_get_username(
                 self.as_ref().to_glib_none().0,
             ))
         }

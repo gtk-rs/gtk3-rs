@@ -2,22 +2,21 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
-glib_wrapper! {
-    pub struct UnixFDList(Object<gio_sys::GUnixFDList, gio_sys::GUnixFDListClass>);
+glib::glib_wrapper! {
+    pub struct UnixFDList(Object<ffi::GUnixFDList, ffi::GUnixFDListClass>);
 
     match fn {
-        get_type => || gio_sys::g_unix_fd_list_get_type(),
+        get_type => || ffi::g_unix_fd_list_get_type(),
     }
 }
 
 impl UnixFDList {
     pub fn new() -> UnixFDList {
-        unsafe { from_glib_full(gio_sys::g_unix_fd_list_new()) }
+        unsafe { from_glib_full(ffi::g_unix_fd_list_new()) }
     }
 }
 
@@ -35,7 +34,7 @@ pub trait UnixFDListExt: 'static {
 
 impl<O: IsA<UnixFDList>> UnixFDListExt for O {
     fn get_length(&self) -> i32 {
-        unsafe { gio_sys::g_unix_fd_list_get_length(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::g_unix_fd_list_get_length(self.as_ref().to_glib_none().0) }
     }
 }
 

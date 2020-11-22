@@ -2,17 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk_sys;
+use crate::Hyperlink;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
-use Hyperlink;
 
-glib_wrapper! {
-    pub struct HyperlinkImpl(Interface<atk_sys::AtkHyperlinkImpl>);
+glib::glib_wrapper! {
+    pub struct HyperlinkImpl(Interface<ffi::AtkHyperlinkImpl>);
 
     match fn {
-        get_type => || atk_sys::atk_hyperlink_impl_get_type(),
+        get_type => || ffi::atk_hyperlink_impl_get_type(),
     }
 }
 
@@ -25,7 +24,7 @@ pub trait HyperlinkImplExt: 'static {
 impl<O: IsA<HyperlinkImpl>> HyperlinkImplExt for O {
     fn get_hyperlink(&self) -> Option<Hyperlink> {
         unsafe {
-            from_glib_full(atk_sys::atk_hyperlink_impl_get_hyperlink(
+            from_glib_full(ffi::atk_hyperlink_impl_get_hyperlink(
                 self.as_ref().to_glib_none().0,
             ))
         }

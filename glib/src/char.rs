@@ -1,6 +1,6 @@
+use crate::translate::FromGlib;
+use crate::translate::ToGlib;
 use libc::{c_char, c_uchar};
-use translate::FromGlib;
-use translate::ToGlib;
 
 /// Wrapper for values where C functions expect a plain C `char`
 ///
@@ -135,7 +135,7 @@ impl ToGlib for UChar {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use translate::from_glib;
+    use crate::translate::from_glib;
 
     #[test]
     fn converts_single_byte_chars() {

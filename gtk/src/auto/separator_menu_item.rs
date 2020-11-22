@@ -2,37 +2,34 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
-use glib;
+use crate::Actionable;
+use crate::Align;
+use crate::Bin;
+use crate::Buildable;
+use crate::Container;
+use crate::Menu;
+use crate::MenuItem;
+use crate::ResizeMode;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use gtk_sys;
 use std::fmt;
-use Actionable;
-use Align;
-use Bin;
-use Buildable;
-use Container;
-use Menu;
-use MenuItem;
-use ResizeMode;
-use Widget;
 
-glib_wrapper! {
-    pub struct SeparatorMenuItem(Object<gtk_sys::GtkSeparatorMenuItem, gtk_sys::GtkSeparatorMenuItemClass>) @extends MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
+glib::glib_wrapper! {
+    pub struct SeparatorMenuItem(Object<ffi::GtkSeparatorMenuItem, ffi::GtkSeparatorMenuItemClass>) @extends MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {
-        get_type => || gtk_sys::gtk_separator_menu_item_get_type(),
+        get_type => || ffi::gtk_separator_menu_item_get_type(),
     }
 }
 
 impl SeparatorMenuItem {
     pub fn new() -> SeparatorMenuItem {
         assert_initialized_main_thread!();
-        unsafe { Widget::from_glib_none(gtk_sys::gtk_separator_menu_item_new()).unsafe_cast() }
+        unsafe { Widget::from_glib_none(ffi::gtk_separator_menu_item_new()).unsafe_cast() }
     }
 }
 

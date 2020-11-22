@@ -6,7 +6,7 @@ use gdk::Rectangle;
 pub use glib::signal::Inhibit;
 use glib::signal::SignalHandlerId;
 
-use {ScrollType, Widget};
+use crate::{ScrollType, Widget};
 
 pub trait EditableSignals: 'static {
     fn connect_changed<F>(&self, changed_func: F) -> SignalHandlerId
@@ -21,17 +21,17 @@ pub trait EditableSignals: 'static {
 }
 
 mod editable {
+    use crate::Editable;
+    use ffi::GtkEditable;
     use glib::object::Cast;
     use glib::signal::{connect_raw, SignalHandlerId};
     use glib::translate::*;
     use glib::IsA;
-    use gtk_sys::GtkEditable;
     use libc::{c_char, c_int, c_uchar};
     use std::ffi::CStr;
     use std::mem::transmute;
     use std::slice;
     use std::str;
-    use Editable;
 
     impl<T: IsA<Editable>> super::EditableSignals for T {
         fn connect_changed<F>(&self, changed_func: F) -> SignalHandlerId
@@ -151,21 +151,21 @@ pub trait SpinButtonSignals: 'static {
 }
 
 mod spin_button {
+    use crate::Inhibit;
+    use crate::ScrollType;
+    use crate::SpinButton;
+    use ffi::{GtkScrollType, GtkSpinButton, GTK_INPUT_ERROR};
+    use glib::ffi::gboolean;
+    use glib::ffi::{GFALSE, GTRUE};
     use glib::object::Cast;
     use glib::signal::{connect_raw, SignalHandlerId};
     use glib::translate::*;
     use glib::IsA;
-    use glib_sys::gboolean;
-    use glib_sys::{GFALSE, GTRUE};
-    use gtk_sys::{GtkScrollType, GtkSpinButton, GTK_INPUT_ERROR};
     use libc::{c_double, c_int};
     use std::boxed::Box as Box_;
     use std::mem::transmute;
-    use Inhibit;
-    use ScrollType;
-    use SpinButton;
 
-    impl<T: IsA<SpinButton>> ::SpinButtonSignals for T {
+    impl<T: IsA<SpinButton>> crate::SpinButtonSignals for T {
         fn connect_change_value<F>(&self, change_value_func: F) -> SignalHandlerId
         where
             F: Fn(&Self, ScrollType) + 'static,
@@ -308,20 +308,20 @@ pub trait OverlaySignals: 'static {
 }
 
 mod overlay {
+    use crate::Overlay;
+    use crate::Widget;
+    use ffi::{GtkOverlay, GtkWidget};
+    use gdk::ffi::GdkRectangle;
     use gdk::Rectangle;
-    use gdk_sys::GdkRectangle;
+    use glib::ffi::{gboolean, gpointer};
     use glib::object::Cast;
     use glib::signal::{connect_raw, SignalHandlerId};
     use glib::translate::*;
     use glib::IsA;
-    use glib_sys::{gboolean, gpointer};
-    use gtk_sys::{GtkOverlay, GtkWidget};
     use std::mem::transmute;
     use std::ptr;
-    use Overlay;
-    use Widget;
 
-    impl<O: IsA<Overlay>> ::OverlaySignals for O {
+    impl<O: IsA<Overlay>> crate::OverlaySignals for O {
         fn connect_get_child_position<F>(&self, f: F) -> SignalHandlerId
         where
             F: Fn(&Self, &Widget) -> Option<Rectangle> + 'static,

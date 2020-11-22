@@ -2,23 +2,20 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use cairo;
 use glib::object::IsA;
 use glib::translate::*;
-use pango;
-use pango_cairo_sys;
 
 pub fn context_get_resolution(context: &pango::Context) -> f64 {
-    unsafe { pango_cairo_sys::pango_cairo_context_get_resolution(context.to_glib_none().0) }
+    unsafe { ffi::pango_cairo_context_get_resolution(context.to_glib_none().0) }
 }
 
 //pub fn context_get_shape_renderer(context: &pango::Context, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Fn(&cairo::Context, /*Ignored*/pango::AttrShape, bool) {
-//    unsafe { TODO: call pango_cairo_sys:pango_cairo_context_get_shape_renderer() }
+//    unsafe { TODO: call ffi:pango_cairo_context_get_shape_renderer() }
 //}
 
 pub fn context_set_font_options(context: &pango::Context, options: Option<&cairo::FontOptions>) {
     unsafe {
-        pango_cairo_sys::pango_cairo_context_set_font_options(
+        ffi::pango_cairo_context_set_font_options(
             context.to_glib_none().0,
             options.to_glib_none().0,
         );
@@ -27,17 +24,17 @@ pub fn context_set_font_options(context: &pango::Context, options: Option<&cairo
 
 pub fn context_set_resolution(context: &pango::Context, dpi: f64) {
     unsafe {
-        pango_cairo_sys::pango_cairo_context_set_resolution(context.to_glib_none().0, dpi);
+        ffi::pango_cairo_context_set_resolution(context.to_glib_none().0, dpi);
     }
 }
 
 //pub fn context_set_shape_renderer(context: &pango::Context, func: /*Unimplemented*/Fn(&cairo::Context, /*Ignored*/pango::AttrShape, bool), data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-//    unsafe { TODO: call pango_cairo_sys:pango_cairo_context_set_shape_renderer() }
+//    unsafe { TODO: call ffi:pango_cairo_context_set_shape_renderer() }
 //}
 
 pub fn create_context(cr: &cairo::Context) -> Option<pango::Context> {
     unsafe {
-        from_glib_full(pango_cairo_sys::pango_cairo_create_context(mut_override(
+        from_glib_full(ffi::pango_cairo_create_context(mut_override(
             cr.to_glib_none().0,
         )))
     }
@@ -45,7 +42,7 @@ pub fn create_context(cr: &cairo::Context) -> Option<pango::Context> {
 
 pub fn create_layout(cr: &cairo::Context) -> Option<pango::Layout> {
     unsafe {
-        from_glib_full(pango_cairo_sys::pango_cairo_create_layout(mut_override(
+        from_glib_full(ffi::pango_cairo_create_layout(mut_override(
             cr.to_glib_none().0,
         )))
     }
@@ -53,7 +50,7 @@ pub fn create_layout(cr: &cairo::Context) -> Option<pango::Layout> {
 
 pub fn error_underline_path(cr: &cairo::Context, x: f64, y: f64, width: f64, height: f64) {
     unsafe {
-        pango_cairo_sys::pango_cairo_error_underline_path(
+        ffi::pango_cairo_error_underline_path(
             mut_override(cr.to_glib_none().0),
             x,
             y,
@@ -69,7 +66,7 @@ pub fn glyph_string_path<P: IsA<pango::Font>>(
     glyphs: &mut pango::GlyphString,
 ) {
     unsafe {
-        pango_cairo_sys::pango_cairo_glyph_string_path(
+        ffi::pango_cairo_glyph_string_path(
             mut_override(cr.to_glib_none().0),
             font.as_ref().to_glib_none().0,
             glyphs.to_glib_none_mut().0,
@@ -79,25 +76,19 @@ pub fn glyph_string_path<P: IsA<pango::Font>>(
 
 pub fn layout_line_path(cr: &cairo::Context, line: &pango::LayoutLine) {
     unsafe {
-        pango_cairo_sys::pango_cairo_layout_line_path(
-            mut_override(cr.to_glib_none().0),
-            line.to_glib_none().0,
-        );
+        ffi::pango_cairo_layout_line_path(mut_override(cr.to_glib_none().0), line.to_glib_none().0);
     }
 }
 
 pub fn layout_path(cr: &cairo::Context, layout: &pango::Layout) {
     unsafe {
-        pango_cairo_sys::pango_cairo_layout_path(
-            mut_override(cr.to_glib_none().0),
-            layout.to_glib_none().0,
-        );
+        ffi::pango_cairo_layout_path(mut_override(cr.to_glib_none().0), layout.to_glib_none().0);
     }
 }
 
 pub fn show_error_underline(cr: &cairo::Context, x: f64, y: f64, width: f64, height: f64) {
     unsafe {
-        pango_cairo_sys::pango_cairo_show_error_underline(
+        ffi::pango_cairo_show_error_underline(
             mut_override(cr.to_glib_none().0),
             x,
             y,
@@ -109,7 +100,7 @@ pub fn show_error_underline(cr: &cairo::Context, x: f64, y: f64, width: f64, hei
 
 pub fn show_glyph_item(cr: &cairo::Context, text: &str, glyph_item: &mut pango::GlyphItem) {
     unsafe {
-        pango_cairo_sys::pango_cairo_show_glyph_item(
+        ffi::pango_cairo_show_glyph_item(
             mut_override(cr.to_glib_none().0),
             text.to_glib_none().0,
             glyph_item.to_glib_none_mut().0,
@@ -123,7 +114,7 @@ pub fn show_glyph_string<P: IsA<pango::Font>>(
     glyphs: &mut pango::GlyphString,
 ) {
     unsafe {
-        pango_cairo_sys::pango_cairo_show_glyph_string(
+        ffi::pango_cairo_show_glyph_string(
             mut_override(cr.to_glib_none().0),
             font.as_ref().to_glib_none().0,
             glyphs.to_glib_none_mut().0,
@@ -133,25 +124,19 @@ pub fn show_glyph_string<P: IsA<pango::Font>>(
 
 pub fn show_layout(cr: &cairo::Context, layout: &pango::Layout) {
     unsafe {
-        pango_cairo_sys::pango_cairo_show_layout(
-            mut_override(cr.to_glib_none().0),
-            layout.to_glib_none().0,
-        );
+        ffi::pango_cairo_show_layout(mut_override(cr.to_glib_none().0), layout.to_glib_none().0);
     }
 }
 
 pub fn show_layout_line(cr: &cairo::Context, line: &pango::LayoutLine) {
     unsafe {
-        pango_cairo_sys::pango_cairo_show_layout_line(
-            mut_override(cr.to_glib_none().0),
-            line.to_glib_none().0,
-        );
+        ffi::pango_cairo_show_layout_line(mut_override(cr.to_glib_none().0), line.to_glib_none().0);
     }
 }
 
 pub fn update_context(cr: &cairo::Context, context: &pango::Context) {
     unsafe {
-        pango_cairo_sys::pango_cairo_update_context(
+        ffi::pango_cairo_update_context(
             mut_override(cr.to_glib_none().0),
             context.to_glib_none().0,
         );
@@ -160,9 +145,6 @@ pub fn update_context(cr: &cairo::Context, context: &pango::Context) {
 
 pub fn update_layout(cr: &cairo::Context, layout: &pango::Layout) {
     unsafe {
-        pango_cairo_sys::pango_cairo_update_layout(
-            mut_override(cr.to_glib_none().0),
-            layout.to_glib_none().0,
-        );
+        ffi::pango_cairo_update_layout(mut_override(cr.to_glib_none().0), layout.to_glib_none().0);
     }
 }

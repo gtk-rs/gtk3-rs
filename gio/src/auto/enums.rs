@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
 use glib::error::ErrorDomain;
 use glib::translate::*;
 use glib::value::FromValue;
@@ -12,7 +11,6 @@ use glib::value::Value;
 use glib::Quark;
 use glib::StaticType;
 use glib::Type;
-use gobject_sys;
 use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -44,22 +42,22 @@ impl fmt::Display for BusType {
 
 #[doc(hidden)]
 impl ToGlib for BusType {
-    type GlibType = gio_sys::GBusType;
+    type GlibType = ffi::GBusType;
 
-    fn to_glib(&self) -> gio_sys::GBusType {
+    fn to_glib(&self) -> ffi::GBusType {
         match *self {
-            BusType::Starter => gio_sys::G_BUS_TYPE_STARTER,
-            BusType::None => gio_sys::G_BUS_TYPE_NONE,
-            BusType::System => gio_sys::G_BUS_TYPE_SYSTEM,
-            BusType::Session => gio_sys::G_BUS_TYPE_SESSION,
+            BusType::Starter => ffi::G_BUS_TYPE_STARTER,
+            BusType::None => ffi::G_BUS_TYPE_NONE,
+            BusType::System => ffi::G_BUS_TYPE_SYSTEM,
+            BusType::Session => ffi::G_BUS_TYPE_SESSION,
             BusType::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GBusType> for BusType {
-    fn from_glib(value: gio_sys::GBusType) -> Self {
+impl FromGlib<ffi::GBusType> for BusType {
+    fn from_glib(value: ffi::GBusType) -> Self {
         match value {
             -1 => BusType::Starter,
             0 => BusType::None,
@@ -72,7 +70,7 @@ impl FromGlib<gio_sys::GBusType> for BusType {
 
 impl StaticType for BusType {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_bus_type_get_type()) }
+        unsafe { from_glib(ffi::g_bus_type_get_type()) }
     }
 }
 
@@ -84,13 +82,13 @@ impl<'a> FromValueOptional<'a> for BusType {
 
 impl<'a> FromValue<'a> for BusType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for BusType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -123,22 +121,22 @@ impl fmt::Display for ConverterResult {
 
 #[doc(hidden)]
 impl ToGlib for ConverterResult {
-    type GlibType = gio_sys::GConverterResult;
+    type GlibType = ffi::GConverterResult;
 
-    fn to_glib(&self) -> gio_sys::GConverterResult {
+    fn to_glib(&self) -> ffi::GConverterResult {
         match *self {
-            ConverterResult::Error => gio_sys::G_CONVERTER_ERROR,
-            ConverterResult::Converted => gio_sys::G_CONVERTER_CONVERTED,
-            ConverterResult::Finished => gio_sys::G_CONVERTER_FINISHED,
-            ConverterResult::Flushed => gio_sys::G_CONVERTER_FLUSHED,
+            ConverterResult::Error => ffi::G_CONVERTER_ERROR,
+            ConverterResult::Converted => ffi::G_CONVERTER_CONVERTED,
+            ConverterResult::Finished => ffi::G_CONVERTER_FINISHED,
+            ConverterResult::Flushed => ffi::G_CONVERTER_FLUSHED,
             ConverterResult::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GConverterResult> for ConverterResult {
-    fn from_glib(value: gio_sys::GConverterResult) -> Self {
+impl FromGlib<ffi::GConverterResult> for ConverterResult {
+    fn from_glib(value: ffi::GConverterResult) -> Self {
         match value {
             0 => ConverterResult::Error,
             1 => ConverterResult::Converted,
@@ -151,7 +149,7 @@ impl FromGlib<gio_sys::GConverterResult> for ConverterResult {
 
 impl StaticType for ConverterResult {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_converter_result_get_type()) }
+        unsafe { from_glib(ffi::g_converter_result_get_type()) }
     }
 }
 
@@ -163,13 +161,13 @@ impl<'a> FromValueOptional<'a> for ConverterResult {
 
 impl<'a> FromValue<'a> for ConverterResult {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for ConverterResult {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -208,27 +206,25 @@ impl fmt::Display for CredentialsType {
 
 #[doc(hidden)]
 impl ToGlib for CredentialsType {
-    type GlibType = gio_sys::GCredentialsType;
+    type GlibType = ffi::GCredentialsType;
 
-    fn to_glib(&self) -> gio_sys::GCredentialsType {
+    fn to_glib(&self) -> ffi::GCredentialsType {
         match *self {
-            CredentialsType::Invalid => gio_sys::G_CREDENTIALS_TYPE_INVALID,
-            CredentialsType::LinuxUcred => gio_sys::G_CREDENTIALS_TYPE_LINUX_UCRED,
-            CredentialsType::FreebsdCmsgcred => gio_sys::G_CREDENTIALS_TYPE_FREEBSD_CMSGCRED,
-            CredentialsType::OpenbsdSockpeercred => {
-                gio_sys::G_CREDENTIALS_TYPE_OPENBSD_SOCKPEERCRED
-            }
-            CredentialsType::SolarisUcred => gio_sys::G_CREDENTIALS_TYPE_SOLARIS_UCRED,
-            CredentialsType::NetbsdUnpcbid => gio_sys::G_CREDENTIALS_TYPE_NETBSD_UNPCBID,
-            CredentialsType::AppleXucred => gio_sys::G_CREDENTIALS_TYPE_APPLE_XUCRED,
+            CredentialsType::Invalid => ffi::G_CREDENTIALS_TYPE_INVALID,
+            CredentialsType::LinuxUcred => ffi::G_CREDENTIALS_TYPE_LINUX_UCRED,
+            CredentialsType::FreebsdCmsgcred => ffi::G_CREDENTIALS_TYPE_FREEBSD_CMSGCRED,
+            CredentialsType::OpenbsdSockpeercred => ffi::G_CREDENTIALS_TYPE_OPENBSD_SOCKPEERCRED,
+            CredentialsType::SolarisUcred => ffi::G_CREDENTIALS_TYPE_SOLARIS_UCRED,
+            CredentialsType::NetbsdUnpcbid => ffi::G_CREDENTIALS_TYPE_NETBSD_UNPCBID,
+            CredentialsType::AppleXucred => ffi::G_CREDENTIALS_TYPE_APPLE_XUCRED,
             CredentialsType::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GCredentialsType> for CredentialsType {
-    fn from_glib(value: gio_sys::GCredentialsType) -> Self {
+impl FromGlib<ffi::GCredentialsType> for CredentialsType {
+    fn from_glib(value: ffi::GCredentialsType) -> Self {
         match value {
             0 => CredentialsType::Invalid,
             1 => CredentialsType::LinuxUcred,
@@ -244,7 +240,7 @@ impl FromGlib<gio_sys::GCredentialsType> for CredentialsType {
 
 impl StaticType for CredentialsType {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_credentials_type_get_type()) }
+        unsafe { from_glib(ffi::g_credentials_type_get_type()) }
     }
 }
 
@@ -256,13 +252,13 @@ impl<'a> FromValueOptional<'a> for CredentialsType {
 
 impl<'a> FromValue<'a> for CredentialsType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for CredentialsType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -291,20 +287,20 @@ impl fmt::Display for DBusMessageByteOrder {
 
 #[doc(hidden)]
 impl ToGlib for DBusMessageByteOrder {
-    type GlibType = gio_sys::GDBusMessageByteOrder;
+    type GlibType = ffi::GDBusMessageByteOrder;
 
-    fn to_glib(&self) -> gio_sys::GDBusMessageByteOrder {
+    fn to_glib(&self) -> ffi::GDBusMessageByteOrder {
         match *self {
-            DBusMessageByteOrder::BigEndian => gio_sys::G_DBUS_MESSAGE_BYTE_ORDER_BIG_ENDIAN,
-            DBusMessageByteOrder::LittleEndian => gio_sys::G_DBUS_MESSAGE_BYTE_ORDER_LITTLE_ENDIAN,
+            DBusMessageByteOrder::BigEndian => ffi::G_DBUS_MESSAGE_BYTE_ORDER_BIG_ENDIAN,
+            DBusMessageByteOrder::LittleEndian => ffi::G_DBUS_MESSAGE_BYTE_ORDER_LITTLE_ENDIAN,
             DBusMessageByteOrder::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GDBusMessageByteOrder> for DBusMessageByteOrder {
-    fn from_glib(value: gio_sys::GDBusMessageByteOrder) -> Self {
+impl FromGlib<ffi::GDBusMessageByteOrder> for DBusMessageByteOrder {
+    fn from_glib(value: ffi::GDBusMessageByteOrder) -> Self {
         match value {
             66 => DBusMessageByteOrder::BigEndian,
             108 => DBusMessageByteOrder::LittleEndian,
@@ -315,7 +311,7 @@ impl FromGlib<gio_sys::GDBusMessageByteOrder> for DBusMessageByteOrder {
 
 impl StaticType for DBusMessageByteOrder {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_dbus_message_byte_order_get_type()) }
+        unsafe { from_glib(ffi::g_dbus_message_byte_order_get_type()) }
     }
 }
 
@@ -327,13 +323,13 @@ impl<'a> FromValueOptional<'a> for DBusMessageByteOrder {
 
 impl<'a> FromValue<'a> for DBusMessageByteOrder {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for DBusMessageByteOrder {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -378,30 +374,28 @@ impl fmt::Display for DBusMessageHeaderField {
 
 #[doc(hidden)]
 impl ToGlib for DBusMessageHeaderField {
-    type GlibType = gio_sys::GDBusMessageHeaderField;
+    type GlibType = ffi::GDBusMessageHeaderField;
 
-    fn to_glib(&self) -> gio_sys::GDBusMessageHeaderField {
+    fn to_glib(&self) -> ffi::GDBusMessageHeaderField {
         match *self {
-            DBusMessageHeaderField::Invalid => gio_sys::G_DBUS_MESSAGE_HEADER_FIELD_INVALID,
-            DBusMessageHeaderField::Path => gio_sys::G_DBUS_MESSAGE_HEADER_FIELD_PATH,
-            DBusMessageHeaderField::Interface => gio_sys::G_DBUS_MESSAGE_HEADER_FIELD_INTERFACE,
-            DBusMessageHeaderField::Member => gio_sys::G_DBUS_MESSAGE_HEADER_FIELD_MEMBER,
-            DBusMessageHeaderField::ErrorName => gio_sys::G_DBUS_MESSAGE_HEADER_FIELD_ERROR_NAME,
-            DBusMessageHeaderField::ReplySerial => {
-                gio_sys::G_DBUS_MESSAGE_HEADER_FIELD_REPLY_SERIAL
-            }
-            DBusMessageHeaderField::Destination => gio_sys::G_DBUS_MESSAGE_HEADER_FIELD_DESTINATION,
-            DBusMessageHeaderField::Sender => gio_sys::G_DBUS_MESSAGE_HEADER_FIELD_SENDER,
-            DBusMessageHeaderField::Signature => gio_sys::G_DBUS_MESSAGE_HEADER_FIELD_SIGNATURE,
-            DBusMessageHeaderField::NumUnixFds => gio_sys::G_DBUS_MESSAGE_HEADER_FIELD_NUM_UNIX_FDS,
+            DBusMessageHeaderField::Invalid => ffi::G_DBUS_MESSAGE_HEADER_FIELD_INVALID,
+            DBusMessageHeaderField::Path => ffi::G_DBUS_MESSAGE_HEADER_FIELD_PATH,
+            DBusMessageHeaderField::Interface => ffi::G_DBUS_MESSAGE_HEADER_FIELD_INTERFACE,
+            DBusMessageHeaderField::Member => ffi::G_DBUS_MESSAGE_HEADER_FIELD_MEMBER,
+            DBusMessageHeaderField::ErrorName => ffi::G_DBUS_MESSAGE_HEADER_FIELD_ERROR_NAME,
+            DBusMessageHeaderField::ReplySerial => ffi::G_DBUS_MESSAGE_HEADER_FIELD_REPLY_SERIAL,
+            DBusMessageHeaderField::Destination => ffi::G_DBUS_MESSAGE_HEADER_FIELD_DESTINATION,
+            DBusMessageHeaderField::Sender => ffi::G_DBUS_MESSAGE_HEADER_FIELD_SENDER,
+            DBusMessageHeaderField::Signature => ffi::G_DBUS_MESSAGE_HEADER_FIELD_SIGNATURE,
+            DBusMessageHeaderField::NumUnixFds => ffi::G_DBUS_MESSAGE_HEADER_FIELD_NUM_UNIX_FDS,
             DBusMessageHeaderField::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GDBusMessageHeaderField> for DBusMessageHeaderField {
-    fn from_glib(value: gio_sys::GDBusMessageHeaderField) -> Self {
+impl FromGlib<ffi::GDBusMessageHeaderField> for DBusMessageHeaderField {
+    fn from_glib(value: ffi::GDBusMessageHeaderField) -> Self {
         match value {
             0 => DBusMessageHeaderField::Invalid,
             1 => DBusMessageHeaderField::Path,
@@ -420,7 +414,7 @@ impl FromGlib<gio_sys::GDBusMessageHeaderField> for DBusMessageHeaderField {
 
 impl StaticType for DBusMessageHeaderField {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_dbus_message_header_field_get_type()) }
+        unsafe { from_glib(ffi::g_dbus_message_header_field_get_type()) }
     }
 }
 
@@ -432,13 +426,13 @@ impl<'a> FromValueOptional<'a> for DBusMessageHeaderField {
 
 impl<'a> FromValue<'a> for DBusMessageHeaderField {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for DBusMessageHeaderField {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -473,23 +467,23 @@ impl fmt::Display for DBusMessageType {
 
 #[doc(hidden)]
 impl ToGlib for DBusMessageType {
-    type GlibType = gio_sys::GDBusMessageType;
+    type GlibType = ffi::GDBusMessageType;
 
-    fn to_glib(&self) -> gio_sys::GDBusMessageType {
+    fn to_glib(&self) -> ffi::GDBusMessageType {
         match *self {
-            DBusMessageType::Invalid => gio_sys::G_DBUS_MESSAGE_TYPE_INVALID,
-            DBusMessageType::MethodCall => gio_sys::G_DBUS_MESSAGE_TYPE_METHOD_CALL,
-            DBusMessageType::MethodReturn => gio_sys::G_DBUS_MESSAGE_TYPE_METHOD_RETURN,
-            DBusMessageType::Error => gio_sys::G_DBUS_MESSAGE_TYPE_ERROR,
-            DBusMessageType::Signal => gio_sys::G_DBUS_MESSAGE_TYPE_SIGNAL,
+            DBusMessageType::Invalid => ffi::G_DBUS_MESSAGE_TYPE_INVALID,
+            DBusMessageType::MethodCall => ffi::G_DBUS_MESSAGE_TYPE_METHOD_CALL,
+            DBusMessageType::MethodReturn => ffi::G_DBUS_MESSAGE_TYPE_METHOD_RETURN,
+            DBusMessageType::Error => ffi::G_DBUS_MESSAGE_TYPE_ERROR,
+            DBusMessageType::Signal => ffi::G_DBUS_MESSAGE_TYPE_SIGNAL,
             DBusMessageType::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GDBusMessageType> for DBusMessageType {
-    fn from_glib(value: gio_sys::GDBusMessageType) -> Self {
+impl FromGlib<ffi::GDBusMessageType> for DBusMessageType {
+    fn from_glib(value: ffi::GDBusMessageType) -> Self {
         match value {
             0 => DBusMessageType::Invalid,
             1 => DBusMessageType::MethodCall,
@@ -503,7 +497,7 @@ impl FromGlib<gio_sys::GDBusMessageType> for DBusMessageType {
 
 impl StaticType for DBusMessageType {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_dbus_message_type_get_type()) }
+        unsafe { from_glib(ffi::g_dbus_message_type_get_type()) }
     }
 }
 
@@ -515,13 +509,13 @@ impl<'a> FromValueOptional<'a> for DBusMessageType {
 
 impl<'a> FromValue<'a> for DBusMessageType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for DBusMessageType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -552,21 +546,21 @@ impl fmt::Display for DataStreamByteOrder {
 
 #[doc(hidden)]
 impl ToGlib for DataStreamByteOrder {
-    type GlibType = gio_sys::GDataStreamByteOrder;
+    type GlibType = ffi::GDataStreamByteOrder;
 
-    fn to_glib(&self) -> gio_sys::GDataStreamByteOrder {
+    fn to_glib(&self) -> ffi::GDataStreamByteOrder {
         match *self {
-            DataStreamByteOrder::BigEndian => gio_sys::G_DATA_STREAM_BYTE_ORDER_BIG_ENDIAN,
-            DataStreamByteOrder::LittleEndian => gio_sys::G_DATA_STREAM_BYTE_ORDER_LITTLE_ENDIAN,
-            DataStreamByteOrder::HostEndian => gio_sys::G_DATA_STREAM_BYTE_ORDER_HOST_ENDIAN,
+            DataStreamByteOrder::BigEndian => ffi::G_DATA_STREAM_BYTE_ORDER_BIG_ENDIAN,
+            DataStreamByteOrder::LittleEndian => ffi::G_DATA_STREAM_BYTE_ORDER_LITTLE_ENDIAN,
+            DataStreamByteOrder::HostEndian => ffi::G_DATA_STREAM_BYTE_ORDER_HOST_ENDIAN,
             DataStreamByteOrder::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GDataStreamByteOrder> for DataStreamByteOrder {
-    fn from_glib(value: gio_sys::GDataStreamByteOrder) -> Self {
+impl FromGlib<ffi::GDataStreamByteOrder> for DataStreamByteOrder {
+    fn from_glib(value: ffi::GDataStreamByteOrder) -> Self {
         match value {
             0 => DataStreamByteOrder::BigEndian,
             1 => DataStreamByteOrder::LittleEndian,
@@ -578,7 +572,7 @@ impl FromGlib<gio_sys::GDataStreamByteOrder> for DataStreamByteOrder {
 
 impl StaticType for DataStreamByteOrder {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_data_stream_byte_order_get_type()) }
+        unsafe { from_glib(ffi::g_data_stream_byte_order_get_type()) }
     }
 }
 
@@ -590,13 +584,13 @@ impl<'a> FromValueOptional<'a> for DataStreamByteOrder {
 
 impl<'a> FromValue<'a> for DataStreamByteOrder {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for DataStreamByteOrder {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -629,22 +623,22 @@ impl fmt::Display for DataStreamNewlineType {
 
 #[doc(hidden)]
 impl ToGlib for DataStreamNewlineType {
-    type GlibType = gio_sys::GDataStreamNewlineType;
+    type GlibType = ffi::GDataStreamNewlineType;
 
-    fn to_glib(&self) -> gio_sys::GDataStreamNewlineType {
+    fn to_glib(&self) -> ffi::GDataStreamNewlineType {
         match *self {
-            DataStreamNewlineType::Lf => gio_sys::G_DATA_STREAM_NEWLINE_TYPE_LF,
-            DataStreamNewlineType::Cr => gio_sys::G_DATA_STREAM_NEWLINE_TYPE_CR,
-            DataStreamNewlineType::CrLf => gio_sys::G_DATA_STREAM_NEWLINE_TYPE_CR_LF,
-            DataStreamNewlineType::Any => gio_sys::G_DATA_STREAM_NEWLINE_TYPE_ANY,
+            DataStreamNewlineType::Lf => ffi::G_DATA_STREAM_NEWLINE_TYPE_LF,
+            DataStreamNewlineType::Cr => ffi::G_DATA_STREAM_NEWLINE_TYPE_CR,
+            DataStreamNewlineType::CrLf => ffi::G_DATA_STREAM_NEWLINE_TYPE_CR_LF,
+            DataStreamNewlineType::Any => ffi::G_DATA_STREAM_NEWLINE_TYPE_ANY,
             DataStreamNewlineType::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GDataStreamNewlineType> for DataStreamNewlineType {
-    fn from_glib(value: gio_sys::GDataStreamNewlineType) -> Self {
+impl FromGlib<ffi::GDataStreamNewlineType> for DataStreamNewlineType {
+    fn from_glib(value: ffi::GDataStreamNewlineType) -> Self {
         match value {
             0 => DataStreamNewlineType::Lf,
             1 => DataStreamNewlineType::Cr,
@@ -657,7 +651,7 @@ impl FromGlib<gio_sys::GDataStreamNewlineType> for DataStreamNewlineType {
 
 impl StaticType for DataStreamNewlineType {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_data_stream_newline_type_get_type()) }
+        unsafe { from_glib(ffi::g_data_stream_newline_type_get_type()) }
     }
 }
 
@@ -669,13 +663,13 @@ impl<'a> FromValueOptional<'a> for DataStreamNewlineType {
 
 impl<'a> FromValue<'a> for DataStreamNewlineType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for DataStreamNewlineType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -710,23 +704,23 @@ impl fmt::Display for DriveStartStopType {
 
 #[doc(hidden)]
 impl ToGlib for DriveStartStopType {
-    type GlibType = gio_sys::GDriveStartStopType;
+    type GlibType = ffi::GDriveStartStopType;
 
-    fn to_glib(&self) -> gio_sys::GDriveStartStopType {
+    fn to_glib(&self) -> ffi::GDriveStartStopType {
         match *self {
-            DriveStartStopType::Unknown => gio_sys::G_DRIVE_START_STOP_TYPE_UNKNOWN,
-            DriveStartStopType::Shutdown => gio_sys::G_DRIVE_START_STOP_TYPE_SHUTDOWN,
-            DriveStartStopType::Network => gio_sys::G_DRIVE_START_STOP_TYPE_NETWORK,
-            DriveStartStopType::Multidisk => gio_sys::G_DRIVE_START_STOP_TYPE_MULTIDISK,
-            DriveStartStopType::Password => gio_sys::G_DRIVE_START_STOP_TYPE_PASSWORD,
+            DriveStartStopType::Unknown => ffi::G_DRIVE_START_STOP_TYPE_UNKNOWN,
+            DriveStartStopType::Shutdown => ffi::G_DRIVE_START_STOP_TYPE_SHUTDOWN,
+            DriveStartStopType::Network => ffi::G_DRIVE_START_STOP_TYPE_NETWORK,
+            DriveStartStopType::Multidisk => ffi::G_DRIVE_START_STOP_TYPE_MULTIDISK,
+            DriveStartStopType::Password => ffi::G_DRIVE_START_STOP_TYPE_PASSWORD,
             DriveStartStopType::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GDriveStartStopType> for DriveStartStopType {
-    fn from_glib(value: gio_sys::GDriveStartStopType) -> Self {
+impl FromGlib<ffi::GDriveStartStopType> for DriveStartStopType {
+    fn from_glib(value: ffi::GDriveStartStopType) -> Self {
         match value {
             0 => DriveStartStopType::Unknown,
             1 => DriveStartStopType::Shutdown,
@@ -740,7 +734,7 @@ impl FromGlib<gio_sys::GDriveStartStopType> for DriveStartStopType {
 
 impl StaticType for DriveStartStopType {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_drive_start_stop_type_get_type()) }
+        unsafe { from_glib(ffi::g_drive_start_stop_type_get_type()) }
     }
 }
 
@@ -752,13 +746,13 @@ impl<'a> FromValueOptional<'a> for DriveStartStopType {
 
 impl<'a> FromValue<'a> for DriveStartStopType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for DriveStartStopType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -791,22 +785,22 @@ impl fmt::Display for EmblemOrigin {
 
 #[doc(hidden)]
 impl ToGlib for EmblemOrigin {
-    type GlibType = gio_sys::GEmblemOrigin;
+    type GlibType = ffi::GEmblemOrigin;
 
-    fn to_glib(&self) -> gio_sys::GEmblemOrigin {
+    fn to_glib(&self) -> ffi::GEmblemOrigin {
         match *self {
-            EmblemOrigin::Unknown => gio_sys::G_EMBLEM_ORIGIN_UNKNOWN,
-            EmblemOrigin::Device => gio_sys::G_EMBLEM_ORIGIN_DEVICE,
-            EmblemOrigin::Livemetadata => gio_sys::G_EMBLEM_ORIGIN_LIVEMETADATA,
-            EmblemOrigin::Tag => gio_sys::G_EMBLEM_ORIGIN_TAG,
+            EmblemOrigin::Unknown => ffi::G_EMBLEM_ORIGIN_UNKNOWN,
+            EmblemOrigin::Device => ffi::G_EMBLEM_ORIGIN_DEVICE,
+            EmblemOrigin::Livemetadata => ffi::G_EMBLEM_ORIGIN_LIVEMETADATA,
+            EmblemOrigin::Tag => ffi::G_EMBLEM_ORIGIN_TAG,
             EmblemOrigin::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GEmblemOrigin> for EmblemOrigin {
-    fn from_glib(value: gio_sys::GEmblemOrigin) -> Self {
+impl FromGlib<ffi::GEmblemOrigin> for EmblemOrigin {
+    fn from_glib(value: ffi::GEmblemOrigin) -> Self {
         match value {
             0 => EmblemOrigin::Unknown,
             1 => EmblemOrigin::Device,
@@ -819,7 +813,7 @@ impl FromGlib<gio_sys::GEmblemOrigin> for EmblemOrigin {
 
 impl StaticType for EmblemOrigin {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_emblem_origin_get_type()) }
+        unsafe { from_glib(ffi::g_emblem_origin_get_type()) }
     }
 }
 
@@ -831,13 +825,13 @@ impl<'a> FromValueOptional<'a> for EmblemOrigin {
 
 impl<'a> FromValue<'a> for EmblemOrigin {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for EmblemOrigin {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -868,21 +862,21 @@ impl fmt::Display for FileAttributeStatus {
 
 #[doc(hidden)]
 impl ToGlib for FileAttributeStatus {
-    type GlibType = gio_sys::GFileAttributeStatus;
+    type GlibType = ffi::GFileAttributeStatus;
 
-    fn to_glib(&self) -> gio_sys::GFileAttributeStatus {
+    fn to_glib(&self) -> ffi::GFileAttributeStatus {
         match *self {
-            FileAttributeStatus::Unset => gio_sys::G_FILE_ATTRIBUTE_STATUS_UNSET,
-            FileAttributeStatus::Set => gio_sys::G_FILE_ATTRIBUTE_STATUS_SET,
-            FileAttributeStatus::ErrorSetting => gio_sys::G_FILE_ATTRIBUTE_STATUS_ERROR_SETTING,
+            FileAttributeStatus::Unset => ffi::G_FILE_ATTRIBUTE_STATUS_UNSET,
+            FileAttributeStatus::Set => ffi::G_FILE_ATTRIBUTE_STATUS_SET,
+            FileAttributeStatus::ErrorSetting => ffi::G_FILE_ATTRIBUTE_STATUS_ERROR_SETTING,
             FileAttributeStatus::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GFileAttributeStatus> for FileAttributeStatus {
-    fn from_glib(value: gio_sys::GFileAttributeStatus) -> Self {
+impl FromGlib<ffi::GFileAttributeStatus> for FileAttributeStatus {
+    fn from_glib(value: ffi::GFileAttributeStatus) -> Self {
         match value {
             0 => FileAttributeStatus::Unset,
             1 => FileAttributeStatus::Set,
@@ -894,7 +888,7 @@ impl FromGlib<gio_sys::GFileAttributeStatus> for FileAttributeStatus {
 
 impl StaticType for FileAttributeStatus {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_file_attribute_status_get_type()) }
+        unsafe { from_glib(ffi::g_file_attribute_status_get_type()) }
     }
 }
 
@@ -906,13 +900,13 @@ impl<'a> FromValueOptional<'a> for FileAttributeStatus {
 
 impl<'a> FromValue<'a> for FileAttributeStatus {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for FileAttributeStatus {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -957,28 +951,28 @@ impl fmt::Display for FileAttributeType {
 
 #[doc(hidden)]
 impl ToGlib for FileAttributeType {
-    type GlibType = gio_sys::GFileAttributeType;
+    type GlibType = ffi::GFileAttributeType;
 
-    fn to_glib(&self) -> gio_sys::GFileAttributeType {
+    fn to_glib(&self) -> ffi::GFileAttributeType {
         match *self {
-            FileAttributeType::Invalid => gio_sys::G_FILE_ATTRIBUTE_TYPE_INVALID,
-            FileAttributeType::String => gio_sys::G_FILE_ATTRIBUTE_TYPE_STRING,
-            FileAttributeType::ByteString => gio_sys::G_FILE_ATTRIBUTE_TYPE_BYTE_STRING,
-            FileAttributeType::Boolean => gio_sys::G_FILE_ATTRIBUTE_TYPE_BOOLEAN,
-            FileAttributeType::Uint32 => gio_sys::G_FILE_ATTRIBUTE_TYPE_UINT32,
-            FileAttributeType::Int32 => gio_sys::G_FILE_ATTRIBUTE_TYPE_INT32,
-            FileAttributeType::Uint64 => gio_sys::G_FILE_ATTRIBUTE_TYPE_UINT64,
-            FileAttributeType::Int64 => gio_sys::G_FILE_ATTRIBUTE_TYPE_INT64,
-            FileAttributeType::Object => gio_sys::G_FILE_ATTRIBUTE_TYPE_OBJECT,
-            FileAttributeType::Stringv => gio_sys::G_FILE_ATTRIBUTE_TYPE_STRINGV,
+            FileAttributeType::Invalid => ffi::G_FILE_ATTRIBUTE_TYPE_INVALID,
+            FileAttributeType::String => ffi::G_FILE_ATTRIBUTE_TYPE_STRING,
+            FileAttributeType::ByteString => ffi::G_FILE_ATTRIBUTE_TYPE_BYTE_STRING,
+            FileAttributeType::Boolean => ffi::G_FILE_ATTRIBUTE_TYPE_BOOLEAN,
+            FileAttributeType::Uint32 => ffi::G_FILE_ATTRIBUTE_TYPE_UINT32,
+            FileAttributeType::Int32 => ffi::G_FILE_ATTRIBUTE_TYPE_INT32,
+            FileAttributeType::Uint64 => ffi::G_FILE_ATTRIBUTE_TYPE_UINT64,
+            FileAttributeType::Int64 => ffi::G_FILE_ATTRIBUTE_TYPE_INT64,
+            FileAttributeType::Object => ffi::G_FILE_ATTRIBUTE_TYPE_OBJECT,
+            FileAttributeType::Stringv => ffi::G_FILE_ATTRIBUTE_TYPE_STRINGV,
             FileAttributeType::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GFileAttributeType> for FileAttributeType {
-    fn from_glib(value: gio_sys::GFileAttributeType) -> Self {
+impl FromGlib<ffi::GFileAttributeType> for FileAttributeType {
+    fn from_glib(value: ffi::GFileAttributeType) -> Self {
         match value {
             0 => FileAttributeType::Invalid,
             1 => FileAttributeType::String,
@@ -997,7 +991,7 @@ impl FromGlib<gio_sys::GFileAttributeType> for FileAttributeType {
 
 impl StaticType for FileAttributeType {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_file_attribute_type_get_type()) }
+        unsafe { from_glib(ffi::g_file_attribute_type_get_type()) }
     }
 }
 
@@ -1009,13 +1003,13 @@ impl<'a> FromValueOptional<'a> for FileAttributeType {
 
 impl<'a> FromValue<'a> for FileAttributeType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for FileAttributeType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -1062,29 +1056,29 @@ impl fmt::Display for FileMonitorEvent {
 
 #[doc(hidden)]
 impl ToGlib for FileMonitorEvent {
-    type GlibType = gio_sys::GFileMonitorEvent;
+    type GlibType = ffi::GFileMonitorEvent;
 
-    fn to_glib(&self) -> gio_sys::GFileMonitorEvent {
+    fn to_glib(&self) -> ffi::GFileMonitorEvent {
         match *self {
-            FileMonitorEvent::Changed => gio_sys::G_FILE_MONITOR_EVENT_CHANGED,
-            FileMonitorEvent::ChangesDoneHint => gio_sys::G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT,
-            FileMonitorEvent::Deleted => gio_sys::G_FILE_MONITOR_EVENT_DELETED,
-            FileMonitorEvent::Created => gio_sys::G_FILE_MONITOR_EVENT_CREATED,
-            FileMonitorEvent::AttributeChanged => gio_sys::G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED,
-            FileMonitorEvent::PreUnmount => gio_sys::G_FILE_MONITOR_EVENT_PRE_UNMOUNT,
-            FileMonitorEvent::Unmounted => gio_sys::G_FILE_MONITOR_EVENT_UNMOUNTED,
-            FileMonitorEvent::Moved => gio_sys::G_FILE_MONITOR_EVENT_MOVED,
-            FileMonitorEvent::Renamed => gio_sys::G_FILE_MONITOR_EVENT_RENAMED,
-            FileMonitorEvent::MovedIn => gio_sys::G_FILE_MONITOR_EVENT_MOVED_IN,
-            FileMonitorEvent::MovedOut => gio_sys::G_FILE_MONITOR_EVENT_MOVED_OUT,
+            FileMonitorEvent::Changed => ffi::G_FILE_MONITOR_EVENT_CHANGED,
+            FileMonitorEvent::ChangesDoneHint => ffi::G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT,
+            FileMonitorEvent::Deleted => ffi::G_FILE_MONITOR_EVENT_DELETED,
+            FileMonitorEvent::Created => ffi::G_FILE_MONITOR_EVENT_CREATED,
+            FileMonitorEvent::AttributeChanged => ffi::G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED,
+            FileMonitorEvent::PreUnmount => ffi::G_FILE_MONITOR_EVENT_PRE_UNMOUNT,
+            FileMonitorEvent::Unmounted => ffi::G_FILE_MONITOR_EVENT_UNMOUNTED,
+            FileMonitorEvent::Moved => ffi::G_FILE_MONITOR_EVENT_MOVED,
+            FileMonitorEvent::Renamed => ffi::G_FILE_MONITOR_EVENT_RENAMED,
+            FileMonitorEvent::MovedIn => ffi::G_FILE_MONITOR_EVENT_MOVED_IN,
+            FileMonitorEvent::MovedOut => ffi::G_FILE_MONITOR_EVENT_MOVED_OUT,
             FileMonitorEvent::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GFileMonitorEvent> for FileMonitorEvent {
-    fn from_glib(value: gio_sys::GFileMonitorEvent) -> Self {
+impl FromGlib<ffi::GFileMonitorEvent> for FileMonitorEvent {
+    fn from_glib(value: ffi::GFileMonitorEvent) -> Self {
         match value {
             0 => FileMonitorEvent::Changed,
             1 => FileMonitorEvent::ChangesDoneHint,
@@ -1104,7 +1098,7 @@ impl FromGlib<gio_sys::GFileMonitorEvent> for FileMonitorEvent {
 
 impl StaticType for FileMonitorEvent {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_file_monitor_event_get_type()) }
+        unsafe { from_glib(ffi::g_file_monitor_event_get_type()) }
     }
 }
 
@@ -1116,13 +1110,13 @@ impl<'a> FromValueOptional<'a> for FileMonitorEvent {
 
 impl<'a> FromValue<'a> for FileMonitorEvent {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for FileMonitorEvent {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -1161,25 +1155,25 @@ impl fmt::Display for FileType {
 
 #[doc(hidden)]
 impl ToGlib for FileType {
-    type GlibType = gio_sys::GFileType;
+    type GlibType = ffi::GFileType;
 
-    fn to_glib(&self) -> gio_sys::GFileType {
+    fn to_glib(&self) -> ffi::GFileType {
         match *self {
-            FileType::Unknown => gio_sys::G_FILE_TYPE_UNKNOWN,
-            FileType::Regular => gio_sys::G_FILE_TYPE_REGULAR,
-            FileType::Directory => gio_sys::G_FILE_TYPE_DIRECTORY,
-            FileType::SymbolicLink => gio_sys::G_FILE_TYPE_SYMBOLIC_LINK,
-            FileType::Special => gio_sys::G_FILE_TYPE_SPECIAL,
-            FileType::Shortcut => gio_sys::G_FILE_TYPE_SHORTCUT,
-            FileType::Mountable => gio_sys::G_FILE_TYPE_MOUNTABLE,
+            FileType::Unknown => ffi::G_FILE_TYPE_UNKNOWN,
+            FileType::Regular => ffi::G_FILE_TYPE_REGULAR,
+            FileType::Directory => ffi::G_FILE_TYPE_DIRECTORY,
+            FileType::SymbolicLink => ffi::G_FILE_TYPE_SYMBOLIC_LINK,
+            FileType::Special => ffi::G_FILE_TYPE_SPECIAL,
+            FileType::Shortcut => ffi::G_FILE_TYPE_SHORTCUT,
+            FileType::Mountable => ffi::G_FILE_TYPE_MOUNTABLE,
             FileType::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GFileType> for FileType {
-    fn from_glib(value: gio_sys::GFileType) -> Self {
+impl FromGlib<ffi::GFileType> for FileType {
+    fn from_glib(value: ffi::GFileType) -> Self {
         match value {
             0 => FileType::Unknown,
             1 => FileType::Regular,
@@ -1195,7 +1189,7 @@ impl FromGlib<gio_sys::GFileType> for FileType {
 
 impl StaticType for FileType {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_file_type_get_type()) }
+        unsafe { from_glib(ffi::g_file_type_get_type()) }
     }
 }
 
@@ -1207,13 +1201,13 @@ impl<'a> FromValueOptional<'a> for FileType {
 
 impl<'a> FromValue<'a> for FileType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for FileType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -1332,65 +1326,65 @@ impl fmt::Display for IOErrorEnum {
 
 #[doc(hidden)]
 impl ToGlib for IOErrorEnum {
-    type GlibType = gio_sys::GIOErrorEnum;
+    type GlibType = ffi::GIOErrorEnum;
 
-    fn to_glib(&self) -> gio_sys::GIOErrorEnum {
+    fn to_glib(&self) -> ffi::GIOErrorEnum {
         match *self {
-            IOErrorEnum::Failed => gio_sys::G_IO_ERROR_FAILED,
-            IOErrorEnum::NotFound => gio_sys::G_IO_ERROR_NOT_FOUND,
-            IOErrorEnum::Exists => gio_sys::G_IO_ERROR_EXISTS,
-            IOErrorEnum::IsDirectory => gio_sys::G_IO_ERROR_IS_DIRECTORY,
-            IOErrorEnum::NotDirectory => gio_sys::G_IO_ERROR_NOT_DIRECTORY,
-            IOErrorEnum::NotEmpty => gio_sys::G_IO_ERROR_NOT_EMPTY,
-            IOErrorEnum::NotRegularFile => gio_sys::G_IO_ERROR_NOT_REGULAR_FILE,
-            IOErrorEnum::NotSymbolicLink => gio_sys::G_IO_ERROR_NOT_SYMBOLIC_LINK,
-            IOErrorEnum::NotMountableFile => gio_sys::G_IO_ERROR_NOT_MOUNTABLE_FILE,
-            IOErrorEnum::FilenameTooLong => gio_sys::G_IO_ERROR_FILENAME_TOO_LONG,
-            IOErrorEnum::InvalidFilename => gio_sys::G_IO_ERROR_INVALID_FILENAME,
-            IOErrorEnum::TooManyLinks => gio_sys::G_IO_ERROR_TOO_MANY_LINKS,
-            IOErrorEnum::NoSpace => gio_sys::G_IO_ERROR_NO_SPACE,
-            IOErrorEnum::InvalidArgument => gio_sys::G_IO_ERROR_INVALID_ARGUMENT,
-            IOErrorEnum::PermissionDenied => gio_sys::G_IO_ERROR_PERMISSION_DENIED,
-            IOErrorEnum::NotSupported => gio_sys::G_IO_ERROR_NOT_SUPPORTED,
-            IOErrorEnum::NotMounted => gio_sys::G_IO_ERROR_NOT_MOUNTED,
-            IOErrorEnum::AlreadyMounted => gio_sys::G_IO_ERROR_ALREADY_MOUNTED,
-            IOErrorEnum::Closed => gio_sys::G_IO_ERROR_CLOSED,
-            IOErrorEnum::Cancelled => gio_sys::G_IO_ERROR_CANCELLED,
-            IOErrorEnum::Pending => gio_sys::G_IO_ERROR_PENDING,
-            IOErrorEnum::ReadOnly => gio_sys::G_IO_ERROR_READ_ONLY,
-            IOErrorEnum::CantCreateBackup => gio_sys::G_IO_ERROR_CANT_CREATE_BACKUP,
-            IOErrorEnum::WrongEtag => gio_sys::G_IO_ERROR_WRONG_ETAG,
-            IOErrorEnum::TimedOut => gio_sys::G_IO_ERROR_TIMED_OUT,
-            IOErrorEnum::WouldRecurse => gio_sys::G_IO_ERROR_WOULD_RECURSE,
-            IOErrorEnum::Busy => gio_sys::G_IO_ERROR_BUSY,
-            IOErrorEnum::WouldBlock => gio_sys::G_IO_ERROR_WOULD_BLOCK,
-            IOErrorEnum::HostNotFound => gio_sys::G_IO_ERROR_HOST_NOT_FOUND,
-            IOErrorEnum::WouldMerge => gio_sys::G_IO_ERROR_WOULD_MERGE,
-            IOErrorEnum::FailedHandled => gio_sys::G_IO_ERROR_FAILED_HANDLED,
-            IOErrorEnum::TooManyOpenFiles => gio_sys::G_IO_ERROR_TOO_MANY_OPEN_FILES,
-            IOErrorEnum::NotInitialized => gio_sys::G_IO_ERROR_NOT_INITIALIZED,
-            IOErrorEnum::AddressInUse => gio_sys::G_IO_ERROR_ADDRESS_IN_USE,
-            IOErrorEnum::PartialInput => gio_sys::G_IO_ERROR_PARTIAL_INPUT,
-            IOErrorEnum::InvalidData => gio_sys::G_IO_ERROR_INVALID_DATA,
-            IOErrorEnum::DbusError => gio_sys::G_IO_ERROR_DBUS_ERROR,
-            IOErrorEnum::HostUnreachable => gio_sys::G_IO_ERROR_HOST_UNREACHABLE,
-            IOErrorEnum::NetworkUnreachable => gio_sys::G_IO_ERROR_NETWORK_UNREACHABLE,
-            IOErrorEnum::ConnectionRefused => gio_sys::G_IO_ERROR_CONNECTION_REFUSED,
-            IOErrorEnum::ProxyFailed => gio_sys::G_IO_ERROR_PROXY_FAILED,
-            IOErrorEnum::ProxyAuthFailed => gio_sys::G_IO_ERROR_PROXY_AUTH_FAILED,
-            IOErrorEnum::ProxyNeedAuth => gio_sys::G_IO_ERROR_PROXY_NEED_AUTH,
-            IOErrorEnum::ProxyNotAllowed => gio_sys::G_IO_ERROR_PROXY_NOT_ALLOWED,
-            IOErrorEnum::BrokenPipe => gio_sys::G_IO_ERROR_BROKEN_PIPE,
-            IOErrorEnum::NotConnected => gio_sys::G_IO_ERROR_NOT_CONNECTED,
-            IOErrorEnum::MessageTooLarge => gio_sys::G_IO_ERROR_MESSAGE_TOO_LARGE,
+            IOErrorEnum::Failed => ffi::G_IO_ERROR_FAILED,
+            IOErrorEnum::NotFound => ffi::G_IO_ERROR_NOT_FOUND,
+            IOErrorEnum::Exists => ffi::G_IO_ERROR_EXISTS,
+            IOErrorEnum::IsDirectory => ffi::G_IO_ERROR_IS_DIRECTORY,
+            IOErrorEnum::NotDirectory => ffi::G_IO_ERROR_NOT_DIRECTORY,
+            IOErrorEnum::NotEmpty => ffi::G_IO_ERROR_NOT_EMPTY,
+            IOErrorEnum::NotRegularFile => ffi::G_IO_ERROR_NOT_REGULAR_FILE,
+            IOErrorEnum::NotSymbolicLink => ffi::G_IO_ERROR_NOT_SYMBOLIC_LINK,
+            IOErrorEnum::NotMountableFile => ffi::G_IO_ERROR_NOT_MOUNTABLE_FILE,
+            IOErrorEnum::FilenameTooLong => ffi::G_IO_ERROR_FILENAME_TOO_LONG,
+            IOErrorEnum::InvalidFilename => ffi::G_IO_ERROR_INVALID_FILENAME,
+            IOErrorEnum::TooManyLinks => ffi::G_IO_ERROR_TOO_MANY_LINKS,
+            IOErrorEnum::NoSpace => ffi::G_IO_ERROR_NO_SPACE,
+            IOErrorEnum::InvalidArgument => ffi::G_IO_ERROR_INVALID_ARGUMENT,
+            IOErrorEnum::PermissionDenied => ffi::G_IO_ERROR_PERMISSION_DENIED,
+            IOErrorEnum::NotSupported => ffi::G_IO_ERROR_NOT_SUPPORTED,
+            IOErrorEnum::NotMounted => ffi::G_IO_ERROR_NOT_MOUNTED,
+            IOErrorEnum::AlreadyMounted => ffi::G_IO_ERROR_ALREADY_MOUNTED,
+            IOErrorEnum::Closed => ffi::G_IO_ERROR_CLOSED,
+            IOErrorEnum::Cancelled => ffi::G_IO_ERROR_CANCELLED,
+            IOErrorEnum::Pending => ffi::G_IO_ERROR_PENDING,
+            IOErrorEnum::ReadOnly => ffi::G_IO_ERROR_READ_ONLY,
+            IOErrorEnum::CantCreateBackup => ffi::G_IO_ERROR_CANT_CREATE_BACKUP,
+            IOErrorEnum::WrongEtag => ffi::G_IO_ERROR_WRONG_ETAG,
+            IOErrorEnum::TimedOut => ffi::G_IO_ERROR_TIMED_OUT,
+            IOErrorEnum::WouldRecurse => ffi::G_IO_ERROR_WOULD_RECURSE,
+            IOErrorEnum::Busy => ffi::G_IO_ERROR_BUSY,
+            IOErrorEnum::WouldBlock => ffi::G_IO_ERROR_WOULD_BLOCK,
+            IOErrorEnum::HostNotFound => ffi::G_IO_ERROR_HOST_NOT_FOUND,
+            IOErrorEnum::WouldMerge => ffi::G_IO_ERROR_WOULD_MERGE,
+            IOErrorEnum::FailedHandled => ffi::G_IO_ERROR_FAILED_HANDLED,
+            IOErrorEnum::TooManyOpenFiles => ffi::G_IO_ERROR_TOO_MANY_OPEN_FILES,
+            IOErrorEnum::NotInitialized => ffi::G_IO_ERROR_NOT_INITIALIZED,
+            IOErrorEnum::AddressInUse => ffi::G_IO_ERROR_ADDRESS_IN_USE,
+            IOErrorEnum::PartialInput => ffi::G_IO_ERROR_PARTIAL_INPUT,
+            IOErrorEnum::InvalidData => ffi::G_IO_ERROR_INVALID_DATA,
+            IOErrorEnum::DbusError => ffi::G_IO_ERROR_DBUS_ERROR,
+            IOErrorEnum::HostUnreachable => ffi::G_IO_ERROR_HOST_UNREACHABLE,
+            IOErrorEnum::NetworkUnreachable => ffi::G_IO_ERROR_NETWORK_UNREACHABLE,
+            IOErrorEnum::ConnectionRefused => ffi::G_IO_ERROR_CONNECTION_REFUSED,
+            IOErrorEnum::ProxyFailed => ffi::G_IO_ERROR_PROXY_FAILED,
+            IOErrorEnum::ProxyAuthFailed => ffi::G_IO_ERROR_PROXY_AUTH_FAILED,
+            IOErrorEnum::ProxyNeedAuth => ffi::G_IO_ERROR_PROXY_NEED_AUTH,
+            IOErrorEnum::ProxyNotAllowed => ffi::G_IO_ERROR_PROXY_NOT_ALLOWED,
+            IOErrorEnum::BrokenPipe => ffi::G_IO_ERROR_BROKEN_PIPE,
+            IOErrorEnum::NotConnected => ffi::G_IO_ERROR_NOT_CONNECTED,
+            IOErrorEnum::MessageTooLarge => ffi::G_IO_ERROR_MESSAGE_TOO_LARGE,
             IOErrorEnum::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GIOErrorEnum> for IOErrorEnum {
-    fn from_glib(value: gio_sys::GIOErrorEnum) -> Self {
+impl FromGlib<ffi::GIOErrorEnum> for IOErrorEnum {
+    fn from_glib(value: ffi::GIOErrorEnum) -> Self {
         match value {
             0 => IOErrorEnum::Failed,
             1 => IOErrorEnum::NotFound,
@@ -1446,7 +1440,7 @@ impl FromGlib<gio_sys::GIOErrorEnum> for IOErrorEnum {
 
 impl ErrorDomain for IOErrorEnum {
     fn domain() -> Quark {
-        unsafe { from_glib(gio_sys::g_io_error_quark()) }
+        unsafe { from_glib(ffi::g_io_error_quark()) }
     }
 
     fn code(self) -> i32 {
@@ -1509,7 +1503,7 @@ impl ErrorDomain for IOErrorEnum {
 
 impl StaticType for IOErrorEnum {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_io_error_enum_get_type()) }
+        unsafe { from_glib(ffi::g_io_error_enum_get_type()) }
     }
 }
 
@@ -1521,13 +1515,13 @@ impl<'a> FromValueOptional<'a> for IOErrorEnum {
 
 impl<'a> FromValue<'a> for IOErrorEnum {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for IOErrorEnum {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -1564,13 +1558,13 @@ impl fmt::Display for MemoryMonitorWarningLevel {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 #[doc(hidden)]
 impl ToGlib for MemoryMonitorWarningLevel {
-    type GlibType = gio_sys::GMemoryMonitorWarningLevel;
+    type GlibType = ffi::GMemoryMonitorWarningLevel;
 
-    fn to_glib(&self) -> gio_sys::GMemoryMonitorWarningLevel {
+    fn to_glib(&self) -> ffi::GMemoryMonitorWarningLevel {
         match *self {
-            MemoryMonitorWarningLevel::Low => gio_sys::G_MEMORY_MONITOR_WARNING_LEVEL_LOW,
-            MemoryMonitorWarningLevel::Medium => gio_sys::G_MEMORY_MONITOR_WARNING_LEVEL_MEDIUM,
-            MemoryMonitorWarningLevel::Critical => gio_sys::G_MEMORY_MONITOR_WARNING_LEVEL_CRITICAL,
+            MemoryMonitorWarningLevel::Low => ffi::G_MEMORY_MONITOR_WARNING_LEVEL_LOW,
+            MemoryMonitorWarningLevel::Medium => ffi::G_MEMORY_MONITOR_WARNING_LEVEL_MEDIUM,
+            MemoryMonitorWarningLevel::Critical => ffi::G_MEMORY_MONITOR_WARNING_LEVEL_CRITICAL,
             MemoryMonitorWarningLevel::__Unknown(value) => value,
         }
     }
@@ -1579,8 +1573,8 @@ impl ToGlib for MemoryMonitorWarningLevel {
 #[cfg(any(feature = "v2_64", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 #[doc(hidden)]
-impl FromGlib<gio_sys::GMemoryMonitorWarningLevel> for MemoryMonitorWarningLevel {
-    fn from_glib(value: gio_sys::GMemoryMonitorWarningLevel) -> Self {
+impl FromGlib<ffi::GMemoryMonitorWarningLevel> for MemoryMonitorWarningLevel {
+    fn from_glib(value: ffi::GMemoryMonitorWarningLevel) -> Self {
         match value {
             50 => MemoryMonitorWarningLevel::Low,
             100 => MemoryMonitorWarningLevel::Medium,
@@ -1594,7 +1588,7 @@ impl FromGlib<gio_sys::GMemoryMonitorWarningLevel> for MemoryMonitorWarningLevel
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 impl StaticType for MemoryMonitorWarningLevel {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_memory_monitor_warning_level_get_type()) }
+        unsafe { from_glib(ffi::g_memory_monitor_warning_level_get_type()) }
     }
 }
 
@@ -1610,7 +1604,7 @@ impl<'a> FromValueOptional<'a> for MemoryMonitorWarningLevel {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 impl<'a> FromValue<'a> for MemoryMonitorWarningLevel {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
@@ -1618,7 +1612,7 @@ impl<'a> FromValue<'a> for MemoryMonitorWarningLevel {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 impl SetValue for MemoryMonitorWarningLevel {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -1649,21 +1643,21 @@ impl fmt::Display for MountOperationResult {
 
 #[doc(hidden)]
 impl ToGlib for MountOperationResult {
-    type GlibType = gio_sys::GMountOperationResult;
+    type GlibType = ffi::GMountOperationResult;
 
-    fn to_glib(&self) -> gio_sys::GMountOperationResult {
+    fn to_glib(&self) -> ffi::GMountOperationResult {
         match *self {
-            MountOperationResult::Handled => gio_sys::G_MOUNT_OPERATION_HANDLED,
-            MountOperationResult::Aborted => gio_sys::G_MOUNT_OPERATION_ABORTED,
-            MountOperationResult::Unhandled => gio_sys::G_MOUNT_OPERATION_UNHANDLED,
+            MountOperationResult::Handled => ffi::G_MOUNT_OPERATION_HANDLED,
+            MountOperationResult::Aborted => ffi::G_MOUNT_OPERATION_ABORTED,
+            MountOperationResult::Unhandled => ffi::G_MOUNT_OPERATION_UNHANDLED,
             MountOperationResult::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GMountOperationResult> for MountOperationResult {
-    fn from_glib(value: gio_sys::GMountOperationResult) -> Self {
+impl FromGlib<ffi::GMountOperationResult> for MountOperationResult {
+    fn from_glib(value: ffi::GMountOperationResult) -> Self {
         match value {
             0 => MountOperationResult::Handled,
             1 => MountOperationResult::Aborted,
@@ -1675,7 +1669,7 @@ impl FromGlib<gio_sys::GMountOperationResult> for MountOperationResult {
 
 impl StaticType for MountOperationResult {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_mount_operation_result_get_type()) }
+        unsafe { from_glib(ffi::g_mount_operation_result_get_type()) }
     }
 }
 
@@ -1687,13 +1681,13 @@ impl<'a> FromValueOptional<'a> for MountOperationResult {
 
 impl<'a> FromValue<'a> for MountOperationResult {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for MountOperationResult {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -1732,14 +1726,14 @@ impl fmt::Display for NetworkConnectivity {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 #[doc(hidden)]
 impl ToGlib for NetworkConnectivity {
-    type GlibType = gio_sys::GNetworkConnectivity;
+    type GlibType = ffi::GNetworkConnectivity;
 
-    fn to_glib(&self) -> gio_sys::GNetworkConnectivity {
+    fn to_glib(&self) -> ffi::GNetworkConnectivity {
         match *self {
-            NetworkConnectivity::Local => gio_sys::G_NETWORK_CONNECTIVITY_LOCAL,
-            NetworkConnectivity::Limited => gio_sys::G_NETWORK_CONNECTIVITY_LIMITED,
-            NetworkConnectivity::Portal => gio_sys::G_NETWORK_CONNECTIVITY_PORTAL,
-            NetworkConnectivity::Full => gio_sys::G_NETWORK_CONNECTIVITY_FULL,
+            NetworkConnectivity::Local => ffi::G_NETWORK_CONNECTIVITY_LOCAL,
+            NetworkConnectivity::Limited => ffi::G_NETWORK_CONNECTIVITY_LIMITED,
+            NetworkConnectivity::Portal => ffi::G_NETWORK_CONNECTIVITY_PORTAL,
+            NetworkConnectivity::Full => ffi::G_NETWORK_CONNECTIVITY_FULL,
             NetworkConnectivity::__Unknown(value) => value,
         }
     }
@@ -1748,8 +1742,8 @@ impl ToGlib for NetworkConnectivity {
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 #[doc(hidden)]
-impl FromGlib<gio_sys::GNetworkConnectivity> for NetworkConnectivity {
-    fn from_glib(value: gio_sys::GNetworkConnectivity) -> Self {
+impl FromGlib<ffi::GNetworkConnectivity> for NetworkConnectivity {
+    fn from_glib(value: ffi::GNetworkConnectivity) -> Self {
         match value {
             1 => NetworkConnectivity::Local,
             2 => NetworkConnectivity::Limited,
@@ -1764,7 +1758,7 @@ impl FromGlib<gio_sys::GNetworkConnectivity> for NetworkConnectivity {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 impl StaticType for NetworkConnectivity {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_network_connectivity_get_type()) }
+        unsafe { from_glib(ffi::g_network_connectivity_get_type()) }
     }
 }
 
@@ -1780,7 +1774,7 @@ impl<'a> FromValueOptional<'a> for NetworkConnectivity {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 impl<'a> FromValue<'a> for NetworkConnectivity {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
@@ -1788,7 +1782,7 @@ impl<'a> FromValue<'a> for NetworkConnectivity {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 impl SetValue for NetworkConnectivity {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -1821,22 +1815,22 @@ impl fmt::Display for NotificationPriority {
 
 #[doc(hidden)]
 impl ToGlib for NotificationPriority {
-    type GlibType = gio_sys::GNotificationPriority;
+    type GlibType = ffi::GNotificationPriority;
 
-    fn to_glib(&self) -> gio_sys::GNotificationPriority {
+    fn to_glib(&self) -> ffi::GNotificationPriority {
         match *self {
-            NotificationPriority::Normal => gio_sys::G_NOTIFICATION_PRIORITY_NORMAL,
-            NotificationPriority::Low => gio_sys::G_NOTIFICATION_PRIORITY_LOW,
-            NotificationPriority::High => gio_sys::G_NOTIFICATION_PRIORITY_HIGH,
-            NotificationPriority::Urgent => gio_sys::G_NOTIFICATION_PRIORITY_URGENT,
+            NotificationPriority::Normal => ffi::G_NOTIFICATION_PRIORITY_NORMAL,
+            NotificationPriority::Low => ffi::G_NOTIFICATION_PRIORITY_LOW,
+            NotificationPriority::High => ffi::G_NOTIFICATION_PRIORITY_HIGH,
+            NotificationPriority::Urgent => ffi::G_NOTIFICATION_PRIORITY_URGENT,
             NotificationPriority::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GNotificationPriority> for NotificationPriority {
-    fn from_glib(value: gio_sys::GNotificationPriority) -> Self {
+impl FromGlib<ffi::GNotificationPriority> for NotificationPriority {
+    fn from_glib(value: ffi::GNotificationPriority) -> Self {
         match value {
             0 => NotificationPriority::Normal,
             1 => NotificationPriority::Low,
@@ -1849,7 +1843,7 @@ impl FromGlib<gio_sys::GNotificationPriority> for NotificationPriority {
 
 impl StaticType for NotificationPriority {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_notification_priority_get_type()) }
+        unsafe { from_glib(ffi::g_notification_priority_get_type()) }
     }
 }
 
@@ -1861,13 +1855,13 @@ impl<'a> FromValueOptional<'a> for NotificationPriority {
 
 impl<'a> FromValue<'a> for NotificationPriority {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for NotificationPriority {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -1898,21 +1892,21 @@ impl fmt::Display for PasswordSave {
 
 #[doc(hidden)]
 impl ToGlib for PasswordSave {
-    type GlibType = gio_sys::GPasswordSave;
+    type GlibType = ffi::GPasswordSave;
 
-    fn to_glib(&self) -> gio_sys::GPasswordSave {
+    fn to_glib(&self) -> ffi::GPasswordSave {
         match *self {
-            PasswordSave::Never => gio_sys::G_PASSWORD_SAVE_NEVER,
-            PasswordSave::ForSession => gio_sys::G_PASSWORD_SAVE_FOR_SESSION,
-            PasswordSave::Permanently => gio_sys::G_PASSWORD_SAVE_PERMANENTLY,
+            PasswordSave::Never => ffi::G_PASSWORD_SAVE_NEVER,
+            PasswordSave::ForSession => ffi::G_PASSWORD_SAVE_FOR_SESSION,
+            PasswordSave::Permanently => ffi::G_PASSWORD_SAVE_PERMANENTLY,
             PasswordSave::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GPasswordSave> for PasswordSave {
-    fn from_glib(value: gio_sys::GPasswordSave) -> Self {
+impl FromGlib<ffi::GPasswordSave> for PasswordSave {
+    fn from_glib(value: ffi::GPasswordSave) -> Self {
         match value {
             0 => PasswordSave::Never,
             1 => PasswordSave::ForSession,
@@ -1924,7 +1918,7 @@ impl FromGlib<gio_sys::GPasswordSave> for PasswordSave {
 
 impl StaticType for PasswordSave {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_password_save_get_type()) }
+        unsafe { from_glib(ffi::g_password_save_get_type()) }
     }
 }
 
@@ -1936,13 +1930,13 @@ impl<'a> FromValueOptional<'a> for PasswordSave {
 
 impl<'a> FromValue<'a> for PasswordSave {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for PasswordSave {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -1977,23 +1971,23 @@ impl fmt::Display for ResolverRecordType {
 
 #[doc(hidden)]
 impl ToGlib for ResolverRecordType {
-    type GlibType = gio_sys::GResolverRecordType;
+    type GlibType = ffi::GResolverRecordType;
 
-    fn to_glib(&self) -> gio_sys::GResolverRecordType {
+    fn to_glib(&self) -> ffi::GResolverRecordType {
         match *self {
-            ResolverRecordType::Srv => gio_sys::G_RESOLVER_RECORD_SRV,
-            ResolverRecordType::Mx => gio_sys::G_RESOLVER_RECORD_MX,
-            ResolverRecordType::Txt => gio_sys::G_RESOLVER_RECORD_TXT,
-            ResolverRecordType::Soa => gio_sys::G_RESOLVER_RECORD_SOA,
-            ResolverRecordType::Ns => gio_sys::G_RESOLVER_RECORD_NS,
+            ResolverRecordType::Srv => ffi::G_RESOLVER_RECORD_SRV,
+            ResolverRecordType::Mx => ffi::G_RESOLVER_RECORD_MX,
+            ResolverRecordType::Txt => ffi::G_RESOLVER_RECORD_TXT,
+            ResolverRecordType::Soa => ffi::G_RESOLVER_RECORD_SOA,
+            ResolverRecordType::Ns => ffi::G_RESOLVER_RECORD_NS,
             ResolverRecordType::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GResolverRecordType> for ResolverRecordType {
-    fn from_glib(value: gio_sys::GResolverRecordType) -> Self {
+impl FromGlib<ffi::GResolverRecordType> for ResolverRecordType {
+    fn from_glib(value: ffi::GResolverRecordType) -> Self {
         match value {
             1 => ResolverRecordType::Srv,
             2 => ResolverRecordType::Mx,
@@ -2007,7 +2001,7 @@ impl FromGlib<gio_sys::GResolverRecordType> for ResolverRecordType {
 
 impl StaticType for ResolverRecordType {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_resolver_record_type_get_type()) }
+        unsafe { from_glib(ffi::g_resolver_record_type_get_type()) }
     }
 }
 
@@ -2019,13 +2013,13 @@ impl<'a> FromValueOptional<'a> for ResolverRecordType {
 
 impl<'a> FromValue<'a> for ResolverRecordType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for ResolverRecordType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -2054,20 +2048,20 @@ impl fmt::Display for ResourceError {
 
 #[doc(hidden)]
 impl ToGlib for ResourceError {
-    type GlibType = gio_sys::GResourceError;
+    type GlibType = ffi::GResourceError;
 
-    fn to_glib(&self) -> gio_sys::GResourceError {
+    fn to_glib(&self) -> ffi::GResourceError {
         match *self {
-            ResourceError::NotFound => gio_sys::G_RESOURCE_ERROR_NOT_FOUND,
-            ResourceError::Internal => gio_sys::G_RESOURCE_ERROR_INTERNAL,
+            ResourceError::NotFound => ffi::G_RESOURCE_ERROR_NOT_FOUND,
+            ResourceError::Internal => ffi::G_RESOURCE_ERROR_INTERNAL,
             ResourceError::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GResourceError> for ResourceError {
-    fn from_glib(value: gio_sys::GResourceError) -> Self {
+impl FromGlib<ffi::GResourceError> for ResourceError {
+    fn from_glib(value: ffi::GResourceError) -> Self {
         match value {
             0 => ResourceError::NotFound,
             1 => ResourceError::Internal,
@@ -2078,7 +2072,7 @@ impl FromGlib<gio_sys::GResourceError> for ResourceError {
 
 impl ErrorDomain for ResourceError {
     fn domain() -> Quark {
-        unsafe { from_glib(gio_sys::g_resource_error_quark()) }
+        unsafe { from_glib(ffi::g_resource_error_quark()) }
     }
 
     fn code(self) -> i32 {
@@ -2096,7 +2090,7 @@ impl ErrorDomain for ResourceError {
 
 impl StaticType for ResourceError {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_resource_error_get_type()) }
+        unsafe { from_glib(ffi::g_resource_error_get_type()) }
     }
 }
 
@@ -2108,13 +2102,13 @@ impl<'a> FromValueOptional<'a> for ResourceError {
 
 impl<'a> FromValue<'a> for ResourceError {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for ResourceError {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -2157,27 +2151,27 @@ impl fmt::Display for SocketClientEvent {
 
 #[doc(hidden)]
 impl ToGlib for SocketClientEvent {
-    type GlibType = gio_sys::GSocketClientEvent;
+    type GlibType = ffi::GSocketClientEvent;
 
-    fn to_glib(&self) -> gio_sys::GSocketClientEvent {
+    fn to_glib(&self) -> ffi::GSocketClientEvent {
         match *self {
-            SocketClientEvent::Resolving => gio_sys::G_SOCKET_CLIENT_RESOLVING,
-            SocketClientEvent::Resolved => gio_sys::G_SOCKET_CLIENT_RESOLVED,
-            SocketClientEvent::Connecting => gio_sys::G_SOCKET_CLIENT_CONNECTING,
-            SocketClientEvent::Connected => gio_sys::G_SOCKET_CLIENT_CONNECTED,
-            SocketClientEvent::ProxyNegotiating => gio_sys::G_SOCKET_CLIENT_PROXY_NEGOTIATING,
-            SocketClientEvent::ProxyNegotiated => gio_sys::G_SOCKET_CLIENT_PROXY_NEGOTIATED,
-            SocketClientEvent::TlsHandshaking => gio_sys::G_SOCKET_CLIENT_TLS_HANDSHAKING,
-            SocketClientEvent::TlsHandshaked => gio_sys::G_SOCKET_CLIENT_TLS_HANDSHAKED,
-            SocketClientEvent::Complete => gio_sys::G_SOCKET_CLIENT_COMPLETE,
+            SocketClientEvent::Resolving => ffi::G_SOCKET_CLIENT_RESOLVING,
+            SocketClientEvent::Resolved => ffi::G_SOCKET_CLIENT_RESOLVED,
+            SocketClientEvent::Connecting => ffi::G_SOCKET_CLIENT_CONNECTING,
+            SocketClientEvent::Connected => ffi::G_SOCKET_CLIENT_CONNECTED,
+            SocketClientEvent::ProxyNegotiating => ffi::G_SOCKET_CLIENT_PROXY_NEGOTIATING,
+            SocketClientEvent::ProxyNegotiated => ffi::G_SOCKET_CLIENT_PROXY_NEGOTIATED,
+            SocketClientEvent::TlsHandshaking => ffi::G_SOCKET_CLIENT_TLS_HANDSHAKING,
+            SocketClientEvent::TlsHandshaked => ffi::G_SOCKET_CLIENT_TLS_HANDSHAKED,
+            SocketClientEvent::Complete => ffi::G_SOCKET_CLIENT_COMPLETE,
             SocketClientEvent::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GSocketClientEvent> for SocketClientEvent {
-    fn from_glib(value: gio_sys::GSocketClientEvent) -> Self {
+impl FromGlib<ffi::GSocketClientEvent> for SocketClientEvent {
+    fn from_glib(value: ffi::GSocketClientEvent) -> Self {
         match value {
             0 => SocketClientEvent::Resolving,
             1 => SocketClientEvent::Resolved,
@@ -2195,7 +2189,7 @@ impl FromGlib<gio_sys::GSocketClientEvent> for SocketClientEvent {
 
 impl StaticType for SocketClientEvent {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_socket_client_event_get_type()) }
+        unsafe { from_glib(ffi::g_socket_client_event_get_type()) }
     }
 }
 
@@ -2207,13 +2201,13 @@ impl<'a> FromValueOptional<'a> for SocketClientEvent {
 
 impl<'a> FromValue<'a> for SocketClientEvent {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for SocketClientEvent {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -2246,22 +2240,22 @@ impl fmt::Display for SocketFamily {
 
 #[doc(hidden)]
 impl ToGlib for SocketFamily {
-    type GlibType = gio_sys::GSocketFamily;
+    type GlibType = ffi::GSocketFamily;
 
-    fn to_glib(&self) -> gio_sys::GSocketFamily {
+    fn to_glib(&self) -> ffi::GSocketFamily {
         match *self {
-            SocketFamily::Invalid => gio_sys::G_SOCKET_FAMILY_INVALID,
-            SocketFamily::Unix => gio_sys::G_SOCKET_FAMILY_UNIX,
-            SocketFamily::Ipv4 => gio_sys::G_SOCKET_FAMILY_IPV4,
-            SocketFamily::Ipv6 => gio_sys::G_SOCKET_FAMILY_IPV6,
+            SocketFamily::Invalid => ffi::G_SOCKET_FAMILY_INVALID,
+            SocketFamily::Unix => ffi::G_SOCKET_FAMILY_UNIX,
+            SocketFamily::Ipv4 => ffi::G_SOCKET_FAMILY_IPV4,
+            SocketFamily::Ipv6 => ffi::G_SOCKET_FAMILY_IPV6,
             SocketFamily::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GSocketFamily> for SocketFamily {
-    fn from_glib(value: gio_sys::GSocketFamily) -> Self {
+impl FromGlib<ffi::GSocketFamily> for SocketFamily {
+    fn from_glib(value: ffi::GSocketFamily) -> Self {
         match value {
             0 => SocketFamily::Invalid,
             1 => SocketFamily::Unix,
@@ -2274,7 +2268,7 @@ impl FromGlib<gio_sys::GSocketFamily> for SocketFamily {
 
 impl StaticType for SocketFamily {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_socket_family_get_type()) }
+        unsafe { from_glib(ffi::g_socket_family_get_type()) }
     }
 }
 
@@ -2286,13 +2280,13 @@ impl<'a> FromValueOptional<'a> for SocketFamily {
 
 impl<'a> FromValue<'a> for SocketFamily {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for SocketFamily {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -2331,14 +2325,14 @@ impl fmt::Display for SocketListenerEvent {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 #[doc(hidden)]
 impl ToGlib for SocketListenerEvent {
-    type GlibType = gio_sys::GSocketListenerEvent;
+    type GlibType = ffi::GSocketListenerEvent;
 
-    fn to_glib(&self) -> gio_sys::GSocketListenerEvent {
+    fn to_glib(&self) -> ffi::GSocketListenerEvent {
         match *self {
-            SocketListenerEvent::Binding => gio_sys::G_SOCKET_LISTENER_BINDING,
-            SocketListenerEvent::Bound => gio_sys::G_SOCKET_LISTENER_BOUND,
-            SocketListenerEvent::Listening => gio_sys::G_SOCKET_LISTENER_LISTENING,
-            SocketListenerEvent::Listened => gio_sys::G_SOCKET_LISTENER_LISTENED,
+            SocketListenerEvent::Binding => ffi::G_SOCKET_LISTENER_BINDING,
+            SocketListenerEvent::Bound => ffi::G_SOCKET_LISTENER_BOUND,
+            SocketListenerEvent::Listening => ffi::G_SOCKET_LISTENER_LISTENING,
+            SocketListenerEvent::Listened => ffi::G_SOCKET_LISTENER_LISTENED,
             SocketListenerEvent::__Unknown(value) => value,
         }
     }
@@ -2347,8 +2341,8 @@ impl ToGlib for SocketListenerEvent {
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 #[doc(hidden)]
-impl FromGlib<gio_sys::GSocketListenerEvent> for SocketListenerEvent {
-    fn from_glib(value: gio_sys::GSocketListenerEvent) -> Self {
+impl FromGlib<ffi::GSocketListenerEvent> for SocketListenerEvent {
+    fn from_glib(value: ffi::GSocketListenerEvent) -> Self {
         match value {
             0 => SocketListenerEvent::Binding,
             1 => SocketListenerEvent::Bound,
@@ -2363,7 +2357,7 @@ impl FromGlib<gio_sys::GSocketListenerEvent> for SocketListenerEvent {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 impl StaticType for SocketListenerEvent {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_socket_listener_event_get_type()) }
+        unsafe { from_glib(ffi::g_socket_listener_event_get_type()) }
     }
 }
 
@@ -2379,7 +2373,7 @@ impl<'a> FromValueOptional<'a> for SocketListenerEvent {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 impl<'a> FromValue<'a> for SocketListenerEvent {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
@@ -2387,7 +2381,7 @@ impl<'a> FromValue<'a> for SocketListenerEvent {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 impl SetValue for SocketListenerEvent {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -2422,23 +2416,23 @@ impl fmt::Display for SocketProtocol {
 
 #[doc(hidden)]
 impl ToGlib for SocketProtocol {
-    type GlibType = gio_sys::GSocketProtocol;
+    type GlibType = ffi::GSocketProtocol;
 
-    fn to_glib(&self) -> gio_sys::GSocketProtocol {
+    fn to_glib(&self) -> ffi::GSocketProtocol {
         match *self {
-            SocketProtocol::Unknown => gio_sys::G_SOCKET_PROTOCOL_UNKNOWN,
-            SocketProtocol::Default => gio_sys::G_SOCKET_PROTOCOL_DEFAULT,
-            SocketProtocol::Tcp => gio_sys::G_SOCKET_PROTOCOL_TCP,
-            SocketProtocol::Udp => gio_sys::G_SOCKET_PROTOCOL_UDP,
-            SocketProtocol::Sctp => gio_sys::G_SOCKET_PROTOCOL_SCTP,
+            SocketProtocol::Unknown => ffi::G_SOCKET_PROTOCOL_UNKNOWN,
+            SocketProtocol::Default => ffi::G_SOCKET_PROTOCOL_DEFAULT,
+            SocketProtocol::Tcp => ffi::G_SOCKET_PROTOCOL_TCP,
+            SocketProtocol::Udp => ffi::G_SOCKET_PROTOCOL_UDP,
+            SocketProtocol::Sctp => ffi::G_SOCKET_PROTOCOL_SCTP,
             SocketProtocol::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GSocketProtocol> for SocketProtocol {
-    fn from_glib(value: gio_sys::GSocketProtocol) -> Self {
+impl FromGlib<ffi::GSocketProtocol> for SocketProtocol {
+    fn from_glib(value: ffi::GSocketProtocol) -> Self {
         match value {
             -1 => SocketProtocol::Unknown,
             0 => SocketProtocol::Default,
@@ -2452,7 +2446,7 @@ impl FromGlib<gio_sys::GSocketProtocol> for SocketProtocol {
 
 impl StaticType for SocketProtocol {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_socket_protocol_get_type()) }
+        unsafe { from_glib(ffi::g_socket_protocol_get_type()) }
     }
 }
 
@@ -2464,13 +2458,13 @@ impl<'a> FromValueOptional<'a> for SocketProtocol {
 
 impl<'a> FromValue<'a> for SocketProtocol {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for SocketProtocol {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -2503,22 +2497,22 @@ impl fmt::Display for SocketType {
 
 #[doc(hidden)]
 impl ToGlib for SocketType {
-    type GlibType = gio_sys::GSocketType;
+    type GlibType = ffi::GSocketType;
 
-    fn to_glib(&self) -> gio_sys::GSocketType {
+    fn to_glib(&self) -> ffi::GSocketType {
         match *self {
-            SocketType::Invalid => gio_sys::G_SOCKET_TYPE_INVALID,
-            SocketType::Stream => gio_sys::G_SOCKET_TYPE_STREAM,
-            SocketType::Datagram => gio_sys::G_SOCKET_TYPE_DATAGRAM,
-            SocketType::Seqpacket => gio_sys::G_SOCKET_TYPE_SEQPACKET,
+            SocketType::Invalid => ffi::G_SOCKET_TYPE_INVALID,
+            SocketType::Stream => ffi::G_SOCKET_TYPE_STREAM,
+            SocketType::Datagram => ffi::G_SOCKET_TYPE_DATAGRAM,
+            SocketType::Seqpacket => ffi::G_SOCKET_TYPE_SEQPACKET,
             SocketType::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GSocketType> for SocketType {
-    fn from_glib(value: gio_sys::GSocketType) -> Self {
+impl FromGlib<ffi::GSocketType> for SocketType {
+    fn from_glib(value: ffi::GSocketType) -> Self {
         match value {
             0 => SocketType::Invalid,
             1 => SocketType::Stream,
@@ -2531,7 +2525,7 @@ impl FromGlib<gio_sys::GSocketType> for SocketType {
 
 impl StaticType for SocketType {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_socket_type_get_type()) }
+        unsafe { from_glib(ffi::g_socket_type_get_type()) }
     }
 }
 
@@ -2543,13 +2537,13 @@ impl<'a> FromValueOptional<'a> for SocketType {
 
 impl<'a> FromValue<'a> for SocketType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for SocketType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -2580,21 +2574,21 @@ impl fmt::Display for TlsAuthenticationMode {
 
 #[doc(hidden)]
 impl ToGlib for TlsAuthenticationMode {
-    type GlibType = gio_sys::GTlsAuthenticationMode;
+    type GlibType = ffi::GTlsAuthenticationMode;
 
-    fn to_glib(&self) -> gio_sys::GTlsAuthenticationMode {
+    fn to_glib(&self) -> ffi::GTlsAuthenticationMode {
         match *self {
-            TlsAuthenticationMode::None => gio_sys::G_TLS_AUTHENTICATION_NONE,
-            TlsAuthenticationMode::Requested => gio_sys::G_TLS_AUTHENTICATION_REQUESTED,
-            TlsAuthenticationMode::Required => gio_sys::G_TLS_AUTHENTICATION_REQUIRED,
+            TlsAuthenticationMode::None => ffi::G_TLS_AUTHENTICATION_NONE,
+            TlsAuthenticationMode::Requested => ffi::G_TLS_AUTHENTICATION_REQUESTED,
+            TlsAuthenticationMode::Required => ffi::G_TLS_AUTHENTICATION_REQUIRED,
             TlsAuthenticationMode::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GTlsAuthenticationMode> for TlsAuthenticationMode {
-    fn from_glib(value: gio_sys::GTlsAuthenticationMode) -> Self {
+impl FromGlib<ffi::GTlsAuthenticationMode> for TlsAuthenticationMode {
+    fn from_glib(value: ffi::GTlsAuthenticationMode) -> Self {
         match value {
             0 => TlsAuthenticationMode::None,
             1 => TlsAuthenticationMode::Requested,
@@ -2606,7 +2600,7 @@ impl FromGlib<gio_sys::GTlsAuthenticationMode> for TlsAuthenticationMode {
 
 impl StaticType for TlsAuthenticationMode {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_tls_authentication_mode_get_type()) }
+        unsafe { from_glib(ffi::g_tls_authentication_mode_get_type()) }
     }
 }
 
@@ -2618,13 +2612,13 @@ impl<'a> FromValueOptional<'a> for TlsAuthenticationMode {
 
 impl<'a> FromValue<'a> for TlsAuthenticationMode {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for TlsAuthenticationMode {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -2651,19 +2645,19 @@ impl fmt::Display for TlsCertificateRequestFlags {
 
 #[doc(hidden)]
 impl ToGlib for TlsCertificateRequestFlags {
-    type GlibType = gio_sys::GTlsCertificateRequestFlags;
+    type GlibType = ffi::GTlsCertificateRequestFlags;
 
-    fn to_glib(&self) -> gio_sys::GTlsCertificateRequestFlags {
+    fn to_glib(&self) -> ffi::GTlsCertificateRequestFlags {
         match *self {
-            TlsCertificateRequestFlags::None => gio_sys::G_TLS_CERTIFICATE_REQUEST_NONE,
+            TlsCertificateRequestFlags::None => ffi::G_TLS_CERTIFICATE_REQUEST_NONE,
             TlsCertificateRequestFlags::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GTlsCertificateRequestFlags> for TlsCertificateRequestFlags {
-    fn from_glib(value: gio_sys::GTlsCertificateRequestFlags) -> Self {
+impl FromGlib<ffi::GTlsCertificateRequestFlags> for TlsCertificateRequestFlags {
+    fn from_glib(value: ffi::GTlsCertificateRequestFlags) -> Self {
         match value {
             0 => TlsCertificateRequestFlags::None,
             value => TlsCertificateRequestFlags::__Unknown(value),
@@ -2673,7 +2667,7 @@ impl FromGlib<gio_sys::GTlsCertificateRequestFlags> for TlsCertificateRequestFla
 
 impl StaticType for TlsCertificateRequestFlags {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_tls_certificate_request_flags_get_type()) }
+        unsafe { from_glib(ffi::g_tls_certificate_request_flags_get_type()) }
     }
 }
 
@@ -2685,13 +2679,13 @@ impl<'a> FromValueOptional<'a> for TlsCertificateRequestFlags {
 
 impl<'a> FromValue<'a> for TlsCertificateRequestFlags {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for TlsCertificateRequestFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -2726,13 +2720,13 @@ impl fmt::Display for TlsChannelBindingType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl ToGlib for TlsChannelBindingType {
-    type GlibType = gio_sys::GTlsChannelBindingType;
+    type GlibType = ffi::GTlsChannelBindingType;
 
-    fn to_glib(&self) -> gio_sys::GTlsChannelBindingType {
+    fn to_glib(&self) -> ffi::GTlsChannelBindingType {
         match *self {
-            TlsChannelBindingType::Unique => gio_sys::G_TLS_CHANNEL_BINDING_TLS_UNIQUE,
+            TlsChannelBindingType::Unique => ffi::G_TLS_CHANNEL_BINDING_TLS_UNIQUE,
             TlsChannelBindingType::ServerEndPoint => {
-                gio_sys::G_TLS_CHANNEL_BINDING_TLS_SERVER_END_POINT
+                ffi::G_TLS_CHANNEL_BINDING_TLS_SERVER_END_POINT
             }
             TlsChannelBindingType::__Unknown(value) => value,
         }
@@ -2742,8 +2736,8 @@ impl ToGlib for TlsChannelBindingType {
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
-impl FromGlib<gio_sys::GTlsChannelBindingType> for TlsChannelBindingType {
-    fn from_glib(value: gio_sys::GTlsChannelBindingType) -> Self {
+impl FromGlib<ffi::GTlsChannelBindingType> for TlsChannelBindingType {
+    fn from_glib(value: ffi::GTlsChannelBindingType) -> Self {
         match value {
             0 => TlsChannelBindingType::Unique,
             1 => TlsChannelBindingType::ServerEndPoint,
@@ -2756,7 +2750,7 @@ impl FromGlib<gio_sys::GTlsChannelBindingType> for TlsChannelBindingType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 impl StaticType for TlsChannelBindingType {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_tls_channel_binding_type_get_type()) }
+        unsafe { from_glib(ffi::g_tls_channel_binding_type_get_type()) }
     }
 }
 
@@ -2772,7 +2766,7 @@ impl<'a> FromValueOptional<'a> for TlsChannelBindingType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 impl<'a> FromValue<'a> for TlsChannelBindingType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
@@ -2780,7 +2774,7 @@ impl<'a> FromValue<'a> for TlsChannelBindingType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 impl SetValue for TlsChannelBindingType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -2809,20 +2803,20 @@ impl fmt::Display for TlsDatabaseLookupFlags {
 
 #[doc(hidden)]
 impl ToGlib for TlsDatabaseLookupFlags {
-    type GlibType = gio_sys::GTlsDatabaseLookupFlags;
+    type GlibType = ffi::GTlsDatabaseLookupFlags;
 
-    fn to_glib(&self) -> gio_sys::GTlsDatabaseLookupFlags {
+    fn to_glib(&self) -> ffi::GTlsDatabaseLookupFlags {
         match *self {
-            TlsDatabaseLookupFlags::None => gio_sys::G_TLS_DATABASE_LOOKUP_NONE,
-            TlsDatabaseLookupFlags::Keypair => gio_sys::G_TLS_DATABASE_LOOKUP_KEYPAIR,
+            TlsDatabaseLookupFlags::None => ffi::G_TLS_DATABASE_LOOKUP_NONE,
+            TlsDatabaseLookupFlags::Keypair => ffi::G_TLS_DATABASE_LOOKUP_KEYPAIR,
             TlsDatabaseLookupFlags::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GTlsDatabaseLookupFlags> for TlsDatabaseLookupFlags {
-    fn from_glib(value: gio_sys::GTlsDatabaseLookupFlags) -> Self {
+impl FromGlib<ffi::GTlsDatabaseLookupFlags> for TlsDatabaseLookupFlags {
+    fn from_glib(value: ffi::GTlsDatabaseLookupFlags) -> Self {
         match value {
             0 => TlsDatabaseLookupFlags::None,
             1 => TlsDatabaseLookupFlags::Keypair,
@@ -2833,7 +2827,7 @@ impl FromGlib<gio_sys::GTlsDatabaseLookupFlags> for TlsDatabaseLookupFlags {
 
 impl StaticType for TlsDatabaseLookupFlags {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_tls_database_lookup_flags_get_type()) }
+        unsafe { from_glib(ffi::g_tls_database_lookup_flags_get_type()) }
     }
 }
 
@@ -2845,13 +2839,13 @@ impl<'a> FromValueOptional<'a> for TlsDatabaseLookupFlags {
 
 impl<'a> FromValue<'a> for TlsDatabaseLookupFlags {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for TlsDatabaseLookupFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -2882,21 +2876,21 @@ impl fmt::Display for TlsInteractionResult {
 
 #[doc(hidden)]
 impl ToGlib for TlsInteractionResult {
-    type GlibType = gio_sys::GTlsInteractionResult;
+    type GlibType = ffi::GTlsInteractionResult;
 
-    fn to_glib(&self) -> gio_sys::GTlsInteractionResult {
+    fn to_glib(&self) -> ffi::GTlsInteractionResult {
         match *self {
-            TlsInteractionResult::Unhandled => gio_sys::G_TLS_INTERACTION_UNHANDLED,
-            TlsInteractionResult::Handled => gio_sys::G_TLS_INTERACTION_HANDLED,
-            TlsInteractionResult::Failed => gio_sys::G_TLS_INTERACTION_FAILED,
+            TlsInteractionResult::Unhandled => ffi::G_TLS_INTERACTION_UNHANDLED,
+            TlsInteractionResult::Handled => ffi::G_TLS_INTERACTION_HANDLED,
+            TlsInteractionResult::Failed => ffi::G_TLS_INTERACTION_FAILED,
             TlsInteractionResult::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GTlsInteractionResult> for TlsInteractionResult {
-    fn from_glib(value: gio_sys::GTlsInteractionResult) -> Self {
+impl FromGlib<ffi::GTlsInteractionResult> for TlsInteractionResult {
+    fn from_glib(value: ffi::GTlsInteractionResult) -> Self {
         match value {
             0 => TlsInteractionResult::Unhandled,
             1 => TlsInteractionResult::Handled,
@@ -2908,7 +2902,7 @@ impl FromGlib<gio_sys::GTlsInteractionResult> for TlsInteractionResult {
 
 impl StaticType for TlsInteractionResult {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_tls_interaction_result_get_type()) }
+        unsafe { from_glib(ffi::g_tls_interaction_result_get_type()) }
     }
 }
 
@@ -2920,13 +2914,13 @@ impl<'a> FromValueOptional<'a> for TlsInteractionResult {
 
 impl<'a> FromValue<'a> for TlsInteractionResult {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for TlsInteractionResult {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -2958,21 +2952,21 @@ impl fmt::Display for TlsRehandshakeMode {
 
 #[doc(hidden)]
 impl ToGlib for TlsRehandshakeMode {
-    type GlibType = gio_sys::GTlsRehandshakeMode;
+    type GlibType = ffi::GTlsRehandshakeMode;
 
-    fn to_glib(&self) -> gio_sys::GTlsRehandshakeMode {
+    fn to_glib(&self) -> ffi::GTlsRehandshakeMode {
         match *self {
-            TlsRehandshakeMode::Never => gio_sys::G_TLS_REHANDSHAKE_NEVER,
-            TlsRehandshakeMode::Safely => gio_sys::G_TLS_REHANDSHAKE_SAFELY,
-            TlsRehandshakeMode::Unsafely => gio_sys::G_TLS_REHANDSHAKE_UNSAFELY,
+            TlsRehandshakeMode::Never => ffi::G_TLS_REHANDSHAKE_NEVER,
+            TlsRehandshakeMode::Safely => ffi::G_TLS_REHANDSHAKE_SAFELY,
+            TlsRehandshakeMode::Unsafely => ffi::G_TLS_REHANDSHAKE_UNSAFELY,
             TlsRehandshakeMode::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GTlsRehandshakeMode> for TlsRehandshakeMode {
-    fn from_glib(value: gio_sys::GTlsRehandshakeMode) -> Self {
+impl FromGlib<ffi::GTlsRehandshakeMode> for TlsRehandshakeMode {
+    fn from_glib(value: ffi::GTlsRehandshakeMode) -> Self {
         match value {
             0 => TlsRehandshakeMode::Never,
             1 => TlsRehandshakeMode::Safely,
@@ -2984,7 +2978,7 @@ impl FromGlib<gio_sys::GTlsRehandshakeMode> for TlsRehandshakeMode {
 
 impl StaticType for TlsRehandshakeMode {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_tls_rehandshake_mode_get_type()) }
+        unsafe { from_glib(ffi::g_tls_rehandshake_mode_get_type()) }
     }
 }
 
@@ -2996,13 +2990,13 @@ impl<'a> FromValueOptional<'a> for TlsRehandshakeMode {
 
 impl<'a> FromValue<'a> for TlsRehandshakeMode {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for TlsRehandshakeMode {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -3037,23 +3031,23 @@ impl fmt::Display for UnixSocketAddressType {
 
 #[doc(hidden)]
 impl ToGlib for UnixSocketAddressType {
-    type GlibType = gio_sys::GUnixSocketAddressType;
+    type GlibType = ffi::GUnixSocketAddressType;
 
-    fn to_glib(&self) -> gio_sys::GUnixSocketAddressType {
+    fn to_glib(&self) -> ffi::GUnixSocketAddressType {
         match *self {
-            UnixSocketAddressType::Invalid => gio_sys::G_UNIX_SOCKET_ADDRESS_INVALID,
-            UnixSocketAddressType::Anonymous => gio_sys::G_UNIX_SOCKET_ADDRESS_ANONYMOUS,
-            UnixSocketAddressType::Path => gio_sys::G_UNIX_SOCKET_ADDRESS_PATH,
-            UnixSocketAddressType::Abstract => gio_sys::G_UNIX_SOCKET_ADDRESS_ABSTRACT,
-            UnixSocketAddressType::AbstractPadded => gio_sys::G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED,
+            UnixSocketAddressType::Invalid => ffi::G_UNIX_SOCKET_ADDRESS_INVALID,
+            UnixSocketAddressType::Anonymous => ffi::G_UNIX_SOCKET_ADDRESS_ANONYMOUS,
+            UnixSocketAddressType::Path => ffi::G_UNIX_SOCKET_ADDRESS_PATH,
+            UnixSocketAddressType::Abstract => ffi::G_UNIX_SOCKET_ADDRESS_ABSTRACT,
+            UnixSocketAddressType::AbstractPadded => ffi::G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED,
             UnixSocketAddressType::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GUnixSocketAddressType> for UnixSocketAddressType {
-    fn from_glib(value: gio_sys::GUnixSocketAddressType) -> Self {
+impl FromGlib<ffi::GUnixSocketAddressType> for UnixSocketAddressType {
+    fn from_glib(value: ffi::GUnixSocketAddressType) -> Self {
         match value {
             0 => UnixSocketAddressType::Invalid,
             1 => UnixSocketAddressType::Anonymous,
@@ -3067,7 +3061,7 @@ impl FromGlib<gio_sys::GUnixSocketAddressType> for UnixSocketAddressType {
 
 impl StaticType for UnixSocketAddressType {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_unix_socket_address_type_get_type()) }
+        unsafe { from_glib(ffi::g_unix_socket_address_type_get_type()) }
     }
 }
 
@@ -3079,13 +3073,13 @@ impl<'a> FromValueOptional<'a> for UnixSocketAddressType {
 
 impl<'a> FromValue<'a> for UnixSocketAddressType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for UnixSocketAddressType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -3116,21 +3110,21 @@ impl fmt::Display for ZlibCompressorFormat {
 
 #[doc(hidden)]
 impl ToGlib for ZlibCompressorFormat {
-    type GlibType = gio_sys::GZlibCompressorFormat;
+    type GlibType = ffi::GZlibCompressorFormat;
 
-    fn to_glib(&self) -> gio_sys::GZlibCompressorFormat {
+    fn to_glib(&self) -> ffi::GZlibCompressorFormat {
         match *self {
-            ZlibCompressorFormat::Zlib => gio_sys::G_ZLIB_COMPRESSOR_FORMAT_ZLIB,
-            ZlibCompressorFormat::Gzip => gio_sys::G_ZLIB_COMPRESSOR_FORMAT_GZIP,
-            ZlibCompressorFormat::Raw => gio_sys::G_ZLIB_COMPRESSOR_FORMAT_RAW,
+            ZlibCompressorFormat::Zlib => ffi::G_ZLIB_COMPRESSOR_FORMAT_ZLIB,
+            ZlibCompressorFormat::Gzip => ffi::G_ZLIB_COMPRESSOR_FORMAT_GZIP,
+            ZlibCompressorFormat::Raw => ffi::G_ZLIB_COMPRESSOR_FORMAT_RAW,
             ZlibCompressorFormat::__Unknown(value) => value,
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<gio_sys::GZlibCompressorFormat> for ZlibCompressorFormat {
-    fn from_glib(value: gio_sys::GZlibCompressorFormat) -> Self {
+impl FromGlib<ffi::GZlibCompressorFormat> for ZlibCompressorFormat {
+    fn from_glib(value: ffi::GZlibCompressorFormat) -> Self {
         match value {
             0 => ZlibCompressorFormat::Zlib,
             1 => ZlibCompressorFormat::Gzip,
@@ -3142,7 +3136,7 @@ impl FromGlib<gio_sys::GZlibCompressorFormat> for ZlibCompressorFormat {
 
 impl StaticType for ZlibCompressorFormat {
     fn static_type() -> Type {
-        unsafe { from_glib(gio_sys::g_zlib_compressor_format_get_type()) }
+        unsafe { from_glib(ffi::g_zlib_compressor_format_get_type()) }
     }
 }
 
@@ -3154,12 +3148,12 @@ impl<'a> FromValueOptional<'a> for ZlibCompressorFormat {
 
 impl<'a> FromValue<'a> for ZlibCompressorFormat {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for ZlibCompressorFormat {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }

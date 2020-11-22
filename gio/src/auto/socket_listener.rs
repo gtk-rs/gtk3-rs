@@ -2,8 +2,15 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::Cancellable;
+use crate::Socket;
+use crate::SocketAddress;
+use crate::SocketConnection;
+#[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+use crate::SocketListenerEvent;
+use crate::SocketProtocol;
+use crate::SocketType;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -11,34 +18,23 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::Value;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
-use Socket;
-use SocketAddress;
-use SocketConnection;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-use SocketListenerEvent;
-use SocketProtocol;
-use SocketType;
 
-glib_wrapper! {
-    pub struct SocketListener(Object<gio_sys::GSocketListener, gio_sys::GSocketListenerClass>);
+glib::glib_wrapper! {
+    pub struct SocketListener(Object<ffi::GSocketListener, ffi::GSocketListenerClass>);
 
     match fn {
-        get_type => || gio_sys::g_socket_listener_get_type(),
+        get_type => || ffi::g_socket_listener_get_type(),
     }
 }
 
 impl SocketListener {
     pub fn new() -> SocketListener {
-        unsafe { from_glib_full(gio_sys::g_socket_listener_new()) }
+        unsafe { from_glib_full(ffi::g_socket_listener_new()) }
     }
 }
 
@@ -152,7 +148,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         unsafe {
             let mut source_object = ptr::null_mut();
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_socket_listener_accept(
+            let ret = ffi::g_socket_listener_accept(
                 self.as_ref().to_glib_none().0,
                 &mut source_object,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -178,13 +174,13 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         unsafe extern "C" fn accept_async_trampoline<
             Q: FnOnce(Result<(SocketConnection, Option<glib::Object>), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let mut source_object = ptr::null_mut();
-            let ret = gio_sys::g_socket_listener_accept_finish(
+            let ret = ffi::g_socket_listener_accept_finish(
                 _source_object as *mut _,
                 res,
                 &mut source_object,
@@ -200,7 +196,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         }
         let callback = accept_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_socket_listener_accept_async(
+            ffi::g_socket_listener_accept_async(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -235,7 +231,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         unsafe {
             let mut source_object = ptr::null_mut();
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_socket_listener_accept_socket(
+            let ret = ffi::g_socket_listener_accept_socket(
                 self.as_ref().to_glib_none().0,
                 &mut source_object,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -261,13 +257,13 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         unsafe extern "C" fn accept_socket_async_trampoline<
             Q: FnOnce(Result<(Socket, Option<glib::Object>), glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let mut source_object = ptr::null_mut();
-            let ret = gio_sys::g_socket_listener_accept_socket_finish(
+            let ret = ffi::g_socket_listener_accept_socket_finish(
                 _source_object as *mut _,
                 res,
                 &mut source_object,
@@ -283,7 +279,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         }
         let callback = accept_socket_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_socket_listener_accept_socket_async(
+            ffi::g_socket_listener_accept_socket_async(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
@@ -320,7 +316,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         unsafe {
             let mut effective_address = ptr::null_mut();
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_socket_listener_add_address(
+            let _ = ffi::g_socket_listener_add_address(
                 self.as_ref().to_glib_none().0,
                 address.as_ref().to_glib_none().0,
                 type_.to_glib(),
@@ -343,7 +339,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
     ) -> Result<u16, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_socket_listener_add_any_inet_port(
+            let ret = ffi::g_socket_listener_add_any_inet_port(
                 self.as_ref().to_glib_none().0,
                 source_object.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
@@ -363,7 +359,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_socket_listener_add_inet_port(
+            let _ = ffi::g_socket_listener_add_inet_port(
                 self.as_ref().to_glib_none().0,
                 port,
                 source_object.map(|p| p.as_ref()).to_glib_none().0,
@@ -384,7 +380,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
     ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_socket_listener_add_socket(
+            let _ = ffi::g_socket_listener_add_socket(
                 self.as_ref().to_glib_none().0,
                 socket.as_ref().to_glib_none().0,
                 source_object.map(|p| p.as_ref()).to_glib_none().0,
@@ -400,21 +396,21 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
 
     fn close(&self) {
         unsafe {
-            gio_sys::g_socket_listener_close(self.as_ref().to_glib_none().0);
+            ffi::g_socket_listener_close(self.as_ref().to_glib_none().0);
         }
     }
 
     fn set_backlog(&self, listen_backlog: i32) {
         unsafe {
-            gio_sys::g_socket_listener_set_backlog(self.as_ref().to_glib_none().0, listen_backlog);
+            ffi::g_socket_listener_set_backlog(self.as_ref().to_glib_none().0, listen_backlog);
         }
     }
 
     fn get_property_listen_backlog(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_get_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"listen-backlog\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -427,8 +423,8 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
 
     fn set_property_listen_backlog(&self, listen_backlog: i32) {
         unsafe {
-            gobject_sys::g_object_set_property(
-                self.to_glib_none().0 as *mut gobject_sys::GObject,
+            glib::gobject_ffi::g_object_set_property(
+                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"listen-backlog\0".as_ptr() as *const _,
                 Value::from(&listen_backlog).to_glib_none().0,
             );
@@ -445,10 +441,10 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
             P,
             F: Fn(&P, SocketListenerEvent, &Socket) + 'static,
         >(
-            this: *mut gio_sys::GSocketListener,
-            event: gio_sys::GSocketListenerEvent,
-            socket: *mut gio_sys::GSocket,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GSocketListener,
+            event: ffi::GSocketListenerEvent,
+            socket: *mut ffi::GSocket,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<SocketListener>,
         {
@@ -477,9 +473,9 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_listen_backlog_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gio_sys::GSocketListener,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GSocketListener,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<SocketListener>,
         {

@@ -2,10 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use error::ErrorDomain;
-use glib_sys;
-use translate::from_glib;
-use Quark;
+use crate::error::ErrorDomain;
+use crate::translate::from_glib;
+use crate::Quark;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FileError {
@@ -38,37 +37,37 @@ pub enum FileError {
 
 impl ErrorDomain for FileError {
     fn domain() -> Quark {
-        unsafe { from_glib(glib_sys::g_file_error_quark()) }
+        unsafe { from_glib(ffi::g_file_error_quark()) }
     }
 
     fn code(self) -> i32 {
         use self::FileError::*;
         match self {
-            Exist => glib_sys::G_FILE_ERROR_EXIST as i32,
-            Isdir => glib_sys::G_FILE_ERROR_ISDIR as i32,
-            Acces => glib_sys::G_FILE_ERROR_ACCES as i32,
-            Nametoolong => glib_sys::G_FILE_ERROR_NAMETOOLONG as i32,
-            Noent => glib_sys::G_FILE_ERROR_NOENT as i32,
-            Notdir => glib_sys::G_FILE_ERROR_NOTDIR as i32,
-            Nxio => glib_sys::G_FILE_ERROR_NXIO as i32,
-            Nodev => glib_sys::G_FILE_ERROR_NODEV as i32,
-            Rofs => glib_sys::G_FILE_ERROR_ROFS as i32,
-            Txtbsy => glib_sys::G_FILE_ERROR_TXTBSY as i32,
-            Fault => glib_sys::G_FILE_ERROR_FAULT as i32,
-            Loop => glib_sys::G_FILE_ERROR_LOOP as i32,
-            Nospc => glib_sys::G_FILE_ERROR_NOSPC as i32,
-            Nomem => glib_sys::G_FILE_ERROR_NOMEM as i32,
-            Mfile => glib_sys::G_FILE_ERROR_MFILE as i32,
-            Nfile => glib_sys::G_FILE_ERROR_NFILE as i32,
-            Badf => glib_sys::G_FILE_ERROR_BADF as i32,
-            Inval => glib_sys::G_FILE_ERROR_INVAL as i32,
-            Pipe => glib_sys::G_FILE_ERROR_PIPE as i32,
-            Again => glib_sys::G_FILE_ERROR_AGAIN as i32,
-            Intr => glib_sys::G_FILE_ERROR_INTR as i32,
-            Io => glib_sys::G_FILE_ERROR_IO as i32,
-            Perm => glib_sys::G_FILE_ERROR_PERM as i32,
-            Nosys => glib_sys::G_FILE_ERROR_NOSYS as i32,
-            Failed => glib_sys::G_FILE_ERROR_FAILED as i32,
+            Exist => ffi::G_FILE_ERROR_EXIST as i32,
+            Isdir => ffi::G_FILE_ERROR_ISDIR as i32,
+            Acces => ffi::G_FILE_ERROR_ACCES as i32,
+            Nametoolong => ffi::G_FILE_ERROR_NAMETOOLONG as i32,
+            Noent => ffi::G_FILE_ERROR_NOENT as i32,
+            Notdir => ffi::G_FILE_ERROR_NOTDIR as i32,
+            Nxio => ffi::G_FILE_ERROR_NXIO as i32,
+            Nodev => ffi::G_FILE_ERROR_NODEV as i32,
+            Rofs => ffi::G_FILE_ERROR_ROFS as i32,
+            Txtbsy => ffi::G_FILE_ERROR_TXTBSY as i32,
+            Fault => ffi::G_FILE_ERROR_FAULT as i32,
+            Loop => ffi::G_FILE_ERROR_LOOP as i32,
+            Nospc => ffi::G_FILE_ERROR_NOSPC as i32,
+            Nomem => ffi::G_FILE_ERROR_NOMEM as i32,
+            Mfile => ffi::G_FILE_ERROR_MFILE as i32,
+            Nfile => ffi::G_FILE_ERROR_NFILE as i32,
+            Badf => ffi::G_FILE_ERROR_BADF as i32,
+            Inval => ffi::G_FILE_ERROR_INVAL as i32,
+            Pipe => ffi::G_FILE_ERROR_PIPE as i32,
+            Again => ffi::G_FILE_ERROR_AGAIN as i32,
+            Intr => ffi::G_FILE_ERROR_INTR as i32,
+            Io => ffi::G_FILE_ERROR_IO as i32,
+            Perm => ffi::G_FILE_ERROR_PERM as i32,
+            Nosys => ffi::G_FILE_ERROR_NOSYS as i32,
+            Failed => ffi::G_FILE_ERROR_FAILED as i32,
         }
     }
 
@@ -76,31 +75,31 @@ impl ErrorDomain for FileError {
     fn from(code: i32) -> Option<Self> {
         use self::FileError::*;
         match code {
-            x if x == glib_sys::G_FILE_ERROR_EXIST as i32 => Some(Exist),
-            x if x == glib_sys::G_FILE_ERROR_ISDIR as i32 => Some(Isdir),
-            x if x == glib_sys::G_FILE_ERROR_ACCES as i32 => Some(Acces),
-            x if x == glib_sys::G_FILE_ERROR_NAMETOOLONG as i32 => Some(Nametoolong),
-            x if x == glib_sys::G_FILE_ERROR_NOENT as i32 => Some(Noent),
-            x if x == glib_sys::G_FILE_ERROR_NOTDIR as i32 => Some(Notdir),
-            x if x == glib_sys::G_FILE_ERROR_NXIO as i32 => Some(Nxio),
-            x if x == glib_sys::G_FILE_ERROR_NODEV as i32 => Some(Nodev),
-            x if x == glib_sys::G_FILE_ERROR_ROFS as i32 => Some(Rofs),
-            x if x == glib_sys::G_FILE_ERROR_TXTBSY as i32 => Some(Txtbsy),
-            x if x == glib_sys::G_FILE_ERROR_FAULT as i32 => Some(Fault),
-            x if x == glib_sys::G_FILE_ERROR_LOOP as i32 => Some(Loop),
-            x if x == glib_sys::G_FILE_ERROR_NOSPC as i32 => Some(Nospc),
-            x if x == glib_sys::G_FILE_ERROR_NOMEM as i32 => Some(Nomem),
-            x if x == glib_sys::G_FILE_ERROR_MFILE as i32 => Some(Mfile),
-            x if x == glib_sys::G_FILE_ERROR_NFILE as i32 => Some(Nfile),
-            x if x == glib_sys::G_FILE_ERROR_BADF as i32 => Some(Badf),
-            x if x == glib_sys::G_FILE_ERROR_INVAL as i32 => Some(Inval),
-            x if x == glib_sys::G_FILE_ERROR_PIPE as i32 => Some(Pipe),
-            x if x == glib_sys::G_FILE_ERROR_AGAIN as i32 => Some(Again),
-            x if x == glib_sys::G_FILE_ERROR_INTR as i32 => Some(Intr),
-            x if x == glib_sys::G_FILE_ERROR_IO as i32 => Some(Io),
-            x if x == glib_sys::G_FILE_ERROR_PERM as i32 => Some(Perm),
-            x if x == glib_sys::G_FILE_ERROR_NOSYS as i32 => Some(Nosys),
-            x if x == glib_sys::G_FILE_ERROR_FAILED as i32 => Some(Failed),
+            x if x == ffi::G_FILE_ERROR_EXIST as i32 => Some(Exist),
+            x if x == ffi::G_FILE_ERROR_ISDIR as i32 => Some(Isdir),
+            x if x == ffi::G_FILE_ERROR_ACCES as i32 => Some(Acces),
+            x if x == ffi::G_FILE_ERROR_NAMETOOLONG as i32 => Some(Nametoolong),
+            x if x == ffi::G_FILE_ERROR_NOENT as i32 => Some(Noent),
+            x if x == ffi::G_FILE_ERROR_NOTDIR as i32 => Some(Notdir),
+            x if x == ffi::G_FILE_ERROR_NXIO as i32 => Some(Nxio),
+            x if x == ffi::G_FILE_ERROR_NODEV as i32 => Some(Nodev),
+            x if x == ffi::G_FILE_ERROR_ROFS as i32 => Some(Rofs),
+            x if x == ffi::G_FILE_ERROR_TXTBSY as i32 => Some(Txtbsy),
+            x if x == ffi::G_FILE_ERROR_FAULT as i32 => Some(Fault),
+            x if x == ffi::G_FILE_ERROR_LOOP as i32 => Some(Loop),
+            x if x == ffi::G_FILE_ERROR_NOSPC as i32 => Some(Nospc),
+            x if x == ffi::G_FILE_ERROR_NOMEM as i32 => Some(Nomem),
+            x if x == ffi::G_FILE_ERROR_MFILE as i32 => Some(Mfile),
+            x if x == ffi::G_FILE_ERROR_NFILE as i32 => Some(Nfile),
+            x if x == ffi::G_FILE_ERROR_BADF as i32 => Some(Badf),
+            x if x == ffi::G_FILE_ERROR_INVAL as i32 => Some(Inval),
+            x if x == ffi::G_FILE_ERROR_PIPE as i32 => Some(Pipe),
+            x if x == ffi::G_FILE_ERROR_AGAIN as i32 => Some(Again),
+            x if x == ffi::G_FILE_ERROR_INTR as i32 => Some(Intr),
+            x if x == ffi::G_FILE_ERROR_IO as i32 => Some(Io),
+            x if x == ffi::G_FILE_ERROR_PERM as i32 => Some(Perm),
+            x if x == ffi::G_FILE_ERROR_NOSYS as i32 => Some(Nosys),
+            x if x == ffi::G_FILE_ERROR_FAILED as i32 => Some(Failed),
             _ => Some(Failed),
         }
     }

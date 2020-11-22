@@ -2,13 +2,11 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use glib_sys;
-use gobject_sys;
+use crate::translate::*;
+use crate::value::Value;
+use crate::CStr;
+use crate::Type;
 use std::cmp;
-use translate::*;
-use value::Value;
-use CStr;
-use Type;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum UserDirectory {
@@ -26,19 +24,19 @@ pub enum UserDirectory {
 
 #[doc(hidden)]
 impl ToGlib for UserDirectory {
-    type GlibType = glib_sys::GUserDirectory;
+    type GlibType = ffi::GUserDirectory;
 
-    fn to_glib(&self) -> glib_sys::GUserDirectory {
+    fn to_glib(&self) -> ffi::GUserDirectory {
         match *self {
-            UserDirectory::Desktop => glib_sys::G_USER_DIRECTORY_DESKTOP,
-            UserDirectory::Documents => glib_sys::G_USER_DIRECTORY_DOCUMENTS,
-            UserDirectory::Downloads => glib_sys::G_USER_DIRECTORY_DOWNLOAD,
-            UserDirectory::Music => glib_sys::G_USER_DIRECTORY_MUSIC,
-            UserDirectory::Pictures => glib_sys::G_USER_DIRECTORY_PICTURES,
-            UserDirectory::PublicShare => glib_sys::G_USER_DIRECTORY_PUBLIC_SHARE,
-            UserDirectory::Templates => glib_sys::G_USER_DIRECTORY_TEMPLATES,
-            UserDirectory::Videos => glib_sys::G_USER_DIRECTORY_VIDEOS,
-            UserDirectory::NDirectories => glib_sys::G_USER_N_DIRECTORIES,
+            UserDirectory::Desktop => ffi::G_USER_DIRECTORY_DESKTOP,
+            UserDirectory::Documents => ffi::G_USER_DIRECTORY_DOCUMENTS,
+            UserDirectory::Downloads => ffi::G_USER_DIRECTORY_DOWNLOAD,
+            UserDirectory::Music => ffi::G_USER_DIRECTORY_MUSIC,
+            UserDirectory::Pictures => ffi::G_USER_DIRECTORY_PICTURES,
+            UserDirectory::PublicShare => ffi::G_USER_DIRECTORY_PUBLIC_SHARE,
+            UserDirectory::Templates => ffi::G_USER_DIRECTORY_TEMPLATES,
+            UserDirectory::Videos => ffi::G_USER_DIRECTORY_VIDEOS,
+            UserDirectory::NDirectories => ffi::G_USER_N_DIRECTORIES,
         }
     }
 }
@@ -46,7 +44,7 @@ impl ToGlib for UserDirectory {
 /// Representation of an `enum` for dynamically, at runtime, querying the values of the enum and
 /// using them.
 #[derive(Debug)]
-pub struct EnumClass(*mut gobject_sys::GEnumClass);
+pub struct EnumClass(*mut gobject_ffi::GEnumClass);
 
 unsafe impl Send for EnumClass {}
 unsafe impl Sync for EnumClass {}
@@ -57,16 +55,16 @@ impl EnumClass {
     /// Returns `None` if `type_` is not representing an enum.
     pub fn new(type_: Type) -> Option<Self> {
         unsafe {
-            let is_enum: bool = from_glib(gobject_sys::g_type_is_a(
+            let is_enum: bool = from_glib(gobject_ffi::g_type_is_a(
                 type_.to_glib(),
-                gobject_sys::G_TYPE_ENUM,
+                gobject_ffi::G_TYPE_ENUM,
             ));
             if !is_enum {
                 return None;
             }
 
             Some(EnumClass(
-                gobject_sys::g_type_class_ref(type_.to_glib()) as *mut _
+                gobject_ffi::g_type_class_ref(type_.to_glib()) as *mut _
             ))
         }
     }
@@ -82,7 +80,7 @@ impl EnumClass {
     /// with `value`.
     pub fn get_value(&self, value: i32) -> Option<EnumValue> {
         unsafe {
-            let v = gobject_sys::g_enum_get_value(self.0, value);
+            let v = gobject_ffi::g_enum_get_value(self.0, value);
             if v.is_null() {
                 None
             } else {
@@ -97,7 +95,7 @@ impl EnumClass {
     /// with name `name`.
     pub fn get_value_by_name(&self, name: &str) -> Option<EnumValue> {
         unsafe {
-            let v = gobject_sys::g_enum_get_value_by_name(self.0, name.to_glib_none().0);
+            let v = gobject_ffi::g_enum_get_value_by_name(self.0, name.to_glib_none().0);
             if v.is_null() {
                 None
             } else {
@@ -112,7 +110,7 @@ impl EnumClass {
     /// with nick `nick`.
     pub fn get_value_by_nick(&self, nick: &str) -> Option<EnumValue> {
         unsafe {
-            let v = gobject_sys::g_enum_get_value_by_nick(self.0, nick.to_glib_none().0);
+            let v = gobject_ffi::g_enum_get_value_by_nick(self.0, nick.to_glib_none().0);
             if v.is_null() {
                 None
             } else {
@@ -152,20 +150,20 @@ impl EnumClass {
 impl Drop for EnumClass {
     fn drop(&mut self) {
         unsafe {
-            gobject_sys::g_type_class_unref(self.0 as *mut _);
+            gobject_ffi::g_type_class_unref(self.0 as *mut _);
         }
     }
 }
 
 impl Clone for EnumClass {
     fn clone(&self) -> Self {
-        unsafe { EnumClass(gobject_sys::g_type_class_ref(self.type_().to_glib()) as *mut _) }
+        unsafe { EnumClass(gobject_ffi::g_type_class_ref(self.type_().to_glib()) as *mut _) }
     }
 }
 
 /// Representation of a single enum value of an `EnumClass`.
 #[derive(Debug, Clone)]
-pub struct EnumValue(*const gobject_sys::GEnumValue, EnumClass);
+pub struct EnumValue(*const gobject_ffi::GEnumValue, EnumClass);
 
 unsafe impl Send for EnumValue {}
 unsafe impl Sync for EnumValue {}
@@ -190,7 +188,7 @@ impl EnumValue {
     pub fn to_value(&self) -> Value {
         unsafe {
             let mut v = Value::from_type(self.1.type_());
-            gobject_sys::g_value_set_enum(v.to_glib_none_mut().0, (*self.0).value);
+            gobject_ffi::g_value_set_enum(v.to_glib_none_mut().0, (*self.0).value);
             v
         }
     }
@@ -200,7 +198,7 @@ impl EnumValue {
         unsafe {
             let enum_class = EnumClass::new(value.type_());
             enum_class
-                .and_then(|e| e.get_value(gobject_sys::g_value_get_enum(value.to_glib_none().0)))
+                .and_then(|e| e.get_value(gobject_ffi::g_value_get_enum(value.to_glib_none().0)))
         }
     }
 
@@ -233,7 +231,7 @@ impl Ord for EnumValue {
 /// Representation of a `flags` for dynamically, at runtime, querying the values of the enum and
 /// using them
 #[derive(Debug)]
-pub struct FlagsClass(*mut gobject_sys::GFlagsClass);
+pub struct FlagsClass(*mut gobject_ffi::GFlagsClass);
 
 unsafe impl Send for FlagsClass {}
 unsafe impl Sync for FlagsClass {}
@@ -244,16 +242,16 @@ impl FlagsClass {
     /// Returns `None` if `type_` is not representing a flags type.
     pub fn new(type_: Type) -> Option<Self> {
         unsafe {
-            let is_flags: bool = from_glib(gobject_sys::g_type_is_a(
+            let is_flags: bool = from_glib(gobject_ffi::g_type_is_a(
                 type_.to_glib(),
-                gobject_sys::G_TYPE_FLAGS,
+                gobject_ffi::G_TYPE_FLAGS,
             ));
             if !is_flags {
                 return None;
             }
 
             Some(FlagsClass(
-                gobject_sys::g_type_class_ref(type_.to_glib()) as *mut _
+                gobject_ffi::g_type_class_ref(type_.to_glib()) as *mut _
             ))
         }
     }
@@ -269,7 +267,7 @@ impl FlagsClass {
     /// with `value`.
     pub fn get_value(&self, value: u32) -> Option<FlagsValue> {
         unsafe {
-            let v = gobject_sys::g_flags_get_first_value(self.0, value);
+            let v = gobject_ffi::g_flags_get_first_value(self.0, value);
             if v.is_null() {
                 None
             } else {
@@ -284,7 +282,7 @@ impl FlagsClass {
     /// with name `name`.
     pub fn get_value_by_name(&self, name: &str) -> Option<FlagsValue> {
         unsafe {
-            let v = gobject_sys::g_flags_get_value_by_name(self.0, name.to_glib_none().0);
+            let v = gobject_ffi::g_flags_get_value_by_name(self.0, name.to_glib_none().0);
             if v.is_null() {
                 None
             } else {
@@ -299,7 +297,7 @@ impl FlagsClass {
     /// with nick `nick`.
     pub fn get_value_by_nick(&self, nick: &str) -> Option<FlagsValue> {
         unsafe {
-            let v = gobject_sys::g_flags_get_value_by_nick(self.0, nick.to_glib_none().0);
+            let v = gobject_ffi::g_flags_get_value_by_nick(self.0, nick.to_glib_none().0);
             if v.is_null() {
                 None
             } else {
@@ -342,7 +340,7 @@ impl FlagsClass {
                 return false;
             }
 
-            let flags = gobject_sys::g_value_get_flags(value.to_glib_none().0);
+            let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
             flags & f != 0
         }
     }
@@ -355,7 +353,7 @@ impl FlagsClass {
             }
 
             if let Some(f) = self.get_value_by_name(name) {
-                let flags = gobject_sys::g_value_get_flags(value.to_glib_none().0);
+                let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
                 flags & f.get_value() != 0
             } else {
                 false
@@ -371,7 +369,7 @@ impl FlagsClass {
             }
 
             if let Some(f) = self.get_value_by_nick(nick) {
-                let flags = gobject_sys::g_value_get_flags(value.to_glib_none().0);
+                let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
                 flags & f.get_value() != 0
             } else {
                 false
@@ -391,8 +389,8 @@ impl FlagsClass {
             }
 
             if let Some(f) = self.get_value(f) {
-                let flags = gobject_sys::g_value_get_flags(value.to_glib_none().0);
-                gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, flags | f.get_value());
+                let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
+                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags | f.get_value());
                 Ok(value)
             } else {
                 Err(value)
@@ -412,8 +410,8 @@ impl FlagsClass {
             }
 
             if let Some(f) = self.get_value_by_name(name) {
-                let flags = gobject_sys::g_value_get_flags(value.to_glib_none().0);
-                gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, flags | f.get_value());
+                let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
+                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags | f.get_value());
                 Ok(value)
             } else {
                 Err(value)
@@ -433,8 +431,8 @@ impl FlagsClass {
             }
 
             if let Some(f) = self.get_value_by_nick(nick) {
-                let flags = gobject_sys::g_value_get_flags(value.to_glib_none().0);
-                gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, flags | f.get_value());
+                let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
+                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags | f.get_value());
                 Ok(value)
             } else {
                 Err(value)
@@ -454,8 +452,8 @@ impl FlagsClass {
             }
 
             if let Some(f) = self.get_value(f) {
-                let flags = gobject_sys::g_value_get_flags(value.to_glib_none().0);
-                gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, flags & !f.get_value());
+                let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
+                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags & !f.get_value());
                 Ok(value)
             } else {
                 Err(value)
@@ -475,8 +473,8 @@ impl FlagsClass {
             }
 
             if let Some(f) = self.get_value_by_name(name) {
-                let flags = gobject_sys::g_value_get_flags(value.to_glib_none().0);
-                gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, flags & !f.get_value());
+                let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
+                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags & !f.get_value());
                 Ok(value)
             } else {
                 Err(value)
@@ -496,8 +494,8 @@ impl FlagsClass {
             }
 
             if let Some(f) = self.get_value_by_nick(nick) {
-                let flags = gobject_sys::g_value_get_flags(value.to_glib_none().0);
-                gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, flags & !f.get_value());
+                let flags = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
+                gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, flags & !f.get_value());
                 Ok(value)
             } else {
                 Err(value)
@@ -525,20 +523,20 @@ impl FlagsClass {
 impl Drop for FlagsClass {
     fn drop(&mut self) {
         unsafe {
-            gobject_sys::g_type_class_unref(self.0 as *mut _);
+            gobject_ffi::g_type_class_unref(self.0 as *mut _);
         }
     }
 }
 
 impl Clone for FlagsClass {
     fn clone(&self) -> Self {
-        unsafe { FlagsClass(gobject_sys::g_type_class_ref(self.type_().to_glib()) as *mut _) }
+        unsafe { FlagsClass(gobject_ffi::g_type_class_ref(self.type_().to_glib()) as *mut _) }
     }
 }
 
 /// Representation of a single flags value of a `FlagsClass`.
 #[derive(Debug, Clone)]
-pub struct FlagsValue(*const gobject_sys::GFlagsValue, FlagsClass);
+pub struct FlagsValue(*const gobject_ffi::GFlagsValue, FlagsClass);
 
 unsafe impl Send for FlagsValue {}
 unsafe impl Sync for FlagsValue {}
@@ -563,7 +561,7 @@ impl FlagsValue {
     pub fn to_value(&self) -> Value {
         unsafe {
             let mut v = Value::from_type(self.1.type_());
-            gobject_sys::g_value_set_flags(v.to_glib_none_mut().0, (*self.0).value);
+            gobject_ffi::g_value_set_flags(v.to_glib_none_mut().0, (*self.0).value);
             v
         }
     }
@@ -574,7 +572,7 @@ impl FlagsValue {
             let flags_class = FlagsClass::new(value.type_());
             let mut res = Vec::new();
             if let Some(flags_class) = flags_class {
-                let f = gobject_sys::g_value_get_flags(value.to_glib_none().0);
+                let f = gobject_ffi::g_value_get_flags(value.to_glib_none().0);
                 for v in flags_class.get_values() {
                     if v.get_value() & f != 0 {
                         res.push(v);

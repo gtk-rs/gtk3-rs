@@ -2,20 +2,20 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use glib_sys::{self, gboolean, gpointer};
-use source::Priority;
+use crate::source::Priority;
+use crate::translate::*;
+use crate::MainContext;
+use crate::Source;
+use crate::SourceId;
+use ffi::{self, gboolean, gpointer};
 use std::mem;
-use translate::*;
-use MainContext;
-use Source;
-use SourceId;
 
 impl MainContext {
     pub fn prepare(&self) -> (bool, i32) {
         unsafe {
             let mut priority = mem::MaybeUninit::uninit();
 
-            let res = from_glib(glib_sys::g_main_context_prepare(
+            let res = from_glib(ffi::g_main_context_prepare(
                 self.to_glib_none().0,
                 priority.as_mut_ptr(),
             ));
@@ -26,7 +26,7 @@ impl MainContext {
 
     pub fn find_source_by_id(&self, source_id: &SourceId) -> Option<Source> {
         unsafe {
-            from_glib_none(glib_sys::g_main_context_find_source_by_id(
+            from_glib_none(ffi::g_main_context_find_source_by_id(
                 self.to_glib_none().0,
                 source_id.to_glib(),
             ))
@@ -38,7 +38,7 @@ impl MainContext {
     where
         F: FnOnce() + Send + 'static,
     {
-        self.invoke_with_priority(::PRIORITY_DEFAULT_IDLE, func);
+        self.invoke_with_priority(crate::PRIORITY_DEFAULT_IDLE, func);
     }
 
     /// Invokes `func` on the main context with the given priority.
@@ -62,7 +62,7 @@ impl MainContext {
     where
         F: FnOnce() + 'static,
     {
-        self.invoke_local_with_priority(::PRIORITY_DEFAULT_IDLE, func);
+        self.invoke_local_with_priority(crate::PRIORITY_DEFAULT_IDLE, func);
     }
 
     /// Invokes `func` on the main context with the given priority.
@@ -92,13 +92,13 @@ impl MainContext {
                 .take()
                 .expect("MainContext::invoke() closure called multiple times");
             func();
-            glib_sys::G_SOURCE_REMOVE
+            ffi::G_SOURCE_REMOVE
         }
         unsafe extern "C" fn destroy_closure<F: FnOnce() + 'static>(ptr: gpointer) {
             Box::<Option<F>>::from_raw(ptr as *mut _);
         }
         let func = Box::into_raw(Box::new(Some(func)));
-        glib_sys::g_main_context_invoke_full(
+        ffi::g_main_context_invoke_full(
             self.to_glib_none().0,
             priority.to_glib(),
             Some(trampoline::<F>),
@@ -150,7 +150,7 @@ mod tests {
     #[test]
     fn test_invoke() {
         let c = MainContext::new();
-        let l = ::MainLoop::new(Some(&c), false);
+        let l = crate::MainLoop::new(Some(&c), false);
 
         let l_clone = l.clone();
         thread::spawn(move || {

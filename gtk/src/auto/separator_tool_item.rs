@@ -2,7 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
+use crate::Align;
+use crate::Bin;
+use crate::Buildable;
+use crate::Container;
+use crate::ResizeMode;
+use crate::ToolItem;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -10,31 +16,22 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use Align;
-use Bin;
-use Buildable;
-use Container;
-use ResizeMode;
-use ToolItem;
-use Widget;
 
-glib_wrapper! {
-    pub struct SeparatorToolItem(Object<gtk_sys::GtkSeparatorToolItem, gtk_sys::GtkSeparatorToolItemClass>) @extends ToolItem, Bin, Container, Widget, @implements Buildable;
+glib::glib_wrapper! {
+    pub struct SeparatorToolItem(Object<ffi::GtkSeparatorToolItem, ffi::GtkSeparatorToolItemClass>) @extends ToolItem, Bin, Container, Widget, @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_separator_tool_item_get_type(),
+        get_type => || ffi::gtk_separator_tool_item_get_type(),
     }
 }
 
 impl SeparatorToolItem {
     pub fn new() -> SeparatorToolItem {
         assert_initialized_main_thread!();
-        unsafe { ToolItem::from_glib_none(gtk_sys::gtk_separator_tool_item_new()).unsafe_cast() }
+        unsafe { ToolItem::from_glib_none(ffi::gtk_separator_tool_item_new()).unsafe_cast() }
     }
 }
 
@@ -432,7 +429,7 @@ pub trait SeparatorToolItemExt: 'static {
 impl<O: IsA<SeparatorToolItem>> SeparatorToolItemExt for O {
     fn get_draw(&self) -> bool {
         unsafe {
-            from_glib(gtk_sys::gtk_separator_tool_item_get_draw(
+            from_glib(ffi::gtk_separator_tool_item_get_draw(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -440,18 +437,15 @@ impl<O: IsA<SeparatorToolItem>> SeparatorToolItemExt for O {
 
     fn set_draw(&self, draw: bool) {
         unsafe {
-            gtk_sys::gtk_separator_tool_item_set_draw(
-                self.as_ref().to_glib_none().0,
-                draw.to_glib(),
-            );
+            ffi::gtk_separator_tool_item_set_draw(self.as_ref().to_glib_none().0, draw.to_glib());
         }
     }
 
     fn connect_property_draw_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_draw_trampoline<P, F: Fn(&P) + 'static>(
-            this: *mut gtk_sys::GtkSeparatorToolItem,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GtkSeparatorToolItem,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<SeparatorToolItem>,
         {

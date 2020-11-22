@@ -1,6 +1,6 @@
-use InetAddress;
-use InetSocketAddress;
-use InetSocketAddressExt;
+use crate::InetAddress;
+use crate::InetSocketAddress;
+use crate::InetSocketAddressExt;
 
 use std::net::SocketAddr;
 

@@ -2,7 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gdk;
+use crate::EventController;
+use crate::Gesture;
+use crate::GestureSingle;
+use crate::PropagationPhase;
+use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
@@ -11,24 +15,16 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib_sys;
-use gtk_sys;
-use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
-use EventController;
-use Gesture;
-use GestureSingle;
-use PropagationPhase;
-use Widget;
 
-glib_wrapper! {
-    pub struct GestureSwipe(Object<gtk_sys::GtkGestureSwipe, gtk_sys::GtkGestureSwipeClass>) @extends GestureSingle, Gesture, EventController;
+glib::glib_wrapper! {
+    pub struct GestureSwipe(Object<ffi::GtkGestureSwipe, ffi::GtkGestureSwipeClass>) @extends GestureSingle, Gesture, EventController;
 
     match fn {
-        get_type => || gtk_sys::gtk_gesture_swipe_get_type(),
+        get_type => || ffi::gtk_gesture_swipe_get_type(),
     }
 }
 
@@ -36,10 +32,8 @@ impl GestureSwipe {
     pub fn new<P: IsA<Widget>>(widget: &P) -> GestureSwipe {
         skip_assert_initialized!();
         unsafe {
-            Gesture::from_glib_full(gtk_sys::gtk_gesture_swipe_new(
-                widget.as_ref().to_glib_none().0,
-            ))
-            .unsafe_cast()
+            Gesture::from_glib_full(ffi::gtk_gesture_swipe_new(widget.as_ref().to_glib_none().0))
+                .unsafe_cast()
         }
     }
 
@@ -47,7 +41,7 @@ impl GestureSwipe {
         unsafe {
             let mut velocity_x = mem::MaybeUninit::uninit();
             let mut velocity_y = mem::MaybeUninit::uninit();
-            let ret = from_glib(gtk_sys::gtk_gesture_swipe_get_velocity(
+            let ret = from_glib(ffi::gtk_gesture_swipe_get_velocity(
                 self.to_glib_none().0,
                 velocity_x.as_mut_ptr(),
                 velocity_y.as_mut_ptr(),
@@ -64,10 +58,10 @@ impl GestureSwipe {
 
     pub fn connect_swipe<F: Fn(&GestureSwipe, f64, f64) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn swipe_trampoline<F: Fn(&GestureSwipe, f64, f64) + 'static>(
-            this: *mut gtk_sys::GtkGestureSwipe,
+            this: *mut ffi::GtkGestureSwipe,
             velocity_x: libc::c_double,
             velocity_y: libc::c_double,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), velocity_x, velocity_y)

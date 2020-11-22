@@ -2,26 +2,25 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk_sys;
+use crate::Component;
+use crate::Object;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
-use Component;
-use Object;
 
-glib_wrapper! {
-    pub struct Socket(Object<atk_sys::AtkSocket, atk_sys::AtkSocketClass>) @extends Object, @implements Component;
+glib::glib_wrapper! {
+    pub struct Socket(Object<ffi::AtkSocket, ffi::AtkSocketClass>) @extends Object, @implements Component;
 
     match fn {
-        get_type => || atk_sys::atk_socket_get_type(),
+        get_type => || ffi::atk_socket_get_type(),
     }
 }
 
 impl Socket {
     pub fn new() -> Socket {
         assert_initialized_main_thread!();
-        unsafe { Object::from_glib_full(atk_sys::atk_socket_new()).unsafe_cast() }
+        unsafe { Object::from_glib_full(ffi::atk_socket_new()).unsafe_cast() }
     }
 }
 
@@ -42,16 +41,12 @@ pub trait AtkSocketExt: 'static {
 impl<O: IsA<Socket>> AtkSocketExt for O {
     fn embed(&self, plug_id: &str) {
         unsafe {
-            atk_sys::atk_socket_embed(self.as_ref().to_glib_none().0, plug_id.to_glib_none().0);
+            ffi::atk_socket_embed(self.as_ref().to_glib_none().0, plug_id.to_glib_none().0);
         }
     }
 
     fn is_occupied(&self) -> bool {
-        unsafe {
-            from_glib(atk_sys::atk_socket_is_occupied(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib(ffi::atk_socket_is_occupied(self.as_ref().to_glib_none().0)) }
     }
 }
 

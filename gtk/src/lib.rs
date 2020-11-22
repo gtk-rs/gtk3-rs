@@ -2,6 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+#![allow(clippy::needless_doctest_main)]
+
 //! # GTK+ 3 bindings
 //!
 //! This library contains safe Rust bindings for [GTK+ 3](http://www.gtk.org), a
@@ -24,7 +26,6 @@
 //! # Hello World
 //!
 //! ```no_run
-//! extern crate gtk;
 //! use gtk::prelude::*;
 //! use gtk::{ButtonsType, DialogFlags, MessageType, MessageDialog, Window};
 //!
@@ -53,9 +54,6 @@
 //! and run the main event loop:
 //!
 //! ```no_run
-//! extern crate gtk;
-//! extern crate gio;
-//!
 //! // To import all needed traits.
 //! use gtk::prelude::*;
 //! use gio::prelude::*;
@@ -155,40 +153,16 @@
 #![allow(deprecated)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate libc;
-#[macro_use]
-extern crate bitflags;
-extern crate once_cell;
-
-extern crate cairo_sys;
-extern crate gdk_pixbuf_sys;
-extern crate gdk_sys;
-extern crate gio_sys;
-extern crate glib_sys;
-extern crate gobject_sys;
-#[doc(hidden)]
-pub extern crate gtk_sys;
-pub use gtk_sys as ffi;
-extern crate pango_sys;
-#[macro_use]
-extern crate glib;
-extern crate atk;
-extern crate cairo;
-extern crate gdk;
-extern crate gdk_pixbuf;
-extern crate gio;
-extern crate pango;
+pub use ffi;
 
 pub mod xlib;
 
-pub const STYLE_PROVIDER_PRIORITY_FALLBACK: u32 =
-    gtk_sys::GTK_STYLE_PROVIDER_PRIORITY_FALLBACK as u32;
-pub const STYLE_PROVIDER_PRIORITY_THEME: u32 = gtk_sys::GTK_STYLE_PROVIDER_PRIORITY_THEME as u32;
-pub const STYLE_PROVIDER_PRIORITY_SETTINGS: u32 =
-    gtk_sys::GTK_STYLE_PROVIDER_PRIORITY_SETTINGS as u32;
+pub const STYLE_PROVIDER_PRIORITY_FALLBACK: u32 = ffi::GTK_STYLE_PROVIDER_PRIORITY_FALLBACK as u32;
+pub const STYLE_PROVIDER_PRIORITY_THEME: u32 = ffi::GTK_STYLE_PROVIDER_PRIORITY_THEME as u32;
+pub const STYLE_PROVIDER_PRIORITY_SETTINGS: u32 = ffi::GTK_STYLE_PROVIDER_PRIORITY_SETTINGS as u32;
 pub const STYLE_PROVIDER_PRIORITY_APPLICATION: u32 =
-    gtk_sys::GTK_STYLE_PROVIDER_PRIORITY_APPLICATION as u32;
-pub const STYLE_PROVIDER_PRIORITY_USER: u32 = gtk_sys::GTK_STYLE_PROVIDER_PRIORITY_USER as u32;
+    ffi::GTK_STYLE_PROVIDER_PRIORITY_APPLICATION as u32;
+pub const STYLE_PROVIDER_PRIORITY_USER: u32 = ffi::GTK_STYLE_PROVIDER_PRIORITY_USER as u32;
 
 #[macro_use]
 mod rt;
@@ -271,23 +245,23 @@ pub mod subclass;
 
 pub mod prelude;
 
-pub use auto::functions::*;
-pub use auto::*;
-pub use rt::*;
-pub use signal::*;
+pub use crate::auto::functions::*;
+pub use crate::auto::*;
+pub use crate::rt::*;
+pub use crate::signal::*;
 
 pub use gdk::Rectangle as Allocation;
 pub use gdk::Rectangle;
 
-pub use app_chooser::AppChooser;
-pub use border::Border;
-pub use entry_buffer::EntryBuffer;
+pub use crate::app_chooser::AppChooser;
+pub use crate::border::Border;
+pub use crate::entry_buffer::EntryBuffer;
+pub use crate::page_range::PageRange;
+pub use crate::recent_data::RecentData;
+pub use crate::requisition::Requisition;
+pub use crate::response_type::ResponseType;
+pub use crate::target_entry::TargetEntry;
+pub use crate::tree_sortable::SortColumn;
+pub use crate::widget::TickCallbackId;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 pub use pad_action_entry::PadActionEntry;
-pub use page_range::PageRange;
-pub use recent_data::RecentData;
-pub use requisition::Requisition;
-pub use response_type::ResponseType;
-pub use target_entry::TargetEntry;
-pub use tree_sortable::SortColumn;
-pub use widget::TickCallbackId;

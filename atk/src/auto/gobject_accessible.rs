@@ -2,18 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use atk_sys;
-use glib;
+use crate::Object;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
-use Object;
 
-glib_wrapper! {
-    pub struct GObjectAccessible(Object<atk_sys::AtkGObjectAccessible, atk_sys::AtkGObjectAccessibleClass>) @extends Object;
+glib::glib_wrapper! {
+    pub struct GObjectAccessible(Object<ffi::AtkGObjectAccessible, ffi::AtkGObjectAccessibleClass>) @extends Object;
 
     match fn {
-        get_type => || atk_sys::atk_gobject_accessible_get_type(),
+        get_type => || ffi::atk_gobject_accessible_get_type(),
     }
 }
 
@@ -21,7 +19,7 @@ impl GObjectAccessible {
     pub fn for_object<P: IsA<glib::Object>>(obj: &P) -> Option<Object> {
         assert_initialized_main_thread!();
         unsafe {
-            from_glib_none(atk_sys::atk_gobject_accessible_for_object(
+            from_glib_none(ffi::atk_gobject_accessible_for_object(
                 obj.as_ref().to_glib_none().0,
             ))
         }
@@ -37,7 +35,7 @@ pub trait GObjectAccessibleExt: 'static {
 impl<O: IsA<GObjectAccessible>> GObjectAccessibleExt for O {
     fn get_object(&self) -> Option<glib::Object> {
         unsafe {
-            from_glib_none(atk_sys::atk_gobject_accessible_get_object(
+            from_glib_none(ffi::atk_gobject_accessible_get_object(
                 self.as_ref().to_glib_none().0,
             ))
         }

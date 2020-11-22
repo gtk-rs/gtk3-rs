@@ -13,14 +13,15 @@ build = "build.rs"
 exclude = [
     "gir-files/*",
 ]
+edition = "2018"
 
 [lib]
 name = "graphene"
 
 [features]
 default = ["v1_10"]
-v1_10 = ["graphene-sys/v1_10"]
-dox = ["graphene-sys/dox", "glib/dox"]
+v1_10 = ["ffi/v1_10"]
+dox = ["ffi/dox", "glib/dox"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 
@@ -34,12 +35,8 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 
 [dependencies]
 libc = "0.2"
-glib-sys = { path = "../glib/sys" }
-gobject-sys = { path = "../glib/gobject-sys" }
 glib = { path = "../glib" }
-
-[dependencies.graphene-sys]
-path = "sys"
+ffi = { package = "graphene-sys", path = "sys" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"

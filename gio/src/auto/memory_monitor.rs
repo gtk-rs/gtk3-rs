@@ -2,7 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+use crate::MemoryMonitorWarningLevel;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 use glib::object::Cast;
@@ -16,23 +18,17 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
-use glib_sys;
-#[cfg(any(feature = "v2_64", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 use std::boxed::Box as Box_;
 use std::fmt;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 use std::mem::transmute;
-#[cfg(any(feature = "v2_64", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
-use MemoryMonitorWarningLevel;
 
-glib_wrapper! {
-    pub struct MemoryMonitor(Interface<gio_sys::GMemoryMonitor>);
+glib::glib_wrapper! {
+    pub struct MemoryMonitor(Interface<ffi::GMemoryMonitor>);
 
     match fn {
-        get_type => || gio_sys::g_memory_monitor_get_type(),
+        get_type => || ffi::g_memory_monitor_get_type(),
     }
 }
 
@@ -40,7 +36,7 @@ impl MemoryMonitor {
     #[cfg(any(feature = "v2_64", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
     pub fn dup_default() -> Option<MemoryMonitor> {
-        unsafe { from_glib_full(gio_sys::g_memory_monitor_dup_default()) }
+        unsafe { from_glib_full(ffi::g_memory_monitor_dup_default()) }
     }
 }
 
@@ -66,9 +62,9 @@ impl<O: IsA<MemoryMonitor>> MemoryMonitorExt for O {
             P,
             F: Fn(&P, MemoryMonitorWarningLevel) + 'static,
         >(
-            this: *mut gio_sys::GMemoryMonitor,
-            level: gio_sys::GMemoryMonitorWarningLevel,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GMemoryMonitor,
+            level: ffi::GMemoryMonitorWarningLevel,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<MemoryMonitor>,
         {

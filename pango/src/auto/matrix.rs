@@ -3,31 +3,30 @@
 // DO NOT EDIT
 
 use glib::translate::*;
-use pango_sys;
 #[cfg(any(feature = "v1_38", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
 use std::mem;
 
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct Matrix(Boxed<pango_sys::PangoMatrix>);
+    pub struct Matrix(Boxed<ffi::PangoMatrix>);
 
     match fn {
-        copy => |ptr| pango_sys::pango_matrix_copy(mut_override(ptr)),
-        free => |ptr| pango_sys::pango_matrix_free(ptr),
-        get_type => || pango_sys::pango_matrix_get_type(),
+        copy => |ptr| ffi::pango_matrix_copy(mut_override(ptr)),
+        free => |ptr| ffi::pango_matrix_free(ptr),
+        get_type => || ffi::pango_matrix_get_type(),
     }
 }
 
 impl Matrix {
     pub fn concat(&mut self, new_matrix: &Matrix) {
         unsafe {
-            pango_sys::pango_matrix_concat(self.to_glib_none_mut().0, new_matrix.to_glib_none().0);
+            ffi::pango_matrix_concat(self.to_glib_none_mut().0, new_matrix.to_glib_none().0);
         }
     }
 
     pub fn get_font_scale_factor(&self) -> f64 {
-        unsafe { pango_sys::pango_matrix_get_font_scale_factor(self.to_glib_none().0) }
+        unsafe { ffi::pango_matrix_get_font_scale_factor(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v1_38", feature = "dox"))]
@@ -36,7 +35,7 @@ impl Matrix {
         unsafe {
             let mut xscale = mem::MaybeUninit::uninit();
             let mut yscale = mem::MaybeUninit::uninit();
-            pango_sys::pango_matrix_get_font_scale_factors(
+            ffi::pango_matrix_get_font_scale_factors(
                 self.to_glib_none().0,
                 xscale.as_mut_ptr(),
                 yscale.as_mut_ptr(),
@@ -49,39 +48,39 @@ impl Matrix {
 
     pub fn rotate(&mut self, degrees: f64) {
         unsafe {
-            pango_sys::pango_matrix_rotate(self.to_glib_none_mut().0, degrees);
+            ffi::pango_matrix_rotate(self.to_glib_none_mut().0, degrees);
         }
     }
 
     pub fn scale(&mut self, scale_x: f64, scale_y: f64) {
         unsafe {
-            pango_sys::pango_matrix_scale(self.to_glib_none_mut().0, scale_x, scale_y);
+            ffi::pango_matrix_scale(self.to_glib_none_mut().0, scale_x, scale_y);
         }
     }
 
     pub fn transform_distance(&self, dx: &mut f64, dy: &mut f64) {
         unsafe {
-            pango_sys::pango_matrix_transform_distance(self.to_glib_none().0, dx, dy);
+            ffi::pango_matrix_transform_distance(self.to_glib_none().0, dx, dy);
         }
     }
 
     //pub fn transform_pixel_rectangle(&self, rect: /*Unimplemented*/Option<Rectangle>) {
-    //    unsafe { TODO: call pango_sys:pango_matrix_transform_pixel_rectangle() }
+    //    unsafe { TODO: call ffi:pango_matrix_transform_pixel_rectangle() }
     //}
 
     pub fn transform_point(&self, x: &mut f64, y: &mut f64) {
         unsafe {
-            pango_sys::pango_matrix_transform_point(self.to_glib_none().0, x, y);
+            ffi::pango_matrix_transform_point(self.to_glib_none().0, x, y);
         }
     }
 
     //pub fn transform_rectangle(&self, rect: /*Unimplemented*/Option<Rectangle>) {
-    //    unsafe { TODO: call pango_sys:pango_matrix_transform_rectangle() }
+    //    unsafe { TODO: call ffi:pango_matrix_transform_rectangle() }
     //}
 
     pub fn translate(&mut self, tx: f64, ty: f64) {
         unsafe {
-            pango_sys::pango_matrix_translate(self.to_glib_none_mut().0, tx, ty);
+            ffi::pango_matrix_translate(self.to_glib_none_mut().0, tx, ty);
         }
     }
 }

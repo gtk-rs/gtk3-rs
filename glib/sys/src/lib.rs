@@ -10,8 +10,6 @@
 )]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
-extern crate libc;
-
 mod manual;
 
 pub use manual::*;

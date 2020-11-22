@@ -2,16 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gio_sys;
-use glib_sys;
-
 use glib::subclass::prelude::*;
 use glib::translate::*;
 
 use glib::{Cast, Error};
 
-use Cancellable;
-use InputStream;
+use crate::Cancellable;
+use crate::InputStream;
 
 use std::mem;
 use std::ptr;
@@ -71,14 +68,14 @@ impl<T: InputStreamImpl> InputStreamImplExt for T {
     ) -> Result<usize, Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GInputStreamClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GInputStreamClass;
             let f = (*parent_class)
                 .read_fn
                 .expect("No parent class implementation for \"read\"");
             let mut err = ptr::null_mut();
             let res = f(
                 stream.unsafe_cast_ref::<InputStream>().to_glib_none().0,
-                buffer.as_mut_ptr() as glib_sys::gpointer,
+                buffer.as_mut_ptr() as glib::ffi::gpointer,
                 buffer.len(),
                 cancellable.to_glib_none().0,
                 &mut err,
@@ -101,7 +98,7 @@ impl<T: InputStreamImpl> InputStreamImplExt for T {
     ) -> Result<(), Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GInputStreamClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GInputStreamClass;
             let mut err = ptr::null_mut();
             if let Some(f) = (*parent_class).close_fn {
                 if from_glib(f(
@@ -127,7 +124,7 @@ impl<T: InputStreamImpl> InputStreamImplExt for T {
     ) -> Result<usize, Error> {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gio_sys::GInputStreamClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GInputStreamClass;
             let mut err = ptr::null_mut();
             let f = (*parent_class)
                 .skip
@@ -162,11 +159,11 @@ unsafe impl<T: InputStreamImpl> IsSubclassable<T> for InputStream {
 }
 
 unsafe extern "C" fn stream_read<T: InputStreamImpl>(
-    ptr: *mut gio_sys::GInputStream,
-    buffer: glib_sys::gpointer,
+    ptr: *mut ffi::GInputStream,
+    buffer: glib::ffi::gpointer,
     count: usize,
-    cancellable: *mut gio_sys::GCancellable,
-    err: *mut *mut glib_sys::GError,
+    cancellable: *mut ffi::GCancellable,
+    err: *mut *mut glib::ffi::GError,
 ) -> isize {
     use std::isize;
     use std::slice;
@@ -198,10 +195,10 @@ unsafe extern "C" fn stream_read<T: InputStreamImpl>(
 }
 
 unsafe extern "C" fn stream_close<T: InputStreamImpl>(
-    ptr: *mut gio_sys::GInputStream,
-    cancellable: *mut gio_sys::GCancellable,
-    err: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean {
+    ptr: *mut ffi::GInputStream,
+    cancellable: *mut ffi::GCancellable,
+    err: *mut *mut glib::ffi::GError,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<InputStream> = from_glib_borrow(ptr);
@@ -212,20 +209,20 @@ unsafe extern "C" fn stream_close<T: InputStreamImpl>(
             .as_ref()
             .as_ref(),
     ) {
-        Ok(_) => glib_sys::GTRUE,
+        Ok(_) => glib::ffi::GTRUE,
         Err(e) => {
             let mut e = mem::ManuallyDrop::new(e);
             *err = e.to_glib_none_mut().0;
-            glib_sys::GFALSE
+            glib::ffi::GFALSE
         }
     }
 }
 
 unsafe extern "C" fn stream_skip<T: InputStreamImpl>(
-    ptr: *mut gio_sys::GInputStream,
+    ptr: *mut ffi::GInputStream,
     count: usize,
-    cancellable: *mut gio_sys::GCancellable,
-    err: *mut *mut glib_sys::GError,
+    cancellable: *mut ffi::GCancellable,
+    err: *mut *mut glib::ffi::GError,
 ) -> isize {
     use std::isize;
 
@@ -260,7 +257,6 @@ mod tests {
     use super::*;
     use crate::prelude::*;
     use crate::subclass::prelude::*;
-    use glib;
     use glib::subclass;
     use std::cell::RefCell;
 
@@ -278,7 +274,7 @@ mod tests {
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
-            glib_object_subclass!();
+            glib::glib_object_subclass!();
 
             fn new() -> Self {
                 Self {
@@ -362,7 +358,7 @@ mod tests {
         }
     }
 
-    glib_wrapper! {
+    glib::glib_wrapper! {
         pub struct SimpleInputStream(ObjectSubclass<imp::SimpleInputStream>)
             @extends InputStream;
     }

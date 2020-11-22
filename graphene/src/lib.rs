@@ -4,14 +4,7 @@
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 #![allow(deprecated)]
 
-#[macro_use]
-extern crate glib;
-extern crate glib_sys as glib_sys;
-extern crate gobject_sys as gobject_sys;
-#[doc(hidden)]
-pub extern crate graphene_sys as graphene_sys;
-pub use graphene_sys as ffi;
-extern crate libc;
+pub use ffi;
 
 // Graphene has no runtime to initialize
 macro_rules! assert_initialized_main_thread {
@@ -32,7 +25,7 @@ mod auto;
 
 pub mod prelude;
 
-pub use auto::*;
+pub use crate::auto::*;
 
 mod box_;
 mod euler;

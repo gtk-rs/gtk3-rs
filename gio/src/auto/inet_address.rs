@@ -2,42 +2,35 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
+use crate::SocketFamily;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
-use glib::GString;
-use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-use SocketFamily;
 
-glib_wrapper! {
-    pub struct InetAddress(Object<gio_sys::GInetAddress, gio_sys::GInetAddressClass>);
+glib::glib_wrapper! {
+    pub struct InetAddress(Object<ffi::GInetAddress, ffi::GInetAddressClass>);
 
     match fn {
-        get_type => || gio_sys::g_inet_address_get_type(),
+        get_type => || ffi::g_inet_address_get_type(),
     }
 }
 
 impl InetAddress {
     pub fn new_any(family: SocketFamily) -> InetAddress {
-        unsafe { from_glib_full(gio_sys::g_inet_address_new_any(family.to_glib())) }
+        unsafe { from_glib_full(ffi::g_inet_address_new_any(family.to_glib())) }
     }
 
     pub fn from_string(string: &str) -> Option<InetAddress> {
-        unsafe {
-            from_glib_full(gio_sys::g_inet_address_new_from_string(
-                string.to_glib_none().0,
-            ))
-        }
+        unsafe { from_glib_full(ffi::g_inet_address_new_from_string(string.to_glib_none().0)) }
     }
 
     pub fn new_loopback(family: SocketFamily) -> InetAddress {
-        unsafe { from_glib_full(gio_sys::g_inet_address_new_loopback(family.to_glib())) }
+        unsafe { from_glib_full(ffi::g_inet_address_new_loopback(family.to_glib())) }
     }
 }
 
@@ -73,7 +66,7 @@ pub trait InetAddressExt: 'static {
 
     fn get_native_size(&self) -> usize;
 
-    fn to_string(&self) -> GString;
+    fn to_string(&self) -> glib::GString;
 
     //fn get_property_bytes(&self) -> /*Unimplemented*/Fundamental: Pointer;
 
@@ -131,7 +124,7 @@ pub trait InetAddressExt: 'static {
 impl<O: IsA<InetAddress>> InetAddressExt for O {
     fn equal<P: IsA<InetAddress>>(&self, other_address: &P) -> bool {
         unsafe {
-            from_glib(gio_sys::g_inet_address_equal(
+            from_glib(ffi::g_inet_address_equal(
                 self.as_ref().to_glib_none().0,
                 other_address.as_ref().to_glib_none().0,
             ))
@@ -140,7 +133,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
 
     fn get_family(&self) -> SocketFamily {
         unsafe {
-            from_glib(gio_sys::g_inet_address_get_family(
+            from_glib(ffi::g_inet_address_get_family(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -148,7 +141,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
 
     fn get_is_any(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_inet_address_get_is_any(
+            from_glib(ffi::g_inet_address_get_is_any(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -156,7 +149,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
 
     fn get_is_link_local(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_inet_address_get_is_link_local(
+            from_glib(ffi::g_inet_address_get_is_link_local(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -164,7 +157,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
 
     fn get_is_loopback(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_inet_address_get_is_loopback(
+            from_glib(ffi::g_inet_address_get_is_loopback(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -172,7 +165,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
 
     fn get_is_mc_global(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_inet_address_get_is_mc_global(
+            from_glib(ffi::g_inet_address_get_is_mc_global(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -180,7 +173,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
 
     fn get_is_mc_link_local(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_inet_address_get_is_mc_link_local(
+            from_glib(ffi::g_inet_address_get_is_mc_link_local(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -188,7 +181,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
 
     fn get_is_mc_node_local(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_inet_address_get_is_mc_node_local(
+            from_glib(ffi::g_inet_address_get_is_mc_node_local(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -196,7 +189,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
 
     fn get_is_mc_org_local(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_inet_address_get_is_mc_org_local(
+            from_glib(ffi::g_inet_address_get_is_mc_org_local(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -204,7 +197,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
 
     fn get_is_mc_site_local(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_inet_address_get_is_mc_site_local(
+            from_glib(ffi::g_inet_address_get_is_mc_site_local(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -212,7 +205,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
 
     fn get_is_multicast(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_inet_address_get_is_multicast(
+            from_glib(ffi::g_inet_address_get_is_multicast(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -220,19 +213,19 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
 
     fn get_is_site_local(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_inet_address_get_is_site_local(
+            from_glib(ffi::g_inet_address_get_is_site_local(
                 self.as_ref().to_glib_none().0,
             ))
         }
     }
 
     fn get_native_size(&self) -> usize {
-        unsafe { gio_sys::g_inet_address_get_native_size(self.as_ref().to_glib_none().0) }
+        unsafe { ffi::g_inet_address_get_native_size(self.as_ref().to_glib_none().0) }
     }
 
-    fn to_string(&self) -> GString {
+    fn to_string(&self) -> glib::GString {
         unsafe {
-            from_glib_full(gio_sys::g_inet_address_to_string(
+            from_glib_full(ffi::g_inet_address_to_string(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -241,7 +234,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     //fn get_property_bytes(&self) -> /*Unimplemented*/Fundamental: Pointer {
     //    unsafe {
     //        let mut value = Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-    //        gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"bytes\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+    //        glib::gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut glib::gobject_ffi::GObject, b"bytes\0".as_ptr() as *const _, value.to_glib_none_mut().0);
     //        value.get().expect("Return Value for property `bytes` getter").unwrap()
     //    }
     //}
@@ -251,9 +244,9 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_any_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(
-            this: *mut gio_sys::GInetAddress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GInetAddress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InetAddress>,
         {
@@ -278,9 +271,9 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_link_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(
-            this: *mut gio_sys::GInetAddress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GInetAddress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InetAddress>,
         {
@@ -305,9 +298,9 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_loopback_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(
-            this: *mut gio_sys::GInetAddress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GInetAddress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InetAddress>,
         {
@@ -332,9 +325,9 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_mc_global_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(
-            this: *mut gio_sys::GInetAddress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GInetAddress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InetAddress>,
         {
@@ -362,9 +355,9 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
             P,
             F: Fn(&P) + Send + Sync + 'static,
         >(
-            this: *mut gio_sys::GInetAddress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GInetAddress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InetAddress>,
         {
@@ -392,9 +385,9 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
             P,
             F: Fn(&P) + Send + Sync + 'static,
         >(
-            this: *mut gio_sys::GInetAddress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GInetAddress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InetAddress>,
         {
@@ -422,9 +415,9 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
             P,
             F: Fn(&P) + Send + Sync + 'static,
         >(
-            this: *mut gio_sys::GInetAddress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GInetAddress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InetAddress>,
         {
@@ -452,9 +445,9 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
             P,
             F: Fn(&P) + Send + Sync + 'static,
         >(
-            this: *mut gio_sys::GInetAddress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GInetAddress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InetAddress>,
         {
@@ -479,9 +472,9 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_multicast_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(
-            this: *mut gio_sys::GInetAddress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GInetAddress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InetAddress>,
         {
@@ -506,9 +499,9 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_site_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(
-            this: *mut gio_sys::GInetAddress,
-            _param_spec: glib_sys::gpointer,
-            f: glib_sys::gpointer,
+            this: *mut ffi::GInetAddress,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<InetAddress>,
         {

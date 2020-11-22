@@ -1,8 +1,8 @@
 use glib::subclass::prelude::*;
 
 use super::container::ContainerImpl;
-use Container;
-use Stack;
+use crate::Container;
+use crate::Stack;
 
 pub trait StackImpl: ContainerImpl {}
 

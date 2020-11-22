@@ -1,6 +1,3 @@
-use glib_sys;
-use gtk_sys;
-
 use libc::c_int;
 
 use glib::subclass::prelude::*;
@@ -8,10 +5,10 @@ use glib::translate::*;
 use glib::Cast;
 
 use super::container::ContainerImpl;
-use Container;
-use IconView;
-use MovementStep;
-use TreePath;
+use crate::Container;
+use crate::IconView;
+use crate::MovementStep;
+use crate::TreePath;
 
 pub trait IconViewImpl: IconViewImplExt + ContainerImpl {
     fn item_activated(&self, icon_view: &Self::Type, path: &TreePath) {
@@ -55,7 +52,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
     fn parent_item_activated(&self, icon_view: &Self::Type, path: &TreePath) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkIconViewClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).item_activated {
                 f(
                     icon_view.unsafe_cast_ref::<IconView>().to_glib_none().0,
@@ -68,7 +65,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
     fn parent_selection_changed(&self, icon_view: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkIconViewClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).selection_changed {
                 f(icon_view.unsafe_cast_ref::<IconView>().to_glib_none().0)
             }
@@ -78,7 +75,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
     fn parent_select_all(&self, icon_view: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkIconViewClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).select_all {
                 f(icon_view.unsafe_cast_ref::<IconView>().to_glib_none().0)
             }
@@ -88,7 +85,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
     fn parent_unselect_all(&self, icon_view: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkIconViewClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).unselect_all {
                 f(icon_view.unsafe_cast_ref::<IconView>().to_glib_none().0)
             }
@@ -98,7 +95,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
     fn parent_select_cursor_item(&self, icon_view: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkIconViewClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).select_cursor_item {
                 f(icon_view.unsafe_cast_ref::<IconView>().to_glib_none().0)
             }
@@ -108,7 +105,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
     fn parent_toggle_cursor_item(&self, icon_view: &Self::Type) {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkIconViewClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).toggle_cursor_item {
                 f(icon_view.unsafe_cast_ref::<IconView>().to_glib_none().0)
             }
@@ -118,7 +115,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
     fn parent_move_cursor(&self, icon_view: &Self::Type, step: MovementStep, count: i32) -> bool {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkIconViewClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).move_cursor {
                 from_glib(f(
                     icon_view.unsafe_cast_ref::<IconView>().to_glib_none().0,
@@ -134,7 +131,7 @@ impl<T: IconViewImpl> IconViewImplExt for T {
     fn parent_activate_cursor_item(&self, icon_view: &Self::Type) -> bool {
         unsafe {
             let data = T::type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gtk_sys::GtkIconViewClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).activate_cursor_item {
                 from_glib(f(icon_view.unsafe_cast_ref::<IconView>().to_glib_none().0))
             } else {
@@ -161,8 +158,8 @@ unsafe impl<T: IconViewImpl> IsSubclassable<T> for IconView {
 }
 
 unsafe extern "C" fn icon_view_item_activated<T: IconViewImpl>(
-    ptr: *mut gtk_sys::GtkIconView,
-    path: *mut gtk_sys::GtkTreePath,
+    ptr: *mut ffi::GtkIconView,
+    path: *mut ffi::GtkTreePath,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -172,7 +169,7 @@ unsafe extern "C" fn icon_view_item_activated<T: IconViewImpl>(
     imp.item_activated(wrap.unsafe_cast_ref(), &path)
 }
 
-unsafe extern "C" fn icon_view_selection_changed<T: IconViewImpl>(ptr: *mut gtk_sys::GtkIconView) {
+unsafe extern "C" fn icon_view_selection_changed<T: IconViewImpl>(ptr: *mut ffi::GtkIconView) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<IconView> = from_glib_borrow(ptr);
@@ -180,7 +177,7 @@ unsafe extern "C" fn icon_view_selection_changed<T: IconViewImpl>(ptr: *mut gtk_
     imp.selection_changed(wrap.unsafe_cast_ref())
 }
 
-unsafe extern "C" fn icon_view_select_all<T: IconViewImpl>(ptr: *mut gtk_sys::GtkIconView) {
+unsafe extern "C" fn icon_view_select_all<T: IconViewImpl>(ptr: *mut ffi::GtkIconView) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<IconView> = from_glib_borrow(ptr);
@@ -188,7 +185,7 @@ unsafe extern "C" fn icon_view_select_all<T: IconViewImpl>(ptr: *mut gtk_sys::Gt
     imp.select_all(wrap.unsafe_cast_ref())
 }
 
-unsafe extern "C" fn icon_view_unselect_all<T: IconViewImpl>(ptr: *mut gtk_sys::GtkIconView) {
+unsafe extern "C" fn icon_view_unselect_all<T: IconViewImpl>(ptr: *mut ffi::GtkIconView) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<IconView> = from_glib_borrow(ptr);
@@ -196,7 +193,7 @@ unsafe extern "C" fn icon_view_unselect_all<T: IconViewImpl>(ptr: *mut gtk_sys::
     imp.unselect_all(wrap.unsafe_cast_ref())
 }
 
-unsafe extern "C" fn icon_view_select_cursor_item<T: IconViewImpl>(ptr: *mut gtk_sys::GtkIconView) {
+unsafe extern "C" fn icon_view_select_cursor_item<T: IconViewImpl>(ptr: *mut ffi::GtkIconView) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<IconView> = from_glib_borrow(ptr);
@@ -204,7 +201,7 @@ unsafe extern "C" fn icon_view_select_cursor_item<T: IconViewImpl>(ptr: *mut gtk
     imp.select_cursor_item(wrap.unsafe_cast_ref())
 }
 
-unsafe extern "C" fn icon_view_toggle_cursor_item<T: IconViewImpl>(ptr: *mut gtk_sys::GtkIconView) {
+unsafe extern "C" fn icon_view_toggle_cursor_item<T: IconViewImpl>(ptr: *mut ffi::GtkIconView) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<IconView> = from_glib_borrow(ptr);
@@ -213,10 +210,10 @@ unsafe extern "C" fn icon_view_toggle_cursor_item<T: IconViewImpl>(ptr: *mut gtk
 }
 
 unsafe extern "C" fn icon_view_move_cursor<T: IconViewImpl>(
-    ptr: *mut gtk_sys::GtkIconView,
-    step: gtk_sys::GtkMovementStep,
+    ptr: *mut ffi::GtkIconView,
+    step: ffi::GtkMovementStep,
     count: c_int,
-) -> glib_sys::gboolean {
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<IconView> = from_glib_borrow(ptr);
@@ -226,8 +223,8 @@ unsafe extern "C" fn icon_view_move_cursor<T: IconViewImpl>(
 }
 
 unsafe extern "C" fn icon_view_activate_cursor_item<T: IconViewImpl>(
-    ptr: *mut gtk_sys::GtkIconView,
-) -> glib_sys::gboolean {
+    ptr: *mut ffi::GtkIconView,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<IconView> = from_glib_borrow(ptr);

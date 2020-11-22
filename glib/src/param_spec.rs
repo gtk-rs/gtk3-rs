@@ -1,14 +1,13 @@
 // Copyright 2018, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
-use gobject_sys;
-use libc;
-use translate::*;
-use value;
-use ParamFlags;
-use StaticType;
-use Type;
-use Value;
+
+use crate::translate::*;
+use crate::value;
+use crate::ParamFlags;
+use crate::StaticType;
+use crate::Type;
+use crate::Value;
 
 use std::char::CharTryFromError;
 use std::convert::TryFrom;
@@ -17,38 +16,38 @@ use std::ffi::CStr;
 // Can't use get_type here as this is not a boxed type but another fundamental type
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct ParamSpec(Shared<gobject_sys::GParamSpec>);
+    pub struct ParamSpec(Shared<gobject_ffi::GParamSpec>);
 
     match fn {
-        ref => |ptr| gobject_sys::g_param_spec_ref_sink(ptr),
-        unref => |ptr| gobject_sys::g_param_spec_unref(ptr),
+        ref => |ptr| gobject_ffi::g_param_spec_ref_sink(ptr),
+        unref => |ptr| gobject_ffi::g_param_spec_unref(ptr),
     }
 }
 
 impl StaticType for ParamSpec {
     fn static_type() -> Type {
-        from_glib(gobject_sys::G_TYPE_PARAM)
+        from_glib(gobject_ffi::G_TYPE_PARAM)
     }
 }
 
 #[doc(hidden)]
 impl<'a> value::FromValueOptional<'a> for ParamSpec {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
-        from_glib_full(gobject_sys::g_value_dup_param(value.to_glib_none().0))
+        from_glib_full(gobject_ffi::g_value_dup_param(value.to_glib_none().0))
     }
 }
 
 #[doc(hidden)]
 impl value::SetValue for ParamSpec {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0)
+        gobject_ffi::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0)
     }
 }
 
 #[doc(hidden)]
 impl value::SetValueOptional for ParamSpec {
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-        gobject_sys::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0)
+        gobject_ffi::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0)
     }
 }
 
@@ -84,11 +83,11 @@ impl ParamSpec {
         }
     }
 
-    pub fn get_value_type(&self) -> ::Type {
+    pub fn get_value_type(&self) -> crate::Type {
         unsafe { from_glib((*self.to_glib_none().0).value_type) }
     }
 
-    pub fn get_owner_type(&self) -> ::Type {
+    pub fn get_owner_type(&self) -> crate::Type {
         unsafe { from_glib((*self.to_glib_none().0).owner_type) }
     }
 
@@ -98,7 +97,7 @@ impl ParamSpec {
 
     pub fn get_blurb(&self) -> &str {
         unsafe {
-            CStr::from_ptr(gobject_sys::g_param_spec_get_blurb(self.to_glib_none().0))
+            CStr::from_ptr(gobject_ffi::g_param_spec_get_blurb(self.to_glib_none().0))
                 .to_str()
                 .unwrap()
         }
@@ -106,13 +105,14 @@ impl ParamSpec {
 
     pub fn get_default_value(&self) -> &Value {
         unsafe {
-            &*(gobject_sys::g_param_spec_get_default_value(self.to_glib_none().0) as *const ::Value)
+            &*(gobject_ffi::g_param_spec_get_default_value(self.to_glib_none().0)
+                as *const crate::Value)
         }
     }
 
     pub fn get_name<'a>(&self) -> &'a str {
         unsafe {
-            CStr::from_ptr(gobject_sys::g_param_spec_get_name(self.to_glib_none().0))
+            CStr::from_ptr(gobject_ffi::g_param_spec_get_name(self.to_glib_none().0))
                 .to_str()
                 .unwrap()
         }
@@ -120,9 +120,9 @@ impl ParamSpec {
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-    pub fn get_name_quark(&self) -> ::Quark {
+    pub fn get_name_quark(&self) -> crate::Quark {
         unsafe {
-            from_glib(gobject_sys::g_param_spec_get_name_quark(
+            from_glib(gobject_ffi::g_param_spec_get_name_quark(
                 self.to_glib_none().0,
             ))
         }
@@ -130,34 +130,34 @@ impl ParamSpec {
 
     pub fn get_nick(&self) -> &str {
         unsafe {
-            CStr::from_ptr(gobject_sys::g_param_spec_get_nick(self.to_glib_none().0))
+            CStr::from_ptr(gobject_ffi::g_param_spec_get_nick(self.to_glib_none().0))
                 .to_str()
                 .unwrap()
         }
     }
 
     //pub fn get_qdata(&self, quark: /*Ignored*/glib::Quark) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-    //    unsafe { TODO: call gobject_sys::g_param_spec_get_qdata() }
+    //    unsafe { TODO: call gobject_ffi::g_param_spec_get_qdata() }
     //}
 
     pub fn get_redirect_target(&self) -> Option<ParamSpec> {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_get_redirect_target(
+            from_glib_none(gobject_ffi::g_param_spec_get_redirect_target(
                 self.to_glib_none().0,
             ))
         }
     }
 
     //pub fn set_qdata(&self, quark: /*Ignored*/glib::Quark, data: Option</*Unimplemented*/Fundamental: Pointer>) {
-    //    unsafe { TODO: call gobject_sys::g_param_spec_set_qdata() }
+    //    unsafe { TODO: call gobject_ffi::g_param_spec_set_qdata() }
     //}
 
     //pub fn set_qdata_full(&self, quark: /*Ignored*/glib::Quark, data: Option</*Unimplemented*/Fundamental: Pointer>, destroy: /*Unknown conversion*//*Unimplemented*/DestroyNotify) {
-    //    unsafe { TODO: call gobject_sys::g_param_spec_set_qdata_full() }
+    //    unsafe { TODO: call gobject_ffi::g_param_spec_set_qdata_full() }
     //}
 
     //pub fn steal_qdata(&self, quark: /*Ignored*/glib::Quark) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-    //    unsafe { TODO: call gobject_sys::g_param_spec_steal_qdata() }
+    //    unsafe { TODO: call gobject_ffi::g_param_spec_steal_qdata() }
     //}
 
     pub fn boolean(
@@ -168,7 +168,7 @@ impl ParamSpec {
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_boolean(
+            from_glib_none(gobject_ffi::g_param_spec_boolean(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -182,11 +182,11 @@ impl ParamSpec {
         name: &str,
         nick: &str,
         blurb: &str,
-        boxed_type: ::Type,
+        boxed_type: crate::Type,
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_boxed(
+            from_glib_none(gobject_ffi::g_param_spec_boxed(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -206,7 +206,7 @@ impl ParamSpec {
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_char(
+            from_glib_none(gobject_ffi::g_param_spec_char(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -228,7 +228,7 @@ impl ParamSpec {
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_double(
+            from_glib_none(gobject_ffi::g_param_spec_double(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -244,12 +244,12 @@ impl ParamSpec {
         name: &str,
         nick: &str,
         blurb: &str,
-        enum_type: ::Type,
+        enum_type: crate::Type,
         default_value: i32,
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_enum(
+            from_glib_none(gobject_ffi::g_param_spec_enum(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -264,12 +264,12 @@ impl ParamSpec {
         name: &str,
         nick: &str,
         blurb: &str,
-        flags_type: ::Type,
+        flags_type: crate::Type,
         default_value: u32,
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_flags(
+            from_glib_none(gobject_ffi::g_param_spec_flags(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -290,7 +290,7 @@ impl ParamSpec {
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_float(
+            from_glib_none(gobject_ffi::g_param_spec_float(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -306,11 +306,11 @@ impl ParamSpec {
         name: &str,
         nick: &str,
         blurb: &str,
-        is_a_type: ::Type,
+        is_a_type: crate::Type,
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_gtype(
+            from_glib_none(gobject_ffi::g_param_spec_gtype(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -330,7 +330,7 @@ impl ParamSpec {
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_int(
+            from_glib_none(gobject_ffi::g_param_spec_int(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -352,7 +352,7 @@ impl ParamSpec {
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_int64(
+            from_glib_none(gobject_ffi::g_param_spec_int64(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -374,7 +374,7 @@ impl ParamSpec {
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_long(
+            from_glib_none(gobject_ffi::g_param_spec_long(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -390,11 +390,11 @@ impl ParamSpec {
         name: &str,
         nick: &str,
         blurb: &str,
-        object_type: ::Type,
+        object_type: crate::Type,
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_object(
+            from_glib_none(gobject_ffi::g_param_spec_object(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -406,7 +406,7 @@ impl ParamSpec {
 
     pub fn override_(name: &str, overridden: &ParamSpec) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_override(
+            from_glib_none(gobject_ffi::g_param_spec_override(
                 name.to_glib_none().0,
                 overridden.to_glib_none().0,
             ))
@@ -417,11 +417,11 @@ impl ParamSpec {
         name: &str,
         nick: &str,
         blurb: &str,
-        param_type: ::Type,
+        param_type: crate::Type,
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_param(
+            from_glib_none(gobject_ffi::g_param_spec_param(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -433,7 +433,7 @@ impl ParamSpec {
 
     pub fn pointer(name: &str, nick: &str, blurb: &str, flags: ParamFlags) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_pointer(
+            from_glib_none(gobject_ffi::g_param_spec_pointer(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -451,7 +451,7 @@ impl ParamSpec {
     ) -> ParamSpec {
         let default_value = default_value.to_glib_none();
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_string(
+            from_glib_none(gobject_ffi::g_param_spec_string(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -471,7 +471,7 @@ impl ParamSpec {
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_uchar(
+            from_glib_none(gobject_ffi::g_param_spec_uchar(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -493,7 +493,7 @@ impl ParamSpec {
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_uint(
+            from_glib_none(gobject_ffi::g_param_spec_uint(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -515,7 +515,7 @@ impl ParamSpec {
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_uint64(
+            from_glib_none(gobject_ffi::g_param_spec_uint64(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -537,7 +537,7 @@ impl ParamSpec {
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_ulong(
+            from_glib_none(gobject_ffi::g_param_spec_ulong(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -557,7 +557,7 @@ impl ParamSpec {
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_unichar(
+            from_glib_none(gobject_ffi::g_param_spec_unichar(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -575,7 +575,7 @@ impl ParamSpec {
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_value_array(
+            from_glib_none(gobject_ffi::g_param_spec_value_array(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -589,12 +589,12 @@ impl ParamSpec {
         name: &str,
         nick: &str,
         blurb: &str,
-        type_: &::VariantTy,
-        default_value: Option<&::Variant>,
+        type_: &crate::VariantTy,
+        default_value: Option<&crate::Variant>,
         flags: ParamFlags,
     ) -> ParamSpec {
         unsafe {
-            from_glib_none(gobject_sys::g_param_spec_variant(
+            from_glib_none(gobject_ffi::g_param_spec_variant(
                 name.to_glib_none().0,
                 nick.to_glib_none().0,
                 blurb.to_glib_none().0,
@@ -607,13 +607,13 @@ impl ParamSpec {
 }
 
 pub trait ParamSpecType:
-    StaticType + FromGlibPtrFull<*mut gobject_sys::GParamSpec> + 'static
+    StaticType + FromGlibPtrFull<*mut gobject_ffi::GParamSpec> + 'static
 {
 }
 
 #[link(name = "gobject-2.0")]
 extern "C" {
-    pub static g_param_spec_types: *const glib_sys::GType;
+    pub static g_param_spec_types: *const ffi::GType;
 }
 
 macro_rules! define_param_spec {
@@ -624,8 +624,8 @@ macro_rules! define_param_spec {
             pub struct $rust_type(Shared<$ffi_type>);
 
             match fn {
-                ref => |ptr| gobject_sys::g_param_spec_ref_sink(ptr as *mut gobject_sys::GParamSpec) as *mut $ffi_type,
-                unref => |ptr| gobject_sys::g_param_spec_unref(ptr as *mut gobject_sys::GParamSpec),
+                ref => |ptr| gobject_ffi::g_param_spec_ref_sink(ptr as *mut gobject_ffi::GParamSpec) as *mut $ffi_type,
+                unref => |ptr| gobject_ffi::g_param_spec_unref(ptr as *mut gobject_ffi::GParamSpec),
             }
         }
 
@@ -640,21 +640,21 @@ macro_rules! define_param_spec {
         #[doc(hidden)]
         impl<'a> value::FromValueOptional<'a> for $rust_type {
             unsafe fn from_value_optional(value: &Value) -> Option<Self> {
-                from_glib_full(gobject_sys::g_value_dup_param(value.to_glib_none().0) as *mut $ffi_type)
+                from_glib_full(gobject_ffi::g_value_dup_param(value.to_glib_none().0) as *mut $ffi_type)
             }
         }
 
         #[doc(hidden)]
         impl value::SetValue for $rust_type {
             unsafe fn set_value(value: &mut Value, this: &Self) {
-                gobject_sys::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0 as *mut gobject_sys::GParamSpec)
+                gobject_ffi::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0 as *mut gobject_ffi::GParamSpec)
             }
         }
 
         #[doc(hidden)]
         impl value::SetValueOptional for $rust_type {
             unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-                gobject_sys::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0 as *mut gobject_sys::GParamSpec)
+                gobject_ffi::g_value_set_param(value.to_glib_none_mut().0, this.to_glib_none().0 as *mut gobject_ffi::GParamSpec)
             }
         }
 
@@ -674,8 +674,8 @@ macro_rules! define_param_spec {
         impl ParamSpecType for $rust_type {}
 
         #[doc(hidden)]
-        impl FromGlibPtrFull<*mut gobject_sys::GParamSpec> for $rust_type {
-            unsafe fn from_glib_full(ptr: *mut gobject_sys::GParamSpec) -> Self {
+        impl FromGlibPtrFull<*mut gobject_ffi::GParamSpec> for $rust_type {
+            unsafe fn from_glib_full(ptr: *mut gobject_ffi::GParamSpec) -> Self {
                 from_glib_full(ptr as *mut $ffi_type)
             }
         }
@@ -683,7 +683,7 @@ macro_rules! define_param_spec {
         impl $rust_type {
             pub fn upcast(self) -> ParamSpec {
                 unsafe {
-                    from_glib_full(self.to_glib_full() as *mut gobject_sys::GParamSpec)
+                    from_glib_full(self.to_glib_full() as *mut gobject_ffi::GParamSpec)
                 }
             }
 
@@ -737,7 +737,7 @@ macro_rules! define_param_spec_numeric {
 
 define_param_spec_numeric!(
     ParamSpecChar,
-    gobject_sys::GParamSpecChar,
+    gobject_ffi::GParamSpecChar,
     i8,
     param_spec_char,
     0,
@@ -746,7 +746,7 @@ define_param_spec_numeric!(
 
 define_param_spec_numeric!(
     ParamSpecUChar,
-    gobject_sys::GParamSpecUChar,
+    gobject_ffi::GParamSpecUChar,
     u8,
     param_spec_uchar,
     1,
@@ -755,7 +755,7 @@ define_param_spec_numeric!(
 
 define_param_spec!(
     ParamSpecBoolean,
-    gobject_sys::GParamSpecBoolean,
+    gobject_ffi::GParamSpecBoolean,
     param_spec_bool,
     2
 );
@@ -764,7 +764,7 @@ define_param_spec_default!(ParamSpecBoolean, bool, |x| from_glib(x));
 
 define_param_spec_numeric!(
     ParamSpecInt,
-    gobject_sys::GParamSpecInt,
+    gobject_ffi::GParamSpecInt,
     i32,
     param_spec_int,
     3,
@@ -773,7 +773,7 @@ define_param_spec_numeric!(
 
 define_param_spec_numeric!(
     ParamSpecUInt,
-    gobject_sys::GParamSpecUInt,
+    gobject_ffi::GParamSpecUInt,
     u32,
     param_spec_uint,
     4,
@@ -782,7 +782,7 @@ define_param_spec_numeric!(
 
 define_param_spec_numeric!(
     ParamSpecLong,
-    gobject_sys::GParamSpecLong,
+    gobject_ffi::GParamSpecLong,
     libc::c_long,
     param_spec_long,
     5,
@@ -791,7 +791,7 @@ define_param_spec_numeric!(
 
 define_param_spec_numeric!(
     ParamSpecULong,
-    gobject_sys::GParamSpecULong,
+    gobject_ffi::GParamSpecULong,
     libc::c_ulong,
     param_spec_ulong,
     6,
@@ -800,7 +800,7 @@ define_param_spec_numeric!(
 
 define_param_spec_numeric!(
     ParamSpecInt64,
-    gobject_sys::GParamSpecInt64,
+    gobject_ffi::GParamSpecInt64,
     i64,
     param_spec_int64,
     7,
@@ -809,7 +809,7 @@ define_param_spec_numeric!(
 
 define_param_spec_numeric!(
     ParamSpecUInt64,
-    gobject_sys::GParamSpecUInt64,
+    gobject_ffi::GParamSpecUInt64,
     u64,
     param_spec_uint64,
     8,
@@ -818,7 +818,7 @@ define_param_spec_numeric!(
 
 define_param_spec!(
     ParamSpecUnichar,
-    gobject_sys::GParamSpecUnichar,
+    gobject_ffi::GParamSpecUnichar,
     param_spec_unichar,
     9
 );
@@ -827,7 +827,7 @@ define_param_spec_default!(ParamSpecUnichar, Result<char, CharTryFromError>, Try
 
 define_param_spec!(
     ParamSpecEnum,
-    gobject_sys::GParamSpecEnum,
+    gobject_ffi::GParamSpecEnum,
     param_spec_enum,
     10
 );
@@ -835,13 +835,13 @@ define_param_spec!(
 define_param_spec_default!(ParamSpecEnum, i32, |x| x);
 
 impl ParamSpecEnum {
-    pub fn get_enum_class(&self) -> ::EnumClass {
+    pub fn get_enum_class(&self) -> crate::EnumClass {
         unsafe {
             let ptr = self.to_glib_none().0;
 
             assert!(!(*ptr).enum_class.is_null());
 
-            ::EnumClass::new(from_glib((*(*ptr).enum_class).g_type_class.g_type))
+            crate::EnumClass::new(from_glib((*(*ptr).enum_class).g_type_class.g_type))
                 .expect("Invalid enum class")
         }
     }
@@ -849,7 +849,7 @@ impl ParamSpecEnum {
 
 define_param_spec!(
     ParamSpecFlags,
-    gobject_sys::GParamSpecFlags,
+    gobject_ffi::GParamSpecFlags,
     param_spec_flags,
     11
 );
@@ -857,13 +857,13 @@ define_param_spec!(
 define_param_spec_default!(ParamSpecFlags, u32, |x| x);
 
 impl ParamSpecFlags {
-    pub fn get_flags_class(&self) -> ::FlagsClass {
+    pub fn get_flags_class(&self) -> crate::FlagsClass {
         unsafe {
             let ptr = self.to_glib_none().0;
 
             assert!(!(*ptr).flags_class.is_null());
 
-            ::FlagsClass::new(from_glib((*(*ptr).flags_class).g_type_class.g_type))
+            crate::FlagsClass::new(from_glib((*(*ptr).flags_class).g_type_class.g_type))
                 .expect("Invalid flags class")
         }
     }
@@ -871,7 +871,7 @@ impl ParamSpecFlags {
 
 define_param_spec_numeric!(
     ParamSpecFloat,
-    gobject_sys::GParamSpecFloat,
+    gobject_ffi::GParamSpecFloat,
     f32,
     param_spec_float,
     12,
@@ -880,7 +880,7 @@ define_param_spec_numeric!(
 
 define_param_spec_numeric!(
     ParamSpecDouble,
-    gobject_sys::GParamSpecDouble,
+    gobject_ffi::GParamSpecDouble,
     f64,
     param_spec_double,
     13,
@@ -889,7 +889,7 @@ define_param_spec_numeric!(
 
 define_param_spec!(
     ParamSpecString,
-    gobject_sys::GParamSpecString,
+    gobject_ffi::GParamSpecString,
     param_spec_string,
     14
 );
@@ -906,28 +906,28 @@ define_param_spec_default!(ParamSpecString, Option<&str>, |x: *mut libc::c_char|
 
 define_param_spec!(
     ParamSpecParam,
-    gobject_sys::GParamSpecParam,
+    gobject_ffi::GParamSpecParam,
     param_spec_param,
     15
 );
 
 define_param_spec!(
     ParamSpecBoxed,
-    gobject_sys::GParamSpecBoxed,
+    gobject_ffi::GParamSpecBoxed,
     param_spec_boxed,
     16
 );
 
 define_param_spec!(
     ParamSpecPointer,
-    gobject_sys::GParamSpecPointer,
+    gobject_ffi::GParamSpecPointer,
     param_spec_pointer,
     17
 );
 
 define_param_spec!(
     ParamSpecValueArray,
-    gobject_sys::GParamSpecValueArray,
+    gobject_ffi::GParamSpecValueArray,
     param_spec_value_array,
     18
 );
@@ -952,14 +952,14 @@ impl ParamSpecValueArray {
 
 define_param_spec!(
     ParamSpecObject,
-    gobject_sys::GParamSpecObject,
+    gobject_ffi::GParamSpecObject,
     param_spec_object,
     19
 );
 
 define_param_spec!(
     ParamSpecOverride,
-    gobject_sys::GParamSpecOverride,
+    gobject_ffi::GParamSpecOverride,
     param_spec_override,
     20
 );
@@ -976,33 +976,33 @@ impl ParamSpecOverride {
 
 define_param_spec!(
     ParamSpecGType,
-    gobject_sys::GParamSpecGType,
+    gobject_ffi::GParamSpecGType,
     param_spec_gtype,
     21
 );
 
 define_param_spec!(
     ParamSpecVariant,
-    gobject_sys::GParamSpecVariant,
+    gobject_ffi::GParamSpecVariant,
     param_spec_variant,
     22
 );
 
 define_param_spec_default!(
     ParamSpecVariant,
-    Option<::Variant>,
-    |x: *mut glib_sys::GVariant| from_glib_none(x)
+    Option<crate::Variant>,
+    |x: *mut ffi::GVariant| from_glib_none(x)
 );
 
 impl ParamSpecVariant {
-    pub fn get_type(&self) -> Option<&::VariantTy> {
+    pub fn get_type(&self) -> Option<&crate::VariantTy> {
         unsafe {
             let ptr = self.to_glib_none().0;
 
             if (*ptr).type_.is_null() {
                 None
             } else {
-                Some(::VariantTy::from_ptr((*ptr).type_))
+                Some(crate::VariantTy::from_ptr((*ptr).type_))
             }
         }
     }

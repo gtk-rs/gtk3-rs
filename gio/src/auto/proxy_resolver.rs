@@ -2,30 +2,25 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use gio_sys;
-use glib;
+use crate::Cancellable;
 use glib::object::IsA;
 use glib::translate::*;
-use glib::GString;
-use glib_sys;
-use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::pin::Pin;
 use std::ptr;
-use Cancellable;
 
-glib_wrapper! {
-    pub struct ProxyResolver(Interface<gio_sys::GProxyResolver>);
+glib::glib_wrapper! {
+    pub struct ProxyResolver(Interface<ffi::GProxyResolver>);
 
     match fn {
-        get_type => || gio_sys::g_proxy_resolver_get_type(),
+        get_type => || ffi::g_proxy_resolver_get_type(),
     }
 }
 
 impl ProxyResolver {
     pub fn get_default() -> Option<ProxyResolver> {
-        unsafe { from_glib_none(gio_sys::g_proxy_resolver_get_default()) }
+        unsafe { from_glib_none(ffi::g_proxy_resolver_get_default()) }
     }
 }
 
@@ -38,11 +33,11 @@ pub trait ProxyResolverExt: 'static {
         &self,
         uri: &str,
         cancellable: Option<&P>,
-    ) -> Result<Vec<GString>, glib::Error>;
+    ) -> Result<Vec<glib::GString>, glib::Error>;
 
     fn lookup_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<Vec<GString>, glib::Error>) + Send + 'static,
+        Q: FnOnce(Result<Vec<glib::GString>, glib::Error>) + Send + 'static,
     >(
         &self,
         uri: &str,
@@ -53,13 +48,15 @@ pub trait ProxyResolverExt: 'static {
     fn lookup_async_future(
         &self,
         uri: &str,
-    ) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<GString>, glib::Error>> + 'static>>;
+    ) -> Pin<
+        Box_<dyn std::future::Future<Output = Result<Vec<glib::GString>, glib::Error>> + 'static>,
+    >;
 }
 
 impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
     fn is_supported(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_proxy_resolver_is_supported(
+            from_glib(ffi::g_proxy_resolver_is_supported(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -69,10 +66,10 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
         &self,
         uri: &str,
         cancellable: Option<&P>,
-    ) -> Result<Vec<GString>, glib::Error> {
+    ) -> Result<Vec<glib::GString>, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_proxy_resolver_lookup(
+            let ret = ffi::g_proxy_resolver_lookup(
                 self.as_ref().to_glib_none().0,
                 uri.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -88,7 +85,7 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
 
     fn lookup_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<Vec<GString>, glib::Error>) + Send + 'static,
+        Q: FnOnce(Result<Vec<glib::GString>, glib::Error>) + Send + 'static,
     >(
         &self,
         uri: &str,
@@ -97,15 +94,15 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn lookup_async_trampoline<
-            Q: FnOnce(Result<Vec<GString>, glib::Error>) + Send + 'static,
+            Q: FnOnce(Result<Vec<glib::GString>, glib::Error>) + Send + 'static,
         >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut crate::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
             let ret =
-                gio_sys::g_proxy_resolver_lookup_finish(_source_object as *mut _, res, &mut error);
+                ffi::g_proxy_resolver_lookup_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
                 Ok(FromGlibPtrContainer::from_glib_full(ret))
             } else {
@@ -116,7 +113,7 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
         }
         let callback = lookup_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_proxy_resolver_lookup_async(
+            ffi::g_proxy_resolver_lookup_async(
                 self.as_ref().to_glib_none().0,
                 uri.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
@@ -129,8 +126,9 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
     fn lookup_async_future(
         &self,
         uri: &str,
-    ) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<GString>, glib::Error>> + 'static>>
-    {
+    ) -> Pin<
+        Box_<dyn std::future::Future<Output = Result<Vec<glib::GString>, glib::Error>> + 'static>,
+    > {
         let uri = String::from(uri);
         Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();

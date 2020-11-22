@@ -2,17 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::Buildable;
+use crate::Widget;
 use glib::translate::*;
-use gtk_sys;
 use std::fmt;
-use Buildable;
-use Widget;
 
-glib_wrapper! {
-    pub struct Misc(Object<gtk_sys::GtkMisc, gtk_sys::GtkMiscClass>) @extends Widget, @implements Buildable;
+glib::glib_wrapper! {
+    pub struct Misc(Object<ffi::GtkMisc, ffi::GtkMiscClass>) @extends Widget, @implements Buildable;
 
     match fn {
-        get_type => || gtk_sys::gtk_misc_get_type(),
+        get_type => || ffi::gtk_misc_get_type(),
     }
 }
 

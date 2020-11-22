@@ -2,38 +2,37 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::AttrClass;
 use glib::translate::*;
-use pango_sys;
-use AttrClass;
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
-    pub struct Attribute(Boxed<pango_sys::PangoAttribute>);
+    pub struct Attribute(Boxed<ffi::PangoAttribute>);
 
     match fn {
-        copy => |ptr| pango_sys::pango_attribute_copy(mut_override(ptr)),
-        free => |ptr| pango_sys::pango_attribute_destroy(ptr),
-        get_type => || pango_sys::pango_attribute_get_type(),
+        copy => |ptr| ffi::pango_attribute_copy(mut_override(ptr)),
+        free => |ptr| ffi::pango_attribute_destroy(ptr),
+        get_type => || ffi::pango_attribute_get_type(),
     }
 }
 
 #[cfg(not(any(feature = "v1_44", feature = "dox")))]
-glib_wrapper! {
+glib::glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
-    pub struct Attribute(Boxed<pango_sys::PangoAttribute>);
+    pub struct Attribute(Boxed<ffi::PangoAttribute>);
 
     match fn {
-        copy => |ptr| pango_sys::pango_attribute_copy(mut_override(ptr)),
-        free => |ptr| pango_sys::pango_attribute_destroy(ptr),
+        copy => |ptr| ffi::pango_attribute_copy(mut_override(ptr)),
+        free => |ptr| ffi::pango_attribute_destroy(ptr),
     }
 }
 
 impl Attribute {
     fn equal(&self, attr2: &Attribute) -> bool {
         unsafe {
-            from_glib(pango_sys::pango_attribute_equal(
+            from_glib(ffi::pango_attribute_equal(
                 self.to_glib_none().0,
                 attr2.to_glib_none().0,
             ))
@@ -42,7 +41,7 @@ impl Attribute {
 
     pub fn init(&mut self, klass: &AttrClass) {
         unsafe {
-            pango_sys::pango_attribute_init(self.to_glib_none_mut().0, klass.to_glib_none().0);
+            ffi::pango_attribute_init(self.to_glib_none_mut().0, klass.to_glib_none().0);
         }
     }
 }
