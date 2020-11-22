@@ -31,10 +31,6 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 [dependencies]
 libc = "0.2"
 bitflags = "1.0"
-glib-sys = { path = "../glib/sys" }
-gobject-sys = { path = "../glib/gobject-sys" }
-pango-sys = { path = "../pango/sys" }
-cairo-sys-rs = { path = "../cairo/sys" }
 ffi = { package = "pangocairo-sys", path = "sys" }
 glib = { path = "../glib" }
 pango = { path = "../pango" }
