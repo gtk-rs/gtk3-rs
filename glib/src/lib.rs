@@ -82,6 +82,9 @@
 pub use ffi;
 pub use gobject_ffi;
 
+#[doc(hidden)]
+pub use bitflags;
+
 pub use glib_macros::{clone, gflags, GBoxed, GEnum};
 
 pub use self::byte_array::ByteArray;
