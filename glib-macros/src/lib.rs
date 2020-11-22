@@ -35,8 +35,8 @@ use syn::{parse_macro_input, DeriveInput, LitStr};
 /// ```rust,ignore
 /// use glib::CLONE_MACRO_LOG_DOMAIN;
 ///
-/// ::std::env::set_var("G_MESSAGES_DEBUG", CLONE_MACRO_LOG_DOMAIN);
-/// ::std::env::set_var("G_MESSAGES_DEBUG", "all");
+/// std::env::set_var("G_MESSAGES_DEBUG", CLONE_MACRO_LOG_DOMAIN);
+/// std::env::set_var("G_MESSAGES_DEBUG", "all");
 /// ```
 ///
 /// Or:
