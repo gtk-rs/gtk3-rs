@@ -2,6 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+#![allow(clippy::needless_doctest_main)]
+
 //! Module containing infrastructure for subclassing `GObject`s and registering boxed types.
 //!
 //! # Example for registering a `glib::Object` subclass

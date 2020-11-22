@@ -207,8 +207,6 @@ impl error::Error for BoolError {}
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
     #[test]
     fn test_bool_error() {
         let from_static_msg = glib_bool_error!("Static message");
