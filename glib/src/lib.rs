@@ -185,8 +185,10 @@ pub use self::log::{
     unset_print_handler, unset_printerr_handler, LogHandlerId, LogLevel, LogLevels,
 };
 
-#[cfg(any(feature = "log", feature = "dox"))]
-pub use log as rs_log;
+#[doc(hidden)]
+#[cfg(any(feature = "dox", feature = "log_macros"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "log_macros")))]
+pub use rs_log;
 
 #[cfg(any(feature = "log", feature = "dox"))]
 #[macro_use]
