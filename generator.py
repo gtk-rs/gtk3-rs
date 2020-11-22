@@ -48,16 +48,16 @@ def ask_yes_no_question(question, conf):
 def def_check_submodule(submodule_path, conf):
     if len(listdir(submodule_path)) != 0:
         return NOTHING_TO_BE_DONE
-    print('=> Initializing gir submodule...')
-    if not run_command(['git', 'submodule', 'update', '--init']):
+    print('=> Initializing {} submodule...'.format(submodule_path))
+    if not run_command(['git', 'submodule', 'update', '--init', submodule_path]):
         return FAILURE
     print('<= Done!')
 
-    if ask_yes_no_question('Do you want to update gir submodule?', conf):
-        print('=> Updating gir submodule...')
-        if not run_command(['git', 'reset', '--hard', 'HEAD'], 'gir'):
+    if ask_yes_no_question('Do you want to update {} submodule?'.format(submodule_path), conf):
+        print('=> Updating submodule...')
+        if not run_command(['git', 'reset', '--hard', 'HEAD'], submodule_path):
             return FAILURE
-        if not run_command(['git', 'pull', '-f', 'origin', 'master'], 'gir'):
+        if not run_command(['git', 'pull', '-f', 'origin', 'master'], submodule_path):
             return FAILURE
         print('<= Done!')
         return NEED_UPDATE
