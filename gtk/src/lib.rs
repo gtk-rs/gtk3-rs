@@ -2,6 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+#![allow(clippy::needless_doctest_main)]
+
 //! # GTK+ 3 bindings
 //!
 //! This library contains safe Rust bindings for [GTK+ 3](http://www.gtk.org), a
@@ -24,7 +26,6 @@
 //! # Hello World
 //!
 //! ```no_run
-//! extern crate gtk;
 //! use gtk::prelude::*;
 //! use gtk::{ButtonsType, DialogFlags, MessageType, MessageDialog, Window};
 //!
@@ -53,9 +54,6 @@
 //! and run the main event loop:
 //!
 //! ```no_run
-//! extern crate gtk;
-//! extern crate gio;
-//!
 //! // To import all needed traits.
 //! use gtk::prelude::*;
 //! use gio::prelude::*;

@@ -1,4 +1,3 @@
-extern crate gdk_pixbuf;
 use gdk_pixbuf::*;
 
 #[test]

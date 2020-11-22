@@ -58,8 +58,6 @@ pub enum GlibLoggerDomain {
 /// Example:
 ///
 /// ```no_run
-/// extern crate log;
-///
 /// static glib_logger: glib::GlibLogger = glib::GlibLogger::new(
 ///     glib::GlibLoggerFormat::Plain,
 ///     glib::GlibLoggerDomain::CrateTarget,
@@ -84,8 +82,6 @@ impl GlibLogger {
     /// Example:
     ///
     /// ```no_run
-    /// extern crate log;
-    ///
     /// static glib_logger: glib::GlibLogger = glib::GlibLogger::new(
     ///     glib::GlibLoggerFormat::Plain,
     ///     glib::GlibLoggerDomain::CrateTarget,
@@ -233,11 +229,9 @@ pub fn rust_log_handler(domain: Option<&str>, level: glib_log::LogLevel, message
 /// initialized using [`GlibLoggerDomain::CrateTarget`](enum.GlibLoggerDomain.html).
 ///
 /// ```no_run
-/// #[macro_use] extern crate glib;
-///
 /// static G_LOG_DOMAIN: &str = "my-domain";
 ///
-/// error!("This will be logged under 'my-domain'");
+/// glib::error!("This will be logged under 'my-domain'");
 /// ```
 #[macro_export]
 #[cfg(any(feature = "dox", feature = "log_macros"))]
@@ -260,11 +254,9 @@ macro_rules! error {
 /// initialized using [`GlibLoggerDomain::CrateTarget`](enum.GlibLoggerDomain.html).
 ///
 /// ```no_run
-/// #[macro_use] extern crate glib;
-///
 /// static G_LOG_DOMAIN: &str = "my-domain";
 ///
-/// warn!("This will be logged under 'my-domain'");
+/// glib::warn!("This will be logged under 'my-domain'");
 /// ```
 #[macro_export]
 #[cfg(any(feature = "dox", feature = "log_macros"))]
@@ -287,11 +279,9 @@ macro_rules! warn {
 /// initialized using [`GlibLoggerDomain::CrateTarget`](enum.GlibLoggerDomain.html).
 ///
 /// ```no_run
-/// #[macro_use] extern crate glib;
-///
 /// static G_LOG_DOMAIN: &str = "my-domain";
 ///
-/// info!("This will be logged under 'my-domain'");
+/// glib::info!("This will be logged under 'my-domain'");
 /// ```
 #[macro_export]
 #[cfg(any(feature = "dox", feature = "log_macros"))]
@@ -314,11 +304,9 @@ macro_rules! info {
 /// initialized using [`GlibLoggerDomain::CrateTarget`](enum.GlibLoggerDomain.html).
 ///
 /// ```no_run
-/// #[macro_use] extern crate glib;
-///
 /// static G_LOG_DOMAIN: &str = "my-domain";
 ///
-/// debug!("This will be logged under 'my-domain'");
+/// glib::debug!("This will be logged under 'my-domain'");
 /// ```
 #[macro_export]
 #[cfg(any(feature = "dox", feature = "log_macros"))]
@@ -341,11 +329,9 @@ macro_rules! debug {
 /// initialized using [`GlibLoggerDomain::CrateTarget`](enum.GlibLoggerDomain.html).
 ///
 /// ```no_run
-/// #[macro_use] extern crate glib;
-///
 /// static G_LOG_DOMAIN: &str = "my-domain";
 ///
-/// trace!("This will be logged under 'my-domain'");
+/// glib::trace!("This will be logged under 'my-domain'");
 /// ```
 #[macro_export]
 #[cfg(any(feature = "dox", feature = "log_macros"))]

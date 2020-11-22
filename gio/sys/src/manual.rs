@@ -12,8 +12,6 @@ pub type GSocketMsgFlags = libc::c_int;
 
 #[cfg(target_family = "windows")]
 mod windows_constants {
-    extern crate winapi;
-
     pub const G_SOCKET_FAMILY_INVALID: super::GSocketFamily =
         self::winapi::shared::ws2def::AF_UNSPEC;
     pub const G_SOCKET_FAMILY_UNIX: super::GSocketFamily = self::winapi::shared::ws2def::AF_UNIX;

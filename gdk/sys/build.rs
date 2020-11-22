@@ -1,9 +1,4 @@
 #[cfg(not(feature = "dox"))]
-extern crate pkg_config;
-#[cfg(not(feature = "dox"))]
-extern crate system_deps;
-
-#[cfg(not(feature = "dox"))]
 use std::io;
 #[cfg(not(feature = "dox"))]
 use std::io::prelude::*;

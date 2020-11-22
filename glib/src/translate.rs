@@ -2243,9 +2243,8 @@ where
 
 #[cfg(test)]
 mod tests {
-    extern crate tempfile;
-    use self::tempfile::tempdir;
     use std::fs;
+    use tempfile::tempdir;
 
     use super::*;
     use crate::GString;

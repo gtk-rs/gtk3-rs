@@ -12,18 +12,16 @@
 //! string-typed "name" property.
 //!
 //! ```rust
-//! #[macro_use]
-//! extern crate glib;
 //! use glib::prelude::*;
 //! use glib::subclass;
 //! use glib::subclass::prelude::*;
 //!
 //! use std::cell::{Cell, RefCell};
 //!
-//! #[derive(Debug, Eq, PartialEq, Clone, Copy, GEnum)]
+//! #[derive(Debug, Eq, PartialEq, Clone, Copy, glib::GEnum)]
 //! #[repr(u32)]
 //! // type_name: GType name of the GEnum (mandatory)
-//! #[genum(type_name = "SimpleObjectAnimal")]
+//! #[glib::GEnum(type_name = "SimpleObjectAnimal")]
 //! enum Animal {
 //!   Goat = 0,
 //!   #[genum(name = "The Dog")]
@@ -40,13 +38,13 @@
 //!     }
 //! }
 //!
-//! #[gflags("MyFlags")]
+//! #[glib::gflags("MyFlags")]
 //! enum MyFlags {
-//!     #[gflags(name = "Flag A", nick = "nick-a")]
+//!     #[glib::gflags(name = "Flag A", nick = "nick-a")]
 //!     A = 0b00000001,
-//!     #[gflags(name = "Flag B")]
+//!     #[glib::gflags(name = "Flag B")]
 //!     B = 0b00000010,
-//!     #[gflags(skip)]
+//!     #[glib::gflags(skip)]
 //!     AB = Self::A.bits() | Self::B.bits(),
 //!     C = 0b00000100,
 //! }
@@ -121,7 +119,7 @@
 //!         type Class = subclass::simple::ClassStruct<Self>;
 //!
 //!         // This macro defines some boilerplate.
-//!         glib_object_subclass!();
+//!         glib::glib_object_subclass!();
 //!
 //!         // Called right before the first time an instance of the new
 //!         // type is created. Here class specific settings can be performed,
@@ -197,7 +195,7 @@
 //! }
 //!
 //! // Optionally, define a wrapper type to make it more ergonomic to use from Rust
-//! glib_wrapper! {
+//! glib::glib_wrapper! {
 //!     pub struct SimpleObject(ObjectSubclass<imp::SimpleObject>);
 //! }
 //!
@@ -238,14 +236,12 @@
 //! with `glib::Value`.
 //!
 //! ```rust
-//! #[macro_use]
-//! extern crate glib;
 //! use glib::prelude::*;
 //! use glib::subclass;
 //! use glib::subclass::prelude::*;
 //!
-//! #[derive(Clone, Debug, PartialEq, Eq, GBoxed)]
-//! #[gboxed(type_name = "MyBoxed")]
+//! #[derive(Clone, Debug, PartialEq, Eq, glib::GBoxed)]
+//! #[glib::GBoxed(type_name = "MyBoxed")]
 //! struct MyBoxed(String);
 //!
 //! pub fn main() {

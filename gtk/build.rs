@@ -1,6 +1,3 @@
-#[cfg(target_os = "macos")]
-extern crate cc;
-
 fn main() {
     manage_docs();
     #[cfg(target_os = "macos")]
@@ -13,7 +10,6 @@ fn main() {
     not(all(feature = "embed-lgpl-docs", feature = "purge-lgpl-docs"))
 ))]
 fn manage_docs() {
-    extern crate lgpl_docs;
     const PATH: &str = "src";
     const IGNORES: &[&str] = &["lib.rs", "prelude.rs", "rt.rs", "signal.rs"];
     lgpl_docs::purge(PATH, IGNORES);

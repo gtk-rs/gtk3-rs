@@ -254,12 +254,11 @@ pub fn genum_derive(input: TokenStream) -> TokenStream {
 /// # Example
 ///
 /// ```
-/// #[macro_use] extern crate glib;
 /// use glib::prelude::*;
 /// use glib::subclass::prelude::*;
 ///
 /// #[derive(Clone, Debug, PartialEq, Eq, GBoxed)]
-/// #[gboxed(type_name = "MyBoxed")]
+/// #[glib::gboxed(type_name = "MyBoxed")]
 /// struct MyBoxed(String);
 /// ```
 ///
@@ -287,11 +286,10 @@ pub fn gboxed_derive(input: TokenStream) -> TokenStream {
 /// # Example
 ///
 /// ```
-/// #[macro_use] extern crate glib;
 /// use glib::prelude::*;
 /// use glib::subclass::prelude::*;
 ///
-/// #[gflags("MyFlags")]
+/// #[glib::gflags("MyFlags")]
 /// enum MyFlags {
 ///     #[gflags(name = "Flag A", nick = "nick-a")]
 ///     A = 0b00000001,
