@@ -364,6 +364,10 @@ impl ::std::fmt::Debug for graphene_vec4_t {
 
 #[link(name = "graphene-1.0")]
 extern "C" {
+
+    //=========================================================================
+    // graphene_box_t
+    //=========================================================================
     pub fn graphene_box_get_type() -> GType;
     pub fn graphene_box_alloc() -> *mut graphene_box_t;
     pub fn graphene_box_contains_box(

@@ -49,6 +49,10 @@ impl ::std::fmt::Debug for PangoCairoFontMap {
 
 #[link(name = "pangocairo-1.0")]
 extern "C" {
+
+    //=========================================================================
+    // PangoCairoFont
+    //=========================================================================
     pub fn pango_cairo_font_get_type() -> GType;
     pub fn pango_cairo_font_get_scaled_font(
         font: *mut PangoCairoFont,
