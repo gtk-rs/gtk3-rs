@@ -18,19 +18,15 @@ DEFAULT_GIR_PATH = DEFAULT_GIR_DIRECTORY / 'target/release/gir'
 def run_command(command, folder=None):
     if folder is None:
         folder = "."
-    child = subprocess.Popen(command, cwd=folder)
-    child.communicate()
-    if child.returncode != 0:
-        print("Command `{}` failed with return code `{}`...".format(command, child.returncode))
+    ret = subprocess.run(command, cwd=folder)
+    if ret.returncode != 0:
+        print("Command `{}` failed with `{}`...".format(command, ret))
         return False
     return True
 
 
 def update_workspace():
-    try:
-        return run_command(['cargo', 'build', '--release'], 'gir')
-    except:
-        return False
+    return run_command(['cargo', 'build', '--release'], 'gir')
 
 
 def ask_yes_no_question(question, conf):
