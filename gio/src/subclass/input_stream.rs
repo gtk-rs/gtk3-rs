@@ -257,7 +257,6 @@ mod tests {
     use super::*;
     use crate::prelude::*;
     use crate::subclass::prelude::*;
-    use glib;
     use glib::subclass;
     use std::cell::RefCell;
 
@@ -275,7 +274,7 @@ mod tests {
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
-            glib_object_subclass!();
+            glib::glib_object_subclass!();
 
             fn new() -> Self {
                 Self {
@@ -359,7 +358,7 @@ mod tests {
         }
     }
 
-    glib_wrapper! {
+    glib::glib_wrapper! {
         pub struct SimpleInputStream(ObjectSubclass<imp::SimpleInputStream>)
             @extends InputStream;
     }

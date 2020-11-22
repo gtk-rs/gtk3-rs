@@ -482,7 +482,6 @@ unsafe extern "C" fn application_handle_local_options<T: ApplicationImpl>(
 mod tests {
     use super::*;
     use crate::prelude::*;
-    use glib;
     use glib::subclass;
 
     const EXIT_STATUS: i32 = 20;
@@ -499,7 +498,7 @@ mod tests {
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
-            glib_object_subclass!();
+            glib::glib_object_subclass!();
 
             fn new() -> Self {
                 Self
@@ -551,7 +550,7 @@ mod tests {
         }
     }
 
-    glib_wrapper! {
+    glib::glib_wrapper! {
         pub struct SimpleApplication(ObjectSubclass<imp::SimpleApplication>);
     }
 
