@@ -2,8 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use glib_sys;
-
 use glib::translate::*;
 use glib::Cast;
 use glib::Error;
@@ -37,8 +35,8 @@ pub trait SeekableImpl: ObjectImpl + Send {
 
 unsafe impl<T: SeekableImpl> IsImplementable<T> for Seekable {
     unsafe extern "C" fn interface_init(
-        iface: glib_sys::gpointer,
-        _iface_data: glib_sys::gpointer,
+        iface: glib::ffi::gpointer,
+        _iface_data: glib::ffi::gpointer,
     ) {
         let seekable_iface = &mut *(iface as *mut ffi::GSeekableIface);
 
@@ -59,7 +57,7 @@ unsafe extern "C" fn seekable_tell<T: SeekableImpl>(seekable: *mut ffi::GSeekabl
 
 unsafe extern "C" fn seekable_can_seek<T: SeekableImpl>(
     seekable: *mut ffi::GSeekable,
-) -> glib_sys::gboolean {
+) -> glib::ffi::gboolean {
     let instance = &*(seekable as *mut T::Instance);
     let imp = instance.get_impl();
 
@@ -70,10 +68,10 @@ unsafe extern "C" fn seekable_can_seek<T: SeekableImpl>(
 unsafe extern "C" fn seekable_seek<T: SeekableImpl>(
     seekable: *mut ffi::GSeekable,
     offset: i64,
-    type_: glib_sys::GSeekType,
+    type_: glib::ffi::GSeekType,
     cancellable: *mut ffi::GCancellable,
-    err: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean {
+    err: *mut *mut glib::ffi::GError,
+) -> glib::ffi::gboolean {
     let instance = &*(seekable as *mut T::Instance);
     let imp = instance.get_impl();
 
@@ -85,18 +83,18 @@ unsafe extern "C" fn seekable_seek<T: SeekableImpl>(
             .as_ref()
             .as_ref(),
     ) {
-        Ok(()) => glib_sys::GTRUE,
+        Ok(()) => glib::ffi::GTRUE,
         Err(e) => {
             let mut e = mem::ManuallyDrop::new(e);
             *err = e.to_glib_none_mut().0;
-            glib_sys::GFALSE
+            glib::ffi::GFALSE
         }
     }
 }
 
 unsafe extern "C" fn seekable_can_truncate<T: SeekableImpl>(
     seekable: *mut ffi::GSeekable,
-) -> glib_sys::gboolean {
+) -> glib::ffi::gboolean {
     let instance = &*(seekable as *mut T::Instance);
     let imp = instance.get_impl();
 
@@ -108,8 +106,8 @@ unsafe extern "C" fn seekable_truncate<T: SeekableImpl>(
     seekable: *mut ffi::GSeekable,
     offset: i64,
     cancellable: *mut ffi::GCancellable,
-    err: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean {
+    err: *mut *mut glib::ffi::GError,
+) -> glib::ffi::gboolean {
     let instance = &*(seekable as *mut T::Instance);
     let imp = instance.get_impl();
 
@@ -120,11 +118,11 @@ unsafe extern "C" fn seekable_truncate<T: SeekableImpl>(
             .as_ref()
             .as_ref(),
     ) {
-        Ok(()) => glib_sys::GTRUE,
+        Ok(()) => glib::ffi::GTRUE,
         Err(e) => {
             let mut e = mem::ManuallyDrop::new(e);
             *err = e.to_glib_none_mut().0;
-            glib_sys::GFALSE
+            glib::ffi::GFALSE
         }
     }
 }

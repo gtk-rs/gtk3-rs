@@ -2,8 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use glib_sys;
-
 use glib::subclass::prelude::*;
 use glib::translate::*;
 
@@ -206,7 +204,7 @@ unsafe extern "C" fn stream_write<T: OutputStreamImpl>(
     buffer: *mut u8,
     count: usize,
     cancellable: *mut ffi::GCancellable,
-    err: *mut *mut glib_sys::GError,
+    err: *mut *mut glib::ffi::GError,
 ) -> isize {
     use std::isize;
     use std::slice;
@@ -240,8 +238,8 @@ unsafe extern "C" fn stream_write<T: OutputStreamImpl>(
 unsafe extern "C" fn stream_close<T: OutputStreamImpl>(
     ptr: *mut ffi::GOutputStream,
     cancellable: *mut ffi::GCancellable,
-    err: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean {
+    err: *mut *mut glib::ffi::GError,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
@@ -252,11 +250,11 @@ unsafe extern "C" fn stream_close<T: OutputStreamImpl>(
             .as_ref()
             .as_ref(),
     ) {
-        Ok(_) => glib_sys::GTRUE,
+        Ok(_) => glib::ffi::GTRUE,
         Err(e) => {
             let mut e = mem::ManuallyDrop::new(e);
             *err = e.to_glib_none_mut().0;
-            glib_sys::GFALSE
+            glib::ffi::GFALSE
         }
     }
 }
@@ -264,8 +262,8 @@ unsafe extern "C" fn stream_close<T: OutputStreamImpl>(
 unsafe extern "C" fn stream_flush<T: OutputStreamImpl>(
     ptr: *mut ffi::GOutputStream,
     cancellable: *mut ffi::GCancellable,
-    err: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean {
+    err: *mut *mut glib::ffi::GError,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<OutputStream> = from_glib_borrow(ptr);
@@ -276,11 +274,11 @@ unsafe extern "C" fn stream_flush<T: OutputStreamImpl>(
             .as_ref()
             .as_ref(),
     ) {
-        Ok(_) => glib_sys::GTRUE,
+        Ok(_) => glib::ffi::GTRUE,
         Err(e) => {
             let mut e = mem::ManuallyDrop::new(e);
             *err = e.to_glib_none_mut().0;
-            glib_sys::GFALSE
+            glib::ffi::GFALSE
         }
     }
 }
@@ -290,7 +288,7 @@ unsafe extern "C" fn stream_splice<T: OutputStreamImpl>(
     input_stream: *mut ffi::GInputStream,
     flags: ffi::GOutputStreamSpliceFlags,
     cancellable: *mut ffi::GCancellable,
-    err: *mut *mut glib_sys::GError,
+    err: *mut *mut glib::ffi::GError,
 ) -> isize {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();

@@ -2,8 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use glib_sys;
-
 use glib::prelude::*;
 use glib::subclass::prelude::*;
 use glib::translate::*;
@@ -121,7 +119,8 @@ unsafe extern "C" fn stream_get_input_stream<T: IOStreamImpl>(
     // Ensure that a) the stream stays alive as long as the IO stream instance and
     // b) that the same stream is returned every time. This is a requirement by the
     // IO stream API.
-    let old_ptr = gobject_sys::g_object_get_qdata(ptr as *mut _, INPUT_STREAM_QUARK.to_glib());
+    let old_ptr =
+        glib::gobject_ffi::g_object_get_qdata(ptr as *mut _, INPUT_STREAM_QUARK.to_glib());
     if !old_ptr.is_null() {
         assert_eq!(
             old_ptr as *mut _,
@@ -130,13 +129,13 @@ unsafe extern "C" fn stream_get_input_stream<T: IOStreamImpl>(
         );
     }
 
-    unsafe extern "C" fn unref(ptr: glib_sys::gpointer) {
-        gobject_sys::g_object_unref(ptr as *mut _);
+    unsafe extern "C" fn unref(ptr: glib::ffi::gpointer) {
+        glib::gobject_ffi::g_object_unref(ptr as *mut _);
     }
-    gobject_sys::g_object_set_qdata_full(
+    glib::gobject_ffi::g_object_set_qdata_full(
         ptr as *mut _,
         INPUT_STREAM_QUARK.to_glib(),
-        gobject_sys::g_object_ref(ret.as_ptr() as *mut _) as *mut _,
+        glib::gobject_ffi::g_object_ref(ret.as_ptr() as *mut _) as *mut _,
         Some(unref),
     );
 
@@ -155,7 +154,8 @@ unsafe extern "C" fn stream_get_output_stream<T: IOStreamImpl>(
     // Ensure that a) the stream stays alive as long as the IO stream instance and
     // b) that the same stream is returned every time. This is a requirement by the
     // IO stream API.
-    let old_ptr = gobject_sys::g_object_get_qdata(ptr as *mut _, OUTPUT_STREAM_QUARK.to_glib());
+    let old_ptr =
+        glib::gobject_ffi::g_object_get_qdata(ptr as *mut _, OUTPUT_STREAM_QUARK.to_glib());
     if !old_ptr.is_null() {
         assert_eq!(
             old_ptr as *mut _,
@@ -164,13 +164,13 @@ unsafe extern "C" fn stream_get_output_stream<T: IOStreamImpl>(
         );
     }
 
-    unsafe extern "C" fn unref(ptr: glib_sys::gpointer) {
-        gobject_sys::g_object_unref(ptr as *mut _);
+    unsafe extern "C" fn unref(ptr: glib::ffi::gpointer) {
+        glib::gobject_ffi::g_object_unref(ptr as *mut _);
     }
-    gobject_sys::g_object_set_qdata_full(
+    glib::gobject_ffi::g_object_set_qdata_full(
         ptr as *mut _,
         OUTPUT_STREAM_QUARK.to_glib(),
-        gobject_sys::g_object_ref(ret.as_ptr() as *mut _) as *mut _,
+        glib::gobject_ffi::g_object_ref(ret.as_ptr() as *mut _) as *mut _,
         Some(unref),
     );
 
@@ -180,8 +180,8 @@ unsafe extern "C" fn stream_get_output_stream<T: IOStreamImpl>(
 unsafe extern "C" fn stream_close<T: IOStreamImpl>(
     ptr: *mut ffi::GIOStream,
     cancellable: *mut ffi::GCancellable,
-    err: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean {
+    err: *mut *mut glib::ffi::GError,
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<IOStream> = from_glib_borrow(ptr);
@@ -192,11 +192,11 @@ unsafe extern "C" fn stream_close<T: IOStreamImpl>(
             .as_ref()
             .as_ref(),
     ) {
-        Ok(_) => glib_sys::GTRUE,
+        Ok(_) => glib::ffi::GTRUE,
         Err(e) => {
             let mut e = mem::ManuallyDrop::new(e);
             *err = e.to_glib_none_mut().0;
-            glib_sys::GFALSE
+            glib::ffi::GFALSE
         }
     }
 }

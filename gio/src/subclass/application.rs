@@ -2,8 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use glib_sys;
-
 use glib::translate::*;
 
 use glib::subclass::prelude::*;
@@ -38,13 +36,13 @@ impl ArgumentList {
     // remove the item at index `idx` and shift the raw array
     pub fn remove(&mut self, idx: usize) {
         unsafe {
-            let n_args = glib_sys::g_strv_length(*self.ptr) as usize;
+            let n_args = glib::ffi::g_strv_length(*self.ptr) as usize;
             assert!(n_args == self.items.len());
             assert!(idx < n_args);
 
             self.items.remove(idx);
 
-            glib_sys::g_free((*self.ptr).add(idx) as *mut c_void);
+            glib::ffi::g_free((*self.ptr).add(idx) as *mut c_void);
 
             for i in idx..n_args - 1 {
                 ptr::write((*self.ptr).add(i), *(*self.ptr).add(i + 1))
@@ -244,7 +242,7 @@ impl<T: ApplicationImpl> ApplicationImplExt for T {
             arguments.refresh();
 
             match res {
-                glib_sys::GFALSE => None,
+                glib::ffi::GFALSE => None,
                 _ => Some(exit_status),
             }
         }
@@ -374,7 +372,7 @@ unsafe extern "C" fn application_activate<T: ApplicationImpl>(ptr: *mut ffi::GAp
 
 unsafe extern "C" fn application_after_emit<T: ApplicationImpl>(
     ptr: *mut ffi::GApplication,
-    platform_data: *mut glib_sys::GVariant,
+    platform_data: *mut glib::ffi::GVariant,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -384,7 +382,7 @@ unsafe extern "C" fn application_after_emit<T: ApplicationImpl>(
 }
 unsafe extern "C" fn application_before_emit<T: ApplicationImpl>(
     ptr: *mut ffi::GApplication,
-    platform_data: *mut glib_sys::GVariant,
+    platform_data: *mut glib::ffi::GVariant,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -406,7 +404,7 @@ unsafe extern "C" fn application_local_command_line<T: ApplicationImpl>(
     ptr: *mut ffi::GApplication,
     arguments: *mut *mut *mut c_char,
     exit_status: *mut i32,
-) -> glib_sys::gboolean {
+) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Application> = from_glib_borrow(ptr);
@@ -418,9 +416,9 @@ unsafe extern "C" fn application_local_command_line<T: ApplicationImpl>(
     match res {
         Some(ret) => {
             ptr::write(exit_status, ret);
-            glib_sys::GTRUE
+            glib::ffi::GTRUE
         }
-        None => glib_sys::GFALSE,
+        None => glib::ffi::GFALSE,
     }
 }
 unsafe extern "C" fn application_open<T: ApplicationImpl>(
@@ -471,7 +469,7 @@ unsafe extern "C" fn application_startup<T: ApplicationImpl>(ptr: *mut ffi::GApp
 
 unsafe extern "C" fn application_handle_local_options<T: ApplicationImpl>(
     ptr: *mut ffi::GApplication,
-    options: *mut glib_sys::GVariantDict,
+    options: *mut glib::ffi::GVariantDict,
 ) -> c_int {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
