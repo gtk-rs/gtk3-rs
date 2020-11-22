@@ -2,8 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use gio;
-use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::Error;
@@ -174,7 +172,7 @@ impl Pixbuf {
             R: FnOnce(Result<Pixbuf, Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut gio_sys::GAsyncResult,
+            res: *mut gio::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -230,7 +228,7 @@ impl Pixbuf {
             R: FnOnce(Result<Pixbuf, Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut gio_sys::GAsyncResult,
+            res: *mut gio::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -355,7 +353,7 @@ impl Pixbuf {
             Q: FnOnce(Result<Option<(PixbufFormat, i32, i32)>, Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut gio_sys::GAsyncResult,
+            res: *mut gio::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();
@@ -487,7 +485,7 @@ impl Pixbuf {
             R: FnOnce(Result<(), Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
-            res: *mut gio_sys::GAsyncResult,
+            res: *mut gio::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
             let mut error = ptr::null_mut();

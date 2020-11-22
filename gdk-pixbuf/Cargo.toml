@@ -39,9 +39,6 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 libc = "0.2"
 ffi = { package = "gdk-pixbuf-sys", path = "sys" }
 glib = { path = "../glib" }
-glib-sys = { path = "../glib/sys" }
-gobject-sys = { path = "../glib/gobject-sys" }
-gio-sys = { path = "../gio/sys" }
 gio = { path = "../gio" }
 
 [dev-dependencies]
