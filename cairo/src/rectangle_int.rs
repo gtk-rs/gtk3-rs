@@ -1,4 +1,3 @@
-use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use std::fmt;
@@ -58,8 +57,8 @@ impl FromGlibPtrNone<*const ffi::cairo_rectangle_int_t> for RectangleInt {
 #[cfg(feature = "use_glib")]
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*mut ffi::cairo_rectangle_int_t> for RectangleInt {
-    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_rectangle_int_t) -> ::Borrowed<Self> {
-        ::Borrowed::new(*(ptr as *mut RectangleInt))
+    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_rectangle_int_t) -> crate::Borrowed<Self> {
+        crate::Borrowed::new(*(ptr as *mut RectangleInt))
     }
 }
 

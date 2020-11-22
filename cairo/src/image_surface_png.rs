@@ -2,17 +2,17 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
+use crate::utils::status_to_result;
 use std::any::Any;
 use std::io::{self, Read, Write};
 use std::panic::AssertUnwindSafe;
 use std::slice;
-use utils::status_to_result;
 
 use libc::{c_uint, c_void};
 
-use error::{Error, IoError};
-use ffi::{self, cairo_status_t};
-use ImageSurface;
+use crate::error::{Error, IoError};
+use crate::ImageSurface;
+use ffi::cairo_status_t;
 
 struct ReadEnv<'a, R: 'a + Read> {
     reader: &'a mut R,
@@ -137,7 +137,7 @@ impl ImageSurface {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use enums::Format;
+    use crate::enums::Format;
     use std::io::ErrorKind;
 
     struct IoErrorReader;

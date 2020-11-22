@@ -2,29 +2,30 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use ffi;
-use font::{FontExtents, FontFace, FontOptions, Glyph, ScaledFont, TextCluster, TextExtents};
+use crate::font::{
+    FontExtents, FontFace, FontOptions, Glyph, ScaledFont, TextCluster, TextExtents,
+};
+use crate::matrices::Matrix;
+use crate::paths::Path;
+use crate::Rectangle;
+use crate::{
+    Antialias, Content, FillRule, FontSlant, FontWeight, LineCap, LineJoin, Operator,
+    TextClusterFlags,
+};
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use libc::c_int;
-use matrices::Matrix;
-use paths::Path;
 use std::ffi::CString;
 use std::fmt;
 use std::ops;
 use std::ptr;
 use std::slice;
-use Rectangle;
-use {
-    Antialias, Content, FillRule, FontSlant, FontWeight, LineCap, LineJoin, Operator,
-    TextClusterFlags,
-};
 
-use error::Error;
-use ffi::{cairo_rectangle_list_t, cairo_t};
-use patterns::Pattern;
-use surface::Surface;
-use utils::status_to_result;
+use crate::error::Error;
+use crate::ffi::{cairo_rectangle_list_t, cairo_t};
+use crate::patterns::Pattern;
+use crate::surface::Surface;
+use crate::utils::status_to_result;
 
 pub struct RectangleList {
     ptr: *mut cairo_rectangle_list_t,
@@ -97,7 +98,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_t> for Context {
 #[cfg(feature = "use_glib")]
 impl FromGlibPtrBorrow<*mut ffi::cairo_t> for Context {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_t) -> ::Borrowed<Context> {
+    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_t) -> crate::Borrowed<Context> {
         Self::from_raw_borrow(ptr)
     }
 }
@@ -140,9 +141,9 @@ impl Context {
     }
 
     #[inline]
-    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_t) -> ::Borrowed<Context> {
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_t) -> crate::Borrowed<Context> {
         assert!(!ptr.is_null());
-        ::Borrowed::new(Context(ptr::NonNull::new_unchecked(ptr)))
+        crate::Borrowed::new(Context(ptr::NonNull::new_unchecked(ptr)))
     }
 
     #[inline]
@@ -793,9 +794,9 @@ impl fmt::Display for Context {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use enums::Format;
-    use image_surface::ImageSurface;
-    use patterns::LinearGradient;
+    use crate::enums::Format;
+    use crate::image_surface::ImageSurface;
+    use crate::patterns::LinearGradient;
 
     fn create_ctx() -> Context {
         let surface = ImageSurface::create(Format::ARgb32, 10, 10).unwrap();

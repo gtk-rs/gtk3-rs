@@ -2,8 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use error::Error;
-use ffi;
+use crate::error::Error;
 use std::ffi::CStr;
 use std::fmt;
 

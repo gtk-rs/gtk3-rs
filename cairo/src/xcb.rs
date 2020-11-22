@@ -2,8 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use enums::SurfaceType;
-use ffi;
+use crate::enums::SurfaceType;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use std::convert::TryFrom;
@@ -11,9 +10,9 @@ use std::fmt;
 use std::ops::Deref;
 use std::ptr;
 
-use error::Error;
-use surface::Surface;
-use utils::status_to_result;
+use crate::error::Error;
+use crate::surface::Surface;
+use crate::utils::status_to_result;
 
 #[derive(Debug)]
 pub struct XCBDrawable(pub u32);
@@ -58,9 +57,9 @@ impl XCBConnection {
         XCBConnection(ptr::NonNull::new_unchecked(ptr))
     }
 
-    pub unsafe fn from_raw_borrow(ptr: *mut ffi::xcb_connection_t) -> ::Borrowed<XCBConnection> {
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::xcb_connection_t) -> Borrowed<XCBConnection> {
         assert!(!ptr.is_null());
-        ::Borrowed::new(XCBConnection(ptr::NonNull::new_unchecked(ptr)))
+        Borrowed::new(XCBConnection(ptr::NonNull::new_unchecked(ptr)))
     }
 
     pub unsafe fn from_raw_full(ptr: *mut ffi::xcb_connection_t) -> XCBConnection {
@@ -90,7 +89,7 @@ impl FromGlibPtrNone<*mut ffi::xcb_connection_t> for XCBConnection {
 #[cfg(feature = "use_glib")]
 impl FromGlibPtrBorrow<*mut ffi::xcb_connection_t> for XCBConnection {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut ffi::xcb_connection_t) -> ::Borrowed<XCBConnection> {
+    unsafe fn from_glib_borrow(ptr: *mut ffi::xcb_connection_t) -> Borrowed<XCBConnection> {
         Self::from_raw_borrow(ptr)
     }
 }
@@ -130,9 +129,9 @@ impl XCBRenderPictFormInfo {
 
     pub unsafe fn from_raw_borrow(
         ptr: *mut ffi::xcb_render_pictforminfo_t,
-    ) -> ::Borrowed<XCBRenderPictFormInfo> {
+    ) -> Borrowed<XCBRenderPictFormInfo> {
         assert!(!ptr.is_null());
-        ::Borrowed::new(XCBRenderPictFormInfo(ptr::NonNull::new_unchecked(ptr)))
+        Borrowed::new(XCBRenderPictFormInfo(ptr::NonNull::new_unchecked(ptr)))
     }
 
     pub unsafe fn from_raw_full(ptr: *mut ffi::xcb_render_pictforminfo_t) -> XCBRenderPictFormInfo {
@@ -166,7 +165,7 @@ impl FromGlibPtrBorrow<*mut ffi::xcb_render_pictforminfo_t> for XCBRenderPictFor
     #[inline]
     unsafe fn from_glib_borrow(
         ptr: *mut ffi::xcb_render_pictforminfo_t,
-    ) -> ::Borrowed<XCBRenderPictFormInfo> {
+    ) -> Borrowed<XCBRenderPictFormInfo> {
         Self::from_raw_borrow(ptr)
     }
 }
@@ -204,9 +203,9 @@ impl XCBScreen {
         XCBScreen(ptr::NonNull::new_unchecked(ptr))
     }
 
-    pub unsafe fn from_raw_borrow(ptr: *mut ffi::xcb_screen_t) -> ::Borrowed<XCBScreen> {
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::xcb_screen_t) -> Borrowed<XCBScreen> {
         assert!(!ptr.is_null());
-        ::Borrowed::new(XCBScreen(ptr::NonNull::new_unchecked(ptr)))
+        Borrowed::new(XCBScreen(ptr::NonNull::new_unchecked(ptr)))
     }
 
     pub unsafe fn from_raw_full(ptr: *mut ffi::xcb_screen_t) -> XCBScreen {
@@ -236,7 +235,7 @@ impl FromGlibPtrNone<*mut ffi::xcb_screen_t> for XCBScreen {
 #[cfg(feature = "use_glib")]
 impl FromGlibPtrBorrow<*mut ffi::xcb_screen_t> for XCBScreen {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut ffi::xcb_screen_t) -> ::Borrowed<XCBScreen> {
+    unsafe fn from_glib_borrow(ptr: *mut ffi::xcb_screen_t) -> Borrowed<XCBScreen> {
         Self::from_raw_borrow(ptr)
     }
 }
@@ -365,9 +364,9 @@ impl XCBVisualType {
         XCBVisualType(ptr::NonNull::new_unchecked(ptr))
     }
 
-    pub unsafe fn from_raw_borrow(ptr: *mut ffi::xcb_visualtype_t) -> ::Borrowed<XCBVisualType> {
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::xcb_visualtype_t) -> Borrowed<XCBVisualType> {
         assert!(!ptr.is_null());
-        ::Borrowed::new(XCBVisualType(ptr::NonNull::new_unchecked(ptr)))
+        Borrowed::new(XCBVisualType(ptr::NonNull::new_unchecked(ptr)))
     }
 
     pub unsafe fn from_raw_full(ptr: *mut ffi::xcb_visualtype_t) -> XCBVisualType {
@@ -397,7 +396,7 @@ impl FromGlibPtrNone<*mut ffi::xcb_visualtype_t> for XCBVisualType {
 #[cfg(feature = "use_glib")]
 impl FromGlibPtrBorrow<*mut ffi::xcb_visualtype_t> for XCBVisualType {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut ffi::xcb_visualtype_t) -> ::Borrowed<XCBVisualType> {
+    unsafe fn from_glib_borrow(ptr: *mut ffi::xcb_visualtype_t) -> Borrowed<XCBVisualType> {
         Self::from_raw_borrow(ptr)
     }
 }
@@ -422,7 +421,7 @@ impl fmt::Display for XCBVisualType {
     }
 }
 
-impl ::device::Device {
+impl crate::device::Device {
     pub fn get_connection(&self) -> XCBConnection {
         unsafe {
             XCBConnection::from_raw_full(ffi::cairo_xcb_device_get_connection(self.to_raw_none()))

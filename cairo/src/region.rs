@@ -2,17 +2,16 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use enums::RegionOverlap;
-use error::Error;
-use ffi;
+use crate::enums::RegionOverlap;
+use crate::error::Error;
+use crate::utils::status_to_result;
+use crate::RectangleInt;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use std::fmt;
 use std::ptr;
-use utils::status_to_result;
-use RectangleInt;
 
-use ffi::cairo_region_t;
+use crate::ffi::cairo_region_t;
 
 #[derive(Debug)]
 pub struct Region(ptr::NonNull<cairo_region_t>);
@@ -59,7 +58,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_region_t> for Region {
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*mut ffi::cairo_region_t> for Region {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_region_t) -> ::Borrowed<Region> {
+    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_region_t) -> crate::Borrowed<Region> {
         Self::from_raw_borrow(ptr)
     }
 }
@@ -111,9 +110,9 @@ impl Region {
     }
 
     #[inline]
-    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_region_t) -> ::Borrowed<Region> {
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_region_t) -> crate::Borrowed<Region> {
         assert!(!ptr.is_null());
-        ::Borrowed::new(Region(ptr::NonNull::new_unchecked(ptr)))
+        crate::Borrowed::new(Region(ptr::NonNull::new_unchecked(ptr)))
     }
 
     #[inline]

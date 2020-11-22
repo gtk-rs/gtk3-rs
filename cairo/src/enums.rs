@@ -6,15 +6,10 @@ use std::fmt::{self, Debug};
 use std::i32;
 use std::u32;
 
-use error::Error;
-use ffi;
+use crate::error::Error;
 
 #[cfg(feature = "use_glib")]
-use glib;
-#[cfg(feature = "use_glib")]
 use glib::translate::*;
-#[cfg(feature = "use_glib")]
-use gobject_ffi;
 
 // Helper macro for our GValue related trait impls
 #[cfg(feature = "use_glib")]
@@ -34,13 +29,13 @@ macro_rules! gvalue_impl {
 
         impl<'a> glib::value::FromValue<'a> for $name {
             unsafe fn from_value(value: &glib::value::Value) -> Self {
-                Self::from(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+                Self::from(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
             }
         }
 
         impl glib::value::SetValue for $name {
             unsafe fn set_value(value: &mut glib::value::Value, this: &Self) {
-                gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, (*this).into())
+                glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, (*this).into())
             }
         }
     };
@@ -1478,7 +1473,7 @@ gvalue_impl!(
     ffi::gobject::cairo_gobject_region_overlap_get_type
 );
 
-bitflags! {
+bitflags::bitflags! {
     pub struct PdfOutline: i32 {
         const OPEN = ffi::PDF_OUTLINE_FLAG_OPEN;
         const BOLD = ffi::PDF_OUTLINE_FLAG_BOLD;

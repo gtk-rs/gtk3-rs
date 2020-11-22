@@ -9,17 +9,16 @@ use std::ops::Deref;
 use std::ptr;
 use std::slice;
 
-use enums::{Content, Format, SurfaceType};
-use error::Error;
-use ffi;
+use crate::enums::{Content, Format, SurfaceType};
+use crate::error::Error;
+use crate::utils::status_to_result;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
-use utils::status_to_result;
 
-use device::Device;
-use image_surface::ImageSurface;
-use rectangle::Rectangle;
-use rectangle_int::RectangleInt;
+use crate::device::Device;
+use crate::image_surface::ImageSurface;
+use crate::rectangle::Rectangle;
+use crate::rectangle_int::RectangleInt;
 
 #[derive(Debug)]
 pub struct Surface(ptr::NonNull<ffi::cairo_surface_t>);
@@ -31,9 +30,9 @@ impl Surface {
         Surface(ptr::NonNull::new_unchecked(ptr))
     }
 
-    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_surface_t) -> ::Borrowed<Surface> {
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_surface_t) -> crate::Borrowed<Surface> {
         assert!(!ptr.is_null());
-        ::Borrowed::new(Surface(ptr::NonNull::new_unchecked(ptr)))
+        crate::Borrowed::new(Surface(ptr::NonNull::new_unchecked(ptr)))
     }
 
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<Surface, Error> {
@@ -284,7 +283,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for Surface {
 #[cfg(feature = "use_glib")]
 impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for Surface {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> ::Borrowed<Surface> {
+    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> crate::Borrowed<Surface> {
         Self::from_raw_borrow(ptr)
     }
 }
@@ -376,9 +375,9 @@ impl fmt::Display for MappedImageSurface {
 
 #[cfg(test)]
 mod tests {
-    use constants::MIME_TYPE_PNG;
-    use Format;
-    use ImageSurface;
+    use crate::constants::MIME_TYPE_PNG;
+    use crate::Format;
+    use crate::ImageSurface;
 
     #[test]
     fn mime_data() {

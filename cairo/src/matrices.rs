@@ -2,10 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use error::Error;
-use ffi;
+use crate::error::Error;
+use crate::utils::status_to_result;
 use libc::c_double;
-use utils::status_to_result;
 
 #[repr(C)]
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -140,7 +139,7 @@ mod tests {
                 }
             };
         }
-        use ffi::Matrix as FfiMatrix;
+        use crate::ffi::Matrix as FfiMatrix;
         let transmuted: Matrix = unsafe { std::mem::transmute(dummy_values!(FfiMatrix)) };
         assert_eq!(transmuted, dummy_values!(Matrix));
     }

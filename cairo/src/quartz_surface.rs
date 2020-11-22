@@ -8,7 +8,6 @@ use std::ops::Deref;
 
 use enums::{Format, SurfaceType};
 use error::Error;
-use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use surface::Surface;
