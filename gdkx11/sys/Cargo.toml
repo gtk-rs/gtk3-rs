@@ -34,20 +34,8 @@ x11 = "2.18"
 [dependencies.gdk-sys]
 path = "../../gdk/sys"
 
-[dependencies.gdk-pixbuf-sys]
-path = "../../gdk-pixbuf/sys"
-
-[dependencies.gio-sys]
-path = "../../gio/sys"
-
 [dependencies.glib-sys]
 path = "../../glib/sys"
-
-[dependencies.gobject-sys]
-path = "../../glib/gobject-sys"
-
-[dependencies.pango-sys]
-path = "../../pango/sys"
 
 [dependencies.cairo]
 package = "cairo-sys-rs"

@@ -7,11 +7,7 @@ single_version_file = "."
 
 external_libraries = [
    "Gdk",
-   "GdkPixbuf",
-   "Gio",
    "GLib",
-   "GObject",
-   "Pango"
 ]
 
 ignore = [
