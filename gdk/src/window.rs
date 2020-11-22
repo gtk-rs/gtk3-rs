@@ -7,7 +7,6 @@ use crate::EventMask;
 use crate::Visual;
 use crate::Window;
 use cairo::{self, Surface};
-use gdk_pixbuf;
 use glib::object::IsA;
 use glib::translate::*;
 use libc::{c_char, c_int};

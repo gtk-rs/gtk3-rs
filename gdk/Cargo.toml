@@ -39,11 +39,7 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 [dependencies]
 libc = "0.2"
 bitflags = "1.0"
-glib-sys = { path = "../glib/sys" }
 ffi = { package = "gdk-sys", path = "sys" }
-gio-sys = { path = "../gio/sys" }
-gobject-sys = { path = "../glib/gobject-sys" }
-cairo-sys-rs = { path = "../cairo/sys" }
 cairo-rs = { path = "../cairo" }
 gdk-pixbuf = { path = "../gdk-pixbuf" }
 gio = { path = "../gio" }

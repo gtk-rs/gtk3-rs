@@ -2,9 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-use cairo;
 use glib::translate::*;
-use pango;
 
 #[repr(packed)]
 pub struct GRange(pub i32, pub i32);
