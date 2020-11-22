@@ -376,7 +376,7 @@ mod tests {
             strm.write_all_async(
                 buf,
                 glib::PRIORITY_DEFAULT_IDLE,
-                ::NONE_CANCELLABLE,
+                crate::NONE_CANCELLABLE,
                 move |ret| {
                     tx.send(ret).unwrap();
                     l.quit();
