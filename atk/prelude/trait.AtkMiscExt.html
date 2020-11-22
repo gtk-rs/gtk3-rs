@@ -7,13 +7,13 @@
 }</pre></div><div class="docblock"><p>Trait containing all <code>Misc</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
 <p><a href="struct.Misc.html"><code>Misc</code></a></p>
-</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.threads_enter" class="method"><code>pub fn <a href="#tymethod.threads_enter" class="fnname">threads_enter</a>(&amp;self)</code></h3><div class="docblock"><p>Take the thread mutex for the GUI toolkit,
+</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.threads_enter" class="method"><code>pub fn <a href="#tymethod.threads_enter" class="fnname">threads_enter</a>(&amp;self)</code><a class="srclink" href="../../src/atk/auto/misc.rs.html#50" title="goto source code">[src]</a></h3><div class="docblock"><p>Take the thread mutex for the GUI toolkit,
 if one exists.
 (This method is implemented by the toolkit ATK implementation layer;
 for instance, for GTK+, GAIL implements this via GDK_THREADS_ENTER).</p>
 <h1 id="deprecated" class="section-header"><a href="#deprecated">Deprecated</a></h1>
 <p>Since 2.12.</p>
-</div><h3 id="tymethod.threads_leave" class="method"><code>pub fn <a href="#tymethod.threads_leave" class="fnname">threads_leave</a>(&amp;self)</code></h3><div class="docblock"><p>Release the thread mutex for the GUI toolkit,
+</div><h3 id="tymethod.threads_leave" class="method"><code>pub fn <a href="#tymethod.threads_leave" class="fnname">threads_leave</a>(&amp;self)</code><a class="srclink" href="../../src/atk/auto/misc.rs.html#65" title="goto source code">[src]</a></h3><div class="docblock"><p>Release the thread mutex for the GUI toolkit,
 if one exists. This method, and atk_misc_threads_enter,
 are needed in some situations by threaded application code which
 services ATK requests, since fulfilling ATK requests often

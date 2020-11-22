@@ -7,13 +7,13 @@
 }</pre></div><div class="docblock"><p>Trait containing all <code>SettingsBackend</code> methods.</p>
 <h1 id="implementors-1" class="section-header"><a href="#implementors-1">Implementors</a></h1>
 <p><a href="struct.SettingsBackend.html"><code>SettingsBackend</code></a></p>
-</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.path_writable_changed" class="method"><code>pub fn <a href="#tymethod.path_writable_changed" class="fnname">path_writable_changed</a>(&amp;self, path: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code></h3><div class="docblock"><p>Signals that the writability of all keys below a given path may have
+</div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.path_writable_changed" class="method"><code>pub fn <a href="#tymethod.path_writable_changed" class="fnname">path_writable_changed</a>(&amp;self, path: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gio/auto/settings_backend.rs.html#60" title="goto source code">[src]</a></h3><div class="docblock"><p>Signals that the writability of all keys below a given path may have
 changed.</p>
 <p>Since GSettings performs no locking operations for itself, this call
 will always be made in response to external events.</p>
 <h2 id="path" class="section-header"><a href="#path"><code>path</code></a></h2>
 <p>the name of the path</p>
-</div><h3 id="tymethod.writable_changed" class="method"><code>pub fn <a href="#tymethod.writable_changed" class="fnname">writable_changed</a>(&amp;self, key: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code></h3><div class="docblock"><p>Signals that the writability of a single key has possibly changed.</p>
+</div><h3 id="tymethod.writable_changed" class="method"><code>pub fn <a href="#tymethod.writable_changed" class="fnname">writable_changed</a>(&amp;self, key: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gio/auto/settings_backend.rs.html#68" title="goto source code">[src]</a></h3><div class="docblock"><p>Signals that the writability of a single key has possibly changed.</p>
 <p>Since GSettings performs no locking operations for itself, this call
 will always be made in response to external events.</p>
 <h2 id="key" class="section-header"><a href="#key"><code>key</code></a></h2>
