@@ -17,8 +17,8 @@ binary) to either &quot;all&quot; or <a href="https://gtk-rs.org/docs/glib/const
 <div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">CLONE_MACRO_LOG_DOMAIN</span>;
 
-::<span class="ident">std</span>::<span class="ident">env</span>::<span class="ident">set_var</span>(<span class="string">&quot;G_MESSAGES_DEBUG&quot;</span>, <span class="ident">CLONE_MACRO_LOG_DOMAIN</span>);
-::<span class="ident">std</span>::<span class="ident">env</span>::<span class="ident">set_var</span>(<span class="string">&quot;G_MESSAGES_DEBUG&quot;</span>, <span class="string">&quot;all&quot;</span>);</pre></div>
+<span class="ident">std</span>::<span class="ident">env</span>::<span class="ident">set_var</span>(<span class="string">&quot;G_MESSAGES_DEBUG&quot;</span>, <span class="ident">CLONE_MACRO_LOG_DOMAIN</span>);
+<span class="ident">std</span>::<span class="ident">env</span>::<span class="ident">set_var</span>(<span class="string">&quot;G_MESSAGES_DEBUG&quot;</span>, <span class="string">&quot;all&quot;</span>);</pre></div>
 <p>Or:</p>
 <pre><code class="language-bash">$ G_MESSAGES_DEBUG=all ./binary
 </code></pre>
