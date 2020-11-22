@@ -50,7 +50,7 @@ v2_64 = ["v2_62", "ffi/v2_64"]
 v2_66 = ["v2_64", "ffi/v2_66"]
 log = ["rs-log"]
 log_macros = ["log"]
-dox = ["ffi/dox", "ffi/dox", "log_macros"]
+dox = ["ffi/dox", "gobject_ffi/dox", "log_macros"]
 
 [package.metadata.docs.rs]
 features = ["dox"]
