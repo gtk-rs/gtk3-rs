@@ -450,7 +450,7 @@ impl_from_glib_container_as_vec_string!(GString, *mut c_char);
 #[cfg(test)]
 #[allow(clippy::blacklisted_name)]
 mod tests {
-    use gstring::GString;
+    use super::GString;
     use std::ffi::CString;
 
     #[test]

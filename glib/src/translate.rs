@@ -2248,7 +2248,7 @@ mod tests {
     use std::fs;
 
     use super::*;
-    use gstring::GString;
+    use crate::GString;
     use std::collections::HashMap;
 
     #[test]

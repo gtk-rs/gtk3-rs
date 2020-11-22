@@ -353,7 +353,7 @@ impl Eq for VariantType {}
 #[cfg(test)]
 mod tests {
     use super::*;
-    use value::ToValue;
+    use crate::ToValue;
 
     unsafe fn equal<T, U>(ptr1: *const T, ptr2: *const U) -> bool {
         from_glib(ffi::g_variant_type_equal(

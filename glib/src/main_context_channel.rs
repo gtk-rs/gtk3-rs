@@ -524,12 +524,12 @@ impl MainContext {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::MainLoop;
     use std::cell::RefCell;
     use std::rc::Rc;
     use std::sync::atomic::{AtomicBool, Ordering};
     use std::thread;
     use std::time;
-    use MainLoop;
 
     #[test]
     fn test_channel() {

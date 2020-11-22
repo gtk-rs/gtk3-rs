@@ -320,7 +320,7 @@ mod test {
     use super::super::super::subclass;
     use super::super::super::value::{ToValue, Value};
     use super::*;
-    use prelude::*;
+    use crate::prelude::*;
 
     use std::cell::RefCell;
 

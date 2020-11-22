@@ -225,7 +225,7 @@ mod tests {
 
     #[test]
     fn test_filename_from_uri() {
-        use gstring::GString;
+        use crate::GString;
         use std::path::PathBuf;
         let uri: GString = "file:///foo/bar.txt".into();
         if let Ok((filename, hostname)) = crate::filename_from_uri(&uri) {

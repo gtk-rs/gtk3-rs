@@ -133,8 +133,7 @@ mod tests {
     use std::sync::Arc;
 
     use super::Closure;
-    use ToValue;
-    use Value;
+    use crate::{ToValue, Value};
 
     fn closure_fn(values: &[Value]) -> Option<Value> {
         assert_eq!(values.len(), 2);
