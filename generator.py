@@ -100,18 +100,32 @@ def regen_crates(path, conf, level=0):
     return True
 
 
+def directory_path(path):
+    path = Path(path)
+    if not path.is_dir():
+        raise argparse.ArgumentTypeError("`{}` directory not found".format(path))
+    return path
+
+
+def file_path(path):
+    path = Path(path)
+    if not path.is_file():
+        raise argparse.ArgumentTypeError("`{}` file not found".format(path))
+    return path
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description='Helper to regenerate gtk-rs crates using gir.',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('path', nargs="*", default=[Path('.')],
-                        type=Path,
+                        type=directory_path,
                         help='Paths in which to look for Gir.toml files')
     parser.add_argument('--gir-files', dest="gir_files_path", default=DEFAULT_GIR_FILES_DIRECTORY,
-                        type=Path,
+                        type=directory_path,
                         help='Path of the gir-files folder')
     parser.add_argument('--gir-path', default=DEFAULT_GIR_PATH,
-                        type=Path,
+                        type=file_path,
                         help='Path of the gir executable to run')
     parser.add_argument('--yes', action='store_true',
                         help=' Always answer `yes` to any question asked by the script')
@@ -127,16 +141,10 @@ def main():
     if conf.gir_files_path == DEFAULT_GIR_FILES_DIRECTORY:
         if def_check_submodule(conf.gir_files_path, conf) == FAILURE:
             return 1
-    elif not conf.gir_files_path.is_dir():
-        print("`{}` dir doesn't exist. Aborting...".format(conf.gir_files_path))
-        return 1
 
     if conf.gir_path == DEFAULT_GIR_PATH:
         if not build_gir_if_needed(def_check_submodule(DEFAULT_GIR_DIRECTORY, conf)):
             return 1
-    elif not conf.gir_path.is_file():
-        print("`{}` file doesn't exist. Aborting...".format(conf.gir_path))
-        return 1
 
     print('=> Regenerating crates...')
     for path in conf.path:
