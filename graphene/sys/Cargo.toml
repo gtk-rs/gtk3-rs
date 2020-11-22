@@ -8,9 +8,6 @@ libc = "0.2"
 [dependencies.glib-sys]
 path = "../../glib/sys"
 
-[dependencies.gobject-sys]
-path = "../../glib/gobject-sys"
-
 [dev-dependencies]
 shell-words = "1.0.0"
 tempfile = "3"

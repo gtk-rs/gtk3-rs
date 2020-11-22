@@ -9,7 +9,6 @@ single_version_file = "."
 
 external_libraries = [
    "GLib",
-   "GObject",
 ]
 
 ignore = [

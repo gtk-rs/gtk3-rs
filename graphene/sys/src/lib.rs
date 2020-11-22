@@ -11,7 +11,6 @@
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 use glib_sys as glib;
-use gobject_sys as gobject;
 
 #[allow(unused_imports)]
 use libc::{
