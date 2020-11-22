@@ -11,8 +11,9 @@ NOTHING_TO_BE_DONE = 0
 NEED_UPDATE = 1
 FAILURE = 2
 
-DEFAULT_GIR_DIRECTORY = 'gir-files'
-DEFAULT_GIR_PATH = './gir/target/release/gir'
+DEFAULT_GIR_FILES_DIRECTORY = './gir-files'
+DEFAULT_GIR_DIRECTORY = './gir/'
+DEFAULT_GIR_PATH = DEFAULT_GIR_DIRECTORY + 'target/release/gir'
 
 
 def run_command(command, folder=None):
@@ -85,7 +86,7 @@ def regen_crates(path, conf, level=0):
         elif entry.startswith("Gir") and entry.endswith(".toml"):
             print('==> Regenerating "{}"...'.format(entry_file))
 
-            args = [conf.gir_path, '-c', entry_file, '-o', path, '-d', conf.gir_directory]
+            args = [conf.gir_path, '-c', entry_file, '-o', path, '-d', conf.gir_files_path]
             if level > 1:
                 args.append('-m')
                 args.append('sys')
@@ -102,13 +103,13 @@ def regen_crates(path, conf, level=0):
     return True
 
 
-def parse_args(args):
+def parse_args():
     parser = argparse.ArgumentParser(description='Helper to regenerate gtk-rs crates using gir.',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('path', nargs="*", default='.',
                         help='Paths in which to look for Gir.toml files')
-    parser.add_argument('--gir-directory', default=DEFAULT_GIR_DIRECTORY,
+    parser.add_argument('--gir-files', dest="gir_files_path", default=DEFAULT_GIR_FILES_DIRECTORY,
                         help='Path of the gir-files folder')
     parser.add_argument('--gir-path', default=DEFAULT_GIR_PATH,
                         help='Path of the gir executable to run')
@@ -121,19 +122,17 @@ def parse_args(args):
 
 
 def main():
-    gir_path = None
+    conf = parse_args()
 
-    conf = parse_args(sys.argv[1:])
-
-    if conf.gir_directory == DEFAULT_GIR_DIRECTORY:
-        if def_check_submodule("gir-files", conf) == FAILURE:
+    if conf.gir_files_path == DEFAULT_GIR_FILES_DIRECTORY:
+        if def_check_submodule(conf.gir_files_path, conf) == FAILURE:
             return 1
-    elif not isdir(conf.gir_directory):
-        print("`{}` dir doesn't exist. Aborting...".format(conf.gir_directory))
+    elif not isdir(conf.gir_files_path):
+        print("`{}` dir doesn't exist. Aborting...".format(conf.gir_files_path))
         return 1
 
     if conf.gir_path == DEFAULT_GIR_PATH:
-        if not build_gir_if_needed(def_check_submodule("gir", conf)):
+        if not build_gir_if_needed(def_check_submodule(DEFAULT_GIR_DIRECTORY, conf)):
             return 1
     elif not isfile(conf.gir_path):
         print("`{}` file doesn't exist. Aborting...".format(conf.gir_path))
