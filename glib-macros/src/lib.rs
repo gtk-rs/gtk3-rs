@@ -257,8 +257,8 @@ pub fn genum_derive(input: TokenStream) -> TokenStream {
 /// use glib::prelude::*;
 /// use glib::subclass::prelude::*;
 ///
-/// #[derive(Clone, Debug, PartialEq, Eq, GBoxed)]
-/// #[glib::gboxed(type_name = "MyBoxed")]
+/// #[derive(Clone, Debug, PartialEq, Eq, glib::GBoxed)]
+/// #[gboxed(type_name = "MyBoxed")]
 /// struct MyBoxed(String);
 /// ```
 ///
