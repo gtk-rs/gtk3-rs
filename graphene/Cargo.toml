@@ -35,8 +35,6 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 
 [dependencies]
 libc = "0.2"
-glib-sys = { path = "../glib/sys" }
-gobject-sys = { path = "../glib/gobject-sys" }
 glib = { path = "../glib" }
 ffi = { package = "graphene-sys", path = "sys" }
 
