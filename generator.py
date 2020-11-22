@@ -73,27 +73,34 @@ def build_gir_if_needed(updated_submodule):
 
 
 def regen_crates(path, conf, level=0):
-    for entry in path.iterdir():
-        if entry.is_dir():
-            if level < 2 and not regen_crates(entry, conf, level + 1):
+    if path.is_dir():
+        for entry in path.iterdir():
+            if level < 3 and not regen_crates(entry, conf, level + 1):
                 return False
-        elif entry.name.startswith("Gir") and entry.suffix == ".toml":
-            print('==> Regenerating "{}"...'.format(entry))
+    elif path.name.startswith("Gir") and path.suffix == ".toml":
+        print('==> Regenerating "{}"...'.format(path))
 
-            args = [conf.gir_path, '-c', entry, '-o', entry.parent, '-d', conf.gir_files_path]
-            if entry.parent.name.endswith("sys"):
-                args.extend(['-m', 'sys'])
-            error = False
-            try:
-                error = not run_command(args)
-            except Exception as err:
-                print('The following error occurred: {}'.format(err))
-                error = True
-            if error:
-                if not ask_yes_no_question('Do you want to continue?', conf):
-                    return False
-            print('<== Done!')
+        args = [conf.gir_path, '-c', path, '-o', path.parent, '-d', conf.gir_files_path]
+        if path.parent.name.endswith("sys"):
+            args.extend(['-m', 'sys'])
+        error = False
+        try:
+            error = not run_command(args)
+        except Exception as err:
+            print('The following error occurred: {}'.format(err))
+            error = True
+        if error:
+            if not ask_yes_no_question('Do you want to continue?', conf):
+                return False
+        print('<== Done!')
     return True
+
+
+def valid_path(path):
+    path = Path(path)
+    if not path.exists():
+        raise argparse.ArgumentTypeError("`{}` no such file or directory".format(path))
+    return path
 
 
 def directory_path(path):
@@ -115,7 +122,7 @@ def parse_args():
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('path', nargs="*", default=[Path('.')],
-                        type=directory_path,
+                        type=valid_path,
                         help='Paths in which to look for Gir.toml files')
     parser.add_argument('--gir-files', dest="gir_files_path", default=DEFAULT_GIR_FILES_DIRECTORY,
                         type=directory_path,
