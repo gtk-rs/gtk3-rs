@@ -21,7 +21,7 @@
 //! #[derive(Debug, Eq, PartialEq, Clone, Copy, glib::GEnum)]
 //! #[repr(u32)]
 //! // type_name: GType name of the GEnum (mandatory)
-//! #[glib::GEnum(type_name = "SimpleObjectAnimal")]
+//! #[genum(type_name = "SimpleObjectAnimal")]
 //! enum Animal {
 //!   Goat = 0,
 //!   #[genum(name = "The Dog")]
@@ -241,7 +241,7 @@
 //! use glib::subclass::prelude::*;
 //!
 //! #[derive(Clone, Debug, PartialEq, Eq, glib::GBoxed)]
-//! #[glib::GBoxed(type_name = "MyBoxed")]
+//! #[gboxed(type_name = "MyBoxed")]
 //! struct MyBoxed(String);
 //!
 //! pub fn main() {

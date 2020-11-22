@@ -57,7 +57,7 @@ pub enum GlibLoggerDomain {
 ///
 /// Example:
 ///
-/// ```no_run
+/// ```no_compile
 /// static glib_logger: glib::GlibLogger = glib::GlibLogger::new(
 ///     glib::GlibLoggerFormat::Plain,
 ///     glib::GlibLoggerDomain::CrateTarget,
@@ -81,7 +81,7 @@ impl GlibLogger {
     ///
     /// Example:
     ///
-    /// ```no_run
+    /// ```no_compile
     /// static glib_logger: glib::GlibLogger = glib::GlibLogger::new(
     ///     glib::GlibLoggerFormat::Plain,
     ///     glib::GlibLoggerDomain::CrateTarget,
