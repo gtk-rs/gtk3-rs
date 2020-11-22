@@ -15,8 +15,6 @@ use crate::SizeRequestMode;
 use crate::TextDirection;
 use crate::Widget;
 use crate::WidgetExt;
-use cairo;
-use cairo_sys;
 
 pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
     fn adjust_baseline_allocation(&self, widget: &Self::Type, baseline: &mut i32) {
@@ -1103,7 +1101,7 @@ unsafe extern "C" fn widget_adjust_size_request<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_button_press_event<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    btnptr: *mut gdk_sys::GdkEventButton,
+    btnptr: *mut gdk::ffi::GdkEventButton,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1116,7 +1114,7 @@ unsafe extern "C" fn widget_button_press_event<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_button_release_event<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    btnptr: *mut gdk_sys::GdkEventButton,
+    btnptr: *mut gdk::ffi::GdkEventButton,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1177,7 +1175,7 @@ unsafe extern "C" fn widget_compute_expand<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_configure_event<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    confptr: *mut gdk_sys::GdkEventConfigure,
+    confptr: *mut gdk::ffi::GdkEventConfigure,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1190,7 +1188,7 @@ unsafe extern "C" fn widget_configure_event<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_damage_event<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    exposeptr: *mut gdk_sys::GdkEventExpose,
+    exposeptr: *mut gdk::ffi::GdkEventExpose,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1202,7 +1200,7 @@ unsafe extern "C" fn widget_damage_event<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_delete_event<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    anyptr: *mut gdk_sys::GdkEventAny,
+    anyptr: *mut gdk::ffi::GdkEventAny,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1222,7 +1220,7 @@ unsafe extern "C" fn widget_destroy<T: WidgetImpl>(ptr: *mut ffi::GtkWidget) {
 
 unsafe extern "C" fn widget_destroy_event<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    anyptr: *mut gdk_sys::GdkEventAny,
+    anyptr: *mut gdk::ffi::GdkEventAny,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1260,7 +1258,7 @@ unsafe extern "C" fn widget_dispatch_child_properties_changed<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_drag_begin<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1272,7 +1270,7 @@ unsafe extern "C" fn widget_drag_begin<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_drag_data_delete<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1284,7 +1282,7 @@ unsafe extern "C" fn widget_drag_data_delete<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_drag_data_get<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
     selectptr: *mut ffi::GtkSelectionData,
     info: u32,
     time: u32,
@@ -1306,7 +1304,7 @@ unsafe extern "C" fn widget_drag_data_get<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_drag_data_received<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
     x: i32,
     y: i32,
     selectptr: *mut ffi::GtkSelectionData,
@@ -1332,7 +1330,7 @@ unsafe extern "C" fn widget_drag_data_received<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_drag_drop<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
     x: i32,
     y: i32,
     time: u32,
@@ -1348,7 +1346,7 @@ unsafe extern "C" fn widget_drag_drop<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_drag_end<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1360,7 +1358,7 @@ unsafe extern "C" fn widget_drag_end<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_drag_failed<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
     resultptr: ffi::GtkDragResult,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
@@ -1375,7 +1373,7 @@ unsafe extern "C" fn widget_drag_failed<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_drag_leave<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
     time: u32,
 ) {
     let instance = &*(ptr as *mut T::Instance);
@@ -1388,7 +1386,7 @@ unsafe extern "C" fn widget_drag_leave<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_drag_motion<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    ctxptr: *mut gdk_sys::GdkDragContext,
+    ctxptr: *mut gdk::ffi::GdkDragContext,
     x: i32,
     y: i32,
     time: u32,
@@ -1404,7 +1402,7 @@ unsafe extern "C" fn widget_drag_motion<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_draw<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    cr_ptr: *mut cairo_sys::cairo_t,
+    cr_ptr: *mut cairo::ffi::cairo_t,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1542,7 +1540,7 @@ unsafe extern "C" fn widget_unmap<T: WidgetImpl>(ptr: *mut ffi::GtkWidget) {
 
 unsafe extern "C" fn widget_motion_notify_event<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    mptr: *mut gdk_sys::GdkEventMotion,
+    mptr: *mut gdk::ffi::GdkEventMotion,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -1555,7 +1553,7 @@ unsafe extern "C" fn widget_motion_notify_event<T: WidgetImpl>(
 
 unsafe extern "C" fn widget_scroll_event<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
-    mptr: *mut gdk_sys::GdkEventScroll,
+    mptr: *mut gdk::ffi::GdkEventScroll,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();

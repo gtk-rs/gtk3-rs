@@ -180,7 +180,7 @@ impl<O: IsA<TextBuffer>> TextBufferExtManual for O {
         >(
             this: *mut ffi::GtkTextBuffer,
             location: *mut ffi::GtkTextIter,
-            pixbuf: *mut gdk_pixbuf_sys::GdkPixbuf,
+            pixbuf: *mut gdk_pixbuf::ffi::GdkPixbuf,
             f: glib::ffi::gpointer,
         ) where
             P: IsA<TextBuffer>,

@@ -1,8 +1,4 @@
 use crate::Widget;
-use cairo;
-use gdk;
-use gdk_pixbuf;
-use gio;
 use glib::object::IsA;
 use glib::translate::*;
 

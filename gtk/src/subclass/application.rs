@@ -82,7 +82,7 @@ unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
         }
 
         unsafe extern "C" fn application_startup<T: GtkApplicationImpl>(
-            ptr: *mut gio_sys::GApplication,
+            ptr: *mut gio::ffi::GApplication,
         ) {
             let instance = &*(ptr as *mut T::Instance);
             let imp = instance.get_impl();

@@ -1,5 +1,3 @@
-use gdk_sys;
-
 use libc::{c_char, c_uint};
 
 use glib::subclass::prelude::*;
@@ -99,7 +97,7 @@ unsafe extern "C" fn cell_renderer_accel_edited<T: CellRendererAccelImpl>(
     ptr: *mut ffi::GtkCellRendererAccel,
     path: *const c_char,
     accel_key: c_uint,
-    accel_mods: gdk_sys::GdkModifierType,
+    accel_mods: gdk::ffi::GdkModifierType,
     hardware_keycode: c_uint,
 ) {
     let instance = &*(ptr as *mut T::Instance);

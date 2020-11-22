@@ -2,9 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use gdk;
 use gdk::{DragAction, Event, ModifierType};
-use gdk_sys;
 use glib::ffi::gboolean;
 use glib::object::{Cast, IsA, WeakRef};
 use glib::signal::{connect_raw, Inhibit, SignalHandlerId};
@@ -133,7 +131,7 @@ impl<O: IsA<Widget>> WidgetExtManual for O {
     ) -> SignalHandlerId {
         unsafe extern "C" fn event_any_trampoline<T, F: Fn(&T, &Event) -> Inhibit + 'static>(
             this: *mut ffi::GtkWidget,
-            event: *mut gdk_sys::GdkEventAny,
+            event: *mut gdk::ffi::GdkEventAny,
             f: &F,
         ) -> gboolean
         where
@@ -164,7 +162,7 @@ impl<O: IsA<Widget>> WidgetExtManual for O {
     ) -> SignalHandlerId {
         unsafe extern "C" fn event_any_trampoline<T, F: Fn(&T, &Event) -> Inhibit + 'static>(
             this: *mut ffi::GtkWidget,
-            event: *mut gdk_sys::GdkEventAny,
+            event: *mut gdk::ffi::GdkEventAny,
             f: &F,
         ) -> gboolean
         where
@@ -200,7 +198,7 @@ impl<O: IsA<Widget>> WidgetExtManual for O {
             P: Fn(&O, &gdk::FrameClock) -> Continue + 'static,
         >(
             widget: *mut ffi::GtkWidget,
-            frame_clock: *mut gdk_sys::GdkFrameClock,
+            frame_clock: *mut gdk::ffi::GdkFrameClock,
             user_data: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
             let widget: Borrowed<Widget> = from_glib_borrow(widget);

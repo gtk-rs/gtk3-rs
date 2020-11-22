@@ -1,10 +1,6 @@
-use cairo_sys;
-use gdk_sys;
-
 use libc::{c_char, c_int};
 use std::mem;
 
-use cairo;
 use glib::object::IsA;
 use glib::subclass::prelude::*;
 use glib::translate::*;
@@ -541,8 +537,8 @@ unsafe extern "C" fn cell_renderer_get_aligned_area<T: CellRendererImpl>(
     ptr: *mut ffi::GtkCellRenderer,
     wdgtptr: *mut ffi::GtkWidget,
     flags: ffi::GtkCellRendererState,
-    cellarea: *const gdk_sys::GdkRectangle,
-    alignedptr: *mut gdk_sys::GdkRectangle,
+    cellarea: *const gdk::ffi::GdkRectangle,
+    alignedptr: *mut gdk::ffi::GdkRectangle,
 ) {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
@@ -560,10 +556,10 @@ unsafe extern "C" fn cell_renderer_get_aligned_area<T: CellRendererImpl>(
 
 unsafe extern "C" fn cell_renderer_render<T: CellRendererImpl>(
     ptr: *mut ffi::GtkCellRenderer,
-    crptr: *mut cairo_sys::cairo_t,
+    crptr: *mut cairo::ffi::cairo_t,
     wdgtptr: *mut ffi::GtkWidget,
-    bgptr: *const gdk_sys::GdkRectangle,
-    cellptr: *const gdk_sys::GdkRectangle,
+    bgptr: *const gdk::ffi::GdkRectangle,
+    cellptr: *const gdk::ffi::GdkRectangle,
     flags: ffi::GtkCellRendererState,
 ) {
     let instance = &*(ptr as *mut T::Instance);
@@ -584,11 +580,11 @@ unsafe extern "C" fn cell_renderer_render<T: CellRendererImpl>(
 
 unsafe extern "C" fn cell_renderer_activate<T: CellRendererImpl>(
     ptr: *mut ffi::GtkCellRenderer,
-    evtptr: *mut gdk_sys::GdkEvent,
+    evtptr: *mut gdk::ffi::GdkEvent,
     wdgtptr: *mut ffi::GtkWidget,
     pathptr: *const c_char,
-    bgptr: *const gdk_sys::GdkRectangle,
-    cellptr: *const gdk_sys::GdkRectangle,
+    bgptr: *const gdk::ffi::GdkRectangle,
+    cellptr: *const gdk::ffi::GdkRectangle,
     flags: ffi::GtkCellRendererState,
 ) -> glib::ffi::gboolean {
     let instance = &*(ptr as *mut T::Instance);
@@ -611,11 +607,11 @@ unsafe extern "C" fn cell_renderer_activate<T: CellRendererImpl>(
 
 unsafe extern "C" fn cell_renderer_start_editing<T: CellRendererImpl>(
     ptr: *mut ffi::GtkCellRenderer,
-    evtptr: *mut gdk_sys::GdkEvent,
+    evtptr: *mut gdk::ffi::GdkEvent,
     wdgtptr: *mut ffi::GtkWidget,
     pathptr: *const c_char,
-    bgptr: *const gdk_sys::GdkRectangle,
-    cellptr: *const gdk_sys::GdkRectangle,
+    bgptr: *const gdk::ffi::GdkRectangle,
+    cellptr: *const gdk::ffi::GdkRectangle,
     flags: ffi::GtkCellRendererState,
 ) -> *mut ffi::GtkCellEditable {
     let instance = &*(ptr as *mut T::Instance);

@@ -3,7 +3,6 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use crate::Invisible;
-use gdk;
 use glib::translate::{from_glib_none, ToGlibPtr};
 use glib::IsA;
 

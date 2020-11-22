@@ -311,8 +311,8 @@ mod overlay {
     use crate::Overlay;
     use crate::Widget;
     use ffi::{GtkOverlay, GtkWidget};
+    use gdk::ffi::GdkRectangle;
     use gdk::Rectangle;
-    use gdk_sys::GdkRectangle;
     use glib::ffi::{gboolean, gpointer};
     use glib::object::Cast;
     use glib::signal::{connect_raw, SignalHandlerId};
