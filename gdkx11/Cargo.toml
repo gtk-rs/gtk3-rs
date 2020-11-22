@@ -38,21 +38,6 @@ libc = "0.2"
 x11 = "2.18"
 ffi = { package = "gdkx11-sys", path = "sys" }
 
-[dependencies.glib-sys]
-path = "../glib/sys"
-
-[dependencies.gobject-sys]
-path = "../glib/gobject-sys"
-
-[dependencies.gio-sys]
-path = "../gio/sys"
-
-[dependencies.gdk-sys]
-path = "../gdk/sys"
-
-[dependencies.gdk-pixbuf-sys]
-path = "../gdk-pixbuf/sys"
-
 [dependencies.glib]
 path = "../glib"
 
