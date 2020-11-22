@@ -85,7 +85,7 @@ def regen_crates(path, conf, level=0):
             print('==> Regenerating "{}"...'.format(entry))
 
             args = [conf.gir_path, '-c', entry, '-o', entry.parent, '-d', conf.gir_files_path]
-            if level > 1:
+            if entry.parent.name.endswith("sys"):
                 args.extend(['-m', 'sys'])
             error = False
             try:
