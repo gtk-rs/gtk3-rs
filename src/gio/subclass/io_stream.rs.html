@@ -203,14 +203,10 @@
 <span id="200">200</span>
 <span id="201">201</span>
 <span id="202">202</span>
-<span id="203">203</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2019, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
-
-<span class="kw">use</span> <span class="ident">gio_sys</span>;
-<span class="kw">use</span> <span class="ident">glib_sys</span>;
 
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
@@ -218,8 +214,8 @@
 
 <span class="kw">use</span> <span class="ident">glib</span>::{<span class="ident">Cast</span>, <span class="ident">Error</span>};
 
-<span class="kw">use</span> <span class="ident">Cancellable</span>;
-<span class="kw">use</span> <span class="ident">IOStream</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Cancellable</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">IOStream</span>;
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
@@ -256,7 +252,7 @@
     <span class="kw">fn</span> <span class="ident">parent_get_input_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">InputStream</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GIOStreamClass</span>;
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GIOStreamClass</span>;
             <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>)
                 .<span class="ident">get_input_stream</span>
                 .<span class="ident">expect</span>(<span class="string">&quot;No parent class implementation for \&quot;get_input_stream\&quot;&quot;</span>);
@@ -267,7 +263,7 @@
     <span class="kw">fn</span> <span class="ident">parent_get_output_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">OutputStream</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GIOStreamClass</span>;
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GIOStreamClass</span>;
             <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>)
                 .<span class="ident">get_output_stream</span>
                 .<span class="ident">expect</span>(<span class="string">&quot;No parent class implementation for \&quot;get_output_stream\&quot;&quot;</span>);
@@ -282,7 +278,7 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GIOStreamClass</span>;
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GIOStreamClass</span>;
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">err</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">close_fn</span> {
                 <span class="kw">if</span> <span class="ident">from_glib</span>(<span class="ident">f</span>(
@@ -318,8 +314,8 @@
     <span class="ident">Lazy</span>::<span class="ident">new</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">glib</span>::<span class="ident">Quark</span>::<span class="ident">from_string</span>(<span class="string">&quot;gtk-rs-subclass-input-stream&quot;</span>));
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">stream_get_input_stream</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">IOStreamImpl</span><span class="op">&gt;</span>(
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GIOStream</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GInputStream</span> {
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GIOStream</span>,
+) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GInputStream</span> {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">IOStream</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
@@ -329,7 +325,8 @@
     <span class="comment">// Ensure that a) the stream stays alive as long as the IO stream instance and</span>
     <span class="comment">// b) that the same stream is returned every time. This is a requirement by the</span>
     <span class="comment">// IO stream API.</span>
-    <span class="kw">let</span> <span class="ident">old_ptr</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_object_get_qdata</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="ident">INPUT_STREAM_QUARK</span>.<span class="ident">to_glib</span>());
+    <span class="kw">let</span> <span class="ident">old_ptr</span> <span class="op">=</span>
+        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_object_get_qdata</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="ident">INPUT_STREAM_QUARK</span>.<span class="ident">to_glib</span>());
     <span class="kw">if</span> <span class="op">!</span><span class="ident">old_ptr</span>.<span class="ident">is_null</span>() {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">old_ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
@@ -338,13 +335,13 @@
         );
     }
 
-    <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">unref</span>(<span class="ident">ptr</span>: <span class="ident">glib_sys</span>::<span class="ident">gpointer</span>) {
-        <span class="ident">gobject_sys</span>::<span class="ident">g_object_unref</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+    <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">unref</span>(<span class="ident">ptr</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>) {
+        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_object_unref</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
     }
-    <span class="ident">gobject_sys</span>::<span class="ident">g_object_set_qdata_full</span>(
+    <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_object_set_qdata_full</span>(
         <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
         <span class="ident">INPUT_STREAM_QUARK</span>.<span class="ident">to_glib</span>(),
-        <span class="ident">gobject_sys</span>::<span class="ident">g_object_ref</span>(<span class="ident">ret</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
+        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_object_ref</span>(<span class="ident">ret</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
         <span class="prelude-val">Some</span>(<span class="ident">unref</span>),
     );
 
@@ -352,8 +349,8 @@
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">stream_get_output_stream</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">IOStreamImpl</span><span class="op">&gt;</span>(
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GIOStream</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GOutputStream</span> {
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GIOStream</span>,
+) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GOutputStream</span> {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">IOStream</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
@@ -363,7 +360,8 @@
     <span class="comment">// Ensure that a) the stream stays alive as long as the IO stream instance and</span>
     <span class="comment">// b) that the same stream is returned every time. This is a requirement by the</span>
     <span class="comment">// IO stream API.</span>
-    <span class="kw">let</span> <span class="ident">old_ptr</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_object_get_qdata</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="ident">OUTPUT_STREAM_QUARK</span>.<span class="ident">to_glib</span>());
+    <span class="kw">let</span> <span class="ident">old_ptr</span> <span class="op">=</span>
+        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_object_get_qdata</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>, <span class="ident">OUTPUT_STREAM_QUARK</span>.<span class="ident">to_glib</span>());
     <span class="kw">if</span> <span class="op">!</span><span class="ident">old_ptr</span>.<span class="ident">is_null</span>() {
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="ident">old_ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
@@ -372,13 +370,13 @@
         );
     }
 
-    <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">unref</span>(<span class="ident">ptr</span>: <span class="ident">glib_sys</span>::<span class="ident">gpointer</span>) {
-        <span class="ident">gobject_sys</span>::<span class="ident">g_object_unref</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+    <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">unref</span>(<span class="ident">ptr</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>) {
+        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_object_unref</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
     }
-    <span class="ident">gobject_sys</span>::<span class="ident">g_object_set_qdata_full</span>(
+    <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_object_set_qdata_full</span>(
         <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
         <span class="ident">OUTPUT_STREAM_QUARK</span>.<span class="ident">to_glib</span>(),
-        <span class="ident">gobject_sys</span>::<span class="ident">g_object_ref</span>(<span class="ident">ret</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
+        <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_object_ref</span>(<span class="ident">ret</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
         <span class="prelude-val">Some</span>(<span class="ident">unref</span>),
     );
 
@@ -386,10 +384,10 @@
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">stream_close</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">IOStreamImpl</span><span class="op">&gt;</span>(
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GIOStream</span>,
-    <span class="ident">cancellable</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GCancellable</span>,
-    <span class="ident">err</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GError</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">gboolean</span> {
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GIOStream</span>,
+    <span class="ident">cancellable</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GCancellable</span>,
+    <span class="ident">err</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">GError</span>,
+) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gboolean</span> {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">IOStream</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
@@ -400,11 +398,11 @@
             .<span class="ident">as_ref</span>()
             .<span class="ident">as_ref</span>(),
     ) {
-        <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">GTRUE</span>,
+        <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">GTRUE</span>,
         <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">e</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">ManuallyDrop</span>::<span class="ident">new</span>(<span class="ident">e</span>);
             <span class="kw-2">*</span><span class="ident">err</span> <span class="op">=</span> <span class="ident">e</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>;
-            <span class="ident">glib_sys</span>::<span class="ident">GFALSE</span>
+            <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">GFALSE</span>
         }
     }
 }

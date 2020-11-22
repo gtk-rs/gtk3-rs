@@ -527,16 +527,13 @@
 <span id="524">524</span>
 <span id="525">525</span>
 <span id="526">526</span>
-<span id="527">527</span>
-<span id="528">528</span>
-<span id="529">529</span>
-<span id="530">530</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2018, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">libc</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">types</span>::{<span class="ident">StaticType</span>, <span class="ident">Type</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Borrow</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cmp</span>::<span class="ident">Ordering</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::{<span class="ident">CStr</span>, <span class="ident">CString</span>, <span class="ident">OsStr</span>};
@@ -547,12 +544,8 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">string</span>::<span class="ident">String</span>;
-<span class="kw">use</span> <span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">types</span>::{<span class="ident">StaticType</span>, <span class="ident">Type</span>};
 
-<span class="kw">use</span> <span class="ident">glib_sys</span>;
-<span class="kw">use</span> <span class="ident">gobject_sys</span>;
-<span class="kw">use</span> <span class="ident">value</span>::{<span class="ident">FromValueOptional</span>, <span class="ident">SetValue</span>, <span class="ident">SetValueOptional</span>, <span class="ident">Value</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">value</span>::{<span class="ident">FromValueOptional</span>, <span class="ident">SetValue</span>, <span class="ident">SetValueOptional</span>, <span class="ident">Value</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GString</span>(<span class="ident">Inner</span>);
@@ -630,7 +623,7 @@
     <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="kw">if</span> <span class="kw">let</span> <span class="ident">GString</span>(<span class="ident">Inner</span>::<span class="ident">Foreign</span>(<span class="ident">ptr</span>, <span class="ident">_len</span>)) <span class="op">=</span> <span class="self">self</span> {
             <span class="kw">unsafe</span> {
-                <span class="ident">glib_sys</span>::<span class="ident">g_free</span>(<span class="kw-2">*</span><span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+                <span class="ident">ffi</span>::<span class="ident">g_free</span>(<span class="kw-2">*</span><span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
             }
         }
     }
@@ -917,7 +910,7 @@
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">to_glib_full</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_strndup</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="self">self</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">libc</span>::<span class="ident">size_t</span>)
+            <span class="ident">ffi</span>::<span class="ident">g_strndup</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="self">self</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">libc</span>::<span class="ident">size_t</span>)
                 <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>
         }
     }
@@ -935,7 +928,7 @@
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">to_glib_full</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_strndup</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="self">self</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">libc</span>::<span class="ident">size_t</span>)
+            <span class="ident">ffi</span>::<span class="ident">g_strndup</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>, <span class="self">self</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">libc</span>::<span class="ident">size_t</span>)
                 <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>
         }
     }
@@ -953,7 +946,7 @@
 
 <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">GString</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_strv_get_type</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_strv_get_type</span>()) }
     }
 }
 
@@ -963,7 +956,7 @@
         <span class="kw">if</span> <span class="ident">val</span>.<span class="ident">is_null</span>() {
             <span class="prelude-val">None</span>
         } <span class="kw">else</span> {
-            <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_value_dup_string</span>(<span class="ident">val</span>);
+            <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_dup_string</span>(<span class="ident">val</span>);
             <span class="prelude-val">Some</span>(<span class="ident">GString</span>::<span class="ident">new</span>(<span class="ident">ptr</span>))
         }
     }
@@ -971,13 +964,13 @@
 
 <span class="kw">impl</span> <span class="ident">SetValue</span> <span class="kw">for</span> <span class="ident">GString</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-        <span class="ident">gobject_sys</span>::<span class="ident">g_value_take_string</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib_full</span>())
+        <span class="ident">gobject_ffi</span>::<span class="ident">g_value_take_string</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib_full</span>())
     }
 }
 
 <span class="kw">impl</span> <span class="ident">SetValueOptional</span> <span class="kw">for</span> <span class="ident">GString</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Value</span>, <span class="ident">this</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="self">Self</span><span class="op">&gt;</span>) {
-        <span class="ident">gobject_sys</span>::<span class="ident">g_value_take_string</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib_full</span>())
+        <span class="ident">gobject_ffi</span>::<span class="ident">g_value_take_string</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib_full</span>())
     }
 }
 
@@ -987,8 +980,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">blacklisted_name</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident">glib_sys</span>;
-    <span class="kw">use</span> <span class="ident">gstring</span>::<span class="ident">GString</span>;
+    <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">GString</span>;
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">CString</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -997,7 +989,7 @@
         <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ptr</span>();
 
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">ptr_copy</span> <span class="op">=</span> <span class="ident">glib_sys</span>::<span class="ident">g_strdup</span>(<span class="ident">ptr</span>);
+            <span class="kw">let</span> <span class="ident">ptr_copy</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_strdup</span>(<span class="ident">ptr</span>);
             <span class="kw">let</span> <span class="ident">gstring</span> <span class="op">=</span> <span class="ident">GString</span>::<span class="ident">new</span>(<span class="ident">ptr_copy</span>);
             <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">gstring</span>.<span class="ident">as_str</span>(), <span class="string">&quot;foo&quot;</span>);
             <span class="kw">let</span> <span class="ident">foo</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">gstring</span>.<span class="ident">into</span>();
@@ -1010,7 +1002,7 @@
         <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="string">&quot;foo&quot;</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ptr</span>();
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">ptr_copy</span> <span class="op">=</span> <span class="ident">glib_sys</span>::<span class="ident">g_strdup</span>(<span class="ident">ptr</span>);
+            <span class="kw">let</span> <span class="ident">ptr_copy</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_strdup</span>(<span class="ident">ptr</span>);
             <span class="kw">let</span> <span class="ident">gstr</span> <span class="op">=</span> <span class="ident">GString</span>::<span class="ident">new</span>(<span class="ident">ptr_copy</span>);
             <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">gstr</span>, <span class="string">&quot;foo&quot;</span>);
         }

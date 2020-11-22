@@ -262,7 +262,6 @@
 <span id="259">259</span>
 <span id="260">260</span>
 <span id="261">261</span>
-<span id="262">262</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2019, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -280,7 +279,7 @@
 <span class="doccomment">//! assert_eq!(ba, &quot;abcghi&quot;.as_bytes());</span>
 <span class="doccomment">//! ```</span>
 
-<span class="kw">use</span> <span class="ident">glib_sys</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Borrow</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cmp</span>::<span class="ident">Ordering</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
@@ -289,33 +288,32 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::<span class="ident">Deref</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">NonNull</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
-<span class="kw">use</span> <span class="ident">translate</span>::<span class="kw-2">*</span>;
 
-<span class="kw">use</span> <span class="ident">Bytes</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Bytes</span>;
 
 <span class="macro">glib_wrapper</span><span class="macro">!</span> {
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ByteArray</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">glib_sys</span>::<span class="ident">GByteArray</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ByteArray</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GByteArray</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="kw-2">ref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">glib_sys</span>::<span class="ident">g_byte_array_ref</span>(<span class="ident">ptr</span>),
-        <span class="ident">unref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">glib_sys</span>::<span class="ident">g_byte_array_unref</span>(<span class="ident">ptr</span>),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">glib_sys</span>::<span class="ident">g_byte_array_get_type</span>(),
+        <span class="kw-2">ref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_byte_array_ref</span>(<span class="ident">ptr</span>),
+        <span class="ident">unref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_byte_array_unref</span>(<span class="ident">ptr</span>),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_byte_array_get_type</span>(),
     }
 }
 
 <span class="kw">impl</span> <span class="ident">ByteArray</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ByteArray</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">glib_sys</span>::<span class="ident">g_byte_array_new</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_byte_array_new</span>()) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_capacity</span>(<span class="ident">size</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ByteArray</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">glib_sys</span>::<span class="ident">g_byte_array_sized_new</span>(<span class="ident">size</span> <span class="kw">as</span> <span class="ident">u32</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_byte_array_sized_new</span>(<span class="ident">size</span> <span class="kw">as</span> <span class="ident">u32</span>)) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_gbytes</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Bytes</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">ManuallyDrop</span>::<span class="ident">new</span>(<span class="self">self</span>);
-            <span class="ident">from_glib_full</span>(<span class="ident">glib_sys</span>::<span class="ident">g_byte_array_free_to_bytes</span>(<span class="ident">mut_override</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_byte_array_free_to_bytes</span>(<span class="ident">mut_override</span>(
                 <span class="ident">s</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             )))
         }
@@ -324,7 +322,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">append</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_byte_array_append</span>(
+            <span class="ident">ffi</span>::<span class="ident">g_byte_array_append</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">bytes</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="ident">bytes</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>,
@@ -336,7 +334,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prepend</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_byte_array_prepend</span>(
+            <span class="ident">ffi</span>::<span class="ident">g_byte_array_prepend</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">bytes</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="ident">bytes</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>,
@@ -347,31 +345,31 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_index</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_byte_array_remove_index</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">index</span> <span class="kw">as</span> <span class="ident">u32</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_byte_array_remove_index</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">index</span> <span class="kw">as</span> <span class="ident">u32</span>);
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_index_fast</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_byte_array_remove_index_fast</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">index</span> <span class="kw">as</span> <span class="ident">u32</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_byte_array_remove_index_fast</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">index</span> <span class="kw">as</span> <span class="ident">u32</span>);
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_range</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>, <span class="ident">length</span>: <span class="ident">usize</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_byte_array_remove_range</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">index</span> <span class="kw">as</span> <span class="ident">u32</span>, <span class="ident">length</span> <span class="kw">as</span> <span class="ident">u32</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_byte_array_remove_range</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">index</span> <span class="kw">as</span> <span class="ident">u32</span>, <span class="ident">length</span> <span class="kw">as</span> <span class="ident">u32</span>);
         }
     }
 
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">size</span>: <span class="ident">usize</span>) {
-        <span class="ident">glib_sys</span>::<span class="ident">g_byte_array_set_size</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">size</span> <span class="kw">as</span> <span class="ident">u32</span>);
+        <span class="ident">ffi</span>::<span class="ident">g_byte_array_set_size</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">size</span> <span class="kw">as</span> <span class="ident">u32</span>);
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sort</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">u8</span>, <span class="kw-2">&amp;</span><span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">compare_func</span>: <span class="ident">F</span>) {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">compare_func_trampoline</span>(
-            <span class="ident">a</span>: <span class="ident">glib_sys</span>::<span class="ident">gconstpointer</span>,
-            <span class="ident">b</span>: <span class="ident">glib_sys</span>::<span class="ident">gconstpointer</span>,
-            <span class="ident">func</span>: <span class="ident">glib_sys</span>::<span class="ident">gpointer</span>,
+            <span class="ident">a</span>: <span class="ident">ffi</span>::<span class="ident">gconstpointer</span>,
+            <span class="ident">b</span>: <span class="ident">ffi</span>::<span class="ident">gconstpointer</span>,
+            <span class="ident">func</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
         ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
             <span class="kw">let</span> <span class="ident">func</span> <span class="op">=</span> <span class="ident">func</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> (<span class="ident">dyn</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">u8</span>, <span class="kw-2">&amp;</span><span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span>);
 
@@ -388,9 +386,9 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">func</span> <span class="op">=</span> <span class="ident">compare_func</span>;
             <span class="kw">let</span> <span class="ident">func_obj</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> (<span class="ident">dyn</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">u8</span>, <span class="kw-2">&amp;</span><span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">func</span>;
             <span class="kw">let</span> <span class="ident">func_ptr</span> <span class="op">=</span>
-                <span class="kw-2">&amp;</span><span class="ident">func_obj</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> (<span class="ident">dyn</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">u8</span>, <span class="kw-2">&amp;</span><span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span>) <span class="kw">as</span> <span class="ident">glib_sys</span>::<span class="ident">gpointer</span>;
+                <span class="kw-2">&amp;</span><span class="ident">func_obj</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> (<span class="ident">dyn</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">u8</span>, <span class="kw-2">&amp;</span><span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span>) <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gpointer</span>;
 
-            <span class="ident">glib_sys</span>::<span class="ident">g_byte_array_sort_with_data</span>(
+            <span class="ident">ffi</span>::<span class="ident">g_byte_array_sort_with_data</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">compare_func_trampoline</span>),
                 <span class="ident">func_ptr</span>,

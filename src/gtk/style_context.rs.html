@@ -28,11 +28,11 @@
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;http://opensource.org/licenses/MIT&gt;</span>
 
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">StateFlags</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">StyleContext</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">StyleContextExt</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
 <span class="kw">use</span> <span class="ident">pango</span>::<span class="ident">FontDescription</span>;
-<span class="kw">use</span> <span class="ident">StateFlags</span>;
-<span class="kw">use</span> <span class="ident">StyleContext</span>;
-<span class="kw">use</span> <span class="ident">StyleContextExt</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">StyleContextExtManual</span>: <span class="lifetime">&#39;static</span> {
     <span class="kw">fn</span> <span class="ident">get_font</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="ident">StateFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontDescription</span>;

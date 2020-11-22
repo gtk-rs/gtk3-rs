@@ -117,22 +117,16 @@
 <span id="114">114</span>
 <span id="115">115</span>
 <span id="116">116</span>
-<span id="117">117</span>
-<span id="118">118</span>
-<span id="119">119</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2019, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;http://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">gdk</span>;
-<span class="kw">use</span> <span class="ident">glib</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">AccelFlags</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">AccelGroup</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::{<span class="ident">Cast</span>, <span class="ident">IsA</span>};
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">ToValue</span>;
-<span class="kw">use</span> <span class="ident">gtk_sys</span>;
-<span class="kw">use</span> <span class="ident">AccelFlags</span>;
-<span class="kw">use</span> <span class="ident">AccelGroup</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AccelGroupExtManual</span>: <span class="lifetime">&#39;static</span> {
     <span class="kw">fn</span> <span class="ident">connect_accel_group</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(
@@ -188,7 +182,7 @@
         });
 
         <span class="kw">unsafe</span> {
-            <span class="ident">gtk_sys</span>::<span class="ident">gtk_accel_group_connect</span>(
+            <span class="ident">ffi</span>::<span class="ident">gtk_accel_group_connect</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">accel_key</span>,
                 <span class="ident">accel_mods</span>.<span class="ident">to_glib</span>(),
@@ -230,7 +224,7 @@
         });
 
         <span class="kw">unsafe</span> {
-            <span class="ident">gtk_sys</span>::<span class="ident">gtk_accel_group_connect_by_path</span>(
+            <span class="ident">ffi</span>::<span class="ident">gtk_accel_group_connect_by_path</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">accel_path</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">closure</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,

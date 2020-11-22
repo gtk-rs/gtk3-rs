@@ -315,36 +315,30 @@
 <span id="312">312</span>
 <span id="313">313</span>
 <span id="314">314</span>
-<span id="315">315</span>
-<span id="316">316</span>
-<span id="317">317</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2017, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">glib_sys</span>;
-<span class="kw">use</span> <span class="ident">gobject_sys</span>;
-<span class="kw">use</span> <span class="ident">libc</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">DateDay</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">DateMonth</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">DateWeekday</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">DateYear</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Time</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cmp</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">hash</span>;
-<span class="kw">use</span> <span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">DateDay</span>;
-<span class="kw">use</span> <span class="ident">DateMonth</span>;
-<span class="kw">use</span> <span class="ident">DateWeekday</span>;
-<span class="kw">use</span> <span class="ident">DateYear</span>;
-<span class="kw">use</span> <span class="ident">Time</span>;
 
 <span class="macro">glib_wrapper</span><span class="macro">!</span> {
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Date</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">glib_sys</span>::<span class="ident">GDate</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Date</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GDate</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">gobject_sys</span>::<span class="ident">g_boxed_copy</span>(<span class="ident">glib_sys</span>::<span class="ident">g_date_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
-        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">glib_sys</span>::<span class="ident">g_date_free</span>(<span class="ident">ptr</span>),
+        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_boxed_copy</span>(<span class="ident">ffi</span>::<span class="ident">g_date_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
+        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_date_free</span>(<span class="ident">ptr</span>),
         <span class="ident">init</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">_ptr</span><span class="op">|</span> (),
-        <span class="ident">clear</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">glib_sys</span>::<span class="ident">g_date_clear</span>(<span class="ident">ptr</span>, <span class="number">1</span>),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">glib_sys</span>::<span class="ident">g_date_get_type</span>(),
+        <span class="ident">clear</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_date_clear</span>(<span class="ident">ptr</span>, <span class="number">1</span>),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_date_get_type</span>(),
     }
 }
 
@@ -353,38 +347,38 @@
 
 <span class="kw">impl</span> <span class="ident">Date</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Date</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">glib_sys</span>::<span class="ident">g_date_new</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_new</span>()) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_dmy</span>(<span class="ident">day</span>: <span class="ident">DateDay</span>, <span class="ident">month</span>: <span class="ident">DateMonth</span>, <span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Date</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">glib_sys</span>::<span class="ident">g_date_new_dmy</span>(<span class="ident">day</span>, <span class="ident">month</span>.<span class="ident">to_glib</span>(), <span class="ident">year</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_new_dmy</span>(<span class="ident">day</span>, <span class="ident">month</span>.<span class="ident">to_glib</span>(), <span class="ident">year</span>)) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_julian</span>(<span class="ident">julian_day</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Date</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">glib_sys</span>::<span class="ident">g_date_new_julian</span>(<span class="ident">julian_day</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_new_julian</span>(<span class="ident">julian_day</span>)) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_days</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n_days</span>: <span class="ident">u32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_add_days</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">n_days</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_date_add_days</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">n_days</span>);
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_months</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n_months</span>: <span class="ident">u32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_add_months</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">n_months</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_date_add_months</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">n_months</span>);
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_years</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n_years</span>: <span class="ident">u32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_add_years</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">n_years</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_date_add_years</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">n_years</span>);
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clamp</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">min_date</span>: <span class="kw-2">&amp;</span><span class="ident">Date</span>, <span class="ident">max_date</span>: <span class="kw-2">&amp;</span><span class="ident">Date</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_clamp</span>(
+            <span class="ident">ffi</span>::<span class="ident">g_date_clamp</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">min_date</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">max_date</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -394,166 +388,166 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n_dates</span>: <span class="ident">u32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_clear</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">n_dates</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_date_clear</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">n_dates</span>);
         }
     }
 
     <span class="kw">fn</span> <span class="ident">compare</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">rhs</span>: <span class="kw-2">&amp;</span><span class="ident">Date</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_date_compare</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">rhs</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_compare</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">rhs</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">days_between</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">date2</span>: <span class="kw-2">&amp;</span><span class="ident">Date</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_date_days_between</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">date2</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_days_between</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">date2</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_day</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DateDay</span> {
-        <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_date_get_day</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_day</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_day_of_year</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_date_get_day_of_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_day_of_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_iso8601_week_of_year</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_date_get_iso8601_week_of_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_iso8601_week_of_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_julian</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_date_get_julian</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_julian</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_monday_week_of_year</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_date_get_monday_week_of_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_monday_week_of_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_month</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DateMonth</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_date_get_month</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_get_month</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_sunday_week_of_year</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
-        <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_date_get_sunday_week_of_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_sunday_week_of_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_weekday</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DateWeekday</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_date_get_weekday</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_get_weekday</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_year</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DateYear</span> {
-        <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_date_get_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_first_of_month</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_date_is_first_of_month</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_is_first_of_month</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_last_of_month</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_date_is_last_of_month</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_is_last_of_month</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">order</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">date2</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Date</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_order</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">date2</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_date_order</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">date2</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_day</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">day</span>: <span class="ident">DateDay</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_set_day</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">day</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_date_set_day</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">day</span>);
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_dmy</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">day</span>: <span class="ident">DateDay</span>, <span class="ident">month</span>: <span class="ident">DateMonth</span>, <span class="ident">y</span>: <span class="ident">DateYear</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_set_dmy</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">day</span>, <span class="ident">month</span>.<span class="ident">to_glib</span>(), <span class="ident">y</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_date_set_dmy</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">day</span>, <span class="ident">month</span>.<span class="ident">to_glib</span>(), <span class="ident">y</span>);
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_julian</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">julian_date</span>: <span class="ident">u32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_set_julian</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">julian_date</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_date_set_julian</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">julian_date</span>);
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_month</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">month</span>: <span class="ident">DateMonth</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_set_month</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">month</span>.<span class="ident">to_glib</span>());
+            <span class="ident">ffi</span>::<span class="ident">g_date_set_month</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">month</span>.<span class="ident">to_glib</span>());
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_parse</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">str</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_set_parse</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">str</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_date_set_parse</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">str</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_time</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">time_</span>: <span class="ident">Time</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_set_time</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">time_</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_date_set_time</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">time_</span>);
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_time_t</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">timet</span>: <span class="ident">libc</span>::<span class="ident">c_long</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_set_time_t</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">timet</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_date_set_time_t</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">timet</span>);
         }
     }
 
     <span class="comment">//pub fn set_time_val(&amp;mut self, timeval: /*Ignored*/&amp;mut TimeVal) {</span>
-    <span class="comment">//    unsafe { TODO: call glib_sys::g_date_set_time_val() }</span>
+    <span class="comment">//    unsafe { TODO: call ffi::g_date_set_time_val() }</span>
     <span class="comment">//}</span>
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_year</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">year</span>: <span class="ident">DateYear</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_set_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">year</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_date_set_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">year</span>);
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">subtract_days</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n_days</span>: <span class="ident">u32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_subtract_days</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">n_days</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_date_subtract_days</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">n_days</span>);
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">subtract_months</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n_months</span>: <span class="ident">u32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_subtract_months</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">n_months</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_date_subtract_months</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">n_months</span>);
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">subtract_years</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n_years</span>: <span class="ident">u32</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_subtract_years</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">n_years</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_date_subtract_years</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">n_years</span>);
         }
     }
 
     <span class="comment">//pub fn to_struct_tm(&amp;self, tm: /*Unimplemented*/Fundamental: Pointer) {</span>
-    <span class="comment">//    unsafe { TODO: call glib_sys::g_date_to_struct_tm() }</span>
+    <span class="comment">//    unsafe { TODO: call ffi::g_date_to_struct_tm() }</span>
     <span class="comment">//}</span>
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valid</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_date_valid</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_valid</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_days_in_month</span>(<span class="ident">month</span>: <span class="ident">DateMonth</span>, <span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
-        <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_date_get_days_in_month</span>(<span class="ident">month</span>.<span class="ident">to_glib</span>(), <span class="ident">year</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_days_in_month</span>(<span class="ident">month</span>.<span class="ident">to_glib</span>(), <span class="ident">year</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_monday_weeks_in_year</span>(<span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
-        <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_date_get_monday_weeks_in_year</span>(<span class="ident">year</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_monday_weeks_in_year</span>(<span class="ident">year</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_sunday_weeks_in_year</span>(<span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
-        <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_date_get_sunday_weeks_in_year</span>(<span class="ident">year</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_sunday_weeks_in_year</span>(<span class="ident">year</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_leap_year</span>(<span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_date_is_leap_year</span>(<span class="ident">year</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_is_leap_year</span>(<span class="ident">year</span>)) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">strftime</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">format</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">date</span>: <span class="kw-2">&amp;</span><span class="ident">Date</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
         <span class="kw">let</span> <span class="ident">slen</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">usize</span>;
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_date_strftime</span>(
+            <span class="ident">ffi</span>::<span class="ident">g_date_strftime</span>(
                 <span class="ident">s</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">slen</span>,
                 <span class="ident">format</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -563,27 +557,27 @@
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valid_day</span>(<span class="ident">day</span>: <span class="ident">DateDay</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_date_valid_day</span>(<span class="ident">day</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_valid_day</span>(<span class="ident">day</span>)) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valid_dmy</span>(<span class="ident">day</span>: <span class="ident">DateDay</span>, <span class="ident">month</span>: <span class="ident">DateMonth</span>, <span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_date_valid_dmy</span>(<span class="ident">day</span>, <span class="ident">month</span>.<span class="ident">to_glib</span>(), <span class="ident">year</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_valid_dmy</span>(<span class="ident">day</span>, <span class="ident">month</span>.<span class="ident">to_glib</span>(), <span class="ident">year</span>)) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valid_julian</span>(<span class="ident">julian_date</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_date_valid_julian</span>(<span class="ident">julian_date</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_valid_julian</span>(<span class="ident">julian_date</span>)) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valid_month</span>(<span class="ident">month</span>: <span class="ident">DateMonth</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_date_valid_month</span>(<span class="ident">month</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_valid_month</span>(<span class="ident">month</span>.<span class="ident">to_glib</span>())) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valid_weekday</span>(<span class="ident">weekday</span>: <span class="ident">DateWeekday</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_date_valid_weekday</span>(<span class="ident">weekday</span>.<span class="ident">to_glib</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_valid_weekday</span>(<span class="ident">weekday</span>.<span class="ident">to_glib</span>())) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valid_year</span>(<span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_date_valid_year</span>(<span class="ident">year</span>)) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_valid_year</span>(<span class="ident">year</span>)) }
     }
 }
 

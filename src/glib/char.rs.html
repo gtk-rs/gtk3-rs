@@ -177,9 +177,9 @@
 <span id="174">174</span>
 <span id="175">175</span>
 </pre><div class="example-wrap"><pre class="rust ">
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="ident">FromGlib</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="ident">ToGlib</span>;
 <span class="kw">use</span> <span class="ident">libc</span>::{<span class="ident">c_char</span>, <span class="ident">c_uchar</span>};
-<span class="kw">use</span> <span class="ident">translate</span>::<span class="ident">FromGlib</span>;
-<span class="kw">use</span> <span class="ident">translate</span>::<span class="ident">ToGlib</span>;
 
 <span class="doccomment">/// Wrapper for values where C functions expect a plain C `char`</span>
 <span class="doccomment">///</span>
@@ -314,7 +314,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="ident">translate</span>::<span class="ident">from_glib</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="ident">from_glib</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">converts_single_byte_chars</span>() {

@@ -33,10 +33,10 @@
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventConfigure</span>(::<span class="ident">Event</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventConfigure</span>(<span class="kw">crate</span>::<span class="ident">Event</span>);
 
 <span class="macro">event_wrapper</span><span class="macro">!</span>(<span class="ident">EventConfigure</span>, <span class="ident">GdkEventConfigure</span>);
-<span class="macro">event_subtype</span><span class="macro">!</span>(<span class="ident">EventConfigure</span>, <span class="ident">gdk_sys</span>::<span class="ident">GDK_CONFIGURE</span>);
+<span class="macro">event_subtype</span><span class="macro">!</span>(<span class="ident">EventConfigure</span>, <span class="ident">ffi</span>::<span class="ident">GDK_CONFIGURE</span>);
 
 <span class="kw">impl</span> <span class="ident">EventConfigure</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">i32</span>, <span class="ident">i32</span>) {

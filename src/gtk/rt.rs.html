@@ -186,16 +186,12 @@
 <span id="183">183</span>
 <span id="184">184</span>
 <span id="185">185</span>
-<span id="186">186</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2015, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;http://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">gdk</span>;
-<span class="kw">use</span> <span class="ident">glib</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">gtk_sys</span>;
 <span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_uint</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cell</span>::<span class="ident">Cell</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">atomic</span>::{<span class="ident">AtomicBool</span>, <span class="ident">Ordering</span>, <span class="ident">ATOMIC_BOOL_INIT</span>};
@@ -214,8 +210,8 @@
 <span class="doccomment">/// Asserts that this is the main thread and `gtk::init` has been called.</span>
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">assert_initialized_main_thread</span> {
     () <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="op">!</span>::<span class="ident">rt</span>::<span class="ident">is_initialized_main_thread</span>() {
-            <span class="kw">if</span> ::<span class="ident">rt</span>::<span class="ident">is_initialized</span>() {
+        <span class="kw">if</span> <span class="op">!</span><span class="kw">crate</span>::<span class="ident">rt</span>::<span class="ident">is_initialized_main_thread</span>() {
+            <span class="kw">if</span> <span class="kw">crate</span>::<span class="ident">rt</span>::<span class="ident">is_initialized</span>() {
                 <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;GTK may only be used from the main thread.&quot;</span>);
             } <span class="kw">else</span> {
                 <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;GTK has not been initialized. Call `gtk::init` first.&quot;</span>);
@@ -311,15 +307,17 @@
         <span class="comment">// behaviors...</span>
         <span class="kw">let</span> <span class="ident">argv</span> <span class="op">=</span> ::<span class="ident">std</span>::<span class="ident">env</span>::<span class="ident">args</span>().<span class="ident">take</span>(<span class="number">1</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
 
-        <span class="kw">if</span> <span class="ident">from_glib</span>(<span class="ident">gtk_sys</span>::<span class="ident">gtk_init_check</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="number">1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">argv</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) {
+        <span class="kw">if</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gtk_init_check</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="number">1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">argv</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) {
             <span class="kw">if</span> <span class="op">!</span><span class="ident">glib</span>::<span class="ident">MainContext</span>::<span class="ident">default</span>().<span class="ident">acquire</span>() {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">glib_bool_error</span><span class="macro">!</span>(<span class="string">&quot;Failed to acquire default main context&quot;</span>));
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">glib</span>::<span class="macro">glib_bool_error</span><span class="macro">!</span>(
+                    <span class="string">&quot;Failed to acquire default main context&quot;</span>
+                ));
             }
 
             <span class="ident">set_initialized</span>();
             <span class="prelude-val">Ok</span>(())
         } <span class="kw">else</span> {
-            <span class="prelude-val">Err</span>(<span class="macro">glib_bool_error</span><span class="macro">!</span>(<span class="string">&quot;Failed to initialize GTK&quot;</span>))
+            <span class="prelude-val">Err</span>(<span class="ident">glib</span>::<span class="macro">glib_bool_error</span><span class="macro">!</span>(<span class="string">&quot;Failed to initialize GTK&quot;</span>))
         }
     }
 }
@@ -327,8 +325,8 @@
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">main_quit</span>() {
     <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
     <span class="kw">unsafe</span> {
-        <span class="kw">if</span> <span class="ident">gtk_sys</span>::<span class="ident">gtk_main_level</span>() <span class="op">&gt;</span> <span class="number">0</span> {
-            <span class="ident">gtk_sys</span>::<span class="ident">gtk_main_quit</span>();
+        <span class="kw">if</span> <span class="ident">ffi</span>::<span class="ident">gtk_main_level</span>() <span class="op">&gt;</span> <span class="number">0</span> {
+            <span class="ident">ffi</span>::<span class="ident">gtk_main_quit</span>();
         } <span class="kw">else</span> <span class="kw">if</span> <span class="macro">cfg</span><span class="macro">!</span>(<span class="ident">debug_assertions</span>) {
             <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Attempted to quit a GTK main loop when none is running.&quot;</span>);
         }
@@ -337,27 +335,27 @@
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_major_version</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
     <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
-    <span class="kw">unsafe</span> { <span class="ident">gtk_sys</span>::<span class="ident">gtk_get_major_version</span>() <span class="kw">as</span> <span class="ident">u32</span> }
+    <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gtk_get_major_version</span>() <span class="kw">as</span> <span class="ident">u32</span> }
 }
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_minor_version</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
     <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
-    <span class="kw">unsafe</span> { <span class="ident">gtk_sys</span>::<span class="ident">gtk_get_minor_version</span>() <span class="kw">as</span> <span class="ident">u32</span> }
+    <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gtk_get_minor_version</span>() <span class="kw">as</span> <span class="ident">u32</span> }
 }
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_micro_version</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
     <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
-    <span class="kw">unsafe</span> { <span class="ident">gtk_sys</span>::<span class="ident">gtk_get_micro_version</span>() <span class="kw">as</span> <span class="ident">u32</span> }
+    <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gtk_get_micro_version</span>() <span class="kw">as</span> <span class="ident">u32</span> }
 }
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_binary_age</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
     <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
-    <span class="kw">unsafe</span> { <span class="ident">gtk_sys</span>::<span class="ident">gtk_get_binary_age</span>() <span class="kw">as</span> <span class="ident">u32</span> }
+    <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gtk_get_binary_age</span>() <span class="kw">as</span> <span class="ident">u32</span> }
 }
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_interface_age</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
     <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
-    <span class="kw">unsafe</span> { <span class="ident">gtk_sys</span>::<span class="ident">gtk_get_interface_age</span>() <span class="kw">as</span> <span class="ident">u32</span> }
+    <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gtk_get_interface_age</span>() <span class="kw">as</span> <span class="ident">u32</span> }
 }
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">check_version</span>(
@@ -367,7 +365,7 @@
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
     <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
     <span class="kw">unsafe</span> {
-        <span class="ident">from_glib_none</span>(<span class="ident">gtk_sys</span>::<span class="ident">gtk_check_version</span>(
+        <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gtk_check_version</span>(
             <span class="ident">required_major</span> <span class="kw">as</span> <span class="ident">c_uint</span>,
             <span class="ident">required_minor</span> <span class="kw">as</span> <span class="ident">c_uint</span>,
             <span class="ident">required_micro</span> <span class="kw">as</span> <span class="ident">c_uint</span>,

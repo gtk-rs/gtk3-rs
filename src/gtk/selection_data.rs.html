@@ -28,16 +28,14 @@
 <span id="25">25</span>
 <span id="26">26</span>
 <span id="27">27</span>
-<span id="28">28</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2019, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;http://opensource.org/licenses/MIT&gt;</span>
 
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">SelectionData</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">gtk_sys</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
-<span class="kw">use</span> <span class="ident">SelectionData</span>;
 
 <span class="kw">impl</span> <span class="ident">SelectionData</span> {
     <span class="doccomment">/// Retrieves the raw data of the selection.</span>
@@ -49,7 +47,7 @@
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">length</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
             <span class="ident">FromGlibContainer</span>::<span class="ident">from_glib_none_num</span>(
-                <span class="ident">gtk_sys</span>::<span class="ident">gtk_selection_data_get_data_with_length</span>(
+                <span class="ident">ffi</span>::<span class="ident">gtk_selection_data_get_data_with_length</span>(
                     <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                     <span class="ident">length</span>.<span class="ident">as_mut_ptr</span>(),
                 ),

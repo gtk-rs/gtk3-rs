@@ -48,7 +48,7 @@
         <span class="kw">let</span> <span class="ident">strm</span> <span class="op">=</span> <span class="ident">MemoryOutputStream</span>::<span class="ident">new_resizable</span>();
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">strm</span>.<span class="ident">get_data_size</span>(), <span class="number">0</span>);
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">strm</span>.<span class="ident">close</span>(::<span class="ident">NONE_CANCELLABLE</span>).<span class="ident">is_ok</span>());
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">strm</span>.<span class="ident">close</span>(<span class="kw">crate</span>::<span class="ident">NONE_CANCELLABLE</span>).<span class="ident">is_ok</span>());
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">strm</span>.<span class="ident">steal_as_bytes</span>().<span class="ident">unwrap</span>(), [].<span class="ident">as_ref</span>());
     }
 
@@ -56,13 +56,13 @@
     <span class="kw">fn</span> <span class="ident">steal</span>() {
         <span class="kw">let</span> <span class="ident">strm</span> <span class="op">=</span> <span class="ident">MemoryOutputStream</span>::<span class="ident">new_resizable</span>();
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">strm</span>.<span class="ident">write</span>(<span class="kw-2">&amp;</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], ::<span class="ident">NONE_CANCELLABLE</span>).<span class="ident">is_ok</span>());
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">strm</span>.<span class="ident">write</span>(<span class="kw-2">&amp;</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="kw">crate</span>::<span class="ident">NONE_CANCELLABLE</span>).<span class="ident">is_ok</span>());
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">strm</span>.<span class="ident">get_data_size</span>(), <span class="number">3</span>);
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">strm</span>.<span class="ident">write</span>(<span class="kw-2">&amp;</span>[<span class="number">4</span>, <span class="number">5</span>], ::<span class="ident">NONE_CANCELLABLE</span>).<span class="ident">is_ok</span>());
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">strm</span>.<span class="ident">write</span>(<span class="kw-2">&amp;</span>[<span class="number">4</span>, <span class="number">5</span>], <span class="kw">crate</span>::<span class="ident">NONE_CANCELLABLE</span>).<span class="ident">is_ok</span>());
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">strm</span>.<span class="ident">get_data_size</span>(), <span class="number">5</span>);
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">strm</span>.<span class="ident">close</span>(::<span class="ident">NONE_CANCELLABLE</span>).<span class="ident">is_ok</span>());
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">strm</span>.<span class="ident">close</span>(<span class="kw">crate</span>::<span class="ident">NONE_CANCELLABLE</span>).<span class="ident">is_ok</span>());
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">strm</span>.<span class="ident">steal_as_bytes</span>().<span class="ident">unwrap</span>(), [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>].<span class="ident">as_ref</span>());
     }
 }

@@ -243,15 +243,13 @@
 <span id="240">240</span>
 <span id="241">241</span>
 <span id="242">242</span>
-<span id="243">243</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2015, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">enums</span>::<span class="ident">PathDataType</span>;
-<span class="kw">use</span> <span class="ident">ffi</span>;
-<span class="kw">use</span> <span class="ident">ffi</span>::<span class="ident">cairo_path_t</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">enums</span>::<span class="ident">PathDataType</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ffi</span>::<span class="ident">cairo_path_t</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">iter</span>::<span class="ident">Iterator</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
@@ -375,9 +373,9 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="ident">context</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="ident">enums</span>::<span class="ident">Format</span>;
-    <span class="kw">use</span> <span class="ident">image_surface</span>::<span class="kw-2">*</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">context</span>::<span class="kw-2">*</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">enums</span>::<span class="ident">Format</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">image_surface</span>::<span class="kw-2">*</span>;
 
     <span class="kw">fn</span> <span class="ident">make_cr</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Context</span> {
         <span class="kw">let</span> <span class="ident">surface</span> <span class="op">=</span> <span class="ident">ImageSurface</span>::<span class="ident">create</span>(<span class="ident">Format</span>::<span class="ident">Rgb24</span>, <span class="number">1</span>, <span class="number">1</span>).<span class="ident">unwrap</span>();

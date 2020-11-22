@@ -286,12 +286,12 @@
 <span id="283">283</span>
 <span id="284">284</span>
 <span id="285">285</span>
-<span id="286">286</span>
-<span id="287">287</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2017-2018, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
+
+<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">needless_doctest_main</span>)]</span>
 
 <span class="doccomment">//! Module containing infrastructure for subclassing `GObject`s and registering boxed types.</span>
 <span class="doccomment">//!</span>
@@ -301,15 +301,13 @@
 <span class="doccomment">//! string-typed &quot;name&quot; property.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```rust</span>
-<span class="doccomment">//! #[macro_use]</span>
-<span class="doccomment">//! extern crate glib;</span>
 <span class="doccomment">//! use glib::prelude::*;</span>
 <span class="doccomment">//! use glib::subclass;</span>
 <span class="doccomment">//! use glib::subclass::prelude::*;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! use std::cell::{Cell, RefCell};</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! #[derive(Debug, Eq, PartialEq, Clone, Copy, GEnum)]</span>
+<span class="doccomment">//! #[derive(Debug, Eq, PartialEq, Clone, Copy, glib::GEnum)]</span>
 <span class="doccomment">//! #[repr(u32)]</span>
 <span class="doccomment">//! // type_name: GType name of the GEnum (mandatory)</span>
 <span class="doccomment">//! #[genum(type_name = &quot;SimpleObjectAnimal&quot;)]</span>
@@ -329,13 +327,13 @@
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! #[gflags(&quot;MyFlags&quot;)]</span>
+<span class="doccomment">//! #[glib::gflags(&quot;MyFlags&quot;)]</span>
 <span class="doccomment">//! enum MyFlags {</span>
-<span class="doccomment">//!     #[gflags(name = &quot;Flag A&quot;, nick = &quot;nick-a&quot;)]</span>
+<span class="doccomment">//!     #[glib::gflags(name = &quot;Flag A&quot;, nick = &quot;nick-a&quot;)]</span>
 <span class="doccomment">//!     A = 0b00000001,</span>
-<span class="doccomment">//!     #[gflags(name = &quot;Flag B&quot;)]</span>
+<span class="doccomment">//!     #[glib::gflags(name = &quot;Flag B&quot;)]</span>
 <span class="doccomment">//!     B = 0b00000010,</span>
-<span class="doccomment">//!     #[gflags(skip)]</span>
+<span class="doccomment">//!     #[glib::gflags(skip)]</span>
 <span class="doccomment">//!     AB = Self::A.bits() | Self::B.bits(),</span>
 <span class="doccomment">//!     C = 0b00000100,</span>
 <span class="doccomment">//! }</span>
@@ -410,7 +408,7 @@
 <span class="doccomment">//!         type Class = subclass::simple::ClassStruct&lt;Self&gt;;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!         // This macro defines some boilerplate.</span>
-<span class="doccomment">//!         glib_object_subclass!();</span>
+<span class="doccomment">//!         glib::glib_object_subclass!();</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!         // Called right before the first time an instance of the new</span>
 <span class="doccomment">//!         // type is created. Here class specific settings can be performed,</span>
@@ -486,7 +484,7 @@
 <span class="doccomment">//! }</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! // Optionally, define a wrapper type to make it more ergonomic to use from Rust</span>
-<span class="doccomment">//! glib_wrapper! {</span>
+<span class="doccomment">//! glib::glib_wrapper! {</span>
 <span class="doccomment">//!     pub struct SimpleObject(ObjectSubclass&lt;imp::SimpleObject&gt;);</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//!</span>
@@ -527,13 +525,11 @@
 <span class="doccomment">//! with `glib::Value`.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```rust</span>
-<span class="doccomment">//! #[macro_use]</span>
-<span class="doccomment">//! extern crate glib;</span>
 <span class="doccomment">//! use glib::prelude::*;</span>
 <span class="doccomment">//! use glib::subclass;</span>
 <span class="doccomment">//! use glib::subclass::prelude::*;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! #[derive(Clone, Debug, PartialEq, Eq, GBoxed)]</span>
+<span class="doccomment">//! #[derive(Clone, Debug, PartialEq, Eq, glib::GBoxed)]</span>
 <span class="doccomment">//! #[gboxed(type_name = &quot;MyBoxed&quot;)]</span>
 <span class="doccomment">//! struct MyBoxed(String);</span>
 <span class="doccomment">//!</span>

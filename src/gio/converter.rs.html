@@ -164,16 +164,14 @@
 <span id="161">161</span>
 <span id="162">162</span>
 <span id="163">163</span>
-<span id="164">164</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">gio_sys</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Converter</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ConverterFlags</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ConverterResult</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
-<span class="kw">use</span> <span class="ident">Converter</span>;
-<span class="kw">use</span> <span class="ident">ConverterFlags</span>;
-<span class="kw">use</span> <span class="ident">ConverterResult</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ConverterExtManual</span> {
     <span class="doccomment">/// This is the main operation used when converting data. It is to be called</span>
@@ -307,7 +305,7 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes_read</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes_written</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">gio_sys</span>::<span class="ident">g_converter_convert</span>(
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_converter_convert</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">mut_override</span>(<span class="ident">inbuf</span>),
                 <span class="ident">inbuf_size</span>,

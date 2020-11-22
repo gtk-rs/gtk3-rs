@@ -258,23 +258,21 @@
 <span id="255">255</span>
 <span id="256">256</span>
 <span id="257">257</span>
-<span id="258">258</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">ffi</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">CString</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 
-<span class="kw">use</span> <span class="ident">enums</span>::<span class="ident">FontType</span>;
-<span class="kw">use</span> <span class="ident">ffi</span>::{<span class="ident">FontExtents</span>, <span class="ident">Glyph</span>, <span class="ident">TextCluster</span>, <span class="ident">TextExtents</span>};
-<span class="kw">use</span> <span class="ident">matrices</span>::<span class="ident">Matrix</span>;
-<span class="kw">use</span> <span class="ident">utils</span>::<span class="ident">status_to_result</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">enums</span>::<span class="ident">FontType</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ffi</span>::{<span class="ident">FontExtents</span>, <span class="ident">Glyph</span>, <span class="ident">TextCluster</span>, <span class="ident">TextExtents</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">matrices</span>::<span class="ident">Matrix</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">utils</span>::<span class="ident">status_to_result</span>;
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">FontFace</span>, <span class="ident">FontOptions</span>};
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="macro">glib_wrapper</span><span class="macro">!</span> {
+<span class="ident">glib</span>::<span class="macro">glib_wrapper</span><span class="macro">!</span> {
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ScaledFont</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">cairo_scaled_font_t</span><span class="op">&gt;</span>);
 

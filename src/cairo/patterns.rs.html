@@ -502,24 +502,22 @@
 <span id="499">499</span>
 <span id="500">500</span>
 <span id="501">501</span>
-<span id="502">502</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2015, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">enums</span>::<span class="ident">MeshCorner</span>;
-<span class="kw">use</span> <span class="ident">enums</span>::{<span class="ident">Extend</span>, <span class="ident">Filter</span>, <span class="ident">PatternType</span>};
-<span class="kw">use</span> <span class="ident">error</span>::<span class="ident">Error</span>;
-<span class="kw">use</span> <span class="ident">ffi</span>;
-<span class="kw">use</span> <span class="ident">ffi</span>::{<span class="ident">cairo_pattern_t</span>, <span class="ident">cairo_surface_t</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">enums</span>::<span class="ident">MeshCorner</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">enums</span>::{<span class="ident">Extend</span>, <span class="ident">Filter</span>, <span class="ident">PatternType</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ffi</span>::{<span class="ident">cairo_pattern_t</span>, <span class="ident">cairo_surface_t</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">utils</span>::<span class="ident">status_to_result</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Matrix</span>, <span class="ident">Path</span>, <span class="ident">Surface</span>};
 <span class="kw">use</span> <span class="ident">libc</span>::{<span class="ident">c_double</span>, <span class="ident">c_int</span>, <span class="ident">c_uint</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::<span class="ident">Deref</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
-<span class="kw">use</span> <span class="ident">utils</span>::<span class="ident">status_to_result</span>;
-<span class="kw">use</span> {<span class="ident">Matrix</span>, <span class="ident">Path</span>, <span class="ident">Surface</span>};
 
 <span class="comment">// See https://cairographics.org/manual/bindings-patterns.html for more info</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>

@@ -131,7 +131,7 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">marker</span>::<span class="ident">PhantomData</span>;
 
-<span class="kw">use</span> <span class="ident">ffi</span>::<span class="ident">cairo_user_data_key_t</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ffi</span>::<span class="ident">cairo_user_data_key_t</span>;
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UserDataKey</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">ffi</span>: <span class="ident">cairo_user_data_key_t</span>,

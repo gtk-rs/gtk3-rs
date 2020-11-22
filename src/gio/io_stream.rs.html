@@ -103,19 +103,19 @@
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">pollable_input_stream</span>::<span class="ident">PollableInputStreamExtManual</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">pollable_output_stream</span>::<span class="ident">PollableOutputStreamExtManual</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">IOStream</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">IOStreamExt</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">InputStreamAsyncRead</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">OutputStreamAsyncWrite</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">PollableInputStream</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">PollableOutputStream</span>;
 <span class="kw">use</span> <span class="ident">futures_core</span>::<span class="ident">task</span>::{<span class="ident">Context</span>, <span class="ident">Poll</span>};
 <span class="kw">use</span> <span class="ident">futures_io</span>::{<span class="ident">AsyncRead</span>, <span class="ident">AsyncWrite</span>};
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::{<span class="ident">Cast</span>, <span class="ident">IsA</span>};
-<span class="kw">use</span> <span class="ident">pollable_input_stream</span>::<span class="ident">PollableInputStreamExtManual</span>;
-<span class="kw">use</span> <span class="ident">pollable_output_stream</span>::<span class="ident">PollableOutputStreamExtManual</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">pin</span>::<span class="ident">Pin</span>;
-<span class="kw">use</span> <span class="ident">IOStream</span>;
-<span class="kw">use</span> <span class="ident">IOStreamExt</span>;
-<span class="kw">use</span> <span class="ident">InputStreamAsyncRead</span>;
-<span class="kw">use</span> <span class="ident">OutputStreamAsyncWrite</span>;
-<span class="kw">use</span> <span class="ident">PollableInputStream</span>;
-<span class="kw">use</span> <span class="ident">PollableOutputStream</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">IOStreamExtManual</span>: <span class="ident">Sized</span> <span class="op">+</span> <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">IOStream</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">into_async_read_write</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">IOStreamAsyncReadWrite</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>, <span class="self">Self</span><span class="op">&gt;</span> {

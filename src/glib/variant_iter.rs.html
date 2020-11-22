@@ -113,7 +113,6 @@
 <span id="110">110</span>
 <span id="111">111</span>
 <span id="112">112</span>
-<span id="113">113</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2020, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -125,7 +124,7 @@
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">iter</span>::{<span class="ident">DoubleEndedIterator</span>, <span class="ident">ExactSizeIterator</span>, <span class="ident">Iterator</span>};
 
-<span class="kw">use</span> <span class="ident">variant</span>::<span class="ident">Variant</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">variant</span>::<span class="ident">Variant</span>;
 
 <span class="doccomment">/// Iterator over items in a variant.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
@@ -180,10 +179,9 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident">prelude</span>::<span class="kw-2">*</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">variant</span>::{<span class="ident">DictEntry</span>, <span class="ident">Variant</span>};
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">HashMap</span>;
-    <span class="kw">use</span> <span class="ident">variant</span>::<span class="ident">DictEntry</span>;
-    <span class="kw">use</span> <span class="ident">variant</span>::<span class="ident">Variant</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_variant_iter_variant</span>() {

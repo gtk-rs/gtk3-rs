@@ -865,34 +865,36 @@
 <span id="862">862</span>
 <span id="863">863</span>
 <span id="864">864</span>
+<span id="865">865</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2015, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">ffi</span>;
-<span class="kw">use</span> <span class="ident">font</span>::{<span class="ident">FontExtents</span>, <span class="ident">FontFace</span>, <span class="ident">FontOptions</span>, <span class="ident">Glyph</span>, <span class="ident">ScaledFont</span>, <span class="ident">TextCluster</span>, <span class="ident">TextExtents</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">font</span>::{
+    <span class="ident">FontExtents</span>, <span class="ident">FontFace</span>, <span class="ident">FontOptions</span>, <span class="ident">Glyph</span>, <span class="ident">ScaledFont</span>, <span class="ident">TextCluster</span>, <span class="ident">TextExtents</span>,
+};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">matrices</span>::<span class="ident">Matrix</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">paths</span>::<span class="ident">Path</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Rectangle</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">Antialias</span>, <span class="ident">Content</span>, <span class="ident">FillRule</span>, <span class="ident">FontSlant</span>, <span class="ident">FontWeight</span>, <span class="ident">LineCap</span>, <span class="ident">LineJoin</span>, <span class="ident">Operator</span>,
+    <span class="ident">TextClusterFlags</span>,
+};
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_int</span>;
-<span class="kw">use</span> <span class="ident">matrices</span>::<span class="ident">Matrix</span>;
-<span class="kw">use</span> <span class="ident">paths</span>::<span class="ident">Path</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">CString</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
-<span class="kw">use</span> <span class="ident">Rectangle</span>;
-<span class="kw">use</span> {
-    <span class="ident">Antialias</span>, <span class="ident">Content</span>, <span class="ident">FillRule</span>, <span class="ident">FontSlant</span>, <span class="ident">FontWeight</span>, <span class="ident">LineCap</span>, <span class="ident">LineJoin</span>, <span class="ident">Operator</span>,
-    <span class="ident">TextClusterFlags</span>,
-};
 
-<span class="kw">use</span> <span class="ident">error</span>::<span class="ident">Error</span>;
-<span class="kw">use</span> <span class="ident">ffi</span>::{<span class="ident">cairo_rectangle_list_t</span>, <span class="ident">cairo_t</span>};
-<span class="kw">use</span> <span class="ident">patterns</span>::<span class="ident">Pattern</span>;
-<span class="kw">use</span> <span class="ident">surface</span>::<span class="ident">Surface</span>;
-<span class="kw">use</span> <span class="ident">utils</span>::<span class="ident">status_to_result</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ffi</span>::{<span class="ident">cairo_rectangle_list_t</span>, <span class="ident">cairo_t</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">patterns</span>::<span class="ident">Pattern</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">surface</span>::<span class="ident">Surface</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">utils</span>::<span class="ident">status_to_result</span>;
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RectangleList</span> {
     <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">cairo_rectangle_list_t</span>,
@@ -967,7 +969,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlibPtrBorrow</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Context</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Context</span><span class="op">&gt;</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Context</span><span class="op">&gt;</span> {
         <span class="self">Self</span>::<span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>)
     }
 }
@@ -1010,9 +1012,9 @@
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Context</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw_borrow</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">cairo_t</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Context</span><span class="op">&gt;</span> {
         <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
-        ::<span class="ident">Borrowed</span>::<span class="ident">new</span>(<span class="ident">Context</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>)))
+        <span class="kw">crate</span>::<span class="ident">Borrowed</span>::<span class="ident">new</span>(<span class="ident">Context</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>)))
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
@@ -1697,9 +1699,9 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="ident">enums</span>::<span class="ident">Format</span>;
-    <span class="kw">use</span> <span class="ident">image_surface</span>::<span class="ident">ImageSurface</span>;
-    <span class="kw">use</span> <span class="ident">patterns</span>::<span class="ident">LinearGradient</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">enums</span>::<span class="ident">Format</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">image_surface</span>::<span class="ident">ImageSurface</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">patterns</span>::<span class="ident">LinearGradient</span>;
 
     <span class="kw">fn</span> <span class="ident">create_ctx</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Context</span> {
         <span class="kw">let</span> <span class="ident">surface</span> <span class="op">=</span> <span class="ident">ImageSurface</span>::<span class="ident">create</span>(<span class="ident">Format</span>::<span class="ident">ARgb32</span>, <span class="number">10</span>, <span class="number">10</span>).<span class="ident">unwrap</span>();

@@ -94,9 +94,9 @@
 <span id="91">91</span>
 <span id="92">92</span>
 </pre><div class="example-wrap"><pre class="rust ">
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Settings</span>, <span class="ident">SettingsExt</span>};
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">variant</span>::<span class="ident">FromVariant</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::{<span class="ident">BoolError</span>, <span class="ident">IsA</span>, <span class="ident">ToVariant</span>};
-<span class="kw">use</span> {<span class="ident">Settings</span>, <span class="ident">SettingsExt</span>};
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SettingsExtManual</span> {
     <span class="kw">fn</span> <span class="ident">get</span><span class="op">&lt;</span><span class="ident">U</span>: <span class="ident">FromVariant</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">U</span>;
@@ -161,7 +161,7 @@
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="attribute">#[<span class="ident">serial</span>]</span>
+    <span class="attribute">#[<span class="ident">serial_test</span>::<span class="ident">serial</span>]</span>
     <span class="kw">fn</span> <span class="ident">string_get</span>() {
         <span class="ident">set_env</span>();
         <span class="kw">let</span> <span class="ident">settings</span> <span class="op">=</span> <span class="ident">Settings</span>::<span class="ident">new</span>(<span class="string">&quot;com.github.gtk-rs.test&quot;</span>);
@@ -169,7 +169,7 @@
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="attribute">#[<span class="ident">serial</span>]</span>
+    <span class="attribute">#[<span class="ident">serial_test</span>::<span class="ident">serial</span>]</span>
     <span class="kw">fn</span> <span class="ident">bool_set_get</span>() {
         <span class="ident">set_env</span>();
         <span class="kw">let</span> <span class="ident">settings</span> <span class="op">=</span> <span class="ident">Settings</span>::<span class="ident">new</span>(<span class="string">&quot;com.github.gtk-rs.test&quot;</span>);
@@ -179,7 +179,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="attribute">#[<span class="ident">should_panic</span>]</span>
-    <span class="attribute">#[<span class="ident">serial</span>]</span>
+    <span class="attribute">#[<span class="ident">serial_test</span>::<span class="ident">serial</span>]</span>
     <span class="kw">fn</span> <span class="ident">wrong_type</span>() {
         <span class="ident">set_env</span>();
         <span class="kw">let</span> <span class="ident">settings</span> <span class="op">=</span> <span class="ident">Settings</span>::<span class="ident">new</span>(<span class="string">&quot;com.github.gtk-rs.test&quot;</span>);

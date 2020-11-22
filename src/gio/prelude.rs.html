@@ -47,32 +47,32 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">auto</span>::<span class="ident">traits</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">auto</span>::<span class="ident">traits</span>::<span class="kw-2">*</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_60&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">app_info</span>::<span class="ident">AppInfoExtManual</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">application</span>::<span class="kw-2">*</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">converter</span>::<span class="kw-2">*</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">data_input_stream</span>::<span class="ident">DataInputStreamExtManual</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">app_info</span>::<span class="ident">AppInfoExtManual</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">application</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">converter</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">data_input_stream</span>::<span class="ident">DataInputStreamExtManual</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_58&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">all</span>(<span class="ident">not</span>(<span class="ident">windows</span>), <span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>)), <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">desktop_app_info</span>::<span class="ident">DesktopAppInfoExtManual</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">file</span>::<span class="ident">FileExtManual</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">inet_address</span>::<span class="ident">InetAddressExtManual</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">input_stream</span>::<span class="ident">InputStreamExtManual</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">io_stream</span>::<span class="ident">IOStreamExtManual</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">desktop_app_info</span>::<span class="ident">DesktopAppInfoExtManual</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">file</span>::<span class="ident">FileExtManual</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">inet_address</span>::<span class="ident">InetAddressExtManual</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">input_stream</span>::<span class="ident">InputStreamExtManual</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">io_stream</span>::<span class="ident">IOStreamExtManual</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_44&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">list_store</span>::<span class="ident">ListStoreExtManual</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">output_stream</span>::<span class="ident">OutputStreamExtManual</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">pollable_input_stream</span>::<span class="ident">PollableInputStreamExtManual</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">pollable_output_stream</span>::<span class="ident">PollableOutputStreamExtManual</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">settings</span>::<span class="ident">SettingsExtManual</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">socket</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">list_store</span>::<span class="ident">ListStoreExtManual</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">output_stream</span>::<span class="ident">OutputStreamExtManual</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">pollable_input_stream</span>::<span class="ident">PollableInputStreamExtManual</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">pollable_output_stream</span>::<span class="ident">PollableOutputStreamExtManual</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">settings</span>::<span class="ident">SettingsExtManual</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">socket</span>::<span class="kw-2">*</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">unix_input_stream</span>::<span class="ident">UnixInputStreamExtManual</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">unix_input_stream</span>::<span class="ident">UnixInputStreamExtManual</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">unix_output_stream</span>::<span class="ident">UnixOutputStreamExtManual</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">unix_output_stream</span>::<span class="ident">UnixOutputStreamExtManual</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">unix</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">unix_socket_address</span>::{<span class="ident">UnixSocketAddressExtManual</span>, <span class="ident">UnixSocketAddressPath</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">unix_socket_address</span>::{<span class="ident">UnixSocketAddressExtManual</span>, <span class="ident">UnixSocketAddressPath</span>};
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "gio";</script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

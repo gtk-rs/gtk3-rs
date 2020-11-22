@@ -37,20 +37,16 @@
 <span id="34">34</span>
 <span id="35">35</span>
 <span id="36">36</span>
-<span id="37">37</span>
-<span id="38">38</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2018, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;http://opensource.org/licenses/MIT&gt;</span>
 
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_24&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">GestureStylus</span>;
 <span class="kw">use</span> <span class="ident">gdk</span>::<span class="ident">AxisUse</span>;
-<span class="kw">use</span> <span class="ident">gdk_sys</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">gtk_sys</span>;
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_24&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-<span class="kw">use</span> <span class="ident">GestureStylus</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">GestureStylusExtManual</span>: <span class="lifetime">&#39;static</span> {
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_24&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
@@ -64,9 +60,9 @@
     <span class="kw">fn</span> <span class="ident">get_axes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">axes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AxisUse</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">values</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">axes1</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">gdk_sys</span>::<span class="ident">GdkAxisUse</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">axes</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">a</span><span class="op">|</span> <span class="ident">a</span>.<span class="ident">to_glib</span>()).<span class="ident">collect</span>();
-            <span class="ident">axes1</span>.<span class="ident">push</span>(<span class="ident">gdk_sys</span>::<span class="ident">GDK_AXIS_IGNORE</span>);
-            <span class="kw">if</span> <span class="ident">from_glib</span>(<span class="ident">gtk_sys</span>::<span class="ident">gtk_gesture_stylus_get_axes</span>(
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">axes1</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">gdk</span>::<span class="ident">ffi</span>::<span class="ident">GdkAxisUse</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">axes</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">a</span><span class="op">|</span> <span class="ident">a</span>.<span class="ident">to_glib</span>()).<span class="ident">collect</span>();
+            <span class="ident">axes1</span>.<span class="ident">push</span>(<span class="ident">gdk</span>::<span class="ident">ffi</span>::<span class="ident">GDK_AXIS_IGNORE</span>);
+            <span class="kw">if</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gtk_gesture_stylus_get_axes</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">axes1</span>.<span class="ident">as_mut_ptr</span>(),
                 <span class="ident">values</span>.<span class="ident">as_mut_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">f64</span>,

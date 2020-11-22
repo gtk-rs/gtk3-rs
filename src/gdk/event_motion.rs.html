@@ -56,20 +56,18 @@
 <span id="53">53</span>
 <span id="54">54</span>
 <span id="55">55</span>
-<span id="56">56</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2016, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">gdk_sys</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventMotion</span>(::<span class="ident">Event</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventMotion</span>(<span class="kw">crate</span>::<span class="ident">Event</span>);
 
 <span class="macro">event_wrapper</span><span class="macro">!</span>(<span class="ident">EventMotion</span>, <span class="ident">GdkEventMotion</span>);
-<span class="macro">event_subtype</span><span class="macro">!</span>(<span class="ident">EventMotion</span>, <span class="ident">gdk_sys</span>::<span class="ident">GDK_MOTION_NOTIFY</span>);
+<span class="macro">event_subtype</span><span class="macro">!</span>(<span class="ident">EventMotion</span>, <span class="ident">ffi</span>::<span class="ident">GDK_MOTION_NOTIFY</span>);
 
 <span class="kw">impl</span> <span class="ident">EventMotion</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>) {
@@ -78,7 +76,7 @@
         (<span class="ident">x</span>, <span class="ident">y</span>)
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_state</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">ModifierType</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_state</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">ModifierType</span> {
         <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">state</span>)
     }
 
@@ -87,10 +85,10 @@
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">request_motions</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">gdk_sys</span>::<span class="ident">gdk_event_request_motions</span>(<span class="self">self</span>.<span class="ident">as_ref</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_event_request_motions</span>(<span class="self">self</span>.<span class="ident">as_ref</span>()) }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_device</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>::<span class="ident">Device</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_device</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">Device</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">device</span>) }
     }
 

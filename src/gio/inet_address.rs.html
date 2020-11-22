@@ -88,14 +88,12 @@
 <span id="85">85</span>
 <span id="86">86</span>
 <span id="87">87</span>
-<span id="88">88</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">gio_sys</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">InetAddress</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">InetAddressExt</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">SocketFamily</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">InetAddress</span>;
-<span class="kw">use</span> <span class="ident">InetAddressExt</span>;
-<span class="kw">use</span> <span class="ident">SocketFamily</span>;
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">net</span>::{<span class="ident">IpAddr</span>, <span class="ident">Ipv4Addr</span>, <span class="ident">Ipv6Addr</span>};
 
@@ -125,7 +123,7 @@
             <span class="ident">InetAddressBytes</span>::<span class="ident">V6</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SocketFamily</span>::<span class="ident">Ipv6</span>,
         };
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">gio_sys</span>::<span class="ident">g_inet_address_new_from_bytes</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_inet_address_new_from_bytes</span>(
                 <span class="ident">bytes</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">family</span>.<span class="ident">to_glib</span>(),
             ))
@@ -142,7 +140,7 @@
     <span class="kw">fn</span> <span class="ident">to_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">InetAddressBytes</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">size</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_native_size</span>();
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">gio_sys</span>::<span class="ident">g_inet_address_to_bytes</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_inet_address_to_bytes</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
             <span class="kw">if</span> <span class="ident">size</span> <span class="op">=</span><span class="op">=</span> <span class="number">4</span> {
                 <span class="prelude-val">Some</span>(<span class="ident">InetAddressBytes</span>::<span class="ident">V4</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">bytes</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> [<span class="ident">u8</span>; <span class="number">4</span>])))
             } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">size</span> <span class="op">=</span><span class="op">=</span> <span class="number">16</span> {
@@ -167,7 +165,7 @@
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">addr</span>: <span class="ident">InetAddress</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IpAddr</span> {
         <span class="kw">let</span> <span class="ident">size</span> <span class="op">=</span> <span class="ident">addr</span>.<span class="ident">get_native_size</span>();
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">gio_sys</span>::<span class="ident">g_inet_address_to_bytes</span>(<span class="ident">addr</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_inet_address_to_bytes</span>(<span class="ident">addr</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
             <span class="kw">if</span> <span class="ident">size</span> <span class="op">=</span><span class="op">=</span> <span class="number">4</span> {
                 <span class="ident">IpAddr</span>::<span class="ident">V4</span>(<span class="ident">Ipv4Addr</span>::<span class="ident">from</span>(<span class="kw-2">*</span>(<span class="ident">bytes</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> [<span class="ident">u8</span>; <span class="number">4</span>])))
             } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">size</span> <span class="op">=</span><span class="op">=</span> <span class="number">16</span> {

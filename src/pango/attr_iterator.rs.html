@@ -54,20 +54,16 @@
 <span id="51">51</span>
 <span id="52">52</span>
 <span id="53">53</span>
-<span id="54">54</span>
-<span id="55">55</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2018, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">AttrIterator</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Attribute</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">FontDescription</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Language</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">glib_sys</span>;
-<span class="kw">use</span> <span class="ident">pango_sys</span>;
-<span class="kw">use</span> <span class="ident">AttrIterator</span>;
-<span class="kw">use</span> <span class="ident">Attribute</span>;
-<span class="kw">use</span> <span class="ident">FontDescription</span>;
-<span class="kw">use</span> <span class="ident">Language</span>;
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 
@@ -98,12 +94,12 @@
     ) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">stash_vec</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">extra_attrs</span>.<span class="ident">iter</span>().<span class="ident">rev</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">to_glib_none</span>()).<span class="ident">collect</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">list</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GSList</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">list</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">GSList</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
             <span class="kw">for</span> <span class="ident">stash</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">stash_vec</span> {
-                <span class="ident">list</span> <span class="op">=</span> <span class="ident">glib_sys</span>::<span class="ident">g_slist_prepend</span>(<span class="ident">list</span>, <span class="ident">Ptr</span>::<span class="ident">to</span>(<span class="ident">stash</span>.<span class="number">0</span>));
+                <span class="ident">list</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">g_slist_prepend</span>(<span class="ident">list</span>, <span class="ident">Ptr</span>::<span class="ident">to</span>(<span class="ident">stash</span>.<span class="number">0</span>));
             }
 
-            <span class="ident">pango_sys</span>::<span class="ident">pango_attr_iterator_get_font</span>(
+            <span class="ident">ffi</span>::<span class="ident">pango_attr_iterator_get_font</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">desc</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">language</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,

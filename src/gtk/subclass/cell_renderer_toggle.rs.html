@@ -59,11 +59,7 @@
 <span id="56">56</span>
 <span id="57">57</span>
 <span id="58">58</span>
-<span id="59">59</span>
-<span id="60">60</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">gtk_sys</span>;
-
 <span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_char</span>;
 
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
@@ -71,8 +67,8 @@
 <span class="kw">use</span> <span class="ident">glib</span>::{<span class="ident">Cast</span>, <span class="ident">GString</span>};
 
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">cell_renderer</span>::<span class="ident">CellRendererImpl</span>;
-<span class="kw">use</span> <span class="ident">CellRenderer</span>;
-<span class="kw">use</span> <span class="ident">CellRendererToggle</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">CellRenderer</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">CellRendererToggle</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">CellRendererToggleImpl</span>: <span class="ident">CellRendererToggleImplExt</span> <span class="op">+</span> <span class="ident">CellRendererImpl</span> {
     <span class="kw">fn</span> <span class="ident">toggled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">renderer</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
@@ -89,7 +85,7 @@
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span>
-                <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gtk_sys</span>::<span class="ident">GtkCellRendererToggleClass</span>;
+                <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkCellRendererToggleClass</span>;
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">toggled</span> {
                 <span class="ident">f</span>(
                     <span class="ident">renderer</span>
@@ -113,7 +109,7 @@
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">cell_renderer_toggle_toggled</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">CellRendererToggleImpl</span><span class="op">&gt;</span>(
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gtk_sys</span>::<span class="ident">GtkCellRendererToggle</span>,
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkCellRendererToggle</span>,
     <span class="ident">path</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>,
 ) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);

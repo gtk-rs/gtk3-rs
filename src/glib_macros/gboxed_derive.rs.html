@@ -187,7 +187,7 @@
     <span class="macro">quote</span><span class="macro">!</span> {
         <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> #<span class="ident">crate_ident</span>::<span class="ident">value</span>::<span class="ident">FromValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> #<span class="ident">name</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> #<span class="ident">crate_ident</span>::<span class="ident">value</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-                <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> #<span class="ident">crate_ident</span>::<span class="ident">gobject_sys</span>::<span class="ident">g_value_get_boxed</span>(
+                <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> #<span class="ident">crate_ident</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_boxed</span>(
                     #<span class="ident">crate_ident</span>::<span class="ident">translate</span>::<span class="ident">ToGlibPtr</span>::<span class="ident">to_glib_none</span>(<span class="ident">value</span>).<span class="number">0</span>,
                 );
                 <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
@@ -204,7 +204,7 @@
         <span class="kw">impl</span> #<span class="ident">crate_ident</span>::<span class="ident">value</span>::<span class="ident">SetValueOptional</span> <span class="kw">for</span> #<span class="ident">name</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> #<span class="ident">crate_ident</span>::<span class="ident">value</span>::<span class="ident">Value</span>, <span class="ident">this</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="self">Self</span><span class="op">&gt;</span>) {
                 <span class="kw">let</span> <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> #<span class="ident">name</span> <span class="op">=</span> #<span class="ident">option_to_ptr</span>;
-                #<span class="ident">crate_ident</span>::<span class="ident">gobject_sys</span>::<span class="ident">g_value_take_boxed</span>(
+                #<span class="ident">crate_ident</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_take_boxed</span>(
                     #<span class="ident">crate_ident</span>::<span class="ident">translate</span>::<span class="ident">ToGlibPtrMut</span>::<span class="ident">to_glib_none_mut</span>(<span class="ident">value</span>).<span class="number">0</span>,
                     <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 );
@@ -271,7 +271,7 @@
         <span class="kw">impl</span> #<span class="ident">crate_ident</span>::<span class="ident">value</span>::<span class="ident">SetValue</span> <span class="kw">for</span> #<span class="ident">name</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> #<span class="ident">crate_ident</span>::<span class="ident">value</span>::<span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
                 <span class="kw">let</span> <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> #<span class="ident">name</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">into_raw</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">this</span>.<span class="ident">clone</span>()));
-                #<span class="ident">crate_ident</span>::<span class="ident">gobject_sys</span>::<span class="ident">g_value_take_boxed</span>(
+                #<span class="ident">crate_ident</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_take_boxed</span>(
                     #<span class="ident">crate_ident</span>::<span class="ident">translate</span>::<span class="ident">ToGlibPtrMut</span>::<span class="ident">to_glib_none_mut</span>(<span class="ident">value</span>).<span class="number">0</span>,
                     <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 );
@@ -282,7 +282,7 @@
 
         <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> #<span class="ident">crate_ident</span>::<span class="ident">value</span>::<span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> #<span class="ident">name</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> #<span class="ident">crate_ident</span>::<span class="ident">value</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-                <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> #<span class="ident">crate_ident</span>::<span class="ident">gobject_sys</span>::<span class="ident">g_value_get_boxed</span>(
+                <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> #<span class="ident">crate_ident</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_boxed</span>(
                     #<span class="ident">crate_ident</span>::<span class="ident">translate</span>::<span class="ident">ToGlibPtr</span>::<span class="ident">to_glib_none</span>(<span class="ident">value</span>).<span class="number">0</span>,
                 );
                 #<span class="ident">ptr_to_option</span>

@@ -687,20 +687,16 @@
 <span id="684">684</span>
 <span id="685">685</span>
 <span id="686">686</span>
-<span id="687">687</span>
-<span id="688">688</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2015-2016, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">glib_sys</span>;
-<span class="kw">use</span> <span class="ident">gobject_sys</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">value</span>::<span class="ident">Value</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">CStr</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Type</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cmp</span>;
-<span class="kw">use</span> <span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">value</span>::<span class="ident">Value</span>;
-<span class="kw">use</span> <span class="ident">CStr</span>;
-<span class="kw">use</span> <span class="ident">Type</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">UserDirectory</span> {
@@ -718,19 +714,19 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">UserDirectory</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">glib_sys</span>::<span class="ident">GUserDirectory</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GUserDirectory</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">GUserDirectory</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GUserDirectory</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">UserDirectory</span>::<span class="ident">Desktop</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">G_USER_DIRECTORY_DESKTOP</span>,
-            <span class="ident">UserDirectory</span>::<span class="ident">Documents</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">G_USER_DIRECTORY_DOCUMENTS</span>,
-            <span class="ident">UserDirectory</span>::<span class="ident">Downloads</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">G_USER_DIRECTORY_DOWNLOAD</span>,
-            <span class="ident">UserDirectory</span>::<span class="ident">Music</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">G_USER_DIRECTORY_MUSIC</span>,
-            <span class="ident">UserDirectory</span>::<span class="ident">Pictures</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">G_USER_DIRECTORY_PICTURES</span>,
-            <span class="ident">UserDirectory</span>::<span class="ident">PublicShare</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">G_USER_DIRECTORY_PUBLIC_SHARE</span>,
-            <span class="ident">UserDirectory</span>::<span class="ident">Templates</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">G_USER_DIRECTORY_TEMPLATES</span>,
-            <span class="ident">UserDirectory</span>::<span class="ident">Videos</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">G_USER_DIRECTORY_VIDEOS</span>,
-            <span class="ident">UserDirectory</span>::<span class="ident">NDirectories</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">G_USER_N_DIRECTORIES</span>,
+            <span class="ident">UserDirectory</span>::<span class="ident">Desktop</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_USER_DIRECTORY_DESKTOP</span>,
+            <span class="ident">UserDirectory</span>::<span class="ident">Documents</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_USER_DIRECTORY_DOCUMENTS</span>,
+            <span class="ident">UserDirectory</span>::<span class="ident">Downloads</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_USER_DIRECTORY_DOWNLOAD</span>,
+            <span class="ident">UserDirectory</span>::<span class="ident">Music</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_USER_DIRECTORY_MUSIC</span>,
+            <span class="ident">UserDirectory</span>::<span class="ident">Pictures</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_USER_DIRECTORY_PICTURES</span>,
+            <span class="ident">UserDirectory</span>::<span class="ident">PublicShare</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_USER_DIRECTORY_PUBLIC_SHARE</span>,
+            <span class="ident">UserDirectory</span>::<span class="ident">Templates</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_USER_DIRECTORY_TEMPLATES</span>,
+            <span class="ident">UserDirectory</span>::<span class="ident">Videos</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_USER_DIRECTORY_VIDEOS</span>,
+            <span class="ident">UserDirectory</span>::<span class="ident">NDirectories</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_USER_N_DIRECTORIES</span>,
         }
     }
 }
@@ -738,7 +734,7 @@
 <span class="doccomment">/// Representation of an `enum` for dynamically, at runtime, querying the values of the enum and</span>
 <span class="doccomment">/// using them.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EnumClass</span>(<span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GEnumClass</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EnumClass</span>(<span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GEnumClass</span>);
 
 <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Send</span> <span class="kw">for</span> <span class="ident">EnumClass</span> {}
 <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Sync</span> <span class="kw">for</span> <span class="ident">EnumClass</span> {}
@@ -749,16 +745,16 @@
     <span class="doccomment">/// Returns `None` if `type_` is not representing an enum.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">type_</span>: <span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">is_enum</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_type_is_a</span>(
+            <span class="kw">let</span> <span class="ident">is_enum</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_type_is_a</span>(
                 <span class="ident">type_</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">gobject_sys</span>::<span class="ident">G_TYPE_ENUM</span>,
+                <span class="ident">gobject_ffi</span>::<span class="ident">G_TYPE_ENUM</span>,
             ));
             <span class="kw">if</span> <span class="op">!</span><span class="ident">is_enum</span> {
                 <span class="kw">return</span> <span class="prelude-val">None</span>;
             }
 
             <span class="prelude-val">Some</span>(<span class="ident">EnumClass</span>(
-                <span class="ident">gobject_sys</span>::<span class="ident">g_type_class_ref</span>(<span class="ident">type_</span>.<span class="ident">to_glib</span>()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_type_class_ref</span>(<span class="ident">type_</span>.<span class="ident">to_glib</span>()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>
             ))
         }
     }
@@ -774,7 +770,7 @@
     <span class="doccomment">/// with `value`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EnumValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_enum_get_value</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">value</span>);
+            <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_enum_get_value</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">value</span>);
             <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">None</span>
             } <span class="kw">else</span> {
@@ -789,7 +785,7 @@
     <span class="doccomment">/// with name `name`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value_by_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EnumValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_enum_get_value_by_name</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_enum_get_value_by_name</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
             <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">None</span>
             } <span class="kw">else</span> {
@@ -804,7 +800,7 @@
     <span class="doccomment">/// with nick `nick`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value_by_nick</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EnumValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_enum_get_value_by_nick</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_enum_get_value_by_nick</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
             <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">None</span>
             } <span class="kw">else</span> {
@@ -844,20 +840,20 @@
 <span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">EnumClass</span> {
     <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">gobject_sys</span>::<span class="ident">g_type_class_unref</span>(<span class="self">self</span>.<span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+            <span class="ident">gobject_ffi</span>::<span class="ident">g_type_class_unref</span>(<span class="self">self</span>.<span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">EnumClass</span> {
     <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="kw">unsafe</span> { <span class="ident">EnumClass</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_type_class_ref</span>(<span class="self">self</span>.<span class="ident">type_</span>().<span class="ident">to_glib</span>()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">EnumClass</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_type_class_ref</span>(<span class="self">self</span>.<span class="ident">type_</span>().<span class="ident">to_glib</span>()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) }
     }
 }
 
 <span class="doccomment">/// Representation of a single enum value of an `EnumClass`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EnumValue</span>(<span class="kw-2">*</span><span class="kw">const</span> <span class="ident">gobject_sys</span>::<span class="ident">GEnumValue</span>, <span class="ident">EnumClass</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EnumValue</span>(<span class="kw-2">*</span><span class="kw">const</span> <span class="ident">gobject_ffi</span>::<span class="ident">GEnumValue</span>, <span class="ident">EnumClass</span>);
 
 <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Send</span> <span class="kw">for</span> <span class="ident">EnumValue</span> {}
 <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Sync</span> <span class="kw">for</span> <span class="ident">EnumValue</span> {}
@@ -882,7 +878,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Value</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Value</span>::<span class="ident">from_type</span>(<span class="self">self</span>.<span class="number">1</span>.<span class="ident">type_</span>());
-            <span class="ident">gobject_sys</span>::<span class="ident">g_value_set_enum</span>(<span class="ident">v</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, (<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>).<span class="ident">value</span>);
+            <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_enum</span>(<span class="ident">v</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, (<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>).<span class="ident">value</span>);
             <span class="ident">v</span>
         }
     }
@@ -892,7 +888,7 @@
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">enum_class</span> <span class="op">=</span> <span class="ident">EnumClass</span>::<span class="ident">new</span>(<span class="ident">value</span>.<span class="ident">type_</span>());
             <span class="ident">enum_class</span>
-                .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">get_value</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_value_get_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)))
+                .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">get_value</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_enum</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)))
         }
     }
 
@@ -925,7 +921,7 @@
 <span class="doccomment">/// Representation of a `flags` for dynamically, at runtime, querying the values of the enum and</span>
 <span class="doccomment">/// using them</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FlagsClass</span>(<span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GFlagsClass</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FlagsClass</span>(<span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GFlagsClass</span>);
 
 <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Send</span> <span class="kw">for</span> <span class="ident">FlagsClass</span> {}
 <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Sync</span> <span class="kw">for</span> <span class="ident">FlagsClass</span> {}
@@ -936,16 +932,16 @@
     <span class="doccomment">/// Returns `None` if `type_` is not representing a flags type.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">type_</span>: <span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">is_flags</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_type_is_a</span>(
+            <span class="kw">let</span> <span class="ident">is_flags</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_type_is_a</span>(
                 <span class="ident">type_</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">gobject_sys</span>::<span class="ident">G_TYPE_FLAGS</span>,
+                <span class="ident">gobject_ffi</span>::<span class="ident">G_TYPE_FLAGS</span>,
             ));
             <span class="kw">if</span> <span class="op">!</span><span class="ident">is_flags</span> {
                 <span class="kw">return</span> <span class="prelude-val">None</span>;
             }
 
             <span class="prelude-val">Some</span>(<span class="ident">FlagsClass</span>(
-                <span class="ident">gobject_sys</span>::<span class="ident">g_type_class_ref</span>(<span class="ident">type_</span>.<span class="ident">to_glib</span>()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_type_class_ref</span>(<span class="ident">type_</span>.<span class="ident">to_glib</span>()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>
             ))
         }
     }
@@ -961,7 +957,7 @@
     <span class="doccomment">/// with `value`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">value</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FlagsValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_flags_get_first_value</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">value</span>);
+            <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_flags_get_first_value</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">value</span>);
             <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">None</span>
             } <span class="kw">else</span> {
@@ -976,7 +972,7 @@
     <span class="doccomment">/// with name `name`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value_by_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FlagsValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_flags_get_value_by_name</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_flags_get_value_by_name</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
             <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">None</span>
             } <span class="kw">else</span> {
@@ -991,7 +987,7 @@
     <span class="doccomment">/// with nick `nick`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value_by_nick</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FlagsValue</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_flags_get_value_by_nick</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_flags_get_value_by_nick</span>(<span class="self">self</span>.<span class="number">0</span>, <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
             <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">None</span>
             } <span class="kw">else</span> {
@@ -1034,7 +1030,7 @@
                 <span class="kw">return</span> <span class="bool-val">false</span>;
             }
 
-            <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
             <span class="ident">flags</span> <span class="op">&amp;</span> <span class="ident">f</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>
         }
     }
@@ -1047,7 +1043,7 @@
             }
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_value_by_name</span>(<span class="ident">name</span>) {
-                <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+                <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
                 <span class="ident">flags</span> <span class="op">&amp;</span> <span class="ident">f</span>.<span class="ident">get_value</span>() <span class="op">!</span><span class="op">=</span> <span class="number">0</span>
             } <span class="kw">else</span> {
                 <span class="bool-val">false</span>
@@ -1063,7 +1059,7 @@
             }
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_value_by_nick</span>(<span class="ident">nick</span>) {
-                <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+                <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
                 <span class="ident">flags</span> <span class="op">&amp;</span> <span class="ident">f</span>.<span class="ident">get_value</span>() <span class="op">!</span><span class="op">=</span> <span class="number">0</span>
             } <span class="kw">else</span> {
                 <span class="bool-val">false</span>
@@ -1083,8 +1079,8 @@
             }
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_value</span>(<span class="ident">f</span>) {
-                <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
-                <span class="ident">gobject_sys</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">|</span> <span class="ident">f</span>.<span class="ident">get_value</span>());
+                <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">|</span> <span class="ident">f</span>.<span class="ident">get_value</span>());
                 <span class="prelude-val">Ok</span>(<span class="ident">value</span>)
             } <span class="kw">else</span> {
                 <span class="prelude-val">Err</span>(<span class="ident">value</span>)
@@ -1104,8 +1100,8 @@
             }
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_value_by_name</span>(<span class="ident">name</span>) {
-                <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
-                <span class="ident">gobject_sys</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">|</span> <span class="ident">f</span>.<span class="ident">get_value</span>());
+                <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">|</span> <span class="ident">f</span>.<span class="ident">get_value</span>());
                 <span class="prelude-val">Ok</span>(<span class="ident">value</span>)
             } <span class="kw">else</span> {
                 <span class="prelude-val">Err</span>(<span class="ident">value</span>)
@@ -1125,8 +1121,8 @@
             }
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_value_by_nick</span>(<span class="ident">nick</span>) {
-                <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
-                <span class="ident">gobject_sys</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">|</span> <span class="ident">f</span>.<span class="ident">get_value</span>());
+                <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">|</span> <span class="ident">f</span>.<span class="ident">get_value</span>());
                 <span class="prelude-val">Ok</span>(<span class="ident">value</span>)
             } <span class="kw">else</span> {
                 <span class="prelude-val">Err</span>(<span class="ident">value</span>)
@@ -1146,8 +1142,8 @@
             }
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_value</span>(<span class="ident">f</span>) {
-                <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
-                <span class="ident">gobject_sys</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">&amp;</span> <span class="op">!</span><span class="ident">f</span>.<span class="ident">get_value</span>());
+                <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">&amp;</span> <span class="op">!</span><span class="ident">f</span>.<span class="ident">get_value</span>());
                 <span class="prelude-val">Ok</span>(<span class="ident">value</span>)
             } <span class="kw">else</span> {
                 <span class="prelude-val">Err</span>(<span class="ident">value</span>)
@@ -1167,8 +1163,8 @@
             }
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_value_by_name</span>(<span class="ident">name</span>) {
-                <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
-                <span class="ident">gobject_sys</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">&amp;</span> <span class="op">!</span><span class="ident">f</span>.<span class="ident">get_value</span>());
+                <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">&amp;</span> <span class="op">!</span><span class="ident">f</span>.<span class="ident">get_value</span>());
                 <span class="prelude-val">Ok</span>(<span class="ident">value</span>)
             } <span class="kw">else</span> {
                 <span class="prelude-val">Err</span>(<span class="ident">value</span>)
@@ -1188,8 +1184,8 @@
             }
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_value_by_nick</span>(<span class="ident">nick</span>) {
-                <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
-                <span class="ident">gobject_sys</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">&amp;</span> <span class="op">!</span><span class="ident">f</span>.<span class="ident">get_value</span>());
+                <span class="kw">let</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">flags</span> <span class="op">&amp;</span> <span class="op">!</span><span class="ident">f</span>.<span class="ident">get_value</span>());
                 <span class="prelude-val">Ok</span>(<span class="ident">value</span>)
             } <span class="kw">else</span> {
                 <span class="prelude-val">Err</span>(<span class="ident">value</span>)
@@ -1217,20 +1213,20 @@
 <span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">FlagsClass</span> {
     <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="kw">unsafe</span> {
-            <span class="ident">gobject_sys</span>::<span class="ident">g_type_class_unref</span>(<span class="self">self</span>.<span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+            <span class="ident">gobject_ffi</span>::<span class="ident">g_type_class_unref</span>(<span class="self">self</span>.<span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">FlagsClass</span> {
     <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="kw">unsafe</span> { <span class="ident">FlagsClass</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_type_class_ref</span>(<span class="self">self</span>.<span class="ident">type_</span>().<span class="ident">to_glib</span>()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">FlagsClass</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_type_class_ref</span>(<span class="self">self</span>.<span class="ident">type_</span>().<span class="ident">to_glib</span>()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) }
     }
 }
 
 <span class="doccomment">/// Representation of a single flags value of a `FlagsClass`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FlagsValue</span>(<span class="kw-2">*</span><span class="kw">const</span> <span class="ident">gobject_sys</span>::<span class="ident">GFlagsValue</span>, <span class="ident">FlagsClass</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FlagsValue</span>(<span class="kw-2">*</span><span class="kw">const</span> <span class="ident">gobject_ffi</span>::<span class="ident">GFlagsValue</span>, <span class="ident">FlagsClass</span>);
 
 <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Send</span> <span class="kw">for</span> <span class="ident">FlagsValue</span> {}
 <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Sync</span> <span class="kw">for</span> <span class="ident">FlagsValue</span> {}
@@ -1255,7 +1251,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Value</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Value</span>::<span class="ident">from_type</span>(<span class="self">self</span>.<span class="number">1</span>.<span class="ident">type_</span>());
-            <span class="ident">gobject_sys</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">v</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, (<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>).<span class="ident">value</span>);
+            <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_flags</span>(<span class="ident">v</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, (<span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>).<span class="ident">value</span>);
             <span class="ident">v</span>
         }
     }
@@ -1266,7 +1262,7 @@
             <span class="kw">let</span> <span class="ident">flags_class</span> <span class="op">=</span> <span class="ident">FlagsClass</span>::<span class="ident">new</span>(<span class="ident">value</span>.<span class="ident">type_</span>());
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">flags_class</span>) <span class="op">=</span> <span class="ident">flags_class</span> {
-                <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">gobject_sys</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+                <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_flags</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
                 <span class="kw">for</span> <span class="ident">v</span> <span class="kw">in</span> <span class="ident">flags_class</span>.<span class="ident">get_values</span>() {
                     <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">get_value</span>() <span class="op">&amp;</span> <span class="ident">f</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
                         <span class="ident">res</span>.<span class="ident">push</span>(<span class="ident">v</span>);

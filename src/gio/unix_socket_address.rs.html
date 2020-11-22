@@ -119,17 +119,17 @@
 <span id="116">116</span>
 <span id="117">117</span>
 <span id="118">118</span>
-<span id="119">119</span>
-<span id="120">120</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2018, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">gio_sys</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">SocketAddress</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">UnixSocketAddress</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">UnixSocketAddressExt</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">UnixSocketAddressType</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::{<span class="ident">Cast</span>, <span class="ident">IsA</span>};
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">libc</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsStr</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">unix</span>)]</span>
@@ -138,10 +138,6 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">path</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
-<span class="kw">use</span> <span class="ident">SocketAddress</span>;
-<span class="kw">use</span> <span class="ident">UnixSocketAddress</span>;
-<span class="kw">use</span> <span class="ident">UnixSocketAddressExt</span>;
-<span class="kw">use</span> <span class="ident">UnixSocketAddressType</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">UnixSocketAddressPath</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
@@ -177,7 +173,7 @@
     <span class="doccomment">/// a new `UnixSocketAddress`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">path</span>::<span class="ident">Path</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UnixSocketAddress</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">SocketAddress</span>::<span class="ident">from_glib_full</span>(<span class="ident">gio_sys</span>::<span class="ident">g_unix_socket_address_new</span>(<span class="ident">path</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+            <span class="ident">SocketAddress</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_unix_socket_address_new</span>(<span class="ident">path</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
                 .<span class="ident">unsafe_cast</span>()
         }
     }
@@ -194,7 +190,7 @@
             <span class="ident">Anonymous</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">ptr</span>::<span class="ident">null_mut</span>(), <span class="number">0</span>),
         };
         <span class="kw">unsafe</span> {
-            <span class="ident">SocketAddress</span>::<span class="ident">from_glib_full</span>(<span class="ident">gio_sys</span>::<span class="ident">g_unix_socket_address_new_with_type</span>(
+            <span class="ident">SocketAddress</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_unix_socket_address_new_with_type</span>(
                 <span class="ident">path</span>,
                 <span class="ident">len</span> <span class="kw">as</span> <span class="ident">i32</span>,
                 <span class="ident">type_</span>.<span class="ident">to_glib</span>(),
@@ -223,7 +219,7 @@
         <span class="kw">use</span> <span class="self">self</span>::<span class="ident">UnixSocketAddressPath</span>::<span class="kw-2">*</span>;
 
         <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">gio_sys</span>::<span class="ident">g_unix_socket_address_get_path</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_unix_socket_address_get_path</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
             <span class="kw">if</span> <span class="ident">path</span>.<span class="ident">is_null</span>() {
                 <span class="kw-2">&amp;</span>[]
             } <span class="kw">else</span> {

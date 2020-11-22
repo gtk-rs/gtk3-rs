@@ -50,9 +50,6 @@
 <span id="47">47</span>
 <span id="48">48</span>
 <span id="49">49</span>
-<span id="50">50</span>
-<span id="51">51</span>
-<span id="52">52</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2016, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -61,13 +58,10 @@
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventCrossing</span>(::<span class="ident">Event</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventCrossing</span>(<span class="kw">crate</span>::<span class="ident">Event</span>);
 
 <span class="macro">event_wrapper</span><span class="macro">!</span>(<span class="ident">EventCrossing</span>, <span class="ident">GdkEventCrossing</span>);
-<span class="macro">event_subtype</span><span class="macro">!</span>(
-    <span class="ident">EventCrossing</span>,
-    <span class="ident">gdk_sys</span>::<span class="ident">GDK_ENTER_NOTIFY</span> <span class="op">|</span> <span class="ident">gdk_sys</span>::<span class="ident">GDK_LEAVE_NOTIFY</span>
-);
+<span class="macro">event_subtype</span><span class="macro">!</span>(<span class="ident">EventCrossing</span>, <span class="ident">ffi</span>::<span class="ident">GDK_ENTER_NOTIFY</span> <span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">GDK_LEAVE_NOTIFY</span>);
 
 <span class="kw">impl</span> <span class="ident">EventCrossing</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>) {
@@ -76,19 +70,19 @@
         (<span class="ident">x</span>, <span class="ident">y</span>)
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_subwindow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>::<span class="ident">Window</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_subwindow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">Window</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">subwindow</span>) }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">CrossingMode</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">CrossingMode</span> {
         <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">mode</span>)
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_detail</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">NotifyType</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_detail</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">NotifyType</span> {
         <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">detail</span>)
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_state</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">ModifierType</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_state</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">ModifierType</span> {
         <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">state</span>)
     }
 

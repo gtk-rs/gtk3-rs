@@ -450,28 +450,22 @@
 <span id="447">447</span>
 <span id="448">448</span>
 <span id="449">449</span>
-<span id="450">450</span>
-<span id="451">451</span>
-<span id="452">452</span>
-<span id="453">453</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2016, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">glib_sys</span>;
-<span class="kw">use</span> <span class="ident">gobject_sys</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">types</span>::<span class="ident">StaticType</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">types</span>::<span class="ident">Type</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">value</span>::{<span class="ident">FromValueOptional</span>, <span class="ident">SetValue</span>, <span class="ident">SetValueOptional</span>, <span class="ident">Value</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">BoolError</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">borrow</span>::{<span class="ident">Borrow</span>, <span class="ident">Cow</span>, <span class="ident">ToOwned</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cmp</span>::{<span class="ident">Eq</span>, <span class="ident">PartialEq</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">hash</span>::{<span class="ident">Hash</span>, <span class="ident">Hasher</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::<span class="ident">Deref</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
-<span class="kw">use</span> <span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">types</span>::<span class="ident">StaticType</span>;
-<span class="kw">use</span> <span class="ident">types</span>::<span class="ident">Type</span>;
-<span class="kw">use</span> <span class="ident">value</span>::{<span class="ident">FromValueOptional</span>, <span class="ident">SetValue</span>, <span class="ident">SetValueOptional</span>, <span class="ident">Value</span>};
-<span class="kw">use</span> <span class="ident">BoolError</span>;
 
 <span class="doccomment">/// Describes `Variant` types.</span>
 <span class="doccomment">///</span>
@@ -482,7 +476,7 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">VariantType</span> {
     <span class="comment">// GVariantType* essentially is a char*, that always is valid UTF-8 but</span>
     <span class="comment">// isn&#39;t NUL-terminated.</span>
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GVariantType</span>,
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GVariantType</span>,
     <span class="comment">// We query the length on creation assuming it&#39;s cheap (because type strings</span>
     <span class="comment">// are short) and likely to happen anyway.</span>
     <span class="ident">len</span>: <span class="ident">usize</span>,
@@ -502,7 +496,7 @@
 
 <span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">VariantType</span> {
     <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
-        <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_variant_type_free</span>(<span class="self">self</span>.<span class="ident">ptr</span>) }
+        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_variant_type_free</span>(<span class="self">self</span>.<span class="ident">ptr</span>) }
     }
 }
 
@@ -516,7 +510,7 @@
     <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VariantType</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">VariantType</span> {
-                <span class="ident">ptr</span>: <span class="ident">glib_sys</span>::<span class="ident">g_variant_type_copy</span>(<span class="self">self</span>.<span class="ident">ptr</span>),
+                <span class="ident">ptr</span>: <span class="ident">ffi</span>::<span class="ident">g_variant_type_copy</span>(<span class="self">self</span>.<span class="ident">ptr</span>),
                 <span class="ident">len</span>: <span class="self">self</span>.<span class="ident">len</span>,
             }
         }
@@ -558,24 +552,24 @@
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtrMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GVariantType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">VariantType</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtrMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GVariantType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">VariantType</span> {
     <span class="kw">type</span> <span class="ident">Storage</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="self">Self</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib_none_mut</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">StashMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GVariantType</span>, <span class="self">Self</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib_none_mut</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">StashMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GVariantType</span>, <span class="self">Self</span><span class="op">&gt;</span> {
         <span class="ident">StashMut</span>(<span class="self">self</span>.<span class="ident">ptr</span>, <span class="self">self</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw">const</span> <span class="ident">glib_sys</span>::<span class="ident">GVariantType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">VariantType</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">glib_sys</span>::<span class="ident">GVariantType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VariantType</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrNone</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GVariantType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">VariantType</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_none</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GVariantType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VariantType</span> {
         <span class="ident">VariantTy</span>::<span class="ident">from_ptr</span>(<span class="ident">ptr</span>).<span class="ident">to_owned</span>()
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw">const</span> <span class="ident">glib_sys</span>::<span class="ident">GVariantType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">VariantType</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">glib_sys</span>::<span class="ident">GVariantType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VariantType</span> {
+<span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GVariantType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">VariantType</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GVariantType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VariantType</span> {
         <span class="comment">// Don&#39;t assume ownership of a const pointer.</span>
         <span class="comment">// A transfer: full annotation on a `const GVariantType*` is likely a bug.</span>
         <span class="ident">VariantTy</span>::<span class="ident">from_ptr</span>(<span class="ident">ptr</span>).<span class="ident">to_owned</span>()
@@ -600,7 +594,7 @@
         <span class="kw">let</span> <span class="ident">limit</span> <span class="op">=</span> <span class="ident">ptr</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">+</span> <span class="ident">type_string</span>.<span class="ident">len</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">end</span> <span class="op">=</span> <span class="number">0_usize</span>;
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">ok</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_variant_type_string_scan</span>(
+            <span class="kw">let</span> <span class="ident">ok</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_variant_type_string_scan</span>(
                 <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="ident">limit</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">end</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">usize</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
@@ -626,14 +620,14 @@
     <span class="doccomment">/// Creates `&amp;VariantTy` with a wildcard lifetime from a `GVariantType`</span>
     <span class="doccomment">/// pointer.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_ptr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">glib_sys</span>::<span class="ident">GVariantType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">VariantTy</span> {
-        <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">glib_sys</span>::<span class="ident">g_variant_type_get_string_length</span>(<span class="ident">ptr</span>) <span class="kw">as</span> <span class="ident">usize</span>;
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_ptr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GVariantType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">VariantTy</span> {
+        <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_variant_type_get_string_length</span>(<span class="ident">ptr</span>) <span class="kw">as</span> <span class="ident">usize</span>;
         <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">slice</span>::<span class="ident">from_raw_parts</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="ident">len</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> [<span class="ident">u8</span>] <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">VariantTy</span>)
     }
 
     <span class="doccomment">/// Returns a `GVariantType` pointer.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_ptr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">glib_sys</span>::<span class="ident">GVariantType</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_ptr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GVariantType</span> {
         <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>
     }
 
@@ -646,10 +640,10 @@
 <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Sync</span> <span class="kw">for</span> <span class="ident">VariantTy</span> {}
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">glib_sys</span>::<span class="ident">GVariantType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">VariantTy</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ToGlibPtr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GVariantType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">VariantTy</span> {
     <span class="kw">type</span> <span class="ident">Storage</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">Self</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib_none</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stash</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">glib_sys</span>::<span class="ident">GVariantType</span>, <span class="self">Self</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib_none</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Stash</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GVariantType</span>, <span class="self">Self</span><span class="op">&gt;</span> {
         <span class="ident">Stash</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>(), <span class="self">self</span>)
     }
 }
@@ -672,7 +666,7 @@
     <span class="kw">fn</span> <span class="ident">to_owned</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VariantType</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">VariantType</span> {
-                <span class="ident">ptr</span>: <span class="ident">glib_sys</span>::<span class="ident">g_variant_type_copy</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>()),
+                <span class="ident">ptr</span>: <span class="ident">ffi</span>::<span class="ident">g_variant_type_copy</span>(<span class="self">self</span>.<span class="ident">as_ptr</span>()),
                 <span class="ident">len</span>: <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">len</span>(),
             }
         }
@@ -681,15 +675,15 @@
 
 <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">VariantTy</span> {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_variant_type_get_gtype</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_variant_type_get_gtype</span>()) }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">SetValue</span> <span class="kw">for</span> <span class="ident">VariantTy</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-        <span class="ident">gobject_sys</span>::<span class="ident">g_value_set_boxed</span>(
+        <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_boxed</span>(
             <span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
-            <span class="ident">this</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="ident">glib_sys</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
         )
     }
 }
@@ -698,17 +692,16 @@
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Value</span>, <span class="ident">this</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="self">Self</span><span class="op">&gt;</span>) {
         <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
         <span class="kw">let</span> <span class="ident">p</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">this</span> {
-            <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">t</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">t</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="ident">glib_sys</span>::<span class="ident">gpointer</span>,
+            <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">t</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">t</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ptr</span>::<span class="ident">null</span>(),
         };
-        <span class="ident">gobject_sys</span>::<span class="ident">g_value_set_boxed</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">p</span>)
+        <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_boxed</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">p</span>)
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">VariantTy</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">cvty</span> <span class="op">=</span>
-            <span class="ident">gobject_sys</span>::<span class="ident">g_value_get_boxed</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GVariantType</span>;
+        <span class="kw">let</span> <span class="ident">cvty</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_boxed</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GVariantType</span>;
         <span class="kw">if</span> <span class="ident">cvty</span>.<span class="ident">is_null</span>() {
             <span class="prelude-val">None</span>
         } <span class="kw">else</span> {
@@ -719,15 +712,15 @@
 
 <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">VariantType</span> {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_variant_type_get_gtype</span>()) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_variant_type_get_gtype</span>()) }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">SetValue</span> <span class="kw">for</span> <span class="ident">VariantType</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-        <span class="ident">gobject_sys</span>::<span class="ident">g_value_set_boxed</span>(
+        <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_boxed</span>(
             <span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
-            <span class="ident">this</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="ident">glib_sys</span>::<span class="ident">gpointer</span>,
+            <span class="ident">this</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
         )
     }
 }
@@ -736,17 +729,17 @@
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Value</span>, <span class="ident">this</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="self">Self</span><span class="op">&gt;</span>) {
         <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
         <span class="kw">let</span> <span class="ident">p</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">this</span> {
-            <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">t</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">t</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="ident">glib_sys</span>::<span class="ident">gpointer</span>,
+            <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">t</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">t</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ptr</span>::<span class="ident">null</span>(),
         };
-        <span class="ident">gobject_sys</span>::<span class="ident">g_value_set_boxed</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">p</span>)
+        <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_boxed</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">p</span>)
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">VariantType</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="ident">VariantType</span><span class="op">&gt;</span>::<span class="ident">from_glib_none</span>(
-            <span class="ident">gobject_sys</span>::<span class="ident">g_value_get_boxed</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GVariantType</span>,
+            <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_boxed</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GVariantType</span>,
         )
     }
 }
@@ -813,11 +806,10 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="ident">glib_sys</span>;
-    <span class="kw">use</span> <span class="ident">value</span>::<span class="ident">ToValue</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ToValue</span>;
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">equal</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">U</span><span class="op">&gt;</span>(<span class="ident">ptr1</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">T</span>, <span class="ident">ptr2</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">U</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_variant_type_equal</span>(
+        <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_variant_type_equal</span>(
             <span class="ident">ptr1</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
             <span class="ident">ptr2</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
         ))

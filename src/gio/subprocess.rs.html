@@ -91,21 +91,15 @@
 <span id="88">88</span>
 <span id="89">89</span>
 <span id="90">90</span>
-<span id="91">91</span>
-<span id="92">92</span>
-<span id="93">93</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">gio_sys</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Cancellable</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Subprocess</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">GString</span>;
-<span class="kw">use</span> <span class="ident">glib_sys</span>;
-<span class="kw">use</span> <span class="ident">gobject_sys</span>;
 <span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_char</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">pin</span>::<span class="ident">Pin</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
-<span class="kw">use</span> <span class="ident">Cancellable</span>;
-<span class="kw">use</span> <span class="ident">Subprocess</span>;
 
 <span class="kw">impl</span> <span class="ident">Subprocess</span> {
     <span class="doccomment">/// Asynchronous version of `Subprocess::communicate_utf8`. Complete</span>
@@ -134,14 +128,14 @@
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">communicate_utf8_async_trampoline</span><span class="op">&lt;</span>
             <span class="ident">R</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GString</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GString</span><span class="op">&gt;</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="op">&gt;</span>(
-            <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GObject</span>,
-            <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GAsyncResult</span>,
-            <span class="ident">user_data</span>: <span class="ident">glib_sys</span>::<span class="ident">gpointer</span>,
+            <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
+            <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GAsyncResult</span>,
+            <span class="ident">user_data</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
         ) {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stdout_buf</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stderr_buf</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
-            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">gio_sys</span>::<span class="ident">g_subprocess_communicate_utf8_finish</span>(
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">g_subprocess_communicate_utf8_finish</span>(
                 <span class="ident">_source_object</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
                 <span class="ident">res</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">stdout_buf</span>,
@@ -154,11 +148,11 @@
                 <span class="prelude-val">Err</span>(<span class="ident">from_glib_full</span>(<span class="ident">error</span>))
             };
             <span class="kw">let</span> <span class="ident">callback</span>: <span class="ident">Box</span><span class="op">&lt;</span>(<span class="ident">R</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>)<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">from_raw</span>(<span class="ident">user_data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
-            <span class="ident">glib_sys</span>::<span class="ident">g_free</span>(<span class="ident">callback</span>.<span class="number">1</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+            <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">g_free</span>(<span class="ident">callback</span>.<span class="number">1</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
             <span class="ident">callback</span>.<span class="number">0</span>(<span class="ident">result</span>);
         }
         <span class="kw">unsafe</span> {
-            <span class="ident">gio_sys</span>::<span class="ident">g_subprocess_communicate_utf8_async</span>(
+            <span class="ident">ffi</span>::<span class="ident">g_subprocess_communicate_utf8_async</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">stdin_buf</span>,
                 <span class="ident">gcancellable</span>.<span class="number">0</span>,

@@ -234,7 +234,6 @@
 <span id="231">231</span>
 <span id="232">232</span>
 <span id="233">233</span>
-<span id="234">234</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2015, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -245,16 +244,15 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">rc</span>::<span class="ident">Rc</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
 
-<span class="kw">use</span> <span class="ident">enums</span>::{<span class="ident">Format</span>, <span class="ident">SurfaceType</span>};
-<span class="kw">use</span> <span class="ident">error</span>::<span class="ident">Error</span>;
-<span class="kw">use</span> <span class="ident">ffi</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">enums</span>::{<span class="ident">Format</span>, <span class="ident">SurfaceType</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">surface</span>::<span class="ident">Surface</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">utils</span>::<span class="ident">status_to_result</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">BorrowError</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">surface</span>::<span class="ident">Surface</span>;
-<span class="kw">use</span> <span class="ident">utils</span>::<span class="ident">status_to_result</span>;
-<span class="kw">use</span> <span class="ident">BorrowError</span>;
 
 <span class="macro">declare_surface</span><span class="macro">!</span>(<span class="ident">ImageSurface</span>, <span class="ident">SurfaceType</span>::<span class="ident">Image</span>);
 

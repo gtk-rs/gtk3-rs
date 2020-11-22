@@ -13,19 +13,17 @@
 <span id="10">10</span>
 <span id="11">11</span>
 <span id="12">12</span>
-<span id="13">13</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2015, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">gdk_sys</span>;
-<span class="kw">use</span> <span class="ident">DeviceManager</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">DeviceManager</span>;
 
 <span class="kw">impl</span> <span class="ident">DeviceManager</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">disable_multidevice</span>() {
         <span class="macro">assert_not_initialized</span><span class="macro">!</span>();
-        <span class="kw">unsafe</span> { <span class="ident">gdk_sys</span>::<span class="ident">gdk_disable_multidevice</span>() }
+        <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_disable_multidevice</span>() }
     }
 }
 </pre></div>

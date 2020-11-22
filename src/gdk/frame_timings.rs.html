@@ -70,16 +70,14 @@
 <span id="67">67</span>
 <span id="68">68</span>
 <span id="69">69</span>
-<span id="70">70</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2018, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">gdk_sys</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">FrameTimings</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">num</span>::<span class="ident">NonZeroU64</span>;
-<span class="kw">use</span> <span class="ident">FrameTimings</span>;
 
 <span class="kw">impl</span> <span class="ident">FrameTimings</span> {
     <span class="doccomment">/// Gets the predicted time at which this frame will be displayed. Although</span>
@@ -99,7 +97,7 @@
     <span class="doccomment">///  presentation time is available.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_predicted_presentation_time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">NonZeroU64</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">predicted_presentation_time</span> <span class="op">=</span> <span class="kw">unsafe</span> {
-            <span class="ident">gdk_sys</span>::<span class="ident">gdk_frame_timings_get_predicted_presentation_time</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
+            <span class="ident">ffi</span>::<span class="ident">gdk_frame_timings_get_predicted_presentation_time</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
         };
         <span class="comment">// assuming presentation time is always positive</span>
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">predicted_presentation_time</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">0</span>);
@@ -117,7 +115,7 @@
     <span class="doccomment">///  time is available. See `FrameTimings::get_complete`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_presentation_time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">NonZeroU64</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">presentation_time</span> <span class="op">=</span>
-            <span class="kw">unsafe</span> { <span class="ident">gdk_sys</span>::<span class="ident">gdk_frame_timings_get_presentation_time</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) };
+            <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_frame_timings_get_presentation_time</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) };
         <span class="comment">// assuming presentation time is always positive</span>
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">presentation_time</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">0</span>);
         <span class="comment">// `0` means the value is not available</span>
@@ -135,7 +133,7 @@
     <span class="doccomment">///  See `FrameTimings::get_complete`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_refresh_interval</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">NonZeroU64</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">refresh_interval</span> <span class="op">=</span>
-            <span class="kw">unsafe</span> { <span class="ident">gdk_sys</span>::<span class="ident">gdk_frame_timings_get_refresh_interval</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) };
+            <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_frame_timings_get_refresh_interval</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) };
         <span class="comment">// assuming refresh interval is always positive</span>
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">refresh_interval</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">0</span>);
         <span class="comment">// `0` means the value is not available</span>

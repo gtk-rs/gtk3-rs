@@ -402,7 +402,6 @@
 <span id="399">399</span>
 <span id="400">400</span>
 <span id="401">401</span>
-<span id="402">402</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2019, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -411,7 +410,6 @@
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">subclass</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">InputStream</span>;
-<span class="kw">use</span> <span class="ident">glib</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">subclass</span>;
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">any</span>::<span class="ident">Any</span>;
@@ -437,7 +435,7 @@
         <span class="kw">type</span> <span class="ident">Instance</span> <span class="op">=</span> <span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">InstanceStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
         <span class="kw">type</span> <span class="ident">Class</span> <span class="op">=</span> <span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">ClassStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 
-        <span class="macro">glib_object_subclass</span><span class="macro">!</span>();
+        <span class="ident">glib</span>::<span class="macro">glib_object_subclass</span><span class="macro">!</span>();
 
         <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
             <span class="self">Self</span> {
@@ -567,7 +565,7 @@
     }
 }
 
-<span class="macro">glib_wrapper</span><span class="macro">!</span> {
+<span class="ident">glib</span>::<span class="macro">glib_wrapper</span><span class="macro">!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ReadInputStream</span>(<span class="ident">ObjectSubclass</span><span class="op">&lt;</span><span class="ident">imp</span>::<span class="ident">ReadInputStream</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="kw">crate</span>::<span class="ident">InputStream</span>, @<span class="ident">implements</span> <span class="kw">crate</span>::<span class="ident">Seekable</span>;
 }
 

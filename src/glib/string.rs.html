@@ -245,15 +245,12 @@
 <span id="242">242</span>
 <span id="243">243</span>
 <span id="244">244</span>
-<span id="245">245</span>
-<span id="246">246</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2018, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">glib_sys</span>;
-<span class="kw">use</span> <span class="ident">gobject_sys</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">borrow</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cmp</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>;
@@ -263,16 +260,15 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">str</span>;
-<span class="kw">use</span> <span class="ident">translate</span>::<span class="kw-2">*</span>;
 
 <span class="macro">glib_wrapper</span><span class="macro">!</span> {
     <span class="doccomment">/// A mutable text buffer that grows automatically.</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">String</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">glib_sys</span>::<span class="ident">GString</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">String</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GString</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">gobject_sys</span>::<span class="ident">g_boxed_copy</span>(<span class="ident">glib_sys</span>::<span class="ident">g_gstring_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GString</span>,
-        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">gobject_sys</span>::<span class="ident">g_boxed_free</span>(<span class="ident">glib_sys</span>::<span class="ident">g_gstring_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>),
-        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">glib_sys</span>::<span class="ident">g_gstring_get_type</span>(),
+        <span class="ident">copy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_boxed_copy</span>(<span class="ident">ffi</span>::<span class="ident">g_gstring_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GString</span>,
+        <span class="ident">free</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_boxed_free</span>(<span class="ident">ffi</span>::<span class="ident">g_gstring_get_type</span>(), <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>),
+        <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_gstring_get_type</span>(),
     }
 }
 
@@ -283,7 +279,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">data</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
         <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">glib_sys</span>::<span class="ident">g_string_new_len</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_string_new_len</span>(
                 <span class="ident">bytes</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
                 <span class="ident">bytes</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">isize</span>,
             ))
@@ -292,7 +288,7 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">append</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">val</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_string_append_len</span>(
+            <span class="ident">ffi</span>::<span class="ident">g_string_append_len</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">val</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">val</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">isize</span>,
@@ -303,7 +299,7 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">pos</span>: <span class="ident">isize</span>, <span class="ident">val</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_string_insert_len</span>(
+            <span class="ident">ffi</span>::<span class="ident">g_string_insert_len</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">pos</span>,
                 <span class="ident">val</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -315,7 +311,7 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">overwrite</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">pos</span>: <span class="ident">usize</span>, <span class="ident">val</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_string_overwrite_len</span>(
+            <span class="ident">ffi</span>::<span class="ident">g_string_overwrite_len</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">pos</span>,
                 <span class="ident">val</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -327,7 +323,7 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prepend</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">val</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_string_prepend_len</span>(
+            <span class="ident">ffi</span>::<span class="ident">g_string_prepend_len</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
                 <span class="ident">val</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">val</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">isize</span>,
@@ -338,7 +334,7 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">truncate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">len</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">g_string_truncate</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">len</span>);
+            <span class="ident">ffi</span>::<span class="ident">g_string_truncate</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">len</span>);
         }
         <span class="self">self</span>
     }
@@ -351,14 +347,14 @@
     <span class="doccomment">/// Returns `Cow&lt;str&gt;` containing UTF-8 data. Invalid UTF-8 sequences are replaced with</span>
     <span class="doccomment">/// replacement character.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_string_lossy</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">borrow</span>::<span class="ident">Cow</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> {
-        ::<span class="ident">std</span>::<span class="ident">string</span>::<span class="ident">String</span>::<span class="ident">from_utf8_lossy</span>(<span class="self">self</span>.<span class="ident">as_ref</span>())
+        <span class="ident">std</span>::<span class="ident">string</span>::<span class="ident">String</span>::<span class="ident">from_utf8_lossy</span>(<span class="self">self</span>.<span class="ident">as_ref</span>())
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">String</span> {
     <span class="doccomment">/// Creates a new empty string.</span>
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">glib_sys</span>::<span class="ident">g_string_new</span>(<span class="ident">ptr</span>::<span class="ident">null</span>())) }
+        <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_string_new</span>(<span class="ident">ptr</span>::<span class="ident">null</span>())) }
     }
 }
 
@@ -377,7 +373,7 @@
 <span class="kw">impl</span> <span class="ident">PartialEq</span> <span class="kw">for</span> <span class="ident">String</span> {
     <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_string_equal</span>(
+            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_string_equal</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">other</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -430,35 +426,35 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">append</span>() {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> ::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;&quot;</span>);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;&quot;</span>);
         <span class="ident">s</span>.<span class="ident">append</span>(<span class="string">&quot;Hello&quot;</span>).<span class="ident">append</span>(<span class="string">&quot; &quot;</span>).<span class="ident">append</span>(<span class="string">&quot;there!&quot;</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;Hello there!&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">insert</span>() {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> ::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;foobaz&quot;</span>);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;foobaz&quot;</span>);
         <span class="ident">s</span>.<span class="ident">insert</span>(<span class="number">3</span>, <span class="string">&quot;bar&quot;</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;foobarbaz&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">overwrite</span>() {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> ::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;abc&quot;</span>);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;abc&quot;</span>);
         <span class="ident">s</span>.<span class="ident">overwrite</span>(<span class="number">2</span>, <span class="string">&quot;de&quot;</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;abde&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">prepend</span>() {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> ::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;456&quot;</span>);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;456&quot;</span>);
         <span class="ident">s</span>.<span class="ident">prepend</span>(<span class="string">&quot;123&quot;</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;123456&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">truncate</span>() {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> ::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;12345&quot;</span>);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;12345&quot;</span>);
         <span class="ident">s</span>.<span class="ident">truncate</span>(<span class="number">10</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s</span>, <span class="string">b&quot;12345&quot;</span>);
         <span class="ident">s</span>.<span class="ident">truncate</span>(<span class="number">2</span>);
@@ -467,21 +463,21 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">default</span>() {
-        <span class="kw">let</span> <span class="ident">s1</span>: ::<span class="ident">String</span> <span class="op">=</span> <span class="ident">Default</span>::<span class="ident">default</span>();
+        <span class="kw">let</span> <span class="ident">s1</span>: <span class="kw">crate</span>::<span class="ident">String</span> <span class="op">=</span> <span class="ident">Default</span>::<span class="ident">default</span>();
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">s1</span>, <span class="string">b&quot;&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">display</span>() {
-        <span class="kw">let</span> <span class="ident">s</span>: ::<span class="ident">String</span> <span class="op">=</span> ::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;This is a string.&quot;</span>);
+        <span class="kw">let</span> <span class="ident">s</span>: <span class="kw">crate</span>::<span class="ident">String</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;This is a string.&quot;</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">s</span>), <span class="string">&quot;This is a string.&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">eq</span>() {
-        <span class="kw">let</span> <span class="ident">a1</span> <span class="op">=</span> ::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;a&quot;</span>);
-        <span class="kw">let</span> <span class="ident">a2</span> <span class="op">=</span> ::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;a&quot;</span>);
-        <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> ::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;b&quot;</span>);
+        <span class="kw">let</span> <span class="ident">a1</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;a&quot;</span>);
+        <span class="kw">let</span> <span class="ident">a2</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;a&quot;</span>);
+        <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">&quot;b&quot;</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">a1</span>, <span class="ident">a2</span>);
         <span class="macro">assert_ne</span><span class="macro">!</span>(<span class="ident">a1</span>, <span class="ident">b</span>);
         <span class="macro">assert_ne</span><span class="macro">!</span>(<span class="ident">a2</span>, <span class="ident">b</span>);
@@ -489,7 +485,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">invalid_utf8</span>() {
-        <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> ::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">b&quot;Hello \xF0\x90\x80World&quot;</span>);
+        <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">String</span>::<span class="ident">new</span>(<span class="string">b&quot;Hello \xF0\x90\x80World&quot;</span>);
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">s</span>.<span class="ident">to_str</span>().<span class="ident">is_err</span>());
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">s</span>.<span class="ident">to_string_lossy</span>(), <span class="string">&quot;Hello �World&quot;</span>);
     }

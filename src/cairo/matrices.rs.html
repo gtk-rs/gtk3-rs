@@ -281,16 +281,14 @@
 <span id="278">278</span>
 <span id="279">279</span>
 <span id="280">280</span>
-<span id="281">281</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2015, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">error</span>::<span class="ident">Error</span>;
-<span class="kw">use</span> <span class="ident">ffi</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">utils</span>::<span class="ident">status_to_result</span>;
 <span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_double</span>;
-<span class="kw">use</span> <span class="ident">utils</span>::<span class="ident">status_to_result</span>;
 
 <span class="doccomment">/// A structure capable of holding a 4x4 matrix.</span>
 <span class="doccomment">///</span>
@@ -533,7 +531,7 @@
                 }
             };
         }
-        <span class="kw">use</span> <span class="ident">ffi</span>::<span class="ident">Matrix</span> <span class="kw">as</span> <span class="ident">FfiMatrix</span>;
+        <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ffi</span>::<span class="ident">Matrix</span> <span class="kw">as</span> <span class="ident">FfiMatrix</span>;
         <span class="kw">let</span> <span class="ident">transmuted</span>: <span class="ident">Matrix</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="macro">dummy_values</span><span class="macro">!</span>(<span class="ident">FfiMatrix</span>)) };
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">transmuted</span>, <span class="macro">dummy_values</span><span class="macro">!</span>(<span class="ident">Matrix</span>));
     }

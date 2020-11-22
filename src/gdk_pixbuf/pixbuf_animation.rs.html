@@ -45,10 +45,10 @@
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;http://opensource.org/licenses/MIT&gt;</span>
 
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">PixbufAnimation</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">PixbufAnimationIter</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">PixbufAnimation</span>;
-<span class="kw">use</span> <span class="ident">PixbufAnimationIter</span>;
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">time</span>::<span class="ident">SystemTime</span>;
@@ -63,18 +63,18 @@
             <span class="kw">let</span> <span class="ident">diff</span> <span class="op">=</span> <span class="ident">s</span>
                 .<span class="ident">duration_since</span>(<span class="ident">SystemTime</span>::<span class="ident">UNIX_EPOCH</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;failed to convert time&quot;</span>);
-            <span class="ident">glib_sys</span>::<span class="ident">GTimeVal</span> {
+            <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">GTimeVal</span> {
                 <span class="ident">tv_sec</span>: <span class="ident">diff</span>.<span class="ident">as_secs</span>() <span class="kw">as</span> <span class="kw">_</span>,
                 <span class="ident">tv_usec</span>: <span class="ident">diff</span>.<span class="ident">subsec_micros</span>() <span class="kw">as</span> <span class="kw">_</span>,
             }
         });
 
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_full</span>(<span class="ident">gdk_pixbuf_sys</span>::<span class="ident">gdk_pixbuf_animation_get_iter</span>(
+            <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">gdk_pixbuf_animation_get_iter</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">start_time</span>
                     .<span class="ident">as_ref</span>()
-                    .<span class="ident">map</span>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <span class="ident">t</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">glib_sys</span>::<span class="ident">GTimeVal</span>)
+                    .<span class="ident">map</span>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <span class="ident">t</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">GTimeVal</span>)
                     .<span class="ident">unwrap_or</span>(<span class="ident">ptr</span>::<span class="ident">null</span>()),
             ))
         }

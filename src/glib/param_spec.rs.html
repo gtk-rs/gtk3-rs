@@ -1049,14 +1049,13 @@
 <span class="comment">// Copyright 2018, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
-<span class="kw">use</span> <span class="ident">gobject_sys</span>;
-<span class="kw">use</span> <span class="ident">libc</span>;
-<span class="kw">use</span> <span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">value</span>;
-<span class="kw">use</span> <span class="ident">ParamFlags</span>;
-<span class="kw">use</span> <span class="ident">StaticType</span>;
-<span class="kw">use</span> <span class="ident">Type</span>;
-<span class="kw">use</span> <span class="ident">Value</span>;
+
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">value</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ParamFlags</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">StaticType</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Type</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Value</span>;
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">char</span>::<span class="ident">CharTryFromError</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
@@ -1065,38 +1064,38 @@
 <span class="comment">// Can&#39;t use get_type here as this is not a boxed type but another fundamental type</span>
 <span class="macro">glib_wrapper</span><span class="macro">!</span> {
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ParamSpec</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">gobject_sys</span>::<span class="ident">GParamSpec</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ParamSpec</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">gobject_ffi</span>::<span class="ident">GParamSpec</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="kw-2">ref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_ref_sink</span>(<span class="ident">ptr</span>),
-        <span class="ident">unref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_unref</span>(<span class="ident">ptr</span>),
+        <span class="kw-2">ref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_ref_sink</span>(<span class="ident">ptr</span>),
+        <span class="ident">unref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_unref</span>(<span class="ident">ptr</span>),
     }
 }
 
 <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">ParamSpec</span> {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
-        <span class="ident">from_glib</span>(<span class="ident">gobject_sys</span>::<span class="ident">G_TYPE_PARAM</span>)
+        <span class="ident">from_glib</span>(<span class="ident">gobject_ffi</span>::<span class="ident">G_TYPE_PARAM</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">value</span>::<span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ParamSpec</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="ident">from_glib_full</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_value_dup_param</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+        <span class="ident">from_glib_full</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_value_dup_param</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">value</span>::<span class="ident">SetValue</span> <span class="kw">for</span> <span class="ident">ParamSpec</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-        <span class="ident">gobject_sys</span>::<span class="ident">g_value_set_param</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
+        <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_param</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">value</span>::<span class="ident">SetValueOptional</span> <span class="kw">for</span> <span class="ident">ParamSpec</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Value</span>, <span class="ident">this</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="self">Self</span><span class="op">&gt;</span>) {
-        <span class="ident">gobject_sys</span>::<span class="ident">g_value_set_param</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
+        <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_param</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
     }
 }
 
@@ -1132,11 +1131,11 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">Type</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">Type</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>((<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>).<span class="ident">value_type</span>) }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_owner_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">Type</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_owner_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">Type</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>((<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>).<span class="ident">owner_type</span>) }
     }
 
@@ -1146,7 +1145,7 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_blurb</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_get_blurb</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+            <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_get_blurb</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
                 .<span class="ident">to_str</span>()
                 .<span class="ident">unwrap</span>()
         }
@@ -1154,13 +1153,14 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_default_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Value</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_get_default_value</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> ::<span class="ident">Value</span>)
+            <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_get_default_value</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
+                <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">crate</span>::<span class="ident">Value</span>)
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_name</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_get_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+            <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_get_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
                 .<span class="ident">to_str</span>()
                 .<span class="ident">unwrap</span>()
         }
@@ -1168,9 +1168,9 @@
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_46&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_46&quot;</span>)))]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_name_quark</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">Quark</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_name_quark</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">Quark</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_get_name_quark</span>(
+            <span class="ident">from_glib</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_get_name_quark</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
@@ -1178,34 +1178,34 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_nick</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_get_nick</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+            <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_get_nick</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
                 .<span class="ident">to_str</span>()
                 .<span class="ident">unwrap</span>()
         }
     }
 
     <span class="comment">//pub fn get_qdata(&amp;self, quark: /*Ignored*/glib::Quark) -&gt; /*Unimplemented*/Option&lt;Fundamental: Pointer&gt; {</span>
-    <span class="comment">//    unsafe { TODO: call gobject_sys::g_param_spec_get_qdata() }</span>
+    <span class="comment">//    unsafe { TODO: call gobject_ffi::g_param_spec_get_qdata() }</span>
     <span class="comment">//}</span>
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_redirect_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ParamSpec</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_get_redirect_target</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_get_redirect_target</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
         }
     }
 
     <span class="comment">//pub fn set_qdata(&amp;self, quark: /*Ignored*/glib::Quark, data: Option&lt;/*Unimplemented*/Fundamental: Pointer&gt;) {</span>
-    <span class="comment">//    unsafe { TODO: call gobject_sys::g_param_spec_set_qdata() }</span>
+    <span class="comment">//    unsafe { TODO: call gobject_ffi::g_param_spec_set_qdata() }</span>
     <span class="comment">//}</span>
 
     <span class="comment">//pub fn set_qdata_full(&amp;self, quark: /*Ignored*/glib::Quark, data: Option&lt;/*Unimplemented*/Fundamental: Pointer&gt;, destroy: /*Unknown conversion*//*Unimplemented*/DestroyNotify) {</span>
-    <span class="comment">//    unsafe { TODO: call gobject_sys::g_param_spec_set_qdata_full() }</span>
+    <span class="comment">//    unsafe { TODO: call gobject_ffi::g_param_spec_set_qdata_full() }</span>
     <span class="comment">//}</span>
 
     <span class="comment">//pub fn steal_qdata(&amp;self, quark: /*Ignored*/glib::Quark) -&gt; /*Unimplemented*/Option&lt;Fundamental: Pointer&gt; {</span>
-    <span class="comment">//    unsafe { TODO: call gobject_sys::g_param_spec_steal_qdata() }</span>
+    <span class="comment">//    unsafe { TODO: call gobject_ffi::g_param_spec_steal_qdata() }</span>
     <span class="comment">//}</span>
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">boolean</span>(
@@ -1216,7 +1216,7 @@
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_boolean</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_boolean</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1230,11 +1230,11 @@
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">blurb</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-        <span class="ident">boxed_type</span>: ::<span class="ident">Type</span>,
+        <span class="ident">boxed_type</span>: <span class="kw">crate</span>::<span class="ident">Type</span>,
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_boxed</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_boxed</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1254,7 +1254,7 @@
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_char</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_char</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1276,7 +1276,7 @@
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_double</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_double</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1292,12 +1292,12 @@
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">blurb</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-        <span class="ident">enum_type</span>: ::<span class="ident">Type</span>,
+        <span class="ident">enum_type</span>: <span class="kw">crate</span>::<span class="ident">Type</span>,
         <span class="ident">default_value</span>: <span class="ident">i32</span>,
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_enum</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_enum</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1312,12 +1312,12 @@
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">blurb</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-        <span class="ident">flags_type</span>: ::<span class="ident">Type</span>,
+        <span class="ident">flags_type</span>: <span class="kw">crate</span>::<span class="ident">Type</span>,
         <span class="ident">default_value</span>: <span class="ident">u32</span>,
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_flags</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_flags</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1338,7 +1338,7 @@
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_float</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_float</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1354,11 +1354,11 @@
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">blurb</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-        <span class="ident">is_a_type</span>: ::<span class="ident">Type</span>,
+        <span class="ident">is_a_type</span>: <span class="kw">crate</span>::<span class="ident">Type</span>,
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_gtype</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_gtype</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1378,7 +1378,7 @@
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_int</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_int</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1400,7 +1400,7 @@
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_int64</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_int64</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1422,7 +1422,7 @@
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_long</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_long</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1438,11 +1438,11 @@
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">blurb</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-        <span class="ident">object_type</span>: ::<span class="ident">Type</span>,
+        <span class="ident">object_type</span>: <span class="kw">crate</span>::<span class="ident">Type</span>,
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_object</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_object</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1454,7 +1454,7 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">override_</span>(<span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">overridden</span>: <span class="kw-2">&amp;</span><span class="ident">ParamSpec</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_override</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_override</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">overridden</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             ))
@@ -1465,11 +1465,11 @@
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">blurb</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-        <span class="ident">param_type</span>: ::<span class="ident">Type</span>,
+        <span class="ident">param_type</span>: <span class="kw">crate</span>::<span class="ident">Type</span>,
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_param</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_param</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1481,7 +1481,7 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pointer</span>(<span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">blurb</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">flags</span>: <span class="ident">ParamFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_pointer</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_pointer</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1499,7 +1499,7 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">let</span> <span class="ident">default_value</span> <span class="op">=</span> <span class="ident">default_value</span>.<span class="ident">to_glib_none</span>();
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_string</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_string</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1519,7 +1519,7 @@
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_uchar</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_uchar</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1541,7 +1541,7 @@
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_uint</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_uint</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1563,7 +1563,7 @@
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_uint64</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_uint64</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1585,7 +1585,7 @@
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_ulong</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_ulong</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1605,7 +1605,7 @@
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_unichar</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_unichar</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1623,7 +1623,7 @@
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_value_array</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_value_array</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1637,12 +1637,12 @@
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">blurb</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-        <span class="ident">type_</span>: <span class="kw-2">&amp;</span>::<span class="ident">VariantTy</span>,
-        <span class="ident">default_value</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>::<span class="ident">Variant</span><span class="op">&gt;</span>,
+        <span class="ident">type_</span>: <span class="kw-2">&amp;</span><span class="kw">crate</span>::<span class="ident">VariantTy</span>,
+        <span class="ident">default_value</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw">crate</span>::<span class="ident">Variant</span><span class="op">&gt;</span>,
         <span class="ident">flags</span>: <span class="ident">ParamFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_variant</span>(
+            <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_variant</span>(
                 <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">nick</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">blurb</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1655,13 +1655,13 @@
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ParamSpecType</span>:
-    <span class="ident">StaticType</span> <span class="op">+</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GParamSpec</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>
+    <span class="ident">StaticType</span> <span class="op">+</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpec</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>
 {
 }
 
 <span class="attribute">#[<span class="ident">link</span>(<span class="ident">name</span> <span class="op">=</span> <span class="string">&quot;gobject-2.0&quot;</span>)]</span>
 <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> {
-    <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">g_param_spec_types</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">glib_sys</span>::<span class="ident">GType</span>;
+    <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">g_param_spec_types</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">ffi</span>::<span class="ident">GType</span>;
 }
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">define_param_spec</span> {
@@ -1672,8 +1672,8 @@
             <span class="kw">pub</span> <span class="kw">struct</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rust_type</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_type</span><span class="op">&gt;</span>);
 
             <span class="kw">match</span> <span class="kw">fn</span> {
-                <span class="kw-2">ref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_ref_sink</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GParamSpec</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_type</span>,
-                <span class="ident">unref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">gobject_sys</span>::<span class="ident">g_param_spec_unref</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GParamSpec</span>),
+                <span class="kw-2">ref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_ref_sink</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpec</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_type</span>,
+                <span class="ident">unref</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="ident">ptr</span><span class="op">|</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_unref</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpec</span>),
             }
         }
 
@@ -1688,21 +1688,21 @@
         <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
         <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">value</span>::<span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rust_type</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-                <span class="ident">from_glib_full</span>(<span class="ident">gobject_sys</span>::<span class="ident">g_value_dup_param</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_type</span>)
+                <span class="ident">from_glib_full</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_value_dup_param</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_type</span>)
             }
         }
 
         <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
         <span class="kw">impl</span> <span class="ident">value</span>::<span class="ident">SetValue</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rust_type</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-                <span class="ident">gobject_sys</span>::<span class="ident">g_value_set_param</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GParamSpec</span>)
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_param</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpec</span>)
             }
         }
 
         <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
         <span class="kw">impl</span> <span class="ident">value</span>::<span class="ident">SetValueOptional</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rust_type</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Value</span>, <span class="ident">this</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="self">Self</span><span class="op">&gt;</span>) {
-                <span class="ident">gobject_sys</span>::<span class="ident">g_value_set_param</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GParamSpec</span>)
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_param</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpec</span>)
             }
         }
 
@@ -1722,8 +1722,8 @@
         <span class="kw">impl</span> <span class="ident">ParamSpecType</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rust_type</span> {}
 
         <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-        <span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GParamSpec</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rust_type</span> {
-            <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GParamSpec</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="kw">impl</span> <span class="ident">FromGlibPtrFull</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpec</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rust_type</span> {
+            <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpec</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
                 <span class="ident">from_glib_full</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_type</span>)
             }
         }
@@ -1731,7 +1731,7 @@
         <span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rust_type</span> {
             <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">upcast</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
                 <span class="kw">unsafe</span> {
-                    <span class="ident">from_glib_full</span>(<span class="self">self</span>.<span class="ident">to_glib_full</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GParamSpec</span>)
+                    <span class="ident">from_glib_full</span>(<span class="self">self</span>.<span class="ident">to_glib_full</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpec</span>)
                 }
             }
 
@@ -1785,7 +1785,7 @@
 
 <span class="macro">define_param_spec_numeric</span><span class="macro">!</span>(
     <span class="ident">ParamSpecChar</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecChar</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecChar</span>,
     <span class="ident">i8</span>,
     <span class="ident">param_spec_char</span>,
     <span class="number">0</span>,
@@ -1794,7 +1794,7 @@
 
 <span class="macro">define_param_spec_numeric</span><span class="macro">!</span>(
     <span class="ident">ParamSpecUChar</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecUChar</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecUChar</span>,
     <span class="ident">u8</span>,
     <span class="ident">param_spec_uchar</span>,
     <span class="number">1</span>,
@@ -1803,7 +1803,7 @@
 
 <span class="macro">define_param_spec</span><span class="macro">!</span>(
     <span class="ident">ParamSpecBoolean</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecBoolean</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecBoolean</span>,
     <span class="ident">param_spec_bool</span>,
     <span class="number">2</span>
 );
@@ -1812,7 +1812,7 @@
 
 <span class="macro">define_param_spec_numeric</span><span class="macro">!</span>(
     <span class="ident">ParamSpecInt</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecInt</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecInt</span>,
     <span class="ident">i32</span>,
     <span class="ident">param_spec_int</span>,
     <span class="number">3</span>,
@@ -1821,7 +1821,7 @@
 
 <span class="macro">define_param_spec_numeric</span><span class="macro">!</span>(
     <span class="ident">ParamSpecUInt</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecUInt</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecUInt</span>,
     <span class="ident">u32</span>,
     <span class="ident">param_spec_uint</span>,
     <span class="number">4</span>,
@@ -1830,7 +1830,7 @@
 
 <span class="macro">define_param_spec_numeric</span><span class="macro">!</span>(
     <span class="ident">ParamSpecLong</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecLong</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecLong</span>,
     <span class="ident">libc</span>::<span class="ident">c_long</span>,
     <span class="ident">param_spec_long</span>,
     <span class="number">5</span>,
@@ -1839,7 +1839,7 @@
 
 <span class="macro">define_param_spec_numeric</span><span class="macro">!</span>(
     <span class="ident">ParamSpecULong</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecULong</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecULong</span>,
     <span class="ident">libc</span>::<span class="ident">c_ulong</span>,
     <span class="ident">param_spec_ulong</span>,
     <span class="number">6</span>,
@@ -1848,7 +1848,7 @@
 
 <span class="macro">define_param_spec_numeric</span><span class="macro">!</span>(
     <span class="ident">ParamSpecInt64</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecInt64</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecInt64</span>,
     <span class="ident">i64</span>,
     <span class="ident">param_spec_int64</span>,
     <span class="number">7</span>,
@@ -1857,7 +1857,7 @@
 
 <span class="macro">define_param_spec_numeric</span><span class="macro">!</span>(
     <span class="ident">ParamSpecUInt64</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecUInt64</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecUInt64</span>,
     <span class="ident">u64</span>,
     <span class="ident">param_spec_uint64</span>,
     <span class="number">8</span>,
@@ -1866,7 +1866,7 @@
 
 <span class="macro">define_param_spec</span><span class="macro">!</span>(
     <span class="ident">ParamSpecUnichar</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecUnichar</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecUnichar</span>,
     <span class="ident">param_spec_unichar</span>,
     <span class="number">9</span>
 );
@@ -1875,7 +1875,7 @@
 
 <span class="macro">define_param_spec</span><span class="macro">!</span>(
     <span class="ident">ParamSpecEnum</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecEnum</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecEnum</span>,
     <span class="ident">param_spec_enum</span>,
     <span class="number">10</span>
 );
@@ -1883,13 +1883,13 @@
 <span class="macro">define_param_spec_default</span><span class="macro">!</span>(<span class="ident">ParamSpecEnum</span>, <span class="ident">i32</span>, <span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span>);
 
 <span class="kw">impl</span> <span class="ident">ParamSpecEnum</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_enum_class</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">EnumClass</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_enum_class</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">EnumClass</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>;
 
             <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span>(<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">enum_class</span>.<span class="ident">is_null</span>());
 
-            ::<span class="ident">EnumClass</span>::<span class="ident">new</span>(<span class="ident">from_glib</span>((<span class="kw-2">*</span>(<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">enum_class</span>).<span class="ident">g_type_class</span>.<span class="ident">g_type</span>))
+            <span class="kw">crate</span>::<span class="ident">EnumClass</span>::<span class="ident">new</span>(<span class="ident">from_glib</span>((<span class="kw-2">*</span>(<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">enum_class</span>).<span class="ident">g_type_class</span>.<span class="ident">g_type</span>))
                 .<span class="ident">expect</span>(<span class="string">&quot;Invalid enum class&quot;</span>)
         }
     }
@@ -1897,7 +1897,7 @@
 
 <span class="macro">define_param_spec</span><span class="macro">!</span>(
     <span class="ident">ParamSpecFlags</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecFlags</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecFlags</span>,
     <span class="ident">param_spec_flags</span>,
     <span class="number">11</span>
 );
@@ -1905,13 +1905,13 @@
 <span class="macro">define_param_spec_default</span><span class="macro">!</span>(<span class="ident">ParamSpecFlags</span>, <span class="ident">u32</span>, <span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span>);
 
 <span class="kw">impl</span> <span class="ident">ParamSpecFlags</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_flags_class</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">FlagsClass</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_flags_class</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">FlagsClass</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>;
 
             <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span>(<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">flags_class</span>.<span class="ident">is_null</span>());
 
-            ::<span class="ident">FlagsClass</span>::<span class="ident">new</span>(<span class="ident">from_glib</span>((<span class="kw-2">*</span>(<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">flags_class</span>).<span class="ident">g_type_class</span>.<span class="ident">g_type</span>))
+            <span class="kw">crate</span>::<span class="ident">FlagsClass</span>::<span class="ident">new</span>(<span class="ident">from_glib</span>((<span class="kw-2">*</span>(<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">flags_class</span>).<span class="ident">g_type_class</span>.<span class="ident">g_type</span>))
                 .<span class="ident">expect</span>(<span class="string">&quot;Invalid flags class&quot;</span>)
         }
     }
@@ -1919,7 +1919,7 @@
 
 <span class="macro">define_param_spec_numeric</span><span class="macro">!</span>(
     <span class="ident">ParamSpecFloat</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecFloat</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecFloat</span>,
     <span class="ident">f32</span>,
     <span class="ident">param_spec_float</span>,
     <span class="number">12</span>,
@@ -1928,7 +1928,7 @@
 
 <span class="macro">define_param_spec_numeric</span><span class="macro">!</span>(
     <span class="ident">ParamSpecDouble</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecDouble</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecDouble</span>,
     <span class="ident">f64</span>,
     <span class="ident">param_spec_double</span>,
     <span class="number">13</span>,
@@ -1937,7 +1937,7 @@
 
 <span class="macro">define_param_spec</span><span class="macro">!</span>(
     <span class="ident">ParamSpecString</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecString</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecString</span>,
     <span class="ident">param_spec_string</span>,
     <span class="number">14</span>
 );
@@ -1954,28 +1954,28 @@
 
 <span class="macro">define_param_spec</span><span class="macro">!</span>(
     <span class="ident">ParamSpecParam</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecParam</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecParam</span>,
     <span class="ident">param_spec_param</span>,
     <span class="number">15</span>
 );
 
 <span class="macro">define_param_spec</span><span class="macro">!</span>(
     <span class="ident">ParamSpecBoxed</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecBoxed</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecBoxed</span>,
     <span class="ident">param_spec_boxed</span>,
     <span class="number">16</span>
 );
 
 <span class="macro">define_param_spec</span><span class="macro">!</span>(
     <span class="ident">ParamSpecPointer</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecPointer</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecPointer</span>,
     <span class="ident">param_spec_pointer</span>,
     <span class="number">17</span>
 );
 
 <span class="macro">define_param_spec</span><span class="macro">!</span>(
     <span class="ident">ParamSpecValueArray</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecValueArray</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecValueArray</span>,
     <span class="ident">param_spec_value_array</span>,
     <span class="number">18</span>
 );
@@ -2000,14 +2000,14 @@
 
 <span class="macro">define_param_spec</span><span class="macro">!</span>(
     <span class="ident">ParamSpecObject</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecObject</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecObject</span>,
     <span class="ident">param_spec_object</span>,
     <span class="number">19</span>
 );
 
 <span class="macro">define_param_spec</span><span class="macro">!</span>(
     <span class="ident">ParamSpecOverride</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecOverride</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecOverride</span>,
     <span class="ident">param_spec_override</span>,
     <span class="number">20</span>
 );
@@ -2024,33 +2024,33 @@
 
 <span class="macro">define_param_spec</span><span class="macro">!</span>(
     <span class="ident">ParamSpecGType</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecGType</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecGType</span>,
     <span class="ident">param_spec_gtype</span>,
     <span class="number">21</span>
 );
 
 <span class="macro">define_param_spec</span><span class="macro">!</span>(
     <span class="ident">ParamSpecVariant</span>,
-    <span class="ident">gobject_sys</span>::<span class="ident">GParamSpecVariant</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpecVariant</span>,
     <span class="ident">param_spec_variant</span>,
     <span class="number">22</span>
 );
 
 <span class="macro">define_param_spec_default</span><span class="macro">!</span>(
     <span class="ident">ParamSpecVariant</span>,
-    <span class="prelude-ty">Option</span><span class="op">&lt;</span>::<span class="ident">Variant</span><span class="op">&gt;</span>,
-    <span class="op">|</span><span class="ident">x</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GVariant</span><span class="op">|</span> <span class="ident">from_glib_none</span>(<span class="ident">x</span>)
+    <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">Variant</span><span class="op">&gt;</span>,
+    <span class="op">|</span><span class="ident">x</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GVariant</span><span class="op">|</span> <span class="ident">from_glib_none</span>(<span class="ident">x</span>)
 );
 
 <span class="kw">impl</span> <span class="ident">ParamSpecVariant</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>::<span class="ident">VariantTy</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw">crate</span>::<span class="ident">VariantTy</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>;
 
             <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">type_</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">None</span>
             } <span class="kw">else</span> {
-                <span class="prelude-val">Some</span>(::<span class="ident">VariantTy</span>::<span class="ident">from_ptr</span>((<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">type_</span>))
+                <span class="prelude-val">Some</span>(<span class="kw">crate</span>::<span class="ident">VariantTy</span>::<span class="ident">from_ptr</span>((<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">type_</span>))
             }
         }
     }

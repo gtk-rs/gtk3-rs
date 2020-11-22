@@ -575,19 +575,10 @@
 <span id="572">572</span>
 <span id="573">573</span>
 <span id="574">574</span>
-<span id="575">575</span>
-<span id="576">576</span>
-<span id="577">577</span>
-<span id="578">578</span>
-<span id="579">579</span>
-<span id="580">580</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2019, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
-
-<span class="kw">use</span> <span class="ident">gio_sys</span>;
-<span class="kw">use</span> <span class="ident">glib_sys</span>;
 
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 
@@ -595,7 +586,7 @@
 
 <span class="kw">use</span> <span class="ident">glib</span>::{<span class="ident">Cast</span>, <span class="ident">VariantDict</span>};
 
-<span class="kw">use</span> <span class="ident">Application</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Application</span>;
 
 <span class="kw">use</span> <span class="ident">libc</span>::{<span class="ident">c_char</span>, <span class="ident">c_int</span>, <span class="ident">c_void</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsString</span>;
@@ -623,13 +614,13 @@
     <span class="comment">// remove the item at index `idx` and shift the raw array</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">idx</span>: <span class="ident">usize</span>) {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">n_args</span> <span class="op">=</span> <span class="ident">glib_sys</span>::<span class="ident">g_strv_length</span>(<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">ptr</span>) <span class="kw">as</span> <span class="ident">usize</span>;
+            <span class="kw">let</span> <span class="ident">n_args</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">g_strv_length</span>(<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">ptr</span>) <span class="kw">as</span> <span class="ident">usize</span>;
             <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">n_args</span> <span class="op">=</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">items</span>.<span class="ident">len</span>());
             <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">idx</span> <span class="op">&lt;</span> <span class="ident">n_args</span>);
 
             <span class="self">self</span>.<span class="ident">items</span>.<span class="ident">remove</span>(<span class="ident">idx</span>);
 
-            <span class="ident">glib_sys</span>::<span class="ident">g_free</span>((<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">ptr</span>).<span class="ident">add</span>(<span class="ident">idx</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>);
+            <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">g_free</span>((<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">ptr</span>).<span class="ident">add</span>(<span class="ident">idx</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_void</span>);
 
             <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="ident">idx</span>..<span class="ident">n_args</span> <span class="op">-</span> <span class="number">1</span> {
                 <span class="ident">ptr</span>::<span class="ident">write</span>((<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">ptr</span>).<span class="ident">add</span>(<span class="ident">i</span>), <span class="kw-2">*</span>(<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">ptr</span>).<span class="ident">add</span>(<span class="ident">i</span> <span class="op">+</span> <span class="number">1</span>))
@@ -675,7 +666,7 @@
     <span class="kw">fn</span> <span class="ident">command_line</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>,
-        <span class="ident">command_line</span>: <span class="kw-2">&amp;</span>::<span class="ident">ApplicationCommandLine</span>,
+        <span class="ident">command_line</span>: <span class="kw-2">&amp;</span><span class="kw">crate</span>::<span class="ident">ApplicationCommandLine</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="self">self</span>.<span class="ident">parent_command_line</span>(<span class="ident">application</span>, <span class="ident">command_line</span>)
     }
@@ -688,7 +679,7 @@
         <span class="self">self</span>.<span class="ident">parent_local_command_line</span>(<span class="ident">application</span>, <span class="ident">arguments</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">open</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">files</span>: <span class="kw-2">&amp;</span>[::<span class="ident">File</span>], <span class="ident">hint</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
+    <span class="kw">fn</span> <span class="ident">open</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">files</span>: <span class="kw-2">&amp;</span>[<span class="kw">crate</span>::<span class="ident">File</span>], <span class="ident">hint</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="self">self</span>.<span class="ident">parent_open</span>(<span class="ident">application</span>, <span class="ident">files</span>, <span class="ident">hint</span>)
     }
 
@@ -720,14 +711,14 @@
     <span class="kw">fn</span> <span class="ident">parent_command_line</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>,
-        <span class="ident">command_line</span>: <span class="kw-2">&amp;</span>::<span class="ident">ApplicationCommandLine</span>,
+        <span class="ident">command_line</span>: <span class="kw-2">&amp;</span><span class="kw">crate</span>::<span class="ident">ApplicationCommandLine</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>;
     <span class="kw">fn</span> <span class="ident">parent_local_command_line</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>,
         <span class="ident">arguments</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ArgumentList</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>;
-    <span class="kw">fn</span> <span class="ident">parent_open</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">files</span>: <span class="kw-2">&amp;</span>[::<span class="ident">File</span>], <span class="ident">hint</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
+    <span class="kw">fn</span> <span class="ident">parent_open</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">files</span>: <span class="kw-2">&amp;</span>[<span class="kw">crate</span>::<span class="ident">File</span>], <span class="ident">hint</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>);
     <span class="kw">fn</span> <span class="ident">parent_quit_mainloop</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>);
     <span class="kw">fn</span> <span class="ident">parent_run_mainloop</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>);
     <span class="kw">fn</span> <span class="ident">parent_shutdown</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>);
@@ -739,7 +730,7 @@
     <span class="kw">fn</span> <span class="ident">parent_activate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplicationClass</span>;
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplicationClass</span>;
             <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>)
                 .<span class="ident">activate</span>
                 .<span class="ident">expect</span>(<span class="string">&quot;No parent class implementation for \&quot;activate\&quot;&quot;</span>);
@@ -753,7 +744,7 @@
     <span class="kw">fn</span> <span class="ident">parent_after_emit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">platform_data</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Variant</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplicationClass</span>;
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplicationClass</span>;
             <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>)
                 .<span class="ident">after_emit</span>
                 .<span class="ident">expect</span>(<span class="string">&quot;No parent class implementation for \&quot;after_emit\&quot;&quot;</span>);
@@ -770,7 +761,7 @@
     <span class="kw">fn</span> <span class="ident">parent_before_emit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">platform_data</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">Variant</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplicationClass</span>;
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplicationClass</span>;
             <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>)
                 .<span class="ident">before_emit</span>
                 .<span class="ident">expect</span>(<span class="string">&quot;No parent class implementation for \&quot;before_emit\&quot;&quot;</span>);
@@ -787,11 +778,11 @@
     <span class="kw">fn</span> <span class="ident">parent_command_line</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>,
-        <span class="ident">command_line</span>: <span class="kw-2">&amp;</span>::<span class="ident">ApplicationCommandLine</span>,
+        <span class="ident">command_line</span>: <span class="kw-2">&amp;</span><span class="kw">crate</span>::<span class="ident">ApplicationCommandLine</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplicationClass</span>;
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplicationClass</span>;
             <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>)
                 .<span class="ident">command_line</span>
                 .<span class="ident">expect</span>(<span class="string">&quot;No parent class implementation for \&quot;command_line\&quot;&quot;</span>);
@@ -812,7 +803,7 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplicationClass</span>;
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplicationClass</span>;
             <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>)
                 .<span class="ident">local_command_line</span>
                 .<span class="ident">expect</span>(<span class="string">&quot;No parent class implementation for \&quot;local_command_line\&quot;&quot;</span>);
@@ -829,16 +820,16 @@
             <span class="ident">arguments</span>.<span class="ident">refresh</span>();
 
             <span class="kw">match</span> <span class="ident">res</span> {
-                <span class="ident">glib_sys</span>::<span class="ident">GFALSE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+                <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">GFALSE</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">exit_status</span>),
             }
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">parent_open</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">files</span>: <span class="kw-2">&amp;</span>[::<span class="ident">File</span>], <span class="ident">hint</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
+    <span class="kw">fn</span> <span class="ident">parent_open</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">files</span>: <span class="kw-2">&amp;</span>[<span class="kw">crate</span>::<span class="ident">File</span>], <span class="ident">hint</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplicationClass</span>;
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplicationClass</span>;
             <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>)
                 .<span class="ident">open</span>
                 .<span class="ident">expect</span>(<span class="string">&quot;No parent class implementation for \&quot;open\&quot;&quot;</span>);
@@ -857,7 +848,7 @@
     <span class="kw">fn</span> <span class="ident">parent_quit_mainloop</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplicationClass</span>;
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplicationClass</span>;
             <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>)
                 .<span class="ident">quit_mainloop</span>
                 .<span class="ident">expect</span>(<span class="string">&quot;No parent class implementation for \&quot;quit_mainloop\&quot;&quot;</span>);
@@ -871,7 +862,7 @@
     <span class="kw">fn</span> <span class="ident">parent_run_mainloop</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplicationClass</span>;
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplicationClass</span>;
             <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>)
                 .<span class="ident">run_mainloop</span>
                 .<span class="ident">expect</span>(<span class="string">&quot;No parent class implementation for \&quot;run_mainloop\&quot;&quot;</span>);
@@ -885,7 +876,7 @@
     <span class="kw">fn</span> <span class="ident">parent_shutdown</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplicationClass</span>;
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplicationClass</span>;
             <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>)
                 .<span class="ident">shutdown</span>
                 .<span class="ident">expect</span>(<span class="string">&quot;No parent class implementation for \&quot;shutdown\&quot;&quot;</span>);
@@ -899,7 +890,7 @@
     <span class="kw">fn</span> <span class="ident">parent_startup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplicationClass</span>;
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplicationClass</span>;
             <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>)
                 .<span class="ident">startup</span>
                 .<span class="ident">expect</span>(<span class="string">&quot;No parent class implementation for \&quot;startup\&quot;&quot;</span>);
@@ -913,7 +904,7 @@
     <span class="kw">fn</span> <span class="ident">parent_handle_local_options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">options</span>: <span class="kw-2">&amp;</span><span class="ident">VariantDict</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplicationClass</span>;
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplicationClass</span>;
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">handle_local_options</span> {
                 <span class="ident">f</span>(
                     <span class="ident">application</span>
@@ -949,7 +940,7 @@
     }
 }
 
-<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">application_activate</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ApplicationImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplication</span>) {
+<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">application_activate</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ApplicationImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplication</span>) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Application</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
@@ -958,8 +949,8 @@
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">application_after_emit</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ApplicationImpl</span><span class="op">&gt;</span>(
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplication</span>,
-    <span class="ident">platform_data</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GVariant</span>,
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplication</span>,
+    <span class="ident">platform_data</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">GVariant</span>,
 ) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
@@ -968,8 +959,8 @@
     <span class="ident">imp</span>.<span class="ident">after_emit</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>(<span class="ident">platform_data</span>))
 }
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">application_before_emit</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ApplicationImpl</span><span class="op">&gt;</span>(
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplication</span>,
-    <span class="ident">platform_data</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GVariant</span>,
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplication</span>,
+    <span class="ident">platform_data</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">GVariant</span>,
 ) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
@@ -978,8 +969,8 @@
     <span class="ident">imp</span>.<span class="ident">before_emit</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>(<span class="ident">platform_data</span>))
 }
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">application_command_line</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ApplicationImpl</span><span class="op">&gt;</span>(
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplication</span>,
-    <span class="ident">command_line</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplicationCommandLine</span>,
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplication</span>,
+    <span class="ident">command_line</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplicationCommandLine</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
@@ -988,10 +979,10 @@
     <span class="ident">imp</span>.<span class="ident">command_line</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>(<span class="ident">command_line</span>))
 }
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">application_local_command_line</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ApplicationImpl</span><span class="op">&gt;</span>(
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplication</span>,
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplication</span>,
     <span class="ident">arguments</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">c_char</span>,
     <span class="ident">exit_status</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">i32</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">gboolean</span> {
+) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gboolean</span> {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Application</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
@@ -1003,14 +994,14 @@
     <span class="kw">match</span> <span class="ident">res</span> {
         <span class="prelude-val">Some</span>(<span class="ident">ret</span>) <span class="op">=</span><span class="op">&gt;</span> {
             <span class="ident">ptr</span>::<span class="ident">write</span>(<span class="ident">exit_status</span>, <span class="ident">ret</span>);
-            <span class="ident">glib_sys</span>::<span class="ident">GTRUE</span>
+            <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">GTRUE</span>
         }
-        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">GFALSE</span>,
+        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">GFALSE</span>,
     }
 }
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">application_open</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ApplicationImpl</span><span class="op">&gt;</span>(
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplication</span>,
-    <span class="ident">files</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GFile</span>,
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplication</span>,
+    <span class="ident">files</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GFile</span>,
     <span class="ident">num_files</span>: <span class="ident">i32</span>,
     <span class="ident">hint</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>,
 ) {
@@ -1018,37 +1009,35 @@
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Application</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
 
-    <span class="kw">let</span> <span class="ident">files</span>: <span class="ident">Vec</span><span class="op">&lt;</span>::<span class="ident">File</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">FromGlibContainer</span>::<span class="ident">from_glib_none_num</span>(<span class="ident">files</span>, <span class="ident">num_files</span> <span class="kw">as</span> <span class="ident">usize</span>);
+    <span class="kw">let</span> <span class="ident">files</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">File</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">FromGlibContainer</span>::<span class="ident">from_glib_none_num</span>(<span class="ident">files</span>, <span class="ident">num_files</span> <span class="kw">as</span> <span class="ident">usize</span>);
     <span class="ident">imp</span>.<span class="ident">open</span>(
         <span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(),
         <span class="ident">files</span>.<span class="ident">as_slice</span>(),
         <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">GString</span>::<span class="ident">from_glib_borrow</span>(<span class="ident">hint</span>),
     )
 }
-<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">application_quit_mainloop</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ApplicationImpl</span><span class="op">&gt;</span>(
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplication</span>,
-) {
+<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">application_quit_mainloop</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ApplicationImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplication</span>) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Application</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
 
     <span class="ident">imp</span>.<span class="ident">quit_mainloop</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>())
 }
-<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">application_run_mainloop</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ApplicationImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplication</span>) {
+<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">application_run_mainloop</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ApplicationImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplication</span>) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Application</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
 
     <span class="ident">imp</span>.<span class="ident">run_mainloop</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>())
 }
-<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">application_shutdown</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ApplicationImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplication</span>) {
+<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">application_shutdown</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ApplicationImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplication</span>) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Application</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
 
     <span class="ident">imp</span>.<span class="ident">shutdown</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>())
 }
-<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">application_startup</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ApplicationImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplication</span>) {
+<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">application_startup</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ApplicationImpl</span><span class="op">&gt;</span>(<span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplication</span>) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Application</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
@@ -1057,8 +1046,8 @@
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">application_handle_local_options</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ApplicationImpl</span><span class="op">&gt;</span>(
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gio_sys</span>::<span class="ident">GApplication</span>,
-    <span class="ident">options</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GVariantDict</span>,
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GApplication</span>,
+    <span class="ident">options</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">GVariantDict</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">c_int</span> {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
@@ -1071,7 +1060,6 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
     <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="ident">glib</span>;
     <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">subclass</span>;
 
     <span class="kw">const</span> <span class="ident">EXIT_STATUS</span>: <span class="ident">i32</span> <span class="op">=</span> <span class="number">20</span>;
@@ -1088,7 +1076,7 @@
             <span class="kw">type</span> <span class="ident">Instance</span> <span class="op">=</span> <span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">InstanceStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
             <span class="kw">type</span> <span class="ident">Class</span> <span class="op">=</span> <span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">ClassStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 
-            <span class="macro">glib_object_subclass</span><span class="macro">!</span>();
+            <span class="ident">glib</span>::<span class="macro">glib_object_subclass</span><span class="macro">!</span>();
 
             <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
                 <span class="self">Self</span>
@@ -1125,7 +1113,7 @@
             <span class="kw">fn</span> <span class="ident">command_line</span>(
                 <span class="kw-2">&amp;</span><span class="self">self</span>,
                 <span class="ident">_application</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>,
-                <span class="ident">cmd_line</span>: <span class="kw-2">&amp;</span>::<span class="ident">ApplicationCommandLine</span>,
+                <span class="ident">cmd_line</span>: <span class="kw-2">&amp;</span><span class="kw">crate</span>::<span class="ident">ApplicationCommandLine</span>,
             ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
                 <span class="kw">let</span> <span class="ident">arguments</span> <span class="op">=</span> <span class="ident">cmd_line</span>.<span class="ident">get_arguments</span>();
 
@@ -1140,7 +1128,7 @@
         }
     }
 
-    <span class="macro">glib_wrapper</span><span class="macro">!</span> {
+    <span class="ident">glib</span>::<span class="macro">glib_wrapper</span><span class="macro">!</span> {
         <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SimpleApplication</span>(<span class="ident">ObjectSubclass</span><span class="op">&lt;</span><span class="ident">imp</span>::<span class="ident">SimpleApplication</span><span class="op">&gt;</span>);
     }
 
@@ -1150,11 +1138,11 @@
             <span class="ident">SimpleApplication</span>::<span class="ident">static_type</span>(),
             <span class="kw-2">&amp;</span>[
                 (<span class="string">&quot;application-id&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;org.gtk-rs.SimpleApplication&quot;</span>),
-                (<span class="string">&quot;flags&quot;</span>, <span class="kw-2">&amp;</span>::<span class="ident">ApplicationFlags</span>::<span class="ident">empty</span>()),
+                (<span class="string">&quot;flags&quot;</span>, <span class="kw-2">&amp;</span><span class="kw">crate</span>::<span class="ident">ApplicationFlags</span>::<span class="ident">empty</span>()),
             ],
         )
         .<span class="ident">unwrap</span>()
-        .<span class="ident">downcast</span>::<span class="op">&lt;</span>::<span class="ident">Application</span><span class="op">&gt;</span>()
+        .<span class="ident">downcast</span>::<span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">Application</span><span class="op">&gt;</span>()
         .<span class="ident">unwrap</span>();
 
         <span class="ident">app</span>.<span class="ident">set_inactivity_timeout</span>(<span class="number">10000</span>);

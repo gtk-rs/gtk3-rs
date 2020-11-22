@@ -38,15 +38,13 @@
 <span id="35">35</span>
 <span id="36">36</span>
 <span id="37">37</span>
-<span id="38">38</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2015, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">gdk_sys</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">FrameClock</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">FrameClock</span>;
 
 <span class="kw">impl</span> <span class="ident">FrameClock</span> {
     <span class="doccomment">/// Using the frame history stored in the frame clock, finds the last</span>
@@ -68,7 +66,7 @@
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">refresh_interval</span> <span class="op">=</span> <span class="number">0</span>;
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">presentation_time</span> <span class="op">=</span> <span class="number">0</span>;
-            <span class="ident">gdk_sys</span>::<span class="ident">gdk_frame_clock_get_refresh_info</span>(
+            <span class="ident">ffi</span>::<span class="ident">gdk_frame_clock_get_refresh_info</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">base_time</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">refresh_interval</span>,

@@ -223,7 +223,7 @@
         <span class="comment">// how often we borrowed it</span>
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">obj</span>.<span class="ident">is_unique</span>() {
             <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">thread</span> <span class="op">=</span><span class="op">=</span> <span class="prelude-val">None</span> {
-                <span class="kw-2">*</span><span class="ident">thread</span> <span class="op">=</span> <span class="prelude-val">Some</span>((::<span class="ident">get_thread_id</span>(), <span class="number">1</span>));
+                <span class="kw-2">*</span><span class="ident">thread</span> <span class="op">=</span> <span class="prelude-val">Some</span>((<span class="kw">crate</span>::<span class="ident">get_thread_id</span>(), <span class="number">1</span>));
             } <span class="kw">else</span> {
                 <span class="ident">thread</span>.<span class="ident">as_mut</span>().<span class="ident">unwrap</span>().<span class="number">1</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
             }
@@ -239,7 +239,7 @@
 
         <span class="comment">// If the object is not unique, we can only borrow it</span>
         <span class="comment">// from the thread that currently has it borrowed</span>
-        <span class="kw">if</span> <span class="ident">thread</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>().<span class="number">0</span> <span class="op">!</span><span class="op">=</span> ::<span class="ident">get_thread_id</span>() {
+        <span class="kw">if</span> <span class="ident">thread</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>().<span class="number">0</span> <span class="op">!</span><span class="op">=</span> <span class="kw">crate</span>::<span class="ident">get_thread_id</span>() {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">BorrowError</span>);
         }
 

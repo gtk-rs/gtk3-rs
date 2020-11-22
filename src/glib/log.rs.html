@@ -759,22 +759,17 @@
 <span id="756">756</span>
 <span id="757">757</span>
 <span id="758">758</span>
-<span id="759">759</span>
-<span id="760">760</span>
-<span id="761">761</span>
-<span id="762">762</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2020, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">glib_sys</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">GString</span>;
 <span class="kw">use</span> <span class="ident">once_cell</span>::<span class="ident">sync</span>::<span class="ident">Lazy</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_46&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">boxed</span>::<span class="ident">Box</span> <span class="kw">as</span> <span class="ident">Box_</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::{<span class="ident">Arc</span>, <span class="ident">Mutex</span>};
-<span class="kw">use</span> <span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">GString</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LogHandlerId</span>(<span class="ident">u32</span>);
@@ -811,12 +806,12 @@
 
     <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">LogLevel</span>::<span class="ident">Error</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_ERROR</span>,
-            <span class="ident">LogLevel</span>::<span class="ident">Critical</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_CRITICAL</span>,
-            <span class="ident">LogLevel</span>::<span class="ident">Warning</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_WARNING</span>,
-            <span class="ident">LogLevel</span>::<span class="ident">Message</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_MESSAGE</span>,
-            <span class="ident">LogLevel</span>::<span class="ident">Info</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_INFO</span>,
-            <span class="ident">LogLevel</span>::<span class="ident">Debug</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_DEBUG</span>,
+            <span class="ident">LogLevel</span>::<span class="ident">Error</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_ERROR</span>,
+            <span class="ident">LogLevel</span>::<span class="ident">Critical</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_CRITICAL</span>,
+            <span class="ident">LogLevel</span>::<span class="ident">Warning</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_WARNING</span>,
+            <span class="ident">LogLevel</span>::<span class="ident">Message</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_MESSAGE</span>,
+            <span class="ident">LogLevel</span>::<span class="ident">Info</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_INFO</span>,
+            <span class="ident">LogLevel</span>::<span class="ident">Debug</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_DEBUG</span>,
         }
     }
 }
@@ -824,17 +819,17 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">LogLevel</span> {
     <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LogLevel</span> {
-        <span class="kw">if</span> <span class="ident">value</span> <span class="op">&amp;</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_ERROR</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
+        <span class="kw">if</span> <span class="ident">value</span> <span class="op">&amp;</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_ERROR</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
             <span class="ident">LogLevel</span>::<span class="ident">Error</span>
-        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">value</span> <span class="op">&amp;</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_CRITICAL</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">value</span> <span class="op">&amp;</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_CRITICAL</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
             <span class="ident">LogLevel</span>::<span class="ident">Critical</span>
-        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">value</span> <span class="op">&amp;</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_WARNING</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">value</span> <span class="op">&amp;</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_WARNING</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
             <span class="ident">LogLevel</span>::<span class="ident">Warning</span>
-        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">value</span> <span class="op">&amp;</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_MESSAGE</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">value</span> <span class="op">&amp;</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_MESSAGE</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
             <span class="ident">LogLevel</span>::<span class="ident">Message</span>
-        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">value</span> <span class="op">&amp;</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_INFO</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">value</span> <span class="op">&amp;</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_INFO</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
             <span class="ident">LogLevel</span>::<span class="ident">Info</span>
-        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">value</span> <span class="op">&amp;</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_DEBUG</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">value</span> <span class="op">&amp;</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_DEBUG</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
             <span class="ident">LogLevel</span>::<span class="ident">Debug</span>
         } <span class="kw">else</span> {
             <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unknown log level: {}&quot;</span>, <span class="ident">value</span>)
@@ -842,38 +837,38 @@
     }
 }
 
-<span class="macro">bitflags</span><span class="macro">!</span> {
+<span class="ident">bitflags</span>::<span class="macro">bitflags</span><span class="macro">!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LogLevels</span>: <span class="ident">u32</span> {
-        <span class="kw">const</span> <span class="ident">LEVEL_ERROR</span> <span class="op">=</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_ERROR</span>;
-        <span class="kw">const</span> <span class="ident">LEVEL_CRITICAL</span> <span class="op">=</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_CRITICAL</span>;
-        <span class="kw">const</span> <span class="ident">LEVEL_WARNING</span> <span class="op">=</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_WARNING</span>;
-        <span class="kw">const</span> <span class="ident">LEVEL_MESSAGE</span> <span class="op">=</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_MESSAGE</span>;
-        <span class="kw">const</span> <span class="ident">LEVEL_INFO</span> <span class="op">=</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_INFO</span>;
-        <span class="kw">const</span> <span class="ident">LEVEL_DEBUG</span> <span class="op">=</span> <span class="ident">glib_sys</span>::<span class="ident">G_LOG_LEVEL_DEBUG</span>;
+        <span class="kw">const</span> <span class="ident">LEVEL_ERROR</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_ERROR</span>;
+        <span class="kw">const</span> <span class="ident">LEVEL_CRITICAL</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_CRITICAL</span>;
+        <span class="kw">const</span> <span class="ident">LEVEL_WARNING</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_WARNING</span>;
+        <span class="kw">const</span> <span class="ident">LEVEL_MESSAGE</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_MESSAGE</span>;
+        <span class="kw">const</span> <span class="ident">LEVEL_INFO</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_INFO</span>;
+        <span class="kw">const</span> <span class="ident">LEVEL_DEBUG</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">G_LOG_LEVEL_DEBUG</span>;
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ToGlib</span> <span class="kw">for</span> <span class="ident">LogLevels</span> {
-    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">glib_sys</span>::<span class="ident">GLogLevelFlags</span>;
+    <span class="kw">type</span> <span class="ident">GlibType</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GLogLevelFlags</span>;
 
-    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib_sys</span>::<span class="ident">GLogLevelFlags</span> {
+    <span class="kw">fn</span> <span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ffi</span>::<span class="ident">GLogLevelFlags</span> {
         <span class="self">self</span>.<span class="ident">bits</span>()
     }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">glib_sys</span>::<span class="ident">GLogLevelFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">LogLevels</span> {
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">glib_sys</span>::<span class="ident">GLogLevelFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LogLevels</span> {
+<span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GLogLevelFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">LogLevels</span> {
+    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GLogLevelFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LogLevels</span> {
         <span class="ident">LogLevels</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_46&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">fn</span> <span class="ident">to_log_flags</span>(<span class="ident">fatal</span>: <span class="ident">bool</span>, <span class="ident">recursion</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
-    (<span class="kw">if</span> <span class="ident">fatal</span> { <span class="ident">glib_sys</span>::<span class="ident">G_LOG_FLAG_FATAL</span> } <span class="kw">else</span> { <span class="number">0</span> })
+    (<span class="kw">if</span> <span class="ident">fatal</span> { <span class="ident">ffi</span>::<span class="ident">G_LOG_FLAG_FATAL</span> } <span class="kw">else</span> { <span class="number">0</span> })
         <span class="op">|</span> <span class="kw">if</span> <span class="ident">recursion</span> {
-            <span class="ident">glib_sys</span>::<span class="ident">G_LOG_FLAG_RECURSION</span>
+            <span class="ident">ffi</span>::<span class="ident">G_LOG_FLAG_RECURSION</span>
         } <span class="kw">else</span> {
             <span class="number">0</span>
         }
@@ -892,9 +887,9 @@
         <span class="ident">P</span>: <span class="ident">Fn</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">LogLevel</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="op">&gt;</span>(
         <span class="ident">log_domain</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">libc</span>::<span class="ident">c_char</span>,
-        <span class="ident">log_level</span>: <span class="ident">glib_sys</span>::<span class="ident">GLogLevelFlags</span>,
+        <span class="ident">log_level</span>: <span class="ident">ffi</span>::<span class="ident">GLogLevelFlags</span>,
         <span class="ident">message</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">libc</span>::<span class="ident">c_char</span>,
-        <span class="ident">user_data</span>: <span class="ident">glib_sys</span>::<span class="ident">gpointer</span>,
+        <span class="ident">user_data</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
     ) {
         <span class="kw">let</span> <span class="ident">log_domain</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GString</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">log_domain</span>);
         <span class="kw">let</span> <span class="ident">message</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">GString</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">message</span>);
@@ -909,14 +904,14 @@
     <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">destroy_func</span><span class="op">&lt;</span>
         <span class="ident">P</span>: <span class="ident">Fn</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">LogLevel</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="op">&gt;</span>(
-        <span class="ident">data</span>: <span class="ident">glib_sys</span>::<span class="ident">gpointer</span>,
+        <span class="ident">data</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
     ) {
         <span class="kw">let</span> <span class="ident">_callback</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">from_raw</span>(<span class="ident">data</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
     }
     <span class="kw">let</span> <span class="ident">destroy_call4</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">destroy_func</span>::<span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw">_</span>);
     <span class="kw">let</span> <span class="ident">super_callback0</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">log_func_data</span>;
     <span class="kw">unsafe</span> {
-        <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_log_set_handler_full</span>(
+        <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_log_set_handler_full</span>(
             <span class="ident">log_domain</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">log_levels</span>.<span class="ident">to_glib</span>() <span class="op">|</span> <span class="ident">to_log_flags</span>(<span class="ident">fatal</span>, <span class="ident">recursion</span>),
             <span class="ident">log_func</span>,
@@ -928,17 +923,17 @@
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">log_remove_handler</span>(<span class="ident">log_domain</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">handler_id</span>: <span class="ident">LogHandlerId</span>) {
     <span class="kw">unsafe</span> {
-        <span class="ident">glib_sys</span>::<span class="ident">g_log_remove_handler</span>(<span class="ident">log_domain</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">handler_id</span>.<span class="ident">to_glib</span>());
+        <span class="ident">ffi</span>::<span class="ident">g_log_remove_handler</span>(<span class="ident">log_domain</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">handler_id</span>.<span class="ident">to_glib</span>());
     }
 }
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">log_set_always_fatal</span>(<span class="ident">fatal_levels</span>: <span class="ident">LogLevels</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LogLevels</span> {
-    <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_log_set_always_fatal</span>(<span class="ident">fatal_levels</span>.<span class="ident">to_glib</span>())) }
+    <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_log_set_always_fatal</span>(<span class="ident">fatal_levels</span>.<span class="ident">to_glib</span>())) }
 }
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">log_set_fatal_mask</span>(<span class="ident">log_domain</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">fatal_levels</span>: <span class="ident">LogLevels</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LogLevels</span> {
     <span class="kw">unsafe</span> {
-        <span class="ident">from_glib</span>(<span class="ident">glib_sys</span>::<span class="ident">g_log_set_fatal_mask</span>(
+        <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_log_set_fatal_mask</span>(
             <span class="ident">log_domain</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">fatal_levels</span>.<span class="ident">to_glib</span>(),
         ))
@@ -948,7 +943,7 @@
 <span class="comment">// #[cfg(any(feature = &quot;v2_50&quot;, feature = &quot;dox&quot;))]</span>
 <span class="comment">// pub fn log_variant(log_domain: Option&lt;&amp;str&gt;, log_level: LogLevel, fields: &amp;Variant) {</span>
 <span class="comment">//     unsafe {</span>
-<span class="comment">//         glib_sys::g_log_variant(</span>
+<span class="comment">//         ffi::g_log_variant(</span>
 <span class="comment">//             log_domain.to_glib_none().0,</span>
 <span class="comment">//             log_level.to_glib(),</span>
 <span class="comment">//             fields.to_glib_none().0,</span>
@@ -974,7 +969,7 @@
     <span class="kw-2">*</span><span class="ident">PRINT_HANDLER</span>
         .<span class="ident">lock</span>()
         .<span class="ident">expect</span>(<span class="string">&quot;Failed to lock PRINT_HANDLER to change callback&quot;</span>) <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">func</span>));
-    <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_set_print_handler</span>(<span class="prelude-val">Some</span>(<span class="ident">func_func</span> <span class="kw">as</span> <span class="kw">_</span>)) };
+    <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_set_print_handler</span>(<span class="prelude-val">Some</span>(<span class="ident">func_func</span> <span class="kw">as</span> <span class="kw">_</span>)) };
 }
 
 <span class="doccomment">/// To set the default print handler, use the [`set_print_handler`] function.</span>
@@ -982,7 +977,7 @@
     <span class="kw-2">*</span><span class="ident">PRINT_HANDLER</span>
         .<span class="ident">lock</span>()
         .<span class="ident">expect</span>(<span class="string">&quot;Failed to lock PRINT_HANDLER to remove callback&quot;</span>) <span class="op">=</span> <span class="prelude-val">None</span>;
-    <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_set_print_handler</span>(<span class="prelude-val">None</span>) };
+    <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_set_print_handler</span>(<span class="prelude-val">None</span>) };
 }
 
 <span class="kw">static</span> <span class="ident">PRINTERR_HANDLER</span>: <span class="ident">Lazy</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">PrintCallback</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Lazy</span>::<span class="ident">new</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">Mutex</span>::<span class="ident">new</span>(<span class="prelude-val">None</span>));
@@ -1004,7 +999,7 @@
     <span class="kw-2">*</span><span class="ident">PRINTERR_HANDLER</span>
         .<span class="ident">lock</span>()
         .<span class="ident">expect</span>(<span class="string">&quot;Failed to lock PRINTERR_HANDLER to change callback&quot;</span>) <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">func</span>));
-    <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_set_printerr_handler</span>(<span class="prelude-val">Some</span>(<span class="ident">func_func</span> <span class="kw">as</span> <span class="kw">_</span>)) };
+    <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_set_printerr_handler</span>(<span class="prelude-val">Some</span>(<span class="ident">func_func</span> <span class="kw">as</span> <span class="kw">_</span>)) };
 }
 
 <span class="doccomment">/// To set the default print handler, use the [`set_printerr_handler`] function.</span>
@@ -1012,7 +1007,7 @@
     <span class="kw-2">*</span><span class="ident">PRINTERR_HANDLER</span>
         .<span class="ident">lock</span>()
         .<span class="ident">expect</span>(<span class="string">&quot;Failed to lock PRINTERR_HANDLER to remove callback&quot;</span>) <span class="op">=</span> <span class="prelude-val">None</span>;
-    <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_set_printerr_handler</span>(<span class="prelude-val">None</span>) };
+    <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_set_printerr_handler</span>(<span class="prelude-val">None</span>) };
 }
 
 <span class="kw">type</span> <span class="ident">LogCallback</span> <span class="op">=</span> <span class="ident">dyn</span> <span class="ident">Fn</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">LogLevel</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>;
@@ -1025,9 +1020,9 @@
 ) {
     <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">func_func</span>(
         <span class="ident">log_domain</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">libc</span>::<span class="ident">c_char</span>,
-        <span class="ident">log_levels</span>: <span class="ident">glib_sys</span>::<span class="ident">GLogLevelFlags</span>,
+        <span class="ident">log_levels</span>: <span class="ident">ffi</span>::<span class="ident">GLogLevelFlags</span>,
         <span class="ident">message</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">libc</span>::<span class="ident">c_char</span>,
-        <span class="ident">_user_data</span>: <span class="ident">glib_sys</span>::<span class="ident">gpointer</span>,
+        <span class="ident">_user_data</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
     ) {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">callback</span>) <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">DEFAULT_HANDLER</span>
             .<span class="ident">lock</span>()
@@ -1048,7 +1043,7 @@
     <span class="kw-2">*</span><span class="ident">DEFAULT_HANDLER</span>
         .<span class="ident">lock</span>()
         .<span class="ident">expect</span>(<span class="string">&quot;Failed to lock DEFAULT_HANDLER to change callback&quot;</span>) <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">log_func</span>));
-    <span class="kw">unsafe</span> { <span class="ident">glib_sys</span>::<span class="ident">g_log_set_default_handler</span>(<span class="prelude-val">Some</span>(<span class="ident">func_func</span> <span class="kw">as</span> <span class="kw">_</span>), ::<span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null_mut</span>()) };
+    <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_log_set_default_handler</span>(<span class="prelude-val">Some</span>(<span class="ident">func_func</span> <span class="kw">as</span> <span class="kw">_</span>), <span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null_mut</span>()) };
 }
 
 <span class="doccomment">/// To set the default print handler, use the [`log_set_default_handler`] function.</span>
@@ -1057,20 +1052,17 @@
         .<span class="ident">lock</span>()
         .<span class="ident">expect</span>(<span class="string">&quot;Failed to lock DEFAULT_HANDLER to remove callback&quot;</span>) <span class="op">=</span> <span class="prelude-val">None</span>;
     <span class="kw">unsafe</span> {
-        <span class="ident">glib_sys</span>::<span class="ident">g_log_set_default_handler</span>(
-            <span class="prelude-val">Some</span>(<span class="ident">glib_sys</span>::<span class="ident">g_log_default_handler</span>),
-            ::<span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null_mut</span>(),
-        )
+        <span class="ident">ffi</span>::<span class="ident">g_log_set_default_handler</span>(<span class="prelude-val">Some</span>(<span class="ident">ffi</span>::<span class="ident">g_log_default_handler</span>), <span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null_mut</span>())
     };
 }
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">log_default_handler</span>(<span class="ident">log_domain</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">log_level</span>: <span class="ident">LogLevel</span>, <span class="ident">message</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) {
     <span class="kw">unsafe</span> {
-        <span class="ident">glib_sys</span>::<span class="ident">g_log_default_handler</span>(
+        <span class="ident">ffi</span>::<span class="ident">g_log_default_handler</span>(
             <span class="ident">log_domain</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">log_level</span>.<span class="ident">to_glib</span>(),
             <span class="ident">message</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-            ::<span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null_mut</span>(),
+            <span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null_mut</span>(),
         )
     }
 }
@@ -1126,8 +1118,8 @@
         <span class="comment">// to prevent the glib formatter to look for arguments which don&#39;t exist</span>
         <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">format</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>),<span class="kw-2">*</span>).<span class="ident">replace</span>(<span class="string">&quot;%&quot;</span>, <span class="string">&quot;%%&quot;</span>);
         <span class="kw">unsafe</span> {
-            <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">glib_sys</span>::<span class="ident">g_log</span>(
-                ::<span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null</span>(),
+            <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">ffi</span>::<span class="ident">g_log</span>(
+                <span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null</span>(),
                 <span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_level</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">f</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
@@ -1143,8 +1135,8 @@
         <span class="comment">// to prevent the glib formatter to look for arguments which don&#39;t exist</span>
         <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">format</span>.<span class="ident">replace</span>(<span class="string">&quot;%&quot;</span>, <span class="string">&quot;%%&quot;</span>);
         <span class="kw">unsafe</span> {
-            <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">glib_sys</span>::<span class="ident">g_log</span>(
-                ::<span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null</span>(),
+            <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">ffi</span>::<span class="ident">g_log</span>(
+                <span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null</span>(),
                 <span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_level</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">f</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             );
@@ -1162,7 +1154,7 @@
         <span class="comment">// to prevent the glib formatter to look for arguments which don&#39;t exist</span>
         <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">format</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>),<span class="kw-2">*</span>).<span class="ident">replace</span>(<span class="string">&quot;%&quot;</span>, <span class="string">&quot;%%&quot;</span>);
         <span class="kw">unsafe</span> {
-            <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">glib_sys</span>::<span class="ident">g_log</span>(
+            <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">ffi</span>::<span class="ident">g_log</span>(
                 <span class="ident">log_domain</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_level</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">f</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1181,7 +1173,7 @@
         <span class="comment">// to prevent the glib formatter to look for arguments which don&#39;t exist</span>
         <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">format</span>.<span class="ident">replace</span>(<span class="string">&quot;%&quot;</span>, <span class="string">&quot;%%&quot;</span>);
         <span class="kw">unsafe</span> {
-            <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">glib_sys</span>::<span class="ident">g_log</span>(
+            <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">ffi</span>::<span class="ident">g_log</span>(
                 <span class="ident">log_domain</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="macro-nonterminal">$</span><span class="macro-nonterminal">log_level</span>.<span class="ident">to_glib</span>(),
                 <span class="ident">f</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1418,7 +1410,7 @@
         <span class="comment">// to prevent the glib formatter to look for arguments which don&#39;t exist</span>
         <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">format</span>.<span class="ident">replace</span>(<span class="string">&quot;%&quot;</span>, <span class="string">&quot;%%&quot;</span>);
         <span class="kw">unsafe</span> {
-            <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">glib_sys</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">func</span>(<span class="ident">f</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">ffi</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">func</span>(<span class="ident">f</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }};
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">func</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">format</span>:<span class="ident">expr</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>:<span class="ident">expr</span>),<span class="kw-2">*</span>) <span class="op">=</span><span class="op">&gt;</span> {{
@@ -1430,7 +1422,7 @@
         <span class="comment">// to prevent the glib formatter to look for arguments which don&#39;t exist</span>
         <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">format</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>),<span class="kw-2">*</span>).<span class="ident">replace</span>(<span class="string">&quot;%&quot;</span>, <span class="string">&quot;%%&quot;</span>);
         <span class="kw">unsafe</span> {
-            <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">glib_sys</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">func</span>(<span class="ident">f</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+            <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">ffi</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">func</span>(<span class="ident">f</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
         }
     }};
 }
@@ -1518,7 +1510,7 @@
 
 <span class="comment">//         check_log_args(&amp;$log_domain, $log_level);</span>
 <span class="comment">//         unsafe {</span>
-<span class="comment">//             glib_sys::g_log_structured(</span>
+<span class="comment">//             ffi::g_log_structured(</span>
 <span class="comment">//                 $log_domain.to_glib_none().0,</span>
 <span class="comment">//                 $log_level.to_glib(),</span>
 <span class="comment">//                 $(check_key($key).0, check_key(format!(&quot;{}&quot;, $value).as_str()).0 ),+</span>

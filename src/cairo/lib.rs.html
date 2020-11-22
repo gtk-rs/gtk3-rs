@@ -244,24 +244,6 @@
 <span id="241">241</span>
 <span id="242">242</span>
 <span id="243">243</span>
-<span id="244">244</span>
-<span id="245">245</span>
-<span id="246">246</span>
-<span id="247">247</span>
-<span id="248">248</span>
-<span id="249">249</span>
-<span id="250">250</span>
-<span id="251">251</span>
-<span id="252">252</span>
-<span id="253">253</span>
-<span id="254">254</span>
-<span id="255">255</span>
-<span id="256">256</span>
-<span id="257">257</span>
-<span id="258">258</span>
-<span id="259">259</span>
-<span id="260">260</span>
-<span id="261">261</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2016, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -308,35 +290,14 @@
 <span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">feature</span>(<span class="ident">doc_cfg</span>))]</span>
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
 
-<span class="kw">pub</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">cairo_sys</span> <span class="kw">as</span> <span class="ident">ffi</span>;
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">libc</span>;
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">thiserror</span>;
-
-<span class="attribute">#[<span class="ident">macro_use</span>]</span>
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">bitflags</span>;
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">macro_use</span>]</span>
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">glib</span>;
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">glib_sys</span> <span class="kw">as</span> <span class="ident">glib_ffi</span>;
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">gobject_sys</span> <span class="kw">as</span> <span class="ident">gobject_ffi</span>;
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">tempfile</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ffi</span>;
 
 <span class="comment">// Helper macro for our GValue related trait impls</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>)]</span>
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">gvalue_impl</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="kw">use</span> <span class="ident">glib</span>;
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span>
         <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-        <span class="kw">use</span> <span class="ident">glib_ffi</span>;
-        <span class="kw">use</span> <span class="ident">gobject_ffi</span>;
 
         <span class="kw">impl</span> <span class="ident">glib</span>::<span class="ident">types</span>::<span class="ident">StaticType</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">types</span>::<span class="ident">Type</span> {
@@ -346,7 +307,7 @@
 
         <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">value</span>::<span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">glib</span>::<span class="ident">value</span>::<span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-                <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_boxed</span>(<span class="ident">v</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+                <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_boxed</span>(<span class="ident">v</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
                 <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">ptr</span>.<span class="ident">is_null</span>());
                 <span class="ident">from_glib_none</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>)
             }
@@ -354,9 +315,9 @@
 
         <span class="kw">impl</span> <span class="ident">glib</span>::<span class="ident">value</span>::<span class="ident">SetValue</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">value</span>::<span class="ident">Value</span>, <span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-                <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_boxed</span>(
+                <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_boxed</span>(
                     <span class="ident">v</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
-                    <span class="ident">s</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="ident">glib_ffi</span>::<span class="ident">gpointer</span>,
+                    <span class="ident">s</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
                 );
             }
         }
@@ -364,50 +325,53 @@
         <span class="kw">impl</span> <span class="ident">glib</span>::<span class="ident">value</span>::<span class="ident">SetValueOptional</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value_optional</span>(<span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">value</span>::<span class="ident">Value</span>, <span class="ident">s</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="self">Self</span><span class="op">&gt;</span>) {
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">s</span>) <span class="op">=</span> <span class="ident">s</span> {
-                    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_boxed</span>(
+                    <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_boxed</span>(
                         <span class="ident">v</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
-                        <span class="ident">s</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="ident">glib_ffi</span>::<span class="ident">gpointer</span>,
+                        <span class="ident">s</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
                     );
                 } <span class="kw">else</span> {
-                    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_boxed</span>(<span class="ident">v</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, ::<span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null_mut</span>());
+                    <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_boxed</span>(
+                        <span class="ident">v</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
+                        ::<span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null_mut</span>(),
+                    );
                 }
             }
         }
     };
 }
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">user_data</span>::<span class="ident">UserDataKey</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">user_data</span>::<span class="ident">UserDataKey</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">context</span>::{<span class="ident">Context</span>, <span class="ident">RectangleList</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">context</span>::{<span class="ident">Context</span>, <span class="ident">RectangleList</span>};
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">paths</span>::{<span class="ident">Path</span>, <span class="ident">PathSegment</span>, <span class="ident">PathSegments</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">paths</span>::{<span class="ident">Path</span>, <span class="ident">PathSegment</span>, <span class="ident">PathSegments</span>};
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">device</span>::<span class="ident">Device</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">device</span>::<span class="ident">Device</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">enums</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">enums</span>::<span class="kw-2">*</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">error</span>::{<span class="ident">BorrowError</span>, <span class="ident">Error</span>, <span class="ident">IoError</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">error</span>::{<span class="ident">BorrowError</span>, <span class="ident">Error</span>, <span class="ident">IoError</span>};
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">patterns</span>::{
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">patterns</span>::{
     <span class="ident">Gradient</span>, <span class="ident">LinearGradient</span>, <span class="ident">Mesh</span>, <span class="ident">Pattern</span>, <span class="ident">RadialGradient</span>, <span class="ident">SolidPattern</span>, <span class="ident">SurfacePattern</span>,
 };
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">font</span>::{
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">font</span>::{
     <span class="ident">FontExtents</span>, <span class="ident">FontFace</span>, <span class="ident">FontOptions</span>, <span class="ident">FontSlant</span>, <span class="ident">FontType</span>, <span class="ident">FontWeight</span>, <span class="ident">Glyph</span>, <span class="ident">ScaledFont</span>,
     <span class="ident">TextCluster</span>, <span class="ident">TextExtents</span>,
 };
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">matrices</span>::<span class="ident">Matrix</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">matrices</span>::<span class="ident">Matrix</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">recording_surface</span>::<span class="ident">RecordingSurface</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">rectangle</span>::<span class="ident">Rectangle</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">rectangle_int</span>::<span class="ident">RectangleInt</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">recording_surface</span>::<span class="ident">RecordingSurface</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">rectangle</span>::<span class="ident">Rectangle</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">rectangle_int</span>::<span class="ident">RectangleInt</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">region</span>::<span class="ident">Region</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">region</span>::<span class="ident">Region</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">surface</span>::{<span class="ident">MappedImageSurface</span>, <span class="ident">Surface</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">surface</span>::{<span class="ident">MappedImageSurface</span>, <span class="ident">Surface</span>};
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">image_surface</span>::{<span class="ident">ImageSurface</span>, <span class="ident">ImageSurfaceData</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">image_surface</span>::{<span class="ident">ImageSurface</span>, <span class="ident">ImageSurfaceData</span>};
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;pdf&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;svg&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;ps&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">stream</span>::<span class="ident">StreamWithError</span>;
@@ -432,9 +396,9 @@
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">mod</span> <span class="ident">user_data</span>;
 <span class="kw">mod</span> <span class="ident">constants</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">constants</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">constants</span>::<span class="kw-2">*</span>;
 <span class="kw">mod</span> <span class="ident">utils</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">utils</span>::{<span class="ident">debug_reset_static_data</span>, <span class="ident">get_version_string</span>, <span class="ident">Version</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">utils</span>::{<span class="ident">debug_reset_static_data</span>, <span class="ident">get_version_string</span>, <span class="ident">Version</span>};
 <span class="kw">mod</span> <span class="ident">context</span>;
 <span class="kw">mod</span> <span class="ident">device</span>;
 <span class="kw">mod</span> <span class="ident">enums</span>;

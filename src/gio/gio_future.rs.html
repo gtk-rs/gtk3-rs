@@ -162,7 +162,6 @@
 <span id="159">159</span>
 <span id="160">160</span>
 <span id="161">161</span>
-<span id="162">162</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2018, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -174,9 +173,8 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">pin</span>;
 
-<span class="kw">use</span> <span class="ident">glib</span>;
-<span class="kw">use</span> <span class="ident">Cancellable</span>;
-<span class="kw">use</span> <span class="ident">CancellableExt</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Cancellable</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">CancellableExt</span>;
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GioFuture</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">O</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span> {
     <span class="ident">obj</span>: <span class="ident">O</span>,

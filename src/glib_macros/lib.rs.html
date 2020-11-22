@@ -313,16 +313,10 @@
 <span id="310">310</span>
 <span id="311">311</span>
 <span id="312">312</span>
-<span id="313">313</span>
-<span id="314">314</span>
-<span id="315">315</span>
-<span id="316">316</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2020, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
-
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">proc_macro</span>;
 
 <span class="kw">mod</span> <span class="ident">clone</span>;
 <span class="kw">mod</span> <span class="ident">gboxed_derive</span>;
@@ -576,11 +570,10 @@
 <span class="doccomment">/// # Example</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">/// #[macro_use] extern crate glib;</span>
 <span class="doccomment">/// use glib::prelude::*;</span>
 <span class="doccomment">/// use glib::subclass::prelude::*;</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// #[derive(Clone, Debug, PartialEq, Eq, GBoxed)]</span>
+<span class="doccomment">/// #[derive(Clone, Debug, PartialEq, Eq, glib::GBoxed)]</span>
 <span class="doccomment">/// #[gboxed(type_name = &quot;MyBoxed&quot;)]</span>
 <span class="doccomment">/// struct MyBoxed(String);</span>
 <span class="doccomment">/// ```</span>
@@ -609,11 +602,10 @@
 <span class="doccomment">/// # Example</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">/// #[macro_use] extern crate glib;</span>
 <span class="doccomment">/// use glib::prelude::*;</span>
 <span class="doccomment">/// use glib::subclass::prelude::*;</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// #[gflags(&quot;MyFlags&quot;)]</span>
+<span class="doccomment">/// #[glib::gflags(&quot;MyFlags&quot;)]</span>
 <span class="doccomment">/// enum MyFlags {</span>
 <span class="doccomment">///     #[gflags(name = &quot;Flag A&quot;, nick = &quot;nick-a&quot;)]</span>
 <span class="doccomment">///     A = 0b00000001,</span>

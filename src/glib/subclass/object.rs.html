@@ -772,12 +772,6 @@
 <span id="769">769</span>
 <span id="770">770</span>
 <span id="771">771</span>
-<span id="772">772</span>
-<span id="773">773</span>
-<span id="774">774</span>
-<span id="775">775</span>
-<span id="776">776</span>
-<span id="777">777</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2017-2018, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -787,14 +781,12 @@
 <span class="doccomment">//! or implementing virtual methods of it.</span>
 
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">glib_sys</span>;
-<span class="kw">use</span> <span class="ident">gobject_sys</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Cast</span>, <span class="ident">Object</span>, <span class="ident">ObjectType</span>, <span class="ident">SignalFlags</span>, <span class="ident">Type</span>, <span class="ident">Value</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Borrow</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
-<span class="kw">use</span> <span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> {<span class="ident">Cast</span>, <span class="ident">Object</span>, <span class="ident">ObjectType</span>, <span class="ident">SignalFlags</span>, <span class="ident">Type</span>, <span class="ident">Value</span>};
 
 <span class="doccomment">/// Trait for implementors of `glib::Object` subclasses.</span>
 <span class="doccomment">///</span>
@@ -827,10 +819,10 @@
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">get_property</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectImpl</span><span class="op">&gt;</span>(
-    <span class="ident">obj</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GObject</span>,
+    <span class="ident">obj</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
     <span class="ident">id</span>: <span class="ident">u32</span>,
-    <span class="ident">value</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GValue</span>,
-    <span class="ident">_pspec</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GParamSpec</span>,
+    <span class="ident">value</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GValue</span>,
+    <span class="ident">_pspec</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpec</span>,
 ) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">obj</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
@@ -848,16 +840,16 @@
     <span class="comment">// Without this, by using the GValue API, we would have to create</span>
     <span class="comment">// a copy of the value when setting it on the destination just to</span>
     <span class="comment">// immediately free the original value afterwards.</span>
-    <span class="ident">gobject_sys</span>::<span class="ident">g_value_unset</span>(<span class="ident">value</span>);
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_unset</span>(<span class="ident">value</span>);
     <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">ManuallyDrop</span>::<span class="ident">new</span>(<span class="ident">v</span>);
     <span class="ident">ptr</span>::<span class="ident">write</span>(<span class="ident">value</span>, <span class="ident">ptr</span>::<span class="ident">read</span>(<span class="ident">v</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>));
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">set_property</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectImpl</span><span class="op">&gt;</span>(
-    <span class="ident">obj</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GObject</span>,
+    <span class="ident">obj</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
     <span class="ident">id</span>: <span class="ident">u32</span>,
-    <span class="ident">value</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GValue</span>,
-    <span class="ident">_pspec</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GParamSpec</span>,
+    <span class="ident">value</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GValue</span>,
+    <span class="ident">_pspec</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpec</span>,
 ) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">obj</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
@@ -868,7 +860,7 @@
     );
 }
 
-<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">constructed</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectImpl</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GObject</span>) {
+<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">constructed</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectImpl</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">obj</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
 
@@ -877,7 +869,7 @@
 
 <span class="doccomment">/// Definition of a property.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Property</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw">pub</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="kw">pub</span> <span class="kw">fn</span>(<span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">ParamSpec</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Property</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw">pub</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="kw">pub</span> <span class="kw">fn</span>(<span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">ParamSpec</span>);
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">Property</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">fmt</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
@@ -915,8 +907,8 @@
                 <span class="ident">pspecs_ptrs</span>.<span class="ident">push</span>(<span class="ident">pspec</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
             }
 
-            <span class="ident">gobject_sys</span>::<span class="ident">g_object_class_install_properties</span>(
-                <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GObjectClass</span>,
+            <span class="ident">gobject_ffi</span>::<span class="ident">g_object_class_install_properties</span>(
+                <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GObjectClass</span>,
                 <span class="ident">pspecs_ptrs</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>,
                 <span class="ident">pspecs_ptrs</span>.<span class="ident">as_mut_ptr</span>(),
             );
@@ -930,7 +922,7 @@
     <span class="kw">fn</span> <span class="ident">add_signal</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">flags</span>: <span class="ident">SignalFlags</span>, <span class="ident">arg_types</span>: <span class="kw-2">&amp;</span>[<span class="ident">Type</span>], <span class="ident">ret_type</span>: <span class="ident">Type</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">super</span>::<span class="ident">types</span>::<span class="ident">add_signal</span>(
-                <span class="kw-2">*</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GType</span>),
+                <span class="kw-2">*</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GType</span>),
                 <span class="ident">name</span>,
                 <span class="ident">flags</span>,
                 <span class="ident">arg_types</span>,
@@ -957,7 +949,7 @@
     {
         <span class="kw">unsafe</span> {
             <span class="kw">super</span>::<span class="ident">types</span>::<span class="ident">add_signal_with_class_handler</span>(
-                <span class="kw-2">*</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GType</span>),
+                <span class="kw-2">*</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GType</span>),
                 <span class="ident">name</span>,
                 <span class="ident">flags</span>,
                 <span class="ident">arg_types</span>,
@@ -988,7 +980,7 @@
     {
         <span class="kw">unsafe</span> {
             <span class="kw">super</span>::<span class="ident">types</span>::<span class="ident">add_signal_with_accumulator</span>(
-                <span class="kw-2">*</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GType</span>),
+                <span class="kw-2">*</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GType</span>),
                 <span class="ident">name</span>,
                 <span class="ident">flags</span>,
                 <span class="ident">arg_types</span>,
@@ -1023,7 +1015,7 @@
     {
         <span class="kw">unsafe</span> {
             <span class="kw">super</span>::<span class="ident">types</span>::<span class="ident">add_signal_with_class_handler_and_accumulator</span>(
-                <span class="kw-2">*</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GType</span>),
+                <span class="kw-2">*</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GType</span>),
                 <span class="ident">name</span>,
                 <span class="ident">flags</span>,
                 <span class="ident">arg_types</span>,
@@ -1041,17 +1033,17 @@
         <span class="kw">unsafe</span> {
             <span class="kw">super</span>::<span class="ident">types</span>::<span class="ident">signal_override_class_handler</span>(
                 <span class="ident">name</span>,
-                <span class="kw-2">*</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib_sys</span>::<span class="ident">GType</span>),
+                <span class="kw-2">*</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GType</span>),
                 <span class="ident">class_handler</span>,
             );
         }
     }
 }
 
-<span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">ObjectClassSubclassExt</span> <span class="kw">for</span> ::<span class="ident">Class</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span> {}
+<span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">ObjectClassSubclassExt</span> <span class="kw">for</span> <span class="kw">crate</span>::<span class="ident">Class</span><span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span> {}
 
 <span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectImpl</span><span class="op">&gt;</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Object</span> {
-    <span class="kw">fn</span> <span class="ident">override_vfuncs</span>(<span class="ident">class</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">Class</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) {
+    <span class="kw">fn</span> <span class="ident">override_vfuncs</span>(<span class="ident">class</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">crate</span>::<span class="ident">Class</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) {
         <span class="kw">let</span> <span class="ident">klass</span> <span class="op">=</span> <span class="ident">class</span>.<span class="ident">as_mut</span>();
         <span class="ident">klass</span>.<span class="ident">set_property</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">set_property</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">get_property</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">get_property</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
@@ -1074,7 +1066,7 @@
     <span class="kw">fn</span> <span class="ident">parent_constructed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_sys</span>::<span class="ident">GObjectClass</span>;
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GObjectClass</span>;
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">func</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">constructed</span> {
                 <span class="ident">func</span>(<span class="ident">obj</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);
@@ -1103,7 +1095,7 @@
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw">super</span>::<span class="kw">super</span>::<span class="ident">subclass</span>;
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw">super</span>::<span class="kw">super</span>::<span class="ident">value</span>::{<span class="ident">ToValue</span>, <span class="ident">Value</span>};
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="ident">prelude</span>::<span class="kw-2">*</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cell</span>::<span class="ident">RefCell</span>;
 
@@ -1154,7 +1146,7 @@
                     <span class="string">&quot;name-changed&quot;</span>,
                     <span class="ident">SignalFlags</span>::<span class="ident">RUN_LAST</span>,
                     <span class="kw-2">&amp;</span>[<span class="ident">String</span>::<span class="ident">static_type</span>()],
-                    ::<span class="ident">Type</span>::<span class="ident">Unit</span>,
+                    <span class="kw">crate</span>::<span class="ident">Type</span>::<span class="ident">Unit</span>,
                 );
 
                 <span class="ident">klass</span>.<span class="ident">add_signal_with_class_handler</span>(
@@ -1261,39 +1253,39 @@
 
     <span class="kw">static</span> <span class="ident">PROPERTIES</span>: [<span class="ident">Property</span>; <span class="number">4</span>] <span class="op">=</span> [
         <span class="ident">Property</span>(<span class="string">&quot;name&quot;</span>, <span class="op">|</span><span class="ident">name</span><span class="op">|</span> {
-            ::<span class="ident">ParamSpec</span>::<span class="ident">string</span>(
+            <span class="kw">crate</span>::<span class="ident">ParamSpec</span>::<span class="ident">string</span>(
                 <span class="ident">name</span>,
                 <span class="string">&quot;Name&quot;</span>,
                 <span class="string">&quot;Name of this object&quot;</span>,
                 <span class="prelude-val">None</span>,
-                ::<span class="ident">ParamFlags</span>::<span class="ident">READWRITE</span>,
+                <span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">READWRITE</span>,
             )
         }),
         <span class="ident">Property</span>(<span class="string">&quot;construct-name&quot;</span>, <span class="op">|</span><span class="ident">name</span><span class="op">|</span> {
-            ::<span class="ident">ParamSpec</span>::<span class="ident">string</span>(
+            <span class="kw">crate</span>::<span class="ident">ParamSpec</span>::<span class="ident">string</span>(
                 <span class="ident">name</span>,
                 <span class="string">&quot;Construct Name&quot;</span>,
                 <span class="string">&quot;Construct Name of this object&quot;</span>,
                 <span class="prelude-val">None</span>,
-                ::<span class="ident">ParamFlags</span>::<span class="ident">READWRITE</span> <span class="op">|</span> ::<span class="ident">ParamFlags</span>::<span class="ident">CONSTRUCT_ONLY</span>,
+                <span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">READWRITE</span> <span class="op">|</span> <span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">CONSTRUCT_ONLY</span>,
             )
         }),
         <span class="ident">Property</span>(<span class="string">&quot;constructed&quot;</span>, <span class="op">|</span><span class="ident">name</span><span class="op">|</span> {
-            ::<span class="ident">ParamSpec</span>::<span class="ident">boolean</span>(
+            <span class="kw">crate</span>::<span class="ident">ParamSpec</span>::<span class="ident">boolean</span>(
                 <span class="ident">name</span>,
                 <span class="string">&quot;Constructed&quot;</span>,
                 <span class="string">&quot;True if the constructed() virtual method was called&quot;</span>,
                 <span class="bool-val">false</span>,
-                ::<span class="ident">ParamFlags</span>::<span class="ident">READABLE</span>,
+                <span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">READABLE</span>,
             )
         }),
         <span class="ident">Property</span>(<span class="string">&quot;child&quot;</span>, <span class="op">|</span><span class="ident">name</span><span class="op">|</span> {
-            ::<span class="ident">ParamSpec</span>::<span class="ident">object</span>(
+            <span class="kw">crate</span>::<span class="ident">ParamSpec</span>::<span class="ident">object</span>(
                 <span class="ident">name</span>,
                 <span class="string">&quot;Child&quot;</span>,
                 <span class="string">&quot;Child object&quot;</span>,
                 <span class="ident">ChildObject</span>::<span class="ident">static_type</span>(),
-                ::<span class="ident">ParamFlags</span>::<span class="ident">READWRITE</span>,
+                <span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">READWRITE</span>,
             )
         }),
     ];
@@ -1304,7 +1296,7 @@
 
     <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DummyInterface</span> {
-        <span class="ident">parent</span>: <span class="ident">gobject_sys</span>::<span class="ident">GTypeInterface</span>,
+        <span class="ident">parent</span>: <span class="ident">gobject_ffi</span>::<span class="ident">GTypeInterface</span>,
     }
 
     <span class="kw">impl</span> <span class="ident">ObjectInterface</span> <span class="kw">for</span> <span class="ident">DummyInterface</span> {
@@ -1328,11 +1320,7 @@
     <span class="comment">// Usually this would be implemented on a Rust wrapper type defined</span>
     <span class="comment">// with glib_wrapper!() but for the test the following is susyscient</span>
     <span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectImpl</span><span class="op">&gt;</span> <span class="ident">IsImplementable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DummyInterface</span> {
-        <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">interface_init</span>(
-            <span class="ident">_iface</span>: <span class="ident">glib_sys</span>::<span class="ident">gpointer</span>,
-            <span class="ident">_iface_data</span>: <span class="ident">glib_sys</span>::<span class="ident">gpointer</span>,
-        ) {
-        }
+        <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">interface_init</span>(<span class="ident">_iface</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>, <span class="ident">_iface_data</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>) {}
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>

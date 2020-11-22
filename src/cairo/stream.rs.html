@@ -276,9 +276,9 @@
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;https://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">error</span>::<span class="ident">Error</span>;
-<span class="kw">use</span> <span class="ident">ffi</span>::{<span class="self">self</span>, <span class="ident">cairo_status_t</span>};
-<span class="kw">use</span> {<span class="ident">Surface</span>, <span class="ident">UserDataKey</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Surface</span>, <span class="ident">UserDataKey</span>};
+<span class="kw">use</span> <span class="ident">ffi</span>::<span class="ident">cairo_status_t</span>;
 
 <span class="kw">use</span> <span class="ident">libc</span>::{<span class="ident">c_double</span>, <span class="ident">c_uchar</span>, <span class="ident">c_uint</span>, <span class="ident">c_void</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">any</span>::<span class="ident">Any</span>;

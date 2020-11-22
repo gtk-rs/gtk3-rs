@@ -60,8 +60,8 @@
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">assert_initialized_main_thread</span> {
     () <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="op">!</span>::<span class="ident">rt</span>::<span class="ident">is_initialized_main_thread</span>() {
-            <span class="kw">if</span> ::<span class="ident">rt</span>::<span class="ident">is_initialized</span>() {
+        <span class="kw">if</span> <span class="op">!</span><span class="kw">crate</span>::<span class="ident">rt</span>::<span class="ident">is_initialized_main_thread</span>() {
+            <span class="kw">if</span> <span class="kw">crate</span>::<span class="ident">rt</span>::<span class="ident">is_initialized</span>() {
                 <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;GDK may only be used from the main thread.&quot;</span>);
             } <span class="kw">else</span> {
                 <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;GDK has not been initialized. Call `gdk::init` or `gtk::init` first.&quot;</span>);

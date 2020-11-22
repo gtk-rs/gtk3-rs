@@ -77,7 +77,6 @@
 <span id="74">74</span>
 <span id="75">75</span>
 <span id="76">76</span>
-<span id="77">77</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2015, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -85,7 +84,6 @@
 
 <span class="doccomment">//! General — Library initialization and miscellaneous functions</span>
 
-<span class="kw">use</span> <span class="ident">gdk_sys</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cell</span>::<span class="ident">Cell</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">atomic</span>::{<span class="ident">AtomicBool</span>, <span class="ident">Ordering</span>, <span class="ident">ATOMIC_BOOL_INIT</span>};
@@ -99,8 +97,8 @@
 <span class="doccomment">/// Asserts that this is the main thread and either `gdk::init` or `gtk::init` has been called.</span>
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">assert_initialized_main_thread</span> {
     () <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="op">!</span>::<span class="ident">rt</span>::<span class="ident">is_initialized_main_thread</span>() {
-            <span class="kw">if</span> ::<span class="ident">rt</span>::<span class="ident">is_initialized</span>() {
+        <span class="kw">if</span> <span class="op">!</span><span class="kw">crate</span>::<span class="ident">rt</span>::<span class="ident">is_initialized_main_thread</span>() {
+            <span class="kw">if</span> <span class="kw">crate</span>::<span class="ident">rt</span>::<span class="ident">is_initialized</span>() {
                 <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;GDK may only be used from the main thread.&quot;</span>);
             } <span class="kw">else</span> {
                 <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;GDK has not been initialized. Call `gdk::init` or `gtk::init` first.&quot;</span>);
@@ -117,7 +115,7 @@
 <span class="doccomment">/// Asserts that neither `gdk::init` nor `gtk::init` has been called.</span>
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">assert_not_initialized</span> {
     () <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> ::<span class="ident">rt</span>::<span class="ident">is_initialized</span>() {
+        <span class="kw">if</span> <span class="kw">crate</span>::<span class="ident">rt</span>::<span class="ident">is_initialized</span>() {
             <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;This function has to be called before `gdk::init` or `gtk::init`.&quot;</span>);
         }
     };
@@ -152,7 +150,7 @@
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init</span>() {
     <span class="macro">assert_not_initialized</span><span class="macro">!</span>();
     <span class="kw">unsafe</span> {
-        <span class="ident">gdk_sys</span>::<span class="ident">gdk_init</span>(<span class="ident">ptr</span>::<span class="ident">null_mut</span>(), <span class="ident">ptr</span>::<span class="ident">null_mut</span>());
+        <span class="ident">ffi</span>::<span class="ident">gdk_init</span>(<span class="ident">ptr</span>::<span class="ident">null_mut</span>(), <span class="ident">ptr</span>::<span class="ident">null_mut</span>());
         <span class="ident">set_initialized</span>();
     }
 }

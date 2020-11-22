@@ -126,13 +126,7 @@
 <span id="123">123</span>
 <span id="124">124</span>
 <span id="125">125</span>
-<span id="126">126</span>
-<span id="127">127</span>
-<span id="128">128</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">gdk_sys</span>;
-<span class="kw">use</span> <span class="ident">gtk_sys</span>;
-
 <span class="kw">use</span> <span class="ident">libc</span>::{<span class="ident">c_char</span>, <span class="ident">c_uint</span>};
 
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
@@ -140,8 +134,8 @@
 <span class="kw">use</span> <span class="ident">glib</span>::{<span class="ident">Cast</span>, <span class="ident">GString</span>};
 
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">cell_renderer_text</span>::<span class="ident">CellRendererTextImpl</span>;
-<span class="kw">use</span> <span class="ident">CellRendererAccel</span>;
-<span class="kw">use</span> <span class="ident">CellRendererText</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">CellRendererAccel</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">CellRendererText</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">CellRendererAccelImpl</span>: <span class="ident">CellRendererAccelImplExt</span> <span class="op">+</span> <span class="ident">CellRendererTextImpl</span> {
     <span class="kw">fn</span> <span class="ident">accel_edited</span>(
@@ -184,7 +178,7 @@
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span>
-                <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gtk_sys</span>::<span class="ident">GtkCellRendererAccelClass</span>;
+                <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkCellRendererAccelClass</span>;
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">accel_edited</span> {
                 <span class="ident">f</span>(
                     <span class="ident">renderer</span>
@@ -204,7 +198,7 @@
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span>
-                <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gtk_sys</span>::<span class="ident">GtkCellRendererAccelClass</span>;
+                <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkCellRendererAccelClass</span>;
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">accel_cleared</span> {
                 <span class="ident">f</span>(
                     <span class="ident">renderer</span>
@@ -229,10 +223,10 @@
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">cell_renderer_accel_edited</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">CellRendererAccelImpl</span><span class="op">&gt;</span>(
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gtk_sys</span>::<span class="ident">GtkCellRendererAccel</span>,
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkCellRendererAccel</span>,
     <span class="ident">path</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>,
     <span class="ident">accel_key</span>: <span class="ident">c_uint</span>,
-    <span class="ident">accel_mods</span>: <span class="ident">gdk_sys</span>::<span class="ident">GdkModifierType</span>,
+    <span class="ident">accel_mods</span>: <span class="ident">gdk</span>::<span class="ident">ffi</span>::<span class="ident">GdkModifierType</span>,
     <span class="ident">hardware_keycode</span>: <span class="ident">c_uint</span>,
 ) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
@@ -249,7 +243,7 @@
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">cell_renderer_accel_cleared</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">CellRendererAccelImpl</span><span class="op">&gt;</span>(
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gtk_sys</span>::<span class="ident">GtkCellRendererAccel</span>,
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkCellRendererAccel</span>,
     <span class="ident">path</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span>,
 ) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);

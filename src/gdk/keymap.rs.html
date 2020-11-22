@@ -150,12 +150,12 @@
 <span id="147">147</span>
 <span id="148">148</span>
 </pre><div class="example-wrap"><pre class="rust ">
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Keymap</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">KeymapKey</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ModifierType</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
-<span class="kw">use</span> <span class="ident">Keymap</span>;
-<span class="kw">use</span> <span class="ident">KeymapKey</span>;
-<span class="kw">use</span> <span class="ident">ModifierType</span>;
 
 <span class="kw">impl</span> <span class="ident">Keymap</span> {
     <span class="doccomment">/// Returns the keyvals bound to `hardware_keycode`.</span>
@@ -183,7 +183,7 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">keys</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">keyvals</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">n_entries</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">gdk_sys</span>::<span class="ident">gdk_keymap_get_entries_for_keycode</span>(
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_keymap_get_entries_for_keycode</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">hardware_keycode</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">keys</span>,
@@ -196,8 +196,8 @@
                 <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">n_entries</span> {
                     <span class="ident">entries</span>.<span class="ident">push</span>((<span class="ident">from_glib_none</span>(<span class="ident">keys</span>.<span class="ident">add</span>(<span class="ident">i</span>)), <span class="ident">ptr</span>::<span class="ident">read</span>(<span class="ident">keyvals</span>.<span class="ident">add</span>(<span class="ident">i</span>))));
                 }
-                <span class="ident">glib_sys</span>::<span class="ident">g_free</span>(<span class="ident">keys</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
-                <span class="ident">glib_sys</span>::<span class="ident">g_free</span>(<span class="ident">keyvals</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+                <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">g_free</span>(<span class="ident">keys</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+                <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">g_free</span>(<span class="ident">keyvals</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
                 <span class="ident">entries</span>
             } <span class="kw">else</span> {
                 <span class="ident">Vec</span>::<span class="ident">new</span>()
@@ -231,7 +231,7 @@
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">keys</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">n_keys</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">gdk_sys</span>::<span class="ident">gdk_keymap_get_entries_for_keyval</span>(
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_keymap_get_entries_for_keyval</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">keyval</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">keys</span>,
@@ -243,7 +243,7 @@
                 <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">n_keys</span> {
                     <span class="ident">r_keys</span>.<span class="ident">push</span>(<span class="ident">from_glib_none</span>(<span class="ident">keys</span>.<span class="ident">add</span>(<span class="ident">i</span>)));
                 }
-                <span class="ident">glib_sys</span>::<span class="ident">g_free</span>(<span class="ident">keys</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
+                <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">g_free</span>(<span class="ident">keys</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
                 <span class="ident">r_keys</span>
             } <span class="kw">else</span> {
                 <span class="ident">Vec</span>::<span class="ident">new</span>()
@@ -266,7 +266,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_virtual_modifiers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ModifierType</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">state</span>.<span class="ident">to_glib</span>();
-            <span class="ident">gdk_sys</span>::<span class="ident">gdk_keymap_add_virtual_modifiers</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">s</span>);
+            <span class="ident">ffi</span>::<span class="ident">gdk_keymap_add_virtual_modifiers</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">s</span>);
             <span class="kw-2">*</span><span class="ident">state</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">s</span>);
         }
     }
@@ -289,7 +289,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">map_virtual_modifiers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ModifierType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">state</span>.<span class="ident">to_glib</span>();
-            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">gdk_sys</span>::<span class="ident">gdk_keymap_map_virtual_modifiers</span>(
+            <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_keymap_map_virtual_modifiers</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">s</span>,
             ));

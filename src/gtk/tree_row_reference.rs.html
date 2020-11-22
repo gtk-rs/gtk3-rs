@@ -46,21 +46,17 @@
 <span id="43">43</span>
 <span id="44">44</span>
 <span id="45">45</span>
-<span id="46">46</span>
-<span id="47">47</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2017, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
 <span class="comment">// Licensed under the MIT license, see the LICENSE file or &lt;http://opensource.org/licenses/MIT&gt;</span>
 
-<span class="kw">use</span> <span class="ident">glib</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">TreeIter</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">TreePath</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">TreeRowReference</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">object</span>::<span class="ident">IsA</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">gtk_sys</span>;
 <span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_int</span>;
-<span class="kw">use</span> <span class="ident">TreeIter</span>;
-<span class="kw">use</span> <span class="ident">TreePath</span>;
-<span class="kw">use</span> <span class="ident">TreeRowReference</span>;
 
 <span class="kw">impl</span> <span class="ident">TreeRowReference</span> {
     <span class="doccomment">/// This is unsafe because new_order bounds can&#39;t be checked.</span>
@@ -88,7 +84,7 @@
             <span class="ident">iter</span>.<span class="ident">is_some</span>() <span class="op">|</span><span class="op">|</span> <span class="ident">path</span>.<span class="ident">get_depth</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span>,
             <span class="string">&quot;If &#39;iter&#39; is None, &#39;path&#39; must point to the root.&quot;</span>
         );
-        <span class="ident">gtk_sys</span>::<span class="ident">gtk_tree_row_reference_reordered</span>(
+        <span class="ident">ffi</span>::<span class="ident">gtk_tree_row_reference_reordered</span>(
             <span class="ident">proxy</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
             <span class="ident">mut_override</span>(<span class="ident">path</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>),
             <span class="ident">mut_override</span>(<span class="ident">iter</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>),
