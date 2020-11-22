@@ -129,14 +129,14 @@ def main():
         if def_check_submodule("gir-files", conf) == FAILURE:
             return 1
     elif not isdir(conf.gir_directory):
-        print("`{}` dir doesn't exist. Aborting...".format(path))
+        print("`{}` dir doesn't exist. Aborting...".format(conf.gir_directory))
         return 1
 
     if conf.gir_path == DEFAULT_GIR_PATH:
         if not build_gir_if_needed(def_check_submodule("gir", conf)):
             return 1
     elif not isfile(conf.gir_path):
-        print("`{}` file doesn't exist. Aborting...".format(path))
+        print("`{}` file doesn't exist. Aborting...".format(conf.gir_path))
         return 1
 
     print('=> Regenerating crates...')
