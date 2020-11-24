@@ -147,9 +147,6 @@ def main():
     if conf.gir_files_path == DEFAULT_GIR_FILES_DIRECTORY:
         if def_check_submodule(conf.gir_files_path, conf) == FAILURE:
             return 1
-    elif not isdir(conf.gir_files_path):
-        print("`{}` dir doesn't exist. Aborting...".format(conf.gir_files_path))
-        return 1
 
     if conf.gir_path == DEFAULT_GIR_PATH:
         if not build_gir_if_needed(def_check_submodule(DEFAULT_GIR_DIRECTORY, conf)):
