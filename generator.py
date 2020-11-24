@@ -127,7 +127,7 @@ def parse_args():
     parser.add_argument('path', nargs="*", default=[Path('.')],
                         type=valid_path,
                         help='Paths in which to look for Gir.toml files')
-    parser.add_argument('--gir-files', dest="gir_files_path", default=DEFAULT_GIR_FILES_DIRECTORY,
+    parser.add_argument('--gir-files-directory', dest="gir_files_path", default=DEFAULT_GIR_FILES_DIRECTORY,
                         type=directory_path,
                         help='Path of the gir-files folder')
     parser.add_argument('--gir-path', default=DEFAULT_GIR_PATH,
@@ -147,6 +147,9 @@ def main():
     if conf.gir_files_path == DEFAULT_GIR_FILES_DIRECTORY:
         if def_check_submodule(conf.gir_files_path, conf) == FAILURE:
             return 1
+    elif not isdir(conf.gir_files_path):
+        print("`{}` dir doesn't exist. Aborting...".format(conf.gir_files_path))
+        return 1
 
     if conf.gir_path == DEFAULT_GIR_PATH:
         if not build_gir_if_needed(def_check_submodule(DEFAULT_GIR_DIRECTORY, conf)):
