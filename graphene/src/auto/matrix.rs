@@ -645,6 +645,8 @@ impl Matrix {
     }
 }
 
+#[cfg(any(feature = "v1_10", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 impl PartialEq for Matrix {
     #[inline]
     fn eq(&self, other: &Self) -> bool {
