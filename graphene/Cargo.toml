@@ -21,12 +21,11 @@ name = "graphene"
 [features]
 default = ["v1_10"]
 v1_10 = ["ffi/v1_10"]
-dox = ["ffi/dox", "glib/dox"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 
 [package.metadata.docs.rs]
-features = ["dox", "embed-lgpl-docs"]
+features = ["embed-lgpl-docs"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 version = "0.1.3"

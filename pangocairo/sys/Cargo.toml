@@ -17,9 +17,6 @@ path = "../../pango/sys"
 shell-words = "1.0.0"
 tempfile = "3"
 
-[features]
-dox = []
-
 [lib]
 name = "pango_cairo_sys"
 
@@ -36,7 +33,7 @@ repository = "https://github.com/gtk-rs/gtk-rs"
 version = "0.13.0"
 edition = "2018"
 [package.metadata.docs.rs]
-features = ["dox"]
+features = []
 [package.metadata.system-deps.pangocairo]
 name = "pangocairo"
 version = "1.36"

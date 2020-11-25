@@ -20,7 +20,6 @@ v2_58 = ["v2_56"]
 v2_60 = ["v2_58"]
 v2_62 = ["v2_60"]
 v2_64 = ["v2_62"]
-dox = []
 v2_66 = ["v2_64"]
 
 [lib]
@@ -39,7 +38,7 @@ repository = "https://github.com/gtk-rs/gtk-rs"
 version = "0.13.0"
 edition = "2018"
 [package.metadata.docs.rs]
-features = ["dox"]
+features = []
 [package.metadata.system-deps.glib_2_0]
 name = "glib-2.0"
 version = "2.42"

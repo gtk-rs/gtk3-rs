@@ -17,7 +17,6 @@ v2_46 = ["v2_44"]
 v2_54 = ["v2_46"]
 v2_58 = ["v2_54"]
 v2_62 = ["v2_58"]
-dox = []
 v2_66 = ["v2_62"]
 
 [lib]
@@ -36,7 +35,7 @@ repository = "https://github.com/gtk-rs/gtk-rs"
 version = "0.13.0"
 edition = "2018"
 [package.metadata.docs.rs]
-features = ["dox"]
+features = []
 [package.metadata.system-deps.gobject_2_0]
 name = "gobject-2.0"
 version = "2.42"

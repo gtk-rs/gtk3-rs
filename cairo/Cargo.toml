@@ -34,11 +34,10 @@ freetype = ["ffi/freetype", "freetype-crate"]
 script = ["ffi/script"]
 xcb = ["ffi/xcb"]
 xlib = ["ffi/xlib"]
-dox = ["ffi/dox", "glib/dox"]
 win32-surface = ["ffi/win32-surface"]
 
 [package.metadata.docs.rs]
-features = ["dox", "embed-lgpl-docs"]
+features = ["embed-lgpl-docs"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 version = "0.1.8"

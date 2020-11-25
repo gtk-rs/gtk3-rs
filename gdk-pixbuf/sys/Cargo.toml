@@ -22,7 +22,6 @@ v2_32 = []
 v2_36 = ["v2_32"]
 v2_36_8 = ["v2_36"]
 v2_40 = ["v2_36_8"]
-dox = []
 
 [lib]
 name = "gdk_pixbuf_sys"
@@ -40,7 +39,7 @@ repository = "https://github.com/gtk-rs/gtk-rs"
 version = "0.13.0"
 edition = "2018"
 [package.metadata.docs.rs]
-features = ["dox"]
+features = []
 [package.metadata.system-deps.gdk_pixbuf_2_0]
 name = "gdk-pixbuf-2.0"
 version = "2.30"

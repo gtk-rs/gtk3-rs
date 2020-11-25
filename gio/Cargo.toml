@@ -31,12 +31,11 @@ v2_60 = ["v2_58", "ffi/v2_60", "glib/v2_60"]
 v2_62 = ["v2_60", "ffi/v2_62", "glib/v2_62"]
 v2_64 = ["v2_62", "ffi/v2_64", "glib/v2_64"]
 v2_66 = ["v2_64", "ffi/v2_66", "glib/v2_66"]
-dox = ["ffi/dox", "glib/dox"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 
 [package.metadata.docs.rs]
-features = ["dox", "embed-lgpl-docs"]
+features = ["embed-lgpl-docs"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 version = "0.1"

@@ -36,7 +36,6 @@ version = "1.16"
 name = "cairo_sys"
 
 [features]
-dox = ["x11/dox"]
 v1_14 = []
 v1_16 = ["v1_14"]
 xlib = ["x11"]

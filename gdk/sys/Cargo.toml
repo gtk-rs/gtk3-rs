@@ -33,7 +33,6 @@ v3_18 = ["v3_16"]
 v3_20 = ["v3_18"]
 v3_22 = ["v3_20"]
 v3_24 = ["v3_22"]
-dox = []
 
 [lib]
 name = "gdk_sys"
@@ -51,7 +50,7 @@ repository = "https://github.com/gtk-rs/gtk-rs"
 version = "0.13.0"
 edition = "2018"
 [package.metadata.docs.rs]
-features = ["dox"]
+features = []
 [package.metadata.system-deps.gdk_3_0]
 name = "gdk-3.0"
 version = "3.14"

@@ -15,7 +15,6 @@ tempfile = "3"
 [features]
 default = ["v1_10"]
 v1_10 = []
-dox = []
 
 [lib]
 name = "graphene_sys"
@@ -34,7 +33,7 @@ version = "0.13.0"
 link = "graphene-1.0"
 edition = "2018"
 [package.metadata.docs.rs]
-features = ["dox"]
+features = []
 [package.metadata.system-deps.graphene_gobject_1_0]
 name = "graphene-gobject-1.0"
 version = "1.9.2"

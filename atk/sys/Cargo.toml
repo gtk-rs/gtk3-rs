@@ -18,7 +18,6 @@ tempfile = "3"
 v2_30 = []
 v2_32 = ["v2_30"]
 v2_34 = ["v2_32"]
-dox = []
 
 [lib]
 name = "atk_sys"
@@ -36,7 +35,7 @@ repository = "https://github.com/gtk-rs/gtk-rs"
 version = "0.13.0"
 edition = "2018"
 [package.metadata.docs.rs]
-features = ["dox"]
+features = []
 [package.metadata.system-deps.atk]
 name = "atk"
 version = "2.14"

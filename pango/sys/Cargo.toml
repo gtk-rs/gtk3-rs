@@ -19,7 +19,6 @@ v1_36_7 = []
 v1_38 = ["v1_36_7"]
 v1_42 = ["v1_38"]
 v1_44 = ["v1_42"]
-dox = []
 v1_46 = ["v1_44"]
 
 [lib]
@@ -38,7 +37,7 @@ repository = "https://github.com/gtk-rs/gtk-rs"
 version = "0.13.0"
 edition = "2018"
 [package.metadata.docs.rs]
-features = ["dox"]
+features = []
 [package.metadata.system-deps.pango]
 name = "pango"
 version = "1.36"
