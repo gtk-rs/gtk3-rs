@@ -5,7 +5,7 @@
 use crate::translate::*;
 use crate::GString;
 use once_cell::sync::Lazy;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg(any(feature = "v2_46", all(not(doctest), doc)))]
 use std::boxed::Box as Box_;
 use std::sync::{Arc, Mutex};
 
@@ -102,7 +102,7 @@ impl FromGlib<ffi::GLogLevelFlags> for LogLevels {
     }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg(any(feature = "v2_46", all(not(doctest), doc)))]
 fn to_log_flags(fatal: bool, recursion: bool) -> u32 {
     (if fatal { ffi::G_LOG_FLAG_FATAL } else { 0 })
         | if recursion {
@@ -112,7 +112,7 @@ fn to_log_flags(fatal: bool, recursion: bool) -> u32 {
         }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg(any(feature = "v2_46", all(not(doctest), doc)))]
 pub fn log_set_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static>(
     log_domain: Option<&str>,
     log_levels: LogLevels,
@@ -178,7 +178,7 @@ pub fn log_set_fatal_mask(log_domain: Option<&str>, fatal_levels: LogLevels) -> 
     }
 }
 
-// #[cfg(any(feature = "v2_50", feature = "dox"))]
+// #[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
 // pub fn log_variant(log_domain: Option<&str>, log_level: LogLevel, fields: &Variant) {
 //     unsafe {
 //         ffi::g_log_variant(
@@ -735,7 +735,7 @@ macro_rules! g_printerr {
 // /// g_log_structured!("test", LogLevel::Debug, {"MESSAGE" => "tadam!"});
 // /// g_log_structured!("test", LogLevel::Debug, {"MESSAGE" => "tadam!", "random" => "yes"});
 // /// ```
-// #[cfg(any(feature = "v2_50", feature = "dox"))]
+// #[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
 // #[macro_export]
 // macro_rules! g_log_structured {
 //     ($log_domain:expr, $log_level:expr, {$($key:expr => $value:expr),+}) => {{

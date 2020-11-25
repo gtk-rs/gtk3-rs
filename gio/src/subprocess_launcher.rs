@@ -1,11 +1,11 @@
 use crate::SubprocessLauncher;
-#[cfg(any(unix, feature = "dox"))]
-#[cfg(any(unix, feature = "dox"))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
 use glib::translate::*;
-#[cfg(any(unix, all(feature = "dox", unix)))]
+#[cfg(any(unix, all(all(not(doctest), doc), unix)))]
 use std::os::unix::io::IntoRawFd;
 
-#[cfg(all(feature = "dox", not(unix)))]
+#[cfg(all(all(not(doctest), doc), not(unix)))]
 pub trait IntoRawFd: Sized {
     fn into_raw_fd(self) -> i32 {
         0
@@ -13,8 +13,8 @@ pub trait IntoRawFd: Sized {
 }
 
 impl SubprocessLauncher {
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     pub fn take_fd<F: IntoRawFd, G: IntoRawFd>(&self, source_fd: F, target_fd: G) {
         unsafe {
             ffi::g_subprocess_launcher_take_fd(
@@ -25,24 +25,24 @@ impl SubprocessLauncher {
         }
     }
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     pub fn take_stderr_fd<F: IntoRawFd>(&self, fd: F) {
         unsafe {
             ffi::g_subprocess_launcher_take_stderr_fd(self.to_glib_none().0, fd.into_raw_fd());
         }
     }
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     pub fn take_stdin_fd<F: IntoRawFd>(&self, fd: F) {
         unsafe {
             ffi::g_subprocess_launcher_take_stdin_fd(self.to_glib_none().0, fd.into_raw_fd());
         }
     }
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     pub fn take_stdout_fd<F: IntoRawFd>(&self, fd: F) {
         unsafe {
             ffi::g_subprocess_launcher_take_stdout_fd(self.to_glib_none().0, fd.into_raw_fd());

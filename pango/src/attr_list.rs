@@ -15,8 +15,8 @@ impl AttrList {
         }
     }
 
-    #[cfg(any(feature = "v1_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
+    #[cfg(any(feature = "v1_46", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_46")))]
     fn equal(&self, other_list: &AttrList) -> bool {
         unsafe {
             from_glib(ffi::pango_attr_list_equal(
@@ -44,7 +44,7 @@ impl AttrList {
     }
 }
 
-#[cfg(any(feature = "v1_46", feature = "dox"))]
+#[cfg(any(feature = "v1_46", all(not(doctest), doc)))]
 impl PartialEq for AttrList {
     #[inline]
     fn eq(&self, other: &Self) -> bool {
@@ -52,5 +52,5 @@ impl PartialEq for AttrList {
     }
 }
 
-#[cfg(any(feature = "v1_46", feature = "dox"))]
+#[cfg(any(feature = "v1_46", all(not(doctest), doc)))]
 impl Eq for AttrList {}

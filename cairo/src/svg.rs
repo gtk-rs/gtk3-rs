@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-#[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
+#[cfg(any(all(feature = "svg", feature = "v1_16"), all(not(doctest), doc)))]
 use crate::enums::SvgUnit;
 use crate::enums::{SurfaceType, SvgVersion};
 use crate::error::Error;
@@ -90,14 +90,14 @@ impl SvgSurface {
         }
     }
 
-    #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
+    #[cfg(any(all(feature = "svg", feature = "v1_16"), all(not(doctest), doc)))]
     pub fn set_document_unit(&mut self, unit: SvgUnit) {
         unsafe {
             ffi::cairo_svg_surface_set_document_unit(self.0.to_raw_none(), unit.into());
         }
     }
 
-    #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
+    #[cfg(any(all(feature = "svg", feature = "v1_16"), all(not(doctest), doc)))]
     pub fn get_document_unit(&self) -> SvgUnit {
         unsafe {
             SvgUnit::from(ffi::cairo_svg_surface_get_document_unit(

@@ -9,9 +9,9 @@ use glib::object::{Cast, IsA};
 use glib::translate::*;
 use std::cell::RefCell;
 use std::mem::transmute;
-#[cfg(all(not(unix), feature = "dox"))]
+#[cfg(all(not(unix), all(not(doctest), doc)))]
 use std::os::raw::c_int;
-#[cfg(all(not(windows), feature = "dox"))]
+#[cfg(all(not(windows), all(not(doctest), doc)))]
 use std::os::raw::c_void;
 use std::pin::Pin;
 use std::ptr;
@@ -25,7 +25,7 @@ use std::os::unix::io::{AsRawFd, FromRawFd, IntoRawFd, RawFd};
 use std::os::windows::io::{AsRawSocket, FromRawSocket, IntoRawSocket, RawSocket};
 
 impl Socket {
-    #[cfg(any(unix, feature = "dox"))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
     pub unsafe fn from_fd<T: IntoRawFd>(fd: T) -> Result<Socket, glib::Error> {
         let fd = fd.into_raw_fd();
         let mut error = ptr::null_mut();
@@ -36,7 +36,7 @@ impl Socket {
             Err(from_glib_full(error))
         }
     }
-    #[cfg(any(windows, feature = "dox"))]
+    #[cfg(any(windows, all(not(doctest), doc)))]
     pub unsafe fn from_socket<T: IntoRawSocket>(socket: T) -> Result<Socket, glib::Error> {
         let socket = socket.into_raw_socket();
         let mut error = ptr::null_mut();
@@ -49,14 +49,14 @@ impl Socket {
     }
 }
 
-#[cfg(any(unix, feature = "dox"))]
+#[cfg(any(unix, all(not(doctest), doc)))]
 impl AsRawFd for Socket {
     fn as_raw_fd(&self) -> RawFd {
         unsafe { ffi::g_socket_get_fd(self.to_glib_none().0) as _ }
     }
 }
 
-#[cfg(any(windows, feature = "dox"))]
+#[cfg(any(windows, all(not(doctest), doc)))]
 impl AsRawSocket for Socket {
     fn as_raw_socket(&self) -> RawSocket {
         unsafe { ffi::g_socket_get_fd(self.to_glib_none().0) as _ }
@@ -99,12 +99,12 @@ pub trait SocketExtManual: Sized {
         cancellable: Option<&C>,
     ) -> Result<usize, glib::Error>;
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     fn get_fd<T: FromRawFd>(&self) -> T;
 
-    #[cfg(any(windows, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(windows)))]
+    #[cfg(any(windows, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(windows)))]
     fn get_socket<T: FromRawSocket>(&self) -> T;
 
     fn create_source<F, C>(
@@ -310,14 +310,14 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     fn get_fd<T: FromRawFd>(&self) -> T {
         unsafe { FromRawFd::from_raw_fd(ffi::g_socket_get_fd(self.as_ref().to_glib_none().0)) }
     }
 
-    #[cfg(any(windows, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(windows)))]
+    #[cfg(any(windows, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(windows)))]
     fn get_socket<T: FromRawSocket>(&self) -> T {
         unsafe {
             FromRawSocket::from_raw_socket(ffi::g_socket_get_fd(self.as_ref().to_glib_none().0) as _)
@@ -435,38 +435,38 @@ impl<O: IsA<Socket>> SocketExtManual for O {
     }
 }
 
-#[cfg(all(not(unix), feature = "dox"))]
+#[cfg(all(not(unix), all(not(doctest), doc)))]
 pub trait IntoRawFd {
     fn into_raw_fd(self) -> c_int;
 }
 
-#[cfg(all(not(unix), feature = "dox"))]
+#[cfg(all(not(unix), all(not(doctest), doc)))]
 pub trait FromRawFd {
     unsafe fn from_raw_fd(fd: c_int) -> Self;
 }
 
-#[cfg(all(not(unix), feature = "dox"))]
+#[cfg(all(not(unix), all(not(doctest), doc)))]
 pub trait AsRawFd {
     fn as_raw_fd(&self) -> RawFd;
 }
 
-#[cfg(all(not(unix), feature = "dox"))]
+#[cfg(all(not(unix), all(not(doctest), doc)))]
 pub type RawFd = c_int;
 
-#[cfg(all(not(windows), feature = "dox"))]
+#[cfg(all(not(windows), all(not(doctest), doc)))]
 pub trait IntoRawSocket {
     fn into_raw_socket(self) -> u64;
 }
 
-#[cfg(all(not(windows), feature = "dox"))]
+#[cfg(all(not(windows), all(not(doctest), doc)))]
 pub trait FromRawSocket {
     unsafe fn from_raw_socket(sock: u64) -> Self;
 }
 
-#[cfg(all(not(windows), feature = "dox"))]
+#[cfg(all(not(windows), all(not(doctest), doc)))]
 pub trait AsRawSocket {
     fn as_raw_socket(&self) -> RawSocket;
 }
 
-#[cfg(all(not(windows), feature = "dox"))]
+#[cfg(all(not(windows), all(not(doctest), doc)))]
 pub type RawSocket = *mut c_void;

@@ -8,10 +8,10 @@ use crate::UnixSocketAddressExt;
 use crate::UnixSocketAddressType;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
-#[cfg(not(feature = "dox"))]
+#[cfg(not(all(not(doctest), doc)))]
 use std::ffi::OsStr;
 #[cfg(unix)]
-#[cfg(not(feature = "dox"))]
+#[cfg(not(all(not(doctest), doc)))]
 use std::os::unix::ffi::OsStrExt;
 use std::path;
 use std::ptr;
@@ -86,9 +86,9 @@ impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExtManual for O {
         };
         match self.get_address_type() {
             UnixSocketAddressType::Anonymous => Some(Anonymous),
-            #[cfg(not(feature = "dox"))]
+            #[cfg(not(all(not(doctest), doc)))]
             UnixSocketAddressType::Path => Some(Path(path::Path::new(OsStr::from_bytes(path)))),
-            #[cfg(feature = "dox")]
+            #[cfg(all(not(doctest), doc))]
             UnixSocketAddressType::Path => unreachable!(),
             UnixSocketAddressType::Abstract => Some(Abstract(path)),
             UnixSocketAddressType::AbstractPadded => Some(AbstractPadded(path)),

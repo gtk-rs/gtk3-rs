@@ -1,7 +1,7 @@
 // Copyright 2013-2018, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
-#![cfg_attr(feature = "dox", feature(doc_cfg))]
+#![cfg_attr(all(not(doctest), doc), feature(doc_cfg))]
 #![allow(clippy::missing_safety_doc)]
 #![allow(deprecated)]
 
@@ -39,11 +39,11 @@ mod event_grab_broken;
 mod event_key;
 mod event_motion;
 mod event_owner_change;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
 mod event_pad_axis;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
 mod event_pad_button;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
 mod event_pad_group_mode;
 mod event_property;
 mod event_proximity;
@@ -51,9 +51,9 @@ mod event_scroll;
 mod event_selection;
 mod event_setting;
 mod event_touch;
-#[cfg(any(feature = "v3_18", feature = "dox"))]
+#[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
 mod event_touchpad_pinch;
-#[cfg(any(feature = "v3_18", feature = "dox"))]
+#[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
 mod event_touchpad_swipe;
 mod event_visibility;
 mod event_window_state;
@@ -120,15 +120,15 @@ pub use crate::rectangle::Rectangle;
 pub use crate::rgba::{RgbaParseError, RGBA};
 pub use crate::time_coord::TimeCoord;
 pub use crate::window::WindowAttr;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
 pub use event_pad_axis::EventPadAxis;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
 pub use event_pad_button::EventPadButton;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
 pub use event_pad_group_mode::EventPadGroupMode;
-#[cfg(any(feature = "v3_18", feature = "dox"))]
+#[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
 pub use event_touchpad_pinch::EventTouchpadPinch;
-#[cfg(any(feature = "v3_18", feature = "dox"))]
+#[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
 pub use event_touchpad_swipe::EventTouchpadSwipe;
 
 #[allow(non_camel_case_types)]

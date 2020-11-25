@@ -24,9 +24,9 @@ pub mod header_bar;
 pub mod icon_view;
 pub mod list_box;
 pub mod list_box_row;
-#[cfg(any(gdk_backend = "x11", feature = "dox"))]
+#[cfg(any(gdk_backend = "x11", all(not(doctest), doc)))]
 pub mod plug;
-#[cfg(any(gdk_backend = "x11", feature = "dox"))]
+#[cfg(any(gdk_backend = "x11", all(not(doctest), doc)))]
 pub mod socket;
 pub mod stack;
 pub mod tree_view;
@@ -56,9 +56,9 @@ pub mod prelude {
     pub use super::icon_view::{IconViewImpl, IconViewImplExt};
     pub use super::list_box::{ListBoxImpl, ListBoxImplExt};
     pub use super::list_box_row::{ListBoxRowImpl, ListBoxRowImplExt};
-    #[cfg(any(gdk_backend = "x11", feature = "dox"))]
+    #[cfg(any(gdk_backend = "x11", all(not(doctest), doc)))]
     pub use super::plug::{PlugImpl, PlugImplExt};
-    #[cfg(any(gdk_backend = "x11", feature = "dox"))]
+    #[cfg(any(gdk_backend = "x11", all(not(doctest), doc)))]
     pub use super::socket::{SocketImpl, SocketImplExt};
     pub use super::stack::StackImpl;
     pub use super::tree_view::TreeViewImpl;

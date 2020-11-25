@@ -10,7 +10,7 @@ use std::{mem, ptr};
 #[cfg(unix)]
 use std::os::unix::io::{AsRawFd, IntoRawFd, RawFd};
 
-#[cfg(all(not(unix), feature = "dox"))]
+#[cfg(all(not(unix), all(not(doctest), doc)))]
 use socket::{AsRawFd, IntoRawFd, RawFd};
 
 impl UnixFDList {

@@ -3,10 +3,10 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 use crate::translate::{from_glib, from_glib_full, FromGlib, ToGlib, ToGlibPtr};
-#[cfg(any(unix, feature = "dox"))]
+#[cfg(any(unix, all(not(doctest), doc)))]
 use crate::IOCondition;
 use ffi::{self, gboolean, gpointer};
-#[cfg(all(not(unix), feature = "dox"))]
+#[cfg(all(not(unix), all(not(doctest), doc)))]
 use libc::c_int as RawFd;
 use std::cell::RefCell;
 use std::mem::transmute;
@@ -118,8 +118,8 @@ fn into_raw_child_watch<F: FnMut(Pid, i32) + 'static>(func: F) -> gpointer {
     Box::into_raw(func) as gpointer
 }
 
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 unsafe extern "C" fn trampoline_unix_fd<F: FnMut(RawFd, IOCondition) -> Continue + 'static>(
     fd: i32,
     condition: ffi::GIOCondition,
@@ -129,16 +129,16 @@ unsafe extern "C" fn trampoline_unix_fd<F: FnMut(RawFd, IOCondition) -> Continue
     (&mut *func.borrow_mut())(fd, from_glib(condition)).to_glib()
 }
 
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 unsafe extern "C" fn destroy_closure_unix_fd<F: FnMut(RawFd, IOCondition) -> Continue + 'static>(
     ptr: gpointer,
 ) {
     Box::<RefCell<F>>::from_raw(ptr as *mut _);
 }
 
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 fn into_raw_unix_fd<F: FnMut(RawFd, IOCondition) -> Continue + 'static>(func: F) -> gpointer {
     let func: Box<RefCell<F>> = Box::new(RefCell::new(func));
     Box::into_raw(func) as gpointer
@@ -348,8 +348,8 @@ where
     }
 }
 
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 /// Adds a closure to be called by the default main loop whenever a UNIX signal is raised.
 ///
 /// `func` will be called repeatedly every time `signum` is raised until it
@@ -372,8 +372,8 @@ where
     }
 }
 
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 /// Adds a closure to be called by the default main loop whenever a UNIX signal is raised.
 ///
 /// `func` will be called repeatedly every time `signum` is raised until it
@@ -403,8 +403,8 @@ where
     }
 }
 
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 /// Adds a closure to be called by the main loop the returned `Source` is attached to whenever a
 /// UNIX file descriptor reaches the given IO condition.
 ///
@@ -429,8 +429,8 @@ where
     }
 }
 
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 /// Adds a closure to be called by the main loop the returned `Source` is attached to whenever a
 /// UNIX file descriptor reaches the given IO condition.
 ///
@@ -637,8 +637,8 @@ where
     }
 }
 
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 /// Adds a closure to be called by the main loop the returned `Source` is attached to whenever a
 /// UNIX signal is raised.
 ///
@@ -671,8 +671,8 @@ where
     }
 }
 
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 /// Adds a closure to be called by the main loop the returned `Source` is attached to whenever a
 /// UNIX file descriptor reaches the given IO condition.
 ///

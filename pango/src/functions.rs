@@ -5,7 +5,7 @@
 use crate::Analysis;
 use crate::GlyphString;
 use crate::Item;
-#[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
 use crate::ShapeFlags;
 use glib::translate::*;
 use std::ptr;
@@ -50,8 +50,8 @@ pub fn shape_full(
     }
 }
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
 pub fn shape_with_flags(
     item_text: &str,
     paragraph_text: Option<&str>,

@@ -180,8 +180,8 @@ pub fn child_watch_future_with_priority(
     }))
 }
 
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 /// Create a `Future` that will resolve once the given UNIX signal is raised
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
@@ -189,8 +189,8 @@ pub fn unix_signal_future(signum: i32) -> Pin<Box<dyn Future<Output = ()> + Send
     unix_signal_future_with_priority(crate::PRIORITY_DEFAULT, signum)
 }
 
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 /// Create a `Future` that will resolve once the given UNIX signal is raised
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
@@ -345,8 +345,8 @@ pub fn interval_stream_seconds_with_priority(
     }))
 }
 
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 /// Create a `Stream` that will provide a value whenever the given UNIX signal is raised
 ///
 /// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
@@ -354,8 +354,8 @@ pub fn unix_signal_stream(signum: i32) -> Pin<Box<dyn Stream<Item = ()> + Send +
     unix_signal_stream_with_priority(crate::PRIORITY_DEFAULT, signum)
 }
 
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 /// Create a `Stream` that will provide a value whenever the given UNIX signal is raised
 ///
 /// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.

@@ -3,25 +3,25 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 use crate::AppInfo;
-#[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
 use crate::AppLaunchContext;
-#[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
 use crate::Cancellable;
 use glib::object::IsA;
-#[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
 use glib::translate::*;
-#[cfg(any(feature = "v2_60", feature = "dox"))]
-#[cfg(any(feature = "v2_60", feature = "dox"))]
-#[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
 use std::boxed::Box as Box_;
-#[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
 use std::pin::Pin;
-#[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
 use std::ptr;
 
 pub trait AppInfoExtManual: 'static {
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn launch_uris_async<
         P: IsA<AppLaunchContext>,
         Q: IsA<Cancellable>,
@@ -34,8 +34,8 @@ pub trait AppInfoExtManual: 'static {
         callback: R,
     );
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn launch_uris_async_future<P: IsA<AppLaunchContext> + Clone + 'static>(
         &self,
         uris: &[&str],
@@ -44,8 +44,8 @@ pub trait AppInfoExtManual: 'static {
 }
 
 impl<O: IsA<AppInfo>> AppInfoExtManual for O {
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn launch_uris_async<
         P: IsA<AppLaunchContext>,
         Q: IsA<Cancellable>,
@@ -90,8 +90,8 @@ impl<O: IsA<AppInfo>> AppInfoExtManual for O {
         }
     }
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn launch_uris_async_future<P: IsA<AppLaunchContext> + Clone + 'static>(
         &self,
         uris: &[&str],

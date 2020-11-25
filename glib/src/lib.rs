@@ -76,7 +76,7 @@
 
 #![allow(clippy::doc_markdown)]
 #![allow(clippy::unreadable_literal)]
-#![cfg_attr(feature = "dox", feature(doc_cfg))]
+#![cfg_attr(all(not(doctest), doc), feature(doc_cfg))]
 #![allow(clippy::missing_safety_doc)]
 
 pub use ffi;
@@ -177,10 +177,10 @@ mod quark;
 pub use self::quark::Quark;
 #[macro_use]
 mod log;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
+#[cfg(any(feature = "v2_46", all(not(doctest), doc)))]
 pub use self::log::log_set_handler;
 
-// #[cfg(any(feature = "v2_50", feature = "dox"))]
+// #[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
 // pub use log::log_variant;
 pub use self::log::{
     log_default_handler, log_remove_handler, log_set_always_fatal, log_set_default_handler,
@@ -189,14 +189,14 @@ pub use self::log::{
 };
 
 #[doc(hidden)]
-#[cfg(any(feature = "dox", feature = "log_macros"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "log_macros")))]
+#[cfg(any(all(not(doctest), doc), feature = "log_macros"))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "log_macros")))]
 pub use rs_log;
 
-#[cfg(any(feature = "log", feature = "dox"))]
+#[cfg(any(feature = "log", all(not(doctest), doc)))]
 #[macro_use]
 mod bridged_logging;
-#[cfg(any(feature = "log", feature = "dox"))]
+#[cfg(any(feature = "log", all(not(doctest), doc)))]
 pub use self::bridged_logging::{rust_log_handler, GlibLogger, GlibLoggerDomain, GlibLoggerFormat};
 
 pub mod send_unique;

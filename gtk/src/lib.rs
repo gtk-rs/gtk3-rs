@@ -151,7 +151,7 @@
 #![allow(clippy::derive_hash_xor_eq)]
 #![allow(clippy::too_many_arguments)]
 #![allow(deprecated)]
-#![cfg_attr(feature = "dox", feature(doc_cfg))]
+#![cfg_attr(all(not(doctest), doc), feature(doc_cfg))]
 
 pub use ffi;
 
@@ -199,21 +199,21 @@ mod entry_completion;
 mod enums;
 mod file_chooser_dialog;
 mod fixed;
-#[cfg(any(feature = "v3_18", feature = "dox"))]
+#[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
 mod flow_box;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
 mod gesture_stylus;
 mod im_context_simple;
 mod invisible;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
 mod list_box;
 mod list_store;
 mod menu;
 mod message_dialog;
 mod notebook;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
 mod pad_action_entry;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
 mod pad_controller;
 mod page_range;
 mod print_settings;
@@ -263,5 +263,5 @@ pub use crate::response_type::ResponseType;
 pub use crate::target_entry::TargetEntry;
 pub use crate::tree_sortable::SortColumn;
 pub use crate::widget::TickCallbackId;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
 pub use pad_action_entry::PadActionEntry;

@@ -40,7 +40,7 @@
 //!
 //! * **win32-surface** - Microsoft Windows surface support
 
-#![cfg_attr(feature = "dox", feature(doc_cfg))]
+#![cfg_attr(all(not(doctest), doc), feature(doc_cfg))]
 #![allow(clippy::missing_safety_doc)]
 
 pub use ffi;
@@ -126,19 +126,19 @@ pub use crate::surface::{MappedImageSurface, Surface};
 
 pub use crate::image_surface::{ImageSurface, ImageSurfaceData};
 
-#[cfg(any(feature = "pdf", feature = "svg", feature = "ps", feature = "dox"))]
+#[cfg(any(feature = "pdf", feature = "svg", feature = "ps", all(not(doctest), doc)))]
 pub use stream::StreamWithError;
 
-#[cfg(any(feature = "pdf", feature = "dox"))]
+#[cfg(any(feature = "pdf", all(not(doctest), doc)))]
 pub use pdf::PdfSurface;
 
-#[cfg(any(feature = "ps", feature = "dox"))]
+#[cfg(any(feature = "ps", all(not(doctest), doc)))]
 pub use ps::PsSurface;
 
-#[cfg(any(feature = "svg", feature = "dox"))]
+#[cfg(any(feature = "svg", all(not(doctest), doc)))]
 pub use svg::SvgSurface;
 
-#[cfg(any(feature = "xcb", feature = "dox"))]
+#[cfg(any(feature = "xcb", all(not(doctest), doc)))]
 pub use xcb::{
     XCBConnection, XCBDrawable, XCBPixmap, XCBRenderPictFormInfo, XCBScreen, XCBSurface,
     XCBVisualType,
@@ -158,7 +158,7 @@ mod enums;
 mod error;
 mod font;
 mod image_surface;
-#[cfg(any(feature = "png", feature = "dox"))]
+#[cfg(any(feature = "png", all(not(doctest), doc)))]
 mod image_surface_png;
 mod matrices;
 mod paths;
@@ -168,28 +168,28 @@ mod rectangle;
 mod rectangle_int;
 mod region;
 mod surface;
-#[cfg(any(feature = "xcb", feature = "dox"))]
+#[cfg(any(feature = "xcb", all(not(doctest), doc)))]
 mod xcb;
 
-#[cfg(any(feature = "pdf", feature = "svg", feature = "ps", feature = "dox"))]
+#[cfg(any(feature = "pdf", feature = "svg", feature = "ps", all(not(doctest), doc)))]
 #[macro_use]
 mod stream;
-#[cfg(any(feature = "pdf", feature = "dox"))]
+#[cfg(any(feature = "pdf", all(not(doctest), doc)))]
 mod pdf;
-#[cfg(any(feature = "ps", feature = "dox"))]
+#[cfg(any(feature = "ps", all(not(doctest), doc)))]
 mod ps;
-#[cfg(any(feature = "svg", feature = "dox"))]
+#[cfg(any(feature = "svg", all(not(doctest), doc)))]
 mod svg;
 
-#[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
+#[cfg(any(target_os = "macos", target_os = "ios", all(not(doctest), doc)))]
 mod quartz_surface;
-#[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
+#[cfg(any(target_os = "macos", target_os = "ios", all(not(doctest), doc)))]
 pub use quartz_surface::QuartzSurface;
 
-#[cfg(any(all(windows, feature = "win32-surface"), feature = "dox"))]
+#[cfg(any(all(windows, feature = "win32-surface"), all(not(doctest), doc)))]
 mod win32_surface;
 
-#[cfg(any(all(windows, feature = "win32-surface"), feature = "dox"))]
+#[cfg(any(all(windows, feature = "win32-surface"), all(not(doctest), doc)))]
 pub use win32_surface::Win32Surface;
 
 #[cfg(not(feature = "use_glib"))]

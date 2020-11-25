@@ -5,8 +5,8 @@ use glib::translate::*;
 pub trait DragContextExtManual: 'static {
     fn drag_finish(&self, success: bool, del: bool, time_: u32);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn drag_cancel(&self);
 
     fn drag_get_source_widget(&self) -> Option<Widget>;
@@ -38,8 +38,8 @@ impl<O: IsA<gdk::DragContext>> DragContextExtManual for O {
         };
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn drag_cancel(&self) {
         assert_initialized_main_thread!();
         unsafe {

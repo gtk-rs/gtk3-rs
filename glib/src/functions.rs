@@ -3,12 +3,12 @@ use std::boxed::Box as Box_;
 #[cfg(not(windows))]
 use std::mem;
 #[cfg(not(windows))]
-#[cfg(any(feature = "v2_58", feature = "dox"))]
+#[cfg(any(feature = "v2_58", all(not(doctest), doc)))]
 use std::os::unix::io::AsRawFd;
 #[cfg(not(windows))]
 use std::os::unix::io::FromRawFd;
 // #[cfg(windows)]
-// #[cfg(any(feature = "v2_58", feature = "dox"))]
+// #[cfg(any(feature = "v2_58", all(not(doctest), doc)))]
 // use std::os::windows::io::AsRawHandle;
 use crate::translate::*;
 #[cfg(not(windows))]
@@ -20,9 +20,9 @@ use crate::Pid;
 use crate::SpawnFlags;
 use std::ptr;
 
-#[cfg(any(feature = "v2_58", feature = "dox"))]
+#[cfg(any(feature = "v2_58", all(not(doctest), doc)))]
 #[cfg(not(windows))]
-#[cfg_attr(feature = "dox", doc(cfg(all(feature = "v2_58", not(windows)))))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(all(feature = "v2_58", not(windows)))))]
 #[allow(clippy::too_many_arguments)]
 pub fn spawn_async_with_fds<P: AsRef<std::path::Path>, T: AsRawFd, U: AsRawFd, V: AsRawFd>(
     working_directory: P,
@@ -72,7 +72,7 @@ pub fn spawn_async_with_fds<P: AsRef<std::path::Path>, T: AsRawFd, U: AsRawFd, V
     }
 }
 
-// #[cfg(any(feature = "v2_58", feature = "dox"))]
+// #[cfg(any(feature = "v2_58", all(not(doctest), doc)))]
 // #[cfg(windows)]
 // pub fn spawn_async_with_fds<
 //     P: AsRef<std::path::Path>,
@@ -130,7 +130,7 @@ pub fn spawn_async_with_fds<P: AsRef<std::path::Path>, T: AsRawFd, U: AsRawFd, V
 // }
 
 #[cfg(not(windows))]
-#[cfg_attr(feature = "dox", doc(cfg(not(windows))))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(not(windows))))]
 pub fn spawn_async_with_pipes<
     P: AsRef<std::path::Path>,
     T: FromRawFd,

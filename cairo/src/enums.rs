@@ -1256,7 +1256,7 @@ gvalue_impl!(
 );
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-#[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
+#[cfg(any(all(feature = "svg", feature = "v1_16"), all(not(doctest), doc)))]
 #[non_exhaustive]
 pub enum SvgUnit {
     User,
@@ -1274,7 +1274,7 @@ pub enum SvgUnit {
 }
 
 #[doc(hidden)]
-#[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
+#[cfg(any(all(feature = "svg", feature = "v1_16"), all(not(doctest), doc)))]
 impl From<SvgUnit> for ffi::cairo_svg_unit_t {
     fn from(val: SvgUnit) -> ffi::cairo_svg_unit_t {
         match val {
@@ -1294,7 +1294,7 @@ impl From<SvgUnit> for ffi::cairo_svg_unit_t {
 }
 
 #[doc(hidden)]
-#[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
+#[cfg(any(all(feature = "svg", feature = "v1_16"), all(not(doctest), doc)))]
 impl From<ffi::cairo_svg_unit_t> for SvgUnit {
     fn from(value: ffi::cairo_svg_unit_t) -> Self {
         match value {
@@ -1313,7 +1313,7 @@ impl From<ffi::cairo_svg_unit_t> for SvgUnit {
     }
 }
 
-#[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
+#[cfg(any(all(feature = "svg", feature = "v1_16"), all(not(doctest), doc)))]
 impl fmt::Display for SvgUnit {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -1481,7 +1481,7 @@ bitflags::bitflags! {
     }
 }
 
-#[cfg(any(feature = "pdf", feature = "dox"))]
+#[cfg(any(feature = "pdf", all(not(doctest), doc)))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[non_exhaustive]
 pub enum PdfMetadata {
@@ -1496,7 +1496,7 @@ pub enum PdfMetadata {
     __Unknown(i32),
 }
 
-#[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
+#[cfg(any(all(feature = "pdf", feature = "v1_16"), all(not(doctest), doc)))]
 #[doc(hidden)]
 impl From<PdfMetadata> for ffi::cairo_pdf_metadata_t {
     fn from(val: PdfMetadata) -> ffi::cairo_pdf_metadata_t {
@@ -1513,7 +1513,7 @@ impl From<PdfMetadata> for ffi::cairo_pdf_metadata_t {
     }
 }
 
-#[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
+#[cfg(any(all(feature = "pdf", feature = "v1_16"), all(not(doctest), doc)))]
 #[doc(hidden)]
 impl From<ffi::cairo_pdf_metadata_t> for PdfMetadata {
     fn from(value: ffi::cairo_pdf_metadata_t) -> Self {
@@ -1530,7 +1530,7 @@ impl From<ffi::cairo_pdf_metadata_t> for PdfMetadata {
     }
 }
 
-#[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
+#[cfg(any(all(feature = "pdf", feature = "v1_16"), all(not(doctest), doc)))]
 impl fmt::Display for PdfMetadata {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -1550,7 +1550,7 @@ impl fmt::Display for PdfMetadata {
     }
 }
 
-#[cfg(any(feature = "pdf", feature = "dox"))]
+#[cfg(any(feature = "pdf", all(not(doctest), doc)))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[non_exhaustive]
 pub enum PdfVersion {
@@ -1560,7 +1560,7 @@ pub enum PdfVersion {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "pdf", feature = "dox"))]
+#[cfg(any(feature = "pdf", all(not(doctest), doc)))]
 #[doc(hidden)]
 impl From<PdfVersion> for ffi::cairo_pdf_version_t {
     fn from(val: PdfVersion) -> ffi::cairo_pdf_version_t {
@@ -1572,7 +1572,7 @@ impl From<PdfVersion> for ffi::cairo_pdf_version_t {
     }
 }
 
-#[cfg(any(feature = "pdf", feature = "dox"))]
+#[cfg(any(feature = "pdf", all(not(doctest), doc)))]
 #[doc(hidden)]
 impl From<ffi::cairo_pdf_version_t> for PdfVersion {
     fn from(value: ffi::cairo_pdf_version_t) -> Self {
@@ -1584,7 +1584,7 @@ impl From<ffi::cairo_pdf_version_t> for PdfVersion {
     }
 }
 
-#[cfg(any(feature = "pdf", feature = "dox"))]
+#[cfg(any(feature = "pdf", all(not(doctest), doc)))]
 impl fmt::Display for PdfVersion {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -1599,7 +1599,7 @@ impl fmt::Display for PdfVersion {
     }
 }
 
-#[cfg(any(feature = "svg", feature = "dox"))]
+#[cfg(any(feature = "svg", all(not(doctest), doc)))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[non_exhaustive]
 pub enum SvgVersion {
@@ -1609,7 +1609,7 @@ pub enum SvgVersion {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "svg", feature = "dox"))]
+#[cfg(any(feature = "svg", all(not(doctest), doc)))]
 #[doc(hidden)]
 impl From<SvgVersion> for ffi::cairo_svg_version_t {
     fn from(val: SvgVersion) -> ffi::cairo_svg_version_t {
@@ -1621,7 +1621,7 @@ impl From<SvgVersion> for ffi::cairo_svg_version_t {
     }
 }
 
-#[cfg(any(feature = "svg", feature = "dox"))]
+#[cfg(any(feature = "svg", all(not(doctest), doc)))]
 #[doc(hidden)]
 impl From<ffi::cairo_svg_version_t> for SvgVersion {
     fn from(value: ffi::cairo_svg_version_t) -> Self {
@@ -1633,7 +1633,7 @@ impl From<ffi::cairo_svg_version_t> for SvgVersion {
     }
 }
 
-#[cfg(any(feature = "svg", feature = "dox"))]
+#[cfg(any(feature = "svg", all(not(doctest), doc)))]
 impl fmt::Display for SvgVersion {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -1648,7 +1648,7 @@ impl fmt::Display for SvgVersion {
     }
 }
 
-#[cfg(any(feature = "ps", feature = "dox"))]
+#[cfg(any(feature = "ps", all(not(doctest), doc)))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[non_exhaustive]
 pub enum PsLevel {
@@ -1658,7 +1658,7 @@ pub enum PsLevel {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "ps", feature = "dox"))]
+#[cfg(any(feature = "ps", all(not(doctest), doc)))]
 #[doc(hidden)]
 impl From<PsLevel> for ffi::cairo_ps_level_t {
     fn from(val: PsLevel) -> ffi::cairo_ps_level_t {
@@ -1670,7 +1670,7 @@ impl From<PsLevel> for ffi::cairo_ps_level_t {
     }
 }
 
-#[cfg(any(feature = "ps", feature = "dox"))]
+#[cfg(any(feature = "ps", all(not(doctest), doc)))]
 #[doc(hidden)]
 impl From<ffi::cairo_ps_level_t> for PsLevel {
     fn from(value: ffi::cairo_ps_level_t) -> Self {
@@ -1682,7 +1682,7 @@ impl From<ffi::cairo_ps_level_t> for PsLevel {
     }
 }
 
-#[cfg(any(feature = "ps", feature = "dox"))]
+#[cfg(any(feature = "ps", all(not(doctest), doc)))]
 impl fmt::Display for PsLevel {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -1750,7 +1750,7 @@ impl fmt::Display for MeshCorner {
     }
 }
 
-#[cfg(any(feature = "freetype", feature = "dox"))]
+#[cfg(any(feature = "freetype", all(not(doctest), doc)))]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
 #[non_exhaustive]
 pub enum FtSynthesize {
@@ -1760,7 +1760,7 @@ pub enum FtSynthesize {
     __Unknown(u32),
 }
 
-#[cfg(any(feature = "freetype", feature = "dox"))]
+#[cfg(any(feature = "freetype", all(not(doctest), doc)))]
 #[doc(hidden)]
 impl From<FtSynthesize> for ffi::cairo_ft_synthesize_t {
     fn from(val: FtSynthesize) -> ffi::cairo_ft_synthesize_t {
@@ -1772,7 +1772,7 @@ impl From<FtSynthesize> for ffi::cairo_ft_synthesize_t {
     }
 }
 
-#[cfg(any(feature = "freetype", feature = "dox"))]
+#[cfg(any(feature = "freetype", all(not(doctest), doc)))]
 #[doc(hidden)]
 impl From<ffi::cairo_ft_synthesize_t> for FtSynthesize {
     fn from(value: ffi::cairo_ft_synthesize_t) -> Self {
@@ -1784,7 +1784,7 @@ impl From<ffi::cairo_ft_synthesize_t> for FtSynthesize {
     }
 }
 
-#[cfg(any(feature = "freetype", feature = "dox"))]
+#[cfg(any(feature = "freetype", all(not(doctest), doc)))]
 impl fmt::Display for FtSynthesize {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -1799,7 +1799,7 @@ impl fmt::Display for FtSynthesize {
     }
 }
 
-#[cfg(any(feature = "script", feature = "dox"))]
+#[cfg(any(feature = "script", all(not(doctest), doc)))]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
 #[non_exhaustive]
 pub enum ScriptMode {
@@ -1809,7 +1809,7 @@ pub enum ScriptMode {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "script", feature = "dox"))]
+#[cfg(any(feature = "script", all(not(doctest), doc)))]
 #[doc(hidden)]
 impl From<ScriptMode> for ffi::cairo_script_mode_t {
     fn from(val: ScriptMode) -> ffi::cairo_script_mode_t {
@@ -1821,7 +1821,7 @@ impl From<ScriptMode> for ffi::cairo_script_mode_t {
     }
 }
 
-#[cfg(any(feature = "script", feature = "dox"))]
+#[cfg(any(feature = "script", all(not(doctest), doc)))]
 #[doc(hidden)]
 impl From<ffi::cairo_script_mode_t> for ScriptMode {
     fn from(value: ffi::cairo_script_mode_t) -> Self {
@@ -1833,7 +1833,7 @@ impl From<ffi::cairo_script_mode_t> for ScriptMode {
     }
 }
 
-#[cfg(any(feature = "script", feature = "dox"))]
+#[cfg(any(feature = "script", all(not(doctest), doc)))]
 impl fmt::Display for ScriptMode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(

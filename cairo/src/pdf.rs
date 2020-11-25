@@ -11,7 +11,7 @@ use std::ops::Deref;
 use std::path::Path;
 use std::ptr;
 
-#[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
+#[cfg(any(all(feature = "pdf", feature = "v1_16"), all(not(doctest), doc)))]
 use crate::enums::{PdfMetadata, PdfOutline};
 use crate::enums::{PdfVersion, SurfaceType};
 use crate::error::Error;
@@ -68,7 +68,7 @@ impl PdfSurface {
         self.status()
     }
 
-    #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
+    #[cfg(any(all(feature = "pdf", feature = "v1_16"), all(not(doctest), doc)))]
     pub fn set_metadata(&self, metadata: PdfMetadata, value: &str) -> Result<(), Error> {
         let value = CString::new(value).unwrap();
         unsafe {
@@ -81,7 +81,7 @@ impl PdfSurface {
         self.status()
     }
 
-    #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
+    #[cfg(any(all(feature = "pdf", feature = "v1_16"), all(not(doctest), doc)))]
     pub fn set_page_label(&self, label: &str) -> Result<(), Error> {
         let label = CString::new(label).unwrap();
         unsafe {
@@ -90,7 +90,7 @@ impl PdfSurface {
         self.status()
     }
 
-    #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
+    #[cfg(any(all(feature = "pdf", feature = "v1_16"), all(not(doctest), doc)))]
     pub fn set_thumbnail_size(&self, width: i32, height: i32) -> Result<(), Error> {
         unsafe {
             ffi::cairo_pdf_surface_set_thumbnail_size(
@@ -102,7 +102,7 @@ impl PdfSurface {
         self.status()
     }
 
-    #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
+    #[cfg(any(all(feature = "pdf", feature = "v1_16"), all(not(doctest), doc)))]
     pub fn add_outline(
         &self,
         parent_id: i32,

@@ -22,8 +22,8 @@ impl UnixMountEntry {
         }
     }
 
-    #[cfg(any(feature = "v2_52", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
+    #[cfg(any(feature = "v2_52", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_52")))]
     pub fn new_for<P: AsRef<std::path::Path>>(file_path: P) -> (UnixMountEntry, u64) {
         unsafe {
             let mut time_read = mem::MaybeUninit::uninit();
@@ -80,8 +80,8 @@ impl UnixMountEntry {
         }
     }
 
-    #[cfg(any(feature = "v2_58", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
+    #[cfg(any(feature = "v2_58", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_58")))]
     pub fn get_options(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_unix_mount_get_options(mut_override(
@@ -90,8 +90,8 @@ impl UnixMountEntry {
         }
     }
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     pub fn get_root_path(&self) -> Option<std::path::PathBuf> {
         unsafe {
             from_glib_none(ffi::g_unix_mount_get_root_path(mut_override(

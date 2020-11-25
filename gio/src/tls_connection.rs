@@ -1,15 +1,15 @@
-#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
 use crate::auto::TlsChannelBindingType;
 use crate::auto::TlsConnection;
-#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
 use glib::translate::*;
 use glib::IsA;
-#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
 use std::ptr;
 
 pub trait TlsConnectionManualExt {
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     fn get_channel_binding_data(
         &self,
         type_: TlsChannelBindingType,
@@ -17,8 +17,8 @@ pub trait TlsConnectionManualExt {
 }
 
 impl<O: IsA<TlsConnection>> TlsConnectionManualExt for O {
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     fn get_channel_binding_data(
         &self,
         type_: TlsChannelBindingType,

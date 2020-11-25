@@ -2,20 +2,20 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
-#[cfg(any(all(feature = "v2_58", unix), all(unix, feature = "dox")))]
+#[cfg(any(all(feature = "v2_58", unix), all(unix, all(not(doctest), doc))))]
 use crate::AppLaunchContext;
 use crate::DesktopAppInfo;
 use glib::object::IsA;
 use glib::translate::*;
-#[cfg(any(all(feature = "v2_58", unix), all(unix, feature = "dox")))]
+#[cfg(any(all(feature = "v2_58", unix), all(unix, all(not(doctest), doc))))]
 use glib::Error;
 use glib::GString;
-#[cfg(any(all(feature = "v2_58", unix), all(unix, feature = "dox")))]
+#[cfg(any(all(feature = "v2_58", unix), all(unix, all(not(doctest), doc))))]
 use std::boxed::Box as Box_;
-#[cfg(any(all(feature = "v2_58", unix), all(unix, feature = "dox")))]
+#[cfg(any(all(feature = "v2_58", unix), all(unix, all(not(doctest), doc))))]
 use std::ptr;
 
-#[cfg(any(all(feature = "v2_58", unix), all(unix, feature = "dox")))]
+#[cfg(any(all(feature = "v2_58", unix), all(unix, all(not(doctest), doc))))]
 use std::os::unix::io::AsRawFd;
 
 impl DesktopAppInfo {
@@ -47,8 +47,8 @@ impl DesktopAppInfo {
 }
 
 pub trait DesktopAppInfoExtManual {
-    #[cfg(any(all(feature = "v2_58", unix), all(unix, feature = "dox")))]
-    #[cfg_attr(feature = "dox", doc(cfg(all(feature = "v2_58", unix))))]
+    #[cfg(any(all(feature = "v2_58", unix), all(unix, all(not(doctest), doc))))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(all(feature = "v2_58", unix))))]
     fn launch_uris_as_manager_with_fds<
         P: IsA<AppLaunchContext>,
         T: AsRawFd,
@@ -68,8 +68,8 @@ pub trait DesktopAppInfoExtManual {
 }
 
 impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExtManual for O {
-    #[cfg(any(all(feature = "v2_58", unix), all(unix, feature = "dox")))]
-    #[cfg_attr(feature = "dox", doc(cfg(all(feature = "v2_58", unix))))]
+    #[cfg(any(all(feature = "v2_58", unix), all(unix, all(not(doctest), doc))))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(all(feature = "v2_58", unix))))]
     fn launch_uris_as_manager_with_fds<
         P: IsA<AppLaunchContext>,
         T: AsRawFd,

@@ -8,7 +8,7 @@ use std::fmt;
 use std::mem;
 use std::ptr;
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
 glib::glib_wrapper! {
     pub struct Coverage(Object<ffi::PangoCoverage>);
 
@@ -18,7 +18,7 @@ glib::glib_wrapper! {
 }
 
 // There was no get_type() function before 1.44
-#[cfg(not(any(feature = "v1_44", feature = "dox")))]
+#[cfg(not(any(feature = "v1_44", all(not(doctest), doc))))]
 glib::glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Coverage(Shared<ffi::PangoCoverage>);

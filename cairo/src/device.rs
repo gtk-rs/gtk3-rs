@@ -12,17 +12,17 @@ use std::ptr;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 
-#[cfg(any(feature = "script", feature = "dox"))]
+#[cfg(any(feature = "script", all(not(doctest), doc)))]
 use crate::enums::Content;
-#[cfg(any(feature = "script", feature = "dox"))]
+#[cfg(any(feature = "script", all(not(doctest), doc)))]
 use crate::enums::ScriptMode;
-#[cfg(any(feature = "script", feature = "dox"))]
+#[cfg(any(feature = "script", all(not(doctest), doc)))]
 use crate::recording_surface::RecordingSurface;
-#[cfg(any(feature = "script", feature = "dox"))]
+#[cfg(any(feature = "script", all(not(doctest), doc)))]
 use crate::surface::Surface;
-#[cfg(any(feature = "script", feature = "dox"))]
+#[cfg(any(feature = "script", all(not(doctest), doc)))]
 use std::ffi::CString;
-#[cfg(any(feature = "script", feature = "dox"))]
+#[cfg(any(feature = "script", all(not(doctest), doc)))]
 use std::path::Path;
 
 #[derive(Debug)]
@@ -58,7 +58,7 @@ impl Device {
         self.0.as_ptr()
     }
 
-    #[cfg(any(feature = "script", feature = "dox"))]
+    #[cfg(any(feature = "script", all(not(doctest), doc)))]
     pub fn create<P: AsRef<Path>>(filename: P) -> Option<Device> {
         unsafe {
             let filename = filename.as_ref().to_string_lossy().into_owned();
@@ -72,7 +72,7 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "script", feature = "dox"))]
+    #[cfg(any(feature = "script", all(not(doctest), doc)))]
     pub fn from_recording_surface(&self, surface: &RecordingSurface) -> Result<(), Error> {
         unsafe {
             let status =
@@ -81,17 +81,17 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "script", feature = "dox"))]
+    #[cfg(any(feature = "script", all(not(doctest), doc)))]
     pub fn get_mode(&self) -> ScriptMode {
         unsafe { ScriptMode::from(ffi::cairo_script_get_mode(self.to_raw_none())) }
     }
 
-    #[cfg(any(feature = "script", feature = "dox"))]
+    #[cfg(any(feature = "script", all(not(doctest), doc)))]
     pub fn set_mode(&self, mode: ScriptMode) {
         unsafe { ffi::cairo_script_set_mode(self.to_raw_none(), mode.into()) }
     }
 
-    #[cfg(any(feature = "script", feature = "dox"))]
+    #[cfg(any(feature = "script", all(not(doctest), doc)))]
     pub fn surface_create(
         &self,
         content: Content,
@@ -108,7 +108,7 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "script", feature = "dox"))]
+    #[cfg(any(feature = "script", all(not(doctest), doc)))]
     pub fn surface_create_for_target(&self, target: &Surface) -> Result<Surface, Error> {
         unsafe {
             Ok(Surface::from_raw_full(
@@ -120,7 +120,7 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "script", feature = "dox"))]
+    #[cfg(any(feature = "script", all(not(doctest), doc)))]
     pub fn write_comment(&self, comment: &str) {
         unsafe {
             let len = comment.len();
@@ -177,7 +177,7 @@ impl Device {
         unsafe { ffi::cairo_device_observer_stroke_elapsed(self.to_raw_none()) }
     }
 
-    #[cfg(any(feature = "xlib", feature = "xcb", feature = "dox"))]
+    #[cfg(any(feature = "xlib", feature = "xcb", all(not(doctest), doc)))]
     pub fn debug_cap_xrender_version(&self, major_version: i32, minor_version: i32) {
         unsafe {
             match self.get_type() {
@@ -214,7 +214,7 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "xlib", feature = "xcb", feature = "dox"))]
+    #[cfg(any(feature = "xlib", feature = "xcb", all(not(doctest), doc)))]
     pub fn debug_get_precision(&self) -> i32 {
         unsafe {
             match self.get_type() {
@@ -243,7 +243,7 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "xlib", feature = "xcb", feature = "dox"))]
+    #[cfg(any(feature = "xlib", feature = "xcb", all(not(doctest), doc)))]
     pub fn debug_set_precision(&self, precision: i32) {
         unsafe {
             match self.get_type() {

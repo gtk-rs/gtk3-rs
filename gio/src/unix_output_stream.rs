@@ -10,7 +10,7 @@ use glib::translate::*;
 #[cfg(unix)]
 use std::os::unix::io::{AsRawFd, FromRawFd, IntoRawFd, RawFd};
 
-#[cfg(all(not(unix), feature = "dox"))]
+#[cfg(all(not(unix), all(not(doctest), doc)))]
 use socket::{AsRawFd, FromRawFd, IntoRawFd, RawFd};
 
 impl UnixOutputStream {

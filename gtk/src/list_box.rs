@@ -8,14 +8,14 @@ use glib::translate::*;
 use std::ptr;
 
 pub trait ListBoxExtManual: 'static {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn unbind_model(&self);
 }
 
 impl<O: IsA<ListBox>> ListBoxExtManual for O {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn unbind_model(&self) {
         unsafe {
             ffi::gtk_list_box_bind_model(

@@ -767,7 +767,7 @@ impl Context {
         (x1, y1, x2, y2)
     }
 
-    #[cfg(any(feature = "v1_16", feature = "dox"))]
+    #[cfg(any(feature = "v1_16", all(not(doctest), doc)))]
     pub fn tag_begin(&self, tag_name: &str, attributes: &str) {
         unsafe {
             let tag_name = CString::new(tag_name).unwrap();
@@ -776,7 +776,7 @@ impl Context {
         }
     }
 
-    #[cfg(any(feature = "v1_16", feature = "dox"))]
+    #[cfg(any(feature = "v1_16", all(not(doctest), doc)))]
     pub fn tag_end(&self, tag_name: &str) {
         unsafe {
             let tag_name = CString::new(tag_name).unwrap();

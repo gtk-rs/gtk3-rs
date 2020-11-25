@@ -336,8 +336,8 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+    #[cfg(any(feature = "v2_32", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_32")))]
     pub fn get_file_info_async<
         P: IsA<gio::Cancellable>,
         Q: FnOnce(Result<Option<(PixbufFormat, i32, i32)>, Error>) + Send + 'static,
@@ -390,8 +390,8 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+    #[cfg(any(feature = "v2_32", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_32")))]
     #[allow(clippy::type_complexity)]
     pub fn get_file_info_async_future<T: AsRef<Path> + Clone + 'static>(
         filename: T,
@@ -434,8 +434,8 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
+    #[cfg(any(feature = "v2_36", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_36")))]
     pub fn save_to_streamv<P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable>>(
         &self,
         stream: &P,
@@ -465,8 +465,8 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
+    #[cfg(any(feature = "v2_36", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_36")))]
     pub fn save_to_streamv_async<
         P: IsA<gio::OutputStream>,
         Q: IsA<gio::Cancellable>,
@@ -515,8 +515,8 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
+    #[cfg(any(feature = "v2_36", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_36")))]
     pub fn save_to_streamv_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(
         &self,
         stream: &P,

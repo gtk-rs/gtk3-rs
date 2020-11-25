@@ -1,7 +1,7 @@
 // Copyright 2013-2018, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
-#![cfg_attr(feature = "dox", feature(doc_cfg))]
+#![cfg_attr(all(not(doctest), doc), feature(doc_cfg))]
 #![allow(clippy::type_complexity)]
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::missing_safety_doc)]
@@ -24,7 +24,7 @@ pub use self::dbus_connection::{
 };
 mod dbus_message;
 mod dbus_method_invocation;
-#[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
+#[cfg(any(all(not(windows), not(target_os = "macos")), all(not(doctest), doc)))]
 mod desktop_app_info;
 mod error;
 mod file;
@@ -39,7 +39,7 @@ mod io_stream;
 pub use crate::io_stream::IOStreamAsyncReadWrite;
 mod input_stream;
 pub use crate::input_stream::{InputStreamAsyncBufRead, InputStreamRead};
-#[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg(any(feature = "v2_44", all(not(doctest), doc)))]
 mod list_store;
 mod memory_input_stream;
 mod memory_output_stream;
@@ -55,19 +55,19 @@ mod socket;
 mod subprocess;
 mod subprocess_launcher;
 mod threaded_socket_service;
-#[cfg(any(unix, feature = "dox"))]
+#[cfg(any(unix, all(not(doctest), doc)))]
 mod unix_fd_list;
-#[cfg(any(unix, feature = "dox"))]
+#[cfg(any(unix, all(not(doctest), doc)))]
 mod unix_input_stream;
-#[cfg(any(unix, feature = "dox"))]
-#[cfg(any(feature = "v2_54", feature = "dox"))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg(any(feature = "v2_54", all(not(doctest), doc)))]
 mod unix_mount_entry;
-#[cfg(any(unix, feature = "dox"))]
-#[cfg(any(feature = "v2_54", feature = "dox"))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg(any(feature = "v2_54", all(not(doctest), doc)))]
 mod unix_mount_point;
-#[cfg(any(unix, feature = "dox"))]
+#[cfg(any(unix, all(not(doctest), doc)))]
 mod unix_output_stream;
-#[cfg(any(unix, feature = "dox"))]
+#[cfg(any(unix, all(not(doctest), doc)))]
 mod unix_socket_address;
 pub use crate::inet_address::InetAddressBytes;
 

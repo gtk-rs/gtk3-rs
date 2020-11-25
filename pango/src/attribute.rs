@@ -14,8 +14,8 @@ use crate::Weight;
 use glib::translate::*;
 
 impl Attribute {
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
+    #[cfg(any(feature = "v1_38", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_38")))]
     pub fn new_background_alpha(alpha: u16) -> Option<Attribute> {
         unsafe { from_glib_full(ffi::pango_attr_background_alpha_new(alpha)) }
     }
@@ -32,14 +32,14 @@ impl Attribute {
         unsafe { from_glib_full(ffi::pango_attr_family_new(family.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
+    #[cfg(any(feature = "v1_38", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_38")))]
     pub fn new_font_features(features: &str) -> Option<Attribute> {
         unsafe { from_glib_full(ffi::pango_attr_font_features_new(features.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
+    #[cfg(any(feature = "v1_38", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_38")))]
     pub fn new_foreground_alpha(alpha: u16) -> Option<Attribute> {
         unsafe { from_glib_full(ffi::pango_attr_foreground_alpha_new(alpha)) }
     }

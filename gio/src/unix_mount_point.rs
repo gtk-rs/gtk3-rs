@@ -7,7 +7,7 @@ use glib::translate::*;
 use std::mem;
 
 impl UnixMountPoint {
-    #[cfg(any(unix, feature = "dox"))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
     pub fn get_mount_points() -> (Vec<UnixMountPoint>, u64) {
         unsafe {
             let mut time_read = mem::MaybeUninit::uninit();
