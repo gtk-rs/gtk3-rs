@@ -142,8 +142,8 @@ pub trait SocketExt: 'static {
         iface: Option<&str>,
     ) -> Result<(), glib::Error>;
 
-    #[cfg(any(feature = "v2_56", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+    #[cfg(any(feature = "v2_56", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_56")))]
     fn join_multicast_group_ssm<P: IsA<InetAddress>, Q: IsA<InetAddress>>(
         &self,
         group: &P,
@@ -158,8 +158,8 @@ pub trait SocketExt: 'static {
         iface: Option<&str>,
     ) -> Result<(), glib::Error>;
 
-    #[cfg(any(feature = "v2_56", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+    #[cfg(any(feature = "v2_56", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_56")))]
     fn leave_multicast_group_ssm<P: IsA<InetAddress>, Q: IsA<InetAddress>>(
         &self,
         group: &P,
@@ -528,8 +528,8 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_56", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+    #[cfg(any(feature = "v2_56", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_56")))]
     fn join_multicast_group_ssm<P: IsA<InetAddress>, Q: IsA<InetAddress>>(
         &self,
         group: &P,
@@ -576,8 +576,8 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_56", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+    #[cfg(any(feature = "v2_56", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_56")))]
     fn leave_multicast_group_ssm<P: IsA<InetAddress>, Q: IsA<InetAddress>>(
         &self,
         group: &P,

@@ -2,24 +2,24 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v1_10", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+#[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
 use crate::Box;
 use crate::Plane;
 use crate::Point3D;
-#[cfg(any(feature = "v1_10", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+#[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
 use crate::RayIntersectionKind;
-#[cfg(any(feature = "v1_10", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+#[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
 use crate::Sphere;
-#[cfg(any(feature = "v1_10", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+#[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
 use crate::Triangle;
 use crate::Vec3;
 use glib::translate::*;
-#[cfg(any(feature = "v1_10", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+#[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
 use std::mem;
 
 glib::glib_wrapper! {
@@ -123,8 +123,8 @@ impl Ray {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+    #[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
     pub fn intersect_box(&self, b: &Box) -> (RayIntersectionKind, f32) {
         unsafe {
             let mut t_out = mem::MaybeUninit::uninit();
@@ -138,8 +138,8 @@ impl Ray {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+    #[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
     pub fn intersect_sphere(&self, s: &Sphere) -> (RayIntersectionKind, f32) {
         unsafe {
             let mut t_out = mem::MaybeUninit::uninit();
@@ -153,8 +153,8 @@ impl Ray {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+    #[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
     pub fn intersect_triangle(&self, t: &Triangle) -> (RayIntersectionKind, f32) {
         unsafe {
             let mut t_out = mem::MaybeUninit::uninit();
@@ -168,8 +168,8 @@ impl Ray {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+    #[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
     pub fn intersects_box(&self, b: &Box) -> bool {
         unsafe {
             from_glib(ffi::graphene_ray_intersects_box(
@@ -179,8 +179,8 @@ impl Ray {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+    #[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
     pub fn intersects_sphere(&self, s: &Sphere) -> bool {
         unsafe {
             from_glib(ffi::graphene_ray_intersects_sphere(
@@ -190,8 +190,8 @@ impl Ray {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+    #[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
     pub fn intersects_triangle(&self, t: &Triangle) -> bool {
         unsafe {
             from_glib(ffi::graphene_ray_intersects_triangle(

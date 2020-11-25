@@ -113,8 +113,8 @@ pub struct EntryBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -296,7 +296,7 @@ impl EntryBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -623,8 +623,8 @@ impl EntryBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -837,8 +837,8 @@ pub trait EntryExt: 'static {
 
     fn get_width_chars(&self) -> i32;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn grab_focus_without_selecting(&self);
 
     fn im_context_filter_keypress(&self, event: &gdk::EventKey) -> bool;
@@ -1068,12 +1068,12 @@ pub trait EntryExt: 'static {
 
     fn emit_insert_at_cursor(&self, string: &str);
 
-    #[cfg(any(feature = "v3_22_27", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_27")))]
+    #[cfg(any(feature = "v3_22_27", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_27")))]
     fn connect_insert_emoji<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_22_27", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_27")))]
+    #[cfg(any(feature = "v3_22_27", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_27")))]
     fn emit_insert_emoji(&self);
 
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32, bool) + 'static>(
@@ -1531,8 +1531,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         unsafe { ffi::gtk_entry_get_width_chars(self.as_ref().to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn grab_focus_without_selecting(&self) {
         unsafe {
             ffi::gtk_entry_grab_focus_without_selecting(self.as_ref().to_glib_none().0);
@@ -2727,8 +2727,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         };
     }
 
-    #[cfg(any(feature = "v3_22_27", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_27")))]
+    #[cfg(any(feature = "v3_22_27", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_27")))]
     fn connect_insert_emoji<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn insert_emoji_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntry,
@@ -2752,8 +2752,8 @@ impl<O: IsA<Entry>> EntryExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22_27", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_27")))]
+    #[cfg(any(feature = "v3_22_27", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_27")))]
     fn emit_insert_emoji(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)

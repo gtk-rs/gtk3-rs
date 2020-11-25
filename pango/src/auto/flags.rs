@@ -64,8 +64,8 @@ impl SetValue for FontMask {
     }
 }
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
 bitflags! {
     pub struct ShapeFlags: u32 {
         const NONE = 0;
@@ -73,8 +73,8 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
 #[doc(hidden)]
 impl ToGlib for ShapeFlags {
     type GlibType = ffi::PangoShapeFlags;
@@ -84,8 +84,8 @@ impl ToGlib for ShapeFlags {
     }
 }
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
 #[doc(hidden)]
 impl FromGlib<ffi::PangoShapeFlags> for ShapeFlags {
     fn from_glib(value: ffi::PangoShapeFlags) -> ShapeFlags {
@@ -93,40 +93,40 @@ impl FromGlib<ffi::PangoShapeFlags> for ShapeFlags {
     }
 }
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
 impl StaticType for ShapeFlags {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::pango_shape_flags_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
 impl<'a> FromValueOptional<'a> for ShapeFlags {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
 impl<'a> FromValue<'a> for ShapeFlags {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
     }
 }
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
 impl SetValue for ShapeFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
 bitflags! {
     pub struct ShowFlags: u32 {
         const NONE = 0;
@@ -136,8 +136,8 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
 #[doc(hidden)]
 impl ToGlib for ShowFlags {
     type GlibType = ffi::PangoShowFlags;
@@ -147,8 +147,8 @@ impl ToGlib for ShowFlags {
     }
 }
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
 #[doc(hidden)]
 impl FromGlib<ffi::PangoShowFlags> for ShowFlags {
     fn from_glib(value: ffi::PangoShowFlags) -> ShowFlags {
@@ -156,32 +156,32 @@ impl FromGlib<ffi::PangoShowFlags> for ShowFlags {
     }
 }
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
 impl StaticType for ShowFlags {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::pango_show_flags_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
 impl<'a> FromValueOptional<'a> for ShowFlags {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
 impl<'a> FromValue<'a> for ShowFlags {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
     }
 }
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
 impl SetValue for ShowFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())

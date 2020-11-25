@@ -125,8 +125,8 @@ pub use self::enums::CoordType;
 pub use self::enums::Layer;
 pub use self::enums::RelationType;
 pub use self::enums::Role;
-#[cfg(any(feature = "v2_30", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+#[cfg(any(feature = "v2_30", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_30")))]
 pub use self::enums::ScrollType;
 pub use self::enums::StateType;
 pub use self::enums::TextAttribute;

@@ -31,21 +31,21 @@ pub use self::x11_display_manager::X11DisplayManager;
 mod x11_drag_context;
 pub use self::x11_drag_context::X11DragContext;
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+#[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
 mod x11gl_context;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+#[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
 pub use self::x11gl_context::X11GLContext;
 
 mod x11_keymap;
 pub use self::x11_keymap::X11Keymap;
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
 mod x11_monitor;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
 pub use self::x11_monitor::X11Monitor;
 
 mod x11_screen;

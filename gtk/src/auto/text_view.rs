@@ -18,8 +18,8 @@ use crate::ScrollablePolicy;
 use crate::TextAttributes;
 use crate::TextBuffer;
 use crate::TextChildAnchor;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+#[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
 use crate::TextExtendSelection;
 use crate::TextIter;
 use crate::TextMark;
@@ -74,8 +74,8 @@ impl Default for TextView {
 #[derive(Clone, Default)]
 pub struct TextViewBuilder {
     accepts_tab: Option<bool>,
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     bottom_margin: Option<i32>,
     buffer: Option<TextBuffer>,
     cursor_visible: Option<bool>,
@@ -94,8 +94,8 @@ pub struct TextViewBuilder {
     populate_all: Option<bool>,
     right_margin: Option<i32>,
     tabs: Option<pango::TabArray>,
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     top_margin: Option<i32>,
     wrap_mode: Option<WrapMode>,
     border_width: Option<u32>,
@@ -106,8 +106,8 @@ pub struct TextViewBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -151,7 +151,7 @@ impl TextViewBuilder {
         if let Some(ref accepts_tab) = self.accepts_tab {
             properties.push(("accepts-tab", accepts_tab));
         }
-        #[cfg(any(feature = "v3_18", feature = "dox"))]
+        #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
         if let Some(ref bottom_margin) = self.bottom_margin {
             properties.push(("bottom-margin", bottom_margin));
         }
@@ -206,7 +206,7 @@ impl TextViewBuilder {
         if let Some(ref tabs) = self.tabs {
             properties.push(("tabs", tabs));
         }
-        #[cfg(any(feature = "v3_18", feature = "dox"))]
+        #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
         if let Some(ref top_margin) = self.top_margin {
             properties.push(("top-margin", top_margin));
         }
@@ -237,7 +237,7 @@ impl TextViewBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -343,8 +343,8 @@ impl TextViewBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     pub fn bottom_margin(mut self, bottom_margin: i32) -> Self {
         self.bottom_margin = Some(bottom_margin);
         self
@@ -435,8 +435,8 @@ impl TextViewBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     pub fn top_margin(mut self, top_margin: i32) -> Self {
         self.top_margin = Some(top_margin);
         self
@@ -487,8 +487,8 @@ impl TextViewBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -677,8 +677,8 @@ pub trait TextViewExt: 'static {
 
     fn get_border_window_size(&self, type_: TextWindowType) -> i32;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn get_bottom_margin(&self) -> i32;
 
     fn get_buffer(&self) -> Option<TextBuffer>;
@@ -711,8 +711,8 @@ pub trait TextViewExt: 'static {
 
     fn get_line_yrange(&self, iter: &TextIter) -> (i32, i32);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_monospace(&self) -> bool;
 
     fn get_overwrite(&self) -> bool;
@@ -727,8 +727,8 @@ pub trait TextViewExt: 'static {
 
     fn get_tabs(&self) -> Option<pango::TabArray>;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn get_top_margin(&self) -> i32;
 
     fn get_visible_rect(&self) -> gdk::Rectangle;
@@ -749,8 +749,8 @@ pub trait TextViewExt: 'static {
 
     fn place_cursor_onscreen(&self) -> bool;
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     fn reset_cursor_blink(&self);
 
     fn reset_im_context(&self);
@@ -779,8 +779,8 @@ pub trait TextViewExt: 'static {
 
     fn set_border_window_size(&self, type_: TextWindowType, size: i32);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn set_bottom_margin(&self, bottom_margin: i32);
 
     fn set_buffer<P: IsA<TextBuffer>>(&self, buffer: Option<&P>);
@@ -799,8 +799,8 @@ pub trait TextViewExt: 'static {
 
     fn set_left_margin(&self, left_margin: i32);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_monospace(&self, monospace: bool);
 
     fn set_overwrite(&self, overwrite: bool);
@@ -815,8 +815,8 @@ pub trait TextViewExt: 'static {
 
     fn set_tabs(&self, tabs: &pango::TabArray);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn set_top_margin(&self, top_margin: i32);
 
     fn set_wrap_mode(&self, wrap_mode: WrapMode);
@@ -861,8 +861,8 @@ pub trait TextViewExt: 'static {
 
     fn emit_delete_from_cursor(&self, type_: DeleteType, count: i32);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_extend_selection<
         F: Fn(&Self, TextExtendSelection, &TextIter, &TextIter, &TextIter) -> glib::signal::Inhibit
             + 'static,
@@ -875,12 +875,12 @@ pub trait TextViewExt: 'static {
 
     fn emit_insert_at_cursor(&self, string: &str);
 
-    #[cfg(any(feature = "v3_22_26", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
+    #[cfg(any(feature = "v3_22_26", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_26")))]
     fn connect_insert_emoji<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_22_26", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
+    #[cfg(any(feature = "v3_22_26", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_26")))]
     fn emit_insert_emoji(&self);
 
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32, bool) + 'static>(
@@ -925,8 +925,8 @@ pub trait TextViewExt: 'static {
 
     fn connect_property_accepts_tab_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn connect_property_bottom_margin_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -986,8 +986,8 @@ pub trait TextViewExt: 'static {
 
     fn connect_property_tabs_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn connect_property_top_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_wrap_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -1098,8 +1098,8 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn get_bottom_margin(&self) -> i32 {
         unsafe { ffi::gtk_text_view_get_bottom_margin(self.as_ref().to_glib_none().0) }
     }
@@ -1262,8 +1262,8 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_monospace(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_text_view_get_monospace(
@@ -1300,8 +1300,8 @@ impl<O: IsA<TextView>> TextViewExt for O {
         unsafe { from_glib_full(ffi::gtk_text_view_get_tabs(self.as_ref().to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn get_top_margin(&self) -> i32 {
         unsafe { ffi::gtk_text_view_get_top_margin(self.as_ref().to_glib_none().0) }
     }
@@ -1390,8 +1390,8 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     fn reset_cursor_blink(&self) {
         unsafe {
             ffi::gtk_text_view_reset_cursor_blink(self.as_ref().to_glib_none().0);
@@ -1472,8 +1472,8 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn set_bottom_margin(&self, bottom_margin: i32) {
         unsafe {
             ffi::gtk_text_view_set_bottom_margin(self.as_ref().to_glib_none().0, bottom_margin);
@@ -1537,8 +1537,8 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_monospace(&self, monospace: bool) {
         unsafe {
             ffi::gtk_text_view_set_monospace(self.as_ref().to_glib_none().0, monospace.to_glib());
@@ -1593,8 +1593,8 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn set_top_margin(&self, top_margin: i32) {
         unsafe {
             ffi::gtk_text_view_set_top_margin(self.as_ref().to_glib_none().0, top_margin);
@@ -1849,8 +1849,8 @@ impl<O: IsA<TextView>> TextViewExt for O {
         };
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_extend_selection<
         F: Fn(&Self, TextExtendSelection, &TextIter, &TextIter, &TextIter) -> glib::signal::Inhibit
             + 'static,
@@ -1937,8 +1937,8 @@ impl<O: IsA<TextView>> TextViewExt for O {
         };
     }
 
-    #[cfg(any(feature = "v3_22_26", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
+    #[cfg(any(feature = "v3_22_26", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_26")))]
     fn connect_insert_emoji<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn insert_emoji_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextView,
@@ -1962,8 +1962,8 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22_26", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
+    #[cfg(any(feature = "v3_22_26", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_26")))]
     fn emit_insert_emoji(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
@@ -2302,8 +2302,8 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn connect_property_bottom_margin_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -2763,8 +2763,8 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn connect_property_top_margin_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_top_margin_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextView,

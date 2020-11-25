@@ -2,26 +2,26 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 use crate::AnchorHints;
 use crate::Cursor;
 use crate::Device;
 use crate::Display;
 use crate::DragProtocol;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
 use crate::DrawingContext;
 use crate::Event;
 use crate::EventMask;
 use crate::FrameClock;
 use crate::FullscreenMode;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+#[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
 use crate::GLContext;
 use crate::Geometry;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 use crate::Gravity;
 use crate::InputSource;
 use crate::ModifierType;
@@ -104,8 +104,8 @@ pub trait WindowExt: 'static {
 
     fn beep(&self);
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     fn begin_draw_frame(&self, region: &cairo::Region) -> Option<DrawingContext>;
 
     fn begin_move_drag(&self, button: i32, root_x: i32, root_y: i32, timestamp: u32);
@@ -148,8 +148,8 @@ pub trait WindowExt: 'static {
 
     fn coords_to_parent(&self, x: f64, y: f64) -> (f64, f64);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn create_gl_context(&self) -> Result<GLContext, glib::Error>;
 
     fn create_similar_image_surface(
@@ -166,8 +166,8 @@ pub trait WindowExt: 'static {
 
     fn destroy_notify(&self);
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     fn end_draw_frame(&self, context: &DrawingContext);
 
     fn end_paint(&self);
@@ -183,8 +183,8 @@ pub trait WindowExt: 'static {
 
     fn fullscreen(&self);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn fullscreen_on_monitor(&self, monitor: i32);
 
     fn geometry_changed(&self);
@@ -247,8 +247,8 @@ pub trait WindowExt: 'static {
 
     fn get_parent(&self) -> Option<Window>;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn get_pass_through(&self) -> bool;
 
     fn get_position(&self) -> (i32, i32);
@@ -316,8 +316,8 @@ pub trait WindowExt: 'static {
 
     fn lower(&self);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn mark_paint_from_clip(&self, cr: &cairo::Context);
 
     fn maximize(&self);
@@ -332,8 +332,8 @@ pub trait WindowExt: 'static {
 
     fn move_resize(&self, x: i32, y: i32, width: i32, height: i32);
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
     fn move_to_rect(
         &self,
         rect: &Rectangle,
@@ -415,8 +415,8 @@ pub trait WindowExt: 'static {
 
     fn set_override_redirect(&self, override_redirect: bool);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn set_pass_through(&self, pass_through: bool);
 
     fn set_role(&self, role: &str);
@@ -479,8 +479,8 @@ pub trait WindowExt: 'static {
 
     //fn connect_from_embedder<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
 
-    //#[cfg(any(feature = "v3_22", feature = "dox"))]
-    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    //#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    //#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     //fn connect_moved_to_rect<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
 
     fn connect_pick_embedded_child<F: Fn(&Self, f64, f64) -> Option<Window> + 'static>(
@@ -504,8 +504,8 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     fn begin_draw_frame(&self, region: &cairo::Region) -> Option<DrawingContext> {
         unsafe {
             from_glib_none(ffi::gdk_window_begin_draw_frame(
@@ -641,8 +641,8 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn create_gl_context(&self) -> Result<GLContext, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -691,8 +691,8 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     fn end_draw_frame(&self, context: &DrawingContext) {
         unsafe {
             ffi::gdk_window_end_draw_frame(
@@ -740,8 +740,8 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn fullscreen_on_monitor(&self, monitor: i32) {
         unsafe {
             ffi::gdk_window_fullscreen_on_monitor(self.as_ref().to_glib_none().0, monitor);
@@ -1003,8 +1003,8 @@ impl<O: IsA<Window>> WindowExt for O {
         unsafe { from_glib_none(ffi::gdk_window_get_parent(self.as_ref().to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn get_pass_through(&self) -> bool {
         unsafe {
             from_glib(ffi::gdk_window_get_pass_through(
@@ -1251,8 +1251,8 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn mark_paint_from_clip(&self, cr: &cairo::Context) {
         unsafe {
             ffi::gdk_window_mark_paint_from_clip(
@@ -1303,8 +1303,8 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
     fn move_to_rect(
         &self,
         rect: &Rectangle,
@@ -1574,8 +1574,8 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn set_pass_through(&self, pass_through: bool) {
         unsafe {
             ffi::gdk_window_set_pass_through(
@@ -1806,8 +1806,8 @@ impl<O: IsA<Window>> WindowExt for O {
     //    Out offscreen_y: *.Double
     //}
 
-    //#[cfg(any(feature = "v3_22", feature = "dox"))]
-    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    //#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    //#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     //fn connect_moved_to_rect<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Unimplemented flipped_rect: *.Pointer
     //    Unimplemented final_rect: *.Pointer

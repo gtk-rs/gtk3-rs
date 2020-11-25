@@ -23,11 +23,11 @@ pub use self::source::Source;
 mod time_zone;
 pub use self::time_zone::TimeZone;
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 mod uri;
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 pub use self::uri::Uri;
 
 mod enums;
@@ -38,13 +38,13 @@ pub use self::enums::KeyFileError;
 pub use self::enums::OptionArg;
 pub use self::enums::SeekType;
 pub use self::enums::TimeType;
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 pub use self::enums::UriError;
 
 mod flags;
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 pub use self::flags::FileSetContentsFlags;
 pub use self::flags::FileTest;
 pub use self::flags::FormatSizeFlags;
@@ -53,14 +53,14 @@ pub use self::flags::KeyFileFlags;
 pub use self::flags::LogLevelFlags;
 pub use self::flags::OptionFlags;
 pub use self::flags::SpawnFlags;
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 pub use self::flags::UriFlags;
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 pub use self::flags::UriHideFlags;
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 pub use self::flags::UriParamsFlags;
 
 mod alias;
@@ -102,8 +102,8 @@ pub use self::constants::KEY_FILE_DESKTOP_TYPE_DIRECTORY;
 pub use self::constants::KEY_FILE_DESKTOP_TYPE_LINK;
 pub use self::constants::OPTION_REMAINING;
 pub use self::constants::STR_DELIMITERS;
-#[cfg(any(feature = "v2_60", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
 pub use self::constants::TEST_OPTION_ISOLATE_DIRS;
 pub use self::constants::URI_RESERVED_CHARS_GENERIC_DELIMITERS;
 pub use self::constants::URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS;

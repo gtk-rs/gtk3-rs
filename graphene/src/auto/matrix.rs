@@ -57,8 +57,8 @@ impl Matrix {
         unsafe { ffi::graphene_matrix_determinant(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+    #[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
     fn equal(&self, b: &Matrix) -> bool {
         unsafe {
             from_glib(ffi::graphene_matrix_equal(
@@ -68,8 +68,8 @@ impl Matrix {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+    #[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
     pub fn equal_fast(&self, b: &Matrix) -> bool {
         unsafe {
             from_glib(ffi::graphene_matrix_equal_fast(
@@ -95,8 +95,8 @@ impl Matrix {
         unsafe { ffi::graphene_matrix_get_x_scale(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+    #[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
     pub fn get_x_translation(&self) -> f32 {
         unsafe { ffi::graphene_matrix_get_x_translation(self.to_glib_none().0) }
     }
@@ -105,8 +105,8 @@ impl Matrix {
         unsafe { ffi::graphene_matrix_get_y_scale(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+    #[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
     pub fn get_y_translation(&self) -> f32 {
         unsafe { ffi::graphene_matrix_get_y_translation(self.to_glib_none().0) }
     }
@@ -115,8 +115,8 @@ impl Matrix {
         unsafe { ffi::graphene_matrix_get_z_scale(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+    #[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
     pub fn get_z_translation(&self) -> f32 {
         unsafe { ffi::graphene_matrix_get_z_translation(self.to_glib_none().0) }
     }
@@ -310,8 +310,8 @@ impl Matrix {
         }
     }
 
-    #[cfg(any(feature = "v1_10", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+    #[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
     pub fn near(&self, b: &Matrix, epsilon: f32) -> bool {
         unsafe {
             from_glib(ffi::graphene_matrix_near(

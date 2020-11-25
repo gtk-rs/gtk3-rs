@@ -7,11 +7,11 @@ use crate::DBusMessageByteOrder;
 use crate::DBusMessageFlags;
 use crate::DBusMessageHeaderField;
 use crate::DBusMessageType;
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 use crate::UnixFDList;
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
@@ -143,8 +143,8 @@ impl DBusMessage {
         unsafe { from_glib(ffi::g_dbus_message_get_message_type(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     pub fn get_num_unix_fds(&self) -> u32 {
         unsafe { ffi::g_dbus_message_get_num_unix_fds(self.to_glib_none().0) }
     }
@@ -169,8 +169,8 @@ impl DBusMessage {
         unsafe { from_glib_none(ffi::g_dbus_message_get_signature(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     pub fn get_unix_fd_list(&self) -> Option<UnixFDList> {
         unsafe { from_glib_none(ffi::g_dbus_message_get_unix_fd_list(self.to_glib_none().0)) }
     }
@@ -269,8 +269,8 @@ impl DBusMessage {
         }
     }
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     pub fn set_num_unix_fds(&self, value: u32) {
         unsafe {
             ffi::g_dbus_message_set_num_unix_fds(self.to_glib_none().0, value);
@@ -307,8 +307,8 @@ impl DBusMessage {
         }
     }
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     pub fn set_unix_fd_list<P: IsA<UnixFDList>>(&self, fd_list: Option<&P>) {
         unsafe {
             ffi::g_dbus_message_set_unix_fd_list(

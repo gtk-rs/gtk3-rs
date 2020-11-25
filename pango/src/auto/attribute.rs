@@ -5,8 +5,8 @@
 use crate::AttrClass;
 use glib::translate::*;
 
-#[cfg(any(feature = "v1_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+#[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
 glib::glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
     pub struct Attribute(Boxed<ffi::PangoAttribute>);
@@ -18,7 +18,7 @@ glib::glib_wrapper! {
     }
 }
 
-#[cfg(not(any(feature = "v1_44", feature = "dox")))]
+#[cfg(not(any(feature = "v1_44", all(not(doctest), doc))))]
 glib::glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
     pub struct Attribute(Boxed<ffi::PangoAttribute>);

@@ -6,11 +6,11 @@ use crate::DBusConnection;
 use crate::DBusMessage;
 use crate::DBusMethodInfo;
 use crate::DBusPropertyInfo;
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 use crate::UnixFDList;
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
@@ -127,8 +127,8 @@ impl DBusMethodInvocation {
         }
     }
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     pub fn return_value_with_unix_fd_list<P: IsA<UnixFDList>>(
         &self,
         parameters: Option<&glib::Variant>,

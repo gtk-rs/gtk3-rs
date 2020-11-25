@@ -5,8 +5,8 @@
 use crate::Alignment;
 use crate::AttrList;
 use crate::Context;
-#[cfg(any(feature = "v1_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
+#[cfg(any(feature = "v1_46", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_46")))]
 use crate::Direction;
 use crate::EllipsizeMode;
 use crate::FontDescription;
@@ -80,8 +80,8 @@ impl Layout {
         }
     }
 
-    #[cfg(any(feature = "v1_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
+    #[cfg(any(feature = "v1_46", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_46")))]
     pub fn get_direction(&self, index: i32) -> Direction {
         unsafe {
             from_glib(ffi::pango_layout_get_direction(
@@ -149,8 +149,8 @@ impl Layout {
         }
     }
 
-    #[cfg(any(feature = "v1_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+    #[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
     pub fn get_line_spacing(&self) -> f32 {
         unsafe { ffi::pango_layout_get_line_spacing(self.to_glib_none().0) }
     }
@@ -362,8 +362,8 @@ impl Layout {
         }
     }
 
-    #[cfg(any(feature = "v1_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+    #[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
     pub fn set_line_spacing(&self, factor: f32) {
         unsafe {
             ffi::pango_layout_set_line_spacing(self.to_glib_none().0, factor);

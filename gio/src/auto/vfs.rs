@@ -5,8 +5,8 @@
 use crate::File;
 use glib::object::IsA;
 use glib::translate::*;
-#[cfg(any(feature = "v2_50", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+#[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
 use std::boxed::Box as Box_;
 use std::fmt;
 
@@ -44,8 +44,8 @@ pub trait VfsExt: 'static {
 
     fn parse_name(&self, parse_name: &str) -> Option<File>;
 
-    #[cfg(any(feature = "v2_50", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+    #[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
     fn register_uri_scheme(
         &self,
         scheme: &str,
@@ -53,8 +53,8 @@ pub trait VfsExt: 'static {
         parse_name_func: Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>>,
     ) -> bool;
 
-    #[cfg(any(feature = "v2_50", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+    #[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
     fn unregister_uri_scheme(&self, scheme: &str) -> bool;
 }
 
@@ -98,8 +98,8 @@ impl<O: IsA<Vfs>> VfsExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_50", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+    #[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
     fn register_uri_scheme(
         &self,
         scheme: &str,
@@ -180,8 +180,8 @@ impl<O: IsA<Vfs>> VfsExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_50", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+    #[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
     fn unregister_uri_scheme(&self, scheme: &str) -> bool {
         unsafe {
             from_glib(ffi::g_vfs_unregister_uri_scheme(

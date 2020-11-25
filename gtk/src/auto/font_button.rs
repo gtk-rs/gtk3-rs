@@ -9,8 +9,8 @@ use crate::Buildable;
 use crate::Button;
 use crate::Container;
 use crate::FontChooser;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 use crate::FontChooserLevel;
 use crate::PositionType;
 use crate::ReliefStyle;
@@ -80,8 +80,8 @@ pub struct FontButtonBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -113,11 +113,11 @@ pub struct FontButtonBuilder {
     action_target: Option<glib::Variant>,
     font: Option<String>,
     font_desc: Option<pango::FontDescription>,
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
     language: Option<String>,
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
     level: Option<FontChooserLevel>,
     preview_text: Option<String>,
     show_preview_entry: Option<bool>,
@@ -190,7 +190,7 @@ impl FontButtonBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -284,11 +284,11 @@ impl FontButtonBuilder {
         if let Some(ref font_desc) = self.font_desc {
             properties.push(("font-desc", font_desc));
         }
-        #[cfg(any(feature = "v3_24", feature = "dox"))]
+        #[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
         if let Some(ref language) = self.language {
             properties.push(("language", language));
         }
-        #[cfg(any(feature = "v3_24", feature = "dox"))]
+        #[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
         if let Some(ref level) = self.level {
             properties.push(("level", level));
         }
@@ -405,8 +405,8 @@ impl FontButtonBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -562,15 +562,15 @@ impl FontButtonBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
     pub fn language(mut self, language: &str) -> Self {
         self.language = Some(language.to_string());
         self
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
     pub fn level(mut self, level: FontChooserLevel) -> Self {
         self.level = Some(level);
         self

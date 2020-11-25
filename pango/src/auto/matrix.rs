@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use glib::translate::*;
-#[cfg(any(feature = "v1_38", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
+#[cfg(any(feature = "v1_38", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_38")))]
 use std::mem;
 
 glib::glib_wrapper! {
@@ -29,8 +29,8 @@ impl Matrix {
         unsafe { ffi::pango_matrix_get_font_scale_factor(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v1_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
+    #[cfg(any(feature = "v1_38", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_38")))]
     pub fn get_font_scale_factors(&self) -> (f64, f64) {
         unsafe {
             let mut xscale = mem::MaybeUninit::uninit();

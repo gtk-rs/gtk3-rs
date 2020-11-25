@@ -32,8 +32,8 @@ impl LayoutLine {
         }
     }
 
-    #[cfg(any(feature = "v1_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+    #[cfg(any(feature = "v1_44", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_44")))]
     pub fn get_height(&self) -> i32 {
         unsafe {
             let mut height = mem::MaybeUninit::uninit();

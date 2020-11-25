@@ -1229,8 +1229,8 @@ impl SetValue for OutputStreamSpliceFlags {
     }
 }
 
-#[cfg(any(feature = "v2_60", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
 bitflags! {
     pub struct ResolverNameLookupFlags: u32 {
         const DEFAULT = 0;
@@ -1239,8 +1239,8 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v2_60", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
 #[doc(hidden)]
 impl ToGlib for ResolverNameLookupFlags {
     type GlibType = ffi::GResolverNameLookupFlags;
@@ -1250,8 +1250,8 @@ impl ToGlib for ResolverNameLookupFlags {
     }
 }
 
-#[cfg(any(feature = "v2_60", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GResolverNameLookupFlags> for ResolverNameLookupFlags {
     fn from_glib(value: ffi::GResolverNameLookupFlags) -> ResolverNameLookupFlags {
@@ -1259,32 +1259,32 @@ impl FromGlib<ffi::GResolverNameLookupFlags> for ResolverNameLookupFlags {
     }
 }
 
-#[cfg(any(feature = "v2_60", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
 impl StaticType for ResolverNameLookupFlags {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::g_resolver_name_lookup_flags_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v2_60", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
 impl<'a> FromValueOptional<'a> for ResolverNameLookupFlags {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg(any(feature = "v2_60", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
 impl<'a> FromValue<'a> for ResolverNameLookupFlags {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
     }
 }
 
-#[cfg(any(feature = "v2_60", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
 impl SetValue for ResolverNameLookupFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())

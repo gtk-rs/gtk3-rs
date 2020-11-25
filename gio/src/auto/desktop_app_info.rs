@@ -8,8 +8,8 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::boxed::Box as Box_;
 use std::fmt;
-#[cfg(any(feature = "v2_60", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
 use std::mem;
 use std::ptr;
 
@@ -68,8 +68,8 @@ pub trait DesktopAppInfoExt: 'static {
 
     fn get_keywords(&self) -> Vec<glib::GString>;
 
-    #[cfg(any(feature = "v2_56", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+    #[cfg(any(feature = "v2_56", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_56")))]
     fn get_locale_string(&self, key: &str) -> Option<glib::GString>;
 
     fn get_nodisplay(&self) -> bool;
@@ -80,8 +80,8 @@ pub trait DesktopAppInfoExt: 'static {
 
     fn get_string(&self, key: &str) -> Option<glib::GString>;
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn get_string_list(&self, key: &str) -> Vec<glib::GString>;
 
     fn has_key(&self, key: &str) -> bool;
@@ -163,8 +163,8 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_56", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+    #[cfg(any(feature = "v2_56", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_56")))]
     fn get_locale_string(&self, key: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::g_desktop_app_info_get_locale_string(
@@ -208,8 +208,8 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn get_string_list(&self, key: &str) -> Vec<glib::GString> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();

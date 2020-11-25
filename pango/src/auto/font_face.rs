@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::FontDescription;
-#[cfg(any(feature = "v1_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
+#[cfg(any(feature = "v1_46", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_46")))]
 use crate::FontFamily;
 use glib::object::IsA;
 use glib::translate::*;
@@ -27,8 +27,8 @@ pub trait FontFaceExt: 'static {
 
     fn get_face_name(&self) -> Option<glib::GString>;
 
-    #[cfg(any(feature = "v1_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
+    #[cfg(any(feature = "v1_46", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_46")))]
     fn get_family(&self) -> Option<FontFamily>;
 
     fn is_synthesized(&self) -> bool;
@@ -53,8 +53,8 @@ impl<O: IsA<FontFace>> FontFaceExt for O {
         }
     }
 
-    #[cfg(any(feature = "v1_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
+    #[cfg(any(feature = "v1_46", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_46")))]
     fn get_family(&self) -> Option<FontFamily> {
         unsafe {
             from_glib_none(ffi::pango_font_face_get_family(

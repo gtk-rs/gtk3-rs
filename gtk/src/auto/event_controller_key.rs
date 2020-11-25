@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::EventController;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 use crate::IMContext;
 use crate::Widget;
 use glib::object::Cast;
@@ -36,8 +36,8 @@ impl EventControllerKey {
         }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
     pub fn forward<P: IsA<Widget>>(&self, widget: &P) -> bool {
         unsafe {
             from_glib(ffi::gtk_event_controller_key_forward(
@@ -47,14 +47,14 @@ impl EventControllerKey {
         }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
     pub fn get_group(&self) -> u32 {
         unsafe { ffi::gtk_event_controller_key_get_group(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
     pub fn get_im_context(&self) -> Option<IMContext> {
         unsafe {
             from_glib_none(ffi::gtk_event_controller_key_get_im_context(
@@ -63,8 +63,8 @@ impl EventControllerKey {
         }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
     pub fn set_im_context<P: IsA<IMContext>>(&self, im_context: &P) {
         unsafe {
             ffi::gtk_event_controller_key_set_im_context(
@@ -137,8 +137,8 @@ impl EventControllerKey {
         }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
     pub fn connect_key_pressed<
         F: Fn(&EventControllerKey, u32, u32, gdk::ModifierType) -> bool + 'static,
     >(
@@ -170,8 +170,8 @@ impl EventControllerKey {
         }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
     pub fn connect_key_released<
         F: Fn(&EventControllerKey, u32, u32, gdk::ModifierType) + 'static,
     >(

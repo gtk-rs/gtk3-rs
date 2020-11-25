@@ -32,8 +32,8 @@ impl SettingsSchemaKey {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[cfg(any(feature = "v2_44", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_44")))]
     pub fn get_name(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_settings_schema_key_get_name(self.to_glib_none().0)) }
     }

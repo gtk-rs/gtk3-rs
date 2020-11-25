@@ -4,8 +4,8 @@
 
 use glib::translate::*;
 use std::fmt;
-#[cfg(any(feature = "v1_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
+#[cfg(any(feature = "v1_46", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_46")))]
 use std::mem;
 
 glib::glib_wrapper! {
@@ -29,8 +29,8 @@ impl Color {
         }
     }
 
-    #[cfg(any(feature = "v1_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
+    #[cfg(any(feature = "v1_46", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_46")))]
     pub fn parse_with_alpha(&mut self, spec: &str) -> Option<u16> {
         unsafe {
             let mut alpha = mem::MaybeUninit::uninit();

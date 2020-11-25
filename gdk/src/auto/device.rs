@@ -3,14 +3,14 @@
 // DO NOT EDIT
 
 use crate::Atom;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
 use crate::AxisFlags;
 use crate::AxisUse;
 use crate::Cursor;
 use crate::DeviceManager;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
 use crate::DeviceTool;
 use crate::DeviceType;
 use crate::Display;
@@ -21,8 +21,8 @@ use crate::InputMode;
 use crate::InputSource;
 use crate::ModifierType;
 use crate::Screen;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+#[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
 use crate::Seat;
 use crate::Window;
 use glib::object::IsA;
@@ -51,8 +51,8 @@ impl Device {
         unsafe { from_glib_none(ffi::gdk_device_get_associated_device(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     pub fn get_axes(&self) -> AxisFlags {
         unsafe { from_glib(ffi::gdk_device_get_axes(self.to_glib_none().0)) }
     }
@@ -155,14 +155,14 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     pub fn get_product_id(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gdk_device_get_product_id(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     pub fn get_seat(&self) -> Option<Seat> {
         unsafe { from_glib_none(ffi::gdk_device_get_seat(self.to_glib_none().0)) }
     }
@@ -175,8 +175,8 @@ impl Device {
     //    unsafe { TODO: call ffi:gdk_device_get_state() }
     //}
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     pub fn get_vendor_id(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gdk_device_get_vendor_id(self.to_glib_none().0)) }
     }
@@ -338,8 +338,8 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     pub fn get_property_num_touches(&self) -> u32 {
         unsafe {
             let mut value = Value::from_type(<u32 as StaticType>::static_type());
@@ -355,8 +355,8 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     pub fn set_property_seat(&self, seat: Option<&Seat>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -367,8 +367,8 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     pub fn get_property_tool(&self) -> Option<DeviceTool> {
         unsafe {
             let mut value = Value::from_type(<DeviceTool as StaticType>::static_type());
@@ -440,8 +440,8 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     pub fn connect_tool_changed<F: Fn(&Device, &DeviceTool) + 'static>(
         &self,
         f: F,
@@ -492,8 +492,8 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     pub fn connect_property_axes_notify<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_axes_trampoline<F: Fn(&Device) + 'static>(
             this: *mut ffi::GdkDevice,
@@ -566,8 +566,8 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     pub fn connect_property_seat_notify<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_seat_trampoline<F: Fn(&Device) + 'static>(
             this: *mut ffi::GdkDevice,
@@ -590,8 +590,8 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     pub fn connect_property_tool_notify<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tool_trampoline<F: Fn(&Device) + 'static>(
             this: *mut ffi::GdkDevice,

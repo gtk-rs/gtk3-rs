@@ -1525,8 +1525,8 @@ impl SetValue for IOErrorEnum {
     }
 }
 
-#[cfg(any(feature = "v2_64", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+#[cfg(any(feature = "v2_64", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_64")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum MemoryMonitorWarningLevel {
@@ -1537,8 +1537,8 @@ pub enum MemoryMonitorWarningLevel {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v2_64", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+#[cfg(any(feature = "v2_64", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_64")))]
 impl fmt::Display for MemoryMonitorWarningLevel {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -1554,8 +1554,8 @@ impl fmt::Display for MemoryMonitorWarningLevel {
     }
 }
 
-#[cfg(any(feature = "v2_64", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+#[cfg(any(feature = "v2_64", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_64")))]
 #[doc(hidden)]
 impl ToGlib for MemoryMonitorWarningLevel {
     type GlibType = ffi::GMemoryMonitorWarningLevel;
@@ -1570,8 +1570,8 @@ impl ToGlib for MemoryMonitorWarningLevel {
     }
 }
 
-#[cfg(any(feature = "v2_64", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+#[cfg(any(feature = "v2_64", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_64")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GMemoryMonitorWarningLevel> for MemoryMonitorWarningLevel {
     fn from_glib(value: ffi::GMemoryMonitorWarningLevel) -> Self {
@@ -1584,32 +1584,32 @@ impl FromGlib<ffi::GMemoryMonitorWarningLevel> for MemoryMonitorWarningLevel {
     }
 }
 
-#[cfg(any(feature = "v2_64", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+#[cfg(any(feature = "v2_64", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_64")))]
 impl StaticType for MemoryMonitorWarningLevel {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::g_memory_monitor_warning_level_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v2_64", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+#[cfg(any(feature = "v2_64", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_64")))]
 impl<'a> FromValueOptional<'a> for MemoryMonitorWarningLevel {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg(any(feature = "v2_64", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+#[cfg(any(feature = "v2_64", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_64")))]
 impl<'a> FromValue<'a> for MemoryMonitorWarningLevel {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
-#[cfg(any(feature = "v2_64", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+#[cfg(any(feature = "v2_64", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_64")))]
 impl SetValue for MemoryMonitorWarningLevel {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
@@ -1691,8 +1691,8 @@ impl SetValue for MountOperationResult {
     }
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+#[cfg(any(feature = "v2_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_44")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum NetworkConnectivity {
@@ -1704,8 +1704,8 @@ pub enum NetworkConnectivity {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+#[cfg(any(feature = "v2_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_44")))]
 impl fmt::Display for NetworkConnectivity {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -1722,8 +1722,8 @@ impl fmt::Display for NetworkConnectivity {
     }
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+#[cfg(any(feature = "v2_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_44")))]
 #[doc(hidden)]
 impl ToGlib for NetworkConnectivity {
     type GlibType = ffi::GNetworkConnectivity;
@@ -1739,8 +1739,8 @@ impl ToGlib for NetworkConnectivity {
     }
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+#[cfg(any(feature = "v2_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_44")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GNetworkConnectivity> for NetworkConnectivity {
     fn from_glib(value: ffi::GNetworkConnectivity) -> Self {
@@ -1754,32 +1754,32 @@ impl FromGlib<ffi::GNetworkConnectivity> for NetworkConnectivity {
     }
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+#[cfg(any(feature = "v2_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_44")))]
 impl StaticType for NetworkConnectivity {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::g_network_connectivity_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+#[cfg(any(feature = "v2_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_44")))]
 impl<'a> FromValueOptional<'a> for NetworkConnectivity {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+#[cfg(any(feature = "v2_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_44")))]
 impl<'a> FromValue<'a> for NetworkConnectivity {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+#[cfg(any(feature = "v2_44", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_44")))]
 impl SetValue for NetworkConnectivity {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
@@ -2290,8 +2290,8 @@ impl SetValue for SocketFamily {
     }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+#[cfg(any(feature = "v2_46", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_46")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum SocketListenerEvent {
@@ -2303,8 +2303,8 @@ pub enum SocketListenerEvent {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+#[cfg(any(feature = "v2_46", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_46")))]
 impl fmt::Display for SocketListenerEvent {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -2321,8 +2321,8 @@ impl fmt::Display for SocketListenerEvent {
     }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+#[cfg(any(feature = "v2_46", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_46")))]
 #[doc(hidden)]
 impl ToGlib for SocketListenerEvent {
     type GlibType = ffi::GSocketListenerEvent;
@@ -2338,8 +2338,8 @@ impl ToGlib for SocketListenerEvent {
     }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+#[cfg(any(feature = "v2_46", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_46")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GSocketListenerEvent> for SocketListenerEvent {
     fn from_glib(value: ffi::GSocketListenerEvent) -> Self {
@@ -2353,32 +2353,32 @@ impl FromGlib<ffi::GSocketListenerEvent> for SocketListenerEvent {
     }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+#[cfg(any(feature = "v2_46", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_46")))]
 impl StaticType for SocketListenerEvent {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::g_socket_listener_event_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+#[cfg(any(feature = "v2_46", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_46")))]
 impl<'a> FromValueOptional<'a> for SocketListenerEvent {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+#[cfg(any(feature = "v2_46", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_46")))]
 impl<'a> FromValue<'a> for SocketListenerEvent {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+#[cfg(any(feature = "v2_46", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_46")))]
 impl SetValue for SocketListenerEvent {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
@@ -2689,8 +2689,8 @@ impl SetValue for TlsCertificateRequestFlags {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum TlsChannelBindingType {
@@ -2700,8 +2700,8 @@ pub enum TlsChannelBindingType {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 impl fmt::Display for TlsChannelBindingType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -2716,8 +2716,8 @@ impl fmt::Display for TlsChannelBindingType {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl ToGlib for TlsChannelBindingType {
     type GlibType = ffi::GTlsChannelBindingType;
@@ -2733,8 +2733,8 @@ impl ToGlib for TlsChannelBindingType {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GTlsChannelBindingType> for TlsChannelBindingType {
     fn from_glib(value: ffi::GTlsChannelBindingType) -> Self {
@@ -2746,32 +2746,32 @@ impl FromGlib<ffi::GTlsChannelBindingType> for TlsChannelBindingType {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 impl StaticType for TlsChannelBindingType {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::g_tls_channel_binding_type_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 impl<'a> FromValueOptional<'a> for TlsChannelBindingType {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 impl<'a> FromValue<'a> for TlsChannelBindingType {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 impl SetValue for TlsChannelBindingType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())

@@ -107,8 +107,8 @@ impl FontDescription {
         }
     }
 
-    #[cfg(any(feature = "v1_42", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_42")))]
+    #[cfg(any(feature = "v1_42", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_42")))]
     pub fn get_variations(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::pango_font_description_get_variations(
@@ -184,8 +184,8 @@ impl FontDescription {
         }
     }
 
-    #[cfg(any(feature = "v1_42", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_42")))]
+    #[cfg(any(feature = "v1_42", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_42")))]
     pub fn set_variations(&mut self, variations: &str) {
         unsafe {
             ffi::pango_font_description_set_variations(
@@ -195,8 +195,8 @@ impl FontDescription {
         }
     }
 
-    #[cfg(any(feature = "v1_42", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_42")))]
+    #[cfg(any(feature = "v1_42", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_42")))]
     pub fn set_variations_static(&mut self, variations: &str) {
         unsafe {
             ffi::pango_font_description_set_variations_static(

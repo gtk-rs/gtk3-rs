@@ -7,8 +7,8 @@ use crate::Bin;
 use crate::Buildable;
 use crate::Container;
 use crate::Popover;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+#[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
 use crate::PopoverConstraint;
 use crate::PositionType;
 use crate::ResizeMode;
@@ -34,16 +34,16 @@ glib::glib_wrapper! {
 }
 
 impl PopoverMenu {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     pub fn new() -> PopoverMenu {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_popover_menu_new()).unsafe_cast() }
     }
 }
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+#[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
 impl Default for PopoverMenu {
     fn default() -> Self {
         Self::new()
@@ -53,15 +53,15 @@ impl Default for PopoverMenu {
 #[derive(Clone, Default)]
 pub struct PopoverMenuBuilder {
     visible_submenu: Option<String>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     constrain_to: Option<PopoverConstraint>,
     modal: Option<bool>,
     pointing_to: Option<gdk::Rectangle>,
     position: Option<PositionType>,
     relative_to: Option<Widget>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     transitions_enabled: Option<bool>,
     border_width: Option<u32>,
     child: Option<Widget>,
@@ -71,8 +71,8 @@ pub struct PopoverMenuBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -112,7 +112,7 @@ impl PopoverMenuBuilder {
         if let Some(ref visible_submenu) = self.visible_submenu {
             properties.push(("visible-submenu", visible_submenu));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
         if let Some(ref constrain_to) = self.constrain_to {
             properties.push(("constrain-to", constrain_to));
         }
@@ -128,7 +128,7 @@ impl PopoverMenuBuilder {
         if let Some(ref relative_to) = self.relative_to {
             properties.push(("relative-to", relative_to));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
         if let Some(ref transitions_enabled) = self.transitions_enabled {
             properties.push(("transitions-enabled", transitions_enabled));
         }
@@ -156,7 +156,7 @@ impl PopoverMenuBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -250,8 +250,8 @@ impl PopoverMenuBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     pub fn constrain_to(mut self, constrain_to: PopoverConstraint) -> Self {
         self.constrain_to = Some(constrain_to);
         self
@@ -277,8 +277,8 @@ impl PopoverMenuBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     pub fn transitions_enabled(mut self, transitions_enabled: bool) -> Self {
         self.transitions_enabled = Some(transitions_enabled);
         self
@@ -324,8 +324,8 @@ impl PopoverMenuBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -465,8 +465,8 @@ impl PopoverMenuBuilder {
 pub const NONE_POPOVER_MENU: Option<&PopoverMenu> = None;
 
 pub trait PopoverMenuExt: 'static {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn open_submenu(&self, name: &str);
 
     fn get_property_visible_submenu(&self) -> Option<glib::GString>;
@@ -488,8 +488,8 @@ pub trait PopoverMenuExt: 'static {
 }
 
 impl<O: IsA<PopoverMenu>> PopoverMenuExt for O {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn open_submenu(&self, name: &str) {
         unsafe {
             ffi::gtk_popover_menu_open_submenu(

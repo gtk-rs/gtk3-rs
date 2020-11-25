@@ -45,8 +45,8 @@ pub trait TlsConnectionExt: 'static {
 
     fn get_interaction(&self) -> Option<TlsInteraction>;
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn get_negotiated_protocol(&self) -> Option<glib::GString>;
 
     fn get_peer_certificate(&self) -> Option<TlsCertificate>;
@@ -72,8 +72,8 @@ pub trait TlsConnectionExt: 'static {
         io_priority: glib::Priority,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn set_advertised_protocols(&self, protocols: &[&str]);
 
     fn set_certificate<P: IsA<TlsCertificate>>(&self, certificate: &P);
@@ -87,8 +87,8 @@ pub trait TlsConnectionExt: 'static {
 
     fn set_require_close_notify(&self, require_close_notify: bool);
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn get_property_advertised_protocols(&self) -> Vec<glib::GString>;
 
     fn get_property_base_io_stream(&self) -> Option<IOStream>;
@@ -100,8 +100,8 @@ pub trait TlsConnectionExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn connect_property_advertised_protocols_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -113,8 +113,8 @@ pub trait TlsConnectionExt: 'static {
 
     fn connect_property_interaction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn connect_property_negotiated_protocol_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -181,8 +181,8 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn get_negotiated_protocol(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_tls_connection_get_negotiated_protocol(
@@ -290,8 +290,8 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }))
     }
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn set_advertised_protocols(&self, protocols: &[&str]) {
         unsafe {
             ffi::g_tls_connection_set_advertised_protocols(
@@ -346,8 +346,8 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn get_property_advertised_protocols(&self) -> Vec<glib::GString> {
         unsafe {
             let mut value = Value::from_type(<Vec<glib::GString> as StaticType>::static_type());
@@ -416,8 +416,8 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn connect_property_advertised_protocols_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -517,8 +517,8 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn connect_property_negotiated_protocol_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,

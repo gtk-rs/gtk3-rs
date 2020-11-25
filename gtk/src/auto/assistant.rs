@@ -86,8 +86,8 @@ pub struct AssistantBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -235,7 +235,7 @@ impl AssistantBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -509,8 +509,8 @@ impl AssistantBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -664,8 +664,8 @@ pub trait AssistantExt: 'static {
 
     fn get_page_complete<P: IsA<Widget>>(&self, page: &P) -> bool;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn get_page_has_padding<P: IsA<Widget>>(&self, page: &P) -> bool;
 
     fn get_page_title<P: IsA<Widget>>(&self, page: &P) -> Option<glib::GString>;
@@ -690,8 +690,8 @@ pub trait AssistantExt: 'static {
 
     fn set_page_complete<P: IsA<Widget>>(&self, page: &P, complete: bool);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn set_page_has_padding<P: IsA<Widget>>(&self, page: &P, has_padding: bool);
 
     fn set_page_title<P: IsA<Widget>>(&self, page: &P, title: &str);
@@ -782,8 +782,8 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn get_page_has_padding<P: IsA<Widget>>(&self, page: &P) -> bool {
         unsafe {
             from_glib(ffi::gtk_assistant_get_page_has_padding(
@@ -908,8 +908,8 @@ impl<O: IsA<Assistant>> AssistantExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn set_page_has_padding<P: IsA<Widget>>(&self, page: &P, has_padding: bool) {
         unsafe {
             ffi::gtk_assistant_set_page_has_padding(

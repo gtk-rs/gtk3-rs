@@ -49,8 +49,8 @@ impl Keymap {
         unsafe { from_glib(ffi::gdk_keymap_get_num_lock_state(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     pub fn get_scroll_lock_state(&self) -> bool {
         unsafe { from_glib(ffi::gdk_keymap_get_scroll_lock_state(self.to_glib_none().0)) }
     }

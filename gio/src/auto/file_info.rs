@@ -180,8 +180,8 @@ impl FileInfo {
         unsafe { from_glib(ffi::g_file_info_get_is_symlink(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v2_62", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_62")))]
+    #[cfg(any(feature = "v2_62", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_62")))]
     pub fn get_modification_date_time(&self) -> Option<glib::DateTime> {
         unsafe {
             from_glib_full(ffi::g_file_info_get_modification_date_time(
@@ -395,8 +395,8 @@ impl FileInfo {
         }
     }
 
-    #[cfg(any(feature = "v2_62", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_62")))]
+    #[cfg(any(feature = "v2_62", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_62")))]
     pub fn set_modification_date_time(&self, mtime: &glib::DateTime) {
         unsafe {
             ffi::g_file_info_set_modification_date_time(

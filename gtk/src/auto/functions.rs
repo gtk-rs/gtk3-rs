@@ -454,8 +454,8 @@ pub fn render_background<P: IsA<StyleContext>>(
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+#[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
 pub fn render_background_get_clip<P: IsA<StyleContext>>(
     context: &P,
     x: f64,
@@ -909,8 +909,8 @@ pub fn show_uri(
     }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
 pub fn show_uri_on_window<P: IsA<Window>>(
     parent: Option<&P>,
     uri: &str,

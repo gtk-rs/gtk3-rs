@@ -55,8 +55,8 @@ impl SimpleAction {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[cfg(any(feature = "v2_44", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_44")))]
     pub fn set_state_hint(&self, state_hint: Option<&glib::Variant>) {
         unsafe {
             ffi::g_simple_action_set_state_hint(self.to_glib_none().0, state_hint.to_glib_none().0);

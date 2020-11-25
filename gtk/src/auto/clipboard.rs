@@ -34,8 +34,8 @@ impl Clipboard {
         unsafe { from_glib_none(ffi::gtk_clipboard_get_owner(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     pub fn get_selection(&self) -> Option<gdk::Atom> {
         unsafe { from_glib_none(ffi::gtk_clipboard_get_selection(self.to_glib_none().0)) }
     }
@@ -279,8 +279,8 @@ impl Clipboard {
         unsafe { from_glib_none(ffi::gtk_clipboard_get(selection.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     pub fn get_default(display: &gdk::Display) -> Option<Clipboard> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_clipboard_get_default(display.to_glib_none().0)) }

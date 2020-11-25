@@ -4,8 +4,8 @@
 
 use std::ffi::CStr;
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+#[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
 pub static LEVEL_BAR_OFFSET_FULL: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(ffi::GTK_LEVEL_BAR_OFFSET_FULL)
@@ -400,8 +400,8 @@ pub static STYLE_CLASS_INSERTION_CURSOR: once_cell::sync::Lazy<&'static str> =
             .to_str()
             .unwrap()
     });
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+#[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
 pub static STYLE_CLASS_LABEL: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(ffi::GTK_STYLE_CLASS_LABEL).to_str().unwrap()
@@ -458,8 +458,8 @@ pub static STYLE_CLASS_MESSAGE_DIALOG: once_cell::sync::Lazy<&'static str> =
             .to_str()
             .unwrap()
     });
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+#[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
 pub static STYLE_CLASS_MONOSPACE: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(ffi::GTK_STYLE_CLASS_MONOSPACE)
@@ -494,8 +494,8 @@ pub static STYLE_CLASS_PANE_SEPARATOR: once_cell::sync::Lazy<&'static str> =
             .to_str()
             .unwrap()
     });
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+#[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
 pub static STYLE_CLASS_PAPER: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(ffi::GTK_STYLE_CLASS_PAPER).to_str().unwrap()
@@ -616,8 +616,8 @@ pub static STYLE_CLASS_SPINNER: once_cell::sync::Lazy<&'static str> =
             .to_str()
             .unwrap()
     });
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+#[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
 pub static STYLE_CLASS_STATUSBAR: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(ffi::GTK_STYLE_CLASS_STATUSBAR)
@@ -662,8 +662,8 @@ pub static STYLE_CLASS_TOP: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(ffi::GTK_STYLE_CLASS_TOP).to_str().unwrap()
     });
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+#[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
 pub static STYLE_CLASS_TOUCH_SELECTION: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(ffi::GTK_STYLE_CLASS_TOUCH_SELECTION)
@@ -676,8 +676,8 @@ pub static STYLE_CLASS_TROUGH: once_cell::sync::Lazy<&'static str> =
             .to_str()
             .unwrap()
     });
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+#[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
 pub static STYLE_CLASS_UNDERSHOOT: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(ffi::GTK_STYLE_CLASS_UNDERSHOOT)
@@ -700,8 +700,8 @@ pub static STYLE_CLASS_WARNING: once_cell::sync::Lazy<&'static str> =
             .to_str()
             .unwrap()
     });
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+#[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
 pub static STYLE_CLASS_WIDE: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(ffi::GTK_STYLE_CLASS_WIDE).to_str().unwrap()

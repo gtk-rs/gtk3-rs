@@ -70,8 +70,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     pub fn get_property_action_name(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
@@ -86,8 +86,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     pub fn set_property_action_name(&self, action_name: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -307,8 +307,8 @@ impl ShortcutsShortcut {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     pub fn connect_property_action_name_notify<F: Fn(&ShortcutsShortcut) + 'static>(
         &self,
         f: F,
@@ -543,8 +543,8 @@ impl ShortcutsShortcut {
 pub struct ShortcutsShortcutBuilder {
     accel_size_group: Option<SizeGroup>,
     accelerator: Option<String>,
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     action_name: Option<String>,
     direction: Option<TextDirection>,
     icon: Option<gio::Icon>,
@@ -565,8 +565,8 @@ pub struct ShortcutsShortcutBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -610,7 +610,7 @@ impl ShortcutsShortcutBuilder {
         if let Some(ref accelerator) = self.accelerator {
             properties.push(("accelerator", accelerator));
         }
-        #[cfg(any(feature = "v3_22", feature = "dox"))]
+        #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
         if let Some(ref action_name) = self.action_name {
             properties.push(("action-name", action_name));
         }
@@ -671,7 +671,7 @@ impl ShortcutsShortcutBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -773,8 +773,8 @@ impl ShortcutsShortcutBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     pub fn action_name(mut self, action_name: &str) -> Self {
         self.action_name = Some(action_name.to_string());
         self
@@ -875,8 +875,8 @@ impl ShortcutsShortcutBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self

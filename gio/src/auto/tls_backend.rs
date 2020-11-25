@@ -30,24 +30,24 @@ pub trait TlsBackendExt: 'static {
 
     fn get_default_database(&self) -> Option<TlsDatabase>;
 
-    #[cfg(any(feature = "v2_48", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
+    #[cfg(any(feature = "v2_48", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_48")))]
     fn get_dtls_client_connection_type(&self) -> glib::types::Type;
 
-    #[cfg(any(feature = "v2_48", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
+    #[cfg(any(feature = "v2_48", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_48")))]
     fn get_dtls_server_connection_type(&self) -> glib::types::Type;
 
     fn get_file_database_type(&self) -> glib::types::Type;
 
     fn get_server_connection_type(&self) -> glib::types::Type;
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn set_default_database<P: IsA<TlsDatabase>>(&self, database: Option<&P>);
 
-    #[cfg(any(feature = "v2_48", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
+    #[cfg(any(feature = "v2_48", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_48")))]
     fn supports_dtls(&self) -> bool;
 
     fn supports_tls(&self) -> bool;
@@ -78,8 +78,8 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_48", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
+    #[cfg(any(feature = "v2_48", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_48")))]
     fn get_dtls_client_connection_type(&self) -> glib::types::Type {
         unsafe {
             from_glib(ffi::g_tls_backend_get_dtls_client_connection_type(
@@ -88,8 +88,8 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_48", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
+    #[cfg(any(feature = "v2_48", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_48")))]
     fn get_dtls_server_connection_type(&self) -> glib::types::Type {
         unsafe {
             from_glib(ffi::g_tls_backend_get_dtls_server_connection_type(
@@ -114,8 +114,8 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     fn set_default_database<P: IsA<TlsDatabase>>(&self, database: Option<&P>) {
         unsafe {
             ffi::g_tls_backend_set_default_database(
@@ -125,8 +125,8 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_48", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
+    #[cfg(any(feature = "v2_48", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_48")))]
     fn supports_dtls(&self) -> bool {
         unsafe {
             from_glib(ffi::g_tls_backend_supports_dtls(

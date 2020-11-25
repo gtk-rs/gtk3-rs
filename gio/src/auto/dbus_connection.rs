@@ -11,8 +11,8 @@ use crate::DBusConnectionFlags;
 use crate::DBusMessage;
 use crate::DBusSendMessageFlags;
 use crate::IOStream;
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 use crate::UnixFDList;
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
@@ -212,8 +212,8 @@ impl DBusConnection {
         }
     }
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     pub fn call_with_unix_fd_list<
         P: IsA<UnixFDList>,
         Q: IsA<Cancellable>,
@@ -276,8 +276,8 @@ impl DBusConnection {
         }
     }
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     pub fn call_with_unix_fd_list_future<P: IsA<UnixFDList> + Clone + 'static>(
         &self,
         bus_name: Option<&str>,
@@ -324,8 +324,8 @@ impl DBusConnection {
         }))
     }
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     pub fn call_with_unix_fd_list_sync<P: IsA<UnixFDList>, Q: IsA<Cancellable>>(
         &self,
         bus_name: Option<&str>,
@@ -540,8 +540,8 @@ impl DBusConnection {
         }
     }
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
     pub fn get_flags(&self) -> DBusConnectionFlags {
         unsafe { from_glib(ffi::g_dbus_connection_get_flags(self.to_glib_none().0)) }
     }

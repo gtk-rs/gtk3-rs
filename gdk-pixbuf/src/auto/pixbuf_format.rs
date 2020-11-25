@@ -64,8 +64,8 @@ impl PixbufFormat {
         }
     }
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
+    #[cfg(any(feature = "v2_36", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_36")))]
     pub fn is_save_option_supported(&self, option_key: &str) -> bool {
         unsafe {
             from_glib(ffi::gdk_pixbuf_format_is_save_option_supported(

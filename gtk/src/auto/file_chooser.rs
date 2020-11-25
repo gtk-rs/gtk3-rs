@@ -35,8 +35,8 @@ pub trait FileChooserExt: 'static {
 
     fn get_action(&self) -> FileChooserAction;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     fn get_choice(&self, id: &str) -> Option<glib::GString>;
 
     fn get_create_folders(&self) -> bool;
@@ -91,8 +91,8 @@ pub trait FileChooserExt: 'static {
 
     fn list_shortcut_folders(&self) -> Vec<std::path::PathBuf>;
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     fn remove_choice(&self, id: &str);
 
     fn remove_filter(&self, filter: &FileFilter);
@@ -114,8 +114,8 @@ pub trait FileChooserExt: 'static {
 
     fn set_action(&self, action: FileChooserAction);
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     fn set_choice(&self, id: &str, option: &str);
 
     fn set_create_folders(&self, create_folders: bool);
@@ -262,8 +262,8 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     fn get_choice(&self, id: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_file_chooser_get_choice(
@@ -481,8 +481,8 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     fn remove_choice(&self, id: &str) {
         unsafe {
             ffi::gtk_file_chooser_remove_choice(
@@ -582,8 +582,8 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
     fn set_choice(&self, id: &str, option: &str) {
         unsafe {
             ffi::gtk_file_chooser_set_choice(

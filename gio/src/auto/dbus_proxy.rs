@@ -9,8 +9,8 @@ use crate::DBusConnection;
 use crate::DBusInterface;
 use crate::DBusInterfaceInfo;
 use crate::DBusProxyFlags;
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 use crate::UnixFDList;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -277,8 +277,8 @@ pub trait DBusProxyExt: 'static {
         cancellable: Option<&P>,
     ) -> Result<glib::Variant, glib::Error>;
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     fn call_with_unix_fd_list<
         P: IsA<UnixFDList>,
         Q: IsA<Cancellable>,
@@ -294,8 +294,8 @@ pub trait DBusProxyExt: 'static {
         callback: R,
     );
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     fn call_with_unix_fd_list_future<P: IsA<UnixFDList> + Clone + 'static>(
         &self,
         method_name: &str,
@@ -310,8 +310,8 @@ pub trait DBusProxyExt: 'static {
         >,
     >;
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     fn call_with_unix_fd_list_sync<P: IsA<UnixFDList>, Q: IsA<Cancellable>>(
         &self,
         method_name: &str,
@@ -479,8 +479,8 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     fn call_with_unix_fd_list<
         P: IsA<UnixFDList>,
         Q: IsA<Cancellable>,
@@ -535,8 +535,8 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }
     }
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     fn call_with_unix_fd_list_future<P: IsA<UnixFDList> + Clone + 'static>(
         &self,
         method_name: &str,
@@ -571,8 +571,8 @@ impl<O: IsA<DBusProxy>> DBusProxyExt for O {
         }))
     }
 
-    #[cfg(any(unix, feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[cfg(any(unix, all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
     fn call_with_unix_fd_list_sync<P: IsA<UnixFDList>, Q: IsA<Cancellable>>(
         &self,
         method_name: &str,

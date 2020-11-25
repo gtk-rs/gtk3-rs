@@ -43,8 +43,8 @@ impl DateTime {
         }
     }
 
-    #[cfg(any(feature = "v2_56", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+    #[cfg(any(feature = "v2_56", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_56")))]
     pub fn from_iso8601(text: &str, default_tz: Option<&TimeZone>) -> Option<DateTime> {
         unsafe {
             from_glib_full(ffi::g_date_time_new_from_iso8601(
@@ -181,8 +181,8 @@ impl DateTime {
         }
     }
 
-    #[cfg(any(feature = "v2_62", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_62")))]
+    #[cfg(any(feature = "v2_62", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_62")))]
     pub fn format_iso8601(&self) -> Option<crate::GString> {
         unsafe { from_glib_full(ffi::g_date_time_format_iso8601(self.to_glib_none().0)) }
     }
@@ -223,8 +223,8 @@ impl DateTime {
         unsafe { ffi::g_date_time_get_seconds(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v2_58", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
+    #[cfg(any(feature = "v2_58", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_58")))]
     pub fn get_timezone(&self) -> TimeZone {
         unsafe { from_glib_none(ffi::g_date_time_get_timezone(self.to_glib_none().0)) }
     }

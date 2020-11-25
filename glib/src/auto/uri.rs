@@ -3,24 +3,24 @@
 // DO NOT EDIT
 
 use crate::translate::*;
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 use crate::Bytes;
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 use crate::Error;
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 use crate::UriFlags;
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 use crate::UriHideFlags;
 use std::fmt;
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 use std::mem;
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 use std::ptr;
 
 crate::glib_wrapper! {
@@ -35,74 +35,74 @@ crate::glib_wrapper! {
 }
 
 impl Uri {
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn get_auth_params(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_auth_params(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn get_flags(&self) -> UriFlags {
         unsafe { from_glib(ffi::g_uri_get_flags(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn get_fragment(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_fragment(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn get_host(&self) -> crate::GString {
         unsafe { from_glib_none(ffi::g_uri_get_host(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn get_password(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_password(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn get_path(&self) -> crate::GString {
         unsafe { from_glib_none(ffi::g_uri_get_path(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn get_port(&self) -> i32 {
         unsafe { ffi::g_uri_get_port(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn get_query(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_query(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn get_scheme(&self) -> crate::GString {
         unsafe { from_glib_none(ffi::g_uri_get_scheme(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn get_user(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_user(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn get_userinfo(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_userinfo(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn parse_relative(&self, uri_ref: &str, flags: UriFlags) -> Result<Uri, crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -120,14 +120,14 @@ impl Uri {
         }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     fn to_string(&self) -> crate::GString {
         unsafe { from_glib_full(ffi::g_uri_to_string(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn to_string_partial(&self, flags: UriHideFlags) -> crate::GString {
         unsafe {
             from_glib_full(ffi::g_uri_to_string_partial(
@@ -137,8 +137,8 @@ impl Uri {
         }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn build(
         flags: UriFlags,
         scheme: &str,
@@ -163,8 +163,8 @@ impl Uri {
         }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn build_with_user(
         flags: UriFlags,
         scheme: &str,
@@ -193,8 +193,8 @@ impl Uri {
         }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn escape_bytes(unescaped: &[u8], reserved_chars_allowed: Option<&str>) -> crate::GString {
         let length = unescaped.len() as usize;
         unsafe {
@@ -220,8 +220,8 @@ impl Uri {
         }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn is_valid(uri_string: &str, flags: UriFlags) -> Result<(), crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -234,8 +234,8 @@ impl Uri {
         }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn join(
         flags: UriFlags,
         scheme: Option<&str>,
@@ -260,8 +260,8 @@ impl Uri {
         }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn join_with_user(
         flags: UriFlags,
         scheme: Option<&str>,
@@ -298,8 +298,8 @@ impl Uri {
         }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn parse(uri_string: &str, flags: UriFlags) -> Result<Uri, crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -312,8 +312,8 @@ impl Uri {
         }
     }
 
-    //#[cfg(any(feature = "v2_66", feature = "dox"))]
-    //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    //#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    //#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     //pub fn parse_params(params: &str, separators: &str, flags: UriParamsFlags) -> Result</*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 }, crate::Error> {
     //    unsafe { TODO: call ffi:g_uri_parse_params() }
     //}
@@ -322,14 +322,14 @@ impl Uri {
         unsafe { from_glib_full(ffi::g_uri_parse_scheme(uri.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn peek_scheme(uri: &str) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_peek_scheme(uri.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn resolve_relative(
         base_uri_string: Option<&str>,
         uri_ref: &str,
@@ -351,8 +351,8 @@ impl Uri {
         }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn split(
         uri_ref: &str,
         flags: UriFlags,
@@ -406,8 +406,8 @@ impl Uri {
         }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn split_network(
         uri_string: &str,
         flags: UriFlags,
@@ -434,8 +434,8 @@ impl Uri {
         }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn split_with_user(
         uri_ref: &str,
         flags: UriFlags,
@@ -497,8 +497,8 @@ impl Uri {
         }
     }
 
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn unescape_bytes(
         escaped_string: &str,
         illegal_characters: Option<&str>,

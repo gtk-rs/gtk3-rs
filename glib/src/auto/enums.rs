@@ -14,8 +14,8 @@ pub enum ChecksumType {
     Sha1,
     Sha256,
     Sha512,
-    #[cfg(any(feature = "v2_52", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
+    #[cfg(any(feature = "v2_52", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_52")))]
     Sha384,
     #[doc(hidden)]
     __Unknown(i32),
@@ -31,7 +31,7 @@ impl fmt::Display for ChecksumType {
                 ChecksumType::Sha1 => "Sha1",
                 ChecksumType::Sha256 => "Sha256",
                 ChecksumType::Sha512 => "Sha512",
-                #[cfg(any(feature = "v2_52", feature = "dox"))]
+                #[cfg(any(feature = "v2_52", all(not(doctest), doc)))]
                 ChecksumType::Sha384 => "Sha384",
                 _ => "Unknown",
             }
@@ -49,7 +49,7 @@ impl ToGlib for ChecksumType {
             ChecksumType::Sha1 => ffi::G_CHECKSUM_SHA1,
             ChecksumType::Sha256 => ffi::G_CHECKSUM_SHA256,
             ChecksumType::Sha512 => ffi::G_CHECKSUM_SHA512,
-            #[cfg(any(feature = "v2_52", feature = "dox"))]
+            #[cfg(any(feature = "v2_52", all(not(doctest), doc)))]
             ChecksumType::Sha384 => ffi::G_CHECKSUM_SHA384,
             ChecksumType::__Unknown(value) => value,
         }
@@ -64,7 +64,7 @@ impl FromGlib<ffi::GChecksumType> for ChecksumType {
             1 => ChecksumType::Sha1,
             2 => ChecksumType::Sha256,
             3 => ChecksumType::Sha512,
-            #[cfg(any(feature = "v2_52", feature = "dox"))]
+            #[cfg(any(feature = "v2_52", all(not(doctest), doc)))]
             4 => ChecksumType::Sha384,
             value => ChecksumType::__Unknown(value),
         }
@@ -495,8 +495,8 @@ impl FromGlib<ffi::GTimeType> for TimeType {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 pub enum UriError {
@@ -514,8 +514,8 @@ pub enum UriError {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 impl fmt::Display for UriError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -538,8 +538,8 @@ impl fmt::Display for UriError {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl ToGlib for UriError {
     type GlibType = ffi::GUriError;
@@ -561,8 +561,8 @@ impl ToGlib for UriError {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GUriError> for UriError {
     fn from_glib(value: ffi::GUriError) -> Self {
@@ -582,8 +582,8 @@ impl FromGlib<ffi::GUriError> for UriError {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 impl ErrorDomain for UriError {
     fn domain() -> Quark {
         unsafe { from_glib(ffi::g_uri_error_quark()) }

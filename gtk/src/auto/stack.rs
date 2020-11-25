@@ -43,15 +43,15 @@ impl Default for Stack {
 
 #[derive(Clone, Default)]
 pub struct StackBuilder {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     hhomogeneous: Option<bool>,
     homogeneous: Option<bool>,
     interpolate_size: Option<bool>,
     transition_duration: Option<u32>,
     transition_type: Option<StackTransitionType>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     vhomogeneous: Option<bool>,
     visible_child: Option<Widget>,
     visible_child_name: Option<String>,
@@ -63,8 +63,8 @@ pub struct StackBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -101,7 +101,7 @@ impl StackBuilder {
 
     pub fn build(self) -> Stack {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
         if let Some(ref hhomogeneous) = self.hhomogeneous {
             properties.push(("hhomogeneous", hhomogeneous));
         }
@@ -117,7 +117,7 @@ impl StackBuilder {
         if let Some(ref transition_type) = self.transition_type {
             properties.push(("transition-type", transition_type));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
         if let Some(ref vhomogeneous) = self.vhomogeneous {
             properties.push(("vhomogeneous", vhomogeneous));
         }
@@ -151,7 +151,7 @@ impl StackBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -240,8 +240,8 @@ impl StackBuilder {
         ret
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     pub fn hhomogeneous(mut self, hhomogeneous: bool) -> Self {
         self.hhomogeneous = Some(hhomogeneous);
         self
@@ -267,8 +267,8 @@ impl StackBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     pub fn vhomogeneous(mut self, vhomogeneous: bool) -> Self {
         self.vhomogeneous = Some(vhomogeneous);
         self
@@ -324,8 +324,8 @@ impl StackBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -471,14 +471,14 @@ pub trait StackExt: 'static {
 
     fn get_child_by_name(&self, name: &str) -> Option<Widget>;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_hhomogeneous(&self) -> bool;
 
     fn get_homogeneous(&self) -> bool;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn get_interpolate_size(&self) -> bool;
 
     fn get_transition_duration(&self) -> u32;
@@ -487,30 +487,30 @@ pub trait StackExt: 'static {
 
     fn get_transition_type(&self) -> StackTransitionType;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_vhomogeneous(&self) -> bool;
 
     fn get_visible_child(&self) -> Option<Widget>;
 
     fn get_visible_child_name(&self) -> Option<glib::GString>;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_hhomogeneous(&self, hhomogeneous: bool);
 
     fn set_homogeneous(&self, homogeneous: bool);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn set_interpolate_size(&self, interpolate_size: bool);
 
     fn set_transition_duration(&self, duration: u32);
 
     fn set_transition_type(&self, transition: StackTransitionType);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_vhomogeneous(&self, vhomogeneous: bool);
 
     fn set_visible_child<P: IsA<Widget>>(&self, child: &P);
@@ -543,8 +543,8 @@ pub trait StackExt: 'static {
 
     fn set_child_title<T: IsA<Widget>>(&self, item: &T, title: Option<&str>);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_property_hhomogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F)
         -> SignalHandlerId;
 
@@ -570,8 +570,8 @@ pub trait StackExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_property_vhomogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F)
         -> SignalHandlerId;
 
@@ -617,8 +617,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_hhomogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_hhomogeneous(
@@ -635,8 +635,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn get_interpolate_size(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_interpolate_size(
@@ -665,8 +665,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_vhomogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_vhomogeneous(
@@ -691,8 +691,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_hhomogeneous(&self, hhomogeneous: bool) {
         unsafe {
             ffi::gtk_stack_set_hhomogeneous(self.as_ref().to_glib_none().0, hhomogeneous.to_glib());
@@ -705,8 +705,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn set_interpolate_size(&self, interpolate_size: bool) {
         unsafe {
             ffi::gtk_stack_set_interpolate_size(
@@ -731,8 +731,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_vhomogeneous(&self, vhomogeneous: bool) {
         unsafe {
             ffi::gtk_stack_set_vhomogeneous(self.as_ref().to_glib_none().0, vhomogeneous.to_glib());
@@ -924,8 +924,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_property_hhomogeneous_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1085,8 +1085,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_property_vhomogeneous_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,

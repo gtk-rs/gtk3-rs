@@ -685,8 +685,8 @@ impl TextIter {
         unsafe { from_glib(ffi::gtk_text_iter_starts_sentence(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     pub fn starts_tag<P: IsA<TextTag>>(&self, tag: Option<&P>) -> bool {
         unsafe {
             from_glib(ffi::gtk_text_iter_starts_tag(

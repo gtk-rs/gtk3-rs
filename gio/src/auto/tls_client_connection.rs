@@ -48,8 +48,8 @@ impl TlsClientConnection {
 pub const NONE_TLS_CLIENT_CONNECTION: Option<&TlsClientConnection> = None;
 
 pub trait TlsClientConnectionExt: 'static {
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+    #[cfg(any(feature = "v2_46", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_46")))]
     fn copy_session_state<P: IsA<TlsClientConnection>>(&self, source: &P);
 
     fn get_accepted_cas(&self) -> Vec<glib::ByteArray>;
@@ -86,8 +86,8 @@ pub trait TlsClientConnectionExt: 'static {
 }
 
 impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+    #[cfg(any(feature = "v2_46", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_46")))]
     fn copy_session_state<P: IsA<TlsClientConnection>>(&self, source: &P) {
         unsafe {
             ffi::g_tls_client_connection_copy_session_state(

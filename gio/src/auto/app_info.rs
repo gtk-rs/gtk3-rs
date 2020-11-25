@@ -4,19 +4,19 @@
 
 use crate::AppInfoCreateFlags;
 use crate::AppLaunchContext;
-#[cfg(any(feature = "v2_50", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+#[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
 use crate::Cancellable;
 use crate::File;
 use crate::Icon;
 use glib::object::IsA;
 use glib::translate::*;
-#[cfg(any(feature = "v2_50", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+#[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
 use std::boxed::Box as Box_;
 use std::fmt;
-#[cfg(any(feature = "v2_50", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+#[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
 use std::pin::Pin;
 use std::ptr;
 
@@ -114,8 +114,8 @@ impl AppInfo {
         }
     }
 
-    #[cfg(any(feature = "v2_50", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+    #[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
     pub fn launch_default_for_uri_async<
         P: IsA<AppLaunchContext>,
         Q: IsA<Cancellable>,
@@ -156,8 +156,8 @@ impl AppInfo {
         }
     }
 
-    #[cfg(any(feature = "v2_50", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+    #[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
     pub fn launch_default_for_uri_async_future<P: IsA<AppLaunchContext> + Clone + 'static>(
         uri: &str,
         context: Option<&P>,

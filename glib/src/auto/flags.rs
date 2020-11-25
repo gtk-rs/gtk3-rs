@@ -11,8 +11,8 @@ use crate::StaticType;
 use crate::Type;
 use bitflags::bitflags;
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 bitflags! {
     pub struct FileSetContentsFlags: u32 {
         const NONE = 0;
@@ -22,8 +22,8 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl ToGlib for FileSetContentsFlags {
     type GlibType = ffi::GFileSetContentsFlags;
@@ -33,8 +33,8 @@ impl ToGlib for FileSetContentsFlags {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GFileSetContentsFlags> for FileSetContentsFlags {
     fn from_glib(value: ffi::GFileSetContentsFlags) -> FileSetContentsFlags {
@@ -260,8 +260,8 @@ impl FromGlib<ffi::GSpawnFlags> for SpawnFlags {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 bitflags! {
     pub struct UriFlags: u32 {
         const NONE = 0;
@@ -276,8 +276,8 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl ToGlib for UriFlags {
     type GlibType = ffi::GUriFlags;
@@ -287,8 +287,8 @@ impl ToGlib for UriFlags {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GUriFlags> for UriFlags {
     fn from_glib(value: ffi::GUriFlags) -> UriFlags {
@@ -296,8 +296,8 @@ impl FromGlib<ffi::GUriFlags> for UriFlags {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 bitflags! {
     pub struct UriHideFlags: u32 {
         const NONE = 0;
@@ -309,8 +309,8 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl ToGlib for UriHideFlags {
     type GlibType = ffi::GUriHideFlags;
@@ -320,8 +320,8 @@ impl ToGlib for UriHideFlags {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GUriHideFlags> for UriHideFlags {
     fn from_glib(value: ffi::GUriHideFlags) -> UriHideFlags {
@@ -329,8 +329,8 @@ impl FromGlib<ffi::GUriHideFlags> for UriHideFlags {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 bitflags! {
     pub struct UriParamsFlags: u32 {
         const NONE = 0;
@@ -340,8 +340,8 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl ToGlib for UriParamsFlags {
     type GlibType = ffi::GUriParamsFlags;
@@ -351,8 +351,8 @@ impl ToGlib for UriParamsFlags {
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GUriParamsFlags> for UriParamsFlags {
     fn from_glib(value: ffi::GUriParamsFlags) -> UriParamsFlags {

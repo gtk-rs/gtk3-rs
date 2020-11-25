@@ -54,8 +54,8 @@ impl Default for InfoBar {
 #[derive(Clone, Default)]
 pub struct InfoBarBuilder {
     message_type: Option<MessageType>,
-    #[cfg(any(feature = "v3_22_29", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
+    #[cfg(any(feature = "v3_22_29", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_29")))]
     revealed: Option<bool>,
     show_close_button: Option<bool>,
     baseline_position: Option<BaselinePosition>,
@@ -69,8 +69,8 @@ pub struct InfoBarBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -111,7 +111,7 @@ impl InfoBarBuilder {
         if let Some(ref message_type) = self.message_type {
             properties.push(("message-type", message_type));
         }
-        #[cfg(any(feature = "v3_22_29", feature = "dox"))]
+        #[cfg(any(feature = "v3_22_29", all(not(doctest), doc)))]
         if let Some(ref revealed) = self.revealed {
             properties.push(("revealed", revealed));
         }
@@ -151,7 +151,7 @@ impl InfoBarBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -248,8 +248,8 @@ impl InfoBarBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_22_29", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
+    #[cfg(any(feature = "v3_22_29", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_29")))]
     pub fn revealed(mut self, revealed: bool) -> Self {
         self.revealed = Some(revealed);
         self
@@ -315,8 +315,8 @@ impl InfoBarBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -473,8 +473,8 @@ pub trait InfoBarExt: 'static {
 
     fn get_message_type(&self) -> MessageType;
 
-    #[cfg(any(feature = "v3_22_29", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
+    #[cfg(any(feature = "v3_22_29", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_29")))]
     fn get_revealed(&self) -> bool;
 
     fn get_show_close_button(&self) -> bool;
@@ -487,8 +487,8 @@ pub trait InfoBarExt: 'static {
 
     fn set_response_sensitive(&self, response_id: ResponseType, setting: bool);
 
-    #[cfg(any(feature = "v3_22_29", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
+    #[cfg(any(feature = "v3_22_29", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_29")))]
     fn set_revealed(&self, revealed: bool);
 
     fn set_show_close_button(&self, setting: bool);
@@ -502,8 +502,8 @@ pub trait InfoBarExt: 'static {
     fn connect_property_message_type_notify<F: Fn(&Self) + 'static>(&self, f: F)
         -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_22_29", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
+    #[cfg(any(feature = "v3_22_29", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_29")))]
     fn connect_property_revealed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_show_close_button_notify<F: Fn(&Self) + 'static>(
@@ -561,8 +561,8 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22_29", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
+    #[cfg(any(feature = "v3_22_29", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_29")))]
     fn get_revealed(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_info_bar_get_revealed(
@@ -613,8 +613,8 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22_29", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
+    #[cfg(any(feature = "v3_22_29", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_29")))]
     fn set_revealed(&self, revealed: bool) {
         unsafe {
             ffi::gtk_info_bar_set_revealed(self.as_ref().to_glib_none().0, revealed.to_glib());
@@ -715,8 +715,8 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_22_29", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
+    #[cfg(any(feature = "v3_22_29", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_29")))]
     fn connect_property_revealed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_revealed_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkInfoBar,

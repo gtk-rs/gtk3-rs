@@ -25,8 +25,8 @@ impl TimeZone {
         unsafe { from_glib_full(ffi::g_time_zone_new_local()) }
     }
 
-    #[cfg(any(feature = "v2_58", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
+    #[cfg(any(feature = "v2_58", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_58")))]
     pub fn new_offset(seconds: i32) -> TimeZone {
         unsafe { from_glib_full(ffi::g_time_zone_new_offset(seconds)) }
     }
@@ -48,8 +48,8 @@ impl TimeZone {
         }
     }
 
-    #[cfg(any(feature = "v2_58", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
+    #[cfg(any(feature = "v2_58", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_58")))]
     pub fn get_identifier(&self) -> crate::GString {
         unsafe { from_glib_none(ffi::g_time_zone_get_identifier(self.to_glib_none().0)) }
     }

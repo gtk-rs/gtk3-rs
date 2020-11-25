@@ -126,7 +126,12 @@ pub use crate::surface::{MappedImageSurface, Surface};
 
 pub use crate::image_surface::{ImageSurface, ImageSurfaceData};
 
-#[cfg(any(feature = "pdf", feature = "svg", feature = "ps", all(not(doctest), doc)))]
+#[cfg(any(
+    feature = "pdf",
+    feature = "svg",
+    feature = "ps",
+    all(not(doctest), doc)
+))]
 pub use stream::StreamWithError;
 
 #[cfg(any(feature = "pdf", all(not(doctest), doc)))]
@@ -171,7 +176,12 @@ mod surface;
 #[cfg(any(feature = "xcb", all(not(doctest), doc)))]
 mod xcb;
 
-#[cfg(any(feature = "pdf", feature = "svg", feature = "ps", all(not(doctest), doc)))]
+#[cfg(any(
+    feature = "pdf",
+    feature = "svg",
+    feature = "ps",
+    all(not(doctest), doc)
+))]
 #[macro_use]
 mod stream;
 #[cfg(any(feature = "pdf", all(not(doctest), doc)))]

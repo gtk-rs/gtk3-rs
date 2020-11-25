@@ -6,8 +6,8 @@ use crate::CoordType;
 use crate::Layer;
 use crate::Object;
 use crate::Rectangle;
-#[cfg(any(feature = "v2_30", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+#[cfg(any(feature = "v2_30", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_30")))]
 use crate::ScrollType;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -48,12 +48,12 @@ pub trait ComponentExt: 'static {
 
     fn ref_accessible_at_point(&self, x: i32, y: i32, coord_type: CoordType) -> Option<Object>;
 
-    #[cfg(any(feature = "v2_30", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+    #[cfg(any(feature = "v2_30", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_30")))]
     fn scroll_to(&self, type_: ScrollType) -> bool;
 
-    #[cfg(any(feature = "v2_30", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+    #[cfg(any(feature = "v2_30", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_30")))]
     fn scroll_to_point(&self, coords: CoordType, x: i32, y: i32) -> bool;
 
     fn set_extents(&self, x: i32, y: i32, width: i32, height: i32, coord_type: CoordType) -> bool;
@@ -161,8 +161,8 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_30", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+    #[cfg(any(feature = "v2_30", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_30")))]
     fn scroll_to(&self, type_: ScrollType) -> bool {
         unsafe {
             from_glib(ffi::atk_component_scroll_to(
@@ -172,8 +172,8 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_30", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+    #[cfg(any(feature = "v2_30", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_30")))]
     fn scroll_to_point(&self, coords: CoordType, x: i32, y: i32) -> bool {
         unsafe {
             from_glib(ffi::atk_component_scroll_to_point(

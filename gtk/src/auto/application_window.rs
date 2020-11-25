@@ -8,8 +8,8 @@ use crate::Bin;
 use crate::Buildable;
 use crate::Container;
 use crate::ResizeMode;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+#[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
 use crate::ShortcutsWindow;
 use crate::Widget;
 use crate::Window;
@@ -73,8 +73,8 @@ pub struct ApplicationWindowBuilder {
     can_focus: Option<bool>,
     events: Option<gdk::EventMask>,
     expand: Option<bool>,
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     focus_on_click: Option<bool>,
     halign: Option<Align>,
     has_default: Option<bool>,
@@ -222,7 +222,7 @@ impl ApplicationWindowBuilder {
         if let Some(ref expand) = self.expand {
             properties.push(("expand", expand));
         }
-        #[cfg(any(feature = "v3_20", feature = "dox"))]
+        #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
         if let Some(ref focus_on_click) = self.focus_on_click {
             properties.push(("focus-on-click", focus_on_click));
         }
@@ -496,8 +496,8 @@ impl ApplicationWindowBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
         self.focus_on_click = Some(focus_on_click);
         self
@@ -637,16 +637,16 @@ impl ApplicationWindowBuilder {
 pub const NONE_APPLICATION_WINDOW: Option<&ApplicationWindow> = None;
 
 pub trait ApplicationWindowExt: 'static {
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     fn get_help_overlay(&self) -> Option<ShortcutsWindow>;
 
     fn get_id(&self) -> u32;
 
     fn get_show_menubar(&self) -> bool;
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     fn set_help_overlay<P: IsA<ShortcutsWindow>>(&self, help_overlay: Option<&P>);
 
     fn set_show_menubar(&self, show_menubar: bool);
@@ -656,8 +656,8 @@ pub trait ApplicationWindowExt: 'static {
 }
 
 impl<O: IsA<ApplicationWindow>> ApplicationWindowExt for O {
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     fn get_help_overlay(&self) -> Option<ShortcutsWindow> {
         unsafe {
             from_glib_none(ffi::gtk_application_window_get_help_overlay(
@@ -678,8 +678,8 @@ impl<O: IsA<ApplicationWindow>> ApplicationWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     fn set_help_overlay<P: IsA<ShortcutsWindow>>(&self, help_overlay: Option<&P>) {
         unsafe {
             ffi::gtk_application_window_set_help_overlay(

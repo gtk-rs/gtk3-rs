@@ -6,8 +6,8 @@ use crate::translate::*;
 use crate::Bytes;
 use crate::ChecksumType;
 use crate::Error;
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 use crate::FileSetContentsFlags;
 use crate::FileTest;
 use crate::FormatSizeFlags;
@@ -129,8 +129,8 @@ pub fn bit_storage(number: libc::c_ulong) -> u32 {
 //    unsafe { TODO: call ffi:g_build_filename() }
 //}
 
-//#[cfg(any(feature = "v2_56", feature = "dox"))]
-//#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+//#[cfg(any(feature = "v2_56", all(not(doctest), doc)))]
+//#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_56")))]
 //pub fn build_filename_valist<P: AsRef<std::path::Path>>(first_element: P, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> std::path::PathBuf {
 //    unsafe { TODO: call ffi:g_build_filename_valist() }
 //}
@@ -152,8 +152,8 @@ pub fn build_pathv(separator: &str, args: &[&std::path::Path]) -> std::path::Pat
     }
 }
 
-#[cfg(any(feature = "v2_58", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
+#[cfg(any(feature = "v2_58", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_58")))]
 pub fn canonicalize_filename<P: AsRef<std::path::Path>, Q: AsRef<std::path::Path>>(
     filename: P,
     relative_to: Q,
@@ -196,14 +196,14 @@ pub fn clear_error() -> Result<(), crate::Error> {
     }
 }
 
-//#[cfg(any(feature = "v2_56", feature = "dox"))]
-//#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+//#[cfg(any(feature = "v2_56", all(not(doctest), doc)))]
+//#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_56")))]
 //pub fn clear_handle_id<P: Fn(u32) + Send + Sync + 'static>(tag_ptr: u32, clear_func: P) {
 //    unsafe { TODO: call ffi:g_clear_handle_id() }
 //}
 
-//#[cfg(any(feature = "v2_64", feature = "dox"))]
-//#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+//#[cfg(any(feature = "v2_64", all(not(doctest), doc)))]
+//#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_64")))]
 //pub fn clear_list(list_ptr: /*Unimplemented*/&[&Fundamental: Pointer]) {
 //    unsafe { TODO: call ffi:g_clear_list() }
 //}
@@ -212,8 +212,8 @@ pub fn clear_error() -> Result<(), crate::Error> {
 //    unsafe { TODO: call ffi:g_clear_pointer() }
 //}
 
-//#[cfg(any(feature = "v2_64", feature = "dox"))]
-//#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+//#[cfg(any(feature = "v2_64", all(not(doctest), doc)))]
+//#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_64")))]
 //pub fn clear_slist(slist_ptr: /*Unimplemented*/&[&Fundamental: Pointer]) {
 //    unsafe { TODO: call ffi:g_clear_slist() }
 //}
@@ -249,8 +249,8 @@ pub fn compute_checksum_for_string(checksum_type: ChecksumType, str: &str) -> cr
     }
 }
 
-#[cfg(any(feature = "v2_50", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+#[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
 pub fn compute_hmac_for_bytes(
     digest_type: ChecksumType,
     key: &Bytes,
@@ -512,8 +512,8 @@ pub fn file_set_contents<P: AsRef<std::path::Path>>(
     }
 }
 
-#[cfg(any(feature = "v2_66", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+#[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
 pub fn file_set_contents_full<P: AsRef<std::path::Path>>(
     filename: P,
     contents: &[u8],
@@ -588,8 +588,8 @@ pub fn get_codeset() -> crate::GString {
     unsafe { from_glib_full(ffi::g_get_codeset()) }
 }
 
-#[cfg(any(feature = "v2_62", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_62")))]
+#[cfg(any(feature = "v2_62", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_62")))]
 pub fn get_console_charset() -> Option<crate::GString> {
     unsafe {
         let mut charset = ptr::null();
@@ -619,8 +619,8 @@ pub fn get_language_names() -> Vec<crate::GString> {
     unsafe { FromGlibPtrContainer::from_glib_none(ffi::g_get_language_names()) }
 }
 
-#[cfg(any(feature = "v2_58", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
+#[cfg(any(feature = "v2_58", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_58")))]
 pub fn get_language_names_with_category(category_name: &str) -> Vec<crate::GString> {
     unsafe {
         FromGlibPtrContainer::from_glib_none(ffi::g_get_language_names_with_category(
@@ -643,8 +643,8 @@ pub fn get_num_processors() -> u32 {
     unsafe { ffi::g_get_num_processors() }
 }
 
-#[cfg(any(feature = "v2_64", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+#[cfg(any(feature = "v2_64", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_64")))]
 pub fn get_os_info(key_name: &str) -> Option<crate::GString> {
     unsafe { from_glib_full(ffi::g_get_os_info(key_name.to_glib_none().0)) }
 }
@@ -741,8 +741,8 @@ pub fn listenv() -> Vec<std::ffi::OsString> {
     unsafe { FromGlibPtrContainer::from_glib_full(ffi::g_listenv()) }
 }
 
-//#[cfg(any(feature = "v2_50", feature = "dox"))]
-//#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+//#[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+//#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
 //pub fn log_structured_array(log_level: LogLevelFlags, fields: /*Ignored*/&[&LogField]) {
 //    unsafe { TODO: call ffi:g_log_structured_array() }
 //}
@@ -751,26 +751,26 @@ pub fn listenv() -> Vec<std::ffi::OsString> {
 //    unsafe { TODO: call ffi:g_log_structured_standard() }
 //}
 
-//#[cfg(any(feature = "v2_50", feature = "dox"))]
-//#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+//#[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+//#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
 //pub fn log_writer_default(log_level: LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/LogWriterOutput {
 //    unsafe { TODO: call ffi:g_log_writer_default() }
 //}
 
-//#[cfg(any(feature = "v2_50", feature = "dox"))]
-//#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+//#[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+//#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
 //pub fn log_writer_format_fields(log_level: LogLevelFlags, fields: /*Ignored*/&[&LogField], use_color: bool) -> crate::GString {
 //    unsafe { TODO: call ffi:g_log_writer_format_fields() }
 //}
 
-//#[cfg(any(feature = "v2_50", feature = "dox"))]
-//#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+//#[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+//#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
 //pub fn log_writer_journald(log_level: LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/LogWriterOutput {
 //    unsafe { TODO: call ffi:g_log_writer_journald() }
 //}
 
-//#[cfg(any(feature = "v2_50", feature = "dox"))]
-//#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+//#[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+//#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
 //pub fn log_writer_standard_streams(log_level: LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/LogWriterOutput {
 //    unsafe { TODO: call ffi:g_log_writer_standard_streams() }
 //}
@@ -1170,8 +1170,8 @@ pub fn spawn_check_exit_status(exit_status: i32) -> Result<(), crate::Error> {
     }
 }
 
-#[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[cfg(any(unix, all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
 pub fn spawn_command_line_async<P: AsRef<std::ffi::OsStr>>(
     command_line: P,
 ) -> Result<(), crate::Error> {
@@ -1234,10 +1234,10 @@ pub fn stpcpy(dest: &str, src: &str) -> crate::GString {
 //    unsafe { TODO: call ffi:g_unicode_script_to_iso15924() }
 //}
 
-//#[cfg(any(unix, feature = "dox"))]
-//#[cfg_attr(feature = "dox", doc(cfg(unix)))]
-//#[cfg(any(feature = "v2_64", feature = "dox"))]
-//#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+//#[cfg(any(unix, all(not(doctest), doc)))]
+//#[cfg_attr(all(not(doctest), doc), doc(cfg(unix)))]
+//#[cfg(any(feature = "v2_64", all(not(doctest), doc)))]
+//#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_64")))]
 //pub fn unix_get_passwd_entry(user_name: &str) -> Result</*Unimplemented*/Option<Fundamental: Pointer>, crate::Error> {
 //    unsafe { TODO: call ffi:g_unix_get_passwd_entry() }
 //}
@@ -1252,14 +1252,14 @@ pub fn usleep(microseconds: libc::c_ulong) {
     }
 }
 
-#[cfg(any(feature = "v2_52", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
+#[cfg(any(feature = "v2_52", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_52")))]
 pub fn uuid_string_is_valid(str: &str) -> bool {
     unsafe { from_glib(ffi::g_uuid_string_is_valid(str.to_glib_none().0)) }
 }
 
-#[cfg(any(feature = "v2_52", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
+#[cfg(any(feature = "v2_52", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_52")))]
 pub fn uuid_string_random() -> crate::GString {
     unsafe { from_glib_full(ffi::g_uuid_string_random()) }
 }

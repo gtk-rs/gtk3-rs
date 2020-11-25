@@ -6,8 +6,8 @@ use crate::Border;
 use crate::CssSection;
 use crate::JunctionSides;
 use crate::StateFlags;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+#[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
 use crate::StyleContextPrintFlags;
 use crate::StyleProvider;
 use crate::TextDirection;
@@ -212,8 +212,8 @@ pub trait StyleContextExt: 'static {
 
     fn set_state(&self, flags: StateFlags);
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     fn to_string(&self, flags: StyleContextPrintFlags) -> glib::GString;
 
     fn get_property_direction(&self) -> TextDirection;
@@ -555,8 +555,8 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     fn to_string(&self, flags: StyleContextPrintFlags) -> glib::GString {
         unsafe {
             from_glib_full(ffi::gtk_style_context_to_string(

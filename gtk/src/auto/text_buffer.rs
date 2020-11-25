@@ -206,8 +206,8 @@ pub trait TextBufferExt: 'static {
 
     fn insert_interactive_at_cursor(&self, text: &str, default_editable: bool) -> bool;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn insert_markup(&self, iter: &mut TextIter, markup: &str);
 
     fn insert_pixbuf(&self, iter: &mut TextIter, pixbuf: &gdk_pixbuf::Pixbuf);
@@ -843,8 +843,8 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn insert_markup(&self, iter: &mut TextIter, markup: &str) {
         let len = markup.len() as i32;
         unsafe {

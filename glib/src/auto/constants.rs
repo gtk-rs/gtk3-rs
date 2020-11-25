@@ -168,8 +168,8 @@ pub static STR_DELIMITERS: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(ffi::G_STR_DELIMITERS).to_str().unwrap()
     });
-#[cfg(any(feature = "v2_60", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+#[cfg(any(feature = "v2_60", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_60")))]
 pub static TEST_OPTION_ISOLATE_DIRS: once_cell::sync::Lazy<&'static str> =
     once_cell::sync::Lazy::new(|| unsafe {
         CStr::from_ptr(ffi::G_TEST_OPTION_ISOLATE_DIRS)

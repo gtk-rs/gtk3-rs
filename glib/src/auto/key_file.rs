@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::translate::*;
-#[cfg(any(feature = "v2_50", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+#[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
 use crate::Bytes;
 use crate::Error;
 use crate::KeyFileFlags;
@@ -174,8 +174,8 @@ impl KeyFile {
         }
     }
 
-    #[cfg(any(feature = "v2_56", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+    #[cfg(any(feature = "v2_56", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_56")))]
     pub fn get_locale_for_key(
         &self,
         group_name: &str,
@@ -239,8 +239,8 @@ impl KeyFile {
         }
     }
 
-    #[cfg(any(feature = "v2_50", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+    #[cfg(any(feature = "v2_50", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_50")))]
     pub fn load_from_bytes(&self, bytes: &Bytes, flags: KeyFileFlags) -> Result<(), crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();

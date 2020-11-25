@@ -313,8 +313,8 @@ impl SetValue for DialogFlags {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 bitflags! {
     pub struct EventControllerScrollFlags: u32 {
         const NONE = 0;
@@ -326,8 +326,8 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 #[doc(hidden)]
 impl ToGlib for EventControllerScrollFlags {
     type GlibType = ffi::GtkEventControllerScrollFlags;
@@ -337,8 +337,8 @@ impl ToGlib for EventControllerScrollFlags {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GtkEventControllerScrollFlags> for EventControllerScrollFlags {
     fn from_glib(value: ffi::GtkEventControllerScrollFlags) -> EventControllerScrollFlags {
@@ -347,32 +347,32 @@ impl FromGlib<ffi::GtkEventControllerScrollFlags> for EventControllerScrollFlags
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 impl StaticType for EventControllerScrollFlags {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_event_controller_scroll_flags_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 impl<'a> FromValueOptional<'a> for EventControllerScrollFlags {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 impl<'a> FromValue<'a> for EventControllerScrollFlags {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 impl SetValue for EventControllerScrollFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
@@ -429,8 +429,8 @@ impl SetValue for FileFilterFlags {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 bitflags! {
     pub struct FontChooserLevel: u32 {
         const FAMILY = 0;
@@ -441,8 +441,8 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 #[doc(hidden)]
 impl ToGlib for FontChooserLevel {
     type GlibType = ffi::GtkFontChooserLevel;
@@ -452,8 +452,8 @@ impl ToGlib for FontChooserLevel {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GtkFontChooserLevel> for FontChooserLevel {
     fn from_glib(value: ffi::GtkFontChooserLevel) -> FontChooserLevel {
@@ -462,32 +462,32 @@ impl FromGlib<ffi::GtkFontChooserLevel> for FontChooserLevel {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 impl StaticType for FontChooserLevel {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_font_chooser_level_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 impl<'a> FromValueOptional<'a> for FontChooserLevel {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 impl<'a> FromValue<'a> for FontChooserLevel {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(any(feature = "v3_24", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24")))]
 impl SetValue for FontChooserLevel {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
@@ -561,11 +561,11 @@ bitflags! {
         const UPPERCASE_SENTENCES = 64;
         const INHIBIT_OSK = 128;
         const VERTICAL_WRITING = 256;
-        #[cfg(any(feature = "v3_22_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_20")))]
+        #[cfg(any(feature = "v3_22_20", all(not(doctest), doc)))]
+        #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_20")))]
         const EMOJI = 512;
-        #[cfg(any(feature = "v3_22_20", feature = "dox"))]
-        #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_20")))]
+        #[cfg(any(feature = "v3_22_20", all(not(doctest), doc)))]
+        #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22_20")))]
         const NO_EMOJI = 1024;
     }
 }
@@ -879,8 +879,8 @@ impl SetValue for StateFlags {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+#[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
 bitflags! {
     pub struct StyleContextPrintFlags: u32 {
         const NONE = 0;
@@ -889,8 +889,8 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+#[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl ToGlib for StyleContextPrintFlags {
     type GlibType = ffi::GtkStyleContextPrintFlags;
@@ -900,8 +900,8 @@ impl ToGlib for StyleContextPrintFlags {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+#[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GtkStyleContextPrintFlags> for StyleContextPrintFlags {
     fn from_glib(value: ffi::GtkStyleContextPrintFlags) -> StyleContextPrintFlags {
@@ -910,32 +910,32 @@ impl FromGlib<ffi::GtkStyleContextPrintFlags> for StyleContextPrintFlags {
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+#[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
 impl StaticType for StyleContextPrintFlags {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_style_context_print_flags_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+#[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
 impl<'a> FromValueOptional<'a> for StyleContextPrintFlags {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+#[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
 impl<'a> FromValue<'a> for StyleContextPrintFlags {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
     }
 }
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+#[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
 impl SetValue for StyleContextPrintFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())

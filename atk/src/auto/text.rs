@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::CoordType;
-#[cfg(any(feature = "v2_32", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+#[cfg(any(feature = "v2_32", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_32")))]
 use crate::ScrollType;
 use crate::TextBoundary;
 use crate::TextClipType;
@@ -83,12 +83,12 @@ pub trait TextExt: 'static {
 
     fn remove_selection(&self, selection_num: i32) -> bool;
 
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+    #[cfg(any(feature = "v2_32", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_32")))]
     fn scroll_substring_to(&self, start_offset: i32, end_offset: i32, type_: ScrollType) -> bool;
 
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+    #[cfg(any(feature = "v2_32", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_32")))]
     fn scroll_substring_to_point(
         &self,
         start_offset: i32,
@@ -302,8 +302,8 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+    #[cfg(any(feature = "v2_32", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_32")))]
     fn scroll_substring_to(&self, start_offset: i32, end_offset: i32, type_: ScrollType) -> bool {
         unsafe {
             from_glib(ffi::atk_text_scroll_substring_to(
@@ -315,8 +315,8 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+    #[cfg(any(feature = "v2_32", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_32")))]
     fn scroll_substring_to_point(
         &self,
         start_offset: i32,

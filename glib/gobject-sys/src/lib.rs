@@ -8,7 +8,7 @@
     clippy::type_complexity,
     clippy::unreadable_literal
 )]
-#![cfg_attr(feature = "dox", feature(doc_cfg))]
+#![cfg_attr(all(not(doctest), doc), feature(doc_cfg))]
 
 use glib_sys as glib;
 
@@ -1766,8 +1766,8 @@ extern "C" {
     pub fn g_value_set_instance(value: *mut GValue, instance: gpointer);
     pub fn g_value_set_int(value: *mut GValue, v_int: c_int);
     pub fn g_value_set_int64(value: *mut GValue, v_int64: i64);
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn g_value_set_interned_string(value: *mut GValue, v_string: *const c_char);
     pub fn g_value_set_long(value: *mut GValue, v_long: c_long);
     pub fn g_value_set_object(value: *mut GValue, v_object: *mut GObject);
@@ -1866,8 +1866,8 @@ extern "C" {
         ...
     ) -> *mut GObject;
     //pub fn g_object_new_valist(object_type: GType, first_property_name: *const c_char, var_args: /*Unimplemented*/va_list) -> *mut GObject;
-    #[cfg(any(feature = "v2_54", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[cfg(any(feature = "v2_54", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_54")))]
     pub fn g_object_new_with_properties(
         object_type: GType,
         n_properties: c_uint,
@@ -1943,8 +1943,8 @@ extern "C" {
     );
     pub fn g_object_get_qdata(object: *mut GObject, quark: glib::GQuark) -> gpointer;
     //pub fn g_object_get_valist(object: *mut GObject, first_property_name: *const c_char, var_args: /*Unimplemented*/va_list);
-    #[cfg(any(feature = "v2_54", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[cfg(any(feature = "v2_54", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_54")))]
     pub fn g_object_getv(
         object: *mut GObject,
         n_properties: c_uint,
@@ -1996,8 +1996,8 @@ extern "C" {
         destroy: glib::GDestroyNotify,
     );
     //pub fn g_object_set_valist(object: *mut GObject, first_property_name: *const c_char, var_args: /*Unimplemented*/va_list);
-    #[cfg(any(feature = "v2_54", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[cfg(any(feature = "v2_54", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_54")))]
     pub fn g_object_setv(
         object: *mut GObject,
         n_properties: c_uint,
@@ -2022,14 +2022,14 @@ extern "C" {
         blurb: *const c_char,
         flags: GParamFlags,
     ) -> *mut GParamSpec;
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn g_param_spec_is_valid_name(name: *const c_char) -> gboolean;
     pub fn g_param_spec_get_blurb(pspec: *mut GParamSpec) -> *const c_char;
     pub fn g_param_spec_get_default_value(pspec: *mut GParamSpec) -> *const GValue;
     pub fn g_param_spec_get_name(pspec: *mut GParamSpec) -> *const c_char;
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+    #[cfg(any(feature = "v2_46", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_46")))]
     pub fn g_param_spec_get_name_quark(pspec: *mut GParamSpec) -> glib::GQuark;
     pub fn g_param_spec_get_nick(pspec: *mut GParamSpec) -> *const c_char;
     pub fn g_param_spec_get_qdata(pspec: *mut GParamSpec, quark: glib::GQuark) -> gpointer;
@@ -2108,8 +2108,8 @@ extern "C" {
         boxed_free: GBoxedFreeFunc,
     ) -> GType;
     pub fn g_clear_object(object_ptr: *mut *mut GObject);
-    #[cfg(any(feature = "v2_62", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_62")))]
+    #[cfg(any(feature = "v2_62", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_62")))]
     pub fn g_clear_signal_handler(handler_id_ptr: *mut c_ulong, instance: *mut GObject);
     pub fn g_enum_complete_type_info(
         g_enum_type: GType,
@@ -2129,8 +2129,8 @@ extern "C" {
         name: *const c_char,
         const_static_values: *const GEnumValue,
     ) -> GType;
-    #[cfg(any(feature = "v2_54", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[cfg(any(feature = "v2_54", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_54")))]
     pub fn g_enum_to_string(g_enum_type: GType, value: c_int) -> *mut c_char;
     pub fn g_flags_complete_type_info(
         g_flags_type: GType,
@@ -2153,8 +2153,8 @@ extern "C" {
         name: *const c_char,
         const_static_values: *const GFlagsValue,
     ) -> GType;
-    #[cfg(any(feature = "v2_54", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[cfg(any(feature = "v2_54", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_54")))]
     pub fn g_flags_to_string(flags_type: GType, value: c_uint) -> *mut c_char;
     pub fn g_gtype_get_type() -> GType;
     pub fn g_param_spec_boolean(
@@ -2465,8 +2465,8 @@ extern "C" {
         detail: glib::GQuark,
         may_be_blocked: gboolean,
     ) -> gboolean;
-    #[cfg(any(feature = "v2_66", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[cfg(any(feature = "v2_66", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_66")))]
     pub fn g_signal_is_valid_name(name: *const c_char) -> gboolean;
     pub fn g_signal_list_ids(itype: GType, n_ids: *mut c_uint) -> *mut c_uint;
     pub fn g_signal_lookup(name: *const c_char, itype: GType) -> c_uint;
@@ -2574,8 +2574,8 @@ extern "C" {
     pub fn g_type_from_name(name: *const c_char) -> GType;
     pub fn g_type_fundamental(type_id: GType) -> GType;
     pub fn g_type_fundamental_next() -> GType;
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[cfg(any(feature = "v2_44", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v2_44")))]
     pub fn g_type_get_instance_count(type_: GType) -> c_int;
     pub fn g_type_get_plugin(type_: GType) -> *mut GTypePlugin;
     pub fn g_type_get_qdata(type_: GType, quark: glib::GQuark) -> gpointer;

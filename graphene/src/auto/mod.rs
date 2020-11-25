@@ -55,8 +55,8 @@ pub use self::vec4::Vec4;
 
 mod enums;
 pub use self::enums::EulerOrder;
-#[cfg(any(feature = "v1_10", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+#[cfg(any(feature = "v1_10", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v1_10")))]
 pub use self::enums::RayIntersectionKind;
 
 #[doc(hidden)]

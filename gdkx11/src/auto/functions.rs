@@ -51,8 +51,8 @@ pub fn x11_get_default_screen() -> i32 {
 }
 
 //#[cfg_attr(feature = "v3_24", deprecated)]
-//#[cfg(any(feature = "v3_24_2", feature = "dox"))]
-//#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_2")))]
+//#[cfg(any(feature = "v3_24_2", all(not(doctest), doc)))]
+//#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_24_2")))]
 //pub fn x11_get_parent_relative_pattern() -> /*Ignored*/Option<cairo::Pattern> {
 //    unsafe { TODO: call ffi:gdk_x11_get_parent_relative_pattern() }
 //}

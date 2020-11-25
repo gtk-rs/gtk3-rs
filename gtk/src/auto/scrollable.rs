@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::Adjustment;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+#[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
 use crate::Border;
 use crate::ScrollablePolicy;
 use glib::object::Cast;
@@ -27,8 +27,8 @@ glib::glib_wrapper! {
 pub const NONE_SCROLLABLE: Option<&Scrollable> = None;
 
 pub trait ScrollableExt: 'static {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_border(&self) -> Option<Border>;
 
     fn get_hadjustment(&self) -> Option<Adjustment>;
@@ -63,8 +63,8 @@ pub trait ScrollableExt: 'static {
 }
 
 impl<O: IsA<Scrollable>> ScrollableExt for O {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_border(&self) -> Option<Border> {
         unsafe {
             let mut border = Border::uninitialized();

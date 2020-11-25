@@ -197,8 +197,8 @@ pub fn pango_context_get() -> Option<pango::Context> {
     unsafe { from_glib_full(ffi::gdk_pango_context_get()) }
 }
 
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+#[cfg(any(feature = "v3_22", all(not(doctest), doc)))]
+#[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_22")))]
 pub fn pango_context_get_for_display(display: &Display) -> Option<pango::Context> {
     skip_assert_initialized!();
     unsafe {

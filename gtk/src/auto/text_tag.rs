@@ -44,16 +44,16 @@ pub struct TextTagBuilder {
     direction: Option<TextDirection>,
     editable: Option<bool>,
     editable_set: Option<bool>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fallback: Option<bool>,
     fallback_set: Option<bool>,
     family: Option<String>,
     family_set: Option<bool>,
     font: Option<String>,
     font_desc: Option<pango::FontDescription>,
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     font_features: Option<String>,
     font_features_set: Option<bool>,
     foreground: Option<String>,
@@ -69,8 +69,8 @@ pub struct TextTagBuilder {
     language_set: Option<bool>,
     left_margin: Option<i32>,
     left_margin_set: Option<bool>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     letter_spacing: Option<i32>,
     letter_spacing_set: Option<bool>,
     name: Option<String>,
@@ -95,11 +95,11 @@ pub struct TextTagBuilder {
     stretch: Option<pango::Stretch>,
     stretch_set: Option<bool>,
     strikethrough: Option<bool>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     strikethrough_rgba: Option<gdk::RGBA>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     strikethrough_rgba_set: Option<bool>,
     strikethrough_set: Option<bool>,
     style: Option<pango::Style>,
@@ -107,11 +107,11 @@ pub struct TextTagBuilder {
     tabs: Option<pango::TabArray>,
     tabs_set: Option<bool>,
     underline: Option<pango::Underline>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     underline_rgba: Option<gdk::RGBA>,
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     underline_rgba_set: Option<bool>,
     underline_set: Option<bool>,
     variant: Option<pango::Variant>,
@@ -156,7 +156,7 @@ impl TextTagBuilder {
         if let Some(ref editable_set) = self.editable_set {
             properties.push(("editable-set", editable_set));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
         if let Some(ref fallback) = self.fallback {
             properties.push(("fallback", fallback));
         }
@@ -175,7 +175,7 @@ impl TextTagBuilder {
         if let Some(ref font_desc) = self.font_desc {
             properties.push(("font-desc", font_desc));
         }
-        #[cfg(any(feature = "v3_18", feature = "dox"))]
+        #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
         if let Some(ref font_features) = self.font_features {
             properties.push(("font-features", font_features));
         }
@@ -221,7 +221,7 @@ impl TextTagBuilder {
         if let Some(ref left_margin_set) = self.left_margin_set {
             properties.push(("left-margin-set", left_margin_set));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
         if let Some(ref letter_spacing) = self.letter_spacing {
             properties.push(("letter-spacing", letter_spacing));
         }
@@ -294,11 +294,11 @@ impl TextTagBuilder {
         if let Some(ref strikethrough) = self.strikethrough {
             properties.push(("strikethrough", strikethrough));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
         if let Some(ref strikethrough_rgba) = self.strikethrough_rgba {
             properties.push(("strikethrough-rgba", strikethrough_rgba));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
         if let Some(ref strikethrough_rgba_set) = self.strikethrough_rgba_set {
             properties.push(("strikethrough-rgba-set", strikethrough_rgba_set));
         }
@@ -320,11 +320,11 @@ impl TextTagBuilder {
         if let Some(ref underline) = self.underline {
             properties.push(("underline", underline));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
         if let Some(ref underline_rgba) = self.underline_rgba {
             properties.push(("underline-rgba", underline_rgba));
         }
-        #[cfg(any(feature = "v3_16", feature = "dox"))]
+        #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
         if let Some(ref underline_rgba_set) = self.underline_rgba_set {
             properties.push(("underline-rgba-set", underline_rgba_set));
         }
@@ -401,8 +401,8 @@ impl TextTagBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     pub fn fallback(mut self, fallback: bool) -> Self {
         self.fallback = Some(fallback);
         self
@@ -433,8 +433,8 @@ impl TextTagBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     pub fn font_features(mut self, font_features: &str) -> Self {
         self.font_features = Some(font_features.to_string());
         self
@@ -510,8 +510,8 @@ impl TextTagBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     pub fn letter_spacing(mut self, letter_spacing: i32) -> Self {
         self.letter_spacing = Some(letter_spacing);
         self
@@ -632,15 +632,15 @@ impl TextTagBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     pub fn strikethrough_rgba(mut self, strikethrough_rgba: &gdk::RGBA) -> Self {
         self.strikethrough_rgba = Some(strikethrough_rgba.clone());
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     pub fn strikethrough_rgba_set(mut self, strikethrough_rgba_set: bool) -> Self {
         self.strikethrough_rgba_set = Some(strikethrough_rgba_set);
         self
@@ -676,15 +676,15 @@ impl TextTagBuilder {
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     pub fn underline_rgba(mut self, underline_rgba: &gdk::RGBA) -> Self {
         self.underline_rgba = Some(underline_rgba.clone());
         self
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     pub fn underline_rgba_set(mut self, underline_rgba_set: bool) -> Self {
         self.underline_rgba_set = Some(underline_rgba_set);
         self
@@ -729,8 +729,8 @@ impl TextTagBuilder {
 pub const NONE_TEXT_TAG: Option<&TextTag> = None;
 
 pub trait TextTagExt: 'static {
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     fn changed(&self, size_changed: bool);
 
     fn event<P: IsA<glib::Object>>(
@@ -778,12 +778,12 @@ pub trait TextTagExt: 'static {
 
     fn set_property_editable_set(&self, editable_set: bool);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_property_fallback(&self) -> bool;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_property_fallback(&self, fallback: bool);
 
     fn get_property_fallback_set(&self) -> bool;
@@ -806,12 +806,12 @@ pub trait TextTagExt: 'static {
 
     fn set_property_font_desc(&self, font_desc: Option<&pango::FontDescription>);
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn get_property_font_features(&self) -> Option<glib::GString>;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn set_property_font_features(&self, font_features: Option<&str>);
 
     fn get_property_font_features_set(&self) -> bool;
@@ -868,12 +868,12 @@ pub trait TextTagExt: 'static {
 
     fn set_property_left_margin_set(&self, left_margin_set: bool);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_property_letter_spacing(&self) -> i32;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_property_letter_spacing(&self, letter_spacing: i32);
 
     fn get_property_letter_spacing_set(&self) -> bool;
@@ -964,20 +964,20 @@ pub trait TextTagExt: 'static {
 
     fn set_property_strikethrough(&self, strikethrough: bool);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_property_strikethrough_rgba(&self) -> Option<gdk::RGBA>;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_property_strikethrough_rgba(&self, strikethrough_rgba: Option<&gdk::RGBA>);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_property_strikethrough_rgba_set(&self) -> bool;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_property_strikethrough_rgba_set(&self, strikethrough_rgba_set: bool);
 
     fn get_property_strikethrough_set(&self) -> bool;
@@ -1004,20 +1004,20 @@ pub trait TextTagExt: 'static {
 
     fn set_property_underline(&self, underline: pango::Underline);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_property_underline_rgba(&self) -> Option<gdk::RGBA>;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_property_underline_rgba(&self, underline_rgba: Option<&gdk::RGBA>);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_property_underline_rgba_set(&self) -> bool;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_property_underline_rgba_set(&self, underline_rgba_set: bool);
 
     fn get_property_underline_set(&self) -> bool;
@@ -1089,8 +1089,8 @@ pub trait TextTagExt: 'static {
     fn connect_property_editable_set_notify<F: Fn(&Self) + 'static>(&self, f: F)
         -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_property_fallback_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_fallback_set_notify<F: Fn(&Self) + 'static>(&self, f: F)
@@ -1104,8 +1104,8 @@ pub trait TextTagExt: 'static {
 
     fn connect_property_font_desc_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn connect_property_font_features_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1161,8 +1161,8 @@ pub trait TextTagExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_property_letter_spacing_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1249,15 +1249,15 @@ pub trait TextTagExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_property_strikethrough_rgba_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_property_strikethrough_rgba_set_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1278,15 +1278,15 @@ pub trait TextTagExt: 'static {
 
     fn connect_property_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_property_underline_rgba_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_property_underline_rgba_set_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1314,8 +1314,8 @@ pub trait TextTagExt: 'static {
 }
 
 impl<O: IsA<TextTag>> TextTagExt for O {
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[cfg(any(feature = "v3_20", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_20")))]
     fn changed(&self, size_changed: bool) {
         unsafe {
             ffi::gtk_text_tag_changed(self.as_ref().to_glib_none().0, size_changed.to_glib());
@@ -1557,8 +1557,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_property_fallback(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
@@ -1574,8 +1574,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_property_fallback(&self, fallback: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -1708,8 +1708,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn get_property_font_features(&self) -> Option<glib::GString> {
         unsafe {
             let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
@@ -1724,8 +1724,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn set_property_font_features(&self, font_features: Option<&str>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -2069,8 +2069,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_property_letter_spacing(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
@@ -2086,8 +2086,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_property_letter_spacing(&self, letter_spacing: i32) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -2649,8 +2649,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_property_strikethrough_rgba(&self) -> Option<gdk::RGBA> {
         unsafe {
             let mut value = Value::from_type(<gdk::RGBA as StaticType>::static_type());
@@ -2665,8 +2665,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_property_strikethrough_rgba(&self, strikethrough_rgba: Option<&gdk::RGBA>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -2677,8 +2677,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_property_strikethrough_rgba_set(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
@@ -2694,8 +2694,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_property_strikethrough_rgba_set(&self, strikethrough_rgba_set: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -2855,8 +2855,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_property_underline_rgba(&self) -> Option<gdk::RGBA> {
         unsafe {
             let mut value = Value::from_type(<gdk::RGBA as StaticType>::static_type());
@@ -2871,8 +2871,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_property_underline_rgba(&self, underline_rgba: Option<&gdk::RGBA>) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -2883,8 +2883,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn get_property_underline_rgba_set(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
@@ -2900,8 +2900,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn set_property_underline_rgba_set(&self, underline_rgba_set: bool) {
         unsafe {
             glib::gobject_ffi::g_object_set_property(
@@ -3362,8 +3362,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_property_fallback_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_fallback_trampoline<P, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkTextTag,
@@ -3511,8 +3511,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_18", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[cfg(any(feature = "v3_18", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_18")))]
     fn connect_property_font_features_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -3900,8 +3900,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_property_letter_spacing_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -4496,8 +4496,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_property_strikethrough_rgba_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -4525,8 +4525,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_property_strikethrough_rgba_set_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -4701,8 +4701,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_property_underline_rgba_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -4730,8 +4730,8 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[cfg(any(feature = "v3_16", all(not(doctest), doc)))]
+    #[cfg_attr(all(not(doctest), doc), doc(cfg(feature = "v3_16")))]
     fn connect_property_underline_rgba_set_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
