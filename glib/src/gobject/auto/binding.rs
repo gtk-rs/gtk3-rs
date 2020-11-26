@@ -5,7 +5,6 @@
 use crate::gobject_ffi;
 use crate::translate::*;
 use crate::BindingFlags;
-use crate::Object;
 use std::fmt;
 
 crate::glib_wrapper! {
@@ -21,20 +20,12 @@ impl Binding {
         unsafe { from_glib(gobject_ffi::g_binding_get_flags(self.to_glib_none().0)) }
     }
 
-    pub fn get_source(&self) -> Option<Object> {
-        unsafe { from_glib_none(gobject_ffi::g_binding_get_source(self.to_glib_none().0)) }
-    }
-
     pub fn get_source_property(&self) -> crate::GString {
         unsafe {
             from_glib_none(gobject_ffi::g_binding_get_source_property(
                 self.to_glib_none().0,
             ))
         }
-    }
-
-    pub fn get_target(&self) -> Option<Object> {
-        unsafe { from_glib_none(gobject_ffi::g_binding_get_target(self.to_glib_none().0)) }
     }
 
     pub fn get_target_property(&self) -> crate::GString {
@@ -47,7 +38,7 @@ impl Binding {
 
     pub fn unbind(&self) {
         unsafe {
-            gobject_ffi::g_binding_unbind(self.to_glib_full());
+            gobject_ffi::g_binding_unbind(self.to_glib_none().0);
         }
     }
 }
