@@ -1061,7 +1061,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">FontChooserWidget</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">FontChooserWidgetExt</span> <span class="kw">for</span> <span class="ident">O</span> {
     <span class="comment">//fn get_property_tweak_action(&amp;self) -&gt; /*Ignored*/Option&lt;gio::Action&gt; {</span>
     <span class="comment">//    unsafe {</span>
-    <span class="comment">//        let mut value = Value::from_type(&lt;/*Unknown type*/ as StaticType&gt;::static_type());</span>
+    <span class="comment">//        let mut value = glib::Value::from_type(&lt;/*Unknown type*/ as StaticType&gt;::static_type());</span>
     <span class="comment">//        glib::gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut glib::gobject_ffi::GObject, b&quot;tweak-action\0&quot;.as_ptr() as *const _, value.to_glib_none_mut().0);</span>
     <span class="comment">//        value.get().expect(&quot;Return Value for property `tweak-action` getter&quot;)</span>
     <span class="comment">//    }</span>
@@ -1097,7 +1097,7 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">FontChooserWidget</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;FontChooserWidget&quot;</span>)
+        <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;FontChooserWidget&quot;</span>)
     }
 }
 </pre></div>
