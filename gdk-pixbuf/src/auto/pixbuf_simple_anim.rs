@@ -69,6 +69,6 @@ impl PixbufSimpleAnim {
 
 impl fmt::Display for PixbufSimpleAnim {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "PixbufSimpleAnim")
+        f.write_str("PixbufSimpleAnim")
     }
 }

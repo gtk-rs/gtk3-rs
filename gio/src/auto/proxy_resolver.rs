@@ -143,6 +143,6 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
 
 impl fmt::Display for ProxyResolver {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ProxyResolver")
+        f.write_str("ProxyResolver")
     }
 }

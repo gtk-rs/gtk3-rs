@@ -288,6 +288,6 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
 
 impl fmt::Display for AccelGroup {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "AccelGroup")
+        f.write_str("AccelGroup")
     }
 }

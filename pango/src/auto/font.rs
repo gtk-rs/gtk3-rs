@@ -150,6 +150,6 @@ impl<O: IsA<Font>> FontExt for O {
 
 impl fmt::Display for Font {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Font")
+        f.write_str("Font")
     }
 }

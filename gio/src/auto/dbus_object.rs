@@ -129,6 +129,6 @@ impl<O: IsA<DBusObject>> DBusObjectExt for O {
 
 impl fmt::Display for DBusObject {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "DBusObject")
+        f.write_str("DBusObject")
     }
 }

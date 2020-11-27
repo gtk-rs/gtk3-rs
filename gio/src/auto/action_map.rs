@@ -62,6 +62,6 @@ impl<O: IsA<ActionMap>> ActionMapExt for O {
 
 impl fmt::Display for ActionMap {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ActionMap")
+        f.write_str("ActionMap")
     }
 }

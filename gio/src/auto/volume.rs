@@ -352,6 +352,6 @@ impl<O: IsA<Volume>> VolumeExt for O {
 
 impl fmt::Display for Volume {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Volume")
+        f.write_str("Volume")
     }
 }

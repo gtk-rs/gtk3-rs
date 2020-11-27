@@ -531,6 +531,6 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
 
 impl fmt::Display for MenuBar {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "MenuBar")
+        f.write_str("MenuBar")
     }
 }

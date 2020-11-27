@@ -774,6 +774,6 @@ impl<O: IsA<Plug>> PlugExt for O {
 
 impl fmt::Display for Plug {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Plug")
+        f.write_str("Plug")
     }
 }

@@ -168,6 +168,6 @@ impl<O: IsA<Proxy>> ProxyExt for O {
 
 impl fmt::Display for Proxy {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Proxy")
+        f.write_str("Proxy")
     }
 }

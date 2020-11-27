@@ -734,6 +734,6 @@ impl<O: IsA<Scale>> ScaleExt for O {
 
 impl fmt::Display for Scale {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Scale")
+        f.write_str("Scale")
     }
 }

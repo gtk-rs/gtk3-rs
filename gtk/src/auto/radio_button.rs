@@ -565,6 +565,6 @@ impl<O: IsA<RadioButton>> RadioButtonExt for O {
 
 impl fmt::Display for RadioButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "RadioButton")
+        f.write_str("RadioButton")
     }
 }

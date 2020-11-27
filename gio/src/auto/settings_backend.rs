@@ -78,6 +78,6 @@ impl<O: IsA<SettingsBackend>> SettingsBackendExt for O {
 
 impl fmt::Display for SettingsBackend {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SettingsBackend")
+        f.write_str("SettingsBackend")
     }
 }

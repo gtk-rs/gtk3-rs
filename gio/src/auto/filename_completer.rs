@@ -97,6 +97,6 @@ impl<O: IsA<FilenameCompleter>> FilenameCompleterExt for O {
 
 impl fmt::Display for FilenameCompleter {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FilenameCompleter")
+        f.write_str("FilenameCompleter")
     }
 }

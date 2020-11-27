@@ -21,7 +21,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -1842,7 +1841,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
 
     fn get_property_default_height(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"default-height\0".as_ptr() as *const _,
@@ -1860,14 +1859,14 @@ impl<O: IsA<Window>> GtkWindowExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"default-height\0".as_ptr() as *const _,
-                Value::from(&default_height).to_glib_none().0,
+                glib::Value::from(&default_height).to_glib_none().0,
             );
         }
     }
 
     fn get_property_default_width(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"default-width\0".as_ptr() as *const _,
@@ -1885,14 +1884,14 @@ impl<O: IsA<Window>> GtkWindowExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"default-width\0".as_ptr() as *const _,
-                Value::from(&default_width).to_glib_none().0,
+                glib::Value::from(&default_width).to_glib_none().0,
             );
         }
     }
 
     fn get_property_has_toplevel_focus(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"has-toplevel-focus\0".as_ptr() as *const _,
@@ -1907,7 +1906,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
 
     fn get_property_is_active(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"is-active\0".as_ptr() as *const _,
@@ -1922,7 +1921,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
 
     fn get_property_is_maximized(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"is-maximized\0".as_ptr() as *const _,
@@ -1937,7 +1936,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
 
     fn get_property_type(&self) -> WindowType {
         unsafe {
-            let mut value = Value::from_type(<WindowType as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<WindowType as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"type\0".as_ptr() as *const _,
@@ -1952,7 +1951,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
 
     fn get_property_window_position(&self) -> WindowPosition {
         unsafe {
-            let mut value = Value::from_type(<WindowPosition as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<WindowPosition as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"window-position\0".as_ptr() as *const _,
@@ -1970,7 +1969,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"window-position\0".as_ptr() as *const _,
-                Value::from(&window_position).to_glib_none().0,
+                glib::Value::from(&window_position).to_glib_none().0,
             );
         }
     }
@@ -2902,6 +2901,6 @@ impl<O: IsA<Window>> GtkWindowExt for O {
 
 impl fmt::Display for Window {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Window")
+        f.write_str("Window")
     }
 }

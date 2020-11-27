@@ -114,6 +114,6 @@ impl DisplayManager {
 
 impl fmt::Display for DisplayManager {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "DisplayManager")
+        f.write_str("DisplayManager")
     }
 }

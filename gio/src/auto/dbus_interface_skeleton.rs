@@ -12,7 +12,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -169,7 +168,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
     fn get_property_g_flags(&self) -> DBusInterfaceSkeletonFlags {
         unsafe {
             let mut value =
-                Value::from_type(<DBusInterfaceSkeletonFlags as StaticType>::static_type());
+                glib::Value::from_type(<DBusInterfaceSkeletonFlags as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"g-flags\0".as_ptr() as *const _,
@@ -187,7 +186,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"g-flags\0".as_ptr() as *const _,
-                Value::from(&g_flags).to_glib_none().0,
+                glib::Value::from(&g_flags).to_glib_none().0,
             );
         }
     }
@@ -254,6 +253,6 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
 
 impl fmt::Display for DBusInterfaceSkeleton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "DBusInterfaceSkeleton")
+        f.write_str("DBusInterfaceSkeleton")
     }
 }

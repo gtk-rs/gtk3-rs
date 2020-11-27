@@ -436,6 +436,6 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
 
 impl fmt::Display for VolumeMonitor {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "VolumeMonitor")
+        f.write_str("VolumeMonitor")
     }
 }

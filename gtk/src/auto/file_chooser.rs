@@ -1204,6 +1204,6 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
 
 impl fmt::Display for FileChooser {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FileChooser")
+        f.write_str("FileChooser")
     }
 }

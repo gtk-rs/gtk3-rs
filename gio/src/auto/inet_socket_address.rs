@@ -79,6 +79,6 @@ impl<O: IsA<InetSocketAddress>> InetSocketAddressExt for O {
 
 impl fmt::Display for InetSocketAddress {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "InetSocketAddress")
+        f.write_str("InetSocketAddress")
     }
 }

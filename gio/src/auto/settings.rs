@@ -12,7 +12,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -585,7 +584,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn get_property_backend(&self) -> Option<SettingsBackend> {
         unsafe {
-            let mut value = Value::from_type(<SettingsBackend as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<SettingsBackend as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"backend\0".as_ptr() as *const _,
@@ -599,7 +598,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn get_property_delay_apply(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"delay-apply\0".as_ptr() as *const _,
@@ -614,7 +613,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn get_property_path(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"path\0".as_ptr() as *const _,
@@ -628,7 +627,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn get_property_schema_id(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"schema-id\0".as_ptr() as *const _,
@@ -642,7 +641,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn get_property_settings_schema(&self) -> Option<SettingsSchema> {
         unsafe {
-            let mut value = Value::from_type(<SettingsSchema as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<SettingsSchema as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"settings-schema\0".as_ptr() as *const _,
@@ -797,6 +796,6 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
 impl fmt::Display for Settings {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Settings")
+        f.write_str("Settings")
     }
 }

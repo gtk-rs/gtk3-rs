@@ -19,7 +19,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -916,7 +915,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_property_anchor_hints(&self) -> gdk::AnchorHints {
         unsafe {
-            let mut value = Value::from_type(<gdk::AnchorHints as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<gdk::AnchorHints as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"anchor-hints\0".as_ptr() as *const _,
@@ -936,7 +935,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"anchor-hints\0".as_ptr() as *const _,
-                Value::from(&anchor_hints).to_glib_none().0,
+                glib::Value::from(&anchor_hints).to_glib_none().0,
             );
         }
     }
@@ -946,7 +945,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"attach-widget\0".as_ptr() as *const _,
-                Value::from(attach_widget).to_glib_none().0,
+                glib::Value::from(attach_widget).to_glib_none().0,
             );
         }
     }
@@ -955,7 +954,8 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_property_menu_type_hint(&self) -> gdk::WindowTypeHint {
         unsafe {
-            let mut value = Value::from_type(<gdk::WindowTypeHint as StaticType>::static_type());
+            let mut value =
+                glib::Value::from_type(<gdk::WindowTypeHint as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"menu-type-hint\0".as_ptr() as *const _,
@@ -975,7 +975,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"menu-type-hint\0".as_ptr() as *const _,
-                Value::from(&menu_type_hint).to_glib_none().0,
+                glib::Value::from(&menu_type_hint).to_glib_none().0,
             );
         }
     }
@@ -984,7 +984,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_property_rect_anchor_dx(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"rect-anchor-dx\0".as_ptr() as *const _,
@@ -1004,7 +1004,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"rect-anchor-dx\0".as_ptr() as *const _,
-                Value::from(&rect_anchor_dx).to_glib_none().0,
+                glib::Value::from(&rect_anchor_dx).to_glib_none().0,
             );
         }
     }
@@ -1013,7 +1013,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn get_property_rect_anchor_dy(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"rect-anchor-dy\0".as_ptr() as *const _,
@@ -1033,14 +1033,14 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"rect-anchor-dy\0".as_ptr() as *const _,
-                Value::from(&rect_anchor_dy).to_glib_none().0,
+                glib::Value::from(&rect_anchor_dy).to_glib_none().0,
             );
         }
     }
 
     fn get_item_bottom_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -1060,14 +1060,14 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"bottom-attach\0".as_ptr() as *const _,
-                Value::from(&bottom_attach).to_glib_none().0,
+                glib::Value::from(&bottom_attach).to_glib_none().0,
             );
         }
     }
 
     fn get_item_left_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -1087,14 +1087,14 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"left-attach\0".as_ptr() as *const _,
-                Value::from(&left_attach).to_glib_none().0,
+                glib::Value::from(&left_attach).to_glib_none().0,
             );
         }
     }
 
     fn get_item_right_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -1114,14 +1114,14 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"right-attach\0".as_ptr() as *const _,
-                Value::from(&right_attach).to_glib_none().0,
+                glib::Value::from(&right_attach).to_glib_none().0,
             );
         }
     }
 
     fn get_item_top_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -1141,7 +1141,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"top-attach\0".as_ptr() as *const _,
-                Value::from(&top_attach).to_glib_none().0,
+                glib::Value::from(&top_attach).to_glib_none().0,
             );
         }
     }
@@ -1457,6 +1457,6 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
 impl fmt::Display for Menu {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Menu")
+        f.write_str("Menu")
     }
 }

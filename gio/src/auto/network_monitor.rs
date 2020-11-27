@@ -308,6 +308,6 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
 
 impl fmt::Display for NetworkMonitor {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "NetworkMonitor")
+        f.write_str("NetworkMonitor")
     }
 }

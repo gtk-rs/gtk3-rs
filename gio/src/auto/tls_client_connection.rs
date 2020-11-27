@@ -264,6 +264,6 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
 
 impl fmt::Display for TlsClientConnection {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "TlsClientConnection")
+        f.write_str("TlsClientConnection")
     }
 }

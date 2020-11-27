@@ -44,6 +44,6 @@ impl<O: IsA<GObjectAccessible>> GObjectAccessibleExt for O {
 
 impl fmt::Display for GObjectAccessible {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "GObjectAccessible")
+        f.write_str("GObjectAccessible")
     }
 }

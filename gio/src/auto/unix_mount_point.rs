@@ -161,6 +161,8 @@ impl UnixMountPoint {
     }
 }
 
+#[cfg(any(feature = "v2_54", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
 impl PartialEq for UnixMountPoint {
     #[inline]
     fn eq(&self, other: &Self) -> bool {
@@ -170,6 +172,8 @@ impl PartialEq for UnixMountPoint {
 
 impl Eq for UnixMountPoint {}
 
+#[cfg(any(feature = "v2_54", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
 impl PartialOrd for UnixMountPoint {
     #[inline]
     fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {

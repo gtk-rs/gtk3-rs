@@ -20,7 +20,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -670,7 +669,7 @@ pub trait ShortcutsWindowExt: 'static {
 impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
     fn get_property_section_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"section-name\0".as_ptr() as *const _,
@@ -687,14 +686,14 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"section-name\0".as_ptr() as *const _,
-                Value::from(section_name).to_glib_none().0,
+                glib::Value::from(section_name).to_glib_none().0,
             );
         }
     }
 
     fn get_property_view_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"view-name\0".as_ptr() as *const _,
@@ -711,7 +710,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"view-name\0".as_ptr() as *const _,
-                Value::from(view_name).to_glib_none().0,
+                glib::Value::from(view_name).to_glib_none().0,
             );
         }
     }
@@ -832,6 +831,6 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
 
 impl fmt::Display for ShortcutsWindow {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ShortcutsWindow")
+        f.write_str("ShortcutsWindow")
     }
 }

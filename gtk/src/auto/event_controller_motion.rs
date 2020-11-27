@@ -119,6 +119,6 @@ impl EventControllerMotion {
 
 impl fmt::Display for EventControllerMotion {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "EventControllerMotion")
+        f.write_str("EventControllerMotion")
     }
 }

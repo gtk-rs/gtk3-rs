@@ -872,6 +872,6 @@ impl<O: IsA<Popover>> PopoverExt for O {
 
 impl fmt::Display for Popover {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Popover")
+        f.write_str("Popover")
     }
 }

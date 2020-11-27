@@ -308,6 +308,6 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
 
 impl fmt::Display for ActionGroup {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ActionGroup")
+        f.write_str("ActionGroup")
     }
 }

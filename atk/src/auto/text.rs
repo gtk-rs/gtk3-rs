@@ -492,6 +492,6 @@ impl<O: IsA<Text>> TextExt for O {
 
 impl fmt::Display for Text {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Text")
+        f.write_str("Text")
     }
 }

@@ -21,7 +21,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -948,7 +947,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
 
     fn get_property_use_header_bar(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"use-header-bar\0".as_ptr() as *const _,
@@ -963,7 +962,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
 
     fn get_child_complete<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -983,14 +982,14 @@ impl<O: IsA<Assistant>> AssistantExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"complete\0".as_ptr() as *const _,
-                Value::from(&complete).to_glib_none().0,
+                glib::Value::from(&complete).to_glib_none().0,
             );
         }
     }
 
     fn get_child_has_padding<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -1010,14 +1009,15 @@ impl<O: IsA<Assistant>> AssistantExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"has-padding\0".as_ptr() as *const _,
-                Value::from(&has_padding).to_glib_none().0,
+                glib::Value::from(&has_padding).to_glib_none().0,
             );
         }
     }
 
     fn get_child_page_type<T: IsA<Widget>>(&self, item: &T) -> AssistantPageType {
         unsafe {
-            let mut value = Value::from_type(<AssistantPageType as StaticType>::static_type());
+            let mut value =
+                glib::Value::from_type(<AssistantPageType as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -1037,14 +1037,14 @@ impl<O: IsA<Assistant>> AssistantExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"page-type\0".as_ptr() as *const _,
-                Value::from(&page_type).to_glib_none().0,
+                glib::Value::from(&page_type).to_glib_none().0,
             );
         }
     }
 
     fn get_child_title<T: IsA<Widget>>(&self, item: &T) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -1063,7 +1063,7 @@ impl<O: IsA<Assistant>> AssistantExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"title\0".as_ptr() as *const _,
-                Value::from(title).to_glib_none().0,
+                glib::Value::from(title).to_glib_none().0,
             );
         }
     }
@@ -1198,6 +1198,6 @@ impl<O: IsA<Assistant>> AssistantExt for O {
 
 impl fmt::Display for Assistant {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Assistant")
+        f.write_str("Assistant")
     }
 }

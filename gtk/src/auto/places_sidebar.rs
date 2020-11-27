@@ -22,7 +22,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -261,7 +260,7 @@ impl PlacesSidebar {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
     pub fn get_property_populate_all(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"populate-all\0".as_ptr() as *const _,
@@ -281,14 +280,14 @@ impl PlacesSidebar {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"populate-all\0".as_ptr() as *const _,
-                Value::from(&populate_all).to_glib_none().0,
+                glib::Value::from(&populate_all).to_glib_none().0,
             );
         }
     }
 
     pub fn get_property_show_other_locations(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"show-other-locations\0".as_ptr() as *const _,
@@ -306,14 +305,14 @@ impl PlacesSidebar {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"show-other-locations\0".as_ptr() as *const _,
-                Value::from(&show_other_locations).to_glib_none().0,
+                glib::Value::from(&show_other_locations).to_glib_none().0,
             );
         }
     }
 
     pub fn get_property_show_recent(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"show-recent\0".as_ptr() as *const _,
@@ -331,14 +330,14 @@ impl PlacesSidebar {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"show-recent\0".as_ptr() as *const _,
-                Value::from(&show_recent).to_glib_none().0,
+                glib::Value::from(&show_recent).to_glib_none().0,
             );
         }
     }
 
     pub fn get_property_show_trash(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"show-trash\0".as_ptr() as *const _,
@@ -356,7 +355,7 @@ impl PlacesSidebar {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"show-trash\0".as_ptr() as *const _,
-                Value::from(&show_trash).to_glib_none().0,
+                glib::Value::from(&show_trash).to_glib_none().0,
             );
         }
     }
@@ -1545,6 +1544,6 @@ impl PlacesSidebarBuilder {
 
 impl fmt::Display for PlacesSidebar {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "PlacesSidebar")
+        f.write_str("PlacesSidebar")
     }
 }

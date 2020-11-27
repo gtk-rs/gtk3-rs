@@ -183,6 +183,6 @@ impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
 
 impl fmt::Display for ApplicationCommandLine {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ApplicationCommandLine")
+        f.write_str("ApplicationCommandLine")
     }
 }

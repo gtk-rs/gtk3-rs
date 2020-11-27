@@ -17,6 +17,6 @@ impl X11Visual {}
 
 impl fmt::Display for X11Visual {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "X11Visual")
+        f.write_str("X11Visual")
     }
 }

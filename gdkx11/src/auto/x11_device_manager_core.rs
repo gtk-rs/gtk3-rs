@@ -19,6 +19,6 @@ pub const NONE_X11_DEVICE_MANAGER_CORE: Option<&X11DeviceManagerCore> = None;
 
 impl fmt::Display for X11DeviceManagerCore {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "X11DeviceManagerCore")
+        f.write_str("X11DeviceManagerCore")
     }
 }

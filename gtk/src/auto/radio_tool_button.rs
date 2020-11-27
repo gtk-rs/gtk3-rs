@@ -496,6 +496,6 @@ impl<O: IsA<RadioToolButton>> RadioToolButtonExt for O {
 
 impl fmt::Display for RadioToolButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "RadioToolButton")
+        f.write_str("RadioToolButton")
     }
 }

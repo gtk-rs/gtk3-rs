@@ -170,6 +170,6 @@ impl<O: IsA<Value>> ValueExt for O {
 
 impl fmt::Display for Value {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Value")
+        f.write_str("Value")
     }
 }

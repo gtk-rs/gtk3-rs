@@ -58,6 +58,6 @@ impl<O: IsA<MemoryInputStream>> MemoryInputStreamExt for O {
 
 impl fmt::Display for MemoryInputStream {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "MemoryInputStream")
+        f.write_str("MemoryInputStream")
     }
 }

@@ -26,6 +26,6 @@ impl SimplePermission {
 
 impl fmt::Display for SimplePermission {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SimplePermission")
+        f.write_str("SimplePermission")
     }
 }

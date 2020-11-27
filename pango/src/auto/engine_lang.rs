@@ -19,6 +19,6 @@ pub const NONE_ENGINE_LANG: Option<&EngineLang> = None;
 
 impl fmt::Display for EngineLang {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "EngineLang")
+        f.write_str("EngineLang")
     }
 }

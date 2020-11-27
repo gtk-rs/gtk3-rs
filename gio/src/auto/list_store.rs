@@ -177,6 +177,6 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
 
 impl fmt::Display for ListStore {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ListStore")
+        f.write_str("ListStore")
     }
 }

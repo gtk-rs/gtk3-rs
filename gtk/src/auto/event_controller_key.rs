@@ -233,6 +233,6 @@ impl EventControllerKey {
 
 impl fmt::Display for EventControllerKey {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "EventControllerKey")
+        f.write_str("EventControllerKey")
     }
 }

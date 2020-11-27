@@ -128,6 +128,6 @@ impl<O: IsA<StateSet>> StateSetExt for O {
 
 impl fmt::Display for StateSet {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "StateSet")
+        f.write_str("StateSet")
     }
 }

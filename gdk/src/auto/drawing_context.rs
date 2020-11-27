@@ -48,6 +48,6 @@ impl DrawingContext {
 
 impl fmt::Display for DrawingContext {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "DrawingContext")
+        f.write_str("DrawingContext")
     }
 }

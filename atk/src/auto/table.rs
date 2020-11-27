@@ -469,6 +469,6 @@ impl<O: IsA<Table>> TableExt for O {
 
 impl fmt::Display for Table {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Table")
+        f.write_str("Table")
     }
 }

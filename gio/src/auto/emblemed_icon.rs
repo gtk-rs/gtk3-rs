@@ -7,7 +7,6 @@ use crate::Icon;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
-use glib::Value;
 use std::fmt;
 
 glib::glib_wrapper! {
@@ -77,7 +76,7 @@ impl<O: IsA<EmblemedIcon>> EmblemedIconExt for O {
 
     fn get_property_gicon(&self) -> Option<Icon> {
         unsafe {
-            let mut value = Value::from_type(<Icon as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<Icon as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gicon\0".as_ptr() as *const _,
@@ -92,6 +91,6 @@ impl<O: IsA<EmblemedIcon>> EmblemedIconExt for O {
 
 impl fmt::Display for EmblemedIcon {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "EmblemedIcon")
+        f.write_str("EmblemedIcon")
     }
 }

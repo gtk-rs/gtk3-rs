@@ -327,6 +327,6 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
 
 impl fmt::Display for DesktopAppInfo {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "DesktopAppInfo")
+        f.write_str("DesktopAppInfo")
     }
 }

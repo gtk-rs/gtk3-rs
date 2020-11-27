@@ -17,6 +17,6 @@ impl X11DisplayManager {}
 
 impl fmt::Display for X11DisplayManager {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "X11DisplayManager")
+        f.write_str("X11DisplayManager")
     }
 }

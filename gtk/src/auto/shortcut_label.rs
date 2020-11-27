@@ -554,6 +554,6 @@ impl ShortcutLabelBuilder {
 
 impl fmt::Display for ShortcutLabel {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ShortcutLabel")
+        f.write_str("ShortcutLabel")
     }
 }

@@ -301,6 +301,6 @@ impl<O: IsA<Permission>> PermissionExt for O {
 
 impl fmt::Display for Permission {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Permission")
+        f.write_str("Permission")
     }
 }

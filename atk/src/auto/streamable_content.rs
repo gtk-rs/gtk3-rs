@@ -56,6 +56,6 @@ impl<O: IsA<StreamableContent>> StreamableContentExt for O {
 
 impl fmt::Display for StreamableContent {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "StreamableContent")
+        f.write_str("StreamableContent")
     }
 }

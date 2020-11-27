@@ -18,7 +18,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -687,7 +686,7 @@ impl<O: IsA<Grid>> GridExt for O {
 
     fn get_cell_height<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -707,14 +706,14 @@ impl<O: IsA<Grid>> GridExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"height\0".as_ptr() as *const _,
-                Value::from(&height).to_glib_none().0,
+                glib::Value::from(&height).to_glib_none().0,
             );
         }
     }
 
     fn get_cell_width<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -734,14 +733,14 @@ impl<O: IsA<Grid>> GridExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"width\0".as_ptr() as *const _,
-                Value::from(&width).to_glib_none().0,
+                glib::Value::from(&width).to_glib_none().0,
             );
         }
     }
 
     fn get_cell_left_attach<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -761,14 +760,14 @@ impl<O: IsA<Grid>> GridExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"left-attach\0".as_ptr() as *const _,
-                Value::from(&left_attach).to_glib_none().0,
+                glib::Value::from(&left_attach).to_glib_none().0,
             );
         }
     }
 
     fn get_cell_top_attach<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -788,7 +787,7 @@ impl<O: IsA<Grid>> GridExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"top-attach\0".as_ptr() as *const _,
-                Value::from(&top_attach).to_glib_none().0,
+                glib::Value::from(&top_attach).to_glib_none().0,
             );
         }
     }
@@ -928,6 +927,6 @@ impl<O: IsA<Grid>> GridExt for O {
 
 impl fmt::Display for Grid {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Grid")
+        f.write_str("Grid")
     }
 }

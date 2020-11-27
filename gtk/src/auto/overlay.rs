@@ -13,7 +13,6 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::fmt;
 
 glib::glib_wrapper! {
@@ -447,7 +446,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
 
     fn get_child_index<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -467,7 +466,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"index\0".as_ptr() as *const _,
-                Value::from(&index).to_glib_none().0,
+                glib::Value::from(&index).to_glib_none().0,
             );
         }
     }
@@ -479,6 +478,6 @@ impl<O: IsA<Overlay>> OverlayExt for O {
 
 impl fmt::Display for Overlay {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Overlay")
+        f.write_str("Overlay")
     }
 }

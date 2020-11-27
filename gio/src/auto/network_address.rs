@@ -94,6 +94,6 @@ impl<O: IsA<NetworkAddress>> NetworkAddressExt for O {
 
 impl fmt::Display for NetworkAddress {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "NetworkAddress")
+        f.write_str("NetworkAddress")
     }
 }

@@ -57,6 +57,6 @@ impl<O: IsA<Registry>> RegistryExt for O {
 
 impl fmt::Display for Registry {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Registry")
+        f.write_str("Registry")
     }
 }

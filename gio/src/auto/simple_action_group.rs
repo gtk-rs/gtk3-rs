@@ -31,6 +31,6 @@ pub const NONE_SIMPLE_ACTION_GROUP: Option<&SimpleActionGroup> = None;
 
 impl fmt::Display for SimpleActionGroup {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SimpleActionGroup")
+        f.write_str("SimpleActionGroup")
     }
 }

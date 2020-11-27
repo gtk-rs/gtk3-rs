@@ -736,6 +736,6 @@ pub const NONE_RECENT_CHOOSER_DIALOG: Option<&RecentChooserDialog> = None;
 
 impl fmt::Display for RecentChooserDialog {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "RecentChooserDialog")
+        f.write_str("RecentChooserDialog")
     }
 }

@@ -18,7 +18,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -599,7 +598,7 @@ impl<O: IsA<Paned>> PanedExt for O {
 
     fn get_property_max_position(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"max-position\0".as_ptr() as *const _,
@@ -614,7 +613,7 @@ impl<O: IsA<Paned>> PanedExt for O {
 
     fn get_property_min_position(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"min-position\0".as_ptr() as *const _,
@@ -629,7 +628,7 @@ impl<O: IsA<Paned>> PanedExt for O {
 
     fn get_property_position_set(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"position-set\0".as_ptr() as *const _,
@@ -647,14 +646,14 @@ impl<O: IsA<Paned>> PanedExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"position-set\0".as_ptr() as *const _,
-                Value::from(&position_set).to_glib_none().0,
+                glib::Value::from(&position_set).to_glib_none().0,
             );
         }
     }
 
     fn get_child_resize<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -674,14 +673,14 @@ impl<O: IsA<Paned>> PanedExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"resize\0".as_ptr() as *const _,
-                Value::from(&resize).to_glib_none().0,
+                glib::Value::from(&resize).to_glib_none().0,
             );
         }
     }
 
     fn get_child_shrink<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -701,7 +700,7 @@ impl<O: IsA<Paned>> PanedExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"shrink\0".as_ptr() as *const _,
-                Value::from(&shrink).to_glib_none().0,
+                glib::Value::from(&shrink).to_glib_none().0,
             );
         }
     }
@@ -1080,6 +1079,6 @@ impl<O: IsA<Paned>> PanedExt for O {
 
 impl fmt::Display for Paned {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Paned")
+        f.write_str("Paned")
     }
 }

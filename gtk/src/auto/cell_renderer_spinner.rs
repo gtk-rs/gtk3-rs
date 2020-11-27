@@ -12,7 +12,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -235,7 +234,7 @@ pub trait CellRendererSpinnerExt: 'static {
 impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
     fn get_property_active(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"active\0".as_ptr() as *const _,
@@ -253,14 +252,14 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"active\0".as_ptr() as *const _,
-                Value::from(&active).to_glib_none().0,
+                glib::Value::from(&active).to_glib_none().0,
             );
         }
     }
 
     fn get_property_pulse(&self) -> u32 {
         unsafe {
-            let mut value = Value::from_type(<u32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pulse\0".as_ptr() as *const _,
@@ -278,14 +277,14 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pulse\0".as_ptr() as *const _,
-                Value::from(&pulse).to_glib_none().0,
+                glib::Value::from(&pulse).to_glib_none().0,
             );
         }
     }
 
     fn get_property_size(&self) -> IconSize {
         unsafe {
-            let mut value = Value::from_type(<IconSize as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<IconSize as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"size\0".as_ptr() as *const _,
@@ -303,7 +302,7 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"size\0".as_ptr() as *const _,
-                Value::from(&size).to_glib_none().0,
+                glib::Value::from(&size).to_glib_none().0,
             );
         }
     }
@@ -383,6 +382,6 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
 
 impl fmt::Display for CellRendererSpinner {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "CellRendererSpinner")
+        f.write_str("CellRendererSpinner")
     }
 }

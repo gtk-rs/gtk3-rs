@@ -47,6 +47,6 @@ impl AppInfoMonitor {
 
 impl fmt::Display for AppInfoMonitor {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "AppInfoMonitor")
+        f.write_str("AppInfoMonitor")
     }
 }

@@ -193,6 +193,6 @@ impl<O: IsA<TextTagTable>> TextTagTableExt for O {
 
 impl fmt::Display for TextTagTable {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "TextTagTable")
+        f.write_str("TextTagTable")
     }
 }

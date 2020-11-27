@@ -19,7 +19,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -568,7 +567,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
 
     fn get_property_direction(&self) -> TextDirection {
         unsafe {
-            let mut value = Value::from_type(<TextDirection as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<TextDirection as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"direction\0".as_ptr() as *const _,
@@ -586,14 +585,14 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"direction\0".as_ptr() as *const _,
-                Value::from(&direction).to_glib_none().0,
+                glib::Value::from(&direction).to_glib_none().0,
             );
         }
     }
 
     fn get_property_paint_clock(&self) -> Option<gdk::FrameClock> {
         unsafe {
-            let mut value = Value::from_type(<gdk::FrameClock as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<gdk::FrameClock as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"paint-clock\0".as_ptr() as *const _,
@@ -610,7 +609,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"paint-clock\0".as_ptr() as *const _,
-                Value::from(paint_clock).to_glib_none().0,
+                glib::Value::from(paint_clock).to_glib_none().0,
             );
         }
     }
@@ -737,6 +736,6 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
 
 impl fmt::Display for StyleContext {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "StyleContext")
+        f.write_str("StyleContext")
     }
 }

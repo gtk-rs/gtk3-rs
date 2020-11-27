@@ -33,6 +33,6 @@ impl DBusMenuModel {
 
 impl fmt::Display for DBusMenuModel {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "DBusMenuModel")
+        f.write_str("DBusMenuModel")
     }
 }

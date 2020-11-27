@@ -183,6 +183,6 @@ impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
 
 impl fmt::Display for AppLaunchContext {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "AppLaunchContext")
+        f.write_str("AppLaunchContext")
     }
 }

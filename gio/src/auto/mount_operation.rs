@@ -666,6 +666,6 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
 
 impl fmt::Display for MountOperation {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "MountOperation")
+        f.write_str("MountOperation")
     }
 }

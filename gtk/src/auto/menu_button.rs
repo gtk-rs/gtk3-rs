@@ -831,6 +831,6 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
 
 impl fmt::Display for MenuButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "MenuButton")
+        f.write_str("MenuButton")
     }
 }

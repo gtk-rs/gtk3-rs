@@ -42,6 +42,6 @@ pub const NONE_NO_OP_OBJECT: Option<&NoOpObject> = None;
 
 impl fmt::Display for NoOpObject {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "NoOpObject")
+        f.write_str("NoOpObject")
     }
 }

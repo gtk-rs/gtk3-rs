@@ -101,6 +101,6 @@ impl X11Window {
 
 impl fmt::Display for X11Window {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "X11Window")
+        f.write_str("X11Window")
     }
 }

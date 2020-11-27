@@ -14,7 +14,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -691,7 +690,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
     fn get_property_day(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"day\0".as_ptr() as *const _,
@@ -709,14 +708,14 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"day\0".as_ptr() as *const _,
-                Value::from(&day).to_glib_none().0,
+                glib::Value::from(&day).to_glib_none().0,
             );
         }
     }
 
     fn get_property_month(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"month\0".as_ptr() as *const _,
@@ -734,14 +733,14 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"month\0".as_ptr() as *const _,
-                Value::from(&month).to_glib_none().0,
+                glib::Value::from(&month).to_glib_none().0,
             );
         }
     }
 
     fn get_property_no_month_change(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"no-month-change\0".as_ptr() as *const _,
@@ -759,14 +758,14 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"no-month-change\0".as_ptr() as *const _,
-                Value::from(&no_month_change).to_glib_none().0,
+                glib::Value::from(&no_month_change).to_glib_none().0,
             );
         }
     }
 
     fn get_property_show_day_names(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-day-names\0".as_ptr() as *const _,
@@ -784,14 +783,14 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-day-names\0".as_ptr() as *const _,
-                Value::from(&show_day_names).to_glib_none().0,
+                glib::Value::from(&show_day_names).to_glib_none().0,
             );
         }
     }
 
     fn get_property_show_details(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-details\0".as_ptr() as *const _,
@@ -809,14 +808,14 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-details\0".as_ptr() as *const _,
-                Value::from(&show_details).to_glib_none().0,
+                glib::Value::from(&show_details).to_glib_none().0,
             );
         }
     }
 
     fn get_property_show_heading(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-heading\0".as_ptr() as *const _,
@@ -834,14 +833,14 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-heading\0".as_ptr() as *const _,
-                Value::from(&show_heading).to_glib_none().0,
+                glib::Value::from(&show_heading).to_glib_none().0,
             );
         }
     }
 
     fn get_property_show_week_numbers(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-week-numbers\0".as_ptr() as *const _,
@@ -859,14 +858,14 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-week-numbers\0".as_ptr() as *const _,
-                Value::from(&show_week_numbers).to_glib_none().0,
+                glib::Value::from(&show_week_numbers).to_glib_none().0,
             );
         }
     }
 
     fn get_property_year(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"year\0".as_ptr() as *const _,
@@ -884,7 +883,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"year\0".as_ptr() as *const _,
-                Value::from(&year).to_glib_none().0,
+                glib::Value::from(&year).to_glib_none().0,
             );
         }
     }
@@ -1314,6 +1313,6 @@ impl<O: IsA<Calendar>> CalendarExt for O {
 
 impl fmt::Display for Calendar {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Calendar")
+        f.write_str("Calendar")
     }
 }

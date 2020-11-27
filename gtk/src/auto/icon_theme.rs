@@ -369,6 +369,6 @@ impl<O: IsA<IconTheme>> IconThemeExt for O {
 
 impl fmt::Display for IconTheme {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "IconTheme")
+        f.write_str("IconTheme")
     }
 }

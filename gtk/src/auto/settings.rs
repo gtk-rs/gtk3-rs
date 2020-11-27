@@ -9,7 +9,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -574,7 +573,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn get_property_gtk_alternative_button_order(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-alternative-button-order\0".as_ptr() as *const _,
@@ -592,14 +591,16 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-alternative-button-order\0".as_ptr() as *const _,
-                Value::from(&gtk_alternative_button_order).to_glib_none().0,
+                glib::Value::from(&gtk_alternative_button_order)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_gtk_alternative_sort_arrows(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-alternative-sort-arrows\0".as_ptr() as *const _,
@@ -617,14 +618,16 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-alternative-sort-arrows\0".as_ptr() as *const _,
-                Value::from(&gtk_alternative_sort_arrows).to_glib_none().0,
+                glib::Value::from(&gtk_alternative_sort_arrows)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_gtk_application_prefer_dark_theme(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-application-prefer-dark-theme\0".as_ptr() as *const _,
@@ -645,7 +648,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-application-prefer-dark-theme\0".as_ptr() as *const _,
-                Value::from(&gtk_application_prefer_dark_theme)
+                glib::Value::from(&gtk_application_prefer_dark_theme)
                     .to_glib_none()
                     .0,
             );
@@ -656,7 +659,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     fn get_property_gtk_cursor_aspect_ratio(&self) -> f32 {
         unsafe {
-            let mut value = Value::from_type(<f32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<f32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-cursor-aspect-ratio\0".as_ptr() as *const _,
@@ -676,14 +679,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-cursor-aspect-ratio\0".as_ptr() as *const _,
-                Value::from(&gtk_cursor_aspect_ratio).to_glib_none().0,
+                glib::Value::from(&gtk_cursor_aspect_ratio).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_cursor_blink(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-cursor-blink\0".as_ptr() as *const _,
@@ -701,14 +704,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-cursor-blink\0".as_ptr() as *const _,
-                Value::from(&gtk_cursor_blink).to_glib_none().0,
+                glib::Value::from(&gtk_cursor_blink).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_cursor_blink_time(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-cursor-blink-time\0".as_ptr() as *const _,
@@ -726,14 +729,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-cursor-blink-time\0".as_ptr() as *const _,
-                Value::from(&gtk_cursor_blink_time).to_glib_none().0,
+                glib::Value::from(&gtk_cursor_blink_time).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_cursor_blink_timeout(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-cursor-blink-timeout\0".as_ptr() as *const _,
@@ -751,14 +754,16 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-cursor-blink-timeout\0".as_ptr() as *const _,
-                Value::from(&gtk_cursor_blink_timeout).to_glib_none().0,
+                glib::Value::from(&gtk_cursor_blink_timeout)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_gtk_cursor_theme_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-cursor-theme-name\0".as_ptr() as *const _,
@@ -775,14 +780,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-cursor-theme-name\0".as_ptr() as *const _,
-                Value::from(gtk_cursor_theme_name).to_glib_none().0,
+                glib::Value::from(gtk_cursor_theme_name).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_cursor_theme_size(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-cursor-theme-size\0".as_ptr() as *const _,
@@ -800,14 +805,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-cursor-theme-size\0".as_ptr() as *const _,
-                Value::from(&gtk_cursor_theme_size).to_glib_none().0,
+                glib::Value::from(&gtk_cursor_theme_size).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_decoration_layout(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-decoration-layout\0".as_ptr() as *const _,
@@ -824,14 +829,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-decoration-layout\0".as_ptr() as *const _,
-                Value::from(gtk_decoration_layout).to_glib_none().0,
+                glib::Value::from(gtk_decoration_layout).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_dialogs_use_header(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-dialogs-use-header\0".as_ptr() as *const _,
@@ -849,14 +854,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-dialogs-use-header\0".as_ptr() as *const _,
-                Value::from(&gtk_dialogs_use_header).to_glib_none().0,
+                glib::Value::from(&gtk_dialogs_use_header).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_dnd_drag_threshold(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-dnd-drag-threshold\0".as_ptr() as *const _,
@@ -874,14 +879,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-dnd-drag-threshold\0".as_ptr() as *const _,
-                Value::from(&gtk_dnd_drag_threshold).to_glib_none().0,
+                glib::Value::from(&gtk_dnd_drag_threshold).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_double_click_distance(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-double-click-distance\0".as_ptr() as *const _,
@@ -899,14 +904,16 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-double-click-distance\0".as_ptr() as *const _,
-                Value::from(&gtk_double_click_distance).to_glib_none().0,
+                glib::Value::from(&gtk_double_click_distance)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_gtk_double_click_time(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-double-click-time\0".as_ptr() as *const _,
@@ -924,14 +931,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-double-click-time\0".as_ptr() as *const _,
-                Value::from(&gtk_double_click_time).to_glib_none().0,
+                glib::Value::from(&gtk_double_click_time).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_enable_accels(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-enable-accels\0".as_ptr() as *const _,
@@ -949,14 +956,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-enable-accels\0".as_ptr() as *const _,
-                Value::from(&gtk_enable_accels).to_glib_none().0,
+                glib::Value::from(&gtk_enable_accels).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_enable_animations(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-enable-animations\0".as_ptr() as *const _,
@@ -974,14 +981,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-enable-animations\0".as_ptr() as *const _,
-                Value::from(&gtk_enable_animations).to_glib_none().0,
+                glib::Value::from(&gtk_enable_animations).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_enable_event_sounds(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-enable-event-sounds\0".as_ptr() as *const _,
@@ -999,14 +1006,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-enable-event-sounds\0".as_ptr() as *const _,
-                Value::from(&gtk_enable_event_sounds).to_glib_none().0,
+                glib::Value::from(&gtk_enable_event_sounds).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_enable_input_feedback_sounds(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-enable-input-feedback-sounds\0".as_ptr() as *const _,
@@ -1027,7 +1034,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-enable-input-feedback-sounds\0".as_ptr() as *const _,
-                Value::from(&gtk_enable_input_feedback_sounds)
+                glib::Value::from(&gtk_enable_input_feedback_sounds)
                     .to_glib_none()
                     .0,
             );
@@ -1036,7 +1043,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn get_property_gtk_enable_primary_paste(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-enable-primary-paste\0".as_ptr() as *const _,
@@ -1054,14 +1061,16 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-enable-primary-paste\0".as_ptr() as *const _,
-                Value::from(&gtk_enable_primary_paste).to_glib_none().0,
+                glib::Value::from(&gtk_enable_primary_paste)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_gtk_entry_password_hint_timeout(&self) -> u32 {
         unsafe {
-            let mut value = Value::from_type(<u32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-entry-password-hint-timeout\0".as_ptr() as *const _,
@@ -1079,7 +1088,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-entry-password-hint-timeout\0".as_ptr() as *const _,
-                Value::from(&gtk_entry_password_hint_timeout)
+                glib::Value::from(&gtk_entry_password_hint_timeout)
                     .to_glib_none()
                     .0,
             );
@@ -1088,7 +1097,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn get_property_gtk_entry_select_on_focus(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-entry-select-on-focus\0".as_ptr() as *const _,
@@ -1106,14 +1115,16 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-entry-select-on-focus\0".as_ptr() as *const _,
-                Value::from(&gtk_entry_select_on_focus).to_glib_none().0,
+                glib::Value::from(&gtk_entry_select_on_focus)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_gtk_error_bell(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-error-bell\0".as_ptr() as *const _,
@@ -1131,14 +1142,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-error-bell\0".as_ptr() as *const _,
-                Value::from(&gtk_error_bell).to_glib_none().0,
+                glib::Value::from(&gtk_error_bell).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_font_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-font-name\0".as_ptr() as *const _,
@@ -1155,14 +1166,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-font-name\0".as_ptr() as *const _,
-                Value::from(gtk_font_name).to_glib_none().0,
+                glib::Value::from(gtk_font_name).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_fontconfig_timestamp(&self) -> u32 {
         unsafe {
-            let mut value = Value::from_type(<u32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-fontconfig-timestamp\0".as_ptr() as *const _,
@@ -1180,14 +1191,16 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-fontconfig-timestamp\0".as_ptr() as *const _,
-                Value::from(&gtk_fontconfig_timestamp).to_glib_none().0,
+                glib::Value::from(&gtk_fontconfig_timestamp)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_gtk_icon_theme_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-icon-theme-name\0".as_ptr() as *const _,
@@ -1204,14 +1217,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-icon-theme-name\0".as_ptr() as *const _,
-                Value::from(gtk_icon_theme_name).to_glib_none().0,
+                glib::Value::from(gtk_icon_theme_name).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_im_module(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-im-module\0".as_ptr() as *const _,
@@ -1228,14 +1241,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-im-module\0".as_ptr() as *const _,
-                Value::from(gtk_im_module).to_glib_none().0,
+                glib::Value::from(gtk_im_module).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_key_theme_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-key-theme-name\0".as_ptr() as *const _,
@@ -1252,7 +1265,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-key-theme-name\0".as_ptr() as *const _,
-                Value::from(gtk_key_theme_name).to_glib_none().0,
+                glib::Value::from(gtk_key_theme_name).to_glib_none().0,
             );
         }
     }
@@ -1261,7 +1274,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_property_gtk_keynav_use_caret(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-keynav-use-caret\0".as_ptr() as *const _,
@@ -1281,14 +1294,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-keynav-use-caret\0".as_ptr() as *const _,
-                Value::from(&gtk_keynav_use_caret).to_glib_none().0,
+                glib::Value::from(&gtk_keynav_use_caret).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_label_select_on_focus(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-label-select-on-focus\0".as_ptr() as *const _,
@@ -1306,14 +1319,16 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-label-select-on-focus\0".as_ptr() as *const _,
-                Value::from(&gtk_label_select_on_focus).to_glib_none().0,
+                glib::Value::from(&gtk_label_select_on_focus)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_gtk_long_press_time(&self) -> u32 {
         unsafe {
-            let mut value = Value::from_type(<u32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-long-press-time\0".as_ptr() as *const _,
@@ -1331,14 +1346,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-long-press-time\0".as_ptr() as *const _,
-                Value::from(&gtk_long_press_time).to_glib_none().0,
+                glib::Value::from(&gtk_long_press_time).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_modules(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-modules\0".as_ptr() as *const _,
@@ -1355,7 +1370,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-modules\0".as_ptr() as *const _,
-                Value::from(gtk_modules).to_glib_none().0,
+                glib::Value::from(gtk_modules).to_glib_none().0,
             );
         }
     }
@@ -1364,7 +1379,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_9")))]
     fn get_property_gtk_overlay_scrolling(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-overlay-scrolling\0".as_ptr() as *const _,
@@ -1384,14 +1399,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-overlay-scrolling\0".as_ptr() as *const _,
-                Value::from(&gtk_overlay_scrolling).to_glib_none().0,
+                glib::Value::from(&gtk_overlay_scrolling).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_primary_button_warps_slider(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-primary-button-warps-slider\0".as_ptr() as *const _,
@@ -1409,7 +1424,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-primary-button-warps-slider\0".as_ptr() as *const _,
-                Value::from(&gtk_primary_button_warps_slider)
+                glib::Value::from(&gtk_primary_button_warps_slider)
                     .to_glib_none()
                     .0,
             );
@@ -1418,7 +1433,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn get_property_gtk_print_backends(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-print-backends\0".as_ptr() as *const _,
@@ -1435,14 +1450,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-print-backends\0".as_ptr() as *const _,
-                Value::from(gtk_print_backends).to_glib_none().0,
+                glib::Value::from(gtk_print_backends).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_print_preview_command(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-print-preview-command\0".as_ptr() as *const _,
@@ -1459,14 +1474,16 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-print-preview-command\0".as_ptr() as *const _,
-                Value::from(gtk_print_preview_command).to_glib_none().0,
+                glib::Value::from(gtk_print_preview_command)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_gtk_recent_files_enabled(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-recent-files-enabled\0".as_ptr() as *const _,
@@ -1484,14 +1501,16 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-recent-files-enabled\0".as_ptr() as *const _,
-                Value::from(&gtk_recent_files_enabled).to_glib_none().0,
+                glib::Value::from(&gtk_recent_files_enabled)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_gtk_recent_files_max_age(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-recent-files-max-age\0".as_ptr() as *const _,
@@ -1509,14 +1528,16 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-recent-files-max-age\0".as_ptr() as *const _,
-                Value::from(&gtk_recent_files_max_age).to_glib_none().0,
+                glib::Value::from(&gtk_recent_files_max_age)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_gtk_shell_shows_app_menu(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-shell-shows-app-menu\0".as_ptr() as *const _,
@@ -1534,14 +1555,16 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-shell-shows-app-menu\0".as_ptr() as *const _,
-                Value::from(&gtk_shell_shows_app_menu).to_glib_none().0,
+                glib::Value::from(&gtk_shell_shows_app_menu)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_gtk_shell_shows_desktop(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-shell-shows-desktop\0".as_ptr() as *const _,
@@ -1559,14 +1582,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-shell-shows-desktop\0".as_ptr() as *const _,
-                Value::from(&gtk_shell_shows_desktop).to_glib_none().0,
+                glib::Value::from(&gtk_shell_shows_desktop).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_shell_shows_menubar(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-shell-shows-menubar\0".as_ptr() as *const _,
@@ -1584,14 +1607,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-shell-shows-menubar\0".as_ptr() as *const _,
-                Value::from(&gtk_shell_shows_menubar).to_glib_none().0,
+                glib::Value::from(&gtk_shell_shows_menubar).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_sound_theme_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-sound-theme-name\0".as_ptr() as *const _,
@@ -1608,14 +1631,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-sound-theme-name\0".as_ptr() as *const _,
-                Value::from(gtk_sound_theme_name).to_glib_none().0,
+                glib::Value::from(gtk_sound_theme_name).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_split_cursor(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-split-cursor\0".as_ptr() as *const _,
@@ -1633,14 +1656,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-split-cursor\0".as_ptr() as *const _,
-                Value::from(&gtk_split_cursor).to_glib_none().0,
+                glib::Value::from(&gtk_split_cursor).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_theme_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-theme-name\0".as_ptr() as *const _,
@@ -1657,14 +1680,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-theme-name\0".as_ptr() as *const _,
-                Value::from(gtk_theme_name).to_glib_none().0,
+                glib::Value::from(gtk_theme_name).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_titlebar_double_click(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-titlebar-double-click\0".as_ptr() as *const _,
@@ -1681,14 +1704,16 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-titlebar-double-click\0".as_ptr() as *const _,
-                Value::from(gtk_titlebar_double_click).to_glib_none().0,
+                glib::Value::from(gtk_titlebar_double_click)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_gtk_titlebar_middle_click(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-titlebar-middle-click\0".as_ptr() as *const _,
@@ -1705,14 +1730,16 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-titlebar-middle-click\0".as_ptr() as *const _,
-                Value::from(gtk_titlebar_middle_click).to_glib_none().0,
+                glib::Value::from(gtk_titlebar_middle_click)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_gtk_titlebar_right_click(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-titlebar-right-click\0".as_ptr() as *const _,
@@ -1729,14 +1756,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-titlebar-right-click\0".as_ptr() as *const _,
-                Value::from(gtk_titlebar_right_click).to_glib_none().0,
+                glib::Value::from(gtk_titlebar_right_click).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_xft_antialias(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-xft-antialias\0".as_ptr() as *const _,
@@ -1754,14 +1781,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-xft-antialias\0".as_ptr() as *const _,
-                Value::from(&gtk_xft_antialias).to_glib_none().0,
+                glib::Value::from(&gtk_xft_antialias).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_xft_dpi(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-xft-dpi\0".as_ptr() as *const _,
@@ -1779,14 +1806,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-xft-dpi\0".as_ptr() as *const _,
-                Value::from(&gtk_xft_dpi).to_glib_none().0,
+                glib::Value::from(&gtk_xft_dpi).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_xft_hinting(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-xft-hinting\0".as_ptr() as *const _,
@@ -1804,14 +1831,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-xft-hinting\0".as_ptr() as *const _,
-                Value::from(&gtk_xft_hinting).to_glib_none().0,
+                glib::Value::from(&gtk_xft_hinting).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_xft_hintstyle(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-xft-hintstyle\0".as_ptr() as *const _,
@@ -1828,14 +1855,14 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-xft-hintstyle\0".as_ptr() as *const _,
-                Value::from(gtk_xft_hintstyle).to_glib_none().0,
+                glib::Value::from(gtk_xft_hintstyle).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gtk_xft_rgba(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-xft-rgba\0".as_ptr() as *const _,
@@ -1852,7 +1879,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gtk-xft-rgba\0".as_ptr() as *const _,
-                Value::from(gtk_xft_rgba).to_glib_none().0,
+                glib::Value::from(gtk_xft_rgba).to_glib_none().0,
             );
         }
     }
@@ -3252,6 +3279,6 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
 impl fmt::Display for Settings {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Settings")
+        f.write_str("Settings")
     }
 }

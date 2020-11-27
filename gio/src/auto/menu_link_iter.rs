@@ -69,6 +69,6 @@ impl<O: IsA<MenuLinkIter>> MenuLinkIterExt for O {
 
 impl fmt::Display for MenuLinkIter {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "MenuLinkIter")
+        f.write_str("MenuLinkIter")
     }
 }

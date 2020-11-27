@@ -119,6 +119,6 @@ impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
 
 impl fmt::Display for SocketAddressEnumerator {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SocketAddressEnumerator")
+        f.write_str("SocketAddressEnumerator")
     }
 }

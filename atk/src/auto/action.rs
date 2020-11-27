@@ -85,6 +85,6 @@ impl<O: IsA<Action>> AtkActionExt for O {
 
 impl fmt::Display for Action {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Action")
+        f.write_str("Action")
     }
 }

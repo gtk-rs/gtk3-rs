@@ -38,7 +38,7 @@ impl Binding {
 
     pub fn unbind(&self) {
         unsafe {
-            gobject_ffi::g_binding_unbind(self.to_glib_none().0);
+            gobject_ffi::g_binding_unbind(self.to_glib_full());
         }
     }
 }
@@ -48,6 +48,6 @@ unsafe impl Sync for Binding {}
 
 impl fmt::Display for Binding {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Binding")
+        f.write_str("Binding")
     }
 }

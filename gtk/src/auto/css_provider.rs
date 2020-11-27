@@ -180,6 +180,6 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
 
 impl fmt::Display for CssProvider {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "CssProvider")
+        f.write_str("CssProvider")
     }
 }

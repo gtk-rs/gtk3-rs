@@ -468,6 +468,6 @@ impl<O: IsA<SeparatorToolItem>> SeparatorToolItemExt for O {
 
 impl fmt::Display for SeparatorToolItem {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SeparatorToolItem")
+        f.write_str("SeparatorToolItem")
     }
 }

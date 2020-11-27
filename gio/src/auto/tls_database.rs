@@ -614,6 +614,6 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
 
 impl fmt::Display for TlsDatabase {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "TlsDatabase")
+        f.write_str("TlsDatabase")
     }
 }

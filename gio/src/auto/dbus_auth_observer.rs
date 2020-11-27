@@ -126,6 +126,6 @@ impl Default for DBusAuthObserver {
 
 impl fmt::Display for DBusAuthObserver {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "DBusAuthObserver")
+        f.write_str("DBusAuthObserver")
     }
 }

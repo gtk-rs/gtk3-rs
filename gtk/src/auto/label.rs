@@ -18,7 +18,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -1082,7 +1081,7 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn get_property_cursor_position(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"cursor-position\0".as_ptr() as *const _,
@@ -1097,7 +1096,7 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn get_property_selection_bound(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"selection-bound\0".as_ptr() as *const _,
@@ -1112,7 +1111,7 @@ impl<O: IsA<Label>> LabelExt for O {
 
     fn get_property_wrap(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"wrap\0".as_ptr() as *const _,
@@ -1130,14 +1129,14 @@ impl<O: IsA<Label>> LabelExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"wrap\0".as_ptr() as *const _,
-                Value::from(&wrap).to_glib_none().0,
+                glib::Value::from(&wrap).to_glib_none().0,
             );
         }
     }
 
     fn get_property_wrap_mode(&self) -> pango::WrapMode {
         unsafe {
-            let mut value = Value::from_type(<pango::WrapMode as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<pango::WrapMode as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"wrap-mode\0".as_ptr() as *const _,
@@ -1155,7 +1154,7 @@ impl<O: IsA<Label>> LabelExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"wrap-mode\0".as_ptr() as *const _,
-                Value::from(&wrap_mode).to_glib_none().0,
+                glib::Value::from(&wrap_mode).to_glib_none().0,
             );
         }
     }
@@ -1888,6 +1887,6 @@ impl<O: IsA<Label>> LabelExt for O {
 
 impl fmt::Display for Label {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Label")
+        f.write_str("Label")
     }
 }

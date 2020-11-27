@@ -146,6 +146,6 @@ impl DBusMethodInvocation {
 
 impl fmt::Display for DBusMethodInvocation {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "DBusMethodInvocation")
+        f.write_str("DBusMethodInvocation")
     }
 }

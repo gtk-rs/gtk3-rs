@@ -216,6 +216,6 @@ impl<O: IsA<SocketConnection>> SocketConnectionExt for O {
 
 impl fmt::Display for SocketConnection {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SocketConnection")
+        f.write_str("SocketConnection")
     }
 }

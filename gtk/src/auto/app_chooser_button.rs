@@ -769,6 +769,6 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
 
 impl fmt::Display for AppChooserButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "AppChooserButton")
+        f.write_str("AppChooserButton")
     }
 }

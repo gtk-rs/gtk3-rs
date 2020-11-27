@@ -547,6 +547,8 @@ impl Uri {
     }
 }
 
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 impl fmt::Display for Uri {
     #[inline]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

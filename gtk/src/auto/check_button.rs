@@ -501,6 +501,6 @@ pub const NONE_CHECK_BUTTON: Option<&CheckButton> = None;
 
 impl fmt::Display for CheckButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "CheckButton")
+        f.write_str("CheckButton")
     }
 }

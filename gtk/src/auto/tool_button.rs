@@ -757,6 +757,6 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
 
 impl fmt::Display for ToolButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ToolButton")
+        f.write_str("ToolButton")
     }
 }

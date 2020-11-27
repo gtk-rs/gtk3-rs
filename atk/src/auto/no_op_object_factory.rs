@@ -32,6 +32,6 @@ pub const NONE_NO_OP_OBJECT_FACTORY: Option<&NoOpObjectFactory> = None;
 
 impl fmt::Display for NoOpObjectFactory {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "NoOpObjectFactory")
+        f.write_str("NoOpObjectFactory")
     }
 }

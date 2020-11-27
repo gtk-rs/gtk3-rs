@@ -144,6 +144,6 @@ impl<O: IsA<ListModel>> ListModelExt for O {
 
 impl fmt::Display for ListModel {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ListModel")
+        f.write_str("ListModel")
     }
 }

@@ -462,6 +462,6 @@ impl<O: IsA<Socket>> GtkSocketExt for O {
 
 impl fmt::Display for Socket {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Socket")
+        f.write_str("Socket")
     }
 }

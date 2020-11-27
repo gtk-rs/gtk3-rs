@@ -18,7 +18,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -626,7 +625,7 @@ impl<O: IsA<Box>> BoxExt for O {
     #[doc(hidden)]
     fn get_child_expand<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -647,7 +646,7 @@ impl<O: IsA<Box>> BoxExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"expand\0".as_ptr() as *const _,
-                Value::from(&expand).to_glib_none().0,
+                glib::Value::from(&expand).to_glib_none().0,
             );
         }
     }
@@ -655,7 +654,7 @@ impl<O: IsA<Box>> BoxExt for O {
     #[doc(hidden)]
     fn get_child_fill<T: IsA<Widget>>(&self, item: &T) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -676,7 +675,7 @@ impl<O: IsA<Box>> BoxExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"fill\0".as_ptr() as *const _,
-                Value::from(&fill).to_glib_none().0,
+                glib::Value::from(&fill).to_glib_none().0,
             );
         }
     }
@@ -684,7 +683,7 @@ impl<O: IsA<Box>> BoxExt for O {
     #[doc(hidden)]
     fn get_child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType {
         unsafe {
-            let mut value = Value::from_type(<PackType as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<PackType as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -705,7 +704,7 @@ impl<O: IsA<Box>> BoxExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"pack-type\0".as_ptr() as *const _,
-                Value::from(&pack_type).to_glib_none().0,
+                glib::Value::from(&pack_type).to_glib_none().0,
             );
         }
     }
@@ -713,7 +712,7 @@ impl<O: IsA<Box>> BoxExt for O {
     #[doc(hidden)]
     fn get_child_padding<T: IsA<Widget>>(&self, item: &T) -> u32 {
         unsafe {
-            let mut value = Value::from_type(<u32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -734,14 +733,14 @@ impl<O: IsA<Box>> BoxExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"padding\0".as_ptr() as *const _,
-                Value::from(&padding).to_glib_none().0,
+                glib::Value::from(&padding).to_glib_none().0,
             );
         }
     }
 
     fn get_child_position<T: IsA<Widget>>(&self, item: &T) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -761,7 +760,7 @@ impl<O: IsA<Box>> BoxExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"position\0".as_ptr() as *const _,
-                Value::from(&position).to_glib_none().0,
+                glib::Value::from(&position).to_glib_none().0,
             );
         }
     }
@@ -844,6 +843,6 @@ impl<O: IsA<Box>> BoxExt for O {
 
 impl fmt::Display for Box {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Box")
+        f.write_str("Box")
     }
 }

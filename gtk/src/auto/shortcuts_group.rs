@@ -20,7 +20,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -39,14 +38,14 @@ impl ShortcutsGroup {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"accel-size-group\0".as_ptr() as *const _,
-                Value::from(accel_size_group).to_glib_none().0,
+                glib::Value::from(accel_size_group).to_glib_none().0,
             );
         }
     }
 
     pub fn get_property_height(&self) -> u32 {
         unsafe {
-            let mut value = Value::from_type(<u32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"height\0".as_ptr() as *const _,
@@ -61,7 +60,7 @@ impl ShortcutsGroup {
 
     pub fn get_property_title(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"title\0".as_ptr() as *const _,
@@ -78,7 +77,7 @@ impl ShortcutsGroup {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"title\0".as_ptr() as *const _,
-                Value::from(title).to_glib_none().0,
+                glib::Value::from(title).to_glib_none().0,
             );
         }
     }
@@ -88,14 +87,14 @@ impl ShortcutsGroup {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"title-size-group\0".as_ptr() as *const _,
-                Value::from(title_size_group).to_glib_none().0,
+                glib::Value::from(title_size_group).to_glib_none().0,
             );
         }
     }
 
     pub fn get_property_view(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"view\0".as_ptr() as *const _,
@@ -112,7 +111,7 @@ impl ShortcutsGroup {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"view\0".as_ptr() as *const _,
-                Value::from(view).to_glib_none().0,
+                glib::Value::from(view).to_glib_none().0,
             );
         }
     }
@@ -660,6 +659,6 @@ impl ShortcutsGroupBuilder {
 
 impl fmt::Display for ShortcutsGroup {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ShortcutsGroup")
+        f.write_str("ShortcutsGroup")
     }
 }

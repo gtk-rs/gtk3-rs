@@ -35,6 +35,6 @@ impl FontsetSimple {
 
 impl fmt::Display for FontsetSimple {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FontsetSimple")
+        f.write_str("FontsetSimple")
     }
 }

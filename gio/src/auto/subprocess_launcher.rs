@@ -159,6 +159,6 @@ impl SubprocessLauncher {
 
 impl fmt::Display for SubprocessLauncher {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SubprocessLauncher")
+        f.write_str("SubprocessLauncher")
     }
 }

@@ -586,6 +586,6 @@ impl<O: IsA<Drive>> DriveExt for O {
 
 impl fmt::Display for Drive {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Drive")
+        f.write_str("Drive")
     }
 }

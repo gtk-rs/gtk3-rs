@@ -11,9 +11,6 @@ use glib::translate::*;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 use glib::StaticType;
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -45,7 +42,7 @@ impl PropertyAction {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
     pub fn get_property_invert_boolean(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"invert-boolean\0".as_ptr() as *const _,
@@ -161,6 +158,6 @@ impl PropertyAction {
 
 impl fmt::Display for PropertyAction {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "PropertyAction")
+        f.write_str("PropertyAction")
     }
 }

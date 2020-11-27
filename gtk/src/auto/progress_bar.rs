@@ -690,6 +690,6 @@ impl<O: IsA<ProgressBar>> ProgressBarExt for O {
 
 impl fmt::Display for ProgressBar {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ProgressBar")
+        f.write_str("ProgressBar")
     }
 }

@@ -195,6 +195,6 @@ impl<O: IsA<BufferedOutputStream>> BufferedOutputStreamExt for O {
 
 impl fmt::Display for BufferedOutputStream {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "BufferedOutputStream")
+        f.write_str("BufferedOutputStream")
     }
 }

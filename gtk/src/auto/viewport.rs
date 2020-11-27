@@ -503,6 +503,6 @@ impl<O: IsA<Viewport>> ViewportExt for O {
 
 impl fmt::Display for Viewport {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Viewport")
+        f.write_str("Viewport")
     }
 }

@@ -194,6 +194,6 @@ impl<O: IsA<Vfs>> VfsExt for O {
 
 impl fmt::Display for Vfs {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Vfs")
+        f.write_str("Vfs")
     }
 }

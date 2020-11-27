@@ -7,7 +7,6 @@ use crate::DeviceToolType;
 use glib::object::ObjectType as ObjectType_;
 use glib::translate::*;
 use glib::StaticType;
-use glib::Value;
 use std::fmt;
 
 glib::glib_wrapper! {
@@ -39,7 +38,7 @@ impl DeviceTool {
 
     pub fn get_property_axes(&self) -> AxisFlags {
         unsafe {
-            let mut value = Value::from_type(<AxisFlags as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<AxisFlags as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"axes\0".as_ptr() as *const _,
@@ -54,7 +53,7 @@ impl DeviceTool {
 
     pub fn get_property_hardware_id(&self) -> u64 {
         unsafe {
-            let mut value = Value::from_type(<u64 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<u64 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"hardware-id\0".as_ptr() as *const _,
@@ -69,7 +68,7 @@ impl DeviceTool {
 
     pub fn get_property_serial(&self) -> u64 {
         unsafe {
-            let mut value = Value::from_type(<u64 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<u64 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"serial\0".as_ptr() as *const _,
@@ -84,7 +83,7 @@ impl DeviceTool {
 
     pub fn get_property_tool_type(&self) -> DeviceToolType {
         unsafe {
-            let mut value = Value::from_type(<DeviceToolType as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<DeviceToolType as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"tool-type\0".as_ptr() as *const _,
@@ -100,6 +99,6 @@ impl DeviceTool {
 
 impl fmt::Display for DeviceTool {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "DeviceTool")
+        f.write_str("DeviceTool")
     }
 }

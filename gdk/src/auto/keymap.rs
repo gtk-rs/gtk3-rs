@@ -178,6 +178,6 @@ impl Keymap {
 
 impl fmt::Display for Keymap {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Keymap")
+        f.write_str("Keymap")
     }
 }

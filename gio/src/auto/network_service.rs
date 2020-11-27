@@ -117,6 +117,6 @@ impl<O: IsA<NetworkService>> NetworkServiceExt for O {
 
 impl fmt::Display for NetworkService {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "NetworkService")
+        f.write_str("NetworkService")
     }
 }

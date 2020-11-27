@@ -27,6 +27,6 @@ impl BytesIcon {
 
 impl fmt::Display for BytesIcon {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "BytesIcon")
+        f.write_str("BytesIcon")
     }
 }

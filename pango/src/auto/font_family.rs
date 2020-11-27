@@ -89,6 +89,6 @@ impl<O: IsA<FontFamily>> FontFamilyExt for O {
 
 impl fmt::Display for FontFamily {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FontFamily")
+        f.write_str("FontFamily")
     }
 }
