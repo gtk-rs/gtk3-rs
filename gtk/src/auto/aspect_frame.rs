@@ -17,7 +17,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -517,7 +516,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
 
     fn get_property_obey_child(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"obey-child\0".as_ptr() as *const _,
@@ -535,14 +534,14 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"obey-child\0".as_ptr() as *const _,
-                Value::from(&obey_child).to_glib_none().0,
+                glib::Value::from(&obey_child).to_glib_none().0,
             );
         }
     }
 
     fn get_property_ratio(&self) -> f32 {
         unsafe {
-            let mut value = Value::from_type(<f32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<f32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"ratio\0".as_ptr() as *const _,
@@ -560,14 +559,14 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"ratio\0".as_ptr() as *const _,
-                Value::from(&ratio).to_glib_none().0,
+                glib::Value::from(&ratio).to_glib_none().0,
             );
         }
     }
 
     fn get_property_xalign(&self) -> f32 {
         unsafe {
-            let mut value = Value::from_type(<f32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<f32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"xalign\0".as_ptr() as *const _,
@@ -585,14 +584,14 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"xalign\0".as_ptr() as *const _,
-                Value::from(&xalign).to_glib_none().0,
+                glib::Value::from(&xalign).to_glib_none().0,
             );
         }
     }
 
     fn get_property_yalign(&self) -> f32 {
         unsafe {
-            let mut value = Value::from_type(<f32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<f32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"yalign\0".as_ptr() as *const _,
@@ -610,7 +609,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"yalign\0".as_ptr() as *const _,
-                Value::from(&yalign).to_glib_none().0,
+                glib::Value::from(&yalign).to_glib_none().0,
             );
         }
     }
@@ -714,6 +713,6 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
 
 impl fmt::Display for AspectFrame {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "AspectFrame")
+        f.write_str("AspectFrame")
     }
 }

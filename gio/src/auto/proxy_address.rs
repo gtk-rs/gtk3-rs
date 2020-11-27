@@ -117,6 +117,6 @@ impl<O: IsA<ProxyAddress>> ProxyAddressExt for O {
 
 impl fmt::Display for ProxyAddress {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ProxyAddress")
+        f.write_str("ProxyAddress")
     }
 }

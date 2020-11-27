@@ -466,6 +466,6 @@ impl Display {
 
 impl fmt::Display for Display {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Display")
+        f.write_str("Display")
     }
 }

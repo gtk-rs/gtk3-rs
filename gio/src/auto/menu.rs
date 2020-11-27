@@ -169,6 +169,6 @@ impl Default for Menu {
 
 impl fmt::Display for Menu {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Menu")
+        f.write_str("Menu")
     }
 }

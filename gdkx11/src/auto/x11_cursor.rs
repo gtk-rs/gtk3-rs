@@ -22,6 +22,6 @@ impl X11Cursor {
 
 impl fmt::Display for X11Cursor {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "X11Cursor")
+        f.write_str("X11Cursor")
     }
 }

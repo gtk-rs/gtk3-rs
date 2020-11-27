@@ -688,6 +688,6 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
 
 impl fmt::Display for RecentChooser {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "RecentChooser")
+        f.write_str("RecentChooser")
     }
 }

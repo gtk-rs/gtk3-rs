@@ -164,6 +164,6 @@ impl GestureSwipeBuilder {
 
 impl fmt::Display for GestureSwipe {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "GestureSwipe")
+        f.write_str("GestureSwipe")
     }
 }

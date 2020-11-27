@@ -84,6 +84,6 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExt for O {
 
 impl fmt::Display for PollableOutputStream {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "PollableOutputStream")
+        f.write_str("PollableOutputStream")
     }
 }

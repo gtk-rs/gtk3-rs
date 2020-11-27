@@ -354,6 +354,6 @@ impl Subprocess {
 
 impl fmt::Display for Subprocess {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Subprocess")
+        f.write_str("Subprocess")
     }
 }

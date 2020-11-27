@@ -16,7 +16,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -484,7 +483,7 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
 
     fn get_property_search_mode_enabled(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"search-mode-enabled\0".as_ptr() as *const _,
@@ -502,7 +501,7 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"search-mode-enabled\0".as_ptr() as *const _,
-                Value::from(&search_mode_enabled).to_glib_none().0,
+                glib::Value::from(&search_mode_enabled).to_glib_none().0,
             );
         }
     }
@@ -564,6 +563,6 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
 
 impl fmt::Display for SearchBar {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SearchBar")
+        f.write_str("SearchBar")
     }
 }

@@ -82,6 +82,6 @@ impl<O: IsA<TcpConnection>> TcpConnectionExt for O {
 
 impl fmt::Display for TcpConnection {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "TcpConnection")
+        f.write_str("TcpConnection")
     }
 }

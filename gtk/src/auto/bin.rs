@@ -31,6 +31,6 @@ impl<O: IsA<Bin>> BinExt for O {
 
 impl fmt::Display for Bin {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Bin")
+        f.write_str("Bin")
     }
 }

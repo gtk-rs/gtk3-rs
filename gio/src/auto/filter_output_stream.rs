@@ -91,6 +91,6 @@ impl<O: IsA<FilterOutputStream>> FilterOutputStreamExt for O {
 
 impl fmt::Display for FilterOutputStream {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FilterOutputStream")
+        f.write_str("FilterOutputStream")
     }
 }

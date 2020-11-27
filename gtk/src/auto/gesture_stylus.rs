@@ -176,6 +176,6 @@ impl GestureStylus {
 
 impl fmt::Display for GestureStylus {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "GestureStylus")
+        f.write_str("GestureStylus")
     }
 }

@@ -633,6 +633,6 @@ impl<O: IsA<Resolver>> ResolverExt for O {
 
 impl fmt::Display for Resolver {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Resolver")
+        f.write_str("Resolver")
     }
 }

@@ -72,6 +72,6 @@ impl<O: IsA<Icon>> IconExt for O {
 
 impl fmt::Display for Icon {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Icon")
+        f.write_str("Icon")
     }
 }

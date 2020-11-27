@@ -188,6 +188,6 @@ impl<O: IsA<Document>> DocumentExt for O {
 
 impl fmt::Display for Document {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Document")
+        f.write_str("Document")
     }
 }

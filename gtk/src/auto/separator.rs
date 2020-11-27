@@ -357,6 +357,6 @@ pub const NONE_SEPARATOR: Option<&Separator> = None;
 
 impl fmt::Display for Separator {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Separator")
+        f.write_str("Separator")
     }
 }

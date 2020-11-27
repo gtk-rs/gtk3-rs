@@ -457,6 +457,6 @@ impl Default for FileInfo {
 
 impl fmt::Display for FileInfo {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FileInfo")
+        f.write_str("FileInfo")
     }
 }

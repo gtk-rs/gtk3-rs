@@ -223,6 +223,6 @@ impl GestureMultiPressBuilder {
 
 impl fmt::Display for GestureMultiPress {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "GestureMultiPress")
+        f.write_str("GestureMultiPress")
     }
 }

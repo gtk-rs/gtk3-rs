@@ -144,6 +144,6 @@ impl<O: IsA<FileOutputStream>> FileOutputStreamExt for O {
 
 impl fmt::Display for FileOutputStream {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FileOutputStream")
+        f.write_str("FileOutputStream")
     }
 }

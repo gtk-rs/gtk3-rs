@@ -354,6 +354,6 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
 
 impl fmt::Display for DataOutputStream {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "DataOutputStream")
+        f.write_str("DataOutputStream")
     }
 }

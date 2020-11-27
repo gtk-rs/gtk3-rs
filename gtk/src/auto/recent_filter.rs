@@ -91,6 +91,6 @@ impl Default for RecentFilter {
 
 impl fmt::Display for RecentFilter {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "RecentFilter")
+        f.write_str("RecentFilter")
     }
 }

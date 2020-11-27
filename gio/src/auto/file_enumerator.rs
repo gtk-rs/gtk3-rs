@@ -256,6 +256,6 @@ impl<O: IsA<FileEnumerator>> FileEnumeratorExt for O {
 
 impl fmt::Display for FileEnumerator {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FileEnumerator")
+        f.write_str("FileEnumerator")
     }
 }

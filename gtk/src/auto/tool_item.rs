@@ -821,6 +821,6 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
 
 impl fmt::Display for ToolItem {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ToolItem")
+        f.write_str("ToolItem")
     }
 }

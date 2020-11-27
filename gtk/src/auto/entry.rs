@@ -27,7 +27,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -1809,7 +1808,7 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     fn get_property_caps_lock_warning(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"caps-lock-warning\0".as_ptr() as *const _,
@@ -1827,14 +1826,14 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"caps-lock-warning\0".as_ptr() as *const _,
-                Value::from(&caps_lock_warning).to_glib_none().0,
+                glib::Value::from(&caps_lock_warning).to_glib_none().0,
             );
         }
     }
 
     fn get_property_cursor_position(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"cursor-position\0".as_ptr() as *const _,
@@ -1849,7 +1848,7 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     fn get_property_enable_emoji_completion(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"enable-emoji-completion\0".as_ptr() as *const _,
@@ -1867,14 +1866,14 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"enable-emoji-completion\0".as_ptr() as *const _,
-                Value::from(&enable_emoji_completion).to_glib_none().0,
+                glib::Value::from(&enable_emoji_completion).to_glib_none().0,
             );
         }
     }
 
     fn get_property_im_module(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"im-module\0".as_ptr() as *const _,
@@ -1891,14 +1890,14 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"im-module\0".as_ptr() as *const _,
-                Value::from(im_module).to_glib_none().0,
+                glib::Value::from(im_module).to_glib_none().0,
             );
         }
     }
 
     fn get_property_invisible_char_set(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"invisible-char-set\0".as_ptr() as *const _,
@@ -1916,14 +1915,14 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"invisible-char-set\0".as_ptr() as *const _,
-                Value::from(&invisible_char_set).to_glib_none().0,
+                glib::Value::from(&invisible_char_set).to_glib_none().0,
             );
         }
     }
 
     fn get_property_populate_all(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"populate-all\0".as_ptr() as *const _,
@@ -1941,14 +1940,14 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"populate-all\0".as_ptr() as *const _,
-                Value::from(&populate_all).to_glib_none().0,
+                glib::Value::from(&populate_all).to_glib_none().0,
             );
         }
     }
 
     fn get_property_primary_icon_activatable(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-activatable\0".as_ptr() as *const _,
@@ -1966,14 +1965,16 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-activatable\0".as_ptr() as *const _,
-                Value::from(&primary_icon_activatable).to_glib_none().0,
+                glib::Value::from(&primary_icon_activatable)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_primary_icon_gicon(&self) -> Option<gio::Icon> {
         unsafe {
-            let mut value = Value::from_type(<gio::Icon as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<gio::Icon as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-gicon\0".as_ptr() as *const _,
@@ -1990,14 +1991,14 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-gicon\0".as_ptr() as *const _,
-                Value::from(primary_icon_gicon).to_glib_none().0,
+                glib::Value::from(primary_icon_gicon).to_glib_none().0,
             );
         }
     }
 
     fn get_property_primary_icon_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-name\0".as_ptr() as *const _,
@@ -2014,14 +2015,15 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-name\0".as_ptr() as *const _,
-                Value::from(primary_icon_name).to_glib_none().0,
+                glib::Value::from(primary_icon_name).to_glib_none().0,
             );
         }
     }
 
     fn get_property_primary_icon_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe {
-            let mut value = Value::from_type(<gdk_pixbuf::Pixbuf as StaticType>::static_type());
+            let mut value =
+                glib::Value::from_type(<gdk_pixbuf::Pixbuf as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-pixbuf\0".as_ptr() as *const _,
@@ -2038,14 +2040,14 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-pixbuf\0".as_ptr() as *const _,
-                Value::from(primary_icon_pixbuf).to_glib_none().0,
+                glib::Value::from(primary_icon_pixbuf).to_glib_none().0,
             );
         }
     }
 
     fn get_property_primary_icon_sensitive(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-sensitive\0".as_ptr() as *const _,
@@ -2063,14 +2065,14 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-sensitive\0".as_ptr() as *const _,
-                Value::from(&primary_icon_sensitive).to_glib_none().0,
+                glib::Value::from(&primary_icon_sensitive).to_glib_none().0,
             );
         }
     }
 
     fn get_property_primary_icon_storage_type(&self) -> ImageType {
         unsafe {
-            let mut value = Value::from_type(<ImageType as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<ImageType as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-storage-type\0".as_ptr() as *const _,
@@ -2085,7 +2087,7 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     fn get_property_primary_icon_tooltip_markup(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-tooltip-markup\0".as_ptr() as *const _,
@@ -2102,14 +2104,16 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-tooltip-markup\0".as_ptr() as *const _,
-                Value::from(primary_icon_tooltip_markup).to_glib_none().0,
+                glib::Value::from(primary_icon_tooltip_markup)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_primary_icon_tooltip_text(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-tooltip-text\0".as_ptr() as *const _,
@@ -2126,14 +2130,16 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"primary-icon-tooltip-text\0".as_ptr() as *const _,
-                Value::from(primary_icon_tooltip_text).to_glib_none().0,
+                glib::Value::from(primary_icon_tooltip_text)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_scroll_offset(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"scroll-offset\0".as_ptr() as *const _,
@@ -2148,7 +2154,7 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     fn get_property_secondary_icon_activatable(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-activatable\0".as_ptr() as *const _,
@@ -2166,14 +2172,16 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-activatable\0".as_ptr() as *const _,
-                Value::from(&secondary_icon_activatable).to_glib_none().0,
+                glib::Value::from(&secondary_icon_activatable)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_secondary_icon_gicon(&self) -> Option<gio::Icon> {
         unsafe {
-            let mut value = Value::from_type(<gio::Icon as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<gio::Icon as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-gicon\0".as_ptr() as *const _,
@@ -2193,14 +2201,14 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-gicon\0".as_ptr() as *const _,
-                Value::from(secondary_icon_gicon).to_glib_none().0,
+                glib::Value::from(secondary_icon_gicon).to_glib_none().0,
             );
         }
     }
 
     fn get_property_secondary_icon_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-name\0".as_ptr() as *const _,
@@ -2217,14 +2225,15 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-name\0".as_ptr() as *const _,
-                Value::from(secondary_icon_name).to_glib_none().0,
+                glib::Value::from(secondary_icon_name).to_glib_none().0,
             );
         }
     }
 
     fn get_property_secondary_icon_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe {
-            let mut value = Value::from_type(<gdk_pixbuf::Pixbuf as StaticType>::static_type());
+            let mut value =
+                glib::Value::from_type(<gdk_pixbuf::Pixbuf as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-pixbuf\0".as_ptr() as *const _,
@@ -2244,14 +2253,14 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-pixbuf\0".as_ptr() as *const _,
-                Value::from(secondary_icon_pixbuf).to_glib_none().0,
+                glib::Value::from(secondary_icon_pixbuf).to_glib_none().0,
             );
         }
     }
 
     fn get_property_secondary_icon_sensitive(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-sensitive\0".as_ptr() as *const _,
@@ -2269,14 +2278,16 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-sensitive\0".as_ptr() as *const _,
-                Value::from(&secondary_icon_sensitive).to_glib_none().0,
+                glib::Value::from(&secondary_icon_sensitive)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_secondary_icon_storage_type(&self) -> ImageType {
         unsafe {
-            let mut value = Value::from_type(<ImageType as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<ImageType as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-storage-type\0".as_ptr() as *const _,
@@ -2291,7 +2302,7 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     fn get_property_secondary_icon_tooltip_markup(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-tooltip-markup\0".as_ptr() as *const _,
@@ -2311,14 +2322,16 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-tooltip-markup\0".as_ptr() as *const _,
-                Value::from(secondary_icon_tooltip_markup).to_glib_none().0,
+                glib::Value::from(secondary_icon_tooltip_markup)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_secondary_icon_tooltip_text(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-tooltip-text\0".as_ptr() as *const _,
@@ -2335,14 +2348,16 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"secondary-icon-tooltip-text\0".as_ptr() as *const _,
-                Value::from(secondary_icon_tooltip_text).to_glib_none().0,
+                glib::Value::from(secondary_icon_tooltip_text)
+                    .to_glib_none()
+                    .0,
             );
         }
     }
 
     fn get_property_selection_bound(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"selection-bound\0".as_ptr() as *const _,
@@ -2357,7 +2372,7 @@ impl<O: IsA<Entry>> EntryExt for O {
 
     fn get_property_shadow_type(&self) -> ShadowType {
         unsafe {
-            let mut value = Value::from_type(<ShadowType as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<ShadowType as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"shadow-type\0".as_ptr() as *const _,
@@ -2375,14 +2390,14 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"shadow-type\0".as_ptr() as *const _,
-                Value::from(&shadow_type).to_glib_none().0,
+                glib::Value::from(&shadow_type).to_glib_none().0,
             );
         }
     }
 
     fn get_property_show_emoji_icon(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-emoji-icon\0".as_ptr() as *const _,
@@ -2400,14 +2415,14 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"show-emoji-icon\0".as_ptr() as *const _,
-                Value::from(&show_emoji_icon).to_glib_none().0,
+                glib::Value::from(&show_emoji_icon).to_glib_none().0,
             );
         }
     }
 
     fn get_property_truncate_multiline(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"truncate-multiline\0".as_ptr() as *const _,
@@ -2425,14 +2440,14 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"truncate-multiline\0".as_ptr() as *const _,
-                Value::from(&truncate_multiline).to_glib_none().0,
+                glib::Value::from(&truncate_multiline).to_glib_none().0,
             );
         }
     }
 
     fn get_property_xalign(&self) -> f32 {
         unsafe {
-            let mut value = Value::from_type(<f32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<f32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"xalign\0".as_ptr() as *const _,
@@ -2450,7 +2465,7 @@ impl<O: IsA<Entry>> EntryExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"xalign\0".as_ptr() as *const _,
-                Value::from(&xalign).to_glib_none().0,
+                glib::Value::from(&xalign).to_glib_none().0,
             );
         }
     }
@@ -4188,6 +4203,6 @@ impl<O: IsA<Entry>> EntryExt for O {
 
 impl fmt::Display for Entry {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Entry")
+        f.write_str("Entry")
     }
 }

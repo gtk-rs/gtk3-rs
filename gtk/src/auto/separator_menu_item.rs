@@ -445,6 +445,6 @@ pub const NONE_SEPARATOR_MENU_ITEM: Option<&SeparatorMenuItem> = None;
 
 impl fmt::Display for SeparatorMenuItem {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SeparatorMenuItem")
+        f.write_str("SeparatorMenuItem")
     }
 }

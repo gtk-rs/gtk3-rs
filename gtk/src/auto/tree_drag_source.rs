@@ -58,6 +58,6 @@ impl<O: IsA<TreeDragSource>> TreeDragSourceExt for O {
 
 impl fmt::Display for TreeDragSource {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "TreeDragSource")
+        f.write_str("TreeDragSource")
     }
 }

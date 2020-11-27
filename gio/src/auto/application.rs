@@ -17,7 +17,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -540,7 +539,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"action-group\0".as_ptr() as *const _,
-                Value::from(action_group).to_glib_none().0,
+                glib::Value::from(action_group).to_glib_none().0,
             );
         }
     }
@@ -920,6 +919,6 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
 impl fmt::Display for Application {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Application")
+        f.write_str("Application")
     }
 }

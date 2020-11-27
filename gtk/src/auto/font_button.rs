@@ -893,6 +893,6 @@ impl<O: IsA<FontButton>> FontButtonExt for O {
 
 impl fmt::Display for FontButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FontButton")
+        f.write_str("FontButton")
     }
 }

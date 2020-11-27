@@ -249,6 +249,6 @@ impl<O: IsA<Component>> ComponentExt for O {
 
 impl fmt::Display for Component {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Component")
+        f.write_str("Component")
     }
 }

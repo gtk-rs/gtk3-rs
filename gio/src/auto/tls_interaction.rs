@@ -307,6 +307,6 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
 
 impl fmt::Display for TlsInteraction {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "TlsInteraction")
+        f.write_str("TlsInteraction")
     }
 }

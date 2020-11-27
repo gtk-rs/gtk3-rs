@@ -771,6 +771,6 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
 
 impl fmt::Display for InfoBar {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "InfoBar")
+        f.write_str("InfoBar")
     }
 }

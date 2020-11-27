@@ -41,6 +41,6 @@ impl Emblem {
 
 impl fmt::Display for Emblem {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Emblem")
+        f.write_str("Emblem")
     }
 }

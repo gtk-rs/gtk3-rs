@@ -20,7 +20,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -608,14 +607,14 @@ impl<O: IsA<CellView>> CellViewExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"background\0".as_ptr() as *const _,
-                Value::from(background).to_glib_none().0,
+                glib::Value::from(background).to_glib_none().0,
             );
         }
     }
 
     fn get_property_background_rgba(&self) -> Option<gdk::RGBA> {
         unsafe {
-            let mut value = Value::from_type(<gdk::RGBA as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<gdk::RGBA as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"background-rgba\0".as_ptr() as *const _,
@@ -629,7 +628,7 @@ impl<O: IsA<CellView>> CellViewExt for O {
 
     fn get_property_background_set(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"background-set\0".as_ptr() as *const _,
@@ -647,14 +646,14 @@ impl<O: IsA<CellView>> CellViewExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"background-set\0".as_ptr() as *const _,
-                Value::from(&background_set).to_glib_none().0,
+                glib::Value::from(&background_set).to_glib_none().0,
             );
         }
     }
 
     fn get_property_cell_area(&self) -> Option<CellArea> {
         unsafe {
-            let mut value = Value::from_type(<CellArea as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<CellArea as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"cell-area\0".as_ptr() as *const _,
@@ -668,7 +667,7 @@ impl<O: IsA<CellView>> CellViewExt for O {
 
     fn get_property_cell_area_context(&self) -> Option<CellAreaContext> {
         unsafe {
-            let mut value = Value::from_type(<CellAreaContext as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<CellAreaContext as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"cell-area-context\0".as_ptr() as *const _,
@@ -836,6 +835,6 @@ impl<O: IsA<CellView>> CellViewExt for O {
 
 impl fmt::Display for CellView {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "CellView")
+        f.write_str("CellView")
     }
 }

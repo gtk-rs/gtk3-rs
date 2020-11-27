@@ -31,9 +31,6 @@ use glib::StaticType;
 use glib::ToValue;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-use glib::Value;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use std::boxed::Box as Box_;
 use std::fmt;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
@@ -60,7 +57,7 @@ impl ModelButton {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn get_property_active(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"active\0".as_ptr() as *const _,
@@ -80,7 +77,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"active\0".as_ptr() as *const _,
-                Value::from(&active).to_glib_none().0,
+                glib::Value::from(&active).to_glib_none().0,
             );
         }
     }
@@ -89,7 +86,7 @@ impl ModelButton {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn get_property_centered(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"centered\0".as_ptr() as *const _,
@@ -109,7 +106,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"centered\0".as_ptr() as *const _,
-                Value::from(&centered).to_glib_none().0,
+                glib::Value::from(&centered).to_glib_none().0,
             );
         }
     }
@@ -118,7 +115,7 @@ impl ModelButton {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn get_property_icon(&self) -> Option<gio::Icon> {
         unsafe {
-            let mut value = Value::from_type(<gio::Icon as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<gio::Icon as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"icon\0".as_ptr() as *const _,
@@ -137,7 +134,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"icon\0".as_ptr() as *const _,
-                Value::from(icon).to_glib_none().0,
+                glib::Value::from(icon).to_glib_none().0,
             );
         }
     }
@@ -146,7 +143,7 @@ impl ModelButton {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn get_property_iconic(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"iconic\0".as_ptr() as *const _,
@@ -166,7 +163,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"iconic\0".as_ptr() as *const _,
-                Value::from(&iconic).to_glib_none().0,
+                glib::Value::from(&iconic).to_glib_none().0,
             );
         }
     }
@@ -175,7 +172,7 @@ impl ModelButton {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn get_property_inverted(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"inverted\0".as_ptr() as *const _,
@@ -195,7 +192,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"inverted\0".as_ptr() as *const _,
-                Value::from(&inverted).to_glib_none().0,
+                glib::Value::from(&inverted).to_glib_none().0,
             );
         }
     }
@@ -204,7 +201,7 @@ impl ModelButton {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn get_property_menu_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"menu-name\0".as_ptr() as *const _,
@@ -223,7 +220,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"menu-name\0".as_ptr() as *const _,
-                Value::from(menu_name).to_glib_none().0,
+                glib::Value::from(menu_name).to_glib_none().0,
             );
         }
     }
@@ -232,7 +229,7 @@ impl ModelButton {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn get_property_role(&self) -> ButtonRole {
         unsafe {
-            let mut value = Value::from_type(<ButtonRole as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<ButtonRole as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"role\0".as_ptr() as *const _,
@@ -252,7 +249,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"role\0".as_ptr() as *const _,
-                Value::from(&role).to_glib_none().0,
+                glib::Value::from(&role).to_glib_none().0,
             );
         }
     }
@@ -261,7 +258,7 @@ impl ModelButton {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     pub fn get_property_text(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"text\0".as_ptr() as *const _,
@@ -280,7 +277,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"text\0".as_ptr() as *const _,
-                Value::from(text).to_glib_none().0,
+                glib::Value::from(text).to_glib_none().0,
             );
         }
     }
@@ -289,7 +286,7 @@ impl ModelButton {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn get_property_use_markup(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"use-markup\0".as_ptr() as *const _,
@@ -309,7 +306,7 @@ impl ModelButton {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"use-markup\0".as_ptr() as *const _,
-                Value::from(&use_markup).to_glib_none().0,
+                glib::Value::from(&use_markup).to_glib_none().0,
             );
         }
     }
@@ -1105,6 +1102,6 @@ impl ModelButtonBuilder {
 
 impl fmt::Display for ModelButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ModelButton")
+        f.write_str("ModelButton")
     }
 }

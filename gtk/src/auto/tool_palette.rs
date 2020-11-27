@@ -27,7 +27,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -697,7 +696,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
     fn get_property_icon_size_set(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-size-set\0".as_ptr() as *const _,
@@ -715,14 +714,14 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-size-set\0".as_ptr() as *const _,
-                Value::from(&icon_size_set).to_glib_none().0,
+                glib::Value::from(&icon_size_set).to_glib_none().0,
             );
         }
     }
 
     fn get_property_toolbar_style(&self) -> ToolbarStyle {
         unsafe {
-            let mut value = Value::from_type(<ToolbarStyle as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<ToolbarStyle as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"toolbar-style\0".as_ptr() as *const _,
@@ -740,7 +739,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"toolbar-style\0".as_ptr() as *const _,
-                Value::from(&toolbar_style).to_glib_none().0,
+                glib::Value::from(&toolbar_style).to_glib_none().0,
             );
         }
     }
@@ -826,6 +825,6 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
 
 impl fmt::Display for ToolPalette {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ToolPalette")
+        f.write_str("ToolPalette")
     }
 }

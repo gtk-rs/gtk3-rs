@@ -30,7 +30,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -2723,7 +2722,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_property_composite_child(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"composite-child\0".as_ptr() as *const _,
@@ -2738,7 +2737,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn get_property_expand(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"expand\0".as_ptr() as *const _,
@@ -2756,14 +2755,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"expand\0".as_ptr() as *const _,
-                Value::from(&expand).to_glib_none().0,
+                glib::Value::from(&expand).to_glib_none().0,
             );
         }
     }
 
     fn get_property_has_default(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"has-default\0".as_ptr() as *const _,
@@ -2781,14 +2780,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"has-default\0".as_ptr() as *const _,
-                Value::from(&has_default).to_glib_none().0,
+                glib::Value::from(&has_default).to_glib_none().0,
             );
         }
     }
 
     fn get_property_has_focus(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"has-focus\0".as_ptr() as *const _,
@@ -2806,14 +2805,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"has-focus\0".as_ptr() as *const _,
-                Value::from(&has_focus).to_glib_none().0,
+                glib::Value::from(&has_focus).to_glib_none().0,
             );
         }
     }
 
     fn get_property_height_request(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"height-request\0".as_ptr() as *const _,
@@ -2831,14 +2830,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"height-request\0".as_ptr() as *const _,
-                Value::from(&height_request).to_glib_none().0,
+                glib::Value::from(&height_request).to_glib_none().0,
             );
         }
     }
 
     fn get_property_is_focus(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"is-focus\0".as_ptr() as *const _,
@@ -2856,14 +2855,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"is-focus\0".as_ptr() as *const _,
-                Value::from(&is_focus).to_glib_none().0,
+                glib::Value::from(&is_focus).to_glib_none().0,
             );
         }
     }
 
     fn get_property_margin(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"margin\0".as_ptr() as *const _,
@@ -2881,14 +2880,14 @@ impl<O: IsA<Widget>> WidgetExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"margin\0".as_ptr() as *const _,
-                Value::from(&margin).to_glib_none().0,
+                glib::Value::from(&margin).to_glib_none().0,
             );
         }
     }
 
     fn get_property_width_request(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"width-request\0".as_ptr() as *const _,
@@ -2906,7 +2905,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"width-request\0".as_ptr() as *const _,
-                Value::from(&width_request).to_glib_none().0,
+                glib::Value::from(&width_request).to_glib_none().0,
             );
         }
     }
@@ -5924,6 +5923,6 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
 impl fmt::Display for Widget {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Widget")
+        f.write_str("Widget")
     }
 }

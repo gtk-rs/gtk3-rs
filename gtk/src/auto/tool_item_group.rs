@@ -17,7 +17,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -630,7 +629,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
 
     fn get_item_expand<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -650,14 +649,14 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"expand\0".as_ptr() as *const _,
-                Value::from(&expand).to_glib_none().0,
+                glib::Value::from(&expand).to_glib_none().0,
             );
         }
     }
 
     fn get_item_fill<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -677,14 +676,14 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"fill\0".as_ptr() as *const _,
-                Value::from(&fill).to_glib_none().0,
+                glib::Value::from(&fill).to_glib_none().0,
             );
         }
     }
 
     fn get_item_homogeneous<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -704,14 +703,14 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"homogeneous\0".as_ptr() as *const _,
-                Value::from(&homogeneous).to_glib_none().0,
+                glib::Value::from(&homogeneous).to_glib_none().0,
             );
         }
     }
 
     fn get_item_new_row<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             crate::ffi::gtk_container_child_get_property(
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
@@ -731,7 +730,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
                 self.to_glib_none().0 as *mut crate::ffi::GtkContainer,
                 item.to_glib_none().0 as *mut _,
                 b"new-row\0".as_ptr() as *const _,
-                Value::from(&new_row).to_glib_none().0,
+                glib::Value::from(&new_row).to_glib_none().0,
             );
         }
     }
@@ -865,6 +864,6 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
 
 impl fmt::Display for ToolItemGroup {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ToolItemGroup")
+        f.write_str("ToolItemGroup")
     }
 }

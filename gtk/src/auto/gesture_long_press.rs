@@ -15,7 +15,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -41,7 +40,7 @@ impl GestureLongPress {
 
     pub fn get_property_delay_factor(&self) -> f64 {
         unsafe {
-            let mut value = Value::from_type(<f64 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<f64 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"delay-factor\0".as_ptr() as *const _,
@@ -59,7 +58,7 @@ impl GestureLongPress {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"delay-factor\0".as_ptr() as *const _,
-                Value::from(&delay_factor).to_glib_none().0,
+                glib::Value::from(&delay_factor).to_glib_none().0,
             );
         }
     }
@@ -230,6 +229,6 @@ impl GestureLongPressBuilder {
 
 impl fmt::Display for GestureLongPress {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "GestureLongPress")
+        f.write_str("GestureLongPress")
     }
 }

@@ -8,7 +8,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -66,7 +65,7 @@ impl ThemedIcon {
 
     pub fn get_property_use_default_fallbacks(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"use-default-fallbacks\0".as_ptr() as *const _,
@@ -107,6 +106,6 @@ impl ThemedIcon {
 
 impl fmt::Display for ThemedIcon {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ThemedIcon")
+        f.write_str("ThemedIcon")
     }
 }

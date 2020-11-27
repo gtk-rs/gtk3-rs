@@ -29,6 +29,6 @@ impl FileIcon {
 
 impl fmt::Display for FileIcon {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FileIcon")
+        f.write_str("FileIcon")
     }
 }

@@ -558,6 +558,6 @@ impl<O: IsA<RadioMenuItem>> RadioMenuItemExt for O {
 
 impl fmt::Display for RadioMenuItem {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "RadioMenuItem")
+        f.write_str("RadioMenuItem")
     }
 }

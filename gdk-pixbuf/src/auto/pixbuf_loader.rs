@@ -280,6 +280,6 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
 
 impl fmt::Display for PixbufLoader {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "PixbufLoader")
+        f.write_str("PixbufLoader")
     }
 }

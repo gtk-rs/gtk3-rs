@@ -149,6 +149,6 @@ impl Visual {
 
 impl fmt::Display for Visual {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Visual")
+        f.write_str("Visual")
     }
 }

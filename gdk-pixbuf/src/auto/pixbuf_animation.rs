@@ -164,6 +164,6 @@ impl<O: IsA<PixbufAnimation>> PixbufAnimationExt for O {
 
 impl fmt::Display for PixbufAnimation {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "PixbufAnimation")
+        f.write_str("PixbufAnimation")
     }
 }

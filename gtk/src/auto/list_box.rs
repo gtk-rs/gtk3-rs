@@ -1183,6 +1183,6 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
 
 impl fmt::Display for ListBox {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ListBox")
+        f.write_str("ListBox")
     }
 }

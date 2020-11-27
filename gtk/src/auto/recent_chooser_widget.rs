@@ -522,6 +522,6 @@ pub const NONE_RECENT_CHOOSER_WIDGET: Option<&RecentChooserWidget> = None;
 
 impl fmt::Display for RecentChooserWidget {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "RecentChooserWidget")
+        f.write_str("RecentChooserWidget")
     }
 }

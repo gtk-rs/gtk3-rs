@@ -451,6 +451,6 @@ impl Layout {
 
 impl fmt::Display for Layout {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Layout")
+        f.write_str("Layout")
     }
 }

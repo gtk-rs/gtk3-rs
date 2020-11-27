@@ -561,6 +561,6 @@ impl<O: IsA<ToggleToolButton>> ToggleToolButtonExt for O {
 
 impl fmt::Display for ToggleToolButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ToggleToolButton")
+        f.write_str("ToggleToolButton")
     }
 }

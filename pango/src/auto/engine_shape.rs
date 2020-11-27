@@ -19,6 +19,6 @@ pub const NONE_ENGINE_SHAPE: Option<&EngineShape> = None;
 
 impl fmt::Display for EngineShape {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "EngineShape")
+        f.write_str("EngineShape")
     }
 }

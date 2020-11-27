@@ -709,6 +709,6 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
 
 impl fmt::Display for FileChooserButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FileChooserButton")
+        f.write_str("FileChooserButton")
     }
 }

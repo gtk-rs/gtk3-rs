@@ -495,6 +495,6 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
 
 impl fmt::Display for MenuShell {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "MenuShell")
+        f.write_str("MenuShell")
     }
 }

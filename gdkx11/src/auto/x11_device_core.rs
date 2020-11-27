@@ -17,6 +17,6 @@ impl X11DeviceCore {}
 
 impl fmt::Display for X11DeviceCore {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "X11DeviceCore")
+        f.write_str("X11DeviceCore")
     }
 }

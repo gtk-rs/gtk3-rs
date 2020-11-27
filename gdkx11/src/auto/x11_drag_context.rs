@@ -17,6 +17,6 @@ impl X11DragContext {}
 
 impl fmt::Display for X11DragContext {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "X11DragContext")
+        f.write_str("X11DragContext")
     }
 }

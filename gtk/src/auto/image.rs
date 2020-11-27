@@ -16,7 +16,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -724,7 +723,7 @@ impl<O: IsA<Image>> ImageExt for O {
 
     fn get_property_file(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"file\0".as_ptr() as *const _,
@@ -741,7 +740,7 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"file\0".as_ptr() as *const _,
-                Value::from(file).to_glib_none().0,
+                glib::Value::from(file).to_glib_none().0,
             );
         }
     }
@@ -751,14 +750,14 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gicon\0".as_ptr() as *const _,
-                Value::from(gicon).to_glib_none().0,
+                glib::Value::from(gicon).to_glib_none().0,
             );
         }
     }
 
     fn get_property_icon_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-name\0".as_ptr() as *const _,
@@ -775,14 +774,14 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-name\0".as_ptr() as *const _,
-                Value::from(icon_name).to_glib_none().0,
+                glib::Value::from(icon_name).to_glib_none().0,
             );
         }
     }
 
     fn get_property_icon_size(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-size\0".as_ptr() as *const _,
@@ -800,7 +799,7 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-size\0".as_ptr() as *const _,
-                Value::from(&icon_size).to_glib_none().0,
+                glib::Value::from(&icon_size).to_glib_none().0,
             );
         }
     }
@@ -810,7 +809,7 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf\0".as_ptr() as *const _,
-                Value::from(pixbuf).to_glib_none().0,
+                glib::Value::from(pixbuf).to_glib_none().0,
             );
         }
     }
@@ -818,7 +817,7 @@ impl<O: IsA<Image>> ImageExt for O {
     fn get_property_pixbuf_animation(&self) -> Option<gdk_pixbuf::PixbufAnimation> {
         unsafe {
             let mut value =
-                Value::from_type(<gdk_pixbuf::PixbufAnimation as StaticType>::static_type());
+                glib::Value::from_type(<gdk_pixbuf::PixbufAnimation as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf-animation\0".as_ptr() as *const _,
@@ -838,14 +837,14 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf-animation\0".as_ptr() as *const _,
-                Value::from(pixbuf_animation).to_glib_none().0,
+                glib::Value::from(pixbuf_animation).to_glib_none().0,
             );
         }
     }
 
     fn get_property_resource(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"resource\0".as_ptr() as *const _,
@@ -862,14 +861,14 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"resource\0".as_ptr() as *const _,
-                Value::from(resource).to_glib_none().0,
+                glib::Value::from(resource).to_glib_none().0,
             );
         }
     }
 
     fn get_property_surface(&self) -> Option<cairo::Surface> {
         unsafe {
-            let mut value = Value::from_type(<cairo::Surface as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<cairo::Surface as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"surface\0".as_ptr() as *const _,
@@ -886,14 +885,14 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"surface\0".as_ptr() as *const _,
-                Value::from(surface).to_glib_none().0,
+                glib::Value::from(surface).to_glib_none().0,
             );
         }
     }
 
     fn get_property_use_fallback(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"use-fallback\0".as_ptr() as *const _,
@@ -911,7 +910,7 @@ impl<O: IsA<Image>> ImageExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"use-fallback\0".as_ptr() as *const _,
-                Value::from(&use_fallback).to_glib_none().0,
+                glib::Value::from(&use_fallback).to_glib_none().0,
             );
         }
     }
@@ -1192,6 +1191,6 @@ impl<O: IsA<Image>> ImageExt for O {
 
 impl fmt::Display for Image {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Image")
+        f.write_str("Image")
     }
 }

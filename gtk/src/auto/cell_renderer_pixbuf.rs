@@ -11,7 +11,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -334,7 +333,7 @@ pub trait CellRendererPixbufExt: 'static {
 impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
     fn get_property_follow_state(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"follow-state\0".as_ptr() as *const _,
@@ -352,14 +351,14 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"follow-state\0".as_ptr() as *const _,
-                Value::from(&follow_state).to_glib_none().0,
+                glib::Value::from(&follow_state).to_glib_none().0,
             );
         }
     }
 
     fn get_property_gicon(&self) -> Option<gio::Icon> {
         unsafe {
-            let mut value = Value::from_type(<gio::Icon as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<gio::Icon as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gicon\0".as_ptr() as *const _,
@@ -376,14 +375,14 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"gicon\0".as_ptr() as *const _,
-                Value::from(gicon).to_glib_none().0,
+                glib::Value::from(gicon).to_glib_none().0,
             );
         }
     }
 
     fn get_property_icon_name(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-name\0".as_ptr() as *const _,
@@ -400,14 +399,15 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-name\0".as_ptr() as *const _,
-                Value::from(icon_name).to_glib_none().0,
+                glib::Value::from(icon_name).to_glib_none().0,
             );
         }
     }
 
     fn get_property_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe {
-            let mut value = Value::from_type(<gdk_pixbuf::Pixbuf as StaticType>::static_type());
+            let mut value =
+                glib::Value::from_type(<gdk_pixbuf::Pixbuf as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf\0".as_ptr() as *const _,
@@ -424,14 +424,15 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf\0".as_ptr() as *const _,
-                Value::from(pixbuf).to_glib_none().0,
+                glib::Value::from(pixbuf).to_glib_none().0,
             );
         }
     }
 
     fn get_property_pixbuf_expander_closed(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe {
-            let mut value = Value::from_type(<gdk_pixbuf::Pixbuf as StaticType>::static_type());
+            let mut value =
+                glib::Value::from_type(<gdk_pixbuf::Pixbuf as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf-expander-closed\0".as_ptr() as *const _,
@@ -451,14 +452,15 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf-expander-closed\0".as_ptr() as *const _,
-                Value::from(pixbuf_expander_closed).to_glib_none().0,
+                glib::Value::from(pixbuf_expander_closed).to_glib_none().0,
             );
         }
     }
 
     fn get_property_pixbuf_expander_open(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe {
-            let mut value = Value::from_type(<gdk_pixbuf::Pixbuf as StaticType>::static_type());
+            let mut value =
+                glib::Value::from_type(<gdk_pixbuf::Pixbuf as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf-expander-open\0".as_ptr() as *const _,
@@ -475,14 +477,14 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"pixbuf-expander-open\0".as_ptr() as *const _,
-                Value::from(pixbuf_expander_open).to_glib_none().0,
+                glib::Value::from(pixbuf_expander_open).to_glib_none().0,
             );
         }
     }
 
     fn get_property_stock_detail(&self) -> Option<glib::GString> {
         unsafe {
-            let mut value = Value::from_type(<glib::GString as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"stock-detail\0".as_ptr() as *const _,
@@ -499,14 +501,14 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"stock-detail\0".as_ptr() as *const _,
-                Value::from(stock_detail).to_glib_none().0,
+                glib::Value::from(stock_detail).to_glib_none().0,
             );
         }
     }
 
     fn get_property_surface(&self) -> Option<cairo::Surface> {
         unsafe {
-            let mut value = Value::from_type(<cairo::Surface as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<cairo::Surface as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"surface\0".as_ptr() as *const _,
@@ -523,7 +525,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"surface\0".as_ptr() as *const _,
-                Value::from(surface).to_glib_none().0,
+                glib::Value::from(surface).to_glib_none().0,
             );
         }
     }
@@ -759,6 +761,6 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
 
 impl fmt::Display for CellRendererPixbuf {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "CellRendererPixbuf")
+        f.write_str("CellRendererPixbuf")
     }
 }

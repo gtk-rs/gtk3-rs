@@ -30,6 +30,6 @@ impl<O: IsA<Converter>> ConverterExt for O {
 
 impl fmt::Display for Converter {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Converter")
+        f.write_str("Converter")
     }
 }

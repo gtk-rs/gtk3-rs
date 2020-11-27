@@ -77,6 +77,6 @@ impl<O: IsA<Hypertext>> HypertextExt for O {
 
 impl fmt::Display for Hypertext {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Hypertext")
+        f.write_str("Hypertext")
     }
 }

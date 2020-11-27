@@ -1573,6 +1573,6 @@ impl<O: IsA<AboutDialog>> AboutDialogExt for O {
 
 impl fmt::Display for AboutDialog {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "AboutDialog")
+        f.write_str("AboutDialog")
     }
 }

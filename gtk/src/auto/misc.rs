@@ -21,6 +21,6 @@ pub const NONE_MISC: Option<&Misc> = None;
 
 impl fmt::Display for Misc {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Misc")
+        f.write_str("Misc")
     }
 }

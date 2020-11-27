@@ -339,6 +339,6 @@ impl IconInfo {
 
 impl fmt::Display for IconInfo {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "IconInfo")
+        f.write_str("IconInfo")
     }
 }

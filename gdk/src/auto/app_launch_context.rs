@@ -8,7 +8,6 @@ use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::translate::*;
 use glib::StaticType;
-use glib::Value;
 use std::fmt;
 
 glib::glib_wrapper! {
@@ -58,7 +57,7 @@ impl AppLaunchContext {
 
     pub fn get_property_display(&self) -> Option<Display> {
         unsafe {
-            let mut value = Value::from_type(<Display as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<Display as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"display\0".as_ptr() as *const _,
@@ -73,6 +72,6 @@ impl AppLaunchContext {
 
 impl fmt::Display for AppLaunchContext {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "AppLaunchContext")
+        f.write_str("AppLaunchContext")
     }
 }

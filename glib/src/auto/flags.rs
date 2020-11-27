@@ -6,7 +6,6 @@ use crate::translate::*;
 use crate::value::FromValue;
 use crate::value::FromValueOptional;
 use crate::value::SetValue;
-use crate::value::Value;
 use crate::StaticType;
 use crate::Type;
 use bitflags::bitflags;
@@ -127,13 +126,13 @@ impl StaticType for IOCondition {
 }
 
 impl<'a> FromValueOptional<'a> for IOCondition {
-    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+    unsafe fn from_value_optional(value: &crate::Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
 impl<'a> FromValue<'a> for IOCondition {
-    unsafe fn from_value(value: &Value) -> Self {
+    unsafe fn from_value(value: &crate::Value) -> Self {
         from_glib(crate::gobject_ffi::g_value_get_flags(
             value.to_glib_none().0,
         ))
@@ -141,7 +140,7 @@ impl<'a> FromValue<'a> for IOCondition {
 }
 
 impl SetValue for IOCondition {
-    unsafe fn set_value(value: &mut Value, this: &Self) {
+    unsafe fn set_value(value: &mut crate::Value, this: &Self) {
         crate::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
     }
 }

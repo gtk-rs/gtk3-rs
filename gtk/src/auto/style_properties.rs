@@ -135,6 +135,6 @@ impl<O: IsA<StyleProperties>> StylePropertiesExt for O {
 
 impl fmt::Display for StyleProperties {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "StyleProperties")
+        f.write_str("StyleProperties")
     }
 }

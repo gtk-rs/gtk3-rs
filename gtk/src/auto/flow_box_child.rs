@@ -447,6 +447,6 @@ impl<O: IsA<FlowBoxChild>> FlowBoxChildExt for O {
 
 impl fmt::Display for FlowBoxChild {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FlowBoxChild")
+        f.write_str("FlowBoxChild")
     }
 }

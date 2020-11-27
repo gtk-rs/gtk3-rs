@@ -19,9 +19,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -489,7 +486,7 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     fn get_property_icon_size(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-size\0".as_ptr() as *const _,
@@ -509,7 +506,7 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"icon-size\0".as_ptr() as *const _,
-                Value::from(&icon_size).to_glib_none().0,
+                glib::Value::from(&icon_size).to_glib_none().0,
             );
         }
     }
@@ -567,6 +564,6 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
 
 impl fmt::Display for StackSwitcher {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "StackSwitcher")
+        f.write_str("StackSwitcher")
     }
 }

@@ -204,6 +204,6 @@ impl<O: IsA<SizeGroup>> SizeGroupExt for O {
 
 impl fmt::Display for SizeGroup {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SizeGroup")
+        f.write_str("SizeGroup")
     }
 }

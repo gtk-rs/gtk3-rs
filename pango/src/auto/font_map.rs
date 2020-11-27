@@ -119,6 +119,6 @@ impl<O: IsA<FontMap>> FontMapExt for O {
 
 impl fmt::Display for FontMap {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FontMap")
+        f.write_str("FontMap")
     }
 }

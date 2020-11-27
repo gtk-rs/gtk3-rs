@@ -12,7 +12,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -102,7 +101,7 @@ impl Monitor {
 
     pub fn get_property_display(&self) -> Option<Display> {
         unsafe {
-            let mut value = Value::from_type(<Display as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<Display as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"display\0".as_ptr() as *const _,
@@ -116,7 +115,7 @@ impl Monitor {
 
     pub fn get_property_geometry(&self) -> Option<Rectangle> {
         unsafe {
-            let mut value = Value::from_type(<Rectangle as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<Rectangle as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"geometry\0".as_ptr() as *const _,
@@ -130,7 +129,7 @@ impl Monitor {
 
     pub fn get_property_height_mm(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"height-mm\0".as_ptr() as *const _,
@@ -145,7 +144,7 @@ impl Monitor {
 
     pub fn get_property_refresh_rate(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"refresh-rate\0".as_ptr() as *const _,
@@ -160,7 +159,7 @@ impl Monitor {
 
     pub fn get_property_scale_factor(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"scale-factor\0".as_ptr() as *const _,
@@ -175,7 +174,7 @@ impl Monitor {
 
     pub fn get_property_width_mm(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"width-mm\0".as_ptr() as *const _,
@@ -190,7 +189,7 @@ impl Monitor {
 
     pub fn get_property_workarea(&self) -> Option<Rectangle> {
         unsafe {
-            let mut value = Value::from_type(<Rectangle as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<Rectangle as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"workarea\0".as_ptr() as *const _,
@@ -457,6 +456,6 @@ impl Monitor {
 
 impl fmt::Display for Monitor {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Monitor")
+        f.write_str("Monitor")
     }
 }

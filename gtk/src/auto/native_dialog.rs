@@ -21,9 +21,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use glib::Value;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use std::boxed::Box as Box_;
 use std::fmt;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
@@ -221,7 +218,7 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"visible\0".as_ptr() as *const _,
-                Value::from(&visible).to_glib_none().0,
+                glib::Value::from(&visible).to_glib_none().0,
             );
         }
     }
@@ -365,6 +362,6 @@ impl<O: IsA<NativeDialog>> NativeDialogExt for O {
 
 impl fmt::Display for NativeDialog {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "NativeDialog")
+        f.write_str("NativeDialog")
     }
 }

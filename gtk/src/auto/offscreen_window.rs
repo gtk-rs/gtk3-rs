@@ -659,6 +659,6 @@ impl<O: IsA<OffscreenWindow>> OffscreenWindowExt for O {
 
 impl fmt::Display for OffscreenWindow {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "OffscreenWindow")
+        f.write_str("OffscreenWindow")
     }
 }

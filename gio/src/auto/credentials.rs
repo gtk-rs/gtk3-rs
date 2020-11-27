@@ -98,6 +98,6 @@ impl Default for Credentials {
 
 impl fmt::Display for Credentials {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Credentials")
+        f.write_str("Credentials")
     }
 }

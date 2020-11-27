@@ -871,6 +871,6 @@ impl<O: IsA<Expander>> ExpanderExt for O {
 
 impl fmt::Display for Expander {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Expander")
+        f.write_str("Expander")
     }
 }

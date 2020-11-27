@@ -699,6 +699,6 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
 
 impl fmt::Display for LevelBar {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "LevelBar")
+        f.write_str("LevelBar")
     }
 }

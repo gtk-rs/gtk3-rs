@@ -8,7 +8,6 @@ use crate::UnixSocketAddressType;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::StaticType;
-use glib::Value;
 use std::fmt;
 
 glib::glib_wrapper! {
@@ -73,7 +72,7 @@ impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExt for O {
 
     fn get_property_abstract(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"abstract\0".as_ptr() as *const _,
@@ -88,7 +87,7 @@ impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExt for O {
 
     fn get_property_path_as_array(&self) -> Option<glib::ByteArray> {
         unsafe {
-            let mut value = Value::from_type(<glib::ByteArray as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::ByteArray as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"path-as-array\0".as_ptr() as *const _,
@@ -103,6 +102,6 @@ impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExt for O {
 
 impl fmt::Display for UnixSocketAddress {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "UnixSocketAddress")
+        f.write_str("UnixSocketAddress")
     }
 }

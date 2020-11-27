@@ -31,7 +31,6 @@ use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -286,7 +285,7 @@ impl Device {
 
     pub fn get_property_device_manager(&self) -> Option<DeviceManager> {
         unsafe {
-            let mut value = Value::from_type(<DeviceManager as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<DeviceManager as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"device-manager\0".as_ptr() as *const _,
@@ -300,7 +299,7 @@ impl Device {
 
     pub fn get_property_input_mode(&self) -> InputMode {
         unsafe {
-            let mut value = Value::from_type(<InputMode as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<InputMode as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"input-mode\0".as_ptr() as *const _,
@@ -318,14 +317,14 @@ impl Device {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"input-mode\0".as_ptr() as *const _,
-                Value::from(&input_mode).to_glib_none().0,
+                glib::Value::from(&input_mode).to_glib_none().0,
             );
         }
     }
 
     pub fn get_property_input_source(&self) -> InputSource {
         unsafe {
-            let mut value = Value::from_type(<InputSource as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<InputSource as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"input-source\0".as_ptr() as *const _,
@@ -342,7 +341,7 @@ impl Device {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     pub fn get_property_num_touches(&self) -> u32 {
         unsafe {
-            let mut value = Value::from_type(<u32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"num-touches\0".as_ptr() as *const _,
@@ -362,7 +361,7 @@ impl Device {
             glib::gobject_ffi::g_object_set_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"seat\0".as_ptr() as *const _,
-                Value::from(seat).to_glib_none().0,
+                glib::Value::from(seat).to_glib_none().0,
             );
         }
     }
@@ -371,7 +370,7 @@ impl Device {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub fn get_property_tool(&self) -> Option<DeviceTool> {
         unsafe {
-            let mut value = Value::from_type(<DeviceTool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<DeviceTool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"tool\0".as_ptr() as *const _,
@@ -385,7 +384,7 @@ impl Device {
 
     pub fn get_property_type(&self) -> DeviceType {
         unsafe {
-            let mut value = Value::from_type(<DeviceType as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<DeviceType as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"type\0".as_ptr() as *const _,
@@ -639,6 +638,6 @@ impl Device {
 
 impl fmt::Display for Device {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Device")
+        f.write_str("Device")
     }
 }

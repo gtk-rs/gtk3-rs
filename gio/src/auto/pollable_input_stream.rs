@@ -43,6 +43,6 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExt for O {
 
 impl fmt::Display for PollableInputStream {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "PollableInputStream")
+        f.write_str("PollableInputStream")
     }
 }

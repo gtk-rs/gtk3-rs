@@ -740,6 +740,6 @@ pub const NONE_FILE_CHOOSER_DIALOG: Option<&FileChooserDialog> = None;
 
 impl fmt::Display for FileChooserDialog {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FileChooserDialog")
+        f.write_str("FileChooserDialog")
     }
 }

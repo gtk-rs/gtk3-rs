@@ -141,6 +141,6 @@ impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
 
 impl fmt::Display for LoadableIcon {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "LoadableIcon")
+        f.write_str("LoadableIcon")
     }
 }

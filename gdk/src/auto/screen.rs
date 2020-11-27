@@ -340,6 +340,6 @@ impl Screen {
 
 impl fmt::Display for Screen {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Screen")
+        f.write_str("Screen")
     }
 }

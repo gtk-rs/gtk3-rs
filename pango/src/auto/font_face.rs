@@ -87,6 +87,6 @@ impl<O: IsA<FontFace>> FontFaceExt for O {
 
 impl fmt::Display for FontFace {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FontFace")
+        f.write_str("FontFace")
     }
 }

@@ -183,6 +183,6 @@ impl<O: IsA<TlsPassword>> TlsPasswordExt for O {
 
 impl fmt::Display for TlsPassword {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "TlsPassword")
+        f.write_str("TlsPassword")
     }
 }

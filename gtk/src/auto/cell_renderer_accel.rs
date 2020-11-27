@@ -14,7 +14,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -673,7 +672,7 @@ pub trait CellRendererAccelExt: 'static {
 impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
     fn get_property_accel_key(&self) -> u32 {
         unsafe {
-            let mut value = Value::from_type(<u32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accel-key\0".as_ptr() as *const _,
@@ -691,14 +690,15 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accel-key\0".as_ptr() as *const _,
-                Value::from(&accel_key).to_glib_none().0,
+                glib::Value::from(&accel_key).to_glib_none().0,
             );
         }
     }
 
     fn get_property_accel_mode(&self) -> CellRendererAccelMode {
         unsafe {
-            let mut value = Value::from_type(<CellRendererAccelMode as StaticType>::static_type());
+            let mut value =
+                glib::Value::from_type(<CellRendererAccelMode as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accel-mode\0".as_ptr() as *const _,
@@ -716,14 +716,15 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accel-mode\0".as_ptr() as *const _,
-                Value::from(&accel_mode).to_glib_none().0,
+                glib::Value::from(&accel_mode).to_glib_none().0,
             );
         }
     }
 
     fn get_property_accel_mods(&self) -> gdk::ModifierType {
         unsafe {
-            let mut value = Value::from_type(<gdk::ModifierType as StaticType>::static_type());
+            let mut value =
+                glib::Value::from_type(<gdk::ModifierType as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accel-mods\0".as_ptr() as *const _,
@@ -741,14 +742,14 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"accel-mods\0".as_ptr() as *const _,
-                Value::from(&accel_mods).to_glib_none().0,
+                glib::Value::from(&accel_mods).to_glib_none().0,
             );
         }
     }
 
     fn get_property_keycode(&self) -> u32 {
         unsafe {
-            let mut value = Value::from_type(<u32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"keycode\0".as_ptr() as *const _,
@@ -766,7 +767,7 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"keycode\0".as_ptr() as *const _,
-                Value::from(&keycode).to_glib_none().0,
+                glib::Value::from(&keycode).to_glib_none().0,
             );
         }
     }
@@ -938,6 +939,6 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
 
 impl fmt::Display for CellRendererAccel {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "CellRendererAccel")
+        f.write_str("CellRendererAccel")
     }
 }

@@ -10,7 +10,6 @@ use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::translate::*;
 use glib::StaticType;
-use glib::Value;
 use std::fmt;
 use std::ptr;
 
@@ -542,7 +541,7 @@ impl Pixbuf {
 
     pub fn get_property_pixel_bytes(&self) -> Option<glib::Bytes> {
         unsafe {
-            let mut value = Value::from_type(<glib::Bytes as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<glib::Bytes as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"pixel-bytes\0".as_ptr() as *const _,
@@ -595,6 +594,6 @@ impl Pixbuf {
 
 impl fmt::Display for Pixbuf {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Pixbuf")
+        f.write_str("Pixbuf")
     }
 }

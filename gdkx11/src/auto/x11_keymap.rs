@@ -30,6 +30,6 @@ impl X11Keymap {
 
 impl fmt::Display for X11Keymap {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "X11Keymap")
+        f.write_str("X11Keymap")
     }
 }

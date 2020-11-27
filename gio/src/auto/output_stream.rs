@@ -592,6 +592,6 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
 
 impl fmt::Display for OutputStream {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "OutputStream")
+        f.write_str("OutputStream")
     }
 }

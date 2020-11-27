@@ -164,6 +164,6 @@ impl X11Display {
 
 impl fmt::Display for X11Display {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "X11Display")
+        f.write_str("X11Display")
     }
 }

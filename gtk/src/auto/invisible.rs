@@ -409,6 +409,6 @@ impl<O: IsA<Invisible>> InvisibleExt for O {
 
 impl fmt::Display for Invisible {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Invisible")
+        f.write_str("Invisible")
     }
 }

@@ -71,6 +71,6 @@ impl<O: IsA<EditableText>> EditableTextExt for O {
 
 impl fmt::Display for EditableText {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "EditableText")
+        f.write_str("EditableText")
     }
 }

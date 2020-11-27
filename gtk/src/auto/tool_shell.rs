@@ -113,6 +113,6 @@ impl<O: IsA<ToolShell>> ToolShellExt for O {
 
 impl fmt::Display for ToolShell {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ToolShell")
+        f.write_str("ToolShell")
     }
 }

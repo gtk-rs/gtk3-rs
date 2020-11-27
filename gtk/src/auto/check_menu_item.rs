@@ -684,6 +684,6 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
 
 impl fmt::Display for CheckMenuItem {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "CheckMenuItem")
+        f.write_str("CheckMenuItem")
     }
 }

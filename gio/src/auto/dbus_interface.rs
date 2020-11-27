@@ -55,6 +55,6 @@ impl<O: IsA<DBusInterface>> DBusInterfaceExt for O {
 
 impl fmt::Display for DBusInterface {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "DBusInterface")
+        f.write_str("DBusInterface")
     }
 }

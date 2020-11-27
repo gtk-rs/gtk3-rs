@@ -15,7 +15,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-use glib::Value;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -655,7 +654,7 @@ pub trait CellRendererComboExt: 'static {
 impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
     fn get_property_has_entry(&self) -> bool {
         unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"has-entry\0".as_ptr() as *const _,
@@ -673,14 +672,14 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"has-entry\0".as_ptr() as *const _,
-                Value::from(&has_entry).to_glib_none().0,
+                glib::Value::from(&has_entry).to_glib_none().0,
             );
         }
     }
 
     fn get_property_model(&self) -> Option<TreeModel> {
         unsafe {
-            let mut value = Value::from_type(<TreeModel as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<TreeModel as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"model\0".as_ptr() as *const _,
@@ -697,14 +696,14 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"model\0".as_ptr() as *const _,
-                Value::from(model).to_glib_none().0,
+                glib::Value::from(model).to_glib_none().0,
             );
         }
     }
 
     fn get_property_text_column(&self) -> i32 {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"text-column\0".as_ptr() as *const _,
@@ -722,7 +721,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
             glib::gobject_ffi::g_object_set_property(
                 self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
                 b"text-column\0".as_ptr() as *const _,
-                Value::from(&text_column).to_glib_none().0,
+                glib::Value::from(&text_column).to_glib_none().0,
             );
         }
     }
@@ -835,6 +834,6 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
 
 impl fmt::Display for CellRendererCombo {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "CellRendererCombo")
+        f.write_str("CellRendererCombo")
     }
 }

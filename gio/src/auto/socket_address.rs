@@ -92,6 +92,6 @@ impl<O: IsA<SocketAddress>> SocketAddressExt for O {
 
 impl fmt::Display for SocketAddress {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SocketAddress")
+        f.write_str("SocketAddress")
     }
 }

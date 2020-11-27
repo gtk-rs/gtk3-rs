@@ -180,6 +180,6 @@ impl SimpleAction {
 
 impl fmt::Display for SimpleAction {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SimpleAction")
+        f.write_str("SimpleAction")
     }
 }

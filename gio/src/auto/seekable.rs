@@ -99,6 +99,6 @@ impl<O: IsA<Seekable>> SeekableExt for O {
 
 impl fmt::Display for Seekable {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Seekable")
+        f.write_str("Seekable")
     }
 }

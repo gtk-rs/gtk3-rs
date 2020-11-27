@@ -34,6 +34,6 @@ impl<O: IsA<UnixInputStream>> UnixInputStreamExt for O {
 
 impl fmt::Display for UnixInputStream {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "UnixInputStream")
+        f.write_str("UnixInputStream")
     }
 }

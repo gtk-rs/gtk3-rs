@@ -72,6 +72,6 @@ impl<O: IsA<MenuAttributeIter>> MenuAttributeIterExt for O {
 
 impl fmt::Display for MenuAttributeIter {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "MenuAttributeIter")
+        f.write_str("MenuAttributeIter")
     }
 }

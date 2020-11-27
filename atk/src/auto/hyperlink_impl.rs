@@ -33,6 +33,6 @@ impl<O: IsA<HyperlinkImpl>> HyperlinkImplExt for O {
 
 impl fmt::Display for HyperlinkImpl {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "HyperlinkImpl")
+        f.write_str("HyperlinkImpl")
     }
 }

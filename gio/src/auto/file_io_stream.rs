@@ -141,6 +141,6 @@ impl<O: IsA<FileIOStream>> FileIOStreamExt for O {
 
 impl fmt::Display for FileIOStream {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FileIOStream")
+        f.write_str("FileIOStream")
     }
 }

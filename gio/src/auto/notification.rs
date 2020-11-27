@@ -105,6 +105,6 @@ impl Notification {
 
 impl fmt::Display for Notification {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Notification")
+        f.write_str("Notification")
     }
 }

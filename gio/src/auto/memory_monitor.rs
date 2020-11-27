@@ -90,6 +90,6 @@ impl<O: IsA<MemoryMonitor>> MemoryMonitorExt for O {
 
 impl fmt::Display for MemoryMonitor {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "MemoryMonitor")
+        f.write_str("MemoryMonitor")
     }
 }

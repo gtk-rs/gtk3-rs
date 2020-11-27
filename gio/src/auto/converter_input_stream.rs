@@ -100,6 +100,6 @@ impl<O: IsA<ConverterInputStream>> ConverterInputStreamExt for O {
 
 impl fmt::Display for ConverterInputStream {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ConverterInputStream")
+        f.write_str("ConverterInputStream")
     }
 }

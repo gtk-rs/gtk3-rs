@@ -154,6 +154,6 @@ impl<O: IsA<MenuModel>> MenuModelExt for O {
 
 impl fmt::Display for MenuModel {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "MenuModel")
+        f.write_str("MenuModel")
     }
 }
