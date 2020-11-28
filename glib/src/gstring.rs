@@ -404,6 +404,80 @@ impl<'a> ToGlibPtr<'a, *mut c_char> for GString {
     }
 }
 
+#[doc(hidden)]
+impl<'a> FromGlibContainer<*const c_char, *const i8> for GString {
+    unsafe fn from_glib_none_num(ptr: *const i8, num: usize) -> Self {
+        if num == 0 || ptr.is_null() {
+            return Self::from("");
+        }
+        let mut bytes = Vec::with_capacity(num + 1);
+        let slice = std::slice::from_raw_parts(ptr as *const u8, num);
+        bytes.extend_from_slice(slice);
+        bytes.push(0);
+
+        CStr::from_bytes_with_nul_unchecked(bytes.as_slice()).into()
+    }
+
+    unsafe fn from_glib_container_num(ptr: *const i8, num: usize) -> Self {
+        if num == 0 || ptr.is_null() {
+            return GString::from("");
+        }
+        GString(Inner::Foreign(ptr as *mut _, num))
+    }
+
+    unsafe fn from_glib_full_num(ptr: *const i8, num: usize) -> Self {
+        if num == 0 || ptr.is_null() {
+            return GString::from("");
+        }
+        GString(Inner::Foreign(ptr as *mut _, num))
+    }
+}
+
+#[doc(hidden)]
+impl<'a> FromGlibContainer<*const c_char, *mut i8> for GString {
+    unsafe fn from_glib_none_num(ptr: *mut i8, num: usize) -> Self {
+        FromGlibContainer::from_glib_none_num(ptr as *const i8, num)
+    }
+
+    unsafe fn from_glib_container_num(ptr: *mut i8, num: usize) -> Self {
+        FromGlibContainer::from_glib_none_num(ptr as *const i8, num)
+    }
+
+    unsafe fn from_glib_full_num(ptr: *mut i8, num: usize) -> Self {
+        FromGlibContainer::from_glib_none_num(ptr as *const i8, num)
+    }
+}
+
+#[doc(hidden)]
+impl<'a> FromGlibContainer<*const c_char, *const u8> for GString {
+    unsafe fn from_glib_none_num(ptr: *const u8, num: usize) -> Self {
+        FromGlibContainer::from_glib_none_num(ptr as *const i8, num)
+    }
+
+    unsafe fn from_glib_container_num(ptr: *const u8, num: usize) -> Self {
+        FromGlibContainer::from_glib_none_num(ptr as *const i8, num)
+    }
+
+    unsafe fn from_glib_full_num(ptr: *const u8, num: usize) -> Self {
+        FromGlibContainer::from_glib_none_num(ptr as *const i8, num)
+    }
+}
+
+#[doc(hidden)]
+impl<'a> FromGlibContainer<*const c_char, *mut u8> for GString {
+    unsafe fn from_glib_none_num(ptr: *mut u8, num: usize) -> Self {
+        FromGlibContainer::from_glib_none_num(ptr as *const i8, num)
+    }
+
+    unsafe fn from_glib_container_num(ptr: *mut u8, num: usize) -> Self {
+        FromGlibContainer::from_glib_none_num(ptr as *const i8, num)
+    }
+
+    unsafe fn from_glib_full_num(ptr: *mut u8, num: usize) -> Self {
+        FromGlibContainer::from_glib_none_num(ptr as *const i8, num)
+    }
+}
+
 impl GlibPtrDefault for GString {
     type GlibType = *const c_char;
 }
@@ -450,7 +524,7 @@ impl_from_glib_container_as_vec_string!(GString, *mut c_char);
 #[cfg(test)]
 #[allow(clippy::blacklisted_name)]
 mod tests {
-    use super::GString;
+    use super::{FromGlibContainer, GString};
     use std::ffi::CString;
 
     #[test]
@@ -509,6 +583,32 @@ mod tests {
         let v: &[u8] = b"foo";
         let s: GString = Vec::from(v).into();
         assert_eq!(s.as_str(), "foo");
+    }
+
+    #[test]
+    fn test_from_glib_container() {
+        unsafe {
+            let test_a: GString = FromGlibContainer::from_glib_container_num(
+                ffi::g_strdup("hello_world".as_ptr() as *const i8),
+                5,
+            );
+            assert_eq!("hello", test_a.as_str());
+
+            let test_b: GString = FromGlibContainer::from_glib_none_num("hello_world".as_ptr(), 5);
+            assert_eq!("hello", test_b.as_str());
+
+            let test_c: GString = FromGlibContainer::from_glib_none_num(std::ptr::null::<i8>(), 0);
+            assert_eq!("", test_c.as_str());
+
+            let test_d: GString = FromGlibContainer::from_glib_none_num("".as_ptr(), 0);
+            assert_eq!("", test_d.as_str());
+
+            let test_e: GString = FromGlibContainer::from_glib_container_num(
+                ffi::g_strdup(std::ptr::null::<i8>()),
+                0,
+            );
+            assert_eq!("", test_e.as_str());
+        }
     }
 
     #[test]
