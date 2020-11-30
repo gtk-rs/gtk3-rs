@@ -13,8 +13,6 @@ use std::ptr;
 use std::slice;
 use std::string::String;
 
-use crate::value::{FromValueOptional, SetValue, SetValueOptional, Value};
-
 #[derive(Debug)]
 pub struct GString(Inner);
 
@@ -491,29 +489,85 @@ impl StaticType for Vec<GString> {
     }
 }
 
-impl<'a> FromValueOptional<'a> for GString {
-    unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
-        let val = value.to_glib_none().0;
-        if val.is_null() {
-            None
-        } else {
-            let ptr = gobject_ffi::g_value_dup_string(val);
-            Some(GString::new(ptr))
-        }
+impl crate::value::ValueType for GString {
+    type Type = String;
+}
+
+impl<'a> crate::value::FromValue<'a> for GString {
+    type Error = crate::value::WrongValueTypeOrNoneError;
+
+    fn check(value: &'a crate::Value) -> Result<(), Self::Error> {
+        <&str>::check(value)
+    }
+
+    fn from_value(value: &'a crate::Value) -> Result<Self, Self::Error> {
+        <&str>::from_value(value).map(GString::from)
     }
 }
 
-impl SetValue for GString {
-    unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+impl crate::value::ToValue for GString {
+    fn to_value(&self) -> crate::Value {
+        <&str>::to_value(self.as_str())
+    }
+
+    fn to_value_type(&self) -> Type {
+        String::static_type()
     }
 }
 
-impl SetValueOptional for GString {
-    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+impl crate::value::ToValueOptional for GString {
+    fn to_value_optional(s: &Option<Self>) -> crate::Value {
+        <&str>::to_value_optional(s.as_deref())
     }
 }
+
+impl crate::value::UsableAsParam for GString {
+    fn param_spec(
+        name: &str,
+        nick: &str,
+        blurb: &str,
+        flags: crate::ParamFlags,
+    ) -> crate::ParamSpec {
+        crate::ParamSpec::string(name, nick, blurb, flags, Some(String::new()))
+    }
+}
+
+impl crate::value::UsableAsParamWithDefault for GString {
+    fn param_spec_with_default(
+        name: &str,
+        nick: &str,
+        blurb: &str,
+        default: &String,
+        flags: crate::ParamFlags,
+    ) -> crate::ParamSpec {
+        crate::ParamSpec::string(name, nick, blurb, flags, default)
+    }
+}
+
+impl crate::value::UsableAsParam for Option<GString> {
+    fn param_spec(
+        name: &str,
+        nick: &str,
+        blurb: &str,
+        flags: crate::ParamFlags,
+    ) -> crate::ParamSpec {
+        crate::ParamSpec::string(name, nick, blurb, flags, None)
+    }
+}
+
+impl crate::value::UsableAsParamWithDefault for Option<GString> {
+    fn param_spec_with_default(
+        name: &str,
+        nick: &str,
+        blurb: &str,
+        default: &Option<String>,
+        flags: crate::ParamFlags,
+    ) -> crate::ParamSpec {
+        crate::ParamSpec::string(name, nick, blurb, flags, default)
+    }
+}
+
+// TODO: Also for Vec<>, &[], []
 
 impl_from_glib_container_as_vec_string!(GString, *const c_char);
 impl_from_glib_container_as_vec_string!(GString, *mut c_char);

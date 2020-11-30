@@ -6,7 +6,6 @@ use crate::translate::{
     from_glib, from_glib_none, FromGlib, FromGlibContainerAsVec, ToGlib, ToGlibContainerFromSlice,
     ToGlibPtr, ToGlibPtrMut,
 };
-use crate::value::{FromValue, FromValueOptional, SetValue, Value};
 
 use std::fmt;
 use std::mem;
@@ -169,25 +168,46 @@ impl StaticType for Type {
     }
 }
 
-impl<'a> FromValueOptional<'a> for Type {
-    unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
-        Some(from_glib(gobject_ffi::g_value_get_gtype(
-            value.to_glib_none().0,
-        )))
+#[doc(hidden)]
+impl crate::value::ValueType for Type {
+    type Type = Type;
+}
+
+#[doc(hidden)]
+impl<'a> crate::value::FromValue<'a> for Type {
+    type Error = crate::value::WrongValueTypeError;
+
+    fn check(value: &'a crate::Value) -> Result<(), Self::Error> {
+        crate::value::WrongValueTypeError::check::<Type>(value)
+    }
+
+    fn from_value(value: &'a crate::Value) -> Result<Self, Self::Error> {
+        Self::check(value)?;
+
+        unsafe {
+            Ok(from_glib(gobject_ffi::g_value_get_gtype(
+                value.to_glib_none().0,
+            )))
+        }
     }
 }
 
-impl<'a> FromValue<'a> for Type {
-    unsafe fn from_value(value: &'a Value) -> Self {
-        from_glib(gobject_ffi::g_value_get_gtype(value.to_glib_none().0))
+#[doc(hidden)]
+impl crate::value::ToValue for Type {
+    fn to_value(&self) -> crate::Value {
+        unsafe {
+            let mut value = crate::Value::from_type(Type::static_type());
+            gobject_ffi::g_value_set_gtype(value.to_glib_none_mut().0, self.to_glib());
+            value
+        }
+    }
+
+    fn to_value_type(&self) -> crate::Type {
+        Type::static_type()
     }
 }
 
-impl SetValue for Type {
-    unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_gtype(value.to_glib_none_mut().0, this.to_glib())
-    }
-}
+// FIXME: UsableAsParam needs some further thought
 
 impl<'a, T: ?Sized + StaticType> StaticType for &'a T {
     fn static_type() -> Type {

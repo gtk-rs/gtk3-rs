@@ -3,7 +3,6 @@
 use crate::translate::*;
 use crate::types::StaticType;
 use crate::types::Type;
-use crate::value::{FromValueOptional, SetValue, SetValueOptional, Value};
 use crate::BoolError;
 use std::borrow::{Borrow, Cow, ToOwned};
 use std::cmp::{Eq, PartialEq};
@@ -224,34 +223,71 @@ impl StaticType for VariantTy {
     }
 }
 
-impl SetValue for VariantTy {
-    unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_boxed(
-            value.to_glib_none_mut().0,
-            this.to_glib_none().0 as ffi::gpointer,
-        )
-    }
+#[doc(hidden)]
+impl crate::value::ValueType for VariantTy {
+    type Type = VariantTy;
 }
 
-impl SetValueOptional for VariantTy {
-    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-        use std::ptr;
-        let p = match this {
-            Some(ref t) => t.to_glib_none().0 as ffi::gpointer,
-            None => ptr::null(),
-        };
-        gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0, p)
-    }
-}
+#[doc(hidden)]
+impl<'a> crate::value::FromValue<'a> for VariantTy {
+    type Error = crate::value::WrongValueTypeOrNoneError;
 
-impl<'a> FromValueOptional<'a> for &'a VariantTy {
-    unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
-        let cvty = gobject_ffi::g_value_get_boxed(value.to_glib_none().0) as *mut ffi::GVariantType;
-        if cvty.is_null() {
-            None
-        } else {
-            Some(VariantTy::from_ptr(cvty))
+    fn check(value: &'a crate::Value) -> Result<(), Self::Error> {
+        crate::value::WrongValueTypeError::check::<VariantTy>(value)?;
+
+        unsafe {
+            let ptr = gobject_ffi::g_value_get_boxed(value.to_glib_none().0);
+            if ptr.is_null() {
+                return Err(crate::value::WrongValueTypeOrNoneError::UnexpectedNone);
+            }
         }
+
+        Ok(())
+    }
+
+    fn from_value(value: &'a crate::Value) -> Result<Self, Self::Error> {
+        Self::check(value)?;
+
+        unsafe {
+            let ptr = gobject_ffi::g_value_get_boxed(value.to_glib_none().0);
+            assert!(!ptr.is_null());
+            Ok(VariantTy::from_ptr(ptr))
+        }
+    }
+}
+
+#[doc(hidden)]
+impl crate::value::ToValue for VariantTy {
+    fn to_value(&self) -> crate::Value {
+        unsafe {
+            let mut value = crate::Value::from_type(VariantTy::static_type());
+            gobject_ffi::g_value_set_boxed(
+                value.to_glib_none_mut().0,
+                self.to_glib_none().0 as *mut _,
+            );
+            value
+        }
+    }
+
+    fn to_value_type(&self) -> crate::Type {
+        VariantTy::static_type()
+    }
+}
+
+#[doc(hidden)]
+impl crate::value::ToValueOptional for VariantTy {
+    fn to_value_optional(s: &Option<Self>) -> crate::Value {
+        let mut value = crate::Value::for_value_type::<VariantTy>();
+        unsafe {
+            let ptr = if let Some(s) = s {
+                s.to_glib_none().0
+            } else {
+                std::ptr::null_mut()
+            };
+            gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0, ptr as *mut _);
+        }
+
+        value
     }
 }
 
@@ -261,31 +297,62 @@ impl StaticType for VariantType {
     }
 }
 
-impl SetValue for VariantType {
-    unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_boxed(
-            value.to_glib_none_mut().0,
-            this.to_glib_none().0 as ffi::gpointer,
-        )
+#[doc(hidden)]
+impl crate::value::ValueType for VariantType {
+    type Type = VariantType;
+}
+
+#[doc(hidden)]
+impl<'a> crate::value::FromValue<'a> for VariantType {
+    type Error = crate::value::WrongValueTypeOrNoneError;
+
+    fn check(value: &'a crate::Value) -> Result<(), Self::Error> {
+        <VariantType as crate::value::FromValue>::check(value)
+    }
+
+    fn from_value(value: &'a crate::Value) -> Result<Self, Self::Error> {
+        Self::check(value)?;
+
+        unsafe {
+            let ptr = gobject_ffi::g_value_dup_boxed(value.to_glib_none().0);
+            assert!(!ptr.is_null());
+            Ok(from_glib_full(ptr as *mut ffi::GVariantType))
+        }
     }
 }
 
-impl SetValueOptional for VariantType {
-    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-        use std::ptr;
-        let p = match this {
-            Some(ref t) => t.to_glib_none().0 as ffi::gpointer,
-            None => ptr::null(),
-        };
-        gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0, p)
+#[doc(hidden)]
+impl crate::value::ToValue for VariantType {
+    fn to_value(&self) -> crate::Value {
+        unsafe {
+            let mut value = crate::Value::from_type(VariantType::static_type());
+            gobject_ffi::g_value_take_boxed(
+                value.to_glib_none_mut().0,
+                self.to_glib_full() as *mut _,
+            );
+            value
+        }
+    }
+
+    fn to_value_type(&self) -> crate::Type {
+        VariantType::static_type()
     }
 }
 
-impl<'a> FromValueOptional<'a> for VariantType {
-    unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
-        Option::<VariantType>::from_glib_none(
-            gobject_ffi::g_value_get_boxed(value.to_glib_none().0) as *mut ffi::GVariantType,
-        )
+#[doc(hidden)]
+impl crate::value::ToValueOptional for VariantType {
+    fn to_value_optional(s: &Option<Self>) -> crate::Value {
+        let mut value = crate::Value::for_value_type::<VariantType>();
+        unsafe {
+            let ptr = if let Some(s) = s {
+                s.to_glib_full()
+            } else {
+                std::ptr::null_mut()
+            };
+            gobject_ffi::g_value_take_boxed(value.to_glib_none_mut().0, ptr as *mut _);
+        }
+
+        value
     }
 }
 

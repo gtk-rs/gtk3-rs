@@ -251,23 +251,81 @@ macro_rules! glib_boxed_wrapper {
         }
 
         #[doc(hidden)]
-        impl<'a> $crate::value::FromValueOptional<'a> for $name {
-            unsafe fn from_value_optional(value: &$crate::Value) -> Option<Self> {
-                $crate::translate::from_glib_full($crate::gobject_ffi::g_value_dup_boxed($crate::translate::ToGlibPtr::to_glib_none(value).0) as *mut $ffi_name)
+        impl $crate::value::ValueType for $name {
+            type Type = $name;
+        }
+
+        #[doc(hidden)]
+        impl<'a> $crate::value::FromValue<'a> for $name {
+            type Error = $crate::value::WrongValueTypeOrNoneError;
+
+            fn check(value: &'a $crate::Value) -> Result<(), Self::Error> {
+                $crate::value::WrongValueTypeError::check::<$name>(value)?;
+
+                unsafe {
+                    let ptr = $crate::gobject_ffi::g_value_get_boxed($crate::translate::ToGlibPtr::to_glib_none(value).0);
+                    if ptr.is_null() {
+                        return Err($crate::value::WrongValueTypeOrNoneError::UnexpectedNone);
+                    }
+                }
+
+                Ok(())
+            }
+
+            fn from_value(value: &'a $crate::Value) -> Result<Self, Self::Error> {
+                Self::check(value)?;
+
+                unsafe {
+                    let ptr = $crate::gobject_ffi::g_value_dup_boxed($crate::translate::ToGlibPtr::to_glib_none(value).0);
+                    assert!(!ptr.is_null());
+                    Ok(<$name as $crate::translate::FromGlibPtrFull<*mut $ffi_name>>::from_glib_full(ptr as *mut $ffi_name))
+                }
             }
         }
 
         #[doc(hidden)]
-        impl $crate::value::SetValue for $name {
-            unsafe fn set_value(value: &mut $crate::Value, this: &Self) {
-                $crate::gobject_ffi::g_value_set_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*const $ffi_name>::to_glib_none(this).0 as $crate::ffi::gpointer)
+        impl $crate::value::ToValue for $name {
+            fn to_value(&self) -> $crate::Value {
+                unsafe {
+                    let mut value = $crate::Value::from_type(<$name as $crate::StaticType>::static_type());
+                    $crate::gobject_ffi::g_value_take_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::to_glib_full(self) as *mut _);
+                    value
+                }
+            }
+
+            fn to_value_type(&self) -> $crate::Type {
+                <$name as $crate::StaticType>::static_type()
             }
         }
 
         #[doc(hidden)]
-        impl $crate::value::SetValueOptional for $name {
-            unsafe fn set_value_optional(value: &mut $crate::Value, this: Option<&Self>) {
-                $crate::gobject_ffi::g_value_set_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*const $ffi_name>::to_glib_none(&this).0 as $crate::ffi::gpointer)
+        impl $crate::value::ToValueOptional for $name {
+            fn to_value_optional(s: &Option<Self>) -> $crate::Value {
+                let mut value = $crate::Value::for_value_type::<$name>();
+                unsafe {
+                    let ptr = if let Some(s) = s {
+                        $crate::translate::ToGlibPtr::to_glib_full(s)
+                    } else {
+                        std::ptr::null_mut()
+                    };
+                    $crate::gobject_ffi::g_value_take_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, ptr as *mut _);
+                }
+
+                value
+            }
+        }
+
+        #[doc(hidden)]
+        impl $crate::value::UsableAsParam for $name {
+            fn param_spec(name: &str, nick: &str, blurb: &str, flags: $crate::ParamFlags) -> $crate::ParamSpec {
+                $crate::ParamSpec::boxed(name, nick, blurb, <$name as $crate::StaticType>::static_type(), flags)
+            }
+        }
+
+        #[doc(hidden)]
+        impl $crate::value::UsableAsParam for Option<$name> {
+            fn param_spec(name: &str, nick: &str, blurb: &str, flags: $crate::ParamFlags) -> $crate::ParamSpec {
+                $crate::ParamSpec::boxed(name, nick, blurb, <$name as $crate::StaticType>::static_type(), flags)
             }
         }
     };

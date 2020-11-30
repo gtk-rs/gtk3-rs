@@ -42,10 +42,11 @@ pub unsafe trait ObjectType:
     + PartialOrd
     + Ord
     + hash::Hash
-    + crate::value::SetValue
-    + crate::value::SetValueOptional
-    + for<'a> crate::value::FromValueOptional<'a>
+    + crate::value::ValueType
     + crate::value::ToValue
+    + crate::value::ToValueOptional
+    + for<'a> crate::value::FromValue<'a, Error = crate::value::WrongValueTypeOrNoneError>
+    + crate::value::UsableAsParam
     + for<'a> ToGlibPtr<'a, *mut <Self as ObjectType>::GlibType>
     + 'static
 {
@@ -942,35 +943,82 @@ macro_rules! glib_object_wrapper {
         }
 
         #[doc(hidden)]
-        impl<'a> $crate::value::FromValueOptional<'a> for $name {
-            unsafe fn from_value_optional(value: &$crate::Value) -> Option<Self> {
-                let obj = $crate::gobject_ffi::g_value_get_object($crate::translate::ToGlibPtr::to_glib_none(value).0);
+        impl $crate::value::ValueType for $name {
+            type Type = $name;
+        }
 
-                // Attention: Don't use from_glib_none() here because we don't want to steal any
-                // floating references that might be owned by someone else.
-                if !obj.is_null() {
-                    assert_ne!((*obj).ref_count, 0);
-                    $crate::gobject_ffi::g_object_ref(obj);
+        #[doc(hidden)]
+        impl<'a> $crate::value::FromValue<'a> for $name {
+            type Error = $crate::value::WrongValueTypeOrNoneError;
+
+            fn check(value: &'a $crate::Value) -> Result<(), Self::Error> {
+                $crate::value::WrongValueTypeError::check::<$name>(value)?;
+
+                unsafe {
+                    let ptr = $crate::gobject_ffi::g_value_get_object($crate::translate::ToGlibPtr::to_glib_none(value).0);
+                    if ptr.is_null() {
+                        return Err($crate::value::WrongValueTypeOrNoneError::UnexpectedNone);
+                    }
                 }
 
-                // And take the reference to the object from above to pass it to the caller
-                <Option::<$name> as $crate::translate::FromGlibPtrFull<*mut $ffi_name>>::from_glib_full(obj as *mut $ffi_name).map(|o| $crate::object::Cast::unsafe_cast(o))
+                Ok(())
+            }
+
+            fn from_value(value: &'a $crate::Value) -> Result<Self, Self::Error> {
+                Self::check(value)?;
+
+                unsafe {
+                    let ptr = $crate::gobject_ffi::g_value_dup_object($crate::translate::ToGlibPtr::to_glib_none(value).0);
+                    assert!(!ptr.is_null());
+                    assert_ne!((*ptr).ref_count, 0);
+                    Ok(<$name as $crate::translate::FromGlibPtrFull<*mut $ffi_name>>::from_glib_full(ptr as *mut $ffi_name))
+                }
             }
         }
 
         #[doc(hidden)]
-        impl $crate::value::SetValue for $name {
-            #[allow(clippy::cast_ptr_alignment)]
-            unsafe fn set_value(value: &mut $crate::Value, this: &Self) {
-                $crate::gobject_ffi::g_value_set_object($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(this).0 as *mut $crate::gobject_ffi::GObject)
+        impl $crate::value::ToValue for $name {
+            fn to_value(&self) -> $crate::Value {
+                unsafe {
+                    let mut value = $crate::Value::from_type(<$name as $crate::StaticType>::static_type());
+                    $crate::gobject_ffi::g_value_take_object($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::to_glib_full(self) as *mut _);
+                    value
+                }
+            }
+
+            fn to_value_type(&self) -> $crate::Type {
+                <$name as $crate::StaticType>::static_type()
             }
         }
 
         #[doc(hidden)]
-        impl $crate::value::SetValueOptional for $name {
-            #[allow(clippy::cast_ptr_alignment)]
-            unsafe fn set_value_optional(value: &mut $crate::Value, this: Option<&Self>) {
-                $crate::gobject_ffi::g_value_set_object($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(&this).0 as *mut $crate::gobject_ffi::GObject)
+        impl $crate::value::ToValueOptional for $name {
+            fn to_value_optional(s: &Option<Self>) -> $crate::Value {
+                let mut value = $crate::Value::for_value_type::<$name>();
+                unsafe {
+                    let ptr = if let Some(s) = s {
+                        $crate::translate::ToGlibPtr::to_glib_full(s)
+                    } else {
+                        std::ptr::null_mut()
+                    };
+                    $crate::gobject_ffi::g_value_take_object($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, ptr as *mut _);
+                }
+
+                value
+            }
+        }
+
+        #[doc(hidden)]
+        impl $crate::value::UsableAsParam for $name {
+            fn param_spec(name: &str, nick: &str, blurb: &str, flags: $crate::ParamFlags) -> $crate::ParamSpec {
+                $crate::ParamSpec::object(name, nick, blurb, <$name as $crate::StaticType>::static_type(), flags)
+            }
+        }
+
+        #[doc(hidden)]
+        impl $crate::value::UsableAsParam for Option<$name> {
+            fn param_spec(name: &str, nick: &str, blurb: &str, flags: $crate::ParamFlags) -> $crate::ParamSpec {
+                $crate::ParamSpec::object(name, nick, blurb, <$name as $crate::StaticType>::static_type(), flags)
             }
         }
 
