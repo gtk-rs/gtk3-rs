@@ -123,12 +123,20 @@ jobs:
       - name: "glib: build nightly"
         run: cargo build --manifest-path glib/Cargo.toml --all-features
         if: matrix.rust == 'nightly'
+      - name: "glib: tests glib macros nightly"
+        working-directory: glib
+        run: python3 clone_tests/clone_compilation_errors.py
+        if: matrix.rust == 'nightly'
       #not nightly
       - name: "glib: tests"
         run: xvfb-run --auto-servernum cargo test --manifest-path glib/Cargo.toml --features "v2_66"
         if: matrix.rust != 'nightly'
       - name: "glib: build"
         run: cargo build --manifest-path glib/Cargo.toml --features "v2_66"
+        if: matrix.rust != 'nightly'
+      - name: "glib: tests glib macros"
+        working-directory: glib
+        run: python3 clone_tests/clone_compilation_errors.py
         if: matrix.rust != 'nightly'
       # glib-macros
       - name: "glib-macros: tests"
