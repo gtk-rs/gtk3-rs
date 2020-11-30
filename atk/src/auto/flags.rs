@@ -17,6 +17,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for HyperlinkStateFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for HyperlinkStateFlags {
     type GlibType = ffi::AtkHyperlinkStateFlags;

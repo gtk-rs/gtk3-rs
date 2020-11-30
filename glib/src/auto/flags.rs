@@ -24,6 +24,14 @@ bitflags! {
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+impl fmt::Display for FileSetContentsFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl ToGlib for FileSetContentsFlags {
     type GlibType = ffi::GFileSetContentsFlags;
@@ -52,6 +60,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for FileTest {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for FileTest {
     type GlibType = ffi::GFileTest;
@@ -74,6 +88,12 @@ bitflags! {
         const LONG_FORMAT = 1;
         const IEC_UNITS = 2;
         const BITS = 4;
+    }
+}
+
+impl fmt::Display for FormatSizeFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -101,6 +121,12 @@ bitflags! {
         const ERR = 8;
         const HUP = 16;
         const NVAL = 32;
+    }
+}
+
+impl fmt::Display for IOCondition {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -154,6 +180,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for KeyFileFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for KeyFileFlags {
     type GlibType = ffi::GKeyFileFlags;
@@ -184,6 +216,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for LogLevelFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for LogLevelFlags {
     type GlibType = ffi::GLogLevelFlags;
@@ -210,6 +248,12 @@ bitflags! {
         const FILENAME = 16;
         const OPTIONAL_ARG = 32;
         const NOALIAS = 64;
+    }
+}
+
+impl fmt::Display for OptionFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -244,6 +288,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for SpawnFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for SpawnFlags {
     type GlibType = ffi::GSpawnFlags;
@@ -273,6 +323,14 @@ bitflags! {
         const ENCODED_QUERY = 32;
         const ENCODED_PATH = 64;
         const ENCODED_FRAGMENT = 128;
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+impl fmt::Display for UriFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -311,6 +369,14 @@ bitflags! {
 
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+impl fmt::Display for UriHideFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl ToGlib for UriHideFlags {
     type GlibType = ffi::GUriHideFlags;
@@ -337,6 +403,14 @@ bitflags! {
         const CASE_INSENSITIVE = 1;
         const WWW_FORM = 2;
         const PARSE_RELAXED = 4;
+    }
+}
+
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+impl fmt::Display for UriParamsFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 

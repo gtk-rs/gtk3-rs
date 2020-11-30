@@ -20,6 +20,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for AppInfoCreateFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for AppInfoCreateFlags {
     type GlibType = ffi::GAppInfoCreateFlags;
@@ -75,6 +81,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for ApplicationFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for ApplicationFlags {
     type GlibType = ffi::GApplicationFlags;
@@ -123,6 +135,12 @@ bitflags! {
         const SAVING_SUPPORTED = 8;
         const ANONYMOUS_SUPPORTED = 16;
         const TCRYPT = 32;
+    }
+}
+
+impl fmt::Display for AskPasswordFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -175,6 +193,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for BusNameOwnerFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for BusNameOwnerFlags {
     type GlibType = ffi::GBusNameOwnerFlags;
@@ -219,6 +243,12 @@ bitflags! {
     pub struct BusNameWatcherFlags: u32 {
         const NONE = 0;
         const AUTO_START = 1;
+    }
+}
+
+impl fmt::Display for BusNameWatcherFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -270,6 +300,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for ConverterFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for ConverterFlags {
     type GlibType = ffi::GConverterFlags;
@@ -318,6 +354,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for DBusCallFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for DBusCallFlags {
     type GlibType = ffi::GDBusCallFlags;
@@ -362,6 +404,12 @@ bitflags! {
     pub struct DBusCapabilityFlags: u32 {
         const NONE = 0;
         const UNIX_FD_PASSING = 1;
+    }
+}
+
+impl fmt::Display for DBusCapabilityFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -416,6 +464,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for DBusConnectionFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for DBusConnectionFlags {
     type GlibType = ffi::GDBusConnectionFlags;
@@ -460,6 +514,12 @@ bitflags! {
     pub struct DBusInterfaceSkeletonFlags: u32 {
         const NONE = 0;
         const HANDLE_METHOD_INVOCATIONS_IN_THREAD = 1;
+    }
+}
+
+impl fmt::Display for DBusInterfaceSkeletonFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -509,6 +569,12 @@ bitflags! {
         const NO_REPLY_EXPECTED = 1;
         const NO_AUTO_START = 2;
         const ALLOW_INTERACTIVE_AUTHORIZATION = 4;
+    }
+}
+
+impl fmt::Display for DBusMessageFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -563,6 +629,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for DBusProxyFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for DBusProxyFlags {
     type GlibType = ffi::GDBusProxyFlags;
@@ -607,6 +679,12 @@ bitflags! {
     pub struct DBusSendMessageFlags: u32 {
         const NONE = 0;
         const PRESERVE_SERIAL = 1;
+    }
+}
+
+impl fmt::Display for DBusSendMessageFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -655,6 +733,12 @@ bitflags! {
         const NONE = 0;
         const RUN_IN_THREAD = 1;
         const AUTHENTICATION_ALLOW_ANONYMOUS = 2;
+    }
+}
+
+impl fmt::Display for DBusServerFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -707,6 +791,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for DBusSignalFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for DBusSignalFlags {
     type GlibType = ffi::GDBusSignalFlags;
@@ -750,6 +840,12 @@ impl SetValue for DBusSignalFlags {
 bitflags! {
     pub struct DriveStartFlags: u32 {
         const NONE = 0;
+    }
+}
+
+impl fmt::Display for DriveStartFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -805,6 +901,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for FileCopyFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for FileCopyFlags {
     type GlibType = ffi::GFileCopyFlags;
@@ -850,6 +952,12 @@ bitflags! {
         const NONE = 0;
         const PRIVATE = 1;
         const REPLACE_DESTINATION = 2;
+    }
+}
+
+impl fmt::Display for FileCreateFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -899,6 +1007,12 @@ bitflags! {
         const REPORT_ANY_ERROR = 2;
         const APPARENT_SIZE = 4;
         const NO_XDEV = 8;
+    }
+}
+
+impl fmt::Display for FileMeasureFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -952,6 +1066,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for FileMonitorFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for FileMonitorFlags {
     type GlibType = ffi::GFileMonitorFlags;
@@ -996,6 +1116,12 @@ bitflags! {
     pub struct FileQueryInfoFlags: u32 {
         const NONE = 0;
         const NOFOLLOW_SYMLINKS = 1;
+    }
+}
+
+impl fmt::Display for FileQueryInfoFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -1048,6 +1174,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for IOStreamSpliceFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for IOStreamSpliceFlags {
     type GlibType = ffi::GIOStreamSpliceFlags;
@@ -1091,6 +1223,12 @@ impl SetValue for IOStreamSpliceFlags {
 bitflags! {
     pub struct MountMountFlags: u32 {
         const NONE = 0;
+    }
+}
+
+impl fmt::Display for MountMountFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -1138,6 +1276,12 @@ bitflags! {
     pub struct MountUnmountFlags: u32 {
         const NONE = 0;
         const FORCE = 1;
+    }
+}
+
+impl fmt::Display for MountUnmountFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -1189,6 +1333,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for OutputStreamSpliceFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for OutputStreamSpliceFlags {
     type GlibType = ffi::GOutputStreamSpliceFlags;
@@ -1236,6 +1386,14 @@ bitflags! {
         const DEFAULT = 0;
         const IPV4_ONLY = 1;
         const IPV6_ONLY = 2;
+    }
+}
+
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+impl fmt::Display for ResolverNameLookupFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -1297,6 +1455,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for ResourceLookupFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for ResourceLookupFlags {
     type GlibType = ffi::GResourceLookupFlags;
@@ -1345,6 +1509,12 @@ bitflags! {
         const NO_SENSITIVITY = 4;
         const GET_NO_CHANGES = 8;
         const INVERT_BOOLEAN = 16;
+    }
+}
+
+impl fmt::Display for SettingsBindFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -1402,6 +1572,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for SubprocessFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for SubprocessFlags {
     type GlibType = ffi::GSubprocessFlags;
@@ -1455,6 +1631,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for TlsCertificateFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for TlsCertificateFlags {
     type GlibType = ffi::GTlsCertificateFlags;
@@ -1498,6 +1680,12 @@ impl SetValue for TlsCertificateFlags {
 bitflags! {
     pub struct TlsDatabaseVerifyFlags: u32 {
         const NONE = 0;
+    }
+}
+
+impl fmt::Display for TlsDatabaseVerifyFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -1547,6 +1735,12 @@ bitflags! {
         const RETRY = 2;
         const MANY_TRIES = 4;
         const FINAL_TRY = 8;
+    }
+}
+
+impl fmt::Display for TlsPasswordFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 

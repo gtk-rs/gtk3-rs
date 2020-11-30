@@ -20,6 +20,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for BindingFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for BindingFlags {
     type GlibType = gobject_ffi::GBindingFlags;
@@ -79,6 +85,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for ParamFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for ParamFlags {
     type GlibType = gobject_ffi::GParamFlags;
@@ -106,6 +118,12 @@ bitflags! {
         const NO_HOOKS = 64;
         const MUST_COLLECT = 128;
         const DEPRECATED = 256;
+    }
+}
+
+impl fmt::Display for SignalFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
