@@ -6,7 +6,7 @@
     (<span class="ident">target</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">target</span>:<span class="ident">expr</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>:<span class="ident">tt</span>)<span class="op">+</span>) <span class="op">=</span><span class="op">&gt;</span> { ... };
     ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>:<span class="ident">tt</span>)<span class="op">+</span>) <span class="op">=</span><span class="op">&gt;</span> { ... };
 }</pre></div>
-</div><div class="stability"><div class="stab portability">This is supported on <strong>crate feature <code>log_macros</code></strong> only.</div></div><div class="docblock"><p>A macro which behaves exactly as <code>log::info!</code> except that it sets the
+</div><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>log_macros</code></strong> only.</div></div><div class="docblock"><p>A macro which behaves exactly as <code>log::info!</code> except that it sets the
 current log target to the contents of a <code>G_LOG_DOMAIN</code> constant (and fails
 to build if not defined).</p>
 <p>In order to use this macro, <code>glib</code> must be built with the <code>log_macros</code>
