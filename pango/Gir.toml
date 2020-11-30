@@ -152,7 +152,7 @@ status = "generate"
     manual = true
     [[object.function]]
     name = "equal"
-    manual = true
+    ignore = true
 
 [[object]]
 name = "Pango.Context"
