@@ -184,9 +184,3 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
         }
     }
 }
-
-impl fmt::Display for CssProvider {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("CssProvider")
-    }
-}

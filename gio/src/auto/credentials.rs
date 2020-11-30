@@ -102,9 +102,3 @@ impl fmt::Display for Credentials {
         f.write_str(&self.to_str())
     }
 }
-
-impl fmt::Display for Credentials {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Credentials")
-    }
-}

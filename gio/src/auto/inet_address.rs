@@ -528,9 +528,3 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
         }
     }
 }
-
-impl fmt::Display for InetAddress {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("InetAddress")
-    }
-}

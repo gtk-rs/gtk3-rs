@@ -470,9 +470,3 @@ impl fmt::Display for Display {
         f.write_str(&self.get_name())
     }
 }
-
-impl fmt::Display for Display {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Display")
-    }
-}
