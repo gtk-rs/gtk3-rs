@@ -51,6 +51,13 @@ impl Default for CssProvider {
     }
 }
 
+impl fmt::Display for CssProvider {
+    #[inline]
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.write_str(&CssProviderExt::to_str(self))
+    }
+}
+
 pub const NONE_CSS_PROVIDER: Option<&CssProvider> = None;
 
 pub trait CssProviderExt: 'static {

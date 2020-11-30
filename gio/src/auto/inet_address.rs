@@ -34,6 +34,13 @@ impl InetAddress {
     }
 }
 
+impl fmt::Display for InetAddress {
+    #[inline]
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.write_str(&InetAddressExt::to_str(self))
+    }
+}
+
 unsafe impl Send for InetAddress {}
 unsafe impl Sync for InetAddress {}
 

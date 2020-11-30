@@ -50,6 +50,13 @@ impl InetAddressMask {
     }
 }
 
+impl fmt::Display for InetAddressMask {
+    #[inline]
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.write_str(&InetAddressMaskExt::to_str(self))
+    }
+}
+
 unsafe impl Send for InetAddressMask {}
 unsafe impl Sync for InetAddressMask {}
 
