@@ -357,9 +357,9 @@ fn get_expr(parts: &mut Peekable<ProcIter>) -> String {
         match parts.peek() {
             Some(TokenTree::Punct(p)) => {
                 let p_s = p.to_string();
-                if p_s == "{" || p_s == "(" || p_s == "[" {
+                if p_s == "{" || p_s == "(" || p_s == "[" || p_s == "<" {
                     total += 1;
-                } else if p_s == "}" || p_s == ")" || p_s == "]" {
+                } else if p_s == "}" || p_s == ")" || p_s == "]" || p_s == ">" {
                     total -= 1;
                 } else if p_s == "," && total == 0 {
                     return ret;

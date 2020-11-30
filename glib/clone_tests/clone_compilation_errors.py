@@ -6,7 +6,12 @@ import sys
 
 TEST_FILENAME = "tmp_py_file"
 TEST_FOLDER = "clone_tests"
+# Some explanations here: `TESTS` is an array containing tuples of two elements.
+# * The first element is the code to be compiled.
+# * The second element is the expected error message. If the code is suppose to work, then we use
+#   `None` instead of a string.
 TESTS = [
+    ("clone!(@strong v => @default-return None::<i32>, move || {println!(\"foo\"); 1});", None),
     ("clone!( => move || {})",
         "If you have nothing to clone, no need to use this macro!"),
     ("clone!(|| {})",
@@ -66,8 +71,8 @@ def convert_to_string(s):
     return s
 
 
-def exec_command(command):
-    child = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+def exec_command(command, folder=None):
+    child = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=folder)
     stdout, stderr = child.communicate()
     return (child.returncode == 0, convert_to_string(stdout), convert_to_string(stderr))
 
@@ -75,12 +80,12 @@ def exec_command(command):
 def run_test(code, expected_str):
     with open("{}/{}.rs".format(TEST_FOLDER, TEST_FILENAME), 'w') as f:
         f.write('use glib::clone;use std::rc::Rc;fn main(){{let v = Rc::new(1);{};}}'.format(code))
-    code, stdout, stderr = exec_command([
-        "bash",
-        "-c",
-        "cd {} && cargo build --message-format json".format(TEST_FOLDER),
-    ])
+    code, stdout, stderr = exec_command(["cargo", "build", "--message-format", "json"], TEST_FOLDER)
     os.remove("{}/{}.rs".format(TEST_FOLDER, TEST_FILENAME))
+    if expected_str is None:
+        if code is True:
+            return None
+        return "This was supposed to compile!"
     if code is True:
         return "This isn't supposed to compile!"
     parts = stdout.split('}\n{')
@@ -107,7 +112,7 @@ def run_test(code, expected_str):
     if expected_str in compiler_message["message"]:
         return None
     err_message.append(compiler_message["message"])
-        for child in compiler_message["children"]:
+    for child in compiler_message["children"]:
         if "message" not in child:
             continue
         if expected_str in child["message"]:
@@ -126,6 +131,7 @@ def run_tests():
 name = "test"
 version = "0.0.1"
 authors = ["gtk-rs developers"]
+edition = "2018"
 
 [dependencies]
 glib = {{ path = ".." }}
@@ -133,6 +139,8 @@ glib = {{ path = ".." }}
 [[bin]]
 name = "{0}"
 path = "{0}.rs"
+
+[workspace]
 """.format(TEST_FILENAME))
     for (code, expected_str) in TESTS:
         sys.stdout.write('Running `{}`...'.format(code))
@@ -145,8 +153,6 @@ path = "{0}.rs"
             print(" OK")
     print("Ran {} tests, got {} failure{}".format(len(TESTS), errors, "s" if errors > 1 else ""))
     os.remove("{}/Cargo.toml".format(TEST_FOLDER))
-    os.remove("{}/Cargo.lock".format(TEST_FOLDER))
-    exec_command(['bash', '-c', 'rm -r {}/target'.format(TEST_FOLDER)])
     return errors
 
 
