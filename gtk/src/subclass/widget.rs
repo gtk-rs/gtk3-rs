@@ -75,8 +75,8 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         self.parent_composited_changed(widget)
     }
 
-    fn compute_expand(&self, widget: &Self::Type, hexpand_p: &mut bool, vexpand_p: &mut bool) {
-        self.parent_compute_expand(widget, hexpand_p, vexpand_p)
+    fn compute_expand(&self, widget: &Self::Type, hexpand: &mut bool, vexpand: &mut bool) {
+        self.parent_compute_expand(widget, hexpand, vexpand)
     }
 
     fn configure_event(&self, widget: &Self::Type, event: &gdk::EventConfigure) -> Inhibit {
@@ -264,12 +264,7 @@ pub trait WidgetImplExt: ObjectSubclass {
     // fn parent_can_activate_accel(&self, widget: &Self::Type, signal_id: u32) -> bool;
     fn parent_child_notify(&self, widget: &Self::Type, child_property: &glib::ParamSpec);
     fn parent_composited_changed(&self, widget: &Self::Type);
-    fn parent_compute_expand(
-        &self,
-        widget: &Self::Type,
-        hexpand_p: &mut bool,
-        vexpand_p: &mut bool,
-    );
+    fn parent_compute_expand(&self, widget: &Self::Type, hexpand: &mut bool, vexpand: &mut bool);
     fn parent_configure_event(&self, widget: &Self::Type, event: &gdk::EventConfigure) -> Inhibit;
     fn parent_damage_event(&self, widget: &Self::Type, event: &gdk::EventExpose) -> Inhibit;
     fn parent_delete_event(&self, widget: &Self::Type, event: &gdk::Event) -> Inhibit;
@@ -496,27 +491,21 @@ impl<T: WidgetImpl> WidgetImplExt for T {
         }
     }
 
-    fn parent_compute_expand(
-        &self,
-        widget: &Self::Type,
-        hexpand_p: &mut bool,
-        vexpand_p: &mut bool,
-    ) {
+    fn parent_compute_expand(&self, widget: &Self::Type, hexpand: &mut bool, vexpand: &mut bool) {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
             let widget = widget.unsafe_cast_ref::<Widget>();
             if let Some(f) = (*parent_class).compute_expand {
-                let mut h: i32 = hexpand_p.to_glib();
-                let mut v: i32 = vexpand_p.to_glib();
-                f(widget.to_glib_none().0, &mut h, &mut v);
-                *hexpand_p = from_glib(h);
-                *vexpand_p = from_glib(v);
-            } else {
-                // Fill the booleans so the compiler will be happy
-                // and do nothing else since the vmenthod is NULL
-                *hexpand_p = widget.get_hexpand();
-                *vexpand_p = widget.get_vexpand();
+                let mut hexpand_glib = hexpand.to_glib();
+                let mut vexpand_glib = vexpand.to_glib();
+                f(
+                    widget.to_glib_none().0,
+                    &mut hexpand_glib,
+                    &mut vexpand_glib,
+                );
+                *hexpand = from_glib(hexpand_glib);
+                *vexpand = from_glib(vexpand_glib);
             }
         }
     }
@@ -1165,12 +1154,22 @@ unsafe extern "C" fn widget_compute_expand<T: WidgetImpl>(
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.get_impl();
     let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
-    let mut hexpand_p: bool = from_glib(*hexpand_ptr);
-    let mut vexpand_p: bool = from_glib(*vexpand_ptr);
 
-    imp.compute_expand(wrap.unsafe_cast_ref(), &mut hexpand_p, &mut vexpand_p);
-    *hexpand_ptr = hexpand_p.to_glib();
-    *vexpand_ptr = vexpand_p.to_glib();
+    let widget = wrap.unsafe_cast_ref::<Widget>();
+    let mut hexpand: bool = if widget.get_hexpand_set() {
+        widget.get_hexpand()
+    } else {
+        from_glib(*hexpand_ptr)
+    };
+    let mut vexpand: bool = if widget.get_vexpand_set() {
+        widget.get_vexpand()
+    } else {
+        from_glib(*vexpand_ptr)
+    };
+
+    imp.compute_expand(wrap.unsafe_cast_ref(), &mut hexpand, &mut vexpand);
+    *hexpand_ptr = hexpand.to_glib();
+    *vexpand_ptr = vexpand.to_glib();
 }
 
 unsafe extern "C" fn widget_configure_event<T: WidgetImpl>(
