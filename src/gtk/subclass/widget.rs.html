@@ -1564,7 +1564,6 @@
 <span id="1561">1561</span>
 <span id="1562">1562</span>
 <span id="1563">1563</span>
-<span id="1564">1564</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_int</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
@@ -1643,8 +1642,8 @@
         <span class="self">self</span>.<span class="ident">parent_composited_changed</span>(<span class="ident">widget</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">compute_expand</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">hexpand_p</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bool</span>, <span class="ident">vexpand_p</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bool</span>) {
-        <span class="self">self</span>.<span class="ident">parent_compute_expand</span>(<span class="ident">widget</span>, <span class="ident">hexpand_p</span>, <span class="ident">vexpand_p</span>)
+    <span class="kw">fn</span> <span class="ident">compute_expand</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">hexpand</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bool</span>, <span class="ident">vexpand</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bool</span>) {
+        <span class="self">self</span>.<span class="ident">parent_compute_expand</span>(<span class="ident">widget</span>, <span class="ident">hexpand</span>, <span class="ident">vexpand</span>)
     }
 
     <span class="kw">fn</span> <span class="ident">configure_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">EventConfigure</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Inhibit</span> {
@@ -1832,12 +1831,7 @@
     <span class="comment">// fn parent_can_activate_accel(&amp;self, widget: &amp;Self::Type, signal_id: u32) -&gt; bool;</span>
     <span class="kw">fn</span> <span class="ident">parent_child_notify</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">child_property</span>: <span class="kw-2">&amp;</span><span class="ident">glib</span>::<span class="ident">ParamSpec</span>);
     <span class="kw">fn</span> <span class="ident">parent_composited_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>);
-    <span class="kw">fn</span> <span class="ident">parent_compute_expand</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>,
-        <span class="ident">hexpand_p</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bool</span>,
-        <span class="ident">vexpand_p</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bool</span>,
-    );
+    <span class="kw">fn</span> <span class="ident">parent_compute_expand</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">hexpand</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bool</span>, <span class="ident">vexpand</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bool</span>);
     <span class="kw">fn</span> <span class="ident">parent_configure_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">EventConfigure</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Inhibit</span>;
     <span class="kw">fn</span> <span class="ident">parent_damage_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">EventExpose</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Inhibit</span>;
     <span class="kw">fn</span> <span class="ident">parent_delete_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">Event</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Inhibit</span>;
@@ -2064,27 +2058,21 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">parent_compute_expand</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>,
-        <span class="ident">hexpand_p</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bool</span>,
-        <span class="ident">vexpand_p</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bool</span>,
-    ) {
+    <span class="kw">fn</span> <span class="ident">parent_compute_expand</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">hexpand</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bool</span>, <span class="ident">vexpand</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bool</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkWidgetClass</span>;
             <span class="kw">let</span> <span class="ident">widget</span> <span class="op">=</span> <span class="ident">widget</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>();
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">compute_expand</span> {
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">h</span>: <span class="ident">i32</span> <span class="op">=</span> <span class="ident">hexpand_p</span>.<span class="ident">to_glib</span>();
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">v</span>: <span class="ident">i32</span> <span class="op">=</span> <span class="ident">vexpand_p</span>.<span class="ident">to_glib</span>();
-                <span class="ident">f</span>(<span class="ident">widget</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">h</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">v</span>);
-                <span class="kw-2">*</span><span class="ident">hexpand_p</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">h</span>);
-                <span class="kw-2">*</span><span class="ident">vexpand_p</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">v</span>);
-            } <span class="kw">else</span> {
-                <span class="comment">// Fill the booleans so the compiler will be happy</span>
-                <span class="comment">// and do nothing else since the vmenthod is NULL</span>
-                <span class="kw-2">*</span><span class="ident">hexpand_p</span> <span class="op">=</span> <span class="ident">widget</span>.<span class="ident">get_hexpand</span>();
-                <span class="kw-2">*</span><span class="ident">vexpand_p</span> <span class="op">=</span> <span class="ident">widget</span>.<span class="ident">get_vexpand</span>();
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">hexpand_glib</span> <span class="op">=</span> <span class="ident">hexpand</span>.<span class="ident">to_glib</span>();
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">vexpand_glib</span> <span class="op">=</span> <span class="ident">vexpand</span>.<span class="ident">to_glib</span>();
+                <span class="ident">f</span>(
+                    <span class="ident">widget</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
+                    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">hexpand_glib</span>,
+                    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">vexpand_glib</span>,
+                );
+                <span class="kw-2">*</span><span class="ident">hexpand</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">hexpand_glib</span>);
+                <span class="kw-2">*</span><span class="ident">vexpand</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">vexpand_glib</span>);
             }
         }
     }
@@ -2733,12 +2721,22 @@
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
     <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">hexpand_p</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="kw-2">*</span><span class="ident">hexpand_ptr</span>);
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">vexpand_p</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="kw-2">*</span><span class="ident">vexpand_ptr</span>);
 
-    <span class="ident">imp</span>.<span class="ident">compute_expand</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">hexpand_p</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">vexpand_p</span>);
-    <span class="kw-2">*</span><span class="ident">hexpand_ptr</span> <span class="op">=</span> <span class="ident">hexpand_p</span>.<span class="ident">to_glib</span>();
-    <span class="kw-2">*</span><span class="ident">vexpand_ptr</span> <span class="op">=</span> <span class="ident">vexpand_p</span>.<span class="ident">to_glib</span>();
+    <span class="kw">let</span> <span class="ident">widget</span> <span class="op">=</span> <span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>();
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">hexpand</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">widget</span>.<span class="ident">get_hexpand_set</span>() {
+        <span class="ident">widget</span>.<span class="ident">get_hexpand</span>()
+    } <span class="kw">else</span> {
+        <span class="ident">from_glib</span>(<span class="kw-2">*</span><span class="ident">hexpand_ptr</span>)
+    };
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">vexpand</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">widget</span>.<span class="ident">get_vexpand_set</span>() {
+        <span class="ident">widget</span>.<span class="ident">get_vexpand</span>()
+    } <span class="kw">else</span> {
+        <span class="ident">from_glib</span>(<span class="kw-2">*</span><span class="ident">vexpand_ptr</span>)
+    };
+
+    <span class="ident">imp</span>.<span class="ident">compute_expand</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">hexpand</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">vexpand</span>);
+    <span class="kw-2">*</span><span class="ident">hexpand_ptr</span> <span class="op">=</span> <span class="ident">hexpand</span>.<span class="ident">to_glib</span>();
+    <span class="kw-2">*</span><span class="ident">vexpand_ptr</span> <span class="op">=</span> <span class="ident">vexpand</span>.<span class="ident">to_glib</span>();
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_configure_event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
