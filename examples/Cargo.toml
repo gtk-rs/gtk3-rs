@@ -97,6 +97,9 @@ name = "clone_macro"
 name = "communication_thread"
 
 [[bin]]
+name = "composite_template"
+
+[[bin]]
 name = "css"
 
 [[bin]]

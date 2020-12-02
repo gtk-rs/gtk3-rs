@@ -64,7 +64,9 @@ pub mod prelude {
     pub use super::socket::{SocketImpl, SocketImplExt};
     pub use super::stack::StackImpl;
     pub use super::tree_view::TreeViewImpl;
-    pub use super::widget::{WidgetImpl, WidgetImplExt};
+    pub use super::widget::{
+        CompositeTemplate, TemplateChild, WidgetClassSubclassExt, WidgetImpl, WidgetImplExt,
+    };
     pub use super::window::{WindowImpl, WindowImplExt};
     pub use gio::subclass::prelude::*;
     pub use glib::subclass::prelude::*;
