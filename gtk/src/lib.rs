@@ -155,6 +155,11 @@
 
 pub use ffi;
 
+#[doc(hidden)]
+pub use field_offset::*;
+#[doc(hidden)]
+pub use gtk3_macros::*;
+
 pub mod xlib;
 
 pub const STYLE_PROVIDER_PRIORITY_FALLBACK: u32 = ffi::GTK_STYLE_PROVIDER_PRIORITY_FALLBACK as u32;
