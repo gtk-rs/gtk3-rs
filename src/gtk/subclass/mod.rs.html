@@ -72,6 +72,8 @@
 <span id="69">69</span>
 <span id="70">70</span>
 <span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2019, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -139,7 +141,9 @@
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">socket</span>::{<span class="ident">SocketImpl</span>, <span class="ident">SocketImplExt</span>};
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">stack</span>::<span class="ident">StackImpl</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">tree_view</span>::<span class="ident">TreeViewImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">widget</span>::{<span class="ident">WidgetImpl</span>, <span class="ident">WidgetImplExt</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">widget</span>::{
+        <span class="ident">CompositeTemplate</span>, <span class="ident">TemplateChild</span>, <span class="ident">WidgetClassSubclassExt</span>, <span class="ident">WidgetImpl</span>, <span class="ident">WidgetImplExt</span>,
+    };
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">window</span>::{<span class="ident">WindowImpl</span>, <span class="ident">WindowImplExt</span>};
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">gio</span>::<span class="ident">subclass</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
