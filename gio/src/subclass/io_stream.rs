@@ -9,7 +9,7 @@ use glib::translate::*;
 use glib::{Cast, Error};
 
 use crate::Cancellable;
-use crate::IOStream;
+use crate::{IOStream, InputStream, OutputStream};
 
 use std::mem;
 use std::ptr;
@@ -17,11 +17,11 @@ use std::ptr;
 use once_cell::sync::Lazy;
 
 pub trait IOStreamImpl: ObjectImpl + IOStreamImplExt + Send {
-    fn get_input_stream(&self, stream: &Self::Type) -> crate::InputStream {
+    fn get_input_stream(&self, stream: &Self::Type) -> InputStream {
         self.parent_get_input_stream(stream)
     }
 
-    fn get_output_stream(&self, stream: &Self::Type) -> crate::OutputStream {
+    fn get_output_stream(&self, stream: &Self::Type) -> OutputStream {
         self.parent_get_output_stream(stream)
     }
 
@@ -31,9 +31,9 @@ pub trait IOStreamImpl: ObjectImpl + IOStreamImplExt + Send {
 }
 
 pub trait IOStreamImplExt: ObjectSubclass {
-    fn parent_get_input_stream(&self, stream: &Self::Type) -> crate::InputStream;
+    fn parent_get_input_stream(&self, stream: &Self::Type) -> InputStream;
 
-    fn parent_get_output_stream(&self, stream: &Self::Type) -> crate::OutputStream;
+    fn parent_get_output_stream(&self, stream: &Self::Type) -> OutputStream;
 
     fn parent_close(
         &self,
@@ -43,7 +43,7 @@ pub trait IOStreamImplExt: ObjectSubclass {
 }
 
 impl<T: IOStreamImpl> IOStreamImplExt for T {
-    fn parent_get_input_stream(&self, stream: &Self::Type) -> crate::InputStream {
+    fn parent_get_input_stream(&self, stream: &Self::Type) -> InputStream {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut ffi::GIOStreamClass;
@@ -54,7 +54,7 @@ impl<T: IOStreamImpl> IOStreamImplExt for T {
         }
     }
 
-    fn parent_get_output_stream(&self, stream: &Self::Type) -> crate::OutputStream {
+    fn parent_get_output_stream(&self, stream: &Self::Type) -> OutputStream {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut ffi::GIOStreamClass;
@@ -119,26 +119,10 @@ unsafe extern "C" fn stream_get_input_stream<T: IOStreamImpl>(
     // Ensure that a) the stream stays alive as long as the IO stream instance and
     // b) that the same stream is returned every time. This is a requirement by the
     // IO stream API.
-    let old_ptr =
-        glib::gobject_ffi::g_object_get_qdata(ptr as *mut _, INPUT_STREAM_QUARK.to_glib());
-    if !old_ptr.is_null() {
-        assert_eq!(
-            old_ptr as *mut _,
-            ret.as_ptr(),
-            "Did not return same input stream again"
-        );
+    if let Some(old_stream) = wrap.get_qdata::<InputStream>(*INPUT_STREAM_QUARK) {
+        assert_eq!(old_stream, &ret, "Did not return same input stream again");
     }
-
-    unsafe extern "C" fn unref(ptr: glib::ffi::gpointer) {
-        glib::gobject_ffi::g_object_unref(ptr as *mut _);
-    }
-    glib::gobject_ffi::g_object_set_qdata_full(
-        ptr as *mut _,
-        INPUT_STREAM_QUARK.to_glib(),
-        glib::gobject_ffi::g_object_ref(ret.as_ptr() as *mut _) as *mut _,
-        Some(unref),
-    );
-
+    wrap.set_qdata(*INPUT_STREAM_QUARK, ret.clone());
     ret.to_glib_none().0
 }
 
@@ -154,26 +138,10 @@ unsafe extern "C" fn stream_get_output_stream<T: IOStreamImpl>(
     // Ensure that a) the stream stays alive as long as the IO stream instance and
     // b) that the same stream is returned every time. This is a requirement by the
     // IO stream API.
-    let old_ptr =
-        glib::gobject_ffi::g_object_get_qdata(ptr as *mut _, OUTPUT_STREAM_QUARK.to_glib());
-    if !old_ptr.is_null() {
-        assert_eq!(
-            old_ptr as *mut _,
-            ret.as_ptr(),
-            "Did not return same output stream again"
-        );
+    if let Some(old_stream) = wrap.get_qdata::<OutputStream>(*OUTPUT_STREAM_QUARK) {
+        assert_eq!(old_stream, &ret, "Did not return same output stream again");
     }
-
-    unsafe extern "C" fn unref(ptr: glib::ffi::gpointer) {
-        glib::gobject_ffi::g_object_unref(ptr as *mut _);
-    }
-    glib::gobject_ffi::g_object_set_qdata_full(
-        ptr as *mut _,
-        OUTPUT_STREAM_QUARK.to_glib(),
-        glib::gobject_ffi::g_object_ref(ret.as_ptr() as *mut _) as *mut _,
-        Some(unref),
-    );
-
+    wrap.set_qdata(*OUTPUT_STREAM_QUARK, ret.clone());
     ret.to_glib_none().0
 }
 
