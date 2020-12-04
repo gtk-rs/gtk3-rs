@@ -19,6 +19,97 @@ use std::env::args;
 
 use row_data::RowData;
 
+mod model {
+    use super::*;
+    use gio::subclass::ObjectSubclass;
+    use row_data::RowData;
+    mod imp {
+        use super::*;
+        use gio::subclass::ListModelImpl;
+        use glib::subclass;
+        use glib::subclass::prelude::*;
+        use std::cell::RefCell;
+        #[derive(Debug)]
+        pub struct Model(pub RefCell<Vec<RowData>>);
+
+        // Basic declaration of our type for the GObject type system
+        impl ObjectSubclass for Model {
+            const NAME: &'static str = "Model";
+            type Type = super::Model;
+            type ParentType = glib::Object;
+            type Instance = subclass::simple::InstanceStruct<Self>;
+            type Class = subclass::simple::ClassStruct<Self>;
+
+            glib_object_subclass!();
+
+            // Called right before class_init and allows a GObject to specify
+            // which interfaces it implement, in this case gio::ListModel
+            fn type_init(type_: &mut subclass::InitializingType<Self>) {
+                type_.add_interface::<gio::ListModel>();
+            }
+
+            // Called once at the very beginning of instantiation
+            fn new() -> Self {
+                Self(RefCell::new(Vec::new()))
+            }
+        }
+
+        impl ObjectImpl for Model {}
+
+        impl ListModelImpl for Model {
+            fn get_item_type(&self, _list_model: &Self::Type) -> glib::Type {
+                RowData::static_type()
+            }
+            fn get_n_items(&self, _list_model: &Self::Type) -> u32 {
+                self.0.borrow().len() as u32
+            }
+            fn get_item(&self, _list_model: &Self::Type, position: u32) -> Option<glib::Object> {
+                self.0
+                    .borrow()
+                    .get(position as usize)
+                    .map(|o| o.clone().upcast::<glib::Object>())
+            }
+        }
+    }
+
+    // Public part of the Model type.
+    glib_wrapper! {
+        pub struct Model(ObjectSubclass<imp::Model>) @implements gio::ListModel;
+    }
+
+    // Constructor for new instances. This simply calls glib::Object::new()
+    impl Model {
+        #[allow(clippy::new_without_default)]
+        pub fn new() -> Model {
+            glib::Object::new(Self::static_type(), &[])
+                .expect("Failed to create Model")
+                .downcast()
+                .expect("Created Model is of wrong type")
+        }
+
+        pub fn append(&self, obj: &RowData) {
+            let self_ = imp::Model::from_instance(self);
+            let index = {
+                // Borrow the data only once and ensure the borrow guard is dropped
+                // before we emit the items_changed signal because the view
+                // could call get_item / get_n_item from the signal handler to update its state
+                let mut data = self_.0.borrow_mut();
+                data.push(obj.clone());
+                data.len() - 1
+            };
+            // Emits a signal that 1 item was added, 0 removed at the position index
+            self.items_changed(index as u32, 0, 1);
+        }
+
+        pub fn remove(&self, index: u32) {
+            let self_ = imp::Model::from_instance(self);
+            self_.0.borrow_mut().remove(index as usize);
+            // Emits a signal that 1 item was removed, 0 added at the position index
+            self.items_changed(index, 1, 0);
+        }
+    }
+}
+
 fn build_ui(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
 
@@ -31,7 +122,7 @@ fn build_ui(application: &gtk::Application) {
 
     // Create our list store and specify that the type stored in the
     // list should be the RowData GObject we define at the bottom
-    let model = gio::ListStore::new(RowData::static_type());
+    let model = model::Model::new();
 
     // And then create the UI part, the listbox and bind the list store
     // model to it. Whenever the UI needs to show a new row, e.g. because
