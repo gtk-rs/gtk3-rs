@@ -8,6 +8,8 @@ use crate::Icon;
 #[cfg(any(feature = "v2_54", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
 use glib::translate::*;
+#[cfg(any(feature = "v2_54", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
 use std::cmp;
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
