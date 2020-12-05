@@ -129,10 +129,6 @@ impl AttrType {
     pub fn get_name(self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::pango_attr_type_get_name(self.to_glib())) }
     }
-
-    pub fn register(name: &str) -> AttrType {
-        unsafe { from_glib(ffi::pango_attr_type_register(name.to_glib_none().0)) }
-    }
 }
 
 impl fmt::Display for AttrType {

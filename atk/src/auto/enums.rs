@@ -221,11 +221,6 @@ impl RelationType {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_relation_type_get_name(self.to_glib())) }
     }
-
-    pub fn register(name: &str) -> RelationType {
-        assert_initialized_main_thread!();
-        unsafe { from_glib(ffi::atk_relation_type_register(name.to_glib_none().0)) }
-    }
 }
 
 impl fmt::Display for RelationType {
@@ -500,11 +495,6 @@ impl Role {
     pub fn get_name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_role_get_name(self.to_glib())) }
-    }
-
-    pub fn register(name: &str) -> Role {
-        assert_initialized_main_thread!();
-        unsafe { from_glib(ffi::atk_role_register(name.to_glib_none().0)) }
     }
 }
 
@@ -1118,11 +1108,6 @@ impl StateType {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_state_type_get_name(self.to_glib())) }
     }
-
-    pub fn register(name: &str) -> StateType {
-        assert_initialized_main_thread!();
-        unsafe { from_glib(ffi::atk_state_type_register(name.to_glib_none().0)) }
-    }
 }
 
 impl fmt::Display for StateType {
@@ -1365,11 +1350,6 @@ impl TextAttribute {
     pub fn get_value(self, index_: i32) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_text_attribute_get_value(self.to_glib(), index_)) }
-    }
-
-    pub fn register(name: &str) -> TextAttribute {
-        assert_initialized_main_thread!();
-        unsafe { from_glib(ffi::atk_text_attribute_register(name.to_glib_none().0)) }
     }
 }
 
