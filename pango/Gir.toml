@@ -28,7 +28,6 @@ generate = [
     # "Pango.ScriptForLang",
     # "Pango.ScriptIter",
     "Pango.Alignment",
-    "Pango.AttrType",
     "Pango.BidiType",
     "Pango.Color",
     "Pango.CoverageLevel",
@@ -152,6 +151,14 @@ status = "generate"
     manual = true
     [[object.function]]
     name = "equal"
+    ignore = true
+
+[[object]]
+name = "Pango.AttrType"
+status = "generate"
+    [[object.function]]
+    name = "register"
+    # Problematic function needs manual implementation
     ignore = true
 
 [[object]]
