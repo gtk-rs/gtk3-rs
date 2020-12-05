@@ -22,6 +22,10 @@
 <span id="19">19</span>
 <span id="20">20</span>
 <span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2019, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -30,6 +34,8 @@
 <span class="kw">mod</span> <span class="ident">application</span>;
 <span class="kw">mod</span> <span class="ident">input_stream</span>;
 <span class="kw">mod</span> <span class="ident">io_stream</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_44&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+<span class="kw">mod</span> <span class="ident">list_model</span>;
 <span class="kw">mod</span> <span class="ident">output_stream</span>;
 <span class="kw">mod</span> <span class="ident">seekable</span>;
 
@@ -40,6 +46,8 @@
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">application</span>::{<span class="ident">ApplicationImpl</span>, <span class="ident">ApplicationImplExt</span>};
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">input_stream</span>::{<span class="ident">InputStreamImpl</span>, <span class="ident">InputStreamImplExt</span>};
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">io_stream</span>::{<span class="ident">IOStreamImpl</span>, <span class="ident">IOStreamImplExt</span>};
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_44&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">list_model</span>::<span class="ident">ListModelImpl</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">output_stream</span>::{<span class="ident">OutputStreamImpl</span>, <span class="ident">OutputStreamImplExt</span>};
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">seekable</span>::<span class="ident">SeekableImpl</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;

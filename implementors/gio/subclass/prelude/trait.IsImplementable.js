@@ -1,3 +1,3 @@
 (function() {var implementors = {};
-implementors["gio"] = [{"text":"impl&lt;T:&nbsp;SeekableImpl&gt; IsImplementable&lt;T&gt; for Seekable","synthetic":false,"types":[]}];
+implementors["gio"] = [{"text":"impl&lt;T:&nbsp;ListModelImpl&gt; IsImplementable&lt;T&gt; for ListModel <span class=\"where fmt-newline\">where<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;T as ObjectSubclass&gt;::Type: IsA&lt;Object&gt;,&nbsp;</span>","synthetic":false,"types":[]},{"text":"impl&lt;T:&nbsp;SeekableImpl&gt; IsImplementable&lt;T&gt; for Seekable","synthetic":false,"types":[]}];
 if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
