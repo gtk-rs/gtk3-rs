@@ -10,10 +10,7 @@
 //!
 //! In addition it is possible to add new rows and delete old ones.
 
-use gio::prelude::*;
-use glib::clone;
-use gtk::prelude::*;
-use gtk::ResponseType;
+use gtk::{gio, glib::clone, ResponseType};
 
 use std::env::args;
 

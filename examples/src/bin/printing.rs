@@ -4,9 +4,8 @@
 //! shows a print dialog and prints both texts one below
 //! the other.
 
-use gio::prelude::*;
-use glib::clone;
 use gtk::prelude::*;
+use gtk::{glib, pango};
 
 use std::env::args;
 
@@ -77,7 +76,7 @@ fn build_ui(application: &gtk::Application) {
         .get_object("buttonprint")
         .expect("Couldn't get buttonprint");
 
-    button_print.connect_clicked(clone!(@weak window => move |_| {
+    button_print.connect_clicked(glib::clone!(@weak window => move |_| {
         let text1 = entry1.get_text().to_string();
         let text2 = entry2.get_text().to_string();
         print(&window, text1, text2);

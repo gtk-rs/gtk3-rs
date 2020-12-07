@@ -2,9 +2,8 @@
 //!
 //! This sample demonstrates how to create a `TreeView` with either a `ListStore` or `TreeStore`.
 
-use gdk_pixbuf::Pixbuf;
-use gio::prelude::*;
-use glib::clone;
+use gtk::gdk_pixbuf::Pixbuf;
+use gtk::glib;
 use gtk::prelude::*;
 use gtk::{
     ApplicationWindow, ButtonsType, CellRendererPixbuf, CellRendererText, DialogFlags,
@@ -73,7 +72,7 @@ fn build_ui(application: &gtk::Application) {
             }
 
             glib::idle_add_local(
-                clone!(@weak window => @default-return glib::Continue(false), move || {
+                glib::clone!(@weak window => @default-return glib::Continue(false), move || {
                     let dialog = MessageDialog::new(Some(&window), DialogFlags::MODAL,
                         MessageType::Error, ButtonsType::Ok, &msg);
                     dialog.connect_response(|dialog, _| dialog.close());
@@ -100,7 +99,7 @@ fn build_ui(application: &gtk::Application) {
     // selection and path manipulation
 
     let left_selection = left_tree.get_selection();
-    left_selection.connect_changed(clone!(@weak right_tree => move |tree_selection| {
+    left_selection.connect_changed(glib::clone!(@weak right_tree => move |tree_selection| {
         let (left_model, iter) = tree_selection.get_selected().expect("Couldn't get selected");
         let mut path = left_model.get_path(&iter).expect("Couldn't get path");
         // get the top-level element path

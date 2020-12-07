@@ -13,8 +13,8 @@
 //! The example is using icons from the current icon theme. To view all icons and their names please
 //! install gtk3-icon-browser: https://developer.gnome.org/gtk3/stable/gtk3-icon-browser.html
 
-use gio::prelude::*;
 use gtk::prelude::*;
+use gtk::{gdk_pixbuf, glib};
 
 use std::env::args;
 use std::process;

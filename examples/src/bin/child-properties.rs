@@ -3,8 +3,7 @@
 //! This sample demonstrates how to set child properties.
 
 #![crate_type = "bin"]
-use gio::prelude::*;
-use glib::clone;
+use gtk::glib;
 use gtk::prelude::*;
 use gtk::Orientation::Vertical;
 use gtk::{ApplicationWindow, Button, Label, PackType};
@@ -29,7 +28,7 @@ fn build_ui(application: &gtk::Application) {
     let minus_button = Button::with_label("-");
     vbox.add(&minus_button);
 
-    minus_button.connect_clicked(clone!(@weak counter_label => move |_| {
+    minus_button.connect_clicked(glib::clone!(@weak counter_label => move |_| {
         let nb = counter_label.get_text()
             .parse()
             .unwrap_or(0);
@@ -37,7 +36,7 @@ fn build_ui(application: &gtk::Application) {
             counter_label.set_text(&format!("{}", nb - 1));
         }
     }));
-    plus_button.connect_clicked(clone!(@weak counter_label => move |_| {
+    plus_button.connect_clicked(glib::clone!(@weak counter_label => move |_| {
         let nb = counter_label.get_text()
             .parse()
             .unwrap_or(0);

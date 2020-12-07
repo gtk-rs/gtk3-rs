@@ -1,6 +1,7 @@
 use futures::prelude::*;
 use futures::task::{Context, Poll};
-use gio::prelude::*;
+use gtk::prelude::*;
+use gtk::{gio, glib};
 
 use std::io;
 use std::pin::Pin;

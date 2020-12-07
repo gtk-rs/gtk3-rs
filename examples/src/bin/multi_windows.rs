@@ -1,5 +1,4 @@
-use gio::prelude::*;
-use glib::clone;
+use gtk::glib;
 use gtk::prelude::*;
 
 use std::cell::RefCell;
@@ -22,14 +21,14 @@ fn create_sub_window(
     window.set_default_size(400, 200);
 
     window.connect_delete_event(
-        clone!(@weak windows => @default-return Inhibit(false), move |_, _| {
+        glib::clone!(@weak windows => @default-return Inhibit(false), move |_, _| {
             windows.borrow_mut().remove(&id);
             Inhibit(false)
         }),
     );
 
     let button = gtk::Button::with_label(&format!("Notify main window with id {}!", id));
-    button.connect_clicked(clone!(@weak main_window_entry => move |_| {
+    button.connect_clicked(glib::clone!(@weak main_window_entry => move |_| {
         // When the button is clicked, let's write it on the main window's entry!
         main_window_entry.get_buffer().set_text(&format!("sub window {} clicked", id));
     }));
@@ -69,7 +68,7 @@ fn build_ui(application: &gtk::Application) {
     // Why not changing all sub-windows' title at once?
     let windows_title_entry = gtk::Entry::new();
     windows_title_entry.set_placeholder_text(Some("Update all sub-windows' title"));
-    windows_title_entry.connect_changed(clone!(@weak windows => move |windows_title_entry| {
+    windows_title_entry.connect_changed(glib::clone!(@weak windows => move |windows_title_entry| {
         // When the entry's text is updated, we update the title of every sub windows.
         let text = windows_title_entry.get_buffer().get_text();
         for window in windows.borrow().values() {
@@ -86,7 +85,7 @@ fn build_ui(application: &gtk::Application) {
     // Now let's create a button to create a looooot of new windows!
     let button = gtk::Button::with_label("Create new window");
     button.connect_clicked(
-        clone!(@weak windows_title_entry, @weak entry, @weak application => move |_| {
+        glib::clone!(@weak windows_title_entry, @weak entry, @weak application => move |_| {
             let new_id = generate_new_id(&windows.borrow());
             create_sub_window(&application,
                               &windows_title_entry.get_buffer().get_text(),

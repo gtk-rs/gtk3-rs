@@ -4,8 +4,7 @@
 //!
 //! /!\ This is different from the system menu bar (which are preferred) available in `gio::Menu`!
 
-use gio::prelude::*;
-use glib::clone;
+use gtk::glib;
 use gtk::prelude::*;
 use gtk::{
     AboutDialog, AccelFlags, AccelGroup, ApplicationWindow, CheckMenuItem, IconSize, Image, Label,
@@ -70,7 +69,7 @@ fn build_ui(application: &gtk::Application) {
     other.set_submenu(Some(&other_menu));
     menu_bar.append(&other);
 
-    quit.connect_activate(clone!(@weak window => move |_| {
+    quit.connect_activate(glib::clone!(@weak window => move |_| {
         window.close();
     }));
 

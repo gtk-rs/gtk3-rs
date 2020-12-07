@@ -6,7 +6,7 @@
 //! - Use a separate thread to handle incoming data and put it into a channel.
 
 use futures::{channel::mpsc, StreamExt};
-use gio::prelude::*;
+use gtk::glib;
 use gtk::prelude::*;
 use gtk::{ApplicationWindow, Label};
 use std::env::args;

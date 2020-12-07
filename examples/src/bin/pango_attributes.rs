@@ -2,7 +2,7 @@
 //!
 //! This sample demonstrates how to use various attributes on labels text.
 
-use gio::prelude::*;
+use gtk::pango;
 use gtk::prelude::*;
 
 use std::env::args;

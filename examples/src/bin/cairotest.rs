@@ -1,11 +1,10 @@
 use std::env::args;
 use std::f64::consts::PI;
 
-use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::DrawingArea;
 
-use cairo::{Context, FontSlant, FontWeight};
+use gtk::cairo::{Context, FontSlant, FontWeight};
 
 fn build_ui(application: &gtk::Application) {
     drawable(application, 500, 500, |_, cr| {

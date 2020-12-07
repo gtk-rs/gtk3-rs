@@ -2,8 +2,8 @@
 //!
 //! This sample demonstrates how to create an element "floating" above others.
 
-use gio::prelude::*;
 use gtk::prelude::*;
+use gtk::{gdk, gio, glib};
 
 use std::env::args;
 
@@ -15,22 +15,7 @@ const STYLE: &str = "
     font-weight: bold;
 }";
 
-// upgrade weak reference or return
-#[macro_export]
-macro_rules! upgrade_weak {
-    ($x:ident, $r:expr) => {{
-        match $x.upgrade() {
-            Some(o) => o,
-            None => return $r,
-        }
-    }};
-    ($x:ident) => {
-        upgrade_weak!($x, ())
-    };
-}
-
-fn button_clicked(button: &gtk::Button, overlay_text_weak: &glib::object::WeakRef<gtk::Label>) {
-    let overlay_text = upgrade_weak!(overlay_text_weak);
+fn button_clicked(button: &gtk::Button, overlay_text: &gtk::Label) {
     overlay_text.set_text(&button.get_label().expect("Couldn't get button label"));
 }
 
@@ -61,18 +46,15 @@ fn build_ui(application: &gtk::Application) {
     let but3 = gtk::Button::with_label("Why not me?");
 
     // When a button is clicked on, we set its label to the overlay label.
-    let overlay_text_weak = overlay_text.downgrade();
-    but1.connect_clicked(move |b| {
-        button_clicked(b, &overlay_text_weak);
-    });
-    let overlay_text_weak = overlay_text.downgrade();
-    but2.connect_clicked(move |b| {
-        button_clicked(b, &overlay_text_weak);
-    });
-    let overlay_text_weak = overlay_text.downgrade();
-    but3.connect_clicked(move |b| {
-        button_clicked(b, &overlay_text_weak);
-    });
+    but1.connect_clicked(glib::clone!(@weak overlay_text => move |b| {
+        button_clicked(b, &overlay_text);
+    }));
+    but2.connect_clicked(glib::clone!(@weak overlay_text => move |b| {
+        button_clicked(b, &overlay_text);
+    }));
+    but3.connect_clicked(glib::clone!(@weak overlay_text => move |b| {
+        button_clicked(b, &overlay_text);
+    }));
 
     hbox.add(&but1);
     hbox.add(&but2);

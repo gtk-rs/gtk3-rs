@@ -5,8 +5,8 @@
 use std::cell::RefCell;
 use std::env::args;
 
-use gio::prelude::*;
 use gtk::prelude::*;
+use gtk::{gdk, gio};
 
 struct Ui {
     pub button_a1: gtk::ToggleButton,

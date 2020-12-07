@@ -3,7 +3,7 @@
 //! Ported over from example code:
 //! https://developer.gnome.org/gtkmm-tutorial/stable/sec-dnd-example.html.en
 
-use gio::prelude::*;
+use gtk::gdk;
 use gtk::prelude::*;
 
 use std::env::args;

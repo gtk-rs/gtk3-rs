@@ -5,9 +5,8 @@ use std::sync::mpsc;
 use std::thread;
 use std::time::Duration;
 
-use cairo::{Context, Format, ImageSurface};
-use gio::prelude::*;
-use glib::clone;
+use gtk::cairo::{Context, Format, ImageSurface};
+use gtk::glib;
 use gtk::prelude::*;
 use gtk::{ApplicationWindow, DrawingArea};
 
@@ -166,7 +165,7 @@ fn build_ui(application: &gtk::Application) {
         let delay = Duration::from_millis((100 << thread_num) - 5);
 
         // Spawn the worker thread
-        thread::spawn(clone!(@strong ready_tx => move || {
+        thread::spawn(glib::clone!(@strong ready_tx => move || {
             let mut n = 0;
             for mut image in rx.iter() {
                 n = (n + 1) % 0x10000;
@@ -191,7 +190,7 @@ fn build_ui(application: &gtk::Application) {
     // Whenever the drawing area has to be redrawn, render the latest images in the correct
     // locations
     area.connect_draw(
-        clone!(@weak workspace => @default-return Inhibit(false), move |_, cr| {
+        glib::clone!(@weak workspace => @default-return Inhibit(false), move |_, cr| {
             let (ref images, ref origins, _) = *workspace;
 
             for (image, origin) in images.iter().zip(origins.iter()) {

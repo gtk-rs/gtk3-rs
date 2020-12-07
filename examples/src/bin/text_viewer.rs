@@ -7,8 +7,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
 
-use gio::prelude::*;
-use glib::clone;
+use gtk::glib;
 use gtk::prelude::*;
 use gtk::Builder;
 
@@ -28,7 +27,7 @@ pub fn build_ui(application: &gtk::Application) {
         .get_object("text_view")
         .expect("Couldn't get text_view");
 
-    open_button.connect_clicked(clone!(@weak window => move |_| {
+    open_button.connect_clicked(glib::clone!(@weak window => move |_| {
         // TODO move this to a impl?
         let file_chooser = gtk::FileChooserDialog::new(
             Some("Open File"),
@@ -39,7 +38,7 @@ pub fn build_ui(application: &gtk::Application) {
             ("Open", gtk::ResponseType::Ok),
             ("Cancel", gtk::ResponseType::Cancel),
         ]);
-        file_chooser.connect_response(clone!(@weak text_view => move |file_chooser, response| {
+        file_chooser.connect_response(glib::clone!(@weak text_view => move |file_chooser, response| {
             if response == gtk::ResponseType::Ok {
                 let filename = file_chooser.get_filename().expect("Couldn't get filename");
                 let file = File::open(&filename).expect("Couldn't open file");

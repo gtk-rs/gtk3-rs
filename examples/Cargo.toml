@@ -10,49 +10,22 @@ chrono = "0.4"
 futures = "0.3"
 once_cell = "1.2.0"
 
-[dependencies.atk]
-path = "../atk"
-
-[dependencies.glib-sys]
-path = "../glib/sys"
-
-[dependencies.gobject-sys]
-path = "../glib/gobject-sys"
-
-[dependencies.glib]
-path = "../glib"
-
-[dependencies.gio]
-path = "../gio"
-
-[dependencies.cairo-rs]
-path = "../cairo"
-features = ["png"]
-
-[dependencies.pango]
-path = "../pango"
-
-[dependencies.gdk-pixbuf]
-path = "../gdk-pixbuf"
-
-[dependencies.gdk]
-path = "../gdk"
-
 [dependencies.gtk]
 path = "../gtk"
 
 [dependencies.pangocairo]
 path = "../pangocairo"
+optional = true
+
+[dependencies.cairo]
+package = "cairo-rs"
+path = "../cairo"
+features = ["png"]
+optional = true
 
 [dependencies.async-tls]
 version = "0.6"
 optional = true
-
-[features]
-#default = ["gtk_3_22_30"]
-gtk_3_18 = ["gtk/v3_18", "gdk-pixbuf/v2_32", "gdk/v3_18", "gio/v2_46", "glib/v2_46", "pango/v1_38"] #for CI tools
-gtk_3_22_30 = ["gtk_3_18", "gtk/v3_22_30", "gdk-pixbuf/v2_36", "gdk/v3_22", "gio/v2_56", "glib/v2_56", "pango/v1_42"] #for CI tools
-gtk_3_24 = ["gtk_3_22_30", "gtk/v3_24", "atk/v2_30", "gdk-pixbuf/v2_36_8", "gdk/v3_24", "gio/v2_58", "glib/v2_58"] #for CI tools
 
 [[bin]]
 name = "accessibility"
@@ -74,6 +47,7 @@ name = "builders"
 
 [[bin]]
 name = "cairo_png"
+required-features = ["cairo"]
 
 [[bin]]
 name = "cairo_threads"
@@ -125,7 +99,7 @@ name = "iconview_example"
 
 [[bin]]
 name = "listbox_model"
-required-features = ["gtk/v3_16", "gio/v2_44"]
+required-features = ["gtk/v3_16"]
 
 [[bin]]
 name = "menu_bar"
@@ -178,6 +152,7 @@ name = "entry_completion"
 
 [[bin]]
 name = "printing"
+required-features = ["pangocairo"]
 
 [[bin]]
 name = "gio_async_tls"

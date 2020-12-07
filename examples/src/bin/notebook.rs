@@ -1,5 +1,4 @@
-use gio::prelude::*;
-use glib::clone;
+use gtk::glib;
 use gtk::prelude::*;
 use gtk::{IconSize, Orientation, ReliefStyle, Widget};
 
@@ -33,7 +32,7 @@ impl Notebook {
 
         let index = self.notebook.append_page(&widget, Some(&tab));
 
-        button.connect_clicked(clone!(@weak self.notebook as notebook => move |_| {
+        button.connect_clicked(glib::clone!(@weak self.notebook as notebook => move |_| {
             let index = notebook
                 .page_num(&widget)
                 .expect("Couldn't get page_num from notebook");

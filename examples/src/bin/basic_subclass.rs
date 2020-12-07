@@ -5,9 +5,8 @@
 //! and `activate` and how to interact with the GObjects and their private
 //! structs.
 
-use gio::prelude::*;
-use gio::subclass::prelude::*;
 use gio::ApplicationFlags;
+use gtk::{gio, glib};
 
 use glib::clone;
 use glib::subclass;
