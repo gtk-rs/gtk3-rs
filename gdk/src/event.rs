@@ -324,13 +324,13 @@ impl Event {
 
     /// Returns the event type.
     pub fn get_event_type(&self) -> EventType {
-        from_glib(self.as_ref().type_)
+        unsafe { from_glib(self.as_ref().type_) }
     }
 
     /// Returns whether the event was sent explicitly.
     #[allow(clippy::cast_lossless)]
     pub fn get_send_event(&self) -> bool {
-        from_glib(self.as_ref().send_event as i32)
+        unsafe { from_glib(self.as_ref().send_event as i32) }
     }
 
     /// Returns `true` if the event type matches `T`.

@@ -22,15 +22,15 @@ impl EventCrossing {
     }
 
     pub fn get_mode(&self) -> crate::CrossingMode {
-        from_glib(self.as_ref().mode)
+        unsafe { from_glib(self.as_ref().mode) }
     }
 
     pub fn get_detail(&self) -> crate::NotifyType {
-        from_glib(self.as_ref().detail)
+        unsafe { from_glib(self.as_ref().detail) }
     }
 
     pub fn get_state(&self) -> crate::ModifierType {
-        from_glib(self.as_ref().state)
+        unsafe { from_glib(self.as_ref().state) }
     }
 
     pub fn get_time(&self) -> u32 {
@@ -44,6 +44,6 @@ impl EventCrossing {
     }
 
     pub fn get_focus(&self) -> bool {
-        from_glib(self.as_ref().focus)
+        unsafe { from_glib(self.as_ref().focus) }
     }
 }

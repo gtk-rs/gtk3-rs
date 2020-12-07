@@ -12,11 +12,11 @@ event_subtype!(EventGrabBroken, ffi::GDK_GRAB_BROKEN);
 
 impl EventGrabBroken {
     pub fn is_keyboard(&self) -> bool {
-        from_glib(self.as_ref().keyboard)
+        unsafe { from_glib(self.as_ref().keyboard) }
     }
 
     pub fn is_implicit(&self) -> bool {
-        from_glib(self.as_ref().implicit)
+        unsafe { from_glib(self.as_ref().implicit) }
     }
 
     pub fn get_grab_window(&self) -> Option<crate::Window> {

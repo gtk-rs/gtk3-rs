@@ -18,7 +18,7 @@ impl EventMotion {
     }
 
     pub fn get_state(&self) -> crate::ModifierType {
-        from_glib(self.as_ref().state)
+        unsafe { from_glib(self.as_ref().state) }
     }
 
     pub fn get_time(&self) -> u32 {
@@ -50,6 +50,6 @@ impl EventMotion {
     }
 
     pub fn get_is_hint(&self) -> bool {
-        from_glib(self.as_ref().is_hint as _)
+        unsafe { from_glib(self.as_ref().is_hint as _) }
     }
 }

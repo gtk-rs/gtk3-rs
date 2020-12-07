@@ -130,7 +130,7 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
         }
 
         impl #crate_ident::translate::FromGlib<u32> for #name {
-            fn from_glib(value: u32) -> Self {
+            unsafe fn from_glib(value: u32) -> Self {
                 #name::from_bits_truncate(value)
             }
         }

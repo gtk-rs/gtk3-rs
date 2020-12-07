@@ -169,7 +169,7 @@ mod tests {
 
     #[test]
     fn convert_from_glib() {
-        assert_eq!(Char(65_i8), from_glib(65_i8));
-        assert_eq!(UChar(241_u8), from_glib(241_u8));
+        assert_eq!(Char(65_i8), unsafe { from_glib(65_i8) });
+        assert_eq!(UChar(241_u8), unsafe { from_glib(241_u8) });
     }
 }

@@ -25,9 +25,9 @@ fn derive_genum() {
     assert_eq!(Animal::Dog.to_glib(), 1);
     assert_eq!(Animal::Cat.to_glib(), 5);
 
-    assert_eq!(Animal::from_glib(0), Animal::Goat);
-    assert_eq!(Animal::from_glib(1), Animal::Dog);
-    assert_eq!(Animal::from_glib(5), Animal::Cat);
+    assert_eq!(unsafe { Animal::from_glib(0) }, Animal::Goat);
+    assert_eq!(unsafe { Animal::from_glib(1) }, Animal::Dog);
+    assert_eq!(unsafe { Animal::from_glib(5) }, Animal::Cat);
 
     assert_eq!(
         Animal::Goat.to_value().get::<Animal>(),
@@ -117,10 +117,10 @@ fn attr_gflags() {
     assert_eq!(MyFlags::B.to_glib(), 2);
     assert_eq!(MyFlags::AB.to_glib(), 3);
 
-    assert_eq!(MyFlags::from_glib(0), MyFlags::empty());
-    assert_eq!(MyFlags::from_glib(1), MyFlags::A);
-    assert_eq!(MyFlags::from_glib(2), MyFlags::B);
-    assert_eq!(MyFlags::from_glib(3), MyFlags::AB);
+    assert_eq!(unsafe { MyFlags::from_glib(0) }, MyFlags::empty());
+    assert_eq!(unsafe { MyFlags::from_glib(1) }, MyFlags::A);
+    assert_eq!(unsafe { MyFlags::from_glib(2) }, MyFlags::B);
+    assert_eq!(unsafe { MyFlags::from_glib(3) }, MyFlags::AB);
 
     assert_eq!(
         MyFlags::empty().to_value().get::<MyFlags>(),

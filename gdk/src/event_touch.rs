@@ -25,11 +25,11 @@ impl EventTouch {
     }
 
     pub fn get_state(&self) -> crate::ModifierType {
-        from_glib(self.as_ref().state)
+        unsafe { from_glib(self.as_ref().state) }
     }
 
     pub fn is_emulating_pointer(&self) -> bool {
-        from_glib(self.as_ref().emulating_pointer)
+        unsafe { from_glib(self.as_ref().emulating_pointer) }
     }
 
     pub fn get_device(&self) -> Option<crate::Device> {

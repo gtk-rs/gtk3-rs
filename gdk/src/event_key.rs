@@ -16,11 +16,11 @@ impl EventKey {
     }
 
     pub fn get_state(&self) -> crate::ModifierType {
-        from_glib(self.as_ref().state)
+        unsafe { from_glib(self.as_ref().state) }
     }
 
     pub fn get_keyval(&self) -> crate::keys::Key {
-        from_glib(self.as_ref().keyval)
+        unsafe { from_glib(self.as_ref().keyval) }
     }
 
     pub fn get_length(&self) -> u32 {

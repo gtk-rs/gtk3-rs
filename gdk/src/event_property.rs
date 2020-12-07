@@ -20,6 +20,6 @@ impl EventProperty {
     }
 
     pub fn get_state(&self) -> crate::PropertyState {
-        from_glib(self.as_ref().state)
+        unsafe { from_glib(self.as_ref().state) }
     }
 }

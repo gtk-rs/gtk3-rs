@@ -2412,9 +2412,15 @@ mod tests {
             Err(GlibNoneError)
         );
 
-        assert_eq!(Option::<SpecialU32>::from_glib(0), Some(SpecialU32(0)));
-        assert_eq!(Option::<SpecialU32>::from_glib(42), Some(SpecialU32(42)));
-        assert!(Option::<SpecialU32>::from_glib(SpecialU32::GLIB_NONE).is_none());
+        assert_eq!(
+            unsafe { Option::<SpecialU32>::from_glib(0) },
+            Some(SpecialU32(0))
+        );
+        assert_eq!(
+            unsafe { Option::<SpecialU32>::from_glib(42) },
+            Some(SpecialU32(42))
+        );
+        assert!(unsafe { Option::<SpecialU32>::from_glib(SpecialU32::GLIB_NONE) }.is_none());
     }
 
     #[test]
@@ -2481,17 +2487,17 @@ mod tests {
         assert!(SpecialU32::try_from_glib(-42).unwrap_err().is_invalid());
 
         assert_eq!(
-            Result::<Option<SpecialU32>, _>::from_glib(0),
+            unsafe { Result::<Option<SpecialU32>, _>::from_glib(0) },
             Ok(Some(SpecialU32(0)))
         );
         assert_eq!(
-            Result::<Option<SpecialU32>, _>::from_glib(42),
+            unsafe { Result::<Option<SpecialU32>, _>::from_glib(42) },
             Ok(Some(SpecialU32(42)))
         );
         assert_eq!(
-            Result::<Option<SpecialU32>, _>::from_glib(SpecialU32::GLIB_NONE),
+            unsafe { Result::<Option<SpecialU32>, _>::from_glib(SpecialU32::GLIB_NONE) },
             Ok(None)
         );
-        assert!(Result::<Option<SpecialU32>, _>::from_glib(-42).is_err());
+        assert!(unsafe { Result::<Option<SpecialU32>, _>::from_glib(-42) }.is_err());
     }
 }

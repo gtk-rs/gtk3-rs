@@ -22,7 +22,7 @@ impl EventScroll {
     }
 
     pub fn get_state(&self) -> crate::ModifierType {
-        from_glib(self.as_ref().state)
+        unsafe { from_glib(self.as_ref().state) }
     }
 
     pub fn get_device(&self) -> Option<crate::Device> {
@@ -30,7 +30,7 @@ impl EventScroll {
     }
 
     pub fn get_direction(&self) -> crate::ScrollDirection {
-        from_glib(self.as_ref().direction)
+        unsafe { from_glib(self.as_ref().direction) }
     }
 
     pub fn get_root(&self) -> (f64, f64) {

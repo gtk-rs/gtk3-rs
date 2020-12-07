@@ -12,6 +12,6 @@ event_subtype!(EventFocus, ffi::GDK_FOCUS_CHANGE);
 
 impl EventFocus {
     pub fn get_in(&self) -> bool {
-        from_glib(self.as_ref().in_ as _)
+        unsafe { from_glib(self.as_ref().in_ as _) }
     }
 }

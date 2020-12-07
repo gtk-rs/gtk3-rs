@@ -24,7 +24,7 @@ impl EventButton {
     }
 
     pub fn get_state(&self) -> crate::ModifierType {
-        from_glib(self.as_ref().state)
+        unsafe { from_glib(self.as_ref().state) }
     }
 
     pub fn get_time(&self) -> u32 {
