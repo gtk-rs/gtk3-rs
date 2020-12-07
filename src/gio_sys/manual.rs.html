@@ -38,8 +38,6 @@
 <span id="35">35</span>
 <span id="36">36</span>
 <span id="37">37</span>
-<span id="38">38</span>
-<span id="39">39</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2013-2020, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -55,17 +53,15 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_family</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>)]</span>
 <span class="kw">mod</span> <span class="ident">windows_constants</span> {
-    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">G_SOCKET_FAMILY_INVALID</span>: <span class="kw">super</span>::<span class="ident">GSocketFamily</span> <span class="op">=</span>
-        <span class="self">self</span>::<span class="ident">winapi</span>::<span class="ident">shared</span>::<span class="ident">ws2def</span>::<span class="ident">AF_UNSPEC</span>;
-    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">G_SOCKET_FAMILY_UNIX</span>: <span class="kw">super</span>::<span class="ident">GSocketFamily</span> <span class="op">=</span> <span class="self">self</span>::<span class="ident">winapi</span>::<span class="ident">shared</span>::<span class="ident">ws2def</span>::<span class="ident">AF_UNIX</span>;
-    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">G_SOCKET_FAMILY_IPV4</span>: <span class="kw">super</span>::<span class="ident">GSocketFamily</span> <span class="op">=</span> <span class="self">self</span>::<span class="ident">winapi</span>::<span class="ident">shared</span>::<span class="ident">ws2def</span>::<span class="ident">AF_INET</span>;
-    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">G_SOCKET_FAMILY_IPV6</span>: <span class="kw">super</span>::<span class="ident">GSocketFamily</span> <span class="op">=</span> <span class="self">self</span>::<span class="ident">winapi</span>::<span class="ident">shared</span>::<span class="ident">ws2def</span>::<span class="ident">AF_INET6</span>;
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">G_SOCKET_FAMILY_INVALID</span>: <span class="kw">super</span>::<span class="ident">GSocketFamily</span> <span class="op">=</span> <span class="ident">winapi</span>::<span class="ident">shared</span>::<span class="ident">ws2def</span>::<span class="ident">AF_UNSPEC</span>;
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">G_SOCKET_FAMILY_UNIX</span>: <span class="kw">super</span>::<span class="ident">GSocketFamily</span> <span class="op">=</span> <span class="ident">winapi</span>::<span class="ident">shared</span>::<span class="ident">ws2def</span>::<span class="ident">AF_UNIX</span>;
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">G_SOCKET_FAMILY_IPV4</span>: <span class="kw">super</span>::<span class="ident">GSocketFamily</span> <span class="op">=</span> <span class="ident">winapi</span>::<span class="ident">shared</span>::<span class="ident">ws2def</span>::<span class="ident">AF_INET</span>;
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">G_SOCKET_FAMILY_IPV6</span>: <span class="kw">super</span>::<span class="ident">GSocketFamily</span> <span class="op">=</span> <span class="ident">winapi</span>::<span class="ident">shared</span>::<span class="ident">ws2def</span>::<span class="ident">AF_INET6</span>;
 
     <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">G_SOCKET_MSG_NONE</span>: <span class="kw">super</span>::<span class="ident">GSocketMsgFlags</span> <span class="op">=</span> <span class="number">0</span>;
-    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">G_SOCKET_MSG_OOB</span>: <span class="kw">super</span>::<span class="ident">GSocketMsgFlags</span> <span class="op">=</span> <span class="self">self</span>::<span class="ident">winapi</span>::<span class="ident">um</span>::<span class="ident">winsock2</span>::<span class="ident">MSG_OOB</span>;
-    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">G_SOCKET_MSG_PEEK</span>: <span class="kw">super</span>::<span class="ident">GSocketMsgFlags</span> <span class="op">=</span> <span class="self">self</span>::<span class="ident">winapi</span>::<span class="ident">um</span>::<span class="ident">winsock2</span>::<span class="ident">MSG_PEEK</span>;
-    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">G_SOCKET_MSG_DONTROUTE</span>: <span class="kw">super</span>::<span class="ident">GSocketMsgFlags</span> <span class="op">=</span>
-        <span class="self">self</span>::<span class="ident">winapi</span>::<span class="ident">um</span>::<span class="ident">winsock2</span>::<span class="ident">MSG_DONTROUTE</span>;
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">G_SOCKET_MSG_OOB</span>: <span class="kw">super</span>::<span class="ident">GSocketMsgFlags</span> <span class="op">=</span> <span class="ident">winapi</span>::<span class="ident">um</span>::<span class="ident">winsock2</span>::<span class="ident">MSG_OOB</span>;
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">G_SOCKET_MSG_PEEK</span>: <span class="kw">super</span>::<span class="ident">GSocketMsgFlags</span> <span class="op">=</span> <span class="ident">winapi</span>::<span class="ident">um</span>::<span class="ident">winsock2</span>::<span class="ident">MSG_PEEK</span>;
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">G_SOCKET_MSG_DONTROUTE</span>: <span class="kw">super</span>::<span class="ident">GSocketMsgFlags</span> <span class="op">=</span> <span class="ident">winapi</span>::<span class="ident">um</span>::<span class="ident">winsock2</span>::<span class="ident">MSG_DONTROUTE</span>;
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_family</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>))]</span>
