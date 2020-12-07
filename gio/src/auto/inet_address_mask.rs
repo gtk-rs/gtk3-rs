@@ -50,6 +50,13 @@ impl InetAddressMask {
     }
 }
 
+impl fmt::Display for InetAddressMask {
+    #[inline]
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.write_str(&InetAddressMaskExt::to_str(self))
+    }
+}
+
 unsafe impl Send for InetAddressMask {}
 unsafe impl Sync for InetAddressMask {}
 
@@ -66,7 +73,7 @@ pub trait InetAddressMaskExt: 'static {
 
     fn matches<P: IsA<InetAddress>>(&self, address: &P) -> bool;
 
-    fn to_string(&self) -> glib::GString;
+    fn to_str(&self) -> glib::GString;
 
     fn set_property_address<P: IsA<InetAddress>>(&self, address: Option<&P>);
 
@@ -127,7 +134,7 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
         }
     }
 
-    fn to_string(&self) -> glib::GString {
+    fn to_str(&self) -> glib::GString {
         unsafe {
             from_glib_full(ffi::g_inet_address_mask_to_string(
                 self.as_ref().to_glib_none().0,
@@ -234,11 +241,5 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
                 Box_::into_raw(f),
             )
         }
-    }
-}
-
-impl fmt::Display for InetAddressMask {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("InetAddressMask")
     }
 }

@@ -31,17 +31,13 @@ generate = [
     "Atk.Rectangle",
     "Atk.Registry",
     "Atk.Relation",
-    "Atk.RelationType",
     "Atk.RelationSet",
-    "Atk.Role",
     "Atk.ScrollType",
     "Atk.Selection",
     "Atk.State",
-    "Atk.StateType",
     "Atk.StateSet",
     "Atk.StreamableContent",
     "Atk.TableCell",
-    "Atk.TextAttribute",
     "Atk.TextBoundary",
     "Atk.TextClipType",
     "Atk.TextGranularity",
@@ -136,3 +132,35 @@ trait_name = "AtkPlugExt"
 name = "Atk.Socket"
 status = "generate"
 trait_name = "AtkSocketExt"
+
+[[object]]
+name = "Atk.RelationType"
+status = "generate"
+    [[object.function]]
+    name = "register"
+    # Problematic function needs manual implementation
+    ignore = true
+
+[[object]]
+name = "Atk.Role"
+status = "generate"
+    [[object.function]]
+    name = "register"
+    # Problematic function needs manual implementation
+    ignore = true
+
+[[object]]
+name = "Atk.StateType"
+status = "generate"
+    [[object.function]]
+    name = "register"
+    # Problematic function needs manual implementation
+    ignore = true
+
+[[object]]
+name = "Atk.TextAttribute"
+status = "generate"
+    [[object.function]]
+    name = "register"
+    # Problematic function needs manual implementation
+    ignore = true

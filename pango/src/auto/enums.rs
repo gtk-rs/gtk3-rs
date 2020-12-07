@@ -2,6 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::Language;
+use crate::Matrix;
 use glib::translate::*;
 use glib::value::FromValue;
 use glib::value::FromValueOptional;
@@ -121,6 +123,12 @@ pub enum AttrType {
     OverlineColor,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl AttrType {
+    pub fn get_name(self) -> Option<glib::GString> {
+        unsafe { from_glib_none(ffi::pango_attr_type_get_name(self.to_glib())) }
+    }
 }
 
 impl fmt::Display for AttrType {
@@ -297,6 +305,12 @@ pub enum BidiType {
     On,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl BidiType {
+    pub fn for_unichar(ch: char) -> BidiType {
+        unsafe { from_glib(ffi::pango_bidi_type_for_unichar(ch.to_glib())) }
+    }
 }
 
 impl fmt::Display for BidiType {
@@ -671,6 +685,42 @@ pub enum Gravity {
     Auto,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl Gravity {
+    pub fn get_for_matrix(matrix: Option<&Matrix>) -> Gravity {
+        unsafe { from_glib(ffi::pango_gravity_get_for_matrix(matrix.to_glib_none().0)) }
+    }
+
+    pub fn get_for_script(script: Script, base_gravity: Gravity, hint: GravityHint) -> Gravity {
+        unsafe {
+            from_glib(ffi::pango_gravity_get_for_script(
+                script.to_glib(),
+                base_gravity.to_glib(),
+                hint.to_glib(),
+            ))
+        }
+    }
+
+    pub fn get_for_script_and_width(
+        script: Script,
+        wide: bool,
+        base_gravity: Gravity,
+        hint: GravityHint,
+    ) -> Gravity {
+        unsafe {
+            from_glib(ffi::pango_gravity_get_for_script_and_width(
+                script.to_glib(),
+                wide.to_glib(),
+                base_gravity.to_glib(),
+                hint.to_glib(),
+            ))
+        }
+    }
+
+    pub fn to_rotation(self) -> f64 {
+        unsafe { ffi::pango_gravity_to_rotation(self.to_glib()) }
+    }
 }
 
 impl fmt::Display for Gravity {
@@ -1112,6 +1162,17 @@ pub enum Script {
     Signwriting,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl Script {
+    #[cfg_attr(feature = "v1_44", deprecated)]
+    pub fn for_unichar(ch: char) -> Script {
+        unsafe { from_glib(ffi::pango_script_for_unichar(ch.to_glib())) }
+    }
+
+    pub fn get_sample_language(self) -> Option<Language> {
+        unsafe { from_glib_full(ffi::pango_script_get_sample_language(self.to_glib())) }
+    }
 }
 
 impl fmt::Display for Script {

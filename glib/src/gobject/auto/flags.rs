@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::gobject_ffi;
 use crate::translate::*;
 use crate::value::FromValue;
 use crate::value::FromValueOptional;
@@ -10,6 +9,7 @@ use crate::value::SetValue;
 use crate::StaticType;
 use crate::Type;
 use bitflags::bitflags;
+use std::fmt;
 
 bitflags! {
     pub struct BindingFlags: u32 {
@@ -17,6 +17,12 @@ bitflags! {
         const BIDIRECTIONAL = 1;
         const SYNC_CREATE = 2;
         const INVERT_BOOLEAN = 4;
+    }
+}
+
+impl fmt::Display for BindingFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -79,6 +85,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for ParamFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for ParamFlags {
     type GlibType = gobject_ffi::GParamFlags;
@@ -106,6 +118,12 @@ bitflags! {
         const NO_HOOKS = 64;
         const MUST_COLLECT = 128;
         const DEPRECATED = 256;
+    }
+}
+
+impl fmt::Display for SignalFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 

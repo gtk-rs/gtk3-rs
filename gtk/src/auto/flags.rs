@@ -9,12 +9,19 @@ use glib::value::FromValueOptional;
 use glib::value::SetValue;
 use glib::StaticType;
 use glib::Type;
+use std::fmt;
 
 bitflags! {
     pub struct AccelFlags: u32 {
         const VISIBLE = 1;
         const LOCKED = 2;
         const MASK = 7;
+    }
+}
+
+impl fmt::Display for AccelFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -68,6 +75,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for ApplicationInhibitFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for ApplicationInhibitFlags {
     type GlibType = ffi::GtkApplicationInhibitFlags;
@@ -116,6 +129,12 @@ bitflags! {
         const NO_MONTH_CHANGE = 4;
         const SHOW_WEEK_NUMBERS = 8;
         const SHOW_DETAILS = 32;
+    }
+}
+
+impl fmt::Display for CalendarDisplayOptions {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -172,6 +191,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for CellRendererState {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for CellRendererState {
     type GlibType = ffi::GtkCellRendererState;
@@ -222,6 +247,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for DestDefaults {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for DestDefaults {
     type GlibType = ffi::GtkDestDefaults;
@@ -268,6 +299,12 @@ bitflags! {
         const MODAL = 1;
         const DESTROY_WITH_PARENT = 2;
         const USE_HEADER_BAR = 4;
+    }
+}
+
+impl fmt::Display for DialogFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -322,6 +359,14 @@ bitflags! {
         const DISCRETE = 4;
         const KINETIC = 8;
         const BOTH_AXES = 3;
+    }
+}
+
+#[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+impl fmt::Display for EventControllerScrollFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -387,6 +432,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for FileFilterFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for FileFilterFlags {
     type GlibType = ffi::GtkFileFilterFlags;
@@ -437,6 +488,14 @@ bitflags! {
         const SIZE = 2;
         const VARIATIONS = 4;
         const FEATURES = 8;
+    }
+}
+
+#[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+impl fmt::Display for FontChooserLevel {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -507,6 +566,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for IconLookupFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for IconLookupFlags {
     type GlibType = ffi::GtkIconLookupFlags;
@@ -569,6 +634,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for InputHints {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for InputHints {
     type GlibType = ffi::GtkInputHints;
@@ -624,6 +695,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for JunctionSides {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for JunctionSides {
     type GlibType = ffi::GtkJunctionSides;
@@ -670,6 +747,12 @@ bitflags! {
         const NORMAL = 1;
         const NEW_TAB = 2;
         const NEW_WINDOW = 4;
+    }
+}
+
+impl fmt::Display for PlacesOpenFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -725,6 +808,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for RecentFilterFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for RecentFilterFlags {
     type GlibType = ffi::GtkRecentFilterFlags;
@@ -774,6 +863,12 @@ bitflags! {
         const LAST = 8;
         const ONLY = 16;
         const SORTED = 32;
+    }
+}
+
+impl fmt::Display for RegionFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -837,6 +932,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for StateFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for StateFlags {
     type GlibType = ffi::GtkStateFlags;
@@ -885,6 +986,14 @@ bitflags! {
         const NONE = 0;
         const RECURSE = 1;
         const SHOW_STYLE = 2;
+    }
+}
+
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+impl fmt::Display for StyleContextPrintFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -950,6 +1059,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for TargetFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for TargetFlags {
     type GlibType = ffi::GtkTargetFlags;
@@ -996,6 +1111,12 @@ bitflags! {
         const VISIBLE_ONLY = 1;
         const TEXT_ONLY = 2;
         const CASE_INSENSITIVE = 4;
+    }
+}
+
+impl fmt::Display for TextSearchFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -1047,6 +1168,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for ToolPaletteDragTargets {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for ToolPaletteDragTargets {
     type GlibType = ffi::GtkToolPaletteDragTargets;
@@ -1092,6 +1219,12 @@ bitflags! {
     pub struct TreeModelFlags: u32 {
         const ITERS_PERSIST = 1;
         const LIST_ONLY = 2;
+    }
+}
+
+impl fmt::Display for TreeModelFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 

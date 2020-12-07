@@ -9,6 +9,7 @@ use glib::value::FromValueOptional;
 use glib::value::SetValue;
 use glib::StaticType;
 use glib::Type;
+use std::fmt;
 
 bitflags! {
     pub struct FontMask: u32 {
@@ -20,6 +21,12 @@ bitflags! {
         const SIZE = 32;
         const GRAVITY = 64;
         const VARIATIONS = 128;
+    }
+}
+
+impl fmt::Display for FontMask {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -69,6 +76,14 @@ bitflags! {
     pub struct ShapeFlags: u32 {
         const NONE = 0;
         const ROUND_POSITIONS = 1;
+    }
+}
+
+#[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+impl fmt::Display for ShapeFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -132,6 +147,14 @@ bitflags! {
         const SPACES = 1;
         const LINE_BREAKS = 2;
         const IGNORABLES = 4;
+    }
+}
+
+#[cfg(any(feature = "v1_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+impl fmt::Display for ShowFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 

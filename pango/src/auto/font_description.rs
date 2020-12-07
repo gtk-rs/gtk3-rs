@@ -220,7 +220,7 @@ impl FontDescription {
         }
     }
 
-    fn to_string(&self) -> glib::GString {
+    pub fn to_str(&self) -> glib::GString {
         unsafe { from_glib_full(ffi::pango_font_description_to_string(self.to_glib_none().0)) }
     }
 
@@ -257,7 +257,7 @@ impl Eq for FontDescription {}
 impl fmt::Display for FontDescription {
     #[inline]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str(&self.to_string())
+        f.write_str(&self.to_str())
     }
 }
 

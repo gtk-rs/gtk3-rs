@@ -11,6 +11,7 @@ use glib::Quark;
 use glib::StaticType;
 use glib::Type;
 use std::fmt;
+use std::mem;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
@@ -2161,6 +2162,28 @@ pub enum IconSize {
     Dialog,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl IconSize {
+    pub fn lookup(self) -> Option<(i32, i32)> {
+        assert_initialized_main_thread!();
+        unsafe {
+            let mut width = mem::MaybeUninit::uninit();
+            let mut height = mem::MaybeUninit::uninit();
+            let ret = from_glib(ffi::gtk_icon_size_lookup(
+                self.to_glib(),
+                width.as_mut_ptr(),
+                height.as_mut_ptr(),
+            ));
+            let width = width.assume_init();
+            let height = height.assume_init();
+            if ret {
+                Some((width, height))
+            } else {
+                None
+            }
+        }
+    }
 }
 
 impl fmt::Display for IconSize {

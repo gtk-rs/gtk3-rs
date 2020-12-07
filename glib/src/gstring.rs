@@ -102,7 +102,7 @@ impl Drop for GString {
 
 impl fmt::Display for GString {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", self.as_str())
+        f.write_str(self.as_str())
     }
 }
 

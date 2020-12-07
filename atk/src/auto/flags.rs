@@ -9,10 +9,17 @@ use glib::value::FromValueOptional;
 use glib::value::SetValue;
 use glib::StaticType;
 use glib::Type;
+use std::fmt;
 
 bitflags! {
     pub struct HyperlinkStateFlags: u32 {
         const INLINE = 1;
+    }
+}
+
+impl fmt::Display for HyperlinkStateFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 

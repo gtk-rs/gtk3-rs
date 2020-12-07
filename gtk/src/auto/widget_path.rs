@@ -236,7 +236,7 @@ impl WidgetPath {
         }
     }
 
-    fn to_string(&self) -> glib::GString {
+    pub fn to_str(&self) -> glib::GString {
         unsafe { from_glib_full(ffi::gtk_widget_path_to_string(self.to_glib_none().0)) }
     }
 }
@@ -250,6 +250,6 @@ impl Default for WidgetPath {
 impl fmt::Display for WidgetPath {
     #[inline]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str(&self.to_string())
+        f.write_str(&self.to_str())
     }
 }

@@ -9,6 +9,7 @@ use glib::value::FromValueOptional;
 use glib::value::SetValue;
 use glib::StaticType;
 use glib::Type;
+use std::fmt;
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
@@ -23,6 +24,14 @@ bitflags! {
         const FLIP = 3;
         const SLIDE = 12;
         const RESIZE = 48;
+    }
+}
+
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+impl fmt::Display for AnchorHints {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -97,6 +106,14 @@ bitflags! {
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+impl fmt::Display for AxisFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl ToGlib for AxisFlags {
     type GlibType = ffi::GdkAxisFlags;
@@ -156,6 +173,12 @@ bitflags! {
         const LINK = 8;
         const PRIVATE = 16;
         const ASK = 32;
+    }
+}
+
+impl fmt::Display for DragAction {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -231,6 +254,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for EventMask {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for EventMask {
     type GlibType = ffi::GdkEventMask;
@@ -282,6 +311,12 @@ bitflags! {
         const PAINT = 16;
         const RESUME_EVENTS = 32;
         const AFTER_PAINT = 64;
+    }
+}
+
+impl fmt::Display for FrameClockPhase {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -363,6 +398,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for ModifierType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for ModifierType {
     type GlibType = ffi::GdkModifierType;
@@ -415,6 +456,14 @@ bitflags! {
         const KEYBOARD = 8;
         const ALL_POINTING = 7;
         const ALL = 15;
+    }
+}
+
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+impl fmt::Display for SeatCapabilities {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -483,6 +532,12 @@ bitflags! {
     }
 }
 
+impl fmt::Display for WMDecoration {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for WMDecoration {
     type GlibType = ffi::GdkWMDecoration;
@@ -532,6 +587,12 @@ bitflags! {
         const MINIMIZE = 8;
         const MAXIMIZE = 16;
         const CLOSE = 32;
+    }
+}
+
+impl fmt::Display for WMFunction {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -587,6 +648,12 @@ bitflags! {
         const WIN_GRAVITY = 64;
         const USER_POS = 128;
         const USER_SIZE = 256;
+    }
+}
+
+impl fmt::Display for WindowHints {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -650,6 +717,12 @@ bitflags! {
         const BOTTOM_RESIZABLE = 16384;
         const LEFT_TILED = 32768;
         const LEFT_RESIZABLE = 65536;
+    }
+}
+
+impl fmt::Display for WindowState {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 

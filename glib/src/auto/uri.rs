@@ -15,6 +15,8 @@ use crate::UriFlags;
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 use crate::UriHideFlags;
+#[cfg(any(feature = "v2_66", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 use std::fmt;
 #[cfg(any(feature = "v2_66", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
@@ -122,7 +124,7 @@ impl Uri {
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
-    fn to_string(&self) -> crate::GString {
+    pub fn to_str(&self) -> crate::GString {
         unsafe { from_glib_full(ffi::g_uri_to_string(self.to_glib_none().0)) }
     }
 
@@ -552,7 +554,7 @@ impl Uri {
 impl fmt::Display for Uri {
     #[inline]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str(&self.to_string())
+        f.write_str(&self.to_str())
     }
 }
 

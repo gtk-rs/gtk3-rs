@@ -211,6 +211,18 @@ pub enum RelationType {
     __Unknown(i32),
 }
 
+impl RelationType {
+    pub fn for_name(name: &str) -> RelationType {
+        assert_initialized_main_thread!();
+        unsafe { from_glib(ffi::atk_relation_type_for_name(name.to_glib_none().0)) }
+    }
+
+    pub fn get_name(self) -> Option<glib::GString> {
+        assert_initialized_main_thread!();
+        unsafe { from_glib_none(ffi::atk_relation_type_get_name(self.to_glib())) }
+    }
+}
+
 impl fmt::Display for RelationType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -467,6 +479,23 @@ pub enum Role {
     LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl Role {
+    pub fn for_name(name: &str) -> Role {
+        assert_initialized_main_thread!();
+        unsafe { from_glib(ffi::atk_role_for_name(name.to_glib_none().0)) }
+    }
+
+    pub fn get_localized_name(self) -> Option<glib::GString> {
+        assert_initialized_main_thread!();
+        unsafe { from_glib_none(ffi::atk_role_get_localized_name(self.to_glib())) }
+    }
+
+    pub fn get_name(self) -> Option<glib::GString> {
+        assert_initialized_main_thread!();
+        unsafe { from_glib_none(ffi::atk_role_get_name(self.to_glib())) }
+    }
 }
 
 impl fmt::Display for Role {
@@ -1069,6 +1098,18 @@ pub enum StateType {
     __Unknown(i32),
 }
 
+impl StateType {
+    pub fn for_name(name: &str) -> StateType {
+        assert_initialized_main_thread!();
+        unsafe { from_glib(ffi::atk_state_type_for_name(name.to_glib_none().0)) }
+    }
+
+    pub fn get_name(self) -> Option<glib::GString> {
+        assert_initialized_main_thread!();
+        unsafe { from_glib_none(ffi::atk_state_type_get_name(self.to_glib())) }
+    }
+}
+
 impl fmt::Display for StateType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -1293,6 +1334,23 @@ pub enum TextAttribute {
     LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl TextAttribute {
+    pub fn for_name(name: &str) -> TextAttribute {
+        assert_initialized_main_thread!();
+        unsafe { from_glib(ffi::atk_text_attribute_for_name(name.to_glib_none().0)) }
+    }
+
+    pub fn get_name(self) -> Option<glib::GString> {
+        assert_initialized_main_thread!();
+        unsafe { from_glib_none(ffi::atk_text_attribute_get_name(self.to_glib())) }
+    }
+
+    pub fn get_value(self, index_: i32) -> Option<glib::GString> {
+        assert_initialized_main_thread!();
+        unsafe { from_glib_none(ffi::atk_text_attribute_get_value(self.to_glib(), index_)) }
+    }
 }
 
 impl fmt::Display for TextAttribute {
@@ -1719,6 +1777,18 @@ pub enum ValueType {
     LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl ValueType {
+    pub fn get_localized_name(self) -> Option<glib::GString> {
+        assert_initialized_main_thread!();
+        unsafe { from_glib_none(ffi::atk_value_type_get_localized_name(self.to_glib())) }
+    }
+
+    pub fn get_name(self) -> Option<glib::GString> {
+        assert_initialized_main_thread!();
+        unsafe { from_glib_none(ffi::atk_value_type_get_name(self.to_glib())) }
+    }
 }
 
 impl fmt::Display for ValueType {

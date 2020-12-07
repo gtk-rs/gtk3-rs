@@ -51,6 +51,13 @@ impl Default for CssProvider {
     }
 }
 
+impl fmt::Display for CssProvider {
+    #[inline]
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.write_str(&CssProviderExt::to_str(self))
+    }
+}
+
 pub const NONE_CSS_PROVIDER: Option<&CssProvider> = None;
 
 pub trait CssProviderExt: 'static {
@@ -64,7 +71,7 @@ pub trait CssProviderExt: 'static {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn load_from_resource(&self, resource_path: &str);
 
-    fn to_string(&self) -> glib::GString;
+    fn to_str(&self) -> glib::GString;
 
     fn connect_parsing_error<F: Fn(&Self, &CssSection, &glib::Error) + 'static>(
         &self,
@@ -134,7 +141,7 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
         }
     }
 
-    fn to_string(&self) -> glib::GString {
+    fn to_str(&self) -> glib::GString {
         unsafe {
             from_glib_full(ffi::gtk_css_provider_to_string(
                 self.as_ref().to_glib_none().0,
@@ -175,11 +182,5 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
                 Box_::into_raw(f),
             )
         }
-    }
-}
-
-impl fmt::Display for CssProvider {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("CssProvider")
     }
 }
