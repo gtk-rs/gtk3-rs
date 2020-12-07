@@ -5,8 +5,7 @@
 use crate::Converter;
 use crate::FileInfo;
 use crate::ZlibCompressorFormat;
-use glib::object::Cast;
-use glib::object::IsA;
+use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
@@ -27,46 +26,23 @@ impl ZlibCompressor {
     pub fn new(format: ZlibCompressorFormat, level: i32) -> ZlibCompressor {
         unsafe { from_glib_full(ffi::g_zlib_compressor_new(format.to_glib(), level)) }
     }
-}
 
-pub const NONE_ZLIB_COMPRESSOR: Option<&ZlibCompressor> = None;
+    pub fn get_file_info(&self) -> Option<FileInfo> {
+        unsafe { from_glib_none(ffi::g_zlib_compressor_get_file_info(self.to_glib_none().0)) }
+    }
 
-pub trait ZlibCompressorExt: 'static {
-    fn get_file_info(&self) -> Option<FileInfo>;
-
-    fn set_file_info(&self, file_info: Option<&FileInfo>);
-
-    fn get_property_format(&self) -> ZlibCompressorFormat;
-
-    fn get_property_level(&self) -> i32;
-
-    fn connect_property_file_info_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<ZlibCompressor>> ZlibCompressorExt for O {
-    fn get_file_info(&self) -> Option<FileInfo> {
+    pub fn set_file_info(&self, file_info: Option<&FileInfo>) {
         unsafe {
-            from_glib_none(ffi::g_zlib_compressor_get_file_info(
-                self.as_ref().to_glib_none().0,
-            ))
+            ffi::g_zlib_compressor_set_file_info(self.to_glib_none().0, file_info.to_glib_none().0);
         }
     }
 
-    fn set_file_info(&self, file_info: Option<&FileInfo>) {
-        unsafe {
-            ffi::g_zlib_compressor_set_file_info(
-                self.as_ref().to_glib_none().0,
-                file_info.to_glib_none().0,
-            );
-        }
-    }
-
-    fn get_property_format(&self) -> ZlibCompressorFormat {
+    pub fn get_property_format(&self) -> ZlibCompressorFormat {
         unsafe {
             let mut value =
                 glib::Value::from_type(<ZlibCompressorFormat as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"format\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -77,11 +53,11 @@ impl<O: IsA<ZlibCompressor>> ZlibCompressorExt for O {
         }
     }
 
-    fn get_property_level(&self) -> i32 {
+    pub fn get_property_level(&self) -> i32 {
         unsafe {
             let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
             glib::gobject_ffi::g_object_get_property(
-                self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
+                self.as_ptr() as *mut glib::gobject_ffi::GObject,
                 b"level\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
@@ -92,16 +68,17 @@ impl<O: IsA<ZlibCompressor>> ZlibCompressorExt for O {
         }
     }
 
-    fn connect_property_file_info_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_file_info_trampoline<P, F: Fn(&P) + 'static>(
+    pub fn connect_property_file_info_notify<F: Fn(&ZlibCompressor) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_file_info_trampoline<F: Fn(&ZlibCompressor) + 'static>(
             this: *mut ffi::GZlibCompressor,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<ZlibCompressor>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
-            f(&ZlibCompressor::from_glib_borrow(this).unsafe_cast_ref())
+            f(&from_glib_borrow(this))
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -109,7 +86,7 @@ impl<O: IsA<ZlibCompressor>> ZlibCompressorExt for O {
                 self.as_ptr() as *mut _,
                 b"notify::file-info\0".as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
-                    notify_file_info_trampoline::<Self, F> as *const (),
+                    notify_file_info_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
             )

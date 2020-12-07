@@ -41,7 +41,7 @@ pub trait IMContextExt: 'static {
 
     fn reset(&self);
 
-    fn set_client_window<P: IsA<gdk::Window>>(&self, window: Option<&P>);
+    fn set_client_window(&self, window: Option<&gdk::Window>);
 
     fn set_cursor_location(&self, area: &gdk::Rectangle);
 
@@ -153,11 +153,11 @@ impl<O: IsA<IMContext>> IMContextExt for O {
         }
     }
 
-    fn set_client_window<P: IsA<gdk::Window>>(&self, window: Option<&P>) {
+    fn set_client_window(&self, window: Option<&gdk::Window>) {
         unsafe {
             ffi::gtk_im_context_set_client_window(
                 self.as_ref().to_glib_none().0,
-                window.map(|p| p.as_ref()).to_glib_none().0,
+                window.to_glib_none().0,
             );
         }
     }

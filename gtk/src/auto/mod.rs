@@ -292,13 +292,10 @@ pub use self::file_chooser_dialog::{FileChooserDialog, NONE_FILE_CHOOSER_DIALOG}
 mod file_chooser_native;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+pub use self::file_chooser_native::FileChooserNative;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 pub use self::file_chooser_native::FileChooserNativeBuilder;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-pub use self::file_chooser_native::FileChooserNativeExt;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-pub use self::file_chooser_native::{FileChooserNative, NONE_FILE_CHOOSER_NATIVE};
 
 mod file_chooser_widget;
 pub use self::file_chooser_widget::FileChooserWidgetBuilder;
@@ -618,13 +615,10 @@ pub use self::popover::{Popover, NONE_POPOVER};
 mod popover_menu;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+pub use self::popover_menu::PopoverMenu;
+#[cfg(any(feature = "v3_16", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 pub use self::popover_menu::PopoverMenuBuilder;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-pub use self::popover_menu::PopoverMenuExt;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-pub use self::popover_menu::{PopoverMenu, NONE_POPOVER_MENU};
 
 mod print_context;
 pub use self::print_context::PrintContext;
@@ -1383,9 +1377,6 @@ pub mod traits {
     pub use super::ExpanderExt;
     pub use super::FileChooserButtonExt;
     pub use super::FileChooserExt;
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    pub use super::FileChooserNativeExt;
     pub use super::FileChooserWidgetExt;
     pub use super::FixedExt;
     pub use super::FlowBoxChildExt;
@@ -1442,9 +1433,6 @@ pub mod traits {
     #[cfg_attr(feature = "dox", doc(cfg(gdk_backend = "x11")))]
     pub use super::PlugExt;
     pub use super::PopoverExt;
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
-    pub use super::PopoverMenuExt;
     pub use super::PrintOperationExt;
     pub use super::PrintOperationPreviewExt;
     pub use super::ProgressBarExt;

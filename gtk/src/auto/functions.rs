@@ -171,27 +171,27 @@ pub fn bindings_activate_event<P: IsA<glib::Object>>(
     }
 }
 
-pub fn cairo_should_draw_window<P: IsA<gdk::Window>>(cr: &cairo::Context, window: &P) -> bool {
+pub fn cairo_should_draw_window(cr: &cairo::Context, window: &gdk::Window) -> bool {
     assert_initialized_main_thread!();
     unsafe {
         from_glib(ffi::gtk_cairo_should_draw_window(
             mut_override(cr.to_glib_none().0),
-            window.as_ref().to_glib_none().0,
+            window.to_glib_none().0,
         ))
     }
 }
 
-pub fn cairo_transform_to_window<P: IsA<Widget>, Q: IsA<gdk::Window>>(
+pub fn cairo_transform_to_window<P: IsA<Widget>>(
     cr: &cairo::Context,
     widget: &P,
-    window: &Q,
+    window: &gdk::Window,
 ) {
     skip_assert_initialized!();
     unsafe {
         ffi::gtk_cairo_transform_to_window(
             mut_override(cr.to_glib_none().0),
             widget.as_ref().to_glib_none().0,
-            window.as_ref().to_glib_none().0,
+            window.to_glib_none().0,
         );
     }
 }

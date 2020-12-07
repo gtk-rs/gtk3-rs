@@ -195,7 +195,7 @@ pub trait StyleContextExt: 'static {
     fn save(&self);
 
     #[cfg_attr(feature = "v3_18", deprecated)]
-    fn set_background<P: IsA<gdk::Window>>(&self, window: &P);
+    fn set_background(&self, window: &gdk::Window);
 
     fn set_frame_clock(&self, frame_clock: &gdk::FrameClock);
 
@@ -491,11 +491,11 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn set_background<P: IsA<gdk::Window>>(&self, window: &P) {
+    fn set_background(&self, window: &gdk::Window) {
         unsafe {
             ffi::gtk_style_context_set_background(
                 self.as_ref().to_glib_none().0,
-                window.as_ref().to_glib_none().0,
+                window.to_glib_none().0,
             );
         }
     }

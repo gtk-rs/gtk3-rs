@@ -60,7 +60,7 @@ pub trait GestureExt: 'static {
 
     fn set_state(&self, state: EventSequenceState) -> bool;
 
-    fn set_window<P: IsA<gdk::Window>>(&self, window: Option<&P>);
+    fn set_window(&self, window: Option<&gdk::Window>);
 
     fn ungroup(&self);
 
@@ -259,12 +259,9 @@ impl<O: IsA<Gesture>> GestureExt for O {
         }
     }
 
-    fn set_window<P: IsA<gdk::Window>>(&self, window: Option<&P>) {
+    fn set_window(&self, window: Option<&gdk::Window>) {
         unsafe {
-            ffi::gtk_gesture_set_window(
-                self.as_ref().to_glib_none().0,
-                window.map(|p| p.as_ref()).to_glib_none().0,
-            );
+            ffi::gtk_gesture_set_window(self.as_ref().to_glib_none().0, window.to_glib_none().0);
         }
     }
 

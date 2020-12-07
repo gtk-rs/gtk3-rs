@@ -75,12 +75,12 @@ pub trait IconThemeExt: 'static {
         flags: IconLookupFlags,
     ) -> Result<Option<gdk_pixbuf::Pixbuf>, glib::Error>;
 
-    fn load_surface<P: IsA<gdk::Window>>(
+    fn load_surface(
         &self,
         icon_name: &str,
         size: i32,
         scale: i32,
-        for_window: Option<&P>,
+        for_window: Option<&gdk::Window>,
         flags: IconLookupFlags,
     ) -> Result<Option<cairo::Surface>, glib::Error>;
 
@@ -221,12 +221,12 @@ impl<O: IsA<IconTheme>> IconThemeExt for O {
         }
     }
 
-    fn load_surface<P: IsA<gdk::Window>>(
+    fn load_surface(
         &self,
         icon_name: &str,
         size: i32,
         scale: i32,
-        for_window: Option<&P>,
+        for_window: Option<&gdk::Window>,
         flags: IconLookupFlags,
     ) -> Result<Option<cairo::Surface>, glib::Error> {
         unsafe {
@@ -236,7 +236,7 @@ impl<O: IsA<IconTheme>> IconThemeExt for O {
                 icon_name.to_glib_none().0,
                 size,
                 scale,
-                for_window.map(|p| p.as_ref()).to_glib_none().0,
+                for_window.to_glib_none().0,
                 flags.to_glib(),
                 &mut error,
             );

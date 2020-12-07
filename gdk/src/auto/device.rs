@@ -25,7 +25,6 @@ use crate::Screen;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::Seat;
 use crate::Window;
-use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
@@ -170,7 +169,7 @@ impl Device {
         unsafe { from_glib(ffi::gdk_device_get_source(self.to_glib_none().0)) }
     }
 
-    //pub fn get_state<P: IsA<Window>>(&self, window: &P, axes: &[f64]) -> ModifierType {
+    //pub fn get_state(&self, window: &Window, axes: &[f64]) -> ModifierType {
     //    unsafe { TODO: call ffi:gdk_device_get_state() }
     //}
 
@@ -211,9 +210,9 @@ impl Device {
     }
 
     #[cfg_attr(feature = "v3_20", deprecated)]
-    pub fn grab<P: IsA<Window>>(
+    pub fn grab(
         &self,
-        window: &P,
+        window: &Window,
         grab_ownership: GrabOwnership,
         owner_events: bool,
         event_mask: EventMask,
@@ -223,7 +222,7 @@ impl Device {
         unsafe {
             from_glib(ffi::gdk_device_grab(
                 self.to_glib_none().0,
-                window.as_ref().to_glib_none().0,
+                window.to_glib_none().0,
                 grab_ownership.to_glib(),
                 owner_events.to_glib(),
                 event_mask.to_glib(),

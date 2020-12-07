@@ -146,8 +146,8 @@ impl GestureSwipeBuilder {
         self
     }
 
-    pub fn window<P: IsA<gdk::Window>>(mut self, window: &P) -> Self {
-        self.window = Some(window.clone().upcast());
+    pub fn window(mut self, window: &gdk::Window) -> Self {
+        self.window = Some(window.clone());
         self
     }
 

@@ -28,9 +28,6 @@ use crate::SeatCapabilities;
 use crate::Window;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use glib::object::IsA;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::object::ObjectType as ObjectType_;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -93,9 +90,9 @@ impl Seat {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    pub fn grab<P: IsA<Window>>(
+    pub fn grab(
         &self,
-        window: &P,
+        window: &Window,
         capabilities: SeatCapabilities,
         owner_events: bool,
         cursor: Option<&Cursor>,
@@ -103,7 +100,7 @@ impl Seat {
         prepare_func: Option<&mut dyn (FnMut(&Seat, &Window))>,
     ) -> GrabStatus {
         let prepare_func_data: Option<&mut dyn (FnMut(&Seat, &Window))> = prepare_func;
-        unsafe extern "C" fn prepare_func_func<P: IsA<Window>>(
+        unsafe extern "C" fn prepare_func_func(
             seat: *mut ffi::GdkSeat,
             window: *mut ffi::GdkWindow,
             user_data: glib::ffi::gpointer,
@@ -119,7 +116,7 @@ impl Seat {
             };
         }
         let prepare_func = if prepare_func_data.is_some() {
-            Some(prepare_func_func::<P> as _)
+            Some(prepare_func_func as _)
         } else {
             None
         };
@@ -127,7 +124,7 @@ impl Seat {
         unsafe {
             from_glib(ffi::gdk_seat_grab(
                 self.to_glib_none().0,
-                window.as_ref().to_glib_none().0,
+                window.to_glib_none().0,
                 capabilities.to_glib(),
                 owner_events.to_glib(),
                 cursor.to_glib_none().0,
