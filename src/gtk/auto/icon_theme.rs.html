@@ -932,12 +932,12 @@
     <span class="doccomment">///  you must not modify the icon. Use `cairo_surface_destroy` to</span>
     <span class="doccomment">///  release your reference to the icon. `None` if the icon isn’t</span>
     <span class="doccomment">///  found.</span>
-    <span class="kw">fn</span> <span class="ident">load_surface</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gdk</span>::<span class="ident">Window</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+    <span class="kw">fn</span> <span class="ident">load_surface</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">icon_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">size</span>: <span class="ident">i32</span>,
         <span class="ident">scale</span>: <span class="ident">i32</span>,
-        <span class="ident">for_window</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
+        <span class="ident">for_window</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">Window</span><span class="op">&gt;</span>,
         <span class="ident">flags</span>: <span class="ident">IconLookupFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">cairo</span>::<span class="ident">Surface</span><span class="op">&gt;</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
 
@@ -947,7 +947,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// When rendering on displays with high pixel densities you should not</span>
     <span class="doccomment">/// use a `size` multiplied by the scaling factor returned by functions</span>
-    <span class="doccomment">/// like `gdk::WindowExt::get_scale_factor`. Instead, you should use</span>
+    <span class="doccomment">/// like `gdk::Window::get_scale_factor`. Instead, you should use</span>
     <span class="doccomment">/// `IconThemeExt::lookup_by_gicon_for_scale`, as the assets loaded</span>
     <span class="doccomment">/// for a given scaling factor may be different.</span>
     <span class="doccomment">/// ## `icon`</span>
@@ -1002,7 +1002,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// When rendering on displays with high pixel densities you should not</span>
     <span class="doccomment">/// use a `size` multiplied by the scaling factor returned by functions</span>
-    <span class="doccomment">/// like `gdk::WindowExt::get_scale_factor`. Instead, you should use</span>
+    <span class="doccomment">/// like `gdk::Window::get_scale_factor`. Instead, you should use</span>
     <span class="doccomment">/// `IconThemeExt::lookup_icon_for_scale`, as the assets loaded</span>
     <span class="doccomment">/// for a given scaling factor may be different.</span>
     <span class="doccomment">/// ## `icon_name`</span>
@@ -1185,12 +1185,12 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">load_surface</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gdk</span>::<span class="ident">Window</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+    <span class="kw">fn</span> <span class="ident">load_surface</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">icon_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">size</span>: <span class="ident">i32</span>,
         <span class="ident">scale</span>: <span class="ident">i32</span>,
-        <span class="ident">for_window</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
+        <span class="ident">for_window</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">Window</span><span class="op">&gt;</span>,
         <span class="ident">flags</span>: <span class="ident">IconLookupFlags</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">cairo</span>::<span class="ident">Surface</span><span class="op">&gt;</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
@@ -1200,7 +1200,7 @@
                 <span class="ident">icon_name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">size</span>,
                 <span class="ident">scale</span>,
-                <span class="ident">for_window</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">as_ref</span>()).<span class="ident">to_glib_none</span>().<span class="number">0</span>,
+                <span class="ident">for_window</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
                 <span class="ident">flags</span>.<span class="ident">to_glib</span>(),
                 <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">error</span>,
             );
