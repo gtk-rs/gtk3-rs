@@ -6,7 +6,6 @@ use crate::Display;
 use crate::Rectangle;
 use crate::Visual;
 use crate::Window;
-use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
@@ -49,12 +48,9 @@ impl Screen {
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
-    pub fn get_monitor_at_window<P: IsA<Window>>(&self, window: &P) -> i32 {
+    pub fn get_monitor_at_window(&self, window: &Window) -> i32 {
         unsafe {
-            ffi::gdk_screen_get_monitor_at_window(
-                self.to_glib_none().0,
-                window.as_ref().to_glib_none().0,
-            )
+            ffi::gdk_screen_get_monitor_at_window(self.to_glib_none().0, window.to_glib_none().0)
         }
     }
 

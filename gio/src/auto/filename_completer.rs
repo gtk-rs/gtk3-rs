@@ -2,8 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use glib::object::Cast;
-use glib::object::IsA;
+use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
@@ -23,63 +22,41 @@ impl FilenameCompleter {
     pub fn new() -> FilenameCompleter {
         unsafe { from_glib_full(ffi::g_filename_completer_new()) }
     }
-}
 
-impl Default for FilenameCompleter {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-pub const NONE_FILENAME_COMPLETER: Option<&FilenameCompleter> = None;
-
-pub trait FilenameCompleterExt: 'static {
-    fn get_completion_suffix(&self, initial_text: &str) -> Option<glib::GString>;
-
-    fn get_completions(&self, initial_text: &str) -> Vec<glib::GString>;
-
-    fn set_dirs_only(&self, dirs_only: bool);
-
-    fn connect_got_completion_data<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<FilenameCompleter>> FilenameCompleterExt for O {
-    fn get_completion_suffix(&self, initial_text: &str) -> Option<glib::GString> {
+    pub fn get_completion_suffix(&self, initial_text: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::g_filename_completer_get_completion_suffix(
-                self.as_ref().to_glib_none().0,
+                self.to_glib_none().0,
                 initial_text.to_glib_none().0,
             ))
         }
     }
 
-    fn get_completions(&self, initial_text: &str) -> Vec<glib::GString> {
+    pub fn get_completions(&self, initial_text: &str) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_filename_completer_get_completions(
-                self.as_ref().to_glib_none().0,
+                self.to_glib_none().0,
                 initial_text.to_glib_none().0,
             ))
         }
     }
 
-    fn set_dirs_only(&self, dirs_only: bool) {
+    pub fn set_dirs_only(&self, dirs_only: bool) {
         unsafe {
-            ffi::g_filename_completer_set_dirs_only(
-                self.as_ref().to_glib_none().0,
-                dirs_only.to_glib(),
-            );
+            ffi::g_filename_completer_set_dirs_only(self.to_glib_none().0, dirs_only.to_glib());
         }
     }
 
-    fn connect_got_completion_data<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn got_completion_data_trampoline<P, F: Fn(&P) + 'static>(
+    pub fn connect_got_completion_data<F: Fn(&FilenameCompleter) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn got_completion_data_trampoline<F: Fn(&FilenameCompleter) + 'static>(
             this: *mut ffi::GFilenameCompleter,
             f: glib::ffi::gpointer,
-        ) where
-            P: IsA<FilenameCompleter>,
-        {
+        ) {
             let f: &F = &*(f as *const F);
-            f(&FilenameCompleter::from_glib_borrow(this).unsafe_cast_ref())
+            f(&from_glib_borrow(this))
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -87,11 +64,17 @@ impl<O: IsA<FilenameCompleter>> FilenameCompleterExt for O {
                 self.as_ptr() as *mut _,
                 b"got-completion-data\0".as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
-                    got_completion_data_trampoline::<Self, F> as *const (),
+                    got_completion_data_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
             )
         }
+    }
+}
+
+impl Default for FilenameCompleter {
+    fn default() -> Self {
+        Self::new()
     }
 }
 

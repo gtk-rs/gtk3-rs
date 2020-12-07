@@ -11,7 +11,6 @@ use crate::Screen;
 use crate::Visual;
 use crate::Window;
 use crate::WindowState;
-use glib::object::IsA;
 use glib::translate::*;
 use std::mem;
 use std::ptr;
@@ -252,15 +251,15 @@ pub fn pre_parse_libgtk_only() {
     }
 }
 
-pub fn property_delete<P: IsA<Window>>(window: &P, property: &Atom) {
+pub fn property_delete(window: &Window, property: &Atom) {
     skip_assert_initialized!();
     unsafe {
-        ffi::gdk_property_delete(window.as_ref().to_glib_none().0, property.to_glib_none().0);
+        ffi::gdk_property_delete(window.to_glib_none().0, property.to_glib_none().0);
     }
 }
 
-pub fn property_get<P: IsA<Window>>(
-    window: &P,
+pub fn property_get(
+    window: &Window,
     property: &Atom,
     type_: &Atom,
     offset: libc::c_ulong,
@@ -274,7 +273,7 @@ pub fn property_get<P: IsA<Window>>(
         let mut actual_length = mem::MaybeUninit::uninit();
         let mut data = ptr::null_mut();
         let ret = from_glib(ffi::gdk_property_get(
-            window.as_ref().to_glib_none().0,
+            window.to_glib_none().0,
             property.to_glib_none().0,
             type_.to_glib_none().0,
             offset,
@@ -314,16 +313,11 @@ pub fn query_depths() -> Vec<i32> {
 //    unsafe { TODO: call ffi:gdk_query_visual_types() }
 //}
 
-pub fn selection_convert<P: IsA<Window>>(
-    requestor: &P,
-    selection: &Atom,
-    target: &Atom,
-    time_: u32,
-) {
+pub fn selection_convert(requestor: &Window, selection: &Atom, target: &Atom, time_: u32) {
     skip_assert_initialized!();
     unsafe {
         ffi::gdk_selection_convert(
-            requestor.as_ref().to_glib_none().0,
+            requestor.to_glib_none().0,
             selection.to_glib_none().0,
             target.to_glib_none().0,
             time_,
@@ -346,8 +340,8 @@ pub fn selection_owner_get_for_display(display: &Display, selection: &Atom) -> O
     }
 }
 
-pub fn selection_owner_set<P: IsA<Window>>(
-    owner: Option<&P>,
+pub fn selection_owner_set(
+    owner: Option<&Window>,
     selection: &Atom,
     time_: u32,
     send_event: bool,
@@ -355,7 +349,7 @@ pub fn selection_owner_set<P: IsA<Window>>(
     assert_initialized_main_thread!();
     unsafe {
         from_glib(ffi::gdk_selection_owner_set(
-            owner.map(|p| p.as_ref()).to_glib_none().0,
+            owner.to_glib_none().0,
             selection.to_glib_none().0,
             time_,
             send_event.to_glib(),
@@ -363,9 +357,9 @@ pub fn selection_owner_set<P: IsA<Window>>(
     }
 }
 
-pub fn selection_owner_set_for_display<P: IsA<Window>>(
+pub fn selection_owner_set_for_display(
     display: &Display,
-    owner: Option<&P>,
+    owner: Option<&Window>,
     selection: &Atom,
     time_: u32,
     send_event: bool,
@@ -374,7 +368,7 @@ pub fn selection_owner_set_for_display<P: IsA<Window>>(
     unsafe {
         from_glib(ffi::gdk_selection_owner_set_for_display(
             display.to_glib_none().0,
-            owner.map(|p| p.as_ref()).to_glib_none().0,
+            owner.to_glib_none().0,
             selection.to_glib_none().0,
             time_,
             send_event.to_glib(),
@@ -382,8 +376,8 @@ pub fn selection_owner_set_for_display<P: IsA<Window>>(
     }
 }
 
-pub fn selection_send_notify<P: IsA<Window>>(
-    requestor: &P,
+pub fn selection_send_notify(
+    requestor: &Window,
     selection: &Atom,
     target: &Atom,
     property: &Atom,
@@ -392,7 +386,7 @@ pub fn selection_send_notify<P: IsA<Window>>(
     skip_assert_initialized!();
     unsafe {
         ffi::gdk_selection_send_notify(
-            requestor.as_ref().to_glib_none().0,
+            requestor.to_glib_none().0,
             selection.to_glib_none().0,
             target.to_glib_none().0,
             property.to_glib_none().0,
@@ -401,9 +395,9 @@ pub fn selection_send_notify<P: IsA<Window>>(
     }
 }
 
-pub fn selection_send_notify_for_display<P: IsA<Window>>(
+pub fn selection_send_notify_for_display(
     display: &Display,
-    requestor: &P,
+    requestor: &Window,
     selection: &Atom,
     target: &Atom,
     property: &Atom,
@@ -413,7 +407,7 @@ pub fn selection_send_notify_for_display<P: IsA<Window>>(
     unsafe {
         ffi::gdk_selection_send_notify_for_display(
             display.to_glib_none().0,
-            requestor.as_ref().to_glib_none().0,
+            requestor.to_glib_none().0,
             selection.to_glib_none().0,
             target.to_glib_none().0,
             property.to_glib_none().0,
@@ -450,30 +444,26 @@ pub fn set_show_events(show_events: bool) {
     }
 }
 
-pub fn synthesize_window_state<P: IsA<Window>>(
-    window: &P,
-    unset_flags: WindowState,
-    set_flags: WindowState,
-) {
+pub fn synthesize_window_state(window: &Window, unset_flags: WindowState, set_flags: WindowState) {
     skip_assert_initialized!();
     unsafe {
         ffi::gdk_synthesize_window_state(
-            window.as_ref().to_glib_none().0,
+            window.to_glib_none().0,
             unset_flags.to_glib(),
             set_flags.to_glib(),
         );
     }
 }
 
-pub fn test_render_sync<P: IsA<Window>>(window: &P) {
+pub fn test_render_sync(window: &Window) {
     skip_assert_initialized!();
     unsafe {
-        ffi::gdk_test_render_sync(window.as_ref().to_glib_none().0);
+        ffi::gdk_test_render_sync(window.to_glib_none().0);
     }
 }
 
-pub fn test_simulate_button<P: IsA<Window>>(
-    window: &P,
+pub fn test_simulate_button(
+    window: &Window,
     x: i32,
     y: i32,
     button: u32,
@@ -483,7 +473,7 @@ pub fn test_simulate_button<P: IsA<Window>>(
     skip_assert_initialized!();
     unsafe {
         from_glib(ffi::gdk_test_simulate_button(
-            window.as_ref().to_glib_none().0,
+            window.to_glib_none().0,
             x,
             y,
             button,
@@ -493,8 +483,8 @@ pub fn test_simulate_button<P: IsA<Window>>(
     }
 }
 
-pub fn test_simulate_key<P: IsA<Window>>(
-    window: &P,
+pub fn test_simulate_key(
+    window: &Window,
     x: i32,
     y: i32,
     keyval: u32,
@@ -504,7 +494,7 @@ pub fn test_simulate_key<P: IsA<Window>>(
     skip_assert_initialized!();
     unsafe {
         from_glib(ffi::gdk_test_simulate_key(
-            window.as_ref().to_glib_none().0,
+            window.to_glib_none().0,
             x,
             y,
             keyval,

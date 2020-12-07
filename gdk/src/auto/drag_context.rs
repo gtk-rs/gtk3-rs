@@ -12,9 +12,6 @@ use crate::DragProtocol;
 use crate::Window;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-use glib::object::IsA;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::object::ObjectType as ObjectType_;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
@@ -96,11 +93,11 @@ impl DragContext {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
-    pub fn manage_dnd<P: IsA<Window>>(&self, ipc_window: &P, actions: DragAction) -> bool {
+    pub fn manage_dnd(&self, ipc_window: &Window, actions: DragAction) -> bool {
         unsafe {
             from_glib(ffi::gdk_drag_context_manage_dnd(
                 self.to_glib_none().0,
-                ipc_window.as_ref().to_glib_none().0,
+                ipc_window.to_glib_none().0,
                 actions.to_glib(),
             ))
         }

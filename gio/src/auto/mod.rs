@@ -52,9 +52,8 @@ pub use self::cancellable::CancellableExt;
 pub use self::cancellable::{Cancellable, NONE_CANCELLABLE};
 
 mod charset_converter;
+pub use self::charset_converter::CharsetConverter;
 pub use self::charset_converter::CharsetConverterBuilder;
-pub use self::charset_converter::CharsetConverterExt;
-pub use self::charset_converter::{CharsetConverter, NONE_CHARSET_CONVERTER};
 
 mod converter;
 pub use self::converter::ConverterExt;
@@ -122,10 +121,7 @@ pub use self::data_output_stream::{DataOutputStream, NONE_DATA_OUTPUT_STREAM};
 mod desktop_app_info;
 #[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(all(not(windows), not(target_os = "macos")))))]
-pub use self::desktop_app_info::DesktopAppInfoExt;
-#[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(all(not(windows), not(target_os = "macos")))))]
-pub use self::desktop_app_info::{DesktopAppInfo, NONE_DESKTOP_APP_INFO};
+pub use self::desktop_app_info::DesktopAppInfo;
 
 mod drive;
 pub use self::drive::DriveExt;
@@ -169,8 +165,7 @@ pub use self::file_output_stream::FileOutputStreamExt;
 pub use self::file_output_stream::{FileOutputStream, NONE_FILE_OUTPUT_STREAM};
 
 mod filename_completer;
-pub use self::filename_completer::FilenameCompleterExt;
-pub use self::filename_completer::{FilenameCompleter, NONE_FILENAME_COMPLETER};
+pub use self::filename_completer::FilenameCompleter;
 
 mod filter_input_stream;
 pub use self::filter_input_stream::FilterInputStreamExt;
@@ -219,13 +214,10 @@ pub use self::list_model::{ListModel, NONE_LIST_MODEL};
 mod list_store;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+pub use self::list_store::ListStore;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 pub use self::list_store::ListStoreBuilder;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-pub use self::list_store::ListStoreExt;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-pub use self::list_store::{ListStore, NONE_LIST_STORE};
 
 mod loadable_icon;
 pub use self::loadable_icon::LoadableIconExt;
@@ -497,12 +489,10 @@ pub use self::volume_monitor::VolumeMonitorExt;
 pub use self::volume_monitor::{VolumeMonitor, NONE_VOLUME_MONITOR};
 
 mod zlib_compressor;
-pub use self::zlib_compressor::ZlibCompressorExt;
-pub use self::zlib_compressor::{ZlibCompressor, NONE_ZLIB_COMPRESSOR};
+pub use self::zlib_compressor::ZlibCompressor;
 
 mod zlib_decompressor;
-pub use self::zlib_decompressor::ZlibDecompressorExt;
-pub use self::zlib_decompressor::{ZlibDecompressor, NONE_ZLIB_DECOMPRESSOR};
+pub use self::zlib_decompressor::ZlibDecompressor;
 
 mod dbus_arg_info;
 pub use self::dbus_arg_info::DBusArgInfo;
@@ -779,7 +769,6 @@ pub mod traits {
     pub use super::BufferedInputStreamExt;
     pub use super::BufferedOutputStreamExt;
     pub use super::CancellableExt;
-    pub use super::CharsetConverterExt;
     pub use super::ConverterExt;
     pub use super::ConverterInputStreamExt;
     pub use super::ConverterOutputStreamExt;
@@ -789,9 +778,6 @@ pub mod traits {
     pub use super::DBusProxyExt;
     pub use super::DataInputStreamExt;
     pub use super::DataOutputStreamExt;
-    #[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(all(not(windows), not(target_os = "macos")))))]
-    pub use super::DesktopAppInfoExt;
     pub use super::DriveExt;
     pub use super::EmblemedIconExt;
     pub use super::FileEnumeratorExt;
@@ -800,7 +786,6 @@ pub mod traits {
     pub use super::FileInputStreamExt;
     pub use super::FileMonitorExt;
     pub use super::FileOutputStreamExt;
-    pub use super::FilenameCompleterExt;
     pub use super::FilterInputStreamExt;
     pub use super::FilterOutputStreamExt;
     pub use super::IOStreamExt;
@@ -812,9 +797,6 @@ pub mod traits {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     pub use super::ListModelExt;
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-    pub use super::ListStoreExt;
     pub use super::LoadableIconExt;
     pub use super::MemoryInputStreamExt;
     #[cfg(any(feature = "v2_64", feature = "dox"))]
@@ -875,6 +857,4 @@ pub mod traits {
     pub use super::VfsExt;
     pub use super::VolumeExt;
     pub use super::VolumeMonitorExt;
-    pub use super::ZlibCompressorExt;
-    pub use super::ZlibDecompressorExt;
 }

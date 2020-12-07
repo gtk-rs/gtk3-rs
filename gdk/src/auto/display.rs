@@ -15,7 +15,6 @@ use crate::Screen;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::Seat;
 use crate::Window;
-use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
@@ -136,11 +135,11 @@ impl Display {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    pub fn get_monitor_at_window<P: IsA<Window>>(&self, window: &P) -> Option<Monitor> {
+    pub fn get_monitor_at_window(&self, window: &Window) -> Option<Monitor> {
         unsafe {
             from_glib_none(ffi::gdk_display_get_monitor_at_window(
                 self.to_glib_none().0,
-                window.as_ref().to_glib_none().0,
+                window.to_glib_none().0,
             ))
         }
     }
@@ -229,17 +228,12 @@ impl Display {
         }
     }
 
-    pub fn store_clipboard<P: IsA<Window>>(
-        &self,
-        clipboard_window: &P,
-        time_: u32,
-        targets: &[&Atom],
-    ) {
+    pub fn store_clipboard(&self, clipboard_window: &Window, time_: u32, targets: &[&Atom]) {
         let n_targets = targets.len() as i32;
         unsafe {
             ffi::gdk_display_store_clipboard(
                 self.to_glib_none().0,
-                clipboard_window.as_ref().to_glib_none().0,
+                clipboard_window.to_glib_none().0,
                 time_,
                 targets.to_glib_none().0,
                 n_targets,

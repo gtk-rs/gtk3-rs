@@ -81,8 +81,7 @@ mod visual;
 pub use self::visual::Visual;
 
 mod window;
-pub use self::window::WindowExt;
-pub use self::window::{Window, NONE_WINDOW};
+pub use self::window::Window;
 
 mod event_sequence;
 pub use self::event_sequence::EventSequence;
@@ -159,5 +158,4 @@ pub mod traits {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     pub use super::DevicePadExt;
-    pub use super::WindowExt;
 }

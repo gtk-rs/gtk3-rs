@@ -115,15 +115,15 @@ impl IconInfo {
         }))
     }
 
-    pub fn load_surface<P: IsA<gdk::Window>>(
+    pub fn load_surface(
         &self,
-        for_window: Option<&P>,
+        for_window: Option<&gdk::Window>,
     ) -> Result<cairo::Surface, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::gtk_icon_info_load_surface(
                 self.to_glib_none().0,
-                for_window.map(|p| p.as_ref()).to_glib_none().0,
+                for_window.to_glib_none().0,
                 &mut error,
             );
             if error.is_null() {

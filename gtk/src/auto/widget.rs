@@ -130,9 +130,9 @@ pub trait WidgetExt: 'static {
     fn drag_dest_get_track_motion(&self) -> bool;
 
     #[cfg_attr(feature = "v3_22", deprecated)]
-    fn drag_dest_set_proxy<P: IsA<gdk::Window>>(
+    fn drag_dest_set_proxy(
         &self,
-        proxy_window: &P,
+        proxy_window: &gdk::Window,
         protocol: gdk::DragProtocol,
         use_coordinates: bool,
     );
@@ -419,7 +419,7 @@ pub trait WidgetExt: 'static {
 
     fn realize(&self);
 
-    fn register_window<P: IsA<gdk::Window>>(&self, window: &P);
+    fn register_window(&self, window: &gdk::Window);
 
     fn remove_accelerator<P: IsA<AccelGroup>>(
         &self,
@@ -497,7 +497,7 @@ pub trait WidgetExt: 'static {
 
     fn set_parent<P: IsA<Widget>>(&self, parent: &P);
 
-    fn set_parent_window<P: IsA<gdk::Window>>(&self, parent_window: &P);
+    fn set_parent_window(&self, parent_window: &gdk::Window);
 
     fn set_realized(&self, realized: bool);
 
@@ -529,7 +529,7 @@ pub trait WidgetExt: 'static {
 
     fn set_visual(&self, visual: Option<&gdk::Visual>);
 
-    fn set_window<P: IsA<gdk::Window>>(&self, window: &P);
+    fn set_window(&self, window: &gdk::Window);
 
     fn shape_combine_region(&self, region: Option<&cairo::Region>);
 
@@ -566,7 +566,7 @@ pub trait WidgetExt: 'static {
 
     fn unrealize(&self);
 
-    fn unregister_window<P: IsA<gdk::Window>>(&self, window: &P);
+    fn unregister_window(&self, window: &gdk::Window);
 
     fn unset_state_flags(&self, flags: StateFlags);
 
@@ -1210,16 +1210,16 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn drag_dest_set_proxy<P: IsA<gdk::Window>>(
+    fn drag_dest_set_proxy(
         &self,
-        proxy_window: &P,
+        proxy_window: &gdk::Window,
         protocol: gdk::DragProtocol,
         use_coordinates: bool,
     ) {
         unsafe {
             ffi::gtk_drag_dest_set_proxy(
                 self.as_ref().to_glib_none().0,
-                proxy_window.as_ref().to_glib_none().0,
+                proxy_window.to_glib_none().0,
                 protocol.to_glib(),
                 use_coordinates.to_glib(),
             );
@@ -2195,11 +2195,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn register_window<P: IsA<gdk::Window>>(&self, window: &P) {
+    fn register_window(&self, window: &gdk::Window) {
         unsafe {
             ffi::gtk_widget_register_window(
                 self.as_ref().to_glib_none().0,
-                window.as_ref().to_glib_none().0,
+                window.to_glib_none().0,
             );
         }
     }
@@ -2455,11 +2455,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn set_parent_window<P: IsA<gdk::Window>>(&self, parent_window: &P) {
+    fn set_parent_window(&self, parent_window: &gdk::Window) {
         unsafe {
             ffi::gtk_widget_set_parent_window(
                 self.as_ref().to_glib_none().0,
-                parent_window.as_ref().to_glib_none().0,
+                parent_window.to_glib_none().0,
             );
         }
     }
@@ -2573,12 +2573,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn set_window<P: IsA<gdk::Window>>(&self, window: &P) {
+    fn set_window(&self, window: &gdk::Window) {
         unsafe {
-            ffi::gtk_widget_set_window(
-                self.as_ref().to_glib_none().0,
-                window.as_ref().to_glib_full(),
-            );
+            ffi::gtk_widget_set_window(self.as_ref().to_glib_none().0, window.to_glib_full());
         }
     }
 
@@ -2705,11 +2702,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn unregister_window<P: IsA<gdk::Window>>(&self, window: &P) {
+    fn unregister_window(&self, window: &gdk::Window) {
         unsafe {
             ffi::gtk_widget_unregister_window(
                 self.as_ref().to_glib_none().0,
-                window.as_ref().to_glib_none().0,
+                window.to_glib_none().0,
             );
         }
     }

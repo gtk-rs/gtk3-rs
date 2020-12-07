@@ -734,7 +734,7 @@ pub trait TextViewExt: 'static {
 
     fn get_window(&self, win: TextWindowType) -> Option<gdk::Window>;
 
-    fn get_window_type<P: IsA<gdk::Window>>(&self, window: &P) -> TextWindowType;
+    fn get_window_type(&self, window: &gdk::Window) -> TextWindowType;
 
     fn get_wrap_mode(&self) -> WrapMode;
 
@@ -1325,11 +1325,11 @@ impl<O: IsA<TextView>> TextViewExt for O {
         }
     }
 
-    fn get_window_type<P: IsA<gdk::Window>>(&self, window: &P) -> TextWindowType {
+    fn get_window_type(&self, window: &gdk::Window) -> TextWindowType {
         unsafe {
             from_glib(ffi::gtk_text_view_get_window_type(
                 self.as_ref().to_glib_none().0,
-                window.as_ref().to_glib_none().0,
+                window.to_glib_none().0,
             ))
         }
     }

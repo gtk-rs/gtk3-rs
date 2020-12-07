@@ -564,9 +564,9 @@ pub trait GtkMenuExt: 'static {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn popup_at_rect<P: IsA<gdk::Window>>(
+    fn popup_at_rect(
         &self,
-        rect_window: &P,
+        rect_window: &gdk::Window,
         rect: &gdk::Rectangle,
         rect_anchor: gdk::Gravity,
         menu_anchor: gdk::Gravity,
@@ -806,9 +806,9 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
-    fn popup_at_rect<P: IsA<gdk::Window>>(
+    fn popup_at_rect(
         &self,
-        rect_window: &P,
+        rect_window: &gdk::Window,
         rect: &gdk::Rectangle,
         rect_anchor: gdk::Gravity,
         menu_anchor: gdk::Gravity,
@@ -817,7 +817,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         unsafe {
             ffi::gtk_menu_popup_at_rect(
                 self.as_ref().to_glib_none().0,
-                rect_window.as_ref().to_glib_none().0,
+                rect_window.to_glib_none().0,
                 rect.to_glib_none().0,
                 rect_anchor.to_glib(),
                 menu_anchor.to_glib(),
