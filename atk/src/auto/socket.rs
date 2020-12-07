@@ -18,6 +18,7 @@ glib::glib_wrapper! {
 }
 
 impl Socket {
+    #[doc(alias = "atk_socket_new")]
     pub fn new() -> Socket {
         assert_initialized_main_thread!();
         unsafe { Object::from_glib_full(ffi::atk_socket_new()).unsafe_cast() }
@@ -33,8 +34,10 @@ impl Default for Socket {
 pub const NONE_SOCKET: Option<&Socket> = None;
 
 pub trait AtkSocketExt: 'static {
+    #[doc(alias = "atk_socket_embed")]
     fn embed(&self, plug_id: &str);
 
+    #[doc(alias = "atk_socket_is_occupied")]
     fn is_occupied(&self) -> bool;
 }
 

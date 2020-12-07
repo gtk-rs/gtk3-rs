@@ -33,11 +33,13 @@ glib::glib_wrapper! {
 }
 
 impl Plug {
+    #[doc(alias = "gtk_plug_new")]
     pub fn new(socket_id: xlib::Window) -> Plug {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_plug_new(socket_id)).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_plug_new_for_display")]
     pub fn new_for_display(display: &gdk::Display, socket_id: xlib::Window) -> Plug {
         assert_initialized_main_thread!();
         unsafe {
@@ -644,14 +646,19 @@ impl PlugBuilder {
 pub const NONE_PLUG: Option<&Plug> = None;
 
 pub trait PlugExt: 'static {
+    #[doc(alias = "gtk_plug_construct")]
     fn construct(&self, socket_id: xlib::Window);
 
+    #[doc(alias = "gtk_plug_construct_for_display")]
     fn construct_for_display(&self, display: &gdk::Display, socket_id: xlib::Window);
 
+    #[doc(alias = "gtk_plug_get_embedded")]
     fn get_embedded(&self) -> bool;
 
+    #[doc(alias = "gtk_plug_get_id")]
     fn get_id(&self) -> xlib::Window;
 
+    #[doc(alias = "gtk_plug_get_socket_window")]
     fn get_socket_window(&self) -> Option<gdk::Window>;
 
     fn connect_embedded<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

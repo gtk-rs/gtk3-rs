@@ -30,10 +30,13 @@ impl IOStream {}
 pub const NONE_IO_STREAM: Option<&IOStream> = None;
 
 pub trait IOStreamExt: 'static {
+    #[doc(alias = "g_io_stream_clear_pending")]
     fn clear_pending(&self);
 
+    #[doc(alias = "g_io_stream_close")]
     fn close<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_io_stream_close_async")]
     fn close_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         io_priority: glib::Priority,
@@ -46,14 +49,19 @@ pub trait IOStreamExt: 'static {
         io_priority: glib::Priority,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_io_stream_get_input_stream")]
     fn get_input_stream(&self) -> Option<InputStream>;
 
+    #[doc(alias = "g_io_stream_get_output_stream")]
     fn get_output_stream(&self) -> Option<OutputStream>;
 
+    #[doc(alias = "g_io_stream_has_pending")]
     fn has_pending(&self) -> bool;
 
+    #[doc(alias = "g_io_stream_is_closed")]
     fn is_closed(&self) -> bool;
 
+    #[doc(alias = "g_io_stream_set_pending")]
     fn set_pending(&self) -> Result<(), glib::Error>;
 
     fn get_property_closed(&self) -> bool;

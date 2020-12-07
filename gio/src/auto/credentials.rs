@@ -15,16 +15,19 @@ glib::glib_wrapper! {
 }
 
 impl Credentials {
+    #[doc(alias = "g_credentials_new")]
     pub fn new() -> Credentials {
         unsafe { from_glib_full(ffi::g_credentials_new()) }
     }
 
+    //#[doc(alias = "g_credentials_get_native")]
     //pub fn get_native(&self, native_type: CredentialsType) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi:g_credentials_get_native() }
     //}
 
     #[cfg(any(unix, feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[doc(alias = "g_credentials_get_unix_pid")]
     pub fn get_unix_pid(&self) -> Result<i32, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -39,6 +42,7 @@ impl Credentials {
 
     #[cfg(any(unix, feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[doc(alias = "g_credentials_get_unix_user")]
     pub fn get_unix_user(&self) -> Result<u32, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -51,6 +55,7 @@ impl Credentials {
         }
     }
 
+    #[doc(alias = "g_credentials_is_same_user")]
     pub fn is_same_user(&self, other_credentials: &Credentials) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -67,12 +72,14 @@ impl Credentials {
         }
     }
 
+    //#[doc(alias = "g_credentials_set_native")]
     //pub fn set_native(&self, native_type: CredentialsType, native: /*Unimplemented*/Fundamental: Pointer) {
     //    unsafe { TODO: call ffi:g_credentials_set_native() }
     //}
 
     #[cfg(any(unix, feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[doc(alias = "g_credentials_set_unix_user")]
     pub fn set_unix_user(&self, uid: u32) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -85,6 +92,7 @@ impl Credentials {
         }
     }
 
+    #[doc(alias = "g_credentials_to_string")]
     pub fn to_str(&self) -> glib::GString {
         unsafe { from_glib_full(ffi::g_credentials_to_string(self.to_glib_none().0)) }
     }

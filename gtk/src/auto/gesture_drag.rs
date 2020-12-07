@@ -28,6 +28,7 @@ glib::glib_wrapper! {
 }
 
 impl GestureDrag {
+    #[doc(alias = "gtk_gesture_drag_new")]
     pub fn new<P: IsA<Widget>>(widget: &P) -> GestureDrag {
         skip_assert_initialized!();
         unsafe {
@@ -122,8 +123,10 @@ impl GestureDragBuilder {
 pub const NONE_GESTURE_DRAG: Option<&GestureDrag> = None;
 
 pub trait GestureDragExt: 'static {
+    #[doc(alias = "gtk_gesture_drag_get_offset")]
     fn get_offset(&self) -> Option<(f64, f64)>;
 
+    #[doc(alias = "gtk_gesture_drag_get_start_point")]
     fn get_start_point(&self) -> Option<(f64, f64)>;
 
     fn connect_drag_begin<F: Fn(&Self, f64, f64) + 'static>(&self, f: F) -> SignalHandlerId;

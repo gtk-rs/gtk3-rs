@@ -25,8 +25,10 @@ glib::glib_wrapper! {
 pub const NONE_PERMISSION: Option<&Permission> = None;
 
 pub trait PermissionExt: 'static {
+    #[doc(alias = "g_permission_acquire")]
     fn acquire<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_permission_acquire_async")]
     fn acquire_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         cancellable: Option<&P>,
@@ -37,16 +39,22 @@ pub trait PermissionExt: 'static {
         &self,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_permission_get_allowed")]
     fn get_allowed(&self) -> bool;
 
+    #[doc(alias = "g_permission_get_can_acquire")]
     fn get_can_acquire(&self) -> bool;
 
+    #[doc(alias = "g_permission_get_can_release")]
     fn get_can_release(&self) -> bool;
 
+    #[doc(alias = "g_permission_impl_update")]
     fn impl_update(&self, allowed: bool, can_acquire: bool, can_release: bool);
 
+    #[doc(alias = "g_permission_release")]
     fn release<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_permission_release_async")]
     fn release_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         cancellable: Option<&P>,

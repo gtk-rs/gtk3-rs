@@ -17,84 +17,103 @@ crate::glib_wrapper! {
 }
 
 impl Source {
+    //#[doc(alias = "g_source_new")]
     //pub fn new(source_funcs: /*Ignored*/&mut SourceFuncs, struct_size: u32) -> Source {
     //    unsafe { TODO: call ffi:g_source_new() }
     //}
 
+    #[doc(alias = "g_source_add_child_source")]
     pub fn add_child_source(&self, child_source: &Source) {
         unsafe {
             ffi::g_source_add_child_source(self.to_glib_none().0, child_source.to_glib_none().0);
         }
     }
 
+    //#[doc(alias = "g_source_add_poll")]
     //pub fn add_poll(&self, fd: /*Ignored*/&mut PollFD) {
     //    unsafe { TODO: call ffi:g_source_add_poll() }
     //}
 
+    //#[doc(alias = "g_source_add_unix_fd")]
     //pub fn add_unix_fd(&self, fd: i32, events: IOCondition) -> /*Unimplemented*/Fundamental: Pointer {
     //    unsafe { TODO: call ffi:g_source_add_unix_fd() }
     //}
 
+    #[doc(alias = "g_source_destroy")]
     pub fn destroy(&self) {
         unsafe {
             ffi::g_source_destroy(self.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "g_source_get_can_recurse")]
     pub fn get_can_recurse(&self) -> bool {
         unsafe { from_glib(ffi::g_source_get_can_recurse(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_source_get_context")]
     pub fn get_context(&self) -> Option<MainContext> {
         unsafe { from_glib_none(ffi::g_source_get_context(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_source_get_name")]
     pub fn get_name(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_source_get_name(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_source_get_priority")]
     pub fn get_priority(&self) -> i32 {
         unsafe { ffi::g_source_get_priority(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "g_source_get_ready_time")]
     pub fn get_ready_time(&self) -> i64 {
         unsafe { ffi::g_source_get_ready_time(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "g_source_get_time")]
     pub fn get_time(&self) -> i64 {
         unsafe { ffi::g_source_get_time(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "g_source_is_destroyed")]
     pub fn is_destroyed(&self) -> bool {
         unsafe { from_glib(ffi::g_source_is_destroyed(self.to_glib_none().0)) }
     }
 
+    //#[doc(alias = "g_source_modify_unix_fd")]
     //pub fn modify_unix_fd(&self, tag: /*Unimplemented*/Fundamental: Pointer, new_events: IOCondition) {
     //    unsafe { TODO: call ffi:g_source_modify_unix_fd() }
     //}
 
+    //#[doc(alias = "g_source_query_unix_fd")]
     //pub fn query_unix_fd(&self, tag: /*Unimplemented*/Fundamental: Pointer) -> IOCondition {
     //    unsafe { TODO: call ffi:g_source_query_unix_fd() }
     //}
 
+    #[doc(alias = "g_source_remove_child_source")]
     pub fn remove_child_source(&self, child_source: &Source) {
         unsafe {
             ffi::g_source_remove_child_source(self.to_glib_none().0, child_source.to_glib_none().0);
         }
     }
 
+    //#[doc(alias = "g_source_remove_poll")]
     //pub fn remove_poll(&self, fd: /*Ignored*/&mut PollFD) {
     //    unsafe { TODO: call ffi:g_source_remove_poll() }
     //}
 
+    //#[doc(alias = "g_source_remove_unix_fd")]
     //pub fn remove_unix_fd(&self, tag: /*Unimplemented*/Fundamental: Pointer) {
     //    unsafe { TODO: call ffi:g_source_remove_unix_fd() }
     //}
 
+    //#[doc(alias = "g_source_remove_by_funcs_user_data")]
     //pub fn remove_by_funcs_user_data(funcs: /*Ignored*/&mut SourceFuncs, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> bool {
     //    unsafe { TODO: call ffi:g_source_remove_by_funcs_user_data() }
     //}
 
+    //#[doc(alias = "g_source_remove_by_user_data")]
     //pub fn remove_by_user_data(user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> bool {
     //    unsafe { TODO: call ffi:g_source_remove_by_user_data() }
     //}

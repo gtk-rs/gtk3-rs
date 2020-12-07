@@ -25,12 +25,14 @@ glib::glib_wrapper! {
 pub const NONE_TLS_INTERACTION: Option<&TlsInteraction> = None;
 
 pub trait TlsInteractionExt: 'static {
+    #[doc(alias = "g_tls_interaction_ask_password")]
     fn ask_password<P: IsA<TlsPassword>, Q: IsA<Cancellable>>(
         &self,
         password: &P,
         cancellable: Option<&Q>,
     ) -> Result<TlsInteractionResult, glib::Error>;
 
+    #[doc(alias = "g_tls_interaction_ask_password_async")]
     fn ask_password_async<
         P: IsA<TlsPassword>,
         Q: IsA<Cancellable>,
@@ -49,12 +51,14 @@ pub trait TlsInteractionExt: 'static {
         Box_<dyn std::future::Future<Output = Result<TlsInteractionResult, glib::Error>> + 'static>,
     >;
 
+    #[doc(alias = "g_tls_interaction_invoke_ask_password")]
     fn invoke_ask_password<P: IsA<TlsPassword>, Q: IsA<Cancellable>>(
         &self,
         password: &P,
         cancellable: Option<&Q>,
     ) -> Result<TlsInteractionResult, glib::Error>;
 
+    #[doc(alias = "g_tls_interaction_invoke_request_certificate")]
     fn invoke_request_certificate<P: IsA<TlsConnection>, Q: IsA<Cancellable>>(
         &self,
         connection: &P,
@@ -62,6 +66,7 @@ pub trait TlsInteractionExt: 'static {
         cancellable: Option<&Q>,
     ) -> Result<TlsInteractionResult, glib::Error>;
 
+    #[doc(alias = "g_tls_interaction_request_certificate")]
     fn request_certificate<P: IsA<TlsConnection>, Q: IsA<Cancellable>>(
         &self,
         connection: &P,
@@ -69,6 +74,7 @@ pub trait TlsInteractionExt: 'static {
         cancellable: Option<&Q>,
     ) -> Result<TlsInteractionResult, glib::Error>;
 
+    #[doc(alias = "g_tls_interaction_request_certificate_async")]
     fn request_certificate_async<
         P: IsA<TlsConnection>,
         Q: IsA<Cancellable>,

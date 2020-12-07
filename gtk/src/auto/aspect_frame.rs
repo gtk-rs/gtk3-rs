@@ -30,6 +30,7 @@ glib::glib_wrapper! {
 }
 
 impl AspectFrame {
+    #[doc(alias = "gtk_aspect_frame_new")]
     pub fn new(
         label: Option<&str>,
         xalign: f32,
@@ -474,6 +475,7 @@ impl AspectFrameBuilder {
 pub const NONE_ASPECT_FRAME: Option<&AspectFrame> = None;
 
 pub trait AspectFrameExt: 'static {
+    #[doc(alias = "gtk_aspect_frame_set")]
     fn set(&self, xalign: f32, yalign: f32, ratio: f32, obey_child: bool);
 
     fn get_property_obey_child(&self) -> bool;

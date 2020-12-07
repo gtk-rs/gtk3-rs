@@ -16,10 +16,12 @@ glib::glib_wrapper! {
 }
 
 impl Icon {
+    #[doc(alias = "g_icon_deserialize")]
     pub fn deserialize(value: &glib::Variant) -> Option<Icon> {
         unsafe { from_glib_full(ffi::g_icon_deserialize(value.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_icon_hash")]
     pub fn hash(&self) -> u32 {
         unsafe {
             ffi::g_icon_hash(
@@ -28,6 +30,7 @@ impl Icon {
         }
     }
 
+    #[doc(alias = "g_icon_new_for_string")]
     pub fn new_for_string(str: &str) -> Result<Icon, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -44,10 +47,13 @@ impl Icon {
 pub const NONE_ICON: Option<&Icon> = None;
 
 pub trait IconExt: 'static {
+    #[doc(alias = "g_icon_equal")]
     fn equal<P: IsA<Icon>>(&self, icon2: Option<&P>) -> bool;
 
+    #[doc(alias = "g_icon_serialize")]
     fn serialize(&self) -> Option<glib::Variant>;
 
+    #[doc(alias = "g_icon_to_string")]
     fn to_string(&self) -> Option<glib::GString>;
 }
 

@@ -24,12 +24,14 @@ glib::glib_wrapper! {
 pub const NONE_FILE_INPUT_STREAM: Option<&FileInputStream> = None;
 
 pub trait FileInputStreamExt: 'static {
+    #[doc(alias = "g_file_input_stream_query_info")]
     fn query_info<P: IsA<Cancellable>>(
         &self,
         attributes: &str,
         cancellable: Option<&P>,
     ) -> Result<FileInfo, glib::Error>;
 
+    #[doc(alias = "g_file_input_stream_query_info_async")]
     fn query_info_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,

@@ -45,40 +45,49 @@ glib::glib_wrapper! {
 }
 
 impl Device {
+    #[doc(alias = "gdk_device_get_associated_device")]
     pub fn get_associated_device(&self) -> Option<Device> {
         unsafe { from_glib_none(ffi::gdk_device_get_associated_device(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gdk_device_get_axes")]
     pub fn get_axes(&self) -> AxisFlags {
         unsafe { from_glib(ffi::gdk_device_get_axes(self.to_glib_none().0)) }
     }
 
+    //#[doc(alias = "gdk_device_get_axis")]
     //pub fn get_axis(&self, axes: &[f64], use_: AxisUse) -> Option<f64> {
     //    unsafe { TODO: call ffi:gdk_device_get_axis() }
     //}
 
+    #[doc(alias = "gdk_device_get_axis_use")]
     pub fn get_axis_use(&self, index_: u32) -> AxisUse {
         unsafe { from_glib(ffi::gdk_device_get_axis_use(self.to_glib_none().0, index_)) }
     }
 
+    //#[doc(alias = "gdk_device_get_axis_value")]
     //pub fn get_axis_value(&self, axes: &[f64], axis_label: &Atom) -> Option<f64> {
     //    unsafe { TODO: call ffi:gdk_device_get_axis_value() }
     //}
 
+    #[doc(alias = "gdk_device_get_device_type")]
     pub fn get_device_type(&self) -> DeviceType {
         unsafe { from_glib(ffi::gdk_device_get_device_type(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_device_get_display")]
     pub fn get_display(&self) -> Display {
         unsafe { from_glib_none(ffi::gdk_device_get_display(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_device_get_has_cursor")]
     pub fn get_has_cursor(&self) -> bool {
         unsafe { from_glib(ffi::gdk_device_get_has_cursor(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_device_get_key")]
     pub fn get_key(&self, index_: u32) -> Option<(u32, ModifierType)> {
         unsafe {
             let mut keyval = mem::MaybeUninit::uninit();
@@ -99,26 +108,32 @@ impl Device {
         }
     }
 
+    #[doc(alias = "gdk_device_get_last_event_window")]
     pub fn get_last_event_window(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_device_get_last_event_window(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_device_get_mode")]
     pub fn get_mode(&self) -> InputMode {
         unsafe { from_glib(ffi::gdk_device_get_mode(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_device_get_n_axes")]
     pub fn get_n_axes(&self) -> i32 {
         unsafe { ffi::gdk_device_get_n_axes(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_device_get_n_keys")]
     pub fn get_n_keys(&self) -> i32 {
         unsafe { ffi::gdk_device_get_n_keys(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_device_get_name")]
     pub fn get_name(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gdk_device_get_name(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_device_get_position")]
     pub fn get_position(&self) -> (Screen, i32, i32) {
         unsafe {
             let mut screen = ptr::null_mut();
@@ -136,6 +151,7 @@ impl Device {
         }
     }
 
+    #[doc(alias = "gdk_device_get_position_double")]
     pub fn get_position_double(&self) -> (Screen, f64, f64) {
         unsafe {
             let mut screen = ptr::null_mut();
@@ -155,30 +171,36 @@ impl Device {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gdk_device_get_product_id")]
     pub fn get_product_id(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gdk_device_get_product_id(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "gdk_device_get_seat")]
     pub fn get_seat(&self) -> Option<Seat> {
         unsafe { from_glib_none(ffi::gdk_device_get_seat(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_device_get_source")]
     pub fn get_source(&self) -> InputSource {
         unsafe { from_glib(ffi::gdk_device_get_source(self.to_glib_none().0)) }
     }
 
+    //#[doc(alias = "gdk_device_get_state")]
     //pub fn get_state(&self, window: &Window, axes: &[f64]) -> ModifierType {
     //    unsafe { TODO: call ffi:gdk_device_get_state() }
     //}
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gdk_device_get_vendor_id")]
     pub fn get_vendor_id(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gdk_device_get_vendor_id(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_device_get_window_at_position")]
     pub fn get_window_at_position(&self) -> (Option<Window>, i32, i32) {
         unsafe {
             let mut win_x = mem::MaybeUninit::uninit();
@@ -194,6 +216,7 @@ impl Device {
         }
     }
 
+    #[doc(alias = "gdk_device_get_window_at_position_double")]
     pub fn get_window_at_position_double(&self) -> (Option<Window>, f64, f64) {
         unsafe {
             let mut win_x = mem::MaybeUninit::uninit();
@@ -210,6 +233,7 @@ impl Device {
     }
 
     #[cfg_attr(feature = "v3_20", deprecated)]
+    #[doc(alias = "gdk_device_grab")]
     pub fn grab(
         &self,
         window: &Window,
@@ -232,6 +256,7 @@ impl Device {
         }
     }
 
+    #[doc(alias = "gdk_device_list_axes")]
     pub fn list_axes(&self) -> Vec<Atom> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_device_list_axes(
@@ -240,6 +265,7 @@ impl Device {
         }
     }
 
+    #[doc(alias = "gdk_device_list_slave_devices")]
     pub fn list_slave_devices(&self) -> Vec<Device> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_device_list_slave_devices(
@@ -248,18 +274,21 @@ impl Device {
         }
     }
 
+    #[doc(alias = "gdk_device_set_axis_use")]
     pub fn set_axis_use(&self, index_: u32, use_: AxisUse) {
         unsafe {
             ffi::gdk_device_set_axis_use(self.to_glib_none().0, index_, use_.to_glib());
         }
     }
 
+    #[doc(alias = "gdk_device_set_key")]
     pub fn set_key(&self, index_: u32, keyval: u32, modifiers: ModifierType) {
         unsafe {
             ffi::gdk_device_set_key(self.to_glib_none().0, index_, keyval, modifiers.to_glib());
         }
     }
 
+    #[doc(alias = "gdk_device_set_mode")]
     pub fn set_mode(&self, mode: InputMode) -> bool {
         unsafe {
             from_glib(ffi::gdk_device_set_mode(
@@ -270,12 +299,14 @@ impl Device {
     }
 
     #[cfg_attr(feature = "v3_20", deprecated)]
+    #[doc(alias = "gdk_device_ungrab")]
     pub fn ungrab(&self, time_: u32) {
         unsafe {
             ffi::gdk_device_ungrab(self.to_glib_none().0, time_);
         }
     }
 
+    #[doc(alias = "gdk_device_warp")]
     pub fn warp(&self, screen: &Screen, x: i32, y: i32) {
         unsafe {
             ffi::gdk_device_warp(self.to_glib_none().0, screen.to_glib_none().0, x, y);
@@ -397,6 +428,7 @@ impl Device {
     }
 
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gdk_device_grab_info_libgtk_only")]
     pub fn grab_info_libgtk_only(display: &Display, device: &Device) -> Option<(Window, bool)> {
         skip_assert_initialized!();
         unsafe {

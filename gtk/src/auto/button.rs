@@ -33,11 +33,13 @@ glib::glib_wrapper! {
 }
 
 impl Button {
+    #[doc(alias = "gtk_button_new")]
     pub fn new() -> Button {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_button_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_button_new_from_icon_name")]
     pub fn from_icon_name(icon_name: Option<&str>, size: IconSize) -> Button {
         assert_initialized_main_thread!();
         unsafe {
@@ -49,6 +51,7 @@ impl Button {
         }
     }
 
+    #[doc(alias = "gtk_button_new_with_label")]
     pub fn with_label(label: &str) -> Button {
         assert_initialized_main_thread!();
         unsafe {
@@ -57,6 +60,7 @@ impl Button {
         }
     }
 
+    #[doc(alias = "gtk_button_new_with_mnemonic")]
     pub fn with_mnemonic(label: &str) -> Button {
         assert_initialized_main_thread!();
         unsafe {
@@ -486,42 +490,58 @@ impl ButtonBuilder {
 pub const NONE_BUTTON: Option<&Button> = None;
 
 pub trait ButtonExt: 'static {
+    #[doc(alias = "gtk_button_clicked")]
     fn clicked(&self);
 
+    #[doc(alias = "gtk_button_get_always_show_image")]
     fn get_always_show_image(&self) -> bool;
 
+    #[doc(alias = "gtk_button_get_event_window")]
     fn get_event_window(&self) -> Option<gdk::Window>;
 
     #[cfg_attr(feature = "v3_20", deprecated)]
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
+    #[doc(alias = "gtk_button_get_focus_on_click")]
     fn get_focus_on_click(&self) -> bool;
 
+    #[doc(alias = "gtk_button_get_image")]
     fn get_image(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_button_get_image_position")]
     fn get_image_position(&self) -> PositionType;
 
+    #[doc(alias = "gtk_button_get_label")]
     fn get_label(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_button_get_relief")]
     fn get_relief(&self) -> ReliefStyle;
 
+    #[doc(alias = "gtk_button_get_use_underline")]
     fn get_use_underline(&self) -> bool;
 
+    #[doc(alias = "gtk_button_set_always_show_image")]
     fn set_always_show_image(&self, always_show: bool);
 
     #[cfg_attr(feature = "v3_20", deprecated)]
     #[cfg(any(not(feature = "v3_20"), feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(not(feature = "v3_20"))))]
+    #[doc(alias = "gtk_button_set_focus_on_click")]
     fn set_focus_on_click(&self, focus_on_click: bool);
 
+    #[doc(alias = "gtk_button_set_image")]
     fn set_image<P: IsA<Widget>>(&self, image: Option<&P>);
 
+    #[doc(alias = "gtk_button_set_image_position")]
     fn set_image_position(&self, position: PositionType);
 
+    #[doc(alias = "gtk_button_set_label")]
     fn set_label(&self, label: &str);
 
+    #[doc(alias = "gtk_button_set_relief")]
     fn set_relief(&self, relief: ReliefStyle);
 
+    #[doc(alias = "gtk_button_set_use_underline")]
     fn set_use_underline(&self, use_underline: bool);
 
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

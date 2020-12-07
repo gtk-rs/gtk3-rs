@@ -23,10 +23,12 @@ glib::glib_wrapper! {
 }
 
 impl ZlibDecompressor {
+    #[doc(alias = "g_zlib_decompressor_new")]
     pub fn new(format: ZlibCompressorFormat) -> ZlibDecompressor {
         unsafe { from_glib_full(ffi::g_zlib_decompressor_new(format.to_glib())) }
     }
 
+    #[doc(alias = "g_zlib_decompressor_get_file_info")]
     pub fn get_file_info(&self) -> Option<FileInfo> {
         unsafe {
             from_glib_none(ffi::g_zlib_decompressor_get_file_info(

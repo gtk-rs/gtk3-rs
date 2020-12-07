@@ -17,6 +17,7 @@ glib::glib_wrapper! {
 pub const NONE_CONVERTER: Option<&Converter> = None;
 
 pub trait ConverterExt: 'static {
+    #[doc(alias = "g_converter_reset")]
     fn reset(&self);
 }
 

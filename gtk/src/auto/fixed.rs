@@ -23,6 +23,7 @@ glib::glib_wrapper! {
 }
 
 impl Fixed {
+    #[doc(alias = "gtk_fixed_new")]
     pub fn new() -> Fixed {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_fixed_new()).unsafe_cast() }
@@ -377,8 +378,10 @@ impl FixedBuilder {
 pub const NONE_FIXED: Option<&Fixed> = None;
 
 pub trait FixedExt: 'static {
+    #[doc(alias = "gtk_fixed_move")]
     fn move_<P: IsA<Widget>>(&self, widget: &P, x: i32, y: i32);
 
+    #[doc(alias = "gtk_fixed_put")]
     fn put<P: IsA<Widget>>(&self, widget: &P, x: i32, y: i32);
 }
 

@@ -25,8 +25,10 @@ glib::glib_wrapper! {
 pub const NONE_FILE_MONITOR: Option<&FileMonitor> = None;
 
 pub trait FileMonitorExt: 'static {
+    #[doc(alias = "g_file_monitor_cancel")]
     fn cancel(&self) -> bool;
 
+    #[doc(alias = "g_file_monitor_emit_event")]
     fn emit_event<P: IsA<File>, Q: IsA<File>>(
         &self,
         child: &P,
@@ -34,8 +36,10 @@ pub trait FileMonitorExt: 'static {
         event_type: FileMonitorEvent,
     );
 
+    #[doc(alias = "g_file_monitor_is_cancelled")]
     fn is_cancelled(&self) -> bool;
 
+    #[doc(alias = "g_file_monitor_set_rate_limit")]
     fn set_rate_limit(&self, limit_msecs: i32);
 
     fn get_property_cancelled(&self) -> bool;

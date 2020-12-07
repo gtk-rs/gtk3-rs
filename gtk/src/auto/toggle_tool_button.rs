@@ -31,6 +31,7 @@ glib::glib_wrapper! {
 }
 
 impl ToggleToolButton {
+    #[doc(alias = "gtk_toggle_tool_button_new")]
     pub fn new() -> ToggleToolButton {
         assert_initialized_main_thread!();
         unsafe { ToolItem::from_glib_none(ffi::gtk_toggle_tool_button_new()).unsafe_cast() }
@@ -484,8 +485,10 @@ impl ToggleToolButtonBuilder {
 pub const NONE_TOGGLE_TOOL_BUTTON: Option<&ToggleToolButton> = None;
 
 pub trait ToggleToolButtonExt: 'static {
+    #[doc(alias = "gtk_toggle_tool_button_get_active")]
     fn get_active(&self) -> bool;
 
+    #[doc(alias = "gtk_toggle_tool_button_set_active")]
     fn set_active(&self, is_active: bool);
 
     fn connect_toggled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

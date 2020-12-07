@@ -28,6 +28,7 @@ glib::glib_wrapper! {
 }
 
 impl OffscreenWindow {
+    #[doc(alias = "gtk_offscreen_window_new")]
     pub fn new() -> OffscreenWindow {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_offscreen_window_new()).unsafe_cast() }
@@ -634,8 +635,10 @@ impl OffscreenWindowBuilder {
 pub const NONE_OFFSCREEN_WINDOW: Option<&OffscreenWindow> = None;
 
 pub trait OffscreenWindowExt: 'static {
+    #[doc(alias = "gtk_offscreen_window_get_pixbuf")]
     fn get_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf>;
 
+    #[doc(alias = "gtk_offscreen_window_get_surface")]
     fn get_surface(&self) -> Option<cairo::Surface>;
 }
 

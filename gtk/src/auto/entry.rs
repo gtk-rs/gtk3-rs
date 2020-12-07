@@ -41,11 +41,13 @@ glib::glib_wrapper! {
 }
 
 impl Entry {
+    #[doc(alias = "gtk_entry_new")]
     pub fn new() -> Entry {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_entry_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_entry_new_with_buffer")]
     pub fn with_buffer<P: IsA<EntryBuffer>>(buffer: &P) -> Entry {
         skip_assert_initialized!();
         unsafe {
@@ -768,102 +770,150 @@ impl EntryBuilder {
 pub const NONE_ENTRY: Option<&Entry> = None;
 
 pub trait EntryExt: 'static {
+    #[doc(alias = "gtk_entry_get_activates_default")]
     fn get_activates_default(&self) -> bool;
 
+    #[doc(alias = "gtk_entry_get_alignment")]
     fn get_alignment(&self) -> f32;
 
+    #[doc(alias = "gtk_entry_get_attributes")]
     fn get_attributes(&self) -> Option<pango::AttrList>;
 
+    #[doc(alias = "gtk_entry_get_buffer")]
     fn get_buffer(&self) -> EntryBuffer;
 
+    #[doc(alias = "gtk_entry_get_completion")]
     fn get_completion(&self) -> Option<EntryCompletion>;
 
+    #[doc(alias = "gtk_entry_get_current_icon_drag_source")]
     fn get_current_icon_drag_source(&self) -> i32;
 
+    #[doc(alias = "gtk_entry_get_cursor_hadjustment")]
     fn get_cursor_hadjustment(&self) -> Option<Adjustment>;
 
+    #[doc(alias = "gtk_entry_get_has_frame")]
     fn get_has_frame(&self) -> bool;
 
+    #[doc(alias = "gtk_entry_get_icon_activatable")]
     fn get_icon_activatable(&self, icon_pos: EntryIconPosition) -> bool;
 
+    #[doc(alias = "gtk_entry_get_icon_area")]
     fn get_icon_area(&self, icon_pos: EntryIconPosition) -> gdk::Rectangle;
 
+    #[doc(alias = "gtk_entry_get_icon_at_pos")]
     fn get_icon_at_pos(&self, x: i32, y: i32) -> i32;
 
+    #[doc(alias = "gtk_entry_get_icon_gicon")]
     fn get_icon_gicon(&self, icon_pos: EntryIconPosition) -> Option<gio::Icon>;
 
+    #[doc(alias = "gtk_entry_get_icon_name")]
     fn get_icon_name(&self, icon_pos: EntryIconPosition) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_entry_get_icon_pixbuf")]
     fn get_icon_pixbuf(&self, icon_pos: EntryIconPosition) -> Option<gdk_pixbuf::Pixbuf>;
 
+    #[doc(alias = "gtk_entry_get_icon_sensitive")]
     fn get_icon_sensitive(&self, icon_pos: EntryIconPosition) -> bool;
 
+    #[doc(alias = "gtk_entry_get_icon_storage_type")]
     fn get_icon_storage_type(&self, icon_pos: EntryIconPosition) -> ImageType;
 
+    #[doc(alias = "gtk_entry_get_icon_tooltip_markup")]
     fn get_icon_tooltip_markup(&self, icon_pos: EntryIconPosition) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_entry_get_icon_tooltip_text")]
     fn get_icon_tooltip_text(&self, icon_pos: EntryIconPosition) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_entry_get_input_hints")]
     fn get_input_hints(&self) -> InputHints;
 
+    #[doc(alias = "gtk_entry_get_input_purpose")]
     fn get_input_purpose(&self) -> InputPurpose;
 
+    #[doc(alias = "gtk_entry_get_layout")]
     fn get_layout(&self) -> Option<pango::Layout>;
 
+    #[doc(alias = "gtk_entry_get_layout_offsets")]
     fn get_layout_offsets(&self) -> (i32, i32);
 
+    #[doc(alias = "gtk_entry_get_max_length")]
     fn get_max_length(&self) -> i32;
 
+    #[doc(alias = "gtk_entry_get_max_width_chars")]
     fn get_max_width_chars(&self) -> i32;
 
+    #[doc(alias = "gtk_entry_get_overwrite_mode")]
     fn get_overwrite_mode(&self) -> bool;
 
+    #[doc(alias = "gtk_entry_get_placeholder_text")]
     fn get_placeholder_text(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_entry_get_progress_fraction")]
     fn get_progress_fraction(&self) -> f64;
 
+    #[doc(alias = "gtk_entry_get_progress_pulse_step")]
     fn get_progress_pulse_step(&self) -> f64;
 
+    #[doc(alias = "gtk_entry_get_tabs")]
     fn get_tabs(&self) -> Option<pango::TabArray>;
 
+    #[doc(alias = "gtk_entry_get_text")]
     fn get_text(&self) -> glib::GString;
 
+    #[doc(alias = "gtk_entry_get_text_area")]
     fn get_text_area(&self) -> gdk::Rectangle;
 
+    #[doc(alias = "gtk_entry_get_text_length")]
     fn get_text_length(&self) -> u16;
 
+    #[doc(alias = "gtk_entry_get_visibility")]
     fn get_visibility(&self) -> bool;
 
+    #[doc(alias = "gtk_entry_get_width_chars")]
     fn get_width_chars(&self) -> i32;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_entry_grab_focus_without_selecting")]
     fn grab_focus_without_selecting(&self);
 
+    #[doc(alias = "gtk_entry_im_context_filter_keypress")]
     fn im_context_filter_keypress(&self, event: &gdk::EventKey) -> bool;
 
+    #[doc(alias = "gtk_entry_layout_index_to_text_index")]
     fn layout_index_to_text_index(&self, layout_index: i32) -> i32;
 
+    #[doc(alias = "gtk_entry_progress_pulse")]
     fn progress_pulse(&self);
 
+    #[doc(alias = "gtk_entry_reset_im_context")]
     fn reset_im_context(&self);
 
+    #[doc(alias = "gtk_entry_set_activates_default")]
     fn set_activates_default(&self, setting: bool);
 
+    #[doc(alias = "gtk_entry_set_alignment")]
     fn set_alignment(&self, xalign: f32);
 
+    #[doc(alias = "gtk_entry_set_attributes")]
     fn set_attributes(&self, attrs: &pango::AttrList);
 
+    #[doc(alias = "gtk_entry_set_buffer")]
     fn set_buffer<P: IsA<EntryBuffer>>(&self, buffer: &P);
 
+    #[doc(alias = "gtk_entry_set_completion")]
     fn set_completion<P: IsA<EntryCompletion>>(&self, completion: Option<&P>);
 
+    #[doc(alias = "gtk_entry_set_cursor_hadjustment")]
     fn set_cursor_hadjustment<P: IsA<Adjustment>>(&self, adjustment: Option<&P>);
 
+    #[doc(alias = "gtk_entry_set_has_frame")]
     fn set_has_frame(&self, setting: bool);
 
+    #[doc(alias = "gtk_entry_set_icon_activatable")]
     fn set_icon_activatable(&self, icon_pos: EntryIconPosition, activatable: bool);
 
+    #[doc(alias = "gtk_entry_set_icon_drag_source")]
     fn set_icon_drag_source(
         &self,
         icon_pos: EntryIconPosition,
@@ -871,50 +921,71 @@ pub trait EntryExt: 'static {
         actions: gdk::DragAction,
     );
 
+    #[doc(alias = "gtk_entry_set_icon_from_gicon")]
     fn set_icon_from_gicon<P: IsA<gio::Icon>>(&self, icon_pos: EntryIconPosition, icon: Option<&P>);
 
+    #[doc(alias = "gtk_entry_set_icon_from_icon_name")]
     fn set_icon_from_icon_name(&self, icon_pos: EntryIconPosition, icon_name: Option<&str>);
 
+    #[doc(alias = "gtk_entry_set_icon_from_pixbuf")]
     fn set_icon_from_pixbuf(
         &self,
         icon_pos: EntryIconPosition,
         pixbuf: Option<&gdk_pixbuf::Pixbuf>,
     );
 
+    #[doc(alias = "gtk_entry_set_icon_sensitive")]
     fn set_icon_sensitive(&self, icon_pos: EntryIconPosition, sensitive: bool);
 
+    #[doc(alias = "gtk_entry_set_icon_tooltip_markup")]
     fn set_icon_tooltip_markup(&self, icon_pos: EntryIconPosition, tooltip: Option<&str>);
 
+    #[doc(alias = "gtk_entry_set_icon_tooltip_text")]
     fn set_icon_tooltip_text(&self, icon_pos: EntryIconPosition, tooltip: Option<&str>);
 
+    #[doc(alias = "gtk_entry_set_input_hints")]
     fn set_input_hints(&self, hints: InputHints);
 
+    #[doc(alias = "gtk_entry_set_input_purpose")]
     fn set_input_purpose(&self, purpose: InputPurpose);
 
+    #[doc(alias = "gtk_entry_set_invisible_char")]
     fn set_invisible_char(&self, ch: Option<char>);
 
+    #[doc(alias = "gtk_entry_set_max_length")]
     fn set_max_length(&self, max: i32);
 
+    #[doc(alias = "gtk_entry_set_max_width_chars")]
     fn set_max_width_chars(&self, n_chars: i32);
 
+    #[doc(alias = "gtk_entry_set_overwrite_mode")]
     fn set_overwrite_mode(&self, overwrite: bool);
 
+    #[doc(alias = "gtk_entry_set_placeholder_text")]
     fn set_placeholder_text(&self, text: Option<&str>);
 
+    #[doc(alias = "gtk_entry_set_progress_fraction")]
     fn set_progress_fraction(&self, fraction: f64);
 
+    #[doc(alias = "gtk_entry_set_progress_pulse_step")]
     fn set_progress_pulse_step(&self, fraction: f64);
 
+    #[doc(alias = "gtk_entry_set_tabs")]
     fn set_tabs(&self, tabs: &pango::TabArray);
 
+    #[doc(alias = "gtk_entry_set_text")]
     fn set_text(&self, text: &str);
 
+    #[doc(alias = "gtk_entry_set_visibility")]
     fn set_visibility(&self, visible: bool);
 
+    #[doc(alias = "gtk_entry_set_width_chars")]
     fn set_width_chars(&self, n_chars: i32);
 
+    #[doc(alias = "gtk_entry_text_index_to_layout_index")]
     fn text_index_to_layout_index(&self, text_index: i32) -> i32;
 
+    #[doc(alias = "gtk_entry_unset_invisible_char")]
     fn unset_invisible_char(&self);
 
     fn get_property_caps_lock_warning(&self) -> bool;

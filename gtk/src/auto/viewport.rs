@@ -32,6 +32,7 @@ glib::glib_wrapper! {
 }
 
 impl Viewport {
+    #[doc(alias = "gtk_viewport_new")]
     pub fn new<P: IsA<Adjustment>, Q: IsA<Adjustment>>(
         hadjustment: Option<&P>,
         vadjustment: Option<&Q>,
@@ -434,12 +435,16 @@ impl ViewportBuilder {
 pub const NONE_VIEWPORT: Option<&Viewport> = None;
 
 pub trait ViewportExt: 'static {
+    #[doc(alias = "gtk_viewport_get_bin_window")]
     fn get_bin_window(&self) -> Option<gdk::Window>;
 
+    #[doc(alias = "gtk_viewport_get_shadow_type")]
     fn get_shadow_type(&self) -> ShadowType;
 
+    #[doc(alias = "gtk_viewport_get_view_window")]
     fn get_view_window(&self) -> Option<gdk::Window>;
 
+    #[doc(alias = "gtk_viewport_set_shadow_type")]
     fn set_shadow_type(&self, type_: ShadowType);
 
     fn connect_property_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

@@ -27,6 +27,7 @@ glib::glib_wrapper! {
 }
 
 impl NetworkMonitor {
+    #[doc(alias = "g_network_monitor_get_default")]
     pub fn get_default() -> Option<NetworkMonitor> {
         unsafe { from_glib_none(ffi::g_network_monitor_get_default()) }
     }
@@ -35,12 +36,14 @@ impl NetworkMonitor {
 pub const NONE_NETWORK_MONITOR: Option<&NetworkMonitor> = None;
 
 pub trait NetworkMonitorExt: 'static {
+    #[doc(alias = "g_network_monitor_can_reach")]
     fn can_reach<P: IsA<SocketConnectable>, Q: IsA<Cancellable>>(
         &self,
         connectable: &P,
         cancellable: Option<&Q>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_network_monitor_can_reach_async")]
     fn can_reach_async<
         P: IsA<SocketConnectable>,
         Q: IsA<Cancellable>,
@@ -59,12 +62,15 @@ pub trait NetworkMonitorExt: 'static {
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_network_monitor_get_connectivity")]
     fn get_connectivity(&self) -> NetworkConnectivity;
 
+    #[doc(alias = "g_network_monitor_get_network_available")]
     fn get_network_available(&self) -> bool;
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+    #[doc(alias = "g_network_monitor_get_network_metered")]
     fn get_network_metered(&self) -> bool;
 
     fn connect_network_changed<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId;

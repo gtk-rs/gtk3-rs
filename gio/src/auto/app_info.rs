@@ -29,6 +29,7 @@ glib::glib_wrapper! {
 }
 
 impl AppInfo {
+    #[doc(alias = "g_app_info_create_from_commandline")]
     pub fn create_from_commandline<P: AsRef<std::ffi::OsStr>>(
         commandline: P,
         application_name: Option<&str>,
@@ -50,10 +51,12 @@ impl AppInfo {
         }
     }
 
+    #[doc(alias = "g_app_info_get_all")]
     pub fn get_all() -> Vec<AppInfo> {
         unsafe { FromGlibPtrContainer::from_glib_full(ffi::g_app_info_get_all()) }
     }
 
+    #[doc(alias = "g_app_info_get_all_for_type")]
     pub fn get_all_for_type(content_type: &str) -> Vec<AppInfo> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_app_info_get_all_for_type(
@@ -62,6 +65,7 @@ impl AppInfo {
         }
     }
 
+    #[doc(alias = "g_app_info_get_default_for_type")]
     pub fn get_default_for_type(content_type: &str, must_support_uris: bool) -> Option<AppInfo> {
         unsafe {
             from_glib_full(ffi::g_app_info_get_default_for_type(
@@ -71,6 +75,7 @@ impl AppInfo {
         }
     }
 
+    #[doc(alias = "g_app_info_get_default_for_uri_scheme")]
     pub fn get_default_for_uri_scheme(uri_scheme: &str) -> Option<AppInfo> {
         unsafe {
             from_glib_full(ffi::g_app_info_get_default_for_uri_scheme(
@@ -79,6 +84,7 @@ impl AppInfo {
         }
     }
 
+    #[doc(alias = "g_app_info_get_fallback_for_type")]
     pub fn get_fallback_for_type(content_type: &str) -> Vec<AppInfo> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_app_info_get_fallback_for_type(
@@ -87,6 +93,7 @@ impl AppInfo {
         }
     }
 
+    #[doc(alias = "g_app_info_get_recommended_for_type")]
     pub fn get_recommended_for_type(content_type: &str) -> Vec<AppInfo> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_app_info_get_recommended_for_type(
@@ -95,6 +102,7 @@ impl AppInfo {
         }
     }
 
+    #[doc(alias = "g_app_info_launch_default_for_uri")]
     pub fn launch_default_for_uri<P: IsA<AppLaunchContext>>(
         uri: &str,
         context: Option<&P>,
@@ -116,6 +124,7 @@ impl AppInfo {
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+    #[doc(alias = "g_app_info_launch_default_for_uri_async")]
     pub fn launch_default_for_uri_async<
         P: IsA<AppLaunchContext>,
         Q: IsA<Cancellable>,
@@ -179,6 +188,7 @@ impl AppInfo {
         }))
     }
 
+    #[doc(alias = "g_app_info_reset_type_associations")]
     pub fn reset_type_associations(content_type: &str) {
         unsafe {
             ffi::g_app_info_reset_type_associations(content_type.to_glib_none().0);
@@ -189,61 +199,84 @@ impl AppInfo {
 pub const NONE_APP_INFO: Option<&AppInfo> = None;
 
 pub trait AppInfoExt: 'static {
+    #[doc(alias = "g_app_info_add_supports_type")]
     fn add_supports_type(&self, content_type: &str) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_app_info_can_delete")]
     fn can_delete(&self) -> bool;
 
+    #[doc(alias = "g_app_info_can_remove_supports_type")]
     fn can_remove_supports_type(&self) -> bool;
 
+    #[doc(alias = "g_app_info_delete")]
     fn delete(&self) -> bool;
 
+    #[doc(alias = "g_app_info_dup")]
     fn dup(&self) -> Option<AppInfo>;
 
+    #[doc(alias = "g_app_info_equal")]
     fn equal<P: IsA<AppInfo>>(&self, appinfo2: &P) -> bool;
 
+    #[doc(alias = "g_app_info_get_commandline")]
     fn get_commandline(&self) -> Option<std::path::PathBuf>;
 
+    #[doc(alias = "g_app_info_get_description")]
     fn get_description(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_app_info_get_display_name")]
     fn get_display_name(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_app_info_get_executable")]
     fn get_executable(&self) -> Option<std::path::PathBuf>;
 
+    #[doc(alias = "g_app_info_get_icon")]
     fn get_icon(&self) -> Option<Icon>;
 
+    #[doc(alias = "g_app_info_get_id")]
     fn get_id(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_app_info_get_name")]
     fn get_name(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_app_info_get_supported_types")]
     fn get_supported_types(&self) -> Vec<glib::GString>;
 
+    #[doc(alias = "g_app_info_launch")]
     fn launch<P: IsA<AppLaunchContext>>(
         &self,
         files: &[File],
         context: Option<&P>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_app_info_launch_uris")]
     fn launch_uris<P: IsA<AppLaunchContext>>(
         &self,
         uris: &[&str],
         context: Option<&P>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_app_info_remove_supports_type")]
     fn remove_supports_type(&self, content_type: &str) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_app_info_set_as_default_for_extension")]
     fn set_as_default_for_extension<P: AsRef<std::path::Path>>(
         &self,
         extension: P,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_app_info_set_as_default_for_type")]
     fn set_as_default_for_type(&self, content_type: &str) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_app_info_set_as_last_used_for_type")]
     fn set_as_last_used_for_type(&self, content_type: &str) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_app_info_should_show")]
     fn should_show(&self) -> bool;
 
+    #[doc(alias = "g_app_info_supports_files")]
     fn supports_files(&self) -> bool;
 
+    #[doc(alias = "g_app_info_supports_uris")]
     fn supports_uris(&self) -> bool;
 }
 

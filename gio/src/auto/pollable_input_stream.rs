@@ -18,8 +18,10 @@ glib::glib_wrapper! {
 pub const NONE_POLLABLE_INPUT_STREAM: Option<&PollableInputStream> = None;
 
 pub trait PollableInputStreamExt: 'static {
+    #[doc(alias = "g_pollable_input_stream_can_poll")]
     fn can_poll(&self) -> bool;
 
+    #[doc(alias = "g_pollable_input_stream_is_readable")]
     fn is_readable(&self) -> bool;
 }
 

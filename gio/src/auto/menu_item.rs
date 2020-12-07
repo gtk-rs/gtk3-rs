@@ -17,6 +17,7 @@ glib::glib_wrapper! {
 }
 
 impl MenuItem {
+    #[doc(alias = "g_menu_item_new")]
     pub fn new(label: Option<&str>, detailed_action: Option<&str>) -> MenuItem {
         unsafe {
             from_glib_full(ffi::g_menu_item_new(
@@ -26,6 +27,7 @@ impl MenuItem {
         }
     }
 
+    #[doc(alias = "g_menu_item_new_from_model")]
     pub fn from_model<P: IsA<MenuModel>>(model: &P, item_index: i32) -> MenuItem {
         unsafe {
             from_glib_full(ffi::g_menu_item_new_from_model(
@@ -35,6 +37,7 @@ impl MenuItem {
         }
     }
 
+    #[doc(alias = "g_menu_item_new_section")]
     pub fn new_section<P: IsA<MenuModel>>(label: Option<&str>, section: &P) -> MenuItem {
         unsafe {
             from_glib_full(ffi::g_menu_item_new_section(
@@ -44,6 +47,7 @@ impl MenuItem {
         }
     }
 
+    #[doc(alias = "g_menu_item_new_submenu")]
     pub fn new_submenu<P: IsA<MenuModel>>(label: Option<&str>, submenu: &P) -> MenuItem {
         unsafe {
             from_glib_full(ffi::g_menu_item_new_submenu(
@@ -53,10 +57,12 @@ impl MenuItem {
         }
     }
 
+    //#[doc(alias = "g_menu_item_get_attribute")]
     //pub fn get_attribute(&self, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
     //    unsafe { TODO: call ffi:g_menu_item_get_attribute() }
     //}
 
+    #[doc(alias = "g_menu_item_get_attribute_value")]
     pub fn get_attribute_value(
         &self,
         attribute: &str,
@@ -71,6 +77,7 @@ impl MenuItem {
         }
     }
 
+    #[doc(alias = "g_menu_item_get_link")]
     pub fn get_link(&self, link: &str) -> Option<MenuModel> {
         unsafe {
             from_glib_full(ffi::g_menu_item_get_link(
@@ -80,10 +87,12 @@ impl MenuItem {
         }
     }
 
+    //#[doc(alias = "g_menu_item_set_action_and_target")]
     //pub fn set_action_and_target(&self, action: Option<&str>, format_string: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call ffi:g_menu_item_set_action_and_target() }
     //}
 
+    #[doc(alias = "g_menu_item_set_action_and_target_value")]
     pub fn set_action_and_target_value(
         &self,
         action: Option<&str>,
@@ -98,10 +107,12 @@ impl MenuItem {
         }
     }
 
+    //#[doc(alias = "g_menu_item_set_attribute")]
     //pub fn set_attribute(&self, attribute: &str, format_string: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call ffi:g_menu_item_set_attribute() }
     //}
 
+    #[doc(alias = "g_menu_item_set_attribute_value")]
     pub fn set_attribute_value(&self, attribute: &str, value: Option<&glib::Variant>) {
         unsafe {
             ffi::g_menu_item_set_attribute_value(
@@ -112,6 +123,7 @@ impl MenuItem {
         }
     }
 
+    #[doc(alias = "g_menu_item_set_detailed_action")]
     pub fn set_detailed_action(&self, detailed_action: &str) {
         unsafe {
             ffi::g_menu_item_set_detailed_action(
@@ -121,18 +133,21 @@ impl MenuItem {
         }
     }
 
+    #[doc(alias = "g_menu_item_set_icon")]
     pub fn set_icon<P: IsA<Icon>>(&self, icon: &P) {
         unsafe {
             ffi::g_menu_item_set_icon(self.to_glib_none().0, icon.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "g_menu_item_set_label")]
     pub fn set_label(&self, label: Option<&str>) {
         unsafe {
             ffi::g_menu_item_set_label(self.to_glib_none().0, label.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "g_menu_item_set_link")]
     pub fn set_link<P: IsA<MenuModel>>(&self, link: &str, model: Option<&P>) {
         unsafe {
             ffi::g_menu_item_set_link(
@@ -143,6 +158,7 @@ impl MenuItem {
         }
     }
 
+    #[doc(alias = "g_menu_item_set_section")]
     pub fn set_section<P: IsA<MenuModel>>(&self, section: Option<&P>) {
         unsafe {
             ffi::g_menu_item_set_section(
@@ -152,6 +168,7 @@ impl MenuItem {
         }
     }
 
+    #[doc(alias = "g_menu_item_set_submenu")]
     pub fn set_submenu<P: IsA<MenuModel>>(&self, submenu: Option<&P>) {
         unsafe {
             ffi::g_menu_item_set_submenu(

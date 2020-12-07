@@ -40,16 +40,19 @@ glib::glib_wrapper! {
 }
 
 impl ToolPalette {
+    #[doc(alias = "gtk_tool_palette_new")]
     pub fn new() -> ToolPalette {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_tool_palette_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_tool_palette_get_drag_target_group")]
     pub fn get_drag_target_group() -> Option<TargetEntry> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_tool_palette_get_drag_target_group()) }
     }
 
+    #[doc(alias = "gtk_tool_palette_get_drag_target_item")]
     pub fn get_drag_target_item() -> Option<TargetEntry> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_tool_palette_get_drag_target_item()) }
@@ -476,6 +479,7 @@ impl ToolPaletteBuilder {
 pub const NONE_TOOL_PALETTE: Option<&ToolPalette> = None;
 
 pub trait ToolPaletteExt: 'static {
+    #[doc(alias = "gtk_tool_palette_add_drag_dest")]
     fn add_drag_dest<P: IsA<Widget>>(
         &self,
         widget: &P,
@@ -484,36 +488,52 @@ pub trait ToolPaletteExt: 'static {
         actions: gdk::DragAction,
     );
 
+    #[doc(alias = "gtk_tool_palette_get_drag_item")]
     fn get_drag_item(&self, selection: &SelectionData) -> Option<Widget>;
 
+    #[doc(alias = "gtk_tool_palette_get_drop_group")]
     fn get_drop_group(&self, x: i32, y: i32) -> Option<ToolItemGroup>;
 
+    #[doc(alias = "gtk_tool_palette_get_drop_item")]
     fn get_drop_item(&self, x: i32, y: i32) -> Option<ToolItem>;
 
+    #[doc(alias = "gtk_tool_palette_get_exclusive")]
     fn get_exclusive<P: IsA<ToolItemGroup>>(&self, group: &P) -> bool;
 
+    #[doc(alias = "gtk_tool_palette_get_expand")]
     fn get_expand<P: IsA<ToolItemGroup>>(&self, group: &P) -> bool;
 
+    #[doc(alias = "gtk_tool_palette_get_group_position")]
     fn get_group_position<P: IsA<ToolItemGroup>>(&self, group: &P) -> i32;
 
+    #[doc(alias = "gtk_tool_palette_get_icon_size")]
     fn get_icon_size(&self) -> IconSize;
 
+    #[doc(alias = "gtk_tool_palette_get_style")]
     fn get_style(&self) -> ToolbarStyle;
 
+    #[doc(alias = "gtk_tool_palette_set_drag_source")]
     fn set_drag_source(&self, targets: ToolPaletteDragTargets);
 
+    #[doc(alias = "gtk_tool_palette_set_exclusive")]
     fn set_exclusive<P: IsA<ToolItemGroup>>(&self, group: &P, exclusive: bool);
 
+    #[doc(alias = "gtk_tool_palette_set_expand")]
     fn set_expand<P: IsA<ToolItemGroup>>(&self, group: &P, expand: bool);
 
+    #[doc(alias = "gtk_tool_palette_set_group_position")]
     fn set_group_position<P: IsA<ToolItemGroup>>(&self, group: &P, position: i32);
 
+    #[doc(alias = "gtk_tool_palette_set_icon_size")]
     fn set_icon_size(&self, icon_size: IconSize);
 
+    #[doc(alias = "gtk_tool_palette_set_style")]
     fn set_style(&self, style: ToolbarStyle);
 
+    #[doc(alias = "gtk_tool_palette_unset_icon_size")]
     fn unset_icon_size(&self);
 
+    #[doc(alias = "gtk_tool_palette_unset_style")]
     fn unset_style(&self);
 
     fn get_property_icon_size_set(&self) -> bool;

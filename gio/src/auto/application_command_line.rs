@@ -25,30 +25,43 @@ glib::glib_wrapper! {
 pub const NONE_APPLICATION_COMMAND_LINE: Option<&ApplicationCommandLine> = None;
 
 pub trait ApplicationCommandLineExt: 'static {
+    #[doc(alias = "g_application_command_line_create_file_for_arg")]
     fn create_file_for_arg<P: AsRef<std::ffi::OsStr>>(&self, arg: P) -> Option<File>;
 
+    #[doc(alias = "g_application_command_line_get_arguments")]
     fn get_arguments(&self) -> Vec<std::ffi::OsString>;
 
+    #[doc(alias = "g_application_command_line_get_cwd")]
     fn get_cwd(&self) -> Option<std::path::PathBuf>;
 
+    #[doc(alias = "g_application_command_line_get_environ")]
     fn get_environ(&self) -> Vec<std::ffi::OsString>;
 
+    #[doc(alias = "g_application_command_line_get_exit_status")]
     fn get_exit_status(&self) -> i32;
 
+    #[doc(alias = "g_application_command_line_get_is_remote")]
     fn get_is_remote(&self) -> bool;
 
+    #[doc(alias = "g_application_command_line_get_options_dict")]
     fn get_options_dict(&self) -> Option<glib::VariantDict>;
 
+    #[doc(alias = "g_application_command_line_get_platform_data")]
     fn get_platform_data(&self) -> Option<glib::Variant>;
 
+    #[doc(alias = "g_application_command_line_get_stdin")]
     fn get_stdin(&self) -> Option<InputStream>;
 
+    #[doc(alias = "g_application_command_line_getenv")]
     fn getenv<P: AsRef<std::ffi::OsStr>>(&self, name: P) -> Option<glib::GString>;
 
+    //#[doc(alias = "g_application_command_line_print")]
     //fn print(&self, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
+    //#[doc(alias = "g_application_command_line_printerr")]
     //fn printerr(&self, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
+    #[doc(alias = "g_application_command_line_set_exit_status")]
     fn set_exit_status(&self, exit_status: i32);
 
     fn connect_property_is_remote_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

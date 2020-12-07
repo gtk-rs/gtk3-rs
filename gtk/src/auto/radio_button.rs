@@ -34,6 +34,7 @@ glib::glib_wrapper! {
 }
 
 impl RadioButton {
+    #[doc(alias = "gtk_radio_button_new_from_widget")]
     pub fn from_widget<P: IsA<RadioButton>>(radio_group_member: &P) -> RadioButton {
         skip_assert_initialized!();
         unsafe {
@@ -44,6 +45,7 @@ impl RadioButton {
         }
     }
 
+    #[doc(alias = "gtk_radio_button_new_with_label_from_widget")]
     pub fn with_label_from_widget<P: IsA<RadioButton>>(
         radio_group_member: &P,
         label: &str,
@@ -58,6 +60,7 @@ impl RadioButton {
         }
     }
 
+    #[doc(alias = "gtk_radio_button_new_with_mnemonic_from_widget")]
     pub fn with_mnemonic_from_widget<P: IsA<RadioButton>>(
         radio_group_member: &P,
         label: &str,
@@ -514,8 +517,10 @@ impl RadioButtonBuilder {
 pub const NONE_RADIO_BUTTON: Option<&RadioButton> = None;
 
 pub trait RadioButtonExt: 'static {
+    #[doc(alias = "gtk_radio_button_get_group")]
     fn get_group(&self) -> Vec<RadioButton>;
 
+    #[doc(alias = "gtk_radio_button_join_group")]
     fn join_group<P: IsA<RadioButton>>(&self, group_source: Option<&P>);
 
     fn connect_group_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

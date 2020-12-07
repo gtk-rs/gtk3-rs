@@ -19,10 +19,12 @@ glib::glib_wrapper! {
 }
 
 impl FilenameCompleter {
+    #[doc(alias = "g_filename_completer_new")]
     pub fn new() -> FilenameCompleter {
         unsafe { from_glib_full(ffi::g_filename_completer_new()) }
     }
 
+    #[doc(alias = "g_filename_completer_get_completion_suffix")]
     pub fn get_completion_suffix(&self, initial_text: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::g_filename_completer_get_completion_suffix(
@@ -32,6 +34,7 @@ impl FilenameCompleter {
         }
     }
 
+    #[doc(alias = "g_filename_completer_get_completions")]
     pub fn get_completions(&self, initial_text: &str) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_filename_completer_get_completions(
@@ -41,6 +44,7 @@ impl FilenameCompleter {
         }
     }
 
+    #[doc(alias = "g_filename_completer_set_dirs_only")]
     pub fn set_dirs_only(&self, dirs_only: bool) {
         unsafe {
             ffi::g_filename_completer_set_dirs_only(self.to_glib_none().0, dirs_only.to_glib());

@@ -20,26 +20,31 @@ glib::glib_wrapper! {
 }
 
 impl Clipboard {
+    #[doc(alias = "gtk_clipboard_clear")]
     pub fn clear(&self) {
         unsafe {
             ffi::gtk_clipboard_clear(self.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_clipboard_get_display")]
     pub fn get_display(&self) -> Option<gdk::Display> {
         unsafe { from_glib_none(ffi::gtk_clipboard_get_display(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_clipboard_get_owner")]
     pub fn get_owner(&self) -> Option<glib::Object> {
         unsafe { from_glib_none(ffi::gtk_clipboard_get_owner(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_clipboard_get_selection")]
     pub fn get_selection(&self) -> Option<gdk::Atom> {
         unsafe { from_glib_none(ffi::gtk_clipboard_get_selection(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_clipboard_request_contents")]
     pub fn request_contents<P: FnOnce(&Clipboard, &SelectionData) + 'static>(
         &self,
         target: &gdk::Atom,
@@ -68,6 +73,7 @@ impl Clipboard {
         }
     }
 
+    #[doc(alias = "gtk_clipboard_request_image")]
     pub fn request_image<P: FnOnce(&Clipboard, &gdk_pixbuf::Pixbuf) + 'static>(&self, callback: P) {
         let callback_data: Box_<P> = Box_::new(callback);
         unsafe extern "C" fn callback_func<P: FnOnce(&Clipboard, &gdk_pixbuf::Pixbuf) + 'static>(
@@ -91,6 +97,7 @@ impl Clipboard {
         }
     }
 
+    #[doc(alias = "gtk_clipboard_request_rich_text")]
     pub fn request_rich_text<
         P: IsA<TextBuffer>,
         Q: FnOnce(&Clipboard, &gdk::Atom, Option<&str>, usize) + 'static,
@@ -128,6 +135,7 @@ impl Clipboard {
         }
     }
 
+    #[doc(alias = "gtk_clipboard_request_text")]
     pub fn request_text<P: FnOnce(&Clipboard, Option<&str>) + 'static>(&self, callback: P) {
         let callback_data: Box_<P> = Box_::new(callback);
         unsafe extern "C" fn callback_func<P: FnOnce(&Clipboard, Option<&str>) + 'static>(
@@ -151,12 +159,14 @@ impl Clipboard {
         }
     }
 
+    #[doc(alias = "gtk_clipboard_set_image")]
     pub fn set_image(&self, pixbuf: &gdk_pixbuf::Pixbuf) {
         unsafe {
             ffi::gtk_clipboard_set_image(self.to_glib_none().0, pixbuf.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_clipboard_set_text")]
     pub fn set_text(&self, text: &str) {
         let len = text.len() as i32;
         unsafe {
@@ -164,12 +174,14 @@ impl Clipboard {
         }
     }
 
+    #[doc(alias = "gtk_clipboard_store")]
     pub fn store(&self) {
         unsafe {
             ffi::gtk_clipboard_store(self.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_clipboard_wait_for_contents")]
     pub fn wait_for_contents(&self, target: &gdk::Atom) -> Option<SelectionData> {
         unsafe {
             from_glib_full(ffi::gtk_clipboard_wait_for_contents(
@@ -179,10 +191,12 @@ impl Clipboard {
         }
     }
 
+    #[doc(alias = "gtk_clipboard_wait_for_image")]
     pub fn wait_for_image(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe { from_glib_full(ffi::gtk_clipboard_wait_for_image(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_clipboard_wait_for_rich_text")]
     pub fn wait_for_rich_text<P: IsA<TextBuffer>>(&self, buffer: &P) -> (Vec<u8>, gdk::Atom) {
         unsafe {
             let mut format = gdk::Atom::uninitialized();
@@ -200,6 +214,7 @@ impl Clipboard {
         }
     }
 
+    #[doc(alias = "gtk_clipboard_wait_for_targets")]
     pub fn wait_for_targets(&self) -> Option<Vec<gdk::Atom>> {
         unsafe {
             let mut targets = ptr::null_mut();
@@ -220,10 +235,12 @@ impl Clipboard {
         }
     }
 
+    #[doc(alias = "gtk_clipboard_wait_for_text")]
     pub fn wait_for_text(&self) -> Option<glib::GString> {
         unsafe { from_glib_full(ffi::gtk_clipboard_wait_for_text(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_clipboard_wait_for_uris")]
     pub fn wait_for_uris(&self) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_clipboard_wait_for_uris(
@@ -232,6 +249,7 @@ impl Clipboard {
         }
     }
 
+    #[doc(alias = "gtk_clipboard_wait_is_image_available")]
     pub fn wait_is_image_available(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_clipboard_wait_is_image_available(
@@ -240,6 +258,7 @@ impl Clipboard {
         }
     }
 
+    #[doc(alias = "gtk_clipboard_wait_is_rich_text_available")]
     pub fn wait_is_rich_text_available<P: IsA<TextBuffer>>(&self, buffer: &P) -> bool {
         unsafe {
             from_glib(ffi::gtk_clipboard_wait_is_rich_text_available(
@@ -249,6 +268,7 @@ impl Clipboard {
         }
     }
 
+    #[doc(alias = "gtk_clipboard_wait_is_target_available")]
     pub fn wait_is_target_available(&self, target: &gdk::Atom) -> bool {
         unsafe {
             from_glib(ffi::gtk_clipboard_wait_is_target_available(
@@ -258,6 +278,7 @@ impl Clipboard {
         }
     }
 
+    #[doc(alias = "gtk_clipboard_wait_is_text_available")]
     pub fn wait_is_text_available(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_clipboard_wait_is_text_available(
@@ -266,6 +287,7 @@ impl Clipboard {
         }
     }
 
+    #[doc(alias = "gtk_clipboard_wait_is_uris_available")]
     pub fn wait_is_uris_available(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_clipboard_wait_is_uris_available(
@@ -274,6 +296,7 @@ impl Clipboard {
         }
     }
 
+    #[doc(alias = "gtk_clipboard_get")]
     pub fn get(selection: &gdk::Atom) -> Clipboard {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_clipboard_get(selection.to_glib_none().0)) }
@@ -281,11 +304,13 @@ impl Clipboard {
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_clipboard_get_default")]
     pub fn get_default(display: &gdk::Display) -> Option<Clipboard> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_clipboard_get_default(display.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_clipboard_get_for_display")]
     pub fn get_for_display(display: &gdk::Display, selection: &gdk::Atom) -> Clipboard {
         assert_initialized_main_thread!();
         unsafe {

@@ -36,11 +36,13 @@ glib::glib_wrapper! {
 }
 
 impl FontButton {
+    #[doc(alias = "gtk_font_button_new")]
     pub fn new() -> FontButton {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_font_button_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_font_button_new_with_font")]
     pub fn with_font(fontname: &str) -> FontButton {
         assert_initialized_main_thread!();
         unsafe {
@@ -591,29 +593,41 @@ pub const NONE_FONT_BUTTON: Option<&FontButton> = None;
 
 pub trait FontButtonExt: 'static {
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gtk_font_button_get_font_name")]
     fn get_font_name(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_font_button_get_show_size")]
     fn get_show_size(&self) -> bool;
 
+    #[doc(alias = "gtk_font_button_get_show_style")]
     fn get_show_style(&self) -> bool;
 
+    #[doc(alias = "gtk_font_button_get_title")]
     fn get_title(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_font_button_get_use_font")]
     fn get_use_font(&self) -> bool;
 
+    #[doc(alias = "gtk_font_button_get_use_size")]
     fn get_use_size(&self) -> bool;
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gtk_font_button_set_font_name")]
     fn set_font_name(&self, fontname: &str) -> bool;
 
+    #[doc(alias = "gtk_font_button_set_show_size")]
     fn set_show_size(&self, show_size: bool);
 
+    #[doc(alias = "gtk_font_button_set_show_style")]
     fn set_show_style(&self, show_style: bool);
 
+    #[doc(alias = "gtk_font_button_set_title")]
     fn set_title(&self, title: &str);
 
+    #[doc(alias = "gtk_font_button_set_use_font")]
     fn set_use_font(&self, use_font: bool);
 
+    #[doc(alias = "gtk_font_button_set_use_size")]
     fn set_use_size(&self, use_size: bool);
 
     fn connect_font_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

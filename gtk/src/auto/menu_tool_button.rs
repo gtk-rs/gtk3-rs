@@ -32,6 +32,7 @@ glib::glib_wrapper! {
 }
 
 impl MenuToolButton {
+    #[doc(alias = "gtk_menu_tool_button_new")]
     pub fn new<P: IsA<Widget>>(icon_widget: Option<&P>, label: Option<&str>) -> MenuToolButton {
         assert_initialized_main_thread!();
         unsafe {
@@ -485,12 +486,16 @@ impl MenuToolButtonBuilder {
 pub const NONE_MENU_TOOL_BUTTON: Option<&MenuToolButton> = None;
 
 pub trait MenuToolButtonExt: 'static {
+    #[doc(alias = "gtk_menu_tool_button_get_menu")]
     fn get_menu(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_menu_tool_button_set_arrow_tooltip_markup")]
     fn set_arrow_tooltip_markup(&self, markup: &str);
 
+    #[doc(alias = "gtk_menu_tool_button_set_arrow_tooltip_text")]
     fn set_arrow_tooltip_text(&self, text: &str);
 
+    #[doc(alias = "gtk_menu_tool_button_set_menu")]
     fn set_menu<P: IsA<Widget>>(&self, menu: &P);
 
     fn connect_show_menu<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

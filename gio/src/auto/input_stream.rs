@@ -21,10 +21,13 @@ glib::glib_wrapper! {
 pub const NONE_INPUT_STREAM: Option<&InputStream> = None;
 
 pub trait InputStreamExt: 'static {
+    #[doc(alias = "g_input_stream_clear_pending")]
     fn clear_pending(&self);
 
+    #[doc(alias = "g_input_stream_close")]
     fn close<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_input_stream_close_async")]
     fn close_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         io_priority: glib::Priority,
@@ -37,16 +40,20 @@ pub trait InputStreamExt: 'static {
         io_priority: glib::Priority,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_input_stream_has_pending")]
     fn has_pending(&self) -> bool;
 
+    #[doc(alias = "g_input_stream_is_closed")]
     fn is_closed(&self) -> bool;
 
+    #[doc(alias = "g_input_stream_read_bytes")]
     fn read_bytes<P: IsA<Cancellable>>(
         &self,
         count: usize,
         cancellable: Option<&P>,
     ) -> Result<glib::Bytes, glib::Error>;
 
+    #[doc(alias = "g_input_stream_read_bytes_async")]
     fn read_bytes_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<glib::Bytes, glib::Error>) + Send + 'static,
@@ -64,14 +71,17 @@ pub trait InputStreamExt: 'static {
         io_priority: glib::Priority,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<glib::Bytes, glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_input_stream_set_pending")]
     fn set_pending(&self) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_input_stream_skip")]
     fn skip<P: IsA<Cancellable>>(
         &self,
         count: usize,
         cancellable: Option<&P>,
     ) -> Result<isize, glib::Error>;
 
+    #[doc(alias = "g_input_stream_skip_async")]
     fn skip_async<P: IsA<Cancellable>, Q: FnOnce(Result<isize, glib::Error>) + Send + 'static>(
         &self,
         count: usize,

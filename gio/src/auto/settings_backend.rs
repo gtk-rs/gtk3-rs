@@ -15,10 +15,12 @@ glib::glib_wrapper! {
 }
 
 impl SettingsBackend {
+    //#[doc(alias = "g_settings_backend_flatten_tree")]
     //pub fn flatten_tree(tree: /*Ignored*/&glib::Tree) -> (glib::GString, Vec<glib::GString>, Vec<glib::Variant>) {
     //    unsafe { TODO: call ffi:g_settings_backend_flatten_tree() }
     //}
 
+    #[doc(alias = "g_settings_backend_get_default")]
     pub fn get_default() -> Option<SettingsBackend> {
         unsafe { from_glib_full(ffi::g_settings_backend_get_default()) }
     }
@@ -27,16 +29,22 @@ impl SettingsBackend {
 pub const NONE_SETTINGS_BACKEND: Option<&SettingsBackend> = None;
 
 pub trait SettingsBackendExt: 'static {
+    //#[doc(alias = "g_settings_backend_changed")]
     //fn changed(&self, key: &str, origin_tag: /*Unimplemented*/Option<Fundamental: Pointer>);
 
+    //#[doc(alias = "g_settings_backend_changed_tree")]
     //fn changed_tree(&self, tree: /*Ignored*/&glib::Tree, origin_tag: /*Unimplemented*/Option<Fundamental: Pointer>);
 
+    //#[doc(alias = "g_settings_backend_keys_changed")]
     //fn keys_changed(&self, path: &str, items: &[&str], origin_tag: /*Unimplemented*/Option<Fundamental: Pointer>);
 
+    //#[doc(alias = "g_settings_backend_path_changed")]
     //fn path_changed(&self, path: &str, origin_tag: /*Unimplemented*/Option<Fundamental: Pointer>);
 
+    #[doc(alias = "g_settings_backend_path_writable_changed")]
     fn path_writable_changed(&self, path: &str);
 
+    #[doc(alias = "g_settings_backend_writable_changed")]
     fn writable_changed(&self, key: &str);
 }
 

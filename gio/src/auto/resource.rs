@@ -20,6 +20,7 @@ glib::glib_wrapper! {
 }
 
 impl Resource {
+    #[doc(alias = "g_resource_enumerate_children")]
     pub fn enumerate_children(
         &self,
         path: &str,
@@ -41,6 +42,7 @@ impl Resource {
         }
     }
 
+    #[doc(alias = "g_resource_get_info")]
     pub fn get_info(
         &self,
         path: &str,
@@ -68,6 +70,7 @@ impl Resource {
         }
     }
 
+    #[doc(alias = "g_resource_lookup_data")]
     pub fn lookup_data(
         &self,
         path: &str,
@@ -89,6 +92,7 @@ impl Resource {
         }
     }
 
+    #[doc(alias = "g_resource_open_stream")]
     pub fn open_stream(
         &self,
         path: &str,
@@ -110,6 +114,7 @@ impl Resource {
         }
     }
 
+    #[doc(alias = "g_resource_load")]
     pub fn load<P: AsRef<std::path::Path>>(filename: P) -> Result<Resource, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();

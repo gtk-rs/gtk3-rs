@@ -23,6 +23,7 @@ glib::glib_wrapper! {
 }
 
 impl TlsFileDatabase {
+    #[doc(alias = "g_tls_file_database_new")]
     pub fn new<P: AsRef<std::path::Path>>(anchors: P) -> Result<TlsFileDatabase, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();

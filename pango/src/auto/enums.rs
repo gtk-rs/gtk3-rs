@@ -126,6 +126,7 @@ pub enum AttrType {
 }
 
 impl AttrType {
+    #[doc(alias = "pango_attr_type_get_name")]
     pub fn get_name(self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::pango_attr_type_get_name(self.to_glib())) }
     }
@@ -308,6 +309,7 @@ pub enum BidiType {
 }
 
 impl BidiType {
+    #[doc(alias = "pango_bidi_type_for_unichar")]
     pub fn for_unichar(ch: char) -> BidiType {
         unsafe { from_glib(ffi::pango_bidi_type_for_unichar(ch.to_glib())) }
     }
@@ -688,10 +690,12 @@ pub enum Gravity {
 }
 
 impl Gravity {
+    #[doc(alias = "pango_gravity_get_for_matrix")]
     pub fn get_for_matrix(matrix: Option<&Matrix>) -> Gravity {
         unsafe { from_glib(ffi::pango_gravity_get_for_matrix(matrix.to_glib_none().0)) }
     }
 
+    #[doc(alias = "pango_gravity_get_for_script")]
     pub fn get_for_script(script: Script, base_gravity: Gravity, hint: GravityHint) -> Gravity {
         unsafe {
             from_glib(ffi::pango_gravity_get_for_script(
@@ -702,6 +706,7 @@ impl Gravity {
         }
     }
 
+    #[doc(alias = "pango_gravity_get_for_script_and_width")]
     pub fn get_for_script_and_width(
         script: Script,
         wide: bool,
@@ -718,6 +723,7 @@ impl Gravity {
         }
     }
 
+    #[doc(alias = "pango_gravity_to_rotation")]
     pub fn to_rotation(self) -> f64 {
         unsafe { ffi::pango_gravity_to_rotation(self.to_glib()) }
     }
@@ -1166,10 +1172,12 @@ pub enum Script {
 
 impl Script {
     #[cfg_attr(feature = "v1_44", deprecated)]
+    #[doc(alias = "pango_script_for_unichar")]
     pub fn for_unichar(ch: char) -> Script {
         unsafe { from_glib(ffi::pango_script_for_unichar(ch.to_glib())) }
     }
 
+    #[doc(alias = "pango_script_get_sample_language")]
     pub fn get_sample_language(self) -> Option<Language> {
         unsafe { from_glib_full(ffi::pango_script_get_sample_language(self.to_glib())) }
     }

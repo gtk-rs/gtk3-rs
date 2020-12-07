@@ -30,62 +30,90 @@ glib::glib_wrapper! {
 pub const NONE_RANGE: Option<&Range> = None;
 
 pub trait RangeExt: 'static {
+    #[doc(alias = "gtk_range_get_adjustment")]
     fn get_adjustment(&self) -> Adjustment;
 
+    #[doc(alias = "gtk_range_get_fill_level")]
     fn get_fill_level(&self) -> f64;
 
+    #[doc(alias = "gtk_range_get_flippable")]
     fn get_flippable(&self) -> bool;
 
+    #[doc(alias = "gtk_range_get_inverted")]
     fn get_inverted(&self) -> bool;
 
+    #[doc(alias = "gtk_range_get_lower_stepper_sensitivity")]
     fn get_lower_stepper_sensitivity(&self) -> SensitivityType;
 
     #[cfg_attr(feature = "v3_20", deprecated)]
+    #[doc(alias = "gtk_range_get_min_slider_size")]
     fn get_min_slider_size(&self) -> i32;
 
+    #[doc(alias = "gtk_range_get_range_rect")]
     fn get_range_rect(&self) -> gdk::Rectangle;
 
+    #[doc(alias = "gtk_range_get_restrict_to_fill_level")]
     fn get_restrict_to_fill_level(&self) -> bool;
 
+    #[doc(alias = "gtk_range_get_round_digits")]
     fn get_round_digits(&self) -> i32;
 
+    #[doc(alias = "gtk_range_get_show_fill_level")]
     fn get_show_fill_level(&self) -> bool;
 
+    #[doc(alias = "gtk_range_get_slider_range")]
     fn get_slider_range(&self) -> (i32, i32);
 
+    #[doc(alias = "gtk_range_get_slider_size_fixed")]
     fn get_slider_size_fixed(&self) -> bool;
 
+    #[doc(alias = "gtk_range_get_upper_stepper_sensitivity")]
     fn get_upper_stepper_sensitivity(&self) -> SensitivityType;
 
+    #[doc(alias = "gtk_range_get_value")]
     fn get_value(&self) -> f64;
 
+    #[doc(alias = "gtk_range_set_adjustment")]
     fn set_adjustment<P: IsA<Adjustment>>(&self, adjustment: &P);
 
+    #[doc(alias = "gtk_range_set_fill_level")]
     fn set_fill_level(&self, fill_level: f64);
 
+    #[doc(alias = "gtk_range_set_flippable")]
     fn set_flippable(&self, flippable: bool);
 
+    #[doc(alias = "gtk_range_set_increments")]
     fn set_increments(&self, step: f64, page: f64);
 
+    #[doc(alias = "gtk_range_set_inverted")]
     fn set_inverted(&self, setting: bool);
 
+    #[doc(alias = "gtk_range_set_lower_stepper_sensitivity")]
     fn set_lower_stepper_sensitivity(&self, sensitivity: SensitivityType);
 
     #[cfg_attr(feature = "v3_20", deprecated)]
+    #[doc(alias = "gtk_range_set_min_slider_size")]
     fn set_min_slider_size(&self, min_size: i32);
 
+    #[doc(alias = "gtk_range_set_range")]
     fn set_range(&self, min: f64, max: f64);
 
+    #[doc(alias = "gtk_range_set_restrict_to_fill_level")]
     fn set_restrict_to_fill_level(&self, restrict_to_fill_level: bool);
 
+    #[doc(alias = "gtk_range_set_round_digits")]
     fn set_round_digits(&self, round_digits: i32);
 
+    #[doc(alias = "gtk_range_set_show_fill_level")]
     fn set_show_fill_level(&self, show_fill_level: bool);
 
+    #[doc(alias = "gtk_range_set_slider_size_fixed")]
     fn set_slider_size_fixed(&self, size_fixed: bool);
 
+    #[doc(alias = "gtk_range_set_upper_stepper_sensitivity")]
     fn set_upper_stepper_sensitivity(&self, sensitivity: SensitivityType);
 
+    #[doc(alias = "gtk_range_set_value")]
     fn set_value(&self, value: f64);
 
     fn connect_adjust_bounds<F: Fn(&Self, f64) + 'static>(&self, f: F) -> SignalHandlerId;

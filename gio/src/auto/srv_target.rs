@@ -16,6 +16,7 @@ glib::glib_wrapper! {
 }
 
 impl SrvTarget {
+    #[doc(alias = "g_srv_target_new")]
     pub fn new(hostname: &str, port: u16, priority: u16, weight: u16) -> SrvTarget {
         unsafe {
             from_glib_full(ffi::g_srv_target_new(
@@ -27,22 +28,27 @@ impl SrvTarget {
         }
     }
 
+    #[doc(alias = "g_srv_target_get_hostname")]
     pub fn get_hostname(&mut self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_srv_target_get_hostname(self.to_glib_none_mut().0)) }
     }
 
+    #[doc(alias = "g_srv_target_get_port")]
     pub fn get_port(&mut self) -> u16 {
         unsafe { ffi::g_srv_target_get_port(self.to_glib_none_mut().0) }
     }
 
+    #[doc(alias = "g_srv_target_get_priority")]
     pub fn get_priority(&mut self) -> u16 {
         unsafe { ffi::g_srv_target_get_priority(self.to_glib_none_mut().0) }
     }
 
+    #[doc(alias = "g_srv_target_get_weight")]
     pub fn get_weight(&mut self) -> u16 {
         unsafe { ffi::g_srv_target_get_weight(self.to_glib_none_mut().0) }
     }
 
+    //#[doc(alias = "g_srv_target_list_sort")]
     //pub fn list_sort(targets: /*Unimplemented*/&[&Fundamental: Pointer]) -> /*Unimplemented*/Vec<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi:g_srv_target_list_sort() }
     //}

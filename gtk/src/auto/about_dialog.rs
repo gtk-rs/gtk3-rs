@@ -34,6 +34,7 @@ glib::glib_wrapper! {
 }
 
 impl AboutDialog {
+    #[doc(alias = "gtk_about_dialog_new")]
     pub fn new() -> AboutDialog {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_about_dialog_new()).unsafe_cast() }
@@ -784,66 +785,97 @@ impl AboutDialogBuilder {
 pub const NONE_ABOUT_DIALOG: Option<&AboutDialog> = None;
 
 pub trait AboutDialogExt: 'static {
+    #[doc(alias = "gtk_about_dialog_add_credit_section")]
     fn add_credit_section(&self, section_name: &str, people: &[&str]);
 
+    #[doc(alias = "gtk_about_dialog_get_artists")]
     fn get_artists(&self) -> Vec<glib::GString>;
 
+    #[doc(alias = "gtk_about_dialog_get_authors")]
     fn get_authors(&self) -> Vec<glib::GString>;
 
+    #[doc(alias = "gtk_about_dialog_get_comments")]
     fn get_comments(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_about_dialog_get_copyright")]
     fn get_copyright(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_about_dialog_get_documenters")]
     fn get_documenters(&self) -> Vec<glib::GString>;
 
+    #[doc(alias = "gtk_about_dialog_get_license")]
     fn get_license(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_about_dialog_get_license_type")]
     fn get_license_type(&self) -> License;
 
+    #[doc(alias = "gtk_about_dialog_get_logo")]
     fn get_logo(&self) -> Option<gdk_pixbuf::Pixbuf>;
 
+    #[doc(alias = "gtk_about_dialog_get_logo_icon_name")]
     fn get_logo_icon_name(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_about_dialog_get_program_name")]
     fn get_program_name(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_about_dialog_get_translator_credits")]
     fn get_translator_credits(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_about_dialog_get_version")]
     fn get_version(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_about_dialog_get_website")]
     fn get_website(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_about_dialog_get_website_label")]
     fn get_website_label(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_about_dialog_get_wrap_license")]
     fn get_wrap_license(&self) -> bool;
 
+    #[doc(alias = "gtk_about_dialog_set_artists")]
     fn set_artists(&self, artists: &[&str]);
 
+    #[doc(alias = "gtk_about_dialog_set_authors")]
     fn set_authors(&self, authors: &[&str]);
 
+    #[doc(alias = "gtk_about_dialog_set_comments")]
     fn set_comments(&self, comments: Option<&str>);
 
+    #[doc(alias = "gtk_about_dialog_set_copyright")]
     fn set_copyright(&self, copyright: Option<&str>);
 
+    #[doc(alias = "gtk_about_dialog_set_documenters")]
     fn set_documenters(&self, documenters: &[&str]);
 
+    #[doc(alias = "gtk_about_dialog_set_license")]
     fn set_license(&self, license: Option<&str>);
 
+    #[doc(alias = "gtk_about_dialog_set_license_type")]
     fn set_license_type(&self, license_type: License);
 
+    #[doc(alias = "gtk_about_dialog_set_logo")]
     fn set_logo(&self, logo: Option<&gdk_pixbuf::Pixbuf>);
 
+    #[doc(alias = "gtk_about_dialog_set_logo_icon_name")]
     fn set_logo_icon_name(&self, icon_name: Option<&str>);
 
+    #[doc(alias = "gtk_about_dialog_set_program_name")]
     fn set_program_name(&self, name: &str);
 
+    #[doc(alias = "gtk_about_dialog_set_translator_credits")]
     fn set_translator_credits(&self, translator_credits: Option<&str>);
 
+    #[doc(alias = "gtk_about_dialog_set_version")]
     fn set_version(&self, version: Option<&str>);
 
+    #[doc(alias = "gtk_about_dialog_set_website")]
     fn set_website(&self, website: Option<&str>);
 
+    #[doc(alias = "gtk_about_dialog_set_website_label")]
     fn set_website_label(&self, website_label: Option<&str>);
 
+    #[doc(alias = "gtk_about_dialog_set_wrap_license")]
     fn set_wrap_license(&self, wrap_license: bool);
 
     fn connect_activate_link<F: Fn(&Self, &str) -> glib::signal::Inhibit + 'static>(

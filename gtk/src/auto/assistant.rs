@@ -34,6 +34,7 @@ glib::glib_wrapper! {
 }
 
 impl Assistant {
+    #[doc(alias = "gtk_assistant_new")]
     pub fn new() -> Assistant {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_assistant_new()).unsafe_cast() }
@@ -649,54 +650,77 @@ impl AssistantBuilder {
 pub const NONE_ASSISTANT: Option<&Assistant> = None;
 
 pub trait AssistantExt: 'static {
+    #[doc(alias = "gtk_assistant_add_action_widget")]
     fn add_action_widget<P: IsA<Widget>>(&self, child: &P);
 
+    #[doc(alias = "gtk_assistant_append_page")]
     fn append_page<P: IsA<Widget>>(&self, page: &P) -> i32;
 
+    #[doc(alias = "gtk_assistant_commit")]
     fn commit(&self);
 
+    #[doc(alias = "gtk_assistant_get_current_page")]
     fn get_current_page(&self) -> i32;
 
+    #[doc(alias = "gtk_assistant_get_n_pages")]
     fn get_n_pages(&self) -> i32;
 
+    #[doc(alias = "gtk_assistant_get_nth_page")]
     fn get_nth_page(&self, page_num: i32) -> Option<Widget>;
 
+    #[doc(alias = "gtk_assistant_get_page_complete")]
     fn get_page_complete<P: IsA<Widget>>(&self, page: &P) -> bool;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_assistant_get_page_has_padding")]
     fn get_page_has_padding<P: IsA<Widget>>(&self, page: &P) -> bool;
 
+    #[doc(alias = "gtk_assistant_get_page_title")]
     fn get_page_title<P: IsA<Widget>>(&self, page: &P) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_assistant_get_page_type")]
     fn get_page_type<P: IsA<Widget>>(&self, page: &P) -> AssistantPageType;
 
+    #[doc(alias = "gtk_assistant_insert_page")]
     fn insert_page<P: IsA<Widget>>(&self, page: &P, position: i32) -> i32;
 
+    #[doc(alias = "gtk_assistant_next_page")]
     fn next_page(&self);
 
+    #[doc(alias = "gtk_assistant_prepend_page")]
     fn prepend_page<P: IsA<Widget>>(&self, page: &P) -> i32;
 
+    #[doc(alias = "gtk_assistant_previous_page")]
     fn previous_page(&self);
 
+    #[doc(alias = "gtk_assistant_remove_action_widget")]
     fn remove_action_widget<P: IsA<Widget>>(&self, child: &P);
 
+    #[doc(alias = "gtk_assistant_remove_page")]
     fn remove_page(&self, page_num: i32);
 
+    #[doc(alias = "gtk_assistant_set_current_page")]
     fn set_current_page(&self, page_num: i32);
 
+    #[doc(alias = "gtk_assistant_set_forward_page_func")]
     fn set_forward_page_func(&self, page_func: Option<Box_<dyn Fn(i32) -> i32 + 'static>>);
 
+    #[doc(alias = "gtk_assistant_set_page_complete")]
     fn set_page_complete<P: IsA<Widget>>(&self, page: &P, complete: bool);
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_assistant_set_page_has_padding")]
     fn set_page_has_padding<P: IsA<Widget>>(&self, page: &P, has_padding: bool);
 
+    #[doc(alias = "gtk_assistant_set_page_title")]
     fn set_page_title<P: IsA<Widget>>(&self, page: &P, title: &str);
 
+    #[doc(alias = "gtk_assistant_set_page_type")]
     fn set_page_type<P: IsA<Widget>>(&self, page: &P, type_: AssistantPageType);
 
+    #[doc(alias = "gtk_assistant_update_buttons_state")]
     fn update_buttons_state(&self);
 
     fn get_property_use_header_bar(&self) -> i32;

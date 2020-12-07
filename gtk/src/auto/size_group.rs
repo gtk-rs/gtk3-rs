@@ -25,6 +25,7 @@ glib::glib_wrapper! {
 }
 
 impl SizeGroup {
+    #[doc(alias = "gtk_size_group_new")]
     pub fn new(mode: SizeGroupMode) -> SizeGroup {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gtk_size_group_new(mode.to_glib())) }
@@ -71,20 +72,27 @@ impl SizeGroupBuilder {
 pub const NONE_SIZE_GROUP: Option<&SizeGroup> = None;
 
 pub trait SizeGroupExt: 'static {
+    #[doc(alias = "gtk_size_group_add_widget")]
     fn add_widget<P: IsA<Widget>>(&self, widget: &P);
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gtk_size_group_get_ignore_hidden")]
     fn get_ignore_hidden(&self) -> bool;
 
+    #[doc(alias = "gtk_size_group_get_mode")]
     fn get_mode(&self) -> SizeGroupMode;
 
+    #[doc(alias = "gtk_size_group_get_widgets")]
     fn get_widgets(&self) -> Vec<Widget>;
 
+    #[doc(alias = "gtk_size_group_remove_widget")]
     fn remove_widget<P: IsA<Widget>>(&self, widget: &P);
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gtk_size_group_set_ignore_hidden")]
     fn set_ignore_hidden(&self, ignore_hidden: bool);
 
+    #[doc(alias = "gtk_size_group_set_mode")]
     fn set_mode(&self, mode: SizeGroupMode);
 
     #[cfg_attr(feature = "v3_22", deprecated)]

@@ -23,10 +23,13 @@ glib::glib_wrapper! {
 pub const NONE_OUTPUT_STREAM: Option<&OutputStream> = None;
 
 pub trait OutputStreamExt: 'static {
+    #[doc(alias = "g_output_stream_clear_pending")]
     fn clear_pending(&self);
 
+    #[doc(alias = "g_output_stream_close")]
     fn close<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_output_stream_close_async")]
     fn close_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         io_priority: glib::Priority,
@@ -39,8 +42,10 @@ pub trait OutputStreamExt: 'static {
         io_priority: glib::Priority,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_output_stream_flush")]
     fn flush<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_output_stream_flush_async")]
     fn flush_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         io_priority: glib::Priority,
@@ -53,16 +58,22 @@ pub trait OutputStreamExt: 'static {
         io_priority: glib::Priority,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_output_stream_has_pending")]
     fn has_pending(&self) -> bool;
 
+    #[doc(alias = "g_output_stream_is_closed")]
     fn is_closed(&self) -> bool;
 
+    #[doc(alias = "g_output_stream_is_closing")]
     fn is_closing(&self) -> bool;
 
+    //#[doc(alias = "g_output_stream_printf")]
     //fn printf<P: IsA<Cancellable>>(&self, cancellable: Option<&P>, error: &mut glib::Error, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<usize>;
 
+    #[doc(alias = "g_output_stream_set_pending")]
     fn set_pending(&self) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_output_stream_splice")]
     fn splice<P: IsA<InputStream>, Q: IsA<Cancellable>>(
         &self,
         source: &P,
@@ -70,6 +81,7 @@ pub trait OutputStreamExt: 'static {
         cancellable: Option<&Q>,
     ) -> Result<isize, glib::Error>;
 
+    #[doc(alias = "g_output_stream_splice_async")]
     fn splice_async<
         P: IsA<InputStream>,
         Q: IsA<Cancellable>,
@@ -90,20 +102,24 @@ pub trait OutputStreamExt: 'static {
         io_priority: glib::Priority,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<isize, glib::Error>> + 'static>>;
 
+    //#[doc(alias = "g_output_stream_vprintf")]
     //fn vprintf<P: IsA<Cancellable>>(&self, cancellable: Option<&P>, error: &mut glib::Error, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<usize>;
 
+    #[doc(alias = "g_output_stream_write")]
     fn write<P: IsA<Cancellable>>(
         &self,
         buffer: &[u8],
         cancellable: Option<&P>,
     ) -> Result<isize, glib::Error>;
 
+    #[doc(alias = "g_output_stream_write_bytes")]
     fn write_bytes<P: IsA<Cancellable>>(
         &self,
         bytes: &glib::Bytes,
         cancellable: Option<&P>,
     ) -> Result<isize, glib::Error>;
 
+    #[doc(alias = "g_output_stream_write_bytes_async")]
     fn write_bytes_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<isize, glib::Error>) + Send + 'static,
@@ -123,14 +139,17 @@ pub trait OutputStreamExt: 'static {
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    //#[doc(alias = "g_output_stream_writev")]
     //fn writev<P: IsA<Cancellable>>(&self, vectors: /*Ignored*/&[&OutputVector], cancellable: Option<&P>) -> Result<usize, glib::Error>;
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    //#[doc(alias = "g_output_stream_writev_all")]
     //fn writev_all<P: IsA<Cancellable>>(&self, vectors: /*Ignored*/&[&OutputVector], cancellable: Option<&P>) -> Result<usize, glib::Error>;
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    //#[doc(alias = "g_output_stream_writev_all_async")]
     //fn writev_all_async<P: IsA<Cancellable>, Q: FnOnce(Result<usize, glib::Error>) + Send + 'static>(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     //
@@ -140,6 +159,7 @@ pub trait OutputStreamExt: 'static {
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    //#[doc(alias = "g_output_stream_writev_async")]
     //fn writev_async<P: IsA<Cancellable>, Q: FnOnce(Result<usize, glib::Error>) + Send + 'static>(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     //

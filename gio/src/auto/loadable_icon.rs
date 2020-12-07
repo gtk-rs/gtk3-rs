@@ -23,12 +23,14 @@ glib::glib_wrapper! {
 pub const NONE_LOADABLE_ICON: Option<&LoadableIcon> = None;
 
 pub trait LoadableIconExt: 'static {
+    #[doc(alias = "g_loadable_icon_load")]
     fn load<P: IsA<Cancellable>>(
         &self,
         size: i32,
         cancellable: Option<&P>,
     ) -> Result<(InputStream, glib::GString), glib::Error>;
 
+    #[doc(alias = "g_loadable_icon_load_async")]
     fn load_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<(InputStream, glib::GString), glib::Error>) + Send + 'static,

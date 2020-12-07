@@ -31,11 +31,13 @@ glib::glib_wrapper! {
 }
 
 impl CheckMenuItem {
+    #[doc(alias = "gtk_check_menu_item_new")]
     pub fn new() -> CheckMenuItem {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_check_menu_item_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_check_menu_item_new_with_label")]
     pub fn with_label(label: &str) -> CheckMenuItem {
         assert_initialized_main_thread!();
         unsafe {
@@ -46,6 +48,7 @@ impl CheckMenuItem {
         }
     }
 
+    #[doc(alias = "gtk_check_menu_item_new_with_mnemonic")]
     pub fn with_mnemonic(label: &str) -> CheckMenuItem {
         assert_initialized_main_thread!();
         unsafe {
@@ -495,18 +498,25 @@ impl CheckMenuItemBuilder {
 pub const NONE_CHECK_MENU_ITEM: Option<&CheckMenuItem> = None;
 
 pub trait CheckMenuItemExt: 'static {
+    #[doc(alias = "gtk_check_menu_item_get_active")]
     fn get_active(&self) -> bool;
 
+    #[doc(alias = "gtk_check_menu_item_get_draw_as_radio")]
     fn get_draw_as_radio(&self) -> bool;
 
+    #[doc(alias = "gtk_check_menu_item_get_inconsistent")]
     fn get_inconsistent(&self) -> bool;
 
+    #[doc(alias = "gtk_check_menu_item_set_active")]
     fn set_active(&self, is_active: bool);
 
+    #[doc(alias = "gtk_check_menu_item_set_draw_as_radio")]
     fn set_draw_as_radio(&self, draw_as_radio: bool);
 
+    #[doc(alias = "gtk_check_menu_item_set_inconsistent")]
     fn set_inconsistent(&self, setting: bool);
 
+    #[doc(alias = "gtk_check_menu_item_toggled")]
     fn toggled(&self);
 
     fn connect_toggled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

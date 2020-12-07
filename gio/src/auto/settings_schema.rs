@@ -17,10 +17,12 @@ glib::glib_wrapper! {
 }
 
 impl SettingsSchema {
+    #[doc(alias = "g_settings_schema_get_id")]
     pub fn get_id(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_settings_schema_get_id(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_settings_schema_get_key")]
     pub fn get_key(&self, name: &str) -> Option<SettingsSchemaKey> {
         unsafe {
             from_glib_full(ffi::g_settings_schema_get_key(
@@ -30,10 +32,12 @@ impl SettingsSchema {
         }
     }
 
+    #[doc(alias = "g_settings_schema_get_path")]
     pub fn get_path(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_settings_schema_get_path(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_settings_schema_has_key")]
     pub fn has_key(&self, name: &str) -> bool {
         unsafe {
             from_glib(ffi::g_settings_schema_has_key(
@@ -45,6 +49,7 @@ impl SettingsSchema {
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_settings_schema_list_children")]
     pub fn list_children(&self) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_settings_schema_list_children(
@@ -55,6 +60,7 @@ impl SettingsSchema {
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+    #[doc(alias = "g_settings_schema_list_keys")]
     pub fn list_keys(&self) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_settings_schema_list_keys(

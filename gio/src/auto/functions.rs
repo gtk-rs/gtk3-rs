@@ -20,6 +20,7 @@ use std::mem;
 use std::pin::Pin;
 use std::ptr;
 
+#[doc(alias = "g_bus_get")]
 pub fn bus_get<
     P: IsA<Cancellable>,
     Q: FnOnce(Result<DBusConnection, glib::Error>) + Send + 'static,
@@ -70,6 +71,7 @@ pub fn bus_get_future(
     }))
 }
 
+#[doc(alias = "g_bus_get_sync")]
 pub fn bus_get_sync<P: IsA<Cancellable>>(
     bus_type: BusType,
     cancellable: Option<&P>,
@@ -89,22 +91,27 @@ pub fn bus_get_sync<P: IsA<Cancellable>>(
     }
 }
 
+//#[doc(alias = "g_bus_own_name")]
 //pub fn bus_own_name(bus_type: BusType, name: &str, flags: BusNameOwnerFlags, bus_acquired_handler: Option<Box_<dyn Fn(&DBusConnection, &str) + 'static>>, name_acquired_handler: Option<Box_<dyn Fn(&DBusConnection, &str) + 'static>>, name_lost_handler: Option<Box_<dyn Fn(&DBusConnection, &str) + 'static>>) -> u32 {
 //    unsafe { TODO: call ffi:g_bus_own_name() }
 //}
 
+//#[doc(alias = "g_bus_own_name_on_connection")]
 //pub fn bus_own_name_on_connection(connection: &DBusConnection, name: &str, flags: BusNameOwnerFlags, name_acquired_handler: Option<Box_<dyn Fn(&DBusConnection, &str) + 'static>>, name_lost_handler: Option<Box_<dyn Fn(&DBusConnection, &str) + 'static>>) -> u32 {
 //    unsafe { TODO: call ffi:g_bus_own_name_on_connection() }
 //}
 
+//#[doc(alias = "g_bus_watch_name")]
 //pub fn bus_watch_name(bus_type: BusType, name: &str, flags: BusNameWatcherFlags, name_appeared_handler: Option<Box_<dyn Fn(&DBusConnection, &str, &str) + 'static>>, name_vanished_handler: Option<Box_<dyn Fn(&DBusConnection, &str) + 'static>>) -> u32 {
 //    unsafe { TODO: call ffi:g_bus_watch_name() }
 //}
 
+//#[doc(alias = "g_bus_watch_name_on_connection")]
 //pub fn bus_watch_name_on_connection(connection: &DBusConnection, name: &str, flags: BusNameWatcherFlags, name_appeared_handler: Option<Box_<dyn Fn(&DBusConnection, &str, &str) + 'static>>, name_vanished_handler: Option<Box_<dyn Fn(&DBusConnection, &str) + 'static>>) -> u32 {
 //    unsafe { TODO: call ffi:g_bus_watch_name_on_connection() }
 //}
 
+#[doc(alias = "g_content_type_can_be_executable")]
 pub fn content_type_can_be_executable(type_: &str) -> bool {
     unsafe {
         from_glib(ffi::g_content_type_can_be_executable(
@@ -113,6 +120,7 @@ pub fn content_type_can_be_executable(type_: &str) -> bool {
     }
 }
 
+#[doc(alias = "g_content_type_equals")]
 pub fn content_type_equals(type1: &str, type2: &str) -> bool {
     unsafe {
         from_glib(ffi::g_content_type_equals(
@@ -122,6 +130,7 @@ pub fn content_type_equals(type1: &str, type2: &str) -> bool {
     }
 }
 
+#[doc(alias = "g_content_type_from_mime_type")]
 pub fn content_type_from_mime_type(mime_type: &str) -> Option<glib::GString> {
     unsafe {
         from_glib_full(ffi::g_content_type_from_mime_type(
@@ -130,10 +139,12 @@ pub fn content_type_from_mime_type(mime_type: &str) -> Option<glib::GString> {
     }
 }
 
+#[doc(alias = "g_content_type_get_description")]
 pub fn content_type_get_description(type_: &str) -> Option<glib::GString> {
     unsafe { from_glib_full(ffi::g_content_type_get_description(type_.to_glib_none().0)) }
 }
 
+#[doc(alias = "g_content_type_get_generic_icon_name")]
 pub fn content_type_get_generic_icon_name(type_: &str) -> Option<glib::GString> {
     unsafe {
         from_glib_full(ffi::g_content_type_get_generic_icon_name(
@@ -142,20 +153,24 @@ pub fn content_type_get_generic_icon_name(type_: &str) -> Option<glib::GString> 
     }
 }
 
+#[doc(alias = "g_content_type_get_icon")]
 pub fn content_type_get_icon(type_: &str) -> Option<Icon> {
     unsafe { from_glib_full(ffi::g_content_type_get_icon(type_.to_glib_none().0)) }
 }
 
 #[cfg(any(feature = "v2_60", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+#[doc(alias = "g_content_type_get_mime_dirs")]
 pub fn content_type_get_mime_dirs() -> Vec<glib::GString> {
     unsafe { FromGlibPtrContainer::from_glib_none(ffi::g_content_type_get_mime_dirs()) }
 }
 
+#[doc(alias = "g_content_type_get_mime_type")]
 pub fn content_type_get_mime_type(type_: &str) -> Option<glib::GString> {
     unsafe { from_glib_full(ffi::g_content_type_get_mime_type(type_.to_glib_none().0)) }
 }
 
+#[doc(alias = "g_content_type_get_symbolic_icon")]
 pub fn content_type_get_symbolic_icon(type_: &str) -> Option<Icon> {
     unsafe {
         from_glib_full(ffi::g_content_type_get_symbolic_icon(
@@ -164,6 +179,7 @@ pub fn content_type_get_symbolic_icon(type_: &str) -> Option<Icon> {
     }
 }
 
+#[doc(alias = "g_content_type_guess")]
 pub fn content_type_guess(filename: Option<&str>, data: &[u8]) -> (glib::GString, bool) {
     let data_size = data.len() as usize;
     unsafe {
@@ -179,6 +195,7 @@ pub fn content_type_guess(filename: Option<&str>, data: &[u8]) -> (glib::GString
     }
 }
 
+#[doc(alias = "g_content_type_guess_for_tree")]
 pub fn content_type_guess_for_tree<P: IsA<File>>(root: &P) -> Vec<glib::GString> {
     unsafe {
         FromGlibPtrContainer::from_glib_full(ffi::g_content_type_guess_for_tree(
@@ -187,6 +204,7 @@ pub fn content_type_guess_for_tree<P: IsA<File>>(root: &P) -> Vec<glib::GString>
     }
 }
 
+#[doc(alias = "g_content_type_is_a")]
 pub fn content_type_is_a(type_: &str, supertype: &str) -> bool {
     unsafe {
         from_glib(ffi::g_content_type_is_a(
@@ -198,6 +216,7 @@ pub fn content_type_is_a(type_: &str, supertype: &str) -> bool {
 
 #[cfg(any(feature = "v2_52", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
+#[doc(alias = "g_content_type_is_mime_type")]
 pub fn content_type_is_mime_type(type_: &str, mime_type: &str) -> bool {
     unsafe {
         from_glib(ffi::g_content_type_is_mime_type(
@@ -207,26 +226,31 @@ pub fn content_type_is_mime_type(type_: &str, mime_type: &str) -> bool {
     }
 }
 
+#[doc(alias = "g_content_type_is_unknown")]
 pub fn content_type_is_unknown(type_: &str) -> bool {
     unsafe { from_glib(ffi::g_content_type_is_unknown(type_.to_glib_none().0)) }
 }
 
 #[cfg(any(feature = "v2_60", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+#[doc(alias = "g_content_type_set_mime_dirs")]
 pub fn content_type_set_mime_dirs(dirs: &[&str]) {
     unsafe {
         ffi::g_content_type_set_mime_dirs(dirs.to_glib_none().0);
     }
 }
 
+#[doc(alias = "g_content_types_get_registered")]
 pub fn content_types_get_registered() -> Vec<glib::GString> {
     unsafe { FromGlibPtrContainer::from_glib_full(ffi::g_content_types_get_registered()) }
 }
 
+#[doc(alias = "g_dbus_address_escape_value")]
 pub fn dbus_address_escape_value(string: &str) -> Option<glib::GString> {
     unsafe { from_glib_full(ffi::g_dbus_address_escape_value(string.to_glib_none().0)) }
 }
 
+#[doc(alias = "g_dbus_address_get_for_bus_sync")]
 pub fn dbus_address_get_for_bus_sync<P: IsA<Cancellable>>(
     bus_type: BusType,
     cancellable: Option<&P>,
@@ -246,6 +270,7 @@ pub fn dbus_address_get_for_bus_sync<P: IsA<Cancellable>>(
     }
 }
 
+#[doc(alias = "g_dbus_address_get_stream")]
 pub fn dbus_address_get_stream<
     P: IsA<Cancellable>,
     Q: FnOnce(Result<(IOStream, glib::GString), glib::Error>) + Send + 'static,
@@ -302,6 +327,7 @@ pub fn dbus_address_get_stream_future(
     }))
 }
 
+#[doc(alias = "g_dbus_address_get_stream_sync")]
 pub fn dbus_address_get_stream_sync<P: IsA<Cancellable>>(
     address: &str,
     cancellable: Option<&P>,
@@ -323,10 +349,12 @@ pub fn dbus_address_get_stream_sync<P: IsA<Cancellable>>(
     }
 }
 
+#[doc(alias = "g_dbus_generate_guid")]
 pub fn dbus_generate_guid() -> Option<glib::GString> {
     unsafe { from_glib_full(ffi::g_dbus_generate_guid()) }
 }
 
+#[doc(alias = "g_dbus_gvalue_to_gvariant")]
 pub fn dbus_gvalue_to_gvariant(
     gvalue: &glib::Value,
     type_: &glib::VariantTy,
@@ -339,6 +367,7 @@ pub fn dbus_gvalue_to_gvariant(
     }
 }
 
+#[doc(alias = "g_dbus_gvariant_to_gvalue")]
 pub fn dbus_gvariant_to_gvalue(value: &glib::Variant) -> glib::Value {
     unsafe {
         let mut out_gvalue = glib::Value::uninitialized();
@@ -347,26 +376,32 @@ pub fn dbus_gvariant_to_gvalue(value: &glib::Variant) -> glib::Value {
     }
 }
 
+#[doc(alias = "g_dbus_is_address")]
 pub fn dbus_is_address(string: &str) -> bool {
     unsafe { from_glib(ffi::g_dbus_is_address(string.to_glib_none().0)) }
 }
 
+#[doc(alias = "g_dbus_is_guid")]
 pub fn dbus_is_guid(string: &str) -> bool {
     unsafe { from_glib(ffi::g_dbus_is_guid(string.to_glib_none().0)) }
 }
 
+#[doc(alias = "g_dbus_is_interface_name")]
 pub fn dbus_is_interface_name(string: &str) -> bool {
     unsafe { from_glib(ffi::g_dbus_is_interface_name(string.to_glib_none().0)) }
 }
 
+#[doc(alias = "g_dbus_is_member_name")]
 pub fn dbus_is_member_name(string: &str) -> bool {
     unsafe { from_glib(ffi::g_dbus_is_member_name(string.to_glib_none().0)) }
 }
 
+#[doc(alias = "g_dbus_is_name")]
 pub fn dbus_is_name(string: &str) -> bool {
     unsafe { from_glib(ffi::g_dbus_is_name(string.to_glib_none().0)) }
 }
 
+#[doc(alias = "g_dbus_is_supported_address")]
 pub fn dbus_is_supported_address(string: &str) -> Result<(), glib::Error> {
     unsafe {
         let mut error = ptr::null_mut();
@@ -379,42 +414,51 @@ pub fn dbus_is_supported_address(string: &str) -> Result<(), glib::Error> {
     }
 }
 
+#[doc(alias = "g_dbus_is_unique_name")]
 pub fn dbus_is_unique_name(string: &str) -> bool {
     unsafe { from_glib(ffi::g_dbus_is_unique_name(string.to_glib_none().0)) }
 }
 
+#[doc(alias = "g_io_error_from_errno")]
 pub fn io_error_from_errno(err_no: i32) -> IOErrorEnum {
     unsafe { from_glib(ffi::g_io_error_from_errno(err_no)) }
 }
 
+//#[doc(alias = "g_io_modules_load_all_in_directory")]
 //pub fn io_modules_load_all_in_directory<P: AsRef<std::path::Path>>(dirname: P) -> /*Ignored*/Vec<IOModule> {
 //    unsafe { TODO: call ffi:g_io_modules_load_all_in_directory() }
 //}
 
+//#[doc(alias = "g_io_modules_load_all_in_directory_with_scope")]
 //pub fn io_modules_load_all_in_directory_with_scope<P: AsRef<std::path::Path>>(dirname: P, scope: /*Ignored*/&mut IOModuleScope) -> /*Ignored*/Vec<IOModule> {
 //    unsafe { TODO: call ffi:g_io_modules_load_all_in_directory_with_scope() }
 //}
 
+#[doc(alias = "g_io_modules_scan_all_in_directory")]
 pub fn io_modules_scan_all_in_directory<P: AsRef<std::path::Path>>(dirname: P) {
     unsafe {
         ffi::g_io_modules_scan_all_in_directory(dirname.as_ref().to_glib_none().0);
     }
 }
 
+//#[doc(alias = "g_io_modules_scan_all_in_directory_with_scope")]
 //pub fn io_modules_scan_all_in_directory_with_scope<P: AsRef<std::path::Path>>(dirname: P, scope: /*Ignored*/&mut IOModuleScope) {
 //    unsafe { TODO: call ffi:g_io_modules_scan_all_in_directory_with_scope() }
 //}
 
+#[doc(alias = "g_io_scheduler_cancel_all_jobs")]
 pub fn io_scheduler_cancel_all_jobs() {
     unsafe {
         ffi::g_io_scheduler_cancel_all_jobs();
     }
 }
 
+//#[doc(alias = "g_io_scheduler_push_job")]
 //pub fn io_scheduler_push_job<P: IsA<Cancellable>>(job_func: /*Unimplemented*/Fn(/*Ignored*/IOSchedulerJob, Option<&Cancellable>) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>, io_priority: i32, cancellable: Option<&P>) {
 //    unsafe { TODO: call ffi:g_io_scheduler_push_job() }
 //}
 
+#[doc(alias = "g_keyfile_settings_backend_new")]
 pub fn keyfile_settings_backend_new(
     filename: &str,
     root_path: &str,
@@ -429,20 +473,24 @@ pub fn keyfile_settings_backend_new(
     }
 }
 
+#[doc(alias = "g_memory_settings_backend_new")]
 pub fn memory_settings_backend_new() -> Option<SettingsBackend> {
     unsafe { from_glib_full(ffi::g_memory_settings_backend_new()) }
 }
 
+#[doc(alias = "g_networking_init")]
 pub fn networking_init() {
     unsafe {
         ffi::g_networking_init();
     }
 }
 
+#[doc(alias = "g_null_settings_backend_new")]
 pub fn null_settings_backend_new() -> Option<SettingsBackend> {
     unsafe { from_glib_full(ffi::g_null_settings_backend_new()) }
 }
 
+#[doc(alias = "g_resources_enumerate_children")]
 pub fn resources_enumerate_children(
     path: &str,
     lookup_flags: ResourceLookupFlags,
@@ -462,6 +510,7 @@ pub fn resources_enumerate_children(
     }
 }
 
+#[doc(alias = "g_resources_get_info")]
 pub fn resources_get_info(
     path: &str,
     lookup_flags: ResourceLookupFlags,
@@ -487,6 +536,7 @@ pub fn resources_get_info(
     }
 }
 
+#[doc(alias = "g_resources_lookup_data")]
 pub fn resources_lookup_data(
     path: &str,
     lookup_flags: ResourceLookupFlags,
@@ -503,6 +553,7 @@ pub fn resources_lookup_data(
     }
 }
 
+#[doc(alias = "g_resources_open_stream")]
 pub fn resources_open_stream(
     path: &str,
     lookup_flags: ResourceLookupFlags,
@@ -519,12 +570,14 @@ pub fn resources_open_stream(
     }
 }
 
+#[doc(alias = "g_resources_register")]
 pub fn resources_register(resource: &Resource) {
     unsafe {
         ffi::g_resources_register(resource.to_glib_none().0);
     }
 }
 
+#[doc(alias = "g_resources_unregister")]
 pub fn resources_unregister(resource: &Resource) {
     unsafe {
         ffi::g_resources_unregister(resource.to_glib_none().0);
@@ -532,22 +585,26 @@ pub fn resources_unregister(resource: &Resource) {
 }
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
+//#[doc(alias = "g_simple_async_report_error_in_idle")]
 //pub fn simple_async_report_error_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), glib::Error>) + 'static>(object: Option<&P>, callback: Q, domain: glib::Quark, code: i32, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
 //    unsafe { TODO: call ffi:g_simple_async_report_error_in_idle() }
 //}
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
+//#[doc(alias = "g_simple_async_report_gerror_in_idle")]
 //pub fn simple_async_report_gerror_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), glib::Error>) + 'static>(object: Option<&P>, callback: Q, error: &glib::Error) {
 //    unsafe { TODO: call ffi:g_simple_async_report_gerror_in_idle() }
 //}
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
+//#[doc(alias = "g_simple_async_report_take_gerror_in_idle")]
 //pub fn simple_async_report_take_gerror_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), glib::Error>) + 'static>(object: Option<&P>, callback: Q, error: &mut glib::Error) {
 //    unsafe { TODO: call ffi:g_simple_async_report_take_gerror_in_idle() }
 //}
 
 #[cfg(any(unix, feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+#[doc(alias = "g_unix_is_mount_path_system_internal")]
 pub fn unix_is_mount_path_system_internal<P: AsRef<std::path::Path>>(mount_path: P) -> bool {
     unsafe {
         from_glib(ffi::g_unix_is_mount_path_system_internal(
@@ -560,6 +617,7 @@ pub fn unix_is_mount_path_system_internal<P: AsRef<std::path::Path>>(mount_path:
 #[cfg_attr(feature = "dox", doc(cfg(unix)))]
 #[cfg(any(feature = "v2_56", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+#[doc(alias = "g_unix_is_system_device_path")]
 pub fn unix_is_system_device_path<P: AsRef<std::path::Path>>(device_path: P) -> bool {
     unsafe {
         from_glib(ffi::g_unix_is_system_device_path(
@@ -572,6 +630,7 @@ pub fn unix_is_system_device_path<P: AsRef<std::path::Path>>(device_path: P) -> 
 #[cfg_attr(feature = "dox", doc(cfg(unix)))]
 #[cfg(any(feature = "v2_56", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+#[doc(alias = "g_unix_is_system_fs_type")]
 pub fn unix_is_system_fs_type(fs_type: &str) -> bool {
     unsafe { from_glib(ffi::g_unix_is_system_fs_type(fs_type.to_glib_none().0)) }
 }

@@ -2165,6 +2165,7 @@ pub enum IconSize {
 }
 
 impl IconSize {
+    #[doc(alias = "gtk_icon_size_lookup")]
     pub fn lookup(self) -> Option<(i32, i32)> {
         assert_initialized_main_thread!();
         unsafe {

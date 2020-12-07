@@ -27,137 +27,199 @@ glib::glib_wrapper! {
 pub const NONE_FILE_CHOOSER: Option<&FileChooser> = None;
 
 pub trait FileChooserExt: 'static {
+    #[doc(alias = "gtk_file_chooser_add_filter")]
     fn add_filter(&self, filter: &FileFilter);
 
+    #[doc(alias = "gtk_file_chooser_add_shortcut_folder")]
     fn add_shortcut_folder<P: AsRef<std::path::Path>>(&self, folder: P) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gtk_file_chooser_add_shortcut_folder_uri")]
     fn add_shortcut_folder_uri(&self, uri: &str) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gtk_file_chooser_get_action")]
     fn get_action(&self) -> FileChooserAction;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_file_chooser_get_choice")]
     fn get_choice(&self, id: &str) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_file_chooser_get_create_folders")]
     fn get_create_folders(&self) -> bool;
 
+    #[doc(alias = "gtk_file_chooser_get_current_folder")]
     fn get_current_folder(&self) -> Option<std::path::PathBuf>;
 
+    #[doc(alias = "gtk_file_chooser_get_current_folder_file")]
     fn get_current_folder_file(&self) -> Option<gio::File>;
 
+    #[doc(alias = "gtk_file_chooser_get_current_folder_uri")]
     fn get_current_folder_uri(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_file_chooser_get_current_name")]
     fn get_current_name(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_file_chooser_get_do_overwrite_confirmation")]
     fn get_do_overwrite_confirmation(&self) -> bool;
 
+    #[doc(alias = "gtk_file_chooser_get_extra_widget")]
     fn get_extra_widget(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_file_chooser_get_file")]
     fn get_file(&self) -> Option<gio::File>;
 
+    #[doc(alias = "gtk_file_chooser_get_filename")]
     fn get_filename(&self) -> Option<std::path::PathBuf>;
 
+    #[doc(alias = "gtk_file_chooser_get_filenames")]
     fn get_filenames(&self) -> Vec<std::path::PathBuf>;
 
+    #[doc(alias = "gtk_file_chooser_get_files")]
     fn get_files(&self) -> Vec<gio::File>;
 
+    #[doc(alias = "gtk_file_chooser_get_filter")]
     fn get_filter(&self) -> Option<FileFilter>;
 
+    #[doc(alias = "gtk_file_chooser_get_local_only")]
     fn get_local_only(&self) -> bool;
 
+    #[doc(alias = "gtk_file_chooser_get_preview_file")]
     fn get_preview_file(&self) -> Option<gio::File>;
 
+    #[doc(alias = "gtk_file_chooser_get_preview_filename")]
     fn get_preview_filename(&self) -> Option<std::path::PathBuf>;
 
+    #[doc(alias = "gtk_file_chooser_get_preview_uri")]
     fn get_preview_uri(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_file_chooser_get_preview_widget")]
     fn get_preview_widget(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_file_chooser_get_preview_widget_active")]
     fn get_preview_widget_active(&self) -> bool;
 
+    #[doc(alias = "gtk_file_chooser_get_select_multiple")]
     fn get_select_multiple(&self) -> bool;
 
+    #[doc(alias = "gtk_file_chooser_get_show_hidden")]
     fn get_show_hidden(&self) -> bool;
 
+    #[doc(alias = "gtk_file_chooser_get_uri")]
     fn get_uri(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_file_chooser_get_uris")]
     fn get_uris(&self) -> Vec<glib::GString>;
 
+    #[doc(alias = "gtk_file_chooser_get_use_preview_label")]
     fn get_use_preview_label(&self) -> bool;
 
+    #[doc(alias = "gtk_file_chooser_list_filters")]
     fn list_filters(&self) -> Vec<FileFilter>;
 
+    #[doc(alias = "gtk_file_chooser_list_shortcut_folder_uris")]
     fn list_shortcut_folder_uris(&self) -> Vec<glib::GString>;
 
+    #[doc(alias = "gtk_file_chooser_list_shortcut_folders")]
     fn list_shortcut_folders(&self) -> Vec<std::path::PathBuf>;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_file_chooser_remove_choice")]
     fn remove_choice(&self, id: &str);
 
+    #[doc(alias = "gtk_file_chooser_remove_filter")]
     fn remove_filter(&self, filter: &FileFilter);
 
+    #[doc(alias = "gtk_file_chooser_remove_shortcut_folder")]
     fn remove_shortcut_folder<P: AsRef<std::path::Path>>(
         &self,
         folder: P,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gtk_file_chooser_remove_shortcut_folder_uri")]
     fn remove_shortcut_folder_uri(&self, uri: &str) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gtk_file_chooser_select_all")]
     fn select_all(&self);
 
+    #[doc(alias = "gtk_file_chooser_select_file")]
     fn select_file<P: IsA<gio::File>>(&self, file: &P) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gtk_file_chooser_select_filename")]
     fn select_filename<P: AsRef<std::path::Path>>(&self, filename: P) -> bool;
 
+    #[doc(alias = "gtk_file_chooser_select_uri")]
     fn select_uri(&self, uri: &str) -> bool;
 
+    #[doc(alias = "gtk_file_chooser_set_action")]
     fn set_action(&self, action: FileChooserAction);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_file_chooser_set_choice")]
     fn set_choice(&self, id: &str, option: &str);
 
+    #[doc(alias = "gtk_file_chooser_set_create_folders")]
     fn set_create_folders(&self, create_folders: bool);
 
+    #[doc(alias = "gtk_file_chooser_set_current_folder")]
     fn set_current_folder<P: AsRef<std::path::Path>>(&self, filename: P) -> bool;
 
+    #[doc(alias = "gtk_file_chooser_set_current_folder_file")]
     fn set_current_folder_file<P: IsA<gio::File>>(&self, file: &P) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gtk_file_chooser_set_current_folder_uri")]
     fn set_current_folder_uri(&self, uri: &str) -> bool;
 
+    #[doc(alias = "gtk_file_chooser_set_current_name")]
     fn set_current_name(&self, name: &str);
 
+    #[doc(alias = "gtk_file_chooser_set_do_overwrite_confirmation")]
     fn set_do_overwrite_confirmation(&self, do_overwrite_confirmation: bool);
 
+    #[doc(alias = "gtk_file_chooser_set_extra_widget")]
     fn set_extra_widget<P: IsA<Widget>>(&self, extra_widget: &P);
 
+    #[doc(alias = "gtk_file_chooser_set_file")]
     fn set_file<P: IsA<gio::File>>(&self, file: &P) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gtk_file_chooser_set_filename")]
     fn set_filename<P: AsRef<std::path::Path>>(&self, filename: P) -> bool;
 
+    #[doc(alias = "gtk_file_chooser_set_filter")]
     fn set_filter(&self, filter: &FileFilter);
 
+    #[doc(alias = "gtk_file_chooser_set_local_only")]
     fn set_local_only(&self, local_only: bool);
 
+    #[doc(alias = "gtk_file_chooser_set_preview_widget")]
     fn set_preview_widget<P: IsA<Widget>>(&self, preview_widget: &P);
 
+    #[doc(alias = "gtk_file_chooser_set_preview_widget_active")]
     fn set_preview_widget_active(&self, active: bool);
 
+    #[doc(alias = "gtk_file_chooser_set_select_multiple")]
     fn set_select_multiple(&self, select_multiple: bool);
 
+    #[doc(alias = "gtk_file_chooser_set_show_hidden")]
     fn set_show_hidden(&self, show_hidden: bool);
 
+    #[doc(alias = "gtk_file_chooser_set_uri")]
     fn set_uri(&self, uri: &str) -> bool;
 
+    #[doc(alias = "gtk_file_chooser_set_use_preview_label")]
     fn set_use_preview_label(&self, use_label: bool);
 
+    #[doc(alias = "gtk_file_chooser_unselect_all")]
     fn unselect_all(&self);
 
+    #[doc(alias = "gtk_file_chooser_unselect_file")]
     fn unselect_file<P: IsA<gio::File>>(&self, file: &P);
 
+    #[doc(alias = "gtk_file_chooser_unselect_filename")]
     fn unselect_filename<P: AsRef<std::path::Path>>(&self, filename: P);
 
+    #[doc(alias = "gtk_file_chooser_unselect_uri")]
     fn unselect_uri(&self, uri: &str);
 
     fn connect_confirm_overwrite<F: Fn(&Self) -> FileChooserConfirmation + 'static>(

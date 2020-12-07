@@ -19,6 +19,7 @@ glib::glib_wrapper! {
 }
 
 impl TlsCertificate {
+    #[doc(alias = "g_tls_certificate_new_from_file")]
     pub fn from_file<P: AsRef<std::path::Path>>(file: P) -> Result<TlsCertificate, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -32,6 +33,7 @@ impl TlsCertificate {
         }
     }
 
+    #[doc(alias = "g_tls_certificate_new_from_files")]
     pub fn from_files<P: AsRef<std::path::Path>, Q: AsRef<std::path::Path>>(
         cert_file: P,
         key_file: Q,
@@ -51,6 +53,7 @@ impl TlsCertificate {
         }
     }
 
+    #[doc(alias = "g_tls_certificate_new_from_pem")]
     pub fn from_pem(data: &str) -> Result<TlsCertificate, glib::Error> {
         let length = data.len() as isize;
         unsafe {
@@ -65,6 +68,7 @@ impl TlsCertificate {
         }
     }
 
+    #[doc(alias = "g_tls_certificate_list_new_from_file")]
     pub fn list_new_from_file<P: AsRef<std::path::Path>>(
         file: P,
     ) -> Result<Vec<TlsCertificate>, glib::Error> {
@@ -86,10 +90,13 @@ impl TlsCertificate {
 pub const NONE_TLS_CERTIFICATE: Option<&TlsCertificate> = None;
 
 pub trait TlsCertificateExt: 'static {
+    #[doc(alias = "g_tls_certificate_get_issuer")]
     fn get_issuer(&self) -> Option<TlsCertificate>;
 
+    #[doc(alias = "g_tls_certificate_is_same")]
     fn is_same<P: IsA<TlsCertificate>>(&self, cert_two: &P) -> bool;
 
+    #[doc(alias = "g_tls_certificate_verify")]
     fn verify<P: IsA<SocketConnectable>, Q: IsA<TlsCertificate>>(
         &self,
         identity: Option<&P>,

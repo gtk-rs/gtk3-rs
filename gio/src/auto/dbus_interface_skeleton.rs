@@ -28,28 +28,40 @@ glib::glib_wrapper! {
 pub const NONE_DBUS_INTERFACE_SKELETON: Option<&DBusInterfaceSkeleton> = None;
 
 pub trait DBusInterfaceSkeletonExt: 'static {
+    #[doc(alias = "g_dbus_interface_skeleton_export")]
     fn export(&self, connection: &DBusConnection, object_path: &str) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_dbus_interface_skeleton_flush")]
     fn flush(&self);
 
+    #[doc(alias = "g_dbus_interface_skeleton_get_connection")]
     fn get_connection(&self) -> Option<DBusConnection>;
 
+    #[doc(alias = "g_dbus_interface_skeleton_get_connections")]
     fn get_connections(&self) -> Vec<DBusConnection>;
 
+    #[doc(alias = "g_dbus_interface_skeleton_get_flags")]
     fn get_flags(&self) -> DBusInterfaceSkeletonFlags;
 
+    #[doc(alias = "g_dbus_interface_skeleton_get_object_path")]
     fn get_object_path(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_dbus_interface_skeleton_get_properties")]
     fn get_properties(&self) -> Option<glib::Variant>;
 
+    //#[doc(alias = "g_dbus_interface_skeleton_get_vtable")]
     //fn get_vtable(&self) -> /*Ignored*/Option<DBusInterfaceVTable>;
 
+    #[doc(alias = "g_dbus_interface_skeleton_has_connection")]
     fn has_connection(&self, connection: &DBusConnection) -> bool;
 
+    #[doc(alias = "g_dbus_interface_skeleton_set_flags")]
     fn set_flags(&self, flags: DBusInterfaceSkeletonFlags);
 
+    #[doc(alias = "g_dbus_interface_skeleton_unexport")]
     fn unexport(&self);
 
+    #[doc(alias = "g_dbus_interface_skeleton_unexport_from_connection")]
     fn unexport_from_connection(&self, connection: &DBusConnection);
 
     fn get_property_g_flags(&self) -> DBusInterfaceSkeletonFlags;

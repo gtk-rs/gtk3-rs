@@ -18,6 +18,7 @@ glib::glib_wrapper! {
 pub const NONE_BUILDABLE: Option<&Buildable> = None;
 
 pub trait BuildableExt: 'static {
+    #[doc(alias = "gtk_buildable_add_child")]
     fn add_child<P: IsA<Builder>, Q: IsA<glib::Object>>(
         &self,
         builder: &P,
@@ -25,22 +26,29 @@ pub trait BuildableExt: 'static {
         type_: Option<&str>,
     );
 
+    #[doc(alias = "gtk_buildable_construct_child")]
     fn construct_child<P: IsA<Builder>>(&self, builder: &P, name: &str) -> Option<glib::Object>;
 
+    //#[doc(alias = "gtk_buildable_custom_finished")]
     //fn custom_finished<P: IsA<Builder>, Q: IsA<glib::Object>>(&self, builder: &P, child: Option<&Q>, tagname: &str, data: /*Unimplemented*/Option<Fundamental: Pointer>);
 
+    //#[doc(alias = "gtk_buildable_custom_tag_end")]
     //fn custom_tag_end<P: IsA<Builder>, Q: IsA<glib::Object>>(&self, builder: &P, child: Option<&Q>, tagname: &str, data: /*Unimplemented*/Option<Fundamental: Pointer>);
 
+    //#[doc(alias = "gtk_buildable_custom_tag_start")]
     //fn custom_tag_start<P: IsA<Builder>, Q: IsA<glib::Object>>(&self, builder: &P, child: Option<&Q>, tagname: &str, parser: /*Ignored*/glib::MarkupParser, data: /*Unimplemented*/&mut Option<Fundamental: Pointer>) -> bool;
 
+    #[doc(alias = "gtk_buildable_get_internal_child")]
     fn get_internal_child<P: IsA<Builder>>(
         &self,
         builder: &P,
         childname: &str,
     ) -> Option<glib::Object>;
 
+    #[doc(alias = "gtk_buildable_parser_finished")]
     fn parser_finished<P: IsA<Builder>>(&self, builder: &P);
 
+    #[doc(alias = "gtk_buildable_set_buildable_property")]
     fn set_buildable_property<P: IsA<Builder>>(&self, builder: &P, name: &str, value: &glib::Value);
 }
 

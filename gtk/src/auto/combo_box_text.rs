@@ -30,11 +30,13 @@ glib::glib_wrapper! {
 }
 
 impl ComboBoxText {
+    #[doc(alias = "gtk_combo_box_text_new")]
     pub fn new() -> ComboBoxText {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_combo_box_text_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_combo_box_text_new_with_entry")]
     pub fn with_entry() -> ComboBoxText {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_combo_box_text_new_with_entry()).unsafe_cast() }
@@ -515,22 +517,31 @@ impl ComboBoxTextBuilder {
 pub const NONE_COMBO_BOX_TEXT: Option<&ComboBoxText> = None;
 
 pub trait ComboBoxTextExt: 'static {
+    #[doc(alias = "gtk_combo_box_text_append")]
     fn append(&self, id: Option<&str>, text: &str);
 
+    #[doc(alias = "gtk_combo_box_text_append_text")]
     fn append_text(&self, text: &str);
 
+    #[doc(alias = "gtk_combo_box_text_get_active_text")]
     fn get_active_text(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_combo_box_text_insert")]
     fn insert(&self, position: i32, id: Option<&str>, text: &str);
 
+    #[doc(alias = "gtk_combo_box_text_insert_text")]
     fn insert_text(&self, position: i32, text: &str);
 
+    #[doc(alias = "gtk_combo_box_text_prepend")]
     fn prepend(&self, id: Option<&str>, text: &str);
 
+    #[doc(alias = "gtk_combo_box_text_prepend_text")]
     fn prepend_text(&self, text: &str);
 
+    #[doc(alias = "gtk_combo_box_text_remove")]
     fn remove(&self, position: i32);
 
+    #[doc(alias = "gtk_combo_box_text_remove_all")]
     fn remove_all(&self);
 }
 

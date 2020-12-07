@@ -35,6 +35,7 @@ glib::glib_wrapper! {
 impl MemoryMonitor {
     #[cfg(any(feature = "v2_64", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+    #[doc(alias = "g_memory_monitor_dup_default")]
     pub fn dup_default() -> Option<MemoryMonitor> {
         unsafe { from_glib_full(ffi::g_memory_monitor_dup_default()) }
     }

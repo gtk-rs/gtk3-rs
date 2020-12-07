@@ -19,10 +19,13 @@ glib::glib_wrapper! {
 pub const NONE_DBUS_INTERFACE: Option<&DBusInterface> = None;
 
 pub trait DBusInterfaceExt: 'static {
+    #[doc(alias = "g_dbus_interface_dup_object")]
     fn get(&self) -> Option<DBusObject>;
 
+    #[doc(alias = "g_dbus_interface_get_info")]
     fn get_info(&self) -> Option<DBusInterfaceInfo>;
 
+    #[doc(alias = "g_dbus_interface_set_object")]
     fn set_object<P: IsA<DBusObject>>(&self, object: Option<&P>);
 }
 

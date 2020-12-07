@@ -26,6 +26,7 @@ glib::glib_wrapper! {
 }
 
 impl DBusServer {
+    #[doc(alias = "g_dbus_server_new_sync")]
     pub fn new_sync<P: IsA<Cancellable>>(
         address: &str,
         flags: DBusServerFlags,
@@ -51,28 +52,34 @@ impl DBusServer {
         }
     }
 
+    #[doc(alias = "g_dbus_server_get_client_address")]
     pub fn get_client_address(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_dbus_server_get_client_address(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_dbus_server_get_flags")]
     pub fn get_flags(&self) -> DBusServerFlags {
         unsafe { from_glib(ffi::g_dbus_server_get_flags(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_dbus_server_get_guid")]
     pub fn get_guid(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_dbus_server_get_guid(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_dbus_server_is_active")]
     pub fn is_active(&self) -> bool {
         unsafe { from_glib(ffi::g_dbus_server_is_active(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_dbus_server_start")]
     pub fn start(&self) {
         unsafe {
             ffi::g_dbus_server_start(self.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "g_dbus_server_stop")]
     pub fn stop(&self) {
         unsafe {
             ffi::g_dbus_server_stop(self.to_glib_none().0);

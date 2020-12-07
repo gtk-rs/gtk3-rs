@@ -44,11 +44,13 @@ glib::glib_wrapper! {
 }
 
 impl IconView {
+    #[doc(alias = "gtk_icon_view_new")]
     pub fn new() -> IconView {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_icon_view_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_icon_view_new_with_area")]
     pub fn with_area<P: IsA<CellArea>>(area: &P) -> IconView {
         skip_assert_initialized!();
         unsafe {
@@ -59,6 +61,7 @@ impl IconView {
         }
     }
 
+    #[doc(alias = "gtk_icon_view_new_with_model")]
     pub fn with_model<P: IsA<TreeModel>>(model: &P) -> IconView {
         skip_assert_initialized!();
         unsafe {
@@ -598,68 +601,96 @@ impl IconViewBuilder {
 pub const NONE_ICON_VIEW: Option<&IconView> = None;
 
 pub trait IconViewExt: 'static {
+    #[doc(alias = "gtk_icon_view_convert_widget_to_bin_window_coords")]
     fn convert_widget_to_bin_window_coords(&self, wx: i32, wy: i32) -> (i32, i32);
 
+    #[doc(alias = "gtk_icon_view_create_drag_icon")]
     fn create_drag_icon(&self, path: &TreePath) -> Option<cairo::Surface>;
 
+    #[doc(alias = "gtk_icon_view_get_activate_on_single_click")]
     fn get_activate_on_single_click(&self) -> bool;
 
+    #[doc(alias = "gtk_icon_view_get_cell_rect")]
     fn get_cell_rect<P: IsA<CellRenderer>>(
         &self,
         path: &TreePath,
         cell: Option<&P>,
     ) -> Option<gdk::Rectangle>;
 
+    #[doc(alias = "gtk_icon_view_get_column_spacing")]
     fn get_column_spacing(&self) -> i32;
 
+    #[doc(alias = "gtk_icon_view_get_columns")]
     fn get_columns(&self) -> i32;
 
+    #[doc(alias = "gtk_icon_view_get_cursor")]
     fn get_cursor(&self) -> Option<(TreePath, CellRenderer)>;
 
+    #[doc(alias = "gtk_icon_view_get_dest_item_at_pos")]
     fn get_dest_item_at_pos(
         &self,
         drag_x: i32,
         drag_y: i32,
     ) -> Option<(TreePath, IconViewDropPosition)>;
 
+    #[doc(alias = "gtk_icon_view_get_drag_dest_item")]
     fn get_drag_dest_item(&self) -> (TreePath, IconViewDropPosition);
 
+    #[doc(alias = "gtk_icon_view_get_item_at_pos")]
     fn get_item_at_pos(&self, x: i32, y: i32) -> Option<(TreePath, CellRenderer)>;
 
+    #[doc(alias = "gtk_icon_view_get_item_column")]
     fn get_item_column(&self, path: &TreePath) -> i32;
 
+    #[doc(alias = "gtk_icon_view_get_item_orientation")]
     fn get_item_orientation(&self) -> Orientation;
 
+    #[doc(alias = "gtk_icon_view_get_item_padding")]
     fn get_item_padding(&self) -> i32;
 
+    #[doc(alias = "gtk_icon_view_get_item_row")]
     fn get_item_row(&self, path: &TreePath) -> i32;
 
+    #[doc(alias = "gtk_icon_view_get_item_width")]
     fn get_item_width(&self) -> i32;
 
+    #[doc(alias = "gtk_icon_view_get_margin")]
     fn get_margin(&self) -> i32;
 
+    #[doc(alias = "gtk_icon_view_get_markup_column")]
     fn get_markup_column(&self) -> i32;
 
+    #[doc(alias = "gtk_icon_view_get_model")]
     fn get_model(&self) -> Option<TreeModel>;
 
+    #[doc(alias = "gtk_icon_view_get_path_at_pos")]
     fn get_path_at_pos(&self, x: i32, y: i32) -> Option<TreePath>;
 
+    #[doc(alias = "gtk_icon_view_get_pixbuf_column")]
     fn get_pixbuf_column(&self) -> i32;
 
+    #[doc(alias = "gtk_icon_view_get_reorderable")]
     fn get_reorderable(&self) -> bool;
 
+    #[doc(alias = "gtk_icon_view_get_row_spacing")]
     fn get_row_spacing(&self) -> i32;
 
+    #[doc(alias = "gtk_icon_view_get_selected_items")]
     fn get_selected_items(&self) -> Vec<TreePath>;
 
+    #[doc(alias = "gtk_icon_view_get_selection_mode")]
     fn get_selection_mode(&self) -> SelectionMode;
 
+    #[doc(alias = "gtk_icon_view_get_spacing")]
     fn get_spacing(&self) -> i32;
 
+    #[doc(alias = "gtk_icon_view_get_text_column")]
     fn get_text_column(&self) -> i32;
 
+    #[doc(alias = "gtk_icon_view_get_tooltip_column")]
     fn get_tooltip_column(&self) -> i32;
 
+    #[doc(alias = "gtk_icon_view_get_tooltip_context")]
     fn get_tooltip_context(
         &self,
         x: &mut i32,
@@ -667,26 +698,37 @@ pub trait IconViewExt: 'static {
         keyboard_tip: bool,
     ) -> Option<(TreeModel, TreePath, TreeIter)>;
 
+    #[doc(alias = "gtk_icon_view_get_visible_range")]
     fn get_visible_range(&self) -> Option<(TreePath, TreePath)>;
 
+    #[doc(alias = "gtk_icon_view_item_activated")]
     fn item_activated(&self, path: &TreePath);
 
+    #[doc(alias = "gtk_icon_view_path_is_selected")]
     fn path_is_selected(&self, path: &TreePath) -> bool;
 
+    #[doc(alias = "gtk_icon_view_scroll_to_path")]
     fn scroll_to_path(&self, path: &TreePath, use_align: bool, row_align: f32, col_align: f32);
 
+    #[doc(alias = "gtk_icon_view_select_all")]
     fn select_all(&self);
 
+    #[doc(alias = "gtk_icon_view_select_path")]
     fn select_path(&self, path: &TreePath);
 
+    #[doc(alias = "gtk_icon_view_selected_foreach")]
     fn selected_foreach<P: FnMut(&IconView, &TreePath)>(&self, func: P);
 
+    #[doc(alias = "gtk_icon_view_set_activate_on_single_click")]
     fn set_activate_on_single_click(&self, single: bool);
 
+    #[doc(alias = "gtk_icon_view_set_column_spacing")]
     fn set_column_spacing(&self, column_spacing: i32);
 
+    #[doc(alias = "gtk_icon_view_set_columns")]
     fn set_columns(&self, columns: i32);
 
+    #[doc(alias = "gtk_icon_view_set_cursor")]
     fn set_cursor<P: IsA<CellRenderer>>(
         &self,
         path: &TreePath,
@@ -694,32 +736,46 @@ pub trait IconViewExt: 'static {
         start_editing: bool,
     );
 
+    #[doc(alias = "gtk_icon_view_set_drag_dest_item")]
     fn set_drag_dest_item(&self, path: Option<&TreePath>, pos: IconViewDropPosition);
 
+    #[doc(alias = "gtk_icon_view_set_item_orientation")]
     fn set_item_orientation(&self, orientation: Orientation);
 
+    #[doc(alias = "gtk_icon_view_set_item_padding")]
     fn set_item_padding(&self, item_padding: i32);
 
+    #[doc(alias = "gtk_icon_view_set_item_width")]
     fn set_item_width(&self, item_width: i32);
 
+    #[doc(alias = "gtk_icon_view_set_margin")]
     fn set_margin(&self, margin: i32);
 
+    #[doc(alias = "gtk_icon_view_set_markup_column")]
     fn set_markup_column(&self, column: i32);
 
+    #[doc(alias = "gtk_icon_view_set_model")]
     fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>);
 
+    #[doc(alias = "gtk_icon_view_set_pixbuf_column")]
     fn set_pixbuf_column(&self, column: i32);
 
+    #[doc(alias = "gtk_icon_view_set_reorderable")]
     fn set_reorderable(&self, reorderable: bool);
 
+    #[doc(alias = "gtk_icon_view_set_row_spacing")]
     fn set_row_spacing(&self, row_spacing: i32);
 
+    #[doc(alias = "gtk_icon_view_set_selection_mode")]
     fn set_selection_mode(&self, mode: SelectionMode);
 
+    #[doc(alias = "gtk_icon_view_set_spacing")]
     fn set_spacing(&self, spacing: i32);
 
+    #[doc(alias = "gtk_icon_view_set_text_column")]
     fn set_text_column(&self, column: i32);
 
+    #[doc(alias = "gtk_icon_view_set_tooltip_cell")]
     fn set_tooltip_cell<P: IsA<CellRenderer>>(
         &self,
         tooltip: &Tooltip,
@@ -727,16 +783,22 @@ pub trait IconViewExt: 'static {
         cell: Option<&P>,
     );
 
+    #[doc(alias = "gtk_icon_view_set_tooltip_column")]
     fn set_tooltip_column(&self, column: i32);
 
+    #[doc(alias = "gtk_icon_view_set_tooltip_item")]
     fn set_tooltip_item(&self, tooltip: &Tooltip, path: &TreePath);
 
+    #[doc(alias = "gtk_icon_view_unselect_all")]
     fn unselect_all(&self);
 
+    #[doc(alias = "gtk_icon_view_unselect_path")]
     fn unselect_path(&self, path: &TreePath);
 
+    #[doc(alias = "gtk_icon_view_unset_model_drag_dest")]
     fn unset_model_drag_dest(&self);
 
+    #[doc(alias = "gtk_icon_view_unset_model_drag_source")]
     fn unset_model_drag_source(&self);
 
     fn get_property_cell_area(&self) -> Option<CellArea>;

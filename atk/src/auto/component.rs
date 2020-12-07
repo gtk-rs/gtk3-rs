@@ -30,36 +30,50 @@ glib::glib_wrapper! {
 pub const NONE_COMPONENT: Option<&Component> = None;
 
 pub trait ComponentExt: 'static {
+    #[doc(alias = "atk_component_contains")]
     fn contains(&self, x: i32, y: i32, coord_type: CoordType) -> bool;
 
+    #[doc(alias = "atk_component_get_alpha")]
     fn get_alpha(&self) -> f64;
 
+    #[doc(alias = "atk_component_get_extents")]
     fn get_extents(&self, coord_type: CoordType) -> (i32, i32, i32, i32);
 
+    #[doc(alias = "atk_component_get_layer")]
     fn get_layer(&self) -> Layer;
 
+    #[doc(alias = "atk_component_get_mdi_zorder")]
     fn get_mdi_zorder(&self) -> i32;
 
+    #[doc(alias = "atk_component_get_position")]
     fn get_position(&self, coord_type: CoordType) -> (i32, i32);
 
+    #[doc(alias = "atk_component_get_size")]
     fn get_size(&self) -> (i32, i32);
 
+    #[doc(alias = "atk_component_grab_focus")]
     fn grab_focus(&self) -> bool;
 
+    #[doc(alias = "atk_component_ref_accessible_at_point")]
     fn ref_accessible_at_point(&self, x: i32, y: i32, coord_type: CoordType) -> Option<Object>;
 
     #[cfg(any(feature = "v2_30", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+    #[doc(alias = "atk_component_scroll_to")]
     fn scroll_to(&self, type_: ScrollType) -> bool;
 
     #[cfg(any(feature = "v2_30", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+    #[doc(alias = "atk_component_scroll_to_point")]
     fn scroll_to_point(&self, coords: CoordType, x: i32, y: i32) -> bool;
 
+    #[doc(alias = "atk_component_set_extents")]
     fn set_extents(&self, x: i32, y: i32, width: i32, height: i32, coord_type: CoordType) -> bool;
 
+    #[doc(alias = "atk_component_set_position")]
     fn set_position(&self, x: i32, y: i32, coord_type: CoordType) -> bool;
 
+    #[doc(alias = "atk_component_set_size")]
     fn set_size(&self, width: i32, height: i32) -> bool;
 
     fn connect_bounds_changed<F: Fn(&Self, &Rectangle) + 'static>(&self, f: F) -> SignalHandlerId;

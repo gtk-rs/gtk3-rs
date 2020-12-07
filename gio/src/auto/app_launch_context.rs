@@ -22,6 +22,7 @@ glib::glib_wrapper! {
 }
 
 impl AppLaunchContext {
+    #[doc(alias = "g_app_launch_context_new")]
     pub fn new() -> AppLaunchContext {
         unsafe { from_glib_full(ffi::g_app_launch_context_new()) }
     }
@@ -36,20 +37,26 @@ impl Default for AppLaunchContext {
 pub const NONE_APP_LAUNCH_CONTEXT: Option<&AppLaunchContext> = None;
 
 pub trait AppLaunchContextExt: 'static {
+    #[doc(alias = "g_app_launch_context_get_display")]
     fn get_display<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<glib::GString>;
 
+    #[doc(alias = "g_app_launch_context_get_environment")]
     fn get_environment(&self) -> Vec<std::ffi::OsString>;
 
+    #[doc(alias = "g_app_launch_context_get_startup_notify_id")]
     fn get_startup_notify_id<P: IsA<AppInfo>>(
         &self,
         info: &P,
         files: &[File],
     ) -> Option<glib::GString>;
 
+    #[doc(alias = "g_app_launch_context_launch_failed")]
     fn launch_failed(&self, startup_notify_id: &str);
 
+    #[doc(alias = "g_app_launch_context_setenv")]
     fn setenv<P: AsRef<std::ffi::OsStr>, Q: AsRef<std::ffi::OsStr>>(&self, variable: P, value: Q);
 
+    #[doc(alias = "g_app_launch_context_unsetenv")]
     fn unsetenv<P: AsRef<std::ffi::OsStr>>(&self, variable: P);
 
     fn connect_launch_failed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;

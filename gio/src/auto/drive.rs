@@ -31,16 +31,22 @@ glib::glib_wrapper! {
 pub const NONE_DRIVE: Option<&Drive> = None;
 
 pub trait DriveExt: 'static {
+    #[doc(alias = "g_drive_can_eject")]
     fn can_eject(&self) -> bool;
 
+    #[doc(alias = "g_drive_can_poll_for_media")]
     fn can_poll_for_media(&self) -> bool;
 
+    #[doc(alias = "g_drive_can_start")]
     fn can_start(&self) -> bool;
 
+    #[doc(alias = "g_drive_can_start_degraded")]
     fn can_start_degraded(&self) -> bool;
 
+    #[doc(alias = "g_drive_can_stop")]
     fn can_stop(&self) -> bool;
 
+    #[doc(alias = "g_drive_eject_with_operation")]
     fn eject_with_operation<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
@@ -59,34 +65,48 @@ pub trait DriveExt: 'static {
         mount_operation: Option<&P>,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_drive_enumerate_identifiers")]
     fn enumerate_identifiers(&self) -> Vec<glib::GString>;
 
+    #[doc(alias = "g_drive_get_icon")]
     fn get_icon(&self) -> Icon;
 
+    #[doc(alias = "g_drive_get_identifier")]
     fn get_identifier(&self, kind: &str) -> Option<glib::GString>;
 
+    #[doc(alias = "g_drive_get_name")]
     fn get_name(&self) -> glib::GString;
 
+    #[doc(alias = "g_drive_get_sort_key")]
     fn get_sort_key(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_drive_get_start_stop_type")]
     fn get_start_stop_type(&self) -> DriveStartStopType;
 
+    #[doc(alias = "g_drive_get_symbolic_icon")]
     fn get_symbolic_icon(&self) -> Icon;
 
+    #[doc(alias = "g_drive_get_volumes")]
     fn get_volumes(&self) -> Vec<Volume>;
 
+    #[doc(alias = "g_drive_has_media")]
     fn has_media(&self) -> bool;
 
+    #[doc(alias = "g_drive_has_volumes")]
     fn has_volumes(&self) -> bool;
 
+    #[doc(alias = "g_drive_is_media_check_automatic")]
     fn is_media_check_automatic(&self) -> bool;
 
+    #[doc(alias = "g_drive_is_media_removable")]
     fn is_media_removable(&self) -> bool;
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+    #[doc(alias = "g_drive_is_removable")]
     fn is_removable(&self) -> bool;
 
+    #[doc(alias = "g_drive_poll_for_media")]
     fn poll_for_media<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         cancellable: Option<&P>,
@@ -97,6 +117,7 @@ pub trait DriveExt: 'static {
         &self,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_drive_start")]
     fn start<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
@@ -115,6 +136,7 @@ pub trait DriveExt: 'static {
         mount_operation: Option<&P>,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_drive_stop")]
     fn stop<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,

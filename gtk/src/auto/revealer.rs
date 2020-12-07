@@ -29,6 +29,7 @@ glib::glib_wrapper! {
 }
 
 impl Revealer {
+    #[doc(alias = "gtk_revealer_new")]
     pub fn new() -> Revealer {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_revealer_new()).unsafe_cast() }
@@ -410,18 +411,25 @@ impl RevealerBuilder {
 pub const NONE_REVEALER: Option<&Revealer> = None;
 
 pub trait RevealerExt: 'static {
+    #[doc(alias = "gtk_revealer_get_child_revealed")]
     fn get_child_revealed(&self) -> bool;
 
+    #[doc(alias = "gtk_revealer_get_reveal_child")]
     fn get_reveal_child(&self) -> bool;
 
+    #[doc(alias = "gtk_revealer_get_transition_duration")]
     fn get_transition_duration(&self) -> u32;
 
+    #[doc(alias = "gtk_revealer_get_transition_type")]
     fn get_transition_type(&self) -> RevealerTransitionType;
 
+    #[doc(alias = "gtk_revealer_set_reveal_child")]
     fn set_reveal_child(&self, reveal_child: bool);
 
+    #[doc(alias = "gtk_revealer_set_transition_duration")]
     fn set_transition_duration(&self, duration: u32);
 
+    #[doc(alias = "gtk_revealer_set_transition_type")]
     fn set_transition_type(&self, transition: RevealerTransitionType);
 
     fn connect_property_child_revealed_notify<F: Fn(&Self) + 'static>(

@@ -28,63 +28,90 @@ glib::glib_wrapper! {
 pub const NONE_CONTAINER: Option<&Container> = None;
 
 pub trait ContainerExt: 'static {
+    #[doc(alias = "gtk_container_add")]
     fn add<P: IsA<Widget>>(&self, widget: &P);
 
+    //#[doc(alias = "gtk_container_add_with_properties")]
     //fn add_with_properties<P: IsA<Widget>>(&self, widget: &P, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
+    #[doc(alias = "gtk_container_check_resize")]
     fn check_resize(&self);
 
+    //#[doc(alias = "gtk_container_child_get")]
     //fn child_get<P: IsA<Widget>>(&self, child: &P, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
+    //#[doc(alias = "gtk_container_child_get_valist")]
     //fn child_get_valist<P: IsA<Widget>>(&self, child: &P, first_property_name: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported);
 
+    #[doc(alias = "gtk_container_child_notify")]
     fn child_notify<P: IsA<Widget>>(&self, child: &P, child_property: &str);
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_container_child_notify_by_pspec")]
     fn child_notify_by_pspec<P: IsA<Widget>>(&self, child: &P, pspec: &glib::ParamSpec);
 
+    //#[doc(alias = "gtk_container_child_set")]
     //fn child_set<P: IsA<Widget>>(&self, child: &P, first_prop_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
+    //#[doc(alias = "gtk_container_child_set_valist")]
     //fn child_set_valist<P: IsA<Widget>>(&self, child: &P, first_property_name: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported);
 
+    #[doc(alias = "gtk_container_child_type")]
     fn child_type(&self) -> glib::types::Type;
 
+    #[doc(alias = "gtk_container_forall")]
     fn forall<P: FnMut(&Widget)>(&self, callback: P);
 
+    #[doc(alias = "gtk_container_foreach")]
     fn foreach<P: FnMut(&Widget)>(&self, callback: P);
 
+    #[doc(alias = "gtk_container_get_border_width")]
     fn get_border_width(&self) -> u32;
 
+    #[doc(alias = "gtk_container_get_children")]
     fn get_children(&self) -> Vec<Widget>;
 
     //#[cfg_attr(feature = "v3_24", deprecated)]
+    //#[doc(alias = "gtk_container_get_focus_chain")]
     //fn get_focus_chain(&self, focusable_widgets: /*Unimplemented*/Vec<Widget>) -> bool;
 
+    #[doc(alias = "gtk_container_get_focus_child")]
     fn get_focus_child(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_container_get_focus_hadjustment")]
     fn get_focus_hadjustment(&self) -> Option<Adjustment>;
 
+    #[doc(alias = "gtk_container_get_focus_vadjustment")]
     fn get_focus_vadjustment(&self) -> Option<Adjustment>;
 
+    #[doc(alias = "gtk_container_get_path_for_child")]
     fn get_path_for_child<P: IsA<Widget>>(&self, child: &P) -> Option<WidgetPath>;
 
+    #[doc(alias = "gtk_container_propagate_draw")]
     fn propagate_draw<P: IsA<Widget>>(&self, child: &P, cr: &cairo::Context);
 
+    #[doc(alias = "gtk_container_remove")]
     fn remove<P: IsA<Widget>>(&self, widget: &P);
 
+    #[doc(alias = "gtk_container_set_border_width")]
     fn set_border_width(&self, border_width: u32);
 
     #[cfg_attr(feature = "v3_24", deprecated)]
+    #[doc(alias = "gtk_container_set_focus_chain")]
     fn set_focus_chain(&self, focusable_widgets: &[Widget]);
 
+    #[doc(alias = "gtk_container_set_focus_child")]
     fn set_focus_child<P: IsA<Widget>>(&self, child: Option<&P>);
 
+    #[doc(alias = "gtk_container_set_focus_hadjustment")]
     fn set_focus_hadjustment<P: IsA<Adjustment>>(&self, adjustment: &P);
 
+    #[doc(alias = "gtk_container_set_focus_vadjustment")]
     fn set_focus_vadjustment<P: IsA<Adjustment>>(&self, adjustment: &P);
 
     #[cfg_attr(feature = "v3_24", deprecated)]
+    #[doc(alias = "gtk_container_unset_focus_chain")]
     fn unset_focus_chain(&self);
 
     fn set_property_child<P: IsA<Widget>>(&self, child: Option<&P>);

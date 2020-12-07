@@ -23,6 +23,7 @@ glib::glib_wrapper! {
 }
 
 impl VolumeMonitor {
+    #[doc(alias = "g_volume_monitor_get")]
     pub fn get() -> VolumeMonitor {
         unsafe { from_glib_full(ffi::g_volume_monitor_get()) }
     }
@@ -31,14 +32,19 @@ impl VolumeMonitor {
 pub const NONE_VOLUME_MONITOR: Option<&VolumeMonitor> = None;
 
 pub trait VolumeMonitorExt: 'static {
+    #[doc(alias = "g_volume_monitor_get_connected_drives")]
     fn get_connected_drives(&self) -> Vec<Drive>;
 
+    #[doc(alias = "g_volume_monitor_get_mount_for_uuid")]
     fn get_mount_for_uuid(&self, uuid: &str) -> Option<Mount>;
 
+    #[doc(alias = "g_volume_monitor_get_mounts")]
     fn get_mounts(&self) -> Vec<Mount>;
 
+    #[doc(alias = "g_volume_monitor_get_volume_for_uuid")]
     fn get_volume_for_uuid(&self, uuid: &str) -> Option<Volume>;
 
+    #[doc(alias = "g_volume_monitor_get_volumes")]
     fn get_volumes(&self) -> Vec<Volume>;
 
     fn connect_drive_changed<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId;

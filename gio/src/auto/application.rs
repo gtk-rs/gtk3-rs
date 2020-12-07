@@ -31,6 +31,7 @@ glib::glib_wrapper! {
 }
 
 impl Application {
+    #[doc(alias = "g_application_new")]
     pub fn new(application_id: Option<&str>, flags: ApplicationFlags) -> Application {
         unsafe {
             from_glib_full(ffi::g_application_new(
@@ -40,10 +41,12 @@ impl Application {
         }
     }
 
+    #[doc(alias = "g_application_get_default")]
     pub fn get_default() -> Option<Application> {
         unsafe { from_glib_none(ffi::g_application_get_default()) }
     }
 
+    #[doc(alias = "g_application_id_is_valid")]
     pub fn id_is_valid(application_id: &str) -> bool {
         unsafe {
             from_glib(ffi::g_application_id_is_valid(
@@ -120,8 +123,10 @@ impl ApplicationBuilder {
 pub const NONE_APPLICATION: Option<&Application> = None;
 
 pub trait ApplicationExt: 'static {
+    #[doc(alias = "g_application_activate")]
     fn activate(&self);
 
+    #[doc(alias = "g_application_add_main_option")]
     fn add_main_option(
         &self,
         long_name: &str,
@@ -132,76 +137,106 @@ pub trait ApplicationExt: 'static {
         arg_description: Option<&str>,
     );
 
+    //#[doc(alias = "g_application_add_main_option_entries")]
     //fn add_main_option_entries(&self, entries: /*Ignored*/&[&glib::OptionEntry]);
 
+    //#[doc(alias = "g_application_add_option_group")]
     //fn add_option_group(&self, group: /*Ignored*/&glib::OptionGroup);
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_application_bind_busy_property")]
     fn bind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str);
 
+    #[doc(alias = "g_application_get_application_id")]
     fn get_application_id(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_application_get_dbus_connection")]
     fn get_dbus_connection(&self) -> Option<DBusConnection>;
 
+    #[doc(alias = "g_application_get_dbus_object_path")]
     fn get_dbus_object_path(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_application_get_flags")]
     fn get_flags(&self) -> ApplicationFlags;
 
+    #[doc(alias = "g_application_get_inactivity_timeout")]
     fn get_inactivity_timeout(&self) -> u32;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_application_get_is_busy")]
     fn get_is_busy(&self) -> bool;
 
+    #[doc(alias = "g_application_get_is_registered")]
     fn get_is_registered(&self) -> bool;
 
+    #[doc(alias = "g_application_get_is_remote")]
     fn get_is_remote(&self) -> bool;
 
+    #[doc(alias = "g_application_get_resource_base_path")]
     fn get_resource_base_path(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_application_hold")]
     fn hold(&self);
 
+    #[doc(alias = "g_application_mark_busy")]
     fn mark_busy(&self);
 
+    #[doc(alias = "g_application_open")]
     fn open(&self, files: &[File], hint: &str);
 
+    #[doc(alias = "g_application_quit")]
     fn quit(&self);
 
+    #[doc(alias = "g_application_register")]
     fn register<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_application_release")]
     fn release(&self);
 
+    #[doc(alias = "g_application_send_notification")]
     fn send_notification(&self, id: Option<&str>, notification: &Notification);
 
+    #[doc(alias = "g_application_set_application_id")]
     fn set_application_id(&self, application_id: Option<&str>);
 
+    #[doc(alias = "g_application_set_default")]
     fn set_default(&self);
 
+    #[doc(alias = "g_application_set_flags")]
     fn set_flags(&self, flags: ApplicationFlags);
 
+    #[doc(alias = "g_application_set_inactivity_timeout")]
     fn set_inactivity_timeout(&self, inactivity_timeout: u32);
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+    #[doc(alias = "g_application_set_option_context_description")]
     fn set_option_context_description(&self, description: Option<&str>);
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+    #[doc(alias = "g_application_set_option_context_parameter_string")]
     fn set_option_context_parameter_string(&self, parameter_string: Option<&str>);
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+    #[doc(alias = "g_application_set_option_context_summary")]
     fn set_option_context_summary(&self, summary: Option<&str>);
 
+    #[doc(alias = "g_application_set_resource_base_path")]
     fn set_resource_base_path(&self, resource_path: Option<&str>);
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_application_unbind_busy_property")]
     fn unbind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str);
 
+    #[doc(alias = "g_application_unmark_busy")]
     fn unmark_busy(&self);
 
+    #[doc(alias = "g_application_withdraw_notification")]
     fn withdraw_notification(&self, id: &str);
 
     fn set_property_action_group<P: IsA<ActionGroup>>(&self, action_group: Option<&P>);

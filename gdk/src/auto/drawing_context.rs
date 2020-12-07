@@ -19,6 +19,7 @@ glib::glib_wrapper! {
 impl DrawingContext {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gdk_drawing_context_get_cairo_context")]
     pub fn get_cairo_context(&self) -> Option<cairo::Context> {
         unsafe {
             from_glib_none(ffi::gdk_drawing_context_get_cairo_context(
@@ -29,18 +30,21 @@ impl DrawingContext {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gdk_drawing_context_get_clip")]
     pub fn get_clip(&self) -> Option<cairo::Region> {
         unsafe { from_glib_full(ffi::gdk_drawing_context_get_clip(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gdk_drawing_context_get_window")]
     pub fn get_window(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_drawing_context_get_window(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gdk_drawing_context_is_valid")]
     pub fn is_valid(&self) -> bool {
         unsafe { from_glib(ffi::gdk_drawing_context_is_valid(self.to_glib_none().0)) }
     }

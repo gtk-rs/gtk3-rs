@@ -35,11 +35,13 @@ glib::glib_wrapper! {
 }
 
 impl PlacesSidebar {
+    #[doc(alias = "gtk_places_sidebar_new")]
     pub fn new() -> PlacesSidebar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_places_sidebar_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_places_sidebar_add_shortcut")]
     pub fn add_shortcut<P: IsA<gio::File>>(&self, location: &P) {
         unsafe {
             ffi::gtk_places_sidebar_add_shortcut(
@@ -49,6 +51,7 @@ impl PlacesSidebar {
         }
     }
 
+    #[doc(alias = "gtk_places_sidebar_get_local_only")]
     pub fn get_local_only(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_local_only(
@@ -57,10 +60,12 @@ impl PlacesSidebar {
         }
     }
 
+    #[doc(alias = "gtk_places_sidebar_get_location")]
     pub fn get_location(&self) -> Option<gio::File> {
         unsafe { from_glib_full(ffi::gtk_places_sidebar_get_location(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_places_sidebar_get_nth_bookmark")]
     pub fn get_nth_bookmark(&self, n: i32) -> Option<gio::File> {
         unsafe {
             from_glib_full(ffi::gtk_places_sidebar_get_nth_bookmark(
@@ -70,6 +75,7 @@ impl PlacesSidebar {
         }
     }
 
+    #[doc(alias = "gtk_places_sidebar_get_open_flags")]
     pub fn get_open_flags(&self) -> PlacesOpenFlags {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_open_flags(
@@ -79,6 +85,7 @@ impl PlacesSidebar {
     }
 
     #[cfg_attr(feature = "v3_18", deprecated)]
+    #[doc(alias = "gtk_places_sidebar_get_show_connect_to_server")]
     pub fn get_show_connect_to_server(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_connect_to_server(
@@ -87,6 +94,7 @@ impl PlacesSidebar {
         }
     }
 
+    #[doc(alias = "gtk_places_sidebar_get_show_desktop")]
     pub fn get_show_desktop(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_desktop(
@@ -95,6 +103,7 @@ impl PlacesSidebar {
         }
     }
 
+    #[doc(alias = "gtk_places_sidebar_get_show_enter_location")]
     pub fn get_show_enter_location(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_enter_location(
@@ -105,6 +114,7 @@ impl PlacesSidebar {
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_places_sidebar_get_show_other_locations")]
     pub fn get_show_other_locations(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_other_locations(
@@ -115,6 +125,7 @@ impl PlacesSidebar {
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_places_sidebar_get_show_recent")]
     pub fn get_show_recent(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_recent(
@@ -125,6 +136,7 @@ impl PlacesSidebar {
 
     #[cfg(any(feature = "v3_22_26", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
+    #[doc(alias = "gtk_places_sidebar_get_show_starred_location")]
     pub fn get_show_starred_location(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_starred_location(
@@ -135,6 +147,7 @@ impl PlacesSidebar {
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_places_sidebar_get_show_trash")]
     pub fn get_show_trash(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_trash(
@@ -143,6 +156,7 @@ impl PlacesSidebar {
         }
     }
 
+    #[doc(alias = "gtk_places_sidebar_list_shortcuts")]
     pub fn list_shortcuts(&self) -> Vec<gio::File> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_places_sidebar_list_shortcuts(
@@ -151,6 +165,7 @@ impl PlacesSidebar {
         }
     }
 
+    #[doc(alias = "gtk_places_sidebar_remove_shortcut")]
     pub fn remove_shortcut<P: IsA<gio::File>>(&self, location: &P) {
         unsafe {
             ffi::gtk_places_sidebar_remove_shortcut(
@@ -162,6 +177,7 @@ impl PlacesSidebar {
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_places_sidebar_set_drop_targets_visible")]
     pub fn set_drop_targets_visible(&self, visible: bool, context: &gdk::DragContext) {
         unsafe {
             ffi::gtk_places_sidebar_set_drop_targets_visible(
@@ -172,12 +188,14 @@ impl PlacesSidebar {
         }
     }
 
+    #[doc(alias = "gtk_places_sidebar_set_local_only")]
     pub fn set_local_only(&self, local_only: bool) {
         unsafe {
             ffi::gtk_places_sidebar_set_local_only(self.to_glib_none().0, local_only.to_glib());
         }
     }
 
+    #[doc(alias = "gtk_places_sidebar_set_location")]
     pub fn set_location<P: IsA<gio::File>>(&self, location: Option<&P>) {
         unsafe {
             ffi::gtk_places_sidebar_set_location(
@@ -187,6 +205,7 @@ impl PlacesSidebar {
         }
     }
 
+    #[doc(alias = "gtk_places_sidebar_set_open_flags")]
     pub fn set_open_flags(&self, flags: PlacesOpenFlags) {
         unsafe {
             ffi::gtk_places_sidebar_set_open_flags(self.to_glib_none().0, flags.to_glib());
@@ -194,6 +213,7 @@ impl PlacesSidebar {
     }
 
     #[cfg_attr(feature = "v3_18", deprecated)]
+    #[doc(alias = "gtk_places_sidebar_set_show_connect_to_server")]
     pub fn set_show_connect_to_server(&self, show_connect_to_server: bool) {
         unsafe {
             ffi::gtk_places_sidebar_set_show_connect_to_server(
@@ -203,12 +223,14 @@ impl PlacesSidebar {
         }
     }
 
+    #[doc(alias = "gtk_places_sidebar_set_show_desktop")]
     pub fn set_show_desktop(&self, show_desktop: bool) {
         unsafe {
             ffi::gtk_places_sidebar_set_show_desktop(self.to_glib_none().0, show_desktop.to_glib());
         }
     }
 
+    #[doc(alias = "gtk_places_sidebar_set_show_enter_location")]
     pub fn set_show_enter_location(&self, show_enter_location: bool) {
         unsafe {
             ffi::gtk_places_sidebar_set_show_enter_location(
@@ -220,6 +242,7 @@ impl PlacesSidebar {
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_places_sidebar_set_show_other_locations")]
     pub fn set_show_other_locations(&self, show_other_locations: bool) {
         unsafe {
             ffi::gtk_places_sidebar_set_show_other_locations(
@@ -231,6 +254,7 @@ impl PlacesSidebar {
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_places_sidebar_set_show_recent")]
     pub fn set_show_recent(&self, show_recent: bool) {
         unsafe {
             ffi::gtk_places_sidebar_set_show_recent(self.to_glib_none().0, show_recent.to_glib());
@@ -239,6 +263,7 @@ impl PlacesSidebar {
 
     #[cfg(any(feature = "v3_22_26", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_26")))]
+    #[doc(alias = "gtk_places_sidebar_set_show_starred_location")]
     pub fn set_show_starred_location(&self, show_starred_location: bool) {
         unsafe {
             ffi::gtk_places_sidebar_set_show_starred_location(
@@ -250,6 +275,7 @@ impl PlacesSidebar {
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_places_sidebar_set_show_trash")]
     pub fn set_show_trash(&self, show_trash: bool) {
         unsafe {
             ffi::gtk_places_sidebar_set_show_trash(self.to_glib_none().0, show_trash.to_glib());

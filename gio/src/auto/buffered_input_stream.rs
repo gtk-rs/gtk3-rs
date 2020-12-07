@@ -29,6 +29,7 @@ glib::glib_wrapper! {
 }
 
 impl BufferedInputStream {
+    #[doc(alias = "g_buffered_input_stream_new")]
     pub fn new<P: IsA<InputStream>>(base_stream: &P) -> BufferedInputStream {
         unsafe {
             InputStream::from_glib_full(ffi::g_buffered_input_stream_new(
@@ -38,6 +39,7 @@ impl BufferedInputStream {
         }
     }
 
+    #[doc(alias = "g_buffered_input_stream_new_sized")]
     pub fn new_sized<P: IsA<InputStream>>(base_stream: &P, size: usize) -> BufferedInputStream {
         unsafe {
             InputStream::from_glib_full(ffi::g_buffered_input_stream_new_sized(
@@ -98,12 +100,14 @@ impl BufferedInputStreamBuilder {
 pub const NONE_BUFFERED_INPUT_STREAM: Option<&BufferedInputStream> = None;
 
 pub trait BufferedInputStreamExt: 'static {
+    #[doc(alias = "g_buffered_input_stream_fill")]
     fn fill<P: IsA<Cancellable>>(
         &self,
         count: isize,
         cancellable: Option<&P>,
     ) -> Result<isize, glib::Error>;
 
+    #[doc(alias = "g_buffered_input_stream_fill_async")]
     fn fill_async<P: IsA<Cancellable>, Q: FnOnce(Result<isize, glib::Error>) + Send + 'static>(
         &self,
         count: isize,
@@ -118,14 +122,19 @@ pub trait BufferedInputStreamExt: 'static {
         io_priority: glib::Priority,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<isize, glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_buffered_input_stream_get_available")]
     fn get_available(&self) -> usize;
 
+    #[doc(alias = "g_buffered_input_stream_get_buffer_size")]
     fn get_buffer_size(&self) -> usize;
 
+    #[doc(alias = "g_buffered_input_stream_peek_buffer")]
     fn peek_buffer(&self) -> Vec<u8>;
 
+    #[doc(alias = "g_buffered_input_stream_read_byte")]
     fn read_byte<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<i32, glib::Error>;
 
+    #[doc(alias = "g_buffered_input_stream_set_buffer_size")]
     fn set_buffer_size(&self, size: usize);
 
     fn connect_property_buffer_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

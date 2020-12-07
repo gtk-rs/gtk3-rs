@@ -18,10 +18,13 @@ glib::glib_wrapper! {
 pub const NONE_OBJECT_FACTORY: Option<&ObjectFactory> = None;
 
 pub trait ObjectFactoryExt: 'static {
+    #[doc(alias = "atk_object_factory_create_accessible")]
     fn create_accessible<P: IsA<glib::Object>>(&self, obj: &P) -> Option<Object>;
 
+    #[doc(alias = "atk_object_factory_get_accessible_type")]
     fn get_accessible_type(&self) -> glib::types::Type;
 
+    #[doc(alias = "atk_object_factory_invalidate")]
     fn invalidate(&self);
 }
 

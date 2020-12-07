@@ -25,6 +25,7 @@ glib::glib_wrapper! {
 }
 
 impl CellRendererToggle {
+    #[doc(alias = "gtk_cell_renderer_toggle_new")]
     pub fn new() -> CellRendererToggle {
         assert_initialized_main_thread!();
         unsafe { CellRenderer::from_glib_none(ffi::gtk_cell_renderer_toggle_new()).unsafe_cast() }
@@ -230,16 +231,22 @@ impl CellRendererToggleBuilder {
 pub const NONE_CELL_RENDERER_TOGGLE: Option<&CellRendererToggle> = None;
 
 pub trait CellRendererToggleExt: 'static {
+    #[doc(alias = "gtk_cell_renderer_toggle_get_activatable")]
     fn get_activatable(&self) -> bool;
 
+    #[doc(alias = "gtk_cell_renderer_toggle_get_active")]
     fn get_active(&self) -> bool;
 
+    #[doc(alias = "gtk_cell_renderer_toggle_get_radio")]
     fn get_radio(&self) -> bool;
 
+    #[doc(alias = "gtk_cell_renderer_toggle_set_activatable")]
     fn set_activatable(&self, setting: bool);
 
+    #[doc(alias = "gtk_cell_renderer_toggle_set_active")]
     fn set_active(&self, setting: bool);
 
+    #[doc(alias = "gtk_cell_renderer_toggle_set_radio")]
     fn set_radio(&self, radio: bool);
 
     fn get_property_inconsistent(&self) -> bool;

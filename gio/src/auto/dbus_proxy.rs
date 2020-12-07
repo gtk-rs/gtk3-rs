@@ -33,6 +33,7 @@ glib::glib_wrapper! {
 }
 
 impl DBusProxy {
+    #[doc(alias = "g_dbus_proxy_new_for_bus_sync")]
     pub fn new_for_bus_sync<P: IsA<Cancellable>>(
         bus_type: BusType,
         flags: DBusProxyFlags,
@@ -62,6 +63,7 @@ impl DBusProxy {
         }
     }
 
+    #[doc(alias = "g_dbus_proxy_new_sync")]
     pub fn new_sync<P: IsA<Cancellable>>(
         connection: &DBusConnection,
         flags: DBusProxyFlags,
@@ -91,6 +93,7 @@ impl DBusProxy {
         }
     }
 
+    #[doc(alias = "g_dbus_proxy_new")]
     pub fn new<P: IsA<Cancellable>, Q: FnOnce(Result<DBusProxy, glib::Error>) + Send + 'static>(
         connection: &DBusConnection,
         flags: DBusProxyFlags,
@@ -167,6 +170,7 @@ impl DBusProxy {
         }))
     }
 
+    #[doc(alias = "g_dbus_proxy_new_for_bus")]
     pub fn new_for_bus<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<DBusProxy, glib::Error>) + Send + 'static,
@@ -249,6 +253,7 @@ impl DBusProxy {
 pub const NONE_DBUS_PROXY: Option<&DBusProxy> = None;
 
 pub trait DBusProxyExt: 'static {
+    #[doc(alias = "g_dbus_proxy_call")]
     fn call<P: IsA<Cancellable>, Q: FnOnce(Result<glib::Variant, glib::Error>) + Send + 'static>(
         &self,
         method_name: &str,
@@ -267,6 +272,7 @@ pub trait DBusProxyExt: 'static {
         timeout_msec: i32,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<glib::Variant, glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_dbus_proxy_call_sync")]
     fn call_sync<P: IsA<Cancellable>>(
         &self,
         method_name: &str,
@@ -278,6 +284,7 @@ pub trait DBusProxyExt: 'static {
 
     #[cfg(any(unix, feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[doc(alias = "g_dbus_proxy_call_with_unix_fd_list")]
     fn call_with_unix_fd_list<
         P: IsA<UnixFDList>,
         Q: IsA<Cancellable>,
@@ -311,6 +318,7 @@ pub trait DBusProxyExt: 'static {
 
     #[cfg(any(unix, feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[doc(alias = "g_dbus_proxy_call_with_unix_fd_list_sync")]
     fn call_with_unix_fd_list_sync<P: IsA<UnixFDList>, Q: IsA<Cancellable>>(
         &self,
         method_name: &str,
@@ -321,30 +329,43 @@ pub trait DBusProxyExt: 'static {
         cancellable: Option<&Q>,
     ) -> Result<(glib::Variant, UnixFDList), glib::Error>;
 
+    #[doc(alias = "g_dbus_proxy_get_cached_property")]
     fn get_cached_property(&self, property_name: &str) -> Option<glib::Variant>;
 
+    #[doc(alias = "g_dbus_proxy_get_cached_property_names")]
     fn get_cached_property_names(&self) -> Vec<glib::GString>;
 
+    #[doc(alias = "g_dbus_proxy_get_connection")]
     fn get_connection(&self) -> Option<DBusConnection>;
 
+    #[doc(alias = "g_dbus_proxy_get_default_timeout")]
     fn get_default_timeout(&self) -> i32;
 
+    #[doc(alias = "g_dbus_proxy_get_flags")]
     fn get_flags(&self) -> DBusProxyFlags;
 
+    #[doc(alias = "g_dbus_proxy_get_interface_info")]
     fn get_interface_info(&self) -> Option<DBusInterfaceInfo>;
 
+    #[doc(alias = "g_dbus_proxy_get_interface_name")]
     fn get_interface_name(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_dbus_proxy_get_name")]
     fn get_name(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_dbus_proxy_get_name_owner")]
     fn get_name_owner(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_dbus_proxy_get_object_path")]
     fn get_object_path(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_dbus_proxy_set_cached_property")]
     fn set_cached_property(&self, property_name: &str, value: Option<&glib::Variant>);
 
+    #[doc(alias = "g_dbus_proxy_set_default_timeout")]
     fn set_default_timeout(&self, timeout_msec: i32);
 
+    #[doc(alias = "g_dbus_proxy_set_interface_info")]
     fn set_interface_info(&self, info: Option<&DBusInterfaceInfo>);
 
     fn get_property_g_connection(&self) -> Option<DBusConnection>;

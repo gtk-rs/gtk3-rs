@@ -22,6 +22,7 @@ glib::glib_wrapper! {
 }
 
 impl Pixbuf {
+    #[doc(alias = "gdk_pixbuf_new")]
     pub fn new(
         colorspace: Colorspace,
         has_alpha: bool,
@@ -42,6 +43,7 @@ impl Pixbuf {
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+    #[doc(alias = "gdk_pixbuf_new_from_bytes")]
     pub fn from_bytes(
         data: &glib::Bytes,
         colorspace: Colorspace,
@@ -64,11 +66,13 @@ impl Pixbuf {
         }
     }
 
+    //#[doc(alias = "gdk_pixbuf_new_from_data")]
     //pub fn from_data(data: &[u8], colorspace: Colorspace, has_alpha: bool, bits_per_sample: i32, width: i32, height: i32, rowstride: i32, destroy_fn: Option<Box_<dyn FnOnce(&Vec<u8>) + 'static>>) -> Pixbuf {
     //    unsafe { TODO: call ffi:gdk_pixbuf_new_from_data() }
     //}
 
     #[cfg_attr(feature = "v2_32", deprecated)]
+    #[doc(alias = "gdk_pixbuf_new_from_inline")]
     pub fn from_inline(data: &[u8], copy_pixels: bool) -> Result<Pixbuf, glib::Error> {
         let data_length = data.len() as i32;
         unsafe {
@@ -87,6 +91,7 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_new_from_resource")]
     pub fn from_resource(resource_path: &str) -> Result<Pixbuf, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -99,6 +104,7 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_new_from_resource_at_scale")]
     pub fn from_resource_at_scale(
         resource_path: &str,
         width: i32,
@@ -122,6 +128,7 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_new_from_stream")]
     pub fn from_stream<P: IsA<gio::InputStream>, Q: IsA<gio::Cancellable>>(
         stream: &P,
         cancellable: Option<&Q>,
@@ -141,6 +148,7 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_new_from_stream_at_scale")]
     pub fn from_stream_at_scale<P: IsA<gio::InputStream>, Q: IsA<gio::Cancellable>>(
         stream: &P,
         width: i32,
@@ -166,10 +174,12 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_new_from_xpm_data")]
     pub fn from_xpm_data(data: &[&str]) -> Pixbuf {
         unsafe { from_glib_full(ffi::gdk_pixbuf_new_from_xpm_data(data.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_pixbuf_add_alpha")]
     pub fn add_alpha(&self, substitute_color: bool, r: u8, g: u8, b: u8) -> Option<Pixbuf> {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_add_alpha(
@@ -182,6 +192,7 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_apply_embedded_orientation")]
     pub fn apply_embedded_orientation(&self) -> Option<Pixbuf> {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_apply_embedded_orientation(
@@ -190,6 +201,7 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_composite")]
     pub fn composite(
         &self,
         dest: &Pixbuf,
@@ -222,6 +234,7 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_composite_color")]
     pub fn composite_color(
         &self,
         dest: &Pixbuf,
@@ -264,6 +277,7 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_composite_color_simple")]
     pub fn composite_color_simple(
         &self,
         dest_width: i32,
@@ -288,10 +302,12 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_copy")]
     pub fn copy(&self) -> Option<Pixbuf> {
         unsafe { from_glib_full(ffi::gdk_pixbuf_copy(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_pixbuf_copy_area")]
     pub fn copy_area(
         &self,
         src_x: i32,
@@ -318,6 +334,7 @@ impl Pixbuf {
 
     #[cfg(any(feature = "v2_36", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
+    #[doc(alias = "gdk_pixbuf_copy_options")]
     pub fn copy_options(&self, dest_pixbuf: &Pixbuf) -> bool {
         unsafe {
             from_glib(ffi::gdk_pixbuf_copy_options(
@@ -327,12 +344,14 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_fill")]
     pub fn fill(&self, pixel: u32) {
         unsafe {
             ffi::gdk_pixbuf_fill(self.to_glib_none().0, pixel);
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_flip")]
     pub fn flip(&self, horizontal: bool) -> Option<Pixbuf> {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_flip(
@@ -342,30 +361,37 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_get_bits_per_sample")]
     pub fn get_bits_per_sample(&self) -> i32 {
         unsafe { ffi::gdk_pixbuf_get_bits_per_sample(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_pixbuf_get_byte_length")]
     pub fn get_byte_length(&self) -> usize {
         unsafe { ffi::gdk_pixbuf_get_byte_length(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_pixbuf_get_colorspace")]
     pub fn get_colorspace(&self) -> Colorspace {
         unsafe { from_glib(ffi::gdk_pixbuf_get_colorspace(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_pixbuf_get_has_alpha")]
     pub fn get_has_alpha(&self) -> bool {
         unsafe { from_glib(ffi::gdk_pixbuf_get_has_alpha(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_pixbuf_get_height")]
     pub fn get_height(&self) -> i32 {
         unsafe { ffi::gdk_pixbuf_get_height(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_pixbuf_get_n_channels")]
     pub fn get_n_channels(&self) -> i32 {
         unsafe { ffi::gdk_pixbuf_get_n_channels(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_pixbuf_get_option")]
     pub fn get_option(&self, key: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gdk_pixbuf_get_option(
@@ -377,18 +403,22 @@ impl Pixbuf {
 
     //#[cfg(any(feature = "v2_32", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+    //#[doc(alias = "gdk_pixbuf_get_options")]
     //pub fn get_options(&self) -> /*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 } {
     //    unsafe { TODO: call ffi:gdk_pixbuf_get_options() }
     //}
 
+    #[doc(alias = "gdk_pixbuf_get_rowstride")]
     pub fn get_rowstride(&self) -> i32 {
         unsafe { ffi::gdk_pixbuf_get_rowstride(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_pixbuf_get_width")]
     pub fn get_width(&self) -> i32 {
         unsafe { ffi::gdk_pixbuf_get_width(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_pixbuf_new_subpixbuf")]
     pub fn new_subpixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32) -> Option<Pixbuf> {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_new_subpixbuf(
@@ -403,12 +433,14 @@ impl Pixbuf {
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+    #[doc(alias = "gdk_pixbuf_read_pixel_bytes")]
     pub fn read_pixel_bytes(&self) -> Option<glib::Bytes> {
         unsafe { from_glib_full(ffi::gdk_pixbuf_read_pixel_bytes(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_36", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
+    #[doc(alias = "gdk_pixbuf_remove_option")]
     pub fn remove_option(&self, key: &str) -> bool {
         unsafe {
             from_glib(ffi::gdk_pixbuf_remove_option(
@@ -418,6 +450,7 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_rotate_simple")]
     pub fn rotate_simple(&self, angle: PixbufRotation) -> Option<Pixbuf> {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_rotate_simple(
@@ -427,6 +460,7 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_saturate_and_pixelate")]
     pub fn saturate_and_pixelate(&self, dest: &Pixbuf, saturation: f32, pixelate: bool) {
         unsafe {
             ffi::gdk_pixbuf_saturate_and_pixelate(
@@ -438,26 +472,32 @@ impl Pixbuf {
         }
     }
 
+    //#[doc(alias = "gdk_pixbuf_save")]
     //pub fn save<P: AsRef<std::path::Path>>(&self, filename: P, type_: &str, error: Option<&mut glib::Error>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
     //    unsafe { TODO: call ffi:gdk_pixbuf_save() }
     //}
 
+    //#[doc(alias = "gdk_pixbuf_save_to_buffer")]
     //pub fn save_to_buffer(&self, type_: &str, error: Option<&mut glib::Error>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<Vec<u8>> {
     //    unsafe { TODO: call ffi:gdk_pixbuf_save_to_buffer() }
     //}
 
+    //#[doc(alias = "gdk_pixbuf_save_to_callback")]
     //pub fn save_to_callback<P: FnMut(&Vec<u8>, usize, &glib::Error) -> bool>(&self, save_func: P, type_: &str, error: Option<&mut glib::Error>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
     //    unsafe { TODO: call ffi:gdk_pixbuf_save_to_callback() }
     //}
 
+    //#[doc(alias = "gdk_pixbuf_save_to_callbackv")]
     //pub fn save_to_callbackv<P: FnMut(&Vec<u8>, usize, &glib::Error) -> bool>(&self, save_func: P, type_: &str, option_keys: &[&str], option_values: &[&str]) -> Result<(), glib::Error> {
     //    unsafe { TODO: call ffi:gdk_pixbuf_save_to_callbackv() }
     //}
 
+    //#[doc(alias = "gdk_pixbuf_save_to_stream")]
     //pub fn save_to_stream<P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable>>(&self, stream: &P, type_: &str, cancellable: Option<&Q>, error: Option<&mut glib::Error>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
     //    unsafe { TODO: call ffi:gdk_pixbuf_save_to_stream() }
     //}
 
+    //#[doc(alias = "gdk_pixbuf_save_to_stream_async")]
     //pub fn save_to_stream_async<P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable>, R: FnOnce(Result<(), glib::Error>) + Send + 'static>(&self, stream: &P, type_: &str, cancellable: Option<&Q>, callback: R, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call ffi:gdk_pixbuf_save_to_stream_async() }
     //}
@@ -483,6 +523,7 @@ impl Pixbuf {
     //}))
     //}
 
+    #[doc(alias = "gdk_pixbuf_scale")]
     pub fn scale(
         &self,
         dest: &Pixbuf,
@@ -513,6 +554,7 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_scale_simple")]
     pub fn scale_simple(
         &self,
         dest_width: i32,
@@ -529,6 +571,7 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_set_option")]
     pub fn set_option(&self, key: &str, value: &str) -> bool {
         unsafe {
             from_glib(ffi::gdk_pixbuf_set_option(
@@ -555,6 +598,7 @@ impl Pixbuf {
 
     #[cfg(any(feature = "v2_36_8", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36_8")))]
+    #[doc(alias = "gdk_pixbuf_calculate_rowstride")]
     pub fn calculate_rowstride(
         colorspace: Colorspace,
         has_alpha: bool,
@@ -573,12 +617,14 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_get_formats")]
     pub fn get_formats() -> Vec<PixbufFormat> {
         unsafe { FromGlibPtrContainer::from_glib_container(ffi::gdk_pixbuf_get_formats()) }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
+    #[doc(alias = "gdk_pixbuf_init_modules")]
     pub fn init_modules(path: &str) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();

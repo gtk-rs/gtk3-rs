@@ -28,6 +28,7 @@ glib::glib_wrapper! {
 }
 
 impl HeaderBar {
+    #[doc(alias = "gtk_header_bar_new")]
     pub fn new() -> HeaderBar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_header_bar_new()).unsafe_cast() }
@@ -454,32 +455,46 @@ impl HeaderBarBuilder {
 pub const NONE_HEADER_BAR: Option<&HeaderBar> = None;
 
 pub trait HeaderBarExt: 'static {
+    #[doc(alias = "gtk_header_bar_get_custom_title")]
     fn get_custom_title(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_header_bar_get_decoration_layout")]
     fn get_decoration_layout(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_header_bar_get_has_subtitle")]
     fn get_has_subtitle(&self) -> bool;
 
+    #[doc(alias = "gtk_header_bar_get_show_close_button")]
     fn get_show_close_button(&self) -> bool;
 
+    #[doc(alias = "gtk_header_bar_get_subtitle")]
     fn get_subtitle(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_header_bar_get_title")]
     fn get_title(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_header_bar_pack_end")]
     fn pack_end<P: IsA<Widget>>(&self, child: &P);
 
+    #[doc(alias = "gtk_header_bar_pack_start")]
     fn pack_start<P: IsA<Widget>>(&self, child: &P);
 
+    #[doc(alias = "gtk_header_bar_set_custom_title")]
     fn set_custom_title<P: IsA<Widget>>(&self, title_widget: Option<&P>);
 
+    #[doc(alias = "gtk_header_bar_set_decoration_layout")]
     fn set_decoration_layout(&self, layout: Option<&str>);
 
+    #[doc(alias = "gtk_header_bar_set_has_subtitle")]
     fn set_has_subtitle(&self, setting: bool);
 
+    #[doc(alias = "gtk_header_bar_set_show_close_button")]
     fn set_show_close_button(&self, setting: bool);
 
+    #[doc(alias = "gtk_header_bar_set_subtitle")]
     fn set_subtitle(&self, subtitle: Option<&str>);
 
+    #[doc(alias = "gtk_header_bar_set_title")]
     fn set_title(&self, title: Option<&str>);
 
     fn get_property_decoration_layout_set(&self) -> bool;

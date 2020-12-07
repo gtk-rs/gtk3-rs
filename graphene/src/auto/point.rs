@@ -20,6 +20,7 @@ glib::glib_wrapper! {
 }
 
 impl Point {
+    #[doc(alias = "graphene_point_distance")]
     pub fn distance(&self, b: &Point) -> (f32, f32, f32) {
         unsafe {
             let mut d_x = mem::MaybeUninit::uninit();
@@ -36,6 +37,7 @@ impl Point {
         }
     }
 
+    #[doc(alias = "graphene_point_equal")]
     fn equal(&self, b: &Point) -> bool {
         unsafe {
             from_glib(ffi::graphene_point_equal(
@@ -45,24 +47,28 @@ impl Point {
         }
     }
 
+    #[doc(alias = "graphene_point_init")]
     pub fn init(&mut self, x: f32, y: f32) {
         unsafe {
             ffi::graphene_point_init(self.to_glib_none_mut().0, x, y);
         }
     }
 
+    #[doc(alias = "graphene_point_init_from_point")]
     pub fn init_from_point(&mut self, src: &Point) {
         unsafe {
             ffi::graphene_point_init_from_point(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "graphene_point_init_from_vec2")]
     pub fn init_from_vec2(&mut self, src: &Vec2) {
         unsafe {
             ffi::graphene_point_init_from_vec2(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "graphene_point_interpolate")]
     pub fn interpolate(&self, b: &Point, factor: f64) -> Point {
         unsafe {
             let mut res = Point::uninitialized();
@@ -76,6 +82,7 @@ impl Point {
         }
     }
 
+    #[doc(alias = "graphene_point_near")]
     pub fn near(&self, b: &Point, epsilon: f32) -> bool {
         unsafe {
             from_glib(ffi::graphene_point_near(
@@ -86,6 +93,7 @@ impl Point {
         }
     }
 
+    #[doc(alias = "graphene_point_to_vec2")]
     pub fn to_vec2(&self) -> Vec2 {
         unsafe {
             let mut v = Vec2::uninitialized();
@@ -94,6 +102,7 @@ impl Point {
         }
     }
 
+    #[doc(alias = "graphene_point_zero")]
     pub fn zero() -> Point {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::graphene_point_zero()) }

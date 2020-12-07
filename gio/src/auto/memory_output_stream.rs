@@ -23,6 +23,7 @@ glib::glib_wrapper! {
 }
 
 impl MemoryOutputStream {
+    #[doc(alias = "g_memory_output_stream_new_resizable")]
     pub fn new_resizable() -> MemoryOutputStream {
         unsafe {
             OutputStream::from_glib_full(ffi::g_memory_output_stream_new_resizable()).unsafe_cast()
@@ -33,8 +34,10 @@ impl MemoryOutputStream {
 pub const NONE_MEMORY_OUTPUT_STREAM: Option<&MemoryOutputStream> = None;
 
 pub trait MemoryOutputStreamExt: 'static {
+    #[doc(alias = "g_memory_output_stream_get_data_size")]
     fn get_data_size(&self) -> usize;
 
+    #[doc(alias = "g_memory_output_stream_steal_as_bytes")]
     fn steal_as_bytes(&self) -> Option<glib::Bytes>;
 
     fn connect_property_data_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

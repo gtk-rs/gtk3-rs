@@ -25,6 +25,7 @@ glib::glib_wrapper! {
 }
 
 impl SocketService {
+    #[doc(alias = "g_socket_service_new")]
     pub fn new() -> SocketService {
         unsafe { from_glib_full(ffi::g_socket_service_new()) }
     }
@@ -39,10 +40,13 @@ impl Default for SocketService {
 pub const NONE_SOCKET_SERVICE: Option<&SocketService> = None;
 
 pub trait SocketServiceExt: 'static {
+    #[doc(alias = "g_socket_service_is_active")]
     fn is_active(&self) -> bool;
 
+    #[doc(alias = "g_socket_service_start")]
     fn start(&self);
 
+    #[doc(alias = "g_socket_service_stop")]
     fn stop(&self);
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]

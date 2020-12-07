@@ -26,24 +26,34 @@ glib::glib_wrapper! {
 pub const NONE_RENDERER: Option<&Renderer> = None;
 
 pub trait RendererExt: 'static {
+    #[doc(alias = "pango_renderer_activate")]
     fn activate(&self);
 
+    #[doc(alias = "pango_renderer_deactivate")]
     fn deactivate(&self);
 
+    #[doc(alias = "pango_renderer_draw_error_underline")]
     fn draw_error_underline(&self, x: i32, y: i32, width: i32, height: i32);
 
+    #[doc(alias = "pango_renderer_draw_glyph")]
     fn draw_glyph<P: IsA<Font>>(&self, font: &P, glyph: Glyph, x: f64, y: f64);
 
+    #[doc(alias = "pango_renderer_draw_glyph_item")]
     fn draw_glyph_item(&self, text: Option<&str>, glyph_item: &mut GlyphItem, x: i32, y: i32);
 
+    #[doc(alias = "pango_renderer_draw_glyphs")]
     fn draw_glyphs<P: IsA<Font>>(&self, font: &P, glyphs: &mut GlyphString, x: i32, y: i32);
 
+    #[doc(alias = "pango_renderer_draw_layout")]
     fn draw_layout(&self, layout: &Layout, x: i32, y: i32);
 
+    #[doc(alias = "pango_renderer_draw_layout_line")]
     fn draw_layout_line(&self, line: &LayoutLine, x: i32, y: i32);
 
+    #[doc(alias = "pango_renderer_draw_rectangle")]
     fn draw_rectangle(&self, part: RenderPart, x: i32, y: i32, width: i32, height: i32);
 
+    #[doc(alias = "pango_renderer_draw_trapezoid")]
     fn draw_trapezoid(
         &self,
         part: RenderPart,
@@ -57,24 +67,33 @@ pub trait RendererExt: 'static {
 
     #[cfg(any(feature = "v1_38", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
+    #[doc(alias = "pango_renderer_get_alpha")]
     fn get_alpha(&self, part: RenderPart) -> u16;
 
+    #[doc(alias = "pango_renderer_get_color")]
     fn get_color(&self, part: RenderPart) -> Option<Color>;
 
+    #[doc(alias = "pango_renderer_get_layout")]
     fn get_layout(&self) -> Option<Layout>;
 
+    #[doc(alias = "pango_renderer_get_layout_line")]
     fn get_layout_line(&self) -> Option<LayoutLine>;
 
+    #[doc(alias = "pango_renderer_get_matrix")]
     fn get_matrix(&self) -> Option<Matrix>;
 
+    #[doc(alias = "pango_renderer_part_changed")]
     fn part_changed(&self, part: RenderPart);
 
     #[cfg(any(feature = "v1_38", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
+    #[doc(alias = "pango_renderer_set_alpha")]
     fn set_alpha(&self, part: RenderPart, alpha: u16);
 
+    #[doc(alias = "pango_renderer_set_color")]
     fn set_color(&self, part: RenderPart, color: Option<&Color>);
 
+    #[doc(alias = "pango_renderer_set_matrix")]
     fn set_matrix(&self, matrix: Option<&Matrix>);
 }
 

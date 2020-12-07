@@ -29,56 +29,80 @@ glib::glib_wrapper! {
 pub const NONE_OBJECT: Option<&Object> = None;
 
 pub trait AtkObjectExt: 'static {
+    #[doc(alias = "atk_object_add_relationship")]
     fn add_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool;
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
+    #[doc(alias = "atk_object_get_accessible_id")]
     fn get_accessible_id(&self) -> Option<glib::GString>;
 
+    //#[doc(alias = "atk_object_get_attributes")]
     //fn get_attributes(&self) -> /*Ignored*/Option<AttributeSet>;
 
+    #[doc(alias = "atk_object_get_description")]
     fn get_description(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "atk_object_get_index_in_parent")]
     fn get_index_in_parent(&self) -> i32;
 
+    #[doc(alias = "atk_object_get_layer")]
     fn get_layer(&self) -> Layer;
 
+    #[doc(alias = "atk_object_get_mdi_zorder")]
     fn get_mdi_zorder(&self) -> i32;
 
+    #[doc(alias = "atk_object_get_n_accessible_children")]
     fn get_n_accessible_children(&self) -> i32;
 
+    #[doc(alias = "atk_object_get_name")]
     fn get_name(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "atk_object_get_object_locale")]
     fn get_object_locale(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "atk_object_get_parent")]
     fn get_parent(&self) -> Option<Object>;
 
+    #[doc(alias = "atk_object_get_role")]
     fn get_role(&self) -> Role;
 
+    //#[doc(alias = "atk_object_initialize")]
     //fn initialize(&self, data: /*Unimplemented*/Option<Fundamental: Pointer>);
 
+    #[doc(alias = "atk_object_notify_state_change")]
     fn notify_state_change(&self, state: State, value: bool);
 
+    #[doc(alias = "atk_object_peek_parent")]
     fn peek_parent(&self) -> Option<Object>;
 
+    #[doc(alias = "atk_object_ref_accessible_child")]
     fn ref_accessible_child(&self, i: i32) -> Option<Object>;
 
+    #[doc(alias = "atk_object_ref_relation_set")]
     fn ref_relation_set(&self) -> Option<RelationSet>;
 
+    #[doc(alias = "atk_object_ref_state_set")]
     fn ref_state_set(&self) -> Option<StateSet>;
 
+    #[doc(alias = "atk_object_remove_relationship")]
     fn remove_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool;
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
+    #[doc(alias = "atk_object_set_accessible_id")]
     fn set_accessible_id(&self, name: &str);
 
+    #[doc(alias = "atk_object_set_description")]
     fn set_description(&self, description: &str);
 
+    #[doc(alias = "atk_object_set_name")]
     fn set_name(&self, name: &str);
 
+    #[doc(alias = "atk_object_set_parent")]
     fn set_parent<P: IsA<Object>>(&self, parent: &P);
 
+    #[doc(alias = "atk_object_set_role")]
     fn set_role(&self, role: Role);
 
     fn get_property_accessible_component_layer(&self) -> i32;

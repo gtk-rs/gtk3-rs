@@ -21,6 +21,7 @@ glib::glib_wrapper! {
 }
 
 impl IconInfo {
+    #[doc(alias = "gtk_icon_info_new_for_pixbuf")]
     pub fn new_for_pixbuf<P: IsA<IconTheme>>(
         icon_theme: &P,
         pixbuf: &gdk_pixbuf::Pixbuf,
@@ -34,22 +35,27 @@ impl IconInfo {
         }
     }
 
+    #[doc(alias = "gtk_icon_info_get_base_scale")]
     pub fn get_base_scale(&self) -> i32 {
         unsafe { ffi::gtk_icon_info_get_base_scale(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_icon_info_get_base_size")]
     pub fn get_base_size(&self) -> i32 {
         unsafe { ffi::gtk_icon_info_get_base_size(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_icon_info_get_filename")]
     pub fn get_filename(&self) -> Option<std::path::PathBuf> {
         unsafe { from_glib_none(ffi::gtk_icon_info_get_filename(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_icon_info_is_symbolic")]
     pub fn is_symbolic(&self) -> bool {
         unsafe { from_glib(ffi::gtk_icon_info_is_symbolic(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_icon_info_load_icon")]
     pub fn load_icon(&self) -> Result<gdk_pixbuf::Pixbuf, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -62,6 +68,7 @@ impl IconInfo {
         }
     }
 
+    #[doc(alias = "gtk_icon_info_load_icon_async")]
     pub fn load_icon_async<
         P: IsA<gio::Cancellable>,
         Q: FnOnce(Result<gdk_pixbuf::Pixbuf, glib::Error>) + Send + 'static,
@@ -115,6 +122,7 @@ impl IconInfo {
         }))
     }
 
+    #[doc(alias = "gtk_icon_info_load_surface")]
     pub fn load_surface(
         &self,
         for_window: Option<&gdk::Window>,
@@ -134,6 +142,7 @@ impl IconInfo {
         }
     }
 
+    #[doc(alias = "gtk_icon_info_load_symbolic")]
     pub fn load_symbolic(
         &self,
         fg: &gdk::RGBA,
@@ -162,6 +171,7 @@ impl IconInfo {
         }
     }
 
+    #[doc(alias = "gtk_icon_info_load_symbolic_async")]
     pub fn load_symbolic_async<
         P: IsA<gio::Cancellable>,
         Q: FnOnce(Result<(gdk_pixbuf::Pixbuf, bool), glib::Error>) + Send + 'static,
@@ -247,6 +257,7 @@ impl IconInfo {
         }))
     }
 
+    #[doc(alias = "gtk_icon_info_load_symbolic_for_context")]
     pub fn load_symbolic_for_context<P: IsA<StyleContext>>(
         &self,
         context: &P,
@@ -269,6 +280,7 @@ impl IconInfo {
         }
     }
 
+    #[doc(alias = "gtk_icon_info_load_symbolic_for_context_async")]
     pub fn load_symbolic_for_context_async<
         P: IsA<StyleContext>,
         Q: IsA<gio::Cancellable>,

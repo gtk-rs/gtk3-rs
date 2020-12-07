@@ -17,16 +17,22 @@ glib::glib_wrapper! {
 pub const NONE_EDITABLE_TEXT: Option<&EditableText> = None;
 
 pub trait EditableTextExt: 'static {
+    #[doc(alias = "atk_editable_text_copy_text")]
     fn copy_text(&self, start_pos: i32, end_pos: i32);
 
+    #[doc(alias = "atk_editable_text_cut_text")]
     fn cut_text(&self, start_pos: i32, end_pos: i32);
 
+    #[doc(alias = "atk_editable_text_delete_text")]
     fn delete_text(&self, start_pos: i32, end_pos: i32);
 
+    #[doc(alias = "atk_editable_text_paste_text")]
     fn paste_text(&self, position: i32);
 
+    //#[doc(alias = "atk_editable_text_set_run_attributes")]
     //fn set_run_attributes(&self, attrib_set: /*Ignored*/&mut AttributeSet, start_offset: i32, end_offset: i32) -> bool;
 
+    #[doc(alias = "atk_editable_text_set_text_contents")]
     fn set_text_contents(&self, string: &str);
 }
 

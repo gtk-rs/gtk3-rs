@@ -35,10 +35,12 @@ glib::glib_wrapper! {
 }
 
 impl MessageDialog {
+    //#[doc(alias = "gtk_message_dialog_new")]
     //pub fn new<P: IsA<Window>>(parent: Option<&P>, flags: DialogFlags, type_: MessageType, buttons: ButtonsType, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> MessageDialog {
     //    unsafe { TODO: call ffi:gtk_message_dialog_new() }
     //}
 
+    //#[doc(alias = "gtk_message_dialog_new_with_markup")]
     //pub fn with_markup<P: IsA<Window>>(parent: Option<&P>, flags: DialogFlags, type_: MessageType, buttons: ButtonsType, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> MessageDialog {
     //    unsafe { TODO: call ffi:gtk_message_dialog_new_with_markup() }
     //}
@@ -701,12 +703,16 @@ impl MessageDialogBuilder {
 pub const NONE_MESSAGE_DIALOG: Option<&MessageDialog> = None;
 
 pub trait MessageDialogExt: 'static {
+    //#[doc(alias = "gtk_message_dialog_format_secondary_markup")]
     //fn format_secondary_markup(&self, message_format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
+    //#[doc(alias = "gtk_message_dialog_format_secondary_text")]
     //fn format_secondary_text(&self, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
+    #[doc(alias = "gtk_message_dialog_get_message_area")]
     fn get_message_area(&self) -> Widget;
 
+    #[doc(alias = "gtk_message_dialog_set_markup")]
     fn set_markup(&self, str: &str);
 
     fn get_property_message_type(&self) -> MessageType;

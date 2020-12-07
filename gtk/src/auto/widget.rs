@@ -44,15 +44,18 @@ glib::glib_wrapper! {
 }
 
 impl Widget {
+    //#[doc(alias = "gtk_widget_new")]
     //pub fn new(type_: glib::types::Type, first_property_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Widget {
     //    unsafe { TODO: call ffi:gtk_widget_new() }
     //}
 
+    #[doc(alias = "gtk_widget_get_default_direction")]
     pub fn get_default_direction() -> TextDirection {
         assert_initialized_main_thread!();
         unsafe { from_glib(ffi::gtk_widget_get_default_direction()) }
     }
 
+    #[doc(alias = "gtk_widget_set_default_direction")]
     pub fn set_default_direction(dir: TextDirection) {
         assert_initialized_main_thread!();
         unsafe {
@@ -61,11 +64,20 @@ impl Widget {
     }
 }
 
+impl fmt::Display for Widget {
+    #[inline]
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.write_str(&WidgetExt::get_widget_name(self))
+    }
+}
+
 pub const NONE_WIDGET: Option<&Widget> = None;
 
 pub trait WidgetExt: 'static {
+    #[doc(alias = "gtk_widget_activate")]
     fn activate(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_add_accelerator")]
     fn add_accelerator<P: IsA<AccelGroup>>(
         &self,
         accel_signal: &str,
@@ -75,26 +87,37 @@ pub trait WidgetExt: 'static {
         accel_flags: AccelFlags,
     );
 
+    #[doc(alias = "gtk_widget_add_device_events")]
     fn add_device_events(&self, device: &gdk::Device, events: gdk::EventMask);
 
+    #[doc(alias = "gtk_widget_add_mnemonic_label")]
     fn add_mnemonic_label<P: IsA<Widget>>(&self, label: &P);
 
+    #[doc(alias = "gtk_widget_can_activate_accel")]
     fn can_activate_accel(&self, signal_id: u32) -> bool;
 
+    #[doc(alias = "gtk_widget_child_focus")]
     fn child_focus(&self, direction: DirectionType) -> bool;
 
+    #[doc(alias = "gtk_widget_child_notify")]
     fn child_notify(&self, child_property: &str);
 
+    #[doc(alias = "gtk_widget_compute_expand")]
     fn compute_expand(&self, orientation: Orientation) -> bool;
 
+    #[doc(alias = "gtk_widget_create_pango_context")]
     fn create_pango_context(&self) -> pango::Context;
 
+    #[doc(alias = "gtk_widget_create_pango_layout")]
     fn create_pango_layout(&self, text: Option<&str>) -> pango::Layout;
 
+    //#[doc(alias = "gtk_widget_destroyed")]
     //fn destroyed<P: IsA<Widget>>(&self, widget_pointer: P);
 
+    #[doc(alias = "gtk_widget_device_is_shadowed")]
     fn device_is_shadowed(&self, device: &gdk::Device) -> bool;
 
+    #[doc(alias = "gtk_drag_begin_with_coordinates")]
     fn drag_begin_with_coordinates(
         &self,
         targets: &TargetList,
@@ -105,6 +128,7 @@ pub trait WidgetExt: 'static {
         y: i32,
     ) -> Option<gdk::DragContext>;
 
+    #[doc(alias = "gtk_drag_check_threshold")]
     fn drag_check_threshold(
         &self,
         start_x: i32,
@@ -113,23 +137,30 @@ pub trait WidgetExt: 'static {
         current_y: i32,
     ) -> bool;
 
+    #[doc(alias = "gtk_drag_dest_add_image_targets")]
     fn drag_dest_add_image_targets(&self);
 
+    #[doc(alias = "gtk_drag_dest_add_text_targets")]
     fn drag_dest_add_text_targets(&self);
 
+    #[doc(alias = "gtk_drag_dest_add_uri_targets")]
     fn drag_dest_add_uri_targets(&self);
 
+    #[doc(alias = "gtk_drag_dest_find_target")]
     fn drag_dest_find_target(
         &self,
         context: &gdk::DragContext,
         target_list: Option<&TargetList>,
     ) -> Option<gdk::Atom>;
 
+    #[doc(alias = "gtk_drag_dest_get_target_list")]
     fn drag_dest_get_target_list(&self) -> Option<TargetList>;
 
+    #[doc(alias = "gtk_drag_dest_get_track_motion")]
     fn drag_dest_get_track_motion(&self) -> bool;
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gtk_drag_dest_set_proxy")]
     fn drag_dest_set_proxy(
         &self,
         proxy_window: &gdk::Window,
@@ -137,290 +168,421 @@ pub trait WidgetExt: 'static {
         use_coordinates: bool,
     );
 
+    #[doc(alias = "gtk_drag_dest_set_target_list")]
     fn drag_dest_set_target_list(&self, target_list: Option<&TargetList>);
 
+    #[doc(alias = "gtk_drag_dest_set_track_motion")]
     fn drag_dest_set_track_motion(&self, track_motion: bool);
 
+    #[doc(alias = "gtk_drag_dest_unset")]
     fn drag_dest_unset(&self);
 
+    #[doc(alias = "gtk_drag_get_data")]
     fn drag_get_data(&self, context: &gdk::DragContext, target: &gdk::Atom, time_: u32);
 
+    #[doc(alias = "gtk_drag_highlight")]
     fn drag_highlight(&self);
 
+    #[doc(alias = "gtk_drag_source_add_image_targets")]
     fn drag_source_add_image_targets(&self);
 
+    #[doc(alias = "gtk_drag_source_add_text_targets")]
     fn drag_source_add_text_targets(&self);
 
+    #[doc(alias = "gtk_drag_source_add_uri_targets")]
     fn drag_source_add_uri_targets(&self);
 
+    #[doc(alias = "gtk_drag_source_get_target_list")]
     fn drag_source_get_target_list(&self) -> Option<TargetList>;
 
+    #[doc(alias = "gtk_drag_source_set_icon_gicon")]
     fn drag_source_set_icon_gicon<P: IsA<gio::Icon>>(&self, icon: &P);
 
+    #[doc(alias = "gtk_drag_source_set_icon_name")]
     fn drag_source_set_icon_name(&self, icon_name: &str);
 
+    #[doc(alias = "gtk_drag_source_set_icon_pixbuf")]
     fn drag_source_set_icon_pixbuf(&self, pixbuf: &gdk_pixbuf::Pixbuf);
 
+    #[doc(alias = "gtk_drag_source_set_target_list")]
     fn drag_source_set_target_list(&self, target_list: Option<&TargetList>);
 
+    #[doc(alias = "gtk_drag_source_unset")]
     fn drag_source_unset(&self);
 
+    #[doc(alias = "gtk_drag_unhighlight")]
     fn drag_unhighlight(&self);
 
+    #[doc(alias = "gtk_widget_draw")]
     fn draw(&self, cr: &cairo::Context);
 
+    #[doc(alias = "gtk_widget_error_bell")]
     fn error_bell(&self);
 
+    #[doc(alias = "gtk_widget_event")]
     fn event(&self, event: &gdk::Event) -> bool;
 
+    #[doc(alias = "gtk_widget_freeze_child_notify")]
     fn freeze_child_notify(&self);
 
+    #[doc(alias = "gtk_widget_get_accessible")]
     fn get_accessible(&self) -> Option<atk::Object>;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_widget_get_action_group")]
     fn get_action_group(&self, prefix: &str) -> Option<gio::ActionGroup>;
 
+    #[doc(alias = "gtk_widget_get_allocated_baseline")]
     fn get_allocated_baseline(&self) -> i32;
 
+    #[doc(alias = "gtk_widget_get_allocated_height")]
     fn get_allocated_height(&self) -> i32;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "gtk_widget_get_allocated_size")]
     fn get_allocated_size(&self) -> (Allocation, i32);
 
+    #[doc(alias = "gtk_widget_get_allocated_width")]
     fn get_allocated_width(&self) -> i32;
 
+    #[doc(alias = "gtk_widget_get_allocation")]
     fn get_allocation(&self) -> Allocation;
 
+    #[doc(alias = "gtk_widget_get_ancestor")]
     fn get_ancestor(&self, widget_type: glib::types::Type) -> Option<Widget>;
 
+    #[doc(alias = "gtk_widget_get_app_paintable")]
     fn get_app_paintable(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_can_default")]
     fn get_can_default(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_can_focus")]
     fn get_can_focus(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_child_visible")]
     fn get_child_visible(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_clip")]
     fn get_clip(&self) -> Allocation;
 
+    #[doc(alias = "gtk_widget_get_clipboard")]
     fn get_clipboard(&self, selection: &gdk::Atom) -> Clipboard;
 
+    #[doc(alias = "gtk_widget_get_device_enabled")]
     fn get_device_enabled(&self, device: &gdk::Device) -> bool;
 
+    #[doc(alias = "gtk_widget_get_device_events")]
     fn get_device_events(&self, device: &gdk::Device) -> gdk::EventMask;
 
+    #[doc(alias = "gtk_widget_get_direction")]
     fn get_direction(&self) -> TextDirection;
 
+    #[doc(alias = "gtk_widget_get_display")]
     fn get_display(&self) -> gdk::Display;
 
+    #[doc(alias = "gtk_widget_get_double_buffered")]
     fn get_double_buffered(&self) -> bool;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "gtk_widget_get_focus_on_click")]
     fn get_focus_on_click(&self) -> bool;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_widget_get_font_map")]
     fn get_font_map(&self) -> Option<pango::FontMap>;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_widget_get_font_options")]
     fn get_font_options(&self) -> Option<cairo::FontOptions>;
 
+    #[doc(alias = "gtk_widget_get_frame_clock")]
     fn get_frame_clock(&self) -> Option<gdk::FrameClock>;
 
+    #[doc(alias = "gtk_widget_get_halign")]
     fn get_halign(&self) -> Align;
 
+    #[doc(alias = "gtk_widget_get_has_tooltip")]
     fn get_has_tooltip(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_has_window")]
     fn get_has_window(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_hexpand")]
     fn get_hexpand(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_hexpand_set")]
     fn get_hexpand_set(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_mapped")]
     fn get_mapped(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_margin_bottom")]
     fn get_margin_bottom(&self) -> i32;
 
+    #[doc(alias = "gtk_widget_get_margin_end")]
     fn get_margin_end(&self) -> i32;
 
+    #[doc(alias = "gtk_widget_get_margin_start")]
     fn get_margin_start(&self) -> i32;
 
+    #[doc(alias = "gtk_widget_get_margin_top")]
     fn get_margin_top(&self) -> i32;
 
+    #[doc(alias = "gtk_widget_get_modifier_mask")]
     fn get_modifier_mask(&self, intent: gdk::ModifierIntent) -> gdk::ModifierType;
 
+    #[doc(alias = "gtk_widget_get_name")]
     fn get_widget_name(&self) -> glib::GString;
 
+    #[doc(alias = "gtk_widget_get_no_show_all")]
     fn get_no_show_all(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_opacity")]
     fn get_opacity(&self) -> f64;
 
+    #[doc(alias = "gtk_widget_get_pango_context")]
     fn get_pango_context(&self) -> pango::Context;
 
+    #[doc(alias = "gtk_widget_get_parent")]
     fn get_parent(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_widget_get_parent_window")]
     fn get_parent_window(&self) -> Option<gdk::Window>;
 
+    #[doc(alias = "gtk_widget_get_path")]
     fn get_path(&self) -> WidgetPath;
 
+    #[doc(alias = "gtk_widget_get_preferred_height")]
     fn get_preferred_height(&self) -> (i32, i32);
 
+    #[doc(alias = "gtk_widget_get_preferred_height_and_baseline_for_width")]
     fn get_preferred_height_and_baseline_for_width(&self, width: i32) -> (i32, i32, i32, i32);
 
+    #[doc(alias = "gtk_widget_get_preferred_height_for_width")]
     fn get_preferred_height_for_width(&self, width: i32) -> (i32, i32);
 
+    #[doc(alias = "gtk_widget_get_preferred_size")]
     fn get_preferred_size(&self) -> (Requisition, Requisition);
 
+    #[doc(alias = "gtk_widget_get_preferred_width")]
     fn get_preferred_width(&self) -> (i32, i32);
 
+    #[doc(alias = "gtk_widget_get_preferred_width_for_height")]
     fn get_preferred_width_for_height(&self, height: i32) -> (i32, i32);
 
+    #[doc(alias = "gtk_widget_get_realized")]
     fn get_realized(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_receives_default")]
     fn get_receives_default(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_request_mode")]
     fn get_request_mode(&self) -> SizeRequestMode;
 
+    #[doc(alias = "gtk_widget_get_scale_factor")]
     fn get_scale_factor(&self) -> i32;
 
+    #[doc(alias = "gtk_widget_get_screen")]
     fn get_screen(&self) -> Option<gdk::Screen>;
 
+    #[doc(alias = "gtk_widget_get_sensitive")]
     fn get_sensitive(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_settings")]
     fn get_settings(&self) -> Option<Settings>;
 
+    #[doc(alias = "gtk_widget_get_size_request")]
     fn get_size_request(&self) -> (i32, i32);
 
+    #[doc(alias = "gtk_widget_get_state_flags")]
     fn get_state_flags(&self) -> StateFlags;
 
+    #[doc(alias = "gtk_widget_get_style_context")]
     fn get_style_context(&self) -> StyleContext;
 
+    #[doc(alias = "gtk_widget_get_support_multidevice")]
     fn get_support_multidevice(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_template_child")]
     fn get_template_child(
         &self,
         widget_type: glib::types::Type,
         name: &str,
     ) -> Option<glib::Object>;
 
+    #[doc(alias = "gtk_widget_get_tooltip_markup")]
     fn get_tooltip_markup(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_widget_get_tooltip_text")]
     fn get_tooltip_text(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_widget_get_tooltip_window")]
     fn get_tooltip_window(&self) -> Option<Window>;
 
+    #[doc(alias = "gtk_widget_get_toplevel")]
     fn get_toplevel(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_widget_get_valign")]
     fn get_valign(&self) -> Align;
 
+    #[doc(alias = "gtk_widget_get_valign_with_baseline")]
     fn get_valign_with_baseline(&self) -> Align;
 
+    #[doc(alias = "gtk_widget_get_vexpand")]
     fn get_vexpand(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_vexpand_set")]
     fn get_vexpand_set(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_visible")]
     fn get_visible(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_get_visual")]
     fn get_visual(&self) -> Option<gdk::Visual>;
 
+    #[doc(alias = "gtk_widget_get_window")]
     fn get_window(&self) -> Option<gdk::Window>;
 
+    #[doc(alias = "gtk_grab_add")]
     fn grab_add(&self);
 
+    #[doc(alias = "gtk_widget_grab_default")]
     fn grab_default(&self);
 
+    #[doc(alias = "gtk_widget_grab_focus")]
     fn grab_focus(&self);
 
+    #[doc(alias = "gtk_grab_remove")]
     fn grab_remove(&self);
 
+    #[doc(alias = "gtk_widget_has_default")]
     fn has_default(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_has_focus")]
     fn has_focus(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_has_grab")]
     fn has_grab(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_has_screen")]
     fn has_screen(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_has_visible_focus")]
     fn has_visible_focus(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_hide")]
     fn hide(&self);
 
+    #[doc(alias = "gtk_widget_in_destruction")]
     fn in_destruction(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_init_template")]
     fn init_template(&self);
 
+    #[doc(alias = "gtk_widget_input_shape_combine_region")]
     fn input_shape_combine_region(&self, region: Option<&cairo::Region>);
 
+    #[doc(alias = "gtk_widget_insert_action_group")]
     fn insert_action_group<P: IsA<gio::ActionGroup>>(&self, name: &str, group: Option<&P>);
 
+    #[doc(alias = "gtk_widget_is_ancestor")]
     fn is_ancestor<P: IsA<Widget>>(&self, ancestor: &P) -> bool;
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gtk_widget_is_composited")]
     fn is_composited(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_is_drawable")]
     fn is_drawable(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_is_focus")]
     fn is_focus(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_is_sensitive")]
     fn is_sensitive(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_is_toplevel")]
     fn is_toplevel(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_is_visible")]
     fn is_visible(&self) -> bool;
 
+    #[doc(alias = "gtk_widget_keynav_failed")]
     fn keynav_failed(&self, direction: DirectionType) -> bool;
 
+    #[doc(alias = "gtk_widget_list_accel_closures")]
     fn list_accel_closures(&self) -> Vec<glib::Closure>;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_widget_list_action_prefixes")]
     fn list_action_prefixes(&self) -> Vec<glib::GString>;
 
+    #[doc(alias = "gtk_widget_list_mnemonic_labels")]
     fn list_mnemonic_labels(&self) -> Vec<Widget>;
 
+    #[doc(alias = "gtk_widget_map")]
     fn map(&self);
 
+    #[doc(alias = "gtk_widget_mnemonic_activate")]
     fn mnemonic_activate(&self, group_cycling: bool) -> bool;
 
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gtk_widget_override_background_color")]
     fn override_background_color(&self, state: StateFlags, color: Option<&gdk::RGBA>);
 
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gtk_widget_override_color")]
     fn override_color(&self, state: StateFlags, color: Option<&gdk::RGBA>);
 
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gtk_widget_override_cursor")]
     fn override_cursor(&self, cursor: Option<&gdk::RGBA>, secondary_cursor: Option<&gdk::RGBA>);
 
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gtk_widget_override_font")]
     fn override_font(&self, font_desc: &pango::FontDescription);
 
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gtk_widget_override_symbolic_color")]
     fn override_symbolic_color(&self, name: &str, color: Option<&gdk::RGBA>);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "gtk_widget_queue_allocate")]
     fn queue_allocate(&self);
 
+    #[doc(alias = "gtk_widget_queue_compute_expand")]
     fn queue_compute_expand(&self);
 
+    #[doc(alias = "gtk_widget_queue_draw")]
     fn queue_draw(&self);
 
+    #[doc(alias = "gtk_widget_queue_draw_area")]
     fn queue_draw_area(&self, x: i32, y: i32, width: i32, height: i32);
 
+    #[doc(alias = "gtk_widget_queue_draw_region")]
     fn queue_draw_region(&self, region: &cairo::Region);
 
+    #[doc(alias = "gtk_widget_queue_resize")]
     fn queue_resize(&self);
 
+    #[doc(alias = "gtk_widget_queue_resize_no_redraw")]
     fn queue_resize_no_redraw(&self);
 
+    #[doc(alias = "gtk_widget_realize")]
     fn realize(&self);
 
+    #[doc(alias = "gtk_widget_register_window")]
     fn register_window(&self, window: &gdk::Window);
 
+    #[doc(alias = "gtk_widget_remove_accelerator")]
     fn remove_accelerator<P: IsA<AccelGroup>>(
         &self,
         accel_group: &P,
@@ -428,129 +590,188 @@ pub trait WidgetExt: 'static {
         accel_mods: gdk::ModifierType,
     ) -> bool;
 
+    #[doc(alias = "gtk_widget_remove_mnemonic_label")]
     fn remove_mnemonic_label<P: IsA<Widget>>(&self, label: &P);
 
+    #[doc(alias = "gtk_widget_reset_style")]
     fn reset_style(&self);
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gtk_widget_send_expose")]
     fn send_expose(&self, event: &gdk::Event) -> i32;
 
+    #[doc(alias = "gtk_widget_send_focus_change")]
     fn send_focus_change(&self, event: &gdk::Event) -> bool;
 
+    #[doc(alias = "gtk_widget_set_accel_path")]
     fn set_accel_path<P: IsA<AccelGroup>>(&self, accel_path: Option<&str>, accel_group: Option<&P>);
 
+    #[doc(alias = "gtk_widget_set_allocation")]
     fn set_allocation(&self, allocation: &Allocation);
 
+    #[doc(alias = "gtk_widget_set_app_paintable")]
     fn set_app_paintable(&self, app_paintable: bool);
 
+    #[doc(alias = "gtk_widget_set_can_default")]
     fn set_can_default(&self, can_default: bool);
 
+    #[doc(alias = "gtk_widget_set_can_focus")]
     fn set_can_focus(&self, can_focus: bool);
 
+    #[doc(alias = "gtk_widget_set_child_visible")]
     fn set_child_visible(&self, is_visible: bool);
 
+    #[doc(alias = "gtk_widget_set_clip")]
     fn set_clip(&self, clip: &Allocation);
 
+    #[doc(alias = "gtk_widget_set_device_enabled")]
     fn set_device_enabled(&self, device: &gdk::Device, enabled: bool);
 
+    #[doc(alias = "gtk_widget_set_device_events")]
     fn set_device_events(&self, device: &gdk::Device, events: gdk::EventMask);
 
+    #[doc(alias = "gtk_widget_set_direction")]
     fn set_direction(&self, dir: TextDirection);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "gtk_widget_set_focus_on_click")]
     fn set_focus_on_click(&self, focus_on_click: bool);
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_widget_set_font_map")]
     fn set_font_map<P: IsA<pango::FontMap>>(&self, font_map: Option<&P>);
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_widget_set_font_options")]
     fn set_font_options(&self, options: Option<&cairo::FontOptions>);
 
+    #[doc(alias = "gtk_widget_set_halign")]
     fn set_halign(&self, align: Align);
 
+    #[doc(alias = "gtk_widget_set_has_tooltip")]
     fn set_has_tooltip(&self, has_tooltip: bool);
 
+    #[doc(alias = "gtk_widget_set_has_window")]
     fn set_has_window(&self, has_window: bool);
 
+    #[doc(alias = "gtk_widget_set_hexpand")]
     fn set_hexpand(&self, expand: bool);
 
+    #[doc(alias = "gtk_widget_set_hexpand_set")]
     fn set_hexpand_set(&self, set: bool);
 
+    #[doc(alias = "gtk_widget_set_mapped")]
     fn set_mapped(&self, mapped: bool);
 
+    #[doc(alias = "gtk_widget_set_margin_bottom")]
     fn set_margin_bottom(&self, margin: i32);
 
+    #[doc(alias = "gtk_widget_set_margin_end")]
     fn set_margin_end(&self, margin: i32);
 
+    #[doc(alias = "gtk_widget_set_margin_start")]
     fn set_margin_start(&self, margin: i32);
 
+    #[doc(alias = "gtk_widget_set_margin_top")]
     fn set_margin_top(&self, margin: i32);
 
+    #[doc(alias = "gtk_widget_set_name")]
     fn set_widget_name(&self, name: &str);
 
+    #[doc(alias = "gtk_widget_set_no_show_all")]
     fn set_no_show_all(&self, no_show_all: bool);
 
+    #[doc(alias = "gtk_widget_set_opacity")]
     fn set_opacity(&self, opacity: f64);
 
+    #[doc(alias = "gtk_widget_set_parent")]
     fn set_parent<P: IsA<Widget>>(&self, parent: &P);
 
+    #[doc(alias = "gtk_widget_set_parent_window")]
     fn set_parent_window(&self, parent_window: &gdk::Window);
 
+    #[doc(alias = "gtk_widget_set_realized")]
     fn set_realized(&self, realized: bool);
 
+    #[doc(alias = "gtk_widget_set_receives_default")]
     fn set_receives_default(&self, receives_default: bool);
 
+    #[doc(alias = "gtk_widget_set_redraw_on_allocate")]
     fn set_redraw_on_allocate(&self, redraw_on_allocate: bool);
 
+    #[doc(alias = "gtk_widget_set_sensitive")]
     fn set_sensitive(&self, sensitive: bool);
 
+    #[doc(alias = "gtk_widget_set_size_request")]
     fn set_size_request(&self, width: i32, height: i32);
 
+    #[doc(alias = "gtk_widget_set_state_flags")]
     fn set_state_flags(&self, flags: StateFlags, clear: bool);
 
+    #[doc(alias = "gtk_widget_set_support_multidevice")]
     fn set_support_multidevice(&self, support_multidevice: bool);
 
+    #[doc(alias = "gtk_widget_set_tooltip_markup")]
     fn set_tooltip_markup(&self, markup: Option<&str>);
 
+    #[doc(alias = "gtk_widget_set_tooltip_text")]
     fn set_tooltip_text(&self, text: Option<&str>);
 
+    #[doc(alias = "gtk_widget_set_tooltip_window")]
     fn set_tooltip_window<P: IsA<Window>>(&self, custom_window: Option<&P>);
 
+    #[doc(alias = "gtk_widget_set_valign")]
     fn set_valign(&self, align: Align);
 
+    #[doc(alias = "gtk_widget_set_vexpand")]
     fn set_vexpand(&self, expand: bool);
 
+    #[doc(alias = "gtk_widget_set_vexpand_set")]
     fn set_vexpand_set(&self, set: bool);
 
+    #[doc(alias = "gtk_widget_set_visible")]
     fn set_visible(&self, visible: bool);
 
+    #[doc(alias = "gtk_widget_set_visual")]
     fn set_visual(&self, visual: Option<&gdk::Visual>);
 
+    #[doc(alias = "gtk_widget_set_window")]
     fn set_window(&self, window: &gdk::Window);
 
+    #[doc(alias = "gtk_widget_shape_combine_region")]
     fn shape_combine_region(&self, region: Option<&cairo::Region>);
 
+    #[doc(alias = "gtk_widget_show")]
     fn show(&self);
 
+    #[doc(alias = "gtk_widget_show_all")]
     fn show_all(&self);
 
+    #[doc(alias = "gtk_widget_show_now")]
     fn show_now(&self);
 
+    #[doc(alias = "gtk_widget_size_allocate")]
     fn size_allocate(&self, allocation: &Allocation);
 
+    #[doc(alias = "gtk_widget_size_allocate_with_baseline")]
     fn size_allocate_with_baseline(&self, allocation: &mut Allocation, baseline: i32);
 
+    //#[doc(alias = "gtk_widget_style_get")]
     //fn style_get(&self, first_property_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
+    #[doc(alias = "gtk_widget_style_get_property")]
     fn style_get_property(&self, property_name: &str) -> glib::Value;
 
+    //#[doc(alias = "gtk_widget_style_get_valist")]
     //fn style_get_valist(&self, first_property_name: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported);
 
+    #[doc(alias = "gtk_widget_thaw_child_notify")]
     fn thaw_child_notify(&self);
 
+    #[doc(alias = "gtk_widget_translate_coordinates")]
     fn translate_coordinates<P: IsA<Widget>>(
         &self,
         dest_widget: &P,
@@ -558,16 +779,22 @@ pub trait WidgetExt: 'static {
         src_y: i32,
     ) -> Option<(i32, i32)>;
 
+    #[doc(alias = "gtk_widget_trigger_tooltip_query")]
     fn trigger_tooltip_query(&self);
 
+    #[doc(alias = "gtk_widget_unmap")]
     fn unmap(&self);
 
+    #[doc(alias = "gtk_widget_unparent")]
     fn unparent(&self);
 
+    #[doc(alias = "gtk_widget_unrealize")]
     fn unrealize(&self);
 
+    #[doc(alias = "gtk_widget_unregister_window")]
     fn unregister_window(&self, window: &gdk::Window);
 
+    #[doc(alias = "gtk_widget_unset_state_flags")]
     fn unset_state_flags(&self, flags: StateFlags);
 
     fn get_property_composite_child(&self) -> bool;
@@ -5915,11 +6142,5 @@ impl<O: IsA<Widget>> WidgetExt for O {
                 Box_::into_raw(f),
             )
         }
-    }
-}
-
-impl fmt::Display for Widget {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Widget")
     }
 }

@@ -24,6 +24,7 @@ glib::glib_wrapper! {
 }
 
 impl Overlay {
+    #[doc(alias = "gtk_overlay_new")]
     pub fn new() -> Overlay {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_overlay_new()).unsafe_cast() }
@@ -378,18 +379,22 @@ impl OverlayBuilder {
 pub const NONE_OVERLAY: Option<&Overlay> = None;
 
 pub trait OverlayExt: 'static {
+    #[doc(alias = "gtk_overlay_add_overlay")]
     fn add_overlay<P: IsA<Widget>>(&self, widget: &P);
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_overlay_get_overlay_pass_through")]
     fn get_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P) -> bool;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_overlay_reorder_overlay")]
     fn reorder_overlay<P: IsA<Widget>>(&self, child: &P, index_: i32);
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_overlay_set_overlay_pass_through")]
     fn set_overlay_pass_through<P: IsA<Widget>>(&self, widget: &P, pass_through: bool);
 
     fn get_child_index<T: IsA<Widget>>(&self, item: &T) -> i32;

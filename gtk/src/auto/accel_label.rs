@@ -30,6 +30,7 @@ glib::glib_wrapper! {
 }
 
 impl AccelLabel {
+    #[doc(alias = "gtk_accel_label_new")]
     pub fn new(string: &str) -> AccelLabel {
         assert_initialized_main_thread!();
         unsafe {
@@ -552,18 +553,25 @@ impl AccelLabelBuilder {
 pub const NONE_ACCEL_LABEL: Option<&AccelLabel> = None;
 
 pub trait AccelLabelExt: 'static {
+    #[doc(alias = "gtk_accel_label_get_accel")]
     fn get_accel(&self) -> (u32, gdk::ModifierType);
 
+    #[doc(alias = "gtk_accel_label_get_accel_widget")]
     fn get_accel_widget(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_accel_label_get_accel_width")]
     fn get_accel_width(&self) -> u32;
 
+    #[doc(alias = "gtk_accel_label_refetch")]
     fn refetch(&self) -> bool;
 
+    #[doc(alias = "gtk_accel_label_set_accel")]
     fn set_accel(&self, accelerator_key: u32, accelerator_mods: gdk::ModifierType);
 
+    #[doc(alias = "gtk_accel_label_set_accel_closure")]
     fn set_accel_closure(&self, accel_closure: Option<&glib::Closure>);
 
+    #[doc(alias = "gtk_accel_label_set_accel_widget")]
     fn set_accel_widget<P: IsA<Widget>>(&self, accel_widget: Option<&P>);
 
     fn get_property_accel_closure(&self) -> Option<glib::Closure>;

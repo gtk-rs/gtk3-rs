@@ -29,6 +29,7 @@ glib::glib_wrapper! {
 }
 
 impl RadioToolButton {
+    #[doc(alias = "gtk_radio_tool_button_new_from_widget")]
     pub fn from_widget<P: IsA<RadioToolButton>>(group: &P) -> RadioToolButton {
         skip_assert_initialized!();
         unsafe {
@@ -481,6 +482,7 @@ impl RadioToolButtonBuilder {
 pub const NONE_RADIO_TOOL_BUTTON: Option<&RadioToolButton> = None;
 
 pub trait RadioToolButtonExt: 'static {
+    #[doc(alias = "gtk_radio_tool_button_get_group")]
     fn get_group(&self) -> Vec<RadioButton>;
 }
 

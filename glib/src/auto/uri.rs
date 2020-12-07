@@ -39,72 +39,84 @@ crate::glib_wrapper! {
 impl Uri {
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_get_auth_params")]
     pub fn get_auth_params(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_auth_params(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_get_flags")]
     pub fn get_flags(&self) -> UriFlags {
         unsafe { from_glib(ffi::g_uri_get_flags(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_get_fragment")]
     pub fn get_fragment(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_fragment(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_get_host")]
     pub fn get_host(&self) -> crate::GString {
         unsafe { from_glib_none(ffi::g_uri_get_host(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_get_password")]
     pub fn get_password(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_password(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_get_path")]
     pub fn get_path(&self) -> crate::GString {
         unsafe { from_glib_none(ffi::g_uri_get_path(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_get_port")]
     pub fn get_port(&self) -> i32 {
         unsafe { ffi::g_uri_get_port(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_get_query")]
     pub fn get_query(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_query(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_get_scheme")]
     pub fn get_scheme(&self) -> crate::GString {
         unsafe { from_glib_none(ffi::g_uri_get_scheme(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_get_user")]
     pub fn get_user(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_user(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_get_userinfo")]
     pub fn get_userinfo(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_userinfo(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_parse_relative")]
     pub fn parse_relative(&self, uri_ref: &str, flags: UriFlags) -> Result<Uri, crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -124,12 +136,14 @@ impl Uri {
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_to_string")]
     pub fn to_str(&self) -> crate::GString {
         unsafe { from_glib_full(ffi::g_uri_to_string(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_to_string_partial")]
     pub fn to_string_partial(&self, flags: UriHideFlags) -> crate::GString {
         unsafe {
             from_glib_full(ffi::g_uri_to_string_partial(
@@ -141,6 +155,7 @@ impl Uri {
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_build")]
     pub fn build(
         flags: UriFlags,
         scheme: &str,
@@ -167,6 +182,7 @@ impl Uri {
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_build_with_user")]
     pub fn build_with_user(
         flags: UriFlags,
         scheme: &str,
@@ -197,6 +213,7 @@ impl Uri {
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_escape_bytes")]
     pub fn escape_bytes(unescaped: &[u8], reserved_chars_allowed: Option<&str>) -> crate::GString {
         let length = unescaped.len() as usize;
         unsafe {
@@ -208,6 +225,7 @@ impl Uri {
         }
     }
 
+    #[doc(alias = "g_uri_escape_string")]
     pub fn escape_string(
         unescaped: &str,
         reserved_chars_allowed: Option<&str>,
@@ -224,6 +242,7 @@ impl Uri {
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_is_valid")]
     pub fn is_valid(uri_string: &str, flags: UriFlags) -> Result<(), crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -238,6 +257,7 @@ impl Uri {
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_join")]
     pub fn join(
         flags: UriFlags,
         scheme: Option<&str>,
@@ -264,6 +284,7 @@ impl Uri {
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_join_with_user")]
     pub fn join_with_user(
         flags: UriFlags,
         scheme: Option<&str>,
@@ -292,6 +313,7 @@ impl Uri {
         }
     }
 
+    #[doc(alias = "g_uri_list_extract_uris")]
     pub fn list_extract_uris(uri_list: &str) -> Vec<crate::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_uri_list_extract_uris(
@@ -302,6 +324,7 @@ impl Uri {
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_parse")]
     pub fn parse(uri_string: &str, flags: UriFlags) -> Result<Uri, crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -316,22 +339,26 @@ impl Uri {
 
     //#[cfg(any(feature = "v2_66", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    //#[doc(alias = "g_uri_parse_params")]
     //pub fn parse_params(params: &str, separators: &str, flags: UriParamsFlags) -> Result</*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 }, crate::Error> {
     //    unsafe { TODO: call ffi:g_uri_parse_params() }
     //}
 
+    #[doc(alias = "g_uri_parse_scheme")]
     pub fn parse_scheme(uri: &str) -> Option<crate::GString> {
         unsafe { from_glib_full(ffi::g_uri_parse_scheme(uri.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_peek_scheme")]
     pub fn peek_scheme(uri: &str) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_peek_scheme(uri.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_resolve_relative")]
     pub fn resolve_relative(
         base_uri_string: Option<&str>,
         uri_ref: &str,
@@ -355,6 +382,7 @@ impl Uri {
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_split")]
     pub fn split(
         uri_ref: &str,
         flags: UriFlags,
@@ -410,6 +438,7 @@ impl Uri {
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_split_network")]
     pub fn split_network(
         uri_string: &str,
         flags: UriFlags,
@@ -438,6 +467,7 @@ impl Uri {
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_split_with_user")]
     pub fn split_with_user(
         uri_ref: &str,
         flags: UriFlags,
@@ -501,6 +531,7 @@ impl Uri {
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_uri_unescape_bytes")]
     pub fn unescape_bytes(
         escaped_string: &str,
         illegal_characters: Option<&str>,
@@ -522,6 +553,7 @@ impl Uri {
         }
     }
 
+    #[doc(alias = "g_uri_unescape_segment")]
     pub fn unescape_segment(
         escaped_string: Option<&str>,
         escaped_string_end: Option<&str>,
@@ -536,6 +568,7 @@ impl Uri {
         }
     }
 
+    #[doc(alias = "g_uri_unescape_string")]
     pub fn unescape_string(
         escaped_string: &str,
         illegal_characters: Option<&str>,
