@@ -9120,7 +9120,7 @@
     <span class="doccomment">/// the new `pango::Layout`</span>
     <span class="kw">fn</span> <span class="ident">create_pango_layout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">text</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">pango</span>::<span class="ident">Layout</span>;
 
-    <span class="comment">//fn destroyed&lt;P: IsA&lt;Widget&gt;&gt;(&amp;self, widget_pointer: &amp;P);</span>
+    <span class="comment">//fn destroyed&lt;P: IsA&lt;Widget&gt;&gt;(&amp;self, widget_pointer: P);</span>
 
     <span class="doccomment">/// Returns `true` if `device` has been shadowed by a GTK+</span>
     <span class="doccomment">/// device grab on another widget, so it would stop sending</span>
@@ -12951,7 +12951,7 @@
         }
     }
 
-    <span class="comment">//fn destroyed&lt;P: IsA&lt;Widget&gt;&gt;(&amp;self, widget_pointer: &amp;P) {</span>
+    <span class="comment">//fn destroyed&lt;P: IsA&lt;Widget&gt;&gt;(&amp;self, widget_pointer: P) {</span>
     <span class="comment">//    unsafe { TODO: call ffi:gtk_widget_destroyed() }</span>
     <span class="comment">//}</span>
 
