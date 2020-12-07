@@ -12,17 +12,15 @@ pub type GSocketMsgFlags = libc::c_int;
 
 #[cfg(target_family = "windows")]
 mod windows_constants {
-    pub const G_SOCKET_FAMILY_INVALID: super::GSocketFamily =
-        self::winapi::shared::ws2def::AF_UNSPEC;
-    pub const G_SOCKET_FAMILY_UNIX: super::GSocketFamily = self::winapi::shared::ws2def::AF_UNIX;
-    pub const G_SOCKET_FAMILY_IPV4: super::GSocketFamily = self::winapi::shared::ws2def::AF_INET;
-    pub const G_SOCKET_FAMILY_IPV6: super::GSocketFamily = self::winapi::shared::ws2def::AF_INET6;
+    pub const G_SOCKET_FAMILY_INVALID: super::GSocketFamily = winapi::shared::ws2def::AF_UNSPEC;
+    pub const G_SOCKET_FAMILY_UNIX: super::GSocketFamily = winapi::shared::ws2def::AF_UNIX;
+    pub const G_SOCKET_FAMILY_IPV4: super::GSocketFamily = winapi::shared::ws2def::AF_INET;
+    pub const G_SOCKET_FAMILY_IPV6: super::GSocketFamily = winapi::shared::ws2def::AF_INET6;
 
     pub const G_SOCKET_MSG_NONE: super::GSocketMsgFlags = 0;
-    pub const G_SOCKET_MSG_OOB: super::GSocketMsgFlags = self::winapi::um::winsock2::MSG_OOB;
-    pub const G_SOCKET_MSG_PEEK: super::GSocketMsgFlags = self::winapi::um::winsock2::MSG_PEEK;
-    pub const G_SOCKET_MSG_DONTROUTE: super::GSocketMsgFlags =
-        self::winapi::um::winsock2::MSG_DONTROUTE;
+    pub const G_SOCKET_MSG_OOB: super::GSocketMsgFlags = winapi::um::winsock2::MSG_OOB;
+    pub const G_SOCKET_MSG_PEEK: super::GSocketMsgFlags = winapi::um::winsock2::MSG_PEEK;
+    pub const G_SOCKET_MSG_DONTROUTE: super::GSocketMsgFlags = winapi::um::winsock2::MSG_DONTROUTE;
 }
 
 #[cfg(not(target_family = "windows"))]
