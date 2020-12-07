@@ -2113,7 +2113,7 @@ fn validate_signal_arguments(
         unsafe { std::slice::from_raw_parts(details.param_types, details.n_params as usize) };
 
     for (i, (arg, param_type)) in
-        Iterator::zip(args.iter_mut(), param_types.iter().copied().map(from_glib)).enumerate()
+        Iterator::zip(args.iter_mut(), param_types.iter().copied().map(|x| unsafe { from_glib(x) })).enumerate()
     {
         if arg.type_().is_a(&Object::static_type()) {
             match arg.get::<Object>() {
@@ -2153,7 +2153,7 @@ fn validate_signal_arguments(
         }
     }
 
-    Ok((signal_id, signal_detail, from_glib(details.return_type)))
+    Ok((signal_id, signal_detail, unsafe { from_glib(details.return_type) }))
 }
 
 impl ObjectClass {

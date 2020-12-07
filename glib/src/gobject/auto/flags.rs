@@ -37,7 +37,7 @@ impl ToGlib for BindingFlags {
 
 #[doc(hidden)]
 impl FromGlib<gobject_ffi::GBindingFlags> for BindingFlags {
-    fn from_glib(value: gobject_ffi::GBindingFlags) -> BindingFlags {
+    unsafe fn from_glib(value: gobject_ffi::GBindingFlags) -> BindingFlags {
         BindingFlags::from_bits_truncate(value)
     }
 }
@@ -102,7 +102,7 @@ impl ToGlib for ParamFlags {
 
 #[doc(hidden)]
 impl FromGlib<gobject_ffi::GParamFlags> for ParamFlags {
-    fn from_glib(value: gobject_ffi::GParamFlags) -> ParamFlags {
+    unsafe fn from_glib(value: gobject_ffi::GParamFlags) -> ParamFlags {
         ParamFlags::from_bits_truncate(value)
     }
 }
@@ -138,7 +138,7 @@ impl ToGlib for SignalFlags {
 
 #[doc(hidden)]
 impl FromGlib<gobject_ffi::GSignalFlags> for SignalFlags {
-    fn from_glib(value: gobject_ffi::GSignalFlags) -> SignalFlags {
+    unsafe fn from_glib(value: gobject_ffi::GSignalFlags) -> SignalFlags {
         SignalFlags::from_bits_truncate(value)
     }
 }

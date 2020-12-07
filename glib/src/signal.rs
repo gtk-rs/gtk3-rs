@@ -27,9 +27,9 @@ impl ToGlib for SignalHandlerId {
 
 impl FromGlib<c_ulong> for SignalHandlerId {
     #[inline]
-    fn from_glib(val: c_ulong) -> SignalHandlerId {
+    unsafe fn from_glib(val: c_ulong) -> SignalHandlerId {
         assert_ne!(val, 0);
-        SignalHandlerId(unsafe { NonZeroU64::new_unchecked(val as u64) })
+        SignalHandlerId(NonZeroU64::new_unchecked(val as u64))
     }
 }
 

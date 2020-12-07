@@ -232,7 +232,7 @@ impl Value {
 
     /// Returns the type of the value.
     pub fn type_(&self) -> Type {
-        from_glib(self.0.g_type)
+        unsafe { from_glib(self.0.g_type) }
     }
 
     /// Returns whether `Value`s of type `src` can be transformed to type `dst`.

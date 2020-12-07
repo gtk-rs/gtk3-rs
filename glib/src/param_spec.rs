@@ -26,7 +26,7 @@ glib_wrapper! {
 
 impl StaticType for ParamSpec {
     fn static_type() -> Type {
-        from_glib(gobject_ffi::G_TYPE_PARAM)
+        unsafe { from_glib(gobject_ffi::G_TYPE_PARAM) }
     }
 }
 
