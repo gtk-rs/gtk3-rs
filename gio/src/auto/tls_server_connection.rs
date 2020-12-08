@@ -26,6 +26,7 @@ glib::glib_wrapper! {
 }
 
 impl TlsServerConnection {
+    #[doc(alias = "g_tls_server_connection_new")]
     pub fn new<P: IsA<IOStream>, Q: IsA<TlsCertificate>>(
         base_io_stream: &P,
         certificate: Option<&Q>,

@@ -24,8 +24,10 @@ glib::glib_wrapper! {
 pub const NONE_MENU_MODEL: Option<&MenuModel> = None;
 
 pub trait MenuModelExt: 'static {
+    //#[doc(alias = "g_menu_model_get_item_attribute")]
     //fn get_item_attribute(&self, item_index: i32, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool;
 
+    #[doc(alias = "g_menu_model_get_item_attribute_value")]
     fn get_item_attribute_value(
         &self,
         item_index: i32,
@@ -33,16 +35,22 @@ pub trait MenuModelExt: 'static {
         expected_type: Option<&glib::VariantTy>,
     ) -> Option<glib::Variant>;
 
+    #[doc(alias = "g_menu_model_get_item_link")]
     fn get_item_link(&self, item_index: i32, link: &str) -> Option<MenuModel>;
 
+    #[doc(alias = "g_menu_model_get_n_items")]
     fn get_n_items(&self) -> i32;
 
+    #[doc(alias = "g_menu_model_is_mutable")]
     fn is_mutable(&self) -> bool;
 
+    #[doc(alias = "g_menu_model_items_changed")]
     fn items_changed(&self, position: i32, removed: i32, added: i32);
 
+    #[doc(alias = "g_menu_model_iterate_item_attributes")]
     fn iterate_item_attributes(&self, item_index: i32) -> Option<MenuAttributeIter>;
 
+    #[doc(alias = "g_menu_model_iterate_item_links")]
     fn iterate_item_links(&self, item_index: i32) -> Option<MenuLinkIter>;
 
     fn connect_items_changed<F: Fn(&Self, i32, i32, i32) + 'static>(&self, f: F)

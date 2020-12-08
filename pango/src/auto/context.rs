@@ -28,24 +28,29 @@ glib::glib_wrapper! {
 }
 
 impl Context {
+    #[doc(alias = "pango_context_new")]
     pub fn new() -> Context {
         unsafe { from_glib_full(ffi::pango_context_new()) }
     }
 
+    #[doc(alias = "pango_context_changed")]
     pub fn changed(&self) {
         unsafe {
             ffi::pango_context_changed(self.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "pango_context_get_base_dir")]
     pub fn get_base_dir(&self) -> Direction {
         unsafe { from_glib(ffi::pango_context_get_base_dir(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "pango_context_get_base_gravity")]
     pub fn get_base_gravity(&self) -> Gravity {
         unsafe { from_glib(ffi::pango_context_get_base_gravity(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "pango_context_get_font_description")]
     pub fn get_font_description(&self) -> Option<FontDescription> {
         unsafe {
             from_glib_none(ffi::pango_context_get_font_description(
@@ -54,26 +59,32 @@ impl Context {
         }
     }
 
+    #[doc(alias = "pango_context_get_font_map")]
     pub fn get_font_map(&self) -> Option<FontMap> {
         unsafe { from_glib_none(ffi::pango_context_get_font_map(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "pango_context_get_gravity")]
     pub fn get_gravity(&self) -> Gravity {
         unsafe { from_glib(ffi::pango_context_get_gravity(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "pango_context_get_gravity_hint")]
     pub fn get_gravity_hint(&self) -> GravityHint {
         unsafe { from_glib(ffi::pango_context_get_gravity_hint(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "pango_context_get_language")]
     pub fn get_language(&self) -> Option<Language> {
         unsafe { from_glib_full(ffi::pango_context_get_language(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "pango_context_get_matrix")]
     pub fn get_matrix(&self) -> Option<Matrix> {
         unsafe { from_glib_none(ffi::pango_context_get_matrix(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "pango_context_get_metrics")]
     pub fn get_metrics(
         &self,
         desc: Option<&FontDescription>,
@@ -90,6 +101,7 @@ impl Context {
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+    #[doc(alias = "pango_context_get_round_glyph_positions")]
     pub fn get_round_glyph_positions(&self) -> bool {
         unsafe {
             from_glib(ffi::pango_context_get_round_glyph_positions(
@@ -98,10 +110,12 @@ impl Context {
         }
     }
 
+    #[doc(alias = "pango_context_get_serial")]
     pub fn get_serial(&self) -> u32 {
         unsafe { ffi::pango_context_get_serial(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "pango_context_list_families")]
     pub fn list_families(&self) -> Vec<FontFamily> {
         unsafe {
             let mut families = ptr::null_mut();
@@ -115,6 +129,7 @@ impl Context {
         }
     }
 
+    #[doc(alias = "pango_context_load_font")]
     pub fn load_font(&self, desc: &FontDescription) -> Option<Font> {
         unsafe {
             from_glib_full(ffi::pango_context_load_font(
@@ -124,6 +139,7 @@ impl Context {
         }
     }
 
+    #[doc(alias = "pango_context_load_fontset")]
     pub fn load_fontset(&self, desc: &FontDescription, language: &Language) -> Option<Fontset> {
         unsafe {
             from_glib_full(ffi::pango_context_load_fontset(
@@ -134,24 +150,28 @@ impl Context {
         }
     }
 
+    #[doc(alias = "pango_context_set_base_dir")]
     pub fn set_base_dir(&self, direction: Direction) {
         unsafe {
             ffi::pango_context_set_base_dir(self.to_glib_none().0, direction.to_glib());
         }
     }
 
+    #[doc(alias = "pango_context_set_base_gravity")]
     pub fn set_base_gravity(&self, gravity: Gravity) {
         unsafe {
             ffi::pango_context_set_base_gravity(self.to_glib_none().0, gravity.to_glib());
         }
     }
 
+    #[doc(alias = "pango_context_set_font_description")]
     pub fn set_font_description(&self, desc: &FontDescription) {
         unsafe {
             ffi::pango_context_set_font_description(self.to_glib_none().0, desc.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "pango_context_set_font_map")]
     pub fn set_font_map<P: IsA<FontMap>>(&self, font_map: &P) {
         unsafe {
             ffi::pango_context_set_font_map(
@@ -161,12 +181,14 @@ impl Context {
         }
     }
 
+    #[doc(alias = "pango_context_set_gravity_hint")]
     pub fn set_gravity_hint(&self, hint: GravityHint) {
         unsafe {
             ffi::pango_context_set_gravity_hint(self.to_glib_none().0, hint.to_glib());
         }
     }
 
+    #[doc(alias = "pango_context_set_language")]
     pub fn set_language(&self, language: &Language) {
         unsafe {
             ffi::pango_context_set_language(
@@ -176,6 +198,7 @@ impl Context {
         }
     }
 
+    #[doc(alias = "pango_context_set_matrix")]
     pub fn set_matrix(&self, matrix: Option<&Matrix>) {
         unsafe {
             ffi::pango_context_set_matrix(self.to_glib_none().0, matrix.to_glib_none().0);
@@ -184,6 +207,7 @@ impl Context {
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+    #[doc(alias = "pango_context_set_round_glyph_positions")]
     pub fn set_round_glyph_positions(&self, round_positions: bool) {
         unsafe {
             ffi::pango_context_set_round_glyph_positions(

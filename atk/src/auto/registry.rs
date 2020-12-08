@@ -18,10 +18,13 @@ glib::glib_wrapper! {
 pub const NONE_REGISTRY: Option<&Registry> = None;
 
 pub trait RegistryExt: 'static {
+    #[doc(alias = "atk_registry_get_factory")]
     fn get_factory(&self, type_: glib::types::Type) -> Option<ObjectFactory>;
 
+    #[doc(alias = "atk_registry_get_factory_type")]
     fn get_factory_type(&self, type_: glib::types::Type) -> glib::types::Type;
 
+    #[doc(alias = "atk_registry_set_factory_type")]
     fn set_factory_type(&self, type_: glib::types::Type, factory_type: glib::types::Type);
 }
 

@@ -32,6 +32,7 @@ glib::glib_wrapper! {
 }
 
 impl Notebook {
+    #[doc(alias = "gtk_notebook_new")]
     pub fn new() -> Notebook {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_notebook_new()).unsafe_cast() }
@@ -451,62 +452,91 @@ pub const NONE_NOTEBOOK: Option<&Notebook> = None;
 pub trait NotebookExt: 'static {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_notebook_detach_tab")]
     fn detach_tab<P: IsA<Widget>>(&self, child: &P);
 
+    #[doc(alias = "gtk_notebook_get_action_widget")]
     fn get_action_widget(&self, pack_type: PackType) -> Option<Widget>;
 
+    #[doc(alias = "gtk_notebook_get_group_name")]
     fn get_group_name(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_notebook_get_menu_label")]
     fn get_menu_label<P: IsA<Widget>>(&self, child: &P) -> Option<Widget>;
 
+    #[doc(alias = "gtk_notebook_get_menu_label_text")]
     fn get_menu_label_text<P: IsA<Widget>>(&self, child: &P) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_notebook_get_scrollable")]
     fn get_scrollable(&self) -> bool;
 
+    #[doc(alias = "gtk_notebook_get_show_border")]
     fn get_show_border(&self) -> bool;
 
+    #[doc(alias = "gtk_notebook_get_show_tabs")]
     fn get_show_tabs(&self) -> bool;
 
+    #[doc(alias = "gtk_notebook_get_tab_detachable")]
     fn get_tab_detachable<P: IsA<Widget>>(&self, child: &P) -> bool;
 
+    #[doc(alias = "gtk_notebook_get_tab_label")]
     fn get_tab_label<P: IsA<Widget>>(&self, child: &P) -> Option<Widget>;
 
+    #[doc(alias = "gtk_notebook_get_tab_label_text")]
     fn get_tab_label_text<P: IsA<Widget>>(&self, child: &P) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_notebook_get_tab_pos")]
     fn get_tab_pos(&self) -> PositionType;
 
+    #[doc(alias = "gtk_notebook_get_tab_reorderable")]
     fn get_tab_reorderable<P: IsA<Widget>>(&self, child: &P) -> bool;
 
+    #[doc(alias = "gtk_notebook_next_page")]
     fn next_page(&self);
 
+    #[doc(alias = "gtk_notebook_popup_disable")]
     fn popup_disable(&self);
 
+    #[doc(alias = "gtk_notebook_popup_enable")]
     fn popup_enable(&self);
 
+    #[doc(alias = "gtk_notebook_prev_page")]
     fn prev_page(&self);
 
+    #[doc(alias = "gtk_notebook_set_action_widget")]
     fn set_action_widget<P: IsA<Widget>>(&self, widget: &P, pack_type: PackType);
 
+    #[doc(alias = "gtk_notebook_set_group_name")]
     fn set_group_name(&self, group_name: Option<&str>);
 
+    #[doc(alias = "gtk_notebook_set_menu_label")]
     fn set_menu_label<P: IsA<Widget>, Q: IsA<Widget>>(&self, child: &P, menu_label: Option<&Q>);
 
+    #[doc(alias = "gtk_notebook_set_menu_label_text")]
     fn set_menu_label_text<P: IsA<Widget>>(&self, child: &P, menu_text: &str);
 
+    #[doc(alias = "gtk_notebook_set_scrollable")]
     fn set_scrollable(&self, scrollable: bool);
 
+    #[doc(alias = "gtk_notebook_set_show_border")]
     fn set_show_border(&self, show_border: bool);
 
+    #[doc(alias = "gtk_notebook_set_show_tabs")]
     fn set_show_tabs(&self, show_tabs: bool);
 
+    #[doc(alias = "gtk_notebook_set_tab_detachable")]
     fn set_tab_detachable<P: IsA<Widget>>(&self, child: &P, detachable: bool);
 
+    #[doc(alias = "gtk_notebook_set_tab_label")]
     fn set_tab_label<P: IsA<Widget>, Q: IsA<Widget>>(&self, child: &P, tab_label: Option<&Q>);
 
+    #[doc(alias = "gtk_notebook_set_tab_label_text")]
     fn set_tab_label_text<P: IsA<Widget>>(&self, child: &P, tab_text: &str);
 
+    #[doc(alias = "gtk_notebook_set_tab_pos")]
     fn set_tab_pos(&self, pos: PositionType);
 
+    #[doc(alias = "gtk_notebook_set_tab_reorderable")]
     fn set_tab_reorderable<P: IsA<Widget>>(&self, child: &P, reorderable: bool);
 
     fn get_property_enable_popup(&self) -> bool;

@@ -32,6 +32,7 @@ glib::glib_wrapper! {
 }
 
 impl ListBox {
+    #[doc(alias = "gtk_list_box_new")]
     pub fn new() -> ListBox {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_list_box_new()).unsafe_cast() }
@@ -406,68 +407,95 @@ pub const NONE_LIST_BOX: Option<&ListBox> = None;
 pub trait ListBoxExt: 'static {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_list_box_bind_model")]
     fn bind_model<P: IsA<gio::ListModel>, Q: Fn(&glib::Object) -> Widget + 'static>(
         &self,
         model: Option<&P>,
         create_widget_func: Q,
     );
 
+    #[doc(alias = "gtk_list_box_drag_highlight_row")]
     fn drag_highlight_row<P: IsA<ListBoxRow>>(&self, row: &P);
 
+    #[doc(alias = "gtk_list_box_drag_unhighlight_row")]
     fn drag_unhighlight_row(&self);
 
+    #[doc(alias = "gtk_list_box_get_activate_on_single_click")]
     fn get_activate_on_single_click(&self) -> bool;
 
+    #[doc(alias = "gtk_list_box_get_adjustment")]
     fn get_adjustment(&self) -> Option<Adjustment>;
 
+    #[doc(alias = "gtk_list_box_get_row_at_index")]
     fn get_row_at_index(&self, index_: i32) -> Option<ListBoxRow>;
 
+    #[doc(alias = "gtk_list_box_get_row_at_y")]
     fn get_row_at_y(&self, y: i32) -> Option<ListBoxRow>;
 
+    #[doc(alias = "gtk_list_box_get_selected_row")]
     fn get_selected_row(&self) -> Option<ListBoxRow>;
 
+    #[doc(alias = "gtk_list_box_get_selected_rows")]
     fn get_selected_rows(&self) -> Vec<ListBoxRow>;
 
+    #[doc(alias = "gtk_list_box_get_selection_mode")]
     fn get_selection_mode(&self) -> SelectionMode;
 
+    #[doc(alias = "gtk_list_box_insert")]
     fn insert<P: IsA<Widget>>(&self, child: &P, position: i32);
 
+    #[doc(alias = "gtk_list_box_invalidate_filter")]
     fn invalidate_filter(&self);
 
+    #[doc(alias = "gtk_list_box_invalidate_headers")]
     fn invalidate_headers(&self);
 
+    #[doc(alias = "gtk_list_box_invalidate_sort")]
     fn invalidate_sort(&self);
 
+    #[doc(alias = "gtk_list_box_prepend")]
     fn prepend<P: IsA<Widget>>(&self, child: &P);
 
+    #[doc(alias = "gtk_list_box_select_all")]
     fn select_all(&self);
 
+    #[doc(alias = "gtk_list_box_select_row")]
     fn select_row<P: IsA<ListBoxRow>>(&self, row: Option<&P>);
 
+    #[doc(alias = "gtk_list_box_selected_foreach")]
     fn selected_foreach<P: FnMut(&ListBox, &ListBoxRow)>(&self, func: P);
 
+    #[doc(alias = "gtk_list_box_set_activate_on_single_click")]
     fn set_activate_on_single_click(&self, single: bool);
 
+    #[doc(alias = "gtk_list_box_set_adjustment")]
     fn set_adjustment<P: IsA<Adjustment>>(&self, adjustment: Option<&P>);
 
+    #[doc(alias = "gtk_list_box_set_filter_func")]
     fn set_filter_func(&self, filter_func: Option<Box_<dyn Fn(&ListBoxRow) -> bool + 'static>>);
 
+    #[doc(alias = "gtk_list_box_set_header_func")]
     fn set_header_func(
         &self,
         update_header: Option<Box_<dyn Fn(&ListBoxRow, Option<&ListBoxRow>) + 'static>>,
     );
 
+    #[doc(alias = "gtk_list_box_set_placeholder")]
     fn set_placeholder<P: IsA<Widget>>(&self, placeholder: Option<&P>);
 
+    #[doc(alias = "gtk_list_box_set_selection_mode")]
     fn set_selection_mode(&self, mode: SelectionMode);
 
+    #[doc(alias = "gtk_list_box_set_sort_func")]
     fn set_sort_func(
         &self,
         sort_func: Option<Box_<dyn Fn(&ListBoxRow, &ListBoxRow) -> i32 + 'static>>,
     );
 
+    #[doc(alias = "gtk_list_box_unselect_all")]
     fn unselect_all(&self);
 
+    #[doc(alias = "gtk_list_box_unselect_row")]
     fn unselect_row<P: IsA<ListBoxRow>>(&self, row: &P);
 
     fn connect_activate_cursor_row<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

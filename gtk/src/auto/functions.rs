@@ -22,6 +22,7 @@ use std::boxed::Box as Box_;
 use std::mem;
 use std::ptr;
 
+#[doc(alias = "gtk_accel_groups_activate")]
 pub fn accel_groups_activate<P: IsA<glib::Object>>(
     object: &P,
     accel_key: u32,
@@ -37,6 +38,7 @@ pub fn accel_groups_activate<P: IsA<glib::Object>>(
     }
 }
 
+#[doc(alias = "gtk_accel_groups_from_object")]
 pub fn accel_groups_from_object<P: IsA<glib::Object>>(object: &P) -> Vec<AccelGroup> {
     assert_initialized_main_thread!();
     unsafe {
@@ -46,11 +48,13 @@ pub fn accel_groups_from_object<P: IsA<glib::Object>>(object: &P) -> Vec<AccelGr
     }
 }
 
+#[doc(alias = "gtk_accelerator_get_default_mod_mask")]
 pub fn accelerator_get_default_mod_mask() -> gdk::ModifierType {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_accelerator_get_default_mod_mask()) }
 }
 
+#[doc(alias = "gtk_accelerator_get_label")]
 pub fn accelerator_get_label(
     accelerator_key: u32,
     accelerator_mods: gdk::ModifierType,
@@ -64,6 +68,7 @@ pub fn accelerator_get_label(
     }
 }
 
+#[doc(alias = "gtk_accelerator_get_label_with_keycode")]
 pub fn accelerator_get_label_with_keycode(
     display: Option<&gdk::Display>,
     accelerator_key: u32,
@@ -81,6 +86,7 @@ pub fn accelerator_get_label_with_keycode(
     }
 }
 
+#[doc(alias = "gtk_accelerator_name")]
 pub fn accelerator_name(
     accelerator_key: u32,
     accelerator_mods: gdk::ModifierType,
@@ -94,6 +100,7 @@ pub fn accelerator_name(
     }
 }
 
+#[doc(alias = "gtk_accelerator_name_with_keycode")]
 pub fn accelerator_name_with_keycode(
     display: Option<&gdk::Display>,
     accelerator_key: u32,
@@ -111,6 +118,7 @@ pub fn accelerator_name_with_keycode(
     }
 }
 
+#[doc(alias = "gtk_accelerator_parse")]
 pub fn accelerator_parse(accelerator: &str) -> (u32, gdk::ModifierType) {
     assert_initialized_main_thread!();
     unsafe {
@@ -127,10 +135,12 @@ pub fn accelerator_parse(accelerator: &str) -> (u32, gdk::ModifierType) {
     }
 }
 
+//#[doc(alias = "gtk_accelerator_parse_with_keycode")]
 //pub fn accelerator_parse_with_keycode(accelerator: &str, accelerator_codes: Vec<u32>) -> (u32, gdk::ModifierType) {
 //    unsafe { TODO: call ffi:gtk_accelerator_parse_with_keycode() }
 //}
 
+#[doc(alias = "gtk_accelerator_set_default_mod_mask")]
 pub fn accelerator_set_default_mod_mask(default_mod_mask: gdk::ModifierType) {
     assert_initialized_main_thread!();
     unsafe {
@@ -138,11 +148,13 @@ pub fn accelerator_set_default_mod_mask(default_mod_mask: gdk::ModifierType) {
     }
 }
 
+#[doc(alias = "gtk_accelerator_valid")]
 pub fn accelerator_valid(keyval: u32, modifiers: gdk::ModifierType) -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_accelerator_valid(keyval, modifiers.to_glib())) }
 }
 
+#[doc(alias = "gtk_bindings_activate")]
 pub fn bindings_activate<P: IsA<glib::Object>>(
     object: &P,
     keyval: u32,
@@ -158,6 +170,7 @@ pub fn bindings_activate<P: IsA<glib::Object>>(
     }
 }
 
+#[doc(alias = "gtk_bindings_activate_event")]
 pub fn bindings_activate_event<P: IsA<glib::Object>>(
     object: &P,
     event: &mut gdk::EventKey,
@@ -171,6 +184,7 @@ pub fn bindings_activate_event<P: IsA<glib::Object>>(
     }
 }
 
+#[doc(alias = "gtk_cairo_should_draw_window")]
 pub fn cairo_should_draw_window(cr: &cairo::Context, window: &gdk::Window) -> bool {
     assert_initialized_main_thread!();
     unsafe {
@@ -181,6 +195,7 @@ pub fn cairo_should_draw_window(cr: &cairo::Context, window: &gdk::Window) -> bo
     }
 }
 
+#[doc(alias = "gtk_cairo_transform_to_window")]
 pub fn cairo_transform_to_window<P: IsA<Widget>>(
     cr: &cairo::Context,
     widget: &P,
@@ -196,6 +211,7 @@ pub fn cairo_transform_to_window<P: IsA<Widget>>(
     }
 }
 
+#[doc(alias = "gtk_device_grab_add")]
 pub fn device_grab_add<P: IsA<Widget>>(widget: &P, device: &gdk::Device, block_others: bool) {
     skip_assert_initialized!();
     unsafe {
@@ -207,6 +223,7 @@ pub fn device_grab_add<P: IsA<Widget>>(widget: &P, device: &gdk::Device, block_o
     }
 }
 
+#[doc(alias = "gtk_device_grab_remove")]
 pub fn device_grab_remove<P: IsA<Widget>>(widget: &P, device: &gdk::Device) {
     skip_assert_initialized!();
     unsafe {
@@ -214,6 +231,7 @@ pub fn device_grab_remove<P: IsA<Widget>>(widget: &P, device: &gdk::Device) {
     }
 }
 
+#[doc(alias = "gtk_disable_setlocale")]
 pub fn disable_setlocale() {
     assert_initialized_main_thread!();
     unsafe {
@@ -221,30 +239,36 @@ pub fn disable_setlocale() {
     }
 }
 
+//#[doc(alias = "gtk_distribute_natural_allocation")]
 //pub fn distribute_natural_allocation(extra_space: i32, n_requested_sizes: u32, sizes: /*Ignored*/&mut RequestedSize) -> i32 {
 //    unsafe { TODO: call ffi:gtk_distribute_natural_allocation() }
 //}
 
+#[doc(alias = "gtk_events_pending")]
 pub fn events_pending() -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_events_pending()) }
 }
 
+#[doc(alias = "gtk_false")]
 pub fn false_() -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_false()) }
 }
 
+#[doc(alias = "gtk_get_current_event")]
 pub fn get_current_event() -> Option<gdk::Event> {
     assert_initialized_main_thread!();
     unsafe { from_glib_full(ffi::gtk_get_current_event()) }
 }
 
+#[doc(alias = "gtk_get_current_event_device")]
 pub fn get_current_event_device() -> Option<gdk::Device> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gtk_get_current_event_device()) }
 }
 
+#[doc(alias = "gtk_get_current_event_state")]
 pub fn get_current_event_state() -> Option<gdk::ModifierType> {
     assert_initialized_main_thread!();
     unsafe {
@@ -259,48 +283,58 @@ pub fn get_current_event_state() -> Option<gdk::ModifierType> {
     }
 }
 
+#[doc(alias = "gtk_get_current_event_time")]
 pub fn get_current_event_time() -> u32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gtk_get_current_event_time() }
 }
 
+#[doc(alias = "gtk_get_debug_flags")]
 pub fn get_debug_flags() -> u32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gtk_get_debug_flags() }
 }
 
+#[doc(alias = "gtk_get_default_language")]
 pub fn get_default_language() -> Option<pango::Language> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gtk_get_default_language()) }
 }
 
+#[doc(alias = "gtk_get_event_widget")]
 pub fn get_event_widget(event: &mut gdk::Event) -> Option<Widget> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gtk_get_event_widget(event.to_glib_none_mut().0)) }
 }
 
+#[doc(alias = "gtk_get_locale_direction")]
 pub fn get_locale_direction() -> TextDirection {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_get_locale_direction()) }
 }
 
+//#[doc(alias = "gtk_get_option_group")]
 //pub fn get_option_group(open_default_display: bool) -> /*Ignored*/Option<glib::OptionGroup> {
 //    unsafe { TODO: call ffi:gtk_get_option_group() }
 //}
 
+#[doc(alias = "gtk_grab_get_current")]
 pub fn grab_get_current() -> Option<Widget> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gtk_grab_get_current()) }
 }
 
+//#[doc(alias = "gtk_init_check")]
 //pub fn init_check(argv: /*Unimplemented*/Vec<glib::GString>) -> bool {
 //    unsafe { TODO: call ffi:gtk_init_check() }
 //}
 
+//#[doc(alias = "gtk_init_with_args")]
 //pub fn init_with_args(argv: /*Unimplemented*/Vec<glib::GString>, parameter_string: Option<&str>, entries: /*Ignored*/&[&glib::OptionEntry], translation_domain: Option<&str>) -> Result<(), glib::Error> {
 //    unsafe { TODO: call ffi:gtk_init_with_args() }
 //}
 
+#[doc(alias = "gtk_main")]
 pub fn main() {
     assert_initialized_main_thread!();
     unsafe {
@@ -308,6 +342,7 @@ pub fn main() {
     }
 }
 
+#[doc(alias = "gtk_main_do_event")]
 pub fn main_do_event(event: &mut gdk::Event) {
     assert_initialized_main_thread!();
     unsafe {
@@ -315,25 +350,30 @@ pub fn main_do_event(event: &mut gdk::Event) {
     }
 }
 
+#[doc(alias = "gtk_main_iteration")]
 pub fn main_iteration() -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_main_iteration()) }
 }
 
+#[doc(alias = "gtk_main_iteration_do")]
 pub fn main_iteration_do(blocking: bool) -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_main_iteration_do(blocking.to_glib())) }
 }
 
+#[doc(alias = "gtk_main_level")]
 pub fn main_level() -> u32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gtk_main_level() }
 }
 
+//#[doc(alias = "gtk_parse_args")]
 //pub fn parse_args(argv: /*Unimplemented*/Vec<glib::GString>) -> bool {
 //    unsafe { TODO: call ffi:gtk_parse_args() }
 //}
 
+#[doc(alias = "gtk_print_run_page_setup_dialog")]
 pub fn print_run_page_setup_dialog<P: IsA<Window>>(
     parent: Option<&P>,
     page_setup: Option<&PageSetup>,
@@ -349,6 +389,7 @@ pub fn print_run_page_setup_dialog<P: IsA<Window>>(
     }
 }
 
+#[doc(alias = "gtk_print_run_page_setup_dialog_async")]
 pub fn print_run_page_setup_dialog_async<
     P: IsA<Window>,
     Q: FnOnce(&PageSetup) + Send + Sync + 'static,
@@ -384,6 +425,7 @@ pub fn print_run_page_setup_dialog_async<
     }
 }
 
+#[doc(alias = "gtk_propagate_event")]
 pub fn propagate_event<P: IsA<Widget>>(widget: &P, event: &mut gdk::Event) {
     skip_assert_initialized!();
     unsafe {
@@ -391,6 +433,7 @@ pub fn propagate_event<P: IsA<Widget>>(widget: &P, event: &mut gdk::Event) {
     }
 }
 
+#[doc(alias = "gtk_render_activity")]
 pub fn render_activity<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -412,6 +455,7 @@ pub fn render_activity<P: IsA<StyleContext>>(
     }
 }
 
+#[doc(alias = "gtk_render_arrow")]
 pub fn render_arrow<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -433,6 +477,7 @@ pub fn render_arrow<P: IsA<StyleContext>>(
     }
 }
 
+#[doc(alias = "gtk_render_background")]
 pub fn render_background<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -456,6 +501,7 @@ pub fn render_background<P: IsA<StyleContext>>(
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+#[doc(alias = "gtk_render_background_get_clip")]
 pub fn render_background_get_clip<P: IsA<StyleContext>>(
     context: &P,
     x: f64,
@@ -478,6 +524,7 @@ pub fn render_background_get_clip<P: IsA<StyleContext>>(
     }
 }
 
+#[doc(alias = "gtk_render_check")]
 pub fn render_check<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -499,6 +546,7 @@ pub fn render_check<P: IsA<StyleContext>>(
     }
 }
 
+#[doc(alias = "gtk_render_expander")]
 pub fn render_expander<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -520,6 +568,7 @@ pub fn render_expander<P: IsA<StyleContext>>(
     }
 }
 
+#[doc(alias = "gtk_render_extension")]
 pub fn render_extension<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -543,6 +592,7 @@ pub fn render_extension<P: IsA<StyleContext>>(
     }
 }
 
+#[doc(alias = "gtk_render_focus")]
 pub fn render_focus<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -564,6 +614,7 @@ pub fn render_focus<P: IsA<StyleContext>>(
     }
 }
 
+#[doc(alias = "gtk_render_frame")]
 pub fn render_frame<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -586,6 +637,7 @@ pub fn render_frame<P: IsA<StyleContext>>(
 }
 
 #[cfg_attr(feature = "v3_24", deprecated)]
+#[doc(alias = "gtk_render_frame_gap")]
 pub fn render_frame_gap<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -613,6 +665,7 @@ pub fn render_frame_gap<P: IsA<StyleContext>>(
     }
 }
 
+#[doc(alias = "gtk_render_handle")]
 pub fn render_handle<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -634,6 +687,7 @@ pub fn render_handle<P: IsA<StyleContext>>(
     }
 }
 
+#[doc(alias = "gtk_render_icon")]
 pub fn render_icon<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -653,6 +707,7 @@ pub fn render_icon<P: IsA<StyleContext>>(
     }
 }
 
+#[doc(alias = "gtk_render_icon_surface")]
 pub fn render_icon_surface<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -672,6 +727,7 @@ pub fn render_icon_surface<P: IsA<StyleContext>>(
     }
 }
 
+#[doc(alias = "gtk_render_insertion_cursor")]
 pub fn render_insertion_cursor<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -695,6 +751,7 @@ pub fn render_insertion_cursor<P: IsA<StyleContext>>(
     }
 }
 
+#[doc(alias = "gtk_render_layout")]
 pub fn render_layout<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -714,6 +771,7 @@ pub fn render_layout<P: IsA<StyleContext>>(
     }
 }
 
+#[doc(alias = "gtk_render_line")]
 pub fn render_line<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -735,6 +793,7 @@ pub fn render_line<P: IsA<StyleContext>>(
     }
 }
 
+#[doc(alias = "gtk_render_option")]
 pub fn render_option<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -756,6 +815,7 @@ pub fn render_option<P: IsA<StyleContext>>(
     }
 }
 
+#[doc(alias = "gtk_render_slider")]
 pub fn render_slider<P: IsA<StyleContext>>(
     context: &P,
     cr: &cairo::Context,
@@ -779,6 +839,7 @@ pub fn render_slider<P: IsA<StyleContext>>(
     }
 }
 
+#[doc(alias = "gtk_rgb_to_hsv")]
 pub fn rgb_to_hsv(r: f64, g: f64, b: f64) -> (f64, f64, f64) {
     assert_initialized_main_thread!();
     unsafe {
@@ -793,6 +854,7 @@ pub fn rgb_to_hsv(r: f64, g: f64, b: f64) -> (f64, f64, f64) {
     }
 }
 
+#[doc(alias = "gtk_selection_add_target")]
 pub fn selection_add_target<P: IsA<Widget>>(
     widget: &P,
     selection: &gdk::Atom,
@@ -810,6 +872,7 @@ pub fn selection_add_target<P: IsA<Widget>>(
     }
 }
 
+#[doc(alias = "gtk_selection_clear_targets")]
 pub fn selection_clear_targets<P: IsA<Widget>>(widget: &P, selection: &gdk::Atom) {
     skip_assert_initialized!();
     unsafe {
@@ -820,6 +883,7 @@ pub fn selection_clear_targets<P: IsA<Widget>>(widget: &P, selection: &gdk::Atom
     }
 }
 
+#[doc(alias = "gtk_selection_convert")]
 pub fn selection_convert<P: IsA<Widget>>(
     widget: &P,
     selection: &gdk::Atom,
@@ -837,6 +901,7 @@ pub fn selection_convert<P: IsA<Widget>>(
     }
 }
 
+#[doc(alias = "gtk_selection_owner_set")]
 pub fn selection_owner_set<P: IsA<Widget>>(
     widget: Option<&P>,
     selection: &gdk::Atom,
@@ -852,6 +917,7 @@ pub fn selection_owner_set<P: IsA<Widget>>(
     }
 }
 
+#[doc(alias = "gtk_selection_owner_set_for_display")]
 pub fn selection_owner_set_for_display<P: IsA<Widget>>(
     display: &gdk::Display,
     widget: Option<&P>,
@@ -869,6 +935,7 @@ pub fn selection_owner_set_for_display<P: IsA<Widget>>(
     }
 }
 
+#[doc(alias = "gtk_selection_remove_all")]
 pub fn selection_remove_all<P: IsA<Widget>>(widget: &P) {
     skip_assert_initialized!();
     unsafe {
@@ -876,6 +943,7 @@ pub fn selection_remove_all<P: IsA<Widget>>(widget: &P) {
     }
 }
 
+#[doc(alias = "gtk_set_debug_flags")]
 pub fn set_debug_flags(flags: u32) {
     assert_initialized_main_thread!();
     unsafe {
@@ -883,10 +951,12 @@ pub fn set_debug_flags(flags: u32) {
     }
 }
 
+//#[doc(alias = "gtk_show_about_dialog")]
 //pub fn show_about_dialog<P: IsA<Window>>(parent: Option<&P>, first_property_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
 //    unsafe { TODO: call ffi:gtk_show_about_dialog() }
 //}
 
+#[doc(alias = "gtk_show_uri")]
 pub fn show_uri(
     screen: Option<&gdk::Screen>,
     uri: &str,
@@ -911,6 +981,7 @@ pub fn show_uri(
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+#[doc(alias = "gtk_show_uri_on_window")]
 pub fn show_uri_on_window<P: IsA<Window>>(
     parent: Option<&P>,
     uri: &str,
@@ -933,6 +1004,7 @@ pub fn show_uri_on_window<P: IsA<Window>>(
     }
 }
 
+#[doc(alias = "gtk_targets_include_image")]
 pub fn targets_include_image(targets: &[&gdk::Atom], writable: bool) -> bool {
     assert_initialized_main_thread!();
     let n_targets = targets.len() as i32;
@@ -945,6 +1017,7 @@ pub fn targets_include_image(targets: &[&gdk::Atom], writable: bool) -> bool {
     }
 }
 
+#[doc(alias = "gtk_targets_include_rich_text")]
 pub fn targets_include_rich_text<P: IsA<TextBuffer>>(targets: &[&gdk::Atom], buffer: &P) -> bool {
     skip_assert_initialized!();
     let n_targets = targets.len() as i32;
@@ -957,6 +1030,7 @@ pub fn targets_include_rich_text<P: IsA<TextBuffer>>(targets: &[&gdk::Atom], buf
     }
 }
 
+#[doc(alias = "gtk_targets_include_text")]
 pub fn targets_include_text(targets: &[&gdk::Atom]) -> bool {
     assert_initialized_main_thread!();
     let n_targets = targets.len() as i32;
@@ -968,6 +1042,7 @@ pub fn targets_include_text(targets: &[&gdk::Atom]) -> bool {
     }
 }
 
+#[doc(alias = "gtk_targets_include_uri")]
 pub fn targets_include_uri(targets: &[&gdk::Atom]) -> bool {
     assert_initialized_main_thread!();
     let n_targets = targets.len() as i32;
@@ -980,6 +1055,7 @@ pub fn targets_include_uri(targets: &[&gdk::Atom]) -> bool {
 }
 
 #[cfg_attr(feature = "v3_20", deprecated)]
+#[doc(alias = "gtk_test_create_simple_window")]
 pub fn test_create_simple_window(window_title: &str, dialog_text: &str) -> Option<Widget> {
     assert_initialized_main_thread!();
     unsafe {
@@ -991,15 +1067,18 @@ pub fn test_create_simple_window(window_title: &str, dialog_text: &str) -> Optio
 }
 
 //#[cfg_attr(feature = "v3_20", deprecated)]
+//#[doc(alias = "gtk_test_create_widget")]
 //pub fn test_create_widget(widget_type: glib::types::Type, first_property_name: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<Widget> {
 //    unsafe { TODO: call ffi:gtk_test_create_widget() }
 //}
 
 //#[cfg_attr(feature = "v3_20", deprecated)]
+//#[doc(alias = "gtk_test_display_button_window")]
 //pub fn test_display_button_window(window_title: &str, dialog_text: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<Widget> {
 //    unsafe { TODO: call ffi:gtk_test_display_button_window() }
 //}
 
+#[doc(alias = "gtk_test_find_label")]
 pub fn test_find_label<P: IsA<Widget>>(widget: &P, label_pattern: &str) -> Option<Widget> {
     skip_assert_initialized!();
     unsafe {
@@ -1010,6 +1089,7 @@ pub fn test_find_label<P: IsA<Widget>>(widget: &P, label_pattern: &str) -> Optio
     }
 }
 
+#[doc(alias = "gtk_test_find_sibling")]
 pub fn test_find_sibling<P: IsA<Widget>>(
     base_widget: &P,
     widget_type: glib::types::Type,
@@ -1023,6 +1103,7 @@ pub fn test_find_sibling<P: IsA<Widget>>(
     }
 }
 
+#[doc(alias = "gtk_test_find_widget")]
 pub fn test_find_widget<P: IsA<Widget>>(
     widget: &P,
     label_pattern: &str,
@@ -1038,14 +1119,17 @@ pub fn test_find_widget<P: IsA<Widget>>(
     }
 }
 
+//#[doc(alias = "gtk_test_init")]
 //pub fn test_init(argvp: /*Unimplemented*/Vec<glib::GString>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
 //    unsafe { TODO: call ffi:gtk_test_init() }
 //}
 
+//#[doc(alias = "gtk_test_list_all_types")]
 //pub fn test_list_all_types() -> /*Unimplemented*/CArray TypeId { ns_id: 0, id: 30 } {
 //    unsafe { TODO: call ffi:gtk_test_list_all_types() }
 //}
 
+#[doc(alias = "gtk_test_register_all_types")]
 pub fn test_register_all_types() {
     assert_initialized_main_thread!();
     unsafe {
@@ -1054,12 +1138,14 @@ pub fn test_register_all_types() {
 }
 
 #[cfg_attr(feature = "v3_20", deprecated)]
+#[doc(alias = "gtk_test_slider_get_value")]
 pub fn test_slider_get_value<P: IsA<Widget>>(widget: &P) -> f64 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_test_slider_get_value(widget.as_ref().to_glib_none().0) }
 }
 
 #[cfg_attr(feature = "v3_20", deprecated)]
+#[doc(alias = "gtk_test_slider_set_perc")]
 pub fn test_slider_set_perc<P: IsA<Widget>>(widget: &P, percentage: f64) {
     skip_assert_initialized!();
     unsafe {
@@ -1068,6 +1154,7 @@ pub fn test_slider_set_perc<P: IsA<Widget>>(widget: &P, percentage: f64) {
 }
 
 #[cfg_attr(feature = "v3_20", deprecated)]
+#[doc(alias = "gtk_test_spin_button_click")]
 pub fn test_spin_button_click<P: IsA<SpinButton>>(spinner: &P, button: u32, upwards: bool) -> bool {
     skip_assert_initialized!();
     unsafe {
@@ -1080,12 +1167,14 @@ pub fn test_spin_button_click<P: IsA<SpinButton>>(spinner: &P, button: u32, upwa
 }
 
 #[cfg_attr(feature = "v3_20", deprecated)]
+#[doc(alias = "gtk_test_text_get")]
 pub fn test_text_get<P: IsA<Widget>>(widget: &P) -> Option<glib::GString> {
     skip_assert_initialized!();
     unsafe { from_glib_full(ffi::gtk_test_text_get(widget.as_ref().to_glib_none().0)) }
 }
 
 #[cfg_attr(feature = "v3_20", deprecated)]
+#[doc(alias = "gtk_test_text_set")]
 pub fn test_text_set<P: IsA<Widget>>(widget: &P, string: &str) {
     skip_assert_initialized!();
     unsafe {
@@ -1094,6 +1183,7 @@ pub fn test_text_set<P: IsA<Widget>>(widget: &P, string: &str) {
 }
 
 #[cfg_attr(feature = "v3_20", deprecated)]
+#[doc(alias = "gtk_test_widget_click")]
 pub fn test_widget_click<P: IsA<Widget>>(
     widget: &P,
     button: u32,
@@ -1109,6 +1199,7 @@ pub fn test_widget_click<P: IsA<Widget>>(
     }
 }
 
+#[doc(alias = "gtk_test_widget_send_key")]
 pub fn test_widget_send_key<P: IsA<Widget>>(
     widget: &P,
     keyval: u32,
@@ -1124,6 +1215,7 @@ pub fn test_widget_send_key<P: IsA<Widget>>(
     }
 }
 
+#[doc(alias = "gtk_test_widget_wait_for_draw")]
 pub fn test_widget_wait_for_draw<P: IsA<Widget>>(widget: &P) {
     skip_assert_initialized!();
     unsafe {
@@ -1131,6 +1223,7 @@ pub fn test_widget_wait_for_draw<P: IsA<Widget>>(widget: &P) {
     }
 }
 
+#[doc(alias = "gtk_tree_get_row_drag_data")]
 pub fn tree_get_row_drag_data(
     selection_data: &SelectionData,
 ) -> Option<(Option<TreeModel>, Option<TreePath>)> {
@@ -1151,6 +1244,7 @@ pub fn tree_get_row_drag_data(
     }
 }
 
+#[doc(alias = "gtk_tree_set_row_drag_data")]
 pub fn tree_set_row_drag_data<P: IsA<TreeModel>>(
     selection_data: &SelectionData,
     tree_model: &P,
@@ -1166,6 +1260,7 @@ pub fn tree_set_row_drag_data<P: IsA<TreeModel>>(
     }
 }
 
+#[doc(alias = "gtk_true")]
 pub fn true_() -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_true()) }

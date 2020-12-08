@@ -23,10 +23,13 @@ glib::glib_wrapper! {
 pub const NONE_HYPERTEXT: Option<&Hypertext> = None;
 
 pub trait HypertextExt: 'static {
+    #[doc(alias = "atk_hypertext_get_link")]
     fn get_link(&self, link_index: i32) -> Option<Hyperlink>;
 
+    #[doc(alias = "atk_hypertext_get_link_index")]
     fn get_link_index(&self, char_index: i32) -> i32;
 
+    #[doc(alias = "atk_hypertext_get_n_links")]
     fn get_n_links(&self) -> i32;
 
     fn connect_link_selected<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId;

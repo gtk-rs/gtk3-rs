@@ -23,14 +23,17 @@ glib::glib_wrapper! {
 }
 
 impl ZlibCompressor {
+    #[doc(alias = "g_zlib_compressor_new")]
     pub fn new(format: ZlibCompressorFormat, level: i32) -> ZlibCompressor {
         unsafe { from_glib_full(ffi::g_zlib_compressor_new(format.to_glib(), level)) }
     }
 
+    #[doc(alias = "g_zlib_compressor_get_file_info")]
     pub fn get_file_info(&self) -> Option<FileInfo> {
         unsafe { from_glib_none(ffi::g_zlib_compressor_get_file_info(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_zlib_compressor_set_file_info")]
     pub fn set_file_info(&self, file_info: Option<&FileInfo>) {
         unsafe {
             ffi::g_zlib_compressor_set_file_info(self.to_glib_none().0, file_info.to_glib_none().0);

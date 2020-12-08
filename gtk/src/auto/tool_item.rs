@@ -33,6 +33,7 @@ glib::glib_wrapper! {
 }
 
 impl ToolItem {
+    #[doc(alias = "gtk_tool_item_new")]
     pub fn new() -> ToolItem {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_tool_item_new()) }
@@ -414,54 +415,79 @@ impl ToolItemBuilder {
 pub const NONE_TOOL_ITEM: Option<&ToolItem> = None;
 
 pub trait ToolItemExt: 'static {
+    #[doc(alias = "gtk_tool_item_get_ellipsize_mode")]
     fn get_ellipsize_mode(&self) -> pango::EllipsizeMode;
 
+    #[doc(alias = "gtk_tool_item_get_expand")]
     fn get_expand(&self) -> bool;
 
+    #[doc(alias = "gtk_tool_item_get_homogeneous")]
     fn get_homogeneous(&self) -> bool;
 
+    #[doc(alias = "gtk_tool_item_get_icon_size")]
     fn get_icon_size(&self) -> IconSize;
 
+    #[doc(alias = "gtk_tool_item_get_is_important")]
     fn get_is_important(&self) -> bool;
 
+    #[doc(alias = "gtk_tool_item_get_orientation")]
     fn get_orientation(&self) -> Orientation;
 
+    #[doc(alias = "gtk_tool_item_get_proxy_menu_item")]
     fn get_proxy_menu_item(&self, menu_item_id: &str) -> Option<Widget>;
 
+    #[doc(alias = "gtk_tool_item_get_relief_style")]
     fn get_relief_style(&self) -> ReliefStyle;
 
+    #[doc(alias = "gtk_tool_item_get_text_alignment")]
     fn get_text_alignment(&self) -> f32;
 
+    #[doc(alias = "gtk_tool_item_get_text_orientation")]
     fn get_text_orientation(&self) -> Orientation;
 
+    #[doc(alias = "gtk_tool_item_get_text_size_group")]
     fn get_text_size_group(&self) -> Option<SizeGroup>;
 
+    #[doc(alias = "gtk_tool_item_get_toolbar_style")]
     fn get_toolbar_style(&self) -> ToolbarStyle;
 
+    #[doc(alias = "gtk_tool_item_get_use_drag_window")]
     fn get_use_drag_window(&self) -> bool;
 
+    #[doc(alias = "gtk_tool_item_get_visible_horizontal")]
     fn get_visible_horizontal(&self) -> bool;
 
+    #[doc(alias = "gtk_tool_item_get_visible_vertical")]
     fn get_visible_vertical(&self) -> bool;
 
+    #[doc(alias = "gtk_tool_item_rebuild_menu")]
     fn rebuild_menu(&self);
 
+    #[doc(alias = "gtk_tool_item_retrieve_proxy_menu_item")]
     fn retrieve_proxy_menu_item(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_tool_item_set_expand")]
     fn set_expand(&self, expand: bool);
 
+    #[doc(alias = "gtk_tool_item_set_homogeneous")]
     fn set_homogeneous(&self, homogeneous: bool);
 
+    #[doc(alias = "gtk_tool_item_set_is_important")]
     fn set_is_important(&self, is_important: bool);
 
+    #[doc(alias = "gtk_tool_item_set_proxy_menu_item")]
     fn set_proxy_menu_item<P: IsA<Widget>>(&self, menu_item_id: &str, menu_item: Option<&P>);
 
+    #[doc(alias = "gtk_tool_item_set_use_drag_window")]
     fn set_use_drag_window(&self, use_drag_window: bool);
 
+    #[doc(alias = "gtk_tool_item_set_visible_horizontal")]
     fn set_visible_horizontal(&self, visible_horizontal: bool);
 
+    #[doc(alias = "gtk_tool_item_set_visible_vertical")]
     fn set_visible_vertical(&self, visible_vertical: bool);
 
+    #[doc(alias = "gtk_tool_item_toolbar_reconfigured")]
     fn toolbar_reconfigured(&self);
 
     fn connect_create_menu_proxy<F: Fn(&Self) -> glib::signal::Inhibit + 'static>(

@@ -28,6 +28,7 @@ glib::glib_wrapper! {
 }
 
 impl Stack {
+    #[doc(alias = "gtk_stack_new")]
     pub fn new() -> Stack {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_stack_new()).unsafe_cast() }
@@ -464,58 +465,79 @@ impl StackBuilder {
 pub const NONE_STACK: Option<&Stack> = None;
 
 pub trait StackExt: 'static {
+    #[doc(alias = "gtk_stack_add_named")]
     fn add_named<P: IsA<Widget>>(&self, child: &P, name: &str);
 
+    #[doc(alias = "gtk_stack_add_titled")]
     fn add_titled<P: IsA<Widget>>(&self, child: &P, name: &str, title: &str);
 
+    #[doc(alias = "gtk_stack_get_child_by_name")]
     fn get_child_by_name(&self, name: &str) -> Option<Widget>;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_stack_get_hhomogeneous")]
     fn get_hhomogeneous(&self) -> bool;
 
+    #[doc(alias = "gtk_stack_get_homogeneous")]
     fn get_homogeneous(&self) -> bool;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_stack_get_interpolate_size")]
     fn get_interpolate_size(&self) -> bool;
 
+    #[doc(alias = "gtk_stack_get_transition_duration")]
     fn get_transition_duration(&self) -> u32;
 
+    #[doc(alias = "gtk_stack_get_transition_running")]
     fn get_transition_running(&self) -> bool;
 
+    #[doc(alias = "gtk_stack_get_transition_type")]
     fn get_transition_type(&self) -> StackTransitionType;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_stack_get_vhomogeneous")]
     fn get_vhomogeneous(&self) -> bool;
 
+    #[doc(alias = "gtk_stack_get_visible_child")]
     fn get_visible_child(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_stack_get_visible_child_name")]
     fn get_visible_child_name(&self) -> Option<glib::GString>;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_stack_set_hhomogeneous")]
     fn set_hhomogeneous(&self, hhomogeneous: bool);
 
+    #[doc(alias = "gtk_stack_set_homogeneous")]
     fn set_homogeneous(&self, homogeneous: bool);
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_stack_set_interpolate_size")]
     fn set_interpolate_size(&self, interpolate_size: bool);
 
+    #[doc(alias = "gtk_stack_set_transition_duration")]
     fn set_transition_duration(&self, duration: u32);
 
+    #[doc(alias = "gtk_stack_set_transition_type")]
     fn set_transition_type(&self, transition: StackTransitionType);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_stack_set_vhomogeneous")]
     fn set_vhomogeneous(&self, vhomogeneous: bool);
 
+    #[doc(alias = "gtk_stack_set_visible_child")]
     fn set_visible_child<P: IsA<Widget>>(&self, child: &P);
 
+    #[doc(alias = "gtk_stack_set_visible_child_full")]
     fn set_visible_child_full(&self, name: &str, transition: StackTransitionType);
 
+    #[doc(alias = "gtk_stack_set_visible_child_name")]
     fn set_visible_child_name(&self, name: &str);
 
     fn get_property_interpolate_size(&self) -> bool;

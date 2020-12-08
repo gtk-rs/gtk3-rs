@@ -32,6 +32,7 @@ glib::glib_wrapper! {
 }
 
 impl StackSwitcher {
+    #[doc(alias = "gtk_stack_switcher_new")]
     pub fn new() -> StackSwitcher {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_stack_switcher_new()).unsafe_cast() }
@@ -445,8 +446,10 @@ impl StackSwitcherBuilder {
 pub const NONE_STACK_SWITCHER: Option<&StackSwitcher> = None;
 
 pub trait StackSwitcherExt: 'static {
+    #[doc(alias = "gtk_stack_switcher_get_stack")]
     fn get_stack(&self) -> Option<Stack>;
 
+    #[doc(alias = "gtk_stack_switcher_set_stack")]
     fn set_stack<P: IsA<Stack>>(&self, stack: Option<&P>);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]

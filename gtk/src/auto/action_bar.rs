@@ -25,6 +25,7 @@ glib::glib_wrapper! {
 }
 
 impl ActionBar {
+    #[doc(alias = "gtk_action_bar_new")]
     pub fn new() -> ActionBar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_action_bar_new()).unsafe_cast() }
@@ -379,12 +380,16 @@ impl ActionBarBuilder {
 pub const NONE_ACTION_BAR: Option<&ActionBar> = None;
 
 pub trait ActionBarExt: 'static {
+    #[doc(alias = "gtk_action_bar_get_center_widget")]
     fn get_center_widget(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_action_bar_pack_end")]
     fn pack_end<P: IsA<Widget>>(&self, child: &P);
 
+    #[doc(alias = "gtk_action_bar_pack_start")]
     fn pack_start<P: IsA<Widget>>(&self, child: &P);
 
+    #[doc(alias = "gtk_action_bar_set_center_widget")]
     fn set_center_widget<P: IsA<Widget>>(&self, center_widget: Option<&P>);
 
     fn get_child_pack_type<T: IsA<Widget>>(&self, item: &T) -> PackType;

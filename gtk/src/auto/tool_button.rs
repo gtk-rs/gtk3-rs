@@ -31,6 +31,7 @@ glib::glib_wrapper! {
 }
 
 impl ToolButton {
+    #[doc(alias = "gtk_tool_button_new")]
     pub fn new<P: IsA<Widget>>(icon_widget: Option<&P>, label: Option<&str>) -> ToolButton {
         assert_initialized_main_thread!();
         unsafe {
@@ -475,24 +476,34 @@ impl ToolButtonBuilder {
 pub const NONE_TOOL_BUTTON: Option<&ToolButton> = None;
 
 pub trait ToolButtonExt: 'static {
+    #[doc(alias = "gtk_tool_button_get_icon_name")]
     fn get_icon_name(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_tool_button_get_icon_widget")]
     fn get_icon_widget(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_tool_button_get_label")]
     fn get_label(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_tool_button_get_label_widget")]
     fn get_label_widget(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_tool_button_get_use_underline")]
     fn get_use_underline(&self) -> bool;
 
+    #[doc(alias = "gtk_tool_button_set_icon_name")]
     fn set_icon_name(&self, icon_name: Option<&str>);
 
+    #[doc(alias = "gtk_tool_button_set_icon_widget")]
     fn set_icon_widget<P: IsA<Widget>>(&self, icon_widget: Option<&P>);
 
+    #[doc(alias = "gtk_tool_button_set_label")]
     fn set_label(&self, label: Option<&str>);
 
+    #[doc(alias = "gtk_tool_button_set_label_widget")]
     fn set_label_widget<P: IsA<Widget>>(&self, label_widget: Option<&P>);
 
+    #[doc(alias = "gtk_tool_button_set_use_underline")]
     fn set_use_underline(&self, use_underline: bool);
 
     fn connect_clicked<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

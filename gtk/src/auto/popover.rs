@@ -32,6 +32,7 @@ glib::glib_wrapper! {
 }
 
 impl Popover {
+    #[doc(alias = "gtk_popover_new")]
     pub fn new<P: IsA<Widget>>(relative_to: Option<&P>) -> Popover {
         assert_initialized_main_thread!();
         unsafe {
@@ -42,6 +43,7 @@ impl Popover {
         }
     }
 
+    #[doc(alias = "gtk_popover_new_from_model")]
     pub fn from_model<P: IsA<Widget>, Q: IsA<gio::MenuModel>>(
         relative_to: Option<&P>,
         model: &Q,
@@ -463,56 +465,73 @@ impl PopoverBuilder {
 pub const NONE_POPOVER: Option<&Popover> = None;
 
 pub trait PopoverExt: 'static {
+    #[doc(alias = "gtk_popover_bind_model")]
     fn bind_model<P: IsA<gio::MenuModel>>(&self, model: Option<&P>, action_namespace: Option<&str>);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "gtk_popover_get_constrain_to")]
     fn get_constrain_to(&self) -> PopoverConstraint;
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_popover_get_default_widget")]
     fn get_default_widget(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_popover_get_modal")]
     fn get_modal(&self) -> bool;
 
+    #[doc(alias = "gtk_popover_get_pointing_to")]
     fn get_pointing_to(&self) -> Option<gdk::Rectangle>;
 
+    #[doc(alias = "gtk_popover_get_position")]
     fn get_position(&self) -> PositionType;
 
+    #[doc(alias = "gtk_popover_get_relative_to")]
     fn get_relative_to(&self) -> Option<Widget>;
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_popover_get_transitions_enabled")]
     fn get_transitions_enabled(&self) -> bool;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_popover_popdown")]
     fn popdown(&self);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_popover_popup")]
     fn popup(&self);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "gtk_popover_set_constrain_to")]
     fn set_constrain_to(&self, constraint: PopoverConstraint);
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_popover_set_default_widget")]
     fn set_default_widget<P: IsA<Widget>>(&self, widget: Option<&P>);
 
+    #[doc(alias = "gtk_popover_set_modal")]
     fn set_modal(&self, modal: bool);
 
+    #[doc(alias = "gtk_popover_set_pointing_to")]
     fn set_pointing_to(&self, rect: &gdk::Rectangle);
 
+    #[doc(alias = "gtk_popover_set_position")]
     fn set_position(&self, position: PositionType);
 
+    #[doc(alias = "gtk_popover_set_relative_to")]
     fn set_relative_to<P: IsA<Widget>>(&self, relative_to: Option<&P>);
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_popover_set_transitions_enabled")]
     fn set_transitions_enabled(&self, transitions_enabled: bool);
 
     fn connect_closed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

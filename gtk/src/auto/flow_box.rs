@@ -34,6 +34,7 @@ glib::glib_wrapper! {
 }
 
 impl FlowBox {
+    #[doc(alias = "gtk_flow_box_new")]
     pub fn new() -> FlowBox {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_flow_box_new()).unsafe_cast() }
@@ -462,73 +463,103 @@ pub const NONE_FLOW_BOX: Option<&FlowBox> = None;
 pub trait FlowBoxExt: 'static {
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gtk_flow_box_bind_model")]
     fn bind_model<P: IsA<gio::ListModel>, Q: Fn(&glib::Object) -> Widget + 'static>(
         &self,
         model: Option<&P>,
         create_widget_func: Q,
     );
 
+    #[doc(alias = "gtk_flow_box_get_activate_on_single_click")]
     fn get_activate_on_single_click(&self) -> bool;
 
+    #[doc(alias = "gtk_flow_box_get_child_at_index")]
     fn get_child_at_index(&self, idx: i32) -> Option<FlowBoxChild>;
 
     #[cfg(any(feature = "v3_22_6", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_6")))]
+    #[doc(alias = "gtk_flow_box_get_child_at_pos")]
     fn get_child_at_pos(&self, x: i32, y: i32) -> Option<FlowBoxChild>;
 
+    #[doc(alias = "gtk_flow_box_get_column_spacing")]
     fn get_column_spacing(&self) -> u32;
 
+    #[doc(alias = "gtk_flow_box_get_homogeneous")]
     fn get_homogeneous(&self) -> bool;
 
+    #[doc(alias = "gtk_flow_box_get_max_children_per_line")]
     fn get_max_children_per_line(&self) -> u32;
 
+    #[doc(alias = "gtk_flow_box_get_min_children_per_line")]
     fn get_min_children_per_line(&self) -> u32;
 
+    #[doc(alias = "gtk_flow_box_get_row_spacing")]
     fn get_row_spacing(&self) -> u32;
 
+    #[doc(alias = "gtk_flow_box_get_selected_children")]
     fn get_selected_children(&self) -> Vec<FlowBoxChild>;
 
+    #[doc(alias = "gtk_flow_box_get_selection_mode")]
     fn get_selection_mode(&self) -> SelectionMode;
 
+    #[doc(alias = "gtk_flow_box_insert")]
     fn insert<P: IsA<Widget>>(&self, widget: &P, position: i32);
 
+    #[doc(alias = "gtk_flow_box_invalidate_filter")]
     fn invalidate_filter(&self);
 
+    #[doc(alias = "gtk_flow_box_invalidate_sort")]
     fn invalidate_sort(&self);
 
+    #[doc(alias = "gtk_flow_box_select_all")]
     fn select_all(&self);
 
+    #[doc(alias = "gtk_flow_box_select_child")]
     fn select_child<P: IsA<FlowBoxChild>>(&self, child: &P);
 
+    #[doc(alias = "gtk_flow_box_selected_foreach")]
     fn selected_foreach<P: FnMut(&FlowBox, &FlowBoxChild)>(&self, func: P);
 
+    #[doc(alias = "gtk_flow_box_set_activate_on_single_click")]
     fn set_activate_on_single_click(&self, single: bool);
 
+    #[doc(alias = "gtk_flow_box_set_column_spacing")]
     fn set_column_spacing(&self, spacing: u32);
 
+    #[doc(alias = "gtk_flow_box_set_filter_func")]
     fn set_filter_func(&self, filter_func: Option<Box_<dyn Fn(&FlowBoxChild) -> bool + 'static>>);
 
+    #[doc(alias = "gtk_flow_box_set_hadjustment")]
     fn set_hadjustment<P: IsA<Adjustment>>(&self, adjustment: &P);
 
+    #[doc(alias = "gtk_flow_box_set_homogeneous")]
     fn set_homogeneous(&self, homogeneous: bool);
 
+    #[doc(alias = "gtk_flow_box_set_max_children_per_line")]
     fn set_max_children_per_line(&self, n_children: u32);
 
+    #[doc(alias = "gtk_flow_box_set_min_children_per_line")]
     fn set_min_children_per_line(&self, n_children: u32);
 
+    #[doc(alias = "gtk_flow_box_set_row_spacing")]
     fn set_row_spacing(&self, spacing: u32);
 
+    #[doc(alias = "gtk_flow_box_set_selection_mode")]
     fn set_selection_mode(&self, mode: SelectionMode);
 
+    #[doc(alias = "gtk_flow_box_set_sort_func")]
     fn set_sort_func(
         &self,
         sort_func: Option<Box_<dyn Fn(&FlowBoxChild, &FlowBoxChild) -> i32 + 'static>>,
     );
 
+    #[doc(alias = "gtk_flow_box_set_vadjustment")]
     fn set_vadjustment<P: IsA<Adjustment>>(&self, adjustment: &P);
 
+    #[doc(alias = "gtk_flow_box_unselect_all")]
     fn unselect_all(&self);
 
+    #[doc(alias = "gtk_flow_box_unselect_child")]
     fn unselect_child<P: IsA<FlowBoxChild>>(&self, child: &P);
 
     fn connect_activate_cursor_child<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

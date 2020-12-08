@@ -30,6 +30,7 @@ glib::glib_wrapper! {
 }
 
 impl ToolItemGroup {
+    #[doc(alias = "gtk_tool_item_group_new")]
     pub fn new(label: &str) -> ToolItemGroup {
         assert_initialized_main_thread!();
         unsafe {
@@ -426,36 +427,52 @@ impl ToolItemGroupBuilder {
 pub const NONE_TOOL_ITEM_GROUP: Option<&ToolItemGroup> = None;
 
 pub trait ToolItemGroupExt: 'static {
+    #[doc(alias = "gtk_tool_item_group_get_collapsed")]
     fn get_collapsed(&self) -> bool;
 
+    #[doc(alias = "gtk_tool_item_group_get_drop_item")]
     fn get_drop_item(&self, x: i32, y: i32) -> Option<ToolItem>;
 
+    #[doc(alias = "gtk_tool_item_group_get_ellipsize")]
     fn get_ellipsize(&self) -> pango::EllipsizeMode;
 
+    #[doc(alias = "gtk_tool_item_group_get_header_relief")]
     fn get_header_relief(&self) -> ReliefStyle;
 
+    #[doc(alias = "gtk_tool_item_group_get_item_position")]
     fn get_item_position<P: IsA<ToolItem>>(&self, item: &P) -> i32;
 
+    #[doc(alias = "gtk_tool_item_group_get_label")]
     fn get_label(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_tool_item_group_get_label_widget")]
     fn get_label_widget(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_tool_item_group_get_n_items")]
     fn get_n_items(&self) -> u32;
 
+    #[doc(alias = "gtk_tool_item_group_get_nth_item")]
     fn get_nth_item(&self, index: u32) -> Option<ToolItem>;
 
+    #[doc(alias = "gtk_tool_item_group_insert")]
     fn insert<P: IsA<ToolItem>>(&self, item: &P, position: i32);
 
+    #[doc(alias = "gtk_tool_item_group_set_collapsed")]
     fn set_collapsed(&self, collapsed: bool);
 
+    #[doc(alias = "gtk_tool_item_group_set_ellipsize")]
     fn set_ellipsize(&self, ellipsize: pango::EllipsizeMode);
 
+    #[doc(alias = "gtk_tool_item_group_set_header_relief")]
     fn set_header_relief(&self, style: ReliefStyle);
 
+    #[doc(alias = "gtk_tool_item_group_set_item_position")]
     fn set_item_position<P: IsA<ToolItem>>(&self, item: &P, position: i32);
 
+    #[doc(alias = "gtk_tool_item_group_set_label")]
     fn set_label(&self, label: &str);
 
+    #[doc(alias = "gtk_tool_item_group_set_label_widget")]
     fn set_label_widget<P: IsA<Widget>>(&self, label_widget: &P);
 
     fn get_item_expand<T: IsA<ToolItem>>(&self, item: &T) -> bool;

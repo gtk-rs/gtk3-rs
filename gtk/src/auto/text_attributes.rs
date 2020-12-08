@@ -16,15 +16,18 @@ glib::glib_wrapper! {
 }
 
 impl TextAttributes {
+    #[doc(alias = "gtk_text_attributes_new")]
     pub fn new() -> TextAttributes {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gtk_text_attributes_new()) }
     }
 
+    #[doc(alias = "gtk_text_attributes_copy")]
     pub fn copy(&self) -> Option<TextAttributes> {
         unsafe { from_glib_full(ffi::gtk_text_attributes_copy(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_text_attributes_copy_values")]
     pub fn copy_values(&self, dest: &TextAttributes) {
         unsafe {
             ffi::gtk_text_attributes_copy_values(self.to_glib_none().0, dest.to_glib_none().0);

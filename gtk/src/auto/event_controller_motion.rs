@@ -31,6 +31,7 @@ glib::glib_wrapper! {
 impl EventControllerMotion {
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[doc(alias = "gtk_event_controller_motion_new")]
     pub fn new<P: IsA<Widget>>(widget: &P) -> EventControllerMotion {
         skip_assert_initialized!();
         unsafe {

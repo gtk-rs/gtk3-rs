@@ -31,11 +31,13 @@ glib::glib_wrapper! {
 }
 
 impl Image {
+    #[doc(alias = "gtk_image_new")]
     pub fn new() -> Image {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_image_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_image_new_from_animation")]
     pub fn from_animation<P: IsA<gdk_pixbuf::PixbufAnimation>>(animation: &P) -> Image {
         assert_initialized_main_thread!();
         unsafe {
@@ -46,6 +48,7 @@ impl Image {
         }
     }
 
+    #[doc(alias = "gtk_image_new_from_file")]
     pub fn from_file<P: AsRef<std::path::Path>>(filename: P) -> Image {
         assert_initialized_main_thread!();
         unsafe {
@@ -56,6 +59,7 @@ impl Image {
         }
     }
 
+    #[doc(alias = "gtk_image_new_from_gicon")]
     pub fn from_gicon<P: IsA<gio::Icon>>(icon: &P, size: IconSize) -> Image {
         assert_initialized_main_thread!();
         unsafe {
@@ -67,6 +71,7 @@ impl Image {
         }
     }
 
+    #[doc(alias = "gtk_image_new_from_icon_name")]
     pub fn from_icon_name(icon_name: Option<&str>, size: IconSize) -> Image {
         assert_initialized_main_thread!();
         unsafe {
@@ -78,6 +83,7 @@ impl Image {
         }
     }
 
+    #[doc(alias = "gtk_image_new_from_pixbuf")]
     pub fn from_pixbuf(pixbuf: Option<&gdk_pixbuf::Pixbuf>) -> Image {
         assert_initialized_main_thread!();
         unsafe {
@@ -86,6 +92,7 @@ impl Image {
         }
     }
 
+    #[doc(alias = "gtk_image_new_from_resource")]
     pub fn from_resource(resource_path: &str) -> Image {
         assert_initialized_main_thread!();
         unsafe {
@@ -96,6 +103,7 @@ impl Image {
         }
     }
 
+    #[doc(alias = "gtk_image_new_from_surface")]
     pub fn from_surface(surface: Option<&cairo::Surface>) -> Image {
         assert_initialized_main_thread!();
         unsafe {
@@ -521,32 +529,46 @@ impl ImageBuilder {
 pub const NONE_IMAGE: Option<&Image> = None;
 
 pub trait ImageExt: 'static {
+    #[doc(alias = "gtk_image_clear")]
     fn clear(&self);
 
+    #[doc(alias = "gtk_image_get_animation")]
     fn get_animation(&self) -> Option<gdk_pixbuf::PixbufAnimation>;
 
+    #[doc(alias = "gtk_image_get_gicon")]
     fn get_gicon(&self) -> (gio::Icon, IconSize);
 
+    #[doc(alias = "gtk_image_get_pixbuf")]
     fn get_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf>;
 
+    #[doc(alias = "gtk_image_get_pixel_size")]
     fn get_pixel_size(&self) -> i32;
 
+    #[doc(alias = "gtk_image_get_storage_type")]
     fn get_storage_type(&self) -> ImageType;
 
+    #[doc(alias = "gtk_image_set_from_animation")]
     fn set_from_animation<P: IsA<gdk_pixbuf::PixbufAnimation>>(&self, animation: &P);
 
+    #[doc(alias = "gtk_image_set_from_file")]
     fn set_from_file<P: AsRef<std::path::Path>>(&self, filename: P);
 
+    #[doc(alias = "gtk_image_set_from_gicon")]
     fn set_from_gicon<P: IsA<gio::Icon>>(&self, icon: &P, size: IconSize);
 
+    #[doc(alias = "gtk_image_set_from_icon_name")]
     fn set_from_icon_name(&self, icon_name: Option<&str>, size: IconSize);
 
+    #[doc(alias = "gtk_image_set_from_pixbuf")]
     fn set_from_pixbuf(&self, pixbuf: Option<&gdk_pixbuf::Pixbuf>);
 
+    #[doc(alias = "gtk_image_set_from_resource")]
     fn set_from_resource(&self, resource_path: Option<&str>);
 
+    #[doc(alias = "gtk_image_set_from_surface")]
     fn set_from_surface(&self, surface: Option<&cairo::Surface>);
 
+    #[doc(alias = "gtk_image_set_pixel_size")]
     fn set_pixel_size(&self, pixel_size: i32);
 
     fn get_property_file(&self) -> Option<glib::GString>;

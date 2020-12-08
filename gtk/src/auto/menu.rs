@@ -32,11 +32,13 @@ glib::glib_wrapper! {
 }
 
 impl Menu {
+    #[doc(alias = "gtk_menu_new")]
     pub fn new() -> Menu {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_menu_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_menu_new_from_model")]
     pub fn from_model<P: IsA<gio::MenuModel>>(model: &P) -> Menu {
         assert_initialized_main_thread!();
         unsafe {
@@ -47,6 +49,7 @@ impl Menu {
         }
     }
 
+    #[doc(alias = "gtk_menu_get_for_attach_widget")]
     pub fn get_for_attach_widget<P: IsA<Widget>>(widget: &P) -> Vec<Widget> {
         skip_assert_initialized!();
         unsafe {
@@ -524,6 +527,7 @@ impl MenuBuilder {
 pub const NONE_MENU: Option<&Menu> = None;
 
 pub trait GtkMenuExt: 'static {
+    #[doc(alias = "gtk_menu_attach")]
     fn attach<P: IsA<Widget>>(
         &self,
         child: &P,
@@ -533,37 +537,50 @@ pub trait GtkMenuExt: 'static {
         bottom_attach: u32,
     );
 
+    //#[doc(alias = "gtk_menu_attach_to_widget")]
     //fn attach_to_widget<P: IsA<Widget>>(&self, attach_widget: &P, detacher: Option<Box_<dyn FnOnce(&Widget, &Menu) + 'static>>);
 
+    #[doc(alias = "gtk_menu_detach")]
     fn detach(&self);
 
+    #[doc(alias = "gtk_menu_get_accel_group")]
     fn get_accel_group(&self) -> Option<AccelGroup>;
 
+    #[doc(alias = "gtk_menu_get_accel_path")]
     fn get_accel_path(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_menu_get_active")]
     fn get_active(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_menu_get_attach_widget")]
     fn get_attach_widget(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_menu_get_monitor")]
     fn get_monitor(&self) -> i32;
 
+    #[doc(alias = "gtk_menu_get_reserve_toggle_size")]
     fn get_reserve_toggle_size(&self) -> bool;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_menu_place_on_monitor")]
     fn place_on_monitor(&self, monitor: &gdk::Monitor);
 
+    #[doc(alias = "gtk_menu_popdown")]
     fn popdown(&self);
 
     //#[cfg_attr(feature = "v3_22", deprecated)]
+    //#[doc(alias = "gtk_menu_popup")]
     //fn popup<P: IsA<Widget>, Q: IsA<Widget>>(&self, parent_menu_shell: Option<&P>, parent_menu_item: Option<&Q>, func: Option<Box_<dyn FnOnce(&Menu, i32, i32, bool) + 'static>>, button: u32, activate_time: u32);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_menu_popup_at_pointer")]
     fn popup_at_pointer(&self, trigger_event: Option<&gdk::Event>);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_menu_popup_at_rect")]
     fn popup_at_rect(
         &self,
         rect_window: &gdk::Window,
@@ -575,6 +592,7 @@ pub trait GtkMenuExt: 'static {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_menu_popup_at_widget")]
     fn popup_at_widget<P: IsA<Widget>>(
         &self,
         widget: &P,
@@ -584,22 +602,31 @@ pub trait GtkMenuExt: 'static {
     );
 
     //#[cfg_attr(feature = "v3_22", deprecated)]
+    //#[doc(alias = "gtk_menu_popup_for_device")]
     //fn popup_for_device<P: IsA<Widget>, Q: IsA<Widget>>(&self, device: Option<&gdk::Device>, parent_menu_shell: Option<&P>, parent_menu_item: Option<&Q>, func: Option<Box_<dyn Fn(&Menu, i32, i32, bool) + 'static>>, button: u32, activate_time: u32);
 
+    #[doc(alias = "gtk_menu_reorder_child")]
     fn reorder_child<P: IsA<Widget>>(&self, child: &P, position: i32);
 
+    #[doc(alias = "gtk_menu_reposition")]
     fn reposition(&self);
 
+    #[doc(alias = "gtk_menu_set_accel_group")]
     fn set_accel_group<P: IsA<AccelGroup>>(&self, accel_group: Option<&P>);
 
+    #[doc(alias = "gtk_menu_set_accel_path")]
     fn set_accel_path(&self, accel_path: Option<&str>);
 
+    #[doc(alias = "gtk_menu_set_active")]
     fn set_active(&self, index: u32);
 
+    #[doc(alias = "gtk_menu_set_monitor")]
     fn set_monitor(&self, monitor_num: i32);
 
+    #[doc(alias = "gtk_menu_set_reserve_toggle_size")]
     fn set_reserve_toggle_size(&self, reserve_toggle_size: bool);
 
+    #[doc(alias = "gtk_menu_set_screen")]
     fn set_screen(&self, screen: Option<&gdk::Screen>);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]

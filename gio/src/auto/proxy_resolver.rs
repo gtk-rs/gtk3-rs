@@ -19,6 +19,7 @@ glib::glib_wrapper! {
 }
 
 impl ProxyResolver {
+    #[doc(alias = "g_proxy_resolver_get_default")]
     pub fn get_default() -> Option<ProxyResolver> {
         unsafe { from_glib_none(ffi::g_proxy_resolver_get_default()) }
     }
@@ -27,14 +28,17 @@ impl ProxyResolver {
 pub const NONE_PROXY_RESOLVER: Option<&ProxyResolver> = None;
 
 pub trait ProxyResolverExt: 'static {
+    #[doc(alias = "g_proxy_resolver_is_supported")]
     fn is_supported(&self) -> bool;
 
+    #[doc(alias = "g_proxy_resolver_lookup")]
     fn lookup<P: IsA<Cancellable>>(
         &self,
         uri: &str,
         cancellable: Option<&P>,
     ) -> Result<Vec<glib::GString>, glib::Error>;
 
+    #[doc(alias = "g_proxy_resolver_lookup_async")]
     fn lookup_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<Vec<glib::GString>, glib::Error>) + Send + 'static,

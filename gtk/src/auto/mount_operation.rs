@@ -23,6 +23,7 @@ glib::glib_wrapper! {
 }
 
 impl MountOperation {
+    #[doc(alias = "gtk_mount_operation_new")]
     pub fn new<P: IsA<Window>>(parent: Option<&P>) -> MountOperation {
         assert_initialized_main_thread!();
         unsafe {
@@ -147,14 +148,19 @@ impl MountOperationBuilder {
 pub const NONE_MOUNT_OPERATION: Option<&MountOperation> = None;
 
 pub trait MountOperationExt: 'static {
+    #[doc(alias = "gtk_mount_operation_get_parent")]
     fn get_parent(&self) -> Option<Window>;
 
+    #[doc(alias = "gtk_mount_operation_get_screen")]
     fn get_screen(&self) -> Option<gdk::Screen>;
 
+    #[doc(alias = "gtk_mount_operation_is_showing")]
     fn is_showing(&self) -> bool;
 
+    #[doc(alias = "gtk_mount_operation_set_parent")]
     fn set_parent<P: IsA<Window>>(&self, parent: Option<&P>);
 
+    #[doc(alias = "gtk_mount_operation_set_screen")]
     fn set_screen(&self, screen: &gdk::Screen);
 
     fn get_property_is_showing(&self) -> bool;

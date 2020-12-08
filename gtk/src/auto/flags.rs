@@ -36,7 +36,7 @@ impl ToGlib for AccelFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkAccelFlags> for AccelFlags {
-    fn from_glib(value: ffi::GtkAccelFlags) -> AccelFlags {
+    unsafe fn from_glib(value: ffi::GtkAccelFlags) -> AccelFlags {
         skip_assert_initialized!();
         AccelFlags::from_bits_truncate(value)
     }
@@ -92,7 +92,7 @@ impl ToGlib for ApplicationInhibitFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkApplicationInhibitFlags> for ApplicationInhibitFlags {
-    fn from_glib(value: ffi::GtkApplicationInhibitFlags) -> ApplicationInhibitFlags {
+    unsafe fn from_glib(value: ffi::GtkApplicationInhibitFlags) -> ApplicationInhibitFlags {
         skip_assert_initialized!();
         ApplicationInhibitFlags::from_bits_truncate(value)
     }
@@ -149,7 +149,7 @@ impl ToGlib for CalendarDisplayOptions {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkCalendarDisplayOptions> for CalendarDisplayOptions {
-    fn from_glib(value: ffi::GtkCalendarDisplayOptions) -> CalendarDisplayOptions {
+    unsafe fn from_glib(value: ffi::GtkCalendarDisplayOptions) -> CalendarDisplayOptions {
         skip_assert_initialized!();
         CalendarDisplayOptions::from_bits_truncate(value)
     }
@@ -208,7 +208,7 @@ impl ToGlib for CellRendererState {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkCellRendererState> for CellRendererState {
-    fn from_glib(value: ffi::GtkCellRendererState) -> CellRendererState {
+    unsafe fn from_glib(value: ffi::GtkCellRendererState) -> CellRendererState {
         skip_assert_initialized!();
         CellRendererState::from_bits_truncate(value)
     }
@@ -264,7 +264,7 @@ impl ToGlib for DestDefaults {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkDestDefaults> for DestDefaults {
-    fn from_glib(value: ffi::GtkDestDefaults) -> DestDefaults {
+    unsafe fn from_glib(value: ffi::GtkDestDefaults) -> DestDefaults {
         skip_assert_initialized!();
         DestDefaults::from_bits_truncate(value)
     }
@@ -319,7 +319,7 @@ impl ToGlib for DialogFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkDialogFlags> for DialogFlags {
-    fn from_glib(value: ffi::GtkDialogFlags) -> DialogFlags {
+    unsafe fn from_glib(value: ffi::GtkDialogFlags) -> DialogFlags {
         skip_assert_initialized!();
         DialogFlags::from_bits_truncate(value)
     }
@@ -385,7 +385,7 @@ impl ToGlib for EventControllerScrollFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GtkEventControllerScrollFlags> for EventControllerScrollFlags {
-    fn from_glib(value: ffi::GtkEventControllerScrollFlags) -> EventControllerScrollFlags {
+    unsafe fn from_glib(value: ffi::GtkEventControllerScrollFlags) -> EventControllerScrollFlags {
         skip_assert_initialized!();
         EventControllerScrollFlags::from_bits_truncate(value)
     }
@@ -449,7 +449,7 @@ impl ToGlib for FileFilterFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkFileFilterFlags> for FileFilterFlags {
-    fn from_glib(value: ffi::GtkFileFilterFlags) -> FileFilterFlags {
+    unsafe fn from_glib(value: ffi::GtkFileFilterFlags) -> FileFilterFlags {
         skip_assert_initialized!();
         FileFilterFlags::from_bits_truncate(value)
     }
@@ -514,7 +514,7 @@ impl ToGlib for FontChooserLevel {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GtkFontChooserLevel> for FontChooserLevel {
-    fn from_glib(value: ffi::GtkFontChooserLevel) -> FontChooserLevel {
+    unsafe fn from_glib(value: ffi::GtkFontChooserLevel) -> FontChooserLevel {
         skip_assert_initialized!();
         FontChooserLevel::from_bits_truncate(value)
     }
@@ -583,7 +583,7 @@ impl ToGlib for IconLookupFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkIconLookupFlags> for IconLookupFlags {
-    fn from_glib(value: ffi::GtkIconLookupFlags) -> IconLookupFlags {
+    unsafe fn from_glib(value: ffi::GtkIconLookupFlags) -> IconLookupFlags {
         skip_assert_initialized!();
         IconLookupFlags::from_bits_truncate(value)
     }
@@ -651,7 +651,7 @@ impl ToGlib for InputHints {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkInputHints> for InputHints {
-    fn from_glib(value: ffi::GtkInputHints) -> InputHints {
+    unsafe fn from_glib(value: ffi::GtkInputHints) -> InputHints {
         skip_assert_initialized!();
         InputHints::from_bits_truncate(value)
     }
@@ -712,7 +712,7 @@ impl ToGlib for JunctionSides {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkJunctionSides> for JunctionSides {
-    fn from_glib(value: ffi::GtkJunctionSides) -> JunctionSides {
+    unsafe fn from_glib(value: ffi::GtkJunctionSides) -> JunctionSides {
         skip_assert_initialized!();
         JunctionSides::from_bits_truncate(value)
     }
@@ -767,7 +767,7 @@ impl ToGlib for PlacesOpenFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkPlacesOpenFlags> for PlacesOpenFlags {
-    fn from_glib(value: ffi::GtkPlacesOpenFlags) -> PlacesOpenFlags {
+    unsafe fn from_glib(value: ffi::GtkPlacesOpenFlags) -> PlacesOpenFlags {
         skip_assert_initialized!();
         PlacesOpenFlags::from_bits_truncate(value)
     }
@@ -825,7 +825,7 @@ impl ToGlib for RecentFilterFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkRecentFilterFlags> for RecentFilterFlags {
-    fn from_glib(value: ffi::GtkRecentFilterFlags) -> RecentFilterFlags {
+    unsafe fn from_glib(value: ffi::GtkRecentFilterFlags) -> RecentFilterFlags {
         skip_assert_initialized!();
         RecentFilterFlags::from_bits_truncate(value)
     }
@@ -883,7 +883,7 @@ impl ToGlib for RegionFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkRegionFlags> for RegionFlags {
-    fn from_glib(value: ffi::GtkRegionFlags) -> RegionFlags {
+    unsafe fn from_glib(value: ffi::GtkRegionFlags) -> RegionFlags {
         skip_assert_initialized!();
         RegionFlags::from_bits_truncate(value)
     }
@@ -949,7 +949,7 @@ impl ToGlib for StateFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkStateFlags> for StateFlags {
-    fn from_glib(value: ffi::GtkStateFlags) -> StateFlags {
+    unsafe fn from_glib(value: ffi::GtkStateFlags) -> StateFlags {
         skip_assert_initialized!();
         StateFlags::from_bits_truncate(value)
     }
@@ -1012,7 +1012,7 @@ impl ToGlib for StyleContextPrintFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GtkStyleContextPrintFlags> for StyleContextPrintFlags {
-    fn from_glib(value: ffi::GtkStyleContextPrintFlags) -> StyleContextPrintFlags {
+    unsafe fn from_glib(value: ffi::GtkStyleContextPrintFlags) -> StyleContextPrintFlags {
         skip_assert_initialized!();
         StyleContextPrintFlags::from_bits_truncate(value)
     }
@@ -1076,7 +1076,7 @@ impl ToGlib for TargetFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkTargetFlags> for TargetFlags {
-    fn from_glib(value: ffi::GtkTargetFlags) -> TargetFlags {
+    unsafe fn from_glib(value: ffi::GtkTargetFlags) -> TargetFlags {
         skip_assert_initialized!();
         TargetFlags::from_bits_truncate(value)
     }
@@ -1131,7 +1131,7 @@ impl ToGlib for TextSearchFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkTextSearchFlags> for TextSearchFlags {
-    fn from_glib(value: ffi::GtkTextSearchFlags) -> TextSearchFlags {
+    unsafe fn from_glib(value: ffi::GtkTextSearchFlags) -> TextSearchFlags {
         skip_assert_initialized!();
         TextSearchFlags::from_bits_truncate(value)
     }
@@ -1185,7 +1185,7 @@ impl ToGlib for ToolPaletteDragTargets {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkToolPaletteDragTargets> for ToolPaletteDragTargets {
-    fn from_glib(value: ffi::GtkToolPaletteDragTargets) -> ToolPaletteDragTargets {
+    unsafe fn from_glib(value: ffi::GtkToolPaletteDragTargets) -> ToolPaletteDragTargets {
         skip_assert_initialized!();
         ToolPaletteDragTargets::from_bits_truncate(value)
     }
@@ -1239,7 +1239,7 @@ impl ToGlib for TreeModelFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkTreeModelFlags> for TreeModelFlags {
-    fn from_glib(value: ffi::GtkTreeModelFlags) -> TreeModelFlags {
+    unsafe fn from_glib(value: ffi::GtkTreeModelFlags) -> TreeModelFlags {
         skip_assert_initialized!();
         TreeModelFlags::from_bits_truncate(value)
     }

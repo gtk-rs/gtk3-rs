@@ -15,6 +15,7 @@ glib::glib_wrapper! {
 }
 
 impl X11Cursor {
+    #[doc(alias = "gdk_x11_cursor_get_xcursor")]
     pub fn get_xcursor(&self) -> xlib::Cursor {
         unsafe { ffi::gdk_x11_cursor_get_xcursor(self.to_glib_none().0) }
     }

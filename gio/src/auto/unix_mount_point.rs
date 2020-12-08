@@ -29,6 +29,7 @@ glib::glib_wrapper! {
 impl UnixMountPoint {
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[doc(alias = "g_unix_mount_point_compare")]
     fn compare(&self, mount2: &UnixMountPoint) -> i32 {
         unsafe {
             ffi::g_unix_mount_point_compare(
@@ -40,6 +41,7 @@ impl UnixMountPoint {
 
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[doc(alias = "g_unix_mount_point_get_device_path")]
     pub fn get_device_path(&self) -> Option<std::path::PathBuf> {
         unsafe {
             from_glib_none(ffi::g_unix_mount_point_get_device_path(mut_override(
@@ -50,6 +52,7 @@ impl UnixMountPoint {
 
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[doc(alias = "g_unix_mount_point_get_fs_type")]
     pub fn get_fs_type(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_unix_mount_point_get_fs_type(mut_override(
@@ -60,6 +63,7 @@ impl UnixMountPoint {
 
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[doc(alias = "g_unix_mount_point_get_mount_path")]
     pub fn get_mount_path(&self) -> Option<std::path::PathBuf> {
         unsafe {
             from_glib_none(ffi::g_unix_mount_point_get_mount_path(mut_override(
@@ -70,6 +74,7 @@ impl UnixMountPoint {
 
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[doc(alias = "g_unix_mount_point_get_options")]
     pub fn get_options(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_unix_mount_point_get_options(mut_override(
@@ -80,6 +85,7 @@ impl UnixMountPoint {
 
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[doc(alias = "g_unix_mount_point_guess_can_eject")]
     pub fn guess_can_eject(&self) -> bool {
         unsafe {
             from_glib(ffi::g_unix_mount_point_guess_can_eject(mut_override(
@@ -90,6 +96,7 @@ impl UnixMountPoint {
 
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[doc(alias = "g_unix_mount_point_guess_icon")]
     pub fn guess_icon(&self) -> Option<Icon> {
         unsafe {
             from_glib_full(ffi::g_unix_mount_point_guess_icon(mut_override(
@@ -100,6 +107,7 @@ impl UnixMountPoint {
 
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[doc(alias = "g_unix_mount_point_guess_name")]
     pub fn guess_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::g_unix_mount_point_guess_name(mut_override(
@@ -110,6 +118,7 @@ impl UnixMountPoint {
 
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[doc(alias = "g_unix_mount_point_guess_symbolic_icon")]
     pub fn guess_symbolic_icon(&self) -> Option<Icon> {
         unsafe {
             from_glib_full(ffi::g_unix_mount_point_guess_symbolic_icon(mut_override(
@@ -120,6 +129,7 @@ impl UnixMountPoint {
 
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[doc(alias = "g_unix_mount_point_is_loopback")]
     pub fn is_loopback(&self) -> bool {
         unsafe {
             from_glib(ffi::g_unix_mount_point_is_loopback(mut_override(
@@ -130,6 +140,7 @@ impl UnixMountPoint {
 
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[doc(alias = "g_unix_mount_point_is_readonly")]
     pub fn is_readonly(&self) -> bool {
         unsafe {
             from_glib(ffi::g_unix_mount_point_is_readonly(mut_override(
@@ -140,6 +151,7 @@ impl UnixMountPoint {
 
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
+    #[doc(alias = "g_unix_mount_point_is_user_mountable")]
     pub fn is_user_mountable(&self) -> bool {
         unsafe {
             from_glib(ffi::g_unix_mount_point_is_user_mountable(mut_override(
@@ -150,6 +162,7 @@ impl UnixMountPoint {
 
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
+    #[doc(alias = "g_unix_mount_point_at")]
     pub fn at<P: AsRef<std::path::Path>>(mount_path: P) -> (Option<UnixMountPoint>, u64) {
         unsafe {
             let mut time_read = mem::MaybeUninit::uninit();

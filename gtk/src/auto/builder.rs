@@ -23,11 +23,13 @@ glib::glib_wrapper! {
 }
 
 impl Builder {
+    #[doc(alias = "gtk_builder_new")]
     pub fn new() -> Builder {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gtk_builder_new()) }
     }
 
+    #[doc(alias = "gtk_builder_new_from_resource")]
     pub fn from_resource(resource_path: &str) -> Builder {
         assert_initialized_main_thread!();
         unsafe {
@@ -37,6 +39,7 @@ impl Builder {
         }
     }
 
+    #[doc(alias = "gtk_builder_new_from_string")]
     pub fn from_string(string: &str) -> Builder {
         assert_initialized_main_thread!();
         let length = string.len() as isize;
@@ -58,27 +61,36 @@ impl Default for Builder {
 pub const NONE_BUILDER: Option<&Builder> = None;
 
 pub trait BuilderExt: 'static {
+    //#[doc(alias = "gtk_builder_add_callback_symbol")]
     //fn add_callback_symbol<P: FnOnce() + 'static>(&self, callback_name: &str, callback_symbol: P);
 
+    //#[doc(alias = "gtk_builder_add_callback_symbols")]
     //fn add_callback_symbols<P: FnOnce() + 'static>(&self, first_callback_name: &str, first_callback_symbol: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
+    #[doc(alias = "gtk_builder_add_from_resource")]
     fn add_from_resource(&self, resource_path: &str) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gtk_builder_add_from_string")]
     fn add_from_string(&self, buffer: &str) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gtk_builder_add_objects_from_resource")]
     fn add_objects_from_resource(
         &self,
         resource_path: &str,
         object_ids: &[&str],
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gtk_builder_add_objects_from_string")]
     fn add_objects_from_string(&self, buffer: &str, object_ids: &[&str])
         -> Result<(), glib::Error>;
 
+    //#[doc(alias = "gtk_builder_connect_signals")]
     //fn connect_signals(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>);
 
+    #[doc(alias = "gtk_builder_expose_object")]
     fn expose_object<P: IsA<glib::Object>>(&self, name: &str, object: &P);
 
+    #[doc(alias = "gtk_builder_extend_with_template")]
     fn extend_with_template<P: IsA<Widget>>(
         &self,
         widget: &P,
@@ -86,26 +98,35 @@ pub trait BuilderExt: 'static {
         buffer: &str,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gtk_builder_get_application")]
     fn get_application(&self) -> Option<Application>;
 
+    #[doc(alias = "gtk_builder_get_objects")]
     fn get_objects(&self) -> Vec<glib::Object>;
 
+    #[doc(alias = "gtk_builder_get_translation_domain")]
     fn get_translation_domain(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_builder_get_type_from_name")]
     fn get_type_from_name(&self, type_name: &str) -> glib::types::Type;
 
+    //#[doc(alias = "gtk_builder_lookup_callback_symbol")]
     //fn lookup_callback_symbol(&self, callback_name: &str) -> Option<Box_<dyn Fn() + 'static>>;
 
+    #[doc(alias = "gtk_builder_set_application")]
     fn set_application<P: IsA<Application>>(&self, application: &P);
 
+    #[doc(alias = "gtk_builder_set_translation_domain")]
     fn set_translation_domain(&self, domain: Option<&str>);
 
+    #[doc(alias = "gtk_builder_value_from_string")]
     fn value_from_string(
         &self,
         pspec: &glib::ParamSpec,
         string: &str,
     ) -> Result<glib::Value, glib::Error>;
 
+    #[doc(alias = "gtk_builder_value_from_string_type")]
     fn value_from_string_type(
         &self,
         type_: glib::types::Type,

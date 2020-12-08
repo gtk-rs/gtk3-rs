@@ -18,6 +18,7 @@ glib::glib_wrapper! {
 }
 
 impl EmblemedIcon {
+    #[doc(alias = "g_emblemed_icon_new")]
     pub fn new<P: IsA<Icon>>(icon: &P, emblem: Option<&Emblem>) -> EmblemedIcon {
         unsafe {
             from_glib_full(ffi::g_emblemed_icon_new(
@@ -31,12 +32,16 @@ impl EmblemedIcon {
 pub const NONE_EMBLEMED_ICON: Option<&EmblemedIcon> = None;
 
 pub trait EmblemedIconExt: 'static {
+    #[doc(alias = "g_emblemed_icon_add_emblem")]
     fn add_emblem(&self, emblem: &Emblem);
 
+    #[doc(alias = "g_emblemed_icon_clear_emblems")]
     fn clear_emblems(&self);
 
+    #[doc(alias = "g_emblemed_icon_get_emblems")]
     fn get_emblems(&self) -> Vec<Emblem>;
 
+    #[doc(alias = "g_emblemed_icon_get_icon")]
     fn get_icon(&self) -> Option<Icon>;
 
     fn get_property_gicon(&self) -> Option<Icon>;

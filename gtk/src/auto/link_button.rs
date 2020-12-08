@@ -32,6 +32,7 @@ glib::glib_wrapper! {
 }
 
 impl LinkButton {
+    #[doc(alias = "gtk_link_button_new")]
     pub fn new(uri: &str) -> LinkButton {
         assert_initialized_main_thread!();
         unsafe {
@@ -39,6 +40,7 @@ impl LinkButton {
         }
     }
 
+    #[doc(alias = "gtk_link_button_new_with_label")]
     pub fn with_label(uri: &str, label: Option<&str>) -> LinkButton {
         assert_initialized_main_thread!();
         unsafe {
@@ -483,12 +485,16 @@ impl LinkButtonBuilder {
 pub const NONE_LINK_BUTTON: Option<&LinkButton> = None;
 
 pub trait LinkButtonExt: 'static {
+    #[doc(alias = "gtk_link_button_get_uri")]
     fn get_uri(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_link_button_get_visited")]
     fn get_visited(&self) -> bool;
 
+    #[doc(alias = "gtk_link_button_set_uri")]
     fn set_uri(&self, uri: &str);
 
+    #[doc(alias = "gtk_link_button_set_visited")]
     fn set_visited(&self, visited: bool);
 
     fn connect_activate_link<F: Fn(&Self) -> glib::signal::Inhibit + 'static>(

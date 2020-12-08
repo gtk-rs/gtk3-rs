@@ -32,10 +32,13 @@ glib::glib_wrapper! {
 pub const NONE_MOUNT: Option<&Mount> = None;
 
 pub trait MountExt: 'static {
+    #[doc(alias = "g_mount_can_eject")]
     fn can_eject(&self) -> bool;
 
+    #[doc(alias = "g_mount_can_unmount")]
     fn can_unmount(&self) -> bool;
 
+    #[doc(alias = "g_mount_eject_with_operation")]
     fn eject_with_operation<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
@@ -54,24 +57,34 @@ pub trait MountExt: 'static {
         mount_operation: Option<&P>,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_mount_get_default_location")]
     fn get_default_location(&self) -> File;
 
+    #[doc(alias = "g_mount_get_drive")]
     fn get_drive(&self) -> Option<Drive>;
 
+    #[doc(alias = "g_mount_get_icon")]
     fn get_icon(&self) -> Icon;
 
+    #[doc(alias = "g_mount_get_name")]
     fn get_name(&self) -> glib::GString;
 
+    #[doc(alias = "g_mount_get_root")]
     fn get_root(&self) -> File;
 
+    #[doc(alias = "g_mount_get_sort_key")]
     fn get_sort_key(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_mount_get_symbolic_icon")]
     fn get_symbolic_icon(&self) -> Icon;
 
+    #[doc(alias = "g_mount_get_uuid")]
     fn get_uuid(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_mount_get_volume")]
     fn get_volume(&self) -> Option<Volume>;
 
+    #[doc(alias = "g_mount_guess_content_type")]
     fn guess_content_type<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<Vec<glib::GString>, glib::Error>) + Send + 'static,
@@ -89,14 +102,17 @@ pub trait MountExt: 'static {
         Box_<dyn std::future::Future<Output = Result<Vec<glib::GString>, glib::Error>> + 'static>,
     >;
 
+    #[doc(alias = "g_mount_guess_content_type_sync")]
     fn guess_content_type_sync<P: IsA<Cancellable>>(
         &self,
         force_rescan: bool,
         cancellable: Option<&P>,
     ) -> Result<Vec<glib::GString>, glib::Error>;
 
+    #[doc(alias = "g_mount_is_shadowed")]
     fn is_shadowed(&self) -> bool;
 
+    #[doc(alias = "g_mount_remount")]
     fn remount<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
@@ -115,8 +131,10 @@ pub trait MountExt: 'static {
         mount_operation: Option<&P>,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_mount_shadow")]
     fn shadow(&self);
 
+    #[doc(alias = "g_mount_unmount_with_operation")]
     fn unmount_with_operation<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
@@ -135,6 +153,7 @@ pub trait MountExt: 'static {
         mount_operation: Option<&P>,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_mount_unshadow")]
     fn unshadow(&self);
 
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

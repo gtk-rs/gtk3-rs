@@ -17,10 +17,12 @@ glib::glib_wrapper! {
 }
 
 impl Notification {
+    #[doc(alias = "g_notification_new")]
     pub fn new(title: &str) -> Notification {
         unsafe { from_glib_full(ffi::g_notification_new(title.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_notification_add_button")]
     pub fn add_button(&self, label: &str, detailed_action: &str) {
         unsafe {
             ffi::g_notification_add_button(
@@ -31,10 +33,12 @@ impl Notification {
         }
     }
 
+    //#[doc(alias = "g_notification_add_button_with_target")]
     //pub fn add_button_with_target(&self, label: &str, action: &str, target_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call ffi:g_notification_add_button_with_target() }
     //}
 
+    #[doc(alias = "g_notification_add_button_with_target_value")]
     pub fn add_button_with_target_value(
         &self,
         label: &str,
@@ -51,12 +55,14 @@ impl Notification {
         }
     }
 
+    #[doc(alias = "g_notification_set_body")]
     pub fn set_body(&self, body: Option<&str>) {
         unsafe {
             ffi::g_notification_set_body(self.to_glib_none().0, body.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "g_notification_set_default_action")]
     pub fn set_default_action(&self, detailed_action: &str) {
         unsafe {
             ffi::g_notification_set_default_action(
@@ -66,10 +72,12 @@ impl Notification {
         }
     }
 
+    //#[doc(alias = "g_notification_set_default_action_and_target")]
     //pub fn set_default_action_and_target(&self, action: &str, target_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call ffi:g_notification_set_default_action_and_target() }
     //}
 
+    #[doc(alias = "g_notification_set_default_action_and_target_value")]
     pub fn set_default_action_and_target_value(
         &self,
         action: &str,
@@ -84,18 +92,21 @@ impl Notification {
         }
     }
 
+    #[doc(alias = "g_notification_set_icon")]
     pub fn set_icon<P: IsA<Icon>>(&self, icon: &P) {
         unsafe {
             ffi::g_notification_set_icon(self.to_glib_none().0, icon.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "g_notification_set_priority")]
     pub fn set_priority(&self, priority: NotificationPriority) {
         unsafe {
             ffi::g_notification_set_priority(self.to_glib_none().0, priority.to_glib());
         }
     }
 
+    #[doc(alias = "g_notification_set_title")]
     pub fn set_title(&self, title: &str) {
         unsafe {
             ffi::g_notification_set_title(self.to_glib_none().0, title.to_glib_none().0);

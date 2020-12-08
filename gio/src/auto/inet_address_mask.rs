@@ -23,6 +23,7 @@ glib::glib_wrapper! {
 }
 
 impl InetAddressMask {
+    #[doc(alias = "g_inet_address_mask_new")]
     pub fn new<P: IsA<InetAddress>>(addr: &P, length: u32) -> Result<InetAddressMask, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -36,6 +37,7 @@ impl InetAddressMask {
         }
     }
 
+    #[doc(alias = "g_inet_address_mask_new_from_string")]
     pub fn from_string(mask_string: &str) -> Result<InetAddressMask, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -63,16 +65,22 @@ unsafe impl Sync for InetAddressMask {}
 pub const NONE_INET_ADDRESS_MASK: Option<&InetAddressMask> = None;
 
 pub trait InetAddressMaskExt: 'static {
+    #[doc(alias = "g_inet_address_mask_equal")]
     fn equal<P: IsA<InetAddressMask>>(&self, mask2: &P) -> bool;
 
+    #[doc(alias = "g_inet_address_mask_get_address")]
     fn get_address(&self) -> InetAddress;
 
+    #[doc(alias = "g_inet_address_mask_get_family")]
     fn get_family(&self) -> SocketFamily;
 
+    #[doc(alias = "g_inet_address_mask_get_length")]
     fn get_length(&self) -> u32;
 
+    #[doc(alias = "g_inet_address_mask_matches")]
     fn matches<P: IsA<InetAddress>>(&self, address: &P) -> bool;
 
+    #[doc(alias = "g_inet_address_mask_to_string")]
     fn to_str(&self) -> glib::GString;
 
     fn set_property_address<P: IsA<InetAddress>>(&self, address: Option<&P>);

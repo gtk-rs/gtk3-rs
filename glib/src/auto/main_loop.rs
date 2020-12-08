@@ -17,6 +17,7 @@ crate::glib_wrapper! {
 }
 
 impl MainLoop {
+    #[doc(alias = "g_main_loop_new")]
     pub fn new(context: Option<&MainContext>, is_running: bool) -> MainLoop {
         unsafe {
             from_glib_full(ffi::g_main_loop_new(
@@ -26,20 +27,24 @@ impl MainLoop {
         }
     }
 
+    #[doc(alias = "g_main_loop_get_context")]
     pub fn get_context(&self) -> MainContext {
         unsafe { from_glib_none(ffi::g_main_loop_get_context(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_main_loop_is_running")]
     pub fn is_running(&self) -> bool {
         unsafe { from_glib(ffi::g_main_loop_is_running(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_main_loop_quit")]
     pub fn quit(&self) {
         unsafe {
             ffi::g_main_loop_quit(self.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "g_main_loop_run")]
     pub fn run(&self) {
         unsafe {
             ffi::g_main_loop_run(self.to_glib_none().0);

@@ -29,6 +29,7 @@ glib::glib_wrapper! {
 impl SimpleIOStream {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_simple_io_stream_new")]
     pub fn new<P: IsA<InputStream>, Q: IsA<OutputStream>>(
         input_stream: &P,
         output_stream: &Q,

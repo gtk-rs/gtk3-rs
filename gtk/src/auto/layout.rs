@@ -31,6 +31,7 @@ glib::glib_wrapper! {
 }
 
 impl Layout {
+    #[doc(alias = "gtk_layout_new")]
     pub fn new<P: IsA<Adjustment>, Q: IsA<Adjustment>>(
         hadjustment: Option<&P>,
         vadjustment: Option<&Q>,
@@ -442,14 +443,19 @@ impl LayoutBuilder {
 pub const NONE_LAYOUT: Option<&Layout> = None;
 
 pub trait LayoutExt: 'static {
+    #[doc(alias = "gtk_layout_get_bin_window")]
     fn get_bin_window(&self) -> Option<gdk::Window>;
 
+    #[doc(alias = "gtk_layout_get_size")]
     fn get_size(&self) -> (u32, u32);
 
+    #[doc(alias = "gtk_layout_move")]
     fn move_<P: IsA<Widget>>(&self, child_widget: &P, x: i32, y: i32);
 
+    #[doc(alias = "gtk_layout_put")]
     fn put<P: IsA<Widget>>(&self, child_widget: &P, x: i32, y: i32);
 
+    #[doc(alias = "gtk_layout_set_size")]
     fn set_size(&self, width: u32, height: u32);
 
     fn get_property_height(&self) -> u32;

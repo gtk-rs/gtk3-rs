@@ -23,6 +23,7 @@ glib::glib_wrapper! {
 }
 
 impl Frustum {
+    #[doc(alias = "graphene_frustum_contains_point")]
     pub fn contains_point(&self, point: &Point3D) -> bool {
         unsafe {
             from_glib(ffi::graphene_frustum_contains_point(
@@ -32,6 +33,7 @@ impl Frustum {
         }
     }
 
+    #[doc(alias = "graphene_frustum_equal")]
     fn equal(&self, b: &Frustum) -> bool {
         unsafe {
             from_glib(ffi::graphene_frustum_equal(
@@ -41,10 +43,12 @@ impl Frustum {
         }
     }
 
+    //#[doc(alias = "graphene_frustum_get_planes")]
     //pub fn get_planes(&self, planes: /*Unimplemented*/FixedArray TypeId { ns_id: 1, id: 8 }; 6) {
     //    unsafe { TODO: call ffi:graphene_frustum_get_planes() }
     //}
 
+    #[doc(alias = "graphene_frustum_init")]
     pub fn init(&mut self, p0: &Plane, p1: &Plane, p2: &Plane, p3: &Plane, p4: &Plane, p5: &Plane) {
         unsafe {
             ffi::graphene_frustum_init(
@@ -59,6 +63,7 @@ impl Frustum {
         }
     }
 
+    #[doc(alias = "graphene_frustum_init_from_frustum")]
     pub fn init_from_frustum(&mut self, src: &Frustum) {
         unsafe {
             ffi::graphene_frustum_init_from_frustum(
@@ -68,6 +73,7 @@ impl Frustum {
         }
     }
 
+    #[doc(alias = "graphene_frustum_init_from_matrix")]
     pub fn init_from_matrix(&mut self, matrix: &Matrix) {
         unsafe {
             ffi::graphene_frustum_init_from_matrix(
@@ -77,6 +83,7 @@ impl Frustum {
         }
     }
 
+    #[doc(alias = "graphene_frustum_intersects_box")]
     pub fn intersects_box(&self, box_: &Box) -> bool {
         unsafe {
             from_glib(ffi::graphene_frustum_intersects_box(
@@ -86,6 +93,7 @@ impl Frustum {
         }
     }
 
+    #[doc(alias = "graphene_frustum_intersects_sphere")]
     pub fn intersects_sphere(&self, sphere: &Sphere) -> bool {
         unsafe {
             from_glib(ffi::graphene_frustum_intersects_sphere(

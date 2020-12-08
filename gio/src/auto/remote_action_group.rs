@@ -18,6 +18,7 @@ glib::glib_wrapper! {
 pub const NONE_REMOTE_ACTION_GROUP: Option<&RemoteActionGroup> = None;
 
 pub trait RemoteActionGroupExt: 'static {
+    #[doc(alias = "g_remote_action_group_activate_action_full")]
     fn activate_action_full(
         &self,
         action_name: &str,
@@ -25,6 +26,7 @@ pub trait RemoteActionGroupExt: 'static {
         platform_data: &glib::Variant,
     );
 
+    #[doc(alias = "g_remote_action_group_change_action_state_full")]
     fn change_action_state_full(
         &self,
         action_name: &str,

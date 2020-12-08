@@ -17,16 +17,19 @@ glib::glib_wrapper! {
 }
 
 impl NetworkAddress {
+    #[doc(alias = "g_network_address_new")]
     pub fn new(hostname: &str, port: u16) -> NetworkAddress {
         unsafe { from_glib_full(ffi::g_network_address_new(hostname.to_glib_none().0, port)) }
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_network_address_new_loopback")]
     pub fn new_loopback(port: u16) -> NetworkAddress {
         unsafe { from_glib_full(ffi::g_network_address_new_loopback(port)) }
     }
 
+    #[doc(alias = "g_network_address_parse")]
     pub fn parse(host_and_port: &str, default_port: u16) -> Result<NetworkAddress, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -43,6 +46,7 @@ impl NetworkAddress {
         }
     }
 
+    #[doc(alias = "g_network_address_parse_uri")]
     pub fn parse_uri(uri: &str, default_port: u16) -> Result<NetworkAddress, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -63,10 +67,13 @@ unsafe impl Sync for NetworkAddress {}
 pub const NONE_NETWORK_ADDRESS: Option<&NetworkAddress> = None;
 
 pub trait NetworkAddressExt: 'static {
+    #[doc(alias = "g_network_address_get_hostname")]
     fn get_hostname(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_network_address_get_port")]
     fn get_port(&self) -> u16;
 
+    #[doc(alias = "g_network_address_get_scheme")]
     fn get_scheme(&self) -> Option<glib::GString>;
 }
 

@@ -31,11 +31,13 @@ glib::glib_wrapper! {
 }
 
 impl MenuItem {
+    #[doc(alias = "gtk_menu_item_new")]
     pub fn new() -> MenuItem {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_menu_item_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_menu_item_new_with_label")]
     pub fn with_label(label: &str) -> MenuItem {
         assert_initialized_main_thread!();
         unsafe {
@@ -44,6 +46,7 @@ impl MenuItem {
         }
     }
 
+    #[doc(alias = "gtk_menu_item_new_with_mnemonic")]
     pub fn with_mnemonic(label: &str) -> MenuItem {
         assert_initialized_main_thread!();
         unsafe {
@@ -464,32 +467,46 @@ impl MenuItemBuilder {
 pub const NONE_MENU_ITEM: Option<&MenuItem> = None;
 
 pub trait GtkMenuItemExt: 'static {
+    #[doc(alias = "gtk_menu_item_deselect")]
     fn deselect(&self);
 
+    #[doc(alias = "gtk_menu_item_get_accel_path")]
     fn get_accel_path(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_menu_item_get_label")]
     fn get_label(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_menu_item_get_reserve_indicator")]
     fn get_reserve_indicator(&self) -> bool;
 
+    #[doc(alias = "gtk_menu_item_get_submenu")]
     fn get_submenu(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_menu_item_get_use_underline")]
     fn get_use_underline(&self) -> bool;
 
+    #[doc(alias = "gtk_menu_item_select")]
     fn select(&self);
 
+    #[doc(alias = "gtk_menu_item_set_accel_path")]
     fn set_accel_path(&self, accel_path: Option<&str>);
 
+    #[doc(alias = "gtk_menu_item_set_label")]
     fn set_label(&self, label: &str);
 
+    #[doc(alias = "gtk_menu_item_set_reserve_indicator")]
     fn set_reserve_indicator(&self, reserve: bool);
 
+    #[doc(alias = "gtk_menu_item_set_submenu")]
     fn set_submenu<P: IsA<Menu>>(&self, submenu: Option<&P>);
 
+    #[doc(alias = "gtk_menu_item_set_use_underline")]
     fn set_use_underline(&self, setting: bool);
 
+    #[doc(alias = "gtk_menu_item_toggle_size_allocate")]
     fn toggle_size_allocate(&self, allocation: i32);
 
+    #[doc(alias = "gtk_menu_item_toggle_size_request")]
     fn toggle_size_request(&self, requisition: &mut i32);
 
     fn get_property_right_justified(&self) -> bool;

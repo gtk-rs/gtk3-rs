@@ -28,34 +28,45 @@ glib::glib_wrapper! {
 pub const NONE_FONT: Option<&Font> = None;
 
 pub trait FontExt: 'static {
+    #[doc(alias = "pango_font_describe")]
     fn describe(&self) -> Option<FontDescription>;
 
+    #[doc(alias = "pango_font_describe_with_absolute_size")]
     fn describe_with_absolute_size(&self) -> Option<FontDescription>;
 
+    #[doc(alias = "pango_font_find_shaper")]
     fn find_shaper(&self, language: &Language, ch: u32) -> Option<EngineShape>;
 
+    #[doc(alias = "pango_font_get_coverage")]
     fn get_coverage(&self, language: &Language) -> Option<Coverage>;
 
     #[cfg(any(feature = "v1_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
+    #[doc(alias = "pango_font_get_face")]
     fn get_face(&self) -> Option<FontFace>;
 
     //#[cfg(any(feature = "v1_44", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+    //#[doc(alias = "pango_font_get_features")]
     //fn get_features(&self, features: /*Unimplemented*/&mut Fundamental: Pointer, num_features: &mut u32) -> u32;
 
+    #[doc(alias = "pango_font_get_font_map")]
     fn get_font_map(&self) -> Option<FontMap>;
 
+    #[doc(alias = "pango_font_get_glyph_extents")]
     fn get_glyph_extents(&self, glyph: Glyph) -> (Rectangle, Rectangle);
 
     //#[cfg(any(feature = "v1_44", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+    //#[doc(alias = "pango_font_get_hb_font")]
     //fn get_hb_font(&self) -> /*Ignored*/Option<harf_buzz::font_t>;
 
+    #[doc(alias = "pango_font_get_metrics")]
     fn get_metrics(&self, language: Option<&Language>) -> Option<FontMetrics>;
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+    #[doc(alias = "pango_font_has_char")]
     fn has_char(&self, wc: char) -> bool;
 }
 

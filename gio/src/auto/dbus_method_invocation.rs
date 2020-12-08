@@ -24,6 +24,7 @@ glib::glib_wrapper! {
 }
 
 impl DBusMethodInvocation {
+    #[doc(alias = "g_dbus_method_invocation_get_connection")]
     pub fn get_connection(&self) -> Option<DBusConnection> {
         unsafe {
             from_glib_none(ffi::g_dbus_method_invocation_get_connection(
@@ -32,6 +33,7 @@ impl DBusMethodInvocation {
         }
     }
 
+    #[doc(alias = "g_dbus_method_invocation_get_interface_name")]
     pub fn get_interface_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_dbus_method_invocation_get_interface_name(
@@ -40,6 +42,7 @@ impl DBusMethodInvocation {
         }
     }
 
+    #[doc(alias = "g_dbus_method_invocation_get_message")]
     pub fn get_message(&self) -> Option<DBusMessage> {
         unsafe {
             from_glib_none(ffi::g_dbus_method_invocation_get_message(
@@ -48,6 +51,7 @@ impl DBusMethodInvocation {
         }
     }
 
+    #[doc(alias = "g_dbus_method_invocation_get_method_info")]
     pub fn get_method_info(&self) -> Option<DBusMethodInfo> {
         unsafe {
             from_glib_none(ffi::g_dbus_method_invocation_get_method_info(
@@ -56,6 +60,7 @@ impl DBusMethodInvocation {
         }
     }
 
+    #[doc(alias = "g_dbus_method_invocation_get_method_name")]
     pub fn get_method_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_dbus_method_invocation_get_method_name(
@@ -64,6 +69,7 @@ impl DBusMethodInvocation {
         }
     }
 
+    #[doc(alias = "g_dbus_method_invocation_get_object_path")]
     pub fn get_object_path(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_dbus_method_invocation_get_object_path(
@@ -72,6 +78,7 @@ impl DBusMethodInvocation {
         }
     }
 
+    #[doc(alias = "g_dbus_method_invocation_get_parameters")]
     pub fn get_parameters(&self) -> Option<glib::Variant> {
         unsafe {
             from_glib_none(ffi::g_dbus_method_invocation_get_parameters(
@@ -80,6 +87,7 @@ impl DBusMethodInvocation {
         }
     }
 
+    #[doc(alias = "g_dbus_method_invocation_get_property_info")]
     pub fn get_property_info(&self) -> Option<DBusPropertyInfo> {
         unsafe {
             from_glib_none(ffi::g_dbus_method_invocation_get_property_info(
@@ -88,6 +96,7 @@ impl DBusMethodInvocation {
         }
     }
 
+    #[doc(alias = "g_dbus_method_invocation_get_sender")]
     pub fn get_sender(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::g_dbus_method_invocation_get_sender(
@@ -96,10 +105,12 @@ impl DBusMethodInvocation {
         }
     }
 
+    //#[doc(alias = "g_dbus_method_invocation_get_user_data")]
     //pub fn get_user_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi:g_dbus_method_invocation_get_user_data() }
     //}
 
+    #[doc(alias = "g_dbus_method_invocation_return_dbus_error")]
     pub fn return_dbus_error(&self, error_name: &str, error_message: &str) {
         unsafe {
             ffi::g_dbus_method_invocation_return_dbus_error(
@@ -110,14 +121,17 @@ impl DBusMethodInvocation {
         }
     }
 
+    //#[doc(alias = "g_dbus_method_invocation_return_error")]
     //pub fn return_error(&self, domain: glib::Quark, code: i32, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call ffi:g_dbus_method_invocation_return_error() }
     //}
 
+    //#[doc(alias = "g_dbus_method_invocation_return_error_valist")]
     //pub fn return_error_valist(&self, domain: glib::Quark, code: i32, format: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
     //    unsafe { TODO: call ffi:g_dbus_method_invocation_return_error_valist() }
     //}
 
+    #[doc(alias = "g_dbus_method_invocation_return_value")]
     pub fn return_value(&self, parameters: Option<&glib::Variant>) {
         unsafe {
             ffi::g_dbus_method_invocation_return_value(
@@ -129,6 +143,7 @@ impl DBusMethodInvocation {
 
     #[cfg(any(unix, feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(unix)))]
+    #[doc(alias = "g_dbus_method_invocation_return_value_with_unix_fd_list")]
     pub fn return_value_with_unix_fd_list<P: IsA<UnixFDList>>(
         &self,
         parameters: Option<&glib::Variant>,

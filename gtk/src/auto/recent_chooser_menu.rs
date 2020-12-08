@@ -34,11 +34,13 @@ glib::glib_wrapper! {
 }
 
 impl RecentChooserMenu {
+    #[doc(alias = "gtk_recent_chooser_menu_new")]
     pub fn new() -> RecentChooserMenu {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_recent_chooser_menu_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_recent_chooser_menu_new_for_manager")]
     pub fn new_for_manager<P: IsA<RecentManager>>(manager: &P) -> RecentChooserMenu {
         skip_assert_initialized!();
         unsafe {
@@ -616,8 +618,10 @@ impl RecentChooserMenuBuilder {
 pub const NONE_RECENT_CHOOSER_MENU: Option<&RecentChooserMenu> = None;
 
 pub trait RecentChooserMenuExt: 'static {
+    #[doc(alias = "gtk_recent_chooser_menu_get_show_numbers")]
     fn get_show_numbers(&self) -> bool;
 
+    #[doc(alias = "gtk_recent_chooser_menu_set_show_numbers")]
     fn set_show_numbers(&self, show_numbers: bool);
 
     fn connect_property_show_numbers_notify<F: Fn(&Self) + 'static>(&self, f: F)

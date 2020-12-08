@@ -22,6 +22,7 @@ glib::glib_wrapper! {
 }
 
 impl Relation {
+    #[doc(alias = "atk_relation_new")]
     pub fn new(targets: &[Object], relationship: RelationType) -> Relation {
         assert_initialized_main_thread!();
         let n_targets = targets.len() as i32;
@@ -38,12 +39,16 @@ impl Relation {
 pub const NONE_RELATION: Option<&Relation> = None;
 
 pub trait RelationExt: 'static {
+    #[doc(alias = "atk_relation_add_target")]
     fn add_target<P: IsA<Object>>(&self, target: &P);
 
+    #[doc(alias = "atk_relation_get_relation_type")]
     fn get_relation_type(&self) -> RelationType;
 
+    #[doc(alias = "atk_relation_get_target")]
     fn get_target(&self) -> Vec<Object>;
 
+    #[doc(alias = "atk_relation_remove_target")]
     fn remove_target<P: IsA<Object>>(&self, target: &P) -> bool;
 
     fn set_property_relation_type(&self, relation_type: RelationType);

@@ -36,6 +36,7 @@ glib::glib_wrapper! {
 impl GestureStylus {
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[doc(alias = "gtk_gesture_stylus_new")]
     pub fn new<P: IsA<Widget>>(widget: &P) -> GestureStylus {
         skip_assert_initialized!();
         unsafe {
@@ -48,6 +49,7 @@ impl GestureStylus {
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[doc(alias = "gtk_gesture_stylus_get_axis")]
     pub fn get_axis(&self, axis: gdk::AxisUse) -> Option<f64> {
         unsafe {
             let mut value = mem::MaybeUninit::uninit();
@@ -67,6 +69,7 @@ impl GestureStylus {
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[doc(alias = "gtk_gesture_stylus_get_device_tool")]
     pub fn get_device_tool(&self) -> Option<gdk::DeviceTool> {
         unsafe {
             from_glib_none(ffi::gtk_gesture_stylus_get_device_tool(

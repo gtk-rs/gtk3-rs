@@ -58,7 +58,7 @@ impl ToGlib for ChecksumType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GChecksumType> for ChecksumType {
-    fn from_glib(value: ffi::GChecksumType) -> Self {
+    unsafe fn from_glib(value: ffi::GChecksumType) -> Self {
         match value {
             0 => ChecksumType::Md5,
             1 => ChecksumType::Sha1,
@@ -142,7 +142,7 @@ impl ToGlib for DateMonth {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDateMonth> for DateMonth {
-    fn from_glib(value: ffi::GDateMonth) -> Self {
+    unsafe fn from_glib(value: ffi::GDateMonth) -> Self {
         match value {
             0 => DateMonth::BadMonth,
             1 => DateMonth::January,
@@ -218,7 +218,7 @@ impl ToGlib for DateWeekday {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDateWeekday> for DateWeekday {
-    fn from_glib(value: ffi::GDateWeekday) -> Self {
+    unsafe fn from_glib(value: ffi::GDateWeekday) -> Self {
         match value {
             0 => DateWeekday::BadWeekday,
             1 => DateWeekday::Monday,
@@ -283,7 +283,7 @@ impl ToGlib for KeyFileError {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GKeyFileError> for KeyFileError {
-    fn from_glib(value: ffi::GKeyFileError) -> Self {
+    unsafe fn from_glib(value: ffi::GKeyFileError) -> Self {
         match value {
             0 => KeyFileError::UnknownEncoding,
             1 => KeyFileError::Parse,
@@ -377,7 +377,7 @@ impl ToGlib for OptionArg {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GOptionArg> for OptionArg {
-    fn from_glib(value: ffi::GOptionArg) -> Self {
+    unsafe fn from_glib(value: ffi::GOptionArg) -> Self {
         match value {
             0 => OptionArg::None,
             1 => OptionArg::String,
@@ -434,7 +434,7 @@ impl ToGlib for SeekType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GSeekType> for SeekType {
-    fn from_glib(value: ffi::GSeekType) -> Self {
+    unsafe fn from_glib(value: ffi::GSeekType) -> Self {
         match value {
             0 => SeekType::Cur,
             1 => SeekType::Set,
@@ -485,7 +485,7 @@ impl ToGlib for TimeType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GTimeType> for TimeType {
-    fn from_glib(value: ffi::GTimeType) -> Self {
+    unsafe fn from_glib(value: ffi::GTimeType) -> Self {
         match value {
             0 => TimeType::Standard,
             1 => TimeType::Daylight,
@@ -565,7 +565,7 @@ impl ToGlib for UriError {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GUriError> for UriError {
-    fn from_glib(value: ffi::GUriError) -> Self {
+    unsafe fn from_glib(value: ffi::GUriError) -> Self {
         match value {
             0 => UriError::Failed,
             1 => UriError::BadScheme,

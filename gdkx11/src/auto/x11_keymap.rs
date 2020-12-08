@@ -14,10 +14,12 @@ glib::glib_wrapper! {
 }
 
 impl X11Keymap {
+    #[doc(alias = "gdk_x11_keymap_get_group_for_state")]
     pub fn get_group_for_state(&self, state: u32) -> i32 {
         unsafe { ffi::gdk_x11_keymap_get_group_for_state(self.to_glib_none().0, state) }
     }
 
+    #[doc(alias = "gdk_x11_keymap_key_is_modifier")]
     pub fn key_is_modifier(&self, keycode: u32) -> bool {
         unsafe {
             from_glib(ffi::gdk_x11_keymap_key_is_modifier(

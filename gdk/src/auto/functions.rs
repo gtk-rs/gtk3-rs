@@ -16,10 +16,12 @@ use std::mem;
 use std::ptr;
 
 //#[cfg_attr(feature = "v3_16", deprecated)]
+//#[doc(alias = "gdk_add_option_entries_libgtk_only")]
 //pub fn add_option_entries_libgtk_only(group: /*Ignored*/&glib::OptionGroup) {
 //    unsafe { TODO: call ffi:gdk_add_option_entries_libgtk_only() }
 //}
 
+#[doc(alias = "gdk_beep")]
 pub fn beep() {
     assert_initialized_main_thread!();
     unsafe {
@@ -27,11 +29,13 @@ pub fn beep() {
     }
 }
 
+#[doc(alias = "gdk_error_trap_pop")]
 pub fn error_trap_pop() -> i32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gdk_error_trap_pop() }
 }
 
+#[doc(alias = "gdk_error_trap_pop_ignored")]
 pub fn error_trap_pop_ignored() {
     assert_initialized_main_thread!();
     unsafe {
@@ -39,6 +43,7 @@ pub fn error_trap_pop_ignored() {
     }
 }
 
+#[doc(alias = "gdk_error_trap_push")]
 pub fn error_trap_push() {
     assert_initialized_main_thread!();
     unsafe {
@@ -46,6 +51,7 @@ pub fn error_trap_push() {
     }
 }
 
+#[doc(alias = "gdk_events_get_angle")]
 pub fn events_get_angle(event1: &mut Event, event2: &mut Event) -> Option<f64> {
     assert_initialized_main_thread!();
     unsafe {
@@ -64,6 +70,7 @@ pub fn events_get_angle(event1: &mut Event, event2: &mut Event) -> Option<f64> {
     }
 }
 
+#[doc(alias = "gdk_events_get_center")]
 pub fn events_get_center(event1: &mut Event, event2: &mut Event) -> Option<(f64, f64)> {
     assert_initialized_main_thread!();
     unsafe {
@@ -85,6 +92,7 @@ pub fn events_get_center(event1: &mut Event, event2: &mut Event) -> Option<(f64,
     }
 }
 
+#[doc(alias = "gdk_events_get_distance")]
 pub fn events_get_distance(event1: &mut Event, event2: &mut Event) -> Option<f64> {
     assert_initialized_main_thread!();
     unsafe {
@@ -103,11 +111,13 @@ pub fn events_get_distance(event1: &mut Event, event2: &mut Event) -> Option<f64
     }
 }
 
+#[doc(alias = "gdk_events_pending")]
 pub fn events_pending() -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gdk_events_pending()) }
 }
 
+#[doc(alias = "gdk_flush")]
 pub fn flush() {
     assert_initialized_main_thread!();
     unsafe {
@@ -115,25 +125,30 @@ pub fn flush() {
     }
 }
 
+#[doc(alias = "gdk_get_display_arg_name")]
 pub fn get_display_arg_name() -> Option<glib::GString> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gdk_get_display_arg_name()) }
 }
 
+#[doc(alias = "gdk_get_program_class")]
 pub fn get_program_class() -> Option<glib::GString> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gdk_get_program_class()) }
 }
 
+#[doc(alias = "gdk_get_show_events")]
 pub fn get_show_events() -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gdk_get_show_events()) }
 }
 
+//#[doc(alias = "gdk_init_check")]
 //pub fn init_check(argv: /*Unimplemented*/Vec<glib::GString>) -> bool {
 //    unsafe { TODO: call ffi:gdk_init_check() }
 //}
 
+#[doc(alias = "gdk_keyval_convert_case")]
 pub fn keyval_convert_case(symbol: u32) -> (u32, u32) {
     assert_initialized_main_thread!();
     unsafe {
@@ -146,37 +161,44 @@ pub fn keyval_convert_case(symbol: u32) -> (u32, u32) {
     }
 }
 
+#[doc(alias = "gdk_keyval_from_name")]
 pub fn keyval_from_name(keyval_name: &str) -> u32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gdk_keyval_from_name(keyval_name.to_glib_none().0) }
 }
 
+#[doc(alias = "gdk_keyval_is_lower")]
 pub fn keyval_is_lower(keyval: u32) -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gdk_keyval_is_lower(keyval)) }
 }
 
+#[doc(alias = "gdk_keyval_is_upper")]
 pub fn keyval_is_upper(keyval: u32) -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gdk_keyval_is_upper(keyval)) }
 }
 
+#[doc(alias = "gdk_keyval_to_lower")]
 pub fn keyval_to_lower(keyval: u32) -> u32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gdk_keyval_to_lower(keyval) }
 }
 
+#[doc(alias = "gdk_keyval_to_upper")]
 pub fn keyval_to_upper(keyval: u32) -> u32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gdk_keyval_to_upper(keyval) }
 }
 
 #[cfg_attr(feature = "v3_22", deprecated)]
+#[doc(alias = "gdk_list_visuals")]
 pub fn list_visuals() -> Vec<Visual> {
     assert_initialized_main_thread!();
     unsafe { FromGlibPtrContainer::from_glib_container(ffi::gdk_list_visuals()) }
 }
 
+#[doc(alias = "gdk_notify_startup_complete")]
 pub fn notify_startup_complete() {
     assert_initialized_main_thread!();
     unsafe {
@@ -184,6 +206,7 @@ pub fn notify_startup_complete() {
     }
 }
 
+#[doc(alias = "gdk_notify_startup_complete_with_id")]
 pub fn notify_startup_complete_with_id(startup_id: &str) {
     assert_initialized_main_thread!();
     unsafe {
@@ -191,6 +214,7 @@ pub fn notify_startup_complete_with_id(startup_id: &str) {
     }
 }
 
+#[doc(alias = "gdk_pango_context_get")]
 pub fn pango_context_get() -> Option<pango::Context> {
     assert_initialized_main_thread!();
     unsafe { from_glib_full(ffi::gdk_pango_context_get()) }
@@ -198,6 +222,7 @@ pub fn pango_context_get() -> Option<pango::Context> {
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+#[doc(alias = "gdk_pango_context_get_for_display")]
 pub fn pango_context_get_for_display(display: &Display) -> Option<pango::Context> {
     skip_assert_initialized!();
     unsafe {
@@ -207,6 +232,7 @@ pub fn pango_context_get_for_display(display: &Display) -> Option<pango::Context
     }
 }
 
+#[doc(alias = "gdk_pango_context_get_for_screen")]
 pub fn pango_context_get_for_screen(screen: &Screen) -> Option<pango::Context> {
     skip_assert_initialized!();
     unsafe {
@@ -216,14 +242,17 @@ pub fn pango_context_get_for_screen(screen: &Screen) -> Option<pango::Context> {
     }
 }
 
+//#[doc(alias = "gdk_pango_layout_line_get_clip_region")]
 //pub fn pango_layout_line_get_clip_region(line: &pango::LayoutLine, x_origin: i32, y_origin: i32, index_ranges: &[i32], n_ranges: i32) -> Option<cairo::Region> {
 //    unsafe { TODO: call ffi:gdk_pango_layout_line_get_clip_region() }
 //}
 
+//#[doc(alias = "gdk_parse_args")]
 //pub fn parse_args(argv: /*Unimplemented*/Vec<glib::GString>) {
 //    unsafe { TODO: call ffi:gdk_parse_args() }
 //}
 
+#[doc(alias = "gdk_pixbuf_get_from_surface")]
 pub fn pixbuf_get_from_surface(
     surface: &cairo::Surface,
     src_x: i32,
@@ -244,6 +273,7 @@ pub fn pixbuf_get_from_surface(
 }
 
 #[cfg_attr(feature = "v3_16", deprecated)]
+#[doc(alias = "gdk_pre_parse_libgtk_only")]
 pub fn pre_parse_libgtk_only() {
     assert_initialized_main_thread!();
     unsafe {
@@ -251,6 +281,7 @@ pub fn pre_parse_libgtk_only() {
     }
 }
 
+#[doc(alias = "gdk_property_delete")]
 pub fn property_delete(window: &Window, property: &Atom) {
     skip_assert_initialized!();
     unsafe {
@@ -258,6 +289,7 @@ pub fn property_delete(window: &Window, property: &Atom) {
     }
 }
 
+#[doc(alias = "gdk_property_get")]
 pub fn property_get(
     window: &Window,
     property: &Atom,
@@ -298,6 +330,7 @@ pub fn property_get(
 }
 
 #[cfg_attr(feature = "v3_22", deprecated)]
+#[doc(alias = "gdk_query_depths")]
 pub fn query_depths() -> Vec<i32> {
     assert_initialized_main_thread!();
     unsafe {
@@ -309,10 +342,12 @@ pub fn query_depths() -> Vec<i32> {
 }
 
 //#[cfg_attr(feature = "v3_22", deprecated)]
+//#[doc(alias = "gdk_query_visual_types")]
 //pub fn query_visual_types(visual_types: /*Unimplemented*/CArray TypeId { ns_id: 1, id: 99 }) -> i32 {
 //    unsafe { TODO: call ffi:gdk_query_visual_types() }
 //}
 
+#[doc(alias = "gdk_selection_convert")]
 pub fn selection_convert(requestor: &Window, selection: &Atom, target: &Atom, time_: u32) {
     skip_assert_initialized!();
     unsafe {
@@ -325,11 +360,13 @@ pub fn selection_convert(requestor: &Window, selection: &Atom, target: &Atom, ti
     }
 }
 
+#[doc(alias = "gdk_selection_owner_get")]
 pub fn selection_owner_get(selection: &Atom) -> Option<Window> {
     assert_initialized_main_thread!();
     unsafe { from_glib_none(ffi::gdk_selection_owner_get(selection.to_glib_none().0)) }
 }
 
+#[doc(alias = "gdk_selection_owner_get_for_display")]
 pub fn selection_owner_get_for_display(display: &Display, selection: &Atom) -> Option<Window> {
     skip_assert_initialized!();
     unsafe {
@@ -340,6 +377,7 @@ pub fn selection_owner_get_for_display(display: &Display, selection: &Atom) -> O
     }
 }
 
+#[doc(alias = "gdk_selection_owner_set")]
 pub fn selection_owner_set(
     owner: Option<&Window>,
     selection: &Atom,
@@ -357,6 +395,7 @@ pub fn selection_owner_set(
     }
 }
 
+#[doc(alias = "gdk_selection_owner_set_for_display")]
 pub fn selection_owner_set_for_display(
     display: &Display,
     owner: Option<&Window>,
@@ -376,6 +415,7 @@ pub fn selection_owner_set_for_display(
     }
 }
 
+#[doc(alias = "gdk_selection_send_notify")]
 pub fn selection_send_notify(
     requestor: &Window,
     selection: &Atom,
@@ -395,6 +435,7 @@ pub fn selection_send_notify(
     }
 }
 
+#[doc(alias = "gdk_selection_send_notify_for_display")]
 pub fn selection_send_notify_for_display(
     display: &Display,
     requestor: &Window,
@@ -416,6 +457,7 @@ pub fn selection_send_notify_for_display(
     }
 }
 
+#[doc(alias = "gdk_set_allowed_backends")]
 pub fn set_allowed_backends(backends: &str) {
     assert_initialized_main_thread!();
     unsafe {
@@ -423,6 +465,7 @@ pub fn set_allowed_backends(backends: &str) {
     }
 }
 
+#[doc(alias = "gdk_set_double_click_time")]
 pub fn set_double_click_time(msec: u32) {
     assert_initialized_main_thread!();
     unsafe {
@@ -430,6 +473,7 @@ pub fn set_double_click_time(msec: u32) {
     }
 }
 
+#[doc(alias = "gdk_set_program_class")]
 pub fn set_program_class(program_class: &str) {
     assert_initialized_main_thread!();
     unsafe {
@@ -437,6 +481,7 @@ pub fn set_program_class(program_class: &str) {
     }
 }
 
+#[doc(alias = "gdk_set_show_events")]
 pub fn set_show_events(show_events: bool) {
     assert_initialized_main_thread!();
     unsafe {
@@ -444,6 +489,7 @@ pub fn set_show_events(show_events: bool) {
     }
 }
 
+#[doc(alias = "gdk_synthesize_window_state")]
 pub fn synthesize_window_state(window: &Window, unset_flags: WindowState, set_flags: WindowState) {
     skip_assert_initialized!();
     unsafe {
@@ -455,6 +501,7 @@ pub fn synthesize_window_state(window: &Window, unset_flags: WindowState, set_fl
     }
 }
 
+#[doc(alias = "gdk_test_render_sync")]
 pub fn test_render_sync(window: &Window) {
     skip_assert_initialized!();
     unsafe {
@@ -462,6 +509,7 @@ pub fn test_render_sync(window: &Window) {
     }
 }
 
+#[doc(alias = "gdk_test_simulate_button")]
 pub fn test_simulate_button(
     window: &Window,
     x: i32,
@@ -483,6 +531,7 @@ pub fn test_simulate_button(
     }
 }
 
+#[doc(alias = "gdk_test_simulate_key")]
 pub fn test_simulate_key(
     window: &Window,
     x: i32,
@@ -504,6 +553,7 @@ pub fn test_simulate_key(
     }
 }
 
+#[doc(alias = "gdk_text_property_to_utf8_list_for_display")]
 pub fn text_property_to_utf8_list_for_display(
     display: &Display,
     encoding: &Atom,
@@ -526,11 +576,13 @@ pub fn text_property_to_utf8_list_for_display(
     }
 }
 
+#[doc(alias = "gdk_unicode_to_keyval")]
 pub fn unicode_to_keyval(wc: u32) -> u32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gdk_unicode_to_keyval(wc) }
 }
 
+#[doc(alias = "gdk_utf8_to_string_target")]
 pub fn utf8_to_string_target(str: &str) -> Option<glib::GString> {
     assert_initialized_main_thread!();
     unsafe { from_glib_full(ffi::gdk_utf8_to_string_target(str.to_glib_none().0)) }

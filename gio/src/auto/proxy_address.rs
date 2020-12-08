@@ -20,6 +20,7 @@ glib::glib_wrapper! {
 }
 
 impl ProxyAddress {
+    #[doc(alias = "g_proxy_address_new")]
     pub fn new<P: IsA<InetAddress>>(
         inetaddr: &P,
         port: u16,
@@ -50,18 +51,25 @@ unsafe impl Sync for ProxyAddress {}
 pub const NONE_PROXY_ADDRESS: Option<&ProxyAddress> = None;
 
 pub trait ProxyAddressExt: 'static {
+    #[doc(alias = "g_proxy_address_get_destination_hostname")]
     fn get_destination_hostname(&self) -> glib::GString;
 
+    #[doc(alias = "g_proxy_address_get_destination_port")]
     fn get_destination_port(&self) -> u16;
 
+    #[doc(alias = "g_proxy_address_get_destination_protocol")]
     fn get_destination_protocol(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_proxy_address_get_password")]
     fn get_password(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_proxy_address_get_protocol")]
     fn get_protocol(&self) -> glib::GString;
 
+    #[doc(alias = "g_proxy_address_get_uri")]
     fn get_uri(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_proxy_address_get_username")]
     fn get_username(&self) -> Option<glib::GString>;
 }
 

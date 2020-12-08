@@ -24,8 +24,10 @@ glib::glib_wrapper! {
 pub const NONE_TCP_CONNECTION: Option<&TcpConnection> = None;
 
 pub trait TcpConnectionExt: 'static {
+    #[doc(alias = "g_tcp_connection_get_graceful_disconnect")]
     fn get_graceful_disconnect(&self) -> bool;
 
+    #[doc(alias = "g_tcp_connection_set_graceful_disconnect")]
     fn set_graceful_disconnect(&self, graceful_disconnect: bool);
 
     fn connect_property_graceful_disconnect_notify<F: Fn(&Self) + 'static>(

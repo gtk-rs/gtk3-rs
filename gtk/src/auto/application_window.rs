@@ -639,16 +639,21 @@ pub const NONE_APPLICATION_WINDOW: Option<&ApplicationWindow> = None;
 pub trait ApplicationWindowExt: 'static {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "gtk_application_window_get_help_overlay")]
     fn get_help_overlay(&self) -> Option<ShortcutsWindow>;
 
+    #[doc(alias = "gtk_application_window_get_id")]
     fn get_id(&self) -> u32;
 
+    #[doc(alias = "gtk_application_window_get_show_menubar")]
     fn get_show_menubar(&self) -> bool;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "gtk_application_window_set_help_overlay")]
     fn set_help_overlay<P: IsA<ShortcutsWindow>>(&self, help_overlay: Option<&P>);
 
+    #[doc(alias = "gtk_application_window_set_show_menubar")]
     fn set_show_menubar(&self, show_menubar: bool);
 
     fn connect_property_show_menubar_notify<F: Fn(&Self) + 'static>(&self, f: F)

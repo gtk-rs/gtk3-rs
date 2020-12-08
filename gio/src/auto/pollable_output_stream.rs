@@ -20,10 +20,13 @@ glib::glib_wrapper! {
 pub const NONE_POLLABLE_OUTPUT_STREAM: Option<&PollableOutputStream> = None;
 
 pub trait PollableOutputStreamExt: 'static {
+    #[doc(alias = "g_pollable_output_stream_can_poll")]
     fn can_poll(&self) -> bool;
 
+    #[doc(alias = "g_pollable_output_stream_is_writable")]
     fn is_writable(&self) -> bool;
 
+    #[doc(alias = "g_pollable_output_stream_write_nonblocking")]
     fn write_nonblocking<P: IsA<Cancellable>>(
         &self,
         buffer: &[u8],
@@ -32,6 +35,7 @@ pub trait PollableOutputStreamExt: 'static {
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    //#[doc(alias = "g_pollable_output_stream_writev_nonblocking")]
     //fn writev_nonblocking<P: IsA<Cancellable>>(&self, vectors: /*Ignored*/&[&OutputVector], cancellable: Option<&P>) -> Result<(/*Ignored*/PollableReturn, usize), glib::Error>;
 }
 

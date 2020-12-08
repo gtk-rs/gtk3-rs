@@ -18,6 +18,7 @@ glib::glib_wrapper! {
 pub const NONE_HYPERLINK_IMPL: Option<&HyperlinkImpl> = None;
 
 pub trait HyperlinkImplExt: 'static {
+    #[doc(alias = "atk_hyperlink_impl_get_hyperlink")]
     fn get_hyperlink(&self) -> Option<Hyperlink>;
 }
 

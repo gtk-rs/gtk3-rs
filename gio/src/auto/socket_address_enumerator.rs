@@ -22,11 +22,13 @@ glib::glib_wrapper! {
 pub const NONE_SOCKET_ADDRESS_ENUMERATOR: Option<&SocketAddressEnumerator> = None;
 
 pub trait SocketAddressEnumeratorExt: 'static {
+    #[doc(alias = "g_socket_address_enumerator_next")]
     fn next<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
     ) -> Result<SocketAddress, glib::Error>;
 
+    #[doc(alias = "g_socket_address_enumerator_next_async")]
     fn next_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<SocketAddress, glib::Error>) + Send + 'static,

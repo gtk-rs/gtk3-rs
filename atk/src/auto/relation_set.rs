@@ -18,6 +18,7 @@ glib::glib_wrapper! {
 }
 
 impl RelationSet {
+    #[doc(alias = "atk_relation_set_new")]
     pub fn new() -> RelationSet {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::atk_relation_set_new()) }
@@ -33,20 +34,28 @@ impl Default for RelationSet {
 pub const NONE_RELATION_SET: Option<&RelationSet> = None;
 
 pub trait RelationSetExt: 'static {
+    #[doc(alias = "atk_relation_set_add")]
     fn add<P: IsA<Relation>>(&self, relation: &P);
 
+    #[doc(alias = "atk_relation_set_add_relation_by_type")]
     fn add_relation_by_type<P: IsA<Object>>(&self, relationship: RelationType, target: &P);
 
+    #[doc(alias = "atk_relation_set_contains")]
     fn contains(&self, relationship: RelationType) -> bool;
 
+    #[doc(alias = "atk_relation_set_contains_target")]
     fn contains_target<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool;
 
+    #[doc(alias = "atk_relation_set_get_n_relations")]
     fn get_n_relations(&self) -> i32;
 
+    #[doc(alias = "atk_relation_set_get_relation")]
     fn get_relation(&self, i: i32) -> Option<Relation>;
 
+    #[doc(alias = "atk_relation_set_get_relation_by_type")]
     fn get_relation_by_type(&self, relationship: RelationType) -> Option<Relation>;
 
+    #[doc(alias = "atk_relation_set_remove")]
     fn remove<P: IsA<Relation>>(&self, relation: &P);
 }
 

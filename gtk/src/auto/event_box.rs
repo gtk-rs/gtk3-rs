@@ -28,6 +28,7 @@ glib::glib_wrapper! {
 }
 
 impl EventBox {
+    #[doc(alias = "gtk_event_box_new")]
     pub fn new() -> EventBox {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_event_box_new()).unsafe_cast() }
@@ -400,12 +401,16 @@ impl EventBoxBuilder {
 pub const NONE_EVENT_BOX: Option<&EventBox> = None;
 
 pub trait EventBoxExt: 'static {
+    #[doc(alias = "gtk_event_box_get_above_child")]
     fn get_above_child(&self) -> bool;
 
+    #[doc(alias = "gtk_event_box_get_visible_window")]
     fn get_visible_window(&self) -> bool;
 
+    #[doc(alias = "gtk_event_box_set_above_child")]
     fn set_above_child(&self, above_child: bool);
 
+    #[doc(alias = "gtk_event_box_set_visible_window")]
     fn set_visible_window(&self, visible_window: bool);
 
     fn connect_property_above_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

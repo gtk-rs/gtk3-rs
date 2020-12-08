@@ -23,16 +23,21 @@ glib::glib_wrapper! {
 pub const NONE_FONT_FACE: Option<&FontFace> = None;
 
 pub trait FontFaceExt: 'static {
+    #[doc(alias = "pango_font_face_describe")]
     fn describe(&self) -> Option<FontDescription>;
 
+    #[doc(alias = "pango_font_face_get_face_name")]
     fn get_face_name(&self) -> Option<glib::GString>;
 
     #[cfg(any(feature = "v1_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
+    #[doc(alias = "pango_font_face_get_family")]
     fn get_family(&self) -> Option<FontFamily>;
 
+    #[doc(alias = "pango_font_face_is_synthesized")]
     fn is_synthesized(&self) -> bool;
 
+    #[doc(alias = "pango_font_face_list_sizes")]
     fn list_sizes(&self) -> Vec<i32>;
 }
 

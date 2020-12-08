@@ -29,11 +29,13 @@ glib::glib_wrapper! {
 }
 
 impl MenuBar {
+    #[doc(alias = "gtk_menu_bar_new")]
     pub fn new() -> MenuBar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_menu_bar_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_menu_bar_new_from_model")]
     pub fn from_model<P: IsA<gio::MenuModel>>(model: &P) -> MenuBar {
         assert_initialized_main_thread!();
         unsafe {
@@ -420,12 +422,16 @@ impl MenuBarBuilder {
 pub const NONE_MENU_BAR: Option<&MenuBar> = None;
 
 pub trait MenuBarExt: 'static {
+    #[doc(alias = "gtk_menu_bar_get_child_pack_direction")]
     fn get_child_pack_direction(&self) -> PackDirection;
 
+    #[doc(alias = "gtk_menu_bar_get_pack_direction")]
     fn get_pack_direction(&self) -> PackDirection;
 
+    #[doc(alias = "gtk_menu_bar_set_child_pack_direction")]
     fn set_child_pack_direction(&self, child_pack_dir: PackDirection);
 
+    #[doc(alias = "gtk_menu_bar_set_pack_direction")]
     fn set_pack_direction(&self, pack_dir: PackDirection);
 
     fn connect_property_child_pack_direction_notify<F: Fn(&Self) + 'static>(

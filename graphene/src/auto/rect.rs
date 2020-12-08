@@ -19,6 +19,7 @@ glib::glib_wrapper! {
 }
 
 impl Rect {
+    #[doc(alias = "graphene_rect_contains_point")]
     pub fn contains_point(&self, p: &Point) -> bool {
         unsafe {
             from_glib(ffi::graphene_rect_contains_point(
@@ -28,6 +29,7 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_contains_rect")]
     pub fn contains_rect(&self, b: &Rect) -> bool {
         unsafe {
             from_glib(ffi::graphene_rect_contains_rect(
@@ -37,6 +39,7 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_equal")]
     fn equal(&self, b: &Rect) -> bool {
         unsafe {
             from_glib(ffi::graphene_rect_equal(
@@ -46,6 +49,7 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_expand")]
     pub fn expand(&self, p: &Point) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
@@ -60,10 +64,12 @@ impl Rect {
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+    #[doc(alias = "graphene_rect_get_area")]
     pub fn get_area(&self) -> f32 {
         unsafe { ffi::graphene_rect_get_area(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "graphene_rect_get_bottom_left")]
     pub fn get_bottom_left(&self) -> Point {
         unsafe {
             let mut p = Point::uninitialized();
@@ -72,6 +78,7 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_get_bottom_right")]
     pub fn get_bottom_right(&self) -> Point {
         unsafe {
             let mut p = Point::uninitialized();
@@ -80,6 +87,7 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_get_center")]
     pub fn get_center(&self) -> Point {
         unsafe {
             let mut p = Point::uninitialized();
@@ -88,10 +96,12 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_get_height")]
     pub fn get_height(&self) -> f32 {
         unsafe { ffi::graphene_rect_get_height(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "graphene_rect_get_top_left")]
     pub fn get_top_left(&self) -> Point {
         unsafe {
             let mut p = Point::uninitialized();
@@ -100,6 +110,7 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_get_top_right")]
     pub fn get_top_right(&self) -> Point {
         unsafe {
             let mut p = Point::uninitialized();
@@ -108,34 +119,41 @@ impl Rect {
         }
     }
 
+    //#[doc(alias = "graphene_rect_get_vertices")]
     //pub fn get_vertices(&self, vertices: /*Unimplemented*/FixedArray TypeId { ns_id: 1, id: 16 }; 4) {
     //    unsafe { TODO: call ffi:graphene_rect_get_vertices() }
     //}
 
+    #[doc(alias = "graphene_rect_get_width")]
     pub fn get_width(&self) -> f32 {
         unsafe { ffi::graphene_rect_get_width(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "graphene_rect_get_x")]
     pub fn get_x(&self) -> f32 {
         unsafe { ffi::graphene_rect_get_x(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "graphene_rect_get_y")]
     pub fn get_y(&self) -> f32 {
         unsafe { ffi::graphene_rect_get_y(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "graphene_rect_init")]
     pub fn init(&mut self, x: f32, y: f32, width: f32, height: f32) {
         unsafe {
             ffi::graphene_rect_init(self.to_glib_none_mut().0, x, y, width, height);
         }
     }
 
+    #[doc(alias = "graphene_rect_init_from_rect")]
     pub fn init_from_rect(&mut self, src: &Rect) {
         unsafe {
             ffi::graphene_rect_init_from_rect(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "graphene_rect_inset")]
     pub fn inset(&mut self, d_x: f32, d_y: f32) -> Option<Rect> {
         unsafe {
             from_glib_none(ffi::graphene_rect_inset(
@@ -146,6 +164,7 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_inset_r")]
     pub fn inset_r(&self, d_x: f32, d_y: f32) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
@@ -154,6 +173,7 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_interpolate")]
     pub fn interpolate(&self, b: &Rect, factor: f64) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
@@ -167,6 +187,7 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_intersection")]
     pub fn intersection(&self, b: &Rect) -> Option<Rect> {
         unsafe {
             let mut res = Rect::uninitialized();
@@ -183,10 +204,12 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_normalize")]
     pub fn normalize(&mut self) -> Option<Rect> {
         unsafe { from_glib_none(ffi::graphene_rect_normalize(self.to_glib_none_mut().0)) }
     }
 
+    #[doc(alias = "graphene_rect_normalize_r")]
     pub fn normalize_r(&self) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
@@ -195,6 +218,7 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_offset")]
     pub fn offset(&mut self, d_x: f32, d_y: f32) -> Option<Rect> {
         unsafe {
             from_glib_none(ffi::graphene_rect_offset(
@@ -205,6 +229,7 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_offset_r")]
     pub fn offset_r(&self, d_x: f32, d_y: f32) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
@@ -214,6 +239,7 @@ impl Rect {
     }
 
     #[cfg_attr(feature = "v1_10", deprecated)]
+    #[doc(alias = "graphene_rect_round")]
     pub fn round(&self) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
@@ -224,6 +250,7 @@ impl Rect {
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+    #[doc(alias = "graphene_rect_round_extents")]
     pub fn round_extents(&self) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
@@ -234,6 +261,7 @@ impl Rect {
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
+    #[doc(alias = "graphene_rect_scale")]
     pub fn scale(&self, s_h: f32, s_v: f32) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
@@ -242,6 +270,7 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_union")]
     pub fn union(&self, b: &Rect) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
@@ -254,6 +283,7 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_zero")]
     pub fn zero() -> Rect {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::graphene_rect_zero()) }

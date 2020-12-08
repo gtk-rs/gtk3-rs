@@ -32,11 +32,13 @@ glib::glib_wrapper! {
 }
 
 impl TreeViewColumn {
+    #[doc(alias = "gtk_tree_view_column_new")]
     pub fn new() -> TreeViewColumn {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_tree_view_column_new()) }
     }
 
+    #[doc(alias = "gtk_tree_view_column_new_with_area")]
     pub fn with_area<P: IsA<CellArea>>(area: &P) -> TreeViewColumn {
         skip_assert_initialized!();
         unsafe {
@@ -46,6 +48,7 @@ impl TreeViewColumn {
         }
     }
 
+    //#[doc(alias = "gtk_tree_view_column_new_with_attributes")]
     //pub fn with_attributes<P: IsA<CellRenderer>>(title: &str, cell: &P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> TreeViewColumn {
     //    unsafe { TODO: call ffi:gtk_tree_view_column_new_with_attributes() }
     //}
@@ -232,12 +235,16 @@ impl TreeViewColumnBuilder {
 pub const NONE_TREE_VIEW_COLUMN: Option<&TreeViewColumn> = None;
 
 pub trait TreeViewColumnExt: 'static {
+    #[doc(alias = "gtk_tree_view_column_cell_get_position")]
     fn cell_get_position<P: IsA<CellRenderer>>(&self, cell_renderer: &P) -> Option<(i32, i32)>;
 
+    #[doc(alias = "gtk_tree_view_column_cell_get_size")]
     fn cell_get_size(&self, cell_area: Option<&gdk::Rectangle>) -> (i32, i32, i32, i32);
 
+    #[doc(alias = "gtk_tree_view_column_cell_is_visible")]
     fn cell_is_visible(&self) -> bool;
 
+    #[doc(alias = "gtk_tree_view_column_cell_set_cell_data")]
     fn cell_set_cell_data<P: IsA<TreeModel>>(
         &self,
         tree_model: &P,
@@ -246,88 +253,128 @@ pub trait TreeViewColumnExt: 'static {
         is_expanded: bool,
     );
 
+    #[doc(alias = "gtk_tree_view_column_clicked")]
     fn clicked(&self);
 
+    #[doc(alias = "gtk_tree_view_column_focus_cell")]
     fn focus_cell<P: IsA<CellRenderer>>(&self, cell: &P);
 
+    #[doc(alias = "gtk_tree_view_column_get_alignment")]
     fn get_alignment(&self) -> f32;
 
+    #[doc(alias = "gtk_tree_view_column_get_button")]
     fn get_button(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_tree_view_column_get_clickable")]
     fn get_clickable(&self) -> bool;
 
+    #[doc(alias = "gtk_tree_view_column_get_expand")]
     fn get_expand(&self) -> bool;
 
+    #[doc(alias = "gtk_tree_view_column_get_fixed_width")]
     fn get_fixed_width(&self) -> i32;
 
+    #[doc(alias = "gtk_tree_view_column_get_max_width")]
     fn get_max_width(&self) -> i32;
 
+    #[doc(alias = "gtk_tree_view_column_get_min_width")]
     fn get_min_width(&self) -> i32;
 
+    #[doc(alias = "gtk_tree_view_column_get_reorderable")]
     fn get_reorderable(&self) -> bool;
 
+    #[doc(alias = "gtk_tree_view_column_get_resizable")]
     fn get_resizable(&self) -> bool;
 
+    #[doc(alias = "gtk_tree_view_column_get_sizing")]
     fn get_sizing(&self) -> TreeViewColumnSizing;
 
+    #[doc(alias = "gtk_tree_view_column_get_sort_column_id")]
     fn get_sort_column_id(&self) -> i32;
 
+    #[doc(alias = "gtk_tree_view_column_get_sort_indicator")]
     fn get_sort_indicator(&self) -> bool;
 
+    #[doc(alias = "gtk_tree_view_column_get_sort_order")]
     fn get_sort_order(&self) -> SortType;
 
+    #[doc(alias = "gtk_tree_view_column_get_spacing")]
     fn get_spacing(&self) -> i32;
 
+    #[doc(alias = "gtk_tree_view_column_get_title")]
     fn get_title(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_tree_view_column_get_tree_view")]
     fn get_tree_view(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_tree_view_column_get_visible")]
     fn get_visible(&self) -> bool;
 
+    #[doc(alias = "gtk_tree_view_column_get_widget")]
     fn get_widget(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_tree_view_column_get_width")]
     fn get_width(&self) -> i32;
 
+    #[doc(alias = "gtk_tree_view_column_get_x_offset")]
     fn get_x_offset(&self) -> i32;
 
+    #[doc(alias = "gtk_tree_view_column_queue_resize")]
     fn queue_resize(&self);
 
+    #[doc(alias = "gtk_tree_view_column_set_alignment")]
     fn set_alignment(&self, xalign: f32);
 
+    #[doc(alias = "gtk_tree_view_column_set_cell_data_func")]
     fn set_cell_data_func<P: IsA<CellRenderer>>(
         &self,
         cell_renderer: &P,
         func: Option<Box_<dyn Fn(&TreeViewColumn, &CellRenderer, &TreeModel, &TreeIter) + 'static>>,
     );
 
+    #[doc(alias = "gtk_tree_view_column_set_clickable")]
     fn set_clickable(&self, clickable: bool);
 
+    #[doc(alias = "gtk_tree_view_column_set_expand")]
     fn set_expand(&self, expand: bool);
 
+    #[doc(alias = "gtk_tree_view_column_set_fixed_width")]
     fn set_fixed_width(&self, fixed_width: i32);
 
+    #[doc(alias = "gtk_tree_view_column_set_max_width")]
     fn set_max_width(&self, max_width: i32);
 
+    #[doc(alias = "gtk_tree_view_column_set_min_width")]
     fn set_min_width(&self, min_width: i32);
 
+    #[doc(alias = "gtk_tree_view_column_set_reorderable")]
     fn set_reorderable(&self, reorderable: bool);
 
+    #[doc(alias = "gtk_tree_view_column_set_resizable")]
     fn set_resizable(&self, resizable: bool);
 
+    #[doc(alias = "gtk_tree_view_column_set_sizing")]
     fn set_sizing(&self, type_: TreeViewColumnSizing);
 
+    #[doc(alias = "gtk_tree_view_column_set_sort_column_id")]
     fn set_sort_column_id(&self, sort_column_id: i32);
 
+    #[doc(alias = "gtk_tree_view_column_set_sort_indicator")]
     fn set_sort_indicator(&self, setting: bool);
 
+    #[doc(alias = "gtk_tree_view_column_set_sort_order")]
     fn set_sort_order(&self, order: SortType);
 
+    #[doc(alias = "gtk_tree_view_column_set_spacing")]
     fn set_spacing(&self, spacing: i32);
 
+    #[doc(alias = "gtk_tree_view_column_set_title")]
     fn set_title(&self, title: &str);
 
+    #[doc(alias = "gtk_tree_view_column_set_visible")]
     fn set_visible(&self, visible: bool);
 
+    #[doc(alias = "gtk_tree_view_column_set_widget")]
     fn set_widget<P: IsA<Widget>>(&self, widget: Option<&P>);
 
     fn get_property_cell_area(&self) -> Option<CellArea>;

@@ -32,6 +32,7 @@ glib::glib_wrapper! {
 }
 
 impl ButtonBox {
+    #[doc(alias = "gtk_button_box_new")]
     pub fn new(orientation: Orientation) -> ButtonBox {
         assert_initialized_main_thread!();
         unsafe {
@@ -427,16 +428,22 @@ impl ButtonBoxBuilder {
 pub const NONE_BUTTON_BOX: Option<&ButtonBox> = None;
 
 pub trait ButtonBoxExt: 'static {
+    #[doc(alias = "gtk_button_box_get_child_non_homogeneous")]
     fn get_child_non_homogeneous<P: IsA<Widget>>(&self, child: &P) -> bool;
 
+    #[doc(alias = "gtk_button_box_get_child_secondary")]
     fn get_child_secondary<P: IsA<Widget>>(&self, child: &P) -> bool;
 
+    #[doc(alias = "gtk_button_box_get_layout")]
     fn get_layout(&self) -> ButtonBoxStyle;
 
+    #[doc(alias = "gtk_button_box_set_child_non_homogeneous")]
     fn set_child_non_homogeneous<P: IsA<Widget>>(&self, child: &P, non_homogeneous: bool);
 
+    #[doc(alias = "gtk_button_box_set_child_secondary")]
     fn set_child_secondary<P: IsA<Widget>>(&self, child: &P, is_secondary: bool);
 
+    #[doc(alias = "gtk_button_box_set_layout")]
     fn set_layout(&self, layout_style: ButtonBoxStyle);
 
     fn get_property_layout_style(&self) -> ButtonBoxStyle;

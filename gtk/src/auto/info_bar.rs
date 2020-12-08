@@ -35,11 +35,13 @@ glib::glib_wrapper! {
 }
 
 impl InfoBar {
+    #[doc(alias = "gtk_info_bar_new")]
     pub fn new() -> InfoBar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_info_bar_new()).unsafe_cast() }
     }
 
+    //#[doc(alias = "gtk_info_bar_new_with_buttons")]
     //pub fn with_buttons(first_button_text: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> InfoBar {
     //    unsafe { TODO: call ffi:gtk_info_bar_new_with_buttons() }
     //}
@@ -461,36 +463,50 @@ impl InfoBarBuilder {
 pub const NONE_INFO_BAR: Option<&InfoBar> = None;
 
 pub trait InfoBarExt: 'static {
+    #[doc(alias = "gtk_info_bar_add_action_widget")]
     fn add_action_widget<P: IsA<Widget>>(&self, child: &P, response_id: ResponseType);
 
+    #[doc(alias = "gtk_info_bar_add_button")]
     fn add_button(&self, button_text: &str, response_id: ResponseType) -> Option<Button>;
 
+    //#[doc(alias = "gtk_info_bar_add_buttons")]
     //fn add_buttons(&self, first_button_text: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
+    #[doc(alias = "gtk_info_bar_get_action_area")]
     fn get_action_area(&self) -> Option<Box>;
 
+    #[doc(alias = "gtk_info_bar_get_content_area")]
     fn get_content_area(&self) -> Box;
 
+    #[doc(alias = "gtk_info_bar_get_message_type")]
     fn get_message_type(&self) -> MessageType;
 
     #[cfg(any(feature = "v3_22_29", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
+    #[doc(alias = "gtk_info_bar_get_revealed")]
     fn get_revealed(&self) -> bool;
 
+    #[doc(alias = "gtk_info_bar_get_show_close_button")]
     fn get_show_close_button(&self) -> bool;
 
+    #[doc(alias = "gtk_info_bar_response")]
     fn response(&self, response_id: ResponseType);
 
+    #[doc(alias = "gtk_info_bar_set_default_response")]
     fn set_default_response(&self, response_id: ResponseType);
 
+    #[doc(alias = "gtk_info_bar_set_message_type")]
     fn set_message_type(&self, message_type: MessageType);
 
+    #[doc(alias = "gtk_info_bar_set_response_sensitive")]
     fn set_response_sensitive(&self, response_id: ResponseType, setting: bool);
 
     #[cfg(any(feature = "v3_22_29", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22_29")))]
+    #[doc(alias = "gtk_info_bar_set_revealed")]
     fn set_revealed(&self, revealed: bool);
 
+    #[doc(alias = "gtk_info_bar_set_show_close_button")]
     fn set_show_close_button(&self, setting: bool);
 
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

@@ -33,11 +33,13 @@ glib::glib_wrapper! {
 }
 
 impl ColorButton {
+    #[doc(alias = "gtk_color_button_new")]
     pub fn new() -> ColorButton {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_color_button_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_color_button_new_with_rgba")]
     pub fn with_rgba(rgba: &gdk::RGBA) -> ColorButton {
         assert_initialized_main_thread!();
         unsafe {
@@ -517,8 +519,10 @@ impl ColorButtonBuilder {
 pub const NONE_COLOR_BUTTON: Option<&ColorButton> = None;
 
 pub trait ColorButtonExt: 'static {
+    #[doc(alias = "gtk_color_button_get_title")]
     fn get_title(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_color_button_set_title")]
     fn set_title(&self, title: &str);
 
     fn get_property_alpha(&self) -> u32;

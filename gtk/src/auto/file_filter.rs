@@ -16,6 +16,7 @@ glib::glib_wrapper! {
 }
 
 impl FileFilter {
+    #[doc(alias = "gtk_file_filter_new")]
     pub fn new() -> FileFilter {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_file_filter_new()) }
@@ -23,6 +24,7 @@ impl FileFilter {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_file_filter_new_from_gvariant")]
     pub fn from_gvariant(variant: &glib::Variant) -> FileFilter {
         assert_initialized_main_thread!();
         unsafe {
@@ -32,40 +34,48 @@ impl FileFilter {
         }
     }
 
+    //#[doc(alias = "gtk_file_filter_add_custom")]
     //pub fn add_custom(&self, needed: FileFilterFlags, func: /*Unimplemented*/Fn(/*Ignored*/FileFilterInfo) -> bool, data: /*Unimplemented*/Option<Fundamental: Pointer>) {
     //    unsafe { TODO: call ffi:gtk_file_filter_add_custom() }
     //}
 
+    #[doc(alias = "gtk_file_filter_add_mime_type")]
     pub fn add_mime_type(&self, mime_type: &str) {
         unsafe {
             ffi::gtk_file_filter_add_mime_type(self.to_glib_none().0, mime_type.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_file_filter_add_pattern")]
     pub fn add_pattern(&self, pattern: &str) {
         unsafe {
             ffi::gtk_file_filter_add_pattern(self.to_glib_none().0, pattern.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_file_filter_add_pixbuf_formats")]
     pub fn add_pixbuf_formats(&self) {
         unsafe {
             ffi::gtk_file_filter_add_pixbuf_formats(self.to_glib_none().0);
         }
     }
 
+    //#[doc(alias = "gtk_file_filter_filter")]
     //pub fn filter(&self, filter_info: /*Ignored*/&FileFilterInfo) -> bool {
     //    unsafe { TODO: call ffi:gtk_file_filter_filter() }
     //}
 
+    #[doc(alias = "gtk_file_filter_get_name")]
     pub fn get_name(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_file_filter_get_name(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_file_filter_get_needed")]
     pub fn get_needed(&self) -> FileFilterFlags {
         unsafe { from_glib(ffi::gtk_file_filter_get_needed(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_file_filter_set_name")]
     pub fn set_name(&self, name: Option<&str>) {
         unsafe {
             ffi::gtk_file_filter_set_name(self.to_glib_none().0, name.to_glib_none().0);
@@ -74,6 +84,7 @@ impl FileFilter {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_file_filter_to_gvariant")]
     pub fn to_gvariant(&self) -> Option<glib::Variant> {
         unsafe { from_glib_none(ffi::gtk_file_filter_to_gvariant(self.to_glib_none().0)) }
     }

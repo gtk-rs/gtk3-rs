@@ -39,6 +39,7 @@ glib::glib_wrapper! {
 }
 
 impl ScrolledWindow {
+    #[doc(alias = "gtk_scrolled_window_new")]
     pub fn new<P: IsA<Adjustment>, Q: IsA<Adjustment>>(
         hadjustment: Option<&P>,
         vadjustment: Option<&Q>,
@@ -547,86 +548,117 @@ impl ScrolledWindowBuilder {
 pub const NONE_SCROLLED_WINDOW: Option<&ScrolledWindow> = None;
 
 pub trait ScrolledWindowExt: 'static {
+    #[doc(alias = "gtk_scrolled_window_get_capture_button_press")]
     fn get_capture_button_press(&self) -> bool;
 
+    #[doc(alias = "gtk_scrolled_window_get_hadjustment")]
     fn get_hadjustment(&self) -> Adjustment;
 
+    #[doc(alias = "gtk_scrolled_window_get_hscrollbar")]
     fn get_hscrollbar(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_scrolled_window_get_kinetic_scrolling")]
     fn get_kinetic_scrolling(&self) -> bool;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_scrolled_window_get_max_content_height")]
     fn get_max_content_height(&self) -> i32;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_scrolled_window_get_max_content_width")]
     fn get_max_content_width(&self) -> i32;
 
+    #[doc(alias = "gtk_scrolled_window_get_min_content_height")]
     fn get_min_content_height(&self) -> i32;
 
+    #[doc(alias = "gtk_scrolled_window_get_min_content_width")]
     fn get_min_content_width(&self) -> i32;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_scrolled_window_get_overlay_scrolling")]
     fn get_overlay_scrolling(&self) -> bool;
 
+    #[doc(alias = "gtk_scrolled_window_get_placement")]
     fn get_placement(&self) -> CornerType;
 
+    #[doc(alias = "gtk_scrolled_window_get_policy")]
     fn get_policy(&self) -> (PolicyType, PolicyType);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_scrolled_window_get_propagate_natural_height")]
     fn get_propagate_natural_height(&self) -> bool;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_scrolled_window_get_propagate_natural_width")]
     fn get_propagate_natural_width(&self) -> bool;
 
+    #[doc(alias = "gtk_scrolled_window_get_shadow_type")]
     fn get_shadow_type(&self) -> ShadowType;
 
+    #[doc(alias = "gtk_scrolled_window_get_vadjustment")]
     fn get_vadjustment(&self) -> Adjustment;
 
+    #[doc(alias = "gtk_scrolled_window_get_vscrollbar")]
     fn get_vscrollbar(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_scrolled_window_set_capture_button_press")]
     fn set_capture_button_press(&self, capture_button_press: bool);
 
+    #[doc(alias = "gtk_scrolled_window_set_hadjustment")]
     fn set_hadjustment<P: IsA<Adjustment>>(&self, hadjustment: Option<&P>);
 
+    #[doc(alias = "gtk_scrolled_window_set_kinetic_scrolling")]
     fn set_kinetic_scrolling(&self, kinetic_scrolling: bool);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_scrolled_window_set_max_content_height")]
     fn set_max_content_height(&self, height: i32);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_scrolled_window_set_max_content_width")]
     fn set_max_content_width(&self, width: i32);
 
+    #[doc(alias = "gtk_scrolled_window_set_min_content_height")]
     fn set_min_content_height(&self, height: i32);
 
+    #[doc(alias = "gtk_scrolled_window_set_min_content_width")]
     fn set_min_content_width(&self, width: i32);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_scrolled_window_set_overlay_scrolling")]
     fn set_overlay_scrolling(&self, overlay_scrolling: bool);
 
+    #[doc(alias = "gtk_scrolled_window_set_placement")]
     fn set_placement(&self, window_placement: CornerType);
 
+    #[doc(alias = "gtk_scrolled_window_set_policy")]
     fn set_policy(&self, hscrollbar_policy: PolicyType, vscrollbar_policy: PolicyType);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_scrolled_window_set_propagate_natural_height")]
     fn set_propagate_natural_height(&self, propagate: bool);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gtk_scrolled_window_set_propagate_natural_width")]
     fn set_propagate_natural_width(&self, propagate: bool);
 
+    #[doc(alias = "gtk_scrolled_window_set_shadow_type")]
     fn set_shadow_type(&self, type_: ShadowType);
 
+    #[doc(alias = "gtk_scrolled_window_set_vadjustment")]
     fn set_vadjustment<P: IsA<Adjustment>>(&self, vadjustment: Option<&P>);
 
+    #[doc(alias = "gtk_scrolled_window_unset_placement")]
     fn unset_placement(&self);
 
     fn get_property_hscrollbar_policy(&self) -> PolicyType;

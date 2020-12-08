@@ -23,16 +23,19 @@ glib::glib_wrapper! {
 }
 
 impl IconTheme {
+    #[doc(alias = "gtk_icon_theme_new")]
     pub fn new() -> IconTheme {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gtk_icon_theme_new()) }
     }
 
+    #[doc(alias = "gtk_icon_theme_get_default")]
     pub fn get_default() -> Option<IconTheme> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_icon_theme_get_default()) }
     }
 
+    #[doc(alias = "gtk_icon_theme_get_for_screen")]
     pub fn get_for_screen(screen: &gdk::Screen) -> Option<IconTheme> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_icon_theme_get_for_screen(screen.to_glib_none().0)) }
@@ -48,18 +51,25 @@ impl Default for IconTheme {
 pub const NONE_ICON_THEME: Option<&IconTheme> = None;
 
 pub trait IconThemeExt: 'static {
+    #[doc(alias = "gtk_icon_theme_add_resource_path")]
     fn add_resource_path(&self, path: &str);
 
+    #[doc(alias = "gtk_icon_theme_append_search_path")]
     fn append_search_path<P: AsRef<std::path::Path>>(&self, path: P);
 
+    #[doc(alias = "gtk_icon_theme_get_example_icon_name")]
     fn get_example_icon_name(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_icon_theme_has_icon")]
     fn has_icon(&self, icon_name: &str) -> bool;
 
+    #[doc(alias = "gtk_icon_theme_list_contexts")]
     fn list_contexts(&self) -> Vec<glib::GString>;
 
+    #[doc(alias = "gtk_icon_theme_list_icons")]
     fn list_icons(&self, context: Option<&str>) -> Vec<glib::GString>;
 
+    #[doc(alias = "gtk_icon_theme_load_icon")]
     fn load_icon(
         &self,
         icon_name: &str,
@@ -67,6 +77,7 @@ pub trait IconThemeExt: 'static {
         flags: IconLookupFlags,
     ) -> Result<Option<gdk_pixbuf::Pixbuf>, glib::Error>;
 
+    #[doc(alias = "gtk_icon_theme_load_icon_for_scale")]
     fn load_icon_for_scale(
         &self,
         icon_name: &str,
@@ -75,6 +86,7 @@ pub trait IconThemeExt: 'static {
         flags: IconLookupFlags,
     ) -> Result<Option<gdk_pixbuf::Pixbuf>, glib::Error>;
 
+    #[doc(alias = "gtk_icon_theme_load_surface")]
     fn load_surface(
         &self,
         icon_name: &str,
@@ -84,6 +96,7 @@ pub trait IconThemeExt: 'static {
         flags: IconLookupFlags,
     ) -> Result<Option<cairo::Surface>, glib::Error>;
 
+    #[doc(alias = "gtk_icon_theme_lookup_by_gicon")]
     fn lookup_by_gicon<P: IsA<gio::Icon>>(
         &self,
         icon: &P,
@@ -91,6 +104,7 @@ pub trait IconThemeExt: 'static {
         flags: IconLookupFlags,
     ) -> Option<IconInfo>;
 
+    #[doc(alias = "gtk_icon_theme_lookup_by_gicon_for_scale")]
     fn lookup_by_gicon_for_scale<P: IsA<gio::Icon>>(
         &self,
         icon: &P,
@@ -99,8 +113,10 @@ pub trait IconThemeExt: 'static {
         flags: IconLookupFlags,
     ) -> Option<IconInfo>;
 
+    #[doc(alias = "gtk_icon_theme_lookup_icon")]
     fn lookup_icon(&self, icon_name: &str, size: i32, flags: IconLookupFlags) -> Option<IconInfo>;
 
+    #[doc(alias = "gtk_icon_theme_lookup_icon_for_scale")]
     fn lookup_icon_for_scale(
         &self,
         icon_name: &str,
@@ -109,12 +125,16 @@ pub trait IconThemeExt: 'static {
         flags: IconLookupFlags,
     ) -> Option<IconInfo>;
 
+    #[doc(alias = "gtk_icon_theme_prepend_search_path")]
     fn prepend_search_path<P: AsRef<std::path::Path>>(&self, path: P);
 
+    #[doc(alias = "gtk_icon_theme_rescan_if_needed")]
     fn rescan_if_needed(&self) -> bool;
 
+    #[doc(alias = "gtk_icon_theme_set_custom_theme")]
     fn set_custom_theme(&self, theme_name: Option<&str>);
 
+    #[doc(alias = "gtk_icon_theme_set_screen")]
     fn set_screen(&self, screen: &gdk::Screen);
 
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

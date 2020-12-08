@@ -22,30 +22,43 @@ glib::glib_wrapper! {
 pub const NONE_ACTION_GROUP: Option<&ActionGroup> = None;
 
 pub trait ActionGroupExt: 'static {
+    #[doc(alias = "g_action_group_action_added")]
     fn action_added(&self, action_name: &str);
 
+    #[doc(alias = "g_action_group_action_enabled_changed")]
     fn action_enabled_changed(&self, action_name: &str, enabled: bool);
 
+    #[doc(alias = "g_action_group_action_removed")]
     fn action_removed(&self, action_name: &str);
 
+    #[doc(alias = "g_action_group_action_state_changed")]
     fn action_state_changed(&self, action_name: &str, state: &glib::Variant);
 
+    #[doc(alias = "g_action_group_activate_action")]
     fn activate_action(&self, action_name: &str, parameter: Option<&glib::Variant>);
 
+    #[doc(alias = "g_action_group_change_action_state")]
     fn change_action_state(&self, action_name: &str, value: &glib::Variant);
 
+    #[doc(alias = "g_action_group_get_action_enabled")]
     fn get_action_enabled(&self, action_name: &str) -> bool;
 
+    #[doc(alias = "g_action_group_get_action_parameter_type")]
     fn get_action_parameter_type(&self, action_name: &str) -> Option<glib::VariantType>;
 
+    #[doc(alias = "g_action_group_get_action_state")]
     fn get_action_state(&self, action_name: &str) -> Option<glib::Variant>;
 
+    #[doc(alias = "g_action_group_get_action_state_hint")]
     fn get_action_state_hint(&self, action_name: &str) -> Option<glib::Variant>;
 
+    #[doc(alias = "g_action_group_get_action_state_type")]
     fn get_action_state_type(&self, action_name: &str) -> Option<glib::VariantType>;
 
+    #[doc(alias = "g_action_group_has_action")]
     fn has_action(&self, action_name: &str) -> bool;
 
+    #[doc(alias = "g_action_group_list_actions")]
     fn list_actions(&self) -> Vec<glib::GString>;
 
     fn connect_action_added<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;

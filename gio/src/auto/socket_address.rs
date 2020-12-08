@@ -22,6 +22,7 @@ glib::glib_wrapper! {
 }
 
 impl SocketAddress {
+    //#[doc(alias = "g_socket_address_new_from_native")]
     //pub fn from_native(native: /*Unimplemented*/Fundamental: Pointer, len: usize) -> SocketAddress {
     //    unsafe { TODO: call ffi:g_socket_address_new_from_native() }
     //}
@@ -33,10 +34,13 @@ unsafe impl Sync for SocketAddress {}
 pub const NONE_SOCKET_ADDRESS: Option<&SocketAddress> = None;
 
 pub trait SocketAddressExt: 'static {
+    #[doc(alias = "g_socket_address_get_family")]
     fn get_family(&self) -> SocketFamily;
 
+    #[doc(alias = "g_socket_address_get_native_size")]
     fn get_native_size(&self) -> isize;
 
+    //#[doc(alias = "g_socket_address_to_native")]
     //fn to_native(&self, dest: /*Unimplemented*/Option<Fundamental: Pointer>, destlen: usize) -> Result<(), glib::Error>;
 
     fn connect_property_family_notify<F: Fn(&Self) + Send + Sync + 'static>(

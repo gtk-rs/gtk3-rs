@@ -21,10 +21,12 @@ glib::glib_wrapper! {
 }
 
 impl Cancellable {
+    #[doc(alias = "g_cancellable_new")]
     pub fn new() -> Cancellable {
         unsafe { from_glib_full(ffi::g_cancellable_new()) }
     }
 
+    #[doc(alias = "g_cancellable_get_current")]
     pub fn get_current() -> Option<Cancellable> {
         unsafe { from_glib_none(ffi::g_cancellable_get_current()) }
     }
@@ -42,24 +44,34 @@ unsafe impl Sync for Cancellable {}
 pub const NONE_CANCELLABLE: Option<&Cancellable> = None;
 
 pub trait CancellableExt: 'static {
+    #[doc(alias = "g_cancellable_cancel")]
     fn cancel(&self);
 
+    //#[doc(alias = "g_cancellable_connect")]
     //fn connect<P: Fn() + Send + Sync + 'static>(&self, callback: P, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> libc::c_ulong;
 
+    #[doc(alias = "g_cancellable_disconnect")]
     fn disconnect(&self, handler_id: libc::c_ulong);
 
+    #[doc(alias = "g_cancellable_get_fd")]
     fn get_fd(&self) -> i32;
 
+    #[doc(alias = "g_cancellable_is_cancelled")]
     fn is_cancelled(&self) -> bool;
 
+    //#[doc(alias = "g_cancellable_make_pollfd")]
     //fn make_pollfd(&self, pollfd: /*Ignored*/&mut glib::PollFD) -> bool;
 
+    #[doc(alias = "g_cancellable_pop_current")]
     fn pop_current(&self);
 
+    #[doc(alias = "g_cancellable_push_current")]
     fn push_current(&self);
 
+    #[doc(alias = "g_cancellable_release_fd")]
     fn release_fd(&self);
 
+    #[doc(alias = "g_cancellable_set_error_if_cancelled")]
     fn set_error_if_cancelled(&self) -> Result<(), glib::Error>;
 
     fn connect_cancelled<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;

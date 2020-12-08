@@ -23,10 +23,13 @@ glib::glib_wrapper! {
 pub const NONE_FILTER_OUTPUT_STREAM: Option<&FilterOutputStream> = None;
 
 pub trait FilterOutputStreamExt: 'static {
+    #[doc(alias = "g_filter_output_stream_get_base_stream")]
     fn get_base_stream(&self) -> Option<OutputStream>;
 
+    #[doc(alias = "g_filter_output_stream_get_close_base_stream")]
     fn get_close_base_stream(&self) -> bool;
 
+    #[doc(alias = "g_filter_output_stream_set_close_base_stream")]
     fn set_close_base_stream(&self, close_base: bool);
 
     fn connect_property_close_base_stream_notify<F: Fn(&Self) + 'static>(

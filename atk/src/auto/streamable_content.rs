@@ -17,12 +17,16 @@ glib::glib_wrapper! {
 pub const NONE_STREAMABLE_CONTENT: Option<&StreamableContent> = None;
 
 pub trait StreamableContentExt: 'static {
+    #[doc(alias = "atk_streamable_content_get_mime_type")]
     fn get_mime_type(&self, i: i32) -> Option<glib::GString>;
 
+    #[doc(alias = "atk_streamable_content_get_n_mime_types")]
     fn get_n_mime_types(&self) -> i32;
 
+    //#[doc(alias = "atk_streamable_content_get_stream")]
     //fn get_stream(&self, mime_type: &str) -> /*Ignored*/Option<glib::IOChannel>;
 
+    #[doc(alias = "atk_streamable_content_get_uri")]
     fn get_uri(&self, mime_type: &str) -> Option<glib::GString>;
 }
 

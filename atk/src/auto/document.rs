@@ -22,18 +22,25 @@ glib::glib_wrapper! {
 pub const NONE_DOCUMENT: Option<&Document> = None;
 
 pub trait DocumentExt: 'static {
+    #[doc(alias = "atk_document_get_attribute_value")]
     fn get_attribute_value(&self, attribute_name: &str) -> Option<glib::GString>;
 
+    //#[doc(alias = "atk_document_get_attributes")]
     //fn get_attributes(&self) -> /*Ignored*/Option<AttributeSet>;
 
+    #[doc(alias = "atk_document_get_current_page_number")]
     fn get_current_page_number(&self) -> i32;
 
+    //#[doc(alias = "atk_document_get_document")]
     //fn get_document(&self) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
+    #[doc(alias = "atk_document_get_document_type")]
     fn get_document_type(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "atk_document_get_page_count")]
     fn get_page_count(&self) -> i32;
 
+    #[doc(alias = "atk_document_set_attribute_value")]
     fn set_attribute_value(&self, attribute_name: &str, attribute_value: &str) -> bool;
 
     fn connect_load_complete<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

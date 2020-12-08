@@ -27,6 +27,7 @@ glib::glib_wrapper! {
 }
 
 impl Scrollbar {
+    #[doc(alias = "gtk_scrollbar_new")]
     pub fn new<P: IsA<Adjustment>>(orientation: Orientation, adjustment: Option<&P>) -> Scrollbar {
         assert_initialized_main_thread!();
         unsafe {

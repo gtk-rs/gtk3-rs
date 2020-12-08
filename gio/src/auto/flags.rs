@@ -37,7 +37,7 @@ impl ToGlib for AppInfoCreateFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GAppInfoCreateFlags> for AppInfoCreateFlags {
-    fn from_glib(value: ffi::GAppInfoCreateFlags) -> AppInfoCreateFlags {
+    unsafe fn from_glib(value: ffi::GAppInfoCreateFlags) -> AppInfoCreateFlags {
         AppInfoCreateFlags::from_bits_truncate(value)
     }
 }
@@ -98,7 +98,7 @@ impl ToGlib for ApplicationFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GApplicationFlags> for ApplicationFlags {
-    fn from_glib(value: ffi::GApplicationFlags) -> ApplicationFlags {
+    unsafe fn from_glib(value: ffi::GApplicationFlags) -> ApplicationFlags {
         ApplicationFlags::from_bits_truncate(value)
     }
 }
@@ -155,7 +155,7 @@ impl ToGlib for AskPasswordFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GAskPasswordFlags> for AskPasswordFlags {
-    fn from_glib(value: ffi::GAskPasswordFlags) -> AskPasswordFlags {
+    unsafe fn from_glib(value: ffi::GAskPasswordFlags) -> AskPasswordFlags {
         AskPasswordFlags::from_bits_truncate(value)
     }
 }
@@ -210,7 +210,7 @@ impl ToGlib for BusNameOwnerFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GBusNameOwnerFlags> for BusNameOwnerFlags {
-    fn from_glib(value: ffi::GBusNameOwnerFlags) -> BusNameOwnerFlags {
+    unsafe fn from_glib(value: ffi::GBusNameOwnerFlags) -> BusNameOwnerFlags {
         BusNameOwnerFlags::from_bits_truncate(value)
     }
 }
@@ -263,7 +263,7 @@ impl ToGlib for BusNameWatcherFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GBusNameWatcherFlags> for BusNameWatcherFlags {
-    fn from_glib(value: ffi::GBusNameWatcherFlags) -> BusNameWatcherFlags {
+    unsafe fn from_glib(value: ffi::GBusNameWatcherFlags) -> BusNameWatcherFlags {
         BusNameWatcherFlags::from_bits_truncate(value)
     }
 }
@@ -317,7 +317,7 @@ impl ToGlib for ConverterFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GConverterFlags> for ConverterFlags {
-    fn from_glib(value: ffi::GConverterFlags) -> ConverterFlags {
+    unsafe fn from_glib(value: ffi::GConverterFlags) -> ConverterFlags {
         ConverterFlags::from_bits_truncate(value)
     }
 }
@@ -371,7 +371,7 @@ impl ToGlib for DBusCallFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDBusCallFlags> for DBusCallFlags {
-    fn from_glib(value: ffi::GDBusCallFlags) -> DBusCallFlags {
+    unsafe fn from_glib(value: ffi::GDBusCallFlags) -> DBusCallFlags {
         DBusCallFlags::from_bits_truncate(value)
     }
 }
@@ -424,7 +424,7 @@ impl ToGlib for DBusCapabilityFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDBusCapabilityFlags> for DBusCapabilityFlags {
-    fn from_glib(value: ffi::GDBusCapabilityFlags) -> DBusCapabilityFlags {
+    unsafe fn from_glib(value: ffi::GDBusCapabilityFlags) -> DBusCapabilityFlags {
         DBusCapabilityFlags::from_bits_truncate(value)
     }
 }
@@ -481,7 +481,7 @@ impl ToGlib for DBusConnectionFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDBusConnectionFlags> for DBusConnectionFlags {
-    fn from_glib(value: ffi::GDBusConnectionFlags) -> DBusConnectionFlags {
+    unsafe fn from_glib(value: ffi::GDBusConnectionFlags) -> DBusConnectionFlags {
         DBusConnectionFlags::from_bits_truncate(value)
     }
 }
@@ -534,7 +534,7 @@ impl ToGlib for DBusInterfaceSkeletonFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDBusInterfaceSkeletonFlags> for DBusInterfaceSkeletonFlags {
-    fn from_glib(value: ffi::GDBusInterfaceSkeletonFlags) -> DBusInterfaceSkeletonFlags {
+    unsafe fn from_glib(value: ffi::GDBusInterfaceSkeletonFlags) -> DBusInterfaceSkeletonFlags {
         DBusInterfaceSkeletonFlags::from_bits_truncate(value)
     }
 }
@@ -589,7 +589,7 @@ impl ToGlib for DBusMessageFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDBusMessageFlags> for DBusMessageFlags {
-    fn from_glib(value: ffi::GDBusMessageFlags) -> DBusMessageFlags {
+    unsafe fn from_glib(value: ffi::GDBusMessageFlags) -> DBusMessageFlags {
         DBusMessageFlags::from_bits_truncate(value)
     }
 }
@@ -646,7 +646,7 @@ impl ToGlib for DBusProxyFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDBusProxyFlags> for DBusProxyFlags {
-    fn from_glib(value: ffi::GDBusProxyFlags) -> DBusProxyFlags {
+    unsafe fn from_glib(value: ffi::GDBusProxyFlags) -> DBusProxyFlags {
         DBusProxyFlags::from_bits_truncate(value)
     }
 }
@@ -699,7 +699,7 @@ impl ToGlib for DBusSendMessageFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDBusSendMessageFlags> for DBusSendMessageFlags {
-    fn from_glib(value: ffi::GDBusSendMessageFlags) -> DBusSendMessageFlags {
+    unsafe fn from_glib(value: ffi::GDBusSendMessageFlags) -> DBusSendMessageFlags {
         DBusSendMessageFlags::from_bits_truncate(value)
     }
 }
@@ -753,7 +753,7 @@ impl ToGlib for DBusServerFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDBusServerFlags> for DBusServerFlags {
-    fn from_glib(value: ffi::GDBusServerFlags) -> DBusServerFlags {
+    unsafe fn from_glib(value: ffi::GDBusServerFlags) -> DBusServerFlags {
         DBusServerFlags::from_bits_truncate(value)
     }
 }
@@ -808,7 +808,7 @@ impl ToGlib for DBusSignalFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDBusSignalFlags> for DBusSignalFlags {
-    fn from_glib(value: ffi::GDBusSignalFlags) -> DBusSignalFlags {
+    unsafe fn from_glib(value: ffi::GDBusSignalFlags) -> DBusSignalFlags {
         DBusSignalFlags::from_bits_truncate(value)
     }
 }
@@ -860,7 +860,7 @@ impl ToGlib for DriveStartFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDriveStartFlags> for DriveStartFlags {
-    fn from_glib(value: ffi::GDriveStartFlags) -> DriveStartFlags {
+    unsafe fn from_glib(value: ffi::GDriveStartFlags) -> DriveStartFlags {
         DriveStartFlags::from_bits_truncate(value)
     }
 }
@@ -918,7 +918,7 @@ impl ToGlib for FileCopyFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GFileCopyFlags> for FileCopyFlags {
-    fn from_glib(value: ffi::GFileCopyFlags) -> FileCopyFlags {
+    unsafe fn from_glib(value: ffi::GFileCopyFlags) -> FileCopyFlags {
         FileCopyFlags::from_bits_truncate(value)
     }
 }
@@ -972,7 +972,7 @@ impl ToGlib for FileCreateFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GFileCreateFlags> for FileCreateFlags {
-    fn from_glib(value: ffi::GFileCreateFlags) -> FileCreateFlags {
+    unsafe fn from_glib(value: ffi::GFileCreateFlags) -> FileCreateFlags {
         FileCreateFlags::from_bits_truncate(value)
     }
 }
@@ -1027,7 +1027,7 @@ impl ToGlib for FileMeasureFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GFileMeasureFlags> for FileMeasureFlags {
-    fn from_glib(value: ffi::GFileMeasureFlags) -> FileMeasureFlags {
+    unsafe fn from_glib(value: ffi::GFileMeasureFlags) -> FileMeasureFlags {
         FileMeasureFlags::from_bits_truncate(value)
     }
 }
@@ -1083,7 +1083,7 @@ impl ToGlib for FileMonitorFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GFileMonitorFlags> for FileMonitorFlags {
-    fn from_glib(value: ffi::GFileMonitorFlags) -> FileMonitorFlags {
+    unsafe fn from_glib(value: ffi::GFileMonitorFlags) -> FileMonitorFlags {
         FileMonitorFlags::from_bits_truncate(value)
     }
 }
@@ -1136,7 +1136,7 @@ impl ToGlib for FileQueryInfoFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GFileQueryInfoFlags> for FileQueryInfoFlags {
-    fn from_glib(value: ffi::GFileQueryInfoFlags) -> FileQueryInfoFlags {
+    unsafe fn from_glib(value: ffi::GFileQueryInfoFlags) -> FileQueryInfoFlags {
         FileQueryInfoFlags::from_bits_truncate(value)
     }
 }
@@ -1191,7 +1191,7 @@ impl ToGlib for IOStreamSpliceFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GIOStreamSpliceFlags> for IOStreamSpliceFlags {
-    fn from_glib(value: ffi::GIOStreamSpliceFlags) -> IOStreamSpliceFlags {
+    unsafe fn from_glib(value: ffi::GIOStreamSpliceFlags) -> IOStreamSpliceFlags {
         IOStreamSpliceFlags::from_bits_truncate(value)
     }
 }
@@ -1243,7 +1243,7 @@ impl ToGlib for MountMountFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GMountMountFlags> for MountMountFlags {
-    fn from_glib(value: ffi::GMountMountFlags) -> MountMountFlags {
+    unsafe fn from_glib(value: ffi::GMountMountFlags) -> MountMountFlags {
         MountMountFlags::from_bits_truncate(value)
     }
 }
@@ -1296,7 +1296,7 @@ impl ToGlib for MountUnmountFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GMountUnmountFlags> for MountUnmountFlags {
-    fn from_glib(value: ffi::GMountUnmountFlags) -> MountUnmountFlags {
+    unsafe fn from_glib(value: ffi::GMountUnmountFlags) -> MountUnmountFlags {
         MountUnmountFlags::from_bits_truncate(value)
     }
 }
@@ -1350,7 +1350,7 @@ impl ToGlib for OutputStreamSpliceFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GOutputStreamSpliceFlags> for OutputStreamSpliceFlags {
-    fn from_glib(value: ffi::GOutputStreamSpliceFlags) -> OutputStreamSpliceFlags {
+    unsafe fn from_glib(value: ffi::GOutputStreamSpliceFlags) -> OutputStreamSpliceFlags {
         OutputStreamSpliceFlags::from_bits_truncate(value)
     }
 }
@@ -1412,7 +1412,7 @@ impl ToGlib for ResolverNameLookupFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GResolverNameLookupFlags> for ResolverNameLookupFlags {
-    fn from_glib(value: ffi::GResolverNameLookupFlags) -> ResolverNameLookupFlags {
+    unsafe fn from_glib(value: ffi::GResolverNameLookupFlags) -> ResolverNameLookupFlags {
         ResolverNameLookupFlags::from_bits_truncate(value)
     }
 }
@@ -1472,7 +1472,7 @@ impl ToGlib for ResourceLookupFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GResourceLookupFlags> for ResourceLookupFlags {
-    fn from_glib(value: ffi::GResourceLookupFlags) -> ResourceLookupFlags {
+    unsafe fn from_glib(value: ffi::GResourceLookupFlags) -> ResourceLookupFlags {
         ResourceLookupFlags::from_bits_truncate(value)
     }
 }
@@ -1529,7 +1529,7 @@ impl ToGlib for SettingsBindFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GSettingsBindFlags> for SettingsBindFlags {
-    fn from_glib(value: ffi::GSettingsBindFlags) -> SettingsBindFlags {
+    unsafe fn from_glib(value: ffi::GSettingsBindFlags) -> SettingsBindFlags {
         SettingsBindFlags::from_bits_truncate(value)
     }
 }
@@ -1589,7 +1589,7 @@ impl ToGlib for SubprocessFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GSubprocessFlags> for SubprocessFlags {
-    fn from_glib(value: ffi::GSubprocessFlags) -> SubprocessFlags {
+    unsafe fn from_glib(value: ffi::GSubprocessFlags) -> SubprocessFlags {
         SubprocessFlags::from_bits_truncate(value)
     }
 }
@@ -1648,7 +1648,7 @@ impl ToGlib for TlsCertificateFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GTlsCertificateFlags> for TlsCertificateFlags {
-    fn from_glib(value: ffi::GTlsCertificateFlags) -> TlsCertificateFlags {
+    unsafe fn from_glib(value: ffi::GTlsCertificateFlags) -> TlsCertificateFlags {
         TlsCertificateFlags::from_bits_truncate(value)
     }
 }
@@ -1700,7 +1700,7 @@ impl ToGlib for TlsDatabaseVerifyFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GTlsDatabaseVerifyFlags> for TlsDatabaseVerifyFlags {
-    fn from_glib(value: ffi::GTlsDatabaseVerifyFlags) -> TlsDatabaseVerifyFlags {
+    unsafe fn from_glib(value: ffi::GTlsDatabaseVerifyFlags) -> TlsDatabaseVerifyFlags {
         TlsDatabaseVerifyFlags::from_bits_truncate(value)
     }
 }
@@ -1755,7 +1755,7 @@ impl ToGlib for TlsPasswordFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GTlsPasswordFlags> for TlsPasswordFlags {
-    fn from_glib(value: ffi::GTlsPasswordFlags) -> TlsPasswordFlags {
+    unsafe fn from_glib(value: ffi::GTlsPasswordFlags) -> TlsPasswordFlags {
         TlsPasswordFlags::from_bits_truncate(value)
     }
 }

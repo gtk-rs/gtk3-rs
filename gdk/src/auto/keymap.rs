@@ -24,14 +24,17 @@ glib::glib_wrapper! {
 }
 
 impl Keymap {
+    #[doc(alias = "gdk_keymap_get_caps_lock_state")]
     pub fn get_caps_lock_state(&self) -> bool {
         unsafe { from_glib(ffi::gdk_keymap_get_caps_lock_state(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_keymap_get_direction")]
     pub fn get_direction(&self) -> pango::Direction {
         unsafe { from_glib(ffi::gdk_keymap_get_direction(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_keymap_get_modifier_mask")]
     pub fn get_modifier_mask(&self, intent: ModifierIntent) -> ModifierType {
         unsafe {
             from_glib(ffi::gdk_keymap_get_modifier_mask(
@@ -41,28 +44,34 @@ impl Keymap {
         }
     }
 
+    #[doc(alias = "gdk_keymap_get_modifier_state")]
     pub fn get_modifier_state(&self) -> u32 {
         unsafe { ffi::gdk_keymap_get_modifier_state(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_keymap_get_num_lock_state")]
     pub fn get_num_lock_state(&self) -> bool {
         unsafe { from_glib(ffi::gdk_keymap_get_num_lock_state(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "gdk_keymap_get_scroll_lock_state")]
     pub fn get_scroll_lock_state(&self) -> bool {
         unsafe { from_glib(ffi::gdk_keymap_get_scroll_lock_state(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_keymap_have_bidi_layouts")]
     pub fn have_bidi_layouts(&self) -> bool {
         unsafe { from_glib(ffi::gdk_keymap_have_bidi_layouts(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_keymap_lookup_key")]
     pub fn lookup_key(&self, key: &KeymapKey) -> u32 {
         unsafe { ffi::gdk_keymap_lookup_key(self.to_glib_none().0, key.to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_keymap_translate_keyboard_state")]
     pub fn translate_keyboard_state(
         &self,
         hardware_keycode: u32,
@@ -102,11 +111,13 @@ impl Keymap {
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_keymap_get_default")]
     pub fn get_default() -> Option<Keymap> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_keymap_get_default()) }
     }
 
+    #[doc(alias = "gdk_keymap_get_for_display")]
     pub fn get_for_display(display: &Display) -> Option<Keymap> {
         skip_assert_initialized!();
         unsafe { from_glib_none(ffi::gdk_keymap_get_for_display(display.to_glib_none().0)) }

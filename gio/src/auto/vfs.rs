@@ -19,10 +19,12 @@ glib::glib_wrapper! {
 }
 
 impl Vfs {
+    #[doc(alias = "g_vfs_get_default")]
     pub fn get_default() -> Option<Vfs> {
         unsafe { from_glib_none(ffi::g_vfs_get_default()) }
     }
 
+    #[doc(alias = "g_vfs_get_local")]
     pub fn get_local() -> Option<Vfs> {
         unsafe { from_glib_none(ffi::g_vfs_get_local()) }
     }
@@ -34,18 +36,24 @@ unsafe impl Sync for Vfs {}
 pub const NONE_VFS: Option<&Vfs> = None;
 
 pub trait VfsExt: 'static {
+    #[doc(alias = "g_vfs_get_file_for_path")]
     fn get_file_for_path(&self, path: &str) -> Option<File>;
 
+    #[doc(alias = "g_vfs_get_file_for_uri")]
     fn get_file_for_uri(&self, uri: &str) -> Option<File>;
 
+    #[doc(alias = "g_vfs_get_supported_uri_schemes")]
     fn get_supported_uri_schemes(&self) -> Vec<glib::GString>;
 
+    #[doc(alias = "g_vfs_is_active")]
     fn is_active(&self) -> bool;
 
+    #[doc(alias = "g_vfs_parse_name")]
     fn parse_name(&self, parse_name: &str) -> Option<File>;
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+    #[doc(alias = "g_vfs_register_uri_scheme")]
     fn register_uri_scheme(
         &self,
         scheme: &str,
@@ -55,6 +63,7 @@ pub trait VfsExt: 'static {
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+    #[doc(alias = "g_vfs_unregister_uri_scheme")]
     fn unregister_uri_scheme(&self, scheme: &str) -> bool;
 }
 

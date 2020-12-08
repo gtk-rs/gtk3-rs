@@ -21,6 +21,7 @@ glib::glib_wrapper! {
 }
 
 impl TlsPassword {
+    #[doc(alias = "g_tls_password_new")]
     pub fn new(flags: TlsPasswordFlags, description: &str) -> TlsPassword {
         unsafe {
             from_glib_full(ffi::g_tls_password_new(
@@ -34,18 +35,25 @@ impl TlsPassword {
 pub const NONE_TLS_PASSWORD: Option<&TlsPassword> = None;
 
 pub trait TlsPasswordExt: 'static {
+    #[doc(alias = "g_tls_password_get_description")]
     fn get_description(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_tls_password_get_flags")]
     fn get_flags(&self) -> TlsPasswordFlags;
 
+    #[doc(alias = "g_tls_password_get_warning")]
     fn get_warning(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_tls_password_set_description")]
     fn set_description(&self, description: &str);
 
+    #[doc(alias = "g_tls_password_set_flags")]
     fn set_flags(&self, flags: TlsPasswordFlags);
 
+    //#[doc(alias = "g_tls_password_set_value_full")]
     //fn set_value_full(&self, value: &[u8]);
 
+    #[doc(alias = "g_tls_password_set_warning")]
     fn set_warning(&self, warning: &str);
 
     fn connect_property_description_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

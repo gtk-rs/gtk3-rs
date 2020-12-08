@@ -16,6 +16,7 @@ glib::glib_wrapper! {
 }
 
 impl Range {
+    #[doc(alias = "atk_range_new")]
     pub fn new(lower_limit: f64, upper_limit: f64, description: &str) -> Range {
         assert_initialized_main_thread!();
         unsafe {
@@ -27,14 +28,17 @@ impl Range {
         }
     }
 
+    #[doc(alias = "atk_range_get_description")]
     pub fn get_description(&mut self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::atk_range_get_description(self.to_glib_none_mut().0)) }
     }
 
+    #[doc(alias = "atk_range_get_lower_limit")]
     pub fn get_lower_limit(&mut self) -> f64 {
         unsafe { ffi::atk_range_get_lower_limit(self.to_glib_none_mut().0) }
     }
 
+    #[doc(alias = "atk_range_get_upper_limit")]
     pub fn get_upper_limit(&mut self) -> f64 {
         unsafe { ffi::atk_range_get_upper_limit(self.to_glib_none_mut().0) }
     }

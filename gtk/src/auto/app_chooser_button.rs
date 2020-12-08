@@ -35,6 +35,7 @@ glib::glib_wrapper! {
 }
 
 impl AppChooserButton {
+    #[doc(alias = "gtk_app_chooser_button_new")]
     pub fn new(content_type: &str) -> AppChooserButton {
         assert_initialized_main_thread!();
         unsafe {
@@ -550,22 +551,31 @@ impl AppChooserButtonBuilder {
 pub const NONE_APP_CHOOSER_BUTTON: Option<&AppChooserButton> = None;
 
 pub trait AppChooserButtonExt: 'static {
+    #[doc(alias = "gtk_app_chooser_button_append_custom_item")]
     fn append_custom_item<P: IsA<gio::Icon>>(&self, name: &str, label: &str, icon: &P);
 
+    #[doc(alias = "gtk_app_chooser_button_append_separator")]
     fn append_separator(&self);
 
+    #[doc(alias = "gtk_app_chooser_button_get_heading")]
     fn get_heading(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_app_chooser_button_get_show_default_item")]
     fn get_show_default_item(&self) -> bool;
 
+    #[doc(alias = "gtk_app_chooser_button_get_show_dialog_item")]
     fn get_show_dialog_item(&self) -> bool;
 
+    #[doc(alias = "gtk_app_chooser_button_set_active_custom_item")]
     fn set_active_custom_item(&self, name: &str);
 
+    #[doc(alias = "gtk_app_chooser_button_set_heading")]
     fn set_heading(&self, heading: &str);
 
+    #[doc(alias = "gtk_app_chooser_button_set_show_default_item")]
     fn set_show_default_item(&self, setting: bool);
 
+    #[doc(alias = "gtk_app_chooser_button_set_show_dialog_item")]
     fn set_show_dialog_item(&self, setting: bool);
 
     fn connect_custom_item_activated<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;

@@ -32,6 +32,7 @@ glib::glib_wrapper! {
 }
 
 impl Box {
+    #[doc(alias = "gtk_box_new")]
     pub fn new(orientation: Orientation, spacing: i32) -> Box {
         assert_initialized_main_thread!();
         unsafe {
@@ -418,26 +419,37 @@ impl BoxBuilder {
 pub const NONE_BOX: Option<&Box> = None;
 
 pub trait BoxExt: 'static {
+    #[doc(alias = "gtk_box_get_baseline_position")]
     fn get_baseline_position(&self) -> BaselinePosition;
 
+    #[doc(alias = "gtk_box_get_center_widget")]
     fn get_center_widget(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_box_get_homogeneous")]
     fn get_homogeneous(&self) -> bool;
 
+    #[doc(alias = "gtk_box_get_spacing")]
     fn get_spacing(&self) -> i32;
 
+    #[doc(alias = "gtk_box_pack_end")]
     fn pack_end<P: IsA<Widget>>(&self, child: &P, expand: bool, fill: bool, padding: u32);
 
+    #[doc(alias = "gtk_box_pack_start")]
     fn pack_start<P: IsA<Widget>>(&self, child: &P, expand: bool, fill: bool, padding: u32);
 
+    #[doc(alias = "gtk_box_query_child_packing")]
     fn query_child_packing<P: IsA<Widget>>(&self, child: &P) -> (bool, bool, u32, PackType);
 
+    #[doc(alias = "gtk_box_reorder_child")]
     fn reorder_child<P: IsA<Widget>>(&self, child: &P, position: i32);
 
+    #[doc(alias = "gtk_box_set_baseline_position")]
     fn set_baseline_position(&self, position: BaselinePosition);
 
+    #[doc(alias = "gtk_box_set_center_widget")]
     fn set_center_widget<P: IsA<Widget>>(&self, widget: Option<&P>);
 
+    #[doc(alias = "gtk_box_set_child_packing")]
     fn set_child_packing<P: IsA<Widget>>(
         &self,
         child: &P,
@@ -447,8 +459,10 @@ pub trait BoxExt: 'static {
         pack_type: PackType,
     );
 
+    #[doc(alias = "gtk_box_set_homogeneous")]
     fn set_homogeneous(&self, homogeneous: bool);
 
+    #[doc(alias = "gtk_box_set_spacing")]
     fn set_spacing(&self, spacing: i32);
 
     #[doc(hidden)]

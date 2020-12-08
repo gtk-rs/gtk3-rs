@@ -28,6 +28,7 @@ glib::glib_wrapper! {
 }
 
 impl ProgressBar {
+    #[doc(alias = "gtk_progress_bar_new")]
     pub fn new() -> ProgressBar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_progress_bar_new()).unsafe_cast() }
@@ -418,30 +419,43 @@ impl ProgressBarBuilder {
 pub const NONE_PROGRESS_BAR: Option<&ProgressBar> = None;
 
 pub trait ProgressBarExt: 'static {
+    #[doc(alias = "gtk_progress_bar_get_ellipsize")]
     fn get_ellipsize(&self) -> pango::EllipsizeMode;
 
+    #[doc(alias = "gtk_progress_bar_get_fraction")]
     fn get_fraction(&self) -> f64;
 
+    #[doc(alias = "gtk_progress_bar_get_inverted")]
     fn get_inverted(&self) -> bool;
 
+    #[doc(alias = "gtk_progress_bar_get_pulse_step")]
     fn get_pulse_step(&self) -> f64;
 
+    #[doc(alias = "gtk_progress_bar_get_show_text")]
     fn get_show_text(&self) -> bool;
 
+    #[doc(alias = "gtk_progress_bar_get_text")]
     fn get_text(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_progress_bar_pulse")]
     fn pulse(&self);
 
+    #[doc(alias = "gtk_progress_bar_set_ellipsize")]
     fn set_ellipsize(&self, mode: pango::EllipsizeMode);
 
+    #[doc(alias = "gtk_progress_bar_set_fraction")]
     fn set_fraction(&self, fraction: f64);
 
+    #[doc(alias = "gtk_progress_bar_set_inverted")]
     fn set_inverted(&self, inverted: bool);
 
+    #[doc(alias = "gtk_progress_bar_set_pulse_step")]
     fn set_pulse_step(&self, fraction: f64);
 
+    #[doc(alias = "gtk_progress_bar_set_show_text")]
     fn set_show_text(&self, show_text: bool);
 
+    #[doc(alias = "gtk_progress_bar_set_text")]
     fn set_text(&self, text: Option<&str>);
 
     fn connect_property_ellipsize_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

@@ -47,7 +47,7 @@ impl ToGlib for Colorspace {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkColorspace> for Colorspace {
-    fn from_glib(value: ffi::GdkColorspace) -> Self {
+    unsafe fn from_glib(value: ffi::GdkColorspace) -> Self {
         match value {
             0 => Colorspace::Rgb,
             value => Colorspace::__Unknown(value),
@@ -123,7 +123,7 @@ impl ToGlib for InterpType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkInterpType> for InterpType {
-    fn from_glib(value: ffi::GdkInterpType) -> Self {
+    unsafe fn from_glib(value: ffi::GdkInterpType) -> Self {
         match value {
             0 => InterpType::Nearest,
             1 => InterpType::Tiles,
@@ -196,7 +196,7 @@ impl ToGlib for PixbufAlphaMode {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkPixbufAlphaMode> for PixbufAlphaMode {
-    fn from_glib(value: ffi::GdkPixbufAlphaMode) -> Self {
+    unsafe fn from_glib(value: ffi::GdkPixbufAlphaMode) -> Self {
         match value {
             0 => PixbufAlphaMode::Bilevel,
             1 => PixbufAlphaMode::Full,
@@ -282,7 +282,7 @@ impl ToGlib for PixbufError {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkPixbufError> for PixbufError {
-    fn from_glib(value: ffi::GdkPixbufError) -> Self {
+    unsafe fn from_glib(value: ffi::GdkPixbufError) -> Self {
         match value {
             0 => PixbufError::CorruptImage,
             1 => PixbufError::InsufficientMemory,
@@ -387,7 +387,7 @@ impl ToGlib for PixbufRotation {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkPixbufRotation> for PixbufRotation {
-    fn from_glib(value: ffi::GdkPixbufRotation) -> Self {
+    unsafe fn from_glib(value: ffi::GdkPixbufRotation) -> Self {
         match value {
             0 => PixbufRotation::None,
             90 => PixbufRotation::Counterclockwise,

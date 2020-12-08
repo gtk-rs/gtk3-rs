@@ -25,18 +25,25 @@ glib::glib_wrapper! {
 pub const NONE_HYPERLINK: Option<&Hyperlink> = None;
 
 pub trait HyperlinkExt: 'static {
+    #[doc(alias = "atk_hyperlink_get_end_index")]
     fn get_end_index(&self) -> i32;
 
+    #[doc(alias = "atk_hyperlink_get_n_anchors")]
     fn get_n_anchors(&self) -> i32;
 
+    #[doc(alias = "atk_hyperlink_get_object")]
     fn get_object(&self, i: i32) -> Option<Object>;
 
+    #[doc(alias = "atk_hyperlink_get_start_index")]
     fn get_start_index(&self) -> i32;
 
+    #[doc(alias = "atk_hyperlink_get_uri")]
     fn get_uri(&self, i: i32) -> Option<glib::GString>;
 
+    #[doc(alias = "atk_hyperlink_is_inline")]
     fn is_inline(&self) -> bool;
 
+    #[doc(alias = "atk_hyperlink_is_valid")]
     fn is_valid(&self) -> bool;
 
     fn get_property_number_of_anchors(&self) -> i32;

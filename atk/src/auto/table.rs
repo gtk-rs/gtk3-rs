@@ -23,58 +23,85 @@ glib::glib_wrapper! {
 pub const NONE_TABLE: Option<&Table> = None;
 
 pub trait TableExt: 'static {
+    #[doc(alias = "atk_table_add_column_selection")]
     fn add_column_selection(&self, column: i32) -> bool;
 
+    #[doc(alias = "atk_table_add_row_selection")]
     fn add_row_selection(&self, row: i32) -> bool;
 
+    #[doc(alias = "atk_table_get_caption")]
     fn get_caption(&self) -> Option<Object>;
 
+    #[doc(alias = "atk_table_get_column_at_index")]
     fn get_column_at_index(&self, index_: i32) -> i32;
 
+    #[doc(alias = "atk_table_get_column_description")]
     fn get_column_description(&self, column: i32) -> Option<glib::GString>;
 
+    #[doc(alias = "atk_table_get_column_extent_at")]
     fn get_column_extent_at(&self, row: i32, column: i32) -> i32;
 
+    #[doc(alias = "atk_table_get_column_header")]
     fn get_column_header(&self, column: i32) -> Option<Object>;
 
+    #[doc(alias = "atk_table_get_index_at")]
     fn get_index_at(&self, row: i32, column: i32) -> i32;
 
+    #[doc(alias = "atk_table_get_n_columns")]
     fn get_n_columns(&self) -> i32;
 
+    #[doc(alias = "atk_table_get_n_rows")]
     fn get_n_rows(&self) -> i32;
 
+    #[doc(alias = "atk_table_get_row_at_index")]
     fn get_row_at_index(&self, index_: i32) -> i32;
 
+    #[doc(alias = "atk_table_get_row_description")]
     fn get_row_description(&self, row: i32) -> Option<glib::GString>;
 
+    #[doc(alias = "atk_table_get_row_extent_at")]
     fn get_row_extent_at(&self, row: i32, column: i32) -> i32;
 
+    #[doc(alias = "atk_table_get_row_header")]
     fn get_row_header(&self, row: i32) -> Option<Object>;
 
+    #[doc(alias = "atk_table_get_summary")]
     fn get_summary(&self) -> Option<Object>;
 
+    #[doc(alias = "atk_table_is_column_selected")]
     fn is_column_selected(&self, column: i32) -> bool;
 
+    #[doc(alias = "atk_table_is_row_selected")]
     fn is_row_selected(&self, row: i32) -> bool;
 
+    #[doc(alias = "atk_table_is_selected")]
     fn is_selected(&self, row: i32, column: i32) -> bool;
 
+    #[doc(alias = "atk_table_ref_at")]
     fn ref_at(&self, row: i32, column: i32) -> Option<Object>;
 
+    #[doc(alias = "atk_table_remove_column_selection")]
     fn remove_column_selection(&self, column: i32) -> bool;
 
+    #[doc(alias = "atk_table_remove_row_selection")]
     fn remove_row_selection(&self, row: i32) -> bool;
 
+    #[doc(alias = "atk_table_set_caption")]
     fn set_caption<P: IsA<Object>>(&self, caption: &P);
 
+    #[doc(alias = "atk_table_set_column_description")]
     fn set_column_description(&self, column: i32, description: &str);
 
+    #[doc(alias = "atk_table_set_column_header")]
     fn set_column_header<P: IsA<Object>>(&self, column: i32, header: &P);
 
+    #[doc(alias = "atk_table_set_row_description")]
     fn set_row_description(&self, row: i32, description: &str);
 
+    #[doc(alias = "atk_table_set_row_header")]
     fn set_row_header<P: IsA<Object>>(&self, row: i32, header: &P);
 
+    #[doc(alias = "atk_table_set_summary")]
     fn set_summary<P: IsA<Object>>(&self, accessible: &P);
 
     fn connect_column_deleted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId;

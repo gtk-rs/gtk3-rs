@@ -31,6 +31,7 @@ glib::glib_wrapper! {
 }
 
 impl Paned {
+    #[doc(alias = "gtk_paned_new")]
     pub fn new(orientation: Orientation) -> Paned {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_paned_new(orientation.to_glib())).unsafe_cast() }
@@ -420,30 +421,41 @@ impl PanedBuilder {
 pub const NONE_PANED: Option<&Paned> = None;
 
 pub trait PanedExt: 'static {
+    #[doc(alias = "gtk_paned_add1")]
     fn add1<P: IsA<Widget>>(&self, child: &P);
 
+    #[doc(alias = "gtk_paned_add2")]
     fn add2<P: IsA<Widget>>(&self, child: &P);
 
+    #[doc(alias = "gtk_paned_get_child1")]
     fn get_child1(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_paned_get_child2")]
     fn get_child2(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_paned_get_handle_window")]
     fn get_handle_window(&self) -> Option<gdk::Window>;
 
+    #[doc(alias = "gtk_paned_get_position")]
     fn get_position(&self) -> i32;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_paned_get_wide_handle")]
     fn get_wide_handle(&self) -> bool;
 
+    #[doc(alias = "gtk_paned_pack1")]
     fn pack1<P: IsA<Widget>>(&self, child: &P, resize: bool, shrink: bool);
 
+    #[doc(alias = "gtk_paned_pack2")]
     fn pack2<P: IsA<Widget>>(&self, child: &P, resize: bool, shrink: bool);
 
+    #[doc(alias = "gtk_paned_set_position")]
     fn set_position(&self, position: i32);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_paned_set_wide_handle")]
     fn set_wide_handle(&self, wide: bool);
 
     fn get_property_max_position(&self) -> i32;

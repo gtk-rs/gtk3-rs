@@ -29,6 +29,7 @@ glib::glib_wrapper! {
 }
 
 impl SeparatorToolItem {
+    #[doc(alias = "gtk_separator_tool_item_new")]
     pub fn new() -> SeparatorToolItem {
         assert_initialized_main_thread!();
         unsafe { ToolItem::from_glib_none(ffi::gtk_separator_tool_item_new()).unsafe_cast() }
@@ -419,8 +420,10 @@ impl SeparatorToolItemBuilder {
 pub const NONE_SEPARATOR_TOOL_ITEM: Option<&SeparatorToolItem> = None;
 
 pub trait SeparatorToolItemExt: 'static {
+    #[doc(alias = "gtk_separator_tool_item_get_draw")]
     fn get_draw(&self) -> bool;
 
+    #[doc(alias = "gtk_separator_tool_item_set_draw")]
     fn set_draw(&self, draw: bool);
 
     fn connect_property_draw_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

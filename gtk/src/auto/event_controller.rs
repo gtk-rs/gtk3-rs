@@ -24,14 +24,19 @@ glib::glib_wrapper! {
 pub const NONE_EVENT_CONTROLLER: Option<&EventController> = None;
 
 pub trait EventControllerExt: 'static {
+    #[doc(alias = "gtk_event_controller_get_propagation_phase")]
     fn get_propagation_phase(&self) -> PropagationPhase;
 
+    #[doc(alias = "gtk_event_controller_get_widget")]
     fn get_widget(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_event_controller_handle_event")]
     fn handle_event(&self, event: &gdk::Event) -> bool;
 
+    #[doc(alias = "gtk_event_controller_reset")]
     fn reset(&self);
 
+    #[doc(alias = "gtk_event_controller_set_propagation_phase")]
     fn set_propagation_phase(&self, phase: PropagationPhase);
 
     fn connect_property_propagation_phase_notify<F: Fn(&Self) + 'static>(

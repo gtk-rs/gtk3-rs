@@ -30,11 +30,13 @@ glib::glib_wrapper! {
 }
 
 impl LevelBar {
+    #[doc(alias = "gtk_level_bar_new")]
     pub fn new() -> LevelBar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_level_bar_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_level_bar_new_for_interval")]
     pub fn new_for_interval(min_value: f64, max_value: f64) -> LevelBar {
         assert_initialized_main_thread!();
         unsafe {
@@ -419,30 +421,43 @@ impl LevelBarBuilder {
 pub const NONE_LEVEL_BAR: Option<&LevelBar> = None;
 
 pub trait LevelBarExt: 'static {
+    #[doc(alias = "gtk_level_bar_add_offset_value")]
     fn add_offset_value(&self, name: &str, value: f64);
 
+    #[doc(alias = "gtk_level_bar_get_inverted")]
     fn get_inverted(&self) -> bool;
 
+    #[doc(alias = "gtk_level_bar_get_max_value")]
     fn get_max_value(&self) -> f64;
 
+    #[doc(alias = "gtk_level_bar_get_min_value")]
     fn get_min_value(&self) -> f64;
 
+    #[doc(alias = "gtk_level_bar_get_mode")]
     fn get_mode(&self) -> LevelBarMode;
 
+    #[doc(alias = "gtk_level_bar_get_offset_value")]
     fn get_offset_value(&self, name: Option<&str>) -> Option<f64>;
 
+    #[doc(alias = "gtk_level_bar_get_value")]
     fn get_value(&self) -> f64;
 
+    #[doc(alias = "gtk_level_bar_remove_offset_value")]
     fn remove_offset_value(&self, name: Option<&str>);
 
+    #[doc(alias = "gtk_level_bar_set_inverted")]
     fn set_inverted(&self, inverted: bool);
 
+    #[doc(alias = "gtk_level_bar_set_max_value")]
     fn set_max_value(&self, value: f64);
 
+    #[doc(alias = "gtk_level_bar_set_min_value")]
     fn set_min_value(&self, value: f64);
 
+    #[doc(alias = "gtk_level_bar_set_mode")]
     fn set_mode(&self, mode: LevelBarMode);
 
+    #[doc(alias = "gtk_level_bar_set_value")]
     fn set_value(&self, value: f64);
 
     fn connect_offset_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;

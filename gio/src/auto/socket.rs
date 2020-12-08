@@ -32,6 +32,7 @@ glib::glib_wrapper! {
 }
 
 impl Socket {
+    #[doc(alias = "g_socket_new")]
     pub fn new(
         family: SocketFamily,
         type_: SocketType,
@@ -63,20 +64,26 @@ unsafe impl glib::SendUnique for Socket {
 pub const NONE_SOCKET: Option<&Socket> = None;
 
 pub trait SocketExt: 'static {
+    #[doc(alias = "g_socket_accept")]
     fn accept<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<Socket, glib::Error>;
 
+    #[doc(alias = "g_socket_bind")]
     fn bind<P: IsA<SocketAddress>>(
         &self,
         address: &P,
         allow_reuse: bool,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_socket_check_connect_result")]
     fn check_connect_result(&self) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_socket_close")]
     fn close(&self) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_socket_condition_check")]
     fn condition_check(&self, condition: glib::IOCondition) -> glib::IOCondition;
 
+    #[doc(alias = "g_socket_condition_timed_wait")]
     fn condition_timed_wait<P: IsA<Cancellable>>(
         &self,
         condition: glib::IOCondition,
@@ -84,56 +91,78 @@ pub trait SocketExt: 'static {
         cancellable: Option<&P>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_socket_condition_wait")]
     fn condition_wait<P: IsA<Cancellable>>(
         &self,
         condition: glib::IOCondition,
         cancellable: Option<&P>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_socket_connect")]
     fn connect<P: IsA<SocketAddress>, Q: IsA<Cancellable>>(
         &self,
         address: &P,
         cancellable: Option<&Q>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_socket_connection_factory_create_connection")]
     fn connection_factory_create_connection(&self) -> Option<SocketConnection>;
 
+    #[doc(alias = "g_socket_get_available_bytes")]
     fn get_available_bytes(&self) -> isize;
 
+    #[doc(alias = "g_socket_get_blocking")]
     fn get_blocking(&self) -> bool;
 
+    #[doc(alias = "g_socket_get_broadcast")]
     fn get_broadcast(&self) -> bool;
 
+    #[doc(alias = "g_socket_get_credentials")]
     fn get_credentials(&self) -> Result<Credentials, glib::Error>;
 
+    #[doc(alias = "g_socket_get_family")]
     fn get_family(&self) -> SocketFamily;
 
+    #[doc(alias = "g_socket_get_keepalive")]
     fn get_keepalive(&self) -> bool;
 
+    #[doc(alias = "g_socket_get_listen_backlog")]
     fn get_listen_backlog(&self) -> i32;
 
+    #[doc(alias = "g_socket_get_local_address")]
     fn get_local_address(&self) -> Result<SocketAddress, glib::Error>;
 
+    #[doc(alias = "g_socket_get_multicast_loopback")]
     fn get_multicast_loopback(&self) -> bool;
 
+    #[doc(alias = "g_socket_get_multicast_ttl")]
     fn get_multicast_ttl(&self) -> u32;
 
+    #[doc(alias = "g_socket_get_option")]
     fn get_option(&self, level: i32, optname: i32) -> Result<i32, glib::Error>;
 
+    #[doc(alias = "g_socket_get_protocol")]
     fn get_protocol(&self) -> SocketProtocol;
 
+    #[doc(alias = "g_socket_get_remote_address")]
     fn get_remote_address(&self) -> Result<SocketAddress, glib::Error>;
 
+    #[doc(alias = "g_socket_get_socket_type")]
     fn get_socket_type(&self) -> SocketType;
 
+    #[doc(alias = "g_socket_get_timeout")]
     fn get_timeout(&self) -> u32;
 
+    #[doc(alias = "g_socket_get_ttl")]
     fn get_ttl(&self) -> u32;
 
+    #[doc(alias = "g_socket_is_closed")]
     fn is_closed(&self) -> bool;
 
+    #[doc(alias = "g_socket_is_connected")]
     fn is_connected(&self) -> bool;
 
+    #[doc(alias = "g_socket_join_multicast_group")]
     fn join_multicast_group<P: IsA<InetAddress>>(
         &self,
         group: &P,
@@ -143,6 +172,7 @@ pub trait SocketExt: 'static {
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+    #[doc(alias = "g_socket_join_multicast_group_ssm")]
     fn join_multicast_group_ssm<P: IsA<InetAddress>, Q: IsA<InetAddress>>(
         &self,
         group: &P,
@@ -150,6 +180,7 @@ pub trait SocketExt: 'static {
         iface: Option<&str>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_socket_leave_multicast_group")]
     fn leave_multicast_group<P: IsA<InetAddress>>(
         &self,
         group: &P,
@@ -159,6 +190,7 @@ pub trait SocketExt: 'static {
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+    #[doc(alias = "g_socket_leave_multicast_group_ssm")]
     fn leave_multicast_group_ssm<P: IsA<InetAddress>, Q: IsA<InetAddress>>(
         &self,
         group: &P,
@@ -166,28 +198,40 @@ pub trait SocketExt: 'static {
         iface: Option<&str>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_socket_listen")]
     fn listen(&self) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_socket_set_blocking")]
     fn set_blocking(&self, blocking: bool);
 
+    #[doc(alias = "g_socket_set_broadcast")]
     fn set_broadcast(&self, broadcast: bool);
 
+    #[doc(alias = "g_socket_set_keepalive")]
     fn set_keepalive(&self, keepalive: bool);
 
+    #[doc(alias = "g_socket_set_listen_backlog")]
     fn set_listen_backlog(&self, backlog: i32);
 
+    #[doc(alias = "g_socket_set_multicast_loopback")]
     fn set_multicast_loopback(&self, loopback: bool);
 
+    #[doc(alias = "g_socket_set_multicast_ttl")]
     fn set_multicast_ttl(&self, ttl: u32);
 
+    #[doc(alias = "g_socket_set_option")]
     fn set_option(&self, level: i32, optname: i32, value: i32) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_socket_set_timeout")]
     fn set_timeout(&self, timeout: u32);
 
+    #[doc(alias = "g_socket_set_ttl")]
     fn set_ttl(&self, ttl: u32);
 
+    #[doc(alias = "g_socket_shutdown")]
     fn shutdown(&self, shutdown_read: bool, shutdown_write: bool) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_socket_speaks_ipv4")]
     fn speaks_ipv4(&self) -> bool;
 
     fn get_property_type(&self) -> SocketType;

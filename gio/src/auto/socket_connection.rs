@@ -24,6 +24,7 @@ glib::glib_wrapper! {
 }
 
 impl SocketConnection {
+    #[doc(alias = "g_socket_connection_factory_lookup_type")]
     pub fn factory_lookup_type(
         family: SocketFamily,
         type_: SocketType,
@@ -38,6 +39,7 @@ impl SocketConnection {
         }
     }
 
+    #[doc(alias = "g_socket_connection_factory_register_type")]
     pub fn factory_register_type(
         g_type: glib::types::Type,
         family: SocketFamily,
@@ -58,12 +60,14 @@ impl SocketConnection {
 pub const NONE_SOCKET_CONNECTION: Option<&SocketConnection> = None;
 
 pub trait SocketConnectionExt: 'static {
+    #[doc(alias = "g_socket_connection_connect")]
     fn connect<P: IsA<SocketAddress>, Q: IsA<Cancellable>>(
         &self,
         address: &P,
         cancellable: Option<&Q>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_socket_connection_connect_async")]
     fn connect_async<
         P: IsA<SocketAddress>,
         Q: IsA<Cancellable>,
@@ -80,12 +84,16 @@ pub trait SocketConnectionExt: 'static {
         address: &P,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_socket_connection_get_local_address")]
     fn get_local_address(&self) -> Result<SocketAddress, glib::Error>;
 
+    #[doc(alias = "g_socket_connection_get_remote_address")]
     fn get_remote_address(&self) -> Result<SocketAddress, glib::Error>;
 
+    #[doc(alias = "g_socket_connection_get_socket")]
     fn get_socket(&self) -> Option<Socket>;
 
+    #[doc(alias = "g_socket_connection_is_connected")]
     fn is_connected(&self) -> bool;
 }
 

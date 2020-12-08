@@ -24,10 +24,12 @@ glib::glib_wrapper! {
 }
 
 impl PixbufLoader {
+    #[doc(alias = "gdk_pixbuf_loader_new")]
     pub fn new() -> PixbufLoader {
         unsafe { from_glib_full(ffi::gdk_pixbuf_loader_new()) }
     }
 
+    #[doc(alias = "gdk_pixbuf_loader_new_with_mime_type")]
     pub fn with_mime_type(mime_type: &str) -> Result<PixbufLoader, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -41,6 +43,7 @@ impl PixbufLoader {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_loader_new_with_type")]
     pub fn with_type(image_type: &str) -> Result<PixbufLoader, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -63,18 +66,25 @@ impl Default for PixbufLoader {
 pub const NONE_PIXBUF_LOADER: Option<&PixbufLoader> = None;
 
 pub trait PixbufLoaderExt: 'static {
+    #[doc(alias = "gdk_pixbuf_loader_close")]
     fn close(&self) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gdk_pixbuf_loader_get_animation")]
     fn get_animation(&self) -> Option<PixbufAnimation>;
 
+    #[doc(alias = "gdk_pixbuf_loader_get_format")]
     fn get_format(&self) -> Option<PixbufFormat>;
 
+    #[doc(alias = "gdk_pixbuf_loader_get_pixbuf")]
     fn get_pixbuf(&self) -> Option<Pixbuf>;
 
+    #[doc(alias = "gdk_pixbuf_loader_set_size")]
     fn set_size(&self, width: i32, height: i32);
 
+    #[doc(alias = "gdk_pixbuf_loader_write")]
     fn write(&self, buf: &[u8]) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gdk_pixbuf_loader_write_bytes")]
     fn write_bytes(&self, buffer: &glib::Bytes) -> Result<(), glib::Error>;
 
     fn connect_area_prepared<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

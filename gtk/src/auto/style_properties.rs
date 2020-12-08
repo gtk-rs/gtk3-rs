@@ -18,6 +18,7 @@ glib::glib_wrapper! {
 
 impl StyleProperties {
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gtk_style_properties_new")]
     pub fn new() -> StyleProperties {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gtk_style_properties_new()) }
@@ -34,30 +35,39 @@ pub const NONE_STYLE_PROPERTIES: Option<&StyleProperties> = None;
 
 pub trait StylePropertiesExt: 'static {
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gtk_style_properties_clear")]
     fn clear(&self);
 
     //#[cfg_attr(feature = "v3_16", deprecated)]
+    //#[doc(alias = "gtk_style_properties_get")]
     //fn get(&self, state: StateFlags, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gtk_style_properties_get_property")]
     fn get_property(&self, property: &str, state: StateFlags) -> Option<glib::Value>;
 
     //#[cfg_attr(feature = "v3_16", deprecated)]
+    //#[doc(alias = "gtk_style_properties_get_valist")]
     //fn get_valist(&self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported);
 
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gtk_style_properties_merge")]
     fn merge<P: IsA<StyleProperties>>(&self, props_to_merge: &P, replace: bool);
 
     //#[cfg_attr(feature = "v3_16", deprecated)]
+    //#[doc(alias = "gtk_style_properties_set")]
     //fn set(&self, state: StateFlags, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gtk_style_properties_set_property")]
     fn set_property(&self, property: &str, state: StateFlags, value: &glib::Value);
 
     //#[cfg_attr(feature = "v3_16", deprecated)]
+    //#[doc(alias = "gtk_style_properties_set_valist")]
     //fn set_valist(&self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported);
 
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gtk_style_properties_unset_property")]
     fn unset_property(&self, property: &str, state: StateFlags);
 }
 

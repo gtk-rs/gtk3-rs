@@ -18,12 +18,16 @@ glib::glib_wrapper! {
 pub const NONE_ACTION_MAP: Option<&ActionMap> = None;
 
 pub trait ActionMapExt: 'static {
+    #[doc(alias = "g_action_map_add_action")]
     fn add_action<P: IsA<Action>>(&self, action: &P);
 
+    //#[doc(alias = "g_action_map_add_action_entries")]
     //fn add_action_entries(&self, entries: /*Ignored*/&[&ActionEntry], user_data: /*Unimplemented*/Option<Fundamental: Pointer>);
 
+    #[doc(alias = "g_action_map_lookup_action")]
     fn lookup_action(&self, action_name: &str) -> Option<Action>;
 
+    #[doc(alias = "g_action_map_remove_action")]
     fn remove_action(&self, action_name: &str);
 }
 

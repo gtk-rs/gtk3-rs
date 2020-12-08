@@ -18,6 +18,7 @@ glib::glib_wrapper! {
 }
 
 impl RecentInfo {
+    #[doc(alias = "gtk_recent_info_create_app_info")]
     pub fn create_app_info(
         &self,
         app_name: Option<&str>,
@@ -37,18 +38,22 @@ impl RecentInfo {
         }
     }
 
+    #[doc(alias = "gtk_recent_info_exists")]
     pub fn exists(&self) -> bool {
         unsafe { from_glib(ffi::gtk_recent_info_exists(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_recent_info_get_added")]
     pub fn get_added(&self) -> libc::c_long {
         unsafe { ffi::gtk_recent_info_get_added(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_recent_info_get_age")]
     pub fn get_age(&self) -> i32 {
         unsafe { ffi::gtk_recent_info_get_age(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_recent_info_get_application_info")]
     pub fn get_application_info(
         &self,
         app_name: &str,
@@ -74,6 +79,7 @@ impl RecentInfo {
         }
     }
 
+    #[doc(alias = "gtk_recent_info_get_applications")]
     pub fn get_applications(&self) -> Vec<glib::GString> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
@@ -85,18 +91,22 @@ impl RecentInfo {
         }
     }
 
+    #[doc(alias = "gtk_recent_info_get_description")]
     pub fn get_description(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_recent_info_get_description(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_recent_info_get_display_name")]
     pub fn get_display_name(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_recent_info_get_display_name(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_recent_info_get_gicon")]
     pub fn get_gicon(&self) -> Option<gio::Icon> {
         unsafe { from_glib_full(ffi::gtk_recent_info_get_gicon(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_recent_info_get_groups")]
     pub fn get_groups(&self) -> Vec<glib::GString> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
@@ -108,38 +118,47 @@ impl RecentInfo {
         }
     }
 
+    #[doc(alias = "gtk_recent_info_get_icon")]
     pub fn get_icon(&self, size: i32) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe { from_glib_full(ffi::gtk_recent_info_get_icon(self.to_glib_none().0, size)) }
     }
 
+    #[doc(alias = "gtk_recent_info_get_mime_type")]
     pub fn get_mime_type(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_recent_info_get_mime_type(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_recent_info_get_modified")]
     pub fn get_modified(&self) -> libc::c_long {
         unsafe { ffi::gtk_recent_info_get_modified(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_recent_info_get_private_hint")]
     pub fn get_private_hint(&self) -> bool {
         unsafe { from_glib(ffi::gtk_recent_info_get_private_hint(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_recent_info_get_short_name")]
     pub fn get_short_name(&self) -> Option<glib::GString> {
         unsafe { from_glib_full(ffi::gtk_recent_info_get_short_name(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_recent_info_get_uri")]
     pub fn get_uri(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_recent_info_get_uri(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_recent_info_get_uri_display")]
     pub fn get_uri_display(&self) -> Option<glib::GString> {
         unsafe { from_glib_full(ffi::gtk_recent_info_get_uri_display(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_recent_info_get_visited")]
     pub fn get_visited(&self) -> libc::c_long {
         unsafe { ffi::gtk_recent_info_get_visited(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_recent_info_has_application")]
     pub fn has_application(&self, app_name: &str) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_info_has_application(
@@ -149,6 +168,7 @@ impl RecentInfo {
         }
     }
 
+    #[doc(alias = "gtk_recent_info_has_group")]
     pub fn has_group(&self, group_name: &str) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_info_has_group(
@@ -158,14 +178,17 @@ impl RecentInfo {
         }
     }
 
+    #[doc(alias = "gtk_recent_info_is_local")]
     pub fn is_local(&self) -> bool {
         unsafe { from_glib(ffi::gtk_recent_info_is_local(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_recent_info_last_application")]
     pub fn last_application(&self) -> Option<glib::GString> {
         unsafe { from_glib_full(ffi::gtk_recent_info_last_application(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_recent_info_match")]
     pub fn match_(&self, info_b: &RecentInfo) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_info_match(

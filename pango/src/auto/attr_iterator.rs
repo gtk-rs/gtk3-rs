@@ -32,6 +32,7 @@ glib::glib_wrapper! {
 }
 
 impl AttrIterator {
+    #[doc(alias = "pango_attr_iterator_get")]
     pub fn get(&mut self, type_: AttrType) -> Option<Attribute> {
         unsafe {
             from_glib_none(ffi::pango_attr_iterator_get(
@@ -41,6 +42,7 @@ impl AttrIterator {
         }
     }
 
+    #[doc(alias = "pango_attr_iterator_get_attrs")]
     pub fn get_attrs(&mut self) -> Vec<Attribute> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::pango_attr_iterator_get_attrs(
@@ -49,10 +51,12 @@ impl AttrIterator {
         }
     }
 
+    #[doc(alias = "pango_attr_iterator_next")]
     pub fn next(&mut self) -> bool {
         unsafe { from_glib(ffi::pango_attr_iterator_next(self.to_glib_none_mut().0)) }
     }
 
+    #[doc(alias = "pango_attr_iterator_range")]
     pub fn range(&mut self) -> (i32, i32) {
         unsafe {
             let mut start = mem::MaybeUninit::uninit();

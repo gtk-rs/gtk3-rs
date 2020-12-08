@@ -22,16 +22,21 @@ pub const NONE_FONT_FAMILY: Option<&FontFamily> = None;
 pub trait FontFamilyExt: 'static {
     #[cfg(any(feature = "v1_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
+    #[doc(alias = "pango_font_family_get_face")]
     fn get_face(&self, name: Option<&str>) -> Option<FontFace>;
 
+    #[doc(alias = "pango_font_family_get_name")]
     fn get_name(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "pango_font_family_is_monospace")]
     fn is_monospace(&self) -> bool;
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+    #[doc(alias = "pango_font_family_is_variable")]
     fn is_variable(&self) -> bool;
 
+    #[doc(alias = "pango_font_family_list_faces")]
     fn list_faces(&self) -> Vec<FontFace>;
 }
 

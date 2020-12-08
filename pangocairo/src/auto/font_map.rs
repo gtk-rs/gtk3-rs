@@ -15,6 +15,7 @@ glib::glib_wrapper! {
 }
 
 impl FontMap {
+    #[doc(alias = "pango_cairo_font_map_get_default")]
     pub fn get_default() -> Option<pango::FontMap> {
         unsafe { from_glib_none(ffi::pango_cairo_font_map_get_default()) }
     }
@@ -23,8 +24,10 @@ impl FontMap {
 pub const NONE_FONT_MAP: Option<&FontMap> = None;
 
 pub trait FontMapExt: 'static {
+    #[doc(alias = "pango_cairo_font_map_get_resolution")]
     fn get_resolution(&self) -> f64;
 
+    #[doc(alias = "pango_cairo_font_map_set_resolution")]
     fn set_resolution(&self, dpi: f64);
 }
 

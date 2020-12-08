@@ -28,47 +28,67 @@ glib::glib_wrapper! {
 pub const NONE_TREE_SELECTION: Option<&TreeSelection> = None;
 
 pub trait TreeSelectionExt: 'static {
+    #[doc(alias = "gtk_tree_selection_count_selected_rows")]
     fn count_selected_rows(&self) -> i32;
 
+    #[doc(alias = "gtk_tree_selection_get_mode")]
     fn get_mode(&self) -> SelectionMode;
 
+    //#[doc(alias = "gtk_tree_selection_get_select_function")]
     //fn get_select_function(&self) -> Option<Box_<dyn Fn(&TreeSelection, &TreeModel, &TreePath, bool) -> bool + 'static>>;
 
+    #[doc(alias = "gtk_tree_selection_get_selected")]
     fn get_selected(&self) -> Option<(TreeModel, TreeIter)>;
 
+    #[doc(alias = "gtk_tree_selection_get_selected_rows")]
     fn get_selected_rows(&self) -> (Vec<TreePath>, TreeModel);
 
+    #[doc(alias = "gtk_tree_selection_get_tree_view")]
     fn get_tree_view(&self) -> Option<TreeView>;
 
+    //#[doc(alias = "gtk_tree_selection_get_user_data")]
     //fn get_user_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
+    #[doc(alias = "gtk_tree_selection_iter_is_selected")]
     fn iter_is_selected(&self, iter: &TreeIter) -> bool;
 
+    #[doc(alias = "gtk_tree_selection_path_is_selected")]
     fn path_is_selected(&self, path: &TreePath) -> bool;
 
+    #[doc(alias = "gtk_tree_selection_select_all")]
     fn select_all(&self);
 
+    #[doc(alias = "gtk_tree_selection_select_iter")]
     fn select_iter(&self, iter: &TreeIter);
 
+    #[doc(alias = "gtk_tree_selection_select_path")]
     fn select_path(&self, path: &TreePath);
 
+    #[doc(alias = "gtk_tree_selection_select_range")]
     fn select_range(&self, start_path: &TreePath, end_path: &TreePath);
 
+    #[doc(alias = "gtk_tree_selection_selected_foreach")]
     fn selected_foreach<P: FnMut(&TreeModel, &TreePath, &TreeIter)>(&self, func: P);
 
+    #[doc(alias = "gtk_tree_selection_set_mode")]
     fn set_mode(&self, type_: SelectionMode);
 
+    #[doc(alias = "gtk_tree_selection_set_select_function")]
     fn set_select_function(
         &self,
         func: Option<Box_<dyn Fn(&TreeSelection, &TreeModel, &TreePath, bool) -> bool + 'static>>,
     );
 
+    #[doc(alias = "gtk_tree_selection_unselect_all")]
     fn unselect_all(&self);
 
+    #[doc(alias = "gtk_tree_selection_unselect_iter")]
     fn unselect_iter(&self, iter: &TreeIter);
 
+    #[doc(alias = "gtk_tree_selection_unselect_path")]
     fn unselect_path(&self, path: &TreePath);
 
+    #[doc(alias = "gtk_tree_selection_unselect_range")]
     fn unselect_range(&self, start_path: &TreePath, end_path: &TreePath);
 
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

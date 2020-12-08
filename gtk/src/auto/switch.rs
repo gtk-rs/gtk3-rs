@@ -28,6 +28,7 @@ glib::glib_wrapper! {
 }
 
 impl Switch {
+    #[doc(alias = "gtk_switch_new")]
     pub fn new() -> Switch {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_switch_new()).unsafe_cast() }
@@ -391,12 +392,16 @@ impl SwitchBuilder {
 pub const NONE_SWITCH: Option<&Switch> = None;
 
 pub trait SwitchExt: 'static {
+    #[doc(alias = "gtk_switch_get_active")]
     fn get_active(&self) -> bool;
 
+    #[doc(alias = "gtk_switch_get_state")]
     fn get_state(&self) -> bool;
 
+    #[doc(alias = "gtk_switch_set_active")]
     fn set_active(&self, is_active: bool);
 
+    #[doc(alias = "gtk_switch_set_state")]
     fn set_state(&self, state: bool);
 
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
