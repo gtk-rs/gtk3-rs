@@ -24,14 +24,17 @@ glib::glib_wrapper! {
 pub const NONE_FILE_OUTPUT_STREAM: Option<&FileOutputStream> = None;
 
 pub trait FileOutputStreamExt: 'static {
+    #[doc(alias = "g_file_output_stream_get_etag")]
     fn get_etag(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_file_output_stream_query_info")]
     fn query_info<P: IsA<Cancellable>>(
         &self,
         attributes: &str,
         cancellable: Option<&P>,
     ) -> Result<FileInfo, glib::Error>;
 
+    #[doc(alias = "g_file_output_stream_query_info_async")]
     fn query_info_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,

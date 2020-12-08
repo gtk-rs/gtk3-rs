@@ -33,11 +33,13 @@ glib::glib_wrapper! {
 }
 
 impl CellView {
+    #[doc(alias = "gtk_cell_view_new")]
     pub fn new() -> CellView {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_cell_view_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_cell_view_new_with_context")]
     pub fn with_context<P: IsA<CellArea>, Q: IsA<CellAreaContext>>(
         area: &P,
         context: &Q,
@@ -52,6 +54,7 @@ impl CellView {
         }
     }
 
+    #[doc(alias = "gtk_cell_view_new_with_markup")]
     pub fn with_markup(markup: &str) -> CellView {
         assert_initialized_main_thread!();
         unsafe {
@@ -60,6 +63,7 @@ impl CellView {
         }
     }
 
+    #[doc(alias = "gtk_cell_view_new_with_pixbuf")]
     pub fn with_pixbuf(pixbuf: &gdk_pixbuf::Pixbuf) -> CellView {
         assert_initialized_main_thread!();
         unsafe {
@@ -68,6 +72,7 @@ impl CellView {
         }
     }
 
+    #[doc(alias = "gtk_cell_view_new_with_text")]
     pub fn with_text(text: &str) -> CellView {
         assert_initialized_main_thread!();
         unsafe {
@@ -479,22 +484,31 @@ impl CellViewBuilder {
 pub const NONE_CELL_VIEW: Option<&CellView> = None;
 
 pub trait CellViewExt: 'static {
+    #[doc(alias = "gtk_cell_view_get_displayed_row")]
     fn get_displayed_row(&self) -> Option<TreePath>;
 
+    #[doc(alias = "gtk_cell_view_get_draw_sensitive")]
     fn get_draw_sensitive(&self) -> bool;
 
+    #[doc(alias = "gtk_cell_view_get_fit_model")]
     fn get_fit_model(&self) -> bool;
 
+    #[doc(alias = "gtk_cell_view_get_model")]
     fn get_model(&self) -> Option<TreeModel>;
 
+    #[doc(alias = "gtk_cell_view_set_background_rgba")]
     fn set_background_rgba(&self, rgba: &gdk::RGBA);
 
+    #[doc(alias = "gtk_cell_view_set_displayed_row")]
     fn set_displayed_row(&self, path: &mut TreePath);
 
+    #[doc(alias = "gtk_cell_view_set_draw_sensitive")]
     fn set_draw_sensitive(&self, draw_sensitive: bool);
 
+    #[doc(alias = "gtk_cell_view_set_fit_model")]
     fn set_fit_model(&self, fit_model: bool);
 
+    #[doc(alias = "gtk_cell_view_set_model")]
     fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>);
 
     fn set_property_background(&self, background: Option<&str>);

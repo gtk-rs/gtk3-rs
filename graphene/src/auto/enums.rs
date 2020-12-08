@@ -130,7 +130,7 @@ impl ToGlib for EulerOrder {
 
 #[doc(hidden)]
 impl FromGlib<ffi::graphene_euler_order_t> for EulerOrder {
-    fn from_glib(value: ffi::graphene_euler_order_t) -> Self {
+    unsafe fn from_glib(value: ffi::graphene_euler_order_t) -> Self {
         skip_assert_initialized!();
         match value {
             -1 => EulerOrder::Default,
@@ -218,7 +218,7 @@ impl ToGlib for RayIntersectionKind {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 #[doc(hidden)]
 impl FromGlib<ffi::graphene_ray_intersection_kind_t> for RayIntersectionKind {
-    fn from_glib(value: ffi::graphene_ray_intersection_kind_t) -> Self {
+    unsafe fn from_glib(value: ffi::graphene_ray_intersection_kind_t) -> Self {
         skip_assert_initialized!();
         match value {
             0 => RayIntersectionKind::None,

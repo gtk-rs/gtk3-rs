@@ -19,6 +19,7 @@ glib::glib_wrapper! {
 pub const NONE_UNIX_OUTPUT_STREAM: Option<&UnixOutputStream> = None;
 
 pub trait UnixOutputStreamExt: 'static {
+    #[doc(alias = "g_unix_output_stream_get_close_fd")]
     fn get_close_fd(&self) -> bool;
 }
 

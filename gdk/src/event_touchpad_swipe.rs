@@ -12,7 +12,7 @@ event_subtype!(EventTouchpadSwipe, ffi::GDK_TOUCHPAD_SWIPE);
 
 impl EventTouchpadSwipe {
     pub fn is_phase(&self) -> bool {
-        from_glib(self.as_ref().phase as _)
+        unsafe { from_glib(self.as_ref().phase as _) }
     }
 
     pub fn get_n_fingers(&self) -> i8 {
@@ -42,6 +42,6 @@ impl EventTouchpadSwipe {
     }
 
     pub fn get_state(&self) -> crate::ModifierType {
-        from_glib(self.as_ref().state)
+        unsafe { from_glib(self.as_ref().state) }
     }
 }

@@ -21,10 +21,12 @@ glib::glib_wrapper! {
 }
 
 impl Action {
+    #[doc(alias = "g_action_name_is_valid")]
     pub fn name_is_valid(action_name: &str) -> bool {
         unsafe { from_glib(ffi::g_action_name_is_valid(action_name.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_action_parse_detailed_name")]
     pub fn parse_detailed_name(
         detailed_name: &str,
     ) -> Result<(glib::GString, glib::Variant), glib::Error> {
@@ -46,6 +48,7 @@ impl Action {
         }
     }
 
+    #[doc(alias = "g_action_print_detailed_name")]
     pub fn print_detailed_name(
         action_name: &str,
         target_value: Option<&glib::Variant>,
@@ -62,20 +65,28 @@ impl Action {
 pub const NONE_ACTION: Option<&Action> = None;
 
 pub trait ActionExt: 'static {
+    #[doc(alias = "g_action_activate")]
     fn activate(&self, parameter: Option<&glib::Variant>);
 
+    #[doc(alias = "g_action_change_state")]
     fn change_state(&self, value: &glib::Variant);
 
+    #[doc(alias = "g_action_get_enabled")]
     fn get_enabled(&self) -> bool;
 
+    #[doc(alias = "g_action_get_name")]
     fn get_name(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_action_get_parameter_type")]
     fn get_parameter_type(&self) -> Option<glib::VariantType>;
 
+    #[doc(alias = "g_action_get_state")]
     fn get_state(&self) -> Option<glib::Variant>;
 
+    #[doc(alias = "g_action_get_state_hint")]
     fn get_state_hint(&self) -> Option<glib::Variant>;
 
+    #[doc(alias = "g_action_get_state_type")]
     fn get_state_type(&self) -> Option<glib::VariantType>;
 
     fn connect_property_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

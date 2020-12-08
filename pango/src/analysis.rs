@@ -31,7 +31,7 @@ impl Analysis {
     }
 
     pub fn gravity(&self) -> Gravity {
-        from_glib(self.0.gravity as i32)
+        unsafe { from_glib(self.0.gravity as i32) }
     }
 
     pub fn flags(&self) -> u8 {
@@ -39,7 +39,7 @@ impl Analysis {
     }
 
     pub fn script(&self) -> Script {
-        from_glib(self.0.script as i32)
+        unsafe { from_glib(self.0.script as i32) }
     }
 
     pub fn language(&self) -> Language {

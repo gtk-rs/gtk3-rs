@@ -32,11 +32,13 @@ glib::glib_wrapper! {
 }
 
 impl Label {
+    #[doc(alias = "gtk_label_new")]
     pub fn new(str: Option<&str>) -> Label {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_label_new(str.to_glib_none().0)).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_label_new_with_mnemonic")]
     pub fn with_mnemonic(str: Option<&str>) -> Label {
         assert_initialized_main_thread!();
         unsafe {
@@ -542,108 +544,156 @@ impl LabelBuilder {
 pub const NONE_LABEL: Option<&Label> = None;
 
 pub trait LabelExt: 'static {
+    #[doc(alias = "gtk_label_get_angle")]
     fn get_angle(&self) -> f64;
 
+    #[doc(alias = "gtk_label_get_attributes")]
     fn get_attributes(&self) -> Option<pango::AttrList>;
 
+    #[doc(alias = "gtk_label_get_current_uri")]
     fn get_current_uri(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_label_get_ellipsize")]
     fn get_ellipsize(&self) -> pango::EllipsizeMode;
 
+    #[doc(alias = "gtk_label_get_justify")]
     fn get_justify(&self) -> Justification;
 
+    #[doc(alias = "gtk_label_get_label")]
     fn get_label(&self) -> glib::GString;
 
+    #[doc(alias = "gtk_label_get_layout")]
     fn get_layout(&self) -> Option<pango::Layout>;
 
+    #[doc(alias = "gtk_label_get_layout_offsets")]
     fn get_layout_offsets(&self) -> (i32, i32);
 
+    #[doc(alias = "gtk_label_get_line_wrap")]
     fn get_line_wrap(&self) -> bool;
 
+    #[doc(alias = "gtk_label_get_line_wrap_mode")]
     fn get_line_wrap_mode(&self) -> pango::WrapMode;
 
+    #[doc(alias = "gtk_label_get_lines")]
     fn get_lines(&self) -> i32;
 
+    #[doc(alias = "gtk_label_get_max_width_chars")]
     fn get_max_width_chars(&self) -> i32;
 
+    #[doc(alias = "gtk_label_get_mnemonic_keyval")]
     fn get_mnemonic_keyval(&self) -> u32;
 
+    #[doc(alias = "gtk_label_get_mnemonic_widget")]
     fn get_mnemonic_widget(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_label_get_selectable")]
     fn get_selectable(&self) -> bool;
 
+    #[doc(alias = "gtk_label_get_selection_bounds")]
     fn get_selection_bounds(&self) -> Option<(i32, i32)>;
 
+    #[doc(alias = "gtk_label_get_single_line_mode")]
     fn get_single_line_mode(&self) -> bool;
 
+    #[doc(alias = "gtk_label_get_text")]
     fn get_text(&self) -> glib::GString;
 
+    #[doc(alias = "gtk_label_get_track_visited_links")]
     fn get_track_visited_links(&self) -> bool;
 
+    #[doc(alias = "gtk_label_get_use_markup")]
     fn get_use_markup(&self) -> bool;
 
+    #[doc(alias = "gtk_label_get_use_underline")]
     fn get_use_underline(&self) -> bool;
 
+    #[doc(alias = "gtk_label_get_width_chars")]
     fn get_width_chars(&self) -> i32;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_label_get_xalign")]
     fn get_xalign(&self) -> f32;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_label_get_yalign")]
     fn get_yalign(&self) -> f32;
 
+    #[doc(alias = "gtk_label_select_region")]
     fn select_region(&self, start_offset: i32, end_offset: i32);
 
+    #[doc(alias = "gtk_label_set_angle")]
     fn set_angle(&self, angle: f64);
 
+    #[doc(alias = "gtk_label_set_attributes")]
     fn set_attributes(&self, attrs: Option<&pango::AttrList>);
 
+    #[doc(alias = "gtk_label_set_ellipsize")]
     fn set_ellipsize(&self, mode: pango::EllipsizeMode);
 
+    #[doc(alias = "gtk_label_set_justify")]
     fn set_justify(&self, jtype: Justification);
 
+    #[doc(alias = "gtk_label_set_label")]
     fn set_label(&self, str: &str);
 
+    #[doc(alias = "gtk_label_set_line_wrap")]
     fn set_line_wrap(&self, wrap: bool);
 
+    #[doc(alias = "gtk_label_set_line_wrap_mode")]
     fn set_line_wrap_mode(&self, wrap_mode: pango::WrapMode);
 
+    #[doc(alias = "gtk_label_set_lines")]
     fn set_lines(&self, lines: i32);
 
+    #[doc(alias = "gtk_label_set_markup")]
     fn set_markup(&self, str: &str);
 
+    #[doc(alias = "gtk_label_set_markup_with_mnemonic")]
     fn set_markup_with_mnemonic(&self, str: &str);
 
+    #[doc(alias = "gtk_label_set_max_width_chars")]
     fn set_max_width_chars(&self, n_chars: i32);
 
+    #[doc(alias = "gtk_label_set_mnemonic_widget")]
     fn set_mnemonic_widget<P: IsA<Widget>>(&self, widget: Option<&P>);
 
+    #[doc(alias = "gtk_label_set_pattern")]
     fn set_pattern(&self, pattern: &str);
 
+    #[doc(alias = "gtk_label_set_selectable")]
     fn set_selectable(&self, setting: bool);
 
+    #[doc(alias = "gtk_label_set_single_line_mode")]
     fn set_single_line_mode(&self, single_line_mode: bool);
 
+    #[doc(alias = "gtk_label_set_text")]
     fn set_text(&self, str: &str);
 
+    #[doc(alias = "gtk_label_set_text_with_mnemonic")]
     fn set_text_with_mnemonic(&self, str: &str);
 
+    #[doc(alias = "gtk_label_set_track_visited_links")]
     fn set_track_visited_links(&self, track_links: bool);
 
+    #[doc(alias = "gtk_label_set_use_markup")]
     fn set_use_markup(&self, setting: bool);
 
+    #[doc(alias = "gtk_label_set_use_underline")]
     fn set_use_underline(&self, setting: bool);
 
+    #[doc(alias = "gtk_label_set_width_chars")]
     fn set_width_chars(&self, n_chars: i32);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_label_set_xalign")]
     fn set_xalign(&self, xalign: f32);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_label_set_yalign")]
     fn set_yalign(&self, yalign: f32);
 
     fn get_property_cursor_position(&self) -> i32;

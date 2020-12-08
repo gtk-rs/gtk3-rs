@@ -23,10 +23,13 @@ glib::glib_wrapper! {
 pub const NONE_DBUS_OBJECT: Option<&DBusObject> = None;
 
 pub trait DBusObjectExt: 'static {
+    #[doc(alias = "g_dbus_object_get_interface")]
     fn get_interface(&self, interface_name: &str) -> Option<DBusInterface>;
 
+    #[doc(alias = "g_dbus_object_get_interfaces")]
     fn get_interfaces(&self) -> Vec<DBusInterface>;
 
+    #[doc(alias = "g_dbus_object_get_object_path")]
     fn get_object_path(&self) -> Option<glib::GString>;
 
     fn connect_interface_added<F: Fn(&Self, &DBusInterface) + 'static>(

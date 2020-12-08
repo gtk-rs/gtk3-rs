@@ -534,11 +534,11 @@ pub struct SignalInvocationHint(gobject_ffi::GSignalInvocationHint);
 
 impl SignalInvocationHint {
     pub fn detail(&self) -> crate::Quark {
-        from_glib(self.0.detail)
+        unsafe { from_glib(self.0.detail) }
     }
 
     pub fn run_type(&self) -> SignalFlags {
-        from_glib(self.0.run_type)
+        unsafe { from_glib(self.0.run_type) }
     }
 }
 

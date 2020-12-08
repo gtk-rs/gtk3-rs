@@ -24,22 +24,31 @@ glib::glib_wrapper! {
 pub const NONE_TOOL_SHELL: Option<&ToolShell> = None;
 
 pub trait ToolShellExt: 'static {
+    #[doc(alias = "gtk_tool_shell_get_ellipsize_mode")]
     fn get_ellipsize_mode(&self) -> pango::EllipsizeMode;
 
+    #[doc(alias = "gtk_tool_shell_get_icon_size")]
     fn get_icon_size(&self) -> IconSize;
 
+    #[doc(alias = "gtk_tool_shell_get_orientation")]
     fn get_orientation(&self) -> Orientation;
 
+    #[doc(alias = "gtk_tool_shell_get_relief_style")]
     fn get_relief_style(&self) -> ReliefStyle;
 
+    #[doc(alias = "gtk_tool_shell_get_style")]
     fn get_style(&self) -> ToolbarStyle;
 
+    #[doc(alias = "gtk_tool_shell_get_text_alignment")]
     fn get_text_alignment(&self) -> f32;
 
+    #[doc(alias = "gtk_tool_shell_get_text_orientation")]
     fn get_text_orientation(&self) -> Orientation;
 
+    #[doc(alias = "gtk_tool_shell_get_text_size_group")]
     fn get_text_size_group(&self) -> Option<SizeGroup>;
 
+    #[doc(alias = "gtk_tool_shell_rebuild_menu")]
     fn rebuild_menu(&self);
 }
 

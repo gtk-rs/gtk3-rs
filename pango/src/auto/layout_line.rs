@@ -19,6 +19,7 @@ glib::glib_wrapper! {
 }
 
 impl LayoutLine {
+    #[doc(alias = "pango_layout_line_get_extents")]
     pub fn get_extents(&self) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
@@ -34,6 +35,7 @@ impl LayoutLine {
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+    #[doc(alias = "pango_layout_line_get_height")]
     pub fn get_height(&self) -> i32 {
         unsafe {
             let mut height = mem::MaybeUninit::uninit();
@@ -43,6 +45,7 @@ impl LayoutLine {
         }
     }
 
+    #[doc(alias = "pango_layout_line_get_pixel_extents")]
     pub fn get_pixel_extents(&self) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
@@ -56,6 +59,7 @@ impl LayoutLine {
         }
     }
 
+    #[doc(alias = "pango_layout_line_get_x_ranges")]
     pub fn get_x_ranges(&self, start_index: i32, end_index: i32) -> Vec<i32> {
         unsafe {
             let mut ranges = ptr::null_mut();
@@ -71,6 +75,7 @@ impl LayoutLine {
         }
     }
 
+    #[doc(alias = "pango_layout_line_index_to_x")]
     pub fn index_to_x(&self, index_: i32, trailing: bool) -> i32 {
         unsafe {
             let mut x_pos = mem::MaybeUninit::uninit();
@@ -85,6 +90,7 @@ impl LayoutLine {
         }
     }
 
+    #[doc(alias = "pango_layout_line_x_to_index")]
     pub fn x_to_index(&self, x_pos: i32) -> Option<(i32, i32)> {
         unsafe {
             let mut index_ = mem::MaybeUninit::uninit();

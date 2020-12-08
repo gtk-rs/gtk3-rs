@@ -1144,25 +1144,25 @@ where
 
 /// Translate a simple type.
 pub trait FromGlib<G: Copy>: Sized {
-    fn from_glib(val: G) -> Self;
+    unsafe fn from_glib(val: G) -> Self;
 }
 
 /// Translate a simple type.
 #[inline]
-pub fn from_glib<G: Copy, T: FromGlib<G>>(val: G) -> T {
+pub unsafe fn from_glib<G: Copy, T: FromGlib<G>>(val: G) -> T {
     FromGlib::from_glib(val)
 }
 
 impl FromGlib<ffi::gboolean> for bool {
     #[inline]
-    fn from_glib(val: ffi::gboolean) -> bool {
+    unsafe fn from_glib(val: ffi::gboolean) -> bool {
         val != ffi::GFALSE
     }
 }
 
 impl FromGlib<i32> for Ordering {
     #[inline]
-    fn from_glib(val: i32) -> Ordering {
+    unsafe fn from_glib(val: i32) -> Ordering {
         val.cmp(&0)
     }
 }
@@ -1187,7 +1187,7 @@ impl std::error::Error for GlibNoneError {}
 
 impl<G: Copy, T: TryFromGlib<G, Error = GlibNoneError>> FromGlib<G> for Option<T> {
     #[inline]
-    fn from_glib(val: G) -> Option<T> {
+    unsafe fn from_glib(val: G) -> Option<T> {
         T::try_from_glib(val).ok()
     }
 }
@@ -1240,7 +1240,7 @@ impl<G: Copy, I: Error, T: TryFromGlib<G, Error = GlibNoneOrInvalidError<I>>> Fr
     for Result<Option<T>, I>
 {
     #[inline]
-    fn from_glib(val: G) -> Result<Option<T>, I> {
+    unsafe fn from_glib(val: G) -> Result<Option<T>, I> {
         match T::try_from_glib(val) {
             Ok(value) => Ok(Some(value)),
             Err(GlibNoneOrInvalidError::None) => Ok(None),
@@ -2412,9 +2412,15 @@ mod tests {
             Err(GlibNoneError)
         );
 
-        assert_eq!(Option::<SpecialU32>::from_glib(0), Some(SpecialU32(0)));
-        assert_eq!(Option::<SpecialU32>::from_glib(42), Some(SpecialU32(42)));
-        assert!(Option::<SpecialU32>::from_glib(SpecialU32::GLIB_NONE).is_none());
+        assert_eq!(
+            unsafe { Option::<SpecialU32>::from_glib(0) },
+            Some(SpecialU32(0))
+        );
+        assert_eq!(
+            unsafe { Option::<SpecialU32>::from_glib(42) },
+            Some(SpecialU32(42))
+        );
+        assert!(unsafe { Option::<SpecialU32>::from_glib(SpecialU32::GLIB_NONE) }.is_none());
     }
 
     #[test]
@@ -2481,17 +2487,17 @@ mod tests {
         assert!(SpecialU32::try_from_glib(-42).unwrap_err().is_invalid());
 
         assert_eq!(
-            Result::<Option<SpecialU32>, _>::from_glib(0),
+            unsafe { Result::<Option<SpecialU32>, _>::from_glib(0) },
             Ok(Some(SpecialU32(0)))
         );
         assert_eq!(
-            Result::<Option<SpecialU32>, _>::from_glib(42),
+            unsafe { Result::<Option<SpecialU32>, _>::from_glib(42) },
             Ok(Some(SpecialU32(42)))
         );
         assert_eq!(
-            Result::<Option<SpecialU32>, _>::from_glib(SpecialU32::GLIB_NONE),
+            unsafe { Result::<Option<SpecialU32>, _>::from_glib(SpecialU32::GLIB_NONE) },
             Ok(None)
         );
-        assert!(Result::<Option<SpecialU32>, _>::from_glib(-42).is_err());
+        assert!(unsafe { Result::<Option<SpecialU32>, _>::from_glib(-42) }.is_err());
     }
 }

@@ -17,6 +17,6 @@ impl EventSetting {
     }
 
     pub fn get_action(&self) -> crate::SettingAction {
-        from_glib(self.as_ref().action)
+        unsafe { from_glib(self.as_ref().action) }
     }
 }

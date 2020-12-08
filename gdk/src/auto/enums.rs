@@ -77,7 +77,7 @@ impl ToGlib for AxisUse {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkAxisUse> for AxisUse {
-    fn from_glib(value: ffi::GdkAxisUse) -> Self {
+    unsafe fn from_glib(value: ffi::GdkAxisUse) -> Self {
         skip_assert_initialized!();
         match value {
             0 => AxisUse::Ignore,
@@ -158,7 +158,7 @@ impl ToGlib for ByteOrder {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkByteOrder> for ByteOrder {
-    fn from_glib(value: ffi::GdkByteOrder) -> Self {
+    unsafe fn from_glib(value: ffi::GdkByteOrder) -> Self {
         skip_assert_initialized!();
         match value {
             0 => ByteOrder::LsbFirst,
@@ -251,7 +251,7 @@ impl ToGlib for CrossingMode {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkCrossingMode> for CrossingMode {
-    fn from_glib(value: ffi::GdkCrossingMode) -> Self {
+    unsafe fn from_glib(value: ffi::GdkCrossingMode) -> Self {
         skip_assert_initialized!();
         match value {
             0 => CrossingMode::Normal,
@@ -564,7 +564,7 @@ impl ToGlib for CursorType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkCursorType> for CursorType {
-    fn from_glib(value: ffi::GdkCursorType) -> Self {
+    unsafe fn from_glib(value: ffi::GdkCursorType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => CursorType::XCursor,
@@ -725,7 +725,7 @@ impl ToGlib for DevicePadFeature {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkDevicePadFeature> for DevicePadFeature {
-    fn from_glib(value: ffi::GdkDevicePadFeature) -> Self {
+    unsafe fn from_glib(value: ffi::GdkDevicePadFeature) -> Self {
         skip_assert_initialized!();
         match value {
             0 => DevicePadFeature::Button,
@@ -832,7 +832,7 @@ impl ToGlib for DeviceToolType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkDeviceToolType> for DeviceToolType {
-    fn from_glib(value: ffi::GdkDeviceToolType) -> Self {
+    unsafe fn from_glib(value: ffi::GdkDeviceToolType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => DeviceToolType::Unknown,
@@ -921,7 +921,7 @@ impl ToGlib for DeviceType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkDeviceType> for DeviceType {
-    fn from_glib(value: ffi::GdkDeviceType) -> Self {
+    unsafe fn from_glib(value: ffi::GdkDeviceType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => DeviceType::Master,
@@ -1005,7 +1005,7 @@ impl ToGlib for DragCancelReason {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkDragCancelReason> for DragCancelReason {
-    fn from_glib(value: ffi::GdkDragCancelReason) -> Self {
+    unsafe fn from_glib(value: ffi::GdkDragCancelReason) -> Self {
         skip_assert_initialized!();
         match value {
             0 => DragCancelReason::NoTarget,
@@ -1104,7 +1104,7 @@ impl ToGlib for DragProtocol {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkDragProtocol> for DragProtocol {
-    fn from_glib(value: ffi::GdkDragProtocol) -> Self {
+    unsafe fn from_glib(value: ffi::GdkDragProtocol) -> Self {
         skip_assert_initialized!();
         match value {
             0 => DragProtocol::None,
@@ -1328,7 +1328,7 @@ impl ToGlib for EventType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkEventType> for EventType {
-    fn from_glib(value: ffi::GdkEventType) -> Self {
+    unsafe fn from_glib(value: ffi::GdkEventType) -> Self {
         skip_assert_initialized!();
         match value {
             -1 => EventType::Nothing,
@@ -1448,7 +1448,7 @@ impl ToGlib for FullscreenMode {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkFullscreenMode> for FullscreenMode {
-    fn from_glib(value: ffi::GdkFullscreenMode) -> Self {
+    unsafe fn from_glib(value: ffi::GdkFullscreenMode) -> Self {
         skip_assert_initialized!();
         match value {
             0 => FullscreenMode::CurrentMonitor,
@@ -1531,7 +1531,7 @@ impl ToGlib for GLError {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkGLError> for GLError {
-    fn from_glib(value: ffi::GdkGLError) -> Self {
+    unsafe fn from_glib(value: ffi::GdkGLError) -> Self {
         skip_assert_initialized!();
         match value {
             0 => GLError::NotAvailable,
@@ -1639,7 +1639,7 @@ impl ToGlib for GrabOwnership {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkGrabOwnership> for GrabOwnership {
-    fn from_glib(value: ffi::GdkGrabOwnership) -> Self {
+    unsafe fn from_glib(value: ffi::GdkGrabOwnership) -> Self {
         skip_assert_initialized!();
         match value {
             0 => GrabOwnership::None,
@@ -1724,7 +1724,7 @@ impl ToGlib for GrabStatus {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkGrabStatus> for GrabStatus {
-    fn from_glib(value: ffi::GdkGrabStatus) -> Self {
+    unsafe fn from_glib(value: ffi::GdkGrabStatus) -> Self {
         skip_assert_initialized!();
         match value {
             0 => GrabStatus::Success,
@@ -1824,7 +1824,7 @@ impl ToGlib for Gravity {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkGravity> for Gravity {
-    fn from_glib(value: ffi::GdkGravity) -> Self {
+    unsafe fn from_glib(value: ffi::GdkGravity) -> Self {
         skip_assert_initialized!();
         match value {
             1 => Gravity::NorthWest,
@@ -1907,7 +1907,7 @@ impl ToGlib for InputMode {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkInputMode> for InputMode {
-    fn from_glib(value: ffi::GdkInputMode) -> Self {
+    unsafe fn from_glib(value: ffi::GdkInputMode) -> Self {
         skip_assert_initialized!();
         match value {
             0 => InputMode::Disabled,
@@ -2001,7 +2001,7 @@ impl ToGlib for InputSource {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkInputSource> for InputSource {
-    fn from_glib(value: ffi::GdkInputSource) -> Self {
+    unsafe fn from_glib(value: ffi::GdkInputSource) -> Self {
         skip_assert_initialized!();
         match value {
             0 => InputSource::Mouse,
@@ -2095,7 +2095,7 @@ impl ToGlib for ModifierIntent {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkModifierIntent> for ModifierIntent {
-    fn from_glib(value: ffi::GdkModifierIntent) -> Self {
+    unsafe fn from_glib(value: ffi::GdkModifierIntent) -> Self {
         skip_assert_initialized!();
         match value {
             0 => ModifierIntent::PrimaryAccelerator,
@@ -2184,7 +2184,7 @@ impl ToGlib for NotifyType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkNotifyType> for NotifyType {
-    fn from_glib(value: ffi::GdkNotifyType) -> Self {
+    unsafe fn from_glib(value: ffi::GdkNotifyType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => NotifyType::Ancestor,
@@ -2263,7 +2263,7 @@ impl ToGlib for OwnerChange {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkOwnerChange> for OwnerChange {
-    fn from_glib(value: ffi::GdkOwnerChange) -> Self {
+    unsafe fn from_glib(value: ffi::GdkOwnerChange) -> Self {
         skip_assert_initialized!();
         match value {
             0 => OwnerChange::NewOwner,
@@ -2339,7 +2339,7 @@ impl ToGlib for PropMode {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkPropMode> for PropMode {
-    fn from_glib(value: ffi::GdkPropMode) -> Self {
+    unsafe fn from_glib(value: ffi::GdkPropMode) -> Self {
         skip_assert_initialized!();
         match value {
             0 => PropMode::Replace,
@@ -2412,7 +2412,7 @@ impl ToGlib for PropertyState {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkPropertyState> for PropertyState {
-    fn from_glib(value: ffi::GdkPropertyState) -> Self {
+    unsafe fn from_glib(value: ffi::GdkPropertyState) -> Self {
         skip_assert_initialized!();
         match value {
             0 => PropertyState::NewValue,
@@ -2493,7 +2493,7 @@ impl ToGlib for ScrollDirection {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkScrollDirection> for ScrollDirection {
-    fn from_glib(value: ffi::GdkScrollDirection) -> Self {
+    unsafe fn from_glib(value: ffi::GdkScrollDirection) -> Self {
         skip_assert_initialized!();
         match value {
             0 => ScrollDirection::Up,
@@ -2571,7 +2571,7 @@ impl ToGlib for SettingAction {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkSettingAction> for SettingAction {
-    fn from_glib(value: ffi::GdkSettingAction) -> Self {
+    unsafe fn from_glib(value: ffi::GdkSettingAction) -> Self {
         skip_assert_initialized!();
         match value {
             0 => SettingAction::New,
@@ -2664,7 +2664,7 @@ impl ToGlib for SubpixelLayout {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkSubpixelLayout> for SubpixelLayout {
-    fn from_glib(value: ffi::GdkSubpixelLayout) -> Self {
+    unsafe fn from_glib(value: ffi::GdkSubpixelLayout) -> Self {
         skip_assert_initialized!();
         match value {
             0 => SubpixelLayout::Unknown,
@@ -2751,7 +2751,7 @@ impl ToGlib for VisibilityState {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkVisibilityState> for VisibilityState {
-    fn from_glib(value: ffi::GdkVisibilityState) -> Self {
+    unsafe fn from_glib(value: ffi::GdkVisibilityState) -> Self {
         skip_assert_initialized!();
         match value {
             0 => VisibilityState::Unobscured,
@@ -2836,7 +2836,7 @@ impl ToGlib for VisualType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkVisualType> for VisualType {
-    fn from_glib(value: ffi::GdkVisualType) -> Self {
+    unsafe fn from_glib(value: ffi::GdkVisualType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => VisualType::StaticGray,
@@ -2930,7 +2930,7 @@ impl ToGlib for WindowEdge {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkWindowEdge> for WindowEdge {
-    fn from_glib(value: ffi::GdkWindowEdge) -> Self {
+    unsafe fn from_glib(value: ffi::GdkWindowEdge) -> Self {
         skip_assert_initialized!();
         match value {
             0 => WindowEdge::NorthWest,
@@ -3023,7 +3023,7 @@ impl ToGlib for WindowType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkWindowType> for WindowType {
-    fn from_glib(value: ffi::GdkWindowType) -> Self {
+    unsafe fn from_glib(value: ffi::GdkWindowType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => WindowType::Root,
@@ -3136,7 +3136,7 @@ impl ToGlib for WindowTypeHint {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkWindowTypeHint> for WindowTypeHint {
-    fn from_glib(value: ffi::GdkWindowTypeHint) -> Self {
+    unsafe fn from_glib(value: ffi::GdkWindowTypeHint) -> Self {
         skip_assert_initialized!();
         match value {
             0 => WindowTypeHint::Normal,
@@ -3220,7 +3220,7 @@ impl ToGlib for WindowWindowClass {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkWindowWindowClass> for WindowWindowClass {
-    fn from_glib(value: ffi::GdkWindowWindowClass) -> Self {
+    unsafe fn from_glib(value: ffi::GdkWindowWindowClass) -> Self {
         skip_assert_initialized!();
         match value {
             0 => WindowWindowClass::InputOutput,

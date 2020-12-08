@@ -28,6 +28,7 @@ glib::glib_wrapper! {
 }
 
 impl CellAreaBox {
+    #[doc(alias = "gtk_cell_area_box_new")]
     pub fn new() -> CellAreaBox {
         assert_initialized_main_thread!();
         unsafe { CellArea::from_glib_none(ffi::gtk_cell_area_box_new()).unsafe_cast() }
@@ -89,10 +90,13 @@ impl CellAreaBoxBuilder {
 pub const NONE_CELL_AREA_BOX: Option<&CellAreaBox> = None;
 
 pub trait CellAreaBoxExt: 'static {
+    #[doc(alias = "gtk_cell_area_box_get_spacing")]
     fn get_spacing(&self) -> i32;
 
+    #[doc(alias = "gtk_cell_area_box_pack_end")]
     fn pack_end<P: IsA<CellRenderer>>(&self, renderer: &P, expand: bool, align: bool, fixed: bool);
 
+    #[doc(alias = "gtk_cell_area_box_pack_start")]
     fn pack_start<P: IsA<CellRenderer>>(
         &self,
         renderer: &P,
@@ -101,6 +105,7 @@ pub trait CellAreaBoxExt: 'static {
         fixed: bool,
     );
 
+    #[doc(alias = "gtk_cell_area_box_set_spacing")]
     fn set_spacing(&self, spacing: i32);
 
     fn connect_property_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

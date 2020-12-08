@@ -16,6 +16,7 @@ glib::glib_wrapper! {
 }
 
 impl TlsBackend {
+    #[doc(alias = "g_tls_backend_get_default")]
     pub fn get_default() -> Option<TlsBackend> {
         unsafe { from_glib_none(ffi::g_tls_backend_get_default()) }
     }
@@ -24,32 +25,42 @@ impl TlsBackend {
 pub const NONE_TLS_BACKEND: Option<&TlsBackend> = None;
 
 pub trait TlsBackendExt: 'static {
+    #[doc(alias = "g_tls_backend_get_certificate_type")]
     fn get_certificate_type(&self) -> glib::types::Type;
 
+    #[doc(alias = "g_tls_backend_get_client_connection_type")]
     fn get_client_connection_type(&self) -> glib::types::Type;
 
+    #[doc(alias = "g_tls_backend_get_default_database")]
     fn get_default_database(&self) -> Option<TlsDatabase>;
 
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
+    #[doc(alias = "g_tls_backend_get_dtls_client_connection_type")]
     fn get_dtls_client_connection_type(&self) -> glib::types::Type;
 
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
+    #[doc(alias = "g_tls_backend_get_dtls_server_connection_type")]
     fn get_dtls_server_connection_type(&self) -> glib::types::Type;
 
+    #[doc(alias = "g_tls_backend_get_file_database_type")]
     fn get_file_database_type(&self) -> glib::types::Type;
 
+    #[doc(alias = "g_tls_backend_get_server_connection_type")]
     fn get_server_connection_type(&self) -> glib::types::Type;
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[doc(alias = "g_tls_backend_set_default_database")]
     fn set_default_database<P: IsA<TlsDatabase>>(&self, database: Option<&P>);
 
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
+    #[doc(alias = "g_tls_backend_supports_dtls")]
     fn supports_dtls(&self) -> bool;
 
+    #[doc(alias = "g_tls_backend_supports_tls")]
     fn supports_tls(&self) -> bool;
 }
 

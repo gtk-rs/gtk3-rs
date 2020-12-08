@@ -34,6 +34,7 @@ glib::glib_wrapper! {
 }
 
 impl SocketClient {
+    #[doc(alias = "g_socket_client_new")]
     pub fn new() -> SocketClient {
         unsafe { from_glib_full(ffi::g_socket_client_new()) }
     }
@@ -48,14 +49,17 @@ impl Default for SocketClient {
 pub const NONE_SOCKET_CLIENT: Option<&SocketClient> = None;
 
 pub trait SocketClientExt: 'static {
+    #[doc(alias = "g_socket_client_add_application_proxy")]
     fn add_application_proxy(&self, protocol: &str);
 
+    #[doc(alias = "g_socket_client_connect")]
     fn connect<P: IsA<SocketConnectable>, Q: IsA<Cancellable>>(
         &self,
         connectable: &P,
         cancellable: Option<&Q>,
     ) -> Result<SocketConnection, glib::Error>;
 
+    #[doc(alias = "g_socket_client_connect_async")]
     fn connect_async<
         P: IsA<SocketConnectable>,
         Q: IsA<Cancellable>,
@@ -72,6 +76,7 @@ pub trait SocketClientExt: 'static {
         connectable: &P,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<SocketConnection, glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_socket_client_connect_to_host")]
     fn connect_to_host<P: IsA<Cancellable>>(
         &self,
         host_and_port: &str,
@@ -79,6 +84,7 @@ pub trait SocketClientExt: 'static {
         cancellable: Option<&P>,
     ) -> Result<SocketConnection, glib::Error>;
 
+    #[doc(alias = "g_socket_client_connect_to_host_async")]
     fn connect_to_host_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<SocketConnection, glib::Error>) + Send + 'static,
@@ -96,6 +102,7 @@ pub trait SocketClientExt: 'static {
         default_port: u16,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<SocketConnection, glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_socket_client_connect_to_service")]
     fn connect_to_service<P: IsA<Cancellable>>(
         &self,
         domain: &str,
@@ -103,6 +110,7 @@ pub trait SocketClientExt: 'static {
         cancellable: Option<&P>,
     ) -> Result<SocketConnection, glib::Error>;
 
+    #[doc(alias = "g_socket_client_connect_to_service_async")]
     fn connect_to_service_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<SocketConnection, glib::Error>) + Send + 'static,
@@ -120,6 +128,7 @@ pub trait SocketClientExt: 'static {
         service: &str,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<SocketConnection, glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_socket_client_connect_to_uri")]
     fn connect_to_uri<P: IsA<Cancellable>>(
         &self,
         uri: &str,
@@ -127,6 +136,7 @@ pub trait SocketClientExt: 'static {
         cancellable: Option<&P>,
     ) -> Result<SocketConnection, glib::Error>;
 
+    #[doc(alias = "g_socket_client_connect_to_uri_async")]
     fn connect_to_uri_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<SocketConnection, glib::Error>) + Send + 'static,
@@ -144,40 +154,58 @@ pub trait SocketClientExt: 'static {
         default_port: u16,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<SocketConnection, glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_socket_client_get_enable_proxy")]
     fn get_enable_proxy(&self) -> bool;
 
+    #[doc(alias = "g_socket_client_get_family")]
     fn get_family(&self) -> SocketFamily;
 
+    #[doc(alias = "g_socket_client_get_local_address")]
     fn get_local_address(&self) -> Option<SocketAddress>;
 
+    #[doc(alias = "g_socket_client_get_protocol")]
     fn get_protocol(&self) -> SocketProtocol;
 
+    #[doc(alias = "g_socket_client_get_proxy_resolver")]
     fn get_proxy_resolver(&self) -> Option<ProxyResolver>;
 
+    #[doc(alias = "g_socket_client_get_socket_type")]
     fn get_socket_type(&self) -> SocketType;
 
+    #[doc(alias = "g_socket_client_get_timeout")]
     fn get_timeout(&self) -> u32;
 
+    #[doc(alias = "g_socket_client_get_tls")]
     fn get_tls(&self) -> bool;
 
+    #[doc(alias = "g_socket_client_get_tls_validation_flags")]
     fn get_tls_validation_flags(&self) -> TlsCertificateFlags;
 
+    #[doc(alias = "g_socket_client_set_enable_proxy")]
     fn set_enable_proxy(&self, enable: bool);
 
+    #[doc(alias = "g_socket_client_set_family")]
     fn set_family(&self, family: SocketFamily);
 
+    #[doc(alias = "g_socket_client_set_local_address")]
     fn set_local_address<P: IsA<SocketAddress>>(&self, address: Option<&P>);
 
+    #[doc(alias = "g_socket_client_set_protocol")]
     fn set_protocol(&self, protocol: SocketProtocol);
 
+    #[doc(alias = "g_socket_client_set_proxy_resolver")]
     fn set_proxy_resolver<P: IsA<ProxyResolver>>(&self, proxy_resolver: Option<&P>);
 
+    #[doc(alias = "g_socket_client_set_socket_type")]
     fn set_socket_type(&self, type_: SocketType);
 
+    #[doc(alias = "g_socket_client_set_timeout")]
     fn set_timeout(&self, timeout: u32);
 
+    #[doc(alias = "g_socket_client_set_tls")]
     fn set_tls(&self, tls: bool);
 
+    #[doc(alias = "g_socket_client_set_tls_validation_flags")]
     fn set_tls_validation_flags(&self, flags: TlsCertificateFlags);
 
     fn get_property_type(&self) -> SocketType;

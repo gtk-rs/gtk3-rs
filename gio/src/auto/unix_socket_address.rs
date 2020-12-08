@@ -19,14 +19,17 @@ glib::glib_wrapper! {
 }
 
 impl UnixSocketAddress {
+    //#[doc(alias = "g_unix_socket_address_new_abstract")]
     //pub fn new_abstract(path: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 10 }) -> UnixSocketAddress {
     //    unsafe { TODO: call ffi:g_unix_socket_address_new_abstract() }
     //}
 
+    //#[doc(alias = "g_unix_socket_address_new_with_type")]
     //pub fn with_type(path: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 10 }, type_: UnixSocketAddressType) -> UnixSocketAddress {
     //    unsafe { TODO: call ffi:g_unix_socket_address_new_with_type() }
     //}
 
+    #[doc(alias = "g_unix_socket_address_abstract_names_supported")]
     pub fn abstract_names_supported() -> bool {
         unsafe { from_glib(ffi::g_unix_socket_address_abstract_names_supported()) }
     }
@@ -38,10 +41,13 @@ unsafe impl Sync for UnixSocketAddress {}
 pub const NONE_UNIX_SOCKET_ADDRESS: Option<&UnixSocketAddress> = None;
 
 pub trait UnixSocketAddressExt: 'static {
+    #[doc(alias = "g_unix_socket_address_get_address_type")]
     fn get_address_type(&self) -> UnixSocketAddressType;
 
+    #[doc(alias = "g_unix_socket_address_get_is_abstract")]
     fn get_is_abstract(&self) -> bool;
 
+    #[doc(alias = "g_unix_socket_address_get_path_len")]
     fn get_path_len(&self) -> usize;
 
     fn get_property_abstract(&self) -> bool;

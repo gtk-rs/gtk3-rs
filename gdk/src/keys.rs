@@ -31,7 +31,7 @@ impl ::std::convert::From<u32> for Key {
 }
 
 impl FromGlib<u32> for Key {
-    fn from_glib(value: u32) -> Self {
+    unsafe fn from_glib(value: u32) -> Self {
         skip_assert_initialized!();
         Key(value)
     }

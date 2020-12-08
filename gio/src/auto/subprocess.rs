@@ -22,10 +22,12 @@ glib::glib_wrapper! {
 }
 
 impl Subprocess {
+    //#[doc(alias = "g_subprocess_new")]
     //pub fn new(flags: SubprocessFlags, error: Option<&mut glib::Error>, argv0: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Subprocess {
     //    unsafe { TODO: call ffi:g_subprocess_new() }
     //}
 
+    #[doc(alias = "g_subprocess_newv")]
     pub fn newv(
         argv: &[&std::ffi::OsStr],
         flags: SubprocessFlags,
@@ -41,6 +43,7 @@ impl Subprocess {
         }
     }
 
+    #[doc(alias = "g_subprocess_communicate")]
     pub fn communicate<P: IsA<Cancellable>>(
         &self,
         stdin_buf: Option<&glib::Bytes>,
@@ -66,6 +69,7 @@ impl Subprocess {
         }
     }
 
+    #[doc(alias = "g_subprocess_communicate_async")]
     pub fn communicate_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<(Option<glib::Bytes>, Option<glib::Bytes>), glib::Error>) + Send + 'static,
@@ -140,6 +144,7 @@ impl Subprocess {
         }))
     }
 
+    #[doc(alias = "g_subprocess_communicate_utf8")]
     pub fn communicate_utf8<P: IsA<Cancellable>>(
         &self,
         stdin_buf: Option<&str>,
@@ -165,60 +170,73 @@ impl Subprocess {
         }
     }
 
+    #[doc(alias = "g_subprocess_force_exit")]
     pub fn force_exit(&self) {
         unsafe {
             ffi::g_subprocess_force_exit(self.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "g_subprocess_get_exit_status")]
     pub fn get_exit_status(&self) -> i32 {
         unsafe { ffi::g_subprocess_get_exit_status(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "g_subprocess_get_identifier")]
     pub fn get_identifier(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::g_subprocess_get_identifier(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_subprocess_get_if_exited")]
     pub fn get_if_exited(&self) -> bool {
         unsafe { from_glib(ffi::g_subprocess_get_if_exited(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_subprocess_get_if_signaled")]
     pub fn get_if_signaled(&self) -> bool {
         unsafe { from_glib(ffi::g_subprocess_get_if_signaled(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_subprocess_get_status")]
     pub fn get_status(&self) -> i32 {
         unsafe { ffi::g_subprocess_get_status(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "g_subprocess_get_stderr_pipe")]
     pub fn get_stderr_pipe(&self) -> Option<InputStream> {
         unsafe { from_glib_none(ffi::g_subprocess_get_stderr_pipe(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_subprocess_get_stdin_pipe")]
     pub fn get_stdin_pipe(&self) -> Option<OutputStream> {
         unsafe { from_glib_none(ffi::g_subprocess_get_stdin_pipe(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_subprocess_get_stdout_pipe")]
     pub fn get_stdout_pipe(&self) -> Option<InputStream> {
         unsafe { from_glib_none(ffi::g_subprocess_get_stdout_pipe(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_subprocess_get_successful")]
     pub fn get_successful(&self) -> bool {
         unsafe { from_glib(ffi::g_subprocess_get_successful(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_subprocess_get_term_sig")]
     pub fn get_term_sig(&self) -> i32 {
         unsafe { ffi::g_subprocess_get_term_sig(self.to_glib_none().0) }
     }
 
     #[cfg(any(not(windows), feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(not(windows))))]
+    #[doc(alias = "g_subprocess_send_signal")]
     pub fn send_signal(&self, signal_num: i32) {
         unsafe {
             ffi::g_subprocess_send_signal(self.to_glib_none().0, signal_num);
         }
     }
 
+    #[doc(alias = "g_subprocess_wait")]
     pub fn wait<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -235,6 +253,7 @@ impl Subprocess {
         }
     }
 
+    #[doc(alias = "g_subprocess_wait_async")]
     pub fn wait_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         cancellable: Option<&P>,
@@ -282,6 +301,7 @@ impl Subprocess {
         }))
     }
 
+    #[doc(alias = "g_subprocess_wait_check")]
     pub fn wait_check<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
@@ -301,6 +321,7 @@ impl Subprocess {
         }
     }
 
+    #[doc(alias = "g_subprocess_wait_check_async")]
     pub fn wait_check_async<
         P: IsA<Cancellable>,
         Q: FnOnce(Result<(), glib::Error>) + Send + 'static,

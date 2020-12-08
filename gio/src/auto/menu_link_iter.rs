@@ -19,12 +19,16 @@ glib::glib_wrapper! {
 pub const NONE_MENU_LINK_ITER: Option<&MenuLinkIter> = None;
 
 pub trait MenuLinkIterExt: 'static {
+    #[doc(alias = "g_menu_link_iter_get_name")]
     fn get_name(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_menu_link_iter_get_next")]
     fn get_next(&self) -> Option<(glib::GString, MenuModel)>;
 
+    #[doc(alias = "g_menu_link_iter_get_value")]
     fn get_value(&self) -> Option<MenuModel>;
 
+    #[doc(alias = "g_menu_link_iter_next")]
     fn next(&self) -> bool;
 }
 

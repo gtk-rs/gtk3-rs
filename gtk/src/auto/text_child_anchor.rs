@@ -16,6 +16,7 @@ glib::glib_wrapper! {
 }
 
 impl TextChildAnchor {
+    #[doc(alias = "gtk_text_child_anchor_new")]
     pub fn new() -> TextChildAnchor {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gtk_text_child_anchor_new()) }
@@ -31,8 +32,10 @@ impl Default for TextChildAnchor {
 pub const NONE_TEXT_CHILD_ANCHOR: Option<&TextChildAnchor> = None;
 
 pub trait TextChildAnchorExt: 'static {
+    #[doc(alias = "gtk_text_child_anchor_get_deleted")]
     fn get_deleted(&self) -> bool;
 
+    #[doc(alias = "gtk_text_child_anchor_get_widgets")]
     fn get_widgets(&self) -> Vec<Widget>;
 }
 

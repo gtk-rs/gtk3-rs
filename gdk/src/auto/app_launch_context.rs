@@ -19,12 +19,14 @@ glib::glib_wrapper! {
 }
 
 impl AppLaunchContext {
+    #[doc(alias = "gdk_app_launch_context_set_desktop")]
     pub fn set_desktop(&self, desktop: i32) {
         unsafe {
             ffi::gdk_app_launch_context_set_desktop(self.to_glib_none().0, desktop);
         }
     }
 
+    #[doc(alias = "gdk_app_launch_context_set_icon")]
     pub fn set_icon<P: IsA<gio::Icon>>(&self, icon: Option<&P>) {
         unsafe {
             ffi::gdk_app_launch_context_set_icon(
@@ -34,6 +36,7 @@ impl AppLaunchContext {
         }
     }
 
+    #[doc(alias = "gdk_app_launch_context_set_icon_name")]
     pub fn set_icon_name(&self, icon_name: Option<&str>) {
         unsafe {
             ffi::gdk_app_launch_context_set_icon_name(
@@ -43,12 +46,14 @@ impl AppLaunchContext {
         }
     }
 
+    #[doc(alias = "gdk_app_launch_context_set_screen")]
     pub fn set_screen(&self, screen: &Screen) {
         unsafe {
             ffi::gdk_app_launch_context_set_screen(self.to_glib_none().0, screen.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gdk_app_launch_context_set_timestamp")]
     pub fn set_timestamp(&self, timestamp: u32) {
         unsafe {
             ffi::gdk_app_launch_context_set_timestamp(self.to_glib_none().0, timestamp);

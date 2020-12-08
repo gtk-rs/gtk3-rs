@@ -16,6 +16,7 @@ glib::glib_wrapper! {
 }
 
 impl SimplePermission {
+    #[doc(alias = "g_simple_permission_new")]
     pub fn new(allowed: bool) -> SimplePermission {
         unsafe {
             Permission::from_glib_full(ffi::g_simple_permission_new(allowed.to_glib()))

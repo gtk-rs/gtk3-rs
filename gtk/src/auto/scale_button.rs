@@ -37,6 +37,7 @@ glib::glib_wrapper! {
 }
 
 impl ScaleButton {
+    #[doc(alias = "gtk_scale_button_new")]
     pub fn new(size: IconSize, min: f64, max: f64, step: f64, icons: &[&str]) -> ScaleButton {
         assert_initialized_main_thread!();
         unsafe {
@@ -511,20 +512,28 @@ impl ScaleButtonBuilder {
 pub const NONE_SCALE_BUTTON: Option<&ScaleButton> = None;
 
 pub trait ScaleButtonExt: 'static {
+    #[doc(alias = "gtk_scale_button_get_adjustment")]
     fn get_adjustment(&self) -> Adjustment;
 
+    #[doc(alias = "gtk_scale_button_get_minus_button")]
     fn get_minus_button(&self) -> Option<Button>;
 
+    #[doc(alias = "gtk_scale_button_get_plus_button")]
     fn get_plus_button(&self) -> Option<Button>;
 
+    #[doc(alias = "gtk_scale_button_get_popup")]
     fn get_popup(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_scale_button_get_value")]
     fn get_value(&self) -> f64;
 
+    #[doc(alias = "gtk_scale_button_set_adjustment")]
     fn set_adjustment<P: IsA<Adjustment>>(&self, adjustment: &P);
 
+    #[doc(alias = "gtk_scale_button_set_icons")]
     fn set_icons(&self, icons: &[&str]);
 
+    #[doc(alias = "gtk_scale_button_set_value")]
     fn set_value(&self, value: f64);
 
     fn get_property_icons(&self) -> Vec<glib::GString>;

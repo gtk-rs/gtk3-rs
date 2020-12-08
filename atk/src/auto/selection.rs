@@ -23,18 +23,25 @@ glib::glib_wrapper! {
 pub const NONE_SELECTION: Option<&Selection> = None;
 
 pub trait SelectionExt: 'static {
+    #[doc(alias = "atk_selection_add_selection")]
     fn add_selection(&self, i: i32) -> bool;
 
+    #[doc(alias = "atk_selection_clear_selection")]
     fn clear_selection(&self) -> bool;
 
+    #[doc(alias = "atk_selection_get_selection_count")]
     fn get_selection_count(&self) -> i32;
 
+    #[doc(alias = "atk_selection_is_child_selected")]
     fn is_child_selected(&self, i: i32) -> bool;
 
+    #[doc(alias = "atk_selection_ref_selection")]
     fn ref_selection(&self, i: i32) -> Option<Object>;
 
+    #[doc(alias = "atk_selection_remove_selection")]
     fn remove_selection(&self, i: i32) -> bool;
 
+    #[doc(alias = "atk_selection_select_all_selection")]
     fn select_all_selection(&self) -> bool;
 
     fn connect_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

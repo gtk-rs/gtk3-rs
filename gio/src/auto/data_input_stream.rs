@@ -30,6 +30,7 @@ glib::glib_wrapper! {
 }
 
 impl DataInputStream {
+    #[doc(alias = "g_data_input_stream_new")]
     pub fn new<P: IsA<InputStream>>(base_stream: &P) -> DataInputStream {
         unsafe {
             from_glib_full(ffi::g_data_input_stream_new(
@@ -106,31 +107,43 @@ impl DataInputStreamBuilder {
 pub const NONE_DATA_INPUT_STREAM: Option<&DataInputStream> = None;
 
 pub trait DataInputStreamExt: 'static {
+    #[doc(alias = "g_data_input_stream_get_byte_order")]
     fn get_byte_order(&self) -> DataStreamByteOrder;
 
+    #[doc(alias = "g_data_input_stream_get_newline_type")]
     fn get_newline_type(&self) -> DataStreamNewlineType;
 
+    #[doc(alias = "g_data_input_stream_read_byte")]
     fn read_byte<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<u8, glib::Error>;
 
+    #[doc(alias = "g_data_input_stream_read_int16")]
     fn read_int16<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<i16, glib::Error>;
 
+    #[doc(alias = "g_data_input_stream_read_int32")]
     fn read_int32<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<i32, glib::Error>;
 
+    #[doc(alias = "g_data_input_stream_read_int64")]
     fn read_int64<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<i64, glib::Error>;
 
+    //#[doc(alias = "g_data_input_stream_read_line_finish_utf8")]
     //fn read_line_finish_utf8(&self, result: /*Ignored*/&AsyncResult) -> Result<(Option<glib::GString>, usize), glib::Error>;
 
+    #[doc(alias = "g_data_input_stream_read_uint16")]
     fn read_uint16<P: IsA<Cancellable>>(&self, cancellable: Option<&P>)
         -> Result<u16, glib::Error>;
 
+    #[doc(alias = "g_data_input_stream_read_uint32")]
     fn read_uint32<P: IsA<Cancellable>>(&self, cancellable: Option<&P>)
         -> Result<u32, glib::Error>;
 
+    #[doc(alias = "g_data_input_stream_read_uint64")]
     fn read_uint64<P: IsA<Cancellable>>(&self, cancellable: Option<&P>)
         -> Result<u64, glib::Error>;
 
+    #[doc(alias = "g_data_input_stream_set_byte_order")]
     fn set_byte_order(&self, order: DataStreamByteOrder);
 
+    #[doc(alias = "g_data_input_stream_set_newline_type")]
     fn set_newline_type(&self, type_: DataStreamNewlineType);
 
     fn connect_property_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

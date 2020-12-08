@@ -32,10 +32,13 @@ glib::glib_wrapper! {
 pub const NONE_VOLUME: Option<&Volume> = None;
 
 pub trait VolumeExt: 'static {
+    #[doc(alias = "g_volume_can_eject")]
     fn can_eject(&self) -> bool;
 
+    #[doc(alias = "g_volume_can_mount")]
     fn can_mount(&self) -> bool;
 
+    #[doc(alias = "g_volume_eject_with_operation")]
     fn eject_with_operation<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
@@ -54,26 +57,37 @@ pub trait VolumeExt: 'static {
         mount_operation: Option<&P>,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_volume_enumerate_identifiers")]
     fn enumerate_identifiers(&self) -> Vec<glib::GString>;
 
+    #[doc(alias = "g_volume_get_activation_root")]
     fn get_activation_root(&self) -> Option<File>;
 
+    #[doc(alias = "g_volume_get_drive")]
     fn get_drive(&self) -> Option<Drive>;
 
+    #[doc(alias = "g_volume_get_icon")]
     fn get_icon(&self) -> Icon;
 
+    #[doc(alias = "g_volume_get_identifier")]
     fn get_identifier(&self, kind: &str) -> Option<glib::GString>;
 
+    #[doc(alias = "g_volume_get_mount")]
     fn get_mount(&self) -> Option<Mount>;
 
+    #[doc(alias = "g_volume_get_name")]
     fn get_name(&self) -> glib::GString;
 
+    #[doc(alias = "g_volume_get_sort_key")]
     fn get_sort_key(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_volume_get_symbolic_icon")]
     fn get_symbolic_icon(&self) -> Icon;
 
+    #[doc(alias = "g_volume_get_uuid")]
     fn get_uuid(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_volume_mount")]
     fn mount<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
@@ -92,6 +106,7 @@ pub trait VolumeExt: 'static {
         mount_operation: Option<&P>,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
+    #[doc(alias = "g_volume_should_automount")]
     fn should_automount(&self) -> bool;
 
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

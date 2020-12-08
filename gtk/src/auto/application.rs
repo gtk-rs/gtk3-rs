@@ -120,24 +120,34 @@ impl ApplicationBuilder {
 pub const NONE_APPLICATION: Option<&Application> = None;
 
 pub trait GtkApplicationExt: 'static {
+    #[doc(alias = "gtk_application_add_window")]
     fn add_window<P: IsA<Window>>(&self, window: &P);
 
+    #[doc(alias = "gtk_application_get_accels_for_action")]
     fn get_accels_for_action(&self, detailed_action_name: &str) -> Vec<glib::GString>;
 
+    #[doc(alias = "gtk_application_get_actions_for_accel")]
     fn get_actions_for_accel(&self, accel: &str) -> Vec<glib::GString>;
 
+    #[doc(alias = "gtk_application_get_active_window")]
     fn get_active_window(&self) -> Option<Window>;
 
+    #[doc(alias = "gtk_application_get_app_menu")]
     fn get_app_menu(&self) -> Option<gio::MenuModel>;
 
+    #[doc(alias = "gtk_application_get_menu_by_id")]
     fn get_menu_by_id(&self, id: &str) -> Option<gio::Menu>;
 
+    #[doc(alias = "gtk_application_get_menubar")]
     fn get_menubar(&self) -> Option<gio::MenuModel>;
 
+    #[doc(alias = "gtk_application_get_window_by_id")]
     fn get_window_by_id(&self, id: u32) -> Option<Window>;
 
+    #[doc(alias = "gtk_application_get_windows")]
     fn get_windows(&self) -> Vec<Window>;
 
+    #[doc(alias = "gtk_application_inhibit")]
     fn inhibit<P: IsA<Window>>(
         &self,
         window: Option<&P>,
@@ -145,20 +155,28 @@ pub trait GtkApplicationExt: 'static {
         reason: Option<&str>,
     ) -> u32;
 
+    #[doc(alias = "gtk_application_is_inhibited")]
     fn is_inhibited(&self, flags: ApplicationInhibitFlags) -> bool;
 
+    #[doc(alias = "gtk_application_list_action_descriptions")]
     fn list_action_descriptions(&self) -> Vec<glib::GString>;
 
+    #[doc(alias = "gtk_application_prefers_app_menu")]
     fn prefers_app_menu(&self) -> bool;
 
+    #[doc(alias = "gtk_application_remove_window")]
     fn remove_window<P: IsA<Window>>(&self, window: &P);
 
+    #[doc(alias = "gtk_application_set_accels_for_action")]
     fn set_accels_for_action(&self, detailed_action_name: &str, accels: &[&str]);
 
+    #[doc(alias = "gtk_application_set_app_menu")]
     fn set_app_menu<P: IsA<gio::MenuModel>>(&self, app_menu: Option<&P>);
 
+    #[doc(alias = "gtk_application_set_menubar")]
     fn set_menubar<P: IsA<gio::MenuModel>>(&self, menubar: Option<&P>);
 
+    #[doc(alias = "gtk_application_uninhibit")]
     fn uninhibit(&self, cookie: u32);
 
     fn get_property_register_session(&self) -> bool;

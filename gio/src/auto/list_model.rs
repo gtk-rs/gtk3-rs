@@ -34,22 +34,27 @@ pub const NONE_LIST_MODEL: Option<&ListModel> = None;
 pub trait ListModelExt: 'static {
     //#[cfg(any(feature = "v2_44", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    //#[doc(alias = "g_list_model_get_item")]
     //fn get_item(&self, position: u32) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_list_model_get_item_type")]
     fn get_item_type(&self) -> glib::types::Type;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_list_model_get_n_items")]
     fn get_n_items(&self) -> u32;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_list_model_get_object")]
     fn get_object(&self, position: u32) -> Option<glib::Object>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_list_model_items_changed")]
     fn items_changed(&self, position: u32, removed: u32, added: u32);
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]

@@ -17,6 +17,7 @@ glib::glib_wrapper! {
 }
 
 impl FileAttributeMatcher {
+    #[doc(alias = "g_file_attribute_matcher_new")]
     pub fn new(attributes: &str) -> FileAttributeMatcher {
         unsafe {
             from_glib_full(ffi::g_file_attribute_matcher_new(
@@ -25,6 +26,7 @@ impl FileAttributeMatcher {
         }
     }
 
+    #[doc(alias = "g_file_attribute_matcher_enumerate_namespace")]
     pub fn enumerate_namespace(&self, ns: &str) -> bool {
         unsafe {
             from_glib(ffi::g_file_attribute_matcher_enumerate_namespace(
@@ -34,6 +36,7 @@ impl FileAttributeMatcher {
         }
     }
 
+    #[doc(alias = "g_file_attribute_matcher_matches")]
     pub fn matches(&self, attribute: &str) -> bool {
         unsafe {
             from_glib(ffi::g_file_attribute_matcher_matches(
@@ -43,6 +46,7 @@ impl FileAttributeMatcher {
         }
     }
 
+    #[doc(alias = "g_file_attribute_matcher_matches_only")]
     pub fn matches_only(&self, attribute: &str) -> bool {
         unsafe {
             from_glib(ffi::g_file_attribute_matcher_matches_only(
@@ -52,6 +56,7 @@ impl FileAttributeMatcher {
         }
     }
 
+    #[doc(alias = "g_file_attribute_matcher_subtract")]
     pub fn subtract(
         &self,
         subtract: Option<&FileAttributeMatcher>,
@@ -64,6 +69,7 @@ impl FileAttributeMatcher {
         }
     }
 
+    #[doc(alias = "g_file_attribute_matcher_to_string")]
     pub fn to_str(&self) -> glib::GString {
         unsafe {
             from_glib_full(ffi::g_file_attribute_matcher_to_string(

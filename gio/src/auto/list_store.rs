@@ -26,12 +26,14 @@ glib::glib_wrapper! {
 impl ListStore {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_list_store_new")]
     pub fn new(item_type: glib::types::Type) -> ListStore {
         unsafe { from_glib_full(ffi::g_list_store_new(item_type.to_glib())) }
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_list_store_append")]
     pub fn append<P: IsA<glib::Object>>(&self, item: &P) {
         unsafe {
             ffi::g_list_store_append(self.to_glib_none().0, item.as_ref().to_glib_none().0);
@@ -40,6 +42,7 @@ impl ListStore {
 
     #[cfg(any(feature = "v2_64", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+    #[doc(alias = "g_list_store_find")]
     pub fn find<P: IsA<glib::Object>>(&self, item: &P) -> Option<u32> {
         unsafe {
             let mut position = mem::MaybeUninit::uninit();
@@ -59,12 +62,14 @@ impl ListStore {
 
     //#[cfg(any(feature = "v2_64", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
+    //#[doc(alias = "g_list_store_find_with_equal_func")]
     //pub fn find_with_equal_func<P: IsA<glib::Object>>(&self, item: &P, equal_func: /*Unimplemented*/FnMut(/*Unimplemented*/Option<Fundamental: Pointer>, /*Unimplemented*/Option<Fundamental: Pointer>) -> bool) -> Option<u32> {
     //    unsafe { TODO: call ffi:g_list_store_find_with_equal_func() }
     //}
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_list_store_insert")]
     pub fn insert<P: IsA<glib::Object>>(&self, position: u32, item: &P) {
         unsafe {
             ffi::g_list_store_insert(
@@ -77,6 +82,7 @@ impl ListStore {
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_list_store_remove")]
     pub fn remove(&self, position: u32) {
         unsafe {
             ffi::g_list_store_remove(self.to_glib_none().0, position);
@@ -85,6 +91,7 @@ impl ListStore {
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_list_store_remove_all")]
     pub fn remove_all(&self) {
         unsafe {
             ffi::g_list_store_remove_all(self.to_glib_none().0);
@@ -93,6 +100,7 @@ impl ListStore {
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+    #[doc(alias = "g_list_store_splice")]
     pub fn splice(&self, position: u32, n_removals: u32, additions: &[glib::Object]) {
         let n_additions = additions.len() as u32;
         unsafe {

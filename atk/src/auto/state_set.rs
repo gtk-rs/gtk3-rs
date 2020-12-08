@@ -16,6 +16,7 @@ glib::glib_wrapper! {
 }
 
 impl StateSet {
+    #[doc(alias = "atk_state_set_new")]
     pub fn new() -> StateSet {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::atk_state_set_new()) }
@@ -31,24 +32,34 @@ impl Default for StateSet {
 pub const NONE_STATE_SET: Option<&StateSet> = None;
 
 pub trait StateSetExt: 'static {
+    #[doc(alias = "atk_state_set_add_state")]
     fn add_state(&self, type_: StateType) -> bool;
 
+    //#[doc(alias = "atk_state_set_add_states")]
     //fn add_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 68 });
 
+    #[doc(alias = "atk_state_set_and_sets")]
     fn and_sets<P: IsA<StateSet>>(&self, compare_set: &P) -> Option<StateSet>;
 
+    #[doc(alias = "atk_state_set_clear_states")]
     fn clear_states(&self);
 
+    #[doc(alias = "atk_state_set_contains_state")]
     fn contains_state(&self, type_: StateType) -> bool;
 
+    //#[doc(alias = "atk_state_set_contains_states")]
     //fn contains_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 68 }) -> bool;
 
+    #[doc(alias = "atk_state_set_is_empty")]
     fn is_empty(&self) -> bool;
 
+    #[doc(alias = "atk_state_set_or_sets")]
     fn or_sets<P: IsA<StateSet>>(&self, compare_set: &P) -> Option<StateSet>;
 
+    #[doc(alias = "atk_state_set_remove_state")]
     fn remove_state(&self, type_: StateType) -> bool;
 
+    #[doc(alias = "atk_state_set_xor_sets")]
     fn xor_sets<P: IsA<StateSet>>(&self, compare_set: &P) -> Option<StateSet>;
 }
 

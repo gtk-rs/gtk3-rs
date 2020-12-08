@@ -19,7 +19,7 @@ impl From<IconSize> for i32 {
 impl From<i32> for IconSize {
     fn from(val: i32) -> Self {
         skip_assert_initialized!();
-        from_glib(val as ffi::GtkIconSize)
+        unsafe { from_glib(val as ffi::GtkIconSize) }
     }
 }
 
@@ -33,6 +33,6 @@ impl From<ResponseType> for i32 {
 impl From<i32> for ResponseType {
     fn from(val: i32) -> Self {
         skip_assert_initialized!();
-        from_glib(val as ffi::GtkResponseType)
+        unsafe { from_glib(val as ffi::GtkResponseType) }
     }
 }

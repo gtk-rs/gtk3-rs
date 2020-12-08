@@ -24,30 +24,36 @@ glib::glib_wrapper! {
 
 impl Screen {
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_get_active_window")]
     pub fn get_active_window(&self) -> Option<Window> {
         unsafe { from_glib_full(ffi::gdk_screen_get_active_window(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_screen_get_display")]
     pub fn get_display(&self) -> Display {
         unsafe { from_glib_none(ffi::gdk_screen_get_display(self.to_glib_none().0)) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_get_height")]
     pub fn get_height(&self) -> i32 {
         unsafe { ffi::gdk_screen_get_height(self.to_glib_none().0) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_get_height_mm")]
     pub fn get_height_mm(&self) -> i32 {
         unsafe { ffi::gdk_screen_get_height_mm(self.to_glib_none().0) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_get_monitor_at_point")]
     pub fn get_monitor_at_point(&self, x: i32, y: i32) -> i32 {
         unsafe { ffi::gdk_screen_get_monitor_at_point(self.to_glib_none().0, x, y) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_get_monitor_at_window")]
     pub fn get_monitor_at_window(&self, window: &Window) -> i32 {
         unsafe {
             ffi::gdk_screen_get_monitor_at_window(self.to_glib_none().0, window.to_glib_none().0)
@@ -55,6 +61,7 @@ impl Screen {
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_get_monitor_geometry")]
     pub fn get_monitor_geometry(&self, monitor_num: i32) -> Rectangle {
         unsafe {
             let mut dest = Rectangle::uninitialized();
@@ -68,11 +75,13 @@ impl Screen {
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_get_monitor_height_mm")]
     pub fn get_monitor_height_mm(&self, monitor_num: i32) -> i32 {
         unsafe { ffi::gdk_screen_get_monitor_height_mm(self.to_glib_none().0, monitor_num) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_get_monitor_plug_name")]
     pub fn get_monitor_plug_name(&self, monitor_num: i32) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gdk_screen_get_monitor_plug_name(
@@ -83,16 +92,19 @@ impl Screen {
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_get_monitor_scale_factor")]
     pub fn get_monitor_scale_factor(&self, monitor_num: i32) -> i32 {
         unsafe { ffi::gdk_screen_get_monitor_scale_factor(self.to_glib_none().0, monitor_num) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_get_monitor_width_mm")]
     pub fn get_monitor_width_mm(&self, monitor_num: i32) -> i32 {
         unsafe { ffi::gdk_screen_get_monitor_width_mm(self.to_glib_none().0, monitor_num) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_get_monitor_workarea")]
     pub fn get_monitor_workarea(&self, monitor_num: i32) -> Rectangle {
         unsafe {
             let mut dest = Rectangle::uninitialized();
@@ -106,36 +118,44 @@ impl Screen {
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_get_n_monitors")]
     pub fn get_n_monitors(&self) -> i32 {
         unsafe { ffi::gdk_screen_get_n_monitors(self.to_glib_none().0) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_get_number")]
     pub fn get_number(&self) -> i32 {
         unsafe { ffi::gdk_screen_get_number(self.to_glib_none().0) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_get_primary_monitor")]
     pub fn get_primary_monitor(&self) -> i32 {
         unsafe { ffi::gdk_screen_get_primary_monitor(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_screen_get_resolution")]
     pub fn get_resolution(&self) -> f64 {
         unsafe { ffi::gdk_screen_get_resolution(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_screen_get_rgba_visual")]
     pub fn get_rgba_visual(&self) -> Option<Visual> {
         unsafe { from_glib_none(ffi::gdk_screen_get_rgba_visual(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_screen_get_root_window")]
     pub fn get_root_window(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_screen_get_root_window(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_screen_get_system_visual")]
     pub fn get_system_visual(&self) -> Option<Visual> {
         unsafe { from_glib_none(ffi::gdk_screen_get_system_visual(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_screen_get_toplevel_windows")]
     pub fn get_toplevel_windows(&self) -> Vec<Window> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_screen_get_toplevel_windows(
@@ -145,15 +165,18 @@ impl Screen {
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_get_width")]
     pub fn get_width(&self) -> i32 {
         unsafe { ffi::gdk_screen_get_width(self.to_glib_none().0) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_get_width_mm")]
     pub fn get_width_mm(&self) -> i32 {
         unsafe { ffi::gdk_screen_get_width_mm(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_screen_get_window_stack")]
     pub fn get_window_stack(&self) -> Vec<Window> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gdk_screen_get_window_stack(
@@ -162,10 +185,12 @@ impl Screen {
         }
     }
 
+    #[doc(alias = "gdk_screen_is_composited")]
     pub fn is_composited(&self) -> bool {
         unsafe { from_glib(ffi::gdk_screen_is_composited(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_screen_list_visuals")]
     pub fn list_visuals(&self) -> Vec<Visual> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_screen_list_visuals(
@@ -175,46 +200,54 @@ impl Screen {
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_make_display_name")]
     pub fn make_display_name(&self) -> glib::GString {
         unsafe { from_glib_full(ffi::gdk_screen_make_display_name(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_screen_set_font_options")]
     pub fn set_font_options(&self, options: Option<&cairo::FontOptions>) {
         unsafe {
             ffi::gdk_screen_set_font_options(self.to_glib_none().0, options.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gdk_screen_set_resolution")]
     pub fn set_resolution(&self, dpi: f64) {
         unsafe {
             ffi::gdk_screen_set_resolution(self.to_glib_none().0, dpi);
         }
     }
 
+    #[doc(alias = "gdk_screen_get_default")]
     pub fn get_default() -> Option<Screen> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_screen_get_default()) }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_height")]
     pub fn height() -> i32 {
         assert_initialized_main_thread!();
         unsafe { ffi::gdk_screen_height() }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_height_mm")]
     pub fn height_mm() -> i32 {
         assert_initialized_main_thread!();
         unsafe { ffi::gdk_screen_height_mm() }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_width")]
     pub fn width() -> i32 {
         assert_initialized_main_thread!();
         unsafe { ffi::gdk_screen_width() }
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
+    #[doc(alias = "gdk_screen_width_mm")]
     pub fn width_mm() -> i32 {
         assert_initialized_main_thread!();
         unsafe { ffi::gdk_screen_width_mm() }

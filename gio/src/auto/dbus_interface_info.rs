@@ -19,6 +19,7 @@ glib::glib_wrapper! {
 }
 
 impl DBusInterfaceInfo {
+    #[doc(alias = "g_dbus_interface_info_generate_xml")]
     pub fn generate_xml(&self, indent: u32, string_builder: &mut glib::String) {
         unsafe {
             ffi::g_dbus_interface_info_generate_xml(
@@ -29,6 +30,7 @@ impl DBusInterfaceInfo {
         }
     }
 
+    #[doc(alias = "g_dbus_interface_info_lookup_method")]
     pub fn lookup_method(&self, name: &str) -> Option<DBusMethodInfo> {
         unsafe {
             from_glib_none(ffi::g_dbus_interface_info_lookup_method(
@@ -38,6 +40,7 @@ impl DBusInterfaceInfo {
         }
     }
 
+    #[doc(alias = "g_dbus_interface_info_lookup_property")]
     pub fn lookup_property(&self, name: &str) -> Option<DBusPropertyInfo> {
         unsafe {
             from_glib_none(ffi::g_dbus_interface_info_lookup_property(
@@ -47,6 +50,7 @@ impl DBusInterfaceInfo {
         }
     }
 
+    #[doc(alias = "g_dbus_interface_info_lookup_signal")]
     pub fn lookup_signal(&self, name: &str) -> Option<DBusSignalInfo> {
         unsafe {
             from_glib_none(ffi::g_dbus_interface_info_lookup_signal(

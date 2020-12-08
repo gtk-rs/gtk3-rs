@@ -23,18 +23,22 @@ pub const NONE_DEVICE_PAD: Option<&DevicePad> = None;
 pub trait DevicePadExt: 'static {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gdk_device_pad_get_feature_group")]
     fn get_feature_group(&self, feature: DevicePadFeature, feature_idx: i32) -> i32;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gdk_device_pad_get_group_n_modes")]
     fn get_group_n_modes(&self, group_idx: i32) -> i32;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gdk_device_pad_get_n_features")]
     fn get_n_features(&self, feature: DevicePadFeature) -> i32;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+    #[doc(alias = "gdk_device_pad_get_n_groups")]
     fn get_n_groups(&self) -> i32;
 }
 

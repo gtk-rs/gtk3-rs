@@ -17,18 +17,25 @@ glib::glib_wrapper! {
 pub const NONE_ACTION: Option<&Action> = None;
 
 pub trait AtkActionExt: 'static {
+    #[doc(alias = "atk_action_do_action")]
     fn do_action(&self, i: i32) -> bool;
 
+    #[doc(alias = "atk_action_get_description")]
     fn get_description(&self, i: i32) -> Option<glib::GString>;
 
+    #[doc(alias = "atk_action_get_keybinding")]
     fn get_keybinding(&self, i: i32) -> Option<glib::GString>;
 
+    #[doc(alias = "atk_action_get_localized_name")]
     fn get_localized_name(&self, i: i32) -> Option<glib::GString>;
 
+    #[doc(alias = "atk_action_get_n_actions")]
     fn get_n_actions(&self) -> i32;
 
+    #[doc(alias = "atk_action_get_name")]
     fn get_name(&self, i: i32) -> Option<glib::GString>;
 
+    #[doc(alias = "atk_action_set_description")]
     fn set_description(&self, i: i32, desc: &str) -> bool;
 }
 

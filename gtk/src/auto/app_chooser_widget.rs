@@ -33,6 +33,7 @@ glib::glib_wrapper! {
 }
 
 impl AppChooserWidget {
+    #[doc(alias = "gtk_app_chooser_widget_new")]
     pub fn new(content_type: &str) -> AppChooserWidget {
         assert_initialized_main_thread!();
         unsafe {
@@ -485,28 +486,40 @@ impl AppChooserWidgetBuilder {
 pub const NONE_APP_CHOOSER_WIDGET: Option<&AppChooserWidget> = None;
 
 pub trait AppChooserWidgetExt: 'static {
+    #[doc(alias = "gtk_app_chooser_widget_get_default_text")]
     fn get_default_text(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_app_chooser_widget_get_show_all")]
     fn get_show_all(&self) -> bool;
 
+    #[doc(alias = "gtk_app_chooser_widget_get_show_default")]
     fn get_show_default(&self) -> bool;
 
+    #[doc(alias = "gtk_app_chooser_widget_get_show_fallback")]
     fn get_show_fallback(&self) -> bool;
 
+    #[doc(alias = "gtk_app_chooser_widget_get_show_other")]
     fn get_show_other(&self) -> bool;
 
+    #[doc(alias = "gtk_app_chooser_widget_get_show_recommended")]
     fn get_show_recommended(&self) -> bool;
 
+    #[doc(alias = "gtk_app_chooser_widget_set_default_text")]
     fn set_default_text(&self, text: &str);
 
+    #[doc(alias = "gtk_app_chooser_widget_set_show_all")]
     fn set_show_all(&self, setting: bool);
 
+    #[doc(alias = "gtk_app_chooser_widget_set_show_default")]
     fn set_show_default(&self, setting: bool);
 
+    #[doc(alias = "gtk_app_chooser_widget_set_show_fallback")]
     fn set_show_fallback(&self, setting: bool);
 
+    #[doc(alias = "gtk_app_chooser_widget_set_show_other")]
     fn set_show_other(&self, setting: bool);
 
+    #[doc(alias = "gtk_app_chooser_widget_set_show_recommended")]
     fn set_show_recommended(&self, setting: bool);
 
     fn connect_application_activated<F: Fn(&Self, &gio::AppInfo) + 'static>(

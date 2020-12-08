@@ -62,7 +62,7 @@ impl From<Char> for char {
 
 #[doc(hidden)]
 impl FromGlib<c_char> for Char {
-    fn from_glib(value: c_char) -> Self {
+    unsafe fn from_glib(value: c_char) -> Self {
         Char(value)
     }
 }
@@ -118,7 +118,7 @@ impl From<UChar> for char {
 
 #[doc(hidden)]
 impl FromGlib<c_uchar> for UChar {
-    fn from_glib(value: c_uchar) -> Self {
+    unsafe fn from_glib(value: c_uchar) -> Self {
         UChar(value)
     }
 }
@@ -169,7 +169,7 @@ mod tests {
 
     #[test]
     fn convert_from_glib() {
-        assert_eq!(Char(65_i8), from_glib(65_i8));
-        assert_eq!(UChar(241_u8), from_glib(241_u8));
+        assert_eq!(Char(65_i8), unsafe { from_glib(65_i8) });
+        assert_eq!(UChar(241_u8), unsafe { from_glib(241_u8) });
     }
 }

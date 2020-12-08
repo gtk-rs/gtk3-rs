@@ -15,6 +15,7 @@ glib::glib_wrapper! {
 }
 
 impl Misc {
+    #[doc(alias = "atk_misc_get_instance")]
     pub fn get_instance() -> Option<Misc> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_misc_get_instance()) }
@@ -24,8 +25,10 @@ impl Misc {
 pub const NONE_MISC: Option<&Misc> = None;
 
 pub trait AtkMiscExt: 'static {
+    #[doc(alias = "atk_misc_threads_enter")]
     fn threads_enter(&self);
 
+    #[doc(alias = "atk_misc_threads_leave")]
     fn threads_leave(&self);
 }
 

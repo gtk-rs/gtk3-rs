@@ -31,6 +31,7 @@ glib::glib_wrapper! {
 }
 
 impl TextBuffer {
+    #[doc(alias = "gtk_text_buffer_new")]
     pub fn new<P: IsA<TextTagTable>>(table: Option<&P>) -> TextBuffer {
         assert_initialized_main_thread!();
         unsafe {
@@ -81,22 +82,31 @@ impl TextBufferBuilder {
 pub const NONE_TEXT_BUFFER: Option<&TextBuffer> = None;
 
 pub trait TextBufferExt: 'static {
+    #[doc(alias = "gtk_text_buffer_add_mark")]
     fn add_mark<P: IsA<TextMark>>(&self, mark: &P, where_: &TextIter);
 
+    #[doc(alias = "gtk_text_buffer_add_selection_clipboard")]
     fn add_selection_clipboard(&self, clipboard: &Clipboard);
 
+    #[doc(alias = "gtk_text_buffer_apply_tag")]
     fn apply_tag<P: IsA<TextTag>>(&self, tag: &P, start: &TextIter, end: &TextIter);
 
+    #[doc(alias = "gtk_text_buffer_apply_tag_by_name")]
     fn apply_tag_by_name(&self, name: &str, start: &TextIter, end: &TextIter);
 
+    #[doc(alias = "gtk_text_buffer_backspace")]
     fn backspace(&self, iter: &mut TextIter, interactive: bool, default_editable: bool) -> bool;
 
+    #[doc(alias = "gtk_text_buffer_begin_user_action")]
     fn begin_user_action(&self);
 
+    #[doc(alias = "gtk_text_buffer_copy_clipboard")]
     fn copy_clipboard(&self, clipboard: &Clipboard);
 
+    #[doc(alias = "gtk_text_buffer_create_child_anchor")]
     fn create_child_anchor(&self, iter: &mut TextIter) -> Option<TextChildAnchor>;
 
+    #[doc(alias = "gtk_text_buffer_create_mark")]
     fn create_mark(
         &self,
         mark_name: Option<&str>,
@@ -104,12 +114,16 @@ pub trait TextBufferExt: 'static {
         left_gravity: bool,
     ) -> Option<TextMark>;
 
+    //#[doc(alias = "gtk_text_buffer_create_tag")]
     //fn create_tag(&self, tag_name: Option<&str>, first_property_name: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<TextTag>;
 
+    #[doc(alias = "gtk_text_buffer_cut_clipboard")]
     fn cut_clipboard(&self, clipboard: &Clipboard, default_editable: bool);
 
+    #[doc(alias = "gtk_text_buffer_delete")]
     fn delete(&self, start: &mut TextIter, end: &mut TextIter);
 
+    #[doc(alias = "gtk_text_buffer_delete_interactive")]
     fn delete_interactive(
         &self,
         start_iter: &mut TextIter,
@@ -117,12 +131,16 @@ pub trait TextBufferExt: 'static {
         default_editable: bool,
     ) -> bool;
 
+    #[doc(alias = "gtk_text_buffer_delete_mark")]
     fn delete_mark<P: IsA<TextMark>>(&self, mark: &P);
 
+    #[doc(alias = "gtk_text_buffer_delete_mark_by_name")]
     fn delete_mark_by_name(&self, name: &str);
 
+    #[doc(alias = "gtk_text_buffer_delete_selection")]
     fn delete_selection(&self, interactive: bool, default_editable: bool) -> bool;
 
+    #[doc(alias = "gtk_text_buffer_deserialize")]
     fn deserialize<P: IsA<TextBuffer>>(
         &self,
         content_buffer: &P,
@@ -131,52 +149,76 @@ pub trait TextBufferExt: 'static {
         data: &[u8],
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gtk_text_buffer_deserialize_get_can_create_tags")]
     fn deserialize_get_can_create_tags(&self, format: &gdk::Atom) -> bool;
 
+    #[doc(alias = "gtk_text_buffer_deserialize_set_can_create_tags")]
     fn deserialize_set_can_create_tags(&self, format: &gdk::Atom, can_create_tags: bool);
 
+    #[doc(alias = "gtk_text_buffer_end_user_action")]
     fn end_user_action(&self);
 
+    #[doc(alias = "gtk_text_buffer_get_bounds")]
     fn get_bounds(&self) -> (TextIter, TextIter);
 
+    #[doc(alias = "gtk_text_buffer_get_char_count")]
     fn get_char_count(&self) -> i32;
 
+    #[doc(alias = "gtk_text_buffer_get_copy_target_list")]
     fn get_copy_target_list(&self) -> Option<TargetList>;
 
+    #[doc(alias = "gtk_text_buffer_get_deserialize_formats")]
     fn get_deserialize_formats(&self) -> Vec<gdk::Atom>;
 
+    #[doc(alias = "gtk_text_buffer_get_end_iter")]
     fn get_end_iter(&self) -> TextIter;
 
+    #[doc(alias = "gtk_text_buffer_get_has_selection")]
     fn get_has_selection(&self) -> bool;
 
+    #[doc(alias = "gtk_text_buffer_get_insert")]
     fn get_insert(&self) -> Option<TextMark>;
 
+    #[doc(alias = "gtk_text_buffer_get_iter_at_child_anchor")]
     fn get_iter_at_child_anchor<P: IsA<TextChildAnchor>>(&self, anchor: &P) -> TextIter;
 
+    #[doc(alias = "gtk_text_buffer_get_iter_at_line")]
     fn get_iter_at_line(&self, line_number: i32) -> TextIter;
 
+    #[doc(alias = "gtk_text_buffer_get_iter_at_line_index")]
     fn get_iter_at_line_index(&self, line_number: i32, byte_index: i32) -> TextIter;
 
+    #[doc(alias = "gtk_text_buffer_get_iter_at_line_offset")]
     fn get_iter_at_line_offset(&self, line_number: i32, char_offset: i32) -> TextIter;
 
+    #[doc(alias = "gtk_text_buffer_get_iter_at_mark")]
     fn get_iter_at_mark<P: IsA<TextMark>>(&self, mark: &P) -> TextIter;
 
+    #[doc(alias = "gtk_text_buffer_get_iter_at_offset")]
     fn get_iter_at_offset(&self, char_offset: i32) -> TextIter;
 
+    #[doc(alias = "gtk_text_buffer_get_line_count")]
     fn get_line_count(&self) -> i32;
 
+    #[doc(alias = "gtk_text_buffer_get_mark")]
     fn get_mark(&self, name: &str) -> Option<TextMark>;
 
+    #[doc(alias = "gtk_text_buffer_get_modified")]
     fn get_modified(&self) -> bool;
 
+    #[doc(alias = "gtk_text_buffer_get_paste_target_list")]
     fn get_paste_target_list(&self) -> Option<TargetList>;
 
+    #[doc(alias = "gtk_text_buffer_get_selection_bound")]
     fn get_selection_bound(&self) -> Option<TextMark>;
 
+    #[doc(alias = "gtk_text_buffer_get_selection_bounds")]
     fn get_selection_bounds(&self) -> Option<(TextIter, TextIter)>;
 
+    #[doc(alias = "gtk_text_buffer_get_serialize_formats")]
     fn get_serialize_formats(&self) -> Vec<gdk::Atom>;
 
+    #[doc(alias = "gtk_text_buffer_get_slice")]
     fn get_slice(
         &self,
         start: &TextIter,
@@ -184,10 +226,13 @@ pub trait TextBufferExt: 'static {
         include_hidden_chars: bool,
     ) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_text_buffer_get_start_iter")]
     fn get_start_iter(&self) -> TextIter;
 
+    #[doc(alias = "gtk_text_buffer_get_tag_table")]
     fn get_tag_table(&self) -> Option<TextTagTable>;
 
+    #[doc(alias = "gtk_text_buffer_get_text")]
     fn get_text(
         &self,
         start: &TextIter,
@@ -195,24 +240,33 @@ pub trait TextBufferExt: 'static {
         include_hidden_chars: bool,
     ) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_text_buffer_insert")]
     fn insert(&self, iter: &mut TextIter, text: &str);
 
+    #[doc(alias = "gtk_text_buffer_insert_at_cursor")]
     fn insert_at_cursor(&self, text: &str);
 
+    #[doc(alias = "gtk_text_buffer_insert_child_anchor")]
     fn insert_child_anchor<P: IsA<TextChildAnchor>>(&self, iter: &mut TextIter, anchor: &P);
 
+    #[doc(alias = "gtk_text_buffer_insert_interactive")]
     fn insert_interactive(&self, iter: &mut TextIter, text: &str, default_editable: bool) -> bool;
 
+    #[doc(alias = "gtk_text_buffer_insert_interactive_at_cursor")]
     fn insert_interactive_at_cursor(&self, text: &str, default_editable: bool) -> bool;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_text_buffer_insert_markup")]
     fn insert_markup(&self, iter: &mut TextIter, markup: &str);
 
+    #[doc(alias = "gtk_text_buffer_insert_pixbuf")]
     fn insert_pixbuf(&self, iter: &mut TextIter, pixbuf: &gdk_pixbuf::Pixbuf);
 
+    #[doc(alias = "gtk_text_buffer_insert_range")]
     fn insert_range(&self, iter: &mut TextIter, start: &TextIter, end: &TextIter);
 
+    #[doc(alias = "gtk_text_buffer_insert_range_interactive")]
     fn insert_range_interactive(
         &self,
         iter: &mut TextIter,
@@ -221,14 +275,19 @@ pub trait TextBufferExt: 'static {
         default_editable: bool,
     ) -> bool;
 
+    //#[doc(alias = "gtk_text_buffer_insert_with_tags")]
     //fn insert_with_tags<P: IsA<TextTag>>(&self, iter: &mut TextIter, text: &str, first_tag: &P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
+    //#[doc(alias = "gtk_text_buffer_insert_with_tags_by_name")]
     //fn insert_with_tags_by_name(&self, iter: &mut TextIter, text: &str, first_tag_name: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
+    #[doc(alias = "gtk_text_buffer_move_mark")]
     fn move_mark<P: IsA<TextMark>>(&self, mark: &P, where_: &TextIter);
 
+    #[doc(alias = "gtk_text_buffer_move_mark_by_name")]
     fn move_mark_by_name(&self, name: &str, where_: &TextIter);
 
+    #[doc(alias = "gtk_text_buffer_paste_clipboard")]
     fn paste_clipboard(
         &self,
         clipboard: &Clipboard,
@@ -236,24 +295,34 @@ pub trait TextBufferExt: 'static {
         default_editable: bool,
     );
 
+    #[doc(alias = "gtk_text_buffer_place_cursor")]
     fn place_cursor(&self, where_: &TextIter);
 
+    //#[doc(alias = "gtk_text_buffer_register_deserialize_format")]
     //fn register_deserialize_format<P: Fn(&TextBuffer, &TextBuffer, &TextIter, &Vec<u8>, usize, bool, Option<&glib::Error>) -> bool + 'static>(&self, mime_type: &str, function: P) -> Option<gdk::Atom>;
 
+    #[doc(alias = "gtk_text_buffer_register_deserialize_tagset")]
     fn register_deserialize_tagset(&self, tagset_name: Option<&str>) -> gdk::Atom;
 
+    #[doc(alias = "gtk_text_buffer_register_serialize_tagset")]
     fn register_serialize_tagset(&self, tagset_name: Option<&str>) -> gdk::Atom;
 
+    #[doc(alias = "gtk_text_buffer_remove_all_tags")]
     fn remove_all_tags(&self, start: &TextIter, end: &TextIter);
 
+    #[doc(alias = "gtk_text_buffer_remove_selection_clipboard")]
     fn remove_selection_clipboard(&self, clipboard: &Clipboard);
 
+    #[doc(alias = "gtk_text_buffer_remove_tag")]
     fn remove_tag<P: IsA<TextTag>>(&self, tag: &P, start: &TextIter, end: &TextIter);
 
+    #[doc(alias = "gtk_text_buffer_remove_tag_by_name")]
     fn remove_tag_by_name(&self, name: &str, start: &TextIter, end: &TextIter);
 
+    #[doc(alias = "gtk_text_buffer_select_range")]
     fn select_range(&self, ins: &TextIter, bound: &TextIter);
 
+    #[doc(alias = "gtk_text_buffer_serialize")]
     fn serialize<P: IsA<TextBuffer>>(
         &self,
         content_buffer: &P,
@@ -262,12 +331,16 @@ pub trait TextBufferExt: 'static {
         end: &TextIter,
     ) -> Vec<u8>;
 
+    #[doc(alias = "gtk_text_buffer_set_modified")]
     fn set_modified(&self, setting: bool);
 
+    #[doc(alias = "gtk_text_buffer_set_text")]
     fn set_text(&self, text: &str);
 
+    #[doc(alias = "gtk_text_buffer_unregister_deserialize_format")]
     fn unregister_deserialize_format(&self, format: &gdk::Atom);
 
+    #[doc(alias = "gtk_text_buffer_unregister_serialize_format")]
     fn unregister_serialize_format(&self, format: &gdk::Atom);
 
     fn get_property_cursor_position(&self) -> i32;

@@ -40,6 +40,7 @@ glib::glib_wrapper! {
 }
 
 impl SpinButton {
+    #[doc(alias = "gtk_spin_button_new")]
     pub fn new<P: IsA<Adjustment>>(
         adjustment: Option<&P>,
         climb_rate: f64,
@@ -56,6 +57,7 @@ impl SpinButton {
         }
     }
 
+    #[doc(alias = "gtk_spin_button_new_with_range")]
     pub fn with_range(min: f64, max: f64, step: f64) -> SpinButton {
         assert_initialized_main_thread!();
         unsafe {
@@ -851,48 +853,70 @@ impl SpinButtonBuilder {
 pub const NONE_SPIN_BUTTON: Option<&SpinButton> = None;
 
 pub trait SpinButtonExt: 'static {
+    #[doc(alias = "gtk_spin_button_configure")]
     fn configure<P: IsA<Adjustment>>(&self, adjustment: Option<&P>, climb_rate: f64, digits: u32);
 
+    #[doc(alias = "gtk_spin_button_get_adjustment")]
     fn get_adjustment(&self) -> Adjustment;
 
+    #[doc(alias = "gtk_spin_button_get_digits")]
     fn get_digits(&self) -> u32;
 
+    #[doc(alias = "gtk_spin_button_get_increments")]
     fn get_increments(&self) -> (f64, f64);
 
+    #[doc(alias = "gtk_spin_button_get_numeric")]
     fn get_numeric(&self) -> bool;
 
+    #[doc(alias = "gtk_spin_button_get_range")]
     fn get_range(&self) -> (f64, f64);
 
+    #[doc(alias = "gtk_spin_button_get_snap_to_ticks")]
     fn get_snap_to_ticks(&self) -> bool;
 
+    #[doc(alias = "gtk_spin_button_get_update_policy")]
     fn get_update_policy(&self) -> SpinButtonUpdatePolicy;
 
+    #[doc(alias = "gtk_spin_button_get_value")]
     fn get_value(&self) -> f64;
 
+    #[doc(alias = "gtk_spin_button_get_value_as_int")]
     fn get_value_as_int(&self) -> i32;
 
+    #[doc(alias = "gtk_spin_button_get_wrap")]
     fn get_wrap(&self) -> bool;
 
+    #[doc(alias = "gtk_spin_button_set_adjustment")]
     fn set_adjustment<P: IsA<Adjustment>>(&self, adjustment: &P);
 
+    #[doc(alias = "gtk_spin_button_set_digits")]
     fn set_digits(&self, digits: u32);
 
+    #[doc(alias = "gtk_spin_button_set_increments")]
     fn set_increments(&self, step: f64, page: f64);
 
+    #[doc(alias = "gtk_spin_button_set_numeric")]
     fn set_numeric(&self, numeric: bool);
 
+    #[doc(alias = "gtk_spin_button_set_range")]
     fn set_range(&self, min: f64, max: f64);
 
+    #[doc(alias = "gtk_spin_button_set_snap_to_ticks")]
     fn set_snap_to_ticks(&self, snap_to_ticks: bool);
 
+    #[doc(alias = "gtk_spin_button_set_update_policy")]
     fn set_update_policy(&self, policy: SpinButtonUpdatePolicy);
 
+    #[doc(alias = "gtk_spin_button_set_value")]
     fn set_value(&self, value: f64);
 
+    #[doc(alias = "gtk_spin_button_set_wrap")]
     fn set_wrap(&self, wrap: bool);
 
+    #[doc(alias = "gtk_spin_button_spin")]
     fn spin(&self, direction: SpinType, increment: f64);
 
+    #[doc(alias = "gtk_spin_button_update")]
     fn update(&self);
 
     fn get_property_climb_rate(&self) -> f64;

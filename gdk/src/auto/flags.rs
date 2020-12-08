@@ -50,7 +50,7 @@ impl ToGlib for AnchorHints {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkAnchorHints> for AnchorHints {
-    fn from_glib(value: ffi::GdkAnchorHints) -> AnchorHints {
+    unsafe fn from_glib(value: ffi::GdkAnchorHints) -> AnchorHints {
         skip_assert_initialized!();
         AnchorHints::from_bits_truncate(value)
     }
@@ -127,7 +127,7 @@ impl ToGlib for AxisFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkAxisFlags> for AxisFlags {
-    fn from_glib(value: ffi::GdkAxisFlags) -> AxisFlags {
+    unsafe fn from_glib(value: ffi::GdkAxisFlags) -> AxisFlags {
         skip_assert_initialized!();
         AxisFlags::from_bits_truncate(value)
     }
@@ -193,7 +193,7 @@ impl ToGlib for DragAction {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkDragAction> for DragAction {
-    fn from_glib(value: ffi::GdkDragAction) -> DragAction {
+    unsafe fn from_glib(value: ffi::GdkDragAction) -> DragAction {
         skip_assert_initialized!();
         DragAction::from_bits_truncate(value)
     }
@@ -271,7 +271,7 @@ impl ToGlib for EventMask {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkEventMask> for EventMask {
-    fn from_glib(value: ffi::GdkEventMask) -> EventMask {
+    unsafe fn from_glib(value: ffi::GdkEventMask) -> EventMask {
         skip_assert_initialized!();
         EventMask::from_bits_truncate(value)
     }
@@ -331,7 +331,7 @@ impl ToGlib for FrameClockPhase {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkFrameClockPhase> for FrameClockPhase {
-    fn from_glib(value: ffi::GdkFrameClockPhase) -> FrameClockPhase {
+    unsafe fn from_glib(value: ffi::GdkFrameClockPhase) -> FrameClockPhase {
         skip_assert_initialized!();
         FrameClockPhase::from_bits_truncate(value)
     }
@@ -415,7 +415,7 @@ impl ToGlib for ModifierType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkModifierType> for ModifierType {
-    fn from_glib(value: ffi::GdkModifierType) -> ModifierType {
+    unsafe fn from_glib(value: ffi::GdkModifierType) -> ModifierType {
         skip_assert_initialized!();
         ModifierType::from_bits_truncate(value)
     }
@@ -482,7 +482,7 @@ impl ToGlib for SeatCapabilities {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkSeatCapabilities> for SeatCapabilities {
-    fn from_glib(value: ffi::GdkSeatCapabilities) -> SeatCapabilities {
+    unsafe fn from_glib(value: ffi::GdkSeatCapabilities) -> SeatCapabilities {
         skip_assert_initialized!();
         SeatCapabilities::from_bits_truncate(value)
     }
@@ -549,7 +549,7 @@ impl ToGlib for WMDecoration {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkWMDecoration> for WMDecoration {
-    fn from_glib(value: ffi::GdkWMDecoration) -> WMDecoration {
+    unsafe fn from_glib(value: ffi::GdkWMDecoration) -> WMDecoration {
         skip_assert_initialized!();
         WMDecoration::from_bits_truncate(value)
     }
@@ -607,7 +607,7 @@ impl ToGlib for WMFunction {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkWMFunction> for WMFunction {
-    fn from_glib(value: ffi::GdkWMFunction) -> WMFunction {
+    unsafe fn from_glib(value: ffi::GdkWMFunction) -> WMFunction {
         skip_assert_initialized!();
         WMFunction::from_bits_truncate(value)
     }
@@ -668,7 +668,7 @@ impl ToGlib for WindowHints {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkWindowHints> for WindowHints {
-    fn from_glib(value: ffi::GdkWindowHints) -> WindowHints {
+    unsafe fn from_glib(value: ffi::GdkWindowHints) -> WindowHints {
         skip_assert_initialized!();
         WindowHints::from_bits_truncate(value)
     }
@@ -737,7 +737,7 @@ impl ToGlib for WindowState {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GdkWindowState> for WindowState {
-    fn from_glib(value: ffi::GdkWindowState) -> WindowState {
+    unsafe fn from_glib(value: ffi::GdkWindowState) -> WindowState {
         skip_assert_initialized!();
         WindowState::from_bits_truncate(value)
     }

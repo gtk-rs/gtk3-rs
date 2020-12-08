@@ -27,6 +27,7 @@ glib::glib_wrapper! {
 }
 
 impl SeparatorMenuItem {
+    #[doc(alias = "gtk_separator_menu_item_new")]
     pub fn new() -> SeparatorMenuItem {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_separator_menu_item_new()).unsafe_cast() }

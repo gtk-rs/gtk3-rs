@@ -28,6 +28,7 @@ glib::glib_wrapper! {
 }
 
 impl DataOutputStream {
+    #[doc(alias = "g_data_output_stream_new")]
     pub fn new<P: IsA<OutputStream>>(base_stream: &P) -> DataOutputStream {
         unsafe {
             from_glib_full(ffi::g_data_output_stream_new(
@@ -86,56 +87,66 @@ impl DataOutputStreamBuilder {
 pub const NONE_DATA_OUTPUT_STREAM: Option<&DataOutputStream> = None;
 
 pub trait DataOutputStreamExt: 'static {
+    #[doc(alias = "g_data_output_stream_get_byte_order")]
     fn get_byte_order(&self) -> DataStreamByteOrder;
 
+    #[doc(alias = "g_data_output_stream_put_byte")]
     fn put_byte<P: IsA<Cancellable>>(
         &self,
         data: u8,
         cancellable: Option<&P>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_data_output_stream_put_int16")]
     fn put_int16<P: IsA<Cancellable>>(
         &self,
         data: i16,
         cancellable: Option<&P>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_data_output_stream_put_int32")]
     fn put_int32<P: IsA<Cancellable>>(
         &self,
         data: i32,
         cancellable: Option<&P>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_data_output_stream_put_int64")]
     fn put_int64<P: IsA<Cancellable>>(
         &self,
         data: i64,
         cancellable: Option<&P>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_data_output_stream_put_string")]
     fn put_string<P: IsA<Cancellable>>(
         &self,
         str: &str,
         cancellable: Option<&P>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_data_output_stream_put_uint16")]
     fn put_uint16<P: IsA<Cancellable>>(
         &self,
         data: u16,
         cancellable: Option<&P>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_data_output_stream_put_uint32")]
     fn put_uint32<P: IsA<Cancellable>>(
         &self,
         data: u32,
         cancellable: Option<&P>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_data_output_stream_put_uint64")]
     fn put_uint64<P: IsA<Cancellable>>(
         &self,
         data: u64,
         cancellable: Option<&P>,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_data_output_stream_set_byte_order")]
     fn set_byte_order(&self, order: DataStreamByteOrder);
 
     fn connect_property_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

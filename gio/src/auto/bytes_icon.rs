@@ -16,10 +16,12 @@ glib::glib_wrapper! {
 }
 
 impl BytesIcon {
+    #[doc(alias = "g_bytes_icon_new")]
     pub fn new(bytes: &glib::Bytes) -> BytesIcon {
         unsafe { from_glib_full(ffi::g_bytes_icon_new(bytes.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_bytes_icon_get_bytes")]
     pub fn get_bytes(&self) -> Option<glib::Bytes> {
         unsafe { from_glib_none(ffi::g_bytes_icon_get_bytes(self.to_glib_none().0)) }
     }

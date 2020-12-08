@@ -18,12 +18,15 @@ glib::glib_wrapper! {
 pub const NONE_SOCKET_CONNECTABLE: Option<&SocketConnectable> = None;
 
 pub trait SocketConnectableExt: 'static {
+    #[doc(alias = "g_socket_connectable_enumerate")]
     fn enumerate(&self) -> Option<SocketAddressEnumerator>;
 
+    #[doc(alias = "g_socket_connectable_proxy_enumerate")]
     fn proxy_enumerate(&self) -> Option<SocketAddressEnumerator>;
 
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
+    #[doc(alias = "g_socket_connectable_to_string")]
     fn to_string(&self) -> Option<glib::GString>;
 }
 

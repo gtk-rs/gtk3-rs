@@ -14,7 +14,7 @@ pub struct LogHandlerId(u32);
 
 #[doc(hidden)]
 impl FromGlib<u32> for LogHandlerId {
-    fn from_glib(value: u32) -> LogHandlerId {
+    unsafe fn from_glib(value: u32) -> LogHandlerId {
         LogHandlerId(value)
     }
 }
@@ -56,7 +56,7 @@ impl ToGlib for LogLevel {
 
 #[doc(hidden)]
 impl FromGlib<u32> for LogLevel {
-    fn from_glib(value: u32) -> LogLevel {
+    unsafe fn from_glib(value: u32) -> LogLevel {
         if value & ffi::G_LOG_LEVEL_ERROR != 0 {
             LogLevel::Error
         } else if value & ffi::G_LOG_LEVEL_CRITICAL != 0 {
@@ -97,7 +97,7 @@ impl ToGlib for LogLevels {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GLogLevelFlags> for LogLevels {
-    fn from_glib(value: ffi::GLogLevelFlags) -> LogLevels {
+    unsafe fn from_glib(value: ffi::GLogLevelFlags) -> LogLevels {
         LogLevels::from_bits_truncate(value)
     }
 }

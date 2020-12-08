@@ -19,10 +19,12 @@ glib::glib_wrapper! {
 }
 
 impl MemoryInputStream {
+    #[doc(alias = "g_memory_input_stream_new")]
     pub fn new() -> MemoryInputStream {
         unsafe { InputStream::from_glib_full(ffi::g_memory_input_stream_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "g_memory_input_stream_new_from_bytes")]
     pub fn from_bytes(bytes: &glib::Bytes) -> MemoryInputStream {
         unsafe {
             InputStream::from_glib_full(ffi::g_memory_input_stream_new_from_bytes(
@@ -42,6 +44,7 @@ impl Default for MemoryInputStream {
 pub const NONE_MEMORY_INPUT_STREAM: Option<&MemoryInputStream> = None;
 
 pub trait MemoryInputStreamExt: 'static {
+    #[doc(alias = "g_memory_input_stream_add_bytes")]
     fn add_bytes(&self, bytes: &glib::Bytes);
 }
 

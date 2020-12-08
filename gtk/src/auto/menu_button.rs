@@ -36,6 +36,7 @@ glib::glib_wrapper! {
 }
 
 impl MenuButton {
+    #[doc(alias = "gtk_menu_button_new")]
     pub fn new() -> MenuButton {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_menu_button_new()).unsafe_cast() }
@@ -543,28 +544,40 @@ impl MenuButtonBuilder {
 pub const NONE_MENU_BUTTON: Option<&MenuButton> = None;
 
 pub trait MenuButtonExt: 'static {
+    #[doc(alias = "gtk_menu_button_get_align_widget")]
     fn get_align_widget(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_menu_button_get_direction")]
     fn get_direction(&self) -> ArrowType;
 
+    #[doc(alias = "gtk_menu_button_get_menu_model")]
     fn get_menu_model(&self) -> Option<gio::MenuModel>;
 
+    #[doc(alias = "gtk_menu_button_get_popover")]
     fn get_popover(&self) -> Option<Popover>;
 
+    #[doc(alias = "gtk_menu_button_get_popup")]
     fn get_popup(&self) -> Option<Menu>;
 
+    #[doc(alias = "gtk_menu_button_get_use_popover")]
     fn get_use_popover(&self) -> bool;
 
+    #[doc(alias = "gtk_menu_button_set_align_widget")]
     fn set_align_widget<P: IsA<Widget>>(&self, align_widget: Option<&P>);
 
+    #[doc(alias = "gtk_menu_button_set_direction")]
     fn set_direction(&self, direction: ArrowType);
 
+    #[doc(alias = "gtk_menu_button_set_menu_model")]
     fn set_menu_model<P: IsA<gio::MenuModel>>(&self, menu_model: Option<&P>);
 
+    #[doc(alias = "gtk_menu_button_set_popover")]
     fn set_popover<P: IsA<Widget>>(&self, popover: Option<&P>);
 
+    #[doc(alias = "gtk_menu_button_set_popup")]
     fn set_popup<P: IsA<Widget>>(&self, menu: Option<&P>);
 
+    #[doc(alias = "gtk_menu_button_set_use_popover")]
     fn set_use_popover(&self, use_popover: bool);
 
     fn connect_property_align_widget_notify<F: Fn(&Self) + 'static>(&self, f: F)

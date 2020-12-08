@@ -22,6 +22,7 @@ glib::glib_wrapper! {
 }
 
 impl TextTagTable {
+    #[doc(alias = "gtk_text_tag_table_new")]
     pub fn new() -> TextTagTable {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gtk_text_tag_table_new()) }
@@ -37,14 +38,19 @@ impl Default for TextTagTable {
 pub const NONE_TEXT_TAG_TABLE: Option<&TextTagTable> = None;
 
 pub trait TextTagTableExt: 'static {
+    #[doc(alias = "gtk_text_tag_table_add")]
     fn add<P: IsA<TextTag>>(&self, tag: &P) -> bool;
 
+    #[doc(alias = "gtk_text_tag_table_foreach")]
     fn foreach<P: FnMut(&TextTag)>(&self, func: P);
 
+    #[doc(alias = "gtk_text_tag_table_get_size")]
     fn get_size(&self) -> i32;
 
+    #[doc(alias = "gtk_text_tag_table_lookup")]
     fn lookup(&self, name: &str) -> Option<TextTag>;
 
+    #[doc(alias = "gtk_text_tag_table_remove")]
     fn remove<P: IsA<TextTag>>(&self, tag: &P);
 
     fn connect_tag_added<F: Fn(&Self, &TextTag) + 'static>(&self, f: F) -> SignalHandlerId;

@@ -16,7 +16,7 @@ impl EventOwnerChange {
     }
 
     pub fn get_reason(&self) -> crate::OwnerChange {
-        from_glib(self.as_ref().reason)
+        unsafe { from_glib(self.as_ref().reason) }
     }
 
     pub fn get_selection(&self) -> crate::Atom {

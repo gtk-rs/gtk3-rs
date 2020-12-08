@@ -25,20 +25,27 @@ glib::glib_wrapper! {
 pub const NONE_FONT_MAP: Option<&FontMap> = None;
 
 pub trait FontMapExt: 'static {
+    #[doc(alias = "pango_font_map_changed")]
     fn changed(&self);
 
+    #[doc(alias = "pango_font_map_create_context")]
     fn create_context(&self) -> Option<Context>;
 
     #[cfg(any(feature = "v1_46", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
+    #[doc(alias = "pango_font_map_get_family")]
     fn get_family(&self, name: &str) -> Option<FontFamily>;
 
+    #[doc(alias = "pango_font_map_get_serial")]
     fn get_serial(&self) -> u32;
 
+    #[doc(alias = "pango_font_map_list_families")]
     fn list_families(&self) -> Vec<FontFamily>;
 
+    #[doc(alias = "pango_font_map_load_font")]
     fn load_font(&self, context: &Context, desc: &FontDescription) -> Option<Font>;
 
+    #[doc(alias = "pango_font_map_load_fontset")]
     fn load_fontset(
         &self,
         context: &Context,

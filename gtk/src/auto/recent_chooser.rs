@@ -27,66 +27,97 @@ glib::glib_wrapper! {
 pub const NONE_RECENT_CHOOSER: Option<&RecentChooser> = None;
 
 pub trait RecentChooserExt: 'static {
+    #[doc(alias = "gtk_recent_chooser_add_filter")]
     fn add_filter(&self, filter: &RecentFilter);
 
+    #[doc(alias = "gtk_recent_chooser_get_current_item")]
     fn get_current_item(&self) -> Option<RecentInfo>;
 
+    #[doc(alias = "gtk_recent_chooser_get_current_uri")]
     fn get_current_uri(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_recent_chooser_get_filter")]
     fn get_filter(&self) -> Option<RecentFilter>;
 
+    #[doc(alias = "gtk_recent_chooser_get_items")]
     fn get_items(&self) -> Vec<RecentInfo>;
 
+    #[doc(alias = "gtk_recent_chooser_get_limit")]
     fn get_limit(&self) -> i32;
 
+    #[doc(alias = "gtk_recent_chooser_get_local_only")]
     fn get_local_only(&self) -> bool;
 
+    #[doc(alias = "gtk_recent_chooser_get_select_multiple")]
     fn get_select_multiple(&self) -> bool;
 
+    #[doc(alias = "gtk_recent_chooser_get_show_icons")]
     fn get_show_icons(&self) -> bool;
 
+    #[doc(alias = "gtk_recent_chooser_get_show_not_found")]
     fn get_show_not_found(&self) -> bool;
 
+    #[doc(alias = "gtk_recent_chooser_get_show_private")]
     fn get_show_private(&self) -> bool;
 
+    #[doc(alias = "gtk_recent_chooser_get_show_tips")]
     fn get_show_tips(&self) -> bool;
 
+    #[doc(alias = "gtk_recent_chooser_get_sort_type")]
     fn get_sort_type(&self) -> RecentSortType;
 
+    #[doc(alias = "gtk_recent_chooser_get_uris")]
     fn get_uris(&self) -> Vec<glib::GString>;
 
+    #[doc(alias = "gtk_recent_chooser_list_filters")]
     fn list_filters(&self) -> Vec<RecentFilter>;
 
+    #[doc(alias = "gtk_recent_chooser_remove_filter")]
     fn remove_filter(&self, filter: &RecentFilter);
 
+    #[doc(alias = "gtk_recent_chooser_select_all")]
     fn select_all(&self);
 
+    #[doc(alias = "gtk_recent_chooser_select_uri")]
     fn select_uri(&self, uri: &str) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gtk_recent_chooser_set_current_uri")]
     fn set_current_uri(&self, uri: &str) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gtk_recent_chooser_set_filter")]
     fn set_filter(&self, filter: Option<&RecentFilter>);
 
+    #[doc(alias = "gtk_recent_chooser_set_limit")]
     fn set_limit(&self, limit: i32);
 
+    #[doc(alias = "gtk_recent_chooser_set_local_only")]
     fn set_local_only(&self, local_only: bool);
 
+    #[doc(alias = "gtk_recent_chooser_set_select_multiple")]
     fn set_select_multiple(&self, select_multiple: bool);
 
+    #[doc(alias = "gtk_recent_chooser_set_show_icons")]
     fn set_show_icons(&self, show_icons: bool);
 
+    #[doc(alias = "gtk_recent_chooser_set_show_not_found")]
     fn set_show_not_found(&self, show_not_found: bool);
 
+    #[doc(alias = "gtk_recent_chooser_set_show_private")]
     fn set_show_private(&self, show_private: bool);
 
+    #[doc(alias = "gtk_recent_chooser_set_show_tips")]
     fn set_show_tips(&self, show_tips: bool);
 
+    #[doc(alias = "gtk_recent_chooser_set_sort_func")]
     fn set_sort_func<P: Fn(&RecentInfo, &RecentInfo) -> i32 + 'static>(&self, sort_func: P);
 
+    #[doc(alias = "gtk_recent_chooser_set_sort_type")]
     fn set_sort_type(&self, sort_type: RecentSortType);
 
+    #[doc(alias = "gtk_recent_chooser_unselect_all")]
     fn unselect_all(&self);
 
+    #[doc(alias = "gtk_recent_chooser_unselect_uri")]
     fn unselect_uri(&self, uri: &str);
 
     fn connect_item_activated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

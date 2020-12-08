@@ -32,33 +32,44 @@ glib::glib_wrapper! {
 pub const NONE_TLS_CONNECTION: Option<&TlsConnection> = None;
 
 pub trait TlsConnectionExt: 'static {
+    #[doc(alias = "g_tls_connection_emit_accept_certificate")]
     fn emit_accept_certificate<P: IsA<TlsCertificate>>(
         &self,
         peer_cert: &P,
         errors: TlsCertificateFlags,
     ) -> bool;
 
+    #[doc(alias = "g_tls_connection_get_certificate")]
     fn get_certificate(&self) -> Option<TlsCertificate>;
 
+    #[doc(alias = "g_tls_connection_get_database")]
     fn get_database(&self) -> Option<TlsDatabase>;
 
+    #[doc(alias = "g_tls_connection_get_interaction")]
     fn get_interaction(&self) -> Option<TlsInteraction>;
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[doc(alias = "g_tls_connection_get_negotiated_protocol")]
     fn get_negotiated_protocol(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "g_tls_connection_get_peer_certificate")]
     fn get_peer_certificate(&self) -> Option<TlsCertificate>;
 
+    #[doc(alias = "g_tls_connection_get_peer_certificate_errors")]
     fn get_peer_certificate_errors(&self) -> TlsCertificateFlags;
 
     #[cfg_attr(feature = "v2_60", deprecated)]
+    #[doc(alias = "g_tls_connection_get_rehandshake_mode")]
     fn get_rehandshake_mode(&self) -> TlsRehandshakeMode;
 
+    #[doc(alias = "g_tls_connection_get_require_close_notify")]
     fn get_require_close_notify(&self) -> bool;
 
+    #[doc(alias = "g_tls_connection_handshake")]
     fn handshake<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error>;
 
+    #[doc(alias = "g_tls_connection_handshake_async")]
     fn handshake_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         io_priority: glib::Priority,
@@ -73,17 +84,23 @@ pub trait TlsConnectionExt: 'static {
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[doc(alias = "g_tls_connection_set_advertised_protocols")]
     fn set_advertised_protocols(&self, protocols: &[&str]);
 
+    #[doc(alias = "g_tls_connection_set_certificate")]
     fn set_certificate<P: IsA<TlsCertificate>>(&self, certificate: &P);
 
+    #[doc(alias = "g_tls_connection_set_database")]
     fn set_database<P: IsA<TlsDatabase>>(&self, database: Option<&P>);
 
+    #[doc(alias = "g_tls_connection_set_interaction")]
     fn set_interaction<P: IsA<TlsInteraction>>(&self, interaction: Option<&P>);
 
     #[cfg_attr(feature = "v2_60", deprecated)]
+    #[doc(alias = "g_tls_connection_set_rehandshake_mode")]
     fn set_rehandshake_mode(&self, mode: TlsRehandshakeMode);
 
+    #[doc(alias = "g_tls_connection_set_require_close_notify")]
     fn set_require_close_notify(&self, require_close_notify: bool);
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]

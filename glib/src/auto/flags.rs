@@ -45,7 +45,7 @@ impl ToGlib for FileSetContentsFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GFileSetContentsFlags> for FileSetContentsFlags {
-    fn from_glib(value: ffi::GFileSetContentsFlags) -> FileSetContentsFlags {
+    unsafe fn from_glib(value: ffi::GFileSetContentsFlags) -> FileSetContentsFlags {
         FileSetContentsFlags::from_bits_truncate(value)
     }
 }
@@ -77,7 +77,7 @@ impl ToGlib for FileTest {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GFileTest> for FileTest {
-    fn from_glib(value: ffi::GFileTest) -> FileTest {
+    unsafe fn from_glib(value: ffi::GFileTest) -> FileTest {
         FileTest::from_bits_truncate(value)
     }
 }
@@ -108,7 +108,7 @@ impl ToGlib for FormatSizeFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GFormatSizeFlags> for FormatSizeFlags {
-    fn from_glib(value: ffi::GFormatSizeFlags) -> FormatSizeFlags {
+    unsafe fn from_glib(value: ffi::GFormatSizeFlags) -> FormatSizeFlags {
         FormatSizeFlags::from_bits_truncate(value)
     }
 }
@@ -141,7 +141,7 @@ impl ToGlib for IOCondition {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GIOCondition> for IOCondition {
-    fn from_glib(value: ffi::GIOCondition) -> IOCondition {
+    unsafe fn from_glib(value: ffi::GIOCondition) -> IOCondition {
         IOCondition::from_bits_truncate(value)
     }
 }
@@ -197,7 +197,7 @@ impl ToGlib for KeyFileFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GKeyFileFlags> for KeyFileFlags {
-    fn from_glib(value: ffi::GKeyFileFlags) -> KeyFileFlags {
+    unsafe fn from_glib(value: ffi::GKeyFileFlags) -> KeyFileFlags {
         KeyFileFlags::from_bits_truncate(value)
     }
 }
@@ -233,7 +233,7 @@ impl ToGlib for LogLevelFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GLogLevelFlags> for LogLevelFlags {
-    fn from_glib(value: ffi::GLogLevelFlags) -> LogLevelFlags {
+    unsafe fn from_glib(value: ffi::GLogLevelFlags) -> LogLevelFlags {
         LogLevelFlags::from_bits_truncate(value)
     }
 }
@@ -268,7 +268,7 @@ impl ToGlib for OptionFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GOptionFlags> for OptionFlags {
-    fn from_glib(value: ffi::GOptionFlags) -> OptionFlags {
+    unsafe fn from_glib(value: ffi::GOptionFlags) -> OptionFlags {
         OptionFlags::from_bits_truncate(value)
     }
 }
@@ -305,7 +305,7 @@ impl ToGlib for SpawnFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GSpawnFlags> for SpawnFlags {
-    fn from_glib(value: ffi::GSpawnFlags) -> SpawnFlags {
+    unsafe fn from_glib(value: ffi::GSpawnFlags) -> SpawnFlags {
         SpawnFlags::from_bits_truncate(value)
     }
 }
@@ -349,7 +349,7 @@ impl ToGlib for UriFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GUriFlags> for UriFlags {
-    fn from_glib(value: ffi::GUriFlags) -> UriFlags {
+    unsafe fn from_glib(value: ffi::GUriFlags) -> UriFlags {
         UriFlags::from_bits_truncate(value)
     }
 }
@@ -390,7 +390,7 @@ impl ToGlib for UriHideFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GUriHideFlags> for UriHideFlags {
-    fn from_glib(value: ffi::GUriHideFlags) -> UriHideFlags {
+    unsafe fn from_glib(value: ffi::GUriHideFlags) -> UriHideFlags {
         UriHideFlags::from_bits_truncate(value)
     }
 }
@@ -429,7 +429,7 @@ impl ToGlib for UriParamsFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GUriParamsFlags> for UriParamsFlags {
-    fn from_glib(value: ffi::GUriParamsFlags) -> UriParamsFlags {
+    unsafe fn from_glib(value: ffi::GUriParamsFlags) -> UriParamsFlags {
         UriParamsFlags::from_bits_truncate(value)
     }
 }

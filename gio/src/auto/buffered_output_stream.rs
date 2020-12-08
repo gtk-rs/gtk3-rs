@@ -25,6 +25,7 @@ glib::glib_wrapper! {
 }
 
 impl BufferedOutputStream {
+    #[doc(alias = "g_buffered_output_stream_new")]
     pub fn new<P: IsA<OutputStream>>(base_stream: &P) -> BufferedOutputStream {
         unsafe {
             OutputStream::from_glib_full(ffi::g_buffered_output_stream_new(
@@ -34,6 +35,7 @@ impl BufferedOutputStream {
         }
     }
 
+    #[doc(alias = "g_buffered_output_stream_new_sized")]
     pub fn new_sized<P: IsA<OutputStream>>(base_stream: &P, size: usize) -> BufferedOutputStream {
         unsafe {
             OutputStream::from_glib_full(ffi::g_buffered_output_stream_new_sized(
@@ -103,12 +105,16 @@ impl BufferedOutputStreamBuilder {
 pub const NONE_BUFFERED_OUTPUT_STREAM: Option<&BufferedOutputStream> = None;
 
 pub trait BufferedOutputStreamExt: 'static {
+    #[doc(alias = "g_buffered_output_stream_get_auto_grow")]
     fn get_auto_grow(&self) -> bool;
 
+    #[doc(alias = "g_buffered_output_stream_get_buffer_size")]
     fn get_buffer_size(&self) -> usize;
 
+    #[doc(alias = "g_buffered_output_stream_set_auto_grow")]
     fn set_auto_grow(&self, auto_grow: bool);
 
+    #[doc(alias = "g_buffered_output_stream_set_buffer_size")]
     fn set_buffer_size(&self, size: usize);
 
     fn connect_property_auto_grow_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

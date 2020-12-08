@@ -22,6 +22,7 @@ glib::glib_wrapper! {
 }
 
 impl DrawingArea {
+    #[doc(alias = "gtk_drawing_area_new")]
     pub fn new() -> DrawingArea {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_drawing_area_new()).unsafe_cast() }

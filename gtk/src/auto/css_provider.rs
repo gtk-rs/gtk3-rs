@@ -23,17 +23,20 @@ glib::glib_wrapper! {
 }
 
 impl CssProvider {
+    #[doc(alias = "gtk_css_provider_new")]
     pub fn new() -> CssProvider {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gtk_css_provider_new()) }
     }
 
     #[cfg_attr(feature = "v3_24", deprecated)]
+    #[doc(alias = "gtk_css_provider_get_default")]
     pub fn get_default() -> Option<CssProvider> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_css_provider_get_default()) }
     }
 
+    #[doc(alias = "gtk_css_provider_get_named")]
     pub fn get_named(name: &str, variant: Option<&str>) -> Option<CssProvider> {
         assert_initialized_main_thread!();
         unsafe {
@@ -61,16 +64,21 @@ impl fmt::Display for CssProvider {
 pub const NONE_CSS_PROVIDER: Option<&CssProvider> = None;
 
 pub trait CssProviderExt: 'static {
+    #[doc(alias = "gtk_css_provider_load_from_data")]
     fn load_from_data(&self, data: &[u8]) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gtk_css_provider_load_from_file")]
     fn load_from_file<P: IsA<gio::File>>(&self, file: &P) -> Result<(), glib::Error>;
 
+    #[doc(alias = "gtk_css_provider_load_from_path")]
     fn load_from_path(&self, path: &str) -> Result<(), glib::Error>;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
+    #[doc(alias = "gtk_css_provider_load_from_resource")]
     fn load_from_resource(&self, resource_path: &str);
 
+    #[doc(alias = "gtk_css_provider_to_string")]
     fn to_str(&self) -> glib::GString;
 
     fn connect_parsing_error<F: Fn(&Self, &CssSection, &glib::Error) + 'static>(

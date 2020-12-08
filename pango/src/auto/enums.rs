@@ -53,7 +53,7 @@ impl ToGlib for Alignment {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoAlignment> for Alignment {
-    fn from_glib(value: ffi::PangoAlignment) -> Self {
+    unsafe fn from_glib(value: ffi::PangoAlignment) -> Self {
         match value {
             0 => Alignment::Left,
             1 => Alignment::Center,
@@ -126,6 +126,7 @@ pub enum AttrType {
 }
 
 impl AttrType {
+    #[doc(alias = "pango_attr_type_get_name")]
     pub fn get_name(self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::pango_attr_type_get_name(self.to_glib())) }
     }
@@ -218,7 +219,7 @@ impl ToGlib for AttrType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoAttrType> for AttrType {
-    fn from_glib(value: ffi::PangoAttrType) -> Self {
+    unsafe fn from_glib(value: ffi::PangoAttrType) -> Self {
         match value {
             0 => AttrType::Invalid,
             1 => AttrType::Language,
@@ -308,6 +309,7 @@ pub enum BidiType {
 }
 
 impl BidiType {
+    #[doc(alias = "pango_bidi_type_for_unichar")]
     pub fn for_unichar(ch: char) -> BidiType {
         unsafe { from_glib(ffi::pango_bidi_type_for_unichar(ch.to_glib())) }
     }
@@ -376,7 +378,7 @@ impl ToGlib for BidiType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoBidiType> for BidiType {
-    fn from_glib(value: ffi::PangoBidiType) -> Self {
+    unsafe fn from_glib(value: ffi::PangoBidiType) -> Self {
         match value {
             0 => BidiType::L,
             1 => BidiType::Lre,
@@ -470,7 +472,7 @@ impl ToGlib for CoverageLevel {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoCoverageLevel> for CoverageLevel {
-    fn from_glib(value: ffi::PangoCoverageLevel) -> Self {
+    unsafe fn from_glib(value: ffi::PangoCoverageLevel) -> Self {
         match value {
             0 => CoverageLevel::None,
             1 => CoverageLevel::Fallback,
@@ -558,7 +560,7 @@ impl ToGlib for Direction {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoDirection> for Direction {
-    fn from_glib(value: ffi::PangoDirection) -> Self {
+    unsafe fn from_glib(value: ffi::PangoDirection) -> Self {
         match value {
             0 => Direction::Ltr,
             1 => Direction::Rtl,
@@ -640,7 +642,7 @@ impl ToGlib for EllipsizeMode {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoEllipsizeMode> for EllipsizeMode {
-    fn from_glib(value: ffi::PangoEllipsizeMode) -> Self {
+    unsafe fn from_glib(value: ffi::PangoEllipsizeMode) -> Self {
         match value {
             0 => EllipsizeMode::None,
             1 => EllipsizeMode::Start,
@@ -688,10 +690,12 @@ pub enum Gravity {
 }
 
 impl Gravity {
+    #[doc(alias = "pango_gravity_get_for_matrix")]
     pub fn get_for_matrix(matrix: Option<&Matrix>) -> Gravity {
         unsafe { from_glib(ffi::pango_gravity_get_for_matrix(matrix.to_glib_none().0)) }
     }
 
+    #[doc(alias = "pango_gravity_get_for_script")]
     pub fn get_for_script(script: Script, base_gravity: Gravity, hint: GravityHint) -> Gravity {
         unsafe {
             from_glib(ffi::pango_gravity_get_for_script(
@@ -702,6 +706,7 @@ impl Gravity {
         }
     }
 
+    #[doc(alias = "pango_gravity_get_for_script_and_width")]
     pub fn get_for_script_and_width(
         script: Script,
         wide: bool,
@@ -718,6 +723,7 @@ impl Gravity {
         }
     }
 
+    #[doc(alias = "pango_gravity_to_rotation")]
     pub fn to_rotation(self) -> f64 {
         unsafe { ffi::pango_gravity_to_rotation(self.to_glib()) }
     }
@@ -758,7 +764,7 @@ impl ToGlib for Gravity {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoGravity> for Gravity {
-    fn from_glib(value: ffi::PangoGravity) -> Self {
+    unsafe fn from_glib(value: ffi::PangoGravity) -> Self {
         match value {
             0 => Gravity::South,
             1 => Gravity::East,
@@ -835,7 +841,7 @@ impl ToGlib for GravityHint {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoGravityHint> for GravityHint {
-    fn from_glib(value: ffi::PangoGravityHint) -> Self {
+    unsafe fn from_glib(value: ffi::PangoGravityHint) -> Self {
         match value {
             0 => GravityHint::Natural,
             1 => GravityHint::Strong,
@@ -915,7 +921,7 @@ impl ToGlib for Overline {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 #[doc(hidden)]
 impl FromGlib<ffi::PangoOverline> for Overline {
-    fn from_glib(value: ffi::PangoOverline) -> Self {
+    unsafe fn from_glib(value: ffi::PangoOverline) -> Self {
         match value {
             0 => Overline::None,
             1 => Overline::Single,
@@ -1003,7 +1009,7 @@ impl ToGlib for RenderPart {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoRenderPart> for RenderPart {
-    fn from_glib(value: ffi::PangoRenderPart) -> Self {
+    unsafe fn from_glib(value: ffi::PangoRenderPart) -> Self {
         match value {
             0 => RenderPart::Foreground,
             1 => RenderPart::Background,
@@ -1166,10 +1172,12 @@ pub enum Script {
 
 impl Script {
     #[cfg_attr(feature = "v1_44", deprecated)]
+    #[doc(alias = "pango_script_for_unichar")]
     pub fn for_unichar(ch: char) -> Script {
         unsafe { from_glib(ffi::pango_script_for_unichar(ch.to_glib())) }
     }
 
+    #[doc(alias = "pango_script_get_sample_language")]
     pub fn get_sample_language(self) -> Option<Language> {
         unsafe { from_glib_full(ffi::pango_script_get_sample_language(self.to_glib())) }
     }
@@ -1436,7 +1444,7 @@ impl ToGlib for Script {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoScript> for Script {
-    fn from_glib(value: ffi::PangoScript) -> Self {
+    unsafe fn from_glib(value: ffi::PangoScript) -> Self {
         match value {
             -1 => Script::InvalidCode,
             0 => Script::Common,
@@ -1644,7 +1652,7 @@ impl ToGlib for Stretch {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoStretch> for Stretch {
-    fn from_glib(value: ffi::PangoStretch) -> Self {
+    unsafe fn from_glib(value: ffi::PangoStretch) -> Self {
         match value {
             0 => Stretch::UltraCondensed,
             1 => Stretch::ExtraCondensed,
@@ -1725,7 +1733,7 @@ impl ToGlib for Style {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoStyle> for Style {
-    fn from_glib(value: ffi::PangoStyle) -> Self {
+    unsafe fn from_glib(value: ffi::PangoStyle) -> Self {
         match value {
             0 => Style::Normal,
             1 => Style::Oblique,
@@ -1794,7 +1802,7 @@ impl ToGlib for TabAlign {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoTabAlign> for TabAlign {
-    fn from_glib(value: ffi::PangoTabAlign) -> Self {
+    unsafe fn from_glib(value: ffi::PangoTabAlign) -> Self {
         match value {
             0 => TabAlign::Left,
             value => TabAlign::__Unknown(value),
@@ -1882,7 +1890,7 @@ impl ToGlib for Underline {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoUnderline> for Underline {
-    fn from_glib(value: ffi::PangoUnderline) -> Self {
+    unsafe fn from_glib(value: ffi::PangoUnderline) -> Self {
         match value {
             0 => Underline::None,
             1 => Underline::Single,
@@ -1959,7 +1967,7 @@ impl ToGlib for Variant {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoVariant> for Variant {
-    fn from_glib(value: ffi::PangoVariant) -> Self {
+    unsafe fn from_glib(value: ffi::PangoVariant) -> Self {
         match value {
             0 => Variant::Normal,
             1 => Variant::SmallCaps,
@@ -2060,7 +2068,7 @@ impl ToGlib for Weight {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoWeight> for Weight {
-    fn from_glib(value: ffi::PangoWeight) -> Self {
+    unsafe fn from_glib(value: ffi::PangoWeight) -> Self {
         match value {
             100 => Weight::Thin,
             200 => Weight::Ultralight,
@@ -2144,7 +2152,7 @@ impl ToGlib for WrapMode {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoWrapMode> for WrapMode {
-    fn from_glib(value: ffi::PangoWrapMode) -> Self {
+    unsafe fn from_glib(value: ffi::PangoWrapMode) -> Self {
         match value {
             0 => WrapMode::Word,
             1 => WrapMode::Char,

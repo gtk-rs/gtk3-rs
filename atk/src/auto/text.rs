@@ -32,8 +32,10 @@ glib::glib_wrapper! {
 pub const NONE_TEXT: Option<&Text> = None;
 
 pub trait TextExt: 'static {
+    #[doc(alias = "atk_text_add_selection")]
     fn add_selection(&self, start_offset: i32, end_offset: i32) -> bool;
 
+    #[doc(alias = "atk_text_get_bounded_ranges")]
     fn get_bounded_ranges(
         &self,
         rect: &mut TextRectangle,
@@ -42,20 +44,28 @@ pub trait TextExt: 'static {
         y_clip_type: TextClipType,
     ) -> Vec<TextRange>;
 
+    #[doc(alias = "atk_text_get_caret_offset")]
     fn get_caret_offset(&self) -> i32;
 
+    #[doc(alias = "atk_text_get_character_at_offset")]
     fn get_character_at_offset(&self, offset: i32) -> char;
 
+    #[doc(alias = "atk_text_get_character_count")]
     fn get_character_count(&self) -> i32;
 
+    #[doc(alias = "atk_text_get_character_extents")]
     fn get_character_extents(&self, offset: i32, coords: CoordType) -> (i32, i32, i32, i32);
 
+    //#[doc(alias = "atk_text_get_default_attributes")]
     //fn get_default_attributes(&self) -> /*Ignored*/Option<AttributeSet>;
 
+    #[doc(alias = "atk_text_get_n_selections")]
     fn get_n_selections(&self) -> i32;
 
+    #[doc(alias = "atk_text_get_offset_at_point")]
     fn get_offset_at_point(&self, x: i32, y: i32, coords: CoordType) -> i32;
 
+    #[doc(alias = "atk_text_get_range_extents")]
     fn get_range_extents(
         &self,
         start_offset: i32,
@@ -63,32 +73,40 @@ pub trait TextExt: 'static {
         coord_type: CoordType,
     ) -> TextRectangle;
 
+    //#[doc(alias = "atk_text_get_run_attributes")]
     //fn get_run_attributes(&self, offset: i32) -> (/*Ignored*/AttributeSet, i32, i32);
 
+    #[doc(alias = "atk_text_get_selection")]
     fn get_selection(&self, selection_num: i32) -> (glib::GString, i32, i32);
 
+    #[doc(alias = "atk_text_get_string_at_offset")]
     fn get_string_at_offset(
         &self,
         offset: i32,
         granularity: TextGranularity,
     ) -> (Option<glib::GString>, i32, i32);
 
+    #[doc(alias = "atk_text_get_text")]
     fn get_text(&self, start_offset: i32, end_offset: i32) -> Option<glib::GString>;
 
+    #[doc(alias = "atk_text_get_text_at_offset")]
     fn get_text_at_offset(
         &self,
         offset: i32,
         boundary_type: TextBoundary,
     ) -> (glib::GString, i32, i32);
 
+    #[doc(alias = "atk_text_remove_selection")]
     fn remove_selection(&self, selection_num: i32) -> bool;
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+    #[doc(alias = "atk_text_scroll_substring_to")]
     fn scroll_substring_to(&self, start_offset: i32, end_offset: i32, type_: ScrollType) -> bool;
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+    #[doc(alias = "atk_text_scroll_substring_to_point")]
     fn scroll_substring_to_point(
         &self,
         start_offset: i32,
@@ -98,8 +116,10 @@ pub trait TextExt: 'static {
         y: i32,
     ) -> bool;
 
+    #[doc(alias = "atk_text_set_caret_offset")]
     fn set_caret_offset(&self, offset: i32) -> bool;
 
+    #[doc(alias = "atk_text_set_selection")]
     fn set_selection(&self, selection_num: i32, start_offset: i32, end_offset: i32) -> bool;
 
     fn connect_text_attributes_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

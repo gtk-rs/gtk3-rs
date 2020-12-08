@@ -17,6 +17,7 @@ glib::glib_wrapper! {
 }
 
 impl X11Window {
+    #[doc(alias = "gdk_x11_window_foreign_new_for_display")]
     pub fn foreign_new_for_display(display: &X11Display, window: xlib::Window) -> X11Window {
         skip_assert_initialized!();
         unsafe {
@@ -28,26 +29,31 @@ impl X11Window {
         }
     }
 
+    #[doc(alias = "gdk_x11_window_get_desktop")]
     pub fn get_desktop(&self) -> u32 {
         unsafe { ffi::gdk_x11_window_get_desktop(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_x11_window_get_xid")]
     pub fn get_xid(&self) -> xlib::Window {
         unsafe { ffi::gdk_x11_window_get_xid(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_x11_window_move_to_current_desktop")]
     pub fn move_to_current_desktop(&self) {
         unsafe {
             ffi::gdk_x11_window_move_to_current_desktop(self.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gdk_x11_window_move_to_desktop")]
     pub fn move_to_desktop(&self, desktop: u32) {
         unsafe {
             ffi::gdk_x11_window_move_to_desktop(self.to_glib_none().0, desktop);
         }
     }
 
+    #[doc(alias = "gdk_x11_window_set_frame_sync_enabled")]
     pub fn set_frame_sync_enabled(&self, frame_sync_enabled: bool) {
         unsafe {
             ffi::gdk_x11_window_set_frame_sync_enabled(
@@ -57,6 +63,7 @@ impl X11Window {
         }
     }
 
+    #[doc(alias = "gdk_x11_window_set_hide_titlebar_when_maximized")]
     pub fn set_hide_titlebar_when_maximized(&self, hide_titlebar_when_maximized: bool) {
         unsafe {
             ffi::gdk_x11_window_set_hide_titlebar_when_maximized(
@@ -66,18 +73,21 @@ impl X11Window {
         }
     }
 
+    #[doc(alias = "gdk_x11_window_set_theme_variant")]
     pub fn set_theme_variant(&self, variant: &str) {
         unsafe {
             ffi::gdk_x11_window_set_theme_variant(self.to_glib_none().0, variant.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gdk_x11_window_set_user_time")]
     pub fn set_user_time(&self, timestamp: u32) {
         unsafe {
             ffi::gdk_x11_window_set_user_time(self.to_glib_none().0, timestamp);
         }
     }
 
+    #[doc(alias = "gdk_x11_window_set_utf8_property")]
     pub fn set_utf8_property(&self, name: &str, value: Option<&str>) {
         unsafe {
             ffi::gdk_x11_window_set_utf8_property(
@@ -88,6 +98,7 @@ impl X11Window {
         }
     }
 
+    #[doc(alias = "gdk_x11_window_lookup_for_display")]
     pub fn lookup_for_display(display: &X11Display, window: xlib::Window) -> Option<X11Window> {
         skip_assert_initialized!();
         unsafe {

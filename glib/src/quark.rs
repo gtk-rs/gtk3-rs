@@ -42,7 +42,7 @@ impl fmt::Debug for Quark {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GQuark> for Quark {
-    fn from_glib(value: ffi::GQuark) -> Self {
+    unsafe fn from_glib(value: ffi::GQuark) -> Self {
         Quark(value)
     }
 }

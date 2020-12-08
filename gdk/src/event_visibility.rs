@@ -12,6 +12,6 @@ event_subtype!(EventVisibility, ffi::GDK_VISIBILITY_NOTIFY);
 
 impl EventVisibility {
     pub fn get_state(&self) -> crate::VisibilityState {
-        from_glib(self.as_ref().state)
+        unsafe { from_glib(self.as_ref().state) }
     }
 }

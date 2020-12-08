@@ -22,11 +22,13 @@ glib::glib_wrapper! {
 }
 
 impl Settings {
+    #[doc(alias = "gtk_settings_get_default")]
     pub fn get_default() -> Option<Settings> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_settings_get_default()) }
     }
 
+    #[doc(alias = "gtk_settings_get_for_screen")]
     pub fn get_for_screen(screen: &gdk::Screen) -> Option<Settings> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_settings_get_for_screen(screen.to_glib_none().0)) }
@@ -38,18 +40,23 @@ pub const NONE_SETTINGS: Option<&Settings> = None;
 pub trait SettingsExt: 'static {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "gtk_settings_reset_property")]
     fn reset_property(&self, name: &str);
 
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gtk_settings_set_double_property")]
     fn set_double_property(&self, name: &str, v_double: f64, origin: &str);
 
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gtk_settings_set_long_property")]
     fn set_long_property(&self, name: &str, v_long: libc::c_long, origin: &str);
 
     //#[cfg_attr(feature = "v3_16", deprecated)]
+    //#[doc(alias = "gtk_settings_set_property_value")]
     //fn set_property_value(&self, name: &str, svalue: /*Ignored*/&SettingsValue);
 
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gtk_settings_set_string_property")]
     fn set_string_property(&self, name: &str, v_string: &str, origin: &str);
 
     fn get_property_gtk_alternative_button_order(&self) -> bool;

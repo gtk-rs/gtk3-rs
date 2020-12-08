@@ -19,18 +19,25 @@ glib::glib_wrapper! {
 pub const NONE_TABLE_CELL: Option<&TableCell> = None;
 
 pub trait TableCellExt: 'static {
+    #[doc(alias = "atk_table_cell_get_column_header_cells")]
     fn get_column_header_cells(&self) -> Vec<Object>;
 
+    #[doc(alias = "atk_table_cell_get_column_span")]
     fn get_column_span(&self) -> i32;
 
+    #[doc(alias = "atk_table_cell_get_position")]
     fn get_position(&self) -> Option<(i32, i32)>;
 
+    #[doc(alias = "atk_table_cell_get_row_column_span")]
     fn get_row_column_span(&self) -> Option<(i32, i32, i32, i32)>;
 
+    #[doc(alias = "atk_table_cell_get_row_header_cells")]
     fn get_row_header_cells(&self) -> Vec<Object>;
 
+    #[doc(alias = "atk_table_cell_get_row_span")]
     fn get_row_span(&self) -> i32;
 
+    #[doc(alias = "atk_table_cell_get_table")]
     fn get_table(&self) -> Option<Object>;
 }
 

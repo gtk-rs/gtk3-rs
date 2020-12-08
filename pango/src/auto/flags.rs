@@ -41,7 +41,7 @@ impl ToGlib for FontMask {
 
 #[doc(hidden)]
 impl FromGlib<ffi::PangoFontMask> for FontMask {
-    fn from_glib(value: ffi::PangoFontMask) -> FontMask {
+    unsafe fn from_glib(value: ffi::PangoFontMask) -> FontMask {
         FontMask::from_bits_truncate(value)
     }
 }
@@ -102,7 +102,7 @@ impl ToGlib for ShapeFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 #[doc(hidden)]
 impl FromGlib<ffi::PangoShapeFlags> for ShapeFlags {
-    fn from_glib(value: ffi::PangoShapeFlags) -> ShapeFlags {
+    unsafe fn from_glib(value: ffi::PangoShapeFlags) -> ShapeFlags {
         ShapeFlags::from_bits_truncate(value)
     }
 }
@@ -173,7 +173,7 @@ impl ToGlib for ShowFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
 #[doc(hidden)]
 impl FromGlib<ffi::PangoShowFlags> for ShowFlags {
-    fn from_glib(value: ffi::PangoShowFlags) -> ShowFlags {
+    unsafe fn from_glib(value: ffi::PangoShowFlags) -> ShowFlags {
         ShowFlags::from_bits_truncate(value)
     }
 }

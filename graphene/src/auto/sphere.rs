@@ -20,6 +20,7 @@ glib::glib_wrapper! {
 }
 
 impl Sphere {
+    #[doc(alias = "graphene_sphere_contains_point")]
     pub fn contains_point(&self, point: &Point3D) -> bool {
         unsafe {
             from_glib(ffi::graphene_sphere_contains_point(
@@ -29,10 +30,12 @@ impl Sphere {
         }
     }
 
+    #[doc(alias = "graphene_sphere_distance")]
     pub fn distance(&self, point: &Point3D) -> f32 {
         unsafe { ffi::graphene_sphere_distance(self.to_glib_none().0, point.to_glib_none().0) }
     }
 
+    #[doc(alias = "graphene_sphere_equal")]
     fn equal(&self, b: &Sphere) -> bool {
         unsafe {
             from_glib(ffi::graphene_sphere_equal(
@@ -42,6 +45,7 @@ impl Sphere {
         }
     }
 
+    #[doc(alias = "graphene_sphere_get_bounding_box")]
     pub fn get_bounding_box(&self) -> Box {
         unsafe {
             let mut box_ = Box::uninitialized();
@@ -50,6 +54,7 @@ impl Sphere {
         }
     }
 
+    #[doc(alias = "graphene_sphere_get_center")]
     pub fn get_center(&self) -> Point3D {
         unsafe {
             let mut center = Point3D::uninitialized();
@@ -58,20 +63,24 @@ impl Sphere {
         }
     }
 
+    #[doc(alias = "graphene_sphere_get_radius")]
     pub fn get_radius(&self) -> f32 {
         unsafe { ffi::graphene_sphere_get_radius(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "graphene_sphere_init")]
     pub fn init(&mut self, center: Option<&Point3D>, radius: f32) {
         unsafe {
             ffi::graphene_sphere_init(self.to_glib_none_mut().0, center.to_glib_none().0, radius);
         }
     }
 
+    #[doc(alias = "graphene_sphere_is_empty")]
     pub fn is_empty(&self) -> bool {
         unsafe { from_glib(ffi::graphene_sphere_is_empty(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "graphene_sphere_translate")]
     pub fn translate(&self, point: &Point3D) -> Sphere {
         unsafe {
             let mut res = Sphere::uninitialized();

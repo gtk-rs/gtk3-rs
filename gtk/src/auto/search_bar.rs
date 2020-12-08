@@ -29,6 +29,7 @@ glib::glib_wrapper! {
 }
 
 impl SearchBar {
+    #[doc(alias = "gtk_search_bar_new")]
     pub fn new() -> SearchBar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_search_bar_new()).unsafe_cast() }
@@ -401,16 +402,22 @@ impl SearchBarBuilder {
 pub const NONE_SEARCH_BAR: Option<&SearchBar> = None;
 
 pub trait SearchBarExt: 'static {
+    #[doc(alias = "gtk_search_bar_connect_entry")]
     fn connect_entry<P: IsA<Entry>>(&self, entry: &P);
 
+    #[doc(alias = "gtk_search_bar_get_search_mode")]
     fn get_search_mode(&self) -> bool;
 
+    #[doc(alias = "gtk_search_bar_get_show_close_button")]
     fn get_show_close_button(&self) -> bool;
 
+    #[doc(alias = "gtk_search_bar_handle_event")]
     fn handle_event(&self, event: &gdk::Event) -> bool;
 
+    #[doc(alias = "gtk_search_bar_set_search_mode")]
     fn set_search_mode(&self, search_mode: bool);
 
+    #[doc(alias = "gtk_search_bar_set_show_close_button")]
     fn set_show_close_button(&self, visible: bool);
 
     fn get_property_search_mode_enabled(&self) -> bool;

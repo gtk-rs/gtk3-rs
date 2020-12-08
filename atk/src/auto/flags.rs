@@ -34,7 +34,7 @@ impl ToGlib for HyperlinkStateFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::AtkHyperlinkStateFlags> for HyperlinkStateFlags {
-    fn from_glib(value: ffi::AtkHyperlinkStateFlags) -> HyperlinkStateFlags {
+    unsafe fn from_glib(value: ffi::AtkHyperlinkStateFlags) -> HyperlinkStateFlags {
         skip_assert_initialized!();
         HyperlinkStateFlags::from_bits_truncate(value)
     }

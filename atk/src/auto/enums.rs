@@ -51,7 +51,7 @@ impl ToGlib for CoordType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::AtkCoordType> for CoordType {
-    fn from_glib(value: ffi::AtkCoordType) -> Self {
+    unsafe fn from_glib(value: ffi::AtkCoordType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => CoordType::Screen,
@@ -142,7 +142,7 @@ impl ToGlib for Layer {
 
 #[doc(hidden)]
 impl FromGlib<ffi::AtkLayer> for Layer {
-    fn from_glib(value: ffi::AtkLayer) -> Self {
+    unsafe fn from_glib(value: ffi::AtkLayer) -> Self {
         skip_assert_initialized!();
         match value {
             0 => Layer::Invalid,
@@ -212,11 +212,13 @@ pub enum RelationType {
 }
 
 impl RelationType {
+    #[doc(alias = "atk_relation_type_for_name")]
     pub fn for_name(name: &str) -> RelationType {
         assert_initialized_main_thread!();
         unsafe { from_glib(ffi::atk_relation_type_for_name(name.to_glib_none().0)) }
     }
 
+    #[doc(alias = "atk_relation_type_get_name")]
     pub fn get_name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_relation_type_get_name(self.to_glib())) }
@@ -292,7 +294,7 @@ impl ToGlib for RelationType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::AtkRelationType> for RelationType {
-    fn from_glib(value: ffi::AtkRelationType) -> Self {
+    unsafe fn from_glib(value: ffi::AtkRelationType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => RelationType::Null,
@@ -482,16 +484,19 @@ pub enum Role {
 }
 
 impl Role {
+    #[doc(alias = "atk_role_for_name")]
     pub fn for_name(name: &str) -> Role {
         assert_initialized_main_thread!();
         unsafe { from_glib(ffi::atk_role_for_name(name.to_glib_none().0)) }
     }
 
+    #[doc(alias = "atk_role_get_localized_name")]
     pub fn get_localized_name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_role_get_localized_name(self.to_glib())) }
     }
 
+    #[doc(alias = "atk_role_get_name")]
     pub fn get_name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_role_get_name(self.to_glib())) }
@@ -779,7 +784,7 @@ impl ToGlib for Role {
 
 #[doc(hidden)]
 impl FromGlib<ffi::AtkRole> for Role {
-    fn from_glib(value: ffi::AtkRole) -> Self {
+    unsafe fn from_glib(value: ffi::AtkRole) -> Self {
         skip_assert_initialized!();
         match value {
             0 => Role::Invalid,
@@ -1000,7 +1005,7 @@ impl ToGlib for ScrollType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 #[doc(hidden)]
 impl FromGlib<ffi::AtkScrollType> for ScrollType {
-    fn from_glib(value: ffi::AtkScrollType) -> Self {
+    unsafe fn from_glib(value: ffi::AtkScrollType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => ScrollType::TopLeft,
@@ -1099,11 +1104,13 @@ pub enum StateType {
 }
 
 impl StateType {
+    #[doc(alias = "atk_state_type_for_name")]
     pub fn for_name(name: &str) -> StateType {
         assert_initialized_main_thread!();
         unsafe { from_glib(ffi::atk_state_type_for_name(name.to_glib_none().0)) }
     }
 
+    #[doc(alias = "atk_state_type_get_name")]
     pub fn get_name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_state_type_get_name(self.to_glib())) }
@@ -1223,7 +1230,7 @@ impl ToGlib for StateType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::AtkStateType> for StateType {
-    fn from_glib(value: ffi::AtkStateType) -> Self {
+    unsafe fn from_glib(value: ffi::AtkStateType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => StateType::Invalid,
@@ -1337,16 +1344,19 @@ pub enum TextAttribute {
 }
 
 impl TextAttribute {
+    #[doc(alias = "atk_text_attribute_for_name")]
     pub fn for_name(name: &str) -> TextAttribute {
         assert_initialized_main_thread!();
         unsafe { from_glib(ffi::atk_text_attribute_for_name(name.to_glib_none().0)) }
     }
 
+    #[doc(alias = "atk_text_attribute_get_name")]
     pub fn get_name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_text_attribute_get_name(self.to_glib())) }
     }
 
+    #[doc(alias = "atk_text_attribute_get_value")]
     pub fn get_value(self, index_: i32) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_text_attribute_get_value(self.to_glib(), index_)) }
@@ -1438,7 +1448,7 @@ impl ToGlib for TextAttribute {
 
 #[doc(hidden)]
 impl FromGlib<ffi::AtkTextAttribute> for TextAttribute {
-    fn from_glib(value: ffi::AtkTextAttribute) -> Self {
+    unsafe fn from_glib(value: ffi::AtkTextAttribute) -> Self {
         skip_assert_initialized!();
         match value {
             0 => TextAttribute::Invalid,
@@ -1553,7 +1563,7 @@ impl ToGlib for TextBoundary {
 
 #[doc(hidden)]
 impl FromGlib<ffi::AtkTextBoundary> for TextBoundary {
-    fn from_glib(value: ffi::AtkTextBoundary) -> Self {
+    unsafe fn from_glib(value: ffi::AtkTextBoundary) -> Self {
         skip_assert_initialized!();
         match value {
             0 => TextBoundary::Char,
@@ -1636,7 +1646,7 @@ impl ToGlib for TextClipType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::AtkTextClipType> for TextClipType {
-    fn from_glib(value: ffi::AtkTextClipType) -> Self {
+    unsafe fn from_glib(value: ffi::AtkTextClipType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => TextClipType::None,
@@ -1719,7 +1729,7 @@ impl ToGlib for TextGranularity {
 
 #[doc(hidden)]
 impl FromGlib<ffi::AtkTextGranularity> for TextGranularity {
-    fn from_glib(value: ffi::AtkTextGranularity) -> Self {
+    unsafe fn from_glib(value: ffi::AtkTextGranularity) -> Self {
         skip_assert_initialized!();
         match value {
             0 => TextGranularity::Char,
@@ -1780,11 +1790,13 @@ pub enum ValueType {
 }
 
 impl ValueType {
+    #[doc(alias = "atk_value_type_get_localized_name")]
     pub fn get_localized_name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_value_type_get_localized_name(self.to_glib())) }
     }
 
+    #[doc(alias = "atk_value_type_get_name")]
     pub fn get_name(self) -> Option<glib::GString> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::atk_value_type_get_name(self.to_glib())) }
@@ -1848,7 +1860,7 @@ impl ToGlib for ValueType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::AtkValueType> for ValueType {
-    fn from_glib(value: ffi::AtkValueType) -> Self {
+    unsafe fn from_glib(value: ffi::AtkValueType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => ValueType::VeryWeak,

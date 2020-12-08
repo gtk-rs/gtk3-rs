@@ -20,6 +20,7 @@ glib::glib_wrapper! {
 }
 
 impl Quad {
+    #[doc(alias = "graphene_quad_bounds")]
     pub fn bounds(&self) -> Rect {
         unsafe {
             let mut r = Rect::uninitialized();
@@ -28,6 +29,7 @@ impl Quad {
         }
     }
 
+    #[doc(alias = "graphene_quad_contains")]
     pub fn contains(&self, p: &Point) -> bool {
         unsafe {
             from_glib(ffi::graphene_quad_contains(
@@ -37,10 +39,12 @@ impl Quad {
         }
     }
 
+    #[doc(alias = "graphene_quad_get_point")]
     pub fn get_point(&self, index_: u32) -> Option<Point> {
         unsafe { from_glib_none(ffi::graphene_quad_get_point(self.to_glib_none().0, index_)) }
     }
 
+    #[doc(alias = "graphene_quad_init")]
     pub fn init(&mut self, p1: &Point, p2: &Point, p3: &Point, p4: &Point) {
         unsafe {
             ffi::graphene_quad_init(
@@ -53,10 +57,12 @@ impl Quad {
         }
     }
 
+    //#[doc(alias = "graphene_quad_init_from_points")]
     //pub fn init_from_points(&mut self, points: /*Unimplemented*/FixedArray TypeId { ns_id: 1, id: 12 }; 4) {
     //    unsafe { TODO: call ffi:graphene_quad_init_from_points() }
     //}
 
+    #[doc(alias = "graphene_quad_init_from_rect")]
     pub fn init_from_rect(&mut self, r: &Rect) {
         unsafe {
             ffi::graphene_quad_init_from_rect(self.to_glib_none_mut().0, r.to_glib_none().0);

@@ -56,7 +56,7 @@ impl ToGlib for BusType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GBusType> for BusType {
-    fn from_glib(value: ffi::GBusType) -> Self {
+    unsafe fn from_glib(value: ffi::GBusType) -> Self {
         match value {
             -1 => BusType::Starter,
             0 => BusType::None,
@@ -135,7 +135,7 @@ impl ToGlib for ConverterResult {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GConverterResult> for ConverterResult {
-    fn from_glib(value: ffi::GConverterResult) -> Self {
+    unsafe fn from_glib(value: ffi::GConverterResult) -> Self {
         match value {
             0 => ConverterResult::Error,
             1 => ConverterResult::Converted,
@@ -223,7 +223,7 @@ impl ToGlib for CredentialsType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GCredentialsType> for CredentialsType {
-    fn from_glib(value: ffi::GCredentialsType) -> Self {
+    unsafe fn from_glib(value: ffi::GCredentialsType) -> Self {
         match value {
             0 => CredentialsType::Invalid,
             1 => CredentialsType::LinuxUcred,
@@ -299,7 +299,7 @@ impl ToGlib for DBusMessageByteOrder {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDBusMessageByteOrder> for DBusMessageByteOrder {
-    fn from_glib(value: ffi::GDBusMessageByteOrder) -> Self {
+    unsafe fn from_glib(value: ffi::GDBusMessageByteOrder) -> Self {
         match value {
             66 => DBusMessageByteOrder::BigEndian,
             108 => DBusMessageByteOrder::LittleEndian,
@@ -394,7 +394,7 @@ impl ToGlib for DBusMessageHeaderField {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDBusMessageHeaderField> for DBusMessageHeaderField {
-    fn from_glib(value: ffi::GDBusMessageHeaderField) -> Self {
+    unsafe fn from_glib(value: ffi::GDBusMessageHeaderField) -> Self {
         match value {
             0 => DBusMessageHeaderField::Invalid,
             1 => DBusMessageHeaderField::Path,
@@ -482,7 +482,7 @@ impl ToGlib for DBusMessageType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDBusMessageType> for DBusMessageType {
-    fn from_glib(value: ffi::GDBusMessageType) -> Self {
+    unsafe fn from_glib(value: ffi::GDBusMessageType) -> Self {
         match value {
             0 => DBusMessageType::Invalid,
             1 => DBusMessageType::MethodCall,
@@ -559,7 +559,7 @@ impl ToGlib for DataStreamByteOrder {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDataStreamByteOrder> for DataStreamByteOrder {
-    fn from_glib(value: ffi::GDataStreamByteOrder) -> Self {
+    unsafe fn from_glib(value: ffi::GDataStreamByteOrder) -> Self {
         match value {
             0 => DataStreamByteOrder::BigEndian,
             1 => DataStreamByteOrder::LittleEndian,
@@ -637,7 +637,7 @@ impl ToGlib for DataStreamNewlineType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDataStreamNewlineType> for DataStreamNewlineType {
-    fn from_glib(value: ffi::GDataStreamNewlineType) -> Self {
+    unsafe fn from_glib(value: ffi::GDataStreamNewlineType) -> Self {
         match value {
             0 => DataStreamNewlineType::Lf,
             1 => DataStreamNewlineType::Cr,
@@ -719,7 +719,7 @@ impl ToGlib for DriveStartStopType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GDriveStartStopType> for DriveStartStopType {
-    fn from_glib(value: ffi::GDriveStartStopType) -> Self {
+    unsafe fn from_glib(value: ffi::GDriveStartStopType) -> Self {
         match value {
             0 => DriveStartStopType::Unknown,
             1 => DriveStartStopType::Shutdown,
@@ -799,7 +799,7 @@ impl ToGlib for EmblemOrigin {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GEmblemOrigin> for EmblemOrigin {
-    fn from_glib(value: ffi::GEmblemOrigin) -> Self {
+    unsafe fn from_glib(value: ffi::GEmblemOrigin) -> Self {
         match value {
             0 => EmblemOrigin::Unknown,
             1 => EmblemOrigin::Device,
@@ -875,7 +875,7 @@ impl ToGlib for FileAttributeStatus {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GFileAttributeStatus> for FileAttributeStatus {
-    fn from_glib(value: ffi::GFileAttributeStatus) -> Self {
+    unsafe fn from_glib(value: ffi::GFileAttributeStatus) -> Self {
         match value {
             0 => FileAttributeStatus::Unset,
             1 => FileAttributeStatus::Set,
@@ -971,7 +971,7 @@ impl ToGlib for FileAttributeType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GFileAttributeType> for FileAttributeType {
-    fn from_glib(value: ffi::GFileAttributeType) -> Self {
+    unsafe fn from_glib(value: ffi::GFileAttributeType) -> Self {
         match value {
             0 => FileAttributeType::Invalid,
             1 => FileAttributeType::String,
@@ -1077,7 +1077,7 @@ impl ToGlib for FileMonitorEvent {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GFileMonitorEvent> for FileMonitorEvent {
-    fn from_glib(value: ffi::GFileMonitorEvent) -> Self {
+    unsafe fn from_glib(value: ffi::GFileMonitorEvent) -> Self {
         match value {
             0 => FileMonitorEvent::Changed,
             1 => FileMonitorEvent::ChangesDoneHint,
@@ -1172,7 +1172,7 @@ impl ToGlib for FileType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GFileType> for FileType {
-    fn from_glib(value: ffi::GFileType) -> Self {
+    unsafe fn from_glib(value: ffi::GFileType) -> Self {
         match value {
             0 => FileType::Unknown,
             1 => FileType::Regular,
@@ -1383,7 +1383,7 @@ impl ToGlib for IOErrorEnum {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GIOErrorEnum> for IOErrorEnum {
-    fn from_glib(value: ffi::GIOErrorEnum) -> Self {
+    unsafe fn from_glib(value: ffi::GIOErrorEnum) -> Self {
         match value {
             0 => IOErrorEnum::Failed,
             1 => IOErrorEnum::NotFound,
@@ -1573,7 +1573,7 @@ impl ToGlib for MemoryMonitorWarningLevel {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GMemoryMonitorWarningLevel> for MemoryMonitorWarningLevel {
-    fn from_glib(value: ffi::GMemoryMonitorWarningLevel) -> Self {
+    unsafe fn from_glib(value: ffi::GMemoryMonitorWarningLevel) -> Self {
         match value {
             50 => MemoryMonitorWarningLevel::Low,
             100 => MemoryMonitorWarningLevel::Medium,
@@ -1656,7 +1656,7 @@ impl ToGlib for MountOperationResult {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GMountOperationResult> for MountOperationResult {
-    fn from_glib(value: ffi::GMountOperationResult) -> Self {
+    unsafe fn from_glib(value: ffi::GMountOperationResult) -> Self {
         match value {
             0 => MountOperationResult::Handled,
             1 => MountOperationResult::Aborted,
@@ -1742,7 +1742,7 @@ impl ToGlib for NetworkConnectivity {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GNetworkConnectivity> for NetworkConnectivity {
-    fn from_glib(value: ffi::GNetworkConnectivity) -> Self {
+    unsafe fn from_glib(value: ffi::GNetworkConnectivity) -> Self {
         match value {
             1 => NetworkConnectivity::Local,
             2 => NetworkConnectivity::Limited,
@@ -1829,7 +1829,7 @@ impl ToGlib for NotificationPriority {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GNotificationPriority> for NotificationPriority {
-    fn from_glib(value: ffi::GNotificationPriority) -> Self {
+    unsafe fn from_glib(value: ffi::GNotificationPriority) -> Self {
         match value {
             0 => NotificationPriority::Normal,
             1 => NotificationPriority::Low,
@@ -1905,7 +1905,7 @@ impl ToGlib for PasswordSave {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GPasswordSave> for PasswordSave {
-    fn from_glib(value: ffi::GPasswordSave) -> Self {
+    unsafe fn from_glib(value: ffi::GPasswordSave) -> Self {
         match value {
             0 => PasswordSave::Never,
             1 => PasswordSave::ForSession,
@@ -1986,7 +1986,7 @@ impl ToGlib for ResolverRecordType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GResolverRecordType> for ResolverRecordType {
-    fn from_glib(value: ffi::GResolverRecordType) -> Self {
+    unsafe fn from_glib(value: ffi::GResolverRecordType) -> Self {
         match value {
             1 => ResolverRecordType::Srv,
             2 => ResolverRecordType::Mx,
@@ -2060,7 +2060,7 @@ impl ToGlib for ResourceError {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GResourceError> for ResourceError {
-    fn from_glib(value: ffi::GResourceError) -> Self {
+    unsafe fn from_glib(value: ffi::GResourceError) -> Self {
         match value {
             0 => ResourceError::NotFound,
             1 => ResourceError::Internal,
@@ -2170,7 +2170,7 @@ impl ToGlib for SocketClientEvent {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GSocketClientEvent> for SocketClientEvent {
-    fn from_glib(value: ffi::GSocketClientEvent) -> Self {
+    unsafe fn from_glib(value: ffi::GSocketClientEvent) -> Self {
         match value {
             0 => SocketClientEvent::Resolving,
             1 => SocketClientEvent::Resolved,
@@ -2254,7 +2254,7 @@ impl ToGlib for SocketFamily {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GSocketFamily> for SocketFamily {
-    fn from_glib(value: ffi::GSocketFamily) -> Self {
+    unsafe fn from_glib(value: ffi::GSocketFamily) -> Self {
         match value {
             0 => SocketFamily::Invalid,
             1 => SocketFamily::Unix,
@@ -2341,7 +2341,7 @@ impl ToGlib for SocketListenerEvent {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GSocketListenerEvent> for SocketListenerEvent {
-    fn from_glib(value: ffi::GSocketListenerEvent) -> Self {
+    unsafe fn from_glib(value: ffi::GSocketListenerEvent) -> Self {
         match value {
             0 => SocketListenerEvent::Binding,
             1 => SocketListenerEvent::Bound,
@@ -2431,7 +2431,7 @@ impl ToGlib for SocketProtocol {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GSocketProtocol> for SocketProtocol {
-    fn from_glib(value: ffi::GSocketProtocol) -> Self {
+    unsafe fn from_glib(value: ffi::GSocketProtocol) -> Self {
         match value {
             -1 => SocketProtocol::Unknown,
             0 => SocketProtocol::Default,
@@ -2511,7 +2511,7 @@ impl ToGlib for SocketType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GSocketType> for SocketType {
-    fn from_glib(value: ffi::GSocketType) -> Self {
+    unsafe fn from_glib(value: ffi::GSocketType) -> Self {
         match value {
             0 => SocketType::Invalid,
             1 => SocketType::Stream,
@@ -2587,7 +2587,7 @@ impl ToGlib for TlsAuthenticationMode {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GTlsAuthenticationMode> for TlsAuthenticationMode {
-    fn from_glib(value: ffi::GTlsAuthenticationMode) -> Self {
+    unsafe fn from_glib(value: ffi::GTlsAuthenticationMode) -> Self {
         match value {
             0 => TlsAuthenticationMode::None,
             1 => TlsAuthenticationMode::Requested,
@@ -2656,7 +2656,7 @@ impl ToGlib for TlsCertificateRequestFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GTlsCertificateRequestFlags> for TlsCertificateRequestFlags {
-    fn from_glib(value: ffi::GTlsCertificateRequestFlags) -> Self {
+    unsafe fn from_glib(value: ffi::GTlsCertificateRequestFlags) -> Self {
         match value {
             0 => TlsCertificateRequestFlags::None,
             value => TlsCertificateRequestFlags::__Unknown(value),
@@ -2736,7 +2736,7 @@ impl ToGlib for TlsChannelBindingType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GTlsChannelBindingType> for TlsChannelBindingType {
-    fn from_glib(value: ffi::GTlsChannelBindingType) -> Self {
+    unsafe fn from_glib(value: ffi::GTlsChannelBindingType) -> Self {
         match value {
             0 => TlsChannelBindingType::Unique,
             1 => TlsChannelBindingType::ServerEndPoint,
@@ -2815,7 +2815,7 @@ impl ToGlib for TlsDatabaseLookupFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GTlsDatabaseLookupFlags> for TlsDatabaseLookupFlags {
-    fn from_glib(value: ffi::GTlsDatabaseLookupFlags) -> Self {
+    unsafe fn from_glib(value: ffi::GTlsDatabaseLookupFlags) -> Self {
         match value {
             0 => TlsDatabaseLookupFlags::None,
             1 => TlsDatabaseLookupFlags::Keypair,
@@ -2889,7 +2889,7 @@ impl ToGlib for TlsInteractionResult {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GTlsInteractionResult> for TlsInteractionResult {
-    fn from_glib(value: ffi::GTlsInteractionResult) -> Self {
+    unsafe fn from_glib(value: ffi::GTlsInteractionResult) -> Self {
         match value {
             0 => TlsInteractionResult::Unhandled,
             1 => TlsInteractionResult::Handled,
@@ -2965,7 +2965,7 @@ impl ToGlib for TlsRehandshakeMode {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GTlsRehandshakeMode> for TlsRehandshakeMode {
-    fn from_glib(value: ffi::GTlsRehandshakeMode) -> Self {
+    unsafe fn from_glib(value: ffi::GTlsRehandshakeMode) -> Self {
         match value {
             0 => TlsRehandshakeMode::Never,
             1 => TlsRehandshakeMode::Safely,
@@ -3046,7 +3046,7 @@ impl ToGlib for UnixSocketAddressType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GUnixSocketAddressType> for UnixSocketAddressType {
-    fn from_glib(value: ffi::GUnixSocketAddressType) -> Self {
+    unsafe fn from_glib(value: ffi::GUnixSocketAddressType) -> Self {
         match value {
             0 => UnixSocketAddressType::Invalid,
             1 => UnixSocketAddressType::Anonymous,
@@ -3123,7 +3123,7 @@ impl ToGlib for ZlibCompressorFormat {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GZlibCompressorFormat> for ZlibCompressorFormat {
-    fn from_glib(value: ffi::GZlibCompressorFormat) -> Self {
+    unsafe fn from_glib(value: ffi::GZlibCompressorFormat) -> Self {
         match value {
             0 => ZlibCompressorFormat::Zlib,
             1 => ZlibCompressorFormat::Gzip,

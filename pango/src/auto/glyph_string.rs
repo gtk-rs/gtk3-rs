@@ -21,10 +21,12 @@ glib::glib_wrapper! {
 }
 
 impl GlyphString {
+    #[doc(alias = "pango_glyph_string_new")]
     pub fn new() -> GlyphString {
         unsafe { from_glib_full(ffi::pango_glyph_string_new()) }
     }
 
+    #[doc(alias = "pango_glyph_string_extents")]
     pub fn extents<P: IsA<Font>>(&mut self, font: &P) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
@@ -39,6 +41,7 @@ impl GlyphString {
         }
     }
 
+    #[doc(alias = "pango_glyph_string_extents_range")]
     pub fn extents_range<P: IsA<Font>>(
         &mut self,
         start: i32,
@@ -60,14 +63,17 @@ impl GlyphString {
         }
     }
 
+    //#[doc(alias = "pango_glyph_string_get_logical_widths")]
     //pub fn get_logical_widths(&mut self, text: &str, embedding_level: i32, logical_widths: &[i32]) {
     //    unsafe { TODO: call ffi:pango_glyph_string_get_logical_widths() }
     //}
 
+    #[doc(alias = "pango_glyph_string_get_width")]
     pub fn get_width(&mut self) -> i32 {
         unsafe { ffi::pango_glyph_string_get_width(self.to_glib_none_mut().0) }
     }
 
+    #[doc(alias = "pango_glyph_string_index_to_x")]
     pub fn index_to_x(
         &mut self,
         text: &str,
@@ -92,12 +98,14 @@ impl GlyphString {
         }
     }
 
+    #[doc(alias = "pango_glyph_string_set_size")]
     pub fn set_size(&mut self, new_len: i32) {
         unsafe {
             ffi::pango_glyph_string_set_size(self.to_glib_none_mut().0, new_len);
         }
     }
 
+    #[doc(alias = "pango_glyph_string_x_to_index")]
     pub fn x_to_index(&mut self, text: &str, analysis: &mut Analysis, x_pos: i32) -> (i32, i32) {
         let length = text.len() as i32;
         unsafe {

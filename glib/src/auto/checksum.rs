@@ -17,16 +17,19 @@ crate::glib_wrapper! {
 }
 
 impl Checksum {
+    #[doc(alias = "g_checksum_new")]
     pub fn new(checksum_type: ChecksumType) -> Checksum {
         unsafe { from_glib_full(ffi::g_checksum_new(checksum_type.to_glib())) }
     }
 
+    #[doc(alias = "g_checksum_reset")]
     pub fn reset(&mut self) {
         unsafe {
             ffi::g_checksum_reset(self.to_glib_none_mut().0);
         }
     }
 
+    #[doc(alias = "g_checksum_update")]
     pub fn update(&mut self, data: &[u8]) {
         let length = data.len() as isize;
         unsafe {
@@ -34,6 +37,7 @@ impl Checksum {
         }
     }
 
+    #[doc(alias = "g_checksum_type_get_length")]
     pub fn type_get_length(checksum_type: ChecksumType) -> isize {
         unsafe { ffi::g_checksum_type_get_length(checksum_type.to_glib()) }
     }

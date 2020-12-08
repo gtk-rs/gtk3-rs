@@ -32,11 +32,13 @@ glib::glib_wrapper! {
 }
 
 impl StyleContext {
+    #[doc(alias = "gtk_style_context_new")]
     pub fn new() -> StyleContext {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gtk_style_context_new()) }
     }
 
+    #[doc(alias = "gtk_style_context_add_provider_for_screen")]
     pub fn add_provider_for_screen<P: IsA<StyleProvider>>(
         screen: &gdk::Screen,
         provider: &P,
@@ -52,6 +54,7 @@ impl StyleContext {
         }
     }
 
+    #[doc(alias = "gtk_style_context_remove_provider_for_screen")]
     pub fn remove_provider_for_screen<P: IsA<StyleProvider>>(screen: &gdk::Screen, provider: &P) {
         skip_assert_initialized!();
         unsafe {
@@ -62,6 +65,7 @@ impl StyleContext {
         }
     }
 
+    #[doc(alias = "gtk_style_context_reset_widgets")]
     pub fn reset_widgets(screen: &gdk::Screen) {
         assert_initialized_main_thread!();
         unsafe {
@@ -134,85 +138,123 @@ impl StyleContextBuilder {
 pub const NONE_STYLE_CONTEXT: Option<&StyleContext> = None;
 
 pub trait StyleContextExt: 'static {
+    #[doc(alias = "gtk_style_context_add_class")]
     fn add_class(&self, class_name: &str);
 
+    #[doc(alias = "gtk_style_context_add_provider")]
     fn add_provider<P: IsA<StyleProvider>>(&self, provider: &P, priority: u32);
 
+    //#[doc(alias = "gtk_style_context_get")]
     //fn get(&self, state: StateFlags, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gtk_style_context_get_background_color")]
     fn get_background_color(&self, state: StateFlags) -> gdk::RGBA;
 
+    #[doc(alias = "gtk_style_context_get_border")]
     fn get_border(&self, state: StateFlags) -> Border;
 
     #[cfg_attr(feature = "v3_16", deprecated)]
+    #[doc(alias = "gtk_style_context_get_border_color")]
     fn get_border_color(&self, state: StateFlags) -> gdk::RGBA;
 
+    #[doc(alias = "gtk_style_context_get_color")]
     fn get_color(&self, state: StateFlags) -> gdk::RGBA;
 
+    #[doc(alias = "gtk_style_context_get_frame_clock")]
     fn get_frame_clock(&self) -> Option<gdk::FrameClock>;
 
+    #[doc(alias = "gtk_style_context_get_junction_sides")]
     fn get_junction_sides(&self) -> JunctionSides;
 
+    #[doc(alias = "gtk_style_context_get_margin")]
     fn get_margin(&self, state: StateFlags) -> Border;
 
+    #[doc(alias = "gtk_style_context_get_padding")]
     fn get_padding(&self, state: StateFlags) -> Border;
 
+    #[doc(alias = "gtk_style_context_get_parent")]
     fn get_parent(&self) -> Option<StyleContext>;
 
+    #[doc(alias = "gtk_style_context_get_path")]
     fn get_path(&self) -> Option<WidgetPath>;
 
+    #[doc(alias = "gtk_style_context_get_property")]
     fn get_property(&self, property: &str, state: StateFlags) -> glib::Value;
 
+    #[doc(alias = "gtk_style_context_get_scale")]
     fn get_scale(&self) -> i32;
 
+    #[doc(alias = "gtk_style_context_get_screen")]
     fn get_screen(&self) -> Option<gdk::Screen>;
 
+    #[doc(alias = "gtk_style_context_get_section")]
     fn get_section(&self, property: &str) -> Option<CssSection>;
 
+    #[doc(alias = "gtk_style_context_get_state")]
     fn get_state(&self) -> StateFlags;
 
+    //#[doc(alias = "gtk_style_context_get_style")]
     //fn get_style(&self, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
+    #[doc(alias = "gtk_style_context_get_style_property")]
     fn get_style_property(&self, property_name: &str) -> glib::Value;
 
+    //#[doc(alias = "gtk_style_context_get_style_valist")]
     //fn get_style_valist(&self, args: /*Unknown conversion*//*Unimplemented*/Unsupported);
 
+    //#[doc(alias = "gtk_style_context_get_valist")]
     //fn get_valist(&self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported);
 
+    #[doc(alias = "gtk_style_context_has_class")]
     fn has_class(&self, class_name: &str) -> bool;
 
+    #[doc(alias = "gtk_style_context_list_classes")]
     fn list_classes(&self) -> Vec<glib::GString>;
 
+    #[doc(alias = "gtk_style_context_lookup_color")]
     fn lookup_color(&self, color_name: &str) -> Option<gdk::RGBA>;
 
+    #[doc(alias = "gtk_style_context_remove_class")]
     fn remove_class(&self, class_name: &str);
 
+    #[doc(alias = "gtk_style_context_remove_provider")]
     fn remove_provider<P: IsA<StyleProvider>>(&self, provider: &P);
 
+    #[doc(alias = "gtk_style_context_restore")]
     fn restore(&self);
 
+    #[doc(alias = "gtk_style_context_save")]
     fn save(&self);
 
     #[cfg_attr(feature = "v3_18", deprecated)]
+    #[doc(alias = "gtk_style_context_set_background")]
     fn set_background(&self, window: &gdk::Window);
 
+    #[doc(alias = "gtk_style_context_set_frame_clock")]
     fn set_frame_clock(&self, frame_clock: &gdk::FrameClock);
 
+    #[doc(alias = "gtk_style_context_set_junction_sides")]
     fn set_junction_sides(&self, sides: JunctionSides);
 
+    #[doc(alias = "gtk_style_context_set_parent")]
     fn set_parent<P: IsA<StyleContext>>(&self, parent: Option<&P>);
 
+    #[doc(alias = "gtk_style_context_set_path")]
     fn set_path(&self, path: &WidgetPath);
 
+    #[doc(alias = "gtk_style_context_set_scale")]
     fn set_scale(&self, scale: i32);
 
+    #[doc(alias = "gtk_style_context_set_screen")]
     fn set_screen(&self, screen: &gdk::Screen);
 
+    #[doc(alias = "gtk_style_context_set_state")]
     fn set_state(&self, flags: StateFlags);
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
+    #[doc(alias = "gtk_style_context_to_string")]
     fn to_string(&self, flags: StyleContextPrintFlags) -> Option<glib::GString>;
 
     fn get_property_direction(&self) -> TextDirection;

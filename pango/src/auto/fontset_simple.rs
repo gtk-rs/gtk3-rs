@@ -18,16 +18,19 @@ glib::glib_wrapper! {
 }
 
 impl FontsetSimple {
+    #[doc(alias = "pango_fontset_simple_new")]
     pub fn new(language: &mut Language) -> FontsetSimple {
         unsafe { from_glib_full(ffi::pango_fontset_simple_new(language.to_glib_none_mut().0)) }
     }
 
+    #[doc(alias = "pango_fontset_simple_append")]
     pub fn append<P: IsA<Font>>(&self, font: &P) {
         unsafe {
             ffi::pango_fontset_simple_append(self.to_glib_none().0, font.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "pango_fontset_simple_size")]
     pub fn size(&self) -> i32 {
         unsafe { ffi::pango_fontset_simple_size(self.to_glib_none().0) }
     }

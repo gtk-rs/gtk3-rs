@@ -29,10 +29,13 @@ glib::glib_wrapper! {
 pub const NONE_MENU_SHELL: Option<&MenuShell> = None;
 
 pub trait MenuShellExt: 'static {
+    #[doc(alias = "gtk_menu_shell_activate_item")]
     fn activate_item<P: IsA<Widget>>(&self, menu_item: &P, force_deactivate: bool);
 
+    #[doc(alias = "gtk_menu_shell_append")]
     fn append<P: IsA<MenuItem>>(&self, child: &P);
 
+    #[doc(alias = "gtk_menu_shell_bind_model")]
     fn bind_model<P: IsA<gio::MenuModel>>(
         &self,
         model: Option<&P>,
@@ -40,26 +43,37 @@ pub trait MenuShellExt: 'static {
         with_separators: bool,
     );
 
+    #[doc(alias = "gtk_menu_shell_cancel")]
     fn cancel(&self);
 
+    #[doc(alias = "gtk_menu_shell_deactivate")]
     fn deactivate(&self);
 
+    #[doc(alias = "gtk_menu_shell_deselect")]
     fn deselect(&self);
 
+    #[doc(alias = "gtk_menu_shell_get_parent_shell")]
     fn get_parent_shell(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_menu_shell_get_selected_item")]
     fn get_selected_item(&self) -> Option<Widget>;
 
+    #[doc(alias = "gtk_menu_shell_get_take_focus")]
     fn get_take_focus(&self) -> bool;
 
+    #[doc(alias = "gtk_menu_shell_insert")]
     fn insert<P: IsA<Widget>>(&self, child: &P, position: i32);
 
+    #[doc(alias = "gtk_menu_shell_prepend")]
     fn prepend<P: IsA<Widget>>(&self, child: &P);
 
+    #[doc(alias = "gtk_menu_shell_select_first")]
     fn select_first(&self, search_sensitive: bool);
 
+    #[doc(alias = "gtk_menu_shell_select_item")]
     fn select_item<P: IsA<Widget>>(&self, menu_item: &P);
 
+    #[doc(alias = "gtk_menu_shell_set_take_focus")]
     fn set_take_focus(&self, take_focus: bool);
 
     fn connect_activate_current<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId;

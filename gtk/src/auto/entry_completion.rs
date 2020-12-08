@@ -27,11 +27,13 @@ glib::glib_wrapper! {
 }
 
 impl EntryCompletion {
+    #[doc(alias = "gtk_entry_completion_new")]
     pub fn new() -> EntryCompletion {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gtk_entry_completion_new()) }
     }
 
+    #[doc(alias = "gtk_entry_completion_new_with_area")]
     pub fn with_area<P: IsA<CellArea>>(area: &P) -> EntryCompletion {
         skip_assert_initialized!();
         unsafe {
@@ -151,52 +153,76 @@ impl EntryCompletionBuilder {
 pub const NONE_ENTRY_COMPLETION: Option<&EntryCompletion> = None;
 
 pub trait EntryCompletionExt: 'static {
+    #[doc(alias = "gtk_entry_completion_complete")]
     fn complete(&self);
 
+    #[doc(alias = "gtk_entry_completion_compute_prefix")]
     fn compute_prefix(&self, key: &str) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_entry_completion_delete_action")]
     fn delete_action(&self, index_: i32);
 
+    #[doc(alias = "gtk_entry_completion_get_completion_prefix")]
     fn get_completion_prefix(&self) -> Option<glib::GString>;
 
+    #[doc(alias = "gtk_entry_completion_get_inline_completion")]
     fn get_inline_completion(&self) -> bool;
 
+    #[doc(alias = "gtk_entry_completion_get_inline_selection")]
     fn get_inline_selection(&self) -> bool;
 
+    #[doc(alias = "gtk_entry_completion_get_minimum_key_length")]
     fn get_minimum_key_length(&self) -> i32;
 
+    #[doc(alias = "gtk_entry_completion_get_model")]
     fn get_model(&self) -> Option<TreeModel>;
 
+    #[doc(alias = "gtk_entry_completion_get_popup_completion")]
     fn get_popup_completion(&self) -> bool;
 
+    #[doc(alias = "gtk_entry_completion_get_popup_set_width")]
     fn get_popup_set_width(&self) -> bool;
 
+    #[doc(alias = "gtk_entry_completion_get_popup_single_match")]
     fn get_popup_single_match(&self) -> bool;
 
+    #[doc(alias = "gtk_entry_completion_get_text_column")]
     fn get_text_column(&self) -> i32;
 
+    #[doc(alias = "gtk_entry_completion_insert_action_markup")]
     fn insert_action_markup(&self, index_: i32, markup: &str);
 
+    #[doc(alias = "gtk_entry_completion_insert_action_text")]
     fn insert_action_text(&self, index_: i32, text: &str);
 
+    #[doc(alias = "gtk_entry_completion_insert_prefix")]
     fn insert_prefix(&self);
 
+    #[doc(alias = "gtk_entry_completion_set_inline_completion")]
     fn set_inline_completion(&self, inline_completion: bool);
 
+    #[doc(alias = "gtk_entry_completion_set_inline_selection")]
     fn set_inline_selection(&self, inline_selection: bool);
 
+    #[doc(alias = "gtk_entry_completion_set_match_func")]
     fn set_match_func<P: Fn(&EntryCompletion, &str, &TreeIter) -> bool + 'static>(&self, func: P);
 
+    #[doc(alias = "gtk_entry_completion_set_minimum_key_length")]
     fn set_minimum_key_length(&self, length: i32);
 
+    #[doc(alias = "gtk_entry_completion_set_model")]
     fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>);
 
+    #[doc(alias = "gtk_entry_completion_set_popup_completion")]
     fn set_popup_completion(&self, popup_completion: bool);
 
+    #[doc(alias = "gtk_entry_completion_set_popup_set_width")]
     fn set_popup_set_width(&self, popup_set_width: bool);
 
+    #[doc(alias = "gtk_entry_completion_set_popup_single_match")]
     fn set_popup_single_match(&self, popup_single_match: bool);
 
+    #[doc(alias = "gtk_entry_completion_set_text_column")]
     fn set_text_column(&self, column: i32);
 
     fn get_property_cell_area(&self) -> Option<CellArea>;

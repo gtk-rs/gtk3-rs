@@ -28,6 +28,7 @@ glib::glib_wrapper! {
 }
 
 impl Calendar {
+    #[doc(alias = "gtk_calendar_new")]
     pub fn new() -> Calendar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_calendar_new()).unsafe_cast() }
@@ -445,32 +446,46 @@ impl CalendarBuilder {
 pub const NONE_CALENDAR: Option<&Calendar> = None;
 
 pub trait CalendarExt: 'static {
+    #[doc(alias = "gtk_calendar_clear_marks")]
     fn clear_marks(&self);
 
+    #[doc(alias = "gtk_calendar_get_date")]
     fn get_date(&self) -> (u32, u32, u32);
 
+    #[doc(alias = "gtk_calendar_get_day_is_marked")]
     fn get_day_is_marked(&self, day: u32) -> bool;
 
+    #[doc(alias = "gtk_calendar_get_detail_height_rows")]
     fn get_detail_height_rows(&self) -> i32;
 
+    #[doc(alias = "gtk_calendar_get_detail_width_chars")]
     fn get_detail_width_chars(&self) -> i32;
 
+    #[doc(alias = "gtk_calendar_get_display_options")]
     fn get_display_options(&self) -> CalendarDisplayOptions;
 
+    #[doc(alias = "gtk_calendar_mark_day")]
     fn mark_day(&self, day: u32);
 
+    #[doc(alias = "gtk_calendar_select_day")]
     fn select_day(&self, day: u32);
 
+    #[doc(alias = "gtk_calendar_select_month")]
     fn select_month(&self, month: u32, year: u32);
 
+    #[doc(alias = "gtk_calendar_set_detail_func")]
     fn set_detail_func<P: Fn(&Calendar, u32, u32, u32) -> Option<String> + 'static>(&self, func: P);
 
+    #[doc(alias = "gtk_calendar_set_detail_height_rows")]
     fn set_detail_height_rows(&self, rows: i32);
 
+    #[doc(alias = "gtk_calendar_set_detail_width_chars")]
     fn set_detail_width_chars(&self, chars: i32);
 
+    #[doc(alias = "gtk_calendar_set_display_options")]
     fn set_display_options(&self, flags: CalendarDisplayOptions);
 
+    #[doc(alias = "gtk_calendar_unmark_day")]
     fn unmark_day(&self, day: u32);
 
     fn get_property_day(&self) -> i32;

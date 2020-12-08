@@ -19,18 +19,21 @@ glib::glib_wrapper! {
 }
 
 impl Item {
+    #[doc(alias = "pango_item_new")]
     pub fn new() -> Item {
         unsafe { from_glib_full(ffi::pango_item_new()) }
     }
 
     #[cfg(any(feature = "v1_44", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+    #[doc(alias = "pango_item_apply_attrs")]
     pub fn apply_attrs(&mut self, iter: &mut AttrIterator) {
         unsafe {
             ffi::pango_item_apply_attrs(self.to_glib_none_mut().0, iter.to_glib_none_mut().0);
         }
     }
 
+    #[doc(alias = "pango_item_split")]
     pub fn split(&mut self, split_index: i32, split_offset: i32) -> Option<Item> {
         unsafe {
             from_glib_full(ffi::pango_item_split(

@@ -32,6 +32,7 @@ glib::glib_wrapper! {
 }
 
 impl LockButton {
+    #[doc(alias = "gtk_lock_button_new")]
     pub fn new<P: IsA<gio::Permission>>(permission: Option<&P>) -> LockButton {
         assert_initialized_main_thread!();
         unsafe {
@@ -511,8 +512,10 @@ impl LockButtonBuilder {
 pub const NONE_LOCK_BUTTON: Option<&LockButton> = None;
 
 pub trait LockButtonExt: 'static {
+    #[doc(alias = "gtk_lock_button_get_permission")]
     fn get_permission(&self) -> Option<gio::Permission>;
 
+    #[doc(alias = "gtk_lock_button_set_permission")]
     fn set_permission<P: IsA<gio::Permission>>(&self, permission: Option<&P>);
 
     fn get_property_text_lock(&self) -> Option<glib::GString>;

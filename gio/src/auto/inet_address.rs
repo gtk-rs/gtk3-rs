@@ -21,14 +21,17 @@ glib::glib_wrapper! {
 }
 
 impl InetAddress {
+    #[doc(alias = "g_inet_address_new_any")]
     pub fn new_any(family: SocketFamily) -> InetAddress {
         unsafe { from_glib_full(ffi::g_inet_address_new_any(family.to_glib())) }
     }
 
+    #[doc(alias = "g_inet_address_new_from_string")]
     pub fn from_string(string: &str) -> Option<InetAddress> {
         unsafe { from_glib_full(ffi::g_inet_address_new_from_string(string.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_inet_address_new_loopback")]
     pub fn new_loopback(family: SocketFamily) -> InetAddress {
         unsafe { from_glib_full(ffi::g_inet_address_new_loopback(family.to_glib())) }
     }
@@ -47,32 +50,46 @@ unsafe impl Sync for InetAddress {}
 pub const NONE_INET_ADDRESS: Option<&InetAddress> = None;
 
 pub trait InetAddressExt: 'static {
+    #[doc(alias = "g_inet_address_equal")]
     fn equal<P: IsA<InetAddress>>(&self, other_address: &P) -> bool;
 
+    #[doc(alias = "g_inet_address_get_family")]
     fn get_family(&self) -> SocketFamily;
 
+    #[doc(alias = "g_inet_address_get_is_any")]
     fn get_is_any(&self) -> bool;
 
+    #[doc(alias = "g_inet_address_get_is_link_local")]
     fn get_is_link_local(&self) -> bool;
 
+    #[doc(alias = "g_inet_address_get_is_loopback")]
     fn get_is_loopback(&self) -> bool;
 
+    #[doc(alias = "g_inet_address_get_is_mc_global")]
     fn get_is_mc_global(&self) -> bool;
 
+    #[doc(alias = "g_inet_address_get_is_mc_link_local")]
     fn get_is_mc_link_local(&self) -> bool;
 
+    #[doc(alias = "g_inet_address_get_is_mc_node_local")]
     fn get_is_mc_node_local(&self) -> bool;
 
+    #[doc(alias = "g_inet_address_get_is_mc_org_local")]
     fn get_is_mc_org_local(&self) -> bool;
 
+    #[doc(alias = "g_inet_address_get_is_mc_site_local")]
     fn get_is_mc_site_local(&self) -> bool;
 
+    #[doc(alias = "g_inet_address_get_is_multicast")]
     fn get_is_multicast(&self) -> bool;
 
+    #[doc(alias = "g_inet_address_get_is_site_local")]
     fn get_is_site_local(&self) -> bool;
 
+    #[doc(alias = "g_inet_address_get_native_size")]
     fn get_native_size(&self) -> usize;
 
+    #[doc(alias = "g_inet_address_to_string")]
     fn to_str(&self) -> glib::GString;
 
     //fn get_property_bytes(&self) -> /*Unimplemented*/Fundamental: Pointer;

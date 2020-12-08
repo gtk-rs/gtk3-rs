@@ -31,6 +31,7 @@ glib::glib_wrapper! {
 }
 
 impl Statusbar {
+    #[doc(alias = "gtk_statusbar_new")]
     pub fn new() -> Statusbar {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_statusbar_new()).unsafe_cast() }
@@ -421,16 +422,22 @@ impl StatusbarBuilder {
 pub const NONE_STATUSBAR: Option<&Statusbar> = None;
 
 pub trait StatusbarExt: 'static {
+    #[doc(alias = "gtk_statusbar_get_context_id")]
     fn get_context_id(&self, context_description: &str) -> u32;
 
+    #[doc(alias = "gtk_statusbar_get_message_area")]
     fn get_message_area(&self) -> Option<Box>;
 
+    #[doc(alias = "gtk_statusbar_pop")]
     fn pop(&self, context_id: u32);
 
+    #[doc(alias = "gtk_statusbar_push")]
     fn push(&self, context_id: u32, text: &str) -> u32;
 
+    #[doc(alias = "gtk_statusbar_remove")]
     fn remove(&self, context_id: u32, message_id: u32);
 
+    #[doc(alias = "gtk_statusbar_remove_all")]
     fn remove_all(&self, context_id: u32);
 
     fn connect_text_popped<F: Fn(&Self, u32, &str) + 'static>(&self, f: F) -> SignalHandlerId;

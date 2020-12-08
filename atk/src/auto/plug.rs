@@ -18,6 +18,7 @@ glib::glib_wrapper! {
 }
 
 impl Plug {
+    #[doc(alias = "atk_plug_new")]
     pub fn new() -> Plug {
         assert_initialized_main_thread!();
         unsafe { Object::from_glib_full(ffi::atk_plug_new()).unsafe_cast() }
@@ -33,6 +34,7 @@ impl Default for Plug {
 pub const NONE_PLUG: Option<&Plug> = None;
 
 pub trait AtkPlugExt: 'static {
+    #[doc(alias = "atk_plug_get_id")]
     fn get_id(&self) -> Option<glib::GString>;
 }
 

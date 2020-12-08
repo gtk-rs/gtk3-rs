@@ -115,7 +115,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
         }
 
         impl #crate_ident::translate::FromGlib<i32> for #name {
-            fn from_glib(value: i32) -> Self {
+            unsafe fn from_glib(value: i32) -> Self {
                 #from_glib
                 unreachable!();
             }

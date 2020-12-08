@@ -18,6 +18,7 @@ glib::glib_wrapper! {
 }
 
 impl TabArray {
+    #[doc(alias = "pango_tab_array_new")]
     pub fn new(initial_size: i32, positions_in_pixels: bool) -> TabArray {
         unsafe {
             from_glib_full(ffi::pango_tab_array_new(
@@ -27,10 +28,12 @@ impl TabArray {
         }
     }
 
+    //#[doc(alias = "pango_tab_array_new_with_positions")]
     //pub fn with_positions(size: i32, positions_in_pixels: bool, first_alignment: TabAlign, first_position: i32, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> TabArray {
     //    unsafe { TODO: call ffi:pango_tab_array_new_with_positions() }
     //}
 
+    #[doc(alias = "pango_tab_array_get_positions_in_pixels")]
     pub fn get_positions_in_pixels(&mut self) -> bool {
         unsafe {
             from_glib(ffi::pango_tab_array_get_positions_in_pixels(
@@ -39,10 +42,12 @@ impl TabArray {
         }
     }
 
+    #[doc(alias = "pango_tab_array_get_size")]
     pub fn get_size(&mut self) -> i32 {
         unsafe { ffi::pango_tab_array_get_size(self.to_glib_none_mut().0) }
     }
 
+    #[doc(alias = "pango_tab_array_get_tab")]
     pub fn get_tab(&mut self, tab_index: i32) -> (TabAlign, i32) {
         unsafe {
             let mut alignment = mem::MaybeUninit::uninit();
@@ -59,16 +64,19 @@ impl TabArray {
         }
     }
 
+    //#[doc(alias = "pango_tab_array_get_tabs")]
     //pub fn get_tabs(&mut self, locations: Vec<i32>) -> TabAlign {
     //    unsafe { TODO: call ffi:pango_tab_array_get_tabs() }
     //}
 
+    #[doc(alias = "pango_tab_array_resize")]
     pub fn resize(&mut self, new_size: i32) {
         unsafe {
             ffi::pango_tab_array_resize(self.to_glib_none_mut().0, new_size);
         }
     }
 
+    #[doc(alias = "pango_tab_array_set_tab")]
     pub fn set_tab(&mut self, tab_index: i32, alignment: TabAlign, location: i32) {
         unsafe {
             ffi::pango_tab_array_set_tab(

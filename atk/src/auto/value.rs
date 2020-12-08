@@ -25,24 +25,34 @@ glib::glib_wrapper! {
 pub const NONE_VALUE: Option<&Value> = None;
 
 pub trait ValueExt: 'static {
+    #[doc(alias = "atk_value_get_current_value")]
     fn get_current_value(&self) -> glib::Value;
 
+    #[doc(alias = "atk_value_get_increment")]
     fn get_increment(&self) -> f64;
 
+    #[doc(alias = "atk_value_get_maximum_value")]
     fn get_maximum_value(&self) -> glib::Value;
 
+    #[doc(alias = "atk_value_get_minimum_increment")]
     fn get_minimum_increment(&self) -> glib::Value;
 
+    #[doc(alias = "atk_value_get_minimum_value")]
     fn get_minimum_value(&self) -> glib::Value;
 
+    #[doc(alias = "atk_value_get_range")]
     fn get_range(&self) -> Option<Range>;
 
+    #[doc(alias = "atk_value_get_sub_ranges")]
     fn get_sub_ranges(&self) -> Vec<Range>;
 
+    #[doc(alias = "atk_value_get_value_and_text")]
     fn get_value_and_text(&self) -> (f64, glib::GString);
 
+    #[doc(alias = "atk_value_set_current_value")]
     fn set_current_value(&self, value: &glib::Value) -> bool;
 
+    #[doc(alias = "atk_value_set_value")]
     fn set_value(&self, new_value: f64);
 
     fn connect_value_changed<F: Fn(&Self, f64, &str) + 'static>(&self, f: F) -> SignalHandlerId;

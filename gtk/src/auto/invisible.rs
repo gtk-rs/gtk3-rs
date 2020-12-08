@@ -26,11 +26,13 @@ glib::glib_wrapper! {
 }
 
 impl Invisible {
+    #[doc(alias = "gtk_invisible_new")]
     pub fn new() -> Invisible {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_invisible_new()).unsafe_cast() }
     }
 
+    #[doc(alias = "gtk_invisible_new_for_screen")]
     pub fn new_for_screen(screen: &gdk::Screen) -> Invisible {
         assert_initialized_main_thread!();
         unsafe {
@@ -370,6 +372,7 @@ impl InvisibleBuilder {
 pub const NONE_INVISIBLE: Option<&Invisible> = None;
 
 pub trait InvisibleExt: 'static {
+    #[doc(alias = "gtk_invisible_set_screen")]
     fn set_screen(&self, screen: &gdk::Screen);
 
     fn connect_property_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;

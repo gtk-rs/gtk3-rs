@@ -12,7 +12,7 @@ event_subtype!(EventTouchpadPinch, ffi::GDK_TOUCHPAD_PINCH);
 
 impl EventTouchpadPinch {
     pub fn is_phase(&self) -> bool {
-        from_glib(self.as_ref().phase as _)
+        unsafe { from_glib(self.as_ref().phase as _) }
     }
 
     pub fn get_n_fingers(&self) -> i8 {
@@ -50,6 +50,6 @@ impl EventTouchpadPinch {
     }
 
     pub fn get_state(&self) -> crate::ModifierType {
-        from_glib(self.as_ref().state)
+        unsafe { from_glib(self.as_ref().state) }
     }
 }

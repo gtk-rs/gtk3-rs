@@ -20,6 +20,7 @@ glib::glib_wrapper! {
 pub const NONE_BIN: Option<&Bin> = None;
 
 pub trait BinExt: 'static {
+    #[doc(alias = "gtk_bin_get_child")]
     fn get_child(&self) -> Option<Widget>;
 }
 

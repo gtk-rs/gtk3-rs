@@ -20,11 +20,13 @@ glib::glib_wrapper! {
 }
 
 impl AccelGroup {
+    #[doc(alias = "gtk_accel_group_new")]
     pub fn new() -> AccelGroup {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gtk_accel_group_new()) }
     }
 
+    #[doc(alias = "gtk_accel_group_from_accel_closure")]
     pub fn from_accel_closure(closure: &glib::Closure) -> Option<AccelGroup> {
         assert_initialized_main_thread!();
         unsafe {
@@ -44,6 +46,7 @@ impl Default for AccelGroup {
 pub const NONE_ACCEL_GROUP: Option<&AccelGroup> = None;
 
 pub trait AccelGroupExt: 'static {
+    #[doc(alias = "gtk_accel_group_activate")]
     fn activate<P: IsA<glib::Object>>(
         &self,
         accel_quark: glib::Quark,
@@ -52,18 +55,25 @@ pub trait AccelGroupExt: 'static {
         accel_mods: gdk::ModifierType,
     ) -> bool;
 
+    #[doc(alias = "gtk_accel_group_disconnect")]
     fn disconnect(&self, closure: Option<&glib::Closure>) -> bool;
 
+    #[doc(alias = "gtk_accel_group_disconnect_key")]
     fn disconnect_key(&self, accel_key: u32, accel_mods: gdk::ModifierType) -> bool;
 
+    //#[doc(alias = "gtk_accel_group_find")]
     //fn find(&self, find_func: /*Unimplemented*/FnMut(/*Ignored*/AccelKey, &glib::Closure) -> bool, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/Option<AccelKey>;
 
+    #[doc(alias = "gtk_accel_group_get_is_locked")]
     fn get_is_locked(&self) -> bool;
 
+    #[doc(alias = "gtk_accel_group_get_modifier_mask")]
     fn get_modifier_mask(&self) -> gdk::ModifierType;
 
+    #[doc(alias = "gtk_accel_group_lock")]
     fn lock(&self);
 
+    #[doc(alias = "gtk_accel_group_unlock")]
     fn unlock(&self);
 
     fn connect_accel_activate<
