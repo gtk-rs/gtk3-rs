@@ -1272,11 +1272,11 @@
 
 <span class="kw">impl</span> <span class="ident">SignalInvocationHint</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">detail</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">Quark</span> {
-        <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">detail</span>)
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">detail</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SignalFlags</span> {
-        <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">run_type</span>)
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">run_type</span>) }
     }
 }
 

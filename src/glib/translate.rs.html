@@ -2498,6 +2498,12 @@
 <span id="2495">2495</span>
 <span id="2496">2496</span>
 <span id="2497">2497</span>
+<span id="2498">2498</span>
+<span id="2499">2499</span>
+<span id="2500">2500</span>
+<span id="2501">2501</span>
+<span id="2502">2502</span>
+<span id="2503">2503</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2015, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -3645,25 +3651,25 @@
 
 <span class="doccomment">/// Translate a simple type.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">G</span>: <span class="ident">Copy</span><span class="op">&gt;</span>: <span class="ident">Sized</span> {
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>;
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>;
 }
 
 <span class="doccomment">/// Translate a simple type.</span>
 <span class="attribute">#[<span class="ident">inline</span>]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_glib</span><span class="op">&lt;</span><span class="ident">G</span>: <span class="ident">Copy</span>, <span class="ident">T</span>: <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">G</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">val</span>: <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span> {
+<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span><span class="op">&lt;</span><span class="ident">G</span>: <span class="ident">Copy</span>, <span class="ident">T</span>: <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">G</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">val</span>: <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span> {
     <span class="ident">FromGlib</span>::<span class="ident">from_glib</span>(<span class="ident">val</span>)
 }
 
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">gboolean</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">bool</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">ffi</span>::<span class="ident">gboolean</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">ffi</span>::<span class="ident">gboolean</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="ident">val</span> <span class="op">!</span><span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">GFALSE</span>
     }
 }
 
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Ordering</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span> {
         <span class="ident">val</span>.<span class="ident">cmp</span>(<span class="kw-2">&amp;</span><span class="number">0</span>)
     }
 }
@@ -3688,7 +3694,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">G</span>: <span class="ident">Copy</span>, <span class="ident">T</span>: <span class="ident">TryFromGlib</span><span class="op">&lt;</span><span class="ident">G</span>, <span class="ident">Error</span> <span class="op">=</span> <span class="ident">GlibNoneError</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">G</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="ident">T</span>::<span class="ident">try_from_glib</span>(<span class="ident">val</span>).<span class="ident">ok</span>()
     }
 }
@@ -3741,7 +3747,7 @@
     <span class="kw">for</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">I</span><span class="op">&gt;</span>
 {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">I</span><span class="op">&gt;</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">I</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">T</span>::<span class="ident">try_from_glib</span>(<span class="ident">val</span>) {
             <span class="prelude-val">Ok</span>(<span class="ident">value</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">value</span>)),
             <span class="prelude-val">Err</span>(<span class="ident">GlibNoneOrInvalidError</span>::<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
@@ -4913,9 +4919,15 @@
             <span class="prelude-val">Err</span>(<span class="ident">GlibNoneError</span>)
         );
 
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="number">0</span>), <span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>)));
-        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="number">42</span>), <span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>)));
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="ident">SpecialU32</span>::<span class="ident">GLIB_NONE</span>).<span class="ident">is_none</span>());
+        <span class="macro">assert_eq</span><span class="macro">!</span>(
+            <span class="kw">unsafe</span> { <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="number">0</span>) },
+            <span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>))
+        );
+        <span class="macro">assert_eq</span><span class="macro">!</span>(
+            <span class="kw">unsafe</span> { <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="number">42</span>) },
+            <span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>))
+        );
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="kw">unsafe</span> { <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="ident">SpecialU32</span>::<span class="ident">GLIB_NONE</span>) }.<span class="ident">is_none</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -4982,18 +4994,18 @@
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">SpecialU32</span>::<span class="ident">try_from_glib</span>(<span class="op">-</span><span class="number">42</span>).<span class="ident">unwrap_err</span>().<span class="ident">is_invalid</span>());
 
         <span class="macro">assert_eq</span><span class="macro">!</span>(
-            <span class="prelude-ty">Result</span>::<span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="number">0</span>),
+            <span class="kw">unsafe</span> { <span class="prelude-ty">Result</span>::<span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="number">0</span>) },
             <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">0</span>)))
         );
         <span class="macro">assert_eq</span><span class="macro">!</span>(
-            <span class="prelude-ty">Result</span>::<span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="number">42</span>),
+            <span class="kw">unsafe</span> { <span class="prelude-ty">Result</span>::<span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="number">42</span>) },
             <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">SpecialU32</span>(<span class="number">42</span>)))
         );
         <span class="macro">assert_eq</span><span class="macro">!</span>(
-            <span class="prelude-ty">Result</span>::<span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="ident">SpecialU32</span>::<span class="ident">GLIB_NONE</span>),
+            <span class="kw">unsafe</span> { <span class="prelude-ty">Result</span>::<span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="ident">SpecialU32</span>::<span class="ident">GLIB_NONE</span>) },
             <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
         );
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="prelude-ty">Result</span>::<span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="op">-</span><span class="number">42</span>).<span class="ident">is_err</span>());
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="kw">unsafe</span> { <span class="prelude-ty">Result</span>::<span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SpecialU32</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib</span>(<span class="op">-</span><span class="number">42</span>) }.<span class="ident">is_err</span>());
     }
 }
 </pre></div>

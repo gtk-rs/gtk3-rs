@@ -71,7 +71,7 @@
 
 <span class="kw">impl</span> <span class="ident">EventTouchpadPinch</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_phase</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">phase</span> <span class="kw">as</span> <span class="kw">_</span>)
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">phase</span> <span class="kw">as</span> <span class="kw">_</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_n_fingers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i8</span> {
@@ -109,7 +109,7 @@
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_state</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">ModifierType</span> {
-        <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">state</span>)
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">state</span>) }
     }
 }
 </pre></div>

@@ -769,9 +769,9 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SourceId</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SourceId</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SourceId</span> {
         <span class="macro">assert_ne</span><span class="macro">!</span>(<span class="ident">val</span>, <span class="number">0</span>);
-        <span class="ident">SourceId</span>(<span class="kw">unsafe</span> { <span class="ident">NonZeroU32</span>::<span class="ident">new_unchecked</span>(<span class="ident">val</span>) })
+        <span class="ident">SourceId</span>(<span class="ident">NonZeroU32</span>::<span class="ident">new_unchecked</span>(<span class="ident">val</span>))
     }
 }
 
@@ -795,7 +795,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GPid</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Pid</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">ffi</span>::<span class="ident">GPid</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pid</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">ffi</span>::<span class="ident">GPid</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pid</span> {
         <span class="ident">Pid</span>(<span class="ident">val</span>)
     }
 }
@@ -1228,7 +1228,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Priority</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Priority</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Priority</span> {
         <span class="ident">Priority</span>(<span class="ident">val</span>)
     }
 }

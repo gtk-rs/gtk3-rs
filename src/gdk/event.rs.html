@@ -831,13 +831,13 @@
 
     <span class="doccomment">/// Returns the event type.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_event_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EventType</span> {
-        <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">type_</span>)
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">type_</span>) }
     }
 
     <span class="doccomment">/// Returns whether the event was sent explicitly.</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">cast_lossless</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_send_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">send_event</span> <span class="kw">as</span> <span class="ident">i32</span>)
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">send_event</span> <span class="kw">as</span> <span class="ident">i32</span>) }
     }
 
     <span class="doccomment">/// Returns `true` if the event type matches `T`.</span>

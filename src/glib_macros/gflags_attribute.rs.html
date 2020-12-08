@@ -327,7 +327,7 @@
         }
 
         <span class="kw">impl</span> #<span class="ident">crate_ident</span>::<span class="ident">translate</span>::<span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> <span class="kw">for</span> #<span class="ident">name</span> {
-            <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+            <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
                 #<span class="ident">name</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
             }
         }

@@ -123,7 +123,7 @@
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gravity</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Gravity</span> {
-        <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">gravity</span> <span class="kw">as</span> <span class="ident">i32</span>)
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">gravity</span> <span class="kw">as</span> <span class="ident">i32</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
@@ -131,7 +131,7 @@
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">script</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Script</span> {
-        <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">script</span> <span class="kw">as</span> <span class="ident">i32</span>)
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">script</span> <span class="kw">as</span> <span class="ident">i32</span>) }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">language</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Language</span> {

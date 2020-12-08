@@ -631,7 +631,7 @@
 
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Type</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">ffi</span>::<span class="ident">GType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">val</span>: <span class="ident">ffi</span>::<span class="ident">GType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
         <span class="kw">use</span> <span class="self">self</span>::<span class="ident">Type</span>::<span class="kw-2">*</span>;
         <span class="kw">match</span> <span class="ident">val</span> {
             <span class="ident">gobject_ffi</span>::<span class="ident">G_TYPE_INVALID</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Invalid</span>,

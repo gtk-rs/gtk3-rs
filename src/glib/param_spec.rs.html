@@ -1074,7 +1074,7 @@
 
 <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">ParamSpec</span> {
     <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
-        <span class="ident">from_glib</span>(<span class="ident">gobject_ffi</span>::<span class="ident">G_TYPE_PARAM</span>)
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">gobject_ffi</span>::<span class="ident">G_TYPE_PARAM</span>) }
     }
 }
 

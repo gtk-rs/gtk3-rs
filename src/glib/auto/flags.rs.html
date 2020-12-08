@@ -484,7 +484,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GFileSetContentsFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FileSetContentsFlags</span> {
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GFileSetContentsFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileSetContentsFlags</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GFileSetContentsFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileSetContentsFlags</span> {
         <span class="ident">FileSetContentsFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -516,7 +516,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GFileTest</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FileTest</span> {
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GFileTest</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileTest</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GFileTest</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FileTest</span> {
         <span class="ident">FileTest</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -547,7 +547,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GFormatSizeFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FormatSizeFlags</span> {
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GFormatSizeFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FormatSizeFlags</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GFormatSizeFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FormatSizeFlags</span> {
         <span class="ident">FormatSizeFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -580,7 +580,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GIOCondition</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">IOCondition</span> {
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GIOCondition</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IOCondition</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GIOCondition</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IOCondition</span> {
         <span class="ident">IOCondition</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -636,7 +636,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GKeyFileFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">KeyFileFlags</span> {
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GKeyFileFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">KeyFileFlags</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GKeyFileFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">KeyFileFlags</span> {
         <span class="ident">KeyFileFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -672,7 +672,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GLogLevelFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">LogLevelFlags</span> {
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GLogLevelFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LogLevelFlags</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GLogLevelFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LogLevelFlags</span> {
         <span class="ident">LogLevelFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -707,7 +707,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GOptionFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OptionFlags</span> {
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GOptionFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OptionFlags</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GOptionFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OptionFlags</span> {
         <span class="ident">OptionFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -744,7 +744,7 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GSpawnFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SpawnFlags</span> {
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GSpawnFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SpawnFlags</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GSpawnFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SpawnFlags</span> {
         <span class="ident">SpawnFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -788,7 +788,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GUriFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">UriFlags</span> {
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GUriFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UriFlags</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GUriFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UriFlags</span> {
         <span class="ident">UriFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -829,7 +829,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GUriHideFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">UriHideFlags</span> {
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GUriHideFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UriHideFlags</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GUriHideFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UriHideFlags</span> {
         <span class="ident">UriHideFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
@@ -868,7 +868,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_66&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">impl</span> <span class="ident">FromGlib</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GUriParamsFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">UriParamsFlags</span> {
-    <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GUriParamsFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UriParamsFlags</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_glib</span>(<span class="ident">value</span>: <span class="ident">ffi</span>::<span class="ident">GUriParamsFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UriParamsFlags</span> {
         <span class="ident">UriParamsFlags</span>::<span class="ident">from_bits_truncate</span>(<span class="ident">value</span>)
     }
 }
