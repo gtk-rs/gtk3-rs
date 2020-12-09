@@ -870,6 +870,12 @@ status = "generate"
     name = "get_value"
         [object.function.return]
         nullable = false
+    [[object.function]]
+    name = "bind"
+    manual = true
+    [[object.function]]
+    name = "bind_with_mapping"
+    manual = true
 
 [[object]]
 name = "Gio.SettingsSchemaKey"

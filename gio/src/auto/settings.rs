@@ -4,7 +4,6 @@
 
 use crate::Action;
 use crate::SettingsBackend;
-use crate::SettingsBindFlags;
 use crate::SettingsSchema;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -100,18 +99,6 @@ pub const NONE_SETTINGS: Option<&Settings> = None;
 pub trait SettingsExt: 'static {
     #[doc(alias = "g_settings_apply")]
     fn apply(&self);
-
-    #[doc(alias = "g_settings_bind")]
-    fn bind<P: IsA<glib::Object>>(
-        &self,
-        key: &str,
-        object: &P,
-        property: &str,
-        flags: SettingsBindFlags,
-    );
-
-    //#[doc(alias = "g_settings_bind_with_mapping")]
-    //fn bind_with_mapping<P: IsA<glib::Object>, Q: Fn(&glib::Value, &glib::Variant) -> bool + 'static, R: Fn(&glib::Value, &glib::VariantType) -> glib::Variant + 'static>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags, get_mapping: Q, set_mapping: R);
 
     #[doc(alias = "g_settings_bind_writable")]
     fn bind_writable<P: IsA<glib::Object>>(
@@ -274,28 +261,6 @@ impl<O: IsA<Settings>> SettingsExt for O {
             ffi::g_settings_apply(self.as_ref().to_glib_none().0);
         }
     }
-
-    fn bind<P: IsA<glib::Object>>(
-        &self,
-        key: &str,
-        object: &P,
-        property: &str,
-        flags: SettingsBindFlags,
-    ) {
-        unsafe {
-            ffi::g_settings_bind(
-                self.as_ref().to_glib_none().0,
-                key.to_glib_none().0,
-                object.as_ref().to_glib_none().0,
-                property.to_glib_none().0,
-                flags.to_glib(),
-            );
-        }
-    }
-
-    //fn bind_with_mapping<P: IsA<glib::Object>, Q: Fn(&glib::Value, &glib::Variant) -> bool + 'static, R: Fn(&glib::Value, &glib::VariantType) -> glib::Variant + 'static>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags, get_mapping: Q, set_mapping: R) {
-    //    unsafe { TODO: call ffi:g_settings_bind_with_mapping() }
-    //}
 
     fn bind_writable<P: IsA<glib::Object>>(
         &self,
