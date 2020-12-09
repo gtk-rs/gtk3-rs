@@ -186,6 +186,26 @@ impl Value {
         }
     }
 
+    /// Tries to downcast to a `&mut TypedValue`.
+    ///
+    /// Returns `Some(&mut TypedValue<T>)` if the value carries a type corresponding
+    /// to `T` and `None` otherwise.
+    pub fn downcast_mut<'a, T: FromValueOptional<'a> + SetValue>(
+        &mut self,
+    ) -> Option<&mut TypedValue<T>> {
+        unsafe {
+            let ok = from_glib(gobject_ffi::g_type_check_value_holds(
+                mut_override(self.to_glib_none().0),
+                T::static_type().to_glib(),
+            ));
+            if ok {
+                Some(&mut *(self as *mut Value as *mut TypedValue<T>))
+            } else {
+                None
+            }
+        }
+    }
+
     /// Tries to get a possibly optional value of type `T`.
     ///
     /// Returns `Ok` if the type is correct.
