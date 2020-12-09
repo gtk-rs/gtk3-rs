@@ -68,6 +68,31 @@ impl FromGlibContainerAsVec<*mut ffi::PangoGlyphInfo, *mut ffi::PangoGlyphInfo> 
         FromGlibContainerAsVec::from_glib_container_num_as_vec(ptr, num)
     }
 }
+impl FromGlibContainerAsVec<*mut ffi::PangoGlyphInfo, *const ffi::PangoGlyphInfo> for GlyphInfo {
+    unsafe fn from_glib_none_num_as_vec(ptr: *const ffi::PangoGlyphInfo, num: usize) -> Vec<Self> {
+        if num == 0 || ptr.is_null() {
+            return Vec::new();
+        }
+        let mut res = Vec::with_capacity(num);
+        for x in 0..num {
+            res.push(from_glib_none(ptr.add(x)));
+        }
+        res
+    }
+
+    unsafe fn from_glib_container_num_as_vec(
+        ptr: *const ffi::PangoGlyphInfo,
+        num: usize,
+    ) -> Vec<Self> {
+        let res = FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
+        glib::ffi::g_free(ptr as *mut _);
+        res
+    }
+
+    unsafe fn from_glib_full_num_as_vec(ptr: *const ffi::PangoGlyphInfo, num: usize) -> Vec<Self> {
+        FromGlibContainerAsVec::from_glib_container_num_as_vec(ptr, num)
+    }
+}
 
 #[doc(hidden)]
 impl<'a> ToGlibPtr<'a, *mut ffi::PangoGlyphInfo> for &'a GlyphInfo {
