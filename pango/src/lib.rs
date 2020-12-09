@@ -56,6 +56,7 @@ pub use crate::language::Language;
 pub mod rectangle;
 pub use crate::rectangle::Rectangle;
 pub mod glyph;
+pub use glyph::{GlyphGeometry, GlyphInfo};
 
 mod coverage;
 pub use crate::coverage::*;
