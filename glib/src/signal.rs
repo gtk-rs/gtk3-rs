@@ -13,6 +13,36 @@ use std::mem;
 use std::num::NonZeroU64;
 
 /// The id of a signal that is returned by `connect`.
+///
+/// ```ignore
+/// use glib::SignalHandlerId;
+/// use gtk::prelude::*;
+/// use std::cell::RefCell;
+///
+/// struct Button {
+///     widget: gtk::Button,
+///     clicked_handler_id: RefCell<Option<SignalHandlerId>>,
+/// }
+///
+/// impl Button {
+///     fn new() -> Self {
+///         let widget = gtk::Button::new();
+///         let clicked_handler_id = RefCell::new(Some(widget.connect_clicked(|_button| {
+///             // Do something.
+///         })));
+///         Self {
+///             widget,
+///             clicked_handler_id,
+///         }
+///     }
+///
+///     fn disconnect(&self) {
+///         if let Some(id) = self.clicked_handler_id.borrow_mut().take() {
+///             self.widget.disconnect(id)
+///         }
+///     }
+/// }
+/// ```
 #[derive(Debug, Eq, PartialEq)]
 pub struct SignalHandlerId(NonZeroU64);
 
