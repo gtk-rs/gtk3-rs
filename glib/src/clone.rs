@@ -1,3 +1,4 @@
+use std::marker::PhantomData;
 use std::rc::{self, Rc};
 use std::sync::{self, Arc};
 
@@ -33,6 +34,14 @@ impl<T: Downgrade + crate::ObjectType> Upgrade for crate::WeakRef<T> {
     }
 }
 
+impl<T> Downgrade for PhantomData<T> {
+    type Weak = PhantomData<T>;
+
+    fn downgrade(&self) -> Self::Weak {
+        PhantomData
+    }
+}
+
 impl<T: Downgrade> Downgrade for &T {
     type Weak = T::Weak;
 
@@ -46,6 +55,14 @@ impl<T> Downgrade for Arc<T> {
 
     fn downgrade(&self) -> Self::Weak {
         Arc::downgrade(self)
+    }
+}
+
+impl<T> Upgrade for PhantomData<T> {
+    type Strong = PhantomData<T>;
+
+    fn upgrade(&self) -> Option<Self::Strong> {
+        Some(PhantomData)
     }
 }
 

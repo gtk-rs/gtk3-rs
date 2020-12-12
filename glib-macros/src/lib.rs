@@ -3,6 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
 
 mod clone;
+mod downgrade_derive;
 mod gboxed_derive;
 mod genum_derive;
 mod gflags_attribute;
@@ -309,4 +310,69 @@ pub fn gflags(attr: TokenStream, item: TokenStream) -> TokenStream {
     let gtype_name = parse_macro_input!(attr as LitStr);
     let gen = gflags_attribute::impl_gflags(&input, &gtype_name);
     gen.into()
+}
+
+/// Macro for deriving implementations of [`glib::clone::Downgrade`] and
+/// [`glib::clone::Upgrade`] traits and a weak type.
+///
+/// # Examples
+///
+/// ## New Type Idiom
+///
+/// ```rust,ignore
+/// #[derive(glib::Downgrade)]
+/// pub struct FancyLabel(gtk::Label);
+///
+/// impl FancyLabel {
+///     pub fn new(label: &str) -> Self {
+///         Self(gtk::LabelBuilder::new().label(label).build())
+///     }
+///
+///     pub fn flip(&self) {
+///         self.0.set_angle(180.0 - self.0.get_angle());
+///     }
+/// }
+///
+/// let fancy_label = FancyLabel::new("Look at me!");
+/// let button = gtk::ButtonBuilder::new().label("Click me!").build();
+/// button.connect_clicked(clone!(@weak fancy_label => move || fancy_label.flip()));
+/// ```
+///
+/// ## Generic New Type
+///
+/// ```rust,ignore
+/// #[derive(glib::Downgrade)]
+/// pub struct TypedEntry<T>(gtk::Entry, std::marker::PhantomData<T>);
+///
+/// impl<T: ToString + FromStr> for TypedEntry<T> {
+///     // ...
+/// }
+/// ```
+///
+/// ## Structures and Enums
+///
+/// ```rust,ignore
+/// #[derive(Clone, glib::Downgrade)]
+/// pub struct ControlButtons {
+///     pub up: gtk::Button,
+///     pub down: gtk::Button,
+///     pub left: gtk::Button,
+///     pub right: gtk::Button,
+/// }
+///
+/// #[derive(Clone, glib::Downgrade)]
+/// pub enum DirectionButton {
+///     Left(gtk::Button),
+///     Right(gtk::Button),
+///     Up(gtk::Button),
+///     Down(gtk::Button),
+/// }
+/// ```
+///
+/// [`glib::clone::Downgrade`]: clone/trait.Downgrade.html
+/// [`glib::clone::Upgrade`]: clone/trait.Upgrade.html
+#[proc_macro_derive(Downgrade)]
+pub fn downgrade(input: TokenStream) -> TokenStream {
+    let input = parse_macro_input!(input as DeriveInput);
+    downgrade_derive::impl_downgrade(input)
 }
