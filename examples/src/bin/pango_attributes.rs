@@ -18,24 +18,21 @@ fn build_ui(application: &gtk::Application) {
     let label = gtk::Label::new(Some("Some text"));
     let attr_list = pango::AttrList::new();
 
-    let mut attr =
-        pango::Attribute::new_background(65535, 0, 0).expect("Couldn't create new background");
+    let mut attr = pango::Attribute::new_background(65535, 0, 0);
     attr.set_start_index(0);
     attr.set_end_index(2);
     attr_list.insert(attr);
 
-    let mut attr = pango::Attribute::new_underline(pango::Underline::Single)
-        .expect("Couldn't create new underline");
+    let mut attr = pango::Attribute::new_underline(pango::Underline::Single);
     attr.set_start_index(1);
     attr.set_end_index(4);
     attr_list.insert(attr);
 
-    let mut attr =
-        pango::Attribute::new_strikethrough(true).expect("Couldn't create new strikethrough");
+    let mut attr = pango::Attribute::new_strikethrough(true);
     attr.set_start_index(5);
     attr_list.insert(attr);
 
-    let mut attr = pango::Attribute::new_scale(1.2).expect("Couldn't create new scale");
+    let mut attr = pango::Attribute::new_scale(1.2);
     attr.set_start_index(6);
     attr_list.insert(attr);
 
