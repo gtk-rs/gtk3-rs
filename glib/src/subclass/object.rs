@@ -41,6 +41,14 @@ pub trait ObjectImpl: ObjectSubclass + ObjectImplExt {
     fn constructed(&self, obj: &Self::Type) {
         self.parent_constructed(obj);
     }
+
+    /// Disposes of the object.
+    ///
+    /// When `dispose()` ends, the object should not hold any reference to any other member object.
+    /// The object is also expected to be able to answer client method invocations (with possibly an
+    /// error code but no memory violation) until it is dropped. `dispose()` can be executed more
+    /// than once.
+    fn dispose(&self, _obj: &Self::Type) {}
 }
 
 unsafe extern "C" fn get_property<T: ObjectImpl>(
@@ -90,6 +98,20 @@ unsafe extern "C" fn constructed<T: ObjectImpl>(obj: *mut gobject_ffi::GObject) 
     let imp = instance.get_impl();
 
     imp.constructed(&from_glib_borrow::<_, Object>(obj).unsafe_cast_ref());
+}
+
+unsafe extern "C" fn dispose<T: ObjectImpl>(obj: *mut gobject_ffi::GObject) {
+    let instance = &*(obj as *mut T::Instance);
+    let imp = instance.get_impl();
+
+    imp.dispose(&from_glib_borrow::<_, Object>(obj).unsafe_cast_ref());
+
+    // Chain up to the parent's dispose.
+    let data = T::type_data();
+    let parent_class = data.as_ref().get_parent_class() as *mut gobject_ffi::GObjectClass;
+    if let Some(ref func) = (*parent_class).dispose {
+        func(obj);
+    }
 }
 
 /// Definition of a property.
@@ -273,6 +295,7 @@ unsafe impl<T: ObjectImpl> IsSubclassable<T> for Object {
         klass.set_property = Some(set_property::<T>);
         klass.get_property = Some(get_property::<T>);
         klass.constructed = Some(constructed::<T>);
+        klass.dispose = Some(dispose::<T>);
     }
 }
 
