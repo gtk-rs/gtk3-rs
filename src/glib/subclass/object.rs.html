@@ -772,6 +772,29 @@
 <span id="769">769</span>
 <span id="770">770</span>
 <span id="771">771</span>
+<span id="772">772</span>
+<span id="773">773</span>
+<span id="774">774</span>
+<span id="775">775</span>
+<span id="776">776</span>
+<span id="777">777</span>
+<span id="778">778</span>
+<span id="779">779</span>
+<span id="780">780</span>
+<span id="781">781</span>
+<span id="782">782</span>
+<span id="783">783</span>
+<span id="784">784</span>
+<span id="785">785</span>
+<span id="786">786</span>
+<span id="787">787</span>
+<span id="788">788</span>
+<span id="789">789</span>
+<span id="790">790</span>
+<span id="791">791</span>
+<span id="792">792</span>
+<span id="793">793</span>
+<span id="794">794</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2017-2018, The Gtk-rs Project Developers.</span>
 <span class="comment">// See the COPYRIGHT file at the top-level directory of this distribution.</span>
@@ -816,6 +839,14 @@
     <span class="kw">fn</span> <span class="ident">constructed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {
         <span class="self">self</span>.<span class="ident">parent_constructed</span>(<span class="ident">obj</span>);
     }
+
+    <span class="doccomment">/// Disposes of the object.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// When `dispose()` ends, the object should not hold any reference to any other member object.</span>
+    <span class="doccomment">/// The object is also expected to be able to answer client method invocations (with possibly an</span>
+    <span class="doccomment">/// error code but no memory violation) until it is dropped. `dispose()` can be executed more</span>
+    <span class="doccomment">/// than once.</span>
+    <span class="kw">fn</span> <span class="ident">dispose</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) {}
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">get_property</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectImpl</span><span class="op">&gt;</span>(
@@ -865,6 +896,20 @@
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
 
     <span class="ident">imp</span>.<span class="ident">constructed</span>(<span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">Object</span><span class="op">&gt;</span>(<span class="ident">obj</span>).<span class="ident">unsafe_cast_ref</span>());
+}
+
+<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">dispose</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectImpl</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>) {
+    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">obj</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
+    <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
+
+    <span class="ident">imp</span>.<span class="ident">dispose</span>(<span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">Object</span><span class="op">&gt;</span>(<span class="ident">obj</span>).<span class="ident">unsafe_cast_ref</span>());
+
+    <span class="comment">// Chain up to the parent&#39;s dispose.</span>
+    <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
+    <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GObjectClass</span>;
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">func</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">dispose</span> {
+        <span class="ident">func</span>(<span class="ident">obj</span>);
+    }
 }
 
 <span class="doccomment">/// Definition of a property.</span>
@@ -1048,6 +1093,7 @@
         <span class="ident">klass</span>.<span class="ident">set_property</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">set_property</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">get_property</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">get_property</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">constructed</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">constructed</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">klass</span>.<span class="ident">dispose</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">dispose</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
     }
 }
 
