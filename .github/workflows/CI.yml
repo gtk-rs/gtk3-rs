@@ -315,16 +315,19 @@ jobs:
     strategy:
       matrix:
         crate:
-          - atk
-          - gdk
-          - gdk-pixbuf
-          - gdkx11
-          - gio
-          - glib
-          - graphene
-          - gtk
-          - pango
-          - pangocairo
+          - { name: 'atk', extra: '' }
+          - { name: 'cairo', extra: '--no-manual-traits' }
+          - { name: 'gdk', extra: '' }
+          - { name: 'gdk-pixbuf', extra: '' }
+          - { name: 'gdkx11', extra: '' }
+          - { name: 'gio', extra: '' }
+          - { name: 'glib', extra: '' }
+          - { name: 'glib-macros', extra: '--no-manual-traits' }
+          - { name: 'graphene', extra: '' }
+          - { name: 'gtk', extra: '' }
+          - { name: 'gtk3-macros', extra: '--no-manual-traits' }
+          - { name: 'pango', extra: '' }
+          - { name: 'pangocairo', extra: '' }
     steps:
       - uses: actions/checkout@v2
       - uses: actions/checkout@v2
@@ -334,10 +337,11 @@ jobs:
           path: checker
       - run: cargo build --release
         working-directory: checker
-      - run: cargo run -- ../${{matrix.crate}}
+      - run: cargo run -- ${{matrix.crate.extra}} ../${{matrix.crate.name}}
         working-directory: checker
-      - run: cargo run -- ../${{matrix.crate}}/sys
+      - run: cargo run -- --no-license ../${{matrix.crate.name}}/sys
         working-directory: checker
-      - run: ./check_init_asserts ../${{matrix.crate}}
+        if: matrix.crate.extra == ''
+      - run: ./check_init_asserts ../${{matrix.crate.name}}
         working-directory: checker
         if: matrix.crate == 'atk' || matrix.crate == 'gdk' || matrix.crate == 'gdkx11' || matrix.crate == 'gtk'
