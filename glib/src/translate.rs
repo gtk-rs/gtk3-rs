@@ -1,6 +1,4 @@
-// Copyright 2015, The Gtk-rs Project Developers.
-// See the COPYRIGHT file at the top-level directory of this distribution.
-// Licensed under the MIT license, see the LICENSE file or <https://opensource.org/licenses/MIT>
+// Take a look at the license at the top of the repository in the LICENSE file.
 
 //! Translation between GLib/GLib-based FFI types and their Rust counterparts.
 //!
