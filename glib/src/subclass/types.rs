@@ -4,9 +4,9 @@
 
 //! Module that contains the basic infrastructure for subclassing `GObject`.
 
-use crate::object::{ObjectSubclassIs, ObjectType};
+use crate::object::{Cast, ObjectSubclassIs, ObjectType};
 use crate::translate::*;
-use crate::{Closure, SignalFlags, StaticType, Type, Value};
+use crate::{Closure, Object, SignalFlags, StaticType, Type, Value};
 use std::fmt;
 use std::marker;
 use std::mem;
@@ -369,6 +369,31 @@ pub trait ObjectSubclass: Sized + 'static {
     fn with_class(_klass: &Self::Class) -> Self {
         Self::new()
     }
+
+    /// Performs additional instance initialization.
+    ///
+    /// Called just after `with_class()`. At this point the initialization has not completed yet, so
+    /// only a limited set of operations is safe (see `InitializingObject`).
+    fn instance_init(_obj: &InitializingObject<Self::Type>) {}
+}
+
+/// An object that is currently being initialized.
+///
+/// Binding crates should use traits for adding methods to this struct. Only methods explicitly safe
+/// to call during `instance_init()` should be added.
+pub struct InitializingObject<T: ObjectType>(Borrowed<T>);
+
+impl<T: ObjectType> InitializingObject<T> {
+    /// Returns a reference to the object.
+    ///
+    /// # Safety
+    ///
+    /// The returned object has not been completely initialized at this point. Use of the object
+    /// should be restricted to methods that are explicitly documented to be safe to call during
+    /// `instance_init()`.
+    pub unsafe fn as_ref(&self) -> &T {
+        &self.0
+    }
 }
 
 unsafe extern "C" fn class_init<T: ObjectSubclass>(klass: ffi::gpointer, _klass_data: ffi::gpointer)
@@ -425,6 +450,11 @@ unsafe extern "C" fn instance_init<T: ObjectSubclass>(
     let imp = T::with_class(klass);
 
     ptr::write(imp_storage, imp);
+
+    // Any additional instance initialization.
+    let obj = from_glib_borrow::<_, Object>(obj.cast());
+    let obj = Borrowed::new(obj.into_inner().unsafe_cast());
+    T::instance_init(&InitializingObject(obj));
 }
 
 unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject) {
