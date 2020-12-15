@@ -1,3 +1,5 @@
+// Take a look at the license at the top of the repository in the LICENSE file.
+
 // e.g. declare_surface(ImageSurface, SurfaceType::Image)
 macro_rules! declare_surface {
     ($surf_name:ident, $surf_type:expr) => {

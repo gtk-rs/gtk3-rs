@@ -1,3 +1,5 @@
+// Take a look at the license at the top of the repository in the LICENSE file.
+
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use std::fmt;

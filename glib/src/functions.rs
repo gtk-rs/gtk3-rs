@@ -1,3 +1,5 @@
+// Take a look at the license at the top of the repository in the LICENSE file.
+
 #[cfg(not(windows))]
 use std::boxed::Box as Box_;
 #[cfg(not(windows))]

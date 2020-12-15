@@ -1,3 +1,5 @@
+// Take a look at the license at the top of the repository in the LICENSE file.
+
 use std::marker::PhantomData;
 use std::rc::{self, Rc};
 use std::sync::{self, Arc};

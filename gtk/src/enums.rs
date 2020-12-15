@@ -1,3 +1,5 @@
+// Take a look at the license at the top of the repository in the LICENSE file.
+
 use crate::IconSize;
 use crate::ResponseType;
 use glib::translate::{from_glib, ToGlib};

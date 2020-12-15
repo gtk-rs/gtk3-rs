@@ -1,3 +1,5 @@
+// Take a look at the license at the top of the repository in the LICENSE file.
+
 use crate::{Settings, SettingsBindFlags, SettingsExt};
 use glib::prelude::*;
 use glib::translate::{from_glib_borrow, from_glib_none, ToGlib, ToGlibPtr};

@@ -1,3 +1,5 @@
+// Take a look at the license at the top of the repository in the LICENSE file.
+
 use std::marker::PhantomData;
 
 use crate::ffi::cairo_user_data_key_t;

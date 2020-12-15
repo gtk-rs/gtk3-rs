@@ -1,6 +1,4 @@
-// Copyright 2013-2017, The Gtk-rs Project Developers.
-// See the COPYRIGHT file at the top-level directory of this distribution.
-// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+// Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::Invisible;
 use glib::translate::{from_glib_none, ToGlibPtr};

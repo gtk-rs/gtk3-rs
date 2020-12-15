@@ -1,3 +1,5 @@
+// Take a look at the license at the top of the repository in the LICENSE file.
+
 use crate::SubprocessLauncher;
 #[cfg(any(unix, feature = "dox"))]
 #[cfg(any(unix, feature = "dox"))]
