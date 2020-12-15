@@ -281,5 +281,6 @@ pub use self::boxed::register_boxed_type;
 pub use self::interface::register_interface;
 pub use self::object::Property;
 pub use self::types::{
-    register_type, InitializingType, SignalClassHandlerToken, SignalInvocationHint, TypeData,
+    register_type, InitializingObject, InitializingType, SignalClassHandlerToken,
+    SignalInvocationHint, TypeData,
 };
