@@ -549,21 +549,18 @@ mod tests {
     }
 
     glib::glib_wrapper! {
-        pub struct SimpleApplication(ObjectSubclass<imp::SimpleApplication>);
+        pub struct SimpleApplication(ObjectSubclass<imp::SimpleApplication>)
+        @implements crate::Application;
     }
 
     #[test]
     fn test_simple_application() {
-        let app = glib::Object::new(
-            SimpleApplication::static_type(),
-            &[
-                ("application-id", &"org.gtk-rs.SimpleApplication"),
-                ("flags", &crate::ApplicationFlags::empty()),
-            ],
-        )
+        let app = glib::Object::new::<SimpleApplication>(&[
+            ("application-id", &"org.gtk-rs.SimpleApplication"),
+            ("flags", &crate::ApplicationFlags::empty()),
+        ])
         .unwrap()
-        .downcast::<crate::Application>()
-        .unwrap();
+        .upcast::<crate::Application>();
 
         app.set_inactivity_timeout(10000);
 

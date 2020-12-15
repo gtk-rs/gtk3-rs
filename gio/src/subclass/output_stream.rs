@@ -369,10 +369,7 @@ mod tests {
 
     #[test]
     fn test_simple_stream() {
-        let stream = glib::Object::new(SimpleOutputStream::static_type(), &[])
-            .unwrap()
-            .downcast::<SimpleOutputStream>()
-            .unwrap();
+        let stream = glib::Object::new::<SimpleOutputStream>(&[]).unwrap();
 
         assert_eq!(
             *imp::SimpleOutputStream::from_instance(&stream).sum.borrow(),

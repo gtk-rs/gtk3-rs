@@ -81,10 +81,7 @@ mod model {
     impl Model {
         #[allow(clippy::new_without_default)]
         pub fn new() -> Model {
-            glib::Object::new(Self::static_type(), &[])
-                .expect("Failed to create Model")
-                .downcast()
-                .expect("Created Model is of wrong type")
+            glib::Object::new(&[]).expect("Failed to create Model")
         }
 
         pub fn append(&self, obj: &RowData) {
@@ -413,10 +410,8 @@ mod row_data {
     // initial values for our two properties and then returns the new instance
     impl RowData {
         pub fn new(name: &str, count: u32) -> RowData {
-            glib::Object::new(Self::static_type(), &[("name", &name), ("count", &count)])
+            glib::Object::new(&[("name", &name), ("count", &count)])
                 .expect("Failed to create row data")
-                .downcast()
-                .expect("Created row data is of wrong type")
         }
     }
 }

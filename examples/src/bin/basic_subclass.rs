@@ -113,10 +113,7 @@ glib_wrapper! {
 
 impl SimpleWindow {
     pub fn new(app: &SimpleApplication) -> Self {
-        glib::Object::new(Self::static_type(), &[("application", app)])
-            .expect("Failed to create SimpleWindow")
-            .downcast::<SimpleWindow>()
-            .expect("Created SimpleWindow is of wrong type")
+        glib::Object::new(&[("application", app)]).expect("Failed to create SimpleWindow")
     }
 }
 
@@ -196,16 +193,11 @@ glib_wrapper! {
 impl SimpleApplication {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
-        glib::Object::new(
-            Self::static_type(),
-            &[
-                ("application-id", &"org.gtk-rs.SimpleApplication"),
-                ("flags", &ApplicationFlags::empty()),
-            ],
-        )
+        glib::Object::new(&[
+            ("application-id", &"org.gtk-rs.SimpleApplication"),
+            ("flags", &ApplicationFlags::empty()),
+        ])
         .expect("Failed to create SimpleApp")
-        .downcast()
-        .expect("Created simpleapp is of wrong type")
     }
 }
 
