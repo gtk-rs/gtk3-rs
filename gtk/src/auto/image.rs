@@ -303,10 +303,7 @@ impl ImageBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new(Image::static_type(), &properties)
-            .expect("object new")
-            .downcast::<Image>()
-            .expect("downcast");
+        let ret = glib::Object::new::<Image>(&properties).expect("object new");
         ret
     }
 

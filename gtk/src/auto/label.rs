@@ -272,10 +272,7 @@ impl LabelBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new(Label::static_type(), &properties)
-            .expect("object new")
-            .downcast::<Label>()
-            .expect("downcast");
+        let ret = glib::Object::new::<Label>(&properties).expect("object new");
         ret
     }
 

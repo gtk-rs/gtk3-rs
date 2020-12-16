@@ -354,10 +354,7 @@ impl RecentChooserDialogBuilder {
         if let Some(ref sort_type) = self.sort_type {
             properties.push(("sort-type", sort_type));
         }
-        let ret = glib::Object::new(RecentChooserDialog::static_type(), &properties)
-            .expect("object new")
-            .downcast::<RecentChooserDialog>()
-            .expect("downcast");
+        let ret = glib::Object::new::<RecentChooserDialog>(&properties).expect("object new");
         ret
     }
 

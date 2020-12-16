@@ -274,10 +274,7 @@ impl RadioButtonBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new(RadioButton::static_type(), &properties)
-            .expect("object new")
-            .downcast::<RadioButton>()
-            .expect("downcast");
+        let ret = glib::Object::new::<RadioButton>(&properties).expect("object new");
         ret
     }
 

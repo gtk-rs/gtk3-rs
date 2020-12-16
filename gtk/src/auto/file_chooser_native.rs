@@ -289,10 +289,7 @@ impl FileChooserNativeBuilder {
         if let Some(ref use_preview_label) = self.use_preview_label {
             properties.push(("use-preview-label", use_preview_label));
         }
-        let ret = glib::Object::new(FileChooserNative::static_type(), &properties)
-            .expect("object new")
-            .downcast::<FileChooserNative>()
-            .expect("downcast");
+        let ret = glib::Object::new::<FileChooserNative>(&properties).expect("object new");
         ret
     }
 

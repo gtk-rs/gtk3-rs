@@ -273,10 +273,7 @@ impl AppChooserButtonBuilder {
         if let Some(ref content_type) = self.content_type {
             properties.push(("content-type", content_type));
         }
-        let ret = glib::Object::new(AppChooserButton::static_type(), &properties)
-            .expect("object new")
-            .downcast::<AppChooserButton>()
-            .expect("downcast");
+        let ret = glib::Object::new::<AppChooserButton>(&properties).expect("object new");
         ret
     }
 

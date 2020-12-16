@@ -271,10 +271,7 @@ impl AccelLabelBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new(AccelLabel::static_type(), &properties)
-            .expect("object new")
-            .downcast::<AccelLabel>()
-            .expect("downcast");
+        let ret = glib::Object::new::<AccelLabel>(&properties).expect("object new");
         ret
     }
 

@@ -195,10 +195,7 @@ impl SocketBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new(Socket::static_type(), &properties)
-            .expect("object new")
-            .downcast::<Socket>()
-            .expect("downcast");
+        let ret = glib::Object::new::<Socket>(&properties).expect("object new");
         ret
     }
 

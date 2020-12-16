@@ -190,10 +190,7 @@ impl FixedBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new(Fixed::static_type(), &properties)
-            .expect("object new")
-            .downcast::<Fixed>()
-            .expect("downcast");
+        let ret = glib::Object::new::<Fixed>(&properties).expect("object new");
         ret
     }
 

@@ -285,10 +285,7 @@ impl FileChooserButtonBuilder {
         if let Some(ref use_preview_label) = self.use_preview_label {
             properties.push(("use-preview-label", use_preview_label));
         }
-        let ret = glib::Object::new(FileChooserButton::static_type(), &properties)
-            .expect("object new")
-            .downcast::<FileChooserButton>()
-            .expect("downcast");
+        let ret = glib::Object::new::<FileChooserButton>(&properties).expect("object new");
         ret
     }
 

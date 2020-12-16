@@ -52,10 +52,7 @@ impl IMContextSimpleBuilder {
         if let Some(ref input_purpose) = self.input_purpose {
             properties.push(("input-purpose", input_purpose));
         }
-        let ret = glib::Object::new(IMContextSimple::static_type(), &properties)
-            .expect("object new")
-            .downcast::<IMContextSimple>()
-            .expect("downcast");
+        let ret = glib::Object::new::<IMContextSimple>(&properties).expect("object new");
         ret
     }
 

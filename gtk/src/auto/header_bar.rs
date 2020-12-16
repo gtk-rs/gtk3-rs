@@ -227,10 +227,7 @@ impl HeaderBarBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new(HeaderBar::static_type(), &properties)
-            .expect("object new")
-            .downcast::<HeaderBar>()
-            .expect("downcast");
+        let ret = glib::Object::new::<HeaderBar>(&properties).expect("object new");
         ret
     }
 

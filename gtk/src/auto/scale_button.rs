@@ -259,10 +259,7 @@ impl ScaleButtonBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new(ScaleButton::static_type(), &properties)
-            .expect("object new")
-            .downcast::<ScaleButton>()
-            .expect("downcast");
+        let ret = glib::Object::new::<ScaleButton>(&properties).expect("object new");
         ret
     }
 

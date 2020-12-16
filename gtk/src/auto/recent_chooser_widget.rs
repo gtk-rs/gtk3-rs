@@ -265,10 +265,7 @@ impl RecentChooserWidgetBuilder {
         if let Some(ref sort_type) = self.sort_type {
             properties.push(("sort-type", sort_type));
         }
-        let ret = glib::Object::new(RecentChooserWidget::static_type(), &properties)
-            .expect("object new")
-            .downcast::<RecentChooserWidget>()
-            .expect("downcast");
+        let ret = glib::Object::new::<RecentChooserWidget>(&properties).expect("object new");
         ret
     }
 

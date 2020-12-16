@@ -231,10 +231,7 @@ impl GLAreaBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new(GLArea::static_type(), &properties)
-            .expect("object new")
-            .downcast::<GLArea>()
-            .expect("downcast");
+        let ret = glib::Object::new::<GLArea>(&properties).expect("object new");
         ret
     }
 

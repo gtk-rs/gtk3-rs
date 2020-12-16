@@ -247,10 +247,7 @@ impl LinkButtonBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new(LinkButton::static_type(), &properties)
-            .expect("object new")
-            .downcast::<LinkButton>()
-            .expect("downcast");
+        let ret = glib::Object::new::<LinkButton>(&properties).expect("object new");
         ret
     }
 

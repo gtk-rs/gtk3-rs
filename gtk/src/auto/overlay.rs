@@ -191,10 +191,7 @@ impl OverlayBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new(Overlay::static_type(), &properties)
-            .expect("object new")
-            .downcast::<Overlay>()
-            .expect("downcast");
+        let ret = glib::Object::new::<Overlay>(&properties).expect("object new");
         ret
     }
 

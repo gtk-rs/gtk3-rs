@@ -74,10 +74,7 @@ impl BufferedInputStreamBuilder {
         if let Some(ref close_base_stream) = self.close_base_stream {
             properties.push(("close-base-stream", close_base_stream));
         }
-        let ret = glib::Object::new(BufferedInputStream::static_type(), &properties)
-            .expect("object new")
-            .downcast::<BufferedInputStream>()
-            .expect("downcast");
+        let ret = glib::Object::new::<BufferedInputStream>(&properties).expect("object new");
         ret
     }
 

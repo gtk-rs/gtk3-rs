@@ -53,10 +53,7 @@ impl IMMulticontextBuilder {
         if let Some(ref input_purpose) = self.input_purpose {
             properties.push(("input-purpose", input_purpose));
         }
-        let ret = glib::Object::new(IMMulticontext::static_type(), &properties)
-            .expect("object new")
-            .downcast::<IMMulticontext>()
-            .expect("downcast");
+        let ret = glib::Object::new::<IMMulticontext>(&properties).expect("object new");
         ret
     }
 

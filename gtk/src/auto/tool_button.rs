@@ -238,10 +238,7 @@ impl ToolButtonBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new(ToolButton::static_type(), &properties)
-            .expect("object new")
-            .downcast::<ToolButton>()
-            .expect("downcast");
+        let ret = glib::Object::new::<ToolButton>(&properties).expect("object new");
         ret
     }
 

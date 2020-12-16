@@ -93,10 +93,7 @@ impl X11DeviceManagerXI2Builder {
         if let Some(ref display) = self.display {
             properties.push(("display", display));
         }
-        let ret = glib::Object::new(X11DeviceManagerXI2::static_type(), &properties)
-            .expect("object new")
-            .downcast::<X11DeviceManagerXI2>()
-            .expect("downcast");
+        let ret = glib::Object::new::<X11DeviceManagerXI2>(&properties).expect("object new");
         ret
     }
 

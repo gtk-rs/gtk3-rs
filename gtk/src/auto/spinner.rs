@@ -185,10 +185,7 @@ impl SpinnerBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new(Spinner::static_type(), &properties)
-            .expect("object new")
-            .downcast::<Spinner>()
-            .expect("downcast");
+        let ret = glib::Object::new::<Spinner>(&properties).expect("object new");
         ret
     }
 

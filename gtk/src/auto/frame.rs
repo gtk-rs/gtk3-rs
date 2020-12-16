@@ -211,10 +211,7 @@ impl FrameBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new(Frame::static_type(), &properties)
-            .expect("object new")
-            .downcast::<Frame>()
-            .expect("downcast");
+        let ret = glib::Object::new::<Frame>(&properties).expect("object new");
         ret
     }
 

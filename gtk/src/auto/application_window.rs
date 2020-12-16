@@ -304,10 +304,7 @@ impl ApplicationWindowBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new(ApplicationWindow::static_type(), &properties)
-            .expect("object new")
-            .downcast::<ApplicationWindow>()
-            .expect("downcast");
+        let ret = glib::Object::new::<ApplicationWindow>(&properties).expect("object new");
         ret
     }
 

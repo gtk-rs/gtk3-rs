@@ -199,10 +199,7 @@ impl SwitchBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new(Switch::static_type(), &properties)
-            .expect("object new")
-            .downcast::<Switch>()
-            .expect("downcast");
+        let ret = glib::Object::new::<Switch>(&properties).expect("object new");
         ret
     }
 

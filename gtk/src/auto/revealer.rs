@@ -208,10 +208,7 @@ impl RevealerBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new(Revealer::static_type(), &properties)
-            .expect("object new")
-            .downcast::<Revealer>()
-            .expect("downcast");
+        let ret = glib::Object::new::<Revealer>(&properties).expect("object new");
         ret
     }
 

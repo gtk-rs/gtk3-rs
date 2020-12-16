@@ -307,10 +307,7 @@ impl OffscreenWindowBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new(OffscreenWindow::static_type(), &properties)
-            .expect("object new")
-            .downcast::<OffscreenWindow>()
-            .expect("downcast");
+        let ret = glib::Object::new::<OffscreenWindow>(&properties).expect("object new");
         ret
     }
 

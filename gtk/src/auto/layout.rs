@@ -225,10 +225,7 @@ impl LayoutBuilder {
         if let Some(ref vscroll_policy) = self.vscroll_policy {
             properties.push(("vscroll-policy", vscroll_policy));
         }
-        let ret = glib::Object::new(Layout::static_type(), &properties)
-            .expect("object new")
-            .downcast::<Layout>()
-            .expect("downcast");
+        let ret = glib::Object::new::<Layout>(&properties).expect("object new");
         ret
     }
 

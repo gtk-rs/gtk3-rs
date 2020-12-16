@@ -233,10 +233,7 @@ impl ExpanderBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new(Expander::static_type(), &properties)
-            .expect("object new")
-            .downcast::<Expander>()
-            .expect("downcast");
+        let ret = glib::Object::new::<Expander>(&properties).expect("object new");
         ret
     }
 

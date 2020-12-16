@@ -244,10 +244,7 @@ impl MenuItemBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new(MenuItem::static_type(), &properties)
-            .expect("object new")
-            .downcast::<MenuItem>()
-            .expect("downcast");
+        let ret = glib::Object::new::<MenuItem>(&properties).expect("object new");
         ret
     }
 
