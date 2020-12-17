@@ -180,10 +180,7 @@ impl GestureLongPressBuilder {
         if let Some(ref widget) = self.widget {
             properties.push(("widget", widget));
         }
-        let ret = glib::Object::new(GestureLongPress::static_type(), &properties)
-            .expect("object new")
-            .downcast::<GestureLongPress>()
-            .expect("downcast");
+        let ret = glib::Object::new::<GestureLongPress>(&properties).expect("object new");
         ret
     }
 

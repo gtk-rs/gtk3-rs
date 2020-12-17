@@ -260,10 +260,7 @@ impl CheckMenuItemBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new(CheckMenuItem::static_type(), &properties)
-            .expect("object new")
-            .downcast::<CheckMenuItem>()
-            .expect("downcast");
+        let ret = glib::Object::new::<CheckMenuItem>(&properties).expect("object new");
         ret
     }
 

@@ -77,10 +77,7 @@ impl GestureDragBuilder {
         if let Some(ref widget) = self.widget {
             properties.push(("widget", widget));
         }
-        let ret = glib::Object::new(GestureDrag::static_type(), &properties)
-            .expect("object new")
-            .downcast::<GestureDrag>()
-            .expect("downcast");
+        let ret = glib::Object::new::<GestureDrag>(&properties).expect("object new");
         ret
     }
 

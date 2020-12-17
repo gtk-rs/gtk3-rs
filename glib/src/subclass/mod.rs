@@ -200,10 +200,7 @@
 //! impl SimpleObject {
 //!     // Create an object instance of the new type.
 //!     pub fn new() -> Self {
-//!         glib::Object::new(Self::static_type(), &[])
-//!             .unwrap()
-//!             .downcast()
-//!             .unwrap()
+//!         glib::Object::new(&[]).unwrap()
 //!     }
 //! }
 //!

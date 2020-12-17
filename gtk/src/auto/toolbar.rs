@@ -221,10 +221,7 @@ impl ToolbarBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new(Toolbar::static_type(), &properties)
-            .expect("object new")
-            .downcast::<Toolbar>()
-            .expect("downcast");
+        let ret = glib::Object::new::<Toolbar>(&properties).expect("object new");
         ret
     }
 

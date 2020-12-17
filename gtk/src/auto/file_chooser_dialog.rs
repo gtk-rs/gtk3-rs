@@ -352,10 +352,7 @@ impl FileChooserDialogBuilder {
         if let Some(ref use_preview_label) = self.use_preview_label {
             properties.push(("use-preview-label", use_preview_label));
         }
-        let ret = glib::Object::new(FileChooserDialog::static_type(), &properties)
-            .expect("object new")
-            .downcast::<FileChooserDialog>()
-            .expect("downcast");
+        let ret = glib::Object::new::<FileChooserDialog>(&properties).expect("object new");
         ret
     }
 

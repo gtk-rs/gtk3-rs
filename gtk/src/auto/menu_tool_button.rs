@@ -243,10 +243,7 @@ impl MenuToolButtonBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new(MenuToolButton::static_type(), &properties)
-            .expect("object new")
-            .downcast::<MenuToolButton>()
-            .expect("downcast");
+        let ret = glib::Object::new::<MenuToolButton>(&properties).expect("object new");
         ret
     }
 

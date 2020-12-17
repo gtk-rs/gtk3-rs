@@ -222,10 +222,7 @@ impl SeparatorMenuItemBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new(SeparatorMenuItem::static_type(), &properties)
-            .expect("object new")
-            .downcast::<SeparatorMenuItem>()
-            .expect("downcast");
+        let ret = glib::Object::new::<SeparatorMenuItem>(&properties).expect("object new");
         ret
     }
 

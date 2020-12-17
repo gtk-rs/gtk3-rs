@@ -191,10 +191,7 @@ glib::glib_wrapper! {
 
 impl WriteOutputStream {
     pub fn new<W: Write + Send + Any + 'static>(write: W) -> WriteOutputStream {
-        let obj = glib::Object::new(Self::static_type(), &[])
-            .expect("Failed to create write input stream")
-            .downcast()
-            .expect("Created write input stream is of wrong type");
+        let obj = glib::Object::new(&[]).expect("Failed to create write input stream");
 
         let imp = imp::WriteOutputStream::from_instance(&obj);
         *imp.write.borrow_mut() = Some(imp::Writer::Write(AnyWriter::new(write)));
@@ -202,10 +199,7 @@ impl WriteOutputStream {
     }
 
     pub fn new_seekable<W: Write + Seek + Send + Any + 'static>(write: W) -> WriteOutputStream {
-        let obj = glib::Object::new(Self::static_type(), &[])
-            .expect("Failed to create write input stream")
-            .downcast()
-            .expect("Created write input stream is of wrong type");
+        let obj = glib::Object::new(&[]).expect("Failed to create write input stream");
 
         let imp = imp::WriteOutputStream::from_instance(&obj);
         *imp.write.borrow_mut() = Some(imp::Writer::WriteSeek(AnyWriter::new_seekable(write)));

@@ -212,10 +212,7 @@ impl ToolItemBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new(ToolItem::static_type(), &properties)
-            .expect("object new")
-            .downcast::<ToolItem>()
-            .expect("downcast");
+        let ret = glib::Object::new::<ToolItem>(&properties).expect("object new");
         ret
     }
 

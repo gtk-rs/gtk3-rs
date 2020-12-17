@@ -312,10 +312,7 @@ impl RecentChooserMenuBuilder {
         if let Some(ref sort_type) = self.sort_type {
             properties.push(("sort-type", sort_type));
         }
-        let ret = glib::Object::new(RecentChooserMenu::static_type(), &properties)
-            .expect("object new")
-            .downcast::<RecentChooserMenu>()
-            .expect("downcast");
+        let ret = glib::Object::new::<RecentChooserMenu>(&properties).expect("object new");
         ret
     }
 

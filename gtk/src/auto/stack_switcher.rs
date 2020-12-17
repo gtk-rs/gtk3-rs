@@ -226,10 +226,7 @@ impl StackSwitcherBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new(StackSwitcher::static_type(), &properties)
-            .expect("object new")
-            .downcast::<StackSwitcher>()
-            .expect("downcast");
+        let ret = glib::Object::new::<StackSwitcher>(&properties).expect("object new");
         ret
     }
 

@@ -268,10 +268,7 @@ impl RadioMenuItemBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new(RadioMenuItem::static_type(), &properties)
-            .expect("object new")
-            .downcast::<RadioMenuItem>()
-            .expect("downcast");
+        let ret = glib::Object::new::<RadioMenuItem>(&properties).expect("object new");
         ret
     }
 

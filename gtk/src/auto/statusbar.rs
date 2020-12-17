@@ -214,10 +214,7 @@ impl StatusbarBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new(Statusbar::static_type(), &properties)
-            .expect("object new")
-            .downcast::<Statusbar>()
-            .expect("downcast");
+        let ret = glib::Object::new::<Statusbar>(&properties).expect("object new");
         ret
     }
 

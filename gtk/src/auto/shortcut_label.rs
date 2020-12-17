@@ -338,10 +338,7 @@ impl ShortcutLabelBuilder {
         if let Some(ref orientation) = self.orientation {
             properties.push(("orientation", orientation));
         }
-        let ret = glib::Object::new(ShortcutLabel::static_type(), &properties)
-            .expect("object new")
-            .downcast::<ShortcutLabel>()
-            .expect("downcast");
+        let ret = glib::Object::new::<ShortcutLabel>(&properties).expect("object new");
         ret
     }
 

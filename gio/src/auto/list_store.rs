@@ -133,10 +133,7 @@ impl ListStoreBuilder {
         if let Some(ref item_type) = self.item_type {
             properties.push(("item-type", item_type));
         }
-        let ret = glib::Object::new(ListStore::static_type(), &properties)
-            .expect("object new")
-            .downcast::<ListStore>()
-            .expect("downcast");
+        let ret = glib::Object::new::<ListStore>(&properties).expect("object new");
         ret
     }
 

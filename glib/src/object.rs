@@ -1069,7 +1069,17 @@ glib_object_wrapper!(@object
 pub type ObjectClass = Class<Object>;
 
 impl Object {
-    pub fn new(type_: Type, properties: &[(&str, &dyn ToValue)]) -> Result<Object, BoolError> {
+    #[allow(clippy::new_ret_no_self)]
+    pub fn new<T: IsA<Object>>(properties: &[(&str, &dyn ToValue)]) -> Result<T, BoolError> {
+        Ok(Object::with_type(T::static_type(), properties)?
+            .downcast()
+            .unwrap())
+    }
+
+    pub fn with_type(
+        type_: Type,
+        properties: &[(&str, &dyn ToValue)],
+    ) -> Result<Object, BoolError> {
         use std::ffi::CString;
 
         let klass = ObjectClass::from_type(type_)

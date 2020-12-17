@@ -382,10 +382,7 @@ impl EntryBuilder {
         if let Some(ref editing_canceled) = self.editing_canceled {
             properties.push(("editing-canceled", editing_canceled));
         }
-        let ret = glib::Object::new(Entry::static_type(), &properties)
-            .expect("object new")
-            .downcast::<Entry>()
-            .expect("downcast");
+        let ret = glib::Object::new::<Entry>(&properties).expect("object new");
         ret
     }
 

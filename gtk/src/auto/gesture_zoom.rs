@@ -94,10 +94,7 @@ impl GestureZoomBuilder {
         if let Some(ref widget) = self.widget {
             properties.push(("widget", widget));
         }
-        let ret = glib::Object::new(GestureZoom::static_type(), &properties)
-            .expect("object new")
-            .downcast::<GestureZoom>()
-            .expect("downcast");
+        let ret = glib::Object::new::<GestureZoom>(&properties).expect("object new");
         ret
     }
 

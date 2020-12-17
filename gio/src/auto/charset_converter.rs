@@ -142,10 +142,7 @@ impl CharsetConverterBuilder {
         if let Some(ref use_fallback) = self.use_fallback {
             properties.push(("use-fallback", use_fallback));
         }
-        let ret = glib::Object::new(CharsetConverter::static_type(), &properties)
-            .expect("object new")
-            .downcast::<CharsetConverter>()
-            .expect("downcast");
+        let ret = glib::Object::new::<CharsetConverter>(&properties).expect("object new");
         ret
     }
 

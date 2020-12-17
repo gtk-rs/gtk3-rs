@@ -813,10 +813,7 @@ impl ModelButtonBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new(ModelButton::static_type(), &properties)
-            .expect("object new")
-            .downcast::<ModelButton>()
-            .expect("downcast");
+        let ret = glib::Object::new::<ModelButton>(&properties).expect("object new");
         ret
     }
 

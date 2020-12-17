@@ -123,10 +123,7 @@ impl PadControllerBuilder {
         if let Some(ref widget) = self.widget {
             properties.push(("widget", widget));
         }
-        let ret = glib::Object::new(PadController::static_type(), &properties)
-            .expect("object new")
-            .downcast::<PadController>()
-            .expect("downcast");
+        let ret = glib::Object::new::<PadController>(&properties).expect("object new");
         ret
     }
 

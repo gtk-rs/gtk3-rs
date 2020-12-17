@@ -97,10 +97,7 @@ impl GestureRotateBuilder {
         if let Some(ref widget) = self.widget {
             properties.push(("widget", widget));
         }
-        let ret = glib::Object::new(GestureRotate::static_type(), &properties)
-            .expect("object new")
-            .downcast::<GestureRotate>()
-            .expect("downcast");
+        let ret = glib::Object::new::<GestureRotate>(&properties).expect("object new");
         ret
     }
 

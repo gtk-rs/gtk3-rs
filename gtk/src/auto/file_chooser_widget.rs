@@ -262,10 +262,7 @@ impl FileChooserWidgetBuilder {
         if let Some(ref use_preview_label) = self.use_preview_label {
             properties.push(("use-preview-label", use_preview_label));
         }
-        let ret = glib::Object::new(FileChooserWidget::static_type(), &properties)
-            .expect("object new")
-            .downcast::<FileChooserWidget>()
-            .expect("downcast");
+        let ret = glib::Object::new::<FileChooserWidget>(&properties).expect("object new");
         ret
     }
 

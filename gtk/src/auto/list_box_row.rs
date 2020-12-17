@@ -213,10 +213,7 @@ impl ListBoxRowBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new(ListBoxRow::static_type(), &properties)
-            .expect("object new")
-            .downcast::<ListBoxRow>()
-            .expect("downcast");
+        let ret = glib::Object::new::<ListBoxRow>(&properties).expect("object new");
         ret
     }
 

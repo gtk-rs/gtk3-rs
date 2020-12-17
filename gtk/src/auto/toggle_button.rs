@@ -265,10 +265,7 @@ impl ToggleButtonBuilder {
         if let Some(ref action_target) = self.action_target {
             properties.push(("action-target", action_target));
         }
-        let ret = glib::Object::new(ToggleButton::static_type(), &properties)
-            .expect("object new")
-            .downcast::<ToggleButton>()
-            .expect("downcast");
+        let ret = glib::Object::new::<ToggleButton>(&properties).expect("object new");
         ret
     }
 

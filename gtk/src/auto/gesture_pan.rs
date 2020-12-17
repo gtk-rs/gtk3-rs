@@ -150,10 +150,7 @@ impl GesturePanBuilder {
         if let Some(ref widget) = self.widget {
             properties.push(("widget", widget));
         }
-        let ret = glib::Object::new(GesturePan::static_type(), &properties)
-            .expect("object new")
-            .downcast::<GesturePan>()
-            .expect("downcast");
+        let ret = glib::Object::new::<GesturePan>(&properties).expect("object new");
         ret
     }
 

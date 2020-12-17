@@ -572,7 +572,7 @@ mod test {
     #[test]
     fn test_create() {
         let type_ = SimpleObject::static_type();
-        let obj = Object::new(type_, &[]).expect("Object::new failed");
+        let obj = Object::with_type(type_, &[]).expect("Object::new failed");
 
         assert!(obj.get_type().is_a(&DummyInterface::static_type()));
 
@@ -591,11 +591,7 @@ mod test {
 
     #[test]
     fn test_create_child_object() {
-        let type_ = ChildObject::static_type();
-        let obj = Object::new(type_, &[])
-            .expect("Object::new failed")
-            .downcast::<ChildObject>()
-            .unwrap();
+        let obj: ChildObject = Object::new(&[]).expect("Object::new failed");
 
         // ChildObject is a zero-sized type and we map that to the same pointer as the object
         // itself. No private/impl data is allocated for zero-sized types.
@@ -606,7 +602,7 @@ mod test {
 
     #[test]
     fn test_set_properties() {
-        let obj = Object::new(
+        let obj = Object::with_type(
             SimpleObject::static_type(),
             &[("construct-name", &"meh"), ("name", &"initial")],
         )
@@ -674,7 +670,8 @@ mod test {
             "property 'name' of type 'SimpleObject' can't be set from the given type (expected: 'gchararray', got: 'gboolean')",
         );
 
-        let other_obj = Object::new(SimpleObject::static_type(), &[]).expect("Object::new failed");
+        let other_obj =
+            Object::with_type(SimpleObject::static_type(), &[]).expect("Object::new failed");
         assert_eq!(
             obj.set_property("child", &other_obj)
                 .err()
@@ -683,7 +680,7 @@ mod test {
             "property 'child' of type 'SimpleObject' can't be set from the given object type (expected: 'ChildObject', got: 'SimpleObject')",
         );
 
-        let child = Object::new(ChildObject::static_type(), &[]).expect("Object::new failed");
+        let child = Object::with_type(ChildObject::static_type(), &[]).expect("Object::new failed");
         assert!(obj.set_property("child", &child).is_ok());
     }
 
@@ -693,7 +690,7 @@ mod test {
         use std::sync::Arc;
 
         let type_ = SimpleObject::static_type();
-        let obj = Object::new(type_, &[("name", &"old-name")]).expect("Object::new failed");
+        let obj = Object::with_type(type_, &[("name", &"old-name")]).expect("Object::new failed");
 
         let name_changed_triggered = Arc::new(AtomicBool::new(false));
         let name_changed_clone = name_changed_triggered.clone();
@@ -735,7 +732,7 @@ mod test {
 
     #[test]
     fn test_signal_return_expected_type() {
-        let obj = Object::new(SimpleObject::static_type(), &[]).expect("Object::new failed");
+        let obj = Object::with_type(SimpleObject::static_type(), &[]).expect("Object::new failed");
 
         obj.connect("create-string", false, move |_args| {
             Some("return value".to_value())
@@ -755,7 +752,7 @@ mod test {
         use std::sync::Arc;
 
         let type_ = SimpleObject::static_type();
-        let obj = Object::new(type_, &[("name", &"old-name")]).expect("Object::new failed");
+        let obj = Object::with_type(type_, &[("name", &"old-name")]).expect("Object::new failed");
 
         let name_changed_triggered = Arc::new(AtomicBool::new(false));
         let name_changed_clone = name_changed_triggered.clone();
@@ -772,11 +769,11 @@ mod test {
 
     #[test]
     fn test_signal_return_expected_object_type() {
-        let obj = Object::new(SimpleObject::static_type(), &[]).expect("Object::new failed");
+        let obj = Object::with_type(SimpleObject::static_type(), &[]).expect("Object::new failed");
 
         obj.connect("create-child-object", false, move |_args| {
             Some(
-                Object::new(ChildObject::static_type(), &[])
+                Object::with_type(ChildObject::static_type(), &[])
                     .expect("Object::new failed")
                     .to_value(),
             )

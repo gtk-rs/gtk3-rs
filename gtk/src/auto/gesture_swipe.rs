@@ -121,10 +121,7 @@ impl GestureSwipeBuilder {
         if let Some(ref widget) = self.widget {
             properties.push(("widget", widget));
         }
-        let ret = glib::Object::new(GestureSwipe::static_type(), &properties)
-            .expect("object new")
-            .downcast::<GestureSwipe>()
-            .expect("downcast");
+        let ret = glib::Object::new::<GestureSwipe>(&properties).expect("object new");
         ret
     }
 

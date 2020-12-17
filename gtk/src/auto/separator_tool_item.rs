@@ -212,10 +212,7 @@ impl SeparatorToolItemBuilder {
         if let Some(ref width_request) = self.width_request {
             properties.push(("width-request", width_request));
         }
-        let ret = glib::Object::new(SeparatorToolItem::static_type(), &properties)
-            .expect("object new")
-            .downcast::<SeparatorToolItem>()
-            .expect("downcast");
+        let ret = glib::Object::new::<SeparatorToolItem>(&properties).expect("object new");
         ret
     }
 
