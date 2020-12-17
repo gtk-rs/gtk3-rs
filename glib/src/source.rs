@@ -719,7 +719,7 @@ impl Source {
 
     pub fn remove(tag: SourceId) -> Result<(), crate::BoolError> {
         unsafe {
-            glib_result_from_gboolean!(
+            result_from_gboolean!(
                 ffi::g_source_remove(tag.to_glib()),
                 "Failed to remove source"
             )

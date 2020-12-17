@@ -124,7 +124,7 @@ pub trait ErrorDomain: Copy {
 
 /// Generic error used for functions that fail without any further information
 #[macro_export]
-macro_rules! glib_bool_error(
+macro_rules! bool_error(
 // Plain strings
     ($msg:expr) =>  {
         $crate::BoolError::new($msg, file!(), module_path!(), line!())
@@ -137,7 +137,7 @@ macro_rules! glib_bool_error(
 );
 
 #[macro_export]
-macro_rules! glib_result_from_gboolean(
+macro_rules! result_from_gboolean(
 // Plain strings
     ($ffi_bool:expr, $msg:expr) =>  {
         $crate::BoolError::from_glib($ffi_bool, $msg, file!(), module_path!(), line!())
@@ -207,26 +207,26 @@ impl error::Error for BoolError {}
 mod tests {
     #[test]
     fn test_bool_error() {
-        let from_static_msg = glib_bool_error!("Static message");
+        let from_static_msg = bool_error!("Static message");
         assert_eq!(from_static_msg.to_string(), "Static message");
 
-        let from_dynamic_msg = glib_bool_error!("{} message", "Dynamic");
+        let from_dynamic_msg = bool_error!("{} message", "Dynamic");
         assert_eq!(from_dynamic_msg.to_string(), "Dynamic message");
 
-        let false_static_res = glib_result_from_gboolean!(ffi::GFALSE, "Static message");
+        let false_static_res = result_from_gboolean!(ffi::GFALSE, "Static message");
         assert!(false_static_res.is_err());
         let static_err = false_static_res.err().unwrap();
         assert_eq!(static_err.to_string(), "Static message");
 
-        let true_static_res = glib_result_from_gboolean!(ffi::GTRUE, "Static message");
+        let true_static_res = result_from_gboolean!(ffi::GTRUE, "Static message");
         assert!(true_static_res.is_ok());
 
-        let false_dynamic_res = glib_result_from_gboolean!(ffi::GFALSE, "{} message", "Dynamic");
+        let false_dynamic_res = result_from_gboolean!(ffi::GFALSE, "{} message", "Dynamic");
         assert!(false_dynamic_res.is_err());
         let dynamic_err = false_dynamic_res.err().unwrap();
         assert_eq!(dynamic_err.to_string(), "Dynamic message");
 
-        let true_dynamic_res = glib_result_from_gboolean!(ffi::GTRUE, "{} message", "Dynamic");
+        let true_dynamic_res = result_from_gboolean!(ffi::GTRUE, "{} message", "Dynamic");
         assert!(true_dynamic_res.is_ok());
     }
 }

@@ -41,7 +41,7 @@ impl Application {
                 application_id.to_glib_none().0,
                 flags.to_glib(),
             ))
-            .ok_or_else(|| glib::glib_bool_error!("Failed to create application"))?
+            .ok_or_else(|| glib::bool_error!("Failed to create application"))?
         };
         Application::register_startup_hook(&app);
         Ok(app)
