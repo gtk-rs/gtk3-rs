@@ -496,7 +496,7 @@ mod tests {
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
-            glib::glib_object_subclass!();
+            glib::object_subclass!();
 
             fn new() -> Self {
                 Self
@@ -548,7 +548,7 @@ mod tests {
         }
     }
 
-    glib::glib_wrapper! {
+    glib::wrapper! {
         pub struct SimpleApplication(ObjectSubclass<imp::SimpleApplication>)
         @implements crate::Application;
     }

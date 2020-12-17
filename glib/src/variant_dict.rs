@@ -7,7 +7,7 @@ use crate::translate::*;
 use crate::variant::*;
 use crate::variant_type::*;
 
-glib_wrapper! {
+wrapper! {
     /// `VariantDict` is a mutable key/value store where the keys are always
     /// strings and the values are [`Variant`s](variant/struct.Variant.html).
     ///

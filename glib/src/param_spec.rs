@@ -12,7 +12,7 @@ use std::convert::TryFrom;
 use std::ffi::CStr;
 
 // Can't use get_type here as this is not a boxed type but another fundamental type
-glib_wrapper! {
+wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ParamSpec(Shared<gobject_ffi::GParamSpec>);
 
@@ -617,7 +617,7 @@ extern "C" {
 macro_rules! define_param_spec {
     ($rust_type:ident, $ffi_type:path, $mod_name:ident, $rust_type_offset:expr) => {
         // Can't use get_type here as this is not a boxed type but another fundamental type
-        glib_wrapper! {
+        wrapper! {
             #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
             pub struct $rust_type(Shared<$ffi_type>);
 

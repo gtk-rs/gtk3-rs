@@ -64,7 +64,7 @@
 //! reference counted structures so the bindings have to implement corresponding
 //! smart pointers (wrappers), which encapsulate resource management and safety
 //! checks. Such wrappers are defined via the
-//! [`glib_wrapper!`](macro.glib_wrapper!.html) macro, which uses abstractions
+//! [`wrapper!`](macro.glib_wrapper!.html) macro, which uses abstractions
 //! defined in the [`wrapper`](wrapper/index.html), [`boxed`](boxed/index.html),
 //! [`shared`](shared/index.html) and [`object`](object/index.html) modules.
 //!

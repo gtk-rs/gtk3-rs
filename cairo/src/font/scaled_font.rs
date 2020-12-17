@@ -13,7 +13,7 @@ use crate::utils::status_to_result;
 use super::{FontFace, FontOptions};
 
 #[cfg(feature = "use_glib")]
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug)]
     pub struct ScaledFont(Shared<ffi::cairo_scaled_font_t>);
 

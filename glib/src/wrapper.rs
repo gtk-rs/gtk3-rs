@@ -1,13 +1,13 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-//! `IMPL` The `glib_wrapper!` macro and miscellaneous wrapper traits.
+//! `IMPL` The `wrapper!` macro and miscellaneous wrapper traits.
 
 /// Defines a wrapper type and implements the appropriate traits.
 ///
 /// The basic syntax is
 ///
 /// ```ignore
-/// glib_wrapper! {
+/// wrapper! {
 ///     /// Your documentation goes here
 ///     pub struct $name($kind<$foreign>);
 ///
@@ -42,7 +42,7 @@
 /// With no registered `glib_ffi::GType`:
 ///
 /// ```ignore
-/// glib_wrapper! {
+/// wrapper! {
 ///     /// Text buffer iterator
 ///     pub struct TextIter(Boxed<ffi::GtkTextIter>);
 ///
@@ -60,7 +60,7 @@
 /// With a registered `glib_ffi::GType`:
 ///
 /// ```ignore
-/// glib_wrapper! {
+/// wrapper! {
 ///     /// Text buffer iterator
 ///     pub struct TextIter(Boxed<ffi::GtkTextIter>);
 ///
@@ -82,7 +82,7 @@
 /// With no registered `glib_ffi::GType`:
 ///
 /// ```ignore
-/// glib_wrapper! {
+/// wrapper! {
 ///     /// Object holding timing information for a single frame.
 ///     pub struct FrameTimings(Shared<ffi::GdkFrameTimings>);
 ///
@@ -100,7 +100,7 @@
 /// With a registered `glib_ffi::GType`:
 ///
 /// ```ignore
-/// glib_wrapper! {
+/// wrapper! {
 ///     /// Object holding timing information for a single frame.
 ///     pub struct FrameTimings(Shared<ffi::GdkFrameTimings>);
 ///
@@ -123,7 +123,7 @@
 /// The basic syntax is this:
 ///
 /// ```ignore
-/// glib_wrapper! {
+/// wrapper! {
 ///     /// Your documentation goes here
 ///     pub struct InstanceName(Object<ffi::InstanceStruct, ffi::ClassStruct, ClassName>)
 ///         @extends ParentClass, GrandparentClass, ...,
@@ -148,7 +148,7 @@
 /// `GObject`, so it can be simply wrapped as follows:
 ///
 /// ```ignore
-/// glib_wrapper! {
+/// wrapper! {
 ///     pub struct WindowGroup(Object<ffi::GtkWindowGroup, ffi::GtkWindowGroupClass, WindowGroupClass>);
 ///
 ///     match fn {
@@ -160,7 +160,7 @@
 /// In contrast, `ffi::GtkButton` has a parent, grandparent, etc. classes, which must be specified:
 ///
 /// ```ignore
-/// glib_wrapper! {
+/// wrapper! {
 ///     pub struct Button(Object<ffi::GtkButton, ButtonClass>) @extends Bin, Container, Widget;
 ///         // see note on interfaces in the example below
 ///
@@ -177,7 +177,7 @@
 /// behind the `@implements` keyword:
 ///
 /// ```ignore
-/// glib_wrapper! {
+/// wrapper! {
 ///     pub struct Button(Object<ffi::GtkButton, ButtonClass>)
 ///         @extends Bin, Container, Widget, // parent classes
 ///         @implements Buildable, Actionable;  // interfaces
@@ -197,7 +197,7 @@
 /// specify a FFI class name at all in the `Object<>` part:
 ///
 /// ```ignore
-/// glib_wrapper! {
+/// wrapper! {
 ///     pub struct Clipboard(Object<ffi::GtkClipboard, ClipboardClass>);
 ///     ...
 /// }
@@ -209,7 +209,7 @@
 /// `Object`, `Interface` has to be specified:
 ///
 /// ```ignore
-/// glib_wrapper! {
+/// wrapper! {
 ///     pub struct TreeModel(Interface<ffi::GtkTreeModel, ffi::GtkTreeModelIface, TreeModelIface>);
 ///     ...
 /// }
@@ -221,7 +221,7 @@
 /// interface have to inherit or interfaces that have to be implemented:
 ///
 /// ```ignore
-/// glib_wrapper! {
+/// wrapper! {
 ///     pub struct TreeSortable(Interface<ffi::GtkTreeSortable, ffi::GtkTreeSortable, TreeSortableIface>) @requires TreeModel;
 ///     ...
 /// }
@@ -233,7 +233,7 @@
 /// [#non-derivable-classes]: #non-derivable-classes
 
 #[macro_export]
-macro_rules! glib_wrapper {
+macro_rules! wrapper {
     // Boxed
 
     (

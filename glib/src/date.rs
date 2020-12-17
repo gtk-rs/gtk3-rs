@@ -10,7 +10,7 @@ use std::cmp;
 use std::fmt;
 use std::hash;
 
-glib_wrapper! {
+wrapper! {
     pub struct Date(Boxed<ffi::GDate>);
 
     match fn {

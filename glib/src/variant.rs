@@ -101,7 +101,7 @@ use std::hash::{BuildHasher, Hash, Hasher};
 use std::slice;
 use std::str;
 
-glib_wrapper! {
+wrapper! {
     /// A generic immutable value capable of carrying various types.
     ///
     /// See the [module documentation](index.html) for more details.

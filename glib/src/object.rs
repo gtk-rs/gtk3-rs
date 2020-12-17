@@ -627,7 +627,7 @@ macro_rules! glib_weak_impl {
     };
 }
 
-/// ObjectType implementations for Object types. See `glib_wrapper!`.
+/// ObjectType implementations for Object types. See `wrapper!`.
 #[macro_export]
 macro_rules! glib_object_wrapper {
     (@generic_impl [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty, @get_type $get_type_expr:expr) => {
@@ -2218,7 +2218,7 @@ impl ObjectClass {
     }
 }
 
-glib_wrapper! {
+wrapper! {
     pub struct InitiallyUnowned(Object<gobject_ffi::GInitiallyUnowned, gobject_ffi::GInitiallyUnownedClass>);
 
     match fn {
@@ -2560,7 +2560,7 @@ pub unsafe trait ParentClassIs: ObjectType {
 }
 
 /// Automatically implemented by `ObjectSubclass` variants of
-/// [`glib_wrapper!`][crate::glib_wrapper]
+/// [`wrapper!`][crate::glib_wrapper]
 pub unsafe trait ObjectSubclassIs: ObjectType {
     type Subclass: ObjectSubclass;
 }

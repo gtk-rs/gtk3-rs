@@ -10,7 +10,7 @@ use std::ffi::CStr;
 use std::fmt;
 use std::str;
 
-glib_wrapper! {
+wrapper! {
     /// A generic error capable of representing various error domains (types).
     #[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Error(Boxed<ffi::GError>);

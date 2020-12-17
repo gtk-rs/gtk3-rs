@@ -11,7 +11,7 @@ use std::mem;
 use std::ops::{Deref, DerefMut};
 use std::ptr;
 
-/// Wrapper implementations for Boxed types. See `glib_wrapper!`.
+/// Wrapper implementations for Boxed types. See `wrapper!`.
 #[macro_export]
 macro_rules! glib_boxed_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:ty, @copy $copy_arg:ident $copy_expr:expr,
@@ -347,7 +347,7 @@ impl<T> fmt::Debug for AnyBox<T> {
     }
 }
 
-// The safety docs really belong in the glib_wrapper!() macro for Boxed<T>
+// The safety docs really belong in the wrapper!() macro for Boxed<T>
 /// Memory management functions for a boxed type.
 pub trait BoxedMemoryManager<T>: 'static {
     /// Makes a copy.

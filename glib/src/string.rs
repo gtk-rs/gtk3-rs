@@ -11,7 +11,7 @@ use std::ptr;
 use std::slice;
 use std::str;
 
-glib_wrapper! {
+wrapper! {
     /// A mutable text buffer that grows automatically.
     pub struct String(Boxed<ffi::GString>);
 

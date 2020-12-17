@@ -117,7 +117,7 @@
 //!         type Class = subclass::simple::ClassStruct<Self>;
 //!
 //!         // This macro defines some boilerplate.
-//!         glib::glib_object_subclass!();
+//!         glib::object_subclass!();
 //!
 //!         // Called right before the first time an instance of the new
 //!         // type is created. Here class specific settings can be performed,
@@ -193,7 +193,7 @@
 //! }
 //!
 //! // Optionally, define a wrapper type to make it more ergonomic to use from Rust
-//! glib::glib_wrapper! {
+//! glib::wrapper! {
 //!     pub struct SimpleObject(ObjectSubclass<imp::SimpleObject>);
 //! }
 //!

@@ -13,7 +13,7 @@ use crate::types::Type;
 use crate::ToValue;
 use crate::Value;
 
-glib_wrapper! {
+wrapper! {
     #[derive(PartialEq, Eq, PartialOrd, Ord, Debug, Hash)]
     pub struct Closure(Shared<gobject_ffi::GClosure>);
 
