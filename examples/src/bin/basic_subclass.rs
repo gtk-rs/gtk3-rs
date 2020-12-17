@@ -9,8 +9,8 @@ use gio::prelude::*;
 use gio::subclass::prelude::*;
 use gio::ApplicationFlags;
 
+use glib::clone;
 use glib::subclass;
-use glib::{clone, object_subclass, wrapper};
 
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
@@ -44,7 +44,7 @@ mod imp_win {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        object_subclass!();
+        glib::object_subclass!();
 
         fn new() -> Self {
             Self {
@@ -106,7 +106,7 @@ mod imp_win {
     impl ApplicationWindowImpl for SimpleWindow {}
 }
 
-wrapper! {
+glib::wrapper! {
     pub struct SimpleWindow(ObjectSubclass<imp_win::SimpleWindow>)
         @extends gtk::Widget, gtk::Container, gtk::Bin, gtk::Window, gtk::ApplicationWindow;
 }
@@ -132,7 +132,7 @@ mod imp_app {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        object_subclass!();
+        glib::object_subclass!();
 
         fn new() -> Self {
             Self {
@@ -185,7 +185,7 @@ mod imp_app {
     impl GtkApplicationImpl for SimpleApplication {}
 }
 
-wrapper! {
+glib::wrapper! {
     pub struct SimpleApplication(ObjectSubclass<imp_app::SimpleApplication>)
         @extends gio::Application, gtk::Application;
 }
