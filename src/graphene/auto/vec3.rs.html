@@ -500,7 +500,7 @@
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Vec4</span>;
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 
-<span class="ident">glib</span>::<span class="macro">glib_wrapper</span><span class="macro">!</span> {
+<span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Vec3</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">graphene_vec3_t</span><span class="op">&gt;</span>);
 

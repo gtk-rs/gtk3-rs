@@ -1451,7 +1451,7 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove</span>(<span class="ident">tag</span>: <span class="ident">SourceId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw">crate</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="macro">glib_result_from_gboolean</span><span class="macro">!</span>(
+            <span class="macro">result_from_gboolean</span><span class="macro">!</span>(
                 <span class="ident">ffi</span>::<span class="ident">g_source_remove</span>(<span class="ident">tag</span>.<span class="ident">to_glib</span>()),
                 <span class="string">&quot;Failed to remove source&quot;</span>
             )

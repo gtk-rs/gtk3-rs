@@ -101,7 +101,7 @@
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">libc</span>::{<span class="ident">c_int</span>, <span class="ident">c_uint</span>};
 
-<span class="ident">glib</span>::<span class="macro">glib_wrapper</span><span class="macro">!</span> {
+<span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EntryBuffer</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkEntryBuffer</span>, <span class="ident">ffi</span>::<span class="ident">GtkEntryBufferClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {

@@ -125,7 +125,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
 
-<span class="macro">glib_wrapper</span><span class="macro">!</span> {
+<span class="macro">wrapper</span><span class="macro">!</span> {
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ValueArray</span>(<span class="ident">Boxed</span><span class="op">&lt;</span><span class="ident">gobject_ffi</span>::<span class="ident">GValueArray</span><span class="op">&gt;</span>);
 

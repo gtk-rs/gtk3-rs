@@ -402,7 +402,7 @@
 <span class="doccomment">//!         type Class = subclass::simple::ClassStruct&lt;Self&gt;;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!         // This macro defines some boilerplate.</span>
-<span class="doccomment">//!         glib::glib_object_subclass!();</span>
+<span class="doccomment">//!         glib::object_subclass!();</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!         // Called right before the first time an instance of the new</span>
 <span class="doccomment">//!         // type is created. Here class specific settings can be performed,</span>
@@ -478,7 +478,7 @@
 <span class="doccomment">//! }</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! // Optionally, define a wrapper type to make it more ergonomic to use from Rust</span>
-<span class="doccomment">//! glib::glib_wrapper! {</span>
+<span class="doccomment">//! glib::wrapper! {</span>
 <span class="doccomment">//!     pub struct SimpleObject(ObjectSubclass&lt;imp::SimpleObject&gt;);</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//!</span>

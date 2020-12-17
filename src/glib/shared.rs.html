@@ -435,7 +435,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">marker</span>::<span class="ident">PhantomData</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 
-<span class="doccomment">/// Wrapper implementations for shared types. See `glib_wrapper!`.</span>
+<span class="doccomment">/// Wrapper implementations for shared types. See `wrapper!`.</span>
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">glib_shared_wrapper</span> {
     ([$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>:<span class="ident">meta</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>:<span class="ident">ty</span>, @<span class="kw-2">ref</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ref_arg</span>:<span class="ident">ident</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ref_expr</span>:<span class="ident">expr</span>,

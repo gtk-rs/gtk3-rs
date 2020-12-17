@@ -752,7 +752,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">transmute</span>;
 
-<span class="ident">glib</span>::<span class="macro">glib_wrapper</span><span class="macro">!</span> {
+<span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RecentChooserMenu</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkRecentChooserMenu</span>, <span class="ident">ffi</span>::<span class="ident">GtkRecentChooserMenuClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Menu</span>, <span class="ident">MenuShell</span>, <span class="ident">Container</span>, <span class="ident">Widget</span>, @<span class="ident">implements</span> <span class="ident">Buildable</span>, <span class="ident">RecentChooser</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {

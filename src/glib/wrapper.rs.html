@@ -508,14 +508,14 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="doccomment">//! `IMPL` The `glib_wrapper!` macro and miscellaneous wrapper traits.</span>
+<span class="doccomment">//! `IMPL` The `wrapper!` macro and miscellaneous wrapper traits.</span>
 
 <span class="doccomment">/// Defines a wrapper type and implements the appropriate traits.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The basic syntax is</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
-<span class="doccomment">/// glib_wrapper! {</span>
+<span class="doccomment">/// wrapper! {</span>
 <span class="doccomment">///     /// Your documentation goes here</span>
 <span class="doccomment">///     pub struct $name($kind&lt;$foreign&gt;);</span>
 <span class="doccomment">///</span>
@@ -550,7 +550,7 @@
 <span class="doccomment">/// With no registered `glib_ffi::GType`:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
-<span class="doccomment">/// glib_wrapper! {</span>
+<span class="doccomment">/// wrapper! {</span>
 <span class="doccomment">///     /// Text buffer iterator</span>
 <span class="doccomment">///     pub struct TextIter(Boxed&lt;ffi::GtkTextIter&gt;);</span>
 <span class="doccomment">///</span>
@@ -568,7 +568,7 @@
 <span class="doccomment">/// With a registered `glib_ffi::GType`:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
-<span class="doccomment">/// glib_wrapper! {</span>
+<span class="doccomment">/// wrapper! {</span>
 <span class="doccomment">///     /// Text buffer iterator</span>
 <span class="doccomment">///     pub struct TextIter(Boxed&lt;ffi::GtkTextIter&gt;);</span>
 <span class="doccomment">///</span>
@@ -590,7 +590,7 @@
 <span class="doccomment">/// With no registered `glib_ffi::GType`:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
-<span class="doccomment">/// glib_wrapper! {</span>
+<span class="doccomment">/// wrapper! {</span>
 <span class="doccomment">///     /// Object holding timing information for a single frame.</span>
 <span class="doccomment">///     pub struct FrameTimings(Shared&lt;ffi::GdkFrameTimings&gt;);</span>
 <span class="doccomment">///</span>
@@ -608,7 +608,7 @@
 <span class="doccomment">/// With a registered `glib_ffi::GType`:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
-<span class="doccomment">/// glib_wrapper! {</span>
+<span class="doccomment">/// wrapper! {</span>
 <span class="doccomment">///     /// Object holding timing information for a single frame.</span>
 <span class="doccomment">///     pub struct FrameTimings(Shared&lt;ffi::GdkFrameTimings&gt;);</span>
 <span class="doccomment">///</span>
@@ -631,7 +631,7 @@
 <span class="doccomment">/// The basic syntax is this:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
-<span class="doccomment">/// glib_wrapper! {</span>
+<span class="doccomment">/// wrapper! {</span>
 <span class="doccomment">///     /// Your documentation goes here</span>
 <span class="doccomment">///     pub struct InstanceName(Object&lt;ffi::InstanceStruct, ffi::ClassStruct, ClassName&gt;)</span>
 <span class="doccomment">///         @extends ParentClass, GrandparentClass, ...,</span>
@@ -656,7 +656,7 @@
 <span class="doccomment">/// `GObject`, so it can be simply wrapped as follows:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
-<span class="doccomment">/// glib_wrapper! {</span>
+<span class="doccomment">/// wrapper! {</span>
 <span class="doccomment">///     pub struct WindowGroup(Object&lt;ffi::GtkWindowGroup, ffi::GtkWindowGroupClass, WindowGroupClass&gt;);</span>
 <span class="doccomment">///</span>
 <span class="doccomment">///     match fn {</span>
@@ -668,7 +668,7 @@
 <span class="doccomment">/// In contrast, `ffi::GtkButton` has a parent, grandparent, etc. classes, which must be specified:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
-<span class="doccomment">/// glib_wrapper! {</span>
+<span class="doccomment">/// wrapper! {</span>
 <span class="doccomment">///     pub struct Button(Object&lt;ffi::GtkButton, ButtonClass&gt;) @extends Bin, Container, Widget;</span>
 <span class="doccomment">///         // see note on interfaces in the example below</span>
 <span class="doccomment">///</span>
@@ -685,7 +685,7 @@
 <span class="doccomment">/// behind the `@implements` keyword:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
-<span class="doccomment">/// glib_wrapper! {</span>
+<span class="doccomment">/// wrapper! {</span>
 <span class="doccomment">///     pub struct Button(Object&lt;ffi::GtkButton, ButtonClass&gt;)</span>
 <span class="doccomment">///         @extends Bin, Container, Widget, // parent classes</span>
 <span class="doccomment">///         @implements Buildable, Actionable;  // interfaces</span>
@@ -705,7 +705,7 @@
 <span class="doccomment">/// specify a FFI class name at all in the `Object&lt;&gt;` part:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
-<span class="doccomment">/// glib_wrapper! {</span>
+<span class="doccomment">/// wrapper! {</span>
 <span class="doccomment">///     pub struct Clipboard(Object&lt;ffi::GtkClipboard, ClipboardClass&gt;);</span>
 <span class="doccomment">///     ...</span>
 <span class="doccomment">/// }</span>
@@ -717,7 +717,7 @@
 <span class="doccomment">/// `Object`, `Interface` has to be specified:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
-<span class="doccomment">/// glib_wrapper! {</span>
+<span class="doccomment">/// wrapper! {</span>
 <span class="doccomment">///     pub struct TreeModel(Interface&lt;ffi::GtkTreeModel, ffi::GtkTreeModelIface, TreeModelIface&gt;);</span>
 <span class="doccomment">///     ...</span>
 <span class="doccomment">/// }</span>
@@ -729,7 +729,7 @@
 <span class="doccomment">/// interface have to inherit or interfaces that have to be implemented:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
-<span class="doccomment">/// glib_wrapper! {</span>
+<span class="doccomment">/// wrapper! {</span>
 <span class="doccomment">///     pub struct TreeSortable(Interface&lt;ffi::GtkTreeSortable, ffi::GtkTreeSortable, TreeSortableIface&gt;) @requires TreeModel;</span>
 <span class="doccomment">///     ...</span>
 <span class="doccomment">/// }</span>
@@ -741,7 +741,7 @@
 <span class="doccomment">/// [#non-derivable-classes]: #non-derivable-classes</span>
 
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">glib_wrapper</span> {
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">wrapper</span> {
     <span class="comment">// Boxed</span>
 
     (

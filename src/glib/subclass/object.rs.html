@@ -1150,7 +1150,7 @@
             <span class="kw">type</span> <span class="ident">Instance</span> <span class="op">=</span> <span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">InstanceStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
             <span class="kw">type</span> <span class="ident">Class</span> <span class="op">=</span> <span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">ClassStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 
-            <span class="macro">glib_object_subclass</span><span class="macro">!</span>();
+            <span class="macro">object_subclass</span><span class="macro">!</span>();
 
             <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
                 <span class="ident">ChildObject</span>
@@ -1172,7 +1172,7 @@
             <span class="kw">type</span> <span class="ident">Instance</span> <span class="op">=</span> <span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">InstanceStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
             <span class="kw">type</span> <span class="ident">Class</span> <span class="op">=</span> <span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">ClassStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 
-            <span class="macro">glib_object_subclass</span><span class="macro">!</span>();
+            <span class="macro">object_subclass</span><span class="macro">!</span>();
 
             <span class="kw">fn</span> <span class="ident">type_init</span>(<span class="ident">type_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">subclass</span>::<span class="ident">InitializingType</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) {
                 <span class="ident">type_</span>.<span class="ident">add_interface</span>::<span class="op">&lt;</span><span class="ident">DummyInterface</span><span class="op">&gt;</span>();
@@ -1286,7 +1286,7 @@
         }
     }
 
-    <span class="macro">glib_wrapper</span><span class="macro">!</span> {
+    <span class="macro">wrapper</span><span class="macro">!</span> {
         <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ChildObject</span>(<span class="ident">ObjectSubclass</span><span class="op">&lt;</span><span class="ident">imp</span>::<span class="ident">ChildObject</span><span class="op">&gt;</span>);
     }
 
@@ -1329,7 +1329,7 @@
         }),
     ];
 
-    <span class="macro">glib_wrapper</span><span class="macro">!</span> {
+    <span class="macro">wrapper</span><span class="macro">!</span> {
         <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SimpleObject</span>(<span class="ident">ObjectSubclass</span><span class="op">&lt;</span><span class="ident">imp</span>::<span class="ident">SimpleObject</span><span class="op">&gt;</span>);
     }
 
@@ -1341,7 +1341,7 @@
     <span class="kw">impl</span> <span class="ident">ObjectInterface</span> <span class="kw">for</span> <span class="ident">DummyInterface</span> {
         <span class="kw">const</span> <span class="ident">NAME</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;DummyInterface&quot;</span>;
 
-        <span class="macro">glib_object_interface</span><span class="macro">!</span>();
+        <span class="macro">object_interface</span><span class="macro">!</span>();
 
         <span class="kw">fn</span> <span class="ident">type_init</span>(<span class="ident">type_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">subclass</span>::<span class="ident">InitializingType</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) {
             <span class="ident">type_</span>.<span class="ident">add_prerequisite</span>::<span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span>();
@@ -1349,7 +1349,7 @@
     }
 
     <span class="comment">// Usually this would be implemented on a Rust wrapper type defined</span>
-    <span class="comment">// with glib_wrapper!() but for the test the following is susyscient</span>
+    <span class="comment">// with wrapper!() but for the test the following is susyscient</span>
     <span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">DummyInterface</span> {
         <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
             <span class="ident">DummyInterface</span>::<span class="ident">get_type</span>()
@@ -1357,7 +1357,7 @@
     }
 
     <span class="comment">// Usually this would be implemented on a Rust wrapper type defined</span>
-    <span class="comment">// with glib_wrapper!() but for the test the following is susyscient</span>
+    <span class="comment">// with wrapper!() but for the test the following is susyscient</span>
     <span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectImpl</span><span class="op">&gt;</span> <span class="ident">IsImplementable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DummyInterface</span> {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">interface_init</span>(<span class="ident">_iface</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>, <span class="ident">_iface_data</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>) {}
     }

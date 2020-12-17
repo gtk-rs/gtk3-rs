@@ -80,7 +80,7 @@
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 
-<span class="ident">glib</span>::<span class="macro">glib_wrapper</span><span class="macro">!</span> {
+<span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NoOpObject</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">AtkNoOpObject</span>, <span class="ident">ffi</span>::<span class="ident">AtkNoOpObjectClass</span><span class="op">&gt;</span>) @<span class="ident">extends</span> <span class="ident">Object</span>, @<span class="ident">implements</span> <span class="ident">Action</span>, <span class="ident">Component</span>, <span class="ident">Document</span>, <span class="ident">EditableText</span>, <span class="ident">Hypertext</span>, <span class="ident">Image</span>, <span class="ident">Selection</span>, <span class="ident">Table</span>, <span class="ident">TableCell</span>, <span class="ident">Text</span>, <span class="ident">Value</span>, <span class="ident">Window</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {

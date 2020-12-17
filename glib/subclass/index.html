@@ -114,7 +114,7 @@ string-typed &quot;name&quot; property.</p>
         <span class="kw">type</span> <span class="ident">Class</span> <span class="op">=</span> <span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">ClassStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 
         <span class="comment">// This macro defines some boilerplate.</span>
-        <span class="ident">glib</span>::<span class="macro">glib_object_subclass</span><span class="macro">!</span>();
+        <span class="ident">glib</span>::<span class="macro">object_subclass</span><span class="macro">!</span>();
 
         <span class="comment">// Called right before the first time an instance of the new</span>
         <span class="comment">// type is created. Here class specific settings can be performed,</span>
@@ -190,7 +190,7 @@ string-typed &quot;name&quot; property.</p>
 }
 
 <span class="comment">// Optionally, define a wrapper type to make it more ergonomic to use from Rust</span>
-<span class="ident">glib</span>::<span class="macro">glib_wrapper</span><span class="macro">!</span> {
+<span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SimpleObject</span>(<span class="ident">ObjectSubclass</span><span class="op">&lt;</span><span class="ident">imp</span>::<span class="ident">SimpleObject</span><span class="op">&gt;</span>);
 }
 

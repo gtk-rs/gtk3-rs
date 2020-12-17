@@ -1058,7 +1058,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">CStr</span>;
 
 <span class="comment">// Can&#39;t use get_type here as this is not a boxed type but another fundamental type</span>
-<span class="macro">glib_wrapper</span><span class="macro">!</span> {
+<span class="macro">wrapper</span><span class="macro">!</span> {
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ParamSpec</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="ident">gobject_ffi</span>::<span class="ident">GParamSpec</span><span class="op">&gt;</span>);
 
@@ -1663,7 +1663,7 @@
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">define_param_spec</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">rust_type</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_type</span>:<span class="ident">path</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">mod_name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rust_type_offset</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
         <span class="comment">// Can&#39;t use get_type here as this is not a boxed type but another fundamental type</span>
-        <span class="macro">glib_wrapper</span><span class="macro">!</span> {
+        <span class="macro">wrapper</span><span class="macro">!</span> {
             <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
             <span class="kw">pub</span> <span class="kw">struct</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rust_type</span>(<span class="ident">Shared</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_type</span><span class="op">&gt;</span>);
 
