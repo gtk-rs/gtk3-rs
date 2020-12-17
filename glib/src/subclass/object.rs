@@ -548,7 +548,7 @@ mod test {
     impl ObjectInterface for DummyInterface {
         const NAME: &'static str = "DummyInterface";
 
-        glib_object_interface!();
+        object_interface!();
 
         fn type_init(type_: &mut subclass::InitializingType<Self>) {
             type_.add_prerequisite::<Object>();
