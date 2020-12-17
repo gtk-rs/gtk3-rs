@@ -124,7 +124,7 @@ impl DBusConnection {
         registration_id: RegistrationId,
     ) -> Result<(), glib::error::BoolError> {
         unsafe {
-            glib::glib_result_from_gboolean!(
+            glib::result_from_gboolean!(
                 ffi::g_dbus_connection_unregister_object(
                     self.to_glib_none().0,
                     registration_id.0.into()

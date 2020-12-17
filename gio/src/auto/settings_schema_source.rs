@@ -6,7 +6,7 @@ use crate::SettingsSchema;
 use glib::translate::*;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SettingsSchemaSource(Shared<ffi::GSettingsSchemaSource>);
 

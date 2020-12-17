@@ -6,7 +6,7 @@ use std::cmp::Ordering;
 use std::ops;
 use std::slice;
 
-glib_wrapper! {
+wrapper! {
     #[derive(Debug)]
     pub struct ValueArray(Boxed<gobject_ffi::GValueArray>);
 

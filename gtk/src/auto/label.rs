@@ -23,7 +23,7 @@ use std::fmt;
 use std::mem;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Label(Object<ffi::GtkLabel, ffi::GtkLabelClass>) @extends Misc, Widget, @implements Buildable;
 
     match fn {

@@ -10,7 +10,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct MemoryInputStream(Object<ffi::GMemoryInputStream, ffi::GMemoryInputStreamClass>) @extends InputStream, @implements PollableInputStream, Seekable;
 
     match fn {

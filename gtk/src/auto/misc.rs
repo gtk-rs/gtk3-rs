@@ -7,7 +7,7 @@ use crate::Widget;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Misc(Object<ffi::GtkMisc, ffi::GtkMiscClass>) @extends Widget, @implements Buildable;
 
     match fn {

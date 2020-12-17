@@ -6,7 +6,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Misc(Object<ffi::AtkMisc, ffi::AtkMiscClass>);
 
     match fn {

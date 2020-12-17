@@ -24,7 +24,7 @@ use glib::StaticType;
 use glib::ToValue;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct FontChooserDialog(Object<ffi::GtkFontChooserDialog, ffi::GtkFontChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, FontChooser;
 
     match fn {

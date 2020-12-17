@@ -9,7 +9,7 @@ use std::mem;
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AttrIterator(Boxed<ffi::PangoAttrIterator>);
 
@@ -21,7 +21,7 @@ glib::glib_wrapper! {
 }
 
 #[cfg(not(any(feature = "v1_44", feature = "dox")))]
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AttrIterator(Boxed<ffi::PangoAttrIterator>);
 

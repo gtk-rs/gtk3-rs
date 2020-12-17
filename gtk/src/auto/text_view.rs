@@ -39,7 +39,7 @@ use std::fmt;
 use std::mem;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct TextView(Object<ffi::GtkTextView, ffi::GtkTextViewClass>) @extends Container, Widget, @implements Buildable, Scrollable;
 
     match fn {

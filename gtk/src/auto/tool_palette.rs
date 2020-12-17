@@ -31,7 +31,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct ToolPalette(Object<ffi::GtkToolPalette, ffi::GtkToolPaletteClass>) @extends Container, Widget, @implements Buildable, Orientable, Scrollable;
 
     match fn {

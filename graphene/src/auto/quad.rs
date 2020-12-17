@@ -6,7 +6,7 @@ use crate::Point;
 use crate::Rect;
 use glib::translate::*;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Quad(Boxed<ffi::graphene_quad_t>);
 

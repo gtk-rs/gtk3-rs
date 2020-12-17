@@ -19,7 +19,7 @@ use crate::ScrollDirection;
 use crate::Seat;
 use crate::Window;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     /// A generic GDK event.
     #[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Event(Boxed<ffi::GdkEvent>);

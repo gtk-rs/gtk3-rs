@@ -118,15 +118,13 @@ pub fn init() -> Result<(), glib::BoolError> {
 
         if from_glib(ffi::gtk_init_check(&mut 1, &mut argv.to_glib_none().0)) {
             if !glib::MainContext::default().acquire() {
-                return Err(glib::glib_bool_error!(
-                    "Failed to acquire default main context"
-                ));
+                return Err(glib::bool_error!("Failed to acquire default main context"));
             }
 
             set_initialized();
             Ok(())
         } else {
-            Err(glib::glib_bool_error!("Failed to initialize GTK"))
+            Err(glib::bool_error!("Failed to initialize GTK"))
         }
     }
 }

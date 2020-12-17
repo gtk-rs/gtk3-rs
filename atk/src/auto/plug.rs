@@ -9,7 +9,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Plug(Object<ffi::AtkPlug, ffi::AtkPlugClass>) @extends Object, @implements Component;
 
     match fn {

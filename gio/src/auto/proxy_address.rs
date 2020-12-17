@@ -11,7 +11,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct ProxyAddress(Object<ffi::GProxyAddress, ffi::GProxyAddressClass>) @extends InetSocketAddress, SocketAddress, @implements SocketConnectable;
 
     match fn {

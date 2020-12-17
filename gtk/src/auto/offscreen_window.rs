@@ -19,7 +19,7 @@ use glib::StaticType;
 use glib::ToValue;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct OffscreenWindow(Object<ffi::GtkOffscreenWindow, ffi::GtkOffscreenWindowClass>) @extends Window, Bin, Container, Widget, @implements Buildable;
 
     match fn {

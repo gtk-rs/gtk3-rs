@@ -11,7 +11,7 @@
 //! In addition it is possible to add new rows and delete old ones.
 
 use gio::prelude::*;
-use glib::{clone, glib_object_subclass, glib_wrapper};
+use glib::clone;
 use gtk::prelude::*;
 use gtk::ResponseType;
 
@@ -40,7 +40,7 @@ mod model {
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
-            glib_object_subclass!();
+            glib::object_subclass!();
 
             // Called right before class_init and allows a GObject to specify
             // which interfaces it implement, in this case gio::ListModel
@@ -73,7 +73,7 @@ mod model {
     }
 
     // Public part of the Model type.
-    glib_wrapper! {
+    glib::wrapper! {
         pub struct Model(ObjectSubclass<imp::Model>) @implements gio::ListModel;
     }
 
@@ -341,7 +341,7 @@ mod row_data {
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
-            glib_object_subclass!();
+            glib::object_subclass!();
 
             // Called exactly once before the first instantiation of an instance. This
             // sets up any type-specific things, in this specific case it installs the
@@ -402,7 +402,7 @@ mod row_data {
 
     // Public part of the RowData type. This behaves like a normal gtk-rs-style GObject
     // binding
-    glib_wrapper! {
+    glib::wrapper! {
         pub struct RowData(ObjectSubclass<imp::RowData>);
     }
 

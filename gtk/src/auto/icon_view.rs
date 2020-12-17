@@ -35,7 +35,7 @@ use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct IconView(Object<ffi::GtkIconView, ffi::GtkIconViewClass>) @extends Container, Widget, @implements Buildable, CellLayout, Scrollable;
 
     match fn {

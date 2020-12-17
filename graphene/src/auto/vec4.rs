@@ -6,7 +6,7 @@ use crate::Vec2;
 use crate::Vec3;
 use glib::translate::*;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
     pub struct Vec4(Boxed<ffi::graphene_vec4_t>);
 

@@ -25,7 +25,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct ColorChooserDialog(Object<ffi::GtkColorChooserDialog, ffi::GtkColorChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, ColorChooser;
 
     match fn {

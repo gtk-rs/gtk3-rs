@@ -8,7 +8,7 @@ use crate::Window;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct DrawingContext(Object<ffi::GdkDrawingContext, ffi::GdkDrawingContextClass>);
 
     match fn {

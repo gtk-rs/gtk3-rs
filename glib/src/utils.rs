@@ -50,7 +50,7 @@ pub fn setenv<K: AsRef<OsStr>, V: AsRef<OsStr>>(
     use ffi::g_setenv_utf8 as g_setenv;
 
     unsafe {
-        glib_result_from_gboolean!(
+        result_from_gboolean!(
             g_setenv(
                 variable_name.as_ref().to_glib_none().0,
                 value.as_ref().to_glib_none().0,

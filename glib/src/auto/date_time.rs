@@ -9,7 +9,7 @@ use std::cmp;
 use std::hash;
 use std::mem;
 
-crate::glib_wrapper! {
+crate::wrapper! {
     #[derive(Debug)]
     pub struct DateTime(Shared<ffi::GDateTime>);
 

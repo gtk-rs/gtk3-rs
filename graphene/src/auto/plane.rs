@@ -10,7 +10,7 @@ use crate::Vec3;
 use crate::Vec4;
 use glib::translate::*;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
     pub struct Plane(Boxed<ffi::graphene_plane_t>);
 

@@ -37,7 +37,7 @@ use std::fmt;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct ModelButton(Object<ffi::GtkModelButton>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {

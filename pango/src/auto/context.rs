@@ -19,7 +19,7 @@ use std::fmt;
 use std::mem;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Context(Object<ffi::PangoContext, ffi::PangoContextClass>);
 
     match fn {

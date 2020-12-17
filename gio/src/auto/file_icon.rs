@@ -9,7 +9,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct FileIcon(Object<ffi::GFileIcon, ffi::GFileIconClass>) @implements Icon, LoadableIcon;
 
     match fn {

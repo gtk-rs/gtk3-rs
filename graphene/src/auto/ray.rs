@@ -22,7 +22,7 @@ use glib::translate::*;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 use std::mem;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
     pub struct Ray(Boxed<ffi::graphene_ray_t>);
 

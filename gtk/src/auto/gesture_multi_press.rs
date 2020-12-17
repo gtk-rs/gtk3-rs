@@ -19,7 +19,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct GestureMultiPress(Object<ffi::GtkGestureMultiPress, ffi::GtkGestureMultiPressClass>) @extends GestureSingle, Gesture, EventController;
 
     match fn {

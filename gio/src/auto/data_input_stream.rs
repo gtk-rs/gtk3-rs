@@ -21,7 +21,7 @@ use std::fmt;
 use std::mem::transmute;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct DataInputStream(Object<ffi::GDataInputStream, ffi::GDataInputStreamClass>) @extends BufferedInputStream, FilterInputStream, InputStream, @implements Seekable;
 
     match fn {

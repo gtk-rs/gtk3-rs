@@ -9,7 +9,7 @@ use crate::Vec2;
 use crate::Vec3;
 use glib::translate::*;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
     pub struct Triangle(Boxed<ffi::graphene_triangle_t>);
 

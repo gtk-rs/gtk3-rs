@@ -12,7 +12,7 @@ use std::fmt;
 use std::pin::Pin;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct OutputStream(Object<ffi::GOutputStream, ffi::GOutputStreamClass>);
 
     match fn {

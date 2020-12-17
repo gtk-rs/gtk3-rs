@@ -30,7 +30,7 @@ use std::fmt;
 use std::mem;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct ScrolledWindow(Object<ffi::GtkScrolledWindow, ffi::GtkScrolledWindowClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {

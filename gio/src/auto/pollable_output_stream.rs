@@ -9,7 +9,7 @@ use glib::translate::*;
 use std::fmt;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct PollableOutputStream(Interface<ffi::GPollableOutputStream>) @requires OutputStream;
 
     match fn {

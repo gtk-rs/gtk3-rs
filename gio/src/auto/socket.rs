@@ -23,7 +23,7 @@ use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Socket(Object<ffi::GSocket, ffi::GSocketClass>);
 
     match fn {

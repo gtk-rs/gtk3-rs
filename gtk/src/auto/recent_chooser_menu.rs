@@ -25,7 +25,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct RecentChooserMenu(Object<ffi::GtkRecentChooserMenu, ffi::GtkRecentChooserMenuClass>) @extends Menu, MenuShell, Container, Widget, @implements Buildable, RecentChooser;
 
     match fn {

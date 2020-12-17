@@ -25,7 +25,7 @@ impl<T: ObjectInterface> InitializingType<T> {
 ///
 /// [`ObjectInterface`]: subclass/types/trait.ObjectInterface.html
 #[macro_export]
-macro_rules! glib_object_interface {
+macro_rules! object_interface {
     () => {
         fn get_type() -> $crate::Type {
             static ONCE: std::sync::Once = std::sync::Once::new();
@@ -68,9 +68,9 @@ pub trait ObjectInterface: Sized + 'static {
     /// Returns the `glib::Type` ID of the interface.
     ///
     /// This will register the type with the type system on the first call and is usually generated
-    /// by the [`glib_object_interface!`] macro.
+    /// by the [`object_interface!`] macro.
     ///
-    /// [`glib_object_interface!`]: ../../macro.glib_object_interface.html
+    /// [`object_interface!`]: ../../macro.glib_object_interface.html
     fn get_type() -> Type;
 
     /// Additional type initialization.
@@ -256,10 +256,10 @@ unsafe extern "C" fn interface_init<T: ObjectInterface>(
 ///
 /// This must be called only once and will panic on a second call.
 ///
-/// The [`glib_object_interface!`] macro will create a `get_type()` function around this, which will
+/// The [`object_interface!`] macro will create a `get_type()` function around this, which will
 /// ensure that it's only ever called once.
 ///
-/// [`glib_object_interface!`]: ../../macro.glib_object_interface.html
+/// [`object_interface!`]: ../../macro.glib_object_interface.html
 pub fn register_interface<T: ObjectInterface>() -> Type {
     unsafe {
         use std::ffi::CString;

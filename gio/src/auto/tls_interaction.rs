@@ -14,7 +14,7 @@ use std::fmt;
 use std::pin::Pin;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct TlsInteraction(Object<ffi::GTlsInteraction, ffi::GTlsInteractionClass>);
 
     match fn {

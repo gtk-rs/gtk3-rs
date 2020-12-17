@@ -7,7 +7,7 @@ use glib::object::Cast;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct SimplePermission(Object<ffi::GSimplePermission>) @extends Permission;
 
     match fn {

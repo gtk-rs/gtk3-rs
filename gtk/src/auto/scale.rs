@@ -24,7 +24,7 @@ use std::fmt;
 use std::mem;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Scale(Object<ffi::GtkScale, ffi::GtkScaleClass>) @extends Range, Widget, @implements Buildable, Orientable;
 
     match fn {

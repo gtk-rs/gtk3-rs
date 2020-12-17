@@ -16,7 +16,7 @@ use glib::StaticType;
 use glib::ToValue;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct ActionBar(Object<ffi::GtkActionBar, ffi::GtkActionBarClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {

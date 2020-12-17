@@ -8,7 +8,7 @@ use crate::Quaternion;
 use crate::Vec3;
 use glib::translate::*;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
     pub struct Euler(Boxed<ffi::graphene_euler_t>);
 

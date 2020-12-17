@@ -13,7 +13,7 @@ use std::fmt;
 use std::pin::Pin;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Subprocess(Object<ffi::GSubprocess>);
 
     match fn {

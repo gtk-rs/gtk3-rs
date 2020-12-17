@@ -19,7 +19,7 @@ use std::fmt;
 use std::mem::transmute;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct DataOutputStream(Object<ffi::GDataOutputStream, ffi::GDataOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements Seekable;
 
     match fn {

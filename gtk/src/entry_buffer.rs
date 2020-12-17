@@ -3,7 +3,7 @@
 use glib::translate::*;
 use libc::{c_int, c_uint};
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct EntryBuffer(Object<ffi::GtkEntryBuffer, ffi::GtkEntryBufferClass>);
 
     match fn {

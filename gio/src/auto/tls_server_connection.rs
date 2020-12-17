@@ -17,7 +17,7 @@ use std::fmt;
 use std::mem::transmute;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct TlsServerConnection(Interface<ffi::GTlsServerConnection>) @requires TlsConnection, IOStream;
 
     match fn {

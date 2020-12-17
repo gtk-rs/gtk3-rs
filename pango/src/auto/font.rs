@@ -17,7 +17,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Font(Object<ffi::PangoFont, ffi::PangoFontClass>);
 
     match fn {

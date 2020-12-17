@@ -22,7 +22,7 @@ use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Image(Object<ffi::GtkImage, ffi::GtkImageClass>) @extends Misc, Widget, @implements Buildable;
 
     match fn {

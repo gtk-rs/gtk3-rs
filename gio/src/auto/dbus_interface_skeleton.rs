@@ -17,7 +17,7 @@ use std::fmt;
 use std::mem::transmute;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct DBusInterfaceSkeleton(Object<ffi::GDBusInterfaceSkeleton, ffi::GDBusInterfaceSkeletonClass>) @implements DBusInterface;
 
     match fn {

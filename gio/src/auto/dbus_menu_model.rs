@@ -7,7 +7,7 @@ use crate::MenuModel;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct DBusMenuModel(Object<ffi::GDBusMenuModel>) @extends MenuModel;
 
     match fn {

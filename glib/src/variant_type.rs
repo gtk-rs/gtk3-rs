@@ -147,7 +147,7 @@ impl VariantTy {
             if ok && end == limit {
                 Ok(&*(type_string.as_bytes() as *const [u8] as *const VariantTy))
             } else {
-                Err(glib_bool_error!("Invalid type string: '{}'", type_string))
+                Err(bool_error!("Invalid type string: '{}'", type_string))
             }
         }
     }

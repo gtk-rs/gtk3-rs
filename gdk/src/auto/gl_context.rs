@@ -17,7 +17,7 @@ use std::mem;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct GLContext(Object<ffi::GdkGLContext>);
 
     match fn {

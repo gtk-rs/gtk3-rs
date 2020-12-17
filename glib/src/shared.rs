@@ -9,7 +9,7 @@ use std::hash::{Hash, Hasher};
 use std::marker::PhantomData;
 use std::ptr;
 
-/// Wrapper implementations for shared types. See `glib_wrapper!`.
+/// Wrapper implementations for shared types. See `wrapper!`.
 #[macro_export]
 macro_rules! glib_shared_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:ty, @ref $ref_arg:ident $ref_expr:expr,

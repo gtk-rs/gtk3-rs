@@ -7,7 +7,7 @@ use std::mem;
 use std::ptr;
 
 #[cfg(any(feature = "v1_44", feature = "dox"))]
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Coverage(Object<ffi::PangoCoverage>);
 
     match fn {
@@ -17,7 +17,7 @@ glib::glib_wrapper! {
 
 // There was no get_type() function before 1.44
 #[cfg(not(any(feature = "v1_44", feature = "dox")))]
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Coverage(Shared<ffi::PangoCoverage>);
 

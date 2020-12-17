@@ -27,7 +27,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct FontButton(Object<ffi::GtkFontButton, ffi::GtkFontButtonClass>) @extends Button, Bin, Container, Widget, @implements Buildable, Actionable, FontChooser;
 
     match fn {

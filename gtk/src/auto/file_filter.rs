@@ -7,7 +7,7 @@ use crate::FileFilterFlags;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct FileFilter(Object<ffi::GtkFileFilter>) @implements Buildable;
 
     match fn {

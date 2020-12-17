@@ -6,7 +6,7 @@ use crate::Rect;
 use crate::Vec3;
 use glib::translate::*;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
     pub struct Point3D(Boxed<ffi::graphene_point3d_t>);
 

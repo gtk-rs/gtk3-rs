@@ -8,7 +8,7 @@ use glib::translate::*;
 use std::fmt;
 use x11::xlib;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct X11Window(Object<ffi::GdkX11Window, ffi::GdkX11WindowClass>) @extends gdk::Window;
 
     match fn {

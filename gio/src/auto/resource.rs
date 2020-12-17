@@ -8,7 +8,7 @@ use glib::translate::*;
 use std::mem;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Resource(Shared<ffi::GResource>);
 

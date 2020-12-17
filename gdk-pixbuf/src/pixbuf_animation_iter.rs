@@ -5,7 +5,7 @@ use glib::translate::*;
 
 use std::time::SystemTime;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct PixbufAnimationIter(Object<ffi::GdkPixbufAnimationIter>);
 
     match fn {

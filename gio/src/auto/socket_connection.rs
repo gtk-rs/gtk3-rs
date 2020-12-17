@@ -15,7 +15,7 @@ use std::fmt;
 use std::pin::Pin;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct SocketConnection(Object<ffi::GSocketConnection, ffi::GSocketConnectionClass>) @extends IOStream;
 
     match fn {

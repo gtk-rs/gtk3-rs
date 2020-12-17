@@ -16,7 +16,7 @@ use crate::Vec4;
 use glib::translate::*;
 use std::mem;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
     pub struct Matrix(Boxed<ffi::graphene_matrix_t>);
 

@@ -5,7 +5,7 @@
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct X11DragContext(Object<ffi::GdkX11DragContext, ffi::GdkX11DragContextClass>) @extends gdk::DragContext;
 
     match fn {

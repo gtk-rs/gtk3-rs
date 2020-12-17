@@ -22,7 +22,7 @@ use glib::StaticType;
 use glib::ToValue;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct RecentChooserWidget(Object<ffi::GtkRecentChooserWidget, ffi::GtkRecentChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, RecentChooser;
 
     match fn {

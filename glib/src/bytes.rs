@@ -8,7 +8,7 @@ use std::hash::{Hash, Hasher};
 use std::ops::Deref;
 use std::slice;
 
-glib_wrapper! {
+wrapper! {
     /// A shared immutable byte slice (the equivalent of `Rc<[u8]>`).
     ///
     /// `From` implementations that take references (e.g. `&[u8]`) copy the

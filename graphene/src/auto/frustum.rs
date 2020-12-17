@@ -9,7 +9,7 @@ use crate::Point3D;
 use crate::Sphere;
 use glib::translate::*;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
     pub struct Frustum(Boxed<ffi::graphene_frustum_t>);
 

@@ -24,7 +24,7 @@ use std::fmt;
 use std::mem;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Display(Object<ffi::GdkDisplay>);
 
     match fn {

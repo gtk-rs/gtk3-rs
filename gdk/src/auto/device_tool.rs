@@ -9,7 +9,7 @@ use glib::translate::*;
 use glib::StaticType;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct DeviceTool(Object<ffi::GdkDeviceTool>);
 
     match fn {

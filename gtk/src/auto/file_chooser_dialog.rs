@@ -23,7 +23,7 @@ use glib::StaticType;
 use glib::ToValue;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct FileChooserDialog(Object<ffi::GtkFileChooserDialog, ffi::GtkFileChooserDialogClass>) @extends Dialog, Window, Bin, Container, Widget, @implements Buildable, FileChooser;
 
     match fn {

@@ -5,7 +5,7 @@
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct X11DeviceCore(Object<ffi::GdkX11DeviceCore, ffi::GdkX11DeviceCoreClass>) @extends gdk::Device;
 
     match fn {

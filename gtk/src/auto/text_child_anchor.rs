@@ -7,7 +7,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct TextChildAnchor(Object<ffi::GtkTextChildAnchor, ffi::GtkTextChildAnchorClass>);
 
     match fn {

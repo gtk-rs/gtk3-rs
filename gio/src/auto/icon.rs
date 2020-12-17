@@ -7,7 +7,7 @@ use glib::translate::*;
 use std::fmt;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Icon(Interface<ffi::GIcon>);
 
     match fn {

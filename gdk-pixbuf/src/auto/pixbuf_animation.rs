@@ -10,7 +10,7 @@ use std::fmt;
 use std::pin::Pin;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct PixbufAnimation(Object<ffi::GdkPixbufAnimation>);
 
     match fn {

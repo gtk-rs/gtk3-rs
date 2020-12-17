@@ -20,7 +20,7 @@ use std::mem::transmute;
 use std::pin::Pin;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct BufferedInputStream(Object<ffi::GBufferedInputStream, ffi::GBufferedInputStreamClass>) @extends FilterInputStream, InputStream, @implements Seekable;
 
     match fn {

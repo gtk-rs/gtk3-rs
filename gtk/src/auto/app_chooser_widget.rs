@@ -24,7 +24,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct AppChooserWidget(Object<ffi::GtkAppChooserWidget, ffi::GtkAppChooserWidgetClass>) @extends Box, Container, Widget, @implements Buildable, Orientable, AppChooser;
 
     match fn {

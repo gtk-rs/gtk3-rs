@@ -16,7 +16,7 @@ use crate::enums::{Antialias, HintMetrics, HintStyle, SubpixelOrder};
 use crate::utils::status_to_result;
 
 #[cfg(feature = "use_glib")]
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug)]
     pub struct FontOptions(Boxed<ffi::cairo_font_options_t>);
 

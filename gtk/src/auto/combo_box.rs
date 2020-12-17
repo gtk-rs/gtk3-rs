@@ -27,7 +27,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct ComboBox(Object<ffi::GtkComboBox, ffi::GtkComboBoxClass>) @extends Bin, Container, Widget, @implements Buildable, CellEditable, CellLayout;
 
     match fn {

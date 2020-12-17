@@ -18,7 +18,7 @@ use glib::StaticType;
 use glib::ToValue;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Scrollbar(Object<ffi::GtkScrollbar, ffi::GtkScrollbarClass>) @extends Range, Widget, @implements Buildable, Orientable;
 
     match fn {

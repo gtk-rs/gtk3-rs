@@ -13,7 +13,7 @@ use std::fmt;
 use std::mem;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct DesktopAppInfo(Object<ffi::GDesktopAppInfo, ffi::GDesktopAppInfoClass>) @implements AppInfo;
 
     match fn {

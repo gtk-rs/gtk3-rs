@@ -5,7 +5,7 @@
 use crate::translate::*;
 use crate::TimeType;
 
-crate::glib_wrapper! {
+crate::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct TimeZone(Shared<ffi::GTimeZone>);
 

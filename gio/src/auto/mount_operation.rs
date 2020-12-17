@@ -14,7 +14,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct MountOperation(Object<ffi::GMountOperation, ffi::GMountOperationClass>);
 
     match fn {

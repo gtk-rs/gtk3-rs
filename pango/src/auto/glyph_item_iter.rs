@@ -5,7 +5,7 @@
 use crate::GlyphItem;
 use glib::translate::*;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct GlyphItemIter(Boxed<ffi::PangoGlyphItemIter>);
 

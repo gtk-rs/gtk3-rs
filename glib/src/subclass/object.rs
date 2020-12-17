@@ -357,7 +357,7 @@ mod test {
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
-            glib_object_subclass!();
+            object_subclass!();
 
             fn new() -> Self {
                 ChildObject
@@ -379,7 +379,7 @@ mod test {
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
-            glib_object_subclass!();
+            object_subclass!();
 
             fn type_init(type_: &mut subclass::InitializingType<Self>) {
                 type_.add_interface::<DummyInterface>();
@@ -493,7 +493,7 @@ mod test {
         }
     }
 
-    glib_wrapper! {
+    wrapper! {
         pub struct ChildObject(ObjectSubclass<imp::ChildObject>);
     }
 
@@ -536,7 +536,7 @@ mod test {
         }),
     ];
 
-    glib_wrapper! {
+    wrapper! {
         pub struct SimpleObject(ObjectSubclass<imp::SimpleObject>);
     }
 
@@ -548,7 +548,7 @@ mod test {
     impl ObjectInterface for DummyInterface {
         const NAME: &'static str = "DummyInterface";
 
-        glib_object_interface!();
+        object_interface!();
 
         fn type_init(type_: &mut subclass::InitializingType<Self>) {
             type_.add_prerequisite::<Object>();
@@ -556,7 +556,7 @@ mod test {
     }
 
     // Usually this would be implemented on a Rust wrapper type defined
-    // with glib_wrapper!() but for the test the following is susyscient
+    // with wrapper!() but for the test the following is susyscient
     impl StaticType for DummyInterface {
         fn static_type() -> Type {
             DummyInterface::get_type()
@@ -564,7 +564,7 @@ mod test {
     }
 
     // Usually this would be implemented on a Rust wrapper type defined
-    // with glib_wrapper!() but for the test the following is susyscient
+    // with wrapper!() but for the test the following is susyscient
     unsafe impl<T: ObjectImpl> IsImplementable<T> for DummyInterface {
         unsafe extern "C" fn interface_init(_iface: ffi::gpointer, _iface_data: ffi::gpointer) {}
     }

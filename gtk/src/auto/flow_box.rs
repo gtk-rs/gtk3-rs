@@ -25,7 +25,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct FlowBox(Object<ffi::GtkFlowBox, ffi::GtkFlowBoxClass>) @extends Container, Widget, @implements Buildable, Orientable;
 
     match fn {

@@ -18,7 +18,7 @@ use glib::StaticType;
 use glib::ToValue;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct SeparatorMenuItem(Object<ffi::GtkSeparatorMenuItem, ffi::GtkSeparatorMenuItemClass>) @extends MenuItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {

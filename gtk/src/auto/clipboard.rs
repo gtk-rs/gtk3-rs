@@ -11,7 +11,7 @@ use std::fmt;
 use std::mem;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Clipboard(Object<ffi::GtkClipboard>);
 
     match fn {

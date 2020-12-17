@@ -15,7 +15,7 @@ use std::fmt;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 use std::mem;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct ListStore(Object<ffi::GListStore, ffi::GListStoreClass>) @implements ListModel;
 
     match fn {

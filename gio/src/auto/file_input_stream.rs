@@ -13,7 +13,7 @@ use std::fmt;
 use std::pin::Pin;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct FileInputStream(Object<ffi::GFileInputStream, ffi::GFileInputStreamClass>) @extends InputStream, @implements Seekable;
 
     match fn {

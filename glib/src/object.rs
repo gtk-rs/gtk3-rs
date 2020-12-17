@@ -627,7 +627,7 @@ macro_rules! glib_weak_impl {
     };
 }
 
-/// ObjectType implementations for Object types. See `glib_wrapper!`.
+/// ObjectType implementations for Object types. See `wrapper!`.
 #[macro_export]
 macro_rules! glib_object_wrapper {
     (@generic_impl [$($attr:meta)*] $name:ident, $ffi_name:ty, $ffi_class_name:ty, @get_type $get_type_expr:expr) => {
@@ -1083,7 +1083,7 @@ impl Object {
         use std::ffi::CString;
 
         let klass = ObjectClass::from_type(type_)
-            .ok_or_else(|| glib_bool_error!("Can't retrieve class for type '{}'", type_))?;
+            .ok_or_else(|| bool_error!("Can't retrieve class for type '{}'", type_))?;
         let pspecs = klass.list_properties();
 
         let params = properties
@@ -1093,7 +1093,7 @@ impl Object {
                     .iter()
                     .find(|p| p.get_name() == *name)
                     .ok_or_else(|| {
-                        glib_bool_error!("Can't find property '{}' for type '{}'", name, type_)
+                        bool_error!("Can't find property '{}' for type '{}'", name, type_)
                     })?;
 
                 let mut value = value.to_value();
@@ -1109,7 +1109,7 @@ impl Object {
         use std::ffi::CString;
 
         let klass = ObjectClass::from_type(type_)
-            .ok_or_else(|| glib_bool_error!("Can't retrieve class for type '{}'", type_))?;
+            .ok_or_else(|| bool_error!("Can't retrieve class for type '{}'", type_))?;
         let pspecs = klass.list_properties();
 
         let params = properties
@@ -1119,7 +1119,7 @@ impl Object {
                     .iter()
                     .find(|p| p.get_name() == *name)
                     .ok_or_else(|| {
-                        glib_bool_error!("Can't find property '{}' for type '{}'", name, type_)
+                        bool_error!("Can't find property '{}' for type '{}'", name, type_)
                     })?;
 
                 let mut value = value.clone();
@@ -1136,7 +1136,7 @@ impl Object {
         params: &[(std::ffi::CString, Value)],
     ) -> Result<Object, BoolError> {
         if !type_.is_a(&Object::static_type()) {
-            return Err(glib_bool_error!(
+            return Err(bool_error!(
                 "Can't instantiate non-GObject type '{}'",
                 type_
             ));
@@ -1145,16 +1145,13 @@ impl Object {
         if gobject_ffi::g_type_test_flags(type_.to_glib(), gobject_ffi::G_TYPE_FLAG_INSTANTIATABLE)
             == ffi::GFALSE
         {
-            return Err(glib_bool_error!("Can't instantiate type '{}'", type_));
+            return Err(bool_error!("Can't instantiate type '{}'", type_));
         }
 
         if gobject_ffi::g_type_test_flags(type_.to_glib(), gobject_ffi::G_TYPE_FLAG_ABSTRACT)
             != ffi::GFALSE
         {
-            return Err(glib_bool_error!(
-                "Can't instantiate abstract type '{}'",
-                type_
-            ));
+            return Err(bool_error!("Can't instantiate abstract type '{}'", type_));
         }
 
         let params_c = params
@@ -1171,10 +1168,7 @@ impl Object {
             mut_override(params_c.as_ptr()),
         );
         if ptr.is_null() {
-            Err(glib_bool_error!(
-                "Can't instantiate object for type '{}'",
-                type_
-            ))
+            Err(bool_error!("Can't instantiate object for type '{}'", type_))
         } else if type_.is_a(&InitiallyUnowned::static_type()) {
             // Attention: This takes ownership of the floating reference
             Ok(from_glib_none(ptr))
@@ -1341,7 +1335,7 @@ impl<T: ObjectType> ObjectExt for T {
                     .iter()
                     .find(|p| p.get_name() == name)
                     .ok_or_else(|| {
-                        glib_bool_error!(
+                        bool_error!(
                             "Can't find property '{}' for type '{}'",
                             name,
                             self.get_type()
@@ -1379,7 +1373,7 @@ impl<T: ObjectType> ObjectExt for T {
                     .iter()
                     .find(|p| p.get_name() == *name)
                     .ok_or_else(|| {
-                        glib_bool_error!(
+                        bool_error!(
                             "Can't find property '{}' for type '{}'",
                             name,
                             self.get_type()
@@ -1415,7 +1409,7 @@ impl<T: ObjectType> ObjectExt for T {
         let pspec = match self.find_property(property_name) {
             Some(pspec) => pspec,
             None => {
-                return Err(glib_bool_error!(
+                return Err(bool_error!(
                     "property '{}' of type '{}' not found",
                     property_name,
                     self.get_type()
@@ -1446,7 +1440,7 @@ impl<T: ObjectType> ObjectExt for T {
         let pspec = match self.find_property(property_name) {
             Some(pspec) => pspec,
             None => {
-                return Err(glib_bool_error!(
+                return Err(bool_error!(
                     "property '{}' of type '{}' not found",
                     property_name,
                     self.get_type()
@@ -1473,7 +1467,7 @@ impl<T: ObjectType> ObjectExt for T {
         let pspec = match self.find_property(property_name) {
             Some(pspec) => pspec,
             None => {
-                return Err(glib_bool_error!(
+                return Err(bool_error!(
                     "property '{}' of type '{}' not found",
                     property_name,
                     self.get_type()
@@ -1482,7 +1476,7 @@ impl<T: ObjectType> ObjectExt for T {
         };
 
         if !pspec.get_flags().contains(crate::ParamFlags::READABLE) {
-            return Err(glib_bool_error!(
+            return Err(bool_error!(
                 "property '{}' of type '{}' is not readable",
                 property_name,
                 self.get_type()
@@ -1499,7 +1493,7 @@ impl<T: ObjectType> ObjectExt for T {
 
             // This can't really happen unless something goes wrong inside GObject
             if value.type_() == crate::Type::Invalid {
-                Err(glib_bool_error!(
+                Err(bool_error!(
                     "Failed to get property value for property '{}' of type '{}'",
                     property_name,
                     self.get_type()
@@ -1747,7 +1741,7 @@ impl<T: ObjectType> ObjectExt for T {
         ));
 
         if !found {
-            return Err(glib_bool_error!(
+            return Err(bool_error!(
                 "Signal '{}' of type '{}' not found",
                 signal_name,
                 type_
@@ -1758,7 +1752,7 @@ impl<T: ObjectType> ObjectExt for T {
         gobject_ffi::g_signal_query(signal_id, details.as_mut_ptr());
         let details = details.assume_init();
         if details.signal_id != signal_id {
-            return Err(glib_bool_error!(
+            return Err(bool_error!(
                 "Signal '{}' of type '{}' not found",
                 signal_name,
                 type_
@@ -1846,7 +1840,7 @@ impl<T: ObjectType> ObjectExt for T {
         );
 
         if handler == 0 {
-            Err(glib_bool_error!(
+            Err(bool_error!(
                 "Failed to connect to signal '{}' of type '{}'",
                 signal_name,
                 type_
@@ -1994,7 +1988,7 @@ fn validate_property_type(
                 .get_flags()
                 .contains(crate::ParamFlags::CONSTRUCT_ONLY))
     {
-        return Err(glib_bool_error!(
+        return Err(bool_error!(
             "property '{}' of type '{}' is not writable",
             pspec.get_name(),
             type_
@@ -2022,7 +2016,7 @@ fn validate_property_type(
                         property_value.0.g_type = pspec.get_value_type().to_glib();
                     } else {
                         return Err(
-                            glib_bool_error!(
+                            bool_error!(
                                 "property '{}' of type '{}' can't be set from the given object type (expected: '{}', got: '{}')",
                                 pspec.get_name(),
                                 type_,
@@ -2039,7 +2033,7 @@ fn validate_property_type(
                 Err(_) => unreachable!("property_value type conformity already checked"),
             }
         } else if !valid_type {
-            return Err(glib_bool_error!(format!(
+            return Err(bool_error!(format!(
                 "property '{}' of type '{}' can't be set from the given type (expected: '{}', got: '{}')",
                 pspec.get_name(),
                 type_,
@@ -2056,7 +2050,7 @@ fn validate_property_type(
             .get_flags()
             .contains(crate::ParamFlags::LAX_VALIDATION);
         if changed && !change_allowed {
-            return Err(glib_bool_error!(
+            return Err(bool_error!(
                 "property '{}' of type '{}' can't be set from given value, it is invalid or out of range",
                 pspec.get_name(),
                 type_,
@@ -2086,7 +2080,7 @@ fn validate_signal_arguments(
     };
 
     if !found {
-        return Err(glib_bool_error!(
+        return Err(bool_error!(
             "Signal '{}' of type '{}' not found",
             signal_name,
             type_
@@ -2100,7 +2094,7 @@ fn validate_signal_arguments(
     };
 
     if details.signal_id != signal_id {
-        return Err(glib_bool_error!(
+        return Err(bool_error!(
             "Signal '{}' of type '{}' not found",
             signal_name,
             type_
@@ -2108,7 +2102,7 @@ fn validate_signal_arguments(
     }
 
     if details.n_params != args.len() as u32 {
-        return Err(glib_bool_error!(
+        return Err(bool_error!(
             "Incompatible number of arguments for signal '{}' of type '{}' (expected {}, got {})",
             signal_name,
             type_,
@@ -2133,7 +2127,7 @@ fn validate_signal_arguments(
                         arg.0.g_type = param_type.to_glib();
                     } else {
                         return Err(
-                            glib_bool_error!(
+                            bool_error!(
                                 "Incompatible argument type in argument {} for signal '{}' of type '{}' (expected {}, got {})",
                                 i,
                                 signal_name,
@@ -2152,7 +2146,7 @@ fn validate_signal_arguments(
             }
         } else if param_type != arg.type_() {
             return Err(
-                glib_bool_error!(
+                bool_error!(
                     "Incompatible argument type in argument {} for signal '{}' of type '{}' (expected {}, got {})",
                     i,
                     signal_name,
@@ -2218,7 +2212,7 @@ impl ObjectClass {
     }
 }
 
-glib_wrapper! {
+wrapper! {
     pub struct InitiallyUnowned(Object<gobject_ffi::GInitiallyUnowned, gobject_ffi::GInitiallyUnownedClass>);
 
     match fn {
@@ -2560,7 +2554,7 @@ pub unsafe trait ParentClassIs: ObjectType {
 }
 
 /// Automatically implemented by `ObjectSubclass` variants of
-/// [`glib_wrapper!`][crate::glib_wrapper]
+/// [`wrapper!`][crate::glib_wrapper]
 pub unsafe trait ObjectSubclassIs: ObjectType {
     type Subclass: ObjectSubclass;
 }

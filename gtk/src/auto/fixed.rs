@@ -14,7 +14,7 @@ use glib::StaticType;
 use glib::ToValue;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Fixed(Object<ffi::GtkFixed, ffi::GtkFixedClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {

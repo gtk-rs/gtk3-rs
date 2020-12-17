@@ -12,7 +12,7 @@ use glib::translate::*;
 use std::fmt;
 use std::hash;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialOrd, Ord)]
     pub struct FontDescription(Boxed<ffi::PangoFontDescription>);
 

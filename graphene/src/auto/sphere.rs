@@ -6,7 +6,7 @@ use crate::Box;
 use crate::Point3D;
 use glib::translate::*;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
     pub struct Sphere(Boxed<ffi::graphene_sphere_t>);
 

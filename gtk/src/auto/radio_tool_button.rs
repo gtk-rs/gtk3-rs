@@ -20,7 +20,7 @@ use glib::StaticType;
 use glib::ToValue;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct RadioToolButton(Object<ffi::GtkRadioToolButton, ffi::GtkRadioToolButtonClass>) @extends ToggleToolButton, ToolButton, ToolItem, Bin, Container, Widget, @implements Buildable, Actionable;
 
     match fn {

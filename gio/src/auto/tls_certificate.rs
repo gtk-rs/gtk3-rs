@@ -10,7 +10,7 @@ use glib::StaticType;
 use std::fmt;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct TlsCertificate(Object<ffi::GTlsCertificate, ffi::GTlsCertificateClass>);
 
     match fn {

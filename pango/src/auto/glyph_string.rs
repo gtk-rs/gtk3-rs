@@ -9,7 +9,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::mem;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct GlyphString(Boxed<ffi::PangoGlyphString>);
 

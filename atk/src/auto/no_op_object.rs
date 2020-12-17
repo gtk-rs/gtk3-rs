@@ -20,7 +20,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct NoOpObject(Object<ffi::AtkNoOpObject, ffi::AtkNoOpObjectClass>) @extends Object, @implements Action, Component, Document, EditableText, Hypertext, Image, Selection, Table, TableCell, Text, Value, Window;
 
     match fn {
