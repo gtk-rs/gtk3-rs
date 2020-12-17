@@ -5,7 +5,7 @@
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Util(Object<ffi::AtkUtil, ffi::AtkUtilClass>);
 
     match fn {

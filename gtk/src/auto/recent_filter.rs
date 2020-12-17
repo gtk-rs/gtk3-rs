@@ -7,7 +7,7 @@ use crate::RecentFilterFlags;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct RecentFilter(Object<ffi::GtkRecentFilter>) @implements Buildable;
 
     match fn {

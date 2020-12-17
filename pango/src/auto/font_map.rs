@@ -14,7 +14,7 @@ use std::fmt;
 use std::mem;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct FontMap(Object<ffi::PangoFontMap, ffi::PangoFontMapClass>);
 
     match fn {

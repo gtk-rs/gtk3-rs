@@ -22,7 +22,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Statusbar(Object<ffi::GtkStatusbar, ffi::GtkStatusbarClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {

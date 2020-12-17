@@ -15,7 +15,7 @@ use std::cmp;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 use std::mem;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug)]
     pub struct UnixMountPoint(Boxed<ffi::GUnixMountPoint>);
 

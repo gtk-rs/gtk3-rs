@@ -12,7 +12,7 @@ use std::mem;
 use std::pin::Pin;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct IconInfo(Object<ffi::GtkIconInfo, ffi::GtkIconInfoClass>);
 
     match fn {

@@ -36,7 +36,7 @@ use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Device(Object<ffi::GdkDevice>);
 
     match fn {

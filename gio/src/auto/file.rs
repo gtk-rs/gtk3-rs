@@ -29,7 +29,7 @@ use std::mem;
 use std::pin::Pin;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct File(Interface<ffi::GFile>);
 
     match fn {

@@ -28,7 +28,7 @@ use std::mem;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct GLArea(Object<ffi::GtkGLArea, ffi::GtkGLAreaClass>) @extends Widget, @implements Buildable;
 
     match fn {

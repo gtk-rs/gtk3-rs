@@ -33,7 +33,7 @@ use std::fmt;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct ShortcutLabel(Object<ffi::GtkShortcutLabel, ffi::GtkShortcutLabelClass>) @extends Box, Container, Widget, @implements Buildable, Orientable;
 
     match fn {

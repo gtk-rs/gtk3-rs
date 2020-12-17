@@ -8,7 +8,7 @@ use glib::translate::*;
 use std::fmt;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct NetworkAddress(Object<ffi::GNetworkAddress, ffi::GNetworkAddressClass>) @implements SocketConnectable;
 
     match fn {

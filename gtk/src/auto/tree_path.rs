@@ -7,7 +7,7 @@ use std::cmp;
 use std::fmt;
 use std::mem;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, Hash)]
     pub struct TreePath(Boxed<ffi::GtkTreePath>);
 

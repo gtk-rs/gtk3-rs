@@ -22,7 +22,7 @@ use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct TextBuffer(Object<ffi::GtkTextBuffer, ffi::GtkTextBufferClass>);
 
     match fn {

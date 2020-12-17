@@ -6,7 +6,7 @@ use crate::Vec2;
 use glib::translate::*;
 use std::mem;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
     pub struct Point(Boxed<ffi::graphene_point_t>);
 

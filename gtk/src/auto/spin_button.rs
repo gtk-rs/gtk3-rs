@@ -31,7 +31,7 @@ use std::fmt;
 use std::mem;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct SpinButton(Object<ffi::GtkSpinButton, ffi::GtkSpinButtonClass>) @extends Entry, Widget, @implements Buildable, CellEditable, Editable, Orientable;
 
     match fn {

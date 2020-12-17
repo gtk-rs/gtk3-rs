@@ -21,7 +21,7 @@ use std::fmt;
 use std::mem;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct AccelLabel(Object<ffi::GtkAccelLabel, ffi::GtkAccelLabelClass>) @extends Label, Misc, Widget, @implements Buildable;
 
     match fn {

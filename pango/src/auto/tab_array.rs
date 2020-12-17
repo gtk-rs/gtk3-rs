@@ -6,7 +6,7 @@ use crate::TabAlign;
 use glib::translate::*;
 use std::mem;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct TabArray(Boxed<ffi::PangoTabArray>);
 

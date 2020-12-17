@@ -11,7 +11,7 @@ use crate::KeyFileFlags;
 use std::mem;
 use std::ptr;
 
-crate::glib_wrapper! {
+crate::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct KeyFile(Shared<ffi::GKeyFile>);
 

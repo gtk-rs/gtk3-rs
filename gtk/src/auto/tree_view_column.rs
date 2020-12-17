@@ -23,7 +23,7 @@ use std::fmt;
 use std::mem;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct TreeViewColumn(Object<ffi::GtkTreeViewColumn, ffi::GtkTreeViewColumnClass>) @implements Buildable, CellLayout;
 
     match fn {

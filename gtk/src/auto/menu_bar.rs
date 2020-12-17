@@ -20,7 +20,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct MenuBar(Object<ffi::GtkMenuBar, ffi::GtkMenuBarClass>) @extends MenuShell, Container, Widget, @implements Buildable;
 
     match fn {

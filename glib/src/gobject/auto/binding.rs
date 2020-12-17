@@ -6,7 +6,7 @@ use crate::translate::*;
 use crate::BindingFlags;
 use std::fmt;
 
-crate::glib_wrapper! {
+crate::wrapper! {
     pub struct Binding(Object<gobject_ffi::GBinding>);
 
     match fn {

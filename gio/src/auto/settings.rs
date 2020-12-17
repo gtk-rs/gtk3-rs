@@ -15,7 +15,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Settings(Object<ffi::GSettings, ffi::GSettingsClass>);
 
     match fn {
@@ -449,7 +449,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn set_boolean(&self, key: &str, value: bool) -> Result<(), glib::error::BoolError> {
         unsafe {
-            glib::glib_result_from_gboolean!(
+            glib::result_from_gboolean!(
                 ffi::g_settings_set_boolean(
                     self.as_ref().to_glib_none().0,
                     key.to_glib_none().0,
@@ -462,7 +462,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn set_double(&self, key: &str, value: f64) -> Result<(), glib::error::BoolError> {
         unsafe {
-            glib::glib_result_from_gboolean!(
+            glib::result_from_gboolean!(
                 ffi::g_settings_set_double(
                     self.as_ref().to_glib_none().0,
                     key.to_glib_none().0,
@@ -475,7 +475,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn set_enum(&self, key: &str, value: i32) -> Result<(), glib::error::BoolError> {
         unsafe {
-            glib::glib_result_from_gboolean!(
+            glib::result_from_gboolean!(
                 ffi::g_settings_set_enum(
                     self.as_ref().to_glib_none().0,
                     key.to_glib_none().0,
@@ -488,7 +488,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn set_flags(&self, key: &str, value: u32) -> Result<(), glib::error::BoolError> {
         unsafe {
-            glib::glib_result_from_gboolean!(
+            glib::result_from_gboolean!(
                 ffi::g_settings_set_flags(
                     self.as_ref().to_glib_none().0,
                     key.to_glib_none().0,
@@ -501,7 +501,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn set_int(&self, key: &str, value: i32) -> Result<(), glib::error::BoolError> {
         unsafe {
-            glib::glib_result_from_gboolean!(
+            glib::result_from_gboolean!(
                 ffi::g_settings_set_int(
                     self.as_ref().to_glib_none().0,
                     key.to_glib_none().0,
@@ -516,7 +516,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     fn set_int64(&self, key: &str, value: i64) -> Result<(), glib::error::BoolError> {
         unsafe {
-            glib::glib_result_from_gboolean!(
+            glib::result_from_gboolean!(
                 ffi::g_settings_set_int64(
                     self.as_ref().to_glib_none().0,
                     key.to_glib_none().0,
@@ -529,7 +529,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn set_string(&self, key: &str, value: &str) -> Result<(), glib::error::BoolError> {
         unsafe {
-            glib::glib_result_from_gboolean!(
+            glib::result_from_gboolean!(
                 ffi::g_settings_set_string(
                     self.as_ref().to_glib_none().0,
                     key.to_glib_none().0,
@@ -542,7 +542,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn set_strv(&self, key: &str, value: &[&str]) -> Result<(), glib::error::BoolError> {
         unsafe {
-            glib::glib_result_from_gboolean!(
+            glib::result_from_gboolean!(
                 ffi::g_settings_set_strv(
                     self.as_ref().to_glib_none().0,
                     key.to_glib_none().0,
@@ -555,7 +555,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn set_uint(&self, key: &str, value: u32) -> Result<(), glib::error::BoolError> {
         unsafe {
-            glib::glib_result_from_gboolean!(
+            glib::result_from_gboolean!(
                 ffi::g_settings_set_uint(
                     self.as_ref().to_glib_none().0,
                     key.to_glib_none().0,
@@ -570,7 +570,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
     fn set_uint64(&self, key: &str, value: u64) -> Result<(), glib::error::BoolError> {
         unsafe {
-            glib::glib_result_from_gboolean!(
+            glib::result_from_gboolean!(
                 ffi::g_settings_set_uint64(
                     self.as_ref().to_glib_none().0,
                     key.to_glib_none().0,
@@ -583,7 +583,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn set_value(&self, key: &str, value: &glib::Variant) -> Result<(), glib::error::BoolError> {
         unsafe {
-            glib::glib_result_from_gboolean!(
+            glib::result_from_gboolean!(
                 ffi::g_settings_set_value(
                     self.as_ref().to_glib_none().0,
                     key.to_glib_none().0,

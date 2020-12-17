@@ -25,7 +25,7 @@ use std::mem;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 use std::ptr;
 
-crate::glib_wrapper! {
+crate::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Uri(Shared<ffi::GUri>);
 

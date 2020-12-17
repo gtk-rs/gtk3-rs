@@ -5,7 +5,7 @@
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct EngineLang(Object<ffi::PangoEngineLang, ffi::PangoEngineLangClass>);
 
     match fn {

@@ -22,7 +22,7 @@ use std::fmt;
 use std::mem;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Layout(Object<ffi::GtkLayout, ffi::GtkLayoutClass>) @extends Container, Widget, @implements Buildable, Scrollable;
 
     match fn {

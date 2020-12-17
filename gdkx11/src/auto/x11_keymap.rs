@@ -5,7 +5,7 @@
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct X11Keymap(Object<ffi::GdkX11Keymap, ffi::GdkX11KeymapClass>) @extends gdk::Keymap;
 
     match fn {

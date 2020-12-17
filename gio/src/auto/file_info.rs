@@ -11,7 +11,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct FileInfo(Object<ffi::GFileInfo, ffi::GFileInfoClass>);
 
     match fn {

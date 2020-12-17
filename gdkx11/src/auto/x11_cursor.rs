@@ -6,7 +6,7 @@ use glib::translate::*;
 use std::fmt;
 use x11::xlib;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct X11Cursor(Object<ffi::GdkX11Cursor, ffi::GdkX11CursorClass>) @extends gdk::Cursor;
 
     match fn {

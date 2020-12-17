@@ -7,7 +7,7 @@ use crate::LoadableIcon;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct BytesIcon(Object<ffi::GBytesIcon>) @implements Icon, LoadableIcon;
 
     match fn {

@@ -23,7 +23,7 @@ use std::fmt;
 use std::mem;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Box(Object<ffi::GtkBox, ffi::GtkBoxClass>) @extends Container, Widget, @implements Buildable, Orientable;
 
     match fn {

@@ -6,7 +6,7 @@ use crate::AttrIterator;
 use crate::Attribute;
 use glib::translate::*;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug)]
     pub struct AttrList(Shared<ffi::PangoAttrList>);
 

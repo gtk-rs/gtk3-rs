@@ -10,7 +10,7 @@ use glib::translate::*;
 use glib::StaticType;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct UnixSocketAddress(Object<ffi::GUnixSocketAddress, ffi::GUnixSocketAddressClass>) @extends SocketAddress, @implements SocketConnectable;
 
     match fn {

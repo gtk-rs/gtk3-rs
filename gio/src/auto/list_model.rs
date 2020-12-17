@@ -21,7 +21,7 @@ use std::fmt;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct ListModel(Interface<ffi::GListModel>);
 
     match fn {

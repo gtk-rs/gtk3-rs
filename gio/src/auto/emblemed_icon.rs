@@ -9,7 +9,7 @@ use glib::translate::*;
 use glib::StaticType;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct EmblemedIcon(Object<ffi::GEmblemedIcon, ffi::GEmblemedIconClass>) @implements Icon;
 
     match fn {

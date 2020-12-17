@@ -15,7 +15,7 @@ use glib::StaticType;
 use glib::ToValue;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Overlay(Object<ffi::GtkOverlay, ffi::GtkOverlayClass>) @extends Bin, Container, Widget, @implements Buildable;
 
     match fn {

@@ -7,7 +7,7 @@ use glib::translate::*;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_38")))]
 use std::mem;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Matrix(Boxed<ffi::PangoMatrix>);
 

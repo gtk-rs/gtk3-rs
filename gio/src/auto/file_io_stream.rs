@@ -13,7 +13,7 @@ use std::fmt;
 use std::pin::Pin;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct FileIOStream(Object<ffi::GFileIOStream, ffi::GFileIOStreamClass>) @extends IOStream, @implements Seekable;
 
     match fn {

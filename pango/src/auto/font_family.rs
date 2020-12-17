@@ -9,7 +9,7 @@ use std::fmt;
 use std::mem;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct FontFamily(Object<ffi::PangoFontFamily, ffi::PangoFontFamilyClass>);
 
     match fn {

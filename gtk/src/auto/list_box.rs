@@ -23,7 +23,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct ListBox(Object<ffi::GtkListBox, ffi::GtkListBoxClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {

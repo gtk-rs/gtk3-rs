@@ -14,7 +14,7 @@ use std::fmt;
 use std::mem::transmute;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct IconTheme(Object<ffi::GtkIconTheme, ffi::GtkIconThemeClass>);
 
     match fn {

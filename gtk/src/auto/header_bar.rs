@@ -19,7 +19,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct HeaderBar(Object<ffi::GtkHeaderBar, ffi::GtkHeaderBarClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {

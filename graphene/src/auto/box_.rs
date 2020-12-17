@@ -7,7 +7,7 @@ use crate::Sphere;
 use crate::Vec3;
 use glib::translate::*;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
     pub struct Box(Boxed<ffi::graphene_box_t>);
 

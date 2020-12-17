@@ -17,7 +17,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Spinner(Object<ffi::GtkSpinner, ffi::GtkSpinnerClass>) @extends Widget, @implements Buildable;
 
     match fn {

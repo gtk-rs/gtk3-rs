@@ -8,7 +8,7 @@ use std::fmt;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 use std::mem;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Color(Boxed<ffi::PangoColor>);
 

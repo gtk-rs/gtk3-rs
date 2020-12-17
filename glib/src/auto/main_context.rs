@@ -4,7 +4,7 @@
 
 use crate::translate::*;
 
-crate::glib_wrapper! {
+crate::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct MainContext(Shared<ffi::GMainContext>);
 

@@ -6,7 +6,7 @@ use glib::translate::*;
 use std::fmt;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Credentials(Object<ffi::GCredentials, ffi::GCredentialsClass>);
 
     match fn {

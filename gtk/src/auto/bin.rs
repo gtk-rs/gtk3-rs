@@ -9,7 +9,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Bin(Object<ffi::GtkBin, ffi::GtkBinClass>) @extends Container, Widget, @implements Buildable;
 
     match fn {

@@ -12,7 +12,7 @@ use std::fmt;
 use std::pin::Pin;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Proxy(Interface<ffi::GProxy>);
 
     match fn {

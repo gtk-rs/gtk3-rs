@@ -19,7 +19,7 @@ use glib::translate::*;
 use std::fmt;
 use std::mem;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct Layout(Object<ffi::PangoLayout, ffi::PangoLayoutClass>);
 
     match fn {

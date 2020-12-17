@@ -25,7 +25,7 @@ use std::mem::transmute;
 use std::pin::Pin;
 use std::ptr;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct SocketClient(Object<ffi::GSocketClient, ffi::GSocketClientClass>);
 
     match fn {

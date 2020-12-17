@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-glib::glib_wrapper! {
+glib::wrapper! {
     #[derive(Debug)]
     pub struct UnixMountEntry(Boxed<ffi::GUnixMountEntry>);
 

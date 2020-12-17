@@ -7,7 +7,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct PollableInputStream(Interface<ffi::GPollableInputStream>) @requires InputStream;
 
     match fn {

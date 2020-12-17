@@ -5,7 +5,7 @@
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct EngineShape(Object<ffi::PangoEngineShape, ffi::PangoEngineShapeClass>);
 
     match fn {

@@ -5,7 +5,7 @@
 use glib::translate::*;
 use std::fmt;
 
-glib::glib_wrapper! {
+glib::wrapper! {
     pub struct X11Visual(Object<ffi::GdkX11Visual, ffi::GdkX11VisualClass>) @extends gdk::Visual;
 
     match fn {
