@@ -282,9 +282,6 @@
 <span id="279">279</span>
 <span id="280">280</span>
 <span id="281">281</span>
-<span id="282">282</span>
-<span id="283">283</span>
-<span id="284">284</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -488,10 +485,7 @@
 <span class="doccomment">//! impl SimpleObject {</span>
 <span class="doccomment">//!     // Create an object instance of the new type.</span>
 <span class="doccomment">//!     pub fn new() -&gt; Self {</span>
-<span class="doccomment">//!         glib::Object::new(Self::static_type(), &amp;[])</span>
-<span class="doccomment">//!             .unwrap()</span>
-<span class="doccomment">//!             .downcast()</span>
-<span class="doccomment">//!             .unwrap()</span>
+<span class="doccomment">//!         glib::Object::new(&amp;[]).unwrap()</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//!</span>

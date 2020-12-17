@@ -570,9 +570,6 @@
 <span id="567">567</span>
 <span id="568">568</span>
 <span id="569">569</span>
-<span id="570">570</span>
-<span id="571">571</span>
-<span id="572">572</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -1125,21 +1122,18 @@
     }
 
     <span class="ident">glib</span>::<span class="macro">glib_wrapper</span><span class="macro">!</span> {
-        <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SimpleApplication</span>(<span class="ident">ObjectSubclass</span><span class="op">&lt;</span><span class="ident">imp</span>::<span class="ident">SimpleApplication</span><span class="op">&gt;</span>);
+        <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SimpleApplication</span>(<span class="ident">ObjectSubclass</span><span class="op">&lt;</span><span class="ident">imp</span>::<span class="ident">SimpleApplication</span><span class="op">&gt;</span>)
+        @<span class="ident">implements</span> <span class="kw">crate</span>::<span class="ident">Application</span>;
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_simple_application</span>() {
-        <span class="kw">let</span> <span class="ident">app</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">Object</span>::<span class="ident">new</span>(
-            <span class="ident">SimpleApplication</span>::<span class="ident">static_type</span>(),
-            <span class="kw-2">&amp;</span>[
-                (<span class="string">&quot;application-id&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;org.gtk-rs.SimpleApplication&quot;</span>),
-                (<span class="string">&quot;flags&quot;</span>, <span class="kw-2">&amp;</span><span class="kw">crate</span>::<span class="ident">ApplicationFlags</span>::<span class="ident">empty</span>()),
-            ],
-        )
+        <span class="kw">let</span> <span class="ident">app</span> <span class="op">=</span> <span class="ident">glib</span>::<span class="ident">Object</span>::<span class="ident">new</span>::<span class="op">&lt;</span><span class="ident">SimpleApplication</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span>[
+            (<span class="string">&quot;application-id&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;org.gtk-rs.SimpleApplication&quot;</span>),
+            (<span class="string">&quot;flags&quot;</span>, <span class="kw-2">&amp;</span><span class="kw">crate</span>::<span class="ident">ApplicationFlags</span>::<span class="ident">empty</span>()),
+        ])
         .<span class="ident">unwrap</span>()
-        .<span class="ident">downcast</span>::<span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">Application</span><span class="op">&gt;</span>()
-        .<span class="ident">unwrap</span>();
+        .<span class="ident">upcast</span>::<span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">Application</span><span class="op">&gt;</span>();
 
         <span class="ident">app</span>.<span class="ident">set_inactivity_timeout</span>(<span class="number">10000</span>);
 
