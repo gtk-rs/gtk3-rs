@@ -15,11 +15,17 @@ use std::mem;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkAlign")]
 pub enum Align {
+    #[doc(alias = "GTK_ALIGN_FILL")]
     Fill,
+    #[doc(alias = "GTK_ALIGN_START")]
     Start,
+    #[doc(alias = "GTK_ALIGN_END")]
     End,
+    #[doc(alias = "GTK_ALIGN_CENTER")]
     Center,
+    #[doc(alias = "GTK_ALIGN_BASELINE")]
     Baseline,
     #[doc(hidden)]
     __Unknown(i32),
@@ -99,11 +105,17 @@ impl SetValue for Align {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkArrowType")]
 pub enum ArrowType {
+    #[doc(alias = "GTK_ARROW_UP")]
     Up,
+    #[doc(alias = "GTK_ARROW_DOWN")]
     Down,
+    #[doc(alias = "GTK_ARROW_LEFT")]
     Left,
+    #[doc(alias = "GTK_ARROW_RIGHT")]
     Right,
+    #[doc(alias = "GTK_ARROW_NONE")]
     None,
     #[doc(hidden)]
     __Unknown(i32),
@@ -183,12 +195,19 @@ impl SetValue for ArrowType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkAssistantPageType")]
 pub enum AssistantPageType {
+    #[doc(alias = "GTK_ASSISTANT_PAGE_CONTENT")]
     Content,
+    #[doc(alias = "GTK_ASSISTANT_PAGE_INTRO")]
     Intro,
+    #[doc(alias = "GTK_ASSISTANT_PAGE_CONFIRM")]
     Confirm,
+    #[doc(alias = "GTK_ASSISTANT_PAGE_SUMMARY")]
     Summary,
+    #[doc(alias = "GTK_ASSISTANT_PAGE_PROGRESS")]
     Progress,
+    #[doc(alias = "GTK_ASSISTANT_PAGE_CUSTOM")]
     Custom,
     #[doc(hidden)]
     __Unknown(i32),
@@ -271,9 +290,13 @@ impl SetValue for AssistantPageType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkBaselinePosition")]
 pub enum BaselinePosition {
+    #[doc(alias = "GTK_BASELINE_POSITION_TOP")]
     Top,
+    #[doc(alias = "GTK_BASELINE_POSITION_CENTER")]
     Center,
+    #[doc(alias = "GTK_BASELINE_POSITION_BOTTOM")]
     Bottom,
     #[doc(hidden)]
     __Unknown(i32),
@@ -347,16 +370,27 @@ impl SetValue for BaselinePosition {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkBorderStyle")]
 pub enum BorderStyle {
+    #[doc(alias = "GTK_BORDER_STYLE_NONE")]
     None,
+    #[doc(alias = "GTK_BORDER_STYLE_SOLID")]
     Solid,
+    #[doc(alias = "GTK_BORDER_STYLE_INSET")]
     Inset,
+    #[doc(alias = "GTK_BORDER_STYLE_OUTSET")]
     Outset,
+    #[doc(alias = "GTK_BORDER_STYLE_HIDDEN")]
     Hidden,
+    #[doc(alias = "GTK_BORDER_STYLE_DOTTED")]
     Dotted,
+    #[doc(alias = "GTK_BORDER_STYLE_DASHED")]
     Dashed,
+    #[doc(alias = "GTK_BORDER_STYLE_DOUBLE")]
     Double,
+    #[doc(alias = "GTK_BORDER_STYLE_GROOVE")]
     Groove,
+    #[doc(alias = "GTK_BORDER_STYLE_RIDGE")]
     Ridge,
     #[doc(hidden)]
     __Unknown(i32),
@@ -451,20 +485,35 @@ impl SetValue for BorderStyle {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkBuilderError")]
 pub enum BuilderError {
+    #[doc(alias = "GTK_BUILDER_ERROR_INVALID_TYPE_FUNCTION")]
     InvalidTypeFunction,
+    #[doc(alias = "GTK_BUILDER_ERROR_UNHANDLED_TAG")]
     UnhandledTag,
+    #[doc(alias = "GTK_BUILDER_ERROR_MISSING_ATTRIBUTE")]
     MissingAttribute,
+    #[doc(alias = "GTK_BUILDER_ERROR_INVALID_ATTRIBUTE")]
     InvalidAttribute,
+    #[doc(alias = "GTK_BUILDER_ERROR_INVALID_TAG")]
     InvalidTag,
+    #[doc(alias = "GTK_BUILDER_ERROR_MISSING_PROPERTY_VALUE")]
     MissingPropertyValue,
+    #[doc(alias = "GTK_BUILDER_ERROR_INVALID_VALUE")]
     InvalidValue,
+    #[doc(alias = "GTK_BUILDER_ERROR_VERSION_MISMATCH")]
     VersionMismatch,
+    #[doc(alias = "GTK_BUILDER_ERROR_DUPLICATE_ID")]
     DuplicateId,
+    #[doc(alias = "GTK_BUILDER_ERROR_OBJECT_TYPE_REFUSED")]
     ObjectTypeRefused,
+    #[doc(alias = "GTK_BUILDER_ERROR_TEMPLATE_MISMATCH")]
     TemplateMismatch,
+    #[doc(alias = "GTK_BUILDER_ERROR_INVALID_PROPERTY")]
     InvalidProperty,
+    #[doc(alias = "GTK_BUILDER_ERROR_INVALID_SIGNAL")]
     InvalidSignal,
+    #[doc(alias = "GTK_BUILDER_ERROR_INVALID_ID")]
     InvalidId,
     #[doc(hidden)]
     __Unknown(i32),
@@ -604,12 +653,19 @@ impl SetValue for BuilderError {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkButtonBoxStyle")]
 pub enum ButtonBoxStyle {
+    #[doc(alias = "GTK_BUTTONBOX_SPREAD")]
     Spread,
+    #[doc(alias = "GTK_BUTTONBOX_EDGE")]
     Edge,
+    #[doc(alias = "GTK_BUTTONBOX_START")]
     Start,
+    #[doc(alias = "GTK_BUTTONBOX_END")]
     End,
+    #[doc(alias = "GTK_BUTTONBOX_CENTER")]
     Center,
+    #[doc(alias = "GTK_BUTTONBOX_EXPAND")]
     Expand,
     #[doc(hidden)]
     __Unknown(i32),
@@ -694,9 +750,13 @@ impl SetValue for ButtonBoxStyle {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkButtonRole")]
 pub enum ButtonRole {
+    #[doc(alias = "GTK_BUTTON_ROLE_NORMAL")]
     Normal,
+    #[doc(alias = "GTK_BUTTON_ROLE_CHECK")]
     Check,
+    #[doc(alias = "GTK_BUTTON_ROLE_RADIO")]
     Radio,
     #[doc(hidden)]
     __Unknown(i32),
@@ -784,12 +844,19 @@ impl SetValue for ButtonRole {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkButtonsType")]
 pub enum ButtonsType {
+    #[doc(alias = "GTK_BUTTONS_NONE")]
     None,
+    #[doc(alias = "GTK_BUTTONS_OK")]
     Ok,
+    #[doc(alias = "GTK_BUTTONS_CLOSE")]
     Close,
+    #[doc(alias = "GTK_BUTTONS_CANCEL")]
     Cancel,
+    #[doc(alias = "GTK_BUTTONS_YES_NO")]
     YesNo,
+    #[doc(alias = "GTK_BUTTONS_OK_CANCEL")]
     OkCancel,
     #[doc(hidden)]
     __Unknown(i32),
@@ -872,9 +939,13 @@ impl SetValue for ButtonsType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkCellRendererAccelMode")]
 pub enum CellRendererAccelMode {
+    #[doc(alias = "GTK_CELL_RENDERER_ACCEL_MODE_GTK")]
     Gtk,
+    #[doc(alias = "GTK_CELL_RENDERER_ACCEL_MODE_OTHER")]
     Other,
+    #[doc(alias = "GTK_CELL_RENDERER_ACCEL_MODE_MODIFIER_TAP")]
     ModifierTap,
     #[doc(hidden)]
     __Unknown(i32),
@@ -948,9 +1019,13 @@ impl SetValue for CellRendererAccelMode {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkCellRendererMode")]
 pub enum CellRendererMode {
+    #[doc(alias = "GTK_CELL_RENDERER_MODE_INERT")]
     Inert,
+    #[doc(alias = "GTK_CELL_RENDERER_MODE_ACTIVATABLE")]
     Activatable,
+    #[doc(alias = "GTK_CELL_RENDERER_MODE_EDITABLE")]
     Editable,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1024,10 +1099,15 @@ impl SetValue for CellRendererMode {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkCornerType")]
 pub enum CornerType {
+    #[doc(alias = "GTK_CORNER_TOP_LEFT")]
     TopLeft,
+    #[doc(alias = "GTK_CORNER_BOTTOM_LEFT")]
     BottomLeft,
+    #[doc(alias = "GTK_CORNER_TOP_RIGHT")]
     TopRight,
+    #[doc(alias = "GTK_CORNER_BOTTOM_RIGHT")]
     BottomRight,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1104,12 +1184,19 @@ impl SetValue for CornerType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkCssProviderError")]
 pub enum CssProviderError {
+    #[doc(alias = "GTK_CSS_PROVIDER_ERROR_FAILED")]
     Failed,
+    #[doc(alias = "GTK_CSS_PROVIDER_ERROR_SYNTAX")]
     Syntax,
+    #[doc(alias = "GTK_CSS_PROVIDER_ERROR_IMPORT")]
     Import,
+    #[doc(alias = "GTK_CSS_PROVIDER_ERROR_NAME")]
     Name,
+    #[doc(alias = "GTK_CSS_PROVIDER_ERROR_DEPRECATED")]
     Deprecated,
+    #[doc(alias = "GTK_CSS_PROVIDER_ERROR_UNKNOWN_VALUE")]
     UnknownValue,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1217,15 +1304,25 @@ impl SetValue for CssProviderError {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkCssSectionType")]
 pub enum CssSectionType {
+    #[doc(alias = "GTK_CSS_SECTION_DOCUMENT")]
     Document,
+    #[doc(alias = "GTK_CSS_SECTION_IMPORT")]
     Import,
+    #[doc(alias = "GTK_CSS_SECTION_COLOR_DEFINITION")]
     ColorDefinition,
+    #[doc(alias = "GTK_CSS_SECTION_BINDING_SET")]
     BindingSet,
+    #[doc(alias = "GTK_CSS_SECTION_RULESET")]
     Ruleset,
+    #[doc(alias = "GTK_CSS_SECTION_SELECTOR")]
     Selector,
+    #[doc(alias = "GTK_CSS_SECTION_DECLARATION")]
     Declaration,
+    #[doc(alias = "GTK_CSS_SECTION_VALUE")]
     Value,
+    #[doc(alias = "GTK_CSS_SECTION_KEYFRAMES")]
     Keyframes,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1317,14 +1414,23 @@ impl SetValue for CssSectionType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkDeleteType")]
 pub enum DeleteType {
+    #[doc(alias = "GTK_DELETE_CHARS")]
     Chars,
+    #[doc(alias = "GTK_DELETE_WORD_ENDS")]
     WordEnds,
+    #[doc(alias = "GTK_DELETE_WORDS")]
     Words,
+    #[doc(alias = "GTK_DELETE_DISPLAY_LINES")]
     DisplayLines,
+    #[doc(alias = "GTK_DELETE_DISPLAY_LINE_ENDS")]
     DisplayLineEnds,
+    #[doc(alias = "GTK_DELETE_PARAGRAPH_ENDS")]
     ParagraphEnds,
+    #[doc(alias = "GTK_DELETE_PARAGRAPHS")]
     Paragraphs,
+    #[doc(alias = "GTK_DELETE_WHITESPACE")]
     Whitespace,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1413,12 +1519,19 @@ impl SetValue for DeleteType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkDirectionType")]
 pub enum DirectionType {
+    #[doc(alias = "GTK_DIR_TAB_FORWARD")]
     TabForward,
+    #[doc(alias = "GTK_DIR_TAB_BACKWARD")]
     TabBackward,
+    #[doc(alias = "GTK_DIR_UP")]
     Up,
+    #[doc(alias = "GTK_DIR_DOWN")]
     Down,
+    #[doc(alias = "GTK_DIR_LEFT")]
     Left,
+    #[doc(alias = "GTK_DIR_RIGHT")]
     Right,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1501,12 +1614,19 @@ impl SetValue for DirectionType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkDragResult")]
 pub enum DragResult {
+    #[doc(alias = "GTK_DRAG_RESULT_SUCCESS")]
     Success,
+    #[doc(alias = "GTK_DRAG_RESULT_NO_TARGET")]
     NoTarget,
+    #[doc(alias = "GTK_DRAG_RESULT_USER_CANCELLED")]
     UserCancelled,
+    #[doc(alias = "GTK_DRAG_RESULT_TIMEOUT_EXPIRED")]
     TimeoutExpired,
+    #[doc(alias = "GTK_DRAG_RESULT_GRAB_BROKEN")]
     GrabBroken,
+    #[doc(alias = "GTK_DRAG_RESULT_ERROR")]
     Error,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1589,8 +1709,11 @@ impl SetValue for DragResult {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkEntryIconPosition")]
 pub enum EntryIconPosition {
+    #[doc(alias = "GTK_ENTRY_ICON_PRIMARY")]
     Primary,
+    #[doc(alias = "GTK_ENTRY_ICON_SECONDARY")]
     Secondary,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1661,9 +1784,13 @@ impl SetValue for EntryIconPosition {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkEventSequenceState")]
 pub enum EventSequenceState {
+    #[doc(alias = "GTK_EVENT_SEQUENCE_NONE")]
     None,
+    #[doc(alias = "GTK_EVENT_SEQUENCE_CLAIMED")]
     Claimed,
+    #[doc(alias = "GTK_EVENT_SEQUENCE_DENIED")]
     Denied,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1737,10 +1864,15 @@ impl SetValue for EventSequenceState {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkFileChooserAction")]
 pub enum FileChooserAction {
+    #[doc(alias = "GTK_FILE_CHOOSER_ACTION_OPEN")]
     Open,
+    #[doc(alias = "GTK_FILE_CHOOSER_ACTION_SAVE")]
     Save,
+    #[doc(alias = "GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER")]
     SelectFolder,
+    #[doc(alias = "GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER")]
     CreateFolder,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1817,9 +1949,13 @@ impl SetValue for FileChooserAction {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkFileChooserConfirmation")]
 pub enum FileChooserConfirmation {
+    #[doc(alias = "GTK_FILE_CHOOSER_CONFIRMATION_CONFIRM")]
     Confirm,
+    #[doc(alias = "GTK_FILE_CHOOSER_CONFIRMATION_ACCEPT_FILENAME")]
     AcceptFilename,
+    #[doc(alias = "GTK_FILE_CHOOSER_CONFIRMATION_SELECT_AGAIN")]
     SelectAgain,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1895,10 +2031,15 @@ impl SetValue for FileChooserConfirmation {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkFileChooserError")]
 pub enum FileChooserError {
+    #[doc(alias = "GTK_FILE_CHOOSER_ERROR_NONEXISTENT")]
     Nonexistent,
+    #[doc(alias = "GTK_FILE_CHOOSER_ERROR_BAD_FILENAME")]
     BadFilename,
+    #[doc(alias = "GTK_FILE_CHOOSER_ERROR_ALREADY_EXISTS")]
     AlreadyExists,
+    #[doc(alias = "GTK_FILE_CHOOSER_ERROR_INCOMPLETE_HOSTNAME")]
     IncompleteHostname,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1999,9 +2140,13 @@ impl SetValue for FileChooserError {
 #[deprecated]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkIMPreeditStyle")]
 pub enum IMPreeditStyle {
+    #[doc(alias = "GTK_IM_PREEDIT_NOTHING")]
     Nothing,
+    #[doc(alias = "GTK_IM_PREEDIT_CALLBACK")]
     Callback,
+    #[doc(alias = "GTK_IM_PREEDIT_NONE")]
     None,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2076,9 +2221,13 @@ impl SetValue for IMPreeditStyle {
 #[deprecated]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkIMStatusStyle")]
 pub enum IMStatusStyle {
+    #[doc(alias = "GTK_IM_STATUS_NOTHING")]
     Nothing,
+    #[doc(alias = "GTK_IM_STATUS_CALLBACK")]
     Callback,
+    #[doc(alias = "GTK_IM_STATUS_NONE")]
     None,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2152,13 +2301,21 @@ impl SetValue for IMStatusStyle {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkIconSize")]
 pub enum IconSize {
+    #[doc(alias = "GTK_ICON_SIZE_INVALID")]
     Invalid,
+    #[doc(alias = "GTK_ICON_SIZE_MENU")]
     Menu,
+    #[doc(alias = "GTK_ICON_SIZE_SMALL_TOOLBAR")]
     SmallToolbar,
+    #[doc(alias = "GTK_ICON_SIZE_LARGE_TOOLBAR")]
     LargeToolbar,
+    #[doc(alias = "GTK_ICON_SIZE_BUTTON")]
     Button,
+    #[doc(alias = "GTK_ICON_SIZE_DND")]
     Dnd,
+    #[doc(alias = "GTK_ICON_SIZE_DIALOG")]
     Dialog,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2267,8 +2424,11 @@ impl SetValue for IconSize {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkIconThemeError")]
 pub enum IconThemeError {
+    #[doc(alias = "GTK_ICON_THEME_NOT_FOUND")]
     NotFound,
+    #[doc(alias = "GTK_ICON_THEME_FAILED")]
     Failed,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2360,12 +2520,19 @@ impl SetValue for IconThemeError {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkIconViewDropPosition")]
 pub enum IconViewDropPosition {
+    #[doc(alias = "GTK_ICON_VIEW_NO_DROP")]
     NoDrop,
+    #[doc(alias = "GTK_ICON_VIEW_DROP_INTO")]
     DropInto,
+    #[doc(alias = "GTK_ICON_VIEW_DROP_LEFT")]
     DropLeft,
+    #[doc(alias = "GTK_ICON_VIEW_DROP_RIGHT")]
     DropRight,
+    #[doc(alias = "GTK_ICON_VIEW_DROP_ABOVE")]
     DropAbove,
+    #[doc(alias = "GTK_ICON_VIEW_DROP_BELOW")]
     DropBelow,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2448,14 +2615,23 @@ impl SetValue for IconViewDropPosition {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkImageType")]
 pub enum ImageType {
+    #[doc(alias = "GTK_IMAGE_EMPTY")]
     Empty,
+    #[doc(alias = "GTK_IMAGE_PIXBUF")]
     Pixbuf,
+    #[doc(alias = "GTK_IMAGE_STOCK")]
     Stock,
+    #[doc(alias = "GTK_IMAGE_ICON_SET")]
     IconSet,
+    #[doc(alias = "GTK_IMAGE_ANIMATION")]
     Animation,
+    #[doc(alias = "GTK_IMAGE_ICON_NAME")]
     IconName,
+    #[doc(alias = "GTK_IMAGE_GICON")]
     Gicon,
+    #[doc(alias = "GTK_IMAGE_SURFACE")]
     Surface,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2544,17 +2720,29 @@ impl SetValue for ImageType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkInputPurpose")]
 pub enum InputPurpose {
+    #[doc(alias = "GTK_INPUT_PURPOSE_FREE_FORM")]
     FreeForm,
+    #[doc(alias = "GTK_INPUT_PURPOSE_ALPHA")]
     Alpha,
+    #[doc(alias = "GTK_INPUT_PURPOSE_DIGITS")]
     Digits,
+    #[doc(alias = "GTK_INPUT_PURPOSE_NUMBER")]
     Number,
+    #[doc(alias = "GTK_INPUT_PURPOSE_PHONE")]
     Phone,
+    #[doc(alias = "GTK_INPUT_PURPOSE_URL")]
     Url,
+    #[doc(alias = "GTK_INPUT_PURPOSE_EMAIL")]
     Email,
+    #[doc(alias = "GTK_INPUT_PURPOSE_NAME")]
     Name,
+    #[doc(alias = "GTK_INPUT_PURPOSE_PASSWORD")]
     Password,
+    #[doc(alias = "GTK_INPUT_PURPOSE_PIN")]
     Pin,
+    #[doc(alias = "GTK_INPUT_PURPOSE_TERMINAL")]
     Terminal,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2652,10 +2840,15 @@ impl SetValue for InputPurpose {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkJustification")]
 pub enum Justification {
+    #[doc(alias = "GTK_JUSTIFY_LEFT")]
     Left,
+    #[doc(alias = "GTK_JUSTIFY_RIGHT")]
     Right,
+    #[doc(alias = "GTK_JUSTIFY_CENTER")]
     Center,
+    #[doc(alias = "GTK_JUSTIFY_FILL")]
     Fill,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2732,8 +2925,11 @@ impl SetValue for Justification {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkLevelBarMode")]
 pub enum LevelBarMode {
+    #[doc(alias = "GTK_LEVEL_BAR_MODE_CONTINUOUS")]
     Continuous,
+    #[doc(alias = "GTK_LEVEL_BAR_MODE_DISCRETE")]
     Discrete,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2804,24 +3000,43 @@ impl SetValue for LevelBarMode {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkLicense")]
 pub enum License {
+    #[doc(alias = "GTK_LICENSE_UNKNOWN")]
     Unknown,
+    #[doc(alias = "GTK_LICENSE_CUSTOM")]
     Custom,
+    #[doc(alias = "GTK_LICENSE_GPL_2_0")]
     Gpl20,
+    #[doc(alias = "GTK_LICENSE_GPL_3_0")]
     Gpl30,
+    #[doc(alias = "GTK_LICENSE_LGPL_2_1")]
     Lgpl21,
+    #[doc(alias = "GTK_LICENSE_LGPL_3_0")]
     Lgpl30,
+    #[doc(alias = "GTK_LICENSE_BSD")]
     Bsd,
+    #[doc(alias = "GTK_LICENSE_MIT_X11")]
     MitX11,
+    #[doc(alias = "GTK_LICENSE_ARTISTIC")]
     Artistic,
+    #[doc(alias = "GTK_LICENSE_GPL_2_0_ONLY")]
     Gpl20Only,
+    #[doc(alias = "GTK_LICENSE_GPL_3_0_ONLY")]
     Gpl30Only,
+    #[doc(alias = "GTK_LICENSE_LGPL_2_1_ONLY")]
     Lgpl21Only,
+    #[doc(alias = "GTK_LICENSE_LGPL_3_0_ONLY")]
     Lgpl30Only,
+    #[doc(alias = "GTK_LICENSE_AGPL_3_0")]
     Agpl30,
+    #[doc(alias = "GTK_LICENSE_AGPL_3_0_ONLY")]
     Agpl30Only,
+    #[doc(alias = "GTK_LICENSE_BSD_3")]
     Bsd3,
+    #[doc(alias = "GTK_LICENSE_APACHE_2_0")]
     Apache20,
+    #[doc(alias = "GTK_LICENSE_MPL_2_0")]
     Mpl20,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2940,10 +3155,15 @@ impl SetValue for License {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkMenuDirectionType")]
 pub enum MenuDirectionType {
+    #[doc(alias = "GTK_MENU_DIR_PARENT")]
     Parent,
+    #[doc(alias = "GTK_MENU_DIR_CHILD")]
     Child,
+    #[doc(alias = "GTK_MENU_DIR_NEXT")]
     Next,
+    #[doc(alias = "GTK_MENU_DIR_PREV")]
     Prev,
     #[doc(hidden)]
     __Unknown(i32),
@@ -3020,11 +3240,17 @@ impl SetValue for MenuDirectionType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkMessageType")]
 pub enum MessageType {
+    #[doc(alias = "GTK_MESSAGE_INFO")]
     Info,
+    #[doc(alias = "GTK_MESSAGE_WARNING")]
     Warning,
+    #[doc(alias = "GTK_MESSAGE_QUESTION")]
     Question,
+    #[doc(alias = "GTK_MESSAGE_ERROR")]
     Error,
+    #[doc(alias = "GTK_MESSAGE_OTHER")]
     Other,
     #[doc(hidden)]
     __Unknown(i32),
@@ -3104,16 +3330,27 @@ impl SetValue for MessageType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkMovementStep")]
 pub enum MovementStep {
+    #[doc(alias = "GTK_MOVEMENT_LOGICAL_POSITIONS")]
     LogicalPositions,
+    #[doc(alias = "GTK_MOVEMENT_VISUAL_POSITIONS")]
     VisualPositions,
+    #[doc(alias = "GTK_MOVEMENT_WORDS")]
     Words,
+    #[doc(alias = "GTK_MOVEMENT_DISPLAY_LINES")]
     DisplayLines,
+    #[doc(alias = "GTK_MOVEMENT_DISPLAY_LINE_ENDS")]
     DisplayLineEnds,
+    #[doc(alias = "GTK_MOVEMENT_PARAGRAPHS")]
     Paragraphs,
+    #[doc(alias = "GTK_MOVEMENT_PARAGRAPH_ENDS")]
     ParagraphEnds,
+    #[doc(alias = "GTK_MOVEMENT_PAGES")]
     Pages,
+    #[doc(alias = "GTK_MOVEMENT_BUFFER_ENDS")]
     BufferEnds,
+    #[doc(alias = "GTK_MOVEMENT_HORIZONTAL_PAGES")]
     HorizontalPages,
     #[doc(hidden)]
     __Unknown(i32),
@@ -3208,8 +3445,11 @@ impl SetValue for MovementStep {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkNotebookTab")]
 pub enum NotebookTab {
+    #[doc(alias = "GTK_NOTEBOOK_TAB_FIRST")]
     First,
+    #[doc(alias = "GTK_NOTEBOOK_TAB_LAST")]
     Last,
     #[doc(hidden)]
     __Unknown(i32),
@@ -3280,14 +3520,23 @@ impl SetValue for NotebookTab {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkNumberUpLayout")]
 pub enum NumberUpLayout {
+    #[doc(alias = "GTK_NUMBER_UP_LAYOUT_LEFT_TO_RIGHT_TOP_TO_BOTTOM")]
     Lrtb,
+    #[doc(alias = "GTK_NUMBER_UP_LAYOUT_LEFT_TO_RIGHT_BOTTOM_TO_TOP")]
     Lrbt,
+    #[doc(alias = "GTK_NUMBER_UP_LAYOUT_RIGHT_TO_LEFT_TOP_TO_BOTTOM")]
     Rltb,
+    #[doc(alias = "GTK_NUMBER_UP_LAYOUT_RIGHT_TO_LEFT_BOTTOM_TO_TOP")]
     Rlbt,
+    #[doc(alias = "GTK_NUMBER_UP_LAYOUT_TOP_TO_BOTTOM_LEFT_TO_RIGHT")]
     Tblr,
+    #[doc(alias = "GTK_NUMBER_UP_LAYOUT_TOP_TO_BOTTOM_RIGHT_TO_LEFT")]
     Tbrl,
+    #[doc(alias = "GTK_NUMBER_UP_LAYOUT_BOTTOM_TO_TOP_LEFT_TO_RIGHT")]
     Btlr,
+    #[doc(alias = "GTK_NUMBER_UP_LAYOUT_BOTTOM_TO_TOP_RIGHT_TO_LEFT")]
     Btrl,
     #[doc(hidden)]
     __Unknown(i32),
@@ -3376,8 +3625,11 @@ impl SetValue for NumberUpLayout {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkOrientation")]
 pub enum Orientation {
+    #[doc(alias = "GTK_ORIENTATION_HORIZONTAL")]
     Horizontal,
+    #[doc(alias = "GTK_ORIENTATION_VERTICAL")]
     Vertical,
     #[doc(hidden)]
     __Unknown(i32),
@@ -3448,10 +3700,15 @@ impl SetValue for Orientation {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPackDirection")]
 pub enum PackDirection {
+    #[doc(alias = "GTK_PACK_DIRECTION_LTR")]
     Ltr,
+    #[doc(alias = "GTK_PACK_DIRECTION_RTL")]
     Rtl,
+    #[doc(alias = "GTK_PACK_DIRECTION_TTB")]
     Ttb,
+    #[doc(alias = "GTK_PACK_DIRECTION_BTT")]
     Btt,
     #[doc(hidden)]
     __Unknown(i32),
@@ -3528,8 +3785,11 @@ impl SetValue for PackDirection {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPackType")]
 pub enum PackType {
+    #[doc(alias = "GTK_PACK_START")]
     Start,
+    #[doc(alias = "GTK_PACK_END")]
     End,
     #[doc(hidden)]
     __Unknown(i32),
@@ -3602,9 +3862,13 @@ impl SetValue for PackType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPadActionType")]
 pub enum PadActionType {
+    #[doc(alias = "GTK_PAD_ACTION_BUTTON")]
     Button,
+    #[doc(alias = "GTK_PAD_ACTION_RING")]
     Ring,
+    #[doc(alias = "GTK_PAD_ACTION_STRIP")]
     Strip,
     #[doc(hidden)]
     __Unknown(i32),
@@ -3692,10 +3956,15 @@ impl SetValue for PadActionType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPageOrientation")]
 pub enum PageOrientation {
+    #[doc(alias = "GTK_PAGE_ORIENTATION_PORTRAIT")]
     Portrait,
+    #[doc(alias = "GTK_PAGE_ORIENTATION_LANDSCAPE")]
     Landscape,
+    #[doc(alias = "GTK_PAGE_ORIENTATION_REVERSE_PORTRAIT")]
     ReversePortrait,
+    #[doc(alias = "GTK_PAGE_ORIENTATION_REVERSE_LANDSCAPE")]
     ReverseLandscape,
     #[doc(hidden)]
     __Unknown(i32),
@@ -3772,9 +4041,13 @@ impl SetValue for PageOrientation {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPageSet")]
 pub enum PageSet {
+    #[doc(alias = "GTK_PAGE_SET_ALL")]
     All,
+    #[doc(alias = "GTK_PAGE_SET_EVEN")]
     Even,
+    #[doc(alias = "GTK_PAGE_SET_ODD")]
     Odd,
     #[doc(hidden)]
     __Unknown(i32),
@@ -3848,10 +4121,15 @@ impl SetValue for PageSet {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPanDirection")]
 pub enum PanDirection {
+    #[doc(alias = "GTK_PAN_DIRECTION_LEFT")]
     Left,
+    #[doc(alias = "GTK_PAN_DIRECTION_RIGHT")]
     Right,
+    #[doc(alias = "GTK_PAN_DIRECTION_UP")]
     Up,
+    #[doc(alias = "GTK_PAN_DIRECTION_DOWN")]
     Down,
     #[doc(hidden)]
     __Unknown(i32),
@@ -3928,10 +4206,15 @@ impl SetValue for PanDirection {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPolicyType")]
 pub enum PolicyType {
+    #[doc(alias = "GTK_POLICY_ALWAYS")]
     Always,
+    #[doc(alias = "GTK_POLICY_AUTOMATIC")]
     Automatic,
+    #[doc(alias = "GTK_POLICY_NEVER")]
     Never,
+    #[doc(alias = "GTK_POLICY_EXTERNAL")]
     External,
     #[doc(hidden)]
     __Unknown(i32),
@@ -4010,8 +4293,11 @@ impl SetValue for PolicyType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPopoverConstraint")]
 pub enum PopoverConstraint {
+    #[doc(alias = "GTK_POPOVER_CONSTRAINT_NONE")]
     None,
+    #[doc(alias = "GTK_POPOVER_CONSTRAINT_WINDOW")]
     Window,
     #[doc(hidden)]
     __Unknown(i32),
@@ -4096,10 +4382,15 @@ impl SetValue for PopoverConstraint {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPositionType")]
 pub enum PositionType {
+    #[doc(alias = "GTK_POS_LEFT")]
     Left,
+    #[doc(alias = "GTK_POS_RIGHT")]
     Right,
+    #[doc(alias = "GTK_POS_TOP")]
     Top,
+    #[doc(alias = "GTK_POS_BOTTOM")]
     Bottom,
     #[doc(hidden)]
     __Unknown(i32),
@@ -4176,9 +4467,13 @@ impl SetValue for PositionType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPrintDuplex")]
 pub enum PrintDuplex {
+    #[doc(alias = "GTK_PRINT_DUPLEX_SIMPLEX")]
     Simplex,
+    #[doc(alias = "GTK_PRINT_DUPLEX_HORIZONTAL")]
     Horizontal,
+    #[doc(alias = "GTK_PRINT_DUPLEX_VERTICAL")]
     Vertical,
     #[doc(hidden)]
     __Unknown(i32),
@@ -4252,10 +4547,15 @@ impl SetValue for PrintDuplex {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPrintError")]
 pub enum PrintError {
+    #[doc(alias = "GTK_PRINT_ERROR_GENERAL")]
     General,
+    #[doc(alias = "GTK_PRINT_ERROR_INTERNAL_ERROR")]
     InternalError,
+    #[doc(alias = "GTK_PRINT_ERROR_NOMEM")]
     Nomem,
+    #[doc(alias = "GTK_PRINT_ERROR_INVALID_FILE")]
     InvalidFile,
     #[doc(hidden)]
     __Unknown(i32),
@@ -4355,10 +4655,15 @@ impl SetValue for PrintError {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPrintOperationAction")]
 pub enum PrintOperationAction {
+    #[doc(alias = "GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG")]
     PrintDialog,
+    #[doc(alias = "GTK_PRINT_OPERATION_ACTION_PRINT")]
     Print,
+    #[doc(alias = "GTK_PRINT_OPERATION_ACTION_PREVIEW")]
     Preview,
+    #[doc(alias = "GTK_PRINT_OPERATION_ACTION_EXPORT")]
     Export,
     #[doc(hidden)]
     __Unknown(i32),
@@ -4435,10 +4740,15 @@ impl SetValue for PrintOperationAction {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPrintOperationResult")]
 pub enum PrintOperationResult {
+    #[doc(alias = "GTK_PRINT_OPERATION_RESULT_ERROR")]
     Error,
+    #[doc(alias = "GTK_PRINT_OPERATION_RESULT_APPLY")]
     Apply,
+    #[doc(alias = "GTK_PRINT_OPERATION_RESULT_CANCEL")]
     Cancel,
+    #[doc(alias = "GTK_PRINT_OPERATION_RESULT_IN_PROGRESS")]
     InProgress,
     #[doc(hidden)]
     __Unknown(i32),
@@ -4515,10 +4825,15 @@ impl SetValue for PrintOperationResult {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPrintPages")]
 pub enum PrintPages {
+    #[doc(alias = "GTK_PRINT_PAGES_ALL")]
     All,
+    #[doc(alias = "GTK_PRINT_PAGES_CURRENT")]
     Current,
+    #[doc(alias = "GTK_PRINT_PAGES_RANGES")]
     Ranges,
+    #[doc(alias = "GTK_PRINT_PAGES_SELECTION")]
     Selection,
     #[doc(hidden)]
     __Unknown(i32),
@@ -4595,10 +4910,15 @@ impl SetValue for PrintPages {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPrintQuality")]
 pub enum PrintQuality {
+    #[doc(alias = "GTK_PRINT_QUALITY_LOW")]
     Low,
+    #[doc(alias = "GTK_PRINT_QUALITY_NORMAL")]
     Normal,
+    #[doc(alias = "GTK_PRINT_QUALITY_HIGH")]
     High,
+    #[doc(alias = "GTK_PRINT_QUALITY_DRAFT")]
     Draft,
     #[doc(hidden)]
     __Unknown(i32),
@@ -4675,15 +4995,25 @@ impl SetValue for PrintQuality {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPrintStatus")]
 pub enum PrintStatus {
+    #[doc(alias = "GTK_PRINT_STATUS_INITIAL")]
     Initial,
+    #[doc(alias = "GTK_PRINT_STATUS_PREPARING")]
     Preparing,
+    #[doc(alias = "GTK_PRINT_STATUS_GENERATING_DATA")]
     GeneratingData,
+    #[doc(alias = "GTK_PRINT_STATUS_SENDING_DATA")]
     SendingData,
+    #[doc(alias = "GTK_PRINT_STATUS_PENDING")]
     Pending,
+    #[doc(alias = "GTK_PRINT_STATUS_PENDING_ISSUE")]
     PendingIssue,
+    #[doc(alias = "GTK_PRINT_STATUS_PRINTING")]
     Printing,
+    #[doc(alias = "GTK_PRINT_STATUS_FINISHED")]
     Finished,
+    #[doc(alias = "GTK_PRINT_STATUS_FINISHED_ABORTED")]
     FinishedAborted,
     #[doc(hidden)]
     __Unknown(i32),
@@ -4775,10 +5105,15 @@ impl SetValue for PrintStatus {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkPropagationPhase")]
 pub enum PropagationPhase {
+    #[doc(alias = "GTK_PHASE_NONE")]
     None,
+    #[doc(alias = "GTK_PHASE_CAPTURE")]
     Capture,
+    #[doc(alias = "GTK_PHASE_BUBBLE")]
     Bubble,
+    #[doc(alias = "GTK_PHASE_TARGET")]
     Target,
     #[doc(hidden)]
     __Unknown(i32),
@@ -4855,8 +5190,11 @@ impl SetValue for PropagationPhase {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkRecentChooserError")]
 pub enum RecentChooserError {
+    #[doc(alias = "GTK_RECENT_CHOOSER_ERROR_NOT_FOUND")]
     NotFound,
+    #[doc(alias = "GTK_RECENT_CHOOSER_ERROR_INVALID_URI")]
     InvalidUri,
     #[doc(hidden)]
     __Unknown(i32),
@@ -4948,13 +5286,21 @@ impl SetValue for RecentChooserError {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkRecentManagerError")]
 pub enum RecentManagerError {
+    #[doc(alias = "GTK_RECENT_MANAGER_ERROR_NOT_FOUND")]
     NotFound,
+    #[doc(alias = "GTK_RECENT_MANAGER_ERROR_INVALID_URI")]
     InvalidUri,
+    #[doc(alias = "GTK_RECENT_MANAGER_ERROR_INVALID_ENCODING")]
     InvalidEncoding,
+    #[doc(alias = "GTK_RECENT_MANAGER_ERROR_NOT_REGISTERED")]
     NotRegistered,
+    #[doc(alias = "GTK_RECENT_MANAGER_ERROR_READ")]
     Read,
+    #[doc(alias = "GTK_RECENT_MANAGER_ERROR_WRITE")]
     Write,
+    #[doc(alias = "GTK_RECENT_MANAGER_ERROR_UNKNOWN")]
     Unknown,
     #[doc(hidden)]
     __Unknown(i32),
@@ -5066,10 +5412,15 @@ impl SetValue for RecentManagerError {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkRecentSortType")]
 pub enum RecentSortType {
+    #[doc(alias = "GTK_RECENT_SORT_NONE")]
     None,
+    #[doc(alias = "GTK_RECENT_SORT_MRU")]
     Mru,
+    #[doc(alias = "GTK_RECENT_SORT_LRU")]
     Lru,
+    #[doc(alias = "GTK_RECENT_SORT_CUSTOM")]
     Custom,
     #[doc(hidden)]
     __Unknown(i32),
@@ -5146,9 +5497,13 @@ impl SetValue for RecentSortType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkReliefStyle")]
 pub enum ReliefStyle {
+    #[doc(alias = "GTK_RELIEF_NORMAL")]
     Normal,
+    #[doc(alias = "GTK_RELIEF_HALF")]
     Half,
+    #[doc(alias = "GTK_RELIEF_NONE")]
     None,
     #[doc(hidden)]
     __Unknown(i32),
@@ -5222,9 +5577,13 @@ impl SetValue for ReliefStyle {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkResizeMode")]
 pub enum ResizeMode {
+    #[doc(alias = "GTK_RESIZE_PARENT")]
     Parent,
+    #[doc(alias = "GTK_RESIZE_QUEUE")]
     Queue,
+    #[doc(alias = "GTK_RESIZE_IMMEDIATE")]
     Immediate,
     #[doc(hidden)]
     __Unknown(i32),
@@ -5298,12 +5657,19 @@ impl SetValue for ResizeMode {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkRevealerTransitionType")]
 pub enum RevealerTransitionType {
+    #[doc(alias = "GTK_REVEALER_TRANSITION_TYPE_NONE")]
     None,
+    #[doc(alias = "GTK_REVEALER_TRANSITION_TYPE_CROSSFADE")]
     Crossfade,
+    #[doc(alias = "GTK_REVEALER_TRANSITION_TYPE_SLIDE_RIGHT")]
     SlideRight,
+    #[doc(alias = "GTK_REVEALER_TRANSITION_TYPE_SLIDE_LEFT")]
     SlideLeft,
+    #[doc(alias = "GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP")]
     SlideUp,
+    #[doc(alias = "GTK_REVEALER_TRANSITION_TYPE_SLIDE_DOWN")]
     SlideDown,
     #[doc(hidden)]
     __Unknown(i32),
@@ -5386,12 +5752,19 @@ impl SetValue for RevealerTransitionType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkScrollStep")]
 pub enum ScrollStep {
+    #[doc(alias = "GTK_SCROLL_STEPS")]
     Steps,
+    #[doc(alias = "GTK_SCROLL_PAGES")]
     Pages,
+    #[doc(alias = "GTK_SCROLL_ENDS")]
     Ends,
+    #[doc(alias = "GTK_SCROLL_HORIZONTAL_STEPS")]
     HorizontalSteps,
+    #[doc(alias = "GTK_SCROLL_HORIZONTAL_PAGES")]
     HorizontalPages,
+    #[doc(alias = "GTK_SCROLL_HORIZONTAL_ENDS")]
     HorizontalEnds,
     #[doc(hidden)]
     __Unknown(i32),
@@ -5474,22 +5847,39 @@ impl SetValue for ScrollStep {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkScrollType")]
 pub enum ScrollType {
+    #[doc(alias = "GTK_SCROLL_NONE")]
     None,
+    #[doc(alias = "GTK_SCROLL_JUMP")]
     Jump,
+    #[doc(alias = "GTK_SCROLL_STEP_BACKWARD")]
     StepBackward,
+    #[doc(alias = "GTK_SCROLL_STEP_FORWARD")]
     StepForward,
+    #[doc(alias = "GTK_SCROLL_PAGE_BACKWARD")]
     PageBackward,
+    #[doc(alias = "GTK_SCROLL_PAGE_FORWARD")]
     PageForward,
+    #[doc(alias = "GTK_SCROLL_STEP_UP")]
     StepUp,
+    #[doc(alias = "GTK_SCROLL_STEP_DOWN")]
     StepDown,
+    #[doc(alias = "GTK_SCROLL_PAGE_UP")]
     PageUp,
+    #[doc(alias = "GTK_SCROLL_PAGE_DOWN")]
     PageDown,
+    #[doc(alias = "GTK_SCROLL_STEP_LEFT")]
     StepLeft,
+    #[doc(alias = "GTK_SCROLL_STEP_RIGHT")]
     StepRight,
+    #[doc(alias = "GTK_SCROLL_PAGE_LEFT")]
     PageLeft,
+    #[doc(alias = "GTK_SCROLL_PAGE_RIGHT")]
     PageRight,
+    #[doc(alias = "GTK_SCROLL_START")]
     Start,
+    #[doc(alias = "GTK_SCROLL_END")]
     End,
     #[doc(hidden)]
     __Unknown(i32),
@@ -5602,8 +5992,11 @@ impl SetValue for ScrollType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkScrollablePolicy")]
 pub enum ScrollablePolicy {
+    #[doc(alias = "GTK_SCROLL_MINIMUM")]
     Minimum,
+    #[doc(alias = "GTK_SCROLL_NATURAL")]
     Natural,
     #[doc(hidden)]
     __Unknown(i32),
@@ -5674,10 +6067,15 @@ impl SetValue for ScrollablePolicy {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkSelectionMode")]
 pub enum SelectionMode {
+    #[doc(alias = "GTK_SELECTION_NONE")]
     None,
+    #[doc(alias = "GTK_SELECTION_SINGLE")]
     Single,
+    #[doc(alias = "GTK_SELECTION_BROWSE")]
     Browse,
+    #[doc(alias = "GTK_SELECTION_MULTIPLE")]
     Multiple,
     #[doc(hidden)]
     __Unknown(i32),
@@ -5754,9 +6152,13 @@ impl SetValue for SelectionMode {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkSensitivityType")]
 pub enum SensitivityType {
+    #[doc(alias = "GTK_SENSITIVITY_AUTO")]
     Auto,
+    #[doc(alias = "GTK_SENSITIVITY_ON")]
     On,
+    #[doc(alias = "GTK_SENSITIVITY_OFF")]
     Off,
     #[doc(hidden)]
     __Unknown(i32),
@@ -5830,11 +6232,17 @@ impl SetValue for SensitivityType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkShadowType")]
 pub enum ShadowType {
+    #[doc(alias = "GTK_SHADOW_NONE")]
     None,
+    #[doc(alias = "GTK_SHADOW_IN")]
     In,
+    #[doc(alias = "GTK_SHADOW_OUT")]
     Out,
+    #[doc(alias = "GTK_SHADOW_ETCHED_IN")]
     EtchedIn,
+    #[doc(alias = "GTK_SHADOW_ETCHED_OUT")]
     EtchedOut,
     #[doc(hidden)]
     __Unknown(i32),
@@ -5916,14 +6324,23 @@ impl SetValue for ShadowType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkShortcutType")]
 pub enum ShortcutType {
+    #[doc(alias = "GTK_SHORTCUT_ACCELERATOR")]
     Accelerator,
+    #[doc(alias = "GTK_SHORTCUT_GESTURE_PINCH")]
     GesturePinch,
+    #[doc(alias = "GTK_SHORTCUT_GESTURE_STRETCH")]
     GestureStretch,
+    #[doc(alias = "GTK_SHORTCUT_GESTURE_ROTATE_CLOCKWISE")]
     GestureRotateClockwise,
+    #[doc(alias = "GTK_SHORTCUT_GESTURE_ROTATE_COUNTERCLOCKWISE")]
     GestureRotateCounterclockwise,
+    #[doc(alias = "GTK_SHORTCUT_GESTURE_TWO_FINGER_SWIPE_LEFT")]
     GestureTwoFingerSwipeLeft,
+    #[doc(alias = "GTK_SHORTCUT_GESTURE_TWO_FINGER_SWIPE_RIGHT")]
     GestureTwoFingerSwipeRight,
+    #[doc(alias = "GTK_SHORTCUT_GESTURE")]
     Gesture,
     #[doc(hidden)]
     __Unknown(i32),
@@ -6032,10 +6449,15 @@ impl SetValue for ShortcutType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkSizeGroupMode")]
 pub enum SizeGroupMode {
+    #[doc(alias = "GTK_SIZE_GROUP_NONE")]
     None,
+    #[doc(alias = "GTK_SIZE_GROUP_HORIZONTAL")]
     Horizontal,
+    #[doc(alias = "GTK_SIZE_GROUP_VERTICAL")]
     Vertical,
+    #[doc(alias = "GTK_SIZE_GROUP_BOTH")]
     Both,
     #[doc(hidden)]
     __Unknown(i32),
@@ -6112,9 +6534,13 @@ impl SetValue for SizeGroupMode {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkSizeRequestMode")]
 pub enum SizeRequestMode {
+    #[doc(alias = "GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH")]
     HeightForWidth,
+    #[doc(alias = "GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT")]
     WidthForHeight,
+    #[doc(alias = "GTK_SIZE_REQUEST_CONSTANT_SIZE")]
     ConstantSize,
     #[doc(hidden)]
     __Unknown(i32),
@@ -6188,8 +6614,11 @@ impl SetValue for SizeRequestMode {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkSortType")]
 pub enum SortType {
+    #[doc(alias = "GTK_SORT_ASCENDING")]
     Ascending,
+    #[doc(alias = "GTK_SORT_DESCENDING")]
     Descending,
     #[doc(hidden)]
     __Unknown(i32),
@@ -6260,8 +6689,11 @@ impl SetValue for SortType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkSpinButtonUpdatePolicy")]
 pub enum SpinButtonUpdatePolicy {
+    #[doc(alias = "GTK_UPDATE_ALWAYS")]
     Always,
+    #[doc(alias = "GTK_UPDATE_IF_VALID")]
     IfValid,
     #[doc(hidden)]
     __Unknown(i32),
@@ -6332,13 +6764,21 @@ impl SetValue for SpinButtonUpdatePolicy {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkSpinType")]
 pub enum SpinType {
+    #[doc(alias = "GTK_SPIN_STEP_FORWARD")]
     StepForward,
+    #[doc(alias = "GTK_SPIN_STEP_BACKWARD")]
     StepBackward,
+    #[doc(alias = "GTK_SPIN_PAGE_FORWARD")]
     PageForward,
+    #[doc(alias = "GTK_SPIN_PAGE_BACKWARD")]
     PageBackward,
+    #[doc(alias = "GTK_SPIN_HOME")]
     Home,
+    #[doc(alias = "GTK_SPIN_END")]
     End,
+    #[doc(alias = "GTK_SPIN_USER_DEFINED")]
     UserDefined,
     #[doc(hidden)]
     __Unknown(i32),
@@ -6424,26 +6864,47 @@ impl SetValue for SpinType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkStackTransitionType")]
 pub enum StackTransitionType {
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_NONE")]
     None,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_CROSSFADE")]
     Crossfade,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT")]
     SlideRight,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT")]
     SlideLeft,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_SLIDE_UP")]
     SlideUp,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_SLIDE_DOWN")]
     SlideDown,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT")]
     SlideLeftRight,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_SLIDE_UP_DOWN")]
     SlideUpDown,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_OVER_UP")]
     OverUp,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_OVER_DOWN")]
     OverDown,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_OVER_LEFT")]
     OverLeft,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_OVER_RIGHT")]
     OverRight,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_UNDER_UP")]
     UnderUp,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_UNDER_DOWN")]
     UnderDown,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_UNDER_LEFT")]
     UnderLeft,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_UNDER_RIGHT")]
     UnderRight,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_OVER_UP_DOWN")]
     OverUpDown,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_OVER_DOWN_UP")]
     OverDownUp,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_OVER_LEFT_RIGHT")]
     OverLeftRight,
+    #[doc(alias = "GTK_STACK_TRANSITION_TYPE_OVER_RIGHT_LEFT")]
     OverRightLeft,
     #[doc(hidden)]
     __Unknown(i32),
@@ -6569,13 +7030,21 @@ impl SetValue for StackTransitionType {
 #[deprecated]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkStateType")]
 pub enum StateType {
+    #[doc(alias = "GTK_STATE_NORMAL")]
     Normal,
+    #[doc(alias = "GTK_STATE_ACTIVE")]
     Active,
+    #[doc(alias = "GTK_STATE_PRELIGHT")]
     Prelight,
+    #[doc(alias = "GTK_STATE_SELECTED")]
     Selected,
+    #[doc(alias = "GTK_STATE_INSENSITIVE")]
     Insensitive,
+    #[doc(alias = "GTK_STATE_INCONSISTENT")]
     Inconsistent,
+    #[doc(alias = "GTK_STATE_FOCUSED")]
     Focused,
     #[doc(hidden)]
     __Unknown(i32),
@@ -6661,9 +7130,13 @@ impl SetValue for StateType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkTextDirection")]
 pub enum TextDirection {
+    #[doc(alias = "GTK_TEXT_DIR_NONE")]
     None,
+    #[doc(alias = "GTK_TEXT_DIR_LTR")]
     Ltr,
+    #[doc(alias = "GTK_TEXT_DIR_RTL")]
     Rtl,
     #[doc(hidden)]
     __Unknown(i32),
@@ -6739,8 +7212,11 @@ impl SetValue for TextDirection {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkTextExtendSelection")]
 pub enum TextExtendSelection {
+    #[doc(alias = "GTK_TEXT_EXTEND_SELECTION_WORD")]
     Word,
+    #[doc(alias = "GTK_TEXT_EXTEND_SELECTION_LINE")]
     Line,
     #[doc(hidden)]
     __Unknown(i32),
@@ -6825,10 +7301,15 @@ impl SetValue for TextExtendSelection {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkTextViewLayer")]
 pub enum TextViewLayer {
+    #[doc(alias = "GTK_TEXT_VIEW_LAYER_BELOW")]
     Below,
+    #[doc(alias = "GTK_TEXT_VIEW_LAYER_ABOVE")]
     Above,
+    #[doc(alias = "GTK_TEXT_VIEW_LAYER_BELOW_TEXT")]
     BelowText,
+    #[doc(alias = "GTK_TEXT_VIEW_LAYER_ABOVE_TEXT")]
     AboveText,
     #[doc(hidden)]
     __Unknown(i32),
@@ -6905,13 +7386,21 @@ impl SetValue for TextViewLayer {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkTextWindowType")]
 pub enum TextWindowType {
+    #[doc(alias = "GTK_TEXT_WINDOW_PRIVATE")]
     Private,
+    #[doc(alias = "GTK_TEXT_WINDOW_WIDGET")]
     Widget,
+    #[doc(alias = "GTK_TEXT_WINDOW_TEXT")]
     Text,
+    #[doc(alias = "GTK_TEXT_WINDOW_LEFT")]
     Left,
+    #[doc(alias = "GTK_TEXT_WINDOW_RIGHT")]
     Right,
+    #[doc(alias = "GTK_TEXT_WINDOW_TOP")]
     Top,
+    #[doc(alias = "GTK_TEXT_WINDOW_BOTTOM")]
     Bottom,
     #[doc(hidden)]
     __Unknown(i32),
@@ -6997,10 +7486,15 @@ impl SetValue for TextWindowType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkToolbarStyle")]
 pub enum ToolbarStyle {
+    #[doc(alias = "GTK_TOOLBAR_ICONS")]
     Icons,
+    #[doc(alias = "GTK_TOOLBAR_TEXT")]
     Text,
+    #[doc(alias = "GTK_TOOLBAR_BOTH")]
     Both,
+    #[doc(alias = "GTK_TOOLBAR_BOTH_HORIZ")]
     BothHoriz,
     #[doc(hidden)]
     __Unknown(i32),
@@ -7077,9 +7571,13 @@ impl SetValue for ToolbarStyle {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkTreeViewColumnSizing")]
 pub enum TreeViewColumnSizing {
+    #[doc(alias = "GTK_TREE_VIEW_COLUMN_GROW_ONLY")]
     GrowOnly,
+    #[doc(alias = "GTK_TREE_VIEW_COLUMN_AUTOSIZE")]
     Autosize,
+    #[doc(alias = "GTK_TREE_VIEW_COLUMN_FIXED")]
     Fixed,
     #[doc(hidden)]
     __Unknown(i32),
@@ -7153,10 +7651,15 @@ impl SetValue for TreeViewColumnSizing {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkTreeViewDropPosition")]
 pub enum TreeViewDropPosition {
+    #[doc(alias = "GTK_TREE_VIEW_DROP_BEFORE")]
     Before,
+    #[doc(alias = "GTK_TREE_VIEW_DROP_AFTER")]
     After,
+    #[doc(alias = "GTK_TREE_VIEW_DROP_INTO_OR_BEFORE")]
     IntoOrBefore,
+    #[doc(alias = "GTK_TREE_VIEW_DROP_INTO_OR_AFTER")]
     IntoOrAfter,
     #[doc(hidden)]
     __Unknown(i32),
@@ -7233,10 +7736,15 @@ impl SetValue for TreeViewDropPosition {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkTreeViewGridLines")]
 pub enum TreeViewGridLines {
+    #[doc(alias = "GTK_TREE_VIEW_GRID_LINES_NONE")]
     None,
+    #[doc(alias = "GTK_TREE_VIEW_GRID_LINES_HORIZONTAL")]
     Horizontal,
+    #[doc(alias = "GTK_TREE_VIEW_GRID_LINES_VERTICAL")]
     Vertical,
+    #[doc(alias = "GTK_TREE_VIEW_GRID_LINES_BOTH")]
     Both,
     #[doc(hidden)]
     __Unknown(i32),
@@ -7313,10 +7821,15 @@ impl SetValue for TreeViewGridLines {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkUnit")]
 pub enum Unit {
+    #[doc(alias = "GTK_UNIT_NONE")]
     None,
+    #[doc(alias = "GTK_UNIT_POINTS")]
     Points,
+    #[doc(alias = "GTK_UNIT_INCH")]
     Inch,
+    #[doc(alias = "GTK_UNIT_MM")]
     Mm,
     #[doc(hidden)]
     __Unknown(i32),
@@ -7393,8 +7906,11 @@ impl SetValue for Unit {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkWidgetHelpType")]
 pub enum WidgetHelpType {
+    #[doc(alias = "GTK_WIDGET_HELP_TOOLTIP")]
     Tooltip,
+    #[doc(alias = "GTK_WIDGET_HELP_WHATS_THIS")]
     WhatsThis,
     #[doc(hidden)]
     __Unknown(i32),
@@ -7465,11 +7981,17 @@ impl SetValue for WidgetHelpType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkWindowPosition")]
 pub enum WindowPosition {
+    #[doc(alias = "GTK_WIN_POS_NONE")]
     None,
+    #[doc(alias = "GTK_WIN_POS_CENTER")]
     Center,
+    #[doc(alias = "GTK_WIN_POS_MOUSE")]
     Mouse,
+    #[doc(alias = "GTK_WIN_POS_CENTER_ALWAYS")]
     CenterAlways,
+    #[doc(alias = "GTK_WIN_POS_CENTER_ON_PARENT")]
     CenterOnParent,
     #[doc(hidden)]
     __Unknown(i32),
@@ -7549,8 +8071,11 @@ impl SetValue for WindowPosition {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkWindowType")]
 pub enum WindowType {
+    #[doc(alias = "GTK_WINDOW_TOPLEVEL")]
     Toplevel,
+    #[doc(alias = "GTK_WINDOW_POPUP")]
     Popup,
     #[doc(hidden)]
     __Unknown(i32),
@@ -7621,10 +8146,15 @@ impl SetValue for WindowType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GtkWrapMode")]
 pub enum WrapMode {
+    #[doc(alias = "GTK_WRAP_NONE")]
     None,
+    #[doc(alias = "GTK_WRAP_CHAR")]
     Char,
+    #[doc(alias = "GTK_WRAP_WORD")]
     Word,
+    #[doc(alias = "GTK_WRAP_WORD_CHAR")]
     WordChar,
     #[doc(hidden)]
     __Unknown(i32),

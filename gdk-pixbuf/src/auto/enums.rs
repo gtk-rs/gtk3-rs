@@ -14,7 +14,9 @@ use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkColorspace")]
 pub enum Colorspace {
+    #[doc(alias = "GDK_COLORSPACE_RGB")]
     Rgb,
     #[doc(hidden)]
     __Unknown(i32),
@@ -81,10 +83,15 @@ impl SetValue for Colorspace {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkInterpType")]
 pub enum InterpType {
+    #[doc(alias = "GDK_INTERP_NEAREST")]
     Nearest,
+    #[doc(alias = "GDK_INTERP_TILES")]
     Tiles,
+    #[doc(alias = "GDK_INTERP_BILINEAR")]
     Bilinear,
+    #[doc(alias = "GDK_INTERP_HYPER")]
     Hyper,
     #[doc(hidden)]
     __Unknown(i32),
@@ -160,8 +167,11 @@ impl SetValue for InterpType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkPixbufAlphaMode")]
 pub enum PixbufAlphaMode {
+    #[doc(alias = "GDK_PIXBUF_ALPHA_BILEVEL")]
     Bilevel,
+    #[doc(alias = "GDK_PIXBUF_ALPHA_FULL")]
     Full,
     #[doc(hidden)]
     __Unknown(i32),
@@ -231,13 +241,21 @@ impl SetValue for PixbufAlphaMode {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkPixbufError")]
 pub enum PixbufError {
+    #[doc(alias = "GDK_PIXBUF_ERROR_CORRUPT_IMAGE")]
     CorruptImage,
+    #[doc(alias = "GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY")]
     InsufficientMemory,
+    #[doc(alias = "GDK_PIXBUF_ERROR_BAD_OPTION")]
     BadOption,
+    #[doc(alias = "GDK_PIXBUF_ERROR_UNKNOWN_TYPE")]
     UnknownType,
+    #[doc(alias = "GDK_PIXBUF_ERROR_UNSUPPORTED_OPERATION")]
     UnsupportedOperation,
+    #[doc(alias = "GDK_PIXBUF_ERROR_FAILED")]
     Failed,
+    #[doc(alias = "GDK_PIXBUF_ERROR_INCOMPLETE_ANIMATION")]
     IncompleteAnimation,
     #[doc(hidden)]
     __Unknown(i32),
@@ -345,10 +363,15 @@ impl SetValue for PixbufError {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkPixbufRotation")]
 pub enum PixbufRotation {
+    #[doc(alias = "GDK_PIXBUF_ROTATE_NONE")]
     None,
+    #[doc(alias = "GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE")]
     Counterclockwise,
+    #[doc(alias = "GDK_PIXBUF_ROTATE_UPSIDEDOWN")]
     Upsidedown,
+    #[doc(alias = "GDK_PIXBUF_ROTATE_CLOCKWISE")]
     Clockwise,
     #[doc(hidden)]
     __Unknown(i32),

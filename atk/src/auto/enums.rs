@@ -12,9 +12,13 @@ use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "AtkCoordType")]
 pub enum CoordType {
+    #[doc(alias = "ATK_XY_SCREEN")]
     Screen,
+    #[doc(alias = "ATK_XY_WINDOW")]
     Window,
+    #[doc(alias = "ATK_XY_PARENT")]
     Parent,
     #[doc(hidden)]
     __Unknown(i32),
@@ -88,14 +92,23 @@ impl SetValue for CoordType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "AtkLayer")]
 pub enum Layer {
+    #[doc(alias = "ATK_LAYER_INVALID")]
     Invalid,
+    #[doc(alias = "ATK_LAYER_BACKGROUND")]
     Background,
+    #[doc(alias = "ATK_LAYER_CANVAS")]
     Canvas,
+    #[doc(alias = "ATK_LAYER_WIDGET")]
     Widget,
+    #[doc(alias = "ATK_LAYER_MDI")]
     Mdi,
+    #[doc(alias = "ATK_LAYER_POPUP")]
     Popup,
+    #[doc(alias = "ATK_LAYER_OVERLAY")]
     Overlay,
+    #[doc(alias = "ATK_LAYER_WINDOW")]
     Window,
     #[doc(hidden)]
     __Unknown(i32),
@@ -184,28 +197,51 @@ impl SetValue for Layer {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "AtkRelationType")]
 pub enum RelationType {
+    #[doc(alias = "ATK_RELATION_NULL")]
     Null,
+    #[doc(alias = "ATK_RELATION_CONTROLLED_BY")]
     ControlledBy,
+    #[doc(alias = "ATK_RELATION_CONTROLLER_FOR")]
     ControllerFor,
+    #[doc(alias = "ATK_RELATION_LABEL_FOR")]
     LabelFor,
+    #[doc(alias = "ATK_RELATION_LABELLED_BY")]
     LabelledBy,
+    #[doc(alias = "ATK_RELATION_MEMBER_OF")]
     MemberOf,
+    #[doc(alias = "ATK_RELATION_NODE_CHILD_OF")]
     NodeChildOf,
+    #[doc(alias = "ATK_RELATION_FLOWS_TO")]
     FlowsTo,
+    #[doc(alias = "ATK_RELATION_FLOWS_FROM")]
     FlowsFrom,
+    #[doc(alias = "ATK_RELATION_SUBWINDOW_OF")]
     SubwindowOf,
+    #[doc(alias = "ATK_RELATION_EMBEDS")]
     Embeds,
+    #[doc(alias = "ATK_RELATION_EMBEDDED_BY")]
     EmbeddedBy,
+    #[doc(alias = "ATK_RELATION_POPUP_FOR")]
     PopupFor,
+    #[doc(alias = "ATK_RELATION_PARENT_WINDOW_OF")]
     ParentWindowOf,
+    #[doc(alias = "ATK_RELATION_DESCRIBED_BY")]
     DescribedBy,
+    #[doc(alias = "ATK_RELATION_DESCRIPTION_FOR")]
     DescriptionFor,
+    #[doc(alias = "ATK_RELATION_NODE_PARENT_OF")]
     NodeParentOf,
+    #[doc(alias = "ATK_RELATION_DETAILS")]
     Details,
+    #[doc(alias = "ATK_RELATION_DETAILS_FOR")]
     DetailsFor,
+    #[doc(alias = "ATK_RELATION_ERROR_MESSAGE")]
     ErrorMessage,
+    #[doc(alias = "ATK_RELATION_ERROR_FOR")]
     ErrorFor,
+    #[doc(alias = "ATK_RELATION_LAST_DEFINED")]
     LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
@@ -350,134 +386,263 @@ impl SetValue for RelationType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "AtkRole")]
 pub enum Role {
+    #[doc(alias = "ATK_ROLE_INVALID")]
     Invalid,
+    #[doc(alias = "ATK_ROLE_ACCEL_LABEL")]
     AcceleratorLabel,
+    #[doc(alias = "ATK_ROLE_ALERT")]
     Alert,
+    #[doc(alias = "ATK_ROLE_ANIMATION")]
     Animation,
+    #[doc(alias = "ATK_ROLE_ARROW")]
     Arrow,
+    #[doc(alias = "ATK_ROLE_CALENDAR")]
     Calendar,
+    #[doc(alias = "ATK_ROLE_CANVAS")]
     Canvas,
+    #[doc(alias = "ATK_ROLE_CHECK_BOX")]
     CheckBox,
+    #[doc(alias = "ATK_ROLE_CHECK_MENU_ITEM")]
     CheckMenuItem,
+    #[doc(alias = "ATK_ROLE_COLOR_CHOOSER")]
     ColorChooser,
+    #[doc(alias = "ATK_ROLE_COLUMN_HEADER")]
     ColumnHeader,
+    #[doc(alias = "ATK_ROLE_COMBO_BOX")]
     ComboBox,
+    #[doc(alias = "ATK_ROLE_DATE_EDITOR")]
     DateEditor,
+    #[doc(alias = "ATK_ROLE_DESKTOP_ICON")]
     DesktopIcon,
+    #[doc(alias = "ATK_ROLE_DESKTOP_FRAME")]
     DesktopFrame,
+    #[doc(alias = "ATK_ROLE_DIAL")]
     Dial,
+    #[doc(alias = "ATK_ROLE_DIALOG")]
     Dialog,
+    #[doc(alias = "ATK_ROLE_DIRECTORY_PANE")]
     DirectoryPane,
+    #[doc(alias = "ATK_ROLE_DRAWING_AREA")]
     DrawingArea,
+    #[doc(alias = "ATK_ROLE_FILE_CHOOSER")]
     FileChooser,
+    #[doc(alias = "ATK_ROLE_FILLER")]
     Filler,
+    #[doc(alias = "ATK_ROLE_FONT_CHOOSER")]
     FontChooser,
+    #[doc(alias = "ATK_ROLE_FRAME")]
     Frame,
+    #[doc(alias = "ATK_ROLE_GLASS_PANE")]
     GlassPane,
+    #[doc(alias = "ATK_ROLE_HTML_CONTAINER")]
     HtmlContainer,
+    #[doc(alias = "ATK_ROLE_ICON")]
     Icon,
+    #[doc(alias = "ATK_ROLE_IMAGE")]
     Image,
+    #[doc(alias = "ATK_ROLE_INTERNAL_FRAME")]
     InternalFrame,
+    #[doc(alias = "ATK_ROLE_LABEL")]
     Label,
+    #[doc(alias = "ATK_ROLE_LAYERED_PANE")]
     LayeredPane,
+    #[doc(alias = "ATK_ROLE_LIST")]
     List,
+    #[doc(alias = "ATK_ROLE_LIST_ITEM")]
     ListItem,
+    #[doc(alias = "ATK_ROLE_MENU")]
     Menu,
+    #[doc(alias = "ATK_ROLE_MENU_BAR")]
     MenuBar,
+    #[doc(alias = "ATK_ROLE_MENU_ITEM")]
     MenuItem,
+    #[doc(alias = "ATK_ROLE_OPTION_PANE")]
     OptionPane,
+    #[doc(alias = "ATK_ROLE_PAGE_TAB")]
     PageTab,
+    #[doc(alias = "ATK_ROLE_PAGE_TAB_LIST")]
     PageTabList,
+    #[doc(alias = "ATK_ROLE_PANEL")]
     Panel,
+    #[doc(alias = "ATK_ROLE_PASSWORD_TEXT")]
     PasswordText,
+    #[doc(alias = "ATK_ROLE_POPUP_MENU")]
     PopupMenu,
+    #[doc(alias = "ATK_ROLE_PROGRESS_BAR")]
     ProgressBar,
+    #[doc(alias = "ATK_ROLE_PUSH_BUTTON")]
     PushButton,
+    #[doc(alias = "ATK_ROLE_RADIO_BUTTON")]
     RadioButton,
+    #[doc(alias = "ATK_ROLE_RADIO_MENU_ITEM")]
     RadioMenuItem,
+    #[doc(alias = "ATK_ROLE_ROOT_PANE")]
     RootPane,
+    #[doc(alias = "ATK_ROLE_ROW_HEADER")]
     RowHeader,
+    #[doc(alias = "ATK_ROLE_SCROLL_BAR")]
     ScrollBar,
+    #[doc(alias = "ATK_ROLE_SCROLL_PANE")]
     ScrollPane,
+    #[doc(alias = "ATK_ROLE_SEPARATOR")]
     Separator,
+    #[doc(alias = "ATK_ROLE_SLIDER")]
     Slider,
+    #[doc(alias = "ATK_ROLE_SPLIT_PANE")]
     SplitPane,
+    #[doc(alias = "ATK_ROLE_SPIN_BUTTON")]
     SpinButton,
+    #[doc(alias = "ATK_ROLE_STATUSBAR")]
     Statusbar,
+    #[doc(alias = "ATK_ROLE_TABLE")]
     Table,
+    #[doc(alias = "ATK_ROLE_TABLE_CELL")]
     TableCell,
+    #[doc(alias = "ATK_ROLE_TABLE_COLUMN_HEADER")]
     TableColumnHeader,
+    #[doc(alias = "ATK_ROLE_TABLE_ROW_HEADER")]
     TableRowHeader,
+    #[doc(alias = "ATK_ROLE_TEAR_OFF_MENU_ITEM")]
     TearOffMenuItem,
+    #[doc(alias = "ATK_ROLE_TERMINAL")]
     Terminal,
+    #[doc(alias = "ATK_ROLE_TEXT")]
     Text,
+    #[doc(alias = "ATK_ROLE_TOGGLE_BUTTON")]
     ToggleButton,
+    #[doc(alias = "ATK_ROLE_TOOL_BAR")]
     ToolBar,
+    #[doc(alias = "ATK_ROLE_TOOL_TIP")]
     ToolTip,
+    #[doc(alias = "ATK_ROLE_TREE")]
     Tree,
+    #[doc(alias = "ATK_ROLE_TREE_TABLE")]
     TreeTable,
+    #[doc(alias = "ATK_ROLE_UNKNOWN")]
     Unknown,
+    #[doc(alias = "ATK_ROLE_VIEWPORT")]
     Viewport,
+    #[doc(alias = "ATK_ROLE_WINDOW")]
     Window,
+    #[doc(alias = "ATK_ROLE_HEADER")]
     Header,
+    #[doc(alias = "ATK_ROLE_FOOTER")]
     Footer,
+    #[doc(alias = "ATK_ROLE_PARAGRAPH")]
     Paragraph,
+    #[doc(alias = "ATK_ROLE_RULER")]
     Ruler,
+    #[doc(alias = "ATK_ROLE_APPLICATION")]
     Application,
+    #[doc(alias = "ATK_ROLE_AUTOCOMPLETE")]
     Autocomplete,
+    #[doc(alias = "ATK_ROLE_EDITBAR")]
     EditBar,
+    #[doc(alias = "ATK_ROLE_EMBEDDED")]
     Embedded,
+    #[doc(alias = "ATK_ROLE_ENTRY")]
     Entry,
+    #[doc(alias = "ATK_ROLE_CHART")]
     Chart,
+    #[doc(alias = "ATK_ROLE_CAPTION")]
     Caption,
+    #[doc(alias = "ATK_ROLE_DOCUMENT_FRAME")]
     DocumentFrame,
+    #[doc(alias = "ATK_ROLE_HEADING")]
     Heading,
+    #[doc(alias = "ATK_ROLE_PAGE")]
     Page,
+    #[doc(alias = "ATK_ROLE_SECTION")]
     Section,
+    #[doc(alias = "ATK_ROLE_REDUNDANT_OBJECT")]
     RedundantObject,
+    #[doc(alias = "ATK_ROLE_FORM")]
     Form,
+    #[doc(alias = "ATK_ROLE_LINK")]
     Link,
+    #[doc(alias = "ATK_ROLE_INPUT_METHOD_WINDOW")]
     InputMethodWindow,
+    #[doc(alias = "ATK_ROLE_TABLE_ROW")]
     TableRow,
+    #[doc(alias = "ATK_ROLE_TREE_ITEM")]
     TreeItem,
+    #[doc(alias = "ATK_ROLE_DOCUMENT_SPREADSHEET")]
     DocumentSpreadsheet,
+    #[doc(alias = "ATK_ROLE_DOCUMENT_PRESENTATION")]
     DocumentPresentation,
+    #[doc(alias = "ATK_ROLE_DOCUMENT_TEXT")]
     DocumentText,
+    #[doc(alias = "ATK_ROLE_DOCUMENT_WEB")]
     DocumentWeb,
+    #[doc(alias = "ATK_ROLE_DOCUMENT_EMAIL")]
     DocumentEmail,
+    #[doc(alias = "ATK_ROLE_COMMENT")]
     Comment,
+    #[doc(alias = "ATK_ROLE_LIST_BOX")]
     ListBox,
+    #[doc(alias = "ATK_ROLE_GROUPING")]
     Grouping,
+    #[doc(alias = "ATK_ROLE_IMAGE_MAP")]
     ImageMap,
+    #[doc(alias = "ATK_ROLE_NOTIFICATION")]
     Notification,
+    #[doc(alias = "ATK_ROLE_INFO_BAR")]
     InfoBar,
+    #[doc(alias = "ATK_ROLE_LEVEL_BAR")]
     LevelBar,
+    #[doc(alias = "ATK_ROLE_TITLE_BAR")]
     TitleBar,
+    #[doc(alias = "ATK_ROLE_BLOCK_QUOTE")]
     BlockQuote,
+    #[doc(alias = "ATK_ROLE_AUDIO")]
     Audio,
+    #[doc(alias = "ATK_ROLE_VIDEO")]
     Video,
+    #[doc(alias = "ATK_ROLE_DEFINITION")]
     Definition,
+    #[doc(alias = "ATK_ROLE_ARTICLE")]
     Article,
+    #[doc(alias = "ATK_ROLE_LANDMARK")]
     Landmark,
+    #[doc(alias = "ATK_ROLE_LOG")]
     Log,
+    #[doc(alias = "ATK_ROLE_MARQUEE")]
     Marquee,
+    #[doc(alias = "ATK_ROLE_MATH")]
     Math,
+    #[doc(alias = "ATK_ROLE_RATING")]
     Rating,
+    #[doc(alias = "ATK_ROLE_TIMER")]
     Timer,
+    #[doc(alias = "ATK_ROLE_DESCRIPTION_LIST")]
     DescriptionList,
+    #[doc(alias = "ATK_ROLE_DESCRIPTION_TERM")]
     DescriptionTerm,
+    #[doc(alias = "ATK_ROLE_DESCRIPTION_VALUE")]
     DescriptionValue,
+    #[doc(alias = "ATK_ROLE_STATIC")]
     Static,
+    #[doc(alias = "ATK_ROLE_MATH_FRACTION")]
     MathFraction,
+    #[doc(alias = "ATK_ROLE_MATH_ROOT")]
     MathRoot,
+    #[doc(alias = "ATK_ROLE_SUBSCRIPT")]
     Subscript,
+    #[doc(alias = "ATK_ROLE_SUPERSCRIPT")]
     Superscript,
+    #[doc(alias = "ATK_ROLE_FOOTNOTE")]
     Footnote,
+    #[doc(alias = "ATK_ROLE_CONTENT_DELETION")]
     ContentDeletion,
+    #[doc(alias = "ATK_ROLE_CONTENT_INSERTION")]
     ContentInsertion,
+    #[doc(alias = "ATK_ROLE_MARK")]
     Mark,
+    #[doc(alias = "ATK_ROLE_SUGGESTION")]
     Suggestion,
+    #[doc(alias = "ATK_ROLE_LAST_DEFINED")]
     LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
@@ -948,13 +1113,21 @@ impl SetValue for Role {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "AtkScrollType")]
 pub enum ScrollType {
+    #[doc(alias = "ATK_SCROLL_TOP_LEFT")]
     TopLeft,
+    #[doc(alias = "ATK_SCROLL_BOTTOM_RIGHT")]
     BottomRight,
+    #[doc(alias = "ATK_SCROLL_TOP_EDGE")]
     TopEdge,
+    #[doc(alias = "ATK_SCROLL_BOTTOM_EDGE")]
     BottomEdge,
+    #[doc(alias = "ATK_SCROLL_LEFT_EDGE")]
     LeftEdge,
+    #[doc(alias = "ATK_SCROLL_RIGHT_EDGE")]
     RightEdge,
+    #[doc(alias = "ATK_SCROLL_ANYWHERE")]
     Anywhere,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1054,50 +1227,95 @@ impl SetValue for ScrollType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "AtkStateType")]
 pub enum StateType {
+    #[doc(alias = "ATK_STATE_INVALID")]
     Invalid,
+    #[doc(alias = "ATK_STATE_ACTIVE")]
     Active,
+    #[doc(alias = "ATK_STATE_ARMED")]
     Armed,
+    #[doc(alias = "ATK_STATE_BUSY")]
     Busy,
+    #[doc(alias = "ATK_STATE_CHECKED")]
     Checked,
+    #[doc(alias = "ATK_STATE_DEFUNCT")]
     Defunct,
+    #[doc(alias = "ATK_STATE_EDITABLE")]
     Editable,
+    #[doc(alias = "ATK_STATE_ENABLED")]
     Enabled,
+    #[doc(alias = "ATK_STATE_EXPANDABLE")]
     Expandable,
+    #[doc(alias = "ATK_STATE_EXPANDED")]
     Expanded,
+    #[doc(alias = "ATK_STATE_FOCUSABLE")]
     Focusable,
+    #[doc(alias = "ATK_STATE_FOCUSED")]
     Focused,
+    #[doc(alias = "ATK_STATE_HORIZONTAL")]
     Horizontal,
+    #[doc(alias = "ATK_STATE_ICONIFIED")]
     Iconified,
+    #[doc(alias = "ATK_STATE_MODAL")]
     Modal,
+    #[doc(alias = "ATK_STATE_MULTI_LINE")]
     MultiLine,
+    #[doc(alias = "ATK_STATE_MULTISELECTABLE")]
     Multiselectable,
+    #[doc(alias = "ATK_STATE_OPAQUE")]
     Opaque,
+    #[doc(alias = "ATK_STATE_PRESSED")]
     Pressed,
+    #[doc(alias = "ATK_STATE_RESIZABLE")]
     Resizable,
+    #[doc(alias = "ATK_STATE_SELECTABLE")]
     Selectable,
+    #[doc(alias = "ATK_STATE_SELECTED")]
     Selected,
+    #[doc(alias = "ATK_STATE_SENSITIVE")]
     Sensitive,
+    #[doc(alias = "ATK_STATE_SHOWING")]
     Showing,
+    #[doc(alias = "ATK_STATE_SINGLE_LINE")]
     SingleLine,
+    #[doc(alias = "ATK_STATE_STALE")]
     Stale,
+    #[doc(alias = "ATK_STATE_TRANSIENT")]
     Transient,
+    #[doc(alias = "ATK_STATE_VERTICAL")]
     Vertical,
+    #[doc(alias = "ATK_STATE_VISIBLE")]
     Visible,
+    #[doc(alias = "ATK_STATE_MANAGES_DESCENDANTS")]
     ManagesDescendants,
+    #[doc(alias = "ATK_STATE_INDETERMINATE")]
     Indeterminate,
+    #[doc(alias = "ATK_STATE_TRUNCATED")]
     Truncated,
+    #[doc(alias = "ATK_STATE_REQUIRED")]
     Required,
+    #[doc(alias = "ATK_STATE_INVALID_ENTRY")]
     InvalidEntry,
+    #[doc(alias = "ATK_STATE_SUPPORTS_AUTOCOMPLETION")]
     SupportsAutocompletion,
+    #[doc(alias = "ATK_STATE_SELECTABLE_TEXT")]
     SelectableText,
+    #[doc(alias = "ATK_STATE_DEFAULT")]
     Default,
+    #[doc(alias = "ATK_STATE_ANIMATED")]
     Animated,
+    #[doc(alias = "ATK_STATE_VISITED")]
     Visited,
+    #[doc(alias = "ATK_STATE_CHECKABLE")]
     Checkable,
+    #[doc(alias = "ATK_STATE_HAS_POPUP")]
     HasPopup,
+    #[doc(alias = "ATK_STATE_HAS_TOOLTIP")]
     HasTooltip,
+    #[doc(alias = "ATK_STATE_READ_ONLY")]
     ReadOnly,
+    #[doc(alias = "ATK_STATE_LAST_DEFINED")]
     LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1308,36 +1526,67 @@ impl SetValue for StateType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "AtkTextAttribute")]
 pub enum TextAttribute {
+    #[doc(alias = "ATK_TEXT_ATTR_INVALID")]
     Invalid,
+    #[doc(alias = "ATK_TEXT_ATTR_LEFT_MARGIN")]
     LeftMargin,
+    #[doc(alias = "ATK_TEXT_ATTR_RIGHT_MARGIN")]
     RightMargin,
+    #[doc(alias = "ATK_TEXT_ATTR_INDENT")]
     Indent,
+    #[doc(alias = "ATK_TEXT_ATTR_INVISIBLE")]
     Invisible,
+    #[doc(alias = "ATK_TEXT_ATTR_EDITABLE")]
     Editable,
+    #[doc(alias = "ATK_TEXT_ATTR_PIXELS_ABOVE_LINES")]
     PixelsAboveLines,
+    #[doc(alias = "ATK_TEXT_ATTR_PIXELS_BELOW_LINES")]
     PixelsBelowLines,
+    #[doc(alias = "ATK_TEXT_ATTR_PIXELS_INSIDE_WRAP")]
     PixelsInsideWrap,
+    #[doc(alias = "ATK_TEXT_ATTR_BG_FULL_HEIGHT")]
     BgFullHeight,
+    #[doc(alias = "ATK_TEXT_ATTR_RISE")]
     Rise,
+    #[doc(alias = "ATK_TEXT_ATTR_UNDERLINE")]
     Underline,
+    #[doc(alias = "ATK_TEXT_ATTR_STRIKETHROUGH")]
     Strikethrough,
+    #[doc(alias = "ATK_TEXT_ATTR_SIZE")]
     Size,
+    #[doc(alias = "ATK_TEXT_ATTR_SCALE")]
     Scale,
+    #[doc(alias = "ATK_TEXT_ATTR_WEIGHT")]
     Weight,
+    #[doc(alias = "ATK_TEXT_ATTR_LANGUAGE")]
     Language,
+    #[doc(alias = "ATK_TEXT_ATTR_FAMILY_NAME")]
     FamilyName,
+    #[doc(alias = "ATK_TEXT_ATTR_BG_COLOR")]
     BgColor,
+    #[doc(alias = "ATK_TEXT_ATTR_FG_COLOR")]
     FgColor,
+    #[doc(alias = "ATK_TEXT_ATTR_BG_STIPPLE")]
     BgStipple,
+    #[doc(alias = "ATK_TEXT_ATTR_FG_STIPPLE")]
     FgStipple,
+    #[doc(alias = "ATK_TEXT_ATTR_WRAP_MODE")]
     WrapMode,
+    #[doc(alias = "ATK_TEXT_ATTR_DIRECTION")]
     Direction,
+    #[doc(alias = "ATK_TEXT_ATTR_JUSTIFICATION")]
     Justification,
+    #[doc(alias = "ATK_TEXT_ATTR_STRETCH")]
     Stretch,
+    #[doc(alias = "ATK_TEXT_ATTR_VARIANT")]
     Variant,
+    #[doc(alias = "ATK_TEXT_ATTR_STYLE")]
     Style,
+    #[doc(alias = "ATK_TEXT_ATTR_TEXT_POSITION")]
     TextPosition,
+    #[doc(alias = "ATK_TEXT_ATTR_LAST_DEFINED")]
     LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1512,13 +1761,21 @@ impl SetValue for TextAttribute {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "AtkTextBoundary")]
 pub enum TextBoundary {
+    #[doc(alias = "ATK_TEXT_BOUNDARY_CHAR")]
     Char,
+    #[doc(alias = "ATK_TEXT_BOUNDARY_WORD_START")]
     WordStart,
+    #[doc(alias = "ATK_TEXT_BOUNDARY_WORD_END")]
     WordEnd,
+    #[doc(alias = "ATK_TEXT_BOUNDARY_SENTENCE_START")]
     SentenceStart,
+    #[doc(alias = "ATK_TEXT_BOUNDARY_SENTENCE_END")]
     SentenceEnd,
+    #[doc(alias = "ATK_TEXT_BOUNDARY_LINE_START")]
     LineStart,
+    #[doc(alias = "ATK_TEXT_BOUNDARY_LINE_END")]
     LineEnd,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1604,10 +1861,15 @@ impl SetValue for TextBoundary {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "AtkTextClipType")]
 pub enum TextClipType {
+    #[doc(alias = "ATK_TEXT_CLIP_NONE")]
     None,
+    #[doc(alias = "ATK_TEXT_CLIP_MIN")]
     Min,
+    #[doc(alias = "ATK_TEXT_CLIP_MAX")]
     Max,
+    #[doc(alias = "ATK_TEXT_CLIP_BOTH")]
     Both,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1684,11 +1946,17 @@ impl SetValue for TextClipType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "AtkTextGranularity")]
 pub enum TextGranularity {
+    #[doc(alias = "ATK_TEXT_GRANULARITY_CHAR")]
     Char,
+    #[doc(alias = "ATK_TEXT_GRANULARITY_WORD")]
     Word,
+    #[doc(alias = "ATK_TEXT_GRANULARITY_SENTENCE")]
     Sentence,
+    #[doc(alias = "ATK_TEXT_GRANULARITY_LINE")]
     Line,
+    #[doc(alias = "ATK_TEXT_GRANULARITY_PARAGRAPH")]
     Paragraph,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1768,22 +2036,39 @@ impl SetValue for TextGranularity {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "AtkValueType")]
 pub enum ValueType {
+    #[doc(alias = "ATK_VALUE_VERY_WEAK")]
     VeryWeak,
+    #[doc(alias = "ATK_VALUE_WEAK")]
     Weak,
+    #[doc(alias = "ATK_VALUE_ACCEPTABLE")]
     Acceptable,
+    #[doc(alias = "ATK_VALUE_STRONG")]
     Strong,
+    #[doc(alias = "ATK_VALUE_VERY_STRONG")]
     VeryStrong,
+    #[doc(alias = "ATK_VALUE_VERY_LOW")]
     VeryLow,
+    #[doc(alias = "ATK_VALUE_LOW")]
     Low,
+    #[doc(alias = "ATK_VALUE_MEDIUM")]
     Medium,
+    #[doc(alias = "ATK_VALUE_HIGH")]
     High,
+    #[doc(alias = "ATK_VALUE_VERY_HIGH")]
     VeryHigh,
+    #[doc(alias = "ATK_VALUE_VERY_BAD")]
     VeryBad,
+    #[doc(alias = "ATK_VALUE_BAD")]
     Bad,
+    #[doc(alias = "ATK_VALUE_GOOD")]
     Good,
+    #[doc(alias = "ATK_VALUE_VERY_GOOD")]
     VeryGood,
+    #[doc(alias = "ATK_VALUE_BEST")]
     Best,
+    #[doc(alias = "ATK_VALUE_LAST_DEFINED")]
     LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
