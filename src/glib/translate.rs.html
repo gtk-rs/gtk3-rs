@@ -2515,11 +2515,11 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```ignore</span>
 <span class="doccomment">//!     pub fn set_accept_focus(&amp;self, accept_focus: bool) {</span>
-<span class="doccomment">//!         unsafe { gdk_sys::gdk_window_set_accept_focus(self.pointer, accept_focus.to_glib()) }</span>
+<span class="doccomment">//!         unsafe { gdk::ffi::gdk_window_set_accept_focus(self.pointer, accept_focus.to_glib()) }</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     pub fn get_accept_focus(&amp;self) -&gt; bool {</span>
-<span class="doccomment">//!         unsafe { from_glib(gdk_sys::gdk_window_get_accept_focus(self.pointer)) }</span>
+<span class="doccomment">//!         unsafe { from_glib(gdk::ffi::gdk_window_get_accept_focus(self.pointer)) }</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
@@ -2606,7 +2606,7 @@
 <span class="doccomment">//! ```ignore</span>
 <span class="doccomment">//!     fn get_title(&amp;self) -&gt; Option&lt;String&gt; {</span>
 <span class="doccomment">//!         unsafe {</span>
-<span class="doccomment">//!             let title = gtk_sys::gtk_window_get_title(self.pointer);</span>
+<span class="doccomment">//!             let title = gtk::ffi::gtk_window_get_title(self.pointer);</span>
 <span class="doccomment">//!             from_glib_none(title)</span>
 <span class="doccomment">//!         }</span>
 <span class="doccomment">//!     }</span>
@@ -2629,7 +2629,7 @@
 <span class="doccomment">//! ```ignore</span>
 <span class="doccomment">//!     pub fn set_icon_name(&amp;self, name: &amp;str) {</span>
 <span class="doccomment">//!         unsafe {</span>
-<span class="doccomment">//!             gdk_sys::gdk_window_set_icon_name(self.pointer, name.to_glib_none().0)</span>
+<span class="doccomment">//!             gdk::ffi::gdk_window_set_icon_name(self.pointer, name.to_glib_none().0)</span>
 <span class="doccomment">//!         }</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//! ```</span>
