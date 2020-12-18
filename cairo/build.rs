@@ -7,7 +7,6 @@ fn main() {
     not(all(feature = "embed-lgpl-docs", feature = "purge-lgpl-docs"))
 ))]
 fn manage_docs() {
-    extern crate lgpl_docs;
     const PATH: &'static str = "src";
     const IGNORES: &'static [&'static str] = &["lib.rs"];
     lgpl_docs::purge(PATH, IGNORES);

@@ -10,11 +10,11 @@
 //!
 //! ```ignore
 //!     pub fn set_accept_focus(&self, accept_focus: bool) {
-//!         unsafe { gdk_sys::gdk_window_set_accept_focus(self.pointer, accept_focus.to_glib()) }
+//!         unsafe { gdk::ffi::gdk_window_set_accept_focus(self.pointer, accept_focus.to_glib()) }
 //!     }
 //!
 //!     pub fn get_accept_focus(&self) -> bool {
-//!         unsafe { from_glib(gdk_sys::gdk_window_get_accept_focus(self.pointer)) }
+//!         unsafe { from_glib(gdk::ffi::gdk_window_get_accept_focus(self.pointer)) }
 //!     }
 //! ```
 //!
@@ -101,7 +101,7 @@
 //! ```ignore
 //!     fn get_title(&self) -> Option<String> {
 //!         unsafe {
-//!             let title = gtk_sys::gtk_window_get_title(self.pointer);
+//!             let title = gtk::ffi::gtk_window_get_title(self.pointer);
 //!             from_glib_none(title)
 //!         }
 //!     }
@@ -124,7 +124,7 @@
 //! ```ignore
 //!     pub fn set_icon_name(&self, name: &str) {
 //!         unsafe {
-//!             gdk_sys::gdk_window_set_icon_name(self.pointer, name.to_glib_none().0)
+//!             gdk::ffi::gdk_window_set_icon_name(self.pointer, name.to_glib_none().0)
 //!         }
 //!     }
 //! ```
