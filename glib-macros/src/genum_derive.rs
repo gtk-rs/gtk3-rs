@@ -27,8 +27,8 @@ fn gen_from_glib(enum_name: &Ident, enum_variants: &Punctuated<Variant, Comma>) 
     }
 }
 
-// Generate gobject_sys::GEnumValue structs mapping the enum such as:
-//     gobject_sys::GEnumValue {
+// Generate glib::gobject_ffi::GEnumValue structs mapping the enum such as:
+//     glib::gobject_ffi::GEnumValue {
 //         value: Animal::Goat as i32,
 //         value_name: "Goat\0" as *const _ as *const _,
 //         value_nick: "goat\0" as *const _ as *const _,

@@ -23,8 +23,8 @@ fn attribute_has_skip(attrs: &[Attribute]) -> bool {
     }
 }
 
-// Generate gobject_sys::GFlagsValue structs mapping the enum such as:
-//     gobject_sys::GFlagsValue {
+// Generate glib::gobject_ffi::GFlagsValue structs mapping the enum such as:
+//     glib::gobject_ffi::GFlagsValue {
 //         value: MyFlags::A.bits(),
 //         value_name: "The Name\0" as *const _ as *const _,
 //         value_nick: "nick\0" as *const _ as *const _,
