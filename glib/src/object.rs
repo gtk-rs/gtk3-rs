@@ -2554,7 +2554,7 @@ pub unsafe trait ParentClassIs: ObjectType {
 }
 
 /// Automatically implemented by `ObjectSubclass` variants of
-/// [`wrapper!`][crate::glib_wrapper]
+/// [`wrapper!`][crate::wrapper!]
 pub unsafe trait ObjectSubclassIs: ObjectType {
     type Subclass: ObjectSubclass;
 }
