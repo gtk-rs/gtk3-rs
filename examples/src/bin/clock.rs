@@ -4,8 +4,9 @@
 //! a periodic task, implementing a clock in this example.
 
 use chrono::Local;
-use gio::prelude::*;
+use gtk::glib;
 use gtk::prelude::*;
+
 use std::env::args;
 
 fn current_time() -> String {

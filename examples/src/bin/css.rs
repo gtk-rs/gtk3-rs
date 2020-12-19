@@ -2,8 +2,8 @@
 //!
 //! This sample demonstrates how to use CSS with gtk-rs.
 
-use gio::prelude::*;
 use gtk::prelude::*;
+use gtk::{gdk, gio};
 
 use std::env::args;
 

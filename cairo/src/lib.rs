@@ -42,6 +42,10 @@
 #![allow(clippy::missing_safety_doc)]
 
 pub use ffi;
+#[cfg(feature = "freetype")]
+pub use freetype_crate as freetype;
+#[cfg(feature = "use_glib")]
+pub use glib;
 
 // Helper macro for our GValue related trait impls
 #[cfg(feature = "use_glib")]

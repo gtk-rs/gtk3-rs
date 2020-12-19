@@ -2,8 +2,8 @@
 //!
 //! This example demonstrates how to create a main window with a transparent background.
 
-use gio::prelude::*;
 use gtk::prelude::*;
+use gtk::{cairo, gdk};
 use gtk::{ApplicationWindow, Button, Fixed};
 
 use std::env::args;

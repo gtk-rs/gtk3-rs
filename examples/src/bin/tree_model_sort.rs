@@ -2,8 +2,8 @@
 //!
 //! This sample demonstrates how to use the `TreeModelSort` widget.
 
-use gio::prelude::*;
 use gtk::prelude::*;
+use gtk::{gio, glib};
 use std::env::args;
 
 fn build_ui(application: &gtk::Application) {

@@ -2,8 +2,7 @@
 //!
 //! This sample demonstrates how to handle signals in builder
 
-use gio::prelude::*;
-use glib::clone;
+use gtk::glib;
 use gtk::prelude::*;
 
 use gtk::{ApplicationWindow, Builder, MessageDialog};
@@ -30,10 +29,12 @@ fn build_ui(application: &gtk::Application) {
 
         if handler_name == "button1_clicked" {
             // Return the signal handler.
-            Box::new(clone!(@weak dialog => @default-return None, move |_| {
-                dialog.show_all();
-                None
-            }))
+            Box::new(
+                glib::clone!(@weak dialog => @default-return None, move |_| {
+                    dialog.show_all();
+                    None
+                }),
+            )
         } else {
             panic!("Unknown handler name {}", handler_name)
         }

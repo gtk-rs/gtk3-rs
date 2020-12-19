@@ -41,14 +41,8 @@ ffi = { package = "gdkx11-sys", path = "sys" }
 [dependencies.glib]
 path = "../glib"
 
-[dependencies.pango]
-path = "../pango"
-
 [dependencies.gdk]
 path = "../gdk"
-
-[dependencies.gdk-pixbuf]
-path = "../gdk-pixbuf"
 
 [dependencies.gio]
 path = "../gio"

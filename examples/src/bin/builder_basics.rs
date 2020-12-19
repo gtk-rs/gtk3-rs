@@ -1,10 +1,9 @@
 //! # Builder Basics Sample
 //!
 //! This sample demonstrates how to use the builder with an imported glade file
-use gio::prelude::*;
-use glib::clone;
-use gtk::prelude::*;
 
+use gtk::glib;
+use gtk::prelude::*;
 use gtk::{ApplicationWindow, Builder, Button, MessageDialog};
 
 use std::env::args;
@@ -25,7 +24,7 @@ fn build_ui(application: &gtk::Application) {
         gtk::Inhibit(true)
     });
 
-    bigbutton.connect_clicked(clone!(@weak dialog => move |_| dialog.show_all()));
+    bigbutton.connect_clicked(glib::clone!(@weak dialog => move |_| dialog.show_all()));
     window.show_all();
 }
 

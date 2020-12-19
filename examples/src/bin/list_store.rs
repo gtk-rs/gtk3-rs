@@ -1,5 +1,4 @@
-use gio::prelude::*;
-use glib::clone;
+use gtk::glib;
 use gtk::prelude::*;
 
 use std::env::args;
@@ -54,7 +53,7 @@ fn build_ui(application: &gtk::Application) {
 
     glib::timeout_add_local(
         Duration::from_millis(80),
-        clone!(@weak model => @default-return glib::Continue(false), move || {
+        glib::clone!(@weak model => @default-return glib::Continue(false), move || {
             spinner_timeout(&model);
             glib::Continue(false)
         }),

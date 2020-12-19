@@ -8,6 +8,7 @@
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 pub use ffi;
+pub use glib;
 
 #[macro_use]
 mod rt;

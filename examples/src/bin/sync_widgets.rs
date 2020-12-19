@@ -3,9 +3,8 @@
 //! You can use property bindings in order to synchronize the values of widgets. In this example a
 //! spin button and a horizontal scale will get interlocked.
 
-use gio::prelude::*;
 use gtk::prelude::*;
-use gtk::Builder;
+use gtk::{glib, Builder};
 
 use std::env::args;
 

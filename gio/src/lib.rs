@@ -7,6 +7,7 @@
 #![allow(deprecated)]
 
 pub use ffi;
+pub use glib;
 
 mod app_info;
 mod application;

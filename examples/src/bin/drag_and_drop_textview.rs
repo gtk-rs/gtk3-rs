@@ -1,11 +1,11 @@
 //! More complex drag and drop example
 //!
 //! Displays a list of filenames when they're dropped on the textview widget.
+
 use std::env::args;
 
-use gdk::DragAction;
-use gio::prelude::*;
 use gtk::prelude::*;
+use gtk::{gdk, gio};
 use gtk::{DestDefaults, TargetFlags};
 
 fn build_ui(application: &gtk::Application) {
@@ -30,7 +30,7 @@ fn build_ui(application: &gtk::Application) {
         TargetFlags::OTHER_APP,
         0,
     )];
-    text_view.drag_dest_set(DestDefaults::HIGHLIGHT, &targets, DragAction::COPY);
+    text_view.drag_dest_set(DestDefaults::HIGHLIGHT, &targets, gdk::DragAction::COPY);
 
     // Process any `drag-data-received` events received by the textview. These events include
     // the URL list we're looking for.

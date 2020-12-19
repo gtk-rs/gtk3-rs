@@ -1,8 +1,7 @@
 #![cfg_attr(not(feature = "gtk_3_10"), allow(unused_variables, unused_mut))]
 
-use gio::prelude::*;
-use glib::clone;
 use gtk::prelude::*;
+use gtk::{gdk, glib};
 use gtk::{
     AboutDialog, AppChooserDialog, ApplicationWindow, Builder, Button, Dialog, Entry,
     FileChooserAction, FileChooserDialog, FontChooserDialog, RecentChooserDialog, ResponseType,
@@ -77,7 +76,7 @@ fn build_ui(application: &gtk::Application) {
     let button: Button = builder.get_object("button").expect("Couldn't get button");
     let entry: Entry = builder.get_object("entry").expect("Couldn't get entry");
 
-    button.connect_clicked(clone!(@weak window, @weak entry => move |_| {
+    button.connect_clicked(glib::clone!(@weak window, @weak entry => move |_| {
         let dialog = Dialog::with_buttons(Some("Hello!"),
                                               Some(&window),
                                               gtk::DialogFlags::MODAL,
@@ -85,7 +84,7 @@ fn build_ui(application: &gtk::Application) {
                                                 ("Yes", ResponseType::Yes),
                                                 ("Custom", ResponseType::Other(0))]);
 
-        dialog.connect_response(clone!(@weak entry => move |dialog, response| {
+        dialog.connect_response(glib::clone!(@weak entry => move |dialog, response| {
             entry.set_text(&format!("Clicked {}", response));
             dialog.close();
         }));
@@ -95,7 +94,7 @@ fn build_ui(application: &gtk::Application) {
     let button_font: Button = builder
         .get_object("button_font")
         .expect("Couldn't get button_font");
-    button_font.connect_clicked(clone!(@weak window => move |_| {
+    button_font.connect_clicked(glib::clone!(@weak window => move |_| {
         let dialog = FontChooserDialog::new(Some("Font chooser test"), Some(&window));
 
         dialog.connect_response(|dialog, _| dialog.close());
@@ -105,7 +104,7 @@ fn build_ui(application: &gtk::Application) {
     let button_recent: Button = builder
         .get_object("button_recent")
         .expect("Couldn't get button_recent");
-    button_recent.connect_clicked(clone!(@weak window => move |_| {
+    button_recent.connect_clicked(glib::clone!(@weak window => move |_| {
         let dialog = RecentChooserDialog::new(Some("Recent chooser test"), Some(&window));
         dialog.add_buttons(&[
             ("Ok", ResponseType::Ok),
@@ -119,7 +118,7 @@ fn build_ui(application: &gtk::Application) {
     let file_button: Button = builder
         .get_object("file_button")
         .expect("Couldn't get file_button");
-    file_button.connect_clicked(clone!(@weak window => move |_| {
+    file_button.connect_clicked(glib::clone!(@weak window => move |_| {
         // entry.set_text("Clicked!");
         let dialog = FileChooserDialog::new(Some("Choose a file"), Some(&window),
                                             FileChooserAction::Open);
@@ -143,7 +142,7 @@ fn build_ui(application: &gtk::Application) {
     let app_button: Button = builder
         .get_object("app_button")
         .expect("Couldn't get app_button");
-    app_button.connect_clicked(clone!(@weak window => move |_| {
+    app_button.connect_clicked(glib::clone!(@weak window => move |_| {
         // entry.set_text("Clicked!");
         let dialog = AppChooserDialog::new_for_content_type(Some(&window),
                                                             gtk::DialogFlags::MODAL,
@@ -154,7 +153,7 @@ fn build_ui(application: &gtk::Application) {
     }));
 
     let switch: Switch = builder.get_object("switch").expect("Couldn't get switch");
-    switch.connect_changed_active(clone!(@weak entry => move |switch| {
+    switch.connect_changed_active(glib::clone!(@weak entry => move |switch| {
         if switch.get_active() {
             entry.set_text("Switch On");
         } else {
@@ -169,7 +168,7 @@ fn build_ui(application: &gtk::Application) {
     button_about.connect_clicked(move |x| about_clicked(x, &dialog));
 
     window.connect_key_press_event(
-        clone!(@weak entry => @default-return Inhibit(false), move |_, key| {
+        glib::clone!(@weak entry => @default-return Inhibit(false), move |_, key| {
             let keyval = key.get_keyval();
             let keystate = key.get_state();
 

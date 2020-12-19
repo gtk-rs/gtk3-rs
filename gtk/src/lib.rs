@@ -152,6 +152,14 @@
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 pub use ffi;
+// Re-export gtk dependencies
+pub use atk;
+pub use cairo;
+pub use gdk;
+pub use gdk_pixbuf;
+pub use gio;
+pub use glib;
+pub use pango;
 
 #[doc(hidden)]
 pub use field_offset::*;

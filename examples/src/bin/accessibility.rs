@@ -1,9 +1,9 @@
 //! # Accessibility example
 //!
 //! This sample demonstrates how to make an application more accessible.
-use atk::prelude::*;
-use gio::prelude::*;
+
 use gtk::prelude::*;
+use gtk::{atk, gio};
 
 use std::env::args;
 

@@ -3,9 +3,8 @@
 //! This example demonstrates how to build a list of items and use them
 //! to autocomplete a field as the user types in something.
 
-use gio::prelude::*;
-use glib::clone;
 use gtk::prelude::*;
+use gtk::{gio, glib};
 
 use std::env::args;
 
@@ -93,9 +92,11 @@ fn main() {
 
     // When activated, shuts down the application
     let quit = gio::SimpleAction::new("quit", None);
-    quit.connect_activate(clone!(@weak application => move |_action, _parameter| {
-        application.quit();
-    }));
+    quit.connect_activate(
+        glib::clone!(@weak application => move |_action, _parameter| {
+            application.quit();
+        }),
+    );
     application.connect_startup(|application| {
         application.set_accels_for_action("app.quit", &["<Primary>Q"]);
     });

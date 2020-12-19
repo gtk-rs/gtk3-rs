@@ -2,7 +2,6 @@
 //!
 //! This sample demonstrates how to create a TreeView with a ListStore.
 
-use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::{
     ApplicationWindow, CellRendererText, Label, ListStore, Orientation, TreeView, TreeViewColumn,

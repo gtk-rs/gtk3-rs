@@ -1,4 +1,4 @@
-use gio::prelude::*;
+use gtk::glib;
 use gtk::prelude::*;
 
 use std::env::args;
