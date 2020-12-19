@@ -70,7 +70,7 @@ pub trait ObjectInterface: Sized + 'static {
     /// This will register the type with the type system on the first call and is usually generated
     /// by the [`object_interface!`] macro.
     ///
-    /// [`object_interface!`]: ../../macro.glib_object_interface.html
+    /// [`object_interface!`]: ../../macro.object_interface.html
     fn get_type() -> Type;
 
     /// Additional type initialization.
@@ -259,7 +259,7 @@ unsafe extern "C" fn interface_init<T: ObjectInterface>(
 /// The [`object_interface!`] macro will create a `get_type()` function around this, which will
 /// ensure that it's only ever called once.
 ///
-/// [`object_interface!`]: ../../macro.glib_object_interface.html
+/// [`object_interface!`]: ../../macro.object_interface.html
 pub fn register_interface<T: ObjectInterface>() -> Type {
     unsafe {
         use std::ffi::CString;
