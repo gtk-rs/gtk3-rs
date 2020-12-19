@@ -4,7 +4,12 @@
 #![allow(clippy::missing_safety_doc)]
 #![allow(deprecated)]
 
+pub use cairo;
 pub use ffi;
+pub use gdk_pixbuf;
+pub use gio;
+pub use glib;
+pub use pango;
 
 #[macro_use]
 mod rt;

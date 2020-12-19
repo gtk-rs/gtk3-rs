@@ -6,4 +6,10 @@ pub use crate::auto::traits::*;
 pub use crate::cairo_interaction::{GdkContextExt, GdkPixbufExt, GdkSurfaceExt};
 pub use crate::window::WindowExtManual;
 #[doc(hidden)]
+pub use gdk_pixbuf::prelude::*;
+#[doc(hidden)]
+pub use gio::prelude::*;
+#[doc(hidden)]
 pub use glib::prelude::*;
+#[doc(hidden)]
+pub use pango::prelude::*;
