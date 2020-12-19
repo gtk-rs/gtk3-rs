@@ -9,13 +9,19 @@ use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GChecksumType")]
 pub enum ChecksumType {
+    #[doc(alias = "G_CHECKSUM_MD5")]
     Md5,
+    #[doc(alias = "G_CHECKSUM_SHA1")]
     Sha1,
+    #[doc(alias = "G_CHECKSUM_SHA256")]
     Sha256,
+    #[doc(alias = "G_CHECKSUM_SHA512")]
     Sha512,
     #[cfg(any(feature = "v2_52", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_52")))]
+    #[doc(alias = "G_CHECKSUM_SHA384")]
     Sha384,
     #[doc(hidden)]
     __Unknown(i32),
@@ -73,19 +79,33 @@ impl FromGlib<ffi::GChecksumType> for ChecksumType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GDateMonth")]
 pub enum DateMonth {
+    #[doc(alias = "G_DATE_BAD_MONTH")]
     BadMonth,
+    #[doc(alias = "G_DATE_JANUARY")]
     January,
+    #[doc(alias = "G_DATE_FEBRUARY")]
     February,
+    #[doc(alias = "G_DATE_MARCH")]
     March,
+    #[doc(alias = "G_DATE_APRIL")]
     April,
+    #[doc(alias = "G_DATE_MAY")]
     May,
+    #[doc(alias = "G_DATE_JUNE")]
     June,
+    #[doc(alias = "G_DATE_JULY")]
     July,
+    #[doc(alias = "G_DATE_AUGUST")]
     August,
+    #[doc(alias = "G_DATE_SEPTEMBER")]
     September,
+    #[doc(alias = "G_DATE_OCTOBER")]
     October,
+    #[doc(alias = "G_DATE_NOVEMBER")]
     November,
+    #[doc(alias = "G_DATE_DECEMBER")]
     December,
     #[doc(hidden)]
     __Unknown(i32),
@@ -164,14 +184,23 @@ impl FromGlib<ffi::GDateMonth> for DateMonth {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GDateWeekday")]
 pub enum DateWeekday {
+    #[doc(alias = "G_DATE_BAD_WEEKDAY")]
     BadWeekday,
+    #[doc(alias = "G_DATE_MONDAY")]
     Monday,
+    #[doc(alias = "G_DATE_TUESDAY")]
     Tuesday,
+    #[doc(alias = "G_DATE_WEDNESDAY")]
     Wednesday,
+    #[doc(alias = "G_DATE_THURSDAY")]
     Thursday,
+    #[doc(alias = "G_DATE_FRIDAY")]
     Friday,
+    #[doc(alias = "G_DATE_SATURDAY")]
     Saturday,
+    #[doc(alias = "G_DATE_SUNDAY")]
     Sunday,
     #[doc(hidden)]
     __Unknown(i32),
@@ -235,12 +264,19 @@ impl FromGlib<ffi::GDateWeekday> for DateWeekday {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GKeyFileError")]
 pub enum KeyFileError {
+    #[doc(alias = "G_KEY_FILE_ERROR_UNKNOWN_ENCODING")]
     UnknownEncoding,
+    #[doc(alias = "G_KEY_FILE_ERROR_PARSE")]
     Parse,
+    #[doc(alias = "G_KEY_FILE_ERROR_NOT_FOUND")]
     NotFound,
+    #[doc(alias = "G_KEY_FILE_ERROR_KEY_NOT_FOUND")]
     KeyNotFound,
+    #[doc(alias = "G_KEY_FILE_ERROR_GROUP_NOT_FOUND")]
     GroupNotFound,
+    #[doc(alias = "G_KEY_FILE_ERROR_INVALID_VALUE")]
     InvalidValue,
     #[doc(hidden)]
     __Unknown(i32),
@@ -320,15 +356,25 @@ impl ErrorDomain for KeyFileError {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GOptionArg")]
 pub enum OptionArg {
+    #[doc(alias = "G_OPTION_ARG_NONE")]
     None,
+    #[doc(alias = "G_OPTION_ARG_STRING")]
     String,
+    #[doc(alias = "G_OPTION_ARG_INT")]
     Int,
+    #[doc(alias = "G_OPTION_ARG_CALLBACK")]
     Callback,
+    #[doc(alias = "G_OPTION_ARG_FILENAME")]
     Filename,
+    #[doc(alias = "G_OPTION_ARG_STRING_ARRAY")]
     StringArray,
+    #[doc(alias = "G_OPTION_ARG_FILENAME_ARRAY")]
     FilenameArray,
+    #[doc(alias = "G_OPTION_ARG_DOUBLE")]
     Double,
+    #[doc(alias = "G_OPTION_ARG_INT64")]
     Int64,
     #[doc(hidden)]
     __Unknown(i32),
@@ -395,9 +441,13 @@ impl FromGlib<ffi::GOptionArg> for OptionArg {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GSeekType")]
 pub enum SeekType {
+    #[doc(alias = "G_SEEK_CUR")]
     Cur,
+    #[doc(alias = "G_SEEK_SET")]
     Set,
+    #[doc(alias = "G_SEEK_END")]
     End,
     #[doc(hidden)]
     __Unknown(i32),
@@ -446,9 +496,13 @@ impl FromGlib<ffi::GSeekType> for SeekType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GTimeType")]
 pub enum TimeType {
+    #[doc(alias = "G_TIME_TYPE_STANDARD")]
     Standard,
+    #[doc(alias = "G_TIME_TYPE_DAYLIGHT")]
     Daylight,
+    #[doc(alias = "G_TIME_TYPE_UNIVERSAL")]
     Universal,
     #[doc(hidden)]
     __Unknown(i32),
@@ -499,16 +553,27 @@ impl FromGlib<ffi::GTimeType> for TimeType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GUriError")]
 pub enum UriError {
+    #[doc(alias = "G_URI_ERROR_FAILED")]
     Failed,
+    #[doc(alias = "G_URI_ERROR_BAD_SCHEME")]
     BadScheme,
+    #[doc(alias = "G_URI_ERROR_BAD_USER")]
     BadUser,
+    #[doc(alias = "G_URI_ERROR_BAD_PASSWORD")]
     BadPassword,
+    #[doc(alias = "G_URI_ERROR_BAD_AUTH_PARAMS")]
     BadAuthParams,
+    #[doc(alias = "G_URI_ERROR_BAD_HOST")]
     BadHost,
+    #[doc(alias = "G_URI_ERROR_BAD_PORT")]
     BadPort,
+    #[doc(alias = "G_URI_ERROR_BAD_PATH")]
     BadPath,
+    #[doc(alias = "G_URI_ERROR_BAD_QUERY")]
     BadQuery,
+    #[doc(alias = "G_URI_ERROR_BAD_FRAGMENT")]
     BadFragment,
     #[doc(hidden)]
     __Unknown(i32),

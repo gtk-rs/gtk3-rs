@@ -14,9 +14,13 @@ use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoAlignment")]
 pub enum Alignment {
+    #[doc(alias = "PANGO_ALIGN_LEFT")]
     Left,
+    #[doc(alias = "PANGO_ALIGN_CENTER")]
     Center,
+    #[doc(alias = "PANGO_ALIGN_RIGHT")]
     Right,
     #[doc(hidden)]
     __Unknown(i32),
@@ -89,37 +93,69 @@ impl SetValue for Alignment {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoAttrType")]
 pub enum AttrType {
+    #[doc(alias = "PANGO_ATTR_INVALID")]
     Invalid,
+    #[doc(alias = "PANGO_ATTR_LANGUAGE")]
     Language,
+    #[doc(alias = "PANGO_ATTR_FAMILY")]
     Family,
+    #[doc(alias = "PANGO_ATTR_STYLE")]
     Style,
+    #[doc(alias = "PANGO_ATTR_WEIGHT")]
     Weight,
+    #[doc(alias = "PANGO_ATTR_VARIANT")]
     Variant,
+    #[doc(alias = "PANGO_ATTR_STRETCH")]
     Stretch,
+    #[doc(alias = "PANGO_ATTR_SIZE")]
     Size,
+    #[doc(alias = "PANGO_ATTR_FONT_DESC")]
     FontDesc,
+    #[doc(alias = "PANGO_ATTR_FOREGROUND")]
     Foreground,
+    #[doc(alias = "PANGO_ATTR_BACKGROUND")]
     Background,
+    #[doc(alias = "PANGO_ATTR_UNDERLINE")]
     Underline,
+    #[doc(alias = "PANGO_ATTR_STRIKETHROUGH")]
     Strikethrough,
+    #[doc(alias = "PANGO_ATTR_RISE")]
     Rise,
+    #[doc(alias = "PANGO_ATTR_SHAPE")]
     Shape,
+    #[doc(alias = "PANGO_ATTR_SCALE")]
     Scale,
+    #[doc(alias = "PANGO_ATTR_FALLBACK")]
     Fallback,
+    #[doc(alias = "PANGO_ATTR_LETTER_SPACING")]
     LetterSpacing,
+    #[doc(alias = "PANGO_ATTR_UNDERLINE_COLOR")]
     UnderlineColor,
+    #[doc(alias = "PANGO_ATTR_STRIKETHROUGH_COLOR")]
     StrikethroughColor,
+    #[doc(alias = "PANGO_ATTR_ABSOLUTE_SIZE")]
     AbsoluteSize,
+    #[doc(alias = "PANGO_ATTR_GRAVITY")]
     Gravity,
+    #[doc(alias = "PANGO_ATTR_GRAVITY_HINT")]
     GravityHint,
+    #[doc(alias = "PANGO_ATTR_FONT_FEATURES")]
     FontFeatures,
+    #[doc(alias = "PANGO_ATTR_FOREGROUND_ALPHA")]
     ForegroundAlpha,
+    #[doc(alias = "PANGO_ATTR_BACKGROUND_ALPHA")]
     BackgroundAlpha,
+    #[doc(alias = "PANGO_ATTR_ALLOW_BREAKS")]
     AllowBreaks,
+    #[doc(alias = "PANGO_ATTR_SHOW")]
     Show,
+    #[doc(alias = "PANGO_ATTR_INSERT_HYPHENS")]
     InsertHyphens,
+    #[doc(alias = "PANGO_ATTR_OVERLINE")]
     Overline,
+    #[doc(alias = "PANGO_ATTR_OVERLINE_COLOR")]
     OverlineColor,
     #[doc(hidden)]
     __Unknown(i32),
@@ -284,25 +320,45 @@ impl SetValue for AttrType {
 #[cfg_attr(feature = "v1_44", deprecated)]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoBidiType")]
 pub enum BidiType {
+    #[doc(alias = "PANGO_BIDI_TYPE_L")]
     L,
+    #[doc(alias = "PANGO_BIDI_TYPE_LRE")]
     Lre,
+    #[doc(alias = "PANGO_BIDI_TYPE_LRO")]
     Lro,
+    #[doc(alias = "PANGO_BIDI_TYPE_R")]
     R,
+    #[doc(alias = "PANGO_BIDI_TYPE_AL")]
     Al,
+    #[doc(alias = "PANGO_BIDI_TYPE_RLE")]
     Rle,
+    #[doc(alias = "PANGO_BIDI_TYPE_RLO")]
     Rlo,
+    #[doc(alias = "PANGO_BIDI_TYPE_PDF")]
     Pdf,
+    #[doc(alias = "PANGO_BIDI_TYPE_EN")]
     En,
+    #[doc(alias = "PANGO_BIDI_TYPE_ES")]
     Es,
+    #[doc(alias = "PANGO_BIDI_TYPE_ET")]
     Et,
+    #[doc(alias = "PANGO_BIDI_TYPE_AN")]
     An,
+    #[doc(alias = "PANGO_BIDI_TYPE_CS")]
     Cs,
+    #[doc(alias = "PANGO_BIDI_TYPE_NSM")]
     Nsm,
+    #[doc(alias = "PANGO_BIDI_TYPE_BN")]
     Bn,
+    #[doc(alias = "PANGO_BIDI_TYPE_B")]
     B,
+    #[doc(alias = "PANGO_BIDI_TYPE_S")]
     S,
+    #[doc(alias = "PANGO_BIDI_TYPE_WS")]
     Ws,
+    #[doc(alias = "PANGO_BIDI_TYPE_ON")]
     On,
     #[doc(hidden)]
     __Unknown(i32),
@@ -430,10 +486,15 @@ impl SetValue for BidiType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoCoverageLevel")]
 pub enum CoverageLevel {
+    #[doc(alias = "PANGO_COVERAGE_NONE")]
     None,
+    #[doc(alias = "PANGO_COVERAGE_FALLBACK")]
     Fallback,
+    #[doc(alias = "PANGO_COVERAGE_APPROXIMATE")]
     Approximate,
+    #[doc(alias = "PANGO_COVERAGE_EXACT")]
     Exact,
     #[doc(hidden)]
     __Unknown(i32),
@@ -509,13 +570,21 @@ impl SetValue for CoverageLevel {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoDirection")]
 pub enum Direction {
+    #[doc(alias = "PANGO_DIRECTION_LTR")]
     Ltr,
+    #[doc(alias = "PANGO_DIRECTION_RTL")]
     Rtl,
+    #[doc(alias = "PANGO_DIRECTION_TTB_LTR")]
     TtbLtr,
+    #[doc(alias = "PANGO_DIRECTION_TTB_RTL")]
     TtbRtl,
+    #[doc(alias = "PANGO_DIRECTION_WEAK_LTR")]
     WeakLtr,
+    #[doc(alias = "PANGO_DIRECTION_WEAK_RTL")]
     WeakRtl,
+    #[doc(alias = "PANGO_DIRECTION_NEUTRAL")]
     Neutral,
     #[doc(hidden)]
     __Unknown(i32),
@@ -600,10 +669,15 @@ impl SetValue for Direction {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoEllipsizeMode")]
 pub enum EllipsizeMode {
+    #[doc(alias = "PANGO_ELLIPSIZE_NONE")]
     None,
+    #[doc(alias = "PANGO_ELLIPSIZE_START")]
     Start,
+    #[doc(alias = "PANGO_ELLIPSIZE_MIDDLE")]
     Middle,
+    #[doc(alias = "PANGO_ELLIPSIZE_END")]
     End,
     #[doc(hidden)]
     __Unknown(i32),
@@ -679,11 +753,17 @@ impl SetValue for EllipsizeMode {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoGravity")]
 pub enum Gravity {
+    #[doc(alias = "PANGO_GRAVITY_SOUTH")]
     South,
+    #[doc(alias = "PANGO_GRAVITY_EAST")]
     East,
+    #[doc(alias = "PANGO_GRAVITY_NORTH")]
     North,
+    #[doc(alias = "PANGO_GRAVITY_WEST")]
     West,
+    #[doc(alias = "PANGO_GRAVITY_AUTO")]
     Auto,
     #[doc(hidden)]
     __Unknown(i32),
@@ -802,9 +882,13 @@ impl SetValue for Gravity {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoGravityHint")]
 pub enum GravityHint {
+    #[doc(alias = "PANGO_GRAVITY_HINT_NATURAL")]
     Natural,
+    #[doc(alias = "PANGO_GRAVITY_HINT_STRONG")]
     Strong,
+    #[doc(alias = "PANGO_GRAVITY_HINT_LINE")]
     Line,
     #[doc(hidden)]
     __Unknown(i32),
@@ -879,8 +963,11 @@ impl SetValue for GravityHint {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoOverline")]
 pub enum Overline {
+    #[doc(alias = "PANGO_OVERLINE_NONE")]
     None,
+    #[doc(alias = "PANGO_OVERLINE_SINGLE")]
     Single,
     #[doc(hidden)]
     __Unknown(i32),
@@ -964,11 +1051,17 @@ impl SetValue for Overline {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoRenderPart")]
 pub enum RenderPart {
+    #[doc(alias = "PANGO_RENDER_PART_FOREGROUND")]
     Foreground,
+    #[doc(alias = "PANGO_RENDER_PART_BACKGROUND")]
     Background,
+    #[doc(alias = "PANGO_RENDER_PART_UNDERLINE")]
     Underline,
+    #[doc(alias = "PANGO_RENDER_PART_STRIKETHROUGH")]
     Strikethrough,
+    #[doc(alias = "PANGO_RENDER_PART_OVERLINE")]
     Overline,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1047,124 +1140,243 @@ impl SetValue for RenderPart {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoScript")]
 pub enum Script {
+    #[doc(alias = "PANGO_SCRIPT_INVALID_CODE")]
     InvalidCode,
+    #[doc(alias = "PANGO_SCRIPT_COMMON")]
     Common,
+    #[doc(alias = "PANGO_SCRIPT_INHERITED")]
     Inherited,
+    #[doc(alias = "PANGO_SCRIPT_ARABIC")]
     Arabic,
+    #[doc(alias = "PANGO_SCRIPT_ARMENIAN")]
     Armenian,
+    #[doc(alias = "PANGO_SCRIPT_BENGALI")]
     Bengali,
+    #[doc(alias = "PANGO_SCRIPT_BOPOMOFO")]
     Bopomofo,
+    #[doc(alias = "PANGO_SCRIPT_CHEROKEE")]
     Cherokee,
+    #[doc(alias = "PANGO_SCRIPT_COPTIC")]
     Coptic,
+    #[doc(alias = "PANGO_SCRIPT_CYRILLIC")]
     Cyrillic,
+    #[doc(alias = "PANGO_SCRIPT_DESERET")]
     Deseret,
+    #[doc(alias = "PANGO_SCRIPT_DEVANAGARI")]
     Devanagari,
+    #[doc(alias = "PANGO_SCRIPT_ETHIOPIC")]
     Ethiopic,
+    #[doc(alias = "PANGO_SCRIPT_GEORGIAN")]
     Georgian,
+    #[doc(alias = "PANGO_SCRIPT_GOTHIC")]
     Gothic,
+    #[doc(alias = "PANGO_SCRIPT_GREEK")]
     Greek,
+    #[doc(alias = "PANGO_SCRIPT_GUJARATI")]
     Gujarati,
+    #[doc(alias = "PANGO_SCRIPT_GURMUKHI")]
     Gurmukhi,
+    #[doc(alias = "PANGO_SCRIPT_HAN")]
     Han,
+    #[doc(alias = "PANGO_SCRIPT_HANGUL")]
     Hangul,
+    #[doc(alias = "PANGO_SCRIPT_HEBREW")]
     Hebrew,
+    #[doc(alias = "PANGO_SCRIPT_HIRAGANA")]
     Hiragana,
+    #[doc(alias = "PANGO_SCRIPT_KANNADA")]
     Kannada,
+    #[doc(alias = "PANGO_SCRIPT_KATAKANA")]
     Katakana,
+    #[doc(alias = "PANGO_SCRIPT_KHMER")]
     Khmer,
+    #[doc(alias = "PANGO_SCRIPT_LAO")]
     Lao,
+    #[doc(alias = "PANGO_SCRIPT_LATIN")]
     Latin,
+    #[doc(alias = "PANGO_SCRIPT_MALAYALAM")]
     Malayalam,
+    #[doc(alias = "PANGO_SCRIPT_MONGOLIAN")]
     Mongolian,
+    #[doc(alias = "PANGO_SCRIPT_MYANMAR")]
     Myanmar,
+    #[doc(alias = "PANGO_SCRIPT_OGHAM")]
     Ogham,
+    #[doc(alias = "PANGO_SCRIPT_OLD_ITALIC")]
     OldItalic,
+    #[doc(alias = "PANGO_SCRIPT_ORIYA")]
     Oriya,
+    #[doc(alias = "PANGO_SCRIPT_RUNIC")]
     Runic,
+    #[doc(alias = "PANGO_SCRIPT_SINHALA")]
     Sinhala,
+    #[doc(alias = "PANGO_SCRIPT_SYRIAC")]
     Syriac,
+    #[doc(alias = "PANGO_SCRIPT_TAMIL")]
     Tamil,
+    #[doc(alias = "PANGO_SCRIPT_TELUGU")]
     Telugu,
+    #[doc(alias = "PANGO_SCRIPT_THAANA")]
     Thaana,
+    #[doc(alias = "PANGO_SCRIPT_THAI")]
     Thai,
+    #[doc(alias = "PANGO_SCRIPT_TIBETAN")]
     Tibetan,
+    #[doc(alias = "PANGO_SCRIPT_CANADIAN_ABORIGINAL")]
     CanadianAboriginal,
+    #[doc(alias = "PANGO_SCRIPT_YI")]
     Yi,
+    #[doc(alias = "PANGO_SCRIPT_TAGALOG")]
     Tagalog,
+    #[doc(alias = "PANGO_SCRIPT_HANUNOO")]
     Hanunoo,
+    #[doc(alias = "PANGO_SCRIPT_BUHID")]
     Buhid,
+    #[doc(alias = "PANGO_SCRIPT_TAGBANWA")]
     Tagbanwa,
+    #[doc(alias = "PANGO_SCRIPT_BRAILLE")]
     Braille,
+    #[doc(alias = "PANGO_SCRIPT_CYPRIOT")]
     Cypriot,
+    #[doc(alias = "PANGO_SCRIPT_LIMBU")]
     Limbu,
+    #[doc(alias = "PANGO_SCRIPT_OSMANYA")]
     Osmanya,
+    #[doc(alias = "PANGO_SCRIPT_SHAVIAN")]
     Shavian,
+    #[doc(alias = "PANGO_SCRIPT_LINEAR_B")]
     LinearB,
+    #[doc(alias = "PANGO_SCRIPT_TAI_LE")]
     TaiLe,
+    #[doc(alias = "PANGO_SCRIPT_UGARITIC")]
     Ugaritic,
+    #[doc(alias = "PANGO_SCRIPT_NEW_TAI_LUE")]
     NewTaiLue,
+    #[doc(alias = "PANGO_SCRIPT_BUGINESE")]
     Buginese,
+    #[doc(alias = "PANGO_SCRIPT_GLAGOLITIC")]
     Glagolitic,
+    #[doc(alias = "PANGO_SCRIPT_TIFINAGH")]
     Tifinagh,
+    #[doc(alias = "PANGO_SCRIPT_SYLOTI_NAGRI")]
     SylotiNagri,
+    #[doc(alias = "PANGO_SCRIPT_OLD_PERSIAN")]
     OldPersian,
+    #[doc(alias = "PANGO_SCRIPT_KHAROSHTHI")]
     Kharoshthi,
+    #[doc(alias = "PANGO_SCRIPT_UNKNOWN")]
     Unknown,
+    #[doc(alias = "PANGO_SCRIPT_BALINESE")]
     Balinese,
+    #[doc(alias = "PANGO_SCRIPT_CUNEIFORM")]
     Cuneiform,
+    #[doc(alias = "PANGO_SCRIPT_PHOENICIAN")]
     Phoenician,
+    #[doc(alias = "PANGO_SCRIPT_PHAGS_PA")]
     PhagsPa,
+    #[doc(alias = "PANGO_SCRIPT_NKO")]
     Nko,
+    #[doc(alias = "PANGO_SCRIPT_KAYAH_LI")]
     KayahLi,
+    #[doc(alias = "PANGO_SCRIPT_LEPCHA")]
     Lepcha,
+    #[doc(alias = "PANGO_SCRIPT_REJANG")]
     Rejang,
+    #[doc(alias = "PANGO_SCRIPT_SUNDANESE")]
     Sundanese,
+    #[doc(alias = "PANGO_SCRIPT_SAURASHTRA")]
     Saurashtra,
+    #[doc(alias = "PANGO_SCRIPT_CHAM")]
     Cham,
+    #[doc(alias = "PANGO_SCRIPT_OL_CHIKI")]
     OlChiki,
+    #[doc(alias = "PANGO_SCRIPT_VAI")]
     Vai,
+    #[doc(alias = "PANGO_SCRIPT_CARIAN")]
     Carian,
+    #[doc(alias = "PANGO_SCRIPT_LYCIAN")]
     Lycian,
+    #[doc(alias = "PANGO_SCRIPT_LYDIAN")]
     Lydian,
+    #[doc(alias = "PANGO_SCRIPT_BATAK")]
     Batak,
+    #[doc(alias = "PANGO_SCRIPT_BRAHMI")]
     Brahmi,
+    #[doc(alias = "PANGO_SCRIPT_MANDAIC")]
     Mandaic,
+    #[doc(alias = "PANGO_SCRIPT_CHAKMA")]
     Chakma,
+    #[doc(alias = "PANGO_SCRIPT_MEROITIC_CURSIVE")]
     MeroiticCursive,
+    #[doc(alias = "PANGO_SCRIPT_MEROITIC_HIEROGLYPHS")]
     MeroiticHieroglyphs,
+    #[doc(alias = "PANGO_SCRIPT_MIAO")]
     Miao,
+    #[doc(alias = "PANGO_SCRIPT_SHARADA")]
     Sharada,
+    #[doc(alias = "PANGO_SCRIPT_SORA_SOMPENG")]
     SoraSompeng,
+    #[doc(alias = "PANGO_SCRIPT_TAKRI")]
     Takri,
+    #[doc(alias = "PANGO_SCRIPT_BASSA_VAH")]
     BassaVah,
+    #[doc(alias = "PANGO_SCRIPT_CAUCASIAN_ALBANIAN")]
     CaucasianAlbanian,
+    #[doc(alias = "PANGO_SCRIPT_DUPLOYAN")]
     Duployan,
+    #[doc(alias = "PANGO_SCRIPT_ELBASAN")]
     Elbasan,
+    #[doc(alias = "PANGO_SCRIPT_GRANTHA")]
     Grantha,
+    #[doc(alias = "PANGO_SCRIPT_KHOJKI")]
     Khojki,
+    #[doc(alias = "PANGO_SCRIPT_KHUDAWADI")]
     Khudawadi,
+    #[doc(alias = "PANGO_SCRIPT_LINEAR_A")]
     LinearA,
+    #[doc(alias = "PANGO_SCRIPT_MAHAJANI")]
     Mahajani,
+    #[doc(alias = "PANGO_SCRIPT_MANICHAEAN")]
     Manichaean,
+    #[doc(alias = "PANGO_SCRIPT_MENDE_KIKAKUI")]
     MendeKikakui,
+    #[doc(alias = "PANGO_SCRIPT_MODI")]
     Modi,
+    #[doc(alias = "PANGO_SCRIPT_MRO")]
     Mro,
+    #[doc(alias = "PANGO_SCRIPT_NABATAEAN")]
     Nabataean,
+    #[doc(alias = "PANGO_SCRIPT_OLD_NORTH_ARABIAN")]
     OldNorthArabian,
+    #[doc(alias = "PANGO_SCRIPT_OLD_PERMIC")]
     OldPermic,
+    #[doc(alias = "PANGO_SCRIPT_PAHAWH_HMONG")]
     PahawhHmong,
+    #[doc(alias = "PANGO_SCRIPT_PALMYRENE")]
     Palmyrene,
+    #[doc(alias = "PANGO_SCRIPT_PAU_CIN_HAU")]
     PauCinHau,
+    #[doc(alias = "PANGO_SCRIPT_PSALTER_PAHLAVI")]
     PsalterPahlavi,
+    #[doc(alias = "PANGO_SCRIPT_SIDDHAM")]
     Siddham,
+    #[doc(alias = "PANGO_SCRIPT_TIRHUTA")]
     Tirhuta,
+    #[doc(alias = "PANGO_SCRIPT_WARANG_CITI")]
     WarangCiti,
+    #[doc(alias = "PANGO_SCRIPT_AHOM")]
     Ahom,
+    #[doc(alias = "PANGO_SCRIPT_ANATOLIAN_HIEROGLYPHS")]
     AnatolianHieroglyphs,
+    #[doc(alias = "PANGO_SCRIPT_HATRAN")]
     Hatran,
+    #[doc(alias = "PANGO_SCRIPT_MULTANI")]
     Multani,
+    #[doc(alias = "PANGO_SCRIPT_OLD_HUNGARIAN")]
     OldHungarian,
+    #[doc(alias = "PANGO_SCRIPT_SIGNWRITING")]
     Signwriting,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1595,15 +1807,25 @@ impl SetValue for Script {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoStretch")]
 pub enum Stretch {
+    #[doc(alias = "PANGO_STRETCH_ULTRA_CONDENSED")]
     UltraCondensed,
+    #[doc(alias = "PANGO_STRETCH_EXTRA_CONDENSED")]
     ExtraCondensed,
+    #[doc(alias = "PANGO_STRETCH_CONDENSED")]
     Condensed,
+    #[doc(alias = "PANGO_STRETCH_SEMI_CONDENSED")]
     SemiCondensed,
+    #[doc(alias = "PANGO_STRETCH_NORMAL")]
     Normal,
+    #[doc(alias = "PANGO_STRETCH_SEMI_EXPANDED")]
     SemiExpanded,
+    #[doc(alias = "PANGO_STRETCH_EXPANDED")]
     Expanded,
+    #[doc(alias = "PANGO_STRETCH_EXTRA_EXPANDED")]
     ExtraExpanded,
+    #[doc(alias = "PANGO_STRETCH_ULTRA_EXPANDED")]
     UltraExpanded,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1694,9 +1916,13 @@ impl SetValue for Stretch {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoStyle")]
 pub enum Style {
+    #[doc(alias = "PANGO_STYLE_NORMAL")]
     Normal,
+    #[doc(alias = "PANGO_STYLE_OBLIQUE")]
     Oblique,
+    #[doc(alias = "PANGO_STYLE_ITALIC")]
     Italic,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1769,7 +1995,9 @@ impl SetValue for Style {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoTabAlign")]
 pub enum TabAlign {
+    #[doc(alias = "PANGO_TAB_LEFT")]
     Left,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1836,14 +2064,23 @@ impl SetValue for TabAlign {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoUnderline")]
 pub enum Underline {
+    #[doc(alias = "PANGO_UNDERLINE_NONE")]
     None,
+    #[doc(alias = "PANGO_UNDERLINE_SINGLE")]
     Single,
+    #[doc(alias = "PANGO_UNDERLINE_DOUBLE")]
     Double,
+    #[doc(alias = "PANGO_UNDERLINE_LOW")]
     Low,
+    #[doc(alias = "PANGO_UNDERLINE_ERROR")]
     Error,
+    #[doc(alias = "PANGO_UNDERLINE_SINGLE_LINE")]
     SingleLine,
+    #[doc(alias = "PANGO_UNDERLINE_DOUBLE_LINE")]
     DoubleLine,
+    #[doc(alias = "PANGO_UNDERLINE_ERROR_LINE")]
     ErrorLine,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1931,8 +2168,11 @@ impl SetValue for Underline {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoVariant")]
 pub enum Variant {
+    #[doc(alias = "PANGO_VARIANT_NORMAL")]
     Normal,
+    #[doc(alias = "PANGO_VARIANT_SMALL_CAPS")]
     SmallCaps,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2002,18 +2242,31 @@ impl SetValue for Variant {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoWeight")]
 pub enum Weight {
+    #[doc(alias = "PANGO_WEIGHT_THIN")]
     Thin,
+    #[doc(alias = "PANGO_WEIGHT_ULTRALIGHT")]
     Ultralight,
+    #[doc(alias = "PANGO_WEIGHT_LIGHT")]
     Light,
+    #[doc(alias = "PANGO_WEIGHT_SEMILIGHT")]
     Semilight,
+    #[doc(alias = "PANGO_WEIGHT_BOOK")]
     Book,
+    #[doc(alias = "PANGO_WEIGHT_NORMAL")]
     Normal,
+    #[doc(alias = "PANGO_WEIGHT_MEDIUM")]
     Medium,
+    #[doc(alias = "PANGO_WEIGHT_SEMIBOLD")]
     Semibold,
+    #[doc(alias = "PANGO_WEIGHT_BOLD")]
     Bold,
+    #[doc(alias = "PANGO_WEIGHT_ULTRABOLD")]
     Ultrabold,
+    #[doc(alias = "PANGO_WEIGHT_HEAVY")]
     Heavy,
+    #[doc(alias = "PANGO_WEIGHT_ULTRAHEAVY")]
     Ultraheavy,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2113,9 +2366,13 @@ impl SetValue for Weight {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PangoWrapMode")]
 pub enum WrapMode {
+    #[doc(alias = "PANGO_WRAP_WORD")]
     Word,
+    #[doc(alias = "PANGO_WRAP_CHAR")]
     Char,
+    #[doc(alias = "PANGO_WRAP_WORD_CHAR")]
     WordChar,
     #[doc(hidden)]
     __Unknown(i32),

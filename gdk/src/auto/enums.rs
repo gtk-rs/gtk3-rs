@@ -14,17 +14,29 @@ use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkAxisUse")]
 pub enum AxisUse {
+    #[doc(alias = "GDK_AXIS_IGNORE")]
     Ignore,
+    #[doc(alias = "GDK_AXIS_X")]
     X,
+    #[doc(alias = "GDK_AXIS_Y")]
     Y,
+    #[doc(alias = "GDK_AXIS_PRESSURE")]
     Pressure,
+    #[doc(alias = "GDK_AXIS_XTILT")]
     Xtilt,
+    #[doc(alias = "GDK_AXIS_YTILT")]
     Ytilt,
+    #[doc(alias = "GDK_AXIS_WHEEL")]
     Wheel,
+    #[doc(alias = "GDK_AXIS_DISTANCE")]
     Distance,
+    #[doc(alias = "GDK_AXIS_ROTATION")]
     Rotation,
+    #[doc(alias = "GDK_AXIS_SLIDER")]
     Slider,
+    #[doc(alias = "GDK_AXIS_LAST")]
     Last,
     #[doc(hidden)]
     __Unknown(i32),
@@ -122,8 +134,11 @@ impl SetValue for AxisUse {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkByteOrder")]
 pub enum ByteOrder {
+    #[doc(alias = "GDK_LSB_FIRST")]
     LsbFirst,
+    #[doc(alias = "GDK_MSB_FIRST")]
     MsbFirst,
     #[doc(hidden)]
     __Unknown(i32),
@@ -194,15 +209,25 @@ impl SetValue for ByteOrder {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkCrossingMode")]
 pub enum CrossingMode {
+    #[doc(alias = "GDK_CROSSING_NORMAL")]
     Normal,
+    #[doc(alias = "GDK_CROSSING_GRAB")]
     Grab,
+    #[doc(alias = "GDK_CROSSING_UNGRAB")]
     Ungrab,
+    #[doc(alias = "GDK_CROSSING_GTK_GRAB")]
     GtkGrab,
+    #[doc(alias = "GDK_CROSSING_GTK_UNGRAB")]
     GtkUngrab,
+    #[doc(alias = "GDK_CROSSING_STATE_CHANGED")]
     StateChanged,
+    #[doc(alias = "GDK_CROSSING_TOUCH_BEGIN")]
     TouchBegin,
+    #[doc(alias = "GDK_CROSSING_TOUCH_END")]
     TouchEnd,
+    #[doc(alias = "GDK_CROSSING_DEVICE_SWITCH")]
     DeviceSwitch,
     #[doc(hidden)]
     __Unknown(i32),
@@ -294,86 +319,167 @@ impl SetValue for CrossingMode {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkCursorType")]
 pub enum CursorType {
+    #[doc(alias = "GDK_X_CURSOR")]
     XCursor,
+    #[doc(alias = "GDK_ARROW")]
     Arrow,
+    #[doc(alias = "GDK_BASED_ARROW_DOWN")]
     BasedArrowDown,
+    #[doc(alias = "GDK_BASED_ARROW_UP")]
     BasedArrowUp,
+    #[doc(alias = "GDK_BOAT")]
     Boat,
+    #[doc(alias = "GDK_BOGOSITY")]
     Bogosity,
+    #[doc(alias = "GDK_BOTTOM_LEFT_CORNER")]
     BottomLeftCorner,
+    #[doc(alias = "GDK_BOTTOM_RIGHT_CORNER")]
     BottomRightCorner,
+    #[doc(alias = "GDK_BOTTOM_SIDE")]
     BottomSide,
+    #[doc(alias = "GDK_BOTTOM_TEE")]
     BottomTee,
+    #[doc(alias = "GDK_BOX_SPIRAL")]
     BoxSpiral,
+    #[doc(alias = "GDK_CENTER_PTR")]
     CenterPtr,
+    #[doc(alias = "GDK_CIRCLE")]
     Circle,
+    #[doc(alias = "GDK_CLOCK")]
     Clock,
+    #[doc(alias = "GDK_COFFEE_MUG")]
     CoffeeMug,
+    #[doc(alias = "GDK_CROSS")]
     Cross,
+    #[doc(alias = "GDK_CROSS_REVERSE")]
     CrossReverse,
+    #[doc(alias = "GDK_CROSSHAIR")]
     Crosshair,
+    #[doc(alias = "GDK_DIAMOND_CROSS")]
     DiamondCross,
+    #[doc(alias = "GDK_DOT")]
     Dot,
+    #[doc(alias = "GDK_DOTBOX")]
     Dotbox,
+    #[doc(alias = "GDK_DOUBLE_ARROW")]
     DoubleArrow,
+    #[doc(alias = "GDK_DRAFT_LARGE")]
     DraftLarge,
+    #[doc(alias = "GDK_DRAFT_SMALL")]
     DraftSmall,
+    #[doc(alias = "GDK_DRAPED_BOX")]
     DrapedBox,
+    #[doc(alias = "GDK_EXCHANGE")]
     Exchange,
+    #[doc(alias = "GDK_FLEUR")]
     Fleur,
+    #[doc(alias = "GDK_GOBBLER")]
     Gobbler,
+    #[doc(alias = "GDK_GUMBY")]
     Gumby,
+    #[doc(alias = "GDK_HAND1")]
     Hand1,
+    #[doc(alias = "GDK_HAND2")]
     Hand2,
+    #[doc(alias = "GDK_HEART")]
     Heart,
+    #[doc(alias = "GDK_ICON")]
     Icon,
+    #[doc(alias = "GDK_IRON_CROSS")]
     IronCross,
+    #[doc(alias = "GDK_LEFT_PTR")]
     LeftPtr,
+    #[doc(alias = "GDK_LEFT_SIDE")]
     LeftSide,
+    #[doc(alias = "GDK_LEFT_TEE")]
     LeftTee,
+    #[doc(alias = "GDK_LEFTBUTTON")]
     Leftbutton,
+    #[doc(alias = "GDK_LL_ANGLE")]
     LlAngle,
+    #[doc(alias = "GDK_LR_ANGLE")]
     LrAngle,
+    #[doc(alias = "GDK_MAN")]
     Man,
+    #[doc(alias = "GDK_MIDDLEBUTTON")]
     Middlebutton,
+    #[doc(alias = "GDK_MOUSE")]
     Mouse,
+    #[doc(alias = "GDK_PENCIL")]
     Pencil,
+    #[doc(alias = "GDK_PIRATE")]
     Pirate,
+    #[doc(alias = "GDK_PLUS")]
     Plus,
+    #[doc(alias = "GDK_QUESTION_ARROW")]
     QuestionArrow,
+    #[doc(alias = "GDK_RIGHT_PTR")]
     RightPtr,
+    #[doc(alias = "GDK_RIGHT_SIDE")]
     RightSide,
+    #[doc(alias = "GDK_RIGHT_TEE")]
     RightTee,
+    #[doc(alias = "GDK_RIGHTBUTTON")]
     Rightbutton,
+    #[doc(alias = "GDK_RTL_LOGO")]
     RtlLogo,
+    #[doc(alias = "GDK_SAILBOAT")]
     Sailboat,
+    #[doc(alias = "GDK_SB_DOWN_ARROW")]
     SbDownArrow,
+    #[doc(alias = "GDK_SB_H_DOUBLE_ARROW")]
     SbHDoubleArrow,
+    #[doc(alias = "GDK_SB_LEFT_ARROW")]
     SbLeftArrow,
+    #[doc(alias = "GDK_SB_RIGHT_ARROW")]
     SbRightArrow,
+    #[doc(alias = "GDK_SB_UP_ARROW")]
     SbUpArrow,
+    #[doc(alias = "GDK_SB_V_DOUBLE_ARROW")]
     SbVDoubleArrow,
+    #[doc(alias = "GDK_SHUTTLE")]
     Shuttle,
+    #[doc(alias = "GDK_SIZING")]
     Sizing,
+    #[doc(alias = "GDK_SPIDER")]
     Spider,
+    #[doc(alias = "GDK_SPRAYCAN")]
     Spraycan,
+    #[doc(alias = "GDK_STAR")]
     Star,
+    #[doc(alias = "GDK_TARGET")]
     Target,
+    #[doc(alias = "GDK_TCROSS")]
     Tcross,
+    #[doc(alias = "GDK_TOP_LEFT_ARROW")]
     TopLeftArrow,
+    #[doc(alias = "GDK_TOP_LEFT_CORNER")]
     TopLeftCorner,
+    #[doc(alias = "GDK_TOP_RIGHT_CORNER")]
     TopRightCorner,
+    #[doc(alias = "GDK_TOP_SIDE")]
     TopSide,
+    #[doc(alias = "GDK_TOP_TEE")]
     TopTee,
+    #[doc(alias = "GDK_TREK")]
     Trek,
+    #[doc(alias = "GDK_UL_ANGLE")]
     UlAngle,
+    #[doc(alias = "GDK_UMBRELLA")]
     Umbrella,
+    #[doc(alias = "GDK_UR_ANGLE")]
     UrAngle,
+    #[doc(alias = "GDK_WATCH")]
     Watch,
+    #[doc(alias = "GDK_XTERM")]
     Xterm,
+    #[doc(alias = "GDK_LAST_CURSOR")]
     LastCursor,
+    #[doc(alias = "GDK_BLANK_CURSOR")]
     BlankCursor,
+    #[doc(alias = "GDK_CURSOR_IS_PIXMAP")]
     CursorIsPixmap,
     #[doc(hidden)]
     __Unknown(i32),
@@ -680,9 +786,13 @@ impl SetValue for CursorType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkDevicePadFeature")]
 pub enum DevicePadFeature {
+    #[doc(alias = "GDK_DEVICE_PAD_FEATURE_BUTTON")]
     Button,
+    #[doc(alias = "GDK_DEVICE_PAD_FEATURE_RING")]
     Ring,
+    #[doc(alias = "GDK_DEVICE_PAD_FEATURE_STRIP")]
     Strip,
     #[doc(hidden)]
     __Unknown(i32),
@@ -772,14 +882,23 @@ impl SetValue for DevicePadFeature {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkDeviceToolType")]
 pub enum DeviceToolType {
+    #[doc(alias = "GDK_DEVICE_TOOL_TYPE_UNKNOWN")]
     Unknown,
+    #[doc(alias = "GDK_DEVICE_TOOL_TYPE_PEN")]
     Pen,
+    #[doc(alias = "GDK_DEVICE_TOOL_TYPE_ERASER")]
     Eraser,
+    #[doc(alias = "GDK_DEVICE_TOOL_TYPE_BRUSH")]
     Brush,
+    #[doc(alias = "GDK_DEVICE_TOOL_TYPE_PENCIL")]
     Pencil,
+    #[doc(alias = "GDK_DEVICE_TOOL_TYPE_AIRBRUSH")]
     Airbrush,
+    #[doc(alias = "GDK_DEVICE_TOOL_TYPE_MOUSE")]
     Mouse,
+    #[doc(alias = "GDK_DEVICE_TOOL_TYPE_LENS")]
     Lens,
     #[doc(hidden)]
     __Unknown(i32),
@@ -882,9 +1001,13 @@ impl SetValue for DeviceToolType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkDeviceType")]
 pub enum DeviceType {
+    #[doc(alias = "GDK_DEVICE_TYPE_MASTER")]
     Master,
+    #[doc(alias = "GDK_DEVICE_TYPE_SLAVE")]
     Slave,
+    #[doc(alias = "GDK_DEVICE_TYPE_FLOATING")]
     Floating,
     #[doc(hidden)]
     __Unknown(i32),
@@ -960,9 +1083,13 @@ impl SetValue for DeviceType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkDragCancelReason")]
 pub enum DragCancelReason {
+    #[doc(alias = "GDK_DRAG_CANCEL_NO_TARGET")]
     NoTarget,
+    #[doc(alias = "GDK_DRAG_CANCEL_USER_CANCELLED")]
     UserCancelled,
+    #[doc(alias = "GDK_DRAG_CANCEL_ERROR")]
     Error,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1050,14 +1177,23 @@ impl SetValue for DragCancelReason {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkDragProtocol")]
 pub enum DragProtocol {
+    #[doc(alias = "GDK_DRAG_PROTO_NONE")]
     None,
+    #[doc(alias = "GDK_DRAG_PROTO_MOTIF")]
     Motif,
+    #[doc(alias = "GDK_DRAG_PROTO_XDND")]
     Xdnd,
+    #[doc(alias = "GDK_DRAG_PROTO_ROOTWIN")]
     Rootwin,
+    #[doc(alias = "GDK_DRAG_PROTO_WIN32_DROPFILES")]
     Win32Dropfiles,
+    #[doc(alias = "GDK_DRAG_PROTO_OLE2")]
     Ole2,
+    #[doc(alias = "GDK_DRAG_PROTO_LOCAL")]
     Local,
+    #[doc(alias = "GDK_DRAG_PROTO_WAYLAND")]
     Wayland,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1146,58 +1282,107 @@ impl SetValue for DragProtocol {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkEventType")]
 pub enum EventType {
+    #[doc(alias = "GDK_NOTHING")]
     Nothing,
+    #[doc(alias = "GDK_DELETE")]
     Delete,
+    #[doc(alias = "GDK_DESTROY")]
     Destroy,
+    #[doc(alias = "GDK_EXPOSE")]
     Expose,
+    #[doc(alias = "GDK_MOTION_NOTIFY")]
     MotionNotify,
+    #[doc(alias = "GDK_BUTTON_PRESS")]
     ButtonPress,
+    #[doc(alias = "GDK_DOUBLE_BUTTON_PRESS")]
     DoubleButtonPress,
+    #[doc(alias = "GDK_TRIPLE_BUTTON_PRESS")]
     TripleButtonPress,
+    #[doc(alias = "GDK_BUTTON_RELEASE")]
     ButtonRelease,
+    #[doc(alias = "GDK_KEY_PRESS")]
     KeyPress,
+    #[doc(alias = "GDK_KEY_RELEASE")]
     KeyRelease,
+    #[doc(alias = "GDK_ENTER_NOTIFY")]
     EnterNotify,
+    #[doc(alias = "GDK_LEAVE_NOTIFY")]
     LeaveNotify,
+    #[doc(alias = "GDK_FOCUS_CHANGE")]
     FocusChange,
+    #[doc(alias = "GDK_CONFIGURE")]
     Configure,
+    #[doc(alias = "GDK_MAP")]
     Map,
+    #[doc(alias = "GDK_UNMAP")]
     Unmap,
+    #[doc(alias = "GDK_PROPERTY_NOTIFY")]
     PropertyNotify,
+    #[doc(alias = "GDK_SELECTION_CLEAR")]
     SelectionClear,
+    #[doc(alias = "GDK_SELECTION_REQUEST")]
     SelectionRequest,
+    #[doc(alias = "GDK_SELECTION_NOTIFY")]
     SelectionNotify,
+    #[doc(alias = "GDK_PROXIMITY_IN")]
     ProximityIn,
+    #[doc(alias = "GDK_PROXIMITY_OUT")]
     ProximityOut,
+    #[doc(alias = "GDK_DRAG_ENTER")]
     DragEnter,
+    #[doc(alias = "GDK_DRAG_LEAVE")]
     DragLeave,
+    #[doc(alias = "GDK_DRAG_MOTION")]
     DragMotion,
+    #[doc(alias = "GDK_DRAG_STATUS")]
     DragStatus,
+    #[doc(alias = "GDK_DROP_START")]
     DropStart,
+    #[doc(alias = "GDK_DROP_FINISHED")]
     DropFinished,
+    #[doc(alias = "GDK_CLIENT_EVENT")]
     ClientEvent,
+    #[doc(alias = "GDK_VISIBILITY_NOTIFY")]
     VisibilityNotify,
+    #[doc(alias = "GDK_SCROLL")]
     Scroll,
+    #[doc(alias = "GDK_WINDOW_STATE")]
     WindowState,
+    #[doc(alias = "GDK_SETTING")]
     Setting,
+    #[doc(alias = "GDK_OWNER_CHANGE")]
     OwnerChange,
+    #[doc(alias = "GDK_GRAB_BROKEN")]
     GrabBroken,
+    #[doc(alias = "GDK_DAMAGE")]
     Damage,
+    #[doc(alias = "GDK_TOUCH_BEGIN")]
     TouchBegin,
+    #[doc(alias = "GDK_TOUCH_UPDATE")]
     TouchUpdate,
+    #[doc(alias = "GDK_TOUCH_END")]
     TouchEnd,
+    #[doc(alias = "GDK_TOUCH_CANCEL")]
     TouchCancel,
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "GDK_TOUCHPAD_SWIPE")]
     TouchpadSwipe,
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_18")))]
+    #[doc(alias = "GDK_TOUCHPAD_PINCH")]
     TouchpadPinch,
+    #[doc(alias = "GDK_PAD_BUTTON_PRESS")]
     PadButtonPress,
+    #[doc(alias = "GDK_PAD_BUTTON_RELEASE")]
     PadButtonRelease,
+    #[doc(alias = "GDK_PAD_RING")]
     PadRing,
+    #[doc(alias = "GDK_PAD_STRIP")]
     PadStrip,
+    #[doc(alias = "GDK_PAD_GROUP_MODE")]
     PadGroupMode,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1412,8 +1597,11 @@ impl SetValue for EventType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkFullscreenMode")]
 pub enum FullscreenMode {
+    #[doc(alias = "GDK_FULLSCREEN_ON_CURRENT_MONITOR")]
     CurrentMonitor,
+    #[doc(alias = "GDK_FULLSCREEN_ON_ALL_MONITORS")]
     AllMonitors,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1486,9 +1674,13 @@ impl SetValue for FullscreenMode {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkGLError")]
 pub enum GLError {
+    #[doc(alias = "GDK_GL_ERROR_NOT_AVAILABLE")]
     NotAvailable,
+    #[doc(alias = "GDK_GL_ERROR_UNSUPPORTED_FORMAT")]
     UnsupportedFormat,
+    #[doc(alias = "GDK_GL_ERROR_UNSUPPORTED_PROFILE")]
     UnsupportedProfile,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1600,9 +1792,13 @@ impl SetValue for GLError {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkGrabOwnership")]
 pub enum GrabOwnership {
+    #[doc(alias = "GDK_OWNERSHIP_NONE")]
     None,
+    #[doc(alias = "GDK_OWNERSHIP_WINDOW")]
     Window,
+    #[doc(alias = "GDK_OWNERSHIP_APPLICATION")]
     Application,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1676,12 +1872,19 @@ impl SetValue for GrabOwnership {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkGrabStatus")]
 pub enum GrabStatus {
+    #[doc(alias = "GDK_GRAB_SUCCESS")]
     Success,
+    #[doc(alias = "GDK_GRAB_ALREADY_GRABBED")]
     AlreadyGrabbed,
+    #[doc(alias = "GDK_GRAB_INVALID_TIME")]
     InvalidTime,
+    #[doc(alias = "GDK_GRAB_NOT_VIEWABLE")]
     NotViewable,
+    #[doc(alias = "GDK_GRAB_FROZEN")]
     Frozen,
+    #[doc(alias = "GDK_GRAB_FAILED")]
     Failed,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1764,16 +1967,27 @@ impl SetValue for GrabStatus {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkGravity")]
 pub enum Gravity {
+    #[doc(alias = "GDK_GRAVITY_NORTH_WEST")]
     NorthWest,
+    #[doc(alias = "GDK_GRAVITY_NORTH")]
     North,
+    #[doc(alias = "GDK_GRAVITY_NORTH_EAST")]
     NorthEast,
+    #[doc(alias = "GDK_GRAVITY_WEST")]
     West,
+    #[doc(alias = "GDK_GRAVITY_CENTER")]
     Center,
+    #[doc(alias = "GDK_GRAVITY_EAST")]
     East,
+    #[doc(alias = "GDK_GRAVITY_SOUTH_WEST")]
     SouthWest,
+    #[doc(alias = "GDK_GRAVITY_SOUTH")]
     South,
+    #[doc(alias = "GDK_GRAVITY_SOUTH_EAST")]
     SouthEast,
+    #[doc(alias = "GDK_GRAVITY_STATIC")]
     Static,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1868,9 +2082,13 @@ impl SetValue for Gravity {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkInputMode")]
 pub enum InputMode {
+    #[doc(alias = "GDK_MODE_DISABLED")]
     Disabled,
+    #[doc(alias = "GDK_MODE_SCREEN")]
     Screen,
+    #[doc(alias = "GDK_MODE_WINDOW")]
     Window,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1944,15 +2162,25 @@ impl SetValue for InputMode {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkInputSource")]
 pub enum InputSource {
+    #[doc(alias = "GDK_SOURCE_MOUSE")]
     Mouse,
+    #[doc(alias = "GDK_SOURCE_PEN")]
     Pen,
+    #[doc(alias = "GDK_SOURCE_ERASER")]
     Eraser,
+    #[doc(alias = "GDK_SOURCE_CURSOR")]
     Cursor,
+    #[doc(alias = "GDK_SOURCE_KEYBOARD")]
     Keyboard,
+    #[doc(alias = "GDK_SOURCE_TOUCHSCREEN")]
     Touchscreen,
+    #[doc(alias = "GDK_SOURCE_TOUCHPAD")]
     Touchpad,
+    #[doc(alias = "GDK_SOURCE_TRACKPOINT")]
     Trackpoint,
+    #[doc(alias = "GDK_SOURCE_TABLET_PAD")]
     TabletPad,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2044,13 +2272,21 @@ impl SetValue for InputSource {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkModifierIntent")]
 pub enum ModifierIntent {
+    #[doc(alias = "GDK_MODIFIER_INTENT_PRIMARY_ACCELERATOR")]
     PrimaryAccelerator,
+    #[doc(alias = "GDK_MODIFIER_INTENT_CONTEXT_MENU")]
     ContextMenu,
+    #[doc(alias = "GDK_MODIFIER_INTENT_EXTEND_SELECTION")]
     ExtendSelection,
+    #[doc(alias = "GDK_MODIFIER_INTENT_MODIFY_SELECTION")]
     ModifySelection,
+    #[doc(alias = "GDK_MODIFIER_INTENT_NO_TEXT_INPUT")]
     NoTextInput,
+    #[doc(alias = "GDK_MODIFIER_INTENT_SHIFT_GROUP")]
     ShiftGroup,
+    #[doc(alias = "GDK_MODIFIER_INTENT_DEFAULT_MOD_MASK")]
     DefaultModMask,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2136,12 +2372,19 @@ impl SetValue for ModifierIntent {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkNotifyType")]
 pub enum NotifyType {
+    #[doc(alias = "GDK_NOTIFY_ANCESTOR")]
     Ancestor,
+    #[doc(alias = "GDK_NOTIFY_VIRTUAL")]
     Virtual,
+    #[doc(alias = "GDK_NOTIFY_INFERIOR")]
     Inferior,
+    #[doc(alias = "GDK_NOTIFY_NONLINEAR")]
     Nonlinear,
+    #[doc(alias = "GDK_NOTIFY_NONLINEAR_VIRTUAL")]
     NonlinearVirtual,
+    #[doc(alias = "GDK_NOTIFY_UNKNOWN")]
     Unknown,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2224,9 +2467,13 @@ impl SetValue for NotifyType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkOwnerChange")]
 pub enum OwnerChange {
+    #[doc(alias = "GDK_OWNER_CHANGE_NEW_OWNER")]
     NewOwner,
+    #[doc(alias = "GDK_OWNER_CHANGE_DESTROY")]
     Destroy,
+    #[doc(alias = "GDK_OWNER_CHANGE_CLOSE")]
     Close,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2300,9 +2547,13 @@ impl SetValue for OwnerChange {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkPropMode")]
 pub enum PropMode {
+    #[doc(alias = "GDK_PROP_MODE_REPLACE")]
     Replace,
+    #[doc(alias = "GDK_PROP_MODE_PREPEND")]
     Prepend,
+    #[doc(alias = "GDK_PROP_MODE_APPEND")]
     Append,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2376,8 +2627,11 @@ impl SetValue for PropMode {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkPropertyState")]
 pub enum PropertyState {
+    #[doc(alias = "GDK_PROPERTY_NEW_VALUE")]
     NewValue,
+    #[doc(alias = "GDK_PROPERTY_DELETE")]
     Delete,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2448,11 +2702,17 @@ impl SetValue for PropertyState {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkScrollDirection")]
 pub enum ScrollDirection {
+    #[doc(alias = "GDK_SCROLL_UP")]
     Up,
+    #[doc(alias = "GDK_SCROLL_DOWN")]
     Down,
+    #[doc(alias = "GDK_SCROLL_LEFT")]
     Left,
+    #[doc(alias = "GDK_SCROLL_RIGHT")]
     Right,
+    #[doc(alias = "GDK_SCROLL_SMOOTH")]
     Smooth,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2532,9 +2792,13 @@ impl SetValue for ScrollDirection {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkSettingAction")]
 pub enum SettingAction {
+    #[doc(alias = "GDK_SETTING_ACTION_NEW")]
     New,
+    #[doc(alias = "GDK_SETTING_ACTION_CHANGED")]
     Changed,
+    #[doc(alias = "GDK_SETTING_ACTION_DELETED")]
     Deleted,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2610,12 +2874,19 @@ impl SetValue for SettingAction {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkSubpixelLayout")]
 pub enum SubpixelLayout {
+    #[doc(alias = "GDK_SUBPIXEL_LAYOUT_UNKNOWN")]
     Unknown,
+    #[doc(alias = "GDK_SUBPIXEL_LAYOUT_NONE")]
     None,
+    #[doc(alias = "GDK_SUBPIXEL_LAYOUT_HORIZONTAL_RGB")]
     HorizontalRgb,
+    #[doc(alias = "GDK_SUBPIXEL_LAYOUT_HORIZONTAL_BGR")]
     HorizontalBgr,
+    #[doc(alias = "GDK_SUBPIXEL_LAYOUT_VERTICAL_RGB")]
     VerticalRgb,
+    #[doc(alias = "GDK_SUBPIXEL_LAYOUT_VERTICAL_BGR")]
     VerticalBgr,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2712,9 +2983,13 @@ impl SetValue for SubpixelLayout {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkVisibilityState")]
 pub enum VisibilityState {
+    #[doc(alias = "GDK_VISIBILITY_UNOBSCURED")]
     Unobscured,
+    #[doc(alias = "GDK_VISIBILITY_PARTIAL")]
     Partial,
+    #[doc(alias = "GDK_VISIBILITY_FULLY_OBSCURED")]
     FullyObscured,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2788,12 +3063,19 @@ impl SetValue for VisibilityState {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkVisualType")]
 pub enum VisualType {
+    #[doc(alias = "GDK_VISUAL_STATIC_GRAY")]
     StaticGray,
+    #[doc(alias = "GDK_VISUAL_GRAYSCALE")]
     Grayscale,
+    #[doc(alias = "GDK_VISUAL_STATIC_COLOR")]
     StaticColor,
+    #[doc(alias = "GDK_VISUAL_PSEUDO_COLOR")]
     PseudoColor,
+    #[doc(alias = "GDK_VISUAL_TRUE_COLOR")]
     TrueColor,
+    #[doc(alias = "GDK_VISUAL_DIRECT_COLOR")]
     DirectColor,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2876,14 +3158,23 @@ impl SetValue for VisualType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkWindowEdge")]
 pub enum WindowEdge {
+    #[doc(alias = "GDK_WINDOW_EDGE_NORTH_WEST")]
     NorthWest,
+    #[doc(alias = "GDK_WINDOW_EDGE_NORTH")]
     North,
+    #[doc(alias = "GDK_WINDOW_EDGE_NORTH_EAST")]
     NorthEast,
+    #[doc(alias = "GDK_WINDOW_EDGE_WEST")]
     West,
+    #[doc(alias = "GDK_WINDOW_EDGE_EAST")]
     East,
+    #[doc(alias = "GDK_WINDOW_EDGE_SOUTH_WEST")]
     SouthWest,
+    #[doc(alias = "GDK_WINDOW_EDGE_SOUTH")]
     South,
+    #[doc(alias = "GDK_WINDOW_EDGE_SOUTH_EAST")]
     SouthEast,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2972,13 +3263,21 @@ impl SetValue for WindowEdge {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkWindowType")]
 pub enum WindowType {
+    #[doc(alias = "GDK_WINDOW_ROOT")]
     Root,
+    #[doc(alias = "GDK_WINDOW_TOPLEVEL")]
     Toplevel,
+    #[doc(alias = "GDK_WINDOW_CHILD")]
     Child,
+    #[doc(alias = "GDK_WINDOW_TEMP")]
     Temp,
+    #[doc(alias = "GDK_WINDOW_FOREIGN")]
     Foreign,
+    #[doc(alias = "GDK_WINDOW_OFFSCREEN")]
     Offscreen,
+    #[doc(alias = "GDK_WINDOW_SUBSURFACE")]
     Subsurface,
     #[doc(hidden)]
     __Unknown(i32),
@@ -3064,20 +3363,35 @@ impl SetValue for WindowType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkWindowTypeHint")]
 pub enum WindowTypeHint {
+    #[doc(alias = "GDK_WINDOW_TYPE_HINT_NORMAL")]
     Normal,
+    #[doc(alias = "GDK_WINDOW_TYPE_HINT_DIALOG")]
     Dialog,
+    #[doc(alias = "GDK_WINDOW_TYPE_HINT_MENU")]
     Menu,
+    #[doc(alias = "GDK_WINDOW_TYPE_HINT_TOOLBAR")]
     Toolbar,
+    #[doc(alias = "GDK_WINDOW_TYPE_HINT_SPLASHSCREEN")]
     Splashscreen,
+    #[doc(alias = "GDK_WINDOW_TYPE_HINT_UTILITY")]
     Utility,
+    #[doc(alias = "GDK_WINDOW_TYPE_HINT_DOCK")]
     Dock,
+    #[doc(alias = "GDK_WINDOW_TYPE_HINT_DESKTOP")]
     Desktop,
+    #[doc(alias = "GDK_WINDOW_TYPE_HINT_DROPDOWN_MENU")]
     DropdownMenu,
+    #[doc(alias = "GDK_WINDOW_TYPE_HINT_POPUP_MENU")]
     PopupMenu,
+    #[doc(alias = "GDK_WINDOW_TYPE_HINT_TOOLTIP")]
     Tooltip,
+    #[doc(alias = "GDK_WINDOW_TYPE_HINT_NOTIFICATION")]
     Notification,
+    #[doc(alias = "GDK_WINDOW_TYPE_HINT_COMBO")]
     Combo,
+    #[doc(alias = "GDK_WINDOW_TYPE_HINT_DND")]
     Dnd,
     #[doc(hidden)]
     __Unknown(i32),
@@ -3184,8 +3498,11 @@ impl SetValue for WindowTypeHint {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GdkWindowWindowClass")]
 pub enum WindowWindowClass {
+    #[doc(alias = "GDK_INPUT_OUTPUT")]
     InputOutput,
+    #[doc(alias = "GDK_INPUT_ONLY")]
     InputOnly,
     #[doc(hidden)]
     __Unknown(i32),

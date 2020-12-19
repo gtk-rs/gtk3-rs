@@ -14,10 +14,15 @@ use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GBusType")]
 pub enum BusType {
+    #[doc(alias = "G_BUS_TYPE_STARTER")]
     Starter,
+    #[doc(alias = "G_BUS_TYPE_NONE")]
     None,
+    #[doc(alias = "G_BUS_TYPE_SYSTEM")]
     System,
+    #[doc(alias = "G_BUS_TYPE_SESSION")]
     Session,
     #[doc(hidden)]
     __Unknown(i32),
@@ -93,10 +98,15 @@ impl SetValue for BusType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GConverterResult")]
 pub enum ConverterResult {
+    #[doc(alias = "G_CONVERTER_ERROR")]
     Error,
+    #[doc(alias = "G_CONVERTER_CONVERTED")]
     Converted,
+    #[doc(alias = "G_CONVERTER_FINISHED")]
     Finished,
+    #[doc(alias = "G_CONVERTER_FLUSHED")]
     Flushed,
     #[doc(hidden)]
     __Unknown(i32),
@@ -172,13 +182,21 @@ impl SetValue for ConverterResult {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GCredentialsType")]
 pub enum CredentialsType {
+    #[doc(alias = "G_CREDENTIALS_TYPE_INVALID")]
     Invalid,
+    #[doc(alias = "G_CREDENTIALS_TYPE_LINUX_UCRED")]
     LinuxUcred,
+    #[doc(alias = "G_CREDENTIALS_TYPE_FREEBSD_CMSGCRED")]
     FreebsdCmsgcred,
+    #[doc(alias = "G_CREDENTIALS_TYPE_OPENBSD_SOCKPEERCRED")]
     OpenbsdSockpeercred,
+    #[doc(alias = "G_CREDENTIALS_TYPE_SOLARIS_UCRED")]
     SolarisUcred,
+    #[doc(alias = "G_CREDENTIALS_TYPE_NETBSD_UNPCBID")]
     NetbsdUnpcbid,
+    #[doc(alias = "G_CREDENTIALS_TYPE_APPLE_XUCRED")]
     AppleXucred,
     #[doc(hidden)]
     __Unknown(i32),
@@ -263,8 +281,11 @@ impl SetValue for CredentialsType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GDBusMessageByteOrder")]
 pub enum DBusMessageByteOrder {
+    #[doc(alias = "G_DBUS_MESSAGE_BYTE_ORDER_BIG_ENDIAN")]
     BigEndian,
+    #[doc(alias = "G_DBUS_MESSAGE_BYTE_ORDER_LITTLE_ENDIAN")]
     LittleEndian,
     #[doc(hidden)]
     __Unknown(i32),
@@ -334,16 +355,27 @@ impl SetValue for DBusMessageByteOrder {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GDBusMessageHeaderField")]
 pub enum DBusMessageHeaderField {
+    #[doc(alias = "G_DBUS_MESSAGE_HEADER_FIELD_INVALID")]
     Invalid,
+    #[doc(alias = "G_DBUS_MESSAGE_HEADER_FIELD_PATH")]
     Path,
+    #[doc(alias = "G_DBUS_MESSAGE_HEADER_FIELD_INTERFACE")]
     Interface,
+    #[doc(alias = "G_DBUS_MESSAGE_HEADER_FIELD_MEMBER")]
     Member,
+    #[doc(alias = "G_DBUS_MESSAGE_HEADER_FIELD_ERROR_NAME")]
     ErrorName,
+    #[doc(alias = "G_DBUS_MESSAGE_HEADER_FIELD_REPLY_SERIAL")]
     ReplySerial,
+    #[doc(alias = "G_DBUS_MESSAGE_HEADER_FIELD_DESTINATION")]
     Destination,
+    #[doc(alias = "G_DBUS_MESSAGE_HEADER_FIELD_SENDER")]
     Sender,
+    #[doc(alias = "G_DBUS_MESSAGE_HEADER_FIELD_SIGNATURE")]
     Signature,
+    #[doc(alias = "G_DBUS_MESSAGE_HEADER_FIELD_NUM_UNIX_FDS")]
     NumUnixFds,
     #[doc(hidden)]
     __Unknown(i32),
@@ -437,11 +469,17 @@ impl SetValue for DBusMessageHeaderField {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GDBusMessageType")]
 pub enum DBusMessageType {
+    #[doc(alias = "G_DBUS_MESSAGE_TYPE_INVALID")]
     Invalid,
+    #[doc(alias = "G_DBUS_MESSAGE_TYPE_METHOD_CALL")]
     MethodCall,
+    #[doc(alias = "G_DBUS_MESSAGE_TYPE_METHOD_RETURN")]
     MethodReturn,
+    #[doc(alias = "G_DBUS_MESSAGE_TYPE_ERROR")]
     Error,
+    #[doc(alias = "G_DBUS_MESSAGE_TYPE_SIGNAL")]
     Signal,
     #[doc(hidden)]
     __Unknown(i32),
@@ -520,9 +558,13 @@ impl SetValue for DBusMessageType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GDataStreamByteOrder")]
 pub enum DataStreamByteOrder {
+    #[doc(alias = "G_DATA_STREAM_BYTE_ORDER_BIG_ENDIAN")]
     BigEndian,
+    #[doc(alias = "G_DATA_STREAM_BYTE_ORDER_LITTLE_ENDIAN")]
     LittleEndian,
+    #[doc(alias = "G_DATA_STREAM_BYTE_ORDER_HOST_ENDIAN")]
     HostEndian,
     #[doc(hidden)]
     __Unknown(i32),
@@ -595,10 +637,15 @@ impl SetValue for DataStreamByteOrder {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GDataStreamNewlineType")]
 pub enum DataStreamNewlineType {
+    #[doc(alias = "G_DATA_STREAM_NEWLINE_TYPE_LF")]
     Lf,
+    #[doc(alias = "G_DATA_STREAM_NEWLINE_TYPE_CR")]
     Cr,
+    #[doc(alias = "G_DATA_STREAM_NEWLINE_TYPE_CR_LF")]
     CrLf,
+    #[doc(alias = "G_DATA_STREAM_NEWLINE_TYPE_ANY")]
     Any,
     #[doc(hidden)]
     __Unknown(i32),
@@ -674,11 +721,17 @@ impl SetValue for DataStreamNewlineType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GDriveStartStopType")]
 pub enum DriveStartStopType {
+    #[doc(alias = "G_DRIVE_START_STOP_TYPE_UNKNOWN")]
     Unknown,
+    #[doc(alias = "G_DRIVE_START_STOP_TYPE_SHUTDOWN")]
     Shutdown,
+    #[doc(alias = "G_DRIVE_START_STOP_TYPE_NETWORK")]
     Network,
+    #[doc(alias = "G_DRIVE_START_STOP_TYPE_MULTIDISK")]
     Multidisk,
+    #[doc(alias = "G_DRIVE_START_STOP_TYPE_PASSWORD")]
     Password,
     #[doc(hidden)]
     __Unknown(i32),
@@ -757,10 +810,15 @@ impl SetValue for DriveStartStopType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GEmblemOrigin")]
 pub enum EmblemOrigin {
+    #[doc(alias = "G_EMBLEM_ORIGIN_UNKNOWN")]
     Unknown,
+    #[doc(alias = "G_EMBLEM_ORIGIN_DEVICE")]
     Device,
+    #[doc(alias = "G_EMBLEM_ORIGIN_LIVEMETADATA")]
     Livemetadata,
+    #[doc(alias = "G_EMBLEM_ORIGIN_TAG")]
     Tag,
     #[doc(hidden)]
     __Unknown(i32),
@@ -836,9 +894,13 @@ impl SetValue for EmblemOrigin {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GFileAttributeStatus")]
 pub enum FileAttributeStatus {
+    #[doc(alias = "G_FILE_ATTRIBUTE_STATUS_UNSET")]
     Unset,
+    #[doc(alias = "G_FILE_ATTRIBUTE_STATUS_SET")]
     Set,
+    #[doc(alias = "G_FILE_ATTRIBUTE_STATUS_ERROR_SETTING")]
     ErrorSetting,
     #[doc(hidden)]
     __Unknown(i32),
@@ -911,16 +973,27 @@ impl SetValue for FileAttributeStatus {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GFileAttributeType")]
 pub enum FileAttributeType {
+    #[doc(alias = "G_FILE_ATTRIBUTE_TYPE_INVALID")]
     Invalid,
+    #[doc(alias = "G_FILE_ATTRIBUTE_TYPE_STRING")]
     String,
+    #[doc(alias = "G_FILE_ATTRIBUTE_TYPE_BYTE_STRING")]
     ByteString,
+    #[doc(alias = "G_FILE_ATTRIBUTE_TYPE_BOOLEAN")]
     Boolean,
+    #[doc(alias = "G_FILE_ATTRIBUTE_TYPE_UINT32")]
     Uint32,
+    #[doc(alias = "G_FILE_ATTRIBUTE_TYPE_INT32")]
     Int32,
+    #[doc(alias = "G_FILE_ATTRIBUTE_TYPE_UINT64")]
     Uint64,
+    #[doc(alias = "G_FILE_ATTRIBUTE_TYPE_INT64")]
     Int64,
+    #[doc(alias = "G_FILE_ATTRIBUTE_TYPE_OBJECT")]
     Object,
+    #[doc(alias = "G_FILE_ATTRIBUTE_TYPE_STRINGV")]
     Stringv,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1014,17 +1087,29 @@ impl SetValue for FileAttributeType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GFileMonitorEvent")]
 pub enum FileMonitorEvent {
+    #[doc(alias = "G_FILE_MONITOR_EVENT_CHANGED")]
     Changed,
+    #[doc(alias = "G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT")]
     ChangesDoneHint,
+    #[doc(alias = "G_FILE_MONITOR_EVENT_DELETED")]
     Deleted,
+    #[doc(alias = "G_FILE_MONITOR_EVENT_CREATED")]
     Created,
+    #[doc(alias = "G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED")]
     AttributeChanged,
+    #[doc(alias = "G_FILE_MONITOR_EVENT_PRE_UNMOUNT")]
     PreUnmount,
+    #[doc(alias = "G_FILE_MONITOR_EVENT_UNMOUNTED")]
     Unmounted,
+    #[doc(alias = "G_FILE_MONITOR_EVENT_MOVED")]
     Moved,
+    #[doc(alias = "G_FILE_MONITOR_EVENT_RENAMED")]
     Renamed,
+    #[doc(alias = "G_FILE_MONITOR_EVENT_MOVED_IN")]
     MovedIn,
+    #[doc(alias = "G_FILE_MONITOR_EVENT_MOVED_OUT")]
     MovedOut,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1121,13 +1206,21 @@ impl SetValue for FileMonitorEvent {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GFileType")]
 pub enum FileType {
+    #[doc(alias = "G_FILE_TYPE_UNKNOWN")]
     Unknown,
+    #[doc(alias = "G_FILE_TYPE_REGULAR")]
     Regular,
+    #[doc(alias = "G_FILE_TYPE_DIRECTORY")]
     Directory,
+    #[doc(alias = "G_FILE_TYPE_SYMBOLIC_LINK")]
     SymbolicLink,
+    #[doc(alias = "G_FILE_TYPE_SPECIAL")]
     Special,
+    #[doc(alias = "G_FILE_TYPE_SHORTCUT")]
     Shortcut,
+    #[doc(alias = "G_FILE_TYPE_MOUNTABLE")]
     Mountable,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1212,53 +1305,101 @@ impl SetValue for FileType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GIOErrorEnum")]
 pub enum IOErrorEnum {
+    #[doc(alias = "G_IO_ERROR_FAILED")]
     Failed,
+    #[doc(alias = "G_IO_ERROR_NOT_FOUND")]
     NotFound,
+    #[doc(alias = "G_IO_ERROR_EXISTS")]
     Exists,
+    #[doc(alias = "G_IO_ERROR_IS_DIRECTORY")]
     IsDirectory,
+    #[doc(alias = "G_IO_ERROR_NOT_DIRECTORY")]
     NotDirectory,
+    #[doc(alias = "G_IO_ERROR_NOT_EMPTY")]
     NotEmpty,
+    #[doc(alias = "G_IO_ERROR_NOT_REGULAR_FILE")]
     NotRegularFile,
+    #[doc(alias = "G_IO_ERROR_NOT_SYMBOLIC_LINK")]
     NotSymbolicLink,
+    #[doc(alias = "G_IO_ERROR_NOT_MOUNTABLE_FILE")]
     NotMountableFile,
+    #[doc(alias = "G_IO_ERROR_FILENAME_TOO_LONG")]
     FilenameTooLong,
+    #[doc(alias = "G_IO_ERROR_INVALID_FILENAME")]
     InvalidFilename,
+    #[doc(alias = "G_IO_ERROR_TOO_MANY_LINKS")]
     TooManyLinks,
+    #[doc(alias = "G_IO_ERROR_NO_SPACE")]
     NoSpace,
+    #[doc(alias = "G_IO_ERROR_INVALID_ARGUMENT")]
     InvalidArgument,
+    #[doc(alias = "G_IO_ERROR_PERMISSION_DENIED")]
     PermissionDenied,
+    #[doc(alias = "G_IO_ERROR_NOT_SUPPORTED")]
     NotSupported,
+    #[doc(alias = "G_IO_ERROR_NOT_MOUNTED")]
     NotMounted,
+    #[doc(alias = "G_IO_ERROR_ALREADY_MOUNTED")]
     AlreadyMounted,
+    #[doc(alias = "G_IO_ERROR_CLOSED")]
     Closed,
+    #[doc(alias = "G_IO_ERROR_CANCELLED")]
     Cancelled,
+    #[doc(alias = "G_IO_ERROR_PENDING")]
     Pending,
+    #[doc(alias = "G_IO_ERROR_READ_ONLY")]
     ReadOnly,
+    #[doc(alias = "G_IO_ERROR_CANT_CREATE_BACKUP")]
     CantCreateBackup,
+    #[doc(alias = "G_IO_ERROR_WRONG_ETAG")]
     WrongEtag,
+    #[doc(alias = "G_IO_ERROR_TIMED_OUT")]
     TimedOut,
+    #[doc(alias = "G_IO_ERROR_WOULD_RECURSE")]
     WouldRecurse,
+    #[doc(alias = "G_IO_ERROR_BUSY")]
     Busy,
+    #[doc(alias = "G_IO_ERROR_WOULD_BLOCK")]
     WouldBlock,
+    #[doc(alias = "G_IO_ERROR_HOST_NOT_FOUND")]
     HostNotFound,
+    #[doc(alias = "G_IO_ERROR_WOULD_MERGE")]
     WouldMerge,
+    #[doc(alias = "G_IO_ERROR_FAILED_HANDLED")]
     FailedHandled,
+    #[doc(alias = "G_IO_ERROR_TOO_MANY_OPEN_FILES")]
     TooManyOpenFiles,
+    #[doc(alias = "G_IO_ERROR_NOT_INITIALIZED")]
     NotInitialized,
+    #[doc(alias = "G_IO_ERROR_ADDRESS_IN_USE")]
     AddressInUse,
+    #[doc(alias = "G_IO_ERROR_PARTIAL_INPUT")]
     PartialInput,
+    #[doc(alias = "G_IO_ERROR_INVALID_DATA")]
     InvalidData,
+    #[doc(alias = "G_IO_ERROR_DBUS_ERROR")]
     DbusError,
+    #[doc(alias = "G_IO_ERROR_HOST_UNREACHABLE")]
     HostUnreachable,
+    #[doc(alias = "G_IO_ERROR_NETWORK_UNREACHABLE")]
     NetworkUnreachable,
+    #[doc(alias = "G_IO_ERROR_CONNECTION_REFUSED")]
     ConnectionRefused,
+    #[doc(alias = "G_IO_ERROR_PROXY_FAILED")]
     ProxyFailed,
+    #[doc(alias = "G_IO_ERROR_PROXY_AUTH_FAILED")]
     ProxyAuthFailed,
+    #[doc(alias = "G_IO_ERROR_PROXY_NEED_AUTH")]
     ProxyNeedAuth,
+    #[doc(alias = "G_IO_ERROR_PROXY_NOT_ALLOWED")]
     ProxyNotAllowed,
+    #[doc(alias = "G_IO_ERROR_BROKEN_PIPE")]
     BrokenPipe,
+    #[doc(alias = "G_IO_ERROR_NOT_CONNECTED")]
     NotConnected,
+    #[doc(alias = "G_IO_ERROR_MESSAGE_TOO_LARGE")]
     MessageTooLarge,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1528,9 +1669,13 @@ impl SetValue for IOErrorEnum {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GMemoryMonitorWarningLevel")]
 pub enum MemoryMonitorWarningLevel {
+    #[doc(alias = "G_MEMORY_MONITOR_WARNING_LEVEL_LOW")]
     Low,
+    #[doc(alias = "G_MEMORY_MONITOR_WARNING_LEVEL_MEDIUM")]
     Medium,
+    #[doc(alias = "G_MEMORY_MONITOR_WARNING_LEVEL_CRITICAL")]
     Critical,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1617,9 +1762,13 @@ impl SetValue for MemoryMonitorWarningLevel {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GMountOperationResult")]
 pub enum MountOperationResult {
+    #[doc(alias = "G_MOUNT_OPERATION_HANDLED")]
     Handled,
+    #[doc(alias = "G_MOUNT_OPERATION_ABORTED")]
     Aborted,
+    #[doc(alias = "G_MOUNT_OPERATION_UNHANDLED")]
     Unhandled,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1694,10 +1843,15 @@ impl SetValue for MountOperationResult {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GNetworkConnectivity")]
 pub enum NetworkConnectivity {
+    #[doc(alias = "G_NETWORK_CONNECTIVITY_LOCAL")]
     Local,
+    #[doc(alias = "G_NETWORK_CONNECTIVITY_LIMITED")]
     Limited,
+    #[doc(alias = "G_NETWORK_CONNECTIVITY_PORTAL")]
     Portal,
+    #[doc(alias = "G_NETWORK_CONNECTIVITY_FULL")]
     Full,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1787,10 +1941,15 @@ impl SetValue for NetworkConnectivity {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GNotificationPriority")]
 pub enum NotificationPriority {
+    #[doc(alias = "G_NOTIFICATION_PRIORITY_NORMAL")]
     Normal,
+    #[doc(alias = "G_NOTIFICATION_PRIORITY_LOW")]
     Low,
+    #[doc(alias = "G_NOTIFICATION_PRIORITY_HIGH")]
     High,
+    #[doc(alias = "G_NOTIFICATION_PRIORITY_URGENT")]
     Urgent,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1866,9 +2025,13 @@ impl SetValue for NotificationPriority {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GPasswordSave")]
 pub enum PasswordSave {
+    #[doc(alias = "G_PASSWORD_SAVE_NEVER")]
     Never,
+    #[doc(alias = "G_PASSWORD_SAVE_FOR_SESSION")]
     ForSession,
+    #[doc(alias = "G_PASSWORD_SAVE_PERMANENTLY")]
     Permanently,
     #[doc(hidden)]
     __Unknown(i32),
@@ -1941,11 +2104,17 @@ impl SetValue for PasswordSave {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GResolverRecordType")]
 pub enum ResolverRecordType {
+    #[doc(alias = "G_RESOLVER_RECORD_SRV")]
     Srv,
+    #[doc(alias = "G_RESOLVER_RECORD_MX")]
     Mx,
+    #[doc(alias = "G_RESOLVER_RECORD_TXT")]
     Txt,
+    #[doc(alias = "G_RESOLVER_RECORD_SOA")]
     Soa,
+    #[doc(alias = "G_RESOLVER_RECORD_NS")]
     Ns,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2024,8 +2193,11 @@ impl SetValue for ResolverRecordType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GResourceError")]
 pub enum ResourceError {
+    #[doc(alias = "G_RESOURCE_ERROR_NOT_FOUND")]
     NotFound,
+    #[doc(alias = "G_RESOURCE_ERROR_INTERNAL")]
     Internal,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2113,15 +2285,25 @@ impl SetValue for ResourceError {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GSocketClientEvent")]
 pub enum SocketClientEvent {
+    #[doc(alias = "G_SOCKET_CLIENT_RESOLVING")]
     Resolving,
+    #[doc(alias = "G_SOCKET_CLIENT_RESOLVED")]
     Resolved,
+    #[doc(alias = "G_SOCKET_CLIENT_CONNECTING")]
     Connecting,
+    #[doc(alias = "G_SOCKET_CLIENT_CONNECTED")]
     Connected,
+    #[doc(alias = "G_SOCKET_CLIENT_PROXY_NEGOTIATING")]
     ProxyNegotiating,
+    #[doc(alias = "G_SOCKET_CLIENT_PROXY_NEGOTIATED")]
     ProxyNegotiated,
+    #[doc(alias = "G_SOCKET_CLIENT_TLS_HANDSHAKING")]
     TlsHandshaking,
+    #[doc(alias = "G_SOCKET_CLIENT_TLS_HANDSHAKED")]
     TlsHandshaked,
+    #[doc(alias = "G_SOCKET_CLIENT_COMPLETE")]
     Complete,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2212,10 +2394,15 @@ impl SetValue for SocketClientEvent {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GSocketFamily")]
 pub enum SocketFamily {
+    #[doc(alias = "G_SOCKET_FAMILY_INVALID")]
     Invalid,
+    #[doc(alias = "G_SOCKET_FAMILY_UNIX")]
     Unix,
+    #[doc(alias = "G_SOCKET_FAMILY_IPV4")]
     Ipv4,
+    #[doc(alias = "G_SOCKET_FAMILY_IPV6")]
     Ipv6,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2293,10 +2480,15 @@ impl SetValue for SocketFamily {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GSocketListenerEvent")]
 pub enum SocketListenerEvent {
+    #[doc(alias = "G_SOCKET_LISTENER_BINDING")]
     Binding,
+    #[doc(alias = "G_SOCKET_LISTENER_BOUND")]
     Bound,
+    #[doc(alias = "G_SOCKET_LISTENER_LISTENING")]
     Listening,
+    #[doc(alias = "G_SOCKET_LISTENER_LISTENED")]
     Listened,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2386,11 +2578,17 @@ impl SetValue for SocketListenerEvent {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GSocketProtocol")]
 pub enum SocketProtocol {
+    #[doc(alias = "G_SOCKET_PROTOCOL_UNKNOWN")]
     Unknown,
+    #[doc(alias = "G_SOCKET_PROTOCOL_DEFAULT")]
     Default,
+    #[doc(alias = "G_SOCKET_PROTOCOL_TCP")]
     Tcp,
+    #[doc(alias = "G_SOCKET_PROTOCOL_UDP")]
     Udp,
+    #[doc(alias = "G_SOCKET_PROTOCOL_SCTP")]
     Sctp,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2469,10 +2667,15 @@ impl SetValue for SocketProtocol {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GSocketType")]
 pub enum SocketType {
+    #[doc(alias = "G_SOCKET_TYPE_INVALID")]
     Invalid,
+    #[doc(alias = "G_SOCKET_TYPE_STREAM")]
     Stream,
+    #[doc(alias = "G_SOCKET_TYPE_DATAGRAM")]
     Datagram,
+    #[doc(alias = "G_SOCKET_TYPE_SEQPACKET")]
     Seqpacket,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2548,9 +2751,13 @@ impl SetValue for SocketType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GTlsAuthenticationMode")]
 pub enum TlsAuthenticationMode {
+    #[doc(alias = "G_TLS_AUTHENTICATION_NONE")]
     None,
+    #[doc(alias = "G_TLS_AUTHENTICATION_REQUESTED")]
     Requested,
+    #[doc(alias = "G_TLS_AUTHENTICATION_REQUIRED")]
     Required,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2623,7 +2830,9 @@ impl SetValue for TlsAuthenticationMode {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GTlsCertificateRequestFlags")]
 pub enum TlsCertificateRequestFlags {
+    #[doc(alias = "G_TLS_CERTIFICATE_REQUEST_NONE")]
     None,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2692,8 +2901,11 @@ impl SetValue for TlsCertificateRequestFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GTlsChannelBindingType")]
 pub enum TlsChannelBindingType {
+    #[doc(alias = "G_TLS_CHANNEL_BINDING_TLS_UNIQUE")]
     Unique,
+    #[doc(alias = "G_TLS_CHANNEL_BINDING_TLS_SERVER_END_POINT")]
     ServerEndPoint,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2779,8 +2991,11 @@ impl SetValue for TlsChannelBindingType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GTlsDatabaseLookupFlags")]
 pub enum TlsDatabaseLookupFlags {
+    #[doc(alias = "G_TLS_DATABASE_LOOKUP_NONE")]
     None,
+    #[doc(alias = "G_TLS_DATABASE_LOOKUP_KEYPAIR")]
     Keypair,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2850,9 +3065,13 @@ impl SetValue for TlsDatabaseLookupFlags {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GTlsInteractionResult")]
 pub enum TlsInteractionResult {
+    #[doc(alias = "G_TLS_INTERACTION_UNHANDLED")]
     Unhandled,
+    #[doc(alias = "G_TLS_INTERACTION_HANDLED")]
     Handled,
+    #[doc(alias = "G_TLS_INTERACTION_FAILED")]
     Failed,
     #[doc(hidden)]
     __Unknown(i32),
@@ -2926,9 +3145,13 @@ impl SetValue for TlsInteractionResult {
 #[cfg_attr(feature = "v2_60", deprecated)]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GTlsRehandshakeMode")]
 pub enum TlsRehandshakeMode {
+    #[doc(alias = "G_TLS_REHANDSHAKE_NEVER")]
     Never,
+    #[doc(alias = "G_TLS_REHANDSHAKE_SAFELY")]
     Safely,
+    #[doc(alias = "G_TLS_REHANDSHAKE_UNSAFELY")]
     Unsafely,
     #[doc(hidden)]
     __Unknown(i32),
@@ -3001,11 +3224,17 @@ impl SetValue for TlsRehandshakeMode {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GUnixSocketAddressType")]
 pub enum UnixSocketAddressType {
+    #[doc(alias = "G_UNIX_SOCKET_ADDRESS_INVALID")]
     Invalid,
+    #[doc(alias = "G_UNIX_SOCKET_ADDRESS_ANONYMOUS")]
     Anonymous,
+    #[doc(alias = "G_UNIX_SOCKET_ADDRESS_PATH")]
     Path,
+    #[doc(alias = "G_UNIX_SOCKET_ADDRESS_ABSTRACT")]
     Abstract,
+    #[doc(alias = "G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED")]
     AbstractPadded,
     #[doc(hidden)]
     __Unknown(i32),
@@ -3084,9 +3313,13 @@ impl SetValue for UnixSocketAddressType {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "GZlibCompressorFormat")]
 pub enum ZlibCompressorFormat {
+    #[doc(alias = "G_ZLIB_COMPRESSOR_FORMAT_ZLIB")]
     Zlib,
+    #[doc(alias = "G_ZLIB_COMPRESSOR_FORMAT_GZIP")]
     Gzip,
+    #[doc(alias = "G_ZLIB_COMPRESSOR_FORMAT_RAW")]
     Raw,
     #[doc(hidden)]
     __Unknown(i32),

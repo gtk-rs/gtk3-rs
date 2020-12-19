@@ -7,37 +7,69 @@ use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "graphene_euler_order_t")]
 pub enum EulerOrder {
+    #[doc(alias = "GRAPHENE_EULER_ORDER_DEFAULT")]
     Default,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_XYZ")]
     Xyz,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_YZX")]
     Yzx,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_ZXY")]
     Zxy,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_XZY")]
     Xzy,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_YXZ")]
     Yxz,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_ZYX")]
     Zyx,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_SXYZ")]
     Sxyz,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_SXYX")]
     Sxyx,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_SXZY")]
     Sxzy,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_SXZX")]
     Sxzx,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_SYZX")]
     Syzx,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_SYZY")]
     Syzy,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_SYXZ")]
     Syxz,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_SYXY")]
     Syxy,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_SZXY")]
     Szxy,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_SZXZ")]
     Szxz,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_SZYX")]
     Szyx,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_SZYZ")]
     Szyz,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_RZYX")]
     Rzyx,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_RXYX")]
     Rxyx,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_RYZX")]
     Ryzx,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_RXZX")]
     Rxzx,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_RXZY")]
     Rxzy,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_RYZY")]
     Ryzy,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_RZXY")]
     Rzxy,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_RYXY")]
     Ryxy,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_RYXZ")]
     Ryxz,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_RZXZ")]
     Rzxz,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_RXYZ")]
     Rxyz,
+    #[doc(alias = "GRAPHENE_EULER_ORDER_RZYZ")]
     Rzyz,
     #[doc(hidden)]
     __Unknown(i32),
@@ -173,9 +205,13 @@ impl FromGlib<ffi::graphene_euler_order_t> for EulerOrder {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_10")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "graphene_ray_intersection_kind_t")]
 pub enum RayIntersectionKind {
+    #[doc(alias = "GRAPHENE_RAY_INTERSECTION_KIND_NONE")]
     None,
+    #[doc(alias = "GRAPHENE_RAY_INTERSECTION_KIND_ENTER")]
     Enter,
+    #[doc(alias = "GRAPHENE_RAY_INTERSECTION_KIND_LEAVE")]
     Leave,
     #[doc(hidden)]
     __Unknown(i32),
