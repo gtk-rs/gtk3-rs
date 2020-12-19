@@ -3,7 +3,10 @@
 #![allow(deprecated)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
+pub use cairo;
 pub use ffi;
+pub use glib;
+pub use pango;
 
 #[allow(clippy::too_many_arguments)]
 #[allow(unused_imports)]
