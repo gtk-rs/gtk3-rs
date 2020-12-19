@@ -4,6 +4,7 @@
 #![allow(deprecated)]
 
 pub use ffi;
+pub use glib;
 
 // Graphene has no runtime to initialize
 macro_rules! assert_initialized_main_thread {
