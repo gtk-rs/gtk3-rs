@@ -39,10 +39,10 @@ macro_rules! for_stream_constructors {
         ///
         /// The value that `stream` points to must live at least until the underlying `cairo_surface_t`
         /// (which maybe be longer then the Rust `PdfSurface` wrapper, because of reference-counting),
-        /// or until the output stream is removed from the surface with [`Surface::take_output_stream`].
+        /// or until the output stream is removed from the surface with [`Surface::finish_output_stream`].
         ///
         /// Since the former is hard to track for sure, the latter is strongly recommended.
-        /// The concrete type behind the `Box<dyn Any>` value returned by `take_output_stream`
+        /// The concrete type behind the `Box<dyn Any>` value returned by `finish_output_stream`
         /// is private, so you won’t be able to downcast it.
         /// But removing it anyway ensures that later writes do no go through a dangling pointer.
         pub unsafe fn for_raw_stream<W: io::Write + 'static>(
