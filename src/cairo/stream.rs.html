@@ -311,10 +311,10 @@
         <span class="doccomment">///</span>
         <span class="doccomment">/// The value that `stream` points to must live at least until the underlying `cairo_surface_t`</span>
         <span class="doccomment">/// (which maybe be longer then the Rust `PdfSurface` wrapper, because of reference-counting),</span>
-        <span class="doccomment">/// or until the output stream is removed from the surface with [`Surface::take_output_stream`].</span>
+        <span class="doccomment">/// or until the output stream is removed from the surface with [`Surface::finish_output_stream`].</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// Since the former is hard to track for sure, the latter is strongly recommended.</span>
-        <span class="doccomment">/// The concrete type behind the `Box&lt;dyn Any&gt;` value returned by `take_output_stream`</span>
+        <span class="doccomment">/// The concrete type behind the `Box&lt;dyn Any&gt;` value returned by `finish_output_stream`</span>
         <span class="doccomment">/// is private, so you won’t be able to downcast it.</span>
         <span class="doccomment">/// But removing it anyway ensures that later writes do no go through a dangling pointer.</span>
         <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">for_raw_stream</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">io</span>::<span class="ident">Write</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
