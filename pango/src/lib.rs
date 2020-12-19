@@ -4,6 +4,7 @@
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 pub use ffi;
+pub use glib;
 
 #[allow(clippy::too_many_arguments)]
 #[allow(clippy::should_implement_trait)]
