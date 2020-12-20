@@ -20,6 +20,7 @@ use std::ptr;
 pub trait AppInfoExtManual: 'static {
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
+    #[doc(alias = "g_app_info_launch_uris_async")]
     fn launch_uris_async<
         P: IsA<AppLaunchContext>,
         Q: IsA<Cancellable>,

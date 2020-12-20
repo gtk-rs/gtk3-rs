@@ -6,6 +6,7 @@ use std::mem;
 
 impl UnixMountPoint {
     #[cfg(any(unix, feature = "dox"))]
+    #[doc(alias = "g_unix_mount_points_get")]
     pub fn get_mount_points() -> (Vec<UnixMountPoint>, u64) {
         unsafe {
             let mut time_read = mem::MaybeUninit::uninit();
@@ -17,6 +18,7 @@ impl UnixMountPoint {
         }
     }
 
+    #[doc(alias = "g_unix_mount_points_changed_since")]
     pub fn is_changed_since(time: u64) -> bool {
         unsafe { from_glib(ffi::g_unix_mount_points_changed_since(time)) }
     }

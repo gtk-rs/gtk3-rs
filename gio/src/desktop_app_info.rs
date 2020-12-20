@@ -17,6 +17,7 @@ use std::ptr;
 use std::os::unix::io::AsRawFd;
 
 impl DesktopAppInfo {
+    #[doc(alias = "g_desktop_app_info_search")]
     pub fn search(search_string: &str) -> Vec<Vec<GString>> {
         unsafe {
             let out = ffi::g_desktop_app_info_search(search_string.to_glib_none().0);
@@ -47,6 +48,7 @@ impl DesktopAppInfo {
 pub trait DesktopAppInfoExtManual {
     #[cfg(any(all(feature = "v2_58", unix), all(unix, feature = "dox")))]
     #[cfg_attr(feature = "dox", doc(cfg(all(feature = "v2_58", unix))))]
+    #[doc(alias = "g_desktop_app_info_launch_uris_as_manager_with_fds")]
     fn launch_uris_as_manager_with_fds<
         P: IsA<AppLaunchContext>,
         T: AsRawFd,

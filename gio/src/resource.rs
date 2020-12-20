@@ -6,6 +6,7 @@ use std::mem;
 use std::ptr;
 
 impl Resource {
+    #[doc(alias = "g_resource_new_from_data")]
     pub fn from_data(data: &glib::Bytes) -> Result<Resource, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();

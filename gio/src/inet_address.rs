@@ -26,6 +26,7 @@ impl<'a> InetAddressBytes<'a> {
 }
 
 impl InetAddress {
+    #[doc(alias = "g_inet_address_new_from_bytes")]
     pub fn from_bytes(inet_address_bytes: InetAddressBytes) -> Self {
         let bytes = inet_address_bytes.deref();
 
@@ -48,6 +49,7 @@ pub trait InetAddressExtManual {
 
 impl<O: IsA<InetAddress>> InetAddressExtManual for O {
     /// Returns `None` in case the address has a native size different than 4 and 16.
+    #[doc(alias = "g_inet_address_to_bytes")]
     fn to_bytes(&self) -> Option<InetAddressBytes<'_>> {
         let size = self.get_native_size();
         unsafe {
