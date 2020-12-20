@@ -4,6 +4,7 @@ use crate::FrameClock;
 use glib::translate::*;
 
 impl FrameClock {
+    #[doc(alias = "gdk_frame_clock_get_refresh_info")]
     pub fn get_refresh_info(&self, base_time: i64) -> (i64, i64) {
         unsafe {
             let mut refresh_interval = 0;

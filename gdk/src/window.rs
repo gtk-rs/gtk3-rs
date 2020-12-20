@@ -111,6 +111,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::GdkWindowAttr> for WindowAttr {
 }
 
 impl Window {
+    #[doc(alias = "gdk_window_new")]
     pub fn new(parent: Option<&Window>, attributes: &WindowAttr) -> Window {
         assert_initialized_main_thread!();
         unsafe {
@@ -122,6 +123,7 @@ impl Window {
         }
     }
 
+    #[doc(alias = "gdk_window_create_similar_surface")]
     pub fn create_similar_surface(
         &self,
         content: cairo::Content,
@@ -140,19 +142,26 @@ impl Window {
 }
 
 pub trait WindowExtManual: 'static {
+    #[doc(alias = "gdk_window_set_user_data")]
     unsafe fn set_user_data<T>(&self, user_data: &mut T);
 
     #[allow(clippy::mut_from_ref)]
+    #[doc(alias = "gdk_window_get_user_data")]
     unsafe fn get_user_data<T>(&self) -> &mut T;
 
+    #[doc(alias = "gdk_get_default_root_window")]
     fn get_default_root_window() -> Window;
 
+    #[doc(alias = "gdk_offscreen_window_set_embedder")]
     fn offscreen_window_set_embedder(&self, embedder: &Window);
 
+    #[doc(alias = "gdk_offscreen_window_get_embedder")]
     fn offscreen_window_get_embedder(&self) -> Option<Window>;
 
+    #[doc(alias = "gdk_offscreen_window_get_surface")]
     fn offscreen_window_get_surface(&self) -> Option<Surface>;
 
+    #[doc(alias = "gdk_pixbuf_get_from_window")]
     fn get_pixbuf(
         &self,
         src_x: i32,
@@ -161,8 +170,10 @@ pub trait WindowExtManual: 'static {
         height: i32,
     ) -> Option<gdk_pixbuf::Pixbuf>;
 
+    #[doc(alias = "gdk_window_get_background_pattern")]
     fn get_background_pattern(&self) -> Option<cairo::Pattern>;
 
+    #[doc(alias = "gdk_window_set_background_pattern")]
     fn set_background_pattern(&self, pattern: Option<&cairo::Pattern>);
 }
 

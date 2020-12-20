@@ -8,6 +8,7 @@ use glib::object::IsA;
 use glib::translate::*;
 
 pub trait GdkSurfaceExt {
+    #[doc(alias = "gdk_cairo_region_create_from_surface")]
     fn create_region(&self) -> Option<Region>;
 }
 
@@ -22,6 +23,7 @@ impl GdkSurfaceExt for Surface {
 }
 
 pub trait GdkPixbufExt {
+    #[doc(alias = "gdk_cairo_surface_create_from_pixbuf")]
     fn create_surface<W: IsA<Window>>(&self, scale: i32, for_window: Option<&W>)
         -> Option<Surface>;
 }
