@@ -6,6 +6,7 @@ use crate::Vec3;
 use glib::translate::*;
 
 impl Sphere {
+    #[doc(alias = "graphene_sphere_init_from_points")]
     pub fn init_from_points(&mut self, points: &[&Point3D], center: Option<&Point3D>) {
         let vec: Vec<_> = points
             .iter()
@@ -23,6 +24,7 @@ impl Sphere {
         }
     }
 
+    #[doc(alias = "graphene_sphere_init_from_vectors")]
     pub fn init_from_vectors(&mut self, vectors: &[&Vec3], center: Option<&Point3D>) {
         let vec: Vec<_> = vectors
             .iter()
@@ -40,6 +42,7 @@ impl Sphere {
         }
     }
 
+    #[doc(alias = "graphene_sphere_init")]
     pub fn new(center: Option<&Point3D>, radius: f32) -> Sphere {
         assert_initialized_main_thread!();
         unsafe {
@@ -49,6 +52,7 @@ impl Sphere {
         }
     }
 
+    #[doc(alias = "graphene_sphere_init_from_points")]
     pub fn new_from_points(points: &[&Point3D], center: Option<&Point3D>) -> Sphere {
         assert_initialized_main_thread!();
 
@@ -65,6 +69,7 @@ impl Sphere {
         }
     }
 
+    #[doc(alias = "graphene_sphere_init_from_vectors")]
     pub fn new_from_vectors(vectors: &[&Vec3], center: Option<&Point3D>) -> Sphere {
         assert_initialized_main_thread!();
 

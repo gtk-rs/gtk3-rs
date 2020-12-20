@@ -6,6 +6,7 @@ use crate::Plane;
 use glib::translate::*;
 
 impl Frustum {
+    #[doc(alias = "graphene_frustum_get_planes")]
     pub fn get_planes(&self) -> [Plane; 6] {
         unsafe {
             let mut out: [ffi::graphene_plane_t; 6] = std::mem::uninitialized();
@@ -21,6 +22,7 @@ impl Frustum {
         }
     }
 
+    #[doc(alias = "graphene_frustum_init")]
     pub fn new(p0: &Plane, p1: &Plane, p2: &Plane, p3: &Plane, p4: &Plane, p5: &Plane) -> Frustum {
         assert_initialized_main_thread!();
         unsafe {
@@ -38,6 +40,7 @@ impl Frustum {
         }
     }
 
+    #[doc(alias = "graphene_frustum_init_from_frustum")]
     pub fn new_from_frustum(src: &Frustum) -> Frustum {
         assert_initialized_main_thread!();
         unsafe {
@@ -47,6 +50,7 @@ impl Frustum {
         }
     }
 
+    #[doc(alias = "graphene_frustum_init_from_matrix")]
     pub fn new_from_matrix(matrix: &Matrix) -> Frustum {
         assert_initialized_main_thread!();
         unsafe {

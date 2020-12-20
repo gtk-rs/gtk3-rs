@@ -6,6 +6,7 @@ use crate::Vec3;
 use glib::translate::*;
 
 impl Box {
+    #[doc(alias = "graphene_box_get_vertices")]
     pub fn get_vertices(&self) -> [Vec3; 8] {
         unsafe {
             let mut out: [ffi::graphene_vec3_t; 8] = std::mem::uninitialized();
@@ -23,6 +24,7 @@ impl Box {
         }
     }
 
+    #[doc(alias = "graphene_box_init_from_points")]
     pub fn init_from_points(&mut self, points: &[&Point3D]) {
         let vec: Vec<_> = points
             .iter()
@@ -35,6 +37,7 @@ impl Box {
         }
     }
 
+    #[doc(alias = "graphene_box_init_from_vectors")]
     pub fn init_from_vectors(&mut self, vectors: &[&Vec3]) {
         let vec: Vec<_> = vectors
             .iter()
@@ -47,6 +50,7 @@ impl Box {
         }
     }
 
+    #[doc(alias = "graphene_box_init")]
     pub fn new(min: Option<&Point3D>, max: Option<&Point3D>) -> Box {
         assert_initialized_main_thread!();
         unsafe {
@@ -56,6 +60,7 @@ impl Box {
         }
     }
 
+    #[doc(alias = "graphene_box_init_from_box")]
     pub fn new_from_box(src: &Box) -> Box {
         assert_initialized_main_thread!();
         unsafe {
@@ -65,6 +70,7 @@ impl Box {
         }
     }
 
+    #[doc(alias = "graphene_box_init_from_points")]
     pub fn new_from_points(&mut self, points: &[&Point3D]) -> Box {
         assert_initialized_main_thread!();
 
@@ -81,6 +87,7 @@ impl Box {
         }
     }
 
+    #[doc(alias = "graphene_box_init_from_vec3")]
     pub fn new_from_vec3(min: Option<&Vec3>, max: Option<&Vec3>) -> Box {
         assert_initialized_main_thread!();
         unsafe {
@@ -90,6 +97,7 @@ impl Box {
         }
     }
 
+    #[doc(alias = "graphene_box_init_from_vectors")]
     pub fn new_from_vectors(vectors: &[&Vec3]) -> Box {
         assert_initialized_main_thread!();
 

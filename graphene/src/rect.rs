@@ -5,6 +5,7 @@ use crate::Vec2;
 use glib::translate::*;
 
 impl Rect {
+    #[doc(alias = "graphene_rect_get_vertices")]
     pub fn get_vertices(&self) -> [Vec2; 4] {
         unsafe {
             let mut out: [ffi::graphene_vec2_t; 4] = std::mem::uninitialized();
@@ -18,6 +19,7 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_init")]
     pub fn new(x: f32, y: f32, width: f32, height: f32) -> Rect {
         assert_initialized_main_thread!();
         unsafe {
@@ -27,6 +29,7 @@ impl Rect {
         }
     }
 
+    #[doc(alias = "graphene_rect_init_from_rect")]
     pub fn new_from_rect(src: &Rect) -> Rect {
         assert_initialized_main_thread!();
         unsafe {
