@@ -14,6 +14,7 @@ glib::wrapper! {
 }
 
 impl PixbufAnimationIter {
+    #[doc(alias = "gdk_pixbuf_animation_iter_advance")]
     pub fn advance(&self, start_time: SystemTime) -> bool {
         let diff = start_time
             .duration_since(SystemTime::UNIX_EPOCH)
@@ -30,6 +31,7 @@ impl PixbufAnimationIter {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_animation_iter_get_pixbuf")]
     pub fn get_pixbuf(&self) -> Pixbuf {
         unsafe {
             from_glib_none(ffi::gdk_pixbuf_animation_iter_get_pixbuf(
@@ -38,10 +40,12 @@ impl PixbufAnimationIter {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_animation_iter_get_delay_time")]
     pub fn get_delay_time(&self) -> i32 {
         unsafe { ffi::gdk_pixbuf_animation_iter_get_delay_time(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_pixbuf_animation_iter_on_currently_loading_frame")]
     pub fn on_currently_loading_frame(&self) -> bool {
         unsafe {
             from_glib(ffi::gdk_pixbuf_animation_iter_on_currently_loading_frame(
