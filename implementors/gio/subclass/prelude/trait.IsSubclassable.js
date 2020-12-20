@@ -1,3 +1,0 @@
-(function() {var implementors = {};
-implementors["gio"] = [{"text":"impl&lt;T:&nbsp;ApplicationImpl&gt; IsSubclassable&lt;T&gt; for Application","synthetic":false,"types":[]},{"text":"impl&lt;T:&nbsp;InputStreamImpl&gt; IsSubclassable&lt;T&gt; for InputStream","synthetic":false,"types":[]},{"text":"impl&lt;T:&nbsp;IOStreamImpl&gt; IsSubclassable&lt;T&gt; for IOStream","synthetic":false,"types":[]},{"text":"impl&lt;T:&nbsp;OutputStreamImpl&gt; IsSubclassable&lt;T&gt; for OutputStream","synthetic":false,"types":[]}];
-if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
