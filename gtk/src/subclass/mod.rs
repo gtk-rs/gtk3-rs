@@ -33,6 +33,11 @@ pub mod widget;
 pub mod window;
 
 pub mod prelude {
+    #[doc(hidden)]
+    pub use gio::subclass::prelude::*;
+    #[doc(hidden)]
+    pub use glib::subclass::prelude::*;
+
     pub use super::application::{GtkApplicationImpl, GtkApplicationImplExt};
     pub use super::application_window::ApplicationWindowImpl;
     pub use super::bin::BinImpl;
@@ -66,6 +71,4 @@ pub mod prelude {
         CompositeTemplate, TemplateChild, WidgetClassSubclassExt, WidgetImpl, WidgetImplExt,
     };
     pub use super::window::{WindowImpl, WindowImplExt};
-    pub use gio::subclass::prelude::*;
-    pub use glib::subclass::prelude::*;
 }
