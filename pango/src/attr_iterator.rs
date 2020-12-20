@@ -9,6 +9,7 @@ use glib::translate::*;
 use std::ptr;
 
 impl AttrIterator {
+    #[doc(alias = "pango_attr_iterator_get_font")]
     pub fn get_font(
         &mut self,
         desc: &mut FontDescription,
