@@ -9,9 +9,11 @@ mod output_stream;
 mod seekable;
 
 pub use self::application::ArgumentList;
-pub use self::prelude::*;
 
 pub mod prelude {
+    #[doc(hidden)]
+    pub use glib::subclass::prelude::*;
+
     pub use super::application::{ApplicationImpl, ApplicationImplExt};
     pub use super::input_stream::{InputStreamImpl, InputStreamImplExt};
     pub use super::io_stream::{IOStreamImpl, IOStreamImplExt};
@@ -19,5 +21,4 @@ pub mod prelude {
     pub use super::list_model::ListModelImpl;
     pub use super::output_stream::{OutputStreamImpl, OutputStreamImplExt};
     pub use super::seekable::SeekableImpl;
-    pub use glib::subclass::prelude::*;
 }
