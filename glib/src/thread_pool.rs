@@ -13,6 +13,7 @@ unsafe impl Send for ThreadPool {}
 unsafe impl Sync for ThreadPool {}
 
 impl ThreadPool {
+    #[doc(alias = "g_thread_pool_new")]
     pub fn new_shared(max_threads: Option<u32>) -> Result<Self, crate::Error> {
         unsafe {
             let mut err = ptr::null_mut();
@@ -31,6 +32,7 @@ impl ThreadPool {
         }
     }
 
+    #[doc(alias = "g_thread_pool_new")]
     pub fn new_exclusive(max_threads: u32) -> Result<Self, crate::Error> {
         unsafe {
             let mut err = ptr::null_mut();
@@ -49,6 +51,7 @@ impl ThreadPool {
         }
     }
 
+    #[doc(alias = "g_thread_pool_push")]
     pub fn push<F: FnOnce() + Send + 'static>(&self, func: F) -> Result<(), crate::Error> {
         unsafe {
             let func: Box<dyn FnOnce() + Send + 'static> = Box::new(func);
@@ -83,6 +86,7 @@ impl ThreadPool {
         Ok(async move { receiver.await.expect("Dropped before executing") })
     }
 
+    #[doc(alias = "g_thread_pool_set_max_threads")]
     pub fn set_max_threads(&self, max_threads: Option<u32>) -> Result<(), crate::Error> {
         unsafe {
             let mut err = ptr::null_mut();
@@ -99,6 +103,7 @@ impl ThreadPool {
         }
     }
 
+    #[doc(alias = "g_thread_pool_get_max_threads")]
     pub fn get_max_threads(&self) -> Option<u32> {
         unsafe {
             let max_threads = ffi::g_thread_pool_get_max_threads(self.0.as_ptr());
@@ -110,20 +115,24 @@ impl ThreadPool {
         }
     }
 
+    #[doc(alias = "g_thread_pool_get_num_threads")]
     pub fn get_num_threads(&self) -> u32 {
         unsafe { ffi::g_thread_pool_get_num_threads(self.0.as_ptr()) }
     }
 
+    #[doc(alias = "g_thread_pool_unprocessed")]
     pub fn get_unprocessed(&self) -> u32 {
         unsafe { ffi::g_thread_pool_unprocessed(self.0.as_ptr()) }
     }
 
+    #[doc(alias = "g_thread_pool_set_max_unused_threads")]
     pub fn set_max_unused_threads(max_threads: Option<u32>) {
         unsafe {
             ffi::g_thread_pool_set_max_unused_threads(max_threads.map(|v| v as i32).unwrap_or(-1))
         }
     }
 
+    #[doc(alias = "g_thread_pool_get_max_unused_threads")]
     pub fn get_max_unused_threads() -> Option<u32> {
         unsafe {
             let max_unused_threads = ffi::g_thread_pool_get_max_unused_threads();
@@ -135,20 +144,24 @@ impl ThreadPool {
         }
     }
 
+    #[doc(alias = "g_thread_pool_get_num_unused_threads")]
     pub fn get_num_unused_threads() -> u32 {
         unsafe { ffi::g_thread_pool_get_num_unused_threads() }
     }
 
+    #[doc(alias = "g_thread_pool_stop_unused_threads")]
     pub fn stop_unused_threads() {
         unsafe {
             ffi::g_thread_pool_stop_unused_threads();
         }
     }
 
+    #[doc(alias = "g_thread_pool_set_max_idle_time")]
     pub fn set_max_idle_time(max_idle_time: u32) {
         unsafe { ffi::g_thread_pool_set_max_idle_time(max_idle_time) }
     }
 
+    #[doc(alias = "g_thread_pool_get_max_idle_time")]
     pub fn get_max_idle_time() -> u32 {
         unsafe { ffi::g_thread_pool_get_max_idle_time() }
     }

@@ -35,14 +35,17 @@ wrapper! {
 }
 
 impl ByteArray {
+    #[doc(alias = "g_byte_array_new")]
     pub fn new() -> ByteArray {
         unsafe { from_glib_full(ffi::g_byte_array_new()) }
     }
 
+    #[doc(alias = "g_byte_array_sized_new")]
     pub fn with_capacity(size: usize) -> ByteArray {
         unsafe { from_glib_full(ffi::g_byte_array_sized_new(size as u32)) }
     }
 
+    #[doc(alias = "g_byte_array_free_to_bytes")]
     pub fn into_gbytes(self) -> Bytes {
         unsafe {
             let s = mem::ManuallyDrop::new(self);
@@ -52,6 +55,7 @@ impl ByteArray {
         }
     }
 
+    #[doc(alias = "g_byte_array_append")]
     pub fn append<T: ?Sized + AsRef<[u8]>>(&self, data: &T) -> &Self {
         let bytes = data.as_ref();
         unsafe {
@@ -64,6 +68,7 @@ impl ByteArray {
         self
     }
 
+    #[doc(alias = "g_byte_array_prepend")]
     pub fn prepend<T: ?Sized + AsRef<[u8]>>(&self, data: &T) -> &Self {
         let bytes = data.as_ref();
         unsafe {
@@ -76,28 +81,33 @@ impl ByteArray {
         self
     }
 
+    #[doc(alias = "g_byte_array_remove_index")]
     pub fn remove_index(&self, index: usize) {
         unsafe {
             ffi::g_byte_array_remove_index(self.to_glib_none().0, index as u32);
         }
     }
 
+    #[doc(alias = "g_byte_array_remove_index_fast")]
     pub fn remove_index_fast(&self, index: usize) {
         unsafe {
             ffi::g_byte_array_remove_index_fast(self.to_glib_none().0, index as u32);
         }
     }
 
+    #[doc(alias = "g_byte_array_remove_range")]
     pub fn remove_range(&self, index: usize, length: usize) {
         unsafe {
             ffi::g_byte_array_remove_range(self.to_glib_none().0, index as u32, length as u32);
         }
     }
 
+    #[doc(alias = "g_byte_array_set_size")]
     pub unsafe fn set_size(&self, size: usize) {
         ffi::g_byte_array_set_size(self.to_glib_none().0, size as u32);
     }
 
+    #[doc(alias = "g_byte_array_sort_with_data")]
     pub fn sort<F: FnMut(&u8, &u8) -> Ordering>(&self, compare_func: F) {
         unsafe extern "C" fn compare_func_trampoline(
             a: ffi::gconstpointer,

@@ -130,6 +130,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     ///
     /// The index in the properties array is going to be the index passed to the
     /// property setters and getters.
+    #[doc(alias = "g_object_class_install_properties")]
     fn install_properties<'a, T: Borrow<Property<'a>>>(&mut self, properties: &[T]) {
         if properties.is_empty() {
             return;

@@ -111,6 +111,7 @@ fn to_log_flags(fatal: bool, recursion: bool) -> u32 {
 }
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
+#[doc(alias = "g_log_set_handler_full")]
 pub fn log_set_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static>(
     log_domain: Option<&str>,
     log_levels: LogLevels,
@@ -157,16 +158,19 @@ pub fn log_set_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'stat
     }
 }
 
+#[doc(alias = "g_log_remove_handler")]
 pub fn log_remove_handler(log_domain: Option<&str>, handler_id: LogHandlerId) {
     unsafe {
         ffi::g_log_remove_handler(log_domain.to_glib_none().0, handler_id.to_glib());
     }
 }
 
+#[doc(alias = "g_log_set_always_fatal")]
 pub fn log_set_always_fatal(fatal_levels: LogLevels) -> LogLevels {
     unsafe { from_glib(ffi::g_log_set_always_fatal(fatal_levels.to_glib())) }
 }
 
+#[doc(alias = "g_log_set_fatal_mask")]
 pub fn log_set_fatal_mask(log_domain: Option<&str>, fatal_levels: LogLevels) -> LogLevels {
     unsafe {
         from_glib(ffi::g_log_set_fatal_mask(
@@ -192,6 +196,7 @@ type PrintCallback = dyn Fn(&str) + Send + Sync + 'static;
 static PRINT_HANDLER: Lazy<Mutex<Option<Arc<PrintCallback>>>> = Lazy::new(|| Mutex::new(None));
 
 /// To set back the default print handler, use the [`unset_print_handler`] function.
+#[doc(alias = "g_set_print_handler")]
 pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
     unsafe extern "C" fn func_func(string: *const libc::c_char) {
         if let Some(callback) = match *PRINT_HANDLER.lock().expect("Failed to lock PRINT_HANDLER") {
@@ -219,6 +224,7 @@ pub fn unset_print_handler() {
 static PRINTERR_HANDLER: Lazy<Mutex<Option<Arc<PrintCallback>>>> = Lazy::new(|| Mutex::new(None));
 
 /// To set back the default print handler, use the [`unset_printerr_handler`] function.
+#[doc(alias = "g_set_printerr_handler")]
 pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) {
     unsafe extern "C" fn func_func(string: *const libc::c_char) {
         if let Some(callback) = match *PRINTERR_HANDLER
@@ -251,6 +257,7 @@ type LogCallback = dyn Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static;
 static DEFAULT_HANDLER: Lazy<Mutex<Option<Arc<LogCallback>>>> = Lazy::new(|| Mutex::new(None));
 
 /// To set back the default print handler, use the [`log_unset_default_handler`] function.
+#[doc(alias = "g_log_set_default_handler")]
 pub fn log_set_default_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync + 'static>(
     log_func: P,
 ) {
@@ -283,6 +290,7 @@ pub fn log_set_default_handler<P: Fn(Option<&str>, LogLevel, &str) + Send + Sync
 }
 
 /// To set the default print handler, use the [`log_set_default_handler`] function.
+#[doc(alias = "g_log_set_default_handler")]
 pub fn log_unset_default_handler() {
     *DEFAULT_HANDLER
         .lock()
@@ -292,6 +300,7 @@ pub fn log_unset_default_handler() {
     };
 }
 
+#[doc(alias = "g_log_default_handler")]
 pub fn log_default_handler(log_domain: Option<&str>, log_level: LogLevel, message: Option<&str>) {
     unsafe {
         ffi::g_log_default_handler(

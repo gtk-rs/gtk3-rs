@@ -26,6 +26,7 @@ unsafe impl Send for String {}
 unsafe impl Sync for String {}
 
 impl String {
+    #[doc(alias = "g_string_new_len")]
     pub fn new<T: AsRef<[u8]>>(data: T) -> String {
         let bytes = data.as_ref();
         unsafe {
@@ -36,6 +37,7 @@ impl String {
         }
     }
 
+    #[doc(alias = "g_string_append_len")]
     pub fn append(&mut self, val: &str) -> &mut Self {
         unsafe {
             ffi::g_string_append_len(
@@ -47,6 +49,7 @@ impl String {
         self
     }
 
+    #[doc(alias = "g_string_insert_len")]
     pub fn insert(&mut self, pos: isize, val: &str) -> &mut Self {
         unsafe {
             ffi::g_string_insert_len(
@@ -59,6 +62,7 @@ impl String {
         self
     }
 
+    #[doc(alias = "g_string_overwrite_len")]
     pub fn overwrite(&mut self, pos: usize, val: &str) -> &mut Self {
         unsafe {
             ffi::g_string_overwrite_len(
@@ -71,6 +75,7 @@ impl String {
         self
     }
 
+    #[doc(alias = "g_string_prepend_len")]
     pub fn prepend(&mut self, val: &str) -> &mut Self {
         unsafe {
             ffi::g_string_prepend_len(
@@ -82,6 +87,7 @@ impl String {
         self
     }
 
+    #[doc(alias = "g_string_truncate")]
     pub fn truncate(&mut self, len: usize) -> &mut Self {
         unsafe {
             ffi::g_string_truncate(self.to_glib_none_mut().0, len);

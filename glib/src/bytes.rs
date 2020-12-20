@@ -36,12 +36,14 @@ wrapper! {
 
 impl Bytes {
     /// Copies `data` into a new shared slice.
+    #[doc(alias = "g_bytes_new")]
     fn new<T: AsRef<[u8]>>(data: T) -> Bytes {
         let data = data.as_ref();
         unsafe { from_glib_full(ffi::g_bytes_new(data.as_ptr() as *const _, data.len())) }
     }
 
     /// Creates a view into static `data` without copying.
+    #[doc(alias = "g_bytes_new_static")]
     pub fn from_static(data: &'static [u8]) -> Bytes {
         unsafe {
             from_glib_full(ffi::g_bytes_new_static(

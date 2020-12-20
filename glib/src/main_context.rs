@@ -9,6 +9,7 @@ use ffi::{self, gboolean, gpointer};
 use std::mem;
 
 impl MainContext {
+    #[doc(alias = "g_main_context_prepare")]
     pub fn prepare(&self) -> (bool, i32) {
         unsafe {
             let mut priority = mem::MaybeUninit::uninit();
@@ -22,6 +23,7 @@ impl MainContext {
         }
     }
 
+    #[doc(alias = "g_main_context_find_source_by_id")]
     pub fn find_source_by_id(&self, source_id: &SourceId) -> Option<Source> {
         unsafe {
             from_glib_none(ffi::g_main_context_find_source_by_id(
@@ -80,6 +82,7 @@ impl MainContext {
         }
     }
 
+    #[doc(alias = "g_main_context_invoke_full")]
     unsafe fn invoke_unsafe<F>(&self, priority: Priority, func: F)
     where
         F: FnOnce() + 'static,

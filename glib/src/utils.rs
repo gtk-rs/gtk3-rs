@@ -15,6 +15,7 @@ pub fn get_program_name() -> Option<String> {
     get_prgname()
 }
 
+#[doc(alias = "g_get_prgname")]
 pub fn get_prgname() -> Option<String> {
     unsafe { from_glib_none(ffi::g_get_prgname()) }
 }
@@ -26,10 +27,12 @@ pub fn set_program_name(name: Option<&str>) {
     set_prgname(name)
 }
 
+#[doc(alias = "g_set_prgname")]
 pub fn set_prgname(name: Option<&str>) {
     unsafe { ffi::g_set_prgname(name.to_glib_none().0) }
 }
 
+#[doc(alias = "g_getenv")]
 pub fn getenv<K: AsRef<OsStr>>(variable_name: K) -> Option<OsString> {
     #[cfg(not(windows))]
     use ffi::g_getenv;
@@ -39,6 +42,7 @@ pub fn getenv<K: AsRef<OsStr>>(variable_name: K) -> Option<OsString> {
     unsafe { from_glib_none(g_getenv(variable_name.as_ref().to_glib_none().0)) }
 }
 
+#[doc(alias = "g_setenv")]
 pub fn setenv<K: AsRef<OsStr>, V: AsRef<OsStr>>(
     variable_name: K,
     value: V,
@@ -61,6 +65,7 @@ pub fn setenv<K: AsRef<OsStr>, V: AsRef<OsStr>>(
     }
 }
 
+#[doc(alias = "g_unsetenv")]
 pub fn unsetenv<K: AsRef<OsStr>>(variable_name: K) {
     #[cfg(not(windows))]
     use ffi::g_unsetenv;
@@ -70,6 +75,7 @@ pub fn unsetenv<K: AsRef<OsStr>>(variable_name: K) {
     unsafe { g_unsetenv(variable_name.as_ref().to_glib_none().0) }
 }
 
+#[doc(alias = "g_environ_getenv")]
 pub fn environ_getenv<K: AsRef<OsStr>>(envp: &[OsString], variable: K) -> Option<OsString> {
     unsafe {
         from_glib_none(ffi::g_environ_getenv(
@@ -79,6 +85,7 @@ pub fn environ_getenv<K: AsRef<OsStr>>(envp: &[OsString], variable: K) -> Option
     }
 }
 
+#[doc(alias = "g_get_user_name")]
 pub fn get_user_name() -> Option<OsString> {
     #[cfg(not(all(windows, target_arch = "x86")))]
     use ffi::g_get_user_name;
@@ -88,6 +95,7 @@ pub fn get_user_name() -> Option<OsString> {
     unsafe { from_glib_none(g_get_user_name()) }
 }
 
+#[doc(alias = "g_get_real_name")]
 pub fn get_real_name() -> Option<OsString> {
     #[cfg(not(all(windows, target_arch = "x86")))]
     use ffi::g_get_real_name;
@@ -97,6 +105,7 @@ pub fn get_real_name() -> Option<OsString> {
     unsafe { from_glib_none(g_get_real_name()) }
 }
 
+#[doc(alias = "g_get_current_dir")]
 pub fn get_current_dir() -> Option<PathBuf> {
     #[cfg(not(windows))]
     use ffi::g_get_current_dir;
@@ -106,6 +115,7 @@ pub fn get_current_dir() -> Option<PathBuf> {
     unsafe { from_glib_full(g_get_current_dir()) }
 }
 
+#[doc(alias = "g_filename_to_uri")]
 pub fn filename_to_uri<P: AsRef<Path>>(
     filename: P,
     hostname: Option<&str>,
@@ -127,6 +137,7 @@ pub fn filename_to_uri<P: AsRef<Path>>(
     }
 }
 
+#[doc(alias = "g_filename_from_uri")]
 pub fn filename_from_uri(uri: &str) -> Result<(std::path::PathBuf, Option<GString>), Error> {
     #[cfg(not(windows))]
     use ffi::g_filename_from_uri;
@@ -145,6 +156,7 @@ pub fn filename_from_uri(uri: &str) -> Result<(std::path::PathBuf, Option<GStrin
     }
 }
 
+#[doc(alias = "g_find_program_in_path")]
 pub fn find_program_in_path<P: AsRef<Path>>(program: P) -> Option<PathBuf> {
     #[cfg(not(all(windows, target_arch = "x86")))]
     use ffi::g_find_program_in_path;
@@ -154,6 +166,7 @@ pub fn find_program_in_path<P: AsRef<Path>>(program: P) -> Option<PathBuf> {
     unsafe { from_glib_full(g_find_program_in_path(program.as_ref().to_glib_none().0)) }
 }
 
+#[doc(alias = "g_get_home_dir")]
 pub fn get_home_dir() -> Option<std::path::PathBuf> {
     #[cfg(not(all(windows, target_arch = "x86")))]
     use ffi::g_get_home_dir;
@@ -163,6 +176,7 @@ pub fn get_home_dir() -> Option<std::path::PathBuf> {
     unsafe { from_glib_none(g_get_home_dir()) }
 }
 
+#[doc(alias = "g_get_tmp_dir")]
 pub fn get_tmp_dir() -> Option<std::path::PathBuf> {
     #[cfg(not(all(windows, target_arch = "x86")))]
     use ffi::g_get_tmp_dir;
@@ -172,6 +186,7 @@ pub fn get_tmp_dir() -> Option<std::path::PathBuf> {
     unsafe { from_glib_none(g_get_tmp_dir()) }
 }
 
+#[doc(alias = "g_mkstemp")]
 pub fn mkstemp<P: AsRef<std::path::Path>>(tmpl: P) -> i32 {
     #[cfg(not(windows))]
     use ffi::g_mkstemp;

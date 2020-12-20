@@ -26,6 +26,7 @@ unsafe impl Send for Date {}
 unsafe impl Sync for Date {}
 
 impl Date {
+    #[doc(alias = "g_date_valid_dmy")]
     pub fn new_dmy(day: DateDay, month: DateMonth, year: DateYear) -> Result<Date, BoolError> {
         let month = month.to_glib();
         unsafe {
@@ -38,6 +39,7 @@ impl Date {
         }
     }
 
+    #[doc(alias = "g_date_new_julian")]
     pub fn new_julian(julian_day: u32) -> Result<Date, BoolError> {
         if !Self::valid_julian(julian_day) {
             Err(bool_error!("Invalid date"))
@@ -46,6 +48,7 @@ impl Date {
         }
     }
 
+    #[doc(alias = "g_date_add_days")]
     pub fn add_days(&mut self, n_days: u32) -> Result<(), BoolError> {
         let julian_days = self.get_julian();
         if julian_days == 0 || n_days > std::u32::MAX - julian_days {
@@ -58,6 +61,7 @@ impl Date {
         }
     }
 
+    #[doc(alias = "g_date_add_months")]
     pub fn add_months(&mut self, n_months: u32) -> Result<(), BoolError> {
         // The checks for this function are just a mess in the C code, allowing intermediate
         // unknown state. So for now, nothing can be done...
@@ -67,6 +71,7 @@ impl Date {
         Ok(())
     }
 
+    #[doc(alias = "g_date_add_years")]
     pub fn add_years(&mut self, n_years: u16) -> Result<(), BoolError> {
         let year = self.get_year();
         if n_years > std::u16::MAX - year {
@@ -79,6 +84,7 @@ impl Date {
         }
     }
 
+    #[doc(alias = "g_date_clamp")]
     pub fn clamp(&mut self, min_date: &Date, max_date: &Date) -> Result<(), BoolError> {
         if min_date >= max_date {
             Err(bool_error!("`min_date` must be before `max_date`"))
@@ -94,64 +100,79 @@ impl Date {
         }
     }
 
+    #[doc(alias = "g_date_compare")]
     fn compare(&self, rhs: &Date) -> i32 {
         unsafe { ffi::g_date_compare(self.to_glib_none().0, rhs.to_glib_none().0) }
     }
 
+    #[doc(alias = "g_date_days_between")]
     pub fn days_between(&self, date2: &Date) -> i32 {
         unsafe { ffi::g_date_days_between(self.to_glib_none().0, date2.to_glib_none().0) }
     }
 
+    #[doc(alias = "g_date_get_day")]
     pub fn get_day(&self) -> DateDay {
         unsafe { ffi::g_date_get_day(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "g_date_get_day_of_year")]
     pub fn get_day_of_year(&self) -> u32 {
         unsafe { ffi::g_date_get_day_of_year(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "g_date_get_iso8601_week_of_year")]
     pub fn get_iso8601_week_of_year(&self) -> u32 {
         unsafe { ffi::g_date_get_iso8601_week_of_year(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "g_date_get_julian")]
     pub fn get_julian(&self) -> u32 {
         unsafe { ffi::g_date_get_julian(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "g_date_get_monday_week_of_year")]
     pub fn get_monday_week_of_year(&self) -> u32 {
         unsafe { ffi::g_date_get_monday_week_of_year(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "g_date_get_month")]
     pub fn get_month(&self) -> DateMonth {
         unsafe { from_glib(ffi::g_date_get_month(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_date_get_sunday_week_of_year")]
     pub fn get_sunday_week_of_year(&self) -> u32 {
         unsafe { ffi::g_date_get_sunday_week_of_year(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "g_date_get_weekday")]
     pub fn get_weekday(&self) -> DateWeekday {
         unsafe { from_glib(ffi::g_date_get_weekday(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_date_get_year")]
     pub fn get_year(&self) -> DateYear {
         unsafe { ffi::g_date_get_year(self.to_glib_none().0) }
     }
 
+    #[doc(alias = "g_date_is_first_of_month")]
     pub fn is_first_of_month(&self) -> bool {
         unsafe { from_glib(ffi::g_date_is_first_of_month(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_date_is_last_of_month")]
     pub fn is_last_of_month(&self) -> bool {
         unsafe { from_glib(ffi::g_date_is_last_of_month(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_date_order")]
     pub fn order(&mut self, date2: &mut Date) {
         unsafe {
             ffi::g_date_order(self.to_glib_none_mut().0, date2.to_glib_none_mut().0);
         }
     }
 
+    #[doc(alias = "g_date_set_day")]
     pub fn set_day(&mut self, day: DateDay) -> Result<(), BoolError> {
         if !Self::valid_dmy(day, self.get_month(), self.get_year()) {
             Err(bool_error!("invalid day"))
@@ -163,6 +184,7 @@ impl Date {
         }
     }
 
+    #[doc(alias = "g_date_set_dmy")]
     pub fn set_dmy(
         &mut self,
         day: DateDay,
@@ -179,6 +201,7 @@ impl Date {
         }
     }
 
+    #[doc(alias = "g_date_set_julian")]
     pub fn set_julian(&mut self, julian_date: u32) -> Result<(), BoolError> {
         if !Self::valid_julian(julian_date) {
             Err(bool_error!("invalid date"))
@@ -190,6 +213,7 @@ impl Date {
         }
     }
 
+    #[doc(alias = "g_date_set_month")]
     pub fn set_month(&mut self, month: DateMonth) -> Result<(), BoolError> {
         if !Self::valid_dmy(self.get_day(), month, self.get_year()) {
             Err(bool_error!("invalid month"))
@@ -201,6 +225,7 @@ impl Date {
         }
     }
 
+    #[doc(alias = "g_date_set_parse")]
     pub fn set_parse(&mut self, str: &str) -> Result<(), BoolError> {
         let mut c = self.clone();
         if !unsafe {
@@ -214,6 +239,7 @@ impl Date {
         }
     }
 
+    #[doc(alias = "g_date_set_time_t")]
     pub fn set_time(&mut self, time_: u32) -> Result<(), BoolError> {
         let mut c = self.clone();
         unsafe {
@@ -231,6 +257,7 @@ impl Date {
     //    unsafe { TODO: call ffi::g_date_set_time_val() }
     //}
 
+    #[doc(alias = "g_date_set_year")]
     pub fn set_year(&mut self, year: DateYear) -> Result<(), BoolError> {
         if !Self::valid_dmy(self.get_day(), self.get_month(), year) {
             Err(bool_error!("invalid year"))
@@ -242,6 +269,7 @@ impl Date {
         }
     }
 
+    #[doc(alias = "g_date_subtract_days")]
     pub fn subtract_days(&mut self, n_days: u32) -> Result<(), BoolError> {
         let julian = self.get_julian();
         if julian > n_days {
@@ -254,6 +282,7 @@ impl Date {
         }
     }
 
+    #[doc(alias = "g_date_subtract_months")]
     pub fn subtract_months(&mut self, n_months: u32) -> Result<(), BoolError> {
         // The checks for this function are just a mess in the C code, allowing intermediate
         // unknown state. So for now, nothing can be done...
@@ -263,6 +292,7 @@ impl Date {
         Ok(())
     }
 
+    #[doc(alias = "g_date_subtract_years")]
     pub fn subtract_years(&mut self, n_years: u16) -> Result<(), BoolError> {
         if self.get_year() < n_years {
             Err(bool_error!("invalid number of years"))
@@ -274,30 +304,37 @@ impl Date {
         }
     }
 
+    //#[doc(alias="g_date_to_struct_tm")]
     //pub fn to_struct_tm(&self, tm: /*Unimplemented*/Fundamental: Pointer) {
     //    unsafe { TODO: call ffi::g_date_to_struct_tm() }
     //}
 
+    #[doc(alias = "g_date_valid")]
     pub fn valid(&self) -> bool {
         unsafe { from_glib(ffi::g_date_valid(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "g_date_get_days_in_month")]
     pub fn get_days_in_month(month: DateMonth, year: DateYear) -> u8 {
         unsafe { ffi::g_date_get_days_in_month(month.to_glib(), year) }
     }
 
+    #[doc(alias = "g_date_get_monday_weeks_in_year")]
     pub fn get_monday_weeks_in_year(year: DateYear) -> u8 {
         unsafe { ffi::g_date_get_monday_weeks_in_year(year) }
     }
 
+    #[doc(alias = "g_date_get_sunday_weeks_in_year")]
     pub fn get_sunday_weeks_in_year(year: DateYear) -> u8 {
         unsafe { ffi::g_date_get_sunday_weeks_in_year(year) }
     }
 
+    #[doc(alias = "g_date_is_leap_year")]
     pub fn is_leap_year(year: DateYear) -> bool {
         unsafe { from_glib(ffi::g_date_is_leap_year(year)) }
     }
 
+    #[doc(alias = "g_date_strftime")]
     pub fn strftime(s: &str, format: &str, date: &Date) -> usize {
         let slen = s.len() as usize;
         unsafe {
@@ -310,26 +347,32 @@ impl Date {
         }
     }
 
+    #[doc(alias = "g_date_valid_day")]
     pub fn valid_day(day: DateDay) -> bool {
         unsafe { from_glib(ffi::g_date_valid_day(day)) }
     }
 
+    #[doc(alias = "g_date_valid_dmy")]
     pub fn valid_dmy(day: DateDay, month: DateMonth, year: DateYear) -> bool {
         unsafe { from_glib(ffi::g_date_valid_dmy(day, month.to_glib(), year)) }
     }
 
+    #[doc(alias = "g_date_valid_julian")]
     pub fn valid_julian(julian_date: u32) -> bool {
         unsafe { from_glib(ffi::g_date_valid_julian(julian_date)) }
     }
 
+    #[doc(alias = "g_date_valid_month")]
     pub fn valid_month(month: DateMonth) -> bool {
         unsafe { from_glib(ffi::g_date_valid_month(month.to_glib())) }
     }
 
+    #[doc(alias = "g_date_valid_weekday")]
     pub fn valid_weekday(weekday: DateWeekday) -> bool {
         unsafe { from_glib(ffi::g_date_valid_weekday(weekday.to_glib())) }
     }
 
+    #[doc(alias = "g_date_valid_year")]
     pub fn valid_year(year: DateYear) -> bool {
         unsafe { from_glib(ffi::g_date_valid_year(year)) }
     }
