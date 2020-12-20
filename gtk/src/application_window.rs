@@ -8,6 +8,7 @@ use glib::object::IsA;
 use glib::translate::*;
 
 impl ApplicationWindow {
+    #[doc(alias = "gtk_application_window_new")]
     pub fn new<P: IsA<Application>>(application: &P) -> ApplicationWindow {
         skip_assert_initialized!();
         unsafe {

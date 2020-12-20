@@ -9,6 +9,7 @@ use libc::{c_char, c_uint};
 use std::boxed::Box as Box_;
 
 impl Clipboard {
+    #[doc(alias = "gtk_clipboard_set_with_data")]
     pub fn set_with_data<F: Fn(&Clipboard, &SelectionData, u32) + 'static>(
         &self,
         targets: &[TargetEntry],
@@ -66,6 +67,7 @@ impl Clipboard {
         success
     }
 
+    #[doc(alias = "gtk_clipboard_request_uris")]
     pub fn request_uris<P: FnOnce(&Clipboard, &[glib::GString]) + 'static>(&self, callback: P) {
         let callback_data: Box_<P> = Box_::new(callback);
         unsafe extern "C" fn callback_func<P: FnOnce(&Clipboard, &[glib::GString]) + 'static>(

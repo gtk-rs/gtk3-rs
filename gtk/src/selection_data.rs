@@ -5,6 +5,7 @@ use glib::translate::*;
 use std::mem;
 
 impl SelectionData {
+    #[doc(alias = "gtk_selection_data_get_data_with_length")]
     pub fn get_data(&self) -> Vec<u8> {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();

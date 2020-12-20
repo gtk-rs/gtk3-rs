@@ -129,6 +129,7 @@ pub fn init() -> Result<(), glib::BoolError> {
     }
 }
 
+#[doc(alias = "gtk_main_quit")]
 pub fn main_quit() {
     assert_initialized_main_thread!();
     unsafe {
@@ -140,31 +141,37 @@ pub fn main_quit() {
     }
 }
 
+#[doc(alias = "gtk_get_major_version")]
 pub fn get_major_version() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_major_version() as u32 }
 }
 
+#[doc(alias = "gtk_get_minor_version")]
 pub fn get_minor_version() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_minor_version() as u32 }
 }
 
+#[doc(alias = "gtk_get_micro_version")]
 pub fn get_micro_version() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_micro_version() as u32 }
 }
 
+#[doc(alias = "gtk_get_binary_age")]
 pub fn get_binary_age() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_binary_age() as u32 }
 }
 
+#[doc(alias = "gtk_get_interface_age")]
 pub fn get_interface_age() -> u32 {
     skip_assert_initialized!();
     unsafe { ffi::gtk_get_interface_age() as u32 }
 }
 
+#[doc(alias = "gtk_check_version")]
 pub fn check_version(
     required_major: u32,
     required_minor: u32,

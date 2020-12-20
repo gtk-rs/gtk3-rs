@@ -18,6 +18,7 @@ pub struct TickCallbackId {
 }
 
 impl TickCallbackId {
+    #[doc(alias = "gtk_widget_remove_tick_callback")]
     pub fn remove(self) {
         if let Some(widget) = self.widget.upgrade() {
             unsafe {
@@ -28,8 +29,10 @@ impl TickCallbackId {
 }
 
 pub trait WidgetExtManual: 'static {
+    #[doc(alias = "gtk_drag_dest_set")]
     fn drag_dest_set(&self, flags: DestDefaults, targets: &[TargetEntry], actions: DragAction);
 
+    #[doc(alias = "gtk_drag_source_set")]
     fn drag_source_set(
         &self,
         start_button_mask: ModifierType,
@@ -37,6 +40,7 @@ pub trait WidgetExtManual: 'static {
         actions: DragAction,
     );
 
+    #[doc(alias = "gtk_widget_intersect")]
     fn intersect(&self, area: &Rectangle, intersection: Option<&mut Rectangle>) -> bool;
 
     fn connect_map_event<F: Fn(&Self, &Event) -> Inhibit + 'static>(&self, f: F)
@@ -47,13 +51,19 @@ pub trait WidgetExtManual: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[doc(alias = "gtk_widget_add_tick_callback")]
     fn add_tick_callback<P: Fn(&Self, &gdk::FrameClock) -> Continue + 'static>(
         &self,
         callback: P,
     ) -> TickCallbackId;
 
+    #[doc(alias = "gtk_widget_add_events")]
     fn add_events(&self, events: gdk::EventMask);
+
+    #[doc(alias = "gtk_widget_get_events")]
     fn get_events(&self) -> gdk::EventMask;
+
+    #[doc(alias = "gtk_widget_set_events")]
     fn set_events(&self, events: gdk::EventMask);
 
     // rustdoc-stripper-ignore-next
@@ -64,8 +74,10 @@ pub trait WidgetExtManual: 'static {
     /// This will not necessarily entirely remove the widget from existence but
     /// you must *NOT* query the widget's state subsequently.  Do not call this
     /// yourself unless you really mean to.
+    #[doc(alias = "gtk_widget_destroy")]
     unsafe fn destroy(&self);
 
+    #[doc(alias = "gtk_widget_hide_on_delete")]
     fn hide_on_delete(&self) -> Inhibit;
 }
 

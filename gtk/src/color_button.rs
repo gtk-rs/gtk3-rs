@@ -8,10 +8,13 @@ use glib::translate::*;
 use std::mem;
 
 pub trait ColorButtonExtManual: 'static {
+    #[doc(alias = "gtk_color_button_new_with_color")]
     fn with_color(color: &gdk::Color) -> ColorButton;
 
+    #[doc(alias = "gtk_color_button_get_color")]
     fn get_color(&self) -> gdk::Color;
 
+    #[doc(alias = "gtk_color_button_set_color")]
     fn set_color(&self, color: &gdk::Color);
 }
 

@@ -14,8 +14,13 @@ glib::wrapper! {
 }
 
 pub trait AppChooserExt: 'static {
+    #[doc(alias = "gtk_app_chooser_get_app_info")]
     fn get_app_info(&self) -> Option<AppInfo>;
+
+    #[doc(alias = "gtk_app_chooser_get_content_type")]
     fn get_content_type(&self) -> Option<String>;
+
+    #[doc(alias = "gtk_app_chooser_refresh")]
     fn refresh(&self);
 }
 

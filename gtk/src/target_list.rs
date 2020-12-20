@@ -6,6 +6,7 @@ use glib::translate::*;
 use std::ptr;
 
 impl TargetList {
+    #[doc(alias = "gtk_target_list_new")]
     pub fn new(targets: &[TargetEntry]) -> Self {
         skip_assert_initialized!();
         let stashes: Vec<_> = targets.iter().map(|e| e.to_glib_none()).collect();
