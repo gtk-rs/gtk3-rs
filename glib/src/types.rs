@@ -48,17 +48,17 @@ pub enum Type {
     /// The fundamental type of GVariant
     Variant,
     /// The fundamental type from which all interfaces are derived
-    BaseInterface,
+    Interface,
     /// The fundamental type from which all enumeration types are derived
-    BaseEnum,
+    Enum,
     /// The fundamental type from which all flags types are derived
-    BaseFlags,
+    Flags,
     /// The fundamental type from which all boxed types are derived
-    BaseBoxed,
+    Boxed,
     /// The fundamental type from which all `GParamSpec` types are derived
-    BaseParamSpec,
+    ParamSpec,
     /// The fundamental type from which all objects are derived
-    BaseObject,
+    Object,
     /// A non-fundamental type identified by value of type `usize`
     Other(usize),
 }
@@ -112,7 +112,7 @@ impl Type {
     }
     pub fn interface_prerequisites(&self) -> Vec<Self> {
         match self {
-            t if !t.is_a(&Type::BaseInterface) => vec![],
+            t if !t.is_a(&Type::Interface) => vec![],
             _ => unsafe {
                 let mut n_prereqs = 0u32;
                 let prereqs =
@@ -240,7 +240,7 @@ impl FromGlib<ffi::GType> for Type {
         match val {
             gobject_ffi::G_TYPE_INVALID => Invalid,
             gobject_ffi::G_TYPE_NONE => Unit,
-            gobject_ffi::G_TYPE_INTERFACE => BaseInterface,
+            gobject_ffi::G_TYPE_INTERFACE => Interface,
             gobject_ffi::G_TYPE_CHAR => I8,
             gobject_ffi::G_TYPE_UCHAR => U8,
             gobject_ffi::G_TYPE_BOOLEAN => Bool,
@@ -250,15 +250,15 @@ impl FromGlib<ffi::GType> for Type {
             gobject_ffi::G_TYPE_ULONG => ULong,
             gobject_ffi::G_TYPE_INT64 => I64,
             gobject_ffi::G_TYPE_UINT64 => U64,
-            gobject_ffi::G_TYPE_ENUM => BaseEnum,
-            gobject_ffi::G_TYPE_FLAGS => BaseFlags,
+            gobject_ffi::G_TYPE_ENUM => Enum,
+            gobject_ffi::G_TYPE_FLAGS => Flags,
             gobject_ffi::G_TYPE_FLOAT => F32,
             gobject_ffi::G_TYPE_DOUBLE => F64,
             gobject_ffi::G_TYPE_STRING => String,
             gobject_ffi::G_TYPE_POINTER => Pointer,
-            gobject_ffi::G_TYPE_BOXED => BaseBoxed,
-            gobject_ffi::G_TYPE_PARAM => BaseParamSpec,
-            gobject_ffi::G_TYPE_OBJECT => BaseObject,
+            gobject_ffi::G_TYPE_BOXED => Boxed,
+            gobject_ffi::G_TYPE_PARAM => ParamSpec,
+            gobject_ffi::G_TYPE_OBJECT => Object,
             gobject_ffi::G_TYPE_VARIANT => Variant,
             x => Other(x as usize),
         }
@@ -273,7 +273,7 @@ impl ToGlib for Type {
         match *self {
             Invalid => gobject_ffi::G_TYPE_INVALID,
             Unit => gobject_ffi::G_TYPE_NONE,
-            BaseInterface => gobject_ffi::G_TYPE_INTERFACE,
+            Interface => gobject_ffi::G_TYPE_INTERFACE,
             I8 => gobject_ffi::G_TYPE_CHAR,
             U8 => gobject_ffi::G_TYPE_UCHAR,
             Bool => gobject_ffi::G_TYPE_BOOLEAN,
@@ -283,15 +283,15 @@ impl ToGlib for Type {
             ULong => gobject_ffi::G_TYPE_ULONG,
             I64 => gobject_ffi::G_TYPE_INT64,
             U64 => gobject_ffi::G_TYPE_UINT64,
-            BaseEnum => gobject_ffi::G_TYPE_ENUM,
-            BaseFlags => gobject_ffi::G_TYPE_FLAGS,
+            Enum => gobject_ffi::G_TYPE_ENUM,
+            Flags => gobject_ffi::G_TYPE_FLAGS,
             F32 => gobject_ffi::G_TYPE_FLOAT,
             F64 => gobject_ffi::G_TYPE_DOUBLE,
             String => gobject_ffi::G_TYPE_STRING,
             Pointer => gobject_ffi::G_TYPE_POINTER,
-            BaseBoxed => gobject_ffi::G_TYPE_BOXED,
-            BaseParamSpec => gobject_ffi::G_TYPE_PARAM,
-            BaseObject => gobject_ffi::G_TYPE_OBJECT,
+            Boxed => gobject_ffi::G_TYPE_BOXED,
+            ParamSpec => gobject_ffi::G_TYPE_PARAM,
+            Object => gobject_ffi::G_TYPE_OBJECT,
             Variant => gobject_ffi::G_TYPE_VARIANT,
             Other(x) => x as ffi::GType,
         }

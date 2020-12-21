@@ -271,7 +271,7 @@ pub fn register_interface<T: ObjectInterface>() -> Type {
         );
 
         let type_ = from_glib(gobject_ffi::g_type_register_static_simple(
-            Type::BaseInterface.to_glib(),
+            Type::Interface.to_glib(),
             type_name.as_ptr(),
             mem::size_of::<T>() as u32,
             Some(interface_init::<T>),
