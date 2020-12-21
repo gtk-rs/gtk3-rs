@@ -1030,35 +1030,77 @@ impl SetValue for bool {
 }
 
 macro_rules! numeric {
-    ($name:ident, $get:ident, $set:ident) => {
+    ($name:ty, $get:expr, $set:expr) => {
         impl<'a> FromValueOptional<'a> for $name {
             unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
-                Some(gobject_ffi::$get(value.to_glib_none().0))
+                Some($get(value.to_glib_none().0))
             }
         }
 
         impl<'a> FromValue<'a> for $name {
             unsafe fn from_value(value: &'a Value) -> Self {
-                gobject_ffi::$get(value.to_glib_none().0)
+                $get(value.to_glib_none().0)
             }
         }
 
         impl SetValue for $name {
             unsafe fn set_value(value: &mut Value, this: &Self) {
-                gobject_ffi::$set(value.to_glib_none_mut().0, *this)
+                $set(value.to_glib_none_mut().0, *this)
             }
         }
     };
 }
 
-numeric!(i8, g_value_get_schar, g_value_set_schar);
-numeric!(u8, g_value_get_uchar, g_value_set_uchar);
-numeric!(i32, g_value_get_int, g_value_set_int);
-numeric!(u32, g_value_get_uint, g_value_set_uint);
-numeric!(i64, g_value_get_int64, g_value_set_int64);
-numeric!(u64, g_value_get_uint64, g_value_set_uint64);
-numeric!(f32, g_value_get_float, g_value_set_float);
-numeric!(f64, g_value_get_double, g_value_set_double);
+numeric!(
+    i8,
+    gobject_ffi::g_value_get_schar,
+    gobject_ffi::g_value_set_schar
+);
+numeric!(
+    u8,
+    gobject_ffi::g_value_get_uchar,
+    gobject_ffi::g_value_set_uchar
+);
+numeric!(
+    i32,
+    gobject_ffi::g_value_get_int,
+    gobject_ffi::g_value_set_int
+);
+numeric!(
+    u32,
+    gobject_ffi::g_value_get_uint,
+    gobject_ffi::g_value_set_uint
+);
+numeric!(
+    i64,
+    gobject_ffi::g_value_get_int64,
+    gobject_ffi::g_value_set_int64
+);
+numeric!(
+    u64,
+    gobject_ffi::g_value_get_uint64,
+    gobject_ffi::g_value_set_uint64
+);
+numeric!(
+    crate::ILong,
+    |v| gobject_ffi::g_value_get_long(v).into(),
+    |v, i: crate::ILong| gobject_ffi::g_value_set_long(v, i.0)
+);
+numeric!(
+    crate::ULong,
+    |v| gobject_ffi::g_value_get_ulong(v).into(),
+    |v, i: crate::ULong| gobject_ffi::g_value_set_ulong(v, i.0)
+);
+numeric!(
+    f32,
+    gobject_ffi::g_value_get_float,
+    gobject_ffi::g_value_set_float
+);
+numeric!(
+    f64,
+    gobject_ffi::g_value_get_double,
+    gobject_ffi::g_value_set_double
+);
 
 #[cfg(test)]
 mod tests {

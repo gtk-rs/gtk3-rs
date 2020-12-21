@@ -192,13 +192,119 @@ impl<'a, T: ?Sized + StaticType> StaticType for &'a mut T {
 }
 
 macro_rules! builtin {
-    ($name:ident, $val:ident) => {
+    ($name:ty, $val:ident) => {
         impl StaticType for $name {
             fn static_type() -> Type {
                 Type::$val
             }
         }
     };
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ILong(pub libc::c_long);
+
+impl std::ops::Deref for ILong {
+    type Target = libc::c_long;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl std::ops::DerefMut for ILong {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
+
+impl From<libc::c_long> for ILong {
+    fn from(v: libc::c_long) -> ILong {
+        ILong(v)
+    }
+}
+
+impl From<ILong> for libc::c_long {
+    fn from(v: ILong) -> libc::c_long {
+        v.0
+    }
+}
+
+impl PartialEq<libc::c_long> for ILong {
+    fn eq(&self, other: &libc::c_long) -> bool {
+        &self.0 == other
+    }
+}
+
+impl PartialEq<ILong> for libc::c_long {
+    fn eq(&self, other: &ILong) -> bool {
+        self == &other.0
+    }
+}
+
+impl PartialOrd<libc::c_long> for ILong {
+    fn partial_cmp(&self, other: &libc::c_long) -> Option<std::cmp::Ordering> {
+        self.0.partial_cmp(other)
+    }
+}
+
+impl PartialOrd<ILong> for libc::c_long {
+    fn partial_cmp(&self, other: &ILong) -> Option<std::cmp::Ordering> {
+        self.partial_cmp(&other.0)
+    }
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ULong(pub libc::c_ulong);
+
+impl std::ops::Deref for ULong {
+    type Target = libc::c_ulong;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl std::ops::DerefMut for ULong {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
+
+impl From<libc::c_ulong> for ULong {
+    fn from(v: libc::c_ulong) -> ULong {
+        ULong(v)
+    }
+}
+
+impl From<ULong> for libc::c_ulong {
+    fn from(v: ULong) -> libc::c_ulong {
+        v.0
+    }
+}
+
+impl PartialEq<libc::c_ulong> for ULong {
+    fn eq(&self, other: &libc::c_ulong) -> bool {
+        &self.0 == other
+    }
+}
+
+impl PartialEq<ULong> for libc::c_ulong {
+    fn eq(&self, other: &ULong) -> bool {
+        self == &other.0
+    }
+}
+
+impl PartialOrd<libc::c_ulong> for ULong {
+    fn partial_cmp(&self, other: &libc::c_ulong) -> Option<std::cmp::Ordering> {
+        self.0.partial_cmp(other)
+    }
+}
+
+impl PartialOrd<ULong> for libc::c_ulong {
+    fn partial_cmp(&self, other: &ULong) -> Option<std::cmp::Ordering> {
+        self.partial_cmp(&other.0)
+    }
 }
 
 builtin!(bool, Bool);
@@ -208,6 +314,8 @@ builtin!(i32, I32);
 builtin!(u32, U32);
 builtin!(i64, I64);
 builtin!(u64, U64);
+builtin!(ILong, ILong);
+builtin!(ULong, ULong);
 builtin!(f32, F32);
 builtin!(f64, F64);
 builtin!(str, String);
