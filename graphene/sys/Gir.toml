@@ -8,7 +8,7 @@ target_path = "."
 single_version_file = "."
 
 external_libraries = [
-   "GLib",
+    "GLib",
 ]
 
 ignore = [
