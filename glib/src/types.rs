@@ -48,17 +48,17 @@ pub enum Type {
     /// The fundamental type of GVariant
     Variant,
     /// The fundamental type from which all interfaces are derived
-    BaseInterface,
+    Interface,
     /// The fundamental type from which all enumeration types are derived
-    BaseEnum,
+    Enum,
     /// The fundamental type from which all flags types are derived
-    BaseFlags,
+    Flags,
     /// The fundamental type from which all boxed types are derived
-    BaseBoxed,
+    Boxed,
     /// The fundamental type from which all `GParamSpec` types are derived
-    BaseParamSpec,
+    ParamSpec,
     /// The fundamental type from which all objects are derived
-    BaseObject,
+    Object,
     /// A non-fundamental type identified by value of type `usize`
     Other(usize),
 }
@@ -112,7 +112,7 @@ impl Type {
     }
     pub fn interface_prerequisites(&self) -> Vec<Self> {
         match self {
-            t if !t.is_a(&Type::BaseInterface) => vec![],
+            t if !t.is_a(&Type::Interface) => vec![],
             _ => unsafe {
                 let mut n_prereqs = 0u32;
                 let prereqs =
@@ -192,13 +192,119 @@ impl<'a, T: ?Sized + StaticType> StaticType for &'a mut T {
 }
 
 macro_rules! builtin {
-    ($name:ident, $val:ident) => {
+    ($name:ty, $val:ident) => {
         impl StaticType for $name {
             fn static_type() -> Type {
                 Type::$val
             }
         }
     };
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ILong(pub libc::c_long);
+
+impl std::ops::Deref for ILong {
+    type Target = libc::c_long;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl std::ops::DerefMut for ILong {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
+
+impl From<libc::c_long> for ILong {
+    fn from(v: libc::c_long) -> ILong {
+        ILong(v)
+    }
+}
+
+impl From<ILong> for libc::c_long {
+    fn from(v: ILong) -> libc::c_long {
+        v.0
+    }
+}
+
+impl PartialEq<libc::c_long> for ILong {
+    fn eq(&self, other: &libc::c_long) -> bool {
+        &self.0 == other
+    }
+}
+
+impl PartialEq<ILong> for libc::c_long {
+    fn eq(&self, other: &ILong) -> bool {
+        self == &other.0
+    }
+}
+
+impl PartialOrd<libc::c_long> for ILong {
+    fn partial_cmp(&self, other: &libc::c_long) -> Option<std::cmp::Ordering> {
+        self.0.partial_cmp(other)
+    }
+}
+
+impl PartialOrd<ILong> for libc::c_long {
+    fn partial_cmp(&self, other: &ILong) -> Option<std::cmp::Ordering> {
+        self.partial_cmp(&other.0)
+    }
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ULong(pub libc::c_ulong);
+
+impl std::ops::Deref for ULong {
+    type Target = libc::c_ulong;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl std::ops::DerefMut for ULong {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
+
+impl From<libc::c_ulong> for ULong {
+    fn from(v: libc::c_ulong) -> ULong {
+        ULong(v)
+    }
+}
+
+impl From<ULong> for libc::c_ulong {
+    fn from(v: ULong) -> libc::c_ulong {
+        v.0
+    }
+}
+
+impl PartialEq<libc::c_ulong> for ULong {
+    fn eq(&self, other: &libc::c_ulong) -> bool {
+        &self.0 == other
+    }
+}
+
+impl PartialEq<ULong> for libc::c_ulong {
+    fn eq(&self, other: &ULong) -> bool {
+        self == &other.0
+    }
+}
+
+impl PartialOrd<libc::c_ulong> for ULong {
+    fn partial_cmp(&self, other: &libc::c_ulong) -> Option<std::cmp::Ordering> {
+        self.0.partial_cmp(other)
+    }
+}
+
+impl PartialOrd<ULong> for libc::c_ulong {
+    fn partial_cmp(&self, other: &ULong) -> Option<std::cmp::Ordering> {
+        self.partial_cmp(&other.0)
+    }
 }
 
 builtin!(bool, Bool);
@@ -208,6 +314,8 @@ builtin!(i32, I32);
 builtin!(u32, U32);
 builtin!(i64, I64);
 builtin!(u64, U64);
+builtin!(ILong, ILong);
+builtin!(ULong, ULong);
 builtin!(f32, F32);
 builtin!(f64, F64);
 builtin!(str, String);
@@ -240,7 +348,7 @@ impl FromGlib<ffi::GType> for Type {
         match val {
             gobject_ffi::G_TYPE_INVALID => Invalid,
             gobject_ffi::G_TYPE_NONE => Unit,
-            gobject_ffi::G_TYPE_INTERFACE => BaseInterface,
+            gobject_ffi::G_TYPE_INTERFACE => Interface,
             gobject_ffi::G_TYPE_CHAR => I8,
             gobject_ffi::G_TYPE_UCHAR => U8,
             gobject_ffi::G_TYPE_BOOLEAN => Bool,
@@ -250,15 +358,15 @@ impl FromGlib<ffi::GType> for Type {
             gobject_ffi::G_TYPE_ULONG => ULong,
             gobject_ffi::G_TYPE_INT64 => I64,
             gobject_ffi::G_TYPE_UINT64 => U64,
-            gobject_ffi::G_TYPE_ENUM => BaseEnum,
-            gobject_ffi::G_TYPE_FLAGS => BaseFlags,
+            gobject_ffi::G_TYPE_ENUM => Enum,
+            gobject_ffi::G_TYPE_FLAGS => Flags,
             gobject_ffi::G_TYPE_FLOAT => F32,
             gobject_ffi::G_TYPE_DOUBLE => F64,
             gobject_ffi::G_TYPE_STRING => String,
             gobject_ffi::G_TYPE_POINTER => Pointer,
-            gobject_ffi::G_TYPE_BOXED => BaseBoxed,
-            gobject_ffi::G_TYPE_PARAM => BaseParamSpec,
-            gobject_ffi::G_TYPE_OBJECT => BaseObject,
+            gobject_ffi::G_TYPE_BOXED => Boxed,
+            gobject_ffi::G_TYPE_PARAM => ParamSpec,
+            gobject_ffi::G_TYPE_OBJECT => Object,
             gobject_ffi::G_TYPE_VARIANT => Variant,
             x => Other(x as usize),
         }
@@ -273,7 +381,7 @@ impl ToGlib for Type {
         match *self {
             Invalid => gobject_ffi::G_TYPE_INVALID,
             Unit => gobject_ffi::G_TYPE_NONE,
-            BaseInterface => gobject_ffi::G_TYPE_INTERFACE,
+            Interface => gobject_ffi::G_TYPE_INTERFACE,
             I8 => gobject_ffi::G_TYPE_CHAR,
             U8 => gobject_ffi::G_TYPE_UCHAR,
             Bool => gobject_ffi::G_TYPE_BOOLEAN,
@@ -283,15 +391,15 @@ impl ToGlib for Type {
             ULong => gobject_ffi::G_TYPE_ULONG,
             I64 => gobject_ffi::G_TYPE_INT64,
             U64 => gobject_ffi::G_TYPE_UINT64,
-            BaseEnum => gobject_ffi::G_TYPE_ENUM,
-            BaseFlags => gobject_ffi::G_TYPE_FLAGS,
+            Enum => gobject_ffi::G_TYPE_ENUM,
+            Flags => gobject_ffi::G_TYPE_FLAGS,
             F32 => gobject_ffi::G_TYPE_FLOAT,
             F64 => gobject_ffi::G_TYPE_DOUBLE,
             String => gobject_ffi::G_TYPE_STRING,
             Pointer => gobject_ffi::G_TYPE_POINTER,
-            BaseBoxed => gobject_ffi::G_TYPE_BOXED,
-            BaseParamSpec => gobject_ffi::G_TYPE_PARAM,
-            BaseObject => gobject_ffi::G_TYPE_OBJECT,
+            Boxed => gobject_ffi::G_TYPE_BOXED,
+            ParamSpec => gobject_ffi::G_TYPE_PARAM,
+            Object => gobject_ffi::G_TYPE_OBJECT,
             Variant => gobject_ffi::G_TYPE_VARIANT,
             Other(x) => x as ffi::GType,
         }
