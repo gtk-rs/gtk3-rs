@@ -1,11 +1,11 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::translate::*;
+use crate::BoolError;
 use crate::DateDay;
 use crate::DateMonth;
 use crate::DateWeekday;
 use crate::DateYear;
-use crate::Time;
 use std::cmp;
 use std::fmt;
 use std::hash;
@@ -26,49 +26,71 @@ unsafe impl Send for Date {}
 unsafe impl Sync for Date {}
 
 impl Date {
-    pub fn new() -> Date {
-        unsafe { from_glib_full(ffi::g_date_new()) }
-    }
-
-    pub fn new_dmy(day: DateDay, month: DateMonth, year: DateYear) -> Date {
-        unsafe { from_glib_full(ffi::g_date_new_dmy(day, month.to_glib(), year)) }
-    }
-
-    pub fn new_julian(julian_day: u32) -> Date {
-        unsafe { from_glib_full(ffi::g_date_new_julian(julian_day)) }
-    }
-
-    pub fn add_days(&mut self, n_days: u32) {
+    pub fn new_dmy(day: DateDay, month: DateMonth, year: DateYear) -> Result<Date, BoolError> {
+        let month = month.to_glib();
         unsafe {
-            ffi::g_date_add_days(self.to_glib_none_mut().0, n_days);
+            let check: bool = from_glib(ffi::g_date_valid_dmy(day, month, year));
+            if !check {
+                Err(bool_error!("Invalid date"))
+            } else {
+                Ok(from_glib_full(ffi::g_date_new_dmy(day, month, year)))
+            }
         }
     }
 
-    pub fn add_months(&mut self, n_months: u32) {
+    pub fn new_julian(julian_day: u32) -> Result<Date, BoolError> {
+        if !Self::valid_julian(julian_day) {
+            Err(bool_error!("Invalid date"))
+        } else {
+            unsafe { Ok(from_glib_full(ffi::g_date_new_julian(julian_day))) }
+        }
+    }
+
+    pub fn add_days(&mut self, n_days: u32) -> Result<(), BoolError> {
+        let julian_days = self.get_julian();
+        if julian_days == 0 || n_days > std::u32::MAX - julian_days {
+            Err(bool_error!("Invalid date"))
+        } else {
+            unsafe {
+                ffi::g_date_add_days(self.to_glib_none_mut().0, n_days);
+            }
+            Ok(())
+        }
+    }
+
+    pub fn add_months(&mut self, n_months: u32) -> Result<(), BoolError> {
+        // The checks for this function are just a mess in the C code, allowing intermediate
+        // unknown state. So for now, nothing can be done...
         unsafe {
             ffi::g_date_add_months(self.to_glib_none_mut().0, n_months);
         }
+        Ok(())
     }
 
-    pub fn add_years(&mut self, n_years: u32) {
-        unsafe {
-            ffi::g_date_add_years(self.to_glib_none_mut().0, n_years);
+    pub fn add_years(&mut self, n_years: u16) -> Result<(), BoolError> {
+        let year = self.get_year();
+        if n_years > std::u16::MAX - year {
+            Err(bool_error!("Invalid date"))
+        } else {
+            unsafe {
+                ffi::g_date_add_years(self.to_glib_none_mut().0, n_years as _);
+            }
+            Ok(())
         }
     }
 
-    pub fn clamp(&mut self, min_date: &Date, max_date: &Date) {
-        unsafe {
-            ffi::g_date_clamp(
-                self.to_glib_none_mut().0,
-                min_date.to_glib_none().0,
-                max_date.to_glib_none().0,
-            );
-        }
-    }
-
-    pub fn clear(&mut self, n_dates: u32) {
-        unsafe {
-            ffi::g_date_clear(self.to_glib_none_mut().0, n_dates);
+    pub fn clamp(&mut self, min_date: &Date, max_date: &Date) -> Result<(), BoolError> {
+        if min_date >= max_date {
+            Err(bool_error!("`min_date` must be before `max_date`"))
+        } else {
+            unsafe {
+                ffi::g_date_clamp(
+                    self.to_glib_none_mut().0,
+                    min_date.to_glib_none().0,
+                    max_date.to_glib_none().0,
+                );
+            }
+            Ok(())
         }
     }
 
@@ -130,45 +152,78 @@ impl Date {
         }
     }
 
-    pub fn set_day(&mut self, day: DateDay) {
-        unsafe {
-            ffi::g_date_set_day(self.to_glib_none_mut().0, day);
+    pub fn set_day(&mut self, day: DateDay) -> Result<(), BoolError> {
+        if !Self::valid_dmy(day, self.get_month(), self.get_year()) {
+            Err(bool_error!("invalid day"))
+        } else {
+            unsafe {
+                ffi::g_date_set_day(self.to_glib_none_mut().0, day);
+            }
+            Ok(())
         }
     }
 
-    pub fn set_dmy(&mut self, day: DateDay, month: DateMonth, y: DateYear) {
-        unsafe {
-            ffi::g_date_set_dmy(self.to_glib_none_mut().0, day, month.to_glib(), y);
+    pub fn set_dmy(
+        &mut self,
+        day: DateDay,
+        month: DateMonth,
+        y: DateYear,
+    ) -> Result<(), BoolError> {
+        if !Self::valid_dmy(day, month, y) {
+            Err(bool_error!("invalid date"))
+        } else {
+            unsafe {
+                ffi::g_date_set_dmy(self.to_glib_none_mut().0, day, month.to_glib(), y);
+            }
+            Ok(())
         }
     }
 
-    pub fn set_julian(&mut self, julian_date: u32) {
-        unsafe {
-            ffi::g_date_set_julian(self.to_glib_none_mut().0, julian_date);
+    pub fn set_julian(&mut self, julian_date: u32) -> Result<(), BoolError> {
+        if !Self::valid_julian(julian_date) {
+            Err(bool_error!("invalid date"))
+        } else {
+            unsafe {
+                ffi::g_date_set_julian(self.to_glib_none_mut().0, julian_date);
+            }
+            Ok(())
         }
     }
 
-    pub fn set_month(&mut self, month: DateMonth) {
-        unsafe {
-            ffi::g_date_set_month(self.to_glib_none_mut().0, month.to_glib());
+    pub fn set_month(&mut self, month: DateMonth) -> Result<(), BoolError> {
+        if !Self::valid_dmy(self.get_day(), month, self.get_year()) {
+            Err(bool_error!("invalid month"))
+        } else {
+            unsafe {
+                ffi::g_date_set_month(self.to_glib_none_mut().0, month.to_glib());
+            }
+            Ok(())
         }
     }
 
-    pub fn set_parse(&mut self, str: &str) {
-        unsafe {
-            ffi::g_date_set_parse(self.to_glib_none_mut().0, str.to_glib_none().0);
+    pub fn set_parse(&mut self, str: &str) -> Result<(), BoolError> {
+        let mut c = self.clone();
+        if !unsafe {
+            ffi::g_date_set_parse(c.to_glib_none_mut().0, str.to_glib_none().0);
+            ffi::g_date_valid(c.to_glib_none().0) == 0
+        } {
+            Err(bool_error!("invalid parse string"))
+        } else {
+            *self = c;
+            Ok(())
         }
     }
 
-    pub fn set_time(&mut self, time_: Time) {
+    pub fn set_time(&mut self, time_: u32) -> Result<(), BoolError> {
+        let mut c = self.clone();
         unsafe {
-            ffi::g_date_set_time(self.to_glib_none_mut().0, time_);
+            ffi::g_date_set_time_t(c.to_glib_none_mut().0, time_ as _);
         }
-    }
-
-    pub fn set_time_t(&mut self, timet: libc::c_long) {
-        unsafe {
-            ffi::g_date_set_time_t(self.to_glib_none_mut().0, timet);
+        if !Self::valid_dmy(c.get_day(), c.get_month(), c.get_year()) {
+            Err(bool_error!("invalid time"))
+        } else {
+            *self = c;
+            Ok(())
         }
     }
 
@@ -176,27 +231,46 @@ impl Date {
     //    unsafe { TODO: call ffi::g_date_set_time_val() }
     //}
 
-    pub fn set_year(&mut self, year: DateYear) {
-        unsafe {
-            ffi::g_date_set_year(self.to_glib_none_mut().0, year);
+    pub fn set_year(&mut self, year: DateYear) -> Result<(), BoolError> {
+        if !Self::valid_dmy(self.get_day(), self.get_month(), year) {
+            Err(bool_error!("invalid year"))
+        } else {
+            unsafe {
+                ffi::g_date_set_year(self.to_glib_none_mut().0, year);
+            }
+            Ok(())
         }
     }
 
-    pub fn subtract_days(&mut self, n_days: u32) {
-        unsafe {
-            ffi::g_date_subtract_days(self.to_glib_none_mut().0, n_days);
+    pub fn subtract_days(&mut self, n_days: u32) -> Result<(), BoolError> {
+        let julian = self.get_julian();
+        if julian > n_days {
+            Err(bool_error!("invalid number of days"))
+        } else {
+            unsafe {
+                ffi::g_date_subtract_days(self.to_glib_none_mut().0, n_days);
+            }
+            Ok(())
         }
     }
 
-    pub fn subtract_months(&mut self, n_months: u32) {
+    pub fn subtract_months(&mut self, n_months: u32) -> Result<(), BoolError> {
+        // The checks for this function are just a mess in the C code, allowing intermediate
+        // unknown state. So for now, nothing can be done...
         unsafe {
             ffi::g_date_subtract_months(self.to_glib_none_mut().0, n_months);
         }
+        Ok(())
     }
 
-    pub fn subtract_years(&mut self, n_years: u32) {
-        unsafe {
-            ffi::g_date_subtract_years(self.to_glib_none_mut().0, n_years);
+    pub fn subtract_years(&mut self, n_years: u16) -> Result<(), BoolError> {
+        if self.get_year() < n_years {
+            Err(bool_error!("invalid number of years"))
+        } else {
+            unsafe {
+                ffi::g_date_subtract_years(self.to_glib_none_mut().0, n_years as _);
+            }
+            Ok(())
         }
     }
 
@@ -258,12 +332,6 @@ impl Date {
 
     pub fn valid_year(year: DateYear) -> bool {
         unsafe { from_glib(ffi::g_date_valid_year(year)) }
-    }
-}
-
-impl Default for Date {
-    fn default() -> Self {
-        Self::new()
     }
 }
 
