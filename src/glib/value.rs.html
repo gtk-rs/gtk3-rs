@@ -1276,6 +1276,48 @@
 <span id="1273">1273</span>
 <span id="1274">1274</span>
 <span id="1275">1275</span>
+<span id="1276">1276</span>
+<span id="1277">1277</span>
+<span id="1278">1278</span>
+<span id="1279">1279</span>
+<span id="1280">1280</span>
+<span id="1281">1281</span>
+<span id="1282">1282</span>
+<span id="1283">1283</span>
+<span id="1284">1284</span>
+<span id="1285">1285</span>
+<span id="1286">1286</span>
+<span id="1287">1287</span>
+<span id="1288">1288</span>
+<span id="1289">1289</span>
+<span id="1290">1290</span>
+<span id="1291">1291</span>
+<span id="1292">1292</span>
+<span id="1293">1293</span>
+<span id="1294">1294</span>
+<span id="1295">1295</span>
+<span id="1296">1296</span>
+<span id="1297">1297</span>
+<span id="1298">1298</span>
+<span id="1299">1299</span>
+<span id="1300">1300</span>
+<span id="1301">1301</span>
+<span id="1302">1302</span>
+<span id="1303">1303</span>
+<span id="1304">1304</span>
+<span id="1305">1305</span>
+<span id="1306">1306</span>
+<span id="1307">1307</span>
+<span id="1308">1308</span>
+<span id="1309">1309</span>
+<span id="1310">1310</span>
+<span id="1311">1311</span>
+<span id="1312">1312</span>
+<span id="1313">1313</span>
+<span id="1314">1314</span>
+<span id="1315">1315</span>
+<span id="1316">1316</span>
+<span id="1317">1317</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -2453,35 +2495,77 @@
 }
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">numeric</span> {
-    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">set</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">set</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
         <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-                <span class="prelude-val">Some</span>(<span class="ident">gobject_ffi</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">get</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
+                <span class="prelude-val">Some</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">get</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
             }
         }
 
         <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-                <span class="ident">gobject_ffi</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">get</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
+                <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
             }
         }
 
         <span class="kw">impl</span> <span class="ident">SetValue</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
             <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
-                <span class="ident">gobject_ffi</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">set</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="kw-2">*</span><span class="ident">this</span>)
+                <span class="macro-nonterminal">$</span><span class="macro-nonterminal">set</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="kw-2">*</span><span class="ident">this</span>)
             }
         }
     };
 }
 
-<span class="macro">numeric</span><span class="macro">!</span>(<span class="ident">i8</span>, <span class="ident">g_value_get_schar</span>, <span class="ident">g_value_set_schar</span>);
-<span class="macro">numeric</span><span class="macro">!</span>(<span class="ident">u8</span>, <span class="ident">g_value_get_uchar</span>, <span class="ident">g_value_set_uchar</span>);
-<span class="macro">numeric</span><span class="macro">!</span>(<span class="ident">i32</span>, <span class="ident">g_value_get_int</span>, <span class="ident">g_value_set_int</span>);
-<span class="macro">numeric</span><span class="macro">!</span>(<span class="ident">u32</span>, <span class="ident">g_value_get_uint</span>, <span class="ident">g_value_set_uint</span>);
-<span class="macro">numeric</span><span class="macro">!</span>(<span class="ident">i64</span>, <span class="ident">g_value_get_int64</span>, <span class="ident">g_value_set_int64</span>);
-<span class="macro">numeric</span><span class="macro">!</span>(<span class="ident">u64</span>, <span class="ident">g_value_get_uint64</span>, <span class="ident">g_value_set_uint64</span>);
-<span class="macro">numeric</span><span class="macro">!</span>(<span class="ident">f32</span>, <span class="ident">g_value_get_float</span>, <span class="ident">g_value_set_float</span>);
-<span class="macro">numeric</span><span class="macro">!</span>(<span class="ident">f64</span>, <span class="ident">g_value_get_double</span>, <span class="ident">g_value_set_double</span>);
+<span class="macro">numeric</span><span class="macro">!</span>(
+    <span class="ident">i8</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_schar</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_schar</span>
+);
+<span class="macro">numeric</span><span class="macro">!</span>(
+    <span class="ident">u8</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_uchar</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_uchar</span>
+);
+<span class="macro">numeric</span><span class="macro">!</span>(
+    <span class="ident">i32</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_int</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_int</span>
+);
+<span class="macro">numeric</span><span class="macro">!</span>(
+    <span class="ident">u32</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_uint</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_uint</span>
+);
+<span class="macro">numeric</span><span class="macro">!</span>(
+    <span class="ident">i64</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_int64</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_int64</span>
+);
+<span class="macro">numeric</span><span class="macro">!</span>(
+    <span class="ident">u64</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_uint64</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_uint64</span>
+);
+<span class="macro">numeric</span><span class="macro">!</span>(
+    <span class="kw">crate</span>::<span class="ident">ILong</span>,
+    <span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_long</span>(<span class="ident">v</span>).<span class="ident">into</span>(),
+    <span class="op">|</span><span class="ident">v</span>, <span class="ident">i</span>: <span class="kw">crate</span>::<span class="ident">ILong</span><span class="op">|</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_long</span>(<span class="ident">v</span>, <span class="ident">i</span>.<span class="number">0</span>)
+);
+<span class="macro">numeric</span><span class="macro">!</span>(
+    <span class="kw">crate</span>::<span class="ident">ULong</span>,
+    <span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_ulong</span>(<span class="ident">v</span>).<span class="ident">into</span>(),
+    <span class="op">|</span><span class="ident">v</span>, <span class="ident">i</span>: <span class="kw">crate</span>::<span class="ident">ULong</span><span class="op">|</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_ulong</span>(<span class="ident">v</span>, <span class="ident">i</span>.<span class="number">0</span>)
+);
+<span class="macro">numeric</span><span class="macro">!</span>(
+    <span class="ident">f32</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_float</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_float</span>
+);
+<span class="macro">numeric</span><span class="macro">!</span>(
+    <span class="ident">f64</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_double</span>,
+    <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_double</span>
+);
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
