@@ -6,8 +6,8 @@ min_cfg_version = "1.36"
 single_version_file = "."
 
 external_libraries = [
-   "GLib",
-   "GObject",
+    "GLib",
+    "GObject",
 ]
 
 [[object]]
@@ -17,37 +17,37 @@ status = "generate"
     name = "get_type"
     version = "1.44"
 
- [[object]]
- name = "Pango.AttrIterator"
- status = "generate"
+[[object]]
+name = "Pango.AttrIterator"
+status = "generate"
     [[object.function]]
     name = "get_type"
     version = "1.44"
 
- [[object]]
- name = "Pango.Coverage"
- status = "generate"
+[[object]]
+name = "Pango.Coverage"
+status = "generate"
     [[object.function]]
     name = "get_type"
     version = "1.44"
 
- [[object]]
- name = "Pango.ScriptIter"
- status = "generate"
+[[object]]
+name = "Pango.ScriptIter"
+status = "generate"
     [[object.function]]
     name = "get_type"
     version = "1.44"
 
- [[object]]
- name = "Pango.ShapeFlags"
- status = "generate"
+[[object]]
+name = "Pango.ShapeFlags"
+status = "generate"
     [[object.function]]
     name = "get_type"
     version = "1.44"
 
- [[object]]
- name = "Pango.ShowFlags"
- status = "generate"
+[[object]]
+name = "Pango.ShowFlags"
+status = "generate"
     [[object.function]]
     name = "get_type"
     version = "1.44"

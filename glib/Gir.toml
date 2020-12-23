@@ -466,69 +466,69 @@ status = "generate"
 [[object]]
 name = "GLib.KeyFile"
 status = "generate"
-       [[object.function]]
-       name = "load_from_data_dirs"
-       manual = true
-       [[object.function]]
-       name = "load_from_dirs"
-       manual = true
-       [[object.function]]
-       name = "save_to_file"
-       # file parameter needs to be a PathBuf
-       manual = true
-       [[object.function]]
-       name = "set_locale_string_list"
-       #[&str] to *mut i8
-       ignore = true
-       [[object.function]]
-       name = "set_string_list"
-       #[&str] to *mut i8
-       ignore = true
-       [[object.function]]
-       name = "to_data"
-       manual = true
-       [[object.function]]
-       name = "set_double_list"
-       #wrong array type
-       ignore = true
-       [[object.function]]
-       name = "set_integer_list"
-       #wrong array type
-       ignore = true
-       [[object.function]]
-       name = "get_boolean"
-       #boolean return value needs to be returned
-       manual = true
-       [[object.function]]
-       name = "has_key"
-       #boolean return value needs to be returned
-       manual = true
-       [[object.function]]
-       name = "get_boolean_list"
-       #boolean array needs to be converted to Vec<bool>
-       manual = true
-       [[object.function]]
-       name = "get_string"
-       # can return an error but still a value to be freed
-       manual = true
-       [[object.function]]
-       name = "get_string_list"
-       # can return an error but still a value to be freed
-       manual = true
-       [[object.function]]
-       name = "get_locale_string"
-       # can return an error but still a value to be freed
-       manual = true
-       [[object.function]]
-       name = "get_locale_string_list"
-       # can return an error but still a value to be freed
-       manual = true
+    [[object.function]]
+    name = "load_from_data_dirs"
+    manual = true
+    [[object.function]]
+    name = "load_from_dirs"
+    manual = true
+    [[object.function]]
+    name = "save_to_file"
+    # file parameter needs to be a PathBuf
+    manual = true
+    [[object.function]]
+    name = "set_locale_string_list"
+    #[&str] to *mut i8
+    ignore = true
+    [[object.function]]
+    name = "set_string_list"
+    #[&str] to *mut i8
+    ignore = true
+    [[object.function]]
+    name = "to_data"
+    manual = true
+    [[object.function]]
+    name = "set_double_list"
+    #wrong array type
+    ignore = true
+    [[object.function]]
+    name = "set_integer_list"
+    #wrong array type
+    ignore = true
+    [[object.function]]
+    name = "get_boolean"
+    #boolean return value needs to be returned
+    manual = true
+    [[object.function]]
+    name = "has_key"
+    #boolean return value needs to be returned
+    manual = true
+    [[object.function]]
+    name = "get_boolean_list"
+    #boolean array needs to be converted to Vec<bool>
+    manual = true
+    [[object.function]]
+    name = "get_string"
+    # can return an error but still a value to be freed
+    manual = true
+    [[object.function]]
+    name = "get_string_list"
+    # can return an error but still a value to be freed
+    manual = true
+    [[object.function]]
+    name = "get_locale_string"
+    # can return an error but still a value to be freed
+    manual = true
+    [[object.function]]
+    name = "get_locale_string_list"
+    # can return an error but still a value to be freed
+    manual = true
 
-       # Fixed in GLib 2.66.2
-       [[object.function]]
-       name = "get_start_group"
-           [object.function.return]
-           nullable = true
+    # Fixed in GLib 2.66.2
+    [[object.function]]
+    name = "get_start_group"
+        [object.function.return]
+        nullable = true
 
 [[object]]
 name = "GLib.DateTime"
@@ -539,34 +539,34 @@ concurrency = "send+sync"
 name = "GLib.MainContext"
 status = "generate"
 concurrency = "send+sync"
-       [[object.function]]
-       name = "prepare"
-       # out parameter not marked as such
-       manual = true
+    [[object.function]]
+    name = "prepare"
+    # out parameter not marked as such
+    manual = true
 
-       [[object.function]]
-       name = "find_source_by_id"
-       # source id is a newtype
-       manual = true
+    [[object.function]]
+    name = "find_source_by_id"
+    # source id is a newtype
+    manual = true
 
-       [[object.function]]
-       name = "invoke"
-       manual = true
-       [[object.function]]
-       name = "invoke_full"
-       ignore = true
+    [[object.function]]
+    name = "invoke"
+    manual = true
+    [[object.function]]
+    name = "invoke_full"
+    ignore = true
 
-       # Fixed in GLib 2.66.2
-       [[object.function]]
-       name = "get_thread_default"
-           [object.function.return]
-           nullable = true
+    # Fixed in GLib 2.66.2
+    [[object.function]]
+    name = "get_thread_default"
+        [object.function.return]
+        nullable = true
 
-       # Fixed in GLib 2.66.2
-       [[object.function]]
-       name = "current_source"
-           [object.function.return]
-           nullable = true
+    # Fixed in GLib 2.66.2
+    [[object.function]]
+    name = "current_source"
+        [object.function.return]
+        nullable = true
 
 [[object]]
 name = "GLib.MainLoop"
@@ -577,32 +577,32 @@ concurrency = "send+sync"
 name = "GLib.Source"
 status = "generate"
 concurrency = "send+sync"
-        [[object.function]]
-        pattern = "set_.+"
-        # Setters are generally not thread-safe
-        # while GSource itself is
-        ignore = true
+    [[object.function]]
+    pattern = "set_.+"
+    # Setters are generally not thread-safe
+    # while GSource itself is
+    ignore = true
 
-        [[object.function]]
-        pattern = "attach"
-        # return type
-        ignore = true
+    [[object.function]]
+    pattern = "attach"
+    # return type
+    ignore = true
 
-        [[object.function]]
-        pattern = "get_id"
-        # unsafe as it would allow multiple times to remove
-        ignore = true
+    [[object.function]]
+    pattern = "get_id"
+    # unsafe as it would allow multiple times to remove
+    ignore = true
 
-        [[object.function]]
-        pattern = "remove"
-        # parameter type
-        ignore = true
+    [[object.function]]
+    pattern = "remove"
+    # parameter type
+    ignore = true
 
-       # Fixed in GLib 2.66.2
-       [[object.function]]
-       name = "get_name"
-           [object.function.return]
-           nullable = true
+    # Fixed in GLib 2.66.2
+    [[object.function]]
+    name = "get_name"
+        [object.function.return]
+        nullable = true
 
 [[object]]
 name = "GLib.TimeZone"

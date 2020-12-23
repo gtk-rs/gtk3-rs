@@ -29,24 +29,24 @@ name = "GObject.Binding"
 status = "generate"
 trait = false
 concurrency = "send+sync"
-       [[object.function]]
-       name = "get_source"
-       # Not thread-safe, see https://gitlab.gnome.org/GNOME/glib/-/merge_requests/1745
-       # Using the GObject properties will be automatically safe with GLib 2.68.
-       ignore = true
-       [[object.function]]
-       name = "get_target"
-       # Not thread-safe, see https://gitlab.gnome.org/GNOME/glib/-/merge_requests/1745
-       # Using the GObject properties will be automatically safe with GLib 2.68.
-       ignore = true
-       [[object.property]]
-       name = "source"
-       # So we can implement setter/getter with the correct name
-       ignore = true
-       [[object.property]]
-       name = "target"
-       # So we can implement setter/getter with the correct name
-       ignore = true
+    [[object.function]]
+    name = "get_source"
+    # Not thread-safe, see https://gitlab.gnome.org/GNOME/glib/-/merge_requests/1745
+    # Using the GObject properties will be automatically safe with GLib 2.68.
+    ignore = true
+    [[object.function]]
+    name = "get_target"
+    # Not thread-safe, see https://gitlab.gnome.org/GNOME/glib/-/merge_requests/1745
+    # Using the GObject properties will be automatically safe with GLib 2.68.
+    ignore = true
+    [[object.property]]
+    name = "source"
+    # So we can implement setter/getter with the correct name
+    ignore = true
+    [[object.property]]
+    name = "target"
+    # So we can implement setter/getter with the correct name
+    ignore = true
 
 [[object]]
 name = "GObject.*"

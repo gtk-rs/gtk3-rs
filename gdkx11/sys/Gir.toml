@@ -6,8 +6,8 @@ min_cfg_version = "3.14"
 single_version_file = "."
 
 external_libraries = [
-   "Gdk",
-   "GLib",
+    "Gdk",
+    "GLib",
 ]
 
 ignore = [
@@ -16,7 +16,7 @@ ignore = [
 [[feature_dependencies]]
 version = "3.24.2"
 dependencies = [
-  "cairo"
+    "cairo"
 ]
 
 [[object]]

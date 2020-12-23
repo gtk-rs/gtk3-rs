@@ -6,9 +6,9 @@ min_cfg_version = "2.30"
 single_version_file = "."
 
 external_libraries = [
-   "GLib",
-   "GObject",
-   "Gio",
+    "GLib",
+    "GObject",
+    "Gio",
 ]
 
 ignore = [

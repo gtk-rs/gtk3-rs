@@ -676,8 +676,8 @@ generate_builder = true
     [[object.function]]
     name = "set_displayed_row"
     [[object.function.parameter]]
-          name = "path"
-          nullable = false
+        name = "path"
+        nullable = false
 
 [[object]]
 name = "Gtk.CheckButton"
