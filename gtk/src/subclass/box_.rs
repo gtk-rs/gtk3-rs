@@ -6,10 +6,6 @@ use super::container::ContainerImpl;
 use crate::Box;
 use crate::Container;
 
-pub trait BoxImpl: ContainerImpl {}
+glib::is_subclassable!(Box, Container, box_ @default_override_vfuncs;);
 
-unsafe impl<T: BoxImpl> IsSubclassable<T> for Box {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
-        <Container as IsSubclassable<T>>::override_vfuncs(class);
-    }
-}
+impl<T: BoxImpl> BoxImplExt for T {}

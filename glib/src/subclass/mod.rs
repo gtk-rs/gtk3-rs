@@ -279,3 +279,50 @@ pub use self::types::{
     register_type, InitializingObject, InitializingType, SignalClassHandlerToken,
     SignalInvocationHint, TypeData,
 };
+
+#[macro_export]
+macro_rules! is_subclassable {
+    ($wrapty:ident, $superty:ident, $prefix:ident @default_override_vfuncs;
+     $(
+         fn $fnname:ident(&self, $($arg:ident: $argty:ty),+$(,)?) $(-> $retty:ty)?;
+      )*
+    ) => {
+        $crate::is_subclassable!($wrapty, $superty, $prefix;
+        $(
+            fn $fnname(&self, $($arg: $argty),+) $(-> $retty)?;
+        )*);
+
+        paste::paste! {
+            unsafe impl<T: [<$wrapty Impl>]> IsSubclassable<T> for $wrapty {
+                fn override_vfuncs(class: &mut glib::Class<Self>) {
+                    <$superty as IsSubclassable<T>>::override_vfuncs(class);
+
+                    let klass = class.as_mut();
+                    $(
+                        klass.$fnname = Some([<$prefix $fnname>]::<T>);
+                    )*
+                }
+            }
+        }
+    };
+    ($wrapty:ident, $superty:ident, $prefix:ident;
+     $(
+         fn $fnname:ident(&self, $($arg:ident: $argty:ty),+$(,)?) $(-> $retty:ty)?;
+      )*
+    ) => {
+        paste::paste! {
+            pub trait [<$wrapty Impl>]: [<$wrapty ImplExt>] + [<$superty Impl>] {
+                $(
+                    fn $fnname(&self, $($arg: $argty),+) $(-> $retty)? {
+                        self.[<parent_ $fnname>]($($arg),+)
+                    }
+                )*
+            }
+            pub trait [<$wrapty ImplExt>]: ObjectImpl {
+                $(
+                    fn [<parent_ $fnname>](&self, $($arg: $argty),+) $(-> $retty)?;
+                )*
+            }
+        }
+    };
+}

@@ -10,7 +10,7 @@ use super::cell_renderer_text::CellRendererTextImpl;
 use crate::CellRendererAccel;
 use crate::CellRendererText;
 
-pub trait CellRendererAccelImpl: CellRendererAccelImplExt + CellRendererTextImpl {
+glib::is_subclassable!(CellRendererAccel, CellRendererText, cell_renderer_ @default_override_vfuncs;
     fn accel_edited(
         &self,
         renderer: &Self::Type,
@@ -18,26 +18,9 @@ pub trait CellRendererAccelImpl: CellRendererAccelImplExt + CellRendererTextImpl
         accel_key: u32,
         accel_mods: gdk::ModifierType,
         hardware_keycode: u32,
-    ) {
-        self.parent_accel_edited(renderer, path, accel_key, accel_mods, hardware_keycode);
-    }
-
-    fn accel_cleared(&self, renderer: &Self::Type, path: &str) {
-        self.parent_accel_cleared(renderer, path);
-    }
-}
-
-pub trait CellRendererAccelImplExt: ObjectSubclass {
-    fn parent_accel_edited(
-        &self,
-        renderer: &Self::Type,
-        path: &str,
-        accel_key: u32,
-        accel_mods: gdk::ModifierType,
-        hardware_keycode: u32,
     );
-    fn parent_accel_cleared(&self, renderer: &Self::Type, path: &str);
-}
+    fn accel_cleared(&self, renderer: &Self::Type, path: &str);
+);
 
 impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
     fn parent_accel_edited(
@@ -82,16 +65,6 @@ impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
                 )
             }
         }
-    }
-}
-
-unsafe impl<T: CellRendererAccelImpl> IsSubclassable<T> for CellRendererAccel {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
-        <CellRendererText as IsSubclassable<T>>::override_vfuncs(class);
-
-        let klass = class.as_mut();
-        klass.accel_edited = Some(cell_renderer_accel_edited::<T>);
-        klass.accel_cleared = Some(cell_renderer_accel_cleared::<T>);
     }
 }
 

@@ -7,20 +7,10 @@ use glib::Cast;
 use super::widget::WidgetImpl;
 use crate::{Button, Widget};
 
-pub trait ButtonImpl: ButtonImplExt + WidgetImpl {
-    fn activate(&self, button: &Self::Type) {
-        self.parent_activate(button)
-    }
-
-    fn clicked(&self, button: &Self::Type) {
-        self.parent_clicked(button)
-    }
-}
-
-pub trait ButtonImplExt: ObjectSubclass {
-    fn parent_activate(&self, button: &Self::Type);
-    fn parent_clicked(&self, button: &Self::Type);
-}
+glib::is_subclassable!(Button, Widget, button_ @default_override_vfuncs;
+    fn activate(&self, button: &Self::Type);
+    fn clicked(&self, button: &Self::Type);
+);
 
 impl<T: ButtonImpl> ButtonImplExt for T {
     fn parent_activate(&self, button: &Self::Type) {
@@ -41,16 +31,6 @@ impl<T: ButtonImpl> ButtonImplExt for T {
                 f(button.unsafe_cast_ref::<Button>().to_glib_none().0)
             }
         }
-    }
-}
-
-unsafe impl<T: ButtonImpl> IsSubclassable<T> for Button {
-    fn override_vfuncs(class: &mut glib::Class<Self>) {
-        <Widget as IsSubclassable<T>>::override_vfuncs(class);
-
-        let klass = class.as_mut();
-        klass.activate = Some(button_activate::<T>);
-        klass.clicked = Some(button_clicked::<T>);
     }
 }
 

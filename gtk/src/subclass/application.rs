@@ -6,25 +6,15 @@ use glib::translate::*;
 
 use glib::subclass::prelude::*;
 
-use crate::Application;
+use gio::subclass::ApplicationImpl;
+
+use crate::Application as GtkApplication;
 use crate::Window;
 
-pub trait GtkApplicationImpl:
-    GtkApplicationImplExt + gio::subclass::prelude::ApplicationImpl
-{
-    fn window_added(&self, application: &Self::Type, window: &Window) {
-        self.parent_window_added(application, window)
-    }
-
-    fn window_removed(&self, application: &Self::Type, window: &Window) {
-        self.parent_window_removed(application, window)
-    }
-}
-
-pub trait GtkApplicationImplExt: ObjectSubclass {
-    fn parent_window_added(&self, application: &Self::Type, window: &Window);
-    fn parent_window_removed(&self, application: &Self::Type, window: &Window);
-}
+glib::is_subclassable!(GtkApplication, Application, application_;
+    fn window_added(&self, application: &Self::Type, window: &Window);
+    fn window_removed(&self, application: &Self::Type, window: &Window);
+);
 
 impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {
     fn parent_window_added(&self, application: &Self::Type, window: &Window) {
@@ -34,7 +24,7 @@ impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {
             if let Some(f) = (*parent_class).window_added {
                 f(
                     application
-                        .unsafe_cast_ref::<Application>()
+                        .unsafe_cast_ref::<GtkApplication>()
                         .to_glib_none()
                         .0,
                     window.to_glib_none().0,
@@ -50,7 +40,7 @@ impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {
             if let Some(f) = (*parent_class).window_removed {
                 f(
                     application
-                        .unsafe_cast_ref::<Application>()
+                        .unsafe_cast_ref::<GtkApplication>()
                         .to_glib_none()
                         .0,
                     window.to_glib_none().0,
@@ -60,7 +50,7 @@ impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {
     }
 }
 
-unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
+unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for GtkApplication {
     fn override_vfuncs(class: &mut ::glib::Class<Self>) {
         unsafe extern "C" fn application_window_added<T: GtkApplicationImpl>(
             ptr: *mut ffi::GtkApplication,
@@ -68,7 +58,7 @@ unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
         ) {
             let instance = &*(ptr as *mut T::Instance);
             let imp = instance.get_impl();
-            let wrap: Borrowed<Application> = from_glib_borrow(ptr);
+            let wrap: Borrowed<GtkApplication> = from_glib_borrow(ptr);
 
             imp.window_added(wrap.unsafe_cast_ref(), &from_glib_borrow(wptr))
         }
@@ -78,7 +68,7 @@ unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
         ) {
             let instance = &*(ptr as *mut T::Instance);
             let imp = instance.get_impl();
-            let wrap: Borrowed<Application> = from_glib_borrow(ptr);
+            let wrap: Borrowed<GtkApplication> = from_glib_borrow(ptr);
 
             imp.window_removed(wrap.unsafe_cast_ref(), &from_glib_borrow(wptr))
         }

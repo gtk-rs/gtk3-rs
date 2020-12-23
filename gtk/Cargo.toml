@@ -64,6 +64,7 @@ glib = { path = "../glib" }
 gdk = { path = "../gdk" }
 gdk-pixbuf = { path = "../gdk-pixbuf" }
 pango = { path = "../pango" }
+paste = "1.0"
 
 [dev-dependencies]
 gir-format-check = "^0.1"

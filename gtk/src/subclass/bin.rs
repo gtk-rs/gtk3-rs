@@ -6,10 +6,6 @@ use super::container::ContainerImpl;
 use crate::Bin;
 use crate::Container;
 
-pub trait BinImpl: ContainerImpl {}
+glib::is_subclassable!(Bin, Container, container_ @default_override_vfuncs;);
 
-unsafe impl<T: BinImpl> IsSubclassable<T> for Bin {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
-        <Container as IsSubclassable<T>>::override_vfuncs(class);
-    }
-}
+impl<T: BinImpl> BinImplExt for T {}

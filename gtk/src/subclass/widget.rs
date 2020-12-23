@@ -19,20 +19,14 @@ use crate::TextDirection;
 use crate::Widget;
 use crate::WidgetExt;
 
-pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
-    fn adjust_baseline_allocation(&self, widget: &Self::Type, baseline: &mut i32) {
-        self.parent_adjust_baseline_allocation(widget, baseline)
-    }
-
+glib::is_subclassable!(Widget, Object, widget_ @default_override_vfuncs;
+    fn adjust_baseline_allocation(&self, widget: &Self::Type, baseline: &mut i32);
     fn adjust_baseline_request(
         &self,
         widget: &Self::Type,
         minimum_baseline: &mut i32,
         natural_baseline: &mut i32,
-    ) {
-        self.parent_adjust_baseline_request(widget, minimum_baseline, natural_baseline)
-    }
-
+    );
     fn adjust_size_allocation(
         &self,
         widget: &Self::Type,
@@ -41,83 +35,28 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         natural_size: &mut i32,
         allocated_pos: &mut i32,
         allocated_size: &mut i32,
-    ) {
-        self.parent_adjust_size_allocation(
-            widget,
-            orientation,
-            minimum_size,
-            natural_size,
-            allocated_pos,
-            allocated_size,
-        )
-    }
-
+    );
     fn adjust_size_request(
         &self,
         widget: &Self::Type,
         orientation: Orientation,
         minimum_size: &mut i32,
         natural_size: &mut i32,
-    ) {
-        self.parent_adjust_size_request(widget, orientation, minimum_size, natural_size)
-    }
-
-    fn button_press_event(&self, widget: &Self::Type, event: &gdk::EventButton) -> Inhibit {
-        self.parent_button_press_event(widget, event)
-    }
-
-    fn button_release_event(&self, widget: &Self::Type, event: &gdk::EventButton) -> Inhibit {
-        self.parent_button_release_event(widget, event)
-    }
-
-    fn child_notify(&self, widget: &Self::Type, child_property: &glib::ParamSpec) {
-        self.parent_child_notify(widget, child_property)
-    }
-
-    fn composited_changed(&self, widget: &Self::Type) {
-        self.parent_composited_changed(widget)
-    }
-
-    fn compute_expand(&self, widget: &Self::Type, hexpand: &mut bool, vexpand: &mut bool) {
-        self.parent_compute_expand(widget, hexpand, vexpand)
-    }
-
-    fn configure_event(&self, widget: &Self::Type, event: &gdk::EventConfigure) -> Inhibit {
-        self.parent_configure_event(widget, event)
-    }
-
-    fn damage_event(&self, widget: &Self::Type, event: &gdk::EventExpose) -> Inhibit {
-        self.parent_damage_event(widget, event)
-    }
-
-    fn delete_event(&self, widget: &Self::Type, event: &gdk::Event) -> Inhibit {
-        self.parent_delete_event(widget, event)
-    }
-
-    fn destroy(&self, widget: &Self::Type) {
-        self.parent_destroy(widget)
-    }
-
-    fn destroy_event(&self, widget: &Self::Type, event: &gdk::Event) -> Inhibit {
-        self.parent_destroy_event(widget, event)
-    }
-
-    fn direction_changed(&self, widget: &Self::Type, previous_direction: TextDirection) {
-        self.parent_direction_changed(widget, previous_direction)
-    }
-
-    fn dispatch_child_properties_changed(&self, widget: &Self::Type, pspecs: &[glib::ParamSpec]) {
-        self.parent_dispatch_child_properties_changed(widget, pspecs)
-    }
-
-    fn drag_begin(&self, widget: &Self::Type, context: &gdk::DragContext) {
-        self.parent_drag_begin(widget, context)
-    }
-
-    fn drag_data_delete(&self, widget: &Self::Type, context: &gdk::DragContext) {
-        self.parent_drag_data_delete(widget, context)
-    }
-
+    );
+    fn button_press_event(&self, widget: &Self::Type, event: &gdk::EventButton) -> Inhibit;
+    fn button_release_event(&self, widget: &Self::Type, event: &gdk::EventButton) -> Inhibit;
+    fn child_notify(&self, widget: &Self::Type, child_property: &glib::ParamSpec);
+    fn composited_changed(&self, widget: &Self::Type);
+    fn compute_expand(&self, widget: &Self::Type, hexpand: &mut bool, vexpand: &mut bool);
+    fn configure_event(&self, widget: &Self::Type, event: &gdk::EventConfigure) -> Inhibit;
+    fn damage_event(&self, widget: &Self::Type, event: &gdk::EventExpose) -> Inhibit;
+    fn delete_event(&self, widget: &Self::Type, event: &gdk::Event) -> Inhibit;
+    fn destroy(&self, widget: &Self::Type);
+    fn destroy_event(&self, widget: &Self::Type, event: &gdk::Event) -> Inhibit;
+    fn direction_changed(&self, widget: &Self::Type, previous_direction: TextDirection);
+    fn dispatch_child_properties_changed(&self, widget: &Self::Type, pspecs: &[glib::ParamSpec]);
+    fn drag_begin(&self, widget: &Self::Type, context: &gdk::DragContext);
+    fn drag_data_delete(&self, widget: &Self::Type, context: &gdk::DragContext);
     fn drag_data_get(
         &self,
         widget: &Self::Type,
@@ -125,10 +64,7 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         selection_data: &SelectionData,
         info: u32,
         time: u32,
-    ) {
-        self.parent_drag_data_get(widget, context, selection_data, info, time)
-    }
-
+    );
     fn drag_data_received(
         &self,
         widget: &Self::Type,
@@ -138,10 +74,7 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         selection_data: &SelectionData,
         info: u32,
         time: u32,
-    ) {
-        self.parent_drag_data_received(widget, context, x, y, selection_data, info, time)
-    }
-
+    );
     fn drag_drop(
         &self,
         widget: &Self::Type,
@@ -149,27 +82,15 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         x: i32,
         y: i32,
         time: u32,
-    ) -> Inhibit {
-        self.parent_drag_drop(widget, context, x, y, time)
-    }
-
-    fn drag_end(&self, widget: &Self::Type, context: &gdk::DragContext) {
-        self.parent_drag_end(widget, context)
-    }
-
+    ) -> Inhibit;
+    fn drag_end(&self, widget: &Self::Type, context: &gdk::DragContext);
     fn drag_failed(
         &self,
         widget: &Self::Type,
         context: &gdk::DragContext,
         result: DragResult,
-    ) -> Inhibit {
-        self.parent_drag_failed(widget, context, result)
-    }
-
-    fn drag_leave(&self, widget: &Self::Type, context: &gdk::DragContext, time: u32) {
-        self.parent_drag_leave(widget, context, time)
-    }
-
+    ) -> Inhibit;
+    fn drag_leave(&self, widget: &Self::Type, context: &gdk::DragContext, time: u32);
     fn drag_motion(
         &self,
         widget: &Self::Type,
@@ -177,167 +98,22 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         x: i32,
         y: i32,
         time: u32,
-    ) -> Inhibit {
-        self.parent_drag_motion(widget, context, x, y, time)
-    }
-
-    fn draw(&self, widget: &Self::Type, cr: &cairo::Context) -> Inhibit {
-        self.parent_draw(widget, cr)
-    }
-
-    // fn can_activate_accel(&self, widget: &Self::Type, signal_id: u32) -> bool {
-    //     self.parent_can_activate_accel(widget, signal_id)
-    // }
-
-    fn get_request_mode(&self, widget: &Self::Type) -> SizeRequestMode {
-        self.parent_get_request_mode(widget)
-    }
-
-    fn get_preferred_width(&self, widget: &Self::Type) -> (i32, i32) {
-        self.parent_get_preferred_width(widget)
-    }
-
-    fn get_preferred_width_for_height(&self, widget: &Self::Type, height: i32) -> (i32, i32) {
-        self.parent_get_preferred_width_for_height(widget, height)
-    }
-
-    fn get_preferred_height(&self, widget: &Self::Type) -> (i32, i32) {
-        self.parent_get_preferred_height(widget)
-    }
-
-    fn get_preferred_height_for_width(&self, widget: &Self::Type, width: i32) -> (i32, i32) {
-        self.parent_get_preferred_height_for_width(widget, width)
-    }
-
-    fn size_allocate(&self, widget: &Self::Type, allocation: &Allocation) {
-        self.parent_size_allocate(widget, allocation)
-    }
-
-    fn realize(&self, widget: &Self::Type) {
-        self.parent_realize(widget);
-    }
-
-    fn unrealize(&self, widget: &Self::Type) {
-        self.parent_unrealize(widget);
-    }
-    fn map(&self, widget: &Self::Type) {
-        self.parent_map(widget);
-    }
-
-    fn unmap(&self, widget: &Self::Type) {
-        self.parent_unmap(widget);
-    }
-
-    fn motion_notify_event(&self, widget: &Self::Type, event: &gdk::EventMotion) -> Inhibit {
-        self.parent_motion_notify_event(widget, event)
-    }
-
-    fn scroll_event(&self, widget: &Self::Type, event: &gdk::EventScroll) -> Inhibit {
-        self.parent_scroll_event(widget, event)
-    }
-}
-
-pub trait WidgetImplExt: ObjectSubclass {
-    fn parent_adjust_baseline_allocation(&self, widget: &Self::Type, baseline: &mut i32);
-    fn parent_adjust_baseline_request(
-        &self,
-        widget: &Self::Type,
-        minimum_baseline: &mut i32,
-        natural_baseline: &mut i32,
-    );
-    fn parent_adjust_size_allocation(
-        &self,
-        widget: &Self::Type,
-        orientation: Orientation,
-        minimum_size: &mut i32,
-        natural_size: &mut i32,
-        allocated_pos: &mut i32,
-        allocated_size: &mut i32,
-    );
-    fn parent_adjust_size_request(
-        &self,
-        widget: &Self::Type,
-        orientation: Orientation,
-        minimum_size: &mut i32,
-        natural_size: &mut i32,
-    );
-    fn parent_button_press_event(&self, widget: &Self::Type, event: &gdk::EventButton) -> Inhibit;
-    fn parent_button_release_event(&self, widget: &Self::Type, event: &gdk::EventButton)
-        -> Inhibit;
-    // fn parent_can_activate_accel(&self, widget: &Self::Type, signal_id: u32) -> bool;
-    fn parent_child_notify(&self, widget: &Self::Type, child_property: &glib::ParamSpec);
-    fn parent_composited_changed(&self, widget: &Self::Type);
-    fn parent_compute_expand(&self, widget: &Self::Type, hexpand: &mut bool, vexpand: &mut bool);
-    fn parent_configure_event(&self, widget: &Self::Type, event: &gdk::EventConfigure) -> Inhibit;
-    fn parent_damage_event(&self, widget: &Self::Type, event: &gdk::EventExpose) -> Inhibit;
-    fn parent_delete_event(&self, widget: &Self::Type, event: &gdk::Event) -> Inhibit;
-    fn parent_destroy(&self, widget: &Self::Type);
-    fn parent_destroy_event(&self, widget: &Self::Type, event: &gdk::Event) -> Inhibit;
-    fn parent_direction_changed(&self, widget: &Self::Type, previous_direction: TextDirection);
-    fn parent_dispatch_child_properties_changed(
-        &self,
-        widget: &Self::Type,
-        pspecs: &[glib::ParamSpec],
-    );
-    fn parent_drag_begin(&self, widget: &Self::Type, context: &gdk::DragContext);
-    fn parent_drag_data_delete(&self, widget: &Self::Type, context: &gdk::DragContext);
-    fn parent_drag_data_get(
-        &self,
-        widget: &Self::Type,
-        context: &gdk::DragContext,
-        selection_data: &SelectionData,
-        info: u32,
-        time: u32,
-    );
-    fn parent_drag_data_received(
-        &self,
-        widget: &Self::Type,
-        context: &gdk::DragContext,
-        x: i32,
-        y: i32,
-        selection_data: &SelectionData,
-        info: u32,
-        time: u32,
-    );
-    fn parent_drag_drop(
-        &self,
-        widget: &Self::Type,
-        context: &gdk::DragContext,
-        x: i32,
-        y: i32,
-        time: u32,
     ) -> Inhibit;
-    fn parent_drag_end(&self, widget: &Self::Type, context: &gdk::DragContext);
-    fn parent_drag_failed(
-        &self,
-        widget: &Self::Type,
-        context: &gdk::DragContext,
-        result: DragResult,
-    ) -> Inhibit;
-    fn parent_drag_leave(&self, widget: &Self::Type, context: &gdk::DragContext, time: u32);
-    fn parent_drag_motion(
-        &self,
-        widget: &Self::Type,
-        context: &gdk::DragContext,
-        x: i32,
-        y: i32,
-        time: u32,
-    ) -> Inhibit;
-    fn parent_draw(&self, widget: &Self::Type, cr: &cairo::Context) -> Inhibit;
-    fn parent_get_request_mode(&self, widget: &Self::Type) -> SizeRequestMode;
-    fn parent_get_preferred_width(&self, widget: &Self::Type) -> (i32, i32);
-    fn parent_get_preferred_width_for_height(&self, widget: &Self::Type, height: i32)
-        -> (i32, i32);
-    fn parent_get_preferred_height(&self, widget: &Self::Type) -> (i32, i32);
-    fn parent_get_preferred_height_for_width(&self, widget: &Self::Type, width: i32) -> (i32, i32);
-    fn parent_size_allocate(&self, widget: &Self::Type, allocation: &Allocation);
-    fn parent_realize(&self, widget: &Self::Type);
-    fn parent_unrealize(&self, widget: &Self::Type);
-    fn parent_map(&self, widget: &Self::Type);
-    fn parent_unmap(&self, widget: &Self::Type);
-    fn parent_motion_notify_event(&self, widget: &Self::Type, event: &gdk::EventMotion) -> Inhibit;
-    fn parent_scroll_event(&self, widget: &Self::Type, event: &gdk::EventScroll) -> Inhibit;
-}
+    fn draw(&self, widget: &Self::Type, cr: &cairo::Context) -> Inhibit;
+    // fn can_activate_accel(&self, widget: &Self::Type, signal_id: u32) -> bool;
+    fn get_request_mode(&self, widget: &Self::Type) -> SizeRequestMode;
+    fn get_preferred_width(&self, widget: &Self::Type) -> (i32, i32);
+    fn get_preferred_width_for_height(&self, widget: &Self::Type, height: i32) -> (i32, i32);
+    fn get_preferred_height(&self, widget: &Self::Type) -> (i32, i32);
+    fn get_preferred_height_for_width(&self, widget: &Self::Type, width: i32) -> (i32, i32);
+    fn size_allocate(&self, widget: &Self::Type, allocation: &Allocation);
+    fn realize(&self, widget: &Self::Type);
+    fn unrealize(&self, widget: &Self::Type);
+    fn map(&self, widget: &Self::Type);
+    fn unmap(&self, widget: &Self::Type);
+    fn motion_notify_event(&self, widget: &Self::Type, event: &gdk::EventMotion) -> Inhibit;
+    fn scroll_event(&self, widget: &Self::Type, event: &gdk::EventScroll) -> Inhibit;
+);
 
 impl<T: WidgetImpl> WidgetImplExt for T {
     fn parent_adjust_baseline_allocation(&self, widget: &Self::Type, baseline: &mut i32) {
@@ -975,54 +751,6 @@ impl<T: WidgetImpl> WidgetImplExt for T {
                 Inhibit(false)
             }
         }
-    }
-}
-
-unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
-        <Object as IsSubclassable<T>>::override_vfuncs(class);
-
-        let klass = class.as_mut();
-        klass.adjust_baseline_allocation = Some(widget_adjust_baseline_allocation::<T>);
-        klass.adjust_baseline_request = Some(widget_adjust_baseline_request::<T>);
-        klass.adjust_size_allocation = Some(widget_adjust_size_allocation::<T>);
-        klass.adjust_size_request = Some(widget_adjust_size_request::<T>);
-        klass.button_press_event = Some(widget_button_press_event::<T>);
-        klass.button_release_event = Some(widget_button_release_event::<T>);
-        // klass.can_activate_accel = Some(widget_can_activate_accel::<T>);
-        klass.child_notify = Some(widget_child_notify::<T>);
-        klass.composited_changed = Some(widget_composited_changed::<T>);
-        klass.compute_expand = Some(widget_compute_expand::<T>);
-        klass.configure_event = Some(widget_configure_event::<T>);
-        klass.damage_event = Some(widget_damage_event::<T>);
-        klass.delete_event = Some(widget_delete_event::<T>);
-        klass.destroy = Some(widget_destroy::<T>);
-        klass.destroy_event = Some(widget_destroy_event::<T>);
-        klass.direction_changed = Some(widget_direction_changed::<T>);
-        klass.dispatch_child_properties_changed =
-            Some(widget_dispatch_child_properties_changed::<T>);
-        klass.drag_begin = Some(widget_drag_begin::<T>);
-        klass.drag_data_delete = Some(widget_drag_data_delete::<T>);
-        klass.drag_data_get = Some(widget_drag_data_get::<T>);
-        klass.drag_data_received = Some(widget_drag_data_received::<T>);
-        klass.drag_drop = Some(widget_drag_drop::<T>);
-        klass.drag_end = Some(widget_drag_end::<T>);
-        klass.drag_failed = Some(widget_drag_failed::<T>);
-        klass.drag_leave = Some(widget_drag_leave::<T>);
-        klass.drag_motion = Some(widget_drag_motion::<T>);
-        klass.draw = Some(widget_draw::<T>);
-        klass.get_request_mode = Some(widget_get_request_mode::<T>);
-        klass.get_preferred_width = Some(widget_get_preferred_width::<T>);
-        klass.get_preferred_height_for_width = Some(widget_get_preferred_height_for_width::<T>);
-        klass.get_preferred_height = Some(widget_get_preferred_height::<T>);
-        klass.get_preferred_width_for_height = Some(widget_get_preferred_width_for_height::<T>);
-        klass.size_allocate = Some(widget_size_allocate::<T>);
-        klass.realize = Some(widget_realize::<T>);
-        klass.unrealize = Some(widget_unrealize::<T>);
-        klass.map = Some(widget_map::<T>);
-        klass.unmap = Some(widget_unmap::<T>);
-        klass.motion_notify_event = Some(widget_motion_notify_event::<T>);
-        klass.scroll_event = Some(widget_scroll_event::<T>);
     }
 }
 
