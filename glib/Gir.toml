@@ -534,6 +534,10 @@ status = "generate"
 name = "GLib.DateTime"
 status = "generate"
 concurrency = "send+sync"
+    [[object.function]]
+    pattern = ".+"
+        [object.function.return]
+        nullable_return_is_error = "Invalid date"
 
 [[object]]
 name = "GLib.MainContext"
