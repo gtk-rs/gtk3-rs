@@ -54,18 +54,109 @@ pub const GDK_PIXBUF_ROTATE_CLOCKWISE: GdkPixbufRotation = 270;
 
 // Constants
 
+// Flags
+pub type GdkPixbufFormatFlags = c_uint;
+pub const GDK_PIXBUF_FORMAT_WRITABLE: GdkPixbufFormatFlags = 1;
+pub const GDK_PIXBUF_FORMAT_SCALABLE: GdkPixbufFormatFlags = 2;
+pub const GDK_PIXBUF_FORMAT_THREADSAFE: GdkPixbufFormatFlags = 4;
+
 // Callbacks
 pub type GdkPixbufDestroyNotify = Option<unsafe extern "C" fn(*mut u8, gpointer)>;
+pub type GdkPixbufModuleFillInfoFunc = Option<unsafe extern "C" fn(*mut GdkPixbufFormat)>;
+pub type GdkPixbufModuleFillVtableFunc = Option<unsafe extern "C" fn(*mut GdkPixbufModule)>;
+pub type GdkPixbufModulePreparedFunc =
+    Option<unsafe extern "C" fn(*mut GdkPixbuf, *mut GdkPixbufAnimation, gpointer)>;
+pub type GdkPixbufModuleSizeFunc = Option<unsafe extern "C" fn(*mut c_int, *mut c_int, gpointer)>;
+pub type GdkPixbufModuleUpdatedFunc =
+    Option<unsafe extern "C" fn(*mut GdkPixbuf, c_int, c_int, c_int, c_int, gpointer)>;
 pub type GdkPixbufSaveFunc =
     Option<unsafe extern "C" fn(*const u8, size_t, *mut *mut glib::GError, gpointer) -> gboolean>;
 
 // Records
 #[repr(C)]
-pub struct GdkPixbufFormat(c_void);
+#[derive(Copy, Clone)]
+pub struct GdkPixbufAnimationClass {
+    pub parent_class: gobject::GObjectClass,
+    pub is_static_image: Option<unsafe extern "C" fn(*mut GdkPixbufAnimation) -> gboolean>,
+    pub get_static_image: Option<unsafe extern "C" fn(*mut GdkPixbufAnimation) -> *mut GdkPixbuf>,
+    pub get_size: Option<unsafe extern "C" fn(*mut GdkPixbufAnimation, *mut c_int, *mut c_int)>,
+    pub get_iter: Option<
+        unsafe extern "C" fn(
+            *mut GdkPixbufAnimation,
+            *const glib::GTimeVal,
+        ) -> *mut GdkPixbufAnimationIter,
+    >,
+}
+
+impl ::std::fmt::Debug for GdkPixbufAnimationClass {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("GdkPixbufAnimationClass @ {:?}", self as *const _))
+            .field("parent_class", &self.parent_class)
+            .field("is_static_image", &self.is_static_image)
+            .field("get_static_image", &self.get_static_image)
+            .field("get_size", &self.get_size)
+            .field("get_iter", &self.get_iter)
+            .finish()
+    }
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct GdkPixbufAnimationIterClass {
+    pub parent_class: gobject::GObjectClass,
+    pub get_delay_time: Option<unsafe extern "C" fn(*mut GdkPixbufAnimationIter) -> c_int>,
+    pub get_pixbuf: Option<unsafe extern "C" fn(*mut GdkPixbufAnimationIter) -> *mut GdkPixbuf>,
+    pub on_currently_loading_frame:
+        Option<unsafe extern "C" fn(*mut GdkPixbufAnimationIter) -> gboolean>,
+    pub advance: Option<
+        unsafe extern "C" fn(*mut GdkPixbufAnimationIter, *const glib::GTimeVal) -> gboolean,
+    >,
+}
+
+impl ::std::fmt::Debug for GdkPixbufAnimationIterClass {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!(
+            "GdkPixbufAnimationIterClass @ {:?}",
+            self as *const _
+        ))
+        .field("parent_class", &self.parent_class)
+        .field("get_delay_time", &self.get_delay_time)
+        .field("get_pixbuf", &self.get_pixbuf)
+        .field(
+            "on_currently_loading_frame",
+            &self.on_currently_loading_frame,
+        )
+        .field("advance", &self.advance)
+        .finish()
+    }
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct GdkPixbufFormat {
+    pub name: *mut c_char,
+    pub signature: *mut GdkPixbufModulePattern,
+    pub domain: *mut c_char,
+    pub description: *mut c_char,
+    pub mime_types: *mut *mut c_char,
+    pub extensions: *mut *mut c_char,
+    pub flags: u32,
+    pub disabled: gboolean,
+    pub license: *mut c_char,
+}
 
 impl ::std::fmt::Debug for GdkPixbufFormat {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkPixbufFormat @ {:?}", self as *const _))
+            .field("name", &self.name)
+            .field("signature", &self.signature)
+            .field("domain", &self.domain)
+            .field("description", &self.description)
+            .field("mime_types", &self.mime_types)
+            .field("extensions", &self.extensions)
+            .field("flags", &self.flags)
+            .field("disabled", &self.disabled)
+            .field("license", &self.license)
             .finish()
     }
 }
@@ -94,6 +185,98 @@ impl ::std::fmt::Debug for GdkPixbufLoaderClass {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
+pub struct GdkPixbufModule {
+    pub module_name: *mut c_char,
+    pub module_path: *mut c_char,
+    pub module: gpointer,
+    pub info: *mut GdkPixbufFormat,
+    pub load: Option<unsafe extern "C" fn(*mut FILE, *mut *mut glib::GError) -> *mut GdkPixbuf>,
+    pub load_xpm_data: Option<unsafe extern "C" fn(*mut *const c_char) -> *mut GdkPixbuf>,
+    pub begin_load: Option<
+        unsafe extern "C" fn(
+            GdkPixbufModuleSizeFunc,
+            GdkPixbufModulePreparedFunc,
+            GdkPixbufModuleUpdatedFunc,
+            gpointer,
+            *mut *mut glib::GError,
+        ) -> gpointer,
+    >,
+    pub stop_load: Option<unsafe extern "C" fn(gpointer, *mut *mut glib::GError) -> gboolean>,
+    pub load_increment: Option<
+        unsafe extern "C" fn(gpointer, *const u8, c_uint, *mut *mut glib::GError) -> gboolean,
+    >,
+    pub load_animation:
+        Option<unsafe extern "C" fn(*mut FILE, *mut *mut glib::GError) -> *mut GdkPixbufAnimation>,
+    pub save: Option<
+        unsafe extern "C" fn(
+            *mut FILE,
+            *mut GdkPixbuf,
+            *mut *mut c_char,
+            *mut *mut c_char,
+            *mut *mut glib::GError,
+        ) -> gboolean,
+    >,
+    pub save_to_callback: Option<
+        unsafe extern "C" fn(
+            GdkPixbufSaveFunc,
+            gpointer,
+            *mut GdkPixbuf,
+            *mut *mut c_char,
+            *mut *mut c_char,
+            *mut *mut glib::GError,
+        ) -> gboolean,
+    >,
+    pub is_save_option_supported: Option<unsafe extern "C" fn(*const c_char) -> gboolean>,
+    pub _reserved1: Option<unsafe extern "C" fn()>,
+    pub _reserved2: Option<unsafe extern "C" fn()>,
+    pub _reserved3: Option<unsafe extern "C" fn()>,
+    pub _reserved4: Option<unsafe extern "C" fn()>,
+}
+
+impl ::std::fmt::Debug for GdkPixbufModule {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("GdkPixbufModule @ {:?}", self as *const _))
+            .field("module_name", &self.module_name)
+            .field("module_path", &self.module_path)
+            .field("module", &self.module)
+            .field("info", &self.info)
+            .field("load", &self.load)
+            .field("load_xpm_data", &self.load_xpm_data)
+            .field("begin_load", &self.begin_load)
+            .field("stop_load", &self.stop_load)
+            .field("load_increment", &self.load_increment)
+            .field("load_animation", &self.load_animation)
+            .field("save", &self.save)
+            .field("save_to_callback", &self.save_to_callback)
+            .field("is_save_option_supported", &self.is_save_option_supported)
+            .field("_reserved1", &self._reserved1)
+            .field("_reserved2", &self._reserved2)
+            .field("_reserved3", &self._reserved3)
+            .field("_reserved4", &self._reserved4)
+            .finish()
+    }
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct GdkPixbufModulePattern {
+    pub prefix: *mut c_char,
+    pub mask: *mut c_char,
+    pub relevance: c_int,
+}
+
+impl ::std::fmt::Debug for GdkPixbufModulePattern {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("GdkPixbufModulePattern @ {:?}", self as *const _))
+            .field("prefix", &self.prefix)
+            .field("mask", &self.mask)
+            .field("relevance", &self.relevance)
+            .finish()
+    }
+}
+
+#[repr(C)]
 pub struct _GdkPixbufSimpleAnimClass(c_void);
 
 pub type GdkPixbufSimpleAnimClass = *mut _GdkPixbufSimpleAnimClass;
@@ -110,21 +293,29 @@ impl ::std::fmt::Debug for GdkPixbuf {
 }
 
 #[repr(C)]
-pub struct GdkPixbufAnimation(c_void);
+#[derive(Copy, Clone)]
+pub struct GdkPixbufAnimation {
+    pub parent_instance: gobject::GObject,
+}
 
 impl ::std::fmt::Debug for GdkPixbufAnimation {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkPixbufAnimation @ {:?}", self as *const _))
+            .field("parent_instance", &self.parent_instance)
             .finish()
     }
 }
 
 #[repr(C)]
-pub struct GdkPixbufAnimationIter(c_void);
+#[derive(Copy, Clone)]
+pub struct GdkPixbufAnimationIter {
+    pub parent_instance: gobject::GObject,
+}
 
 impl ::std::fmt::Debug for GdkPixbufAnimationIter {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkPixbufAnimationIter @ {:?}", self as *const _))
+            .field("parent_instance", &self.parent_instance)
             .finish()
     }
 }
@@ -140,6 +331,16 @@ impl ::std::fmt::Debug for GdkPixbufLoader {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkPixbufLoader @ {:?}", self as *const _))
             .field("parent_instance", &self.parent_instance)
+            .finish()
+    }
+}
+
+#[repr(C)]
+pub struct GdkPixbufNonAnim(c_void);
+
+impl ::std::fmt::Debug for GdkPixbufNonAnim {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("GdkPixbufNonAnim @ {:?}", self as *const _))
             .finish()
     }
 }
@@ -719,6 +920,12 @@ extern "C" {
         buffer: *mut glib::GBytes,
         error: *mut *mut glib::GError,
     ) -> gboolean;
+
+    //=========================================================================
+    // GdkPixbufNonAnim
+    //=========================================================================
+    pub fn gdk_pixbuf_non_anim_get_type() -> GType;
+    pub fn gdk_pixbuf_non_anim_new(pixbuf: *mut GdkPixbuf) -> *mut GdkPixbufAnimation;
 
     //=========================================================================
     // GdkPixbufSimpleAnim
