@@ -14,7 +14,7 @@ that if you want to see these debug messages, you'll have to set the <code>G_MES
 environment variable when running your code (either in the code directly or when running the
 binary) to either &quot;all&quot; or <a href="https://gtk-rs.org/docs/glib/constant.CLONE_MACRO_LOG_DOMAIN.html"><code>CLONE_MACRO_LOG_DOMAIN</code></a>:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">CLONE_MACRO_LOG_DOMAIN</span>;
 
 <span class="ident">std</span>::<span class="ident">env</span>::<span class="ident">set_var</span>(<span class="string">&quot;G_MESSAGES_DEBUG&quot;</span>, <span class="ident">CLONE_MACRO_LOG_DOMAIN</span>);
@@ -105,13 +105,13 @@ let closure = clone!(@weak v =&gt; @default-panic, move |x| {
 <p>Here is a list of errors you might encounter:</p>
 <p><strong>Missing <code>@weak</code> or <code>@strong</code></strong>:</p>
 
-<div class='information'><div class='tooltip compile_fail'>ⓘ<span class='tooltiptext'>This example deliberately fails to compile</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
+<div class='information'><div class='tooltip compile_fail'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
 <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Rc</span>::<span class="ident">new</span>(<span class="number">1</span>);
 
 <span class="kw">let</span> <span class="ident">closure</span> <span class="op">=</span> <span class="macro">clone</span><span class="macro">!</span>(<span class="ident">v</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">move</span> <span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;v: {}, x: {}&quot;</span>, <span class="ident">v</span>, <span class="ident">x</span>));</pre></div>
 <p><strong>Passing <code>self</code> as an argument</strong>:</p>
 
-<div class='information'><div class='tooltip compile_fail'>ⓘ<span class='tooltiptext'>This example deliberately fails to compile</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
+<div class='information'><div class='tooltip compile_fail'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">struct</span> <span class="ident">Foo</span>;
 
@@ -137,7 +137,7 @@ let closure = clone!(@weak v =&gt; @default-panic, move |x| {
 }</pre></div>
 <p><strong>Passing fields directly</strong></p>
 
-<div class='information'><div class='tooltip compile_fail'>ⓘ<span class='tooltiptext'>This example deliberately fails to compile</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
+<div class='information'><div class='tooltip compile_fail'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail">
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">struct</span> <span class="ident">Foo</span> {
     <span class="ident">v</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>,

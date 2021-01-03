@@ -577,7 +577,7 @@
         <span class="ident">obj</span>
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">close_and_take</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">close_and_take</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">imp</span>::<span class="ident">WriteOutputStream</span>::<span class="ident">from_instance</span>(<span class="self">self</span>);
         <span class="kw">let</span> <span class="ident">inner</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">write</span>.<span class="ident">borrow_mut</span>().<span class="ident">take</span>();
 
@@ -599,8 +599,8 @@
 }
 
 <span class="kw">enum</span> <span class="ident">AnyOrPanic</span> {
-    <span class="ident">Any</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>),
-    <span class="ident">Panic</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>),
+    <span class="ident">Any</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>),
+    <span class="ident">Panic</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Any</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>),
 }
 
 <span class="comment">// Helper struct for dynamically dispatching to any kind of Writer and</span>

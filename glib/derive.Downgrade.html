@@ -4,7 +4,7 @@
                 <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/glib_macros/lib.rs.html#373" title="goto source code">[src]</a></span><span class="in-band">Derive Macro <a href="index.html">glib</a>::<wbr><a class="derive" href="">Downgrade</a></span></h1><pre class="rust derive">#[derive(Downgrade)]</pre><div class="docblock"><p>Macro for deriving implementations of <a href="clone/trait.Downgrade.html"><code>glib::clone::Downgrade</code></a> and
 <a href="clone/trait.Upgrade.html"><code>glib::clone::Upgrade</code></a> traits and a weak type.</p>
 <h1 id="examples" class="section-header"><a href="#examples">Examples</a></h1><h2 id="new-type-idiom" class="section-header"><a href="#new-type-idiom">New Type Idiom</a></h2>
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">glib</span>::<span class="ident">Downgrade</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FancyLabel</span>(<span class="ident">gtk</span>::<span class="ident">Label</span>);
 
@@ -22,7 +22,7 @@
 <span class="kw">let</span> <span class="ident">button</span> <span class="op">=</span> <span class="ident">gtk</span>::<span class="ident">ButtonBuilder</span>::<span class="ident">new</span>().<span class="ident">label</span>(<span class="string">&quot;Click me!&quot;</span>).<span class="ident">build</span>();
 <span class="ident">button</span>.<span class="ident">connect_clicked</span>(<span class="macro">clone</span><span class="macro">!</span>(@<span class="ident">weak</span> <span class="ident">fancy_label</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">move</span> <span class="op">|</span><span class="op">|</span> <span class="ident">fancy_label</span>.<span class="ident">flip</span>()));</pre></div>
 <h2 id="generic-new-type" class="section-header"><a href="#generic-new-type">Generic New Type</a></h2>
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">glib</span>::<span class="ident">Downgrade</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TypedEntry</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">gtk</span>::<span class="ident">Entry</span>, <span class="ident">std</span>::<span class="ident">marker</span>::<span class="ident">PhantomData</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
 
@@ -30,7 +30,7 @@
     <span class="comment">// ...</span>
 }</pre></div>
 <h2 id="structures-and-enums" class="section-header"><a href="#structures-and-enums">Structures and Enums</a></h2>
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">glib</span>::<span class="ident">Downgrade</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ControlButtons</span> {
     <span class="kw">pub</span> <span class="ident">up</span>: <span class="ident">gtk</span>::<span class="ident">Button</span>,

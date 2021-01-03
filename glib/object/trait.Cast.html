@@ -22,7 +22,7 @@ known at compile-time, whether a specific object implements an interface or not,
 <code>upcast</code> would fail to compile. <code>dynamic_cast</code> can be used in these circumstances, which
 is checking the types at runtime.</p>
 <h1 id="example" class="section-header"><a href="#example">Example</a></h1>
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">let</span> <span class="ident">button</span> <span class="op">=</span> <span class="ident">gtk</span>::<span class="ident">Button</span>::<span class="ident">new</span>();
 <span class="kw">let</span> <span class="ident">widget</span> <span class="op">=</span> <span class="ident">button</span>.<span class="ident">upcast</span>::<span class="op">&lt;</span><span class="ident">gtk</span>::<span class="ident">Widget</span><span class="op">&gt;</span>();</pre></div>
 </div><h3 id="method.upcast_ref" class="method"><code>pub fn <a href="#method.upcast_ref" class="fnname">upcast_ref</a>&lt;T:&nbsp;<a class="trait" href="../../glib/object/trait.ObjectType.html" title="trait glib::object::ObjectType">ObjectType</a>&gt;(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;T&gt;,&nbsp;</span></code><a class="srclink" href="../../src/glib/object.rs.html#146-151" title="goto source code">[src]</a></h3><div class="docblock"><p>Upcasts an object to a reference of its superclass or interface <code>T</code>.</p>
@@ -31,7 +31,7 @@ known at compile-time, whether a specific object implements an interface or not,
 <code>upcast</code> would fail to compile. <code>dynamic_cast</code> can be used in these circumstances, which
 is checking the types at runtime.</p>
 <h1 id="example-1" class="section-header"><a href="#example-1">Example</a></h1>
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">let</span> <span class="ident">button</span> <span class="op">=</span> <span class="ident">gtk</span>::<span class="ident">Button</span>::<span class="ident">new</span>();
 <span class="kw">let</span> <span class="ident">widget</span> <span class="op">=</span> <span class="ident">button</span>.<span class="ident">upcast_ref</span>::<span class="op">&lt;</span><span class="ident">gtk</span>::<span class="ident">Widget</span><span class="op">&gt;</span>();</pre></div>
 </div><h3 id="method.downcast" class="method"><code>pub fn <a href="#method.downcast" class="fnname">downcast</a>&lt;T:&nbsp;<a class="trait" href="../../glib/object/trait.ObjectType.html" title="trait glib::object::ObjectType">ObjectType</a>&gt;(self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;T, Self&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="../../glib/object/trait.CanDowncast.html" title="trait glib::object::CanDowncast">CanDowncast</a>&lt;T&gt;,&nbsp;</span></code><a class="srclink" href="../../src/glib/object.rs.html#171-180" title="goto source code">[src]</a></h3><div class="docblock"><p>Tries to downcast to a subclass or interface implementor <code>T</code>.</p>
@@ -42,7 +42,7 @@ known at compile-time, whether a specific object implements an interface or not,
 <code>upcast</code> would fail to compile. <code>dynamic_cast</code> can be used in these circumstances, which
 is checking the types at runtime.</p>
 <h1 id="example-2" class="section-header"><a href="#example-2">Example</a></h1>
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">let</span> <span class="ident">button</span> <span class="op">=</span> <span class="ident">gtk</span>::<span class="ident">Button</span>::<span class="ident">new</span>();
 <span class="kw">let</span> <span class="ident">widget</span> <span class="op">=</span> <span class="ident">button</span>.<span class="ident">upcast</span>::<span class="op">&lt;</span><span class="ident">gtk</span>::<span class="ident">Widget</span><span class="op">&gt;</span>();
 <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">widget</span>.<span class="ident">downcast</span>::<span class="op">&lt;</span><span class="ident">gtk</span>::<span class="ident">Button</span><span class="op">&gt;</span>().<span class="ident">is_ok</span>());</pre></div>
@@ -54,7 +54,7 @@ known at compile-time, whether a specific object implements an interface or not,
 <code>upcast</code> would fail to compile. <code>dynamic_cast</code> can be used in these circumstances, which
 is checking the types at runtime.</p>
 <h1 id="example-3" class="section-header"><a href="#example-3">Example</a></h1>
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">let</span> <span class="ident">button</span> <span class="op">=</span> <span class="ident">gtk</span>::<span class="ident">Button</span>::<span class="ident">new</span>();
 <span class="kw">let</span> <span class="ident">widget</span> <span class="op">=</span> <span class="ident">button</span>.<span class="ident">upcast</span>::<span class="op">&lt;</span><span class="ident">gtk</span>::<span class="ident">Widget</span><span class="op">&gt;</span>();
 <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">widget</span>.<span class="ident">downcast_ref</span>::<span class="op">&lt;</span><span class="ident">gtk</span>::<span class="ident">Button</span><span class="op">&gt;</span>().<span class="ident">is_some</span>());</pre></div>
@@ -66,7 +66,7 @@ not, and checking as to be performed at runtime.</p>
 <p>Returns <code>Ok(T)</code> if the object is an instance of <code>T</code> and <code>Err(self)</code>
 otherwise.</p>
 <h1 id="example-4" class="section-header"><a href="#example-4">Example</a></h1>
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">let</span> <span class="ident">button</span> <span class="op">=</span> <span class="ident">gtk</span>::<span class="ident">Button</span>::<span class="ident">new</span>();
 <span class="kw">let</span> <span class="ident">widget</span> <span class="op">=</span> <span class="ident">button</span>.<span class="ident">dynamic_cast</span>::<span class="op">&lt;</span><span class="ident">gtk</span>::<span class="ident">Widget</span><span class="op">&gt;</span>();
 <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">widget</span>.<span class="ident">is_ok</span>());
@@ -80,7 +80,7 @@ not, and checking as to be performed at runtime.</p>
 <p>Returns <code>Some(T)</code> if the object is an instance of <code>T</code> and <code>None</code>
 otherwise.</p>
 <h1 id="example-5" class="section-header"><a href="#example-5">Example</a></h1>
-<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">let</span> <span class="ident">button</span> <span class="op">=</span> <span class="ident">gtk</span>::<span class="ident">Button</span>::<span class="ident">new</span>();
 <span class="kw">let</span> <span class="ident">widget</span> <span class="op">=</span> <span class="ident">button</span>.<span class="ident">dynamic_cast_ref</span>::<span class="op">&lt;</span><span class="ident">gtk</span>::<span class="ident">Widget</span><span class="op">&gt;</span>();
 <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">widget</span>.<span class="ident">is_some</span>());
