@@ -41,7 +41,7 @@ impl Binding {
     #[doc(alias = "g_binding_unbind")]
     pub fn unbind(&self) {
         unsafe {
-            gobject_ffi::g_binding_unbind(self.to_glib_full());
+            gobject_ffi::g_binding_unbind(self.to_glib_none().0);
         }
     }
 }
