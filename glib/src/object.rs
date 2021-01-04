@@ -658,6 +658,20 @@ macro_rules! glib_object_wrapper {
             type GlibType = *mut $ffi_name;
         }
 
+        // This method isn't something most "pure Rust" users would need, so hide
+        // it from the docs.  One motivational use is combining gtk-rs with cxx-rs;
+        // the latter provides `Pin<&mut $ffitype>` rather than raw pointers.
+        #[doc(hidden)]
+        impl From<&mut $ffi_name> for $name {
+            fn from(r: &mut $ffi_name) -> $name {
+                // Safety: We are incrementing the refcount, so converting the
+                // reference into a raw pointer is OK.
+                unsafe {
+                    $name($crate::translate::from_glib_none(r as *mut $ffi_name as *mut $crate::object::GObject))
+                }
+            }
+        }
+
         #[doc(hidden)]
         unsafe impl $crate::object::ObjectType for $name {
             type GlibType = $ffi_name;
