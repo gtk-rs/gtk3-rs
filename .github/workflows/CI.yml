@@ -59,6 +59,17 @@ jobs:
         run: cargo build --manifest-path ${{ matrix.triple.name }}/Cargo.toml --features "${{ matrix.triple.features }}"
         if: matrix.rust != 'nightly'
 
+      # rustdoc-stripper
+      - name: doc add
+        run: cargo build --manifest-path ${{ matrix.triple.name }}/Cargo.toml --features "dox,embed-lgpl-docs"
+        if: matrix.rust == 'nightly'
+      - name: doc removal
+        run: cargo build --manifest-path ${{ matrix.triple.name }}/Cargo.toml --features "purge-lgpl-docs"
+        if: matrix.rust == 'nightly'
+      - name: check diff
+        run: git diff -R --exit-code
+        if: matrix.rust == 'nightly'
+
       - uses: bcomnes/cleanup-xvfb@v1
 
   build-others:
