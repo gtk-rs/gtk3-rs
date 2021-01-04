@@ -271,10 +271,52 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         },
     ),
     (
+        "GdkPixbufAnimation",
+        Layout {
+            size: size_of::<GdkPixbufAnimation>(),
+            alignment: align_of::<GdkPixbufAnimation>(),
+        },
+    ),
+    (
+        "GdkPixbufAnimationClass",
+        Layout {
+            size: size_of::<GdkPixbufAnimationClass>(),
+            alignment: align_of::<GdkPixbufAnimationClass>(),
+        },
+    ),
+    (
+        "GdkPixbufAnimationIter",
+        Layout {
+            size: size_of::<GdkPixbufAnimationIter>(),
+            alignment: align_of::<GdkPixbufAnimationIter>(),
+        },
+    ),
+    (
+        "GdkPixbufAnimationIterClass",
+        Layout {
+            size: size_of::<GdkPixbufAnimationIterClass>(),
+            alignment: align_of::<GdkPixbufAnimationIterClass>(),
+        },
+    ),
+    (
         "GdkPixbufError",
         Layout {
             size: size_of::<GdkPixbufError>(),
             alignment: align_of::<GdkPixbufError>(),
+        },
+    ),
+    (
+        "GdkPixbufFormat",
+        Layout {
+            size: size_of::<GdkPixbufFormat>(),
+            alignment: align_of::<GdkPixbufFormat>(),
+        },
+    ),
+    (
+        "GdkPixbufFormatFlags",
+        Layout {
+            size: size_of::<GdkPixbufFormatFlags>(),
+            alignment: align_of::<GdkPixbufFormatFlags>(),
         },
     ),
     (
@@ -289,6 +331,20 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         Layout {
             size: size_of::<GdkPixbufLoaderClass>(),
             alignment: align_of::<GdkPixbufLoaderClass>(),
+        },
+    ),
+    (
+        "GdkPixbufModule",
+        Layout {
+            size: size_of::<GdkPixbufModule>(),
+            alignment: align_of::<GdkPixbufModule>(),
+        },
+    ),
+    (
+        "GdkPixbufModulePattern",
+        Layout {
+            size: size_of::<GdkPixbufModulePattern>(),
+            alignment: align_of::<GdkPixbufModulePattern>(),
         },
     ),
     (
@@ -315,6 +371,9 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY", "1"),
     ("(gint) GDK_PIXBUF_ERROR_UNKNOWN_TYPE", "3"),
     ("(gint) GDK_PIXBUF_ERROR_UNSUPPORTED_OPERATION", "4"),
+    ("(guint) GDK_PIXBUF_FORMAT_SCALABLE", "2"),
+    ("(guint) GDK_PIXBUF_FORMAT_THREADSAFE", "4"),
+    ("(guint) GDK_PIXBUF_FORMAT_WRITABLE", "1"),
     ("(gint) GDK_PIXBUF_ROTATE_CLOCKWISE", "270"),
     ("(gint) GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE", "90"),
     ("(gint) GDK_PIXBUF_ROTATE_NONE", "0"),
