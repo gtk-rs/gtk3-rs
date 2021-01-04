@@ -284,7 +284,7 @@ pub trait FileExt: 'static {
     fn get_uri(&self) -> glib::GString;
 
     #[doc(alias = "g_file_get_uri_scheme")]
-    fn get_uri_scheme(&self) -> glib::GString;
+    fn get_uri_scheme(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_file_has_parent")]
     fn has_parent<P: IsA<File>>(&self, parent: Option<&P>) -> bool;
@@ -1471,7 +1471,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe { from_glib_full(ffi::g_file_get_uri(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_uri_scheme(&self) -> glib::GString {
+    fn get_uri_scheme(&self) -> Option<glib::GString> {
         unsafe { from_glib_full(ffi::g_file_get_uri_scheme(self.as_ref().to_glib_none().0)) }
     }
 
