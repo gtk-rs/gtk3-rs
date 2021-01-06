@@ -583,10 +583,6 @@ manual_traits = ["FileExtManual"]
     manual = true
     doc_trait_name = "FileExtManual"
     [[object.function]]
-    name = "get_uri_scheme"
-        [object.function.return]
-        nullable = false
-    [[object.function]]
     name = "get_uri"
         [object.function.return]
         nullable = false
