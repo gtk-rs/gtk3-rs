@@ -464,7 +464,7 @@ impl<T: IsA<InputStream>> InputStreamAsyncBufRead<T> {
         }
     }
 
-    fn poll_fill_buf(&mut self, cx: &mut Context) -> Poll<Result<&[u8], futures::io::Error>> {
+    fn poll_fill_buf(&mut self, cx: &mut Context) -> Poll<Result<&[u8], futures_io::Error>> {
         match self.state {
             State::Failed(kind) => Poll::Ready(Err(io::Error::new(
                 io::ErrorKind::from(kind),
@@ -559,7 +559,7 @@ impl<T: IsA<InputStream>> AsyncBufRead for InputStreamAsyncBufRead<T> {
     fn poll_fill_buf(
         self: Pin<&mut Self>,
         cx: &mut Context,
-    ) -> Poll<Result<&[u8], futures::io::Error>> {
+    ) -> Poll<Result<&[u8], futures_io::Error>> {
         self.get_mut().poll_fill_buf(cx)
     }
 
