@@ -7,10 +7,10 @@ use crate::Seekable;
 use crate::SeekableExt;
 use futures_core::task::{Context, Poll};
 use futures_io::{AsyncBufRead, AsyncRead};
-use futures_util::future::FutureExt;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::Priority;
+use std::future::Future;
 use std::io;
 use std::mem;
 use std::pin::Pin;
@@ -474,7 +474,7 @@ impl<T: IsA<InputStream>> InputStreamAsyncBufRead<T> {
             State::Transitioning => panic!("Invalid state"),
             State::Waiting { .. } | State::Reading { .. } => {
                 let pending = self.set_reading();
-                match pending.poll_unpin(cx) {
+                match Pin::new(pending).poll(cx) {
                     Poll::Ready(Ok((buffer, res))) => {
                         if res == 0 {
                             self.set_waiting(buffer);
