@@ -1178,7 +1178,7 @@
                 <span class="ident">type_</span>.<span class="ident">add_interface</span>::<span class="op">&lt;</span><span class="ident">DummyInterface</span><span class="op">&gt;</span>();
             }
 
-            <span class="kw">fn</span> <span class="ident">class_init</span>(<span class="ident">klass</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">ClassStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) {
+            <span class="kw">fn</span> <span class="ident">class_init</span>(<span class="ident">klass</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>::<span class="ident">Class</span>) {
                 <span class="ident">klass</span>.<span class="ident">install_properties</span>(<span class="kw-2">&amp;</span><span class="ident">PROPERTIES</span>);
 
                 <span class="ident">klass</span>.<span class="ident">add_signal</span>(
