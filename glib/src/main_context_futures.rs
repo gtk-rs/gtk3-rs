@@ -276,13 +276,13 @@ impl MainContext {
         let l = MainLoop::new(Some(&*self), false);
         let l_clone = l.clone();
 
-        unsafe {
-            let f = f.then(|r| {
-                res = Some(r);
-                l_clone.quit();
-                futures_util::future::ready(())
-            });
+        let f = f.then(|r| {
+            res = Some(r);
+            l_clone.quit();
+            futures_util::future::ready(())
+        });
 
+        unsafe {
             // Super-unsafe: We transmute here to get rid of the 'static lifetime
             let f = LocalFutureObj::new(Box::new(f));
             let f: LocalFutureObj<'static, ()> = mem::transmute(f);
