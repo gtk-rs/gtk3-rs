@@ -24,7 +24,6 @@ bitflags = "1.0"
 futures-core = "0.3"
 futures-task = "0.3"
 futures-executor = "0.3"
-futures-util = "0.3"
 futures-channel = "0.3"
 ffi = { package = "glib-sys", path = "sys" }
 gobject_ffi = { package = "gobject-sys", path = "gobject-sys" }
@@ -33,6 +32,7 @@ rs-log = { package = "log", version = "0.4", optional = true }
 smallvec = "1.0"
 
 [dev-dependencies]
+futures-util = "0.3"
 tempfile = "3"
 
 [features]
