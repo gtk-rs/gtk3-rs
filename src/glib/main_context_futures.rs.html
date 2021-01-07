@@ -396,8 +396,6 @@
 <span id="393">393</span>
 <span id="394">394</span>
 <span id="395">395</span>
-<span id="396">396</span>
-<span id="397">397</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -406,9 +404,8 @@
 <span class="kw">use</span> <span class="ident">futures_core</span>::<span class="ident">future</span>::<span class="ident">Future</span>;
 <span class="kw">use</span> <span class="ident">futures_core</span>::<span class="ident">task</span>::{<span class="ident">Context</span>, <span class="ident">Poll</span>, <span class="ident">RawWaker</span>, <span class="ident">RawWakerVTable</span>, <span class="ident">Waker</span>};
 <span class="kw">use</span> <span class="ident">futures_task</span>::{<span class="ident">FutureObj</span>, <span class="ident">LocalFutureObj</span>, <span class="ident">LocalSpawn</span>, <span class="ident">Spawn</span>, <span class="ident">SpawnError</span>};
-<span class="kw">use</span> <span class="ident">futures_util</span>::<span class="ident">future</span>::<span class="ident">FutureExt</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">pin</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">pin</span>::{<span class="self">self</span>, <span class="ident">Pin</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">MainContext</span>;
@@ -429,8 +426,8 @@
 
     <span class="kw">fn</span> <span class="ident">poll</span>(<span class="self">self</span>: <span class="ident">pin</span>::<span class="ident">Pin</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">ctx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Context</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">get_mut</span>() {
-            <span class="ident">FutureWrapper</span>::<span class="ident">Send</span>(<span class="ident">fut</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">fut</span>.<span class="ident">poll_unpin</span>(<span class="ident">ctx</span>),
-            <span class="ident">FutureWrapper</span>::<span class="ident">NonSend</span>(<span class="ident">fut</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">fut</span>.<span class="ident">get_mut</span>().<span class="ident">poll_unpin</span>(<span class="ident">ctx</span>),
+            <span class="ident">FutureWrapper</span>::<span class="ident">Send</span>(<span class="ident">fut</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Pin</span>::<span class="ident">new</span>(<span class="ident">fut</span>).<span class="ident">poll</span>(<span class="ident">ctx</span>),
+            <span class="ident">FutureWrapper</span>::<span class="ident">NonSend</span>(<span class="ident">fut</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Pin</span>::<span class="ident">new</span>(<span class="ident">fut</span>.<span class="ident">get_mut</span>()).<span class="ident">poll</span>(<span class="ident">ctx</span>),
         }
     }
 }
@@ -604,7 +601,7 @@
 
             <span class="comment">// This will panic if the future was a local future and is called from</span>
             <span class="comment">// a different thread than where it was created.</span>
-            <span class="self">self</span>.<span class="ident">future</span>.<span class="ident">poll_unpin</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">context</span>)
+            <span class="ident">Pin</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">future</span>).<span class="ident">poll</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">context</span>)
         })
     }
 }
@@ -677,13 +674,12 @@
         <span class="kw">let</span> <span class="ident">l</span> <span class="op">=</span> <span class="ident">MainLoop</span>::<span class="ident">new</span>(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>), <span class="bool-val">false</span>);
         <span class="kw">let</span> <span class="ident">l_clone</span> <span class="op">=</span> <span class="ident">l</span>.<span class="ident">clone</span>();
 
-        <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">f</span>.<span class="ident">then</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> {
-                <span class="ident">res</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">r</span>);
-                <span class="ident">l_clone</span>.<span class="ident">quit</span>();
-                <span class="ident">futures_util</span>::<span class="ident">future</span>::<span class="ident">ready</span>(())
-            });
+        <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="kw">async</span> {
+            <span class="ident">res</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>.<span class="kw">await</span>);
+            <span class="ident">l_clone</span>.<span class="ident">quit</span>();
+        };
 
+        <span class="kw">unsafe</span> {
             <span class="comment">// Super-unsafe: We transmute here to get rid of the &#39;static lifetime</span>
             <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">LocalFutureObj</span>::<span class="ident">new</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">f</span>));
             <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">LocalFutureObj</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">f</span>);
@@ -724,7 +720,7 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
     <span class="kw">use</span> <span class="ident">futures_channel</span>::<span class="ident">oneshot</span>;
-    <span class="kw">use</span> <span class="ident">futures_util</span>::<span class="ident">future</span>::<span class="ident">TryFutureExt</span>;
+    <span class="kw">use</span> <span class="ident">futures_util</span>::<span class="ident">future</span>::{<span class="ident">FutureExt</span>, <span class="ident">TryFutureExt</span>};
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>;
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">thread</span>;
 
