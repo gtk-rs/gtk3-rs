@@ -5,9 +5,8 @@ use crate::ThreadGuard;
 use futures_core::future::Future;
 use futures_core::task::{Context, Poll, RawWaker, RawWakerVTable, Waker};
 use futures_task::{FutureObj, LocalFutureObj, LocalSpawn, Spawn, SpawnError};
-use futures_util::future::FutureExt;
 use std::mem;
-use std::pin;
+use std::pin::{self, Pin};
 use std::ptr;
 
 use crate::MainContext;
@@ -28,8 +27,8 @@ impl Future for FutureWrapper {
 
     fn poll(self: pin::Pin<&mut Self>, ctx: &mut Context) -> Poll<()> {
         match self.get_mut() {
-            FutureWrapper::Send(fut) => fut.poll_unpin(ctx),
-            FutureWrapper::NonSend(fut) => fut.get_mut().poll_unpin(ctx),
+            FutureWrapper::Send(fut) => Pin::new(fut).poll(ctx),
+            FutureWrapper::NonSend(fut) => Pin::new(fut.get_mut()).poll(ctx),
         }
     }
 }
@@ -203,7 +202,7 @@ impl TaskSource {
 
             // This will panic if the future was a local future and is called from
             // a different thread than where it was created.
-            self.future.poll_unpin(&mut context)
+            Pin::new(&mut self.future).poll(&mut context)
         })
     }
 }
@@ -276,13 +275,12 @@ impl MainContext {
         let l = MainLoop::new(Some(&*self), false);
         let l_clone = l.clone();
 
-        unsafe {
-            let f = f.then(|r| {
-                res = Some(r);
-                l_clone.quit();
-                futures_util::future::ready(())
-            });
+        let f = async {
+            res = Some(f.await);
+            l_clone.quit();
+        };
 
+        unsafe {
             // Super-unsafe: We transmute here to get rid of the 'static lifetime
             let f = LocalFutureObj::new(Box::new(f));
             let f: LocalFutureObj<'static, ()> = mem::transmute(f);
@@ -323,7 +321,7 @@ impl LocalSpawn for MainContext {
 mod tests {
     use super::*;
     use futures_channel::oneshot;
-    use futures_util::future::TryFutureExt;
+    use futures_util::future::{FutureExt, TryFutureExt};
     use std::sync::mpsc;
     use std::thread;
 

@@ -74,15 +74,13 @@ impl ThreadPool {
         &self,
         func: F,
     ) -> Result<impl Future<Output = T>, crate::Error> {
-        use futures_util::future::FutureExt;
-
         let (sender, receiver) = oneshot::channel();
 
         self.push(move || {
             let _ = sender.send(func());
         })?;
 
-        Ok(receiver.map(|res| res.expect("Dropped before executing")))
+        Ok(async move { receiver.await.expect("Dropped before executing") })
     }
 
     pub fn set_max_threads(&self, max_threads: Option<u32>) -> Result<(), crate::Error> {

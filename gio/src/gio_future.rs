@@ -2,9 +2,8 @@
 
 use futures_channel::oneshot;
 use futures_core::task::{Context, Poll};
-use futures_util::future::FutureExt;
 use std::future::Future;
-use std::pin;
+use std::pin::{self, Pin};
 
 use crate::Cancellable;
 use crate::CancellableExt;
@@ -85,7 +84,7 @@ where
         // At this point we must have a receiver
         let res = {
             let &mut (_, ref mut receiver) = cancellable.as_mut().unwrap();
-            receiver.poll_unpin(ctx)
+            Pin::new(receiver).poll(ctx)
         };
 
         match res {

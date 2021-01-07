@@ -5,8 +5,6 @@ use futures_core::future::Future;
 use futures_core::stream::Stream;
 use futures_core::task;
 use futures_core::task::Poll;
-use futures_util::future::FutureExt;
-use futures_util::stream::StreamExt;
 use std::marker::Unpin;
 use std::pin;
 use std::pin::Pin;
@@ -80,7 +78,7 @@ where
         // At this point we must have a receiver
         let res = {
             let &mut (_, ref mut receiver) = source.as_mut().unwrap();
-            receiver.poll_unpin(ctx)
+            Pin::new(receiver).poll(ctx)
         };
         #[allow(clippy::match_wild_err_arm)]
         match res {
@@ -268,7 +266,7 @@ where
         // At this point we must have a receiver
         let res = {
             let &mut (_, ref mut receiver) = source.as_mut().unwrap();
-            receiver.poll_next_unpin(ctx)
+            Pin::new(receiver).poll_next(ctx)
         };
         #[allow(clippy::match_wild_err_arm)]
         match res {
@@ -375,6 +373,8 @@ pub fn unix_signal_stream_with_priority(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use futures_util::future::FutureExt;
+    use futures_util::stream::StreamExt;
     use std::thread;
     use std::time::Duration;
 
