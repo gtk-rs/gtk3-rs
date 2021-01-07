@@ -385,7 +385,7 @@ mod test {
                 type_.add_interface::<DummyInterface>();
             }
 
-            fn class_init(klass: &mut subclass::simple::ClassStruct<Self>) {
+            fn class_init(klass: &mut Self::Class) {
                 klass.install_properties(&PROPERTIES);
 
                 klass.add_signal(

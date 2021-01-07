@@ -2339,6 +2339,7 @@ unsafe impl<T: ObjectType> Sync for SendWeakRef<T> {}
 unsafe impl<T: ObjectType> Send for SendWeakRef<T> {}
 
 #[derive(Debug)]
+#[must_use]
 pub struct BindingBuilder<'a> {
     source: &'a ObjectRef,
     source_property: &'a str,

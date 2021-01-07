@@ -6,6 +6,7 @@ use glib::translate::{from_glib_borrow, from_glib_none, ToGlib, ToGlibPtr};
 use glib::variant::FromVariant;
 use glib::{BoolError, IsA, ToVariant};
 
+#[must_use]
 pub struct BindingBuilder<'a> {
     settings: &'a Settings,
     key: &'a str,

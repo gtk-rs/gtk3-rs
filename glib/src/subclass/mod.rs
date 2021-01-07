@@ -123,7 +123,7 @@
 //!         // type is created. Here class specific settings can be performed,
 //!         // including installation of properties and registration of signals
 //!         // for the new type.
-//!         fn class_init(klass: &mut subclass::simple::ClassStruct<Self>) {
+//!         fn class_init(klass: &mut Self::Class) {
 //!             klass.install_properties(&PROPERTIES);
 //!         }
 //!
