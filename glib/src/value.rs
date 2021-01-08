@@ -394,7 +394,7 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut gobject_ffi::GValue> for &'a Value {
         }
 
         unsafe {
-            let res = ffi::g_malloc(mem::size_of::<gobject_ffi::GValue>() * t.len())
+            let res = ffi::g_malloc0(mem::size_of::<gobject_ffi::GValue>() * t.len())
                 as *mut gobject_ffi::GValue;
             for (i, v) in t.iter().enumerate() {
                 gobject_ffi::g_value_init(res.add(i), v.type_().to_glib());
