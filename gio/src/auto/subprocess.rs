@@ -2,6 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::AsyncResult;
 use crate::Cancellable;
 use crate::InputStream;
 use crate::OutputStream;

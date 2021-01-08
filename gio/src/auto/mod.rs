@@ -34,6 +34,10 @@ mod application_command_line;
 pub use self::application_command_line::ApplicationCommandLineExt;
 pub use self::application_command_line::{ApplicationCommandLine, NONE_APPLICATION_COMMAND_LINE};
 
+mod async_result;
+pub use self::async_result::AsyncResultExt;
+pub use self::async_result::{AsyncResult, NONE_ASYNC_RESULT};
+
 mod buffered_input_stream;
 pub use self::buffered_input_stream::BufferedInputStreamBuilder;
 pub use self::buffered_input_stream::BufferedInputStreamExt;
@@ -388,6 +392,9 @@ pub use self::subprocess::Subprocess;
 
 mod subprocess_launcher;
 pub use self::subprocess_launcher::SubprocessLauncher;
+
+mod task;
+pub use self::task::Task;
 
 mod tcp_connection;
 pub use self::tcp_connection::TcpConnectionExt;
@@ -766,6 +773,7 @@ pub mod traits {
     pub use super::AppLaunchContextExt;
     pub use super::ApplicationCommandLineExt;
     pub use super::ApplicationExt;
+    pub use super::AsyncResultExt;
     pub use super::BufferedInputStreamExt;
     pub use super::BufferedOutputStreamExt;
     pub use super::CancellableExt;

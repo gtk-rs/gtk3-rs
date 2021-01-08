@@ -6,6 +6,9 @@ use crate::AppInfoCreateFlags;
 use crate::AppLaunchContext;
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+use crate::AsyncResult;
+#[cfg(any(feature = "v2_50", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 use crate::Cancellable;
 use crate::File;
 use crate::Icon;

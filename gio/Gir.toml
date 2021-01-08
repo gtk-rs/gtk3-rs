@@ -9,12 +9,12 @@ single_version_file = true
 deprecate_by_min_version = true
 
 generate = [
-    # "Gio.Task",
     "Gio.Action",
     "Gio.ActionMap",
     "Gio.AppInfoCreateFlags",
     "Gio.ApplicationFlags",
     "Gio.AskPasswordFlags",
+    "Gio.AsyncResult",
     "Gio.BusNameOwnerFlags",
     "Gio.BusNameWatcherFlags",
     "Gio.BusType",
@@ -407,6 +407,12 @@ generate_builder = true
     #nullable return value and redundant length
     #return vec of u8
     manual = true
+
+    [[object.function]]
+    name = "read_line_finish_utf8"
+    #finish functions not needed
+    manual = true
+
 
 [[object]]
 name = "Gio.DataOutputStream"
@@ -992,6 +998,58 @@ status = "generate"
     [[object.function]]
     name = "set_child_setup"
     cfg_condition = "unix"
+
+[[object]]
+name = "Gio.Task"
+status = "generate"
+    [[object.function]]
+    name = "new"
+    #wrong prototype
+    manual = true
+    [[object.function]]
+    name = "return_error"
+    #wrong mutability
+    manual = true
+    [[object.function]]
+    name = "get_priority"
+    #wrong priority type
+    manual = true
+    [[object.function]]
+    name = "set_priority"
+    #wrong priority type
+    manual = true
+    [[object.function]]
+    name = "return_boolean"
+    #not needed
+    ignore = true
+    [[object.function]]
+    name = "propagate_boolean"
+    #not needed
+    ignore = true
+    [[object.function]]
+    name = "return_int"
+    #not needed
+    ignore = true
+    [[object.function]]
+    name = "propagate_int"
+    #not needed
+    ignore = true
+    [[object.function]]
+    name = "return_pointer"
+    #not needed
+    ignore = true
+    [[object.function]]
+    name = "propagate_pointer"
+    #not needed
+    ignore = true
+    [[object.function]]
+    name = "return_value"
+    #wrong mutability
+    manual = true
+    [[object.function]]
+    name = "propagate_value"
+    #wrong mutability
+    manual = true
 
 [[object]]
 name = "Gio.ThemedIcon"
