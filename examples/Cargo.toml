@@ -8,6 +8,8 @@ edition = "2018"
 [dependencies]
 chrono = "0.4"
 futures = "0.3"
+futures-channel = "0.3"
+futures-util = "0.3"
 once_cell = "1.2.0"
 
 [dependencies.gtk]
@@ -157,3 +159,6 @@ required-features = ["pangocairo"]
 [[bin]]
 name = "gio_async_tls"
 required-features = ["async-tls"]
+
+[[bin]]
+name = "gio_task"

@@ -2,11 +2,15 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::AsyncResult;
 use crate::Cancellable;
 use glib::object::IsA;
 use glib::translate::*;
 use std::boxed::Box as Box_;
 use std::fmt;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
+use std::mem;
 use std::pin::Pin;
 use std::ptr;
 

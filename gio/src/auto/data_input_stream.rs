@@ -2,6 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::AsyncResult;
 use crate::BufferedInputStream;
 use crate::Cancellable;
 use crate::DataStreamByteOrder;
@@ -18,6 +19,7 @@ use glib::StaticType;
 use glib::ToValue;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
@@ -121,9 +123,6 @@ pub trait DataInputStreamExt: 'static {
 
     #[doc(alias = "g_data_input_stream_read_int64")]
     fn read_int64<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<i64, glib::Error>;
-
-    //#[doc(alias = "g_data_input_stream_read_line_finish_utf8")]
-    //fn read_line_finish_utf8(&self, result: /*Ignored*/&AsyncResult) -> Result<(Option<glib::GString>, usize), glib::Error>;
 
     #[doc(alias = "g_data_input_stream_read_uint16")]
     fn read_uint16<P: IsA<Cancellable>>(&self, cancellable: Option<&P>)
@@ -229,10 +228,6 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
             }
         }
     }
-
-    //fn read_line_finish_utf8(&self, result: /*Ignored*/&AsyncResult) -> Result<(Option<glib::GString>, usize), glib::Error> {
-    //    unsafe { TODO: call ffi:g_data_input_stream_read_line_finish_utf8() }
-    //}
 
     fn read_uint16<P: IsA<Cancellable>>(
         &self,

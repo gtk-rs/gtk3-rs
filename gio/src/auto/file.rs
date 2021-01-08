@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use crate::AppInfo;
+use crate::AsyncResult;
 use crate::Cancellable;
 use crate::DriveStartFlags;
 use crate::FileCopyFlags;
