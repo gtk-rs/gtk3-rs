@@ -12,10 +12,6 @@ repository = "https://github.com/gtk-rs/gtk-rs"
 build = "build.rs"
 edition = "2018"
 
-[badges]
-appveyor = { repository = "GuillaumeGomez/cairo", service = "github" }
-travis-ci = { repository = "gtk-rs/cairo" }
-
 [lib]
 name = "cairo"
 
