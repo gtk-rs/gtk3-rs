@@ -100,3 +100,13 @@ mod tls_connection;
 pub use crate::tls_connection::TlsConnectionManualExt;
 
 pub mod task;
+
+#[cfg(target_family = "windows")]
+mod win32_input_stream;
+#[cfg(target_family = "windows")]
+pub use self::win32_input_stream::{Win32InputStream, NONE_WIN32_INPUT_STREAM};
+
+#[cfg(target_family = "windows")]
+mod win32_output_stream;
+#[cfg(target_family = "windows")]
+pub use self::win32_output_stream::{Win32OutputStream, NONE_WIN32_OUTPUT_STREAM};
