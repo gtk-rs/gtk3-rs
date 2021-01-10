@@ -1167,7 +1167,6 @@ cfg_condition = "unix"
 [[object]]
 name = "Gio.UnixMountPoint"
 status = "generate"
-use_boxed_functions = true
 version = "2.54"
 cfg_condition = "unix"
     [[object.derive]]
