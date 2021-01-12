@@ -7,7 +7,7 @@ name: CI
 
 jobs:
   build:
-    name: ${{matrix.triple.name}} (rust ${{matrix.rust}})
+    name: ${{matrix.conf.name}} (rust ${{matrix.rust}})
     runs-on: ubuntu-latest
     container:
       image: ubuntu:20.10
@@ -18,18 +18,18 @@ jobs:
           - beta
           - nightly
           - "1.48.0"
-        triple:
-          - { name: "atk", features: "v2_34", nightly: "--all-features" }
-          - { name: "cairo", features: "png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface", nightly: "--features 'png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface'" }
-          - { name: "gdk", features: "v3_24", nightly: "--all-features" }
-          - { name: "gdk-pixbuf", features: "v2_40", nightly: "--all-features" }
-          - { name: "gdkx11", features: "v3_24", nightly: "--all-features" }
-          - { name: "gio", features: "v2_66", nightly: "--all-features" }
-          - { name: "glib", features: "v2_66", nightly: "--all-features" }
-          - { name: "graphene", features: "v1_10", nightly: "" }
-          - { name: "gtk", features: "v3_24_9", nightly: "--all-features" }
-          - { name: "pango", features: "v1_46", nightly: "--all-features" }
-          - { name: "pangocairo", features: "", nightly: "--all-features" }
+        conf:
+          - { name: "atk", features: "v2_34", nightly: "--all-features", test_sys: true }
+          - { name: "cairo", features: "png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface", nightly: "--features 'png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface'", test_sys: true }
+          - { name: "gdk", features: "v3_24", nightly: "--features v3_24", test_sys: true }
+          - { name: "gdk-pixbuf", features: "v2_40", nightly: "--all-features", test_sys: true }
+          - { name: "gdkx11", features: "v3_24", nightly: "--all-features", test_sys: true }
+          - { name: "gio", features: "v2_66", nightly: "--all-features", test_sys: false }
+          - { name: "glib", features: "v2_66", nightly: "--all-features", test_sys: false }
+          - { name: "graphene", features: "v1_10", nightly: "", test_sys: false }
+          - { name: "gtk", features: "v3_24_9", nightly: "--all-features", test_sys: false }
+          - { name: "pango", features: "v1_46", nightly: "--all-features", test_sys: false }
+          - { name: "pangocairo", features: "", nightly: "--all-features", test_sys: true }
     steps:
       - run: apt-get update -y
       - run: apt-get install -y libgtk-3-dev libglib2.0-dev libgraphene-1.0-dev git xvfb curl libcairo-gobject2 libcairo2-dev
@@ -40,31 +40,31 @@ jobs:
           override: true
       # nightly
       - name: tests nightly
-        run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.triple.name }}/Cargo.toml ${{ matrix.triple.nightly }}
+        run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/Cargo.toml ${{ matrix.conf.nightly }}
         if: matrix.rust == 'nightly'
       - name: tests sys nightly
-        run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.triple.name }}/sys/Cargo.toml ${{ matrix.triple.nightly }}
-        if: matrix.rust == 'nightly' && matrix.triple.nightly != ''
+        run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/sys/Cargo.toml ${{ matrix.conf.nightly }}
+        if: matrix.rust == 'nightly' && matrix.conf.test_sys
       - name: build nightly
-        run: cargo build --manifest-path ${{ matrix.triple.name }}/Cargo.toml ${{ matrix.triple.nightly }}
+        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml ${{ matrix.conf.nightly }}
         if: matrix.rust == 'nightly'
       # not nightly
       - name: tests
-        run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.triple.name }}/Cargo.toml --features "${{ matrix.triple.features }}"
+        run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "${{ matrix.conf.features }}"
         if: matrix.rust != 'nightly'
       - name: tests sys
-        run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.triple.name }}/sys/Cargo.toml --features "${{ matrix.triple.features }}"
-        if: matrix.rust != 'nightly' && matrix.triple.nightly != ''
+        run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/sys/Cargo.toml --features "${{ matrix.conf.features }}"
+        if: matrix.rust != 'nightly' && matrix.conf.test_sys
       - name: build
-        run: cargo build --manifest-path ${{ matrix.triple.name }}/Cargo.toml --features "${{ matrix.triple.features }}"
+        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "${{ matrix.conf.features }}"
         if: matrix.rust != 'nightly'
 
       # rustdoc-stripper
       - name: doc add
-        run: cargo build --manifest-path ${{ matrix.triple.name }}/Cargo.toml --features "dox,embed-lgpl-docs"
+        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "dox,embed-lgpl-docs"
         if: matrix.rust == 'nightly'
       - name: doc removal
-        run: cargo build --manifest-path ${{ matrix.triple.name }}/Cargo.toml --features "purge-lgpl-docs"
+        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "purge-lgpl-docs"
         if: matrix.rust == 'nightly'
       - name: check diff
         run: git diff -R --exit-code
