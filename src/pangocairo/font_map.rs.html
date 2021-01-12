@@ -75,6 +75,10 @@
 <span id="72">72</span>
 <span id="73">73</span>
 <span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -88,6 +92,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the `cairo::FontType` cairo font backend type</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_cairo_font_map_get_font_type&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">get_font_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">cairo</span>::<span class="ident">FontType</span>;
 }
 
@@ -113,6 +118,7 @@
     <span class="doccomment">///  `pango::FontMap` of suitable type which should be freed</span>
     <span class="doccomment">///  with `gobject::Object::unref`, or `None` if the requested</span>
     <span class="doccomment">///  cairo font backend is not supported / compiled in.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_cairo_font_map_new_for_font_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_for_font_type</span>(<span class="ident">fonttype</span>: <span class="ident">cairo</span>::<span class="ident">FontType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">pango</span>::<span class="ident">FontMap</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">pango_cairo_font_map_new_for_font_type</span>(<span class="ident">fonttype</span>.<span class="ident">into</span>())) }
     }
@@ -140,10 +146,12 @@
     <span class="doccomment">/// the newly allocated `pango::FontMap`,</span>
     <span class="doccomment">///  which should be freed with `gobject::Object::unref`.</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">new_ret_no_self</span>)]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_cairo_font_map_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">pango</span>::<span class="ident">FontMap</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">pango_cairo_font_map_new</span>()) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_cairo_font_map_set_default&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_default</span>(<span class="ident">font_map</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi</span>::<span class="ident">pango_cairo_font_map_set_default</span>(<span class="ident">font_map</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>);

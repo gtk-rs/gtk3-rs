@@ -87,6 +87,8 @@
 <span id="84">84</span>
 <span id="85">85</span>
 <span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -100,6 +102,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">GtkMenuExtManual</span>: <span class="lifetime">&#39;static</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_popup&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">popup</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>, <span class="ident">U</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>, <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">i32</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">parent_menu_shell</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">T</span><span class="op">&gt;</span>,
@@ -109,6 +112,7 @@
         <span class="ident">activate_time</span>: <span class="ident">u32</span>,
     );
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_menu_popup_easy&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">popup_easy</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">button</span>: <span class="ident">u32</span>, <span class="ident">activate_time</span>: <span class="ident">u32</span>);
 }
 

@@ -2361,6 +2361,12 @@
 <span id="2358">2358</span>
 <span id="2359">2359</span>
 <span id="2360">2360</span>
+<span id="2361">2361</span>
+<span id="2362">2362</span>
+<span id="2363">2363</span>
+<span id="2364">2364</span>
+<span id="2365">2365</span>
+<span id="2366">2366</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -2408,31 +2414,37 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Key</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keyval_to_unicode&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_unicode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">char</span><span class="op">&gt;</span> {
         <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
         <span class="kw">unsafe</span> { ::<span class="ident">std</span>::<span class="ident">char</span>::<span class="ident">from_u32</span>(<span class="ident">ffi</span>::<span class="ident">gdk_keyval_to_unicode</span>(<span class="kw-2">*</span><span class="kw-2">*</span><span class="self">self</span>)).<span class="ident">filter</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">x</span> <span class="op">!</span><span class="op">=</span> <span class="string">&#39;\0&#39;</span>) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keyval_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GString</span><span class="op">&gt;</span> {
         <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">gdk_keyval_name</span>(<span class="kw-2">*</span><span class="kw-2">*</span><span class="self">self</span> <span class="kw">as</span> <span class="ident">c_uint</span>)) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keyval_is_upper&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_upper</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_keyval_is_upper</span>(<span class="kw-2">*</span><span class="kw-2">*</span><span class="self">self</span>)) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keyval_is_lower&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_lower</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">gdk_keyval_is_lower</span>(<span class="kw-2">*</span><span class="kw-2">*</span><span class="self">self</span>)) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keyval_to_upper&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_upper</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_keyval_to_upper</span>(<span class="kw-2">*</span><span class="kw-2">*</span><span class="self">self</span>) }.<span class="ident">into</span>()
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_keyval_to_lower&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_lower</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="macro">skip_assert_initialized</span><span class="macro">!</span>();
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">gdk_keyval_to_lower</span>(<span class="kw-2">*</span><span class="kw-2">*</span><span class="self">self</span>) }.<span class="ident">into</span>()

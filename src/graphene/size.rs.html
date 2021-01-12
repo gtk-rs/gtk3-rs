@@ -25,6 +25,8 @@
 <span id="22">22</span>
 <span id="23">23</span>
 <span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -32,6 +34,7 @@
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 
 <span class="kw">impl</span> <span class="ident">Size</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_size_init&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">width</span>: <span class="ident">f32</span>, <span class="ident">height</span>: <span class="ident">f32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Size</span> {
         <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
         <span class="kw">unsafe</span> {
@@ -41,6 +44,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_size_init_from_size&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_from_size</span>(<span class="ident">src</span>: <span class="kw-2">&amp;</span><span class="ident">Size</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Size</span> {
         <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
         <span class="kw">unsafe</span> {

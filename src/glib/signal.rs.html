@@ -140,6 +140,10 @@
 <span id="137">137</span>
 <span id="138">138</span>
 <span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -244,6 +248,7 @@
     <span class="ident">from_glib</span>(<span class="ident">handle</span>)
 }
 
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_signal_handler_block&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">signal_handler_block</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectType</span><span class="op">&gt;</span>(<span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">handler_id</span>: <span class="kw-2">&amp;</span><span class="ident">SignalHandlerId</span>) {
     <span class="kw">unsafe</span> {
         <span class="ident">gobject_ffi</span>::<span class="ident">g_signal_handler_block</span>(
@@ -253,6 +258,7 @@
     }
 }
 
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_signal_handler_unblock&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">signal_handler_unblock</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectType</span><span class="op">&gt;</span>(<span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">handler_id</span>: <span class="kw-2">&amp;</span><span class="ident">SignalHandlerId</span>) {
     <span class="kw">unsafe</span> {
         <span class="ident">gobject_ffi</span>::<span class="ident">g_signal_handler_unblock</span>(
@@ -263,6 +269,7 @@
 }
 
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">needless_pass_by_value</span>)]</span>
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_signal_handler_disconnect&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">signal_handler_disconnect</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectType</span><span class="op">&gt;</span>(<span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">handler_id</span>: <span class="ident">SignalHandlerId</span>) {
     <span class="kw">unsafe</span> {
         <span class="ident">gobject_ffi</span>::<span class="ident">g_signal_handler_disconnect</span>(
@@ -272,6 +279,7 @@
     }
 }
 
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_signal_stop_emission_by_name&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">signal_stop_emission_by_name</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectType</span><span class="op">&gt;</span>(<span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="ident">signal_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
     <span class="kw">unsafe</span> {
         <span class="ident">gobject_ffi</span>::<span class="ident">g_signal_stop_emission_by_name</span>(

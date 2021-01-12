@@ -114,6 +114,11 @@
 <span id="111">111</span>
 <span id="112">112</span>
 <span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -138,6 +143,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the initialized `Sphere`</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_sphere_init_from_points&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_from_points</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">points</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">Point3D</span>], <span class="ident">center</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Point3D</span><span class="op">&gt;</span>) {
         <span class="kw">let</span> <span class="ident">vec</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">points</span>
             .<span class="ident">iter</span>()
@@ -170,6 +176,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the initialized `Sphere`</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_sphere_init_from_vectors&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_from_vectors</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">vectors</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">Vec3</span>], <span class="ident">center</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Point3D</span><span class="op">&gt;</span>) {
         <span class="kw">let</span> <span class="ident">vec</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">vectors</span>
             .<span class="ident">iter</span>()
@@ -187,6 +194,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_sphere_init&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">center</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Point3D</span><span class="op">&gt;</span>, <span class="ident">radius</span>: <span class="ident">f32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Sphere</span> {
         <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
         <span class="kw">unsafe</span> {
@@ -196,6 +204,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_sphere_init_from_points&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_from_points</span>(<span class="ident">points</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">Point3D</span>], <span class="ident">center</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Point3D</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Sphere</span> {
         <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
 
@@ -212,6 +221,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_sphere_init_from_vectors&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_from_vectors</span>(<span class="ident">vectors</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">Vec3</span>], <span class="ident">center</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Point3D</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Sphere</span> {
         <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
 

@@ -36,6 +36,7 @@
 <span id="33">33</span>
 <span id="34">34</span>
 <span id="35">35</span>
+<span id="36">36</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -58,6 +59,7 @@
     <span class="doccomment">/// a location to store the next</span>
     <span class="doccomment">///  candidate presentation time after the given base time.</span>
     <span class="doccomment">///  0 will be will be stored if no history is present.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_frame_clock_get_refresh_info&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_refresh_info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_time</span>: <span class="ident">i64</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">i64</span>, <span class="ident">i64</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">refresh_interval</span> <span class="op">=</span> <span class="number">0</span>;

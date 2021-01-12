@@ -757,6 +757,15 @@
 <span id="754">754</span>
 <span id="755">755</span>
 <span id="756">756</span>
+<span id="757">757</span>
+<span id="758">758</span>
+<span id="759">759</span>
+<span id="760">760</span>
+<span id="761">761</span>
+<span id="762">762</span>
+<span id="763">763</span>
+<span id="764">764</span>
+<span id="765">765</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -871,6 +880,7 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_46&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_log_set_handler_full&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">log_set_handler</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">Fn</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">LogLevel</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
     <span class="ident">log_domain</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
     <span class="ident">log_levels</span>: <span class="ident">LogLevels</span>,
@@ -917,16 +927,19 @@
     }
 }
 
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_log_remove_handler&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">log_remove_handler</span>(<span class="ident">log_domain</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">handler_id</span>: <span class="ident">LogHandlerId</span>) {
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">g_log_remove_handler</span>(<span class="ident">log_domain</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">handler_id</span>.<span class="ident">to_glib</span>());
     }
 }
 
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_log_set_always_fatal&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">log_set_always_fatal</span>(<span class="ident">fatal_levels</span>: <span class="ident">LogLevels</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LogLevels</span> {
     <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_log_set_always_fatal</span>(<span class="ident">fatal_levels</span>.<span class="ident">to_glib</span>())) }
 }
 
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_log_set_fatal_mask&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">log_set_fatal_mask</span>(<span class="ident">log_domain</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">fatal_levels</span>: <span class="ident">LogLevels</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LogLevels</span> {
     <span class="kw">unsafe</span> {
         <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_log_set_fatal_mask</span>(
@@ -952,6 +965,7 @@
 <span class="kw">static</span> <span class="ident">PRINT_HANDLER</span>: <span class="ident">Lazy</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">PrintCallback</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Lazy</span>::<span class="ident">new</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">Mutex</span>::<span class="ident">new</span>(<span class="prelude-val">None</span>));
 
 <span class="doccomment">/// To set back the default print handler, use the [`unset_print_handler`] function.</span>
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_set_print_handler&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_print_handler</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="ident">func</span>: <span class="ident">P</span>) {
     <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">func_func</span>(<span class="ident">string</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">libc</span>::<span class="ident">c_char</span>) {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">callback</span>) <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">PRINT_HANDLER</span>.<span class="ident">lock</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to lock PRINT_HANDLER&quot;</span>) {
@@ -979,6 +993,7 @@
 <span class="kw">static</span> <span class="ident">PRINTERR_HANDLER</span>: <span class="ident">Lazy</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">PrintCallback</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Lazy</span>::<span class="ident">new</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">Mutex</span>::<span class="ident">new</span>(<span class="prelude-val">None</span>));
 
 <span class="doccomment">/// To set back the default print handler, use the [`unset_printerr_handler`] function.</span>
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_set_printerr_handler&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_printerr_handler</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="ident">func</span>: <span class="ident">P</span>) {
     <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">func_func</span>(<span class="ident">string</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">libc</span>::<span class="ident">c_char</span>) {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">callback</span>) <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">PRINTERR_HANDLER</span>
@@ -1011,6 +1026,7 @@
 <span class="kw">static</span> <span class="ident">DEFAULT_HANDLER</span>: <span class="ident">Lazy</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">LogCallback</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Lazy</span>::<span class="ident">new</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">Mutex</span>::<span class="ident">new</span>(<span class="prelude-val">None</span>));
 
 <span class="doccomment">/// To set back the default print handler, use the [`log_unset_default_handler`] function.</span>
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_log_set_default_handler&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">log_set_default_handler</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">Fn</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">LogLevel</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
     <span class="ident">log_func</span>: <span class="ident">P</span>,
 ) {
@@ -1043,6 +1059,7 @@
 }
 
 <span class="doccomment">/// To set the default print handler, use the [`log_set_default_handler`] function.</span>
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_log_set_default_handler&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">log_unset_default_handler</span>() {
     <span class="kw-2">*</span><span class="ident">DEFAULT_HANDLER</span>
         .<span class="ident">lock</span>()
@@ -1052,6 +1069,7 @@
     };
 }
 
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_log_default_handler&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">log_default_handler</span>(<span class="ident">log_domain</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">log_level</span>: <span class="ident">LogLevel</span>, <span class="ident">message</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) {
     <span class="kw">unsafe</span> {
         <span class="ident">ffi</span>::<span class="ident">g_log_default_handler</span>(

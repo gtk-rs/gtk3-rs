@@ -138,6 +138,16 @@
 <span id="135">135</span>
 <span id="136">136</span>
 <span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -146,26 +156,36 @@
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">DragContextExtManual</span>: <span class="lifetime">&#39;static</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_drag_finish&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drag_finish</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">success</span>: <span class="ident">bool</span>, <span class="ident">del</span>: <span class="ident">bool</span>, <span class="ident">time_</span>: <span class="ident">u32</span>);
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_16&quot;</span>)))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_drag_cancel&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drag_cancel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_drag_get_source_widget&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drag_get_source_widget</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>;
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_drag_set_icon_default&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drag_set_icon_default</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_drag_set_icon_gicon&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drag_set_icon_gicon</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gio</span>::<span class="ident">Icon</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">icon</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">hot_x</span>: <span class="ident">i32</span>, <span class="ident">hot_y</span>: <span class="ident">i32</span>);
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_drag_set_icon_name&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drag_set_icon_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">icon_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">hot_x</span>: <span class="ident">i32</span>, <span class="ident">hot_y</span>: <span class="ident">i32</span>);
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_drag_set_icon_pixubf&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drag_set_icon_pixbuf</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pixbuf</span>: <span class="kw-2">&amp;</span><span class="ident">gdk_pixbuf</span>::<span class="ident">Pixbuf</span>, <span class="ident">hot_x</span>: <span class="ident">i32</span>, <span class="ident">hot_y</span>: <span class="ident">i32</span>);
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_drag_set_icon_stock&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drag_set_icon_stock</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stock_id</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">hot_x</span>: <span class="ident">i32</span>, <span class="ident">hot_y</span>: <span class="ident">i32</span>);
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_drag_set_icon_surface&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drag_set_icon_surface</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">surface</span>: <span class="kw-2">&amp;</span><span class="ident">cairo</span>::<span class="ident">Surface</span>);
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_drag_set_icon_widget&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">drag_set_icon_widget</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">hot_x</span>: <span class="ident">i32</span>, <span class="ident">hot_y</span>: <span class="ident">i32</span>);
 }
 

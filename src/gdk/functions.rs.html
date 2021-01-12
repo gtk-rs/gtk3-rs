@@ -86,6 +86,10 @@
 <span id="83">83</span>
 <span id="84">84</span>
 <span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
+<span id="89">89</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -94,6 +98,7 @@
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">packed</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GRange</span>(<span class="kw">pub</span> <span class="ident">i32</span>, <span class="kw">pub</span> <span class="ident">i32</span>);
 
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pango_layout_line_get_clip_region&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_layout_line_get_clip_region</span>(
     <span class="ident">line</span>: <span class="kw-2">&amp;</span><span class="ident">pango</span>::<span class="ident">LayoutLine</span>,
     <span class="ident">x_origin</span>: <span class="ident">i32</span>,
@@ -114,6 +119,7 @@
     }
 }
 
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_pango_layout_get_clip_region&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pango_layout_get_clip_region</span>(
     <span class="ident">layout</span>: <span class="kw-2">&amp;</span><span class="ident">pango</span>::<span class="ident">Layout</span>,
     <span class="ident">x_origin</span>: <span class="ident">i32</span>,
@@ -134,6 +140,7 @@
     }
 }
 
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_setting_get&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">setting_get</span>(<span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Value</span><span class="op">&gt;</span> {
     <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
     <span class="kw">unsafe</span> {
@@ -150,6 +157,7 @@
     }
 }
 
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_property_change&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">property_change</span>(
     <span class="ident">window</span>: <span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">Window</span>,
     <span class="ident">property</span>: <span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">Atom</span>,

@@ -67,6 +67,10 @@
 <span id="64">64</span>
 <span id="65">65</span>
 <span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -83,6 +87,7 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the initialized `Quad`</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_quad_init_from_points&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">init_from_points</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">points</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">Point</span>; <span class="number">4</span>]) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">points</span> <span class="op">=</span> [
@@ -95,6 +100,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_quad_init&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">p1</span>: <span class="kw-2">&amp;</span><span class="ident">Point</span>, <span class="ident">p2</span>: <span class="kw-2">&amp;</span><span class="ident">Point</span>, <span class="ident">p3</span>: <span class="kw-2">&amp;</span><span class="ident">Point</span>, <span class="ident">p4</span>: <span class="kw-2">&amp;</span><span class="ident">Point</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Quad</span> {
         <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
         <span class="kw">unsafe</span> {
@@ -110,6 +116,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_quad_init_from_rect&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_from_rect</span>(<span class="ident">r</span>: <span class="kw-2">&amp;</span><span class="ident">Rect</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Quad</span> {
         <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
         <span class="kw">unsafe</span> {
@@ -119,6 +126,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;graphene_quad_init_from_points&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_from_points</span>(<span class="ident">points</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">Point</span>; <span class="number">4</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Quad</span> {
         <span class="macro">assert_initialized_main_thread</span><span class="macro">!</span>();
         <span class="kw">unsafe</span> {

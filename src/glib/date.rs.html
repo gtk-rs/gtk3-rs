@@ -381,6 +381,49 @@
 <span id="378">378</span>
 <span id="379">379</span>
 <span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -410,6 +453,7 @@
 <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Sync</span> <span class="kw">for</span> <span class="ident">Date</span> {}
 
 <span class="kw">impl</span> <span class="ident">Date</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_valid_dmy&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_dmy</span>(<span class="ident">day</span>: <span class="ident">DateDay</span>, <span class="ident">month</span>: <span class="ident">DateMonth</span>, <span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Date</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">month</span> <span class="op">=</span> <span class="ident">month</span>.<span class="ident">to_glib</span>();
         <span class="kw">unsafe</span> {
@@ -422,6 +466,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_new_julian&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_julian</span>(<span class="ident">julian_day</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Date</span>, <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="self">Self</span>::<span class="ident">valid_julian</span>(<span class="ident">julian_day</span>) {
             <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
@@ -430,6 +475,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_add_days&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_days</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n_days</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">julian_days</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_julian</span>();
         <span class="kw">if</span> <span class="ident">julian_days</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="op">|</span><span class="op">|</span> <span class="ident">n_days</span> <span class="op">&gt;</span> <span class="ident">std</span>::<span class="ident">u32</span>::<span class="ident">MAX</span> <span class="op">-</span> <span class="ident">julian_days</span> {
@@ -442,6 +488,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_add_months&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_months</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n_months</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="comment">// The checks for this function are just a mess in the C code, allowing intermediate</span>
         <span class="comment">// unknown state. So for now, nothing can be done...</span>
@@ -451,6 +498,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_add_years&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_years</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n_years</span>: <span class="ident">u16</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">year</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_year</span>();
         <span class="kw">if</span> <span class="ident">n_years</span> <span class="op">&gt;</span> <span class="ident">std</span>::<span class="ident">u16</span>::<span class="ident">MAX</span> <span class="op">-</span> <span class="ident">year</span> {
@@ -463,6 +511,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_clamp&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clamp</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">min_date</span>: <span class="kw-2">&amp;</span><span class="ident">Date</span>, <span class="ident">max_date</span>: <span class="kw-2">&amp;</span><span class="ident">Date</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">min_date</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">max_date</span> {
             <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;`min_date` must be before `max_date`&quot;</span>))
@@ -478,64 +527,79 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_compare&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">compare</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">rhs</span>: <span class="kw-2">&amp;</span><span class="ident">Date</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_compare</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">rhs</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_days_between&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">days_between</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">date2</span>: <span class="kw-2">&amp;</span><span class="ident">Date</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_days_between</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">date2</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_get_day&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_day</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DateDay</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_day</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_get_day_of_year&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_day_of_year</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_day_of_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_get_iso8601_week_of_year&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_iso8601_week_of_year</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_iso8601_week_of_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_get_julian&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_julian</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_julian</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_get_monday_week_of_year&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_monday_week_of_year</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_monday_week_of_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_get_month&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_month</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DateMonth</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_get_month</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_get_sunday_week_of_year&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_sunday_week_of_year</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_sunday_week_of_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_get_weekday&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_weekday</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DateWeekday</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_get_weekday</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_get_year&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_year</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DateYear</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_year</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_is_first_of_month&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_first_of_month</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_is_first_of_month</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_is_last_of_month&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_last_of_month</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_is_last_of_month</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_order&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">order</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">date2</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Date</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi</span>::<span class="ident">g_date_order</span>(<span class="self">self</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">date2</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>);
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_set_day&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_day</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">day</span>: <span class="ident">DateDay</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="self">Self</span>::<span class="ident">valid_dmy</span>(<span class="ident">day</span>, <span class="self">self</span>.<span class="ident">get_month</span>(), <span class="self">self</span>.<span class="ident">get_year</span>()) {
             <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;invalid day&quot;</span>))
@@ -547,6 +611,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_set_dmy&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_dmy</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
         <span class="ident">day</span>: <span class="ident">DateDay</span>,
@@ -563,6 +628,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_set_julian&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_julian</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">julian_date</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="self">Self</span>::<span class="ident">valid_julian</span>(<span class="ident">julian_date</span>) {
             <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;invalid date&quot;</span>))
@@ -574,6 +640,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_set_month&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_month</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">month</span>: <span class="ident">DateMonth</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="self">Self</span>::<span class="ident">valid_dmy</span>(<span class="self">self</span>.<span class="ident">get_day</span>(), <span class="ident">month</span>, <span class="self">self</span>.<span class="ident">get_year</span>()) {
             <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;invalid month&quot;</span>))
@@ -585,6 +652,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_set_parse&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_parse</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">str</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">c</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">clone</span>();
         <span class="kw">if</span> <span class="op">!</span><span class="kw">unsafe</span> {
@@ -598,6 +666,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_set_time_t&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_time</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">time_</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">c</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">clone</span>();
         <span class="kw">unsafe</span> {
@@ -615,6 +684,7 @@
     <span class="comment">//    unsafe { TODO: call ffi::g_date_set_time_val() }</span>
     <span class="comment">//}</span>
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_set_year&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_year</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="self">Self</span>::<span class="ident">valid_dmy</span>(<span class="self">self</span>.<span class="ident">get_day</span>(), <span class="self">self</span>.<span class="ident">get_month</span>(), <span class="ident">year</span>) {
             <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;invalid year&quot;</span>))
@@ -626,6 +696,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_subtract_days&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">subtract_days</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n_days</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">julian</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_julian</span>();
         <span class="kw">if</span> <span class="ident">julian</span> <span class="op">&gt;</span> <span class="ident">n_days</span> {
@@ -638,6 +709,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_subtract_months&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">subtract_months</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n_months</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="comment">// The checks for this function are just a mess in the C code, allowing intermediate</span>
         <span class="comment">// unknown state. So for now, nothing can be done...</span>
@@ -647,6 +719,7 @@
         <span class="prelude-val">Ok</span>(())
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_subtract_years&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">subtract_years</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">n_years</span>: <span class="ident">u16</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">BoolError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">get_year</span>() <span class="op">&lt;</span> <span class="ident">n_years</span> {
             <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;invalid number of years&quot;</span>))
@@ -658,30 +731,37 @@
         }
     }
 
+    <span class="comment">//#[doc(alias=&quot;g_date_to_struct_tm&quot;)]</span>
     <span class="comment">//pub fn to_struct_tm(&amp;self, tm: /*Unimplemented*/Fundamental: Pointer) {</span>
     <span class="comment">//    unsafe { TODO: call ffi::g_date_to_struct_tm() }</span>
     <span class="comment">//}</span>
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_valid&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valid</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_valid</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_get_days_in_month&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_days_in_month</span>(<span class="ident">month</span>: <span class="ident">DateMonth</span>, <span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_days_in_month</span>(<span class="ident">month</span>.<span class="ident">to_glib</span>(), <span class="ident">year</span>) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_get_monday_weeks_in_year&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_monday_weeks_in_year</span>(<span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_monday_weeks_in_year</span>(<span class="ident">year</span>) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_get_sunday_weeks_in_year&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_sunday_weeks_in_year</span>(<span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_get_sunday_weeks_in_year</span>(<span class="ident">year</span>) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_is_leap_year&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_leap_year</span>(<span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_is_leap_year</span>(<span class="ident">year</span>)) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_strftime&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">strftime</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">format</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">date</span>: <span class="kw-2">&amp;</span><span class="ident">Date</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
         <span class="kw">let</span> <span class="ident">slen</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">usize</span>;
         <span class="kw">unsafe</span> {
@@ -694,26 +774,32 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_valid_day&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valid_day</span>(<span class="ident">day</span>: <span class="ident">DateDay</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_valid_day</span>(<span class="ident">day</span>)) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_valid_dmy&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valid_dmy</span>(<span class="ident">day</span>: <span class="ident">DateDay</span>, <span class="ident">month</span>: <span class="ident">DateMonth</span>, <span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_valid_dmy</span>(<span class="ident">day</span>, <span class="ident">month</span>.<span class="ident">to_glib</span>(), <span class="ident">year</span>)) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_valid_julian&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valid_julian</span>(<span class="ident">julian_date</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_valid_julian</span>(<span class="ident">julian_date</span>)) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_valid_month&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valid_month</span>(<span class="ident">month</span>: <span class="ident">DateMonth</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_valid_month</span>(<span class="ident">month</span>.<span class="ident">to_glib</span>())) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_valid_weekday&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valid_weekday</span>(<span class="ident">weekday</span>: <span class="ident">DateWeekday</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_valid_weekday</span>(<span class="ident">weekday</span>.<span class="ident">to_glib</span>())) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_valid_year&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">valid_year</span>(<span class="ident">year</span>: <span class="ident">DateYear</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_valid_year</span>(<span class="ident">year</span>)) }
     }

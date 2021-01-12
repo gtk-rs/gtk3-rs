@@ -260,6 +260,16 @@
 <span id="257">257</span>
 <span id="258">258</span>
 <span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -298,14 +308,17 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ByteArray</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ByteArray</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_byte_array_new</span>()) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_sized_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_capacity</span>(<span class="ident">size</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ByteArray</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_byte_array_sized_new</span>(<span class="ident">size</span> <span class="kw">as</span> <span class="ident">u32</span>)) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_free_to_bytes&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_gbytes</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Bytes</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">ManuallyDrop</span>::<span class="ident">new</span>(<span class="self">self</span>);
@@ -315,6 +328,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_append&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">append</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>();
         <span class="kw">unsafe</span> {
@@ -327,6 +341,7 @@
         <span class="self">self</span>
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_prepend&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prepend</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="question-mark">?</span><span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>();
         <span class="kw">unsafe</span> {
@@ -339,28 +354,33 @@
         <span class="self">self</span>
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_remove_index&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_index</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi</span>::<span class="ident">g_byte_array_remove_index</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">index</span> <span class="kw">as</span> <span class="ident">u32</span>);
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_remove_index_fast&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_index_fast</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi</span>::<span class="ident">g_byte_array_remove_index_fast</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">index</span> <span class="kw">as</span> <span class="ident">u32</span>);
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_remove_range&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_range</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>, <span class="ident">length</span>: <span class="ident">usize</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi</span>::<span class="ident">g_byte_array_remove_range</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">index</span> <span class="kw">as</span> <span class="ident">u32</span>, <span class="ident">length</span> <span class="kw">as</span> <span class="ident">u32</span>);
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_set_size&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">size</span>: <span class="ident">usize</span>) {
         <span class="ident">ffi</span>::<span class="ident">g_byte_array_set_size</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">size</span> <span class="kw">as</span> <span class="ident">u32</span>);
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_byte_array_sort_with_data&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sort</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">u8</span>, <span class="kw-2">&amp;</span><span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ordering</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">compare_func</span>: <span class="ident">F</span>) {
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">compare_func_trampoline</span>(
             <span class="ident">a</span>: <span class="ident">ffi</span>::<span class="ident">gconstpointer</span>,

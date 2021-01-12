@@ -1043,6 +1043,35 @@
 <span id="1040">1040</span>
 <span id="1041">1041</span>
 <span id="1042">1042</span>
+<span id="1043">1043</span>
+<span id="1044">1044</span>
+<span id="1045">1045</span>
+<span id="1046">1046</span>
+<span id="1047">1047</span>
+<span id="1048">1048</span>
+<span id="1049">1049</span>
+<span id="1050">1050</span>
+<span id="1051">1051</span>
+<span id="1052">1052</span>
+<span id="1053">1053</span>
+<span id="1054">1054</span>
+<span id="1055">1055</span>
+<span id="1056">1056</span>
+<span id="1057">1057</span>
+<span id="1058">1058</span>
+<span id="1059">1059</span>
+<span id="1060">1060</span>
+<span id="1061">1061</span>
+<span id="1062">1062</span>
+<span id="1063">1063</span>
+<span id="1064">1064</span>
+<span id="1065">1065</span>
+<span id="1066">1066</span>
+<span id="1067">1067</span>
+<span id="1068">1068</span>
+<span id="1069">1069</span>
+<span id="1070">1070</span>
+<span id="1071">1071</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -1139,6 +1168,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>((<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>).<span class="ident">flags</span>) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_get_blurb&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_blurb</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_get_blurb</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
@@ -1147,6 +1177,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_get_default_value&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_default_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Value</span> {
         <span class="kw">unsafe</span> {
             <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_get_default_value</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)
@@ -1154,6 +1185,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_get_name&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_name</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_get_name</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
@@ -1164,6 +1196,7 @@
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_46&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_46&quot;</span>)))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_get_name_quark&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_name_quark</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">Quark</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_get_name_quark</span>(
@@ -1172,6 +1205,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_get_nick&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_nick</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">CStr</span>::<span class="ident">from_ptr</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_get_nick</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
@@ -1184,6 +1218,7 @@
     <span class="comment">//    unsafe { TODO: call gobject_ffi::g_param_spec_get_qdata() }</span>
     <span class="comment">//}</span>
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_get_redirect_target&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_redirect_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ParamSpec</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_get_redirect_target</span>(
@@ -1204,6 +1239,7 @@
     <span class="comment">//    unsafe { TODO: call gobject_ffi::g_param_spec_steal_qdata() }</span>
     <span class="comment">//}</span>
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_boolean&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">boolean</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1222,6 +1258,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_boxed&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">boxed</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1240,6 +1277,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_char&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">char</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1262,6 +1300,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_double&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">double</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1284,6 +1323,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_enum&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">enum_</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1304,6 +1344,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_flags&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flags</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1324,6 +1365,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_float&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">float</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1346,6 +1388,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_gtype&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gtype</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1364,6 +1407,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_int&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">int</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1386,6 +1430,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_int64&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">int64</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1408,6 +1453,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_long&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">long</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1430,6 +1476,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_object&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">object</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1448,6 +1495,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_override&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">override_</span>(<span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">overridden</span>: <span class="kw-2">&amp;</span><span class="ident">ParamSpec</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_override</span>(
@@ -1457,6 +1505,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_param&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">param</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1475,6 +1524,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_pointer&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pointer</span>(<span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">blurb</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">flags</span>: <span class="ident">ParamFlags</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ParamSpec</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_none</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_param_spec_pointer</span>(
@@ -1486,6 +1536,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_string&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">string</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1505,6 +1556,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_uchar&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">uchar</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1527,6 +1579,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_uint&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">uint</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1549,6 +1602,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_uint64&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">uint64</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1571,6 +1625,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_ulong&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ulong</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1593,6 +1648,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_unichar&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unichar</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1611,6 +1667,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_value_array&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value_array</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -1629,6 +1686,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_param_spec_variant&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">variant</span>(
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">nick</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,

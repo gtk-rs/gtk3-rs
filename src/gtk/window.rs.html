@@ -31,6 +31,7 @@
 <span id="28">28</span>
 <span id="29">29</span>
 <span id="30">30</span>
+<span id="31">31</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -42,6 +43,7 @@
     <span class="doccomment">/// Presents a window to the user. This function should not be used</span>
     <span class="doccomment">/// as when it is called, it is too late to gather a valid timestamp</span>
     <span class="doccomment">/// to allow focus stealing prevention to work correctly.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_window_present&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">present</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
 }
 

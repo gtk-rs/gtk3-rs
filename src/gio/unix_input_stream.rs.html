@@ -69,6 +69,9 @@
 <span id="66">66</span>
 <span id="67">67</span>
 <span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -97,6 +100,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a new `UnixInputStream`</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_input_stream_new&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">IntoRawFd</span><span class="op">&gt;</span>(<span class="ident">fd</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UnixInputStream</span> {
         <span class="kw">let</span> <span class="ident">fd</span> <span class="op">=</span> <span class="ident">fd</span>.<span class="ident">into_raw_fd</span>();
         <span class="kw">let</span> <span class="ident">close_fd</span> <span class="op">=</span> <span class="bool-val">true</span>.<span class="ident">to_glib</span>();
@@ -116,12 +120,14 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The file descriptor of `self`</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_input_stream_get_fd&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">get_fd</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">FromRawFd</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>;
     <span class="doccomment">/// Sets whether the file descriptor of `self` shall be closed</span>
     <span class="doccomment">/// when the stream is closed.</span>
     <span class="doccomment">/// ## `close_fd`</span>
     <span class="doccomment">/// `true` to close the file descriptor when done</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">missing_safety_doc</span>)]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_unix_input_stream_set_close_fd&quot;</span>)]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_close_fd</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">close_fd</span>: <span class="ident">bool</span>);
 }
 

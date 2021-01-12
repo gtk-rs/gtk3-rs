@@ -43,6 +43,9 @@
 <span id="40">40</span>
 <span id="41">41</span>
 <span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -54,8 +57,10 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ColorButtonExtManual</span>: <span class="lifetime">&#39;static</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_color_button_new_with_color&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">with_color</span>(<span class="ident">color</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">Color</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ColorButton</span>;
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_color_button_get_color&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">get_color</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">gdk</span>::<span class="ident">Color</span>;
 
     <span class="doccomment">/// Sets the current color to be `color`.</span>
@@ -65,6 +70,7 @@
     <span class="doccomment">/// Use `ColorChooser::set_rgba` instead.</span>
     <span class="doccomment">/// ## `color`</span>
     <span class="doccomment">/// A `gdk::Color` to set the current color with</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gtk_color_button_set_color&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">set_color</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">color</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">Color</span>);
 }
 

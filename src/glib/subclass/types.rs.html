@@ -763,6 +763,7 @@
 <span id="760">760</span>
 <span id="761">761</span>
 <span id="762">762</span>
+<span id="763">763</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -785,6 +786,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectSubclass</span><span class="op">&gt;</span> <span class="ident">InitializingType</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Adds an interface implementation for `I` to the type.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_type_add_interface_static&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_interface</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="ident">IsImplementable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">iface_info</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">GInterfaceInfo</span> {

@@ -91,6 +91,10 @@
 <span id="88">88</span>
 <span id="89">89</span>
 <span id="90">90</span>
+<span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
+<span id="94">94</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -112,6 +116,7 @@
     <span class="doccomment">/// ## `attr`</span>
     <span class="doccomment">/// the attribute to insert. Ownership of this</span>
     <span class="doccomment">///  value is assumed by the list.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_list_change&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attr</span>: <span class="ident">Attribute</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi</span>::<span class="ident">pango_attr_list_change</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">attr</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
@@ -133,6 +138,7 @@
     <span class="doccomment">/// `true` if the lists are equal, `false` if they aren&#39;t.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_46&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_46&quot;</span>)))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_list_equal&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">equal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other_list</span>: <span class="kw-2">&amp;</span><span class="ident">AttrList</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">pango_attr_list_equal</span>(
@@ -148,6 +154,7 @@
     <span class="doccomment">/// ## `attr`</span>
     <span class="doccomment">/// the attribute to insert. Ownership of this</span>
     <span class="doccomment">///  value is assumed by the list.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_list_insert&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attr</span>: <span class="ident">Attribute</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi</span>::<span class="ident">pango_attr_list_insert</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">attr</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>);
@@ -161,6 +168,7 @@
     <span class="doccomment">/// ## `attr`</span>
     <span class="doccomment">/// the attribute to insert. Ownership of this</span>
     <span class="doccomment">///  value is assumed by the list.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;pango_attr_list_insert_before&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert_before</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attr</span>: <span class="ident">Attribute</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi</span>::<span class="ident">pango_attr_list_insert_before</span>(
