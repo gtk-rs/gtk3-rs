@@ -7,7 +7,6 @@ use glib::{Cast, GString, IsA, ObjectExt, Quark};
 use once_cell::sync::Lazy;
 use std::collections::HashMap;
 
-
 pub trait ActionMapImpl: ObjectImpl {
     fn lookup_action(&self, action_map: &Self::Type, action_name: &str) -> Option<Action>;
     fn add_action(&self, action_map: &Self::Type, action: &Action);
@@ -35,7 +34,7 @@ static ACTION_MAP_LOOKUP_ACTION_QUARK: Lazy<Quark> =
 
 unsafe extern "C" fn action_map_lookup_action<T: ActionMapImpl>(
     action_map: *mut ffi::GActionMap,
-    action_nameptr: *const libc::c_char
+    action_nameptr: *const libc::c_char,
 ) -> *mut ffi::GAction {
     let instance = &*(action_map as *mut T::Instance);
     let action_name = GString::from_glib_borrow(action_nameptr);
@@ -60,22 +59,28 @@ unsafe extern "C" fn action_map_lookup_action<T: ActionMapImpl>(
 
 unsafe extern "C" fn action_map_add_action<T: ActionMapImpl>(
     action_map: *mut ffi::GActionMap,
-    actionptr: *mut ffi::GAction
-){
+    actionptr: *mut ffi::GAction,
+) {
     let instance = &*(action_map as *mut T::Instance);
     let imp = instance.get_impl();
     let action: Borrowed<Action> = from_glib_borrow(actionptr);
 
-    imp.add_action(from_glib_borrow::<_, ActionMap>(action_map).unsafe_cast_ref(), &action);
+    imp.add_action(
+        from_glib_borrow::<_, ActionMap>(action_map).unsafe_cast_ref(),
+        &action,
+    );
 }
 
 unsafe extern "C" fn action_map_remove_action<T: ActionMapImpl>(
     action_map: *mut ffi::GActionMap,
-    action_nameptr: *const libc::c_char
-){
+    action_nameptr: *const libc::c_char,
+) {
     let instance = &*(action_map as *mut T::Instance);
     let imp = instance.get_impl();
     let action_name = GString::from_glib_borrow(action_nameptr);
 
-    imp.remove_action(from_glib_borrow::<_, ActionMap>(action_map).unsafe_cast_ref(), &action_name);
+    imp.remove_action(
+        from_glib_borrow::<_, ActionMap>(action_map).unsafe_cast_ref(),
+        &action_name,
+    );
 }
