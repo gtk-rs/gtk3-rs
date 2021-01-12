@@ -21,7 +21,7 @@ name = "gdkx11"
 [features]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs", "gdk/purge-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs", "gdk/embed-lgpl-docs"]
-dox = ["gdk/dox"]
+dox = ["gdk/dox", "ffi/dox"]
 v3_16 = ["ffi/v3_16", "gdk/v3_16"]
 v3_22 = ["v3_16", "ffi/v3_22", "gdk/v3_22"]
 v3_24 = ["v3_22", "ffi/v3_24_2"]
