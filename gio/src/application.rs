@@ -11,6 +11,7 @@ use std::boxed::Box as Box_;
 use std::mem::transmute;
 
 pub trait ApplicationExtManual {
+    #[doc(alias = "g_application_run")]
     fn run(&self, argv: &[String]) -> i32;
     fn connect_open<F: Fn(&Self, &[File], &str) + 'static>(&self, f: F) -> SignalHandlerId;
 }

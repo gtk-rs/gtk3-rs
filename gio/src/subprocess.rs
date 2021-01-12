@@ -10,6 +10,7 @@ use std::pin::Pin;
 use std::ptr;
 
 impl Subprocess {
+    #[doc(alias = "g_subprocess_communicate_utf8_async")]
     pub fn communicate_utf8_async<
         R: FnOnce(Result<(Option<GString>, Option<GString>), glib::Error>) + Send + 'static,
         C: IsA<Cancellable>,

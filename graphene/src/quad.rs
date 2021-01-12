@@ -6,6 +6,7 @@ use crate::Rect;
 use glib::translate::*;
 
 impl Quad {
+    #[doc(alias = "graphene_quad_init_from_points")]
     pub fn init_from_points(&mut self, points: &[&Point; 4]) {
         unsafe {
             let points = [
@@ -18,6 +19,7 @@ impl Quad {
         }
     }
 
+    #[doc(alias = "graphene_quad_init")]
     pub fn new(p1: &Point, p2: &Point, p3: &Point, p4: &Point) -> Quad {
         assert_initialized_main_thread!();
         unsafe {
@@ -33,6 +35,7 @@ impl Quad {
         }
     }
 
+    #[doc(alias = "graphene_quad_init_from_rect")]
     pub fn new_from_rect(r: &Rect) -> Quad {
         assert_initialized_main_thread!();
         unsafe {
@@ -42,6 +45,7 @@ impl Quad {
         }
     }
 
+    #[doc(alias = "graphene_quad_init_from_points")]
     pub fn new_from_points(points: &[&Point; 4]) -> Quad {
         assert_initialized_main_thread!();
         unsafe {

@@ -5,6 +5,7 @@ use glib::object::IsA;
 use glib::translate::*;
 
 pub trait GtkWindowExtManual: 'static {
+    #[doc(alias = "gtk_window_present")]
     fn present(&self);
 }
 

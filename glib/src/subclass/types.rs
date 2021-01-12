@@ -19,6 +19,7 @@ pub struct InitializingType<T>(pub(crate) Type, pub(crate) marker::PhantomData<*
 
 impl<T: ObjectSubclass> InitializingType<T> {
     /// Adds an interface implementation for `I` to the type.
+    #[doc(alias = "g_type_add_interface_static")]
     pub fn add_interface<I: IsImplementable<T>>(&mut self) {
         unsafe {
             let iface_info = gobject_ffi::GInterfaceInfo {

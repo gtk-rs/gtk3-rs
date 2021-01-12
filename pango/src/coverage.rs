@@ -28,25 +28,30 @@ glib::wrapper! {
 }
 
 impl Coverage {
+    #[doc(alias = "pango_coverage_new")]
     pub fn new() -> Coverage {
         unsafe { from_glib_full(ffi::pango_coverage_new()) }
     }
 
+    #[doc(alias = "pango_coverage_copy")]
     pub fn copy(&self) -> Option<Coverage> {
         unsafe { from_glib_full(ffi::pango_coverage_copy(self.to_glib_none().0)) }
     }
 
+    #[doc(alias = "pango_coverage_get")]
     pub fn get(&self, index_: i32) -> CoverageLevel {
         unsafe { from_glib(ffi::pango_coverage_get(self.to_glib_none().0, index_)) }
     }
 
     #[cfg_attr(feature = "v1_44", deprecated)]
+    #[doc(alias = "pango_coverage_max")]
     pub fn max(&self, other: &Coverage) {
         unsafe {
             ffi::pango_coverage_max(self.to_glib_none().0, other.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "pango_coverage_set")]
     pub fn set(&self, index_: i32, level: CoverageLevel) {
         unsafe {
             ffi::pango_coverage_set(self.to_glib_none().0, index_, level.to_glib());
@@ -54,6 +59,7 @@ impl Coverage {
     }
 
     #[cfg_attr(feature = "v1_44", deprecated)]
+    #[doc(alias = "pango_coverage_to_bytes")]
     pub fn to_bytes(&self) -> Vec<u8> {
         unsafe {
             let mut bytes = ptr::null_mut();
@@ -64,6 +70,7 @@ impl Coverage {
     }
 
     #[cfg_attr(feature = "v1_44", deprecated)]
+    #[doc(alias = "pango_coverage_from_bytes")]
     pub fn from_bytes(bytes: &[u8]) -> Option<Coverage> {
         let n_bytes = bytes.len() as i32;
         unsafe {

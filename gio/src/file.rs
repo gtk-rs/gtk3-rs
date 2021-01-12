@@ -9,6 +9,7 @@ use std::pin::Pin;
 use std::ptr;
 
 pub trait FileExtManual: Sized {
+    #[doc(alias = "g_file_replace_contents_async")]
     fn replace_contents_async<
         B: AsRef<[u8]> + Send + 'static,
         R: FnOnce(Result<(B, glib::GString), (B, glib::Error)>) + Send + 'static,

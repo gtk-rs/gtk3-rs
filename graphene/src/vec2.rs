@@ -4,12 +4,14 @@ use crate::Vec2;
 use glib::translate::*;
 
 impl Vec2 {
+    #[doc(alias = "graphene_vec2_init_from_float")]
     pub fn init_from_float(&mut self, src: &[f32; 2]) {
         unsafe {
             ffi::graphene_vec2_init_from_float(self.to_glib_none_mut().0, src as *const _);
         }
     }
 
+    #[doc(alias = "graphene_vec2_init")]
     pub fn new(x: f32, y: f32) -> Vec2 {
         assert_initialized_main_thread!();
         unsafe {
@@ -19,6 +21,7 @@ impl Vec2 {
         }
     }
 
+    #[doc(alias = "graphene_vec2_init_from_vec2")]
     pub fn new_from_vec2(src: &Vec2) -> Vec2 {
         assert_initialized_main_thread!();
         unsafe {
@@ -28,6 +31,7 @@ impl Vec2 {
         }
     }
 
+    #[doc(alias = "graphene_vec2_init_from_float")]
     pub fn new_from_float(src: &[f32; 2]) -> Vec2 {
         assert_initialized_main_thread!();
         unsafe {
@@ -37,6 +41,7 @@ impl Vec2 {
         }
     }
 
+    #[doc(alias = "graphene_vec2_to_float")]
     pub fn to_float(&self) -> [f32; 2] {
         unsafe {
             let mut out = std::mem::uninitialized();

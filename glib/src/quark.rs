@@ -9,11 +9,13 @@ use std::fmt;
 pub struct Quark(ffi::GQuark);
 
 impl Quark {
+    #[doc(alias = "g_quark_from_string")]
     pub fn from_string(s: &str) -> Quark {
         unsafe { from_glib(ffi::g_quark_from_string(s.to_glib_none().0)) }
     }
 
     #[allow(clippy::trivially_copy_pass_by_ref)]
+    #[doc(alias = "g_quark_to_string")]
     pub fn to_string<'a>(&self) -> &'a str {
         unsafe {
             CStr::from_ptr(ffi::g_quark_to_string(self.to_glib()))
@@ -22,6 +24,7 @@ impl Quark {
         }
     }
 
+    #[doc(alias = "g_quark_try_string")]
     pub fn try_string(s: &str) -> Option<Quark> {
         unsafe {
             match ffi::g_quark_try_string(s.to_glib_none().0) {

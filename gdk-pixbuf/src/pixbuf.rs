@@ -16,6 +16,7 @@ use std::future::Future;
 use crate::{Colorspace, Pixbuf, PixbufFormat};
 
 impl Pixbuf {
+    #[doc(alias = "gdk_pixbuf_new_from_data")]
     pub fn from_mut_slice<T: AsMut<[u8]>>(
         data: T,
         colorspace: Colorspace,
@@ -84,6 +85,8 @@ impl Pixbuf {
         Pixbuf::from_stream(&gio::ReadInputStream::new(r), None::<&gio::Cancellable>)
     }
 
+    #[doc(alias = "gdk_pixbuf_new_from_file")]
+    #[doc(alias = "gdk_pixbuf_new_from_file_utf8")]
     pub fn from_file<T: AsRef<Path>>(filename: T) -> Result<Pixbuf, Error> {
         #[cfg(not(windows))]
         use ffi::gdk_pixbuf_new_from_file;
@@ -101,6 +104,8 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_new_from_file_at_size")]
+    #[doc(alias = "gdk_pixbuf_new_from_file_at_size_utf8")]
     pub fn from_file_at_size<T: AsRef<Path>>(
         filename: T,
         width: i32,
@@ -127,6 +132,8 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_new_from_file_at_scale")]
+    #[doc(alias = "gdk_pixbuf_new_from_file_at_scale_utf8")]
     pub fn from_file_at_scale<T: AsRef<Path>>(
         filename: T,
         width: i32,
@@ -155,6 +162,7 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_new_from_stream_async")]
     pub fn from_stream_async<
         P: IsA<gio::InputStream>,
         Q: IsA<gio::Cancellable>,
@@ -208,6 +216,7 @@ impl Pixbuf {
         }))
     }
 
+    #[doc(alias = "gdk_pixbuf_new_from_stream_at_scale_async")]
     pub fn from_stream_at_scale_async<
         P: IsA<gio::InputStream>,
         Q: IsA<gio::Cancellable>,
@@ -279,6 +288,7 @@ impl Pixbuf {
 
     #[allow(clippy::mut_from_ref)]
     #[allow(clippy::missing_safety_doc)]
+    #[doc(alias = "gdk_pixbuf_get_pixels_with_length")]
     pub unsafe fn get_pixels(&self) -> &mut [u8] {
         let mut len = 0;
         let ptr = ffi::gdk_pixbuf_get_pixels_with_length(self.to_glib_none().0, &mut len);
@@ -313,6 +323,7 @@ impl Pixbuf {
         }
     }
 
+    #[doc(alias = "gdk_pixbuf_get_file_info")]
     pub fn get_file_info<T: AsRef<Path>>(filename: T) -> Option<(PixbufFormat, i32, i32)> {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
@@ -336,6 +347,7 @@ impl Pixbuf {
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+    #[doc(alias = "gdk_pixbuf_get_file_info_async")]
     pub fn get_file_info_async<
         P: IsA<gio::Cancellable>,
         Q: FnOnce(Result<Option<(PixbufFormat, i32, i32)>, Error>) + Send + 'static,
@@ -405,6 +417,7 @@ impl Pixbuf {
         }))
     }
 
+    #[doc(alias = "gdk_pixbuf_save_to_bufferv")]
     pub fn save_to_bufferv(&self, type_: &str, options: &[(&str, &str)]) -> Result<Vec<u8>, Error> {
         unsafe {
             let mut buffer = ptr::null_mut();
@@ -465,6 +478,7 @@ impl Pixbuf {
 
     #[cfg(any(feature = "v2_36", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_36")))]
+    #[doc(alias = "gdk_pixbuf_save_to_streamv_async")]
     pub fn save_to_streamv_async<
         P: IsA<gio::OutputStream>,
         Q: IsA<gio::Cancellable>,
@@ -548,6 +562,7 @@ impl Pixbuf {
         }))
     }
 
+    #[doc(alias = "gdk_pixbuf_savev")]
     pub fn savev<T: AsRef<Path>>(
         &self,
         filename: T,

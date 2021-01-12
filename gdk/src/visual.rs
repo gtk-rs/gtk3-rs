@@ -5,6 +5,7 @@ use std::ptr;
 use std::slice;
 
 impl Visual {
+    #[doc(alias = "gdk_query_depths")]
     pub fn query_depths() -> Vec<i32> {
         assert_initialized_main_thread!();
         let mut ptr = ptr::null_mut();

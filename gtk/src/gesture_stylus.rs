@@ -9,6 +9,7 @@ use glib::translate::*;
 pub trait GestureStylusExtManual: 'static {
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[doc(alias = "gtk_gesture_stylus_get_axes")]
     fn get_axes(&self, axes: Vec<AxisUse>) -> Option<Vec<f64>>;
 }
 

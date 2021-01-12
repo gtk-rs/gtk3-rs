@@ -16,6 +16,7 @@ pub struct Rectangle {
 }
 
 impl Rectangle {
+    #[doc(alias = "gdk_rectangle_intersect")]
     pub fn intersect(&self, other: &Rectangle) -> Option<Rectangle> {
         unsafe {
             let mut ret = Rectangle::uninitialized();
@@ -31,6 +32,7 @@ impl Rectangle {
         }
     }
 
+    #[doc(alias = "gdk_rectangle_union")]
     pub fn union(&self, other: &Rectangle) -> Rectangle {
         unsafe {
             let mut ret = Rectangle::uninitialized();

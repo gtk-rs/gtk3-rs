@@ -44,31 +44,37 @@ impl ToGlib for Key {
 }
 
 impl Key {
+    #[doc(alias = "gdk_keyval_to_unicode")]
     pub fn to_unicode(&self) -> Option<char> {
         skip_assert_initialized!();
         unsafe { ::std::char::from_u32(ffi::gdk_keyval_to_unicode(**self)).filter(|x| *x != '\0') }
     }
 
+    #[doc(alias = "gdk_keyval_name")]
     pub fn name(&self) -> Option<GString> {
         skip_assert_initialized!();
         unsafe { from_glib_none(ffi::gdk_keyval_name(**self as c_uint)) }
     }
 
+    #[doc(alias = "gdk_keyval_is_upper")]
     pub fn is_upper(&self) -> bool {
         skip_assert_initialized!();
         unsafe { from_glib(ffi::gdk_keyval_is_upper(**self)) }
     }
 
+    #[doc(alias = "gdk_keyval_is_lower")]
     pub fn is_lower(&self) -> bool {
         skip_assert_initialized!();
         unsafe { from_glib(ffi::gdk_keyval_is_lower(**self)) }
     }
 
+    #[doc(alias = "gdk_keyval_to_upper")]
     pub fn to_upper(&self) -> Self {
         skip_assert_initialized!();
         unsafe { ffi::gdk_keyval_to_upper(**self) }.into()
     }
 
+    #[doc(alias = "gdk_keyval_to_lower")]
     pub fn to_lower(&self) -> Self {
         skip_assert_initialized!();
         unsafe { ffi::gdk_keyval_to_lower(**self) }.into()

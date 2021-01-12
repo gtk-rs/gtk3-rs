@@ -106,6 +106,7 @@ impl GlibLogger {
         }
     }
 
+    #[doc(alias = "g_log")]
     fn write_log(domain: Option<&str>, level: rs_log::Level, message: &str) {
         unsafe {
             crate::ffi::g_log(
@@ -118,6 +119,7 @@ impl GlibLogger {
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+    #[doc(alias = "g_log_structured_standard")]
     fn write_log_structured(
         domain: Option<&str>,
         level: rs_log::Level,

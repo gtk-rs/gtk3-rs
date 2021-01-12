@@ -13,6 +13,7 @@ use socket::{AsRawFd, FromRawFd, IntoRawFd, RawFd};
 
 impl UnixInputStream {
     #[allow(clippy::missing_safety_doc)]
+    #[doc(alias = "g_unix_input_stream_new")]
     pub unsafe fn new<T: IntoRawFd>(fd: T) -> UnixInputStream {
         let fd = fd.into_raw_fd();
         let close_fd = true.to_glib();
@@ -27,8 +28,10 @@ impl AsRawFd for UnixInputStream {
 }
 
 pub trait UnixInputStreamExtManual: Sized {
+    #[doc(alias = "g_unix_input_stream_get_fd")]
     fn get_fd<T: FromRawFd>(&self) -> T;
     #[allow(clippy::missing_safety_doc)]
+    #[doc(alias = "g_unix_input_stream_set_close_fd")]
     unsafe fn set_close_fd(&self, close_fd: bool);
 }
 

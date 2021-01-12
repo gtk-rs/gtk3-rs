@@ -27,6 +27,7 @@ unsafe impl Sync for Error {}
 
 impl Error {
     /// Creates an error with supplied error enum variant and message.
+    #[doc(alias = "g_error_new_literal")]
     pub fn new<T: ErrorDomain>(error: T, message: &str) -> Error {
         unsafe {
             from_glib_full(ffi::g_error_new_literal(

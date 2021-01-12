@@ -37,6 +37,7 @@ impl<'a> UnixSocketAddressPath<'a> {
 }
 
 impl UnixSocketAddress {
+    #[doc(alias = "g_unix_socket_address_new")]
     pub fn new(path: &path::Path) -> UnixSocketAddress {
         unsafe {
             SocketAddress::from_glib_full(ffi::g_unix_socket_address_new(path.to_glib_none().0))
@@ -44,6 +45,7 @@ impl UnixSocketAddress {
         }
     }
 
+    #[doc(alias = "g_unix_socket_address_new_with_type")]
     pub fn with_type(address_type: UnixSocketAddressPath) -> Self {
         use self::UnixSocketAddressPath::*;
 
@@ -67,6 +69,7 @@ impl UnixSocketAddress {
 }
 
 pub trait UnixSocketAddressExtManual {
+    #[doc(alias = "g_unix_socket_address_get_path")]
     fn get_path(&self) -> Option<UnixSocketAddressPath>;
 }
 

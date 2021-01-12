@@ -12,6 +12,7 @@ use std::os::unix::io::{AsRawFd, IntoRawFd, RawFd};
 use socket::{AsRawFd, IntoRawFd, RawFd};
 
 impl UnixFDList {
+    #[doc(alias = "g_unix_fd_list_new_from_array")]
     pub fn from_array<T>(fds: T) -> UnixFDList
     where
         T: IntoIterator,
@@ -28,12 +29,16 @@ impl UnixFDList {
 }
 
 pub trait UnixFDListExtManual: Sized {
+    #[doc(alias = "g_unix_fd_list_append")]
     fn append<T: AsRawFd>(&self, fd: T) -> Result<i32, glib::Error>;
 
+    #[doc(alias = "g_unix_fd_list_get")]
     fn get(&self, index_: i32) -> Result<RawFd, glib::Error>;
 
+    #[doc(alias = "g_unix_fd_list_peek_fds")]
     fn peek_fds(&self) -> Vec<RawFd>;
 
+    #[doc(alias = "g_unix_fd_list_steal_fds")]
     fn steal_fds(&self) -> Vec<RawFd>;
 }
 

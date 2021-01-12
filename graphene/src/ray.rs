@@ -6,6 +6,7 @@ use crate::Vec3;
 use glib::translate::*;
 
 impl Ray {
+    #[doc(alias = "graphene_ray_init")]
     pub fn new(origin: Option<&Point3D>, direction: Option<&Vec3>) -> Ray {
         assert_initialized_main_thread!();
         unsafe {
@@ -15,6 +16,7 @@ impl Ray {
         }
     }
 
+    #[doc(alias = "graphene_ray_init_from_ray")]
     pub fn new_from_ray(src: &Ray) -> Ray {
         assert_initialized_main_thread!();
         unsafe {
@@ -24,6 +26,7 @@ impl Ray {
         }
     }
 
+    #[doc(alias = "graphene_ray_init_from_vec3")]
     pub fn new_from_vec3(origin: Option<&Vec3>, direction: Option<&Vec3>) -> Ray {
         assert_initialized_main_thread!();
         unsafe {

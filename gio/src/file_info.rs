@@ -7,6 +7,7 @@ use std::time::{Duration, SystemTime};
 
 impl FileInfo {
     #[cfg_attr(feature = "v2_62", deprecated)]
+    #[doc(alias = "g_file_info_get_modification_time")]
     pub fn get_modification_time(&self) -> SystemTime {
         unsafe {
             let mut result = mem::MaybeUninit::uninit();
@@ -26,6 +27,7 @@ impl FileInfo {
     }
 
     #[cfg_attr(feature = "v2_62", deprecated)]
+    #[doc(alias = "g_file_info_set_modification_time")]
     pub fn set_modification_time(&self, mtime: SystemTime) {
         let diff = mtime
             .duration_since(SystemTime::UNIX_EPOCH)

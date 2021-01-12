@@ -5,7 +5,10 @@ use glib::object::IsA;
 use glib::translate::*;
 
 pub trait TableExtManual: 'static {
+    #[doc(alias = "atk_table_get_selected_columns")]
     fn get_selected_columns(&self) -> Vec<i32>;
+
+    #[doc(alias = "atk_table_get_selected_rows")]
     fn get_selected_rows(&self) -> Vec<i32>;
 }
 

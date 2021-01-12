@@ -5,6 +5,7 @@ use glib::translate::*;
 use std::num::NonZeroU64;
 
 impl FrameTimings {
+    #[doc(alias = "gdk_frame_timings_get_predicted_presentation_time")]
     pub fn get_predicted_presentation_time(&self) -> Option<NonZeroU64> {
         let predicted_presentation_time = unsafe {
             ffi::gdk_frame_timings_get_predicted_presentation_time(self.to_glib_none().0)
@@ -15,6 +16,7 @@ impl FrameTimings {
         NonZeroU64::new(predicted_presentation_time as u64)
     }
 
+    #[doc(alias = "gdk_frame_timings_get_presentation_time")]
     pub fn get_presentation_time(&self) -> Option<NonZeroU64> {
         let presentation_time =
             unsafe { ffi::gdk_frame_timings_get_presentation_time(self.to_glib_none().0) };
@@ -24,6 +26,7 @@ impl FrameTimings {
         NonZeroU64::new(presentation_time as u64)
     }
 
+    #[doc(alias = "gdk_frame_timings_get_refresh_interval")]
     pub fn get_refresh_interval(&self) -> Option<NonZeroU64> {
         let refresh_interval =
             unsafe { ffi::gdk_frame_timings_get_refresh_interval(self.to_glib_none().0) };

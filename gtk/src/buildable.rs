@@ -5,8 +5,10 @@ use glib::translate::*;
 use glib::IsA;
 
 pub trait BuildableExtManual: 'static {
+    #[doc(alias = "gtk_buildable_get_name")]
     fn get_buildable_name(&self) -> Option<String>;
 
+    #[doc(alias = "gtk_buildable_set_name")]
     fn set_buildable_name(&self, name: &str);
 }
 

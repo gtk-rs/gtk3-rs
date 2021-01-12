@@ -26,6 +26,7 @@ use std::ptr;
 #[cfg(not(windows))]
 #[cfg_attr(feature = "dox", doc(cfg(all(feature = "v2_58", not(windows)))))]
 #[allow(clippy::too_many_arguments)]
+#[doc(alias = "g_spawn_async_with_fds")]
 pub fn spawn_async_with_fds<P: AsRef<std::path::Path>, T: AsRawFd, U: AsRawFd, V: AsRawFd>(
     working_directory: P,
     argv: &[&str],
@@ -133,6 +134,7 @@ pub fn spawn_async_with_fds<P: AsRef<std::path::Path>, T: AsRawFd, U: AsRawFd, V
 
 #[cfg(not(windows))]
 #[cfg_attr(feature = "dox", doc(cfg(not(windows))))]
+#[doc(alias = "g_spawn_async_with_pipes")]
 pub fn spawn_async_with_pipes<
     P: AsRef<std::path::Path>,
     T: FromRawFd,
@@ -211,6 +213,7 @@ pub fn spawn_async_with_pipes<
 ///
 /// This returns whether the locale's encoding is UTF-8, and the current
 /// charset if available.
+#[doc(alias = "g_get_charset")]
 pub fn get_charset() -> (bool, Option<GString>) {
     unsafe {
         let mut out_charset = ptr::null();
