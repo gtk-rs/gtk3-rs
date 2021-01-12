@@ -46,3 +46,13 @@ status = "manual"
 [[object]]
 name = "Gio.SocketMsgFlags"
 status = "manual"
+
+[[object]]
+name = "Gio.Win32InputStream"
+status = "manual"
+cfg_condition = "windows"
+
+[[object]]
+name = "Gio.Win32OutputStream"
+status = "manual"
+cfg_condition = "windows"

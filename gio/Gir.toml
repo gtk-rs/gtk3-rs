@@ -1273,3 +1273,16 @@ status = "generate"
     name = "get"
         [object.function.return]
         nullable = false
+
+[[object]]
+name = "Gio.Win32InputStream"
+status = "manual"
+cfg_condition = "windows"
+manual_traits = ["Win32InputStreamExtManual"]
+
+
+[[object]]
+name = "Gio.Win32OutputStream"
+status = "manual"
+cfg_condition = "windows"
+manual_traits = ["Win32OutputStreamExtManual"]
