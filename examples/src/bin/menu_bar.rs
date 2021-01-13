@@ -4,8 +4,8 @@
 //!
 //! /!\ This is different from the system menu bar (which are preferred) available in `gio::Menu`!
 
-use gtk::glib;
 use gtk::prelude::*;
+use gtk::{gio, glib};
 use gtk::{
     AboutDialog, AccelFlags, AccelGroup, ApplicationWindow, CheckMenuItem, IconSize, Image, Label,
     Menu, MenuBar, MenuItem, WindowPosition,
@@ -31,7 +31,7 @@ fn build_ui(application: &gtk::Application) {
     let quit = MenuItem::with_label("Quit");
     let file_item = MenuItem::new();
     let file_box = gtk::Box::new(gtk::Orientation::Horizontal, 0);
-    let file_image = Image::from_file("resources/file.png");
+    let file_image = Image::from_resource("/org/gtk-rs/examples/file.png");
     let file_label = Label::new(Some("File"));
     let folder_item = MenuItem::new();
     let folder_box = gtk::Box::new(gtk::Orientation::Horizontal, 0);
@@ -106,6 +106,8 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
+    gio::resources_register_include!("compiled.gresource").unwrap();
+
     let application = gtk::Application::new(
         Some("com.github.gtk-rs.examples.menu_bar"),
         Default::default(),

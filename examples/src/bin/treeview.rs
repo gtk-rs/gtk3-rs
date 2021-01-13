@@ -3,8 +3,8 @@
 //! This sample demonstrates how to create a `TreeView` with either a `ListStore` or `TreeStore`.
 
 use gtk::gdk_pixbuf::Pixbuf;
-use gtk::glib;
 use gtk::prelude::*;
+use gtk::{gio, glib};
 use gtk::{
     ApplicationWindow, ButtonsType, CellRendererPixbuf, CellRendererText, DialogFlags,
     MessageDialog, MessageType, Orientation, TreeStore, TreeView, TreeViewColumn, WindowPosition,
@@ -61,16 +61,9 @@ fn build_ui(application: &gtk::Application) {
     let renderer2 = CellRendererText::new();
     col.pack_start(&renderer2, true);
     col.add_attribute(&renderer2, "text", 1);
-    let image = Pixbuf::from_file("./resources/eye.png")
+    let image = Pixbuf::from_resource("/org/gtk-rs/examples/eye.png")
         .map_err(|err| {
-            let mut msg = err.to_string();
-            if err.kind() == Some(glib::FileError::Noent) {
-                msg.push_str(
-                    "\nRelaunch this example from the same level \
-                     as the `resources` folder",
-                );
-            }
-
+            let msg = err.to_string();
             glib::idle_add_local(
                 glib::clone!(@weak window => @default-return glib::Continue(false), move || {
                     let dialog = MessageDialog::new(Some(&window), DialogFlags::MODAL,
@@ -122,6 +115,8 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
+    gio::resources_register_include!("compiled.gresource").unwrap();
+
     let application = gtk::Application::new(
         Some("com.github.gtk-rs.examples.treeview"),
         Default::default(),

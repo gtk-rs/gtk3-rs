@@ -1,7 +1,7 @@
 #![cfg_attr(not(feature = "gtk_3_10"), allow(unused_variables, unused_mut))]
 
 use gtk::prelude::*;
-use gtk::{gdk, glib};
+use gtk::{gdk, gio, glib};
 use gtk::{
     AboutDialog, AppChooserDialog, ApplicationWindow, Builder, Button, Dialog, Entry,
     FileChooserAction, FileChooserDialog, FontChooserDialog, RecentChooserDialog, ResponseType,
@@ -187,6 +187,8 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
+    gio::resources_register_include!("compiled.gresource").unwrap();
+
     let application = gtk::Application::new(
         Some("com.github.gtk-rs.examples.gtktest"),
         Default::default(),

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+    <gresource prefix="/org/gtk-rs/examples">
+        <file>eye.png</file>
+        <file>file.png</file>
+        <file>menu.png</file>
+    </gresource>
+</gresources>

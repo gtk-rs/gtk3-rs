@@ -501,7 +501,7 @@ audio-volume-medium</property>
                   <object class="GtkImage" id="image">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="pixbuf">resources/eye.png</property>
+                    <property name="resource">/org/gtk-rs/examples/eye.png</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
