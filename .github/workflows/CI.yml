@@ -62,10 +62,13 @@ jobs:
       # rustdoc-stripper
       - name: doc add
         run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "dox,embed-lgpl-docs"
-        if: matrix.rust == 'nightly'
+        if: matrix.rust == 'nightly' && matrix.conf.name != 'glib'
       - name: doc removal
         run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "purge-lgpl-docs"
-        if: matrix.rust == 'nightly'
+        if: matrix.rust == 'nightly' && matrix.conf.name != 'glib'
+      - name: glib doc check
+        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "dox"
+        if: matrix.rust == 'nightly' && matrix.conf.name == 'glib'
       - name: check diff
         run: git diff -R --exit-code
         if: matrix.rust == 'nightly'
