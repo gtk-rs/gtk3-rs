@@ -98,26 +98,194 @@ pub trait ActionGroupImpl: ObjectImpl {
         action_group: &Self::Type,
         action_name: &str,
         parameter: Option<&Variant>,
-    );
-    fn change_action_state(&self, action_group: &Self::Type, action_name: &str, value: &Variant);
-    fn get_action_enabled(&self, action_group: &Self::Type, action_name: &str) -> bool;
+    ) {
+        unsafe {
+            let type_ = ffi::g_action_group_get_type();
+            let iface = glib::gobject_ffi::g_type_default_interface_ref(type_)
+                as *mut ffi::GActionGroupInterface;
+            assert!(!iface.is_null());
+
+            let f = (*iface).activate_action.as_ref().unwrap();
+
+            f(
+                action_group
+                    .unsafe_cast_ref::<ActionGroup>()
+                    .to_glib_none()
+                    .0,
+                action_name.to_glib_none().0,
+                parameter.to_glib_none().0,
+            );
+
+            glib::gobject_ffi::g_type_default_interface_unref(iface as glib::ffi::gpointer);
+        }
+    }
+
+    fn change_action_state(&self, action_group: &Self::Type, action_name: &str, value: &Variant) {
+        unsafe {
+            let type_ = ffi::g_action_group_get_type();
+            let iface = glib::gobject_ffi::g_type_default_interface_ref(type_)
+                as *mut ffi::GActionGroupInterface;
+            assert!(!iface.is_null());
+
+            let f = (*iface).change_action_state.as_ref().unwrap();
+
+            f(
+                action_group
+                    .unsafe_cast_ref::<ActionGroup>()
+                    .to_glib_none()
+                    .0,
+                action_name.to_glib_none().0,
+                value.to_glib_none().0,
+            );
+
+            glib::gobject_ffi::g_type_default_interface_unref(iface as glib::ffi::gpointer);
+        }
+    }
+
+    fn get_action_enabled(&self, action_group: &Self::Type, action_name: &str) -> bool {
+        unsafe {
+            let type_ = ffi::g_action_group_get_type();
+            let iface = glib::gobject_ffi::g_type_default_interface_ref(type_)
+                as *mut ffi::GActionGroupInterface;
+            assert!(!iface.is_null());
+
+            let f = (*iface).get_action_enabled.as_ref().unwrap();
+
+            let ret = f(
+                action_group
+                    .unsafe_cast_ref::<ActionGroup>()
+                    .to_glib_none()
+                    .0,
+                action_name.to_glib_none().0,
+            );
+
+            glib::gobject_ffi::g_type_default_interface_unref(iface as glib::ffi::gpointer);
+            from_glib(ret)
+        }
+    }
+
     fn get_action_parameter_type(
         &self,
         action_group: &Self::Type,
         action_name: &str,
-    ) -> Option<VariantType>;
-    fn get_action_state(&self, action_group: &Self::Type, action_name: &str) -> Option<Variant>;
+    ) -> Option<VariantType> {
+        unsafe {
+            let type_ = ffi::g_action_group_get_type();
+            let iface = glib::gobject_ffi::g_type_default_interface_ref(type_)
+                as *mut ffi::GActionGroupInterface;
+            assert!(!iface.is_null());
+
+            let f = (*iface).get_action_parameter_type.as_ref().unwrap();
+
+            let ret = f(
+                action_group
+                    .unsafe_cast_ref::<ActionGroup>()
+                    .to_glib_none()
+                    .0,
+                action_name.to_glib_none().0,
+            );
+
+            glib::gobject_ffi::g_type_default_interface_unref(iface as glib::ffi::gpointer);
+            from_glib_full(ret)
+        }
+    }
+
+    fn get_action_state(&self, action_group: &Self::Type, action_name: &str) -> Option<Variant> {
+        unsafe {
+            let type_ = ffi::g_action_group_get_type();
+            let iface = glib::gobject_ffi::g_type_default_interface_ref(type_)
+                as *mut ffi::GActionGroupInterface;
+            assert!(!iface.is_null());
+
+            let f = (*iface).get_action_state.as_ref().unwrap();
+
+            let ret = f(
+                action_group
+                    .unsafe_cast_ref::<ActionGroup>()
+                    .to_glib_none()
+                    .0,
+                action_name.to_glib_none().0,
+            );
+
+            glib::gobject_ffi::g_type_default_interface_unref(iface as glib::ffi::gpointer);
+            from_glib_full(ret)
+        }
+    }
+
     fn get_action_state_hint(
         &self,
         action_group: &Self::Type,
         action_name: &str,
-    ) -> Option<Variant>;
+    ) -> Option<Variant> {
+        unsafe {
+            let type_ = ffi::g_action_group_get_type();
+            let iface = glib::gobject_ffi::g_type_default_interface_ref(type_)
+                as *mut ffi::GActionGroupInterface;
+            assert!(!iface.is_null());
+
+            let f = (*iface).get_action_state_hint.as_ref().unwrap();
+
+            let ret = f(
+                action_group
+                    .unsafe_cast_ref::<ActionGroup>()
+                    .to_glib_none()
+                    .0,
+                action_name.to_glib_none().0,
+            );
+
+            glib::gobject_ffi::g_type_default_interface_unref(iface as glib::ffi::gpointer);
+            from_glib_full(ret)
+        }
+    }
+
     fn get_action_state_type(
         &self,
         action_group: &Self::Type,
         action_name: &str,
-    ) -> Option<VariantType>;
-    fn has_action(&self, action_group: &Self::Type, action_name: &str) -> bool;
+    ) -> Option<VariantType> {
+        unsafe {
+            let type_ = ffi::g_action_group_get_type();
+            let iface = glib::gobject_ffi::g_type_default_interface_ref(type_)
+                as *mut ffi::GActionGroupInterface;
+            assert!(!iface.is_null());
+
+            let f = (*iface).get_action_state_type.as_ref().unwrap();
+
+            let ret = f(
+                action_group
+                    .unsafe_cast_ref::<ActionGroup>()
+                    .to_glib_none()
+                    .0,
+                action_name.to_glib_none().0,
+            );
+
+            glib::gobject_ffi::g_type_default_interface_unref(iface as glib::ffi::gpointer);
+            from_glib_full(ret)
+        }
+    }
+
+    fn has_action(&self, action_group: &Self::Type, action_name: &str) -> bool {
+        unsafe {
+            let type_ = ffi::g_action_group_get_type();
+            let iface = glib::gobject_ffi::g_type_default_interface_ref(type_)
+                as *mut ffi::GActionGroupInterface;
+            assert!(!iface.is_null());
+
+            let f = (*iface).has_action.as_ref().unwrap();
+
+            let ret = f(
+                action_group
+                    .unsafe_cast_ref::<ActionGroup>()
+                    .to_glib_none()
+                    .0,
+                action_name.to_glib_none().0,
+            );
+
+            glib::gobject_ffi::g_type_default_interface_unref(iface as glib::ffi::gpointer);
+            from_glib(ret)
+        }
+    }
+
     fn list_actions(&self, action_group: &Self::Type) -> Vec<String>;
     fn query_action(
         &self,
