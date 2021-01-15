@@ -3,6 +3,7 @@
 mod action_group;
 mod action_map;
 mod application;
+mod icon;
 mod input_stream;
 mod io_stream;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
@@ -19,6 +20,7 @@ pub mod prelude {
     pub use super::action_group::ActionGroupImpl;
     pub use super::action_map::ActionMapImpl;
     pub use super::application::{ApplicationImpl, ApplicationImplExt};
+    pub use super::icon::IconImpl;
     pub use super::input_stream::{InputStreamImpl, InputStreamImplExt};
     pub use super::io_stream::{IOStreamImpl, IOStreamImplExt};
     #[cfg(any(feature = "v2_44", feature = "dox"))]
