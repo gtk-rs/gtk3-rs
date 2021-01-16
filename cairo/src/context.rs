@@ -815,7 +815,7 @@ mod tests {
     }
 
     #[test]
-    fn clip_rectange() {
+    fn clip_rectangle() {
         let ctx = create_ctx();
         let rect = ctx.copy_clip_rectangle_list();
         assert_eq!(
