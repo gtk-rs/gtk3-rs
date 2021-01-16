@@ -106,7 +106,7 @@ pub fn parse_item_attributes(attr_name: &str, attrs: &[Attribute]) -> Result<Vec
             .nested
             .iter()
             .map(|m| parse_item_attribute(&m))
-            .fold_results(Vec::new(), |mut v, a| {
+            .fold_ok(Vec::new(), |mut v, a| {
                 v.push(a);
                 v
             })?,
