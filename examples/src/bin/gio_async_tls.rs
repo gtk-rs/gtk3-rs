@@ -34,7 +34,7 @@ async fn run() -> Result<(), Box<dyn Error>> {
     // Wrap both in our Connection struct and start the TLS handshake on it
     let connection = Connection { read, write };
     let connector = async_tls::TlsConnector::new();
-    let mut connection = connector.connect("www.rust-lang.org", connection)?.await?;
+    let mut connection = connector.connect("www.rust-lang.org", connection).await?;
 
     // Send the HTTP request
     connection

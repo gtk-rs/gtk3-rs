@@ -57,8 +57,8 @@ thiserror = "1"
 [dev-dependencies]
 futures-util = { version = "0.3", features = ["io"] }
 gir-format-check = "^0.1"
-serial_test = "0.4"
-serial_test_derive = "0.4"
+serial_test = "0.5"
+serial_test_derive = "0.5"
 
 [[test]]
 name = "futures"
