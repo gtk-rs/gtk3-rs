@@ -1,6 +1,7 @@
 //! # Composite Template Example
 //!
 //! This sample demonstrates how to create a widget using GTK's composite templates.
+
 use glib::subclass::prelude::*;
 use gtk::{gio, glib};
 use gtk::{prelude::*, CompositeTemplate};
@@ -12,6 +13,7 @@ mod imp {
 
     /// The private struct, which can hold widgets and other data.
     #[derive(Debug, CompositeTemplate)]
+    #[template(file = "composite_template.ui")]
     pub struct ExApplicationWindow {
         // The #[template_child] attribute tells the CompositeTemplate macro
         // that a field is meant to be a child within the template.
@@ -42,15 +44,11 @@ mod imp {
             }
         }
 
-        // Within class_init() you must set the template
-        // and bind it's children. The CompositeTemplate
-        // derive macro provides a convenience function
-        // bind_template_children() to bind all children
-        // at once.
+        // Within class_init() you must set the template.
+        // The CompositeTemplate derive macro provides a convenience function
+        // bind_template() to set the template and bind all children at once.
         fn class_init(klass: &mut Self::Class) {
-            let template = include_bytes!("composite_template.ui");
-            klass.set_template(template);
-            Self::bind_template_children(klass);
+            Self::bind_template(klass);
         }
     }
 

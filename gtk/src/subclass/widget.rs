@@ -1695,5 +1695,5 @@ where
 }
 
 pub trait CompositeTemplate: WidgetImpl {
-    fn bind_template_children(klass: &mut Self::Class);
+    fn bind_template(klass: &mut Self::Class);
 }
