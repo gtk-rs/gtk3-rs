@@ -59,20 +59,6 @@ jobs:
         run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "${{ matrix.conf.features }}"
         if: matrix.rust != 'nightly'
 
-      # rustdoc-stripper
-      - name: doc add
-        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "dox,embed-lgpl-docs"
-        if: matrix.rust == 'nightly' && matrix.conf.name != 'glib'
-      - name: doc removal
-        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "purge-lgpl-docs"
-        if: matrix.rust == 'nightly' && matrix.conf.name != 'glib'
-      - name: glib doc check
-        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "dox"
-        if: matrix.rust == 'nightly' && matrix.conf.name == 'glib'
-      - name: check diff
-        run: git diff -R --exit-code
-        if: matrix.rust == 'nightly'
-
       - uses: bcomnes/cleanup-xvfb@v1
 
   build-others:
@@ -98,11 +84,6 @@ jobs:
       - name: "glib: tests glib macros nightly"
         working-directory: glib
         run: python3 clone_tests/clone_compilation_errors.py
-        if: matrix.rust == 'nightly'
-      - name: "glib: tests glib macros"
-        working-directory: glib
-        run: python3 clone_tests/clone_compilation_errors.py
-        if: matrix.rust != 'nightly'
       # glib-macros
       - name: "glib-macros: tests"
         run: xvfb-run --auto-servernum cargo test --manifest-path glib-macros/Cargo.toml
@@ -137,7 +118,7 @@ jobs:
       image: ubuntu:20.10
     steps:
       - run: apt-get update -y
-      - run: apt-get install -y libgtk-3-dev libglib2.0-dev libgraphene-1.0-dev git xvfb curl libcairo-gobject2 libcairo2-dev
+      - run: apt-get install -y libgtk-3-dev libglib2.0-dev libgraphene-1.0-dev git curl libcairo-gobject2 libcairo2-dev
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
         with:
@@ -209,7 +190,7 @@ jobs:
       - run: git diff -R --exit-code
 
   checker:
-    name: gtk-rs checker
+    name: gtk-rs checks
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -229,11 +210,14 @@ jobs:
           - { name: 'pangocairo', extra: '' }
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/checkout@v2
         with:
           repository: gtk-rs/checker
           ref: master
           path: checker
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          override: true
       - run: cargo build --release
         working-directory: checker
       - run: cargo run -- ${{matrix.crate.extra}} ../${{matrix.crate.name}}
@@ -243,4 +227,17 @@ jobs:
         if: matrix.crate.extra == ''
       - run: ./check_init_asserts ../${{matrix.crate.name}}
         working-directory: checker
-        if: matrix.crate == 'atk' || matrix.crate == 'gdk' || matrix.crate == 'gdkx11' || matrix.crate == 'gtk'
+        if: matrix.crate.name == 'atk' || matrix.crate.name == 'gdk' || matrix.crate.name == 'gdkx11' || matrix.crate.name == 'gtk'
+      # rustdoc-stripper
+      - name: doc add
+        run: cargo build --manifest-path ${{ matrix.crate.name }}/Cargo.toml --features "dox,embed-lgpl-docs"
+        if: matrix.rust == 'nightly' && matrix.crate.name != 'glib'
+      - name: doc removal
+        run: cargo build --manifest-path ${{ matrix.crate.name }}/Cargo.toml --features "purge-lgpl-docs"
+        if: matrix.rust == 'nightly' && matrix.crate.name != 'glib'
+      - name: glib doc check
+        run: cargo build --manifest-path ${{ matrix.crate.name }}/Cargo.toml --features "dox"
+        if: matrix.rust == 'nightly' && matrix.crate.name == 'glib'
+      - name: check diff
+        run: git diff -R --exit-code
+        if: matrix.rust == 'nightly'
