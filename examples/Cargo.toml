@@ -2,7 +2,6 @@
 name = "gtk-rs-examples"
 version = "0.0.1"
 authors = ["The Gtk-rs Project Developers"]
-autobins = false
 edition = "2018"
 
 [dependencies]
@@ -30,127 +29,12 @@ version = "0.11"
 optional = true
 
 [[bin]]
-name = "accessibility"
-
-[[bin]]
-name = "basic"
-
-[[bin]]
-name = "basic_subclass"
-
-[[bin]]
-name = "builder_basics"
-
-[[bin]]
-name = "builder_signal"
-
-[[bin]]
-name = "builders"
-
-[[bin]]
 name = "cairo_png"
 required-features = ["cairo"]
 
 [[bin]]
-name = "cairo_threads"
-
-[[bin]]
-name = "cairotest"
-
-[[bin]]
-name = "child-properties"
-
-[[bin]]
-name = "clipboard_simple"
-
-[[bin]]
-name = "clock"
-
-[[bin]]
-name = "clone_macro"
-
-[[bin]]
-name = "communication_thread"
-
-[[bin]]
-name = "composite_template"
-
-[[bin]]
-name = "css"
-
-[[bin]]
-name = "drag_and_drop"
-
-[[bin]]
-name = "drag_and_drop_textview"
-
-[[bin]]
-name = "gio_futures"
-
-[[bin]]
-name = "gio_futures_await"
-
-[[bin]]
-name = "grid"
-
-[[bin]]
-name = "gtktest"
-
-[[bin]]
-name = "iconview_example"
-
-[[bin]]
 name = "listbox_model"
 required-features = ["gtk/v3_16"]
-
-[[bin]]
-name = "menu_bar"
-
-[[bin]]
-name = "menu_bar_system"
-
-[[bin]]
-name = "multi_windows"
-
-[[bin]]
-name = "multithreading_context"
-
-[[bin]]
-name = "notebook"
-
-[[bin]]
-name = "overlay"
-
-[[bin]]
-name = "pango_attributes"
-
-[[bin]]
-name = "progress_tracker"
-path = "src/bin/progress_tracker.rs"
-
-[[bin]]
-name = "simple_treeview"
-
-[[bin]]
-name = "sync_widgets"
-
-[[bin]]
-name = "text_viewer"
-
-[[bin]]
-name = "transparent_main_window"
-
-[[bin]]
-name = "tree_model_sort"
-
-[[bin]]
-name = "treeview"
-
-[[bin]]
-name = "list_store"
-
-[[bin]]
-name = "entry_completion"
 
 [[bin]]
 name = "printing"
@@ -159,6 +43,3 @@ required-features = ["pangocairo"]
 [[bin]]
 name = "gio_async_tls"
 required-features = ["async-tls"]
-
-[[bin]]
-name = "gio_task"
