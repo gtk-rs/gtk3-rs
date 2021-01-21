@@ -142,6 +142,13 @@ impl Type {
             }
         }
     }
+
+    #[doc(alias = "g_type_ensure")]
+    pub fn ensure(&self) {
+        unsafe {
+            gobject_ffi::g_type_ensure(self.to_glib());
+        }
+    }
 }
 
 impl fmt::Debug for Type {
