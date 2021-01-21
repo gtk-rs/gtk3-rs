@@ -14,8 +14,8 @@ use std::ptr;
 /// This allows overriding the virtual methods of `glib::Object`.
 pub trait ObjectImpl: ObjectSubclass + ObjectImplExt {
     /// Properties installed for this type.
-    fn properties() -> Vec<ParamSpec> {
-        vec![]
+    fn properties() -> &'static [ParamSpec] {
+        &[]
     }
 
     /// Property setter.
@@ -263,7 +263,7 @@ unsafe impl<T: ObjectImpl> IsSubclassable<T> for Object {
 
                 pspecs_ptrs.push(ptr::null_mut());
 
-                for pspec in &pspecs {
+                for pspec in pspecs {
                     pspecs_ptrs.push(pspec.to_glib_none().0);
                 }
 
@@ -422,37 +422,42 @@ mod test {
         }
 
         impl ObjectImpl for SimpleObject {
-            fn properties() -> Vec<crate::ParamSpec> {
-                vec![
-                    crate::ParamSpec::string(
-                        "name",
-                        "Name",
-                        "Name of this object",
-                        None,
-                        crate::ParamFlags::READWRITE,
-                    ),
-                    crate::ParamSpec::string(
-                        "construct-name",
-                        "Construct Name",
-                        "Construct Name of this object",
-                        None,
-                        crate::ParamFlags::READWRITE | crate::ParamFlags::CONSTRUCT_ONLY,
-                    ),
-                    crate::ParamSpec::boolean(
-                        "constructed",
-                        "Constructed",
-                        "True if the constructed() virtual method was called",
-                        false,
-                        crate::ParamFlags::READABLE,
-                    ),
-                    crate::ParamSpec::object(
-                        "child",
-                        "Child",
-                        "Child object",
-                        super::ChildObject::static_type(),
-                        crate::ParamFlags::READWRITE,
-                    ),
-                ]
+            fn properties() -> &'static [ParamSpec] {
+                use once_cell::sync::Lazy;
+                static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+                    vec![
+                        crate::ParamSpec::string(
+                            "name",
+                            "Name",
+                            "Name of this object",
+                            None,
+                            crate::ParamFlags::READWRITE,
+                        ),
+                        crate::ParamSpec::string(
+                            "construct-name",
+                            "Construct Name",
+                            "Construct Name of this object",
+                            None,
+                            crate::ParamFlags::READWRITE | crate::ParamFlags::CONSTRUCT_ONLY,
+                        ),
+                        crate::ParamSpec::boolean(
+                            "constructed",
+                            "Constructed",
+                            "True if the constructed() virtual method was called",
+                            false,
+                            crate::ParamFlags::READABLE,
+                        ),
+                        crate::ParamSpec::object(
+                            "child",
+                            "Child",
+                            "Child object",
+                            super::ChildObject::static_type(),
+                            crate::ParamFlags::READWRITE,
+                        ),
+                    ]
+                });
+
+                PROPERTIES.as_ref()
             }
 
             fn set_property(

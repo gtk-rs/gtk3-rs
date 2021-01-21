@@ -94,8 +94,8 @@ pub trait ObjectInterface: Sized + 'static {
     /// Properties installed for this interface.
     ///
     /// All implementors of the interface must provide these properties.
-    fn properties() -> Vec<ParamSpec> {
-        vec![]
+    fn properties() -> &'static [ParamSpec] {
+        &[]
     }
 }
 

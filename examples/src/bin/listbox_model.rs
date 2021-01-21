@@ -329,25 +329,30 @@ mod row_data {
         // This maps between the GObject properties and our internal storage of the
         // corresponding values of the properties.
         impl ObjectImpl for RowData {
-            fn properties() -> Vec<glib::ParamSpec> {
-                vec![
-                    glib::ParamSpec::string(
-                        "name",
-                        "Name",
-                        "Name",
-                        None, // Default value
-                        glib::ParamFlags::READWRITE,
-                    ),
-                    glib::ParamSpec::uint(
-                        "count",
-                        "Count",
-                        "Count",
-                        0,
-                        100,
-                        0, // Allowed range and default value
-                        glib::ParamFlags::READWRITE,
-                    ),
-                ]
+            fn properties() -> &'static [glib::ParamSpec] {
+                use once_cell::sync::Lazy;
+                static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
+                    vec![
+                        glib::ParamSpec::string(
+                            "name",
+                            "Name",
+                            "Name",
+                            None, // Default value
+                            glib::ParamFlags::READWRITE,
+                        ),
+                        glib::ParamSpec::uint(
+                            "count",
+                            "Count",
+                            "Count",
+                            0,
+                            100,
+                            0, // Allowed range and default value
+                            glib::ParamFlags::READWRITE,
+                        ),
+                    ]
+                });
+
+                PROPERTIES.as_ref()
             }
 
             fn set_property(
