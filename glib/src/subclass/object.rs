@@ -4,8 +4,9 @@
 //! or implementing virtual methods of it.
 
 use super::prelude::*;
+use super::Signal;
 use crate::translate::*;
-use crate::{Cast, Object, ObjectType, ParamSpec, SignalFlags, Type, Value};
+use crate::{Cast, Object, ObjectExt, ObjectType, ParamSpec, StaticType, ToValue, Value};
 use std::mem;
 use std::ptr;
 
@@ -15,6 +16,11 @@ use std::ptr;
 pub trait ObjectImpl: ObjectSubclass + ObjectImplExt {
     /// Properties installed for this type.
     fn properties() -> &'static [ParamSpec] {
+        &[]
+    }
+
+    /// Signals installed for this type.
+    fn signals() -> &'static [Signal] {
         &[]
     }
 
@@ -119,119 +125,8 @@ unsafe extern "C" fn dispose<T: ObjectImpl>(obj: *mut gobject_ffi::GObject) {
 
 /// Extension trait for `glib::Object`'s class struct.
 ///
-/// This contains various class methods and allows subclasses to override the virtual methods.
+/// This contains various class methods and allows subclasses to override signal class handlers.
 pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
-    /// Add a new signal to the subclass.
-    ///
-    /// This can be emitted later by `glib::Object::emit` and external code
-    /// can connect to the signal to get notified about emissions.
-    fn add_signal(&mut self, name: &str, flags: SignalFlags, arg_types: &[Type], ret_type: Type) {
-        unsafe {
-            super::types::add_signal(
-                *(self as *mut _ as *mut ffi::GType),
-                name,
-                flags,
-                arg_types,
-                ret_type,
-            );
-        }
-    }
-
-    /// Add a new signal with class handler to the subclass.
-    ///
-    /// This can be emitted later by `glib::Object::emit` and external code
-    /// can connect to the signal to get notified about emissions.
-    ///
-    /// The class handler will be called during the signal emission at the corresponding stage.
-    fn add_signal_with_class_handler<F>(
-        &mut self,
-        name: &str,
-        flags: SignalFlags,
-        arg_types: &[Type],
-        ret_type: Type,
-        class_handler: F,
-    ) where
-        F: Fn(&super::SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
-    {
-        unsafe {
-            super::types::add_signal_with_class_handler(
-                *(self as *mut _ as *mut ffi::GType),
-                name,
-                flags,
-                arg_types,
-                ret_type,
-                class_handler,
-            );
-        }
-    }
-
-    /// Add a new signal with accumulator to the subclass.
-    ///
-    /// This can be emitted later by `glib::Object::emit` and external code
-    /// can connect to the signal to get notified about emissions.
-    ///
-    /// The accumulator function is used for accumulating the return values of
-    /// multiple signal handlers. The new value is passed as second argument and
-    /// should be combined with the old value in the first argument. If no further
-    /// signal handlers should be called, `false` should be returned.
-    fn add_signal_with_accumulator<F>(
-        &mut self,
-        name: &str,
-        flags: SignalFlags,
-        arg_types: &[Type],
-        ret_type: Type,
-        accumulator: F,
-    ) where
-        F: Fn(&super::SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
-    {
-        unsafe {
-            super::types::add_signal_with_accumulator(
-                *(self as *mut _ as *mut ffi::GType),
-                name,
-                flags,
-                arg_types,
-                ret_type,
-                accumulator,
-            );
-        }
-    }
-
-    /// Add a new signal with accumulator and class handler to the subclass.
-    ///
-    /// This can be emitted later by `glib::Object::emit` and external code
-    /// can connect to the signal to get notified about emissions.
-    ///
-    /// The accumulator function is used for accumulating the return values of
-    /// multiple signal handlers. The new value is passed as second argument and
-    /// should be combined with the old value in the first argument. If no further
-    /// signal handlers should be called, `false` should be returned.
-    ///
-    /// The class handler will be called during the signal emission at the corresponding stage.
-    fn add_signal_with_class_handler_and_accumulator<F, G>(
-        &mut self,
-        name: &str,
-        flags: SignalFlags,
-        arg_types: &[Type],
-        ret_type: Type,
-        class_handler: F,
-        accumulator: G,
-    ) where
-        F: Fn(&super::SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
-        G: Fn(&super::SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
-    {
-        unsafe {
-            super::types::add_signal_with_class_handler_and_accumulator(
-                *(self as *mut _ as *mut ffi::GType),
-                name,
-                flags,
-                arg_types,
-                ret_type,
-                class_handler,
-                accumulator,
-            );
-        }
-    }
-
     fn override_signal_class_handler<F>(&mut self, name: &str, class_handler: F)
     where
         F: Fn(&super::SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
@@ -274,6 +169,12 @@ unsafe impl<T: ObjectImpl> IsSubclassable<T> for Object {
                 );
             }
         }
+
+        let type_ = T::get_type();
+        let signals = <T as ObjectImpl>::signals();
+        for signal in signals {
+            signal.register(type_);
+        }
     }
 }
 
@@ -281,11 +182,27 @@ pub trait ObjectImplExt: ObjectSubclass {
     /// Chain up to the parent class' implementation of `glib::Object::constructed()`.
     fn parent_constructed(&self, obj: &Self::Type);
 
+    /// Chain up to parent class signal handler.
     fn signal_chain_from_overridden(
         &self,
         token: &super::SignalClassHandlerToken,
         values: &[Value],
     ) -> Option<Value>;
+
+    /// Emit signal by signal id.
+    fn emit(
+        &self,
+        signal: &super::Signal,
+        args: &[&dyn ToValue],
+    ) -> Result<Option<Value>, crate::BoolError>;
+
+    /// Emit signal with details by signal id.
+    fn emit_with_details(
+        &self,
+        signal: &super::Signal,
+        details: crate::Quark,
+        args: &[&dyn ToValue],
+    ) -> Result<Option<Value>, crate::BoolError>;
 }
 
 impl<T: ObjectImpl> ObjectImplExt for T {
@@ -313,6 +230,178 @@ impl<T: ObjectImpl> ObjectImplExt for T {
             )
         }
     }
+
+    fn emit(
+        &self,
+        signal: &super::Signal,
+        args: &[&dyn ToValue],
+    ) -> Result<Option<Value>, crate::BoolError> {
+        unsafe {
+            let type_ = Self::get_type();
+            let instance = self.get_instance();
+
+            let signal_id = signal.signal_id();
+            assert!(type_.is_a(&signal_id.0));
+
+            let self_v = {
+                let mut v = Value::uninitialized();
+                gobject_ffi::g_value_init(v.to_glib_none_mut().0, Self::get_type().to_glib());
+                gobject_ffi::g_value_set_object(
+                    v.to_glib_none_mut().0,
+                    instance.as_object_ref().to_glib_none().0,
+                );
+                v
+            };
+
+            let mut args = Iterator::chain(
+                std::iter::once(self_v),
+                args.iter().copied().map(ToValue::to_value),
+            )
+            .collect::<smallvec::SmallVec<[_; 10]>>();
+
+            validate_signal_arguments(type_, &signal, &mut args)?;
+
+            let mut return_value = Value::uninitialized();
+            if signal.ret_type() != crate::Type::Unit {
+                gobject_ffi::g_value_init(
+                    return_value.to_glib_none_mut().0,
+                    signal.ret_type().to_glib(),
+                );
+            }
+
+            gobject_ffi::g_signal_emitv(
+                mut_override(args.as_ptr()) as *mut gobject_ffi::GValue,
+                signal_id.1,
+                0,
+                return_value.to_glib_none_mut().0,
+            );
+
+            if return_value.type_() != crate::Type::Unit
+                && return_value.type_() != crate::Type::Invalid
+            {
+                Ok(Some(return_value))
+            } else {
+                Ok(None)
+            }
+        }
+    }
+
+    fn emit_with_details(
+        &self,
+        signal: &super::Signal,
+        details: crate::Quark,
+        args: &[&dyn ToValue],
+    ) -> Result<Option<Value>, crate::BoolError> {
+        assert!(signal.flags().contains(crate::SignalFlags::DETAILED));
+
+        unsafe {
+            let type_ = Self::get_type();
+            let instance = self.get_instance();
+
+            let signal_id = signal.signal_id();
+            assert!(type_.is_a(&signal_id.0));
+
+            let self_v = {
+                let mut v = Value::uninitialized();
+                gobject_ffi::g_value_init(v.to_glib_none_mut().0, Self::get_type().to_glib());
+                gobject_ffi::g_value_set_object(
+                    v.to_glib_none_mut().0,
+                    instance.as_object_ref().to_glib_none().0,
+                );
+                v
+            };
+
+            let mut args = Iterator::chain(
+                std::iter::once(self_v),
+                args.iter().copied().map(ToValue::to_value),
+            )
+            .collect::<smallvec::SmallVec<[_; 10]>>();
+
+            validate_signal_arguments(type_, &signal, &mut args)?;
+
+            let mut return_value = Value::uninitialized();
+            if signal.ret_type() != crate::Type::Unit {
+                gobject_ffi::g_value_init(
+                    return_value.to_glib_none_mut().0,
+                    signal.ret_type().to_glib(),
+                );
+            }
+
+            gobject_ffi::g_signal_emitv(
+                mut_override(args.as_ptr()) as *mut gobject_ffi::GValue,
+                signal_id.1,
+                details.to_glib(),
+                return_value.to_glib_none_mut().0,
+            );
+
+            if return_value.type_() != crate::Type::Unit
+                && return_value.type_() != crate::Type::Invalid
+            {
+                Ok(Some(return_value))
+            } else {
+                Ok(None)
+            }
+        }
+    }
+}
+
+fn validate_signal_arguments(
+    type_: crate::Type,
+    signal: &super::Signal,
+    args: &mut [Value],
+) -> Result<(), crate::BoolError> {
+    let arg_types = signal.arg_types();
+
+    if arg_types.len() != args.len() {
+        return Err(bool_error!(
+            "Incompatible number of arguments for signal '{}' of type '{}' (expected {}, got {})",
+            signal.name(),
+            type_,
+            arg_types.len(),
+            args.len(),
+        ));
+    }
+
+    for (i, (arg, param_type)) in Iterator::zip(args.iter_mut(), arg_types.iter()).enumerate() {
+        if arg.type_().is_a(&Object::static_type()) {
+            match arg.get::<Object>() {
+                Ok(Some(obj)) => {
+                    if obj.get_type().is_a(&param_type) {
+                        arg.0.g_type = param_type.to_glib();
+                    } else {
+                        return Err(
+                            bool_error!(
+                                "Incompatible argument type in argument {} for signal '{}' of type '{}' (expected {}, got {})",
+                                i,
+                                signal.name(),
+                                type_,
+                                param_type,
+                                arg.type_(),
+                            )
+                        );
+                    }
+                }
+                Ok(None) => {
+                    // If the value is None then the type is compatible too
+                    arg.0.g_type = param_type.to_glib();
+                }
+                Err(_) => unreachable!("property_value type conformity already checked"),
+            }
+        } else if *param_type != arg.type_() {
+            return Err(
+                bool_error!(
+                    "Incompatible argument type in argument {} for signal '{}' of type '{}' (expected {}, got {})",
+                    i,
+                    signal.name(),
+                    type_,
+                    param_type,
+                    arg.type_(),
+                )
+            );
+        }
+    }
+
+    Ok(())
 }
 
 #[cfg(test)]
@@ -321,7 +410,7 @@ mod test {
     use super::super::super::subclass;
     use super::super::super::value::{ToValue, Value};
     use super::*;
-    use crate::prelude::*;
+    use crate::Type;
 
     use std::cell::RefCell;
 
@@ -363,55 +452,6 @@ mod test {
 
             object_subclass!();
 
-            fn class_init(klass: &mut Self::Class) {
-                klass.add_signal(
-                    "name-changed",
-                    SignalFlags::RUN_LAST,
-                    &[String::static_type()],
-                    crate::Type::Unit,
-                );
-
-                klass.add_signal_with_class_handler(
-                    "change-name",
-                    SignalFlags::RUN_LAST | SignalFlags::ACTION,
-                    &[String::static_type()],
-                    String::static_type(),
-                    |_, args| {
-                        let obj = args[0]
-                            .get::<Self::Type>()
-                            .expect("Failed to get args[0]")
-                            .expect("Failed to get Object from args[0]");
-                        let new_name = args[1]
-                            .get::<String>()
-                            .expect("Failed to get args[1]")
-                            .expect("Failed to get Object from args[1]");
-                        let imp = Self::from_instance(&obj);
-
-                        let old_name = imp.name.borrow_mut().take();
-                        *imp.name.borrow_mut() = Some(new_name);
-
-                        obj.emit("name-changed", &[&*imp.name.borrow()])
-                            .expect("Failed to borrow name");
-
-                        Some(old_name.to_value())
-                    },
-                );
-
-                klass.add_signal(
-                    "create-string",
-                    SignalFlags::RUN_LAST,
-                    &[],
-                    String::static_type(),
-                );
-
-                klass.add_signal(
-                    "create-child-object",
-                    SignalFlags::RUN_LAST,
-                    &[],
-                    ChildObject::get_type(),
-                );
-            }
-
             fn new() -> Self {
                 Self {
                     name: RefCell::new(None),
@@ -422,6 +462,51 @@ mod test {
         }
 
         impl ObjectImpl for SimpleObject {
+            fn signals() -> &'static [super::Signal] {
+                use once_cell::sync::Lazy;
+                static SIGNALS: Lazy<Vec<super::Signal>> = Lazy::new(|| {
+                    vec![
+                        super::Signal::builder(
+                            "name-changed",
+                            &[String::static_type()],
+                            crate::Type::Unit,
+                        )
+                        .build(),
+                        super::Signal::builder(
+                            "change-name",
+                            &[String::static_type()],
+                            String::static_type(),
+                        )
+                        .action()
+                        .class_handler(|_, args| {
+                            let obj = args[0]
+                                .get::<super::SimpleObject>()
+                                .expect("Failed to get args[0]")
+                                .expect("Failed to get Object from args[0]");
+                            let new_name = args[1]
+                                .get::<String>()
+                                .expect("Failed to get args[1]")
+                                .expect("Failed to get Object from args[1]");
+                            let imp = SimpleObject::from_instance(&obj);
+
+                            let old_name = imp.name.borrow_mut().take();
+                            *imp.name.borrow_mut() = Some(new_name);
+
+                            obj.emit("name-changed", &[&*imp.name.borrow()])
+                                .expect("Failed to borrow name");
+
+                            Some(old_name.to_value())
+                        })
+                        .build(),
+                        super::Signal::builder("create-string", &[], String::static_type()).build(),
+                        super::Signal::builder("create-child-object", &[], ChildObject::get_type())
+                            .build(),
+                    ]
+                });
+
+                SIGNALS.as_ref()
+            }
+
             fn properties() -> &'static [ParamSpec] {
                 use once_cell::sync::Lazy;
                 static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {

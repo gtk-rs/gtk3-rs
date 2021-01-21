@@ -89,11 +89,6 @@
 //!         // This macro defines some boilerplate.
 //!         glib::object_subclass!();
 //!
-//!         // Called right before the first time an instance of the new
-//!         // type is created. Here class specific settings can be performed,
-//!         // including registration of signals for the new type.
-//!         fn class_init(klass: &mut Self::Class) {}
-//!
 //!         // Called every time a new instance is created. This should return
 //!         // a new instance of our type with its basic values.
 //!         fn new() -> Self {
@@ -259,6 +254,8 @@ pub mod object;
 #[macro_use]
 pub mod boxed;
 
+pub mod signal;
+
 pub mod prelude {
     //! Prelude that re-exports all important traits from this crate.
     pub use super::boxed::BoxedType;
@@ -271,7 +268,5 @@ pub mod prelude {
 
 pub use self::boxed::register_boxed_type;
 pub use self::interface::register_interface;
-pub use self::types::{
-    register_type, InitializingObject, InitializingType, SignalClassHandlerToken,
-    SignalInvocationHint, TypeData,
-};
+pub use self::signal::{Signal, SignalClassHandlerToken, SignalId, SignalInvocationHint};
+pub use self::types::{register_type, InitializingObject, InitializingType, TypeData};

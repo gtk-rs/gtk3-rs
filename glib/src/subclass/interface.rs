@@ -1,8 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use super::InitializingType;
+use super::{InitializingType, Signal};
 use crate::translate::*;
-use crate::{IsA, Object, ObjectExt, ParamSpec, SignalFlags, StaticType, Type, Value};
+use crate::{IsA, Object, ObjectExt, ParamSpec, StaticType, Type};
 use std::marker;
 use std::mem;
 
@@ -97,6 +97,11 @@ pub trait ObjectInterface: Sized + 'static {
     fn properties() -> &'static [ParamSpec] {
         &[]
     }
+
+    /// Signals installed for this interface.
+    fn signals() -> &'static [Signal] {
+        &[]
+    }
 }
 
 pub trait ObjectInterfaceExt: ObjectInterface {
@@ -112,117 +117,6 @@ pub trait ObjectInterfaceExt: ObjectInterface {
                 gobject_ffi::g_type_interface_peek(klass as *mut _, Self::get_type().to_glib());
             assert!(!interface.is_null());
             &*(interface as *const Self)
-        }
-    }
-
-    /// Add a new signal to the interface.
-    ///
-    /// This can be emitted later by `glib::Object::emit` and external code
-    /// can connect to the signal to get notified about emissions.
-    fn add_signal(&mut self, name: &str, flags: SignalFlags, arg_types: &[Type], ret_type: Type) {
-        unsafe {
-            super::types::add_signal(
-                *(self as *mut _ as *mut ffi::GType),
-                name,
-                flags,
-                arg_types,
-                ret_type,
-            );
-        }
-    }
-
-    /// Add a new signal with class handler to the interface.
-    ///
-    /// This can be emitted later by `glib::Object::emit` and external code
-    /// can connect to the signal to get notified about emissions.
-    ///
-    /// The class handler will be called during the signal emission at the corresponding stage.
-    fn add_signal_with_class_handler<F>(
-        &mut self,
-        name: &str,
-        flags: SignalFlags,
-        arg_types: &[Type],
-        ret_type: Type,
-        class_handler: F,
-    ) where
-        F: Fn(&super::SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
-    {
-        unsafe {
-            super::types::add_signal_with_class_handler(
-                *(self as *mut _ as *mut ffi::GType),
-                name,
-                flags,
-                arg_types,
-                ret_type,
-                class_handler,
-            );
-        }
-    }
-
-    /// Add a new signal with accumulator to the interface.
-    ///
-    /// This can be emitted later by `glib::Object::emit` and external code
-    /// can connect to the signal to get notified about emissions.
-    ///
-    /// The accumulator function is used for accumulating the return values of
-    /// multiple signal handlers. The new value is passed as second argument and
-    /// should be combined with the old value in the first argument. If no further
-    /// signal handlers should be called, `false` should be returned.
-    fn add_signal_with_accumulator<F>(
-        &mut self,
-        name: &str,
-        flags: SignalFlags,
-        arg_types: &[Type],
-        ret_type: Type,
-        accumulator: F,
-    ) where
-        F: Fn(&super::SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
-    {
-        unsafe {
-            super::types::add_signal_with_accumulator(
-                *(self as *mut _ as *mut ffi::GType),
-                name,
-                flags,
-                arg_types,
-                ret_type,
-                accumulator,
-            );
-        }
-    }
-
-    /// Add a new signal with accumulator and class handler to the interface.
-    ///
-    /// This can be emitted later by `glib::Object::emit` and external code
-    /// can connect to the signal to get notified about emissions.
-    ///
-    /// The accumulator function is used for accumulating the return values of
-    /// multiple signal handlers. The new value is passed as second argument and
-    /// should be combined with the old value in the first argument. If no further
-    /// signal handlers should be called, `false` should be returned.
-    ///
-    /// The class handler will be called during the signal emission at the corresponding stage.
-    fn add_signal_with_class_handler_and_accumulator<F, G>(
-        &mut self,
-        name: &str,
-        flags: SignalFlags,
-        arg_types: &[Type],
-        ret_type: Type,
-        class_handler: F,
-        accumulator: G,
-    ) where
-        F: Fn(&super::SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
-        G: Fn(&super::SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
-    {
-        unsafe {
-            super::types::add_signal_with_class_handler_and_accumulator(
-                *(self as *mut _ as *mut ffi::GType),
-                name,
-                flags,
-                arg_types,
-                ret_type,
-                class_handler,
-                accumulator,
-            );
         }
     }
 }
@@ -241,6 +135,12 @@ unsafe extern "C" fn interface_init<T: ObjectInterface>(
             iface as *mut T as *mut _,
             pspec.to_glib_none().0,
         );
+    }
+
+    let type_ = T::get_type();
+    let signals = <T as ObjectInterface>::signals();
+    for signal in signals {
+        signal.register(type_);
     }
 
     iface.interface_init();
