@@ -25,6 +25,7 @@ mod imp {
         const NAME: &'static str = "ReadInputStream";
         type Type = super::ReadInputStream;
         type ParentType = InputStream;
+        type Interfaces = (crate::Seekable,);
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -34,10 +35,6 @@ mod imp {
             Self {
                 read: RefCell::new(None),
             }
-        }
-
-        fn type_init(type_: &mut subclass::InitializingType<Self>) {
-            type_.add_interface::<crate::Seekable>();
         }
     }
 

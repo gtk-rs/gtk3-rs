@@ -334,6 +334,7 @@ mod test {
             const NAME: &'static str = "ChildObject";
             type Type = super::ChildObject;
             type ParentType = Object;
+            type Interfaces = ();
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
@@ -356,14 +357,11 @@ mod test {
             const NAME: &'static str = "SimpleObject";
             type Type = super::SimpleObject;
             type ParentType = Object;
+            type Interfaces = (DummyInterface,);
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
             object_subclass!();
-
-            fn type_init(type_: &mut subclass::InitializingType<Self>) {
-                type_.add_interface::<DummyInterface>();
-            }
 
             fn class_init(klass: &mut Self::Class) {
                 klass.add_signal(

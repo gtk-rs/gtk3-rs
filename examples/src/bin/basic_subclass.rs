@@ -40,6 +40,7 @@ mod imp_win {
         const NAME: &'static str = "SimpleWindow";
         type Type = super::SimpleWindow;
         type ParentType = gtk::ApplicationWindow;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -128,6 +129,7 @@ mod imp_app {
         const NAME: &'static str = "SimpleApplication";
         type Type = super::SimpleApplication;
         type ParentType = gtk::Application;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 

@@ -269,6 +269,7 @@ mod tests {
             const NAME: &'static str = "SimpleInputStream";
             type Type = super::SimpleInputStream;
             type ParentType = InputStream;
+            type Interfaces = (crate::Seekable,);
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
@@ -278,10 +279,6 @@ mod tests {
                 Self {
                     pos: RefCell::new(0),
                 }
-            }
-
-            fn type_init(type_: &mut subclass::InitializingType<Self>) {
-                type_.add_interface::<crate::Seekable>();
             }
         }
 

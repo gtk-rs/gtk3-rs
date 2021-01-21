@@ -27,6 +27,7 @@ mod imp {
         const NAME: &'static str = "WriteOutputStream";
         type Type = super::WriteOutputStream;
         type ParentType = OutputStream;
+        type Interfaces = (crate::Seekable,);
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -36,10 +37,6 @@ mod imp {
             Self {
                 write: RefCell::new(None),
             }
-        }
-
-        fn type_init(type_: &mut subclass::InitializingType<Self>) {
-            type_.add_interface::<crate::Seekable>();
         }
     }
 

@@ -34,16 +34,11 @@ mod model {
             const NAME: &'static str = "Model";
             type Type = super::Model;
             type ParentType = glib::Object;
+            type Interfaces = (gio::ListModel,);
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
             glib::object_subclass!();
-
-            // Called right before class_init and allows a GObject to specify
-            // which interfaces it implement, in this case gio::ListModel
-            fn type_init(type_: &mut subclass::InitializingType<Self>) {
-                type_.add_interface::<gio::ListModel>();
-            }
 
             // Called once at the very beginning of instantiation
             fn new() -> Self {
@@ -311,6 +306,7 @@ mod row_data {
             const NAME: &'static str = "RowData";
             type Type = super::RowData;
             type ParentType = glib::Object;
+            type Interfaces = ();
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 

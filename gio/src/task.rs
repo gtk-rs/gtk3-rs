@@ -129,6 +129,7 @@ mod test {
             const NAME: &'static str = "MySimpleObjectPrivate";
             type ParentType = glib::Object;
             type Instance = subclass::simple::InstanceStruct<Self>;
+            type Interfaces = ();
             type Class = subclass::simple::ClassStruct<Self>;
             type Type = MySimpleObject;
             glib::object_subclass!();

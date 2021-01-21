@@ -76,6 +76,9 @@
 //!         type Type = super::SimpleObject;
 //!         type ParentType = glib::Object;
 //!
+//!         // Interfaces this type implements
+//!         type Interfaces = ();
+//!
 //!         // The C/FFI instance and class structs. The simple ones
 //!         // are enough in most cases and more is only needed to
 //!         // expose public instance fields to C APIs or to provide

@@ -12,29 +12,9 @@ use std::ptr;
 
 /// A newly registered `glib::Type` that is currently still being initialized.
 ///
-/// This allows running additional type-setup functions, e.g. for implementing
-/// interfaces on the type.
+/// This allows running additional type-setup functions.
 #[derive(Debug, PartialEq, Eq)]
 pub struct InitializingType<T>(pub(crate) Type, pub(crate) marker::PhantomData<*const T>);
-
-impl<T: ObjectSubclass> InitializingType<T> {
-    /// Adds an interface implementation for `I` to the type.
-    #[doc(alias = "g_type_add_interface_static")]
-    pub fn add_interface<I: IsImplementable<T>>(&mut self) {
-        unsafe {
-            let iface_info = gobject_ffi::GInterfaceInfo {
-                interface_init: Some(I::interface_init),
-                interface_finalize: None,
-                interface_data: ptr::null_mut(),
-            };
-            gobject_ffi::g_type_add_interface_static(
-                self.0.to_glib(),
-                I::static_type().to_glib(),
-                &iface_info,
-            );
-        }
-    }
-}
 
 impl<T> ToGlib for InitializingType<T> {
     type GlibType = ffi::GType;
@@ -127,6 +107,103 @@ pub unsafe trait IsImplementable<T: ObjectSubclass>: StaticType {
     /// correctly type the pointers when working on the vtables they point at.
     unsafe extern "C" fn interface_init(iface: ffi::gpointer, _iface_data: ffi::gpointer);
 }
+
+/// Trait for a type list of interfaces.
+pub trait InterfaceList<T> {
+    /// Returns the list of types and corresponding interface infos for this list.
+    fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)>;
+}
+
+impl<T: ObjectSubclass> InterfaceList<T> for () {
+    fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)> {
+        vec![]
+    }
+}
+
+impl<T: ObjectSubclass, A: IsImplementable<T>> InterfaceList<T> for (A,) {
+    fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)> {
+        vec![(
+            A::static_type().to_glib(),
+            gobject_ffi::GInterfaceInfo {
+                interface_init: Some(A::interface_init),
+                interface_finalize: None,
+                interface_data: ptr::null_mut(),
+            },
+        )]
+    }
+}
+
+// Generates all the InterfaceList impls for interface_lists of arbitrary sizes based on a list of type
+// parameters like A B C. It would generate the impl then for (A, B) and (A, B, C).
+macro_rules! interface_list_trait(
+    ($name1:ident, $name2: ident, $($name:ident),*) => (
+        interface_list_trait!(__impl $name1, $name2; $($name),*);
+    );
+    (__impl $($name:ident),+; $name1:ident, $($name2:ident),*) => (
+        interface_list_trait_impl!($($name),+);
+        interface_list_trait!(__impl $($name),+ , $name1; $($name2),*);
+    );
+    (__impl $($name:ident),+; $name1:ident) => (
+        interface_list_trait_impl!($($name),+);
+        interface_list_trait_impl!($($name),+, $name1);
+    );
+);
+
+// Generates the impl block for InterfaceList on interface_lists or arbitrary sizes based on its
+// arguments. Takes a list of type parameters as parameters, e.g. A B C
+// and then implements the trait on (A, B, C).
+macro_rules! interface_list_trait_impl(
+    ($($name:ident),+) => (
+        impl<T: ObjectSubclass, $($name: IsImplementable<T>),+> InterfaceList<T> for ( $($name),+ ) {
+            fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)> {
+                let mut types = Vec::new();
+                interface_list_trait_inner!(types, $($name)+)
+            }
+        }
+    );
+);
+
+// Generates the inner part of the InterfaceList::types() implementation, which will
+// basically look as follows:
+//
+// let mut types = Vec::new();
+//
+// types.push((A::static_type().to_glib(), ...));
+// types.push((B::static_type().to_glib(), ...));
+// [...]
+// types.push((Z::static_type().to_glib(), ...));
+//
+// types
+macro_rules! interface_list_trait_inner(
+    ($types:ident, $head:ident $($id:ident)+) => ({
+        $types.push(
+            (
+                $head::static_type().to_glib(),
+                gobject_ffi::GInterfaceInfo {
+                    interface_init: Some($head::interface_init),
+                    interface_finalize: None,
+                    interface_data: ptr::null_mut(),
+                },
+            )
+        );
+        interface_list_trait_inner!($types, $($id)+)
+    });
+    ($types:ident, $head:ident) => ({
+        $types.push(
+            (
+                $head::static_type().to_glib(),
+                gobject_ffi::GInterfaceInfo {
+                    interface_init: Some($head::interface_init),
+                    interface_finalize: None,
+                    interface_data: ptr::null_mut(),
+                },
+            )
+        );
+        $types
+    });
+);
+
+interface_list_trait!(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S);
 
 /// Type-specific data that is filled in during type creation.
 pub struct TypeData {
@@ -256,6 +333,9 @@ pub trait ObjectSubclass: Sized + 'static {
         + FromGlibPtrFull<*mut <Self::ParentType as ObjectType>::GlibType>
         + FromGlibPtrBorrow<*mut <Self::ParentType as ObjectType>::GlibType>
         + FromGlibPtrNone<*mut <Self::ParentType as ObjectType>::GlibType>;
+
+    /// List of interfaces implemented by this type.
+    type Interfaces: InterfaceList<Self>;
 
     /// The C instance struct.
     ///
@@ -528,6 +608,11 @@ where
             gobject_ffi::g_type_add_instance_private(type_.to_glib(), mem::size_of::<T>())
         };
         (*data.as_mut()).private_offset = private_offset as isize;
+
+        let iface_types = T::Interfaces::iface_infos();
+        for (iface_type, iface_info) in iface_types {
+            gobject_ffi::g_type_add_interface_static(type_.to_glib(), iface_type, &iface_info);
+        }
 
         T::type_init(&mut InitializingType::<T>(type_, marker::PhantomData));
 

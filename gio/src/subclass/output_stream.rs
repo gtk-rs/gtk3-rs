@@ -331,6 +331,7 @@ mod tests {
             const NAME: &'static str = "SimpleOutputStream";
             type Type = super::SimpleOutputStream;
             type ParentType = OutputStream;
+            type Interfaces = ();
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 

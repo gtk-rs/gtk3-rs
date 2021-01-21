@@ -27,6 +27,7 @@ mod imp {
         const NAME: &'static str = "FileSize";
         type ParentType = glib::Object;
         type Instance = subclass::simple::InstanceStruct<Self>;
+        type Interfaces = ();
         type Class = subclass::simple::ClassStruct<Self>;
         type Type = super::FileSize;
         glib::object_subclass!();
