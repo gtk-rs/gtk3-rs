@@ -50,11 +50,15 @@ mod imp {
         fn class_init(klass: &mut Self::Class) {
             Self::bind_template(klass);
         }
+
+        // You must call `Widget`'s `init_template()` within `instance_init()`.
+        fn instance_init(obj: &glib::subclass::InitializingObject<Self::Type>) {
+            obj.init_template();
+        }
     }
 
     impl ObjectImpl for ExApplicationWindow {
         fn constructed(&self, obj: &Self::Type) {
-            obj.init_template();
             obj.init_label();
             self.parent_constructed(obj);
         }
