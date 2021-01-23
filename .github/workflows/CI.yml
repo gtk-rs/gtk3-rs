@@ -38,7 +38,49 @@ jobs:
         with:
           toolchain: ${{ matrix.rust }}
           override: true
+      - uses: actions/checkout@v2
+        with:
+          repository: gtk-rs/checker
+          ref: master
+          path: checker
+        if: matrix.rust == 'nightly'
       # nightly
+      # files checks
+      - run: cargo build --release
+        working-directory: checker
+        if: matrix.rust == 'nightly'
+      - run: cargo run --release -- --no-manual-traits ../${{matrix.conf.name}}
+        working-directory: checker
+        if: matrix.rust == 'nightly' && matrix.conf.name == 'cairo'
+      - run: cargo run --release -- ../${{matrix.conf.name}}
+        working-directory: checker
+        if: matrix.rust == 'nightly' && matrix.conf.name != 'cairo'
+      - run: cargo run --release -- --no-license ../${{matrix.conf.name}}/sys
+        working-directory: checker
+        if: matrix.rust == 'nightly' && matrix.conf.name != 'cairo'
+      - run: cargo run --release -- --no-manual-traits ../glib-macros
+        working-directory: checker
+        if: matrix.rust == 'nightly' && matrix.conf.name == 'glib'
+      - run: cargo run --release -- --no-manual-traits ../gtk3-macros
+        working-directory: checker
+        if: matrix.rust == 'nightly' && matrix.conf.name == 'glib'
+      - run: ./check_init_asserts ../${{matrix.conf.name}}
+        working-directory: checker
+        if: matrix.rust == 'nightly' && (matrix.conf.name == 'atk' || matrix.conf.name == 'gdk' || matrix.conf.name == 'gdkx11' || matrix.conf.name == 'gtk')
+      # rustdoc-stripper
+      - name: doc add
+        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "dox,embed-lgpl-docs"
+        if: matrix.rust == 'nightly' && matrix.conf.name != 'glib'
+      - name: doc removal
+        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "purge-lgpl-docs"
+        if: matrix.rust == 'nightly' && matrix.conf.name != 'glib'
+      - name: glib doc check
+        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "dox"
+        if: matrix.rust == 'nightly' && matrix.conf.name == 'glib'
+      - name: check diff
+        run: git diff -R --exit-code
+        if: matrix.rust == 'nightly'
+      # tests run
       - name: tests nightly
         run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/Cargo.toml ${{ matrix.conf.nightly }}
         if: matrix.rust == 'nightly'
@@ -49,7 +91,15 @@ jobs:
         run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml ${{ matrix.conf.nightly }}
         if: matrix.rust == 'nightly'
       # not nightly
-      - name: tests
+      # clippy
+      - run: rustup component add clippy
+        if: matrix.rust == 'stable'
+      - working-directory: ${{ matrix.conf.name }}
+        name: clippy ${{ matrix.conf.name }}
+        run: cargo clippy --all-targets -- -D warnings
+        if: matrix.rust == 'stable'
+      # tests
+      - name: tests (rust ${{ matrix.rust }})
         run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "${{ matrix.conf.features }}"
         if: matrix.rust != 'nightly'
       - name: tests sys
@@ -111,74 +161,6 @@ jobs:
           command: fmt
           args: --all -- --check
 
-  clippy:
-    name: clippy
-    runs-on: ubuntu-latest
-    container:
-      image: ubuntu:20.10
-    steps:
-      - run: apt-get update -y
-      - run: apt-get install -y libgtk-3-dev libglib2.0-dev libgraphene-1.0-dev git curl libcairo-gobject2 libcairo2-dev
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-      - run: rustup component add clippy
-
-      - working-directory: atk
-        name: atk
-        run: cargo clippy --features "v2_34" --all-targets -- -D warnings
-
-      - working-directory: cairo
-        name: cairo
-        run: cargo clippy --features "png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface" --all-targets -- -D warnings
-
-      - working-directory: examples
-        name: examples
-        run: cargo clippy --all-features --all-targets -- -D warnings
-
-      - working-directory: gdk
-        name: gdk
-        run: cargo clippy --features "v3_24" --all-targets -- -D warnings
-
-      - working-directory: gdk-pixbuf
-        name: gdk-pixbuf
-        run: cargo clippy --features "v2_40" --all-targets -- -D warnings
-
-      - working-directory: gdkx11
-        name: gdkx11
-        run: cargo clippy --features "v3_24" --all-targets -- -D warnings
-
-      - working-directory: gio
-        name: gio
-        run: cargo clippy --features "v2_66" --all-targets -- -D warnings
-
-      - working-directory: glib
-        name: glib
-        run: cargo clippy --features "v2_66" --all-targets -- -D warnings
-
-      - working-directory: glib-macros
-        name: glib-macros
-        run: cargo clippy --all-targets -- -D warnings
-
-      - working-directory:  graphene
-        name: graphene
-        run: cargo clippy --features "v1_10" --all-targets -- -D warnings
-
-      - working-directory: gtk
-        name: gtk
-        run: cargo clippy --features "v3_24_9" --all-targets -- -D warnings
-
-      - working-directory: pango
-        name: pango
-        run: cargo clippy --features "v1_46" --all-targets -- -D warnings
-
-      - working-directory: pangocairo
-        name: pangocairo
-        run: cargo clippy --all-targets -- -D warnings
-
   generator:
     name: regen check
     runs-on: ubuntu-latest
@@ -188,56 +170,3 @@ jobs:
           submodules: recursive
       - run: python3 generator.py
       - run: git diff -R --exit-code
-
-  checker:
-    name: gtk-rs checks
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        crate:
-          - { name: 'atk', extra: '' }
-          - { name: 'cairo', extra: '--no-manual-traits' }
-          - { name: 'gdk', extra: '' }
-          - { name: 'gdk-pixbuf', extra: '' }
-          - { name: 'gdkx11', extra: '' }
-          - { name: 'gio', extra: '' }
-          - { name: 'glib', extra: '' }
-          - { name: 'glib-macros', extra: '--no-manual-traits' }
-          - { name: 'graphene', extra: '' }
-          - { name: 'gtk', extra: '' }
-          - { name: 'gtk3-macros', extra: '--no-manual-traits' }
-          - { name: 'pango', extra: '' }
-          - { name: 'pangocairo', extra: '' }
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          repository: gtk-rs/checker
-          ref: master
-          path: checker
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: nightly
-          override: true
-      - run: cargo build --release
-        working-directory: checker
-      - run: cargo run -- ${{matrix.crate.extra}} ../${{matrix.crate.name}}
-        working-directory: checker
-      - run: cargo run -- --no-license ../${{matrix.crate.name}}/sys
-        working-directory: checker
-        if: matrix.crate.extra == ''
-      - run: ./check_init_asserts ../${{matrix.crate.name}}
-        working-directory: checker
-        if: matrix.crate.name == 'atk' || matrix.crate.name == 'gdk' || matrix.crate.name == 'gdkx11' || matrix.crate.name == 'gtk'
-      # rustdoc-stripper
-      - name: doc add
-        run: cargo build --manifest-path ${{ matrix.crate.name }}/Cargo.toml --features "dox,embed-lgpl-docs"
-        if: matrix.rust == 'nightly' && matrix.crate.name != 'glib'
-      - name: doc removal
-        run: cargo build --manifest-path ${{ matrix.crate.name }}/Cargo.toml --features "purge-lgpl-docs"
-        if: matrix.rust == 'nightly' && matrix.crate.name != 'glib'
-      - name: glib doc check
-        run: cargo build --manifest-path ${{ matrix.crate.name }}/Cargo.toml --features "dox"
-        if: matrix.rust == 'nightly' && matrix.crate.name == 'glib'
-      - name: check diff
-        run: git diff -R --exit-code
-        if: matrix.rust == 'nightly'
