@@ -8,6 +8,7 @@ use glib::translate::*;
 use libc::c_int;
 
 impl TreeRowReference {
+    // rustdoc-stripper-ignore-next
     /// This is unsafe because new_order bounds can't be checked.
     #[allow(clippy::missing_safety_doc)]
     #[doc(alias = "gtk_tree_row_reference_reordered")]

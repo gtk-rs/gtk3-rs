@@ -7,6 +7,111 @@ name: CI
 
 jobs:
   build:
+    name: ${{matrix.conf.name}} (rust ${{matrix.rust}})
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:20.10
+    strategy:
+      matrix:
+        rust:
+          - stable
+          - beta
+          - nightly
+          - "1.48.0"
+        conf:
+          - { name: "atk", features: "v2_34", nightly: "--all-features", test_sys: true }
+          - { name: "cairo", features: "png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface", nightly: "--features 'png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface'", test_sys: true }
+          - { name: "gdk", features: "v3_24", nightly: "--features v3_24", test_sys: true }
+          - { name: "gdk-pixbuf", features: "v2_40", nightly: "--all-features", test_sys: true }
+          - { name: "gdkx11", features: "v3_24", nightly: "--all-features", test_sys: true }
+          - { name: "gio", features: "v2_66", nightly: "--all-features", test_sys: false }
+          - { name: "glib", features: "v2_66", nightly: "--all-features", test_sys: false }
+          - { name: "graphene", features: "v1_10", nightly: "", test_sys: false }
+          - { name: "gtk", features: "v3_24_9", nightly: "--all-features", test_sys: false }
+          - { name: "pango", features: "v1_46", nightly: "--all-features", test_sys: false }
+          - { name: "pangocairo", features: "", nightly: "--all-features", test_sys: true }
+    steps:
+      - run: apt-get update -y
+      - run: apt-get install -y libgtk-3-dev libglib2.0-dev libgraphene-1.0-dev git xvfb curl libcairo-gobject2 libcairo2-dev
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.rust }}
+          override: true
+      - uses: actions/checkout@v2
+        with:
+          repository: gtk-rs/checker
+          ref: master
+          path: checker
+        if: matrix.rust == 'nightly'
+      # nightly
+      # files checks
+      - run: cargo build --release
+        working-directory: checker
+        if: matrix.rust == 'nightly'
+      - run: cargo run --release -- --no-manual-traits ../${{matrix.conf.name}}
+        working-directory: checker
+        if: matrix.rust == 'nightly' && matrix.conf.name == 'cairo'
+      - run: cargo run --release -- ../${{matrix.conf.name}}
+        working-directory: checker
+        if: matrix.rust == 'nightly' && matrix.conf.name != 'cairo'
+      - run: cargo run --release -- --no-license ../${{matrix.conf.name}}/sys
+        working-directory: checker
+        if: matrix.rust == 'nightly' && matrix.conf.name != 'cairo'
+      - run: cargo run --release -- --no-manual-traits ../glib-macros
+        working-directory: checker
+        if: matrix.rust == 'nightly' && matrix.conf.name == 'glib'
+      - run: cargo run --release -- --no-manual-traits ../gtk3-macros
+        working-directory: checker
+        if: matrix.rust == 'nightly' && matrix.conf.name == 'glib'
+      - run: ./check_init_asserts ../${{matrix.conf.name}}
+        working-directory: checker
+        if: matrix.rust == 'nightly' && (matrix.conf.name == 'atk' || matrix.conf.name == 'gdk' || matrix.conf.name == 'gdkx11' || matrix.conf.name == 'gtk')
+      # rustdoc-stripper
+      - name: doc add
+        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "dox,embed-lgpl-docs"
+        if: matrix.rust == 'nightly' && matrix.conf.name != 'glib'
+      - name: doc removal
+        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "purge-lgpl-docs"
+        if: matrix.rust == 'nightly' && matrix.conf.name != 'glib'
+      - name: glib doc check
+        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "dox"
+        if: matrix.rust == 'nightly' && matrix.conf.name == 'glib'
+      - name: check diff
+        run: git diff -R --exit-code
+        if: matrix.rust == 'nightly'
+      # tests run
+      - name: tests nightly
+        run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/Cargo.toml ${{ matrix.conf.nightly }}
+        if: matrix.rust == 'nightly'
+      - name: tests sys nightly
+        run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/sys/Cargo.toml ${{ matrix.conf.nightly }}
+        if: matrix.rust == 'nightly' && matrix.conf.test_sys
+      - name: build nightly
+        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml ${{ matrix.conf.nightly }}
+        if: matrix.rust == 'nightly'
+      # not nightly
+      # clippy
+      - run: rustup component add clippy
+        if: matrix.rust == 'stable'
+      - working-directory: ${{ matrix.conf.name }}
+        name: clippy ${{ matrix.conf.name }}
+        run: cargo clippy --all-targets -- -D warnings
+        if: matrix.rust == 'stable'
+      # tests
+      - name: tests (rust ${{ matrix.rust }})
+        run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "${{ matrix.conf.features }}"
+        if: matrix.rust != 'nightly'
+      - name: tests sys
+        run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/sys/Cargo.toml --features "${{ matrix.conf.features }}"
+        if: matrix.rust != 'nightly' && matrix.conf.test_sys
+      - name: build
+        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "${{ matrix.conf.features }}"
+        if: matrix.rust != 'nightly'
+
+      - uses: bcomnes/cleanup-xvfb@v1
+
+  build-others:
     runs-on: ubuntu-latest
     container:
       image: ubuntu:20.10
@@ -25,190 +130,15 @@ jobs:
         with:
           toolchain: ${{ matrix.rust }}
           override: true
-      # atk
-      # nightly
-      - name: "atk: tests nightly"
-        run: xvfb-run --auto-servernum cargo test --manifest-path atk/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      - name: "atk-sys: tests nightly"
-        run: xvfb-run --auto-servernum cargo test --manifest-path atk/sys/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      - name: "atk: build nightly"
-        run: cargo build --manifest-path atk/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      # not nightly
-      - name: "atk: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path atk/Cargo.toml --features "v2_34"
-        if: matrix.rust != 'nightly'
-      - name: "atk-sys: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path atk/sys/Cargo.toml --features "v2_34"
-        if: matrix.rust != 'nightly'
-      - name: "atk: build"
-        run: cargo build --manifest-path atk/Cargo.toml --features "v2_34"
-        if: matrix.rust != 'nightly'
-      # cairo
-      - name: "cairo: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path cairo/Cargo.toml --features "png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface"
-      - name: "cairo-sys: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path cairo/sys/Cargo.toml --features "png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface"
-      - name: "cairo: build"
-        run: cargo build --manifest-path cairo/Cargo.toml --features "png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface"
-      # gdk
-      - name: "gdk: tests nightly"
-        run: xvfb-run --auto-servernum cargo test --manifest-path gdk/Cargo.toml --features v3_24
-      - name: "gdk: build nightly"
-        run: cargo build --manifest-path gdk/Cargo.toml --features v3_24
-      # gdk-pixbuf
-      # nightly
-      - name: "gdk-pixbuf: tests nightly"
-        run: xvfb-run --auto-servernum cargo test --manifest-path gdk-pixbuf/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      - name: "gdk-pixbuf-sys: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path gdk-pixbuf/sys/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      - name: "gdk-pixbuf: build nightly"
-        run: cargo build --manifest-path gdk-pixbuf/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      # not nightly
-      - name: "gdk-pixbuf: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path gdk-pixbuf/Cargo.toml --features "v2_40"
-        if: matrix.rust != 'nightly'
-      - name: "gdk-pixbuf-sys: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path gdk-pixbuf/sys/Cargo.toml --features "v2_40"
-        if: matrix.rust != 'nightly'
-      - name: "gdk-pixbuf: build"
-        run: cargo build --manifest-path gdk-pixbuf/Cargo.toml --features "v2_40"
-        if: matrix.rust != 'nightly'
-      # gdkx11
-      # nightly
-      - name: "gdkx11: tests nightly"
-        run: xvfb-run --auto-servernum cargo test --manifest-path gdkx11/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      - name: "gdkx11-sys: tests nightly"
-        run: xvfb-run --auto-servernum cargo test --manifest-path gdkx11/sys/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      - name: "gdkx11: build nightly"
-        run: cargo build --manifest-path gdkx11/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      # not nightly
-      - name: "gdkx11: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path gdkx11/Cargo.toml --features "v3_24"
-        if: matrix.rust != 'nightly'
-      - name: "gdkx11-sys: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path gdkx11/sys/Cargo.toml --features "v3_24"
-        if: matrix.rust != 'nightly'
-      - name: "gdkx11: build"
-        run: cargo build --manifest-path gdkx11/Cargo.toml --features "v3_24"
-        if: matrix.rust != 'nightly'
-      # gio
-      # nightly
-      - name: "gio: tests nightly"
-        run: xvfb-run --auto-servernum cargo test --manifest-path gio/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      - name: "gio: build nightly"
-        run: cargo build --manifest-path gio/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      # not nightly
-      - name: "gio: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path gio/Cargo.toml --features "v2_66"
-        if: matrix.rust != 'nightly'
-      - name: "gio: build"
-        run: cargo build --manifest-path gio/Cargo.toml --features "v2_66"
-        if: matrix.rust != 'nightly'
-      # glib
-      # nightly
-      - name: "glib: tests nightly"
-        run: xvfb-run --auto-servernum cargo test --manifest-path glib/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      - name: "glib: build nightly"
-        run: cargo build --manifest-path glib/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
+      # glib (macros)
       - name: "glib: tests glib macros nightly"
         working-directory: glib
         run: python3 clone_tests/clone_compilation_errors.py
-        if: matrix.rust == 'nightly'
-      #not nightly
-      - name: "glib: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path glib/Cargo.toml --features "v2_66"
-        if: matrix.rust != 'nightly'
-      - name: "glib: build"
-        run: cargo build --manifest-path glib/Cargo.toml --features "v2_66"
-        if: matrix.rust != 'nightly'
-      - name: "glib: tests glib macros"
-        working-directory: glib
-        run: python3 clone_tests/clone_compilation_errors.py
-        if: matrix.rust != 'nightly'
       # glib-macros
       - name: "glib-macros: tests"
         run: xvfb-run --auto-servernum cargo test --manifest-path glib-macros/Cargo.toml
       - name: "glib-macros: build"
         run: cargo build --manifest-path glib-macros/Cargo.toml
-      # graphene
-      # nightly
-      - name: "graphene: tests nightly"
-        run: xvfb-run --auto-servernum cargo test --manifest-path graphene/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      - name: "graphene: build nightly"
-        run: cargo build --manifest-path graphene/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      # not nightly
-      - name: "graphene: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path graphene/Cargo.toml --features "v1_10"
-        if: matrix.rust != 'nightly'
-      - name: "graphene: build"
-        run: cargo build --manifest-path graphene/Cargo.toml --features "v1_10"
-        if: matrix.rust != 'nightly'
-      # gtk
-      # nightly
-      - name: "gtk: tests nightly"
-        run: xvfb-run --auto-servernum cargo test --manifest-path gtk/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      - name: "gtk: build nightly"
-        run: cargo build --manifest-path gtk/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      # not nightly
-      - name: "gtk: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path gtk/Cargo.toml --features "v3_24_9"
-        if: matrix.rust != 'nightly'
-      - name: "gtk: build"
-        run: cargo build --manifest-path gtk/Cargo.toml --features "v3_24_9"
-        if: matrix.rust != 'nightly'
-      # pango
-      # nightly
-      - name: "pango: tests nightly"
-        run: xvfb-run --auto-servernum cargo test --manifest-path pango/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      - name: "pango: build nightly"
-        run: cargo build --manifest-path pango/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      # not nightly
-      - name: "pango: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path pango/Cargo.toml --features "v1_46"
-        if: matrix.rust != 'nightly'
-      - name: "pango: build"
-        run: cargo build --manifest-path pango/Cargo.toml --features "v1_46"
-        if: matrix.rust != 'nightly'
-      # pangocairo
-      # nightly
-      - name: "pangocairo: tests nightly"
-        run: xvfb-run --auto-servernum cargo test --manifest-path pangocairo/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      - name: "pangocairo-sys: tests nightly"
-        run: xvfb-run --auto-servernum cargo test --manifest-path pangocairo/sys/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      - name: "pangocairo: build nightly"
-        run: cargo build --manifest-path pangocairo/Cargo.toml --all-features
-        if: matrix.rust == 'nightly'
-      # not nightly
-      - name: "pangocairo: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path pangocairo/Cargo.toml
-        if: matrix.rust != 'nightly'
-      - name: "pangocairo-sys: tests"
-        run: xvfb-run --auto-servernum cargo test --manifest-path pangocairo/sys/Cargo.toml
-        if: matrix.rust != 'nightly'
-      - name: "pangocairo: build"
-        run: cargo build --manifest-path pangocairo/Cargo.toml
-        if: matrix.rust != 'nightly'
       # examples
       - name: "examples"
         run: cargo build --manifest-path examples/Cargo.toml --bins --examples --all-features
@@ -231,74 +161,6 @@ jobs:
           command: fmt
           args: --all -- --check
 
-  clippy:
-    name: clippy
-    runs-on: ubuntu-latest
-    container:
-      image: ubuntu:20.10
-    steps:
-      - run: apt-get update -y
-      - run: apt-get install -y libgtk-3-dev libglib2.0-dev libgraphene-1.0-dev git xvfb curl libcairo-gobject2 libcairo2-dev
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-      - run: rustup component add clippy
-
-      - working-directory: atk
-        name: atk
-        run: cargo clippy --features "v2_34" --all-targets -- -D warnings
-
-      - working-directory: cairo
-        name: cairo
-        run: cargo clippy --features "png,pdf,svg,ps,use_glib,v1_16,freetype,script,xcb,xlib,win32-surface" --all-targets -- -D warnings
-
-      - working-directory: examples
-        name: examples
-        run: cargo clippy --all-features --all-targets -- -D warnings
-
-      - working-directory: gdk
-        name: gdk
-        run: cargo clippy --features "v3_24" --all-targets -- -D warnings
-
-      - working-directory: gdk-pixbuf
-        name: gdk-pixbuf
-        run: cargo clippy --features "v2_40" --all-targets -- -D warnings
-
-      - working-directory: gdkx11
-        name: gdkx11
-        run: cargo clippy --features "v3_24" --all-targets -- -D warnings
-
-      - working-directory: gio
-        name: gio
-        run: cargo clippy --features "v2_66" --all-targets -- -D warnings
-
-      - working-directory: glib
-        name: glib
-        run: cargo clippy --features "v2_66" --all-targets -- -D warnings
-
-      - working-directory: glib-macros
-        name: glib-macros
-        run: cargo clippy --all-targets -- -D warnings
-
-      - working-directory:  graphene
-        name: graphene
-        run: cargo clippy --features "v1_10" --all-targets -- -D warnings
-
-      - working-directory: gtk
-        name: gtk
-        run: cargo clippy --features "v3_24_9" --all-targets -- -D warnings
-
-      - working-directory: pango
-        name: pango
-        run: cargo clippy --features "v1_46" --all-targets -- -D warnings
-
-      - working-directory: pangocairo
-        name: pangocairo
-        run: cargo clippy --all-targets -- -D warnings
-
   generator:
     name: regen check
     runs-on: ubuntu-latest
@@ -308,40 +170,3 @@ jobs:
           submodules: recursive
       - run: python3 generator.py
       - run: git diff -R --exit-code
-
-  checker:
-    name: gtk-rs checker
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        crate:
-          - { name: 'atk', extra: '' }
-          - { name: 'cairo', extra: '--no-manual-traits' }
-          - { name: 'gdk', extra: '' }
-          - { name: 'gdk-pixbuf', extra: '' }
-          - { name: 'gdkx11', extra: '' }
-          - { name: 'gio', extra: '' }
-          - { name: 'glib', extra: '' }
-          - { name: 'glib-macros', extra: '--no-manual-traits' }
-          - { name: 'graphene', extra: '' }
-          - { name: 'gtk', extra: '' }
-          - { name: 'gtk3-macros', extra: '--no-manual-traits' }
-          - { name: 'pango', extra: '' }
-          - { name: 'pangocairo', extra: '' }
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/checkout@v2
-        with:
-          repository: gtk-rs/checker
-          ref: master
-          path: checker
-      - run: cargo build --release
-        working-directory: checker
-      - run: cargo run -- ${{matrix.crate.extra}} ../${{matrix.crate.name}}
-        working-directory: checker
-      - run: cargo run -- --no-license ../${{matrix.crate.name}}/sys
-        working-directory: checker
-        if: matrix.crate.extra == ''
-      - run: ./check_init_asserts ../${{matrix.crate.name}}
-        working-directory: checker
-        if: matrix.crate == 'atk' || matrix.crate == 'gdk' || matrix.crate == 'gdkx11' || matrix.crate == 'gtk'

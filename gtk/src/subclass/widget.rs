@@ -1666,6 +1666,7 @@ where
 {
     type Target = T;
 
+    // rustdoc-stripper-ignore-next
     /// # Safety
     ///
     /// Since the template child may not be properly bound,
