@@ -32,6 +32,7 @@ impl Resource {
     }
 }
 
+// rustdoc-stripper-ignore-next
 /// Call from build script to run `glib-compile-resources` to generate compiled gresources to embed
 /// in binary with [resources_register_include]. `target` is relative to `OUT_DIR`.
 ///
@@ -41,7 +42,6 @@ impl Resource {
 ///     "resources/resources.gresource.xml",
 ///     "compiled.gresource",
 /// );
-
 /// ```
 pub fn compile_resources<P: AsRef<Path>>(source_dir: P, gresource: &str, target: &str) {
     let out_dir = env::var("OUT_DIR").unwrap();
@@ -82,6 +82,7 @@ pub fn resources_register_include_impl(bytes: &'static [u8]) -> Result<(), glib:
     Ok(())
 }
 
+// rustdoc-stripper-ignore-next
 /// Include gresources generated with [compile_resources] and register with glib. `path` is
 /// relative to `OUTDIR`.
 ///
