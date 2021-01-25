@@ -343,6 +343,12 @@ impl StaticType for Vec<String> {
     }
 }
 
+impl StaticType for () {
+    fn static_type() -> Type {
+        Type::Unit
+    }
+}
+
 #[inline]
 pub unsafe fn instance_of<C: StaticType>(ptr: ffi::gconstpointer) -> bool {
     from_glib(gobject_ffi::g_type_check_instance_is_a(
