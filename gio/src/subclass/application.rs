@@ -493,6 +493,7 @@ mod tests {
             const NAME: &'static str = "SimpleApplication";
             type Type = super::SimpleApplication;
             type ParentType = Application;
+            type Interfaces = ();
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 

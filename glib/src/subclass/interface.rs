@@ -1,9 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use super::{InitializingType, Property};
+use super::{InitializingType, Signal};
 use crate::translate::*;
-use crate::{IsA, Object, ObjectExt, SignalFlags, StaticType, Type, Value};
-use std::borrow::Borrow;
+use crate::{IsA, Object, ObjectExt, ParamSpec, StaticType, Type};
 use std::marker;
 use std::mem;
 
@@ -86,12 +85,23 @@ pub trait ObjectInterface: Sized + 'static {
     ///
     /// This is called after `type_init` and before the first implementor
     /// of the interface is created. Interfaces can use this to do interface-
-    /// specific initialization, e.g. for installing properties or signals
-    /// on the interface, and for setting default implementations of interface
-    /// functions.
+    /// specific initialization, e.g. for installing signals on the interface,
+    /// and for setting default implementations of interface functions.
     ///
     /// Optional
     fn interface_init(&mut self) {}
+
+    /// Properties installed for this interface.
+    ///
+    /// All implementors of the interface must provide these properties.
+    fn properties() -> &'static [ParamSpec] {
+        &[]
+    }
+
+    /// Signals installed for this interface.
+    fn signals() -> &'static [Signal] {
+        &[]
+    }
 }
 
 pub trait ObjectInterfaceExt: ObjectInterface {
@@ -109,137 +119,6 @@ pub trait ObjectInterfaceExt: ObjectInterface {
             &*(interface as *const Self)
         }
     }
-
-    /// Install properties on the interface.
-    ///
-    /// All implementors of the interface must provide these properties.
-    fn install_properties<'a, T: Borrow<Property<'a>>>(&mut self, properties: &[T]) {
-        if properties.is_empty() {
-            return;
-        }
-
-        for property in properties {
-            let property = property.borrow();
-            let pspec = (property.1)(property.0);
-            unsafe {
-                gobject_ffi::g_object_interface_install_property(
-                    self as *mut Self as *mut _,
-                    pspec.to_glib_none().0,
-                );
-            }
-        }
-    }
-
-    /// Add a new signal to the interface.
-    ///
-    /// This can be emitted later by `glib::Object::emit` and external code
-    /// can connect to the signal to get notified about emissions.
-    fn add_signal(&mut self, name: &str, flags: SignalFlags, arg_types: &[Type], ret_type: Type) {
-        unsafe {
-            super::types::add_signal(
-                *(self as *mut _ as *mut ffi::GType),
-                name,
-                flags,
-                arg_types,
-                ret_type,
-            );
-        }
-    }
-
-    /// Add a new signal with class handler to the interface.
-    ///
-    /// This can be emitted later by `glib::Object::emit` and external code
-    /// can connect to the signal to get notified about emissions.
-    ///
-    /// The class handler will be called during the signal emission at the corresponding stage.
-    fn add_signal_with_class_handler<F>(
-        &mut self,
-        name: &str,
-        flags: SignalFlags,
-        arg_types: &[Type],
-        ret_type: Type,
-        class_handler: F,
-    ) where
-        F: Fn(&super::SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
-    {
-        unsafe {
-            super::types::add_signal_with_class_handler(
-                *(self as *mut _ as *mut ffi::GType),
-                name,
-                flags,
-                arg_types,
-                ret_type,
-                class_handler,
-            );
-        }
-    }
-
-    /// Add a new signal with accumulator to the interface.
-    ///
-    /// This can be emitted later by `glib::Object::emit` and external code
-    /// can connect to the signal to get notified about emissions.
-    ///
-    /// The accumulator function is used for accumulating the return values of
-    /// multiple signal handlers. The new value is passed as second argument and
-    /// should be combined with the old value in the first argument. If no further
-    /// signal handlers should be called, `false` should be returned.
-    fn add_signal_with_accumulator<F>(
-        &mut self,
-        name: &str,
-        flags: SignalFlags,
-        arg_types: &[Type],
-        ret_type: Type,
-        accumulator: F,
-    ) where
-        F: Fn(&super::SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
-    {
-        unsafe {
-            super::types::add_signal_with_accumulator(
-                *(self as *mut _ as *mut ffi::GType),
-                name,
-                flags,
-                arg_types,
-                ret_type,
-                accumulator,
-            );
-        }
-    }
-
-    /// Add a new signal with accumulator and class handler to the interface.
-    ///
-    /// This can be emitted later by `glib::Object::emit` and external code
-    /// can connect to the signal to get notified about emissions.
-    ///
-    /// The accumulator function is used for accumulating the return values of
-    /// multiple signal handlers. The new value is passed as second argument and
-    /// should be combined with the old value in the first argument. If no further
-    /// signal handlers should be called, `false` should be returned.
-    ///
-    /// The class handler will be called during the signal emission at the corresponding stage.
-    fn add_signal_with_class_handler_and_accumulator<F, G>(
-        &mut self,
-        name: &str,
-        flags: SignalFlags,
-        arg_types: &[Type],
-        ret_type: Type,
-        class_handler: F,
-        accumulator: G,
-    ) where
-        F: Fn(&super::SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
-        G: Fn(&super::SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
-    {
-        unsafe {
-            super::types::add_signal_with_class_handler_and_accumulator(
-                *(self as *mut _ as *mut ffi::GType),
-                name,
-                flags,
-                arg_types,
-                ret_type,
-                class_handler,
-                accumulator,
-            );
-        }
-    }
 }
 
 impl<T: ObjectInterface> ObjectInterfaceExt for T {}
@@ -249,6 +128,21 @@ unsafe extern "C" fn interface_init<T: ObjectInterface>(
     _klass_data: ffi::gpointer,
 ) {
     let iface = &mut *(klass as *mut T);
+
+    let pspecs = <T as ObjectInterface>::properties();
+    for pspec in pspecs {
+        gobject_ffi::g_object_interface_install_property(
+            iface as *mut T as *mut _,
+            pspec.to_glib_none().0,
+        );
+    }
+
+    let type_ = T::get_type();
+    let signals = <T as ObjectInterface>::signals();
+    for signal in signals {
+        signal.register(type_);
+    }
+
     iface.interface_init();
 }
 

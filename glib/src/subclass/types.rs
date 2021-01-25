@@ -4,37 +4,16 @@
 
 use crate::object::{Cast, ObjectSubclassIs, ObjectType};
 use crate::translate::*;
-use crate::{Closure, Object, SignalFlags, StaticType, Type, Value};
-use std::fmt;
+use crate::{Closure, Object, StaticType, Type, Value};
 use std::marker;
 use std::mem;
 use std::ptr;
 
 /// A newly registered `glib::Type` that is currently still being initialized.
 ///
-/// This allows running additional type-setup functions, e.g. for implementing
-/// interfaces on the type.
+/// This allows running additional type-setup functions.
 #[derive(Debug, PartialEq, Eq)]
 pub struct InitializingType<T>(pub(crate) Type, pub(crate) marker::PhantomData<*const T>);
-
-impl<T: ObjectSubclass> InitializingType<T> {
-    /// Adds an interface implementation for `I` to the type.
-    #[doc(alias = "g_type_add_interface_static")]
-    pub fn add_interface<I: IsImplementable<T>>(&mut self) {
-        unsafe {
-            let iface_info = gobject_ffi::GInterfaceInfo {
-                interface_init: Some(I::interface_init),
-                interface_finalize: None,
-                interface_data: ptr::null_mut(),
-            };
-            gobject_ffi::g_type_add_interface_static(
-                self.0.to_glib(),
-                I::static_type().to_glib(),
-                &iface_info,
-            );
-        }
-    }
-}
 
 impl<T> ToGlib for InitializingType<T> {
     type GlibType = ffi::GType;
@@ -127,6 +106,103 @@ pub unsafe trait IsImplementable<T: ObjectSubclass>: StaticType {
     /// correctly type the pointers when working on the vtables they point at.
     unsafe extern "C" fn interface_init(iface: ffi::gpointer, _iface_data: ffi::gpointer);
 }
+
+/// Trait for a type list of interfaces.
+pub trait InterfaceList<T> {
+    /// Returns the list of types and corresponding interface infos for this list.
+    fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)>;
+}
+
+impl<T: ObjectSubclass> InterfaceList<T> for () {
+    fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)> {
+        vec![]
+    }
+}
+
+impl<T: ObjectSubclass, A: IsImplementable<T>> InterfaceList<T> for (A,) {
+    fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)> {
+        vec![(
+            A::static_type().to_glib(),
+            gobject_ffi::GInterfaceInfo {
+                interface_init: Some(A::interface_init),
+                interface_finalize: None,
+                interface_data: ptr::null_mut(),
+            },
+        )]
+    }
+}
+
+// Generates all the InterfaceList impls for interface_lists of arbitrary sizes based on a list of type
+// parameters like A B C. It would generate the impl then for (A, B) and (A, B, C).
+macro_rules! interface_list_trait(
+    ($name1:ident, $name2: ident, $($name:ident),*) => (
+        interface_list_trait!(__impl $name1, $name2; $($name),*);
+    );
+    (__impl $($name:ident),+; $name1:ident, $($name2:ident),*) => (
+        interface_list_trait_impl!($($name),+);
+        interface_list_trait!(__impl $($name),+ , $name1; $($name2),*);
+    );
+    (__impl $($name:ident),+; $name1:ident) => (
+        interface_list_trait_impl!($($name),+);
+        interface_list_trait_impl!($($name),+, $name1);
+    );
+);
+
+// Generates the impl block for InterfaceList on interface_lists or arbitrary sizes based on its
+// arguments. Takes a list of type parameters as parameters, e.g. A B C
+// and then implements the trait on (A, B, C).
+macro_rules! interface_list_trait_impl(
+    ($($name:ident),+) => (
+        impl<T: ObjectSubclass, $($name: IsImplementable<T>),+> InterfaceList<T> for ( $($name),+ ) {
+            fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)> {
+                let mut types = Vec::new();
+                interface_list_trait_inner!(types, $($name)+)
+            }
+        }
+    );
+);
+
+// Generates the inner part of the InterfaceList::types() implementation, which will
+// basically look as follows:
+//
+// let mut types = Vec::new();
+//
+// types.push((A::static_type().to_glib(), ...));
+// types.push((B::static_type().to_glib(), ...));
+// [...]
+// types.push((Z::static_type().to_glib(), ...));
+//
+// types
+macro_rules! interface_list_trait_inner(
+    ($types:ident, $head:ident $($id:ident)+) => ({
+        $types.push(
+            (
+                $head::static_type().to_glib(),
+                gobject_ffi::GInterfaceInfo {
+                    interface_init: Some($head::interface_init),
+                    interface_finalize: None,
+                    interface_data: ptr::null_mut(),
+                },
+            )
+        );
+        interface_list_trait_inner!($types, $($id)+)
+    });
+    ($types:ident, $head:ident) => ({
+        $types.push(
+            (
+                $head::static_type().to_glib(),
+                gobject_ffi::GInterfaceInfo {
+                    interface_init: Some($head::interface_init),
+                    interface_finalize: None,
+                    interface_data: ptr::null_mut(),
+                },
+            )
+        );
+        $types
+    });
+);
+
+interface_list_trait!(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S);
 
 /// Type-specific data that is filled in during type creation.
 pub struct TypeData {
@@ -257,6 +333,9 @@ pub trait ObjectSubclass: Sized + 'static {
         + FromGlibPtrBorrow<*mut <Self::ParentType as ObjectType>::GlibType>
         + FromGlibPtrNone<*mut <Self::ParentType as ObjectType>::GlibType>;
 
+    /// List of interfaces implemented by this type.
+    type Interfaces: InterfaceList<Self>;
+
     /// The C instance struct.
     ///
     /// See [`simple::InstanceStruct`] for an basic instance struct that should be
@@ -338,8 +417,8 @@ pub trait ObjectSubclass: Sized + 'static {
     ///
     /// This is called after `type_init` and before the first instance
     /// of the subclass is created. Subclasses can use this to do class-
-    /// specific initialization, e.g. for installing properties or signals
-    /// on the class or calling class methods.
+    /// specific initialization, e.g. for registering signals on the class
+    /// or calling class methods.
     ///
     /// Optional
     fn class_init(_klass: &mut Self::Class) {}
@@ -529,191 +608,15 @@ where
         };
         (*data.as_mut()).private_offset = private_offset as isize;
 
+        let iface_types = T::Interfaces::iface_infos();
+        for (iface_type, iface_info) in iface_types {
+            gobject_ffi::g_type_add_interface_static(type_.to_glib(), iface_type, &iface_info);
+        }
+
         T::type_init(&mut InitializingType::<T>(type_, marker::PhantomData));
 
         type_
     }
-}
-
-pub(crate) unsafe fn add_signal(
-    type_: ffi::GType,
-    name: &str,
-    flags: SignalFlags,
-    arg_types: &[Type],
-    ret_type: Type,
-) {
-    let arg_types = arg_types.iter().map(ToGlib::to_glib).collect::<Vec<_>>();
-
-    gobject_ffi::g_signal_newv(
-        name.to_glib_none().0,
-        type_,
-        flags.to_glib(),
-        ptr::null_mut(),
-        None,
-        ptr::null_mut(),
-        None,
-        ret_type.to_glib(),
-        arg_types.len() as u32,
-        arg_types.as_ptr() as *mut _,
-    );
-}
-
-#[repr(transparent)]
-pub struct SignalInvocationHint(gobject_ffi::GSignalInvocationHint);
-
-impl SignalInvocationHint {
-    pub fn detail(&self) -> crate::Quark {
-        unsafe { from_glib(self.0.detail) }
-    }
-
-    pub fn run_type(&self) -> SignalFlags {
-        unsafe { from_glib(self.0.run_type) }
-    }
-}
-
-impl fmt::Debug for SignalInvocationHint {
-    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        f.debug_struct("SignalInvocationHint")
-            .field("detail", &self.detail())
-            .field("run_type", &self.run_type())
-            .finish()
-    }
-}
-
-pub(crate) unsafe fn add_signal_with_accumulator<F>(
-    type_: ffi::GType,
-    name: &str,
-    flags: SignalFlags,
-    arg_types: &[Type],
-    ret_type: Type,
-    accumulator: F,
-) where
-    F: Fn(&SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
-{
-    let arg_types = arg_types.iter().map(ToGlib::to_glib).collect::<Vec<_>>();
-
-    let accumulator: Box<F> = Box::new(accumulator);
-
-    unsafe extern "C" fn accumulator_trampoline<
-        F: Fn(&SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
-    >(
-        ihint: *mut gobject_ffi::GSignalInvocationHint,
-        return_accu: *mut gobject_ffi::GValue,
-        handler_return: *const gobject_ffi::GValue,
-        data: ffi::gpointer,
-    ) -> ffi::gboolean {
-        let accumulator: &F = &*(data as *const &F);
-        accumulator(
-            &*(ihint as *const SignalInvocationHint),
-            &mut *(return_accu as *mut Value),
-            &*(handler_return as *const Value),
-        )
-        .to_glib()
-    }
-
-    gobject_ffi::g_signal_newv(
-        name.to_glib_none().0,
-        type_,
-        flags.to_glib(),
-        ptr::null_mut(),
-        Some(accumulator_trampoline::<F>),
-        Box::into_raw(accumulator) as ffi::gpointer,
-        None,
-        ret_type.to_glib(),
-        arg_types.len() as u32,
-        arg_types.as_ptr() as *mut _,
-    );
-}
-
-pub struct SignalClassHandlerToken(*mut gobject_ffi::GTypeInstance);
-
-impl fmt::Debug for SignalClassHandlerToken {
-    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        f.debug_tuple("SignalClassHandlerToken")
-            .field(&unsafe { crate::Object::from_glib_borrow(self.0 as *mut gobject_ffi::GObject) })
-            .finish()
-    }
-}
-
-pub(crate) unsafe fn add_signal_with_class_handler<F>(
-    type_: ffi::GType,
-    name: &str,
-    flags: SignalFlags,
-    arg_types: &[Type],
-    ret_type: Type,
-    class_handler: F,
-) where
-    F: Fn(&SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
-{
-    let arg_types = arg_types.iter().map(ToGlib::to_glib).collect::<Vec<_>>();
-    let class_handler = Closure::new(move |values| {
-        let instance = gobject_ffi::g_value_get_object(values[0].to_glib_none().0);
-        class_handler(&SignalClassHandlerToken(instance as *mut _), values)
-    });
-
-    gobject_ffi::g_signal_newv(
-        name.to_glib_none().0,
-        type_,
-        flags.to_glib(),
-        class_handler.to_glib_none().0,
-        None,
-        ptr::null_mut(),
-        None,
-        ret_type.to_glib(),
-        arg_types.len() as u32,
-        arg_types.as_ptr() as *mut _,
-    );
-}
-
-pub(crate) unsafe fn add_signal_with_class_handler_and_accumulator<F, G>(
-    type_: ffi::GType,
-    name: &str,
-    flags: SignalFlags,
-    arg_types: &[Type],
-    ret_type: Type,
-    class_handler: F,
-    accumulator: G,
-) where
-    F: Fn(&SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
-    G: Fn(&SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
-{
-    let arg_types = arg_types.iter().map(ToGlib::to_glib).collect::<Vec<_>>();
-
-    let class_handler = Closure::new(move |values| {
-        let instance = gobject_ffi::g_value_get_object(values[0].to_glib_none().0);
-        class_handler(&SignalClassHandlerToken(instance as *mut _), values)
-    });
-    let accumulator: Box<G> = Box::new(accumulator);
-
-    unsafe extern "C" fn accumulator_trampoline<
-        G: Fn(&SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
-    >(
-        ihint: *mut gobject_ffi::GSignalInvocationHint,
-        return_accu: *mut gobject_ffi::GValue,
-        handler_return: *const gobject_ffi::GValue,
-        data: ffi::gpointer,
-    ) -> ffi::gboolean {
-        let accumulator: &G = &*(data as *const &G);
-        accumulator(
-            &SignalInvocationHint(*ihint),
-            &mut *(return_accu as *mut Value),
-            &*(handler_return as *const Value),
-        )
-        .to_glib()
-    }
-
-    gobject_ffi::g_signal_newv(
-        name.to_glib_none().0,
-        type_,
-        flags.to_glib(),
-        class_handler.to_glib_none().0,
-        Some(accumulator_trampoline::<G>),
-        Box::into_raw(accumulator) as ffi::gpointer,
-        None,
-        ret_type.to_glib(),
-        arg_types.len() as u32,
-        arg_types.as_ptr() as *mut _,
-    );
 }
 
 pub(crate) unsafe fn signal_override_class_handler<F>(
@@ -725,7 +628,7 @@ pub(crate) unsafe fn signal_override_class_handler<F>(
 {
     let class_handler = Closure::new(move |values| {
         let instance = gobject_ffi::g_value_get_object(values[0].to_glib_none().0);
-        class_handler(&SignalClassHandlerToken(instance as *mut _), values)
+        class_handler(&super::SignalClassHandlerToken(instance as *mut _), values)
     });
 
     let mut signal_id = 0;
@@ -746,7 +649,7 @@ pub(crate) unsafe fn signal_override_class_handler<F>(
 
 pub(crate) unsafe fn signal_chain_from_overridden(
     instance: *mut gobject_ffi::GTypeInstance,
-    token: &SignalClassHandlerToken,
+    token: &super::SignalClassHandlerToken,
     values: &[Value],
 ) -> Option<Value> {
     assert_eq!(instance, token.0);

@@ -34,16 +34,11 @@ mod model {
             const NAME: &'static str = "Model";
             type Type = super::Model;
             type ParentType = glib::Object;
+            type Interfaces = (gio::ListModel,);
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
             glib::object_subclass!();
-
-            // Called right before class_init and allows a GObject to specify
-            // which interfaces it implement, in this case gio::ListModel
-            fn type_init(type_: &mut subclass::InitializingType<Self>) {
-                type_.add_interface::<gio::ListModel>();
-            }
 
             // Called once at the very beginning of instantiation
             fn new() -> Self {
@@ -306,47 +301,16 @@ mod row_data {
             count: RefCell<u32>,
         }
 
-        // GObject property definitions for our two values
-        static PROPERTIES: [subclass::Property; 2] = [
-            subclass::Property("name", |name| {
-                glib::ParamSpec::string(
-                    name,
-                    "Name",
-                    "Name",
-                    None, // Default value
-                    glib::ParamFlags::READWRITE,
-                )
-            }),
-            subclass::Property("count", |name| {
-                glib::ParamSpec::uint(
-                    name,
-                    "Count",
-                    "Count",
-                    0,
-                    100,
-                    0, // Allowed range and default value
-                    glib::ParamFlags::READWRITE,
-                )
-            }),
-        ];
-
         // Basic declaration of our type for the GObject type system
         impl ObjectSubclass for RowData {
             const NAME: &'static str = "RowData";
             type Type = super::RowData;
             type ParentType = glib::Object;
+            type Interfaces = ();
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
             glib::object_subclass!();
-
-            // Called exactly once before the first instantiation of an instance. This
-            // sets up any type-specific things, in this specific case it installs the
-            // properties so that GObject knows about their existence and they can be
-            // used on instances of our type
-            fn class_init(klass: &mut Self::Class) {
-                klass.install_properties(&PROPERTIES);
-            }
 
             // Called once at the very beginning of instantiation of each instance and
             // creates the data structure that contains all our state
@@ -365,17 +329,47 @@ mod row_data {
         // This maps between the GObject properties and our internal storage of the
         // corresponding values of the properties.
         impl ObjectImpl for RowData {
-            fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
-                let prop = &PROPERTIES[id];
+            fn properties() -> &'static [glib::ParamSpec] {
+                use once_cell::sync::Lazy;
+                static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
+                    vec![
+                        glib::ParamSpec::string(
+                            "name",
+                            "Name",
+                            "Name",
+                            None, // Default value
+                            glib::ParamFlags::READWRITE,
+                        ),
+                        glib::ParamSpec::uint(
+                            "count",
+                            "Count",
+                            "Count",
+                            0,
+                            100,
+                            0, // Allowed range and default value
+                            glib::ParamFlags::READWRITE,
+                        ),
+                    ]
+                });
 
-                match *prop {
-                    subclass::Property("name", ..) => {
+                PROPERTIES.as_ref()
+            }
+
+            fn set_property(
+                &self,
+                _obj: &Self::Type,
+                _id: usize,
+                value: &glib::Value,
+                pspec: &glib::ParamSpec,
+            ) {
+                match pspec.get_name() {
+                    "name" => {
                         let name = value
                             .get()
                             .expect("type conformity checked by `Object::set_property`");
                         self.name.replace(name);
                     }
-                    subclass::Property("count", ..) => {
+                    "count" => {
                         let count = value
                             .get_some()
                             .expect("type conformity checked by `Object::set_property`");
@@ -385,12 +379,15 @@ mod row_data {
                 }
             }
 
-            fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
-                let prop = &PROPERTIES[id];
-
-                match *prop {
-                    subclass::Property("name", ..) => self.name.borrow().to_value(),
-                    subclass::Property("count", ..) => self.count.borrow().to_value(),
+            fn get_property(
+                &self,
+                _obj: &Self::Type,
+                _id: usize,
+                pspec: &glib::ParamSpec,
+            ) -> glib::Value {
+                match pspec.get_name() {
+                    "name" => self.name.borrow().to_value(),
+                    "count" => self.count.borrow().to_value(),
                     _ => unimplemented!(),
                 }
             }

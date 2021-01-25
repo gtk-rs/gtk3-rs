@@ -56,39 +56,6 @@
 //! mod imp {
 //!     use super::*;
 //!
-//!     // Static array for defining the properties of the new type.
-//!     static PROPERTIES: [subclass::Property; 3] = [
-//!         subclass::Property("name", |name| {
-//!             glib::ParamSpec::string(
-//!                 name,
-//!                 "Name",
-//!                 "Name of this object",
-//!                 None,
-//!                 glib::ParamFlags::READWRITE,
-//!             )
-//!         }),
-//!         subclass::Property("animal", |name| {
-//!             glib::ParamSpec::enum_(
-//!                 name,
-//!                 "Animal",
-//!                 "Animal",
-//!                 Animal::static_type(),
-//!                 Animal::default() as i32,
-//!                 glib::ParamFlags::READWRITE,
-//!             )
-//!         }),
-//!         subclass::Property("flags", |name| {
-//!             glib::ParamSpec::flags(
-//!                 name,
-//!                 "Flags",
-//!                 "Flags",
-//!                 MyFlags::static_type(),
-//!                 MyFlags::default().bits(),
-//!                 glib::ParamFlags::READWRITE,
-//!             )
-//!         }),
-//!     ];
-//!
 //!     // This is the struct containing all state carried with
 //!     // the new type. Generally this has to make use of
 //!     // interior mutability.
@@ -109,6 +76,9 @@
 //!         type Type = super::SimpleObject;
 //!         type ParentType = glib::Object;
 //!
+//!         // Interfaces this type implements
+//!         type Interfaces = ();
+//!
 //!         // The C/FFI instance and class structs. The simple ones
 //!         // are enough in most cases and more is only needed to
 //!         // expose public instance fields to C APIs or to provide
@@ -118,14 +88,6 @@
 //!
 //!         // This macro defines some boilerplate.
 //!         glib::object_subclass!();
-//!
-//!         // Called right before the first time an instance of the new
-//!         // type is created. Here class specific settings can be performed,
-//!         // including installation of properties and registration of signals
-//!         // for the new type.
-//!         fn class_init(klass: &mut Self::Class) {
-//!             klass.install_properties(&PROPERTIES);
-//!         }
 //!
 //!         // Called every time a new instance is created. This should return
 //!         // a new instance of our type with its basic values.
@@ -140,25 +102,57 @@
 //!
 //!     // Trait that is used to override virtual methods of glib::Object.
 //!     impl ObjectImpl for SimpleObject {
+//!         // Called once in the very beginning to list all properties of this class.
+//!         fn properties() -> &'static [glib::ParamSpec] {
+//!             use once_cell::sync::Lazy;
+//!             static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
+//!                 vec![
+//!                     glib::ParamSpec::string(
+//!                         "name",
+//!                         "Name",
+//!                         "Name of this object",
+//!                         None,
+//!                         glib::ParamFlags::READWRITE,
+//!                     ),
+//!                     glib::ParamSpec::enum_(
+//!                         "animal",
+//!                         "Animal",
+//!                         "Animal",
+//!                         Animal::static_type(),
+//!                         Animal::default() as i32,
+//!                         glib::ParamFlags::READWRITE,
+//!                     ),
+//!                     glib::ParamSpec::flags(
+//!                         "flags",
+//!                         "Flags",
+//!                         "Flags",
+//!                         MyFlags::static_type(),
+//!                         MyFlags::default().bits(),
+//!                         glib::ParamFlags::READWRITE,
+//!                     ),
+//!                 ]
+//!             });
+//!
+//!             PROPERTIES.as_ref()
+//!         }
+//!
 //!         // Called whenever a property is set on this instance. The id
 //!         // is the same as the index of the property in the PROPERTIES array.
-//!         fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
-//!             let prop = &PROPERTIES[id];
-//!
-//!             match *prop {
-//!                 subclass::Property("name", ..) => {
-//!                 let name = value
+//!         fn set_property(&self, _obj: &Self::Type, _id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+//!             match pspec.get_name() {
+//!                 "name" => {
+//!                     let name = value
 //!                         .get()
 //!                         .expect("type conformity checked by `Object::set_property`");
 //!                     self.name.replace(name);
 //!                 },
-//!                 subclass::Property("animal", ..) => {
+//!                 "animal" => {
 //!                     let animal = value
 //!                         .get()
 //!                         .expect("type conformity checked by `Object::set_property`");
 //!                     self.animal.replace(animal.unwrap());
 //!                 },
-//!                 subclass::Property("flags", ..) => {
+//!                 "flags" => {
 //!                     let flags = value
 //!                         .get()
 //!                         .expect("type conformity checked by `Object::set_property`");
@@ -170,20 +164,18 @@
 //!
 //!         // Called whenever a property is retrieved from this instance. The id
 //!         // is the same as the index of the property in the PROPERTIES array.
-//!         fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
-//!             let prop = &PROPERTIES[id];
-//!
-//!             match *prop {
-//!                 subclass::Property("name", ..) => self.name.borrow().to_value(),
-//!                 subclass::Property("animal", ..) => self.animal.get().to_value(),
-//!                 subclass::Property("flags", ..) => self.flags.get().to_value(),
+//!         fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+//!             match pspec.get_name() {
+//!                 "name" => self.name.borrow().to_value(),
+//!                 "animal" => self.animal.get().to_value(),
+//!                 "flags" => self.flags.get().to_value(),
 //!                 _ => unimplemented!(),
 //!             }
 //!         }
 //!
 //!         // Called right after construction of the instance.
 //!         fn constructed(&self, obj: &Self::Type) {
-//!                 // Chain up to the parent type's implementation of this virtual
+//!             // Chain up to the parent type's implementation of this virtual
 //!             // method.
 //!             self.parent_constructed(obj);
 //!
@@ -262,6 +254,8 @@ pub mod object;
 #[macro_use]
 pub mod boxed;
 
+pub mod signal;
+
 pub mod prelude {
     //! Prelude that re-exports all important traits from this crate.
     pub use super::boxed::BoxedType;
@@ -274,8 +268,5 @@ pub mod prelude {
 
 pub use self::boxed::register_boxed_type;
 pub use self::interface::register_interface;
-pub use self::object::Property;
-pub use self::types::{
-    register_type, InitializingObject, InitializingType, SignalClassHandlerToken,
-    SignalInvocationHint, TypeData,
-};
+pub use self::signal::{Signal, SignalClassHandlerToken, SignalId, SignalInvocationHint};
+pub use self::types::{register_type, InitializingObject, InitializingType, TypeData};
