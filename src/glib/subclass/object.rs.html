@@ -791,6 +791,72 @@
 <span id="788">788</span>
 <span id="789">789</span>
 <span id="790">790</span>
+<span id="791">791</span>
+<span id="792">792</span>
+<span id="793">793</span>
+<span id="794">794</span>
+<span id="795">795</span>
+<span id="796">796</span>
+<span id="797">797</span>
+<span id="798">798</span>
+<span id="799">799</span>
+<span id="800">800</span>
+<span id="801">801</span>
+<span id="802">802</span>
+<span id="803">803</span>
+<span id="804">804</span>
+<span id="805">805</span>
+<span id="806">806</span>
+<span id="807">807</span>
+<span id="808">808</span>
+<span id="809">809</span>
+<span id="810">810</span>
+<span id="811">811</span>
+<span id="812">812</span>
+<span id="813">813</span>
+<span id="814">814</span>
+<span id="815">815</span>
+<span id="816">816</span>
+<span id="817">817</span>
+<span id="818">818</span>
+<span id="819">819</span>
+<span id="820">820</span>
+<span id="821">821</span>
+<span id="822">822</span>
+<span id="823">823</span>
+<span id="824">824</span>
+<span id="825">825</span>
+<span id="826">826</span>
+<span id="827">827</span>
+<span id="828">828</span>
+<span id="829">829</span>
+<span id="830">830</span>
+<span id="831">831</span>
+<span id="832">832</span>
+<span id="833">833</span>
+<span id="834">834</span>
+<span id="835">835</span>
+<span id="836">836</span>
+<span id="837">837</span>
+<span id="838">838</span>
+<span id="839">839</span>
+<span id="840">840</span>
+<span id="841">841</span>
+<span id="842">842</span>
+<span id="843">843</span>
+<span id="844">844</span>
+<span id="845">845</span>
+<span id="846">846</span>
+<span id="847">847</span>
+<span id="848">848</span>
+<span id="849">849</span>
+<span id="850">850</span>
+<span id="851">851</span>
+<span id="852">852</span>
+<span id="853">853</span>
+<span id="854">854</span>
+<span id="855">855</span>
+<span id="856">856</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -798,10 +864,9 @@
 <span class="doccomment">//! or implementing virtual methods of it.</span>
 
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">Signal</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Cast</span>, <span class="ident">Object</span>, <span class="ident">ObjectType</span>, <span class="ident">SignalFlags</span>, <span class="ident">Type</span>, <span class="ident">Value</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">borrow</span>::<span class="ident">Borrow</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Cast</span>, <span class="ident">Object</span>, <span class="ident">ObjectExt</span>, <span class="ident">ObjectType</span>, <span class="ident">ParamSpec</span>, <span class="ident">StaticType</span>, <span class="ident">ToValue</span>, <span class="ident">Value</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 
@@ -809,11 +874,21 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// This allows overriding the virtual methods of `glib::Object`.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ObjectImpl</span>: <span class="ident">ObjectSubclass</span> <span class="op">+</span> <span class="ident">ObjectImplExt</span> {
+    <span class="doccomment">/// Properties installed for this type.</span>
+    <span class="kw">fn</span> <span class="ident">properties</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="ident">ParamSpec</span>] {
+        <span class="kw-2">&amp;</span>[]
+    }
+
+    <span class="doccomment">/// Signals installed for this type.</span>
+    <span class="kw">fn</span> <span class="ident">signals</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="ident">Signal</span>] {
+        <span class="kw-2">&amp;</span>[]
+    }
+
     <span class="doccomment">/// Property setter.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is called whenever the property of this specific subclass with the</span>
     <span class="doccomment">/// given index is set. The new value is passed as `glib::Value`.</span>
-    <span class="kw">fn</span> <span class="ident">set_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">_id</span>: <span class="ident">usize</span>, <span class="ident">_value</span>: <span class="kw-2">&amp;</span><span class="ident">Value</span>) {
+    <span class="kw">fn</span> <span class="ident">set_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">_id</span>: <span class="ident">usize</span>, <span class="ident">_value</span>: <span class="kw-2">&amp;</span><span class="ident">Value</span>, <span class="ident">_pspec</span>: <span class="kw-2">&amp;</span><span class="ident">ParamSpec</span>) {
         <span class="macro">unimplemented</span><span class="macro">!</span>()
     }
 
@@ -821,7 +896,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is called whenever the property value of the specific subclass with the</span>
     <span class="doccomment">/// given index should be returned.</span>
-    <span class="kw">fn</span> <span class="ident">get_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">_id</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Value</span> {
+    <span class="kw">fn</span> <span class="ident">get_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">_id</span>: <span class="ident">usize</span>, <span class="ident">_pspec</span>: <span class="kw-2">&amp;</span><span class="ident">ParamSpec</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Value</span> {
         <span class="macro">unimplemented</span><span class="macro">!</span>()
     }
 
@@ -847,7 +922,7 @@
     <span class="ident">obj</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
     <span class="ident">id</span>: <span class="ident">u32</span>,
     <span class="ident">value</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GValue</span>,
-    <span class="ident">_pspec</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpec</span>,
+    <span class="ident">pspec</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpec</span>,
 ) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">obj</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
@@ -855,6 +930,7 @@
     <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">get_property</span>(
         <span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">Object</span><span class="op">&gt;</span>(<span class="ident">obj</span>).<span class="ident">unsafe_cast_ref</span>(),
         (<span class="ident">id</span> <span class="op">-</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">usize</span>,
+        <span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>(<span class="ident">pspec</span>),
     );
 
     <span class="comment">// We first unset the value we get passed in, in case it contained</span>
@@ -874,7 +950,7 @@
     <span class="ident">obj</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
     <span class="ident">id</span>: <span class="ident">u32</span>,
     <span class="ident">value</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GValue</span>,
-    <span class="ident">_pspec</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpec</span>,
+    <span class="ident">pspec</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GParamSpec</span>,
 ) {
     <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">obj</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
     <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
@@ -882,6 +958,7 @@
         <span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">Object</span><span class="op">&gt;</span>(<span class="ident">obj</span>).<span class="ident">unsafe_cast_ref</span>(),
         (<span class="ident">id</span> <span class="op">-</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">usize</span>,
         <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">value</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">Value</span>),
+        <span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>(<span class="ident">pspec</span>),
     );
 }
 
@@ -906,166 +983,10 @@
     }
 }
 
-<span class="doccomment">/// Definition of a property.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Property</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw">pub</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="kw">pub</span> <span class="kw">fn</span>(<span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">ParamSpec</span>);
-
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">Property</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">fmt</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="ident">f</span>.<span class="ident">debug_tuple</span>(<span class="string">&quot;Property&quot;</span>).<span class="ident">field</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>).<span class="ident">finish</span>()
-    }
-}
-
 <span class="doccomment">/// Extension trait for `glib::Object`&#39;s class struct.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// This contains various class methods and allows subclasses to override the virtual methods.</span>
+<span class="doccomment">/// This contains various class methods and allows subclasses to override signal class handlers.</span>
 <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">ObjectClassSubclassExt</span>: <span class="ident">Sized</span> <span class="op">+</span> <span class="lifetime">&#39;static</span> {
-    <span class="doccomment">/// Install properties on the subclass.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The index in the properties array is going to be the index passed to the</span>
-    <span class="doccomment">/// property setters and getters.</span>
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_object_class_install_properties&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">install_properties</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>: <span class="ident">Borrow</span><span class="op">&lt;</span><span class="ident">Property</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">properties</span>: <span class="kw-2">&amp;</span>[<span class="ident">T</span>]) {
-        <span class="kw">if</span> <span class="ident">properties</span>.<span class="ident">is_empty</span>() {
-            <span class="kw">return</span>;
-        }
-
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">pspecs</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">properties</span>.<span class="ident">len</span>());
-
-        <span class="kw">for</span> <span class="ident">property</span> <span class="kw">in</span> <span class="ident">properties</span> {
-            <span class="kw">let</span> <span class="ident">property</span> <span class="op">=</span> <span class="ident">property</span>.<span class="ident">borrow</span>();
-            <span class="kw">let</span> <span class="ident">pspec</span> <span class="op">=</span> (<span class="ident">property</span>.<span class="number">1</span>)(<span class="ident">property</span>.<span class="number">0</span>);
-            <span class="ident">pspecs</span>.<span class="ident">push</span>(<span class="ident">pspec</span>);
-        }
-
-        <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">pspecs_ptrs</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">properties</span>.<span class="ident">len</span>());
-
-            <span class="ident">pspecs_ptrs</span>.<span class="ident">push</span>(<span class="ident">ptr</span>::<span class="ident">null_mut</span>());
-
-            <span class="kw">for</span> <span class="ident">pspec</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">pspecs</span> {
-                <span class="ident">pspecs_ptrs</span>.<span class="ident">push</span>(<span class="ident">pspec</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
-            }
-
-            <span class="ident">gobject_ffi</span>::<span class="ident">g_object_class_install_properties</span>(
-                <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GObjectClass</span>,
-                <span class="ident">pspecs_ptrs</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>,
-                <span class="ident">pspecs_ptrs</span>.<span class="ident">as_mut_ptr</span>(),
-            );
-        }
-    }
-
-    <span class="doccomment">/// Add a new signal to the subclass.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This can be emitted later by `glib::Object::emit` and external code</span>
-    <span class="doccomment">/// can connect to the signal to get notified about emissions.</span>
-    <span class="kw">fn</span> <span class="ident">add_signal</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">flags</span>: <span class="ident">SignalFlags</span>, <span class="ident">arg_types</span>: <span class="kw-2">&amp;</span>[<span class="ident">Type</span>], <span class="ident">ret_type</span>: <span class="ident">Type</span>) {
-        <span class="kw">unsafe</span> {
-            <span class="kw">super</span>::<span class="ident">types</span>::<span class="ident">add_signal</span>(
-                <span class="kw-2">*</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GType</span>),
-                <span class="ident">name</span>,
-                <span class="ident">flags</span>,
-                <span class="ident">arg_types</span>,
-                <span class="ident">ret_type</span>,
-            );
-        }
-    }
-
-    <span class="doccomment">/// Add a new signal with class handler to the subclass.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This can be emitted later by `glib::Object::emit` and external code</span>
-    <span class="doccomment">/// can connect to the signal to get notified about emissions.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The class handler will be called during the signal emission at the corresponding stage.</span>
-    <span class="kw">fn</span> <span class="ident">add_signal_with_class_handler</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-        <span class="ident">flags</span>: <span class="ident">SignalFlags</span>,
-        <span class="ident">arg_types</span>: <span class="kw-2">&amp;</span>[<span class="ident">Type</span>],
-        <span class="ident">ret_type</span>: <span class="ident">Type</span>,
-        <span class="ident">class_handler</span>: <span class="ident">F</span>,
-    ) <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">SignalClassHandlerToken</span>, <span class="kw-2">&amp;</span>[<span class="ident">Value</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
-    {
-        <span class="kw">unsafe</span> {
-            <span class="kw">super</span>::<span class="ident">types</span>::<span class="ident">add_signal_with_class_handler</span>(
-                <span class="kw-2">*</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GType</span>),
-                <span class="ident">name</span>,
-                <span class="ident">flags</span>,
-                <span class="ident">arg_types</span>,
-                <span class="ident">ret_type</span>,
-                <span class="ident">class_handler</span>,
-            );
-        }
-    }
-
-    <span class="doccomment">/// Add a new signal with accumulator to the subclass.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This can be emitted later by `glib::Object::emit` and external code</span>
-    <span class="doccomment">/// can connect to the signal to get notified about emissions.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The accumulator function is used for accumulating the return values of</span>
-    <span class="doccomment">/// multiple signal handlers. The new value is passed as second argument and</span>
-    <span class="doccomment">/// should be combined with the old value in the first argument. If no further</span>
-    <span class="doccomment">/// signal handlers should be called, `false` should be returned.</span>
-    <span class="kw">fn</span> <span class="ident">add_signal_with_accumulator</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-        <span class="ident">flags</span>: <span class="ident">SignalFlags</span>,
-        <span class="ident">arg_types</span>: <span class="kw-2">&amp;</span>[<span class="ident">Type</span>],
-        <span class="ident">ret_type</span>: <span class="ident">Type</span>,
-        <span class="ident">accumulator</span>: <span class="ident">F</span>,
-    ) <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">SignalInvocationHint</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Value</span>, <span class="kw-2">&amp;</span><span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
-    {
-        <span class="kw">unsafe</span> {
-            <span class="kw">super</span>::<span class="ident">types</span>::<span class="ident">add_signal_with_accumulator</span>(
-                <span class="kw-2">*</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GType</span>),
-                <span class="ident">name</span>,
-                <span class="ident">flags</span>,
-                <span class="ident">arg_types</span>,
-                <span class="ident">ret_type</span>,
-                <span class="ident">accumulator</span>,
-            );
-        }
-    }
-
-    <span class="doccomment">/// Add a new signal with accumulator and class handler to the subclass.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This can be emitted later by `glib::Object::emit` and external code</span>
-    <span class="doccomment">/// can connect to the signal to get notified about emissions.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The accumulator function is used for accumulating the return values of</span>
-    <span class="doccomment">/// multiple signal handlers. The new value is passed as second argument and</span>
-    <span class="doccomment">/// should be combined with the old value in the first argument. If no further</span>
-    <span class="doccomment">/// signal handlers should be called, `false` should be returned.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The class handler will be called during the signal emission at the corresponding stage.</span>
-    <span class="kw">fn</span> <span class="ident">add_signal_with_class_handler_and_accumulator</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">G</span><span class="op">&gt;</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-        <span class="ident">flags</span>: <span class="ident">SignalFlags</span>,
-        <span class="ident">arg_types</span>: <span class="kw-2">&amp;</span>[<span class="ident">Type</span>],
-        <span class="ident">ret_type</span>: <span class="ident">Type</span>,
-        <span class="ident">class_handler</span>: <span class="ident">F</span>,
-        <span class="ident">accumulator</span>: <span class="ident">G</span>,
-    ) <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">SignalClassHandlerToken</span>, <span class="kw-2">&amp;</span>[<span class="ident">Value</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
-        <span class="ident">G</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">SignalInvocationHint</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Value</span>, <span class="kw-2">&amp;</span><span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
-    {
-        <span class="kw">unsafe</span> {
-            <span class="kw">super</span>::<span class="ident">types</span>::<span class="ident">add_signal_with_class_handler_and_accumulator</span>(
-                <span class="kw-2">*</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GType</span>),
-                <span class="ident">name</span>,
-                <span class="ident">flags</span>,
-                <span class="ident">arg_types</span>,
-                <span class="ident">ret_type</span>,
-                <span class="ident">class_handler</span>,
-                <span class="ident">accumulator</span>,
-            );
-        }
-    }
-
     <span class="kw">fn</span> <span class="ident">override_signal_class_handler</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">class_handler</span>: <span class="ident">F</span>)
     <span class="kw">where</span>
         <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">SignalClassHandlerToken</span>, <span class="kw-2">&amp;</span>[<span class="ident">Value</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
@@ -1089,6 +1010,31 @@
         <span class="ident">klass</span>.<span class="ident">get_property</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">get_property</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">constructed</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">constructed</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">dispose</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">dispose</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+
+        <span class="kw">let</span> <span class="ident">pspecs</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">ObjectImpl</span><span class="op">&gt;</span>::<span class="ident">properties</span>();
+        <span class="kw">if</span> <span class="op">!</span><span class="ident">pspecs</span>.<span class="ident">is_empty</span>() {
+            <span class="kw">unsafe</span> {
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">pspecs_ptrs</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">pspecs</span>.<span class="ident">len</span>() <span class="op">+</span> <span class="number">1</span>);
+
+                <span class="ident">pspecs_ptrs</span>.<span class="ident">push</span>(<span class="ident">ptr</span>::<span class="ident">null_mut</span>());
+
+                <span class="kw">for</span> <span class="ident">pspec</span> <span class="kw">in</span> <span class="ident">pspecs</span> {
+                    <span class="ident">pspecs_ptrs</span>.<span class="ident">push</span>(<span class="ident">pspec</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
+                }
+
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_object_class_install_properties</span>(
+                    <span class="ident">klass</span>,
+                    <span class="ident">pspecs_ptrs</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>,
+                    <span class="ident">pspecs_ptrs</span>.<span class="ident">as_mut_ptr</span>(),
+                );
+            }
+        }
+
+        <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">get_type</span>();
+        <span class="kw">let</span> <span class="ident">signals</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">ObjectImpl</span><span class="op">&gt;</span>::<span class="ident">signals</span>();
+        <span class="kw">for</span> <span class="ident">signal</span> <span class="kw">in</span> <span class="ident">signals</span> {
+            <span class="ident">signal</span>.<span class="ident">register</span>(<span class="ident">type_</span>);
+        }
     }
 }
 
@@ -1096,11 +1042,27 @@
     <span class="doccomment">/// Chain up to the parent class&#39; implementation of `glib::Object::constructed()`.</span>
     <span class="kw">fn</span> <span class="ident">parent_constructed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>);
 
+    <span class="doccomment">/// Chain up to parent class signal handler.</span>
     <span class="kw">fn</span> <span class="ident">signal_chain_from_overridden</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">SignalClassHandlerToken</span>,
         <span class="ident">values</span>: <span class="kw-2">&amp;</span>[<span class="ident">Value</span>],
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span>;
+
+    <span class="doccomment">/// Emit signal by signal id.</span>
+    <span class="kw">fn</span> <span class="ident">emit</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">signal</span>: <span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">Signal</span>,
+        <span class="ident">args</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ToValue</span>],
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span>, <span class="kw">crate</span>::<span class="ident">BoolError</span><span class="op">&gt;</span>;
+
+    <span class="doccomment">/// Emit signal with details by signal id.</span>
+    <span class="kw">fn</span> <span class="ident">emit_with_details</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">signal</span>: <span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">Signal</span>,
+        <span class="ident">details</span>: <span class="kw">crate</span>::<span class="ident">Quark</span>,
+        <span class="ident">args</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ToValue</span>],
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span>, <span class="kw">crate</span>::<span class="ident">BoolError</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectImpl</span><span class="op">&gt;</span> <span class="ident">ObjectImplExt</span> <span class="kw">for</span> <span class="ident">T</span> {
@@ -1128,6 +1090,178 @@
             )
         }
     }
+
+    <span class="kw">fn</span> <span class="ident">emit</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">signal</span>: <span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">Signal</span>,
+        <span class="ident">args</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ToValue</span>],
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span>, <span class="kw">crate</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> {
+            <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">get_type</span>();
+            <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_instance</span>();
+
+            <span class="kw">let</span> <span class="ident">signal_id</span> <span class="op">=</span> <span class="ident">signal</span>.<span class="ident">signal_id</span>();
+            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">type_</span>.<span class="ident">is_a</span>(<span class="kw-2">&amp;</span><span class="ident">signal_id</span>.<span class="number">0</span>));
+
+            <span class="kw">let</span> <span class="ident">self_v</span> <span class="op">=</span> {
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Value</span>::<span class="ident">uninitialized</span>();
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_value_init</span>(<span class="ident">v</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">Self</span>::<span class="ident">get_type</span>().<span class="ident">to_glib</span>());
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_object</span>(
+                    <span class="ident">v</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
+                    <span class="ident">instance</span>.<span class="ident">as_object_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
+                );
+                <span class="ident">v</span>
+            };
+
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">args</span> <span class="op">=</span> <span class="ident">Iterator</span>::<span class="ident">chain</span>(
+                <span class="ident">std</span>::<span class="ident">iter</span>::<span class="ident">once</span>(<span class="ident">self_v</span>),
+                <span class="ident">args</span>.<span class="ident">iter</span>().<span class="ident">copied</span>().<span class="ident">map</span>(<span class="ident">ToValue</span>::<span class="ident">to_value</span>),
+            )
+            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">smallvec</span>::<span class="ident">SmallVec</span><span class="op">&lt;</span>[<span class="kw">_</span>; <span class="number">10</span>]<span class="op">&gt;</span><span class="op">&gt;</span>();
+
+            <span class="ident">validate_signal_arguments</span>(<span class="ident">type_</span>, <span class="kw-2">&amp;</span><span class="ident">signal</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">args</span>)<span class="question-mark">?</span>;
+
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">return_value</span> <span class="op">=</span> <span class="ident">Value</span>::<span class="ident">uninitialized</span>();
+            <span class="kw">if</span> <span class="ident">signal</span>.<span class="ident">ret_type</span>() <span class="op">!</span><span class="op">=</span> <span class="kw">crate</span>::<span class="ident">Type</span>::<span class="ident">Unit</span> {
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_value_init</span>(
+                    <span class="ident">return_value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
+                    <span class="ident">signal</span>.<span class="ident">ret_type</span>().<span class="ident">to_glib</span>(),
+                );
+            }
+
+            <span class="ident">gobject_ffi</span>::<span class="ident">g_signal_emitv</span>(
+                <span class="ident">mut_override</span>(<span class="ident">args</span>.<span class="ident">as_ptr</span>()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GValue</span>,
+                <span class="ident">signal_id</span>.<span class="number">1</span>,
+                <span class="number">0</span>,
+                <span class="ident">return_value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
+            );
+
+            <span class="kw">if</span> <span class="ident">return_value</span>.<span class="ident">type_</span>() <span class="op">!</span><span class="op">=</span> <span class="kw">crate</span>::<span class="ident">Type</span>::<span class="ident">Unit</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">return_value</span>.<span class="ident">type_</span>() <span class="op">!</span><span class="op">=</span> <span class="kw">crate</span>::<span class="ident">Type</span>::<span class="ident">Invalid</span>
+            {
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">return_value</span>))
+            } <span class="kw">else</span> {
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
+            }
+        }
+    }
+
+    <span class="kw">fn</span> <span class="ident">emit_with_details</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">signal</span>: <span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">Signal</span>,
+        <span class="ident">details</span>: <span class="kw">crate</span>::<span class="ident">Quark</span>,
+        <span class="ident">args</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ToValue</span>],
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span>, <span class="kw">crate</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">signal</span>.<span class="ident">flags</span>().<span class="ident">contains</span>(<span class="kw">crate</span>::<span class="ident">SignalFlags</span>::<span class="ident">DETAILED</span>));
+
+        <span class="kw">unsafe</span> {
+            <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">get_type</span>();
+            <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_instance</span>();
+
+            <span class="kw">let</span> <span class="ident">signal_id</span> <span class="op">=</span> <span class="ident">signal</span>.<span class="ident">signal_id</span>();
+            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">type_</span>.<span class="ident">is_a</span>(<span class="kw-2">&amp;</span><span class="ident">signal_id</span>.<span class="number">0</span>));
+
+            <span class="kw">let</span> <span class="ident">self_v</span> <span class="op">=</span> {
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Value</span>::<span class="ident">uninitialized</span>();
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_value_init</span>(<span class="ident">v</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="self">Self</span>::<span class="ident">get_type</span>().<span class="ident">to_glib</span>());
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_object</span>(
+                    <span class="ident">v</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
+                    <span class="ident">instance</span>.<span class="ident">as_object_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
+                );
+                <span class="ident">v</span>
+            };
+
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">args</span> <span class="op">=</span> <span class="ident">Iterator</span>::<span class="ident">chain</span>(
+                <span class="ident">std</span>::<span class="ident">iter</span>::<span class="ident">once</span>(<span class="ident">self_v</span>),
+                <span class="ident">args</span>.<span class="ident">iter</span>().<span class="ident">copied</span>().<span class="ident">map</span>(<span class="ident">ToValue</span>::<span class="ident">to_value</span>),
+            )
+            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">smallvec</span>::<span class="ident">SmallVec</span><span class="op">&lt;</span>[<span class="kw">_</span>; <span class="number">10</span>]<span class="op">&gt;</span><span class="op">&gt;</span>();
+
+            <span class="ident">validate_signal_arguments</span>(<span class="ident">type_</span>, <span class="kw-2">&amp;</span><span class="ident">signal</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">args</span>)<span class="question-mark">?</span>;
+
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">return_value</span> <span class="op">=</span> <span class="ident">Value</span>::<span class="ident">uninitialized</span>();
+            <span class="kw">if</span> <span class="ident">signal</span>.<span class="ident">ret_type</span>() <span class="op">!</span><span class="op">=</span> <span class="kw">crate</span>::<span class="ident">Type</span>::<span class="ident">Unit</span> {
+                <span class="ident">gobject_ffi</span>::<span class="ident">g_value_init</span>(
+                    <span class="ident">return_value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
+                    <span class="ident">signal</span>.<span class="ident">ret_type</span>().<span class="ident">to_glib</span>(),
+                );
+            }
+
+            <span class="ident">gobject_ffi</span>::<span class="ident">g_signal_emitv</span>(
+                <span class="ident">mut_override</span>(<span class="ident">args</span>.<span class="ident">as_ptr</span>()) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GValue</span>,
+                <span class="ident">signal_id</span>.<span class="number">1</span>,
+                <span class="ident">details</span>.<span class="ident">to_glib</span>(),
+                <span class="ident">return_value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
+            );
+
+            <span class="kw">if</span> <span class="ident">return_value</span>.<span class="ident">type_</span>() <span class="op">!</span><span class="op">=</span> <span class="kw">crate</span>::<span class="ident">Type</span>::<span class="ident">Unit</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">return_value</span>.<span class="ident">type_</span>() <span class="op">!</span><span class="op">=</span> <span class="kw">crate</span>::<span class="ident">Type</span>::<span class="ident">Invalid</span>
+            {
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">return_value</span>))
+            } <span class="kw">else</span> {
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
+            }
+        }
+    }
+}
+
+<span class="kw">fn</span> <span class="ident">validate_signal_arguments</span>(
+    <span class="ident">type_</span>: <span class="kw">crate</span>::<span class="ident">Type</span>,
+    <span class="ident">signal</span>: <span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">Signal</span>,
+    <span class="ident">args</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">Value</span>],
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw">crate</span>::<span class="ident">BoolError</span><span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">arg_types</span> <span class="op">=</span> <span class="ident">signal</span>.<span class="ident">arg_types</span>();
+
+    <span class="kw">if</span> <span class="ident">arg_types</span>.<span class="ident">len</span>() <span class="op">!</span><span class="op">=</span> <span class="ident">args</span>.<span class="ident">len</span>() {
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">bool_error</span><span class="macro">!</span>(
+            <span class="string">&quot;Incompatible number of arguments for signal &#39;{}&#39; of type &#39;{}&#39; (expected {}, got {})&quot;</span>,
+            <span class="ident">signal</span>.<span class="ident">name</span>(),
+            <span class="ident">type_</span>,
+            <span class="ident">arg_types</span>.<span class="ident">len</span>(),
+            <span class="ident">args</span>.<span class="ident">len</span>(),
+        ));
+    }
+
+    <span class="kw">for</span> (<span class="ident">i</span>, (<span class="ident">arg</span>, <span class="ident">param_type</span>)) <span class="kw">in</span> <span class="ident">Iterator</span>::<span class="ident">zip</span>(<span class="ident">args</span>.<span class="ident">iter_mut</span>(), <span class="ident">arg_types</span>.<span class="ident">iter</span>()).<span class="ident">enumerate</span>() {
+        <span class="kw">if</span> <span class="ident">arg</span>.<span class="ident">type_</span>().<span class="ident">is_a</span>(<span class="kw-2">&amp;</span><span class="ident">Object</span>::<span class="ident">static_type</span>()) {
+            <span class="kw">match</span> <span class="ident">arg</span>.<span class="ident">get</span>::<span class="op">&lt;</span><span class="ident">Object</span><span class="op">&gt;</span>() {
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">obj</span>)) <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="kw">if</span> <span class="ident">obj</span>.<span class="ident">get_type</span>().<span class="ident">is_a</span>(<span class="kw-2">&amp;</span><span class="ident">param_type</span>) {
+                        <span class="ident">arg</span>.<span class="number">0</span>.<span class="ident">g_type</span> <span class="op">=</span> <span class="ident">param_type</span>.<span class="ident">to_glib</span>();
+                    } <span class="kw">else</span> {
+                        <span class="kw">return</span> <span class="prelude-val">Err</span>(
+                            <span class="macro">bool_error</span><span class="macro">!</span>(
+                                <span class="string">&quot;Incompatible argument type in argument {} for signal &#39;{}&#39; of type &#39;{}&#39; (expected {}, got {})&quot;</span>,
+                                <span class="ident">i</span>,
+                                <span class="ident">signal</span>.<span class="ident">name</span>(),
+                                <span class="ident">type_</span>,
+                                <span class="ident">param_type</span>,
+                                <span class="ident">arg</span>.<span class="ident">type_</span>(),
+                            )
+                        );
+                    }
+                }
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="comment">// If the value is None then the type is compatible too</span>
+                    <span class="ident">arg</span>.<span class="number">0</span>.<span class="ident">g_type</span> <span class="op">=</span> <span class="ident">param_type</span>.<span class="ident">to_glib</span>();
+                }
+                <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(<span class="string">&quot;property_value type conformity already checked&quot;</span>),
+            }
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">param_type</span> <span class="op">!</span><span class="op">=</span> <span class="ident">arg</span>.<span class="ident">type_</span>() {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(
+                <span class="macro">bool_error</span><span class="macro">!</span>(
+                    <span class="string">&quot;Incompatible argument type in argument {} for signal &#39;{}&#39; of type &#39;{}&#39; (expected {}, got {})&quot;</span>,
+                    <span class="ident">i</span>,
+                    <span class="ident">signal</span>.<span class="ident">name</span>(),
+                    <span class="ident">type_</span>,
+                    <span class="ident">param_type</span>,
+                    <span class="ident">arg</span>.<span class="ident">type_</span>(),
+                )
+            );
+        }
+    }
+
+    <span class="prelude-val">Ok</span>(())
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
@@ -1136,7 +1270,7 @@
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw">super</span>::<span class="kw">super</span>::<span class="ident">subclass</span>;
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw">super</span>::<span class="kw">super</span>::<span class="ident">value</span>::{<span class="ident">ToValue</span>, <span class="ident">Value</span>};
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Type</span>;
 
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cell</span>::<span class="ident">RefCell</span>;
 
@@ -1149,6 +1283,7 @@
             <span class="kw">const</span> <span class="ident">NAME</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;ChildObject&quot;</span>;
             <span class="kw">type</span> <span class="ident">Type</span> <span class="op">=</span> <span class="kw">super</span>::<span class="ident">ChildObject</span>;
             <span class="kw">type</span> <span class="ident">ParentType</span> <span class="op">=</span> <span class="ident">Object</span>;
+            <span class="kw">type</span> <span class="ident">Interfaces</span> <span class="op">=</span> ();
             <span class="kw">type</span> <span class="ident">Instance</span> <span class="op">=</span> <span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">InstanceStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
             <span class="kw">type</span> <span class="ident">Class</span> <span class="op">=</span> <span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">ClassStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 
@@ -1171,65 +1306,11 @@
             <span class="kw">const</span> <span class="ident">NAME</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;SimpleObject&quot;</span>;
             <span class="kw">type</span> <span class="ident">Type</span> <span class="op">=</span> <span class="kw">super</span>::<span class="ident">SimpleObject</span>;
             <span class="kw">type</span> <span class="ident">ParentType</span> <span class="op">=</span> <span class="ident">Object</span>;
+            <span class="kw">type</span> <span class="ident">Interfaces</span> <span class="op">=</span> (<span class="ident">DummyInterface</span>,);
             <span class="kw">type</span> <span class="ident">Instance</span> <span class="op">=</span> <span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">InstanceStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
             <span class="kw">type</span> <span class="ident">Class</span> <span class="op">=</span> <span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">ClassStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 
             <span class="macro">object_subclass</span><span class="macro">!</span>();
-
-            <span class="kw">fn</span> <span class="ident">type_init</span>(<span class="ident">type_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">subclass</span>::<span class="ident">InitializingType</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) {
-                <span class="ident">type_</span>.<span class="ident">add_interface</span>::<span class="op">&lt;</span><span class="ident">DummyInterface</span><span class="op">&gt;</span>();
-            }
-
-            <span class="kw">fn</span> <span class="ident">class_init</span>(<span class="ident">klass</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>::<span class="ident">Class</span>) {
-                <span class="ident">klass</span>.<span class="ident">install_properties</span>(<span class="kw-2">&amp;</span><span class="ident">PROPERTIES</span>);
-
-                <span class="ident">klass</span>.<span class="ident">add_signal</span>(
-                    <span class="string">&quot;name-changed&quot;</span>,
-                    <span class="ident">SignalFlags</span>::<span class="ident">RUN_LAST</span>,
-                    <span class="kw-2">&amp;</span>[<span class="ident">String</span>::<span class="ident">static_type</span>()],
-                    <span class="kw">crate</span>::<span class="ident">Type</span>::<span class="ident">Unit</span>,
-                );
-
-                <span class="ident">klass</span>.<span class="ident">add_signal_with_class_handler</span>(
-                    <span class="string">&quot;change-name&quot;</span>,
-                    <span class="ident">SignalFlags</span>::<span class="ident">RUN_LAST</span> <span class="op">|</span> <span class="ident">SignalFlags</span>::<span class="ident">ACTION</span>,
-                    <span class="kw-2">&amp;</span>[<span class="ident">String</span>::<span class="ident">static_type</span>()],
-                    <span class="ident">String</span>::<span class="ident">static_type</span>(),
-                    <span class="op">|</span><span class="kw">_</span>, <span class="ident">args</span><span class="op">|</span> {
-                        <span class="kw">let</span> <span class="ident">obj</span> <span class="op">=</span> <span class="ident">args</span>[<span class="number">0</span>]
-                            .<span class="ident">get</span>::<span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Type</span><span class="op">&gt;</span>()
-                            .<span class="ident">expect</span>(<span class="string">&quot;Failed to get args[0]&quot;</span>)
-                            .<span class="ident">expect</span>(<span class="string">&quot;Failed to get Object from args[0]&quot;</span>);
-                        <span class="kw">let</span> <span class="ident">new_name</span> <span class="op">=</span> <span class="ident">args</span>[<span class="number">1</span>]
-                            .<span class="ident">get</span>::<span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>()
-                            .<span class="ident">expect</span>(<span class="string">&quot;Failed to get args[1]&quot;</span>)
-                            .<span class="ident">expect</span>(<span class="string">&quot;Failed to get Object from args[1]&quot;</span>);
-                        <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">from_instance</span>(<span class="kw-2">&amp;</span><span class="ident">obj</span>);
-
-                        <span class="kw">let</span> <span class="ident">old_name</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">name</span>.<span class="ident">borrow_mut</span>().<span class="ident">take</span>();
-                        <span class="kw-2">*</span><span class="ident">imp</span>.<span class="ident">name</span>.<span class="ident">borrow_mut</span>() <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">new_name</span>);
-
-                        <span class="ident">obj</span>.<span class="ident">emit</span>(<span class="string">&quot;name-changed&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">imp</span>.<span class="ident">name</span>.<span class="ident">borrow</span>()])
-                            .<span class="ident">expect</span>(<span class="string">&quot;Failed to borrow name&quot;</span>);
-
-                        <span class="prelude-val">Some</span>(<span class="ident">old_name</span>.<span class="ident">to_value</span>())
-                    },
-                );
-
-                <span class="ident">klass</span>.<span class="ident">add_signal</span>(
-                    <span class="string">&quot;create-string&quot;</span>,
-                    <span class="ident">SignalFlags</span>::<span class="ident">RUN_LAST</span>,
-                    <span class="kw-2">&amp;</span>[],
-                    <span class="ident">String</span>::<span class="ident">static_type</span>(),
-                );
-
-                <span class="ident">klass</span>.<span class="ident">add_signal</span>(
-                    <span class="string">&quot;create-child-object&quot;</span>,
-                    <span class="ident">SignalFlags</span>::<span class="ident">RUN_LAST</span>,
-                    <span class="kw-2">&amp;</span>[],
-                    <span class="ident">ChildObject</span>::<span class="ident">get_type</span>(),
-                );
-            }
 
             <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
                 <span class="self">Self</span> {
@@ -1241,11 +1322,98 @@
         }
 
         <span class="kw">impl</span> <span class="ident">ObjectImpl</span> <span class="kw">for</span> <span class="ident">SimpleObject</span> {
-            <span class="kw">fn</span> <span class="ident">set_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">id</span>: <span class="ident">usize</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">Value</span>) {
-                <span class="kw">let</span> <span class="ident">prop</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">PROPERTIES</span>[<span class="ident">id</span>];
+            <span class="kw">fn</span> <span class="ident">signals</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="kw">super</span>::<span class="ident">Signal</span>] {
+                <span class="kw">use</span> <span class="ident">once_cell</span>::<span class="ident">sync</span>::<span class="ident">Lazy</span>;
+                <span class="kw">static</span> <span class="ident">SIGNALS</span>: <span class="ident">Lazy</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">super</span>::<span class="ident">Signal</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Lazy</span>::<span class="ident">new</span>(<span class="op">|</span><span class="op">|</span> {
+                    <span class="macro">vec</span><span class="macro">!</span>[
+                        <span class="kw">super</span>::<span class="ident">Signal</span>::<span class="ident">builder</span>(
+                            <span class="string">&quot;name-changed&quot;</span>,
+                            <span class="kw-2">&amp;</span>[<span class="ident">String</span>::<span class="ident">static_type</span>()],
+                            <span class="kw">crate</span>::<span class="ident">Type</span>::<span class="ident">Unit</span>,
+                        )
+                        .<span class="ident">build</span>(),
+                        <span class="kw">super</span>::<span class="ident">Signal</span>::<span class="ident">builder</span>(
+                            <span class="string">&quot;change-name&quot;</span>,
+                            <span class="kw-2">&amp;</span>[<span class="ident">String</span>::<span class="ident">static_type</span>()],
+                            <span class="ident">String</span>::<span class="ident">static_type</span>(),
+                        )
+                        .<span class="ident">action</span>()
+                        .<span class="ident">class_handler</span>(<span class="op">|</span><span class="kw">_</span>, <span class="ident">args</span><span class="op">|</span> {
+                            <span class="kw">let</span> <span class="ident">obj</span> <span class="op">=</span> <span class="ident">args</span>[<span class="number">0</span>]
+                                .<span class="ident">get</span>::<span class="op">&lt;</span><span class="kw">super</span>::<span class="ident">SimpleObject</span><span class="op">&gt;</span>()
+                                .<span class="ident">expect</span>(<span class="string">&quot;Failed to get args[0]&quot;</span>)
+                                .<span class="ident">expect</span>(<span class="string">&quot;Failed to get Object from args[0]&quot;</span>);
+                            <span class="kw">let</span> <span class="ident">new_name</span> <span class="op">=</span> <span class="ident">args</span>[<span class="number">1</span>]
+                                .<span class="ident">get</span>::<span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>()
+                                .<span class="ident">expect</span>(<span class="string">&quot;Failed to get args[1]&quot;</span>)
+                                .<span class="ident">expect</span>(<span class="string">&quot;Failed to get Object from args[1]&quot;</span>);
+                            <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">SimpleObject</span>::<span class="ident">from_instance</span>(<span class="kw-2">&amp;</span><span class="ident">obj</span>);
 
-                <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">prop</span> {
-                    <span class="ident">Property</span>(<span class="string">&quot;name&quot;</span>, ..) <span class="op">=</span><span class="op">&gt;</span> {
+                            <span class="kw">let</span> <span class="ident">old_name</span> <span class="op">=</span> <span class="ident">imp</span>.<span class="ident">name</span>.<span class="ident">borrow_mut</span>().<span class="ident">take</span>();
+                            <span class="kw-2">*</span><span class="ident">imp</span>.<span class="ident">name</span>.<span class="ident">borrow_mut</span>() <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">new_name</span>);
+
+                            <span class="ident">obj</span>.<span class="ident">emit</span>(<span class="string">&quot;name-changed&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">imp</span>.<span class="ident">name</span>.<span class="ident">borrow</span>()])
+                                .<span class="ident">expect</span>(<span class="string">&quot;Failed to borrow name&quot;</span>);
+
+                            <span class="prelude-val">Some</span>(<span class="ident">old_name</span>.<span class="ident">to_value</span>())
+                        })
+                        .<span class="ident">build</span>(),
+                        <span class="kw">super</span>::<span class="ident">Signal</span>::<span class="ident">builder</span>(<span class="string">&quot;create-string&quot;</span>, <span class="kw-2">&amp;</span>[], <span class="ident">String</span>::<span class="ident">static_type</span>()).<span class="ident">build</span>(),
+                        <span class="kw">super</span>::<span class="ident">Signal</span>::<span class="ident">builder</span>(<span class="string">&quot;create-child-object&quot;</span>, <span class="kw-2">&amp;</span>[], <span class="ident">ChildObject</span>::<span class="ident">get_type</span>())
+                            .<span class="ident">build</span>(),
+                    ]
+                });
+
+                <span class="ident">SIGNALS</span>.<span class="ident">as_ref</span>()
+            }
+
+            <span class="kw">fn</span> <span class="ident">properties</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="ident">ParamSpec</span>] {
+                <span class="kw">use</span> <span class="ident">once_cell</span>::<span class="ident">sync</span>::<span class="ident">Lazy</span>;
+                <span class="kw">static</span> <span class="ident">PROPERTIES</span>: <span class="ident">Lazy</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ParamSpec</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Lazy</span>::<span class="ident">new</span>(<span class="op">|</span><span class="op">|</span> {
+                    <span class="macro">vec</span><span class="macro">!</span>[
+                        <span class="kw">crate</span>::<span class="ident">ParamSpec</span>::<span class="ident">string</span>(
+                            <span class="string">&quot;name&quot;</span>,
+                            <span class="string">&quot;Name&quot;</span>,
+                            <span class="string">&quot;Name of this object&quot;</span>,
+                            <span class="prelude-val">None</span>,
+                            <span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">READWRITE</span>,
+                        ),
+                        <span class="kw">crate</span>::<span class="ident">ParamSpec</span>::<span class="ident">string</span>(
+                            <span class="string">&quot;construct-name&quot;</span>,
+                            <span class="string">&quot;Construct Name&quot;</span>,
+                            <span class="string">&quot;Construct Name of this object&quot;</span>,
+                            <span class="prelude-val">None</span>,
+                            <span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">READWRITE</span> <span class="op">|</span> <span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">CONSTRUCT_ONLY</span>,
+                        ),
+                        <span class="kw">crate</span>::<span class="ident">ParamSpec</span>::<span class="ident">boolean</span>(
+                            <span class="string">&quot;constructed&quot;</span>,
+                            <span class="string">&quot;Constructed&quot;</span>,
+                            <span class="string">&quot;True if the constructed() virtual method was called&quot;</span>,
+                            <span class="bool-val">false</span>,
+                            <span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">READABLE</span>,
+                        ),
+                        <span class="kw">crate</span>::<span class="ident">ParamSpec</span>::<span class="ident">object</span>(
+                            <span class="string">&quot;child&quot;</span>,
+                            <span class="string">&quot;Child&quot;</span>,
+                            <span class="string">&quot;Child object&quot;</span>,
+                            <span class="kw">super</span>::<span class="ident">ChildObject</span>::<span class="ident">static_type</span>(),
+                            <span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">READWRITE</span>,
+                        ),
+                    ]
+                });
+
+                <span class="ident">PROPERTIES</span>.<span class="ident">as_ref</span>()
+            }
+
+            <span class="kw">fn</span> <span class="ident">set_property</span>(
+                <span class="kw-2">&amp;</span><span class="self">self</span>,
+                <span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>,
+                <span class="ident">_id</span>: <span class="ident">usize</span>,
+                <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">Value</span>,
+                <span class="ident">pspec</span>: <span class="kw-2">&amp;</span><span class="kw">crate</span>::<span class="ident">ParamSpec</span>,
+            ) {
+                <span class="kw">match</span> <span class="ident">pspec</span>.<span class="ident">get_name</span>() {
+                    <span class="string">&quot;name&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">value</span>
                             .<span class="ident">get</span>()
                             .<span class="ident">expect</span>(<span class="string">&quot;type conformity checked by &#39;Object::set_property&#39;&quot;</span>);
@@ -1253,26 +1421,29 @@
                         <span class="ident">obj</span>.<span class="ident">emit</span>(<span class="string">&quot;name-changed&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">name</span>.<span class="ident">borrow</span>()])
                             .<span class="ident">expect</span>(<span class="string">&quot;Failed to borrow name&quot;</span>);
                     }
-                    <span class="ident">Property</span>(<span class="string">&quot;construct-name&quot;</span>, ..) <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="string">&quot;construct-name&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">value</span>
                             .<span class="ident">get</span>()
                             .<span class="ident">expect</span>(<span class="string">&quot;type conformity checked by &#39;Object::set_property&#39;&quot;</span>);
                         <span class="self">self</span>.<span class="ident">construct_name</span>.<span class="ident">replace</span>(<span class="ident">name</span>);
                     }
-                    <span class="ident">Property</span>(<span class="string">&quot;child&quot;</span>, ..) <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="string">&quot;child&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="comment">// not stored, only used to test `set_property` with `Objects`</span>
                     }
                     <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unimplemented</span><span class="macro">!</span>(),
                 }
             }
 
-            <span class="kw">fn</span> <span class="ident">get_property</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">id</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Value</span> {
-                <span class="kw">let</span> <span class="ident">prop</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">PROPERTIES</span>[<span class="ident">id</span>];
-
-                <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">prop</span> {
-                    <span class="ident">Property</span>(<span class="string">&quot;name&quot;</span>, ..) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">name</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>(),
-                    <span class="ident">Property</span>(<span class="string">&quot;construct-name&quot;</span>, ..) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">construct_name</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>(),
-                    <span class="ident">Property</span>(<span class="string">&quot;constructed&quot;</span>, ..) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">constructed</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>(),
+            <span class="kw">fn</span> <span class="ident">get_property</span>(
+                <span class="kw-2">&amp;</span><span class="self">self</span>,
+                <span class="ident">_obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>,
+                <span class="ident">_id</span>: <span class="ident">usize</span>,
+                <span class="ident">pspec</span>: <span class="kw-2">&amp;</span><span class="kw">crate</span>::<span class="ident">ParamSpec</span>,
+            ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Value</span> {
+                <span class="kw">match</span> <span class="ident">pspec</span>.<span class="ident">get_name</span>() {
+                    <span class="string">&quot;name&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">name</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>(),
+                    <span class="string">&quot;construct-name&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">construct_name</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>(),
+                    <span class="string">&quot;constructed&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">constructed</span>.<span class="ident">borrow</span>().<span class="ident">to_value</span>(),
                     <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unimplemented</span><span class="macro">!</span>(),
                 }
             }
@@ -1291,45 +1462,6 @@
     <span class="macro">wrapper</span><span class="macro">!</span> {
         <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ChildObject</span>(<span class="ident">ObjectSubclass</span><span class="op">&lt;</span><span class="ident">imp</span>::<span class="ident">ChildObject</span><span class="op">&gt;</span>);
     }
-
-    <span class="kw">static</span> <span class="ident">PROPERTIES</span>: [<span class="ident">Property</span>; <span class="number">4</span>] <span class="op">=</span> [
-        <span class="ident">Property</span>(<span class="string">&quot;name&quot;</span>, <span class="op">|</span><span class="ident">name</span><span class="op">|</span> {
-            <span class="kw">crate</span>::<span class="ident">ParamSpec</span>::<span class="ident">string</span>(
-                <span class="ident">name</span>,
-                <span class="string">&quot;Name&quot;</span>,
-                <span class="string">&quot;Name of this object&quot;</span>,
-                <span class="prelude-val">None</span>,
-                <span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">READWRITE</span>,
-            )
-        }),
-        <span class="ident">Property</span>(<span class="string">&quot;construct-name&quot;</span>, <span class="op">|</span><span class="ident">name</span><span class="op">|</span> {
-            <span class="kw">crate</span>::<span class="ident">ParamSpec</span>::<span class="ident">string</span>(
-                <span class="ident">name</span>,
-                <span class="string">&quot;Construct Name&quot;</span>,
-                <span class="string">&quot;Construct Name of this object&quot;</span>,
-                <span class="prelude-val">None</span>,
-                <span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">READWRITE</span> <span class="op">|</span> <span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">CONSTRUCT_ONLY</span>,
-            )
-        }),
-        <span class="ident">Property</span>(<span class="string">&quot;constructed&quot;</span>, <span class="op">|</span><span class="ident">name</span><span class="op">|</span> {
-            <span class="kw">crate</span>::<span class="ident">ParamSpec</span>::<span class="ident">boolean</span>(
-                <span class="ident">name</span>,
-                <span class="string">&quot;Constructed&quot;</span>,
-                <span class="string">&quot;True if the constructed() virtual method was called&quot;</span>,
-                <span class="bool-val">false</span>,
-                <span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">READABLE</span>,
-            )
-        }),
-        <span class="ident">Property</span>(<span class="string">&quot;child&quot;</span>, <span class="op">|</span><span class="ident">name</span><span class="op">|</span> {
-            <span class="kw">crate</span>::<span class="ident">ParamSpec</span>::<span class="ident">object</span>(
-                <span class="ident">name</span>,
-                <span class="string">&quot;Child&quot;</span>,
-                <span class="string">&quot;Child object&quot;</span>,
-                <span class="ident">ChildObject</span>::<span class="ident">static_type</span>(),
-                <span class="kw">crate</span>::<span class="ident">ParamFlags</span>::<span class="ident">READWRITE</span>,
-            )
-        }),
-    ];
 
     <span class="macro">wrapper</span><span class="macro">!</span> {
         <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SimpleObject</span>(<span class="ident">ObjectSubclass</span><span class="op">&lt;</span><span class="ident">imp</span>::<span class="ident">SimpleObject</span><span class="op">&gt;</span>);

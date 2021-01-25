@@ -365,9 +365,6 @@
 <span id="362">362</span>
 <span id="363">363</span>
 <span id="364">364</span>
-<span id="365">365</span>
-<span id="366">366</span>
-<span id="367">367</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -398,6 +395,7 @@
         <span class="kw">const</span> <span class="ident">NAME</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;WriteOutputStream&quot;</span>;
         <span class="kw">type</span> <span class="ident">Type</span> <span class="op">=</span> <span class="kw">super</span>::<span class="ident">WriteOutputStream</span>;
         <span class="kw">type</span> <span class="ident">ParentType</span> <span class="op">=</span> <span class="ident">OutputStream</span>;
+        <span class="kw">type</span> <span class="ident">Interfaces</span> <span class="op">=</span> (<span class="kw">crate</span>::<span class="ident">Seekable</span>,);
         <span class="kw">type</span> <span class="ident">Instance</span> <span class="op">=</span> <span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">InstanceStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
         <span class="kw">type</span> <span class="ident">Class</span> <span class="op">=</span> <span class="ident">subclass</span>::<span class="ident">simple</span>::<span class="ident">ClassStruct</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 
@@ -407,10 +405,6 @@
             <span class="self">Self</span> {
                 <span class="ident">write</span>: <span class="ident">RefCell</span>::<span class="ident">new</span>(<span class="prelude-val">None</span>),
             }
-        }
-
-        <span class="kw">fn</span> <span class="ident">type_init</span>(<span class="ident">type_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">subclass</span>::<span class="ident">InitializingType</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) {
-            <span class="ident">type_</span>.<span class="ident">add_interface</span>::<span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">Seekable</span><span class="op">&gt;</span>();
         }
     }
 
