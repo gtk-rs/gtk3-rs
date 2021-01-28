@@ -93,7 +93,7 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
     };
 
     quote! {
-        impl BoxedType for #name {
+        impl #crate_ident::subclass::boxed::BoxedType for #name {
             const NAME: &'static str = #gtype_name;
 
             fn get_type() -> #crate_ident::Type {
