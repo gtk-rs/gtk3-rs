@@ -2216,6 +2216,14 @@ glib_wrapper! {
 #[derive(Debug)]
 pub struct WeakRef<T: ObjectType>(Pin<Box<gobject_ffi::GWeakRef>>, PhantomData<*mut T>);
 
+impl<T: ObjectType> PartialEq for WeakRef<T> {
+    fn eq(&self, other: &Self) -> bool {
+        unsafe { self.0.priv_.p == other.0.priv_.p }
+    }
+}
+
+impl<T: ObjectType> Eq for WeakRef<T> {}
+
 impl<T: ObjectType> WeakRef<T> {
     pub fn new() -> WeakRef<T> {
         unsafe {
