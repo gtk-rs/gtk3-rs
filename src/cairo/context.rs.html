@@ -864,6 +864,8 @@
 <span id="861">861</span>
 <span id="862">862</span>
 <span id="863">863</span>
+<span id="864">864</span>
+<span id="865">865</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -1023,7 +1025,7 @@
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()
     }
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">status</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_status</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) };
         <span class="ident">status_to_result</span>(<span class="ident">status</span>)
     }
@@ -1049,14 +1051,14 @@
         <span class="kw">unsafe</span> { <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_create</span>(<span class="ident">target</span>.<span class="ident">to_raw_none</span>())) }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">save</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">save</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_save</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
-        <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to save&quot;</span>)
+        <span class="self">self</span>.<span class="ident">status</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">restore</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">restore</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_restore</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()) }
-        <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to restore&quot;</span>)
+        <span class="self">self</span>.<span class="ident">status</span>()
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Surface</span> {
@@ -1250,15 +1252,15 @@
         <span class="self">self</span>.<span class="ident">status</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to reset clip&quot;</span>);
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">copy_clip_rectangle_list</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RectangleList</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">copy_clip_rectangle_list</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RectangleList</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">rectangle_list</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">cairo_copy_clip_rectangle_list</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>());
 
-            <span class="ident">status_to_result</span>((<span class="kw-2">*</span><span class="ident">rectangle_list</span>).<span class="ident">status</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to copy rectangle list&quot;</span>);
+            <span class="ident">status_to_result</span>((<span class="kw-2">*</span><span class="ident">rectangle_list</span>).<span class="ident">status</span>)<span class="question-mark">?</span>;
 
-            <span class="ident">RectangleList</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">RectangleList</span> {
                 <span class="ident">ptr</span>: <span class="ident">rectangle_list</span>,
-            }
+            })
         }
     }
 
@@ -1718,9 +1720,11 @@
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">clip_rectange</span>() {
+    <span class="kw">fn</span> <span class="ident">clip_rectangle</span>() {
         <span class="kw">let</span> <span class="ident">ctx</span> <span class="op">=</span> <span class="ident">create_ctx</span>();
-        <span class="kw">let</span> <span class="ident">rect</span> <span class="op">=</span> <span class="ident">ctx</span>.<span class="ident">copy_clip_rectangle_list</span>();
+        <span class="kw">let</span> <span class="ident">rect</span> <span class="op">=</span> <span class="ident">ctx</span>
+            .<span class="ident">copy_clip_rectangle_list</span>()
+            .<span class="ident">expect</span>(<span class="string">&quot;Failed to copy rectangle list&quot;</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">rect</span>),
             <span class="string">&quot;RectangleList([Rectangle { x: 0.0, y: 0.0, width: 10.0, height: 10.0 }])&quot;</span>
