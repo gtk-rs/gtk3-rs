@@ -163,14 +163,14 @@ impl Context {
         unsafe { Self::from_raw_full(ffi::cairo_create(target.to_raw_none())) }
     }
 
-    pub fn save(&self) {
+    pub fn save(&self) -> Result<(), Error> {
         unsafe { ffi::cairo_save(self.0.as_ptr()) }
-        self.status().expect("Failed to save")
+        self.status()
     }
 
-    pub fn restore(&self) {
+    pub fn restore(&self) -> Result<(), Error> {
         unsafe { ffi::cairo_restore(self.0.as_ptr()) }
-        self.status().expect("Failed to restore")
+        self.status()
     }
 
     pub fn get_target(&self) -> Surface {
