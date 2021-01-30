@@ -27,7 +27,7 @@ impl Task {
             let res = AsyncResult::from_glib_borrow(res);
             let callback: Box_<Q> = Box::from_raw(user_data as *mut _);
             callback(&res, source_object.as_ref().as_ref());
-        };
+        }
         let callback = trampoline::<Q>;
         unsafe {
             from_glib_full(ffi::g_task_new(
