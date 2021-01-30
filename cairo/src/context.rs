@@ -364,15 +364,15 @@ impl Context {
         self.status().expect("Failed to reset clip");
     }
 
-    pub fn copy_clip_rectangle_list(&self) -> RectangleList {
+    pub fn copy_clip_rectangle_list(&self) -> Result<RectangleList, Error> {
         unsafe {
             let rectangle_list = ffi::cairo_copy_clip_rectangle_list(self.0.as_ptr());
 
-            status_to_result((*rectangle_list).status).expect("Failed to copy rectangle list");
+            status_to_result((*rectangle_list).status)?;
 
-            RectangleList {
+            Ok(RectangleList {
                 ptr: rectangle_list,
-            }
+            })
         }
     }
 
@@ -817,7 +817,9 @@ mod tests {
     #[test]
     fn clip_rectangle() {
         let ctx = create_ctx();
-        let rect = ctx.copy_clip_rectangle_list();
+        let rect = ctx
+            .copy_clip_rectangle_list()
+            .expect("Failed to copy rectangle list");
         assert_eq!(
             format!("{:?}", rect),
             "RectangleList([Rectangle { x: 0.0, y: 0.0, width: 10.0, height: 10.0 }])"
