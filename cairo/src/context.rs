@@ -154,7 +154,7 @@ impl Context {
         self.0.as_ptr()
     }
 
-    pub(crate) fn status(&self) -> Result<(), Error> {
+    pub fn status(&self) -> Result<(), Error> {
         let status = unsafe { ffi::cairo_status(self.0.as_ptr()) };
         status_to_result(status)
     }
@@ -163,14 +163,14 @@ impl Context {
         unsafe { Self::from_raw_full(ffi::cairo_create(target.to_raw_none())) }
     }
 
-    pub fn save(&self) {
+    pub fn save(&self) -> Result<(), Error> {
         unsafe { ffi::cairo_save(self.0.as_ptr()) }
-        self.status().expect("Failed to save")
+        self.status()
     }
 
-    pub fn restore(&self) {
+    pub fn restore(&self) -> Result<(), Error> {
         unsafe { ffi::cairo_restore(self.0.as_ptr()) }
-        self.status().expect("Failed to restore")
+        self.status()
     }
 
     pub fn get_target(&self) -> Surface {
@@ -364,15 +364,15 @@ impl Context {
         self.status().expect("Failed to reset clip");
     }
 
-    pub fn copy_clip_rectangle_list(&self) -> RectangleList {
+    pub fn copy_clip_rectangle_list(&self) -> Result<RectangleList, Error> {
         unsafe {
             let rectangle_list = ffi::cairo_copy_clip_rectangle_list(self.0.as_ptr());
 
-            status_to_result((*rectangle_list).status).expect("Failed to copy rectangle list");
+            status_to_result((*rectangle_list).status)?;
 
-            RectangleList {
+            Ok(RectangleList {
                 ptr: rectangle_list,
-            }
+            })
         }
     }
 
@@ -815,9 +815,11 @@ mod tests {
     }
 
     #[test]
-    fn clip_rectange() {
+    fn clip_rectangle() {
         let ctx = create_ctx();
-        let rect = ctx.copy_clip_rectangle_list();
+        let rect = ctx
+            .copy_clip_rectangle_list()
+            .expect("Failed to copy rectangle list");
         assert_eq!(
             format!("{:?}", rect),
             "RectangleList([Rectangle { x: 0.0, y: 0.0, width: 10.0, height: 10.0 }])"
