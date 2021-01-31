@@ -2502,6 +2502,12 @@
 <span id="2499">2499</span>
 <span id="2500">2500</span>
 <span id="2501">2501</span>
+<span id="2502">2502</span>
+<span id="2503">2503</span>
+<span id="2504">2504</span>
+<span id="2505">2505</span>
+<span id="2506">2506</span>
+<span id="2507">2507</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -4811,6 +4817,9 @@
             <span class="kw">crate</span>::<span class="ident">path_get_basename</span>(<span class="ident">dir_1</span>.<span class="ident">canonicalize</span>().<span class="ident">unwrap</span>()),
             <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;abcd&quot;</span>)
         );
+        <span class="comment">// This currently fails on Windows because C:\\Users\\runneradmin</span>
+        <span class="comment">// gets shortened to C:\\Users\\RUNNER~1</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">windows</span>))]</span>
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="kw">crate</span>::<span class="ident">path_get_dirname</span>(<span class="ident">dir_1</span>.<span class="ident">canonicalize</span>().<span class="ident">unwrap</span>()),
             <span class="ident">tmp_dir</span>.<span class="ident">path</span>()
@@ -4832,6 +4841,9 @@
             <span class="kw">crate</span>::<span class="ident">path_get_basename</span>(<span class="ident">dir_2</span>.<span class="ident">canonicalize</span>().<span class="ident">unwrap</span>()),
             <span class="ident">Path</span>::<span class="ident">new</span>(<span class="string">&quot;øäöü&quot;</span>)
         );
+        <span class="comment">// This currently fails on Windows because C:\\Users\\runneradmin</span>
+        <span class="comment">// gets shortened to C:\\Users\\RUNNER~1</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">windows</span>))]</span>
         <span class="macro">assert_eq</span><span class="macro">!</span>(
             <span class="kw">crate</span>::<span class="ident">path_get_dirname</span>(<span class="ident">dir_2</span>.<span class="ident">canonicalize</span>().<span class="ident">unwrap</span>()),
             <span class="ident">tmp_dir</span>.<span class="ident">path</span>()
