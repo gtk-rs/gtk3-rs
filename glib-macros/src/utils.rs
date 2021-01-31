@@ -1,7 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use anyhow::{bail, Result};
-use itertools::Itertools;
 use proc_macro2::{Ident, Span};
 use proc_macro_crate::crate_name;
 use syn::{Attribute, DeriveInput, Lit, Meta, MetaList, NestedMeta};
@@ -106,10 +105,7 @@ pub fn parse_item_attributes(attr_name: &str, attrs: &[Attribute]) -> Result<Vec
             .nested
             .iter()
             .map(|m| parse_item_attribute(&m))
-            .fold_ok(Vec::new(), |mut v, a| {
-                v.push(a);
-                v
-            })?,
+            .collect::<Result<Vec<_>, _>>()?,
         None => Vec::new(),
     };
 
