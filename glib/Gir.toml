@@ -523,6 +523,11 @@ status = "generate"
     name = "get_locale_string_list"
     # can return an error but still a value to be freed
     manual = true
+    [[object.function]]
+    name = "get_comment"
+        [[object.function.parameter]]
+        name = "key"
+        nullable = true
 
     # Fixed in GLib 2.66.2
     [[object.function]]
