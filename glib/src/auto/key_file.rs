@@ -32,7 +32,7 @@ impl KeyFile {
     pub fn get_comment(
         &self,
         group_name: Option<&str>,
-        key: &str,
+        key: Option<&str>,
     ) -> Result<crate::GString, crate::Error> {
         unsafe {
             let mut error = ptr::null_mut();
