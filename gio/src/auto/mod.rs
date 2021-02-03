@@ -76,6 +76,9 @@ pub use self::converter_output_stream::{ConverterOutputStream, NONE_CONVERTER_OU
 mod credentials;
 pub use self::credentials::Credentials;
 
+mod dbus_action_group;
+pub use self::dbus_action_group::DBusActionGroup;
+
 mod dbus_auth_observer;
 pub use self::dbus_auth_observer::DBusAuthObserver;
 
