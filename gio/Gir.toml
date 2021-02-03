@@ -23,6 +23,7 @@ generate = [
     "Gio.CredentialsType",
     "Gio.DataStreamByteOrder",
     "Gio.DataStreamNewlineType",
+    "Gio.DBusActionGroup",
     "Gio.DBusArgInfo",
     "Gio.DBusAuthObserver",
     "Gio.DBusCallFlags",
