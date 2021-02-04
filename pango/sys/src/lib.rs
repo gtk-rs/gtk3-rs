@@ -352,7 +352,7 @@ pub type PangoFontsetForeachFunc =
 
 // Records
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct PangoAnalysis {
     pub shape_engine: *mut PangoEngineShape,
     pub lang_engine: *mut PangoEngineLang,
@@ -435,7 +435,7 @@ impl ::std::fmt::Debug for PangoAttrFloat {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct PangoAttrFontDesc {
     pub attr: PangoAttribute,
     pub desc: *mut PangoFontDescription,
@@ -451,7 +451,7 @@ impl ::std::fmt::Debug for PangoAttrFontDesc {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct PangoAttrFontFeatures {
     pub attr: PangoAttribute,
     pub features: *mut c_char,
@@ -493,7 +493,7 @@ impl ::std::fmt::Debug for PangoAttrIterator {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct PangoAttrLanguage {
     pub attr: PangoAttribute,
     pub value: *mut PangoLanguage,
@@ -561,7 +561,7 @@ impl ::std::fmt::Debug for PangoAttrSize {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct PangoAttrString {
     pub attr: PangoAttribute,
     pub value: *mut c_char,
@@ -577,7 +577,7 @@ impl ::std::fmt::Debug for PangoAttrString {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct PangoAttribute {
     pub klass: *const PangoAttrClass,
     pub start_index: c_uint,
@@ -631,7 +631,7 @@ impl ::std::fmt::Debug for PangoEngineClass {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct PangoEngineInfo {
     pub id: *const c_char,
     pub engine_type: *const c_char,
@@ -677,7 +677,7 @@ impl ::std::fmt::Debug for PangoEngineLangClass {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct PangoEngineScriptInfo {
     pub script: PangoScript,
     pub langs: *const c_char,
@@ -831,7 +831,7 @@ impl ::std::fmt::Debug for PangoFontFamilyClass {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct PangoFontMapClass {
     pub parent_class: gobject::GObjectClass,
     pub load_font: Option<
@@ -970,7 +970,7 @@ impl ::std::fmt::Debug for PangoGlyphInfo {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct PangoGlyphItem {
     pub item: *mut PangoItem,
     pub glyphs: *mut PangoGlyphString,
@@ -986,7 +986,7 @@ impl ::std::fmt::Debug for PangoGlyphItem {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct PangoGlyphItemIter {
     pub glyph_item: *mut PangoGlyphItem,
     pub text: *const c_char,
@@ -1014,7 +1014,7 @@ impl ::std::fmt::Debug for PangoGlyphItemIter {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct PangoGlyphString {
     pub num_glyphs: c_int,
     pub glyphs: *mut PangoGlyphInfo,
@@ -1448,7 +1448,7 @@ impl ::std::fmt::Debug for PangoLayout {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct PangoRenderer {
     pub parent_instance: gobject::GObject,
     pub underline: PangoUnderline,

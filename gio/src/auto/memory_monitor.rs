@@ -15,6 +15,8 @@ use glib::signal::connect_raw;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 use glib::signal::SignalHandlerId;
+#[cfg(any(feature = "v2_64", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]
 use glib::translate::*;
 #[cfg(any(feature = "v2_64", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_64")))]

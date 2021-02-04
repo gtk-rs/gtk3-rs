@@ -18,7 +18,6 @@ use crate::WindowPosition;
 use crate::WindowType;
 use glib::object::Cast;
 use glib::object::IsA;
-use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
 use std::fmt;

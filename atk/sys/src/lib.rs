@@ -373,7 +373,7 @@ impl ::std::fmt::Debug for AtkActionIface {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct AtkAttribute {
     pub name: *mut c_char,
     pub value: *mut c_char,
@@ -652,7 +652,7 @@ pub struct _AtkImplementor(c_void);
 pub type AtkImplementor = *mut _AtkImplementor;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct AtkKeyEventStruct {
     pub type_: c_int,
     pub state: c_uint,
@@ -844,7 +844,7 @@ impl ::std::fmt::Debug for AtkPlugClass {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct AtkPropertyValues {
     pub property_name: *const c_char,
     pub old_value: gobject::GValue,
@@ -1282,7 +1282,7 @@ impl ::std::fmt::Debug for AtkTextIface {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct AtkTextRange {
     pub bounds: AtkTextRectangle,
     pub start_offset: c_int,
@@ -1475,7 +1475,7 @@ impl ::std::fmt::Debug for AtkNoOpObjectFactory {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct AtkObject {
     pub parent: gobject::GObject,
     pub description: *mut c_char,
@@ -1529,7 +1529,7 @@ impl ::std::fmt::Debug for AtkPlug {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct AtkRegistry {
     pub parent: gobject::GObject,
     pub factory_type_registry: *mut glib::GHashTable,
@@ -1547,7 +1547,7 @@ impl ::std::fmt::Debug for AtkRegistry {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct AtkRelation {
     pub parent: gobject::GObject,
     pub target: *mut glib::GPtrArray,
@@ -1565,7 +1565,7 @@ impl ::std::fmt::Debug for AtkRelation {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct AtkRelationSet {
     pub parent: gobject::GObject,
     pub relations: *mut glib::GPtrArray,
@@ -1581,7 +1581,7 @@ impl ::std::fmt::Debug for AtkRelationSet {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct AtkSocket {
     pub parent: AtkObject,
     pub embedded_plug_id: *mut c_char,

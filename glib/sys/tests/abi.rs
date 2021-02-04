@@ -5,6 +5,7 @@
 use glib_sys::*;
 use std::env;
 use std::error::Error;
+use std::ffi::OsString;
 use std::mem::{align_of, size_of};
 use std::path::Path;
 use std::process::Command;
@@ -69,7 +70,8 @@ fn pkg_config_cflags(packages: &[&str]) -> Result<Vec<String>, Box<dyn Error>> {
     if packages.is_empty() {
         return Ok(Vec::new());
     }
-    let mut cmd = Command::new("pkg-config");
+    let pkg_config = env::var_os("PKG_CONFIG").unwrap_or_else(|| OsString::from("pkg-config"));
+    let mut cmd = Command::new(pkg_config);
     cmd.arg("--cflags");
     cmd.args(packages);
     let out = cmd.output()?;

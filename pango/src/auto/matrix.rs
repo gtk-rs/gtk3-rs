@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct Matrix(Boxed<ffi::PangoMatrix>);
 
     match fn {
-        copy => |ptr| ffi::pango_matrix_copy(mut_override(ptr)),
+        copy => |ptr| ffi::pango_matrix_copy(ptr),
         free => |ptr| ffi::pango_matrix_free(ptr),
         get_type => || ffi::pango_matrix_get_type(),
     }

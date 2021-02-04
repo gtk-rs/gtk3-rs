@@ -2971,7 +2971,7 @@ pub struct _GdkDrawingContextClass(c_void);
 pub type GdkDrawingContextClass = *mut _GdkDrawingContextClass;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventAny {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -2989,7 +2989,7 @@ impl ::std::fmt::Debug for GdkEventAny {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventButton {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3025,7 +3025,7 @@ impl ::std::fmt::Debug for GdkEventButton {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventConfigure {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3051,7 +3051,7 @@ impl ::std::fmt::Debug for GdkEventConfigure {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventCrossing {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3089,7 +3089,7 @@ impl ::std::fmt::Debug for GdkEventCrossing {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventDND {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3115,7 +3115,7 @@ impl ::std::fmt::Debug for GdkEventDND {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventExpose {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3139,7 +3139,7 @@ impl ::std::fmt::Debug for GdkEventExpose {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventFocus {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3159,7 +3159,7 @@ impl ::std::fmt::Debug for GdkEventFocus {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventGrabBroken {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3183,7 +3183,7 @@ impl ::std::fmt::Debug for GdkEventGrabBroken {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventKey {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3217,7 +3217,7 @@ impl ::std::fmt::Debug for GdkEventKey {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventMotion {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3253,7 +3253,7 @@ impl ::std::fmt::Debug for GdkEventMotion {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventOwnerChange {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3281,7 +3281,7 @@ impl ::std::fmt::Debug for GdkEventOwnerChange {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventPadAxis {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3309,7 +3309,7 @@ impl ::std::fmt::Debug for GdkEventPadAxis {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventPadButton {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3335,7 +3335,7 @@ impl ::std::fmt::Debug for GdkEventPadButton {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventPadGroupMode {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3359,7 +3359,7 @@ impl ::std::fmt::Debug for GdkEventPadGroupMode {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventProperty {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3383,7 +3383,7 @@ impl ::std::fmt::Debug for GdkEventProperty {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventProximity {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3405,7 +3405,7 @@ impl ::std::fmt::Debug for GdkEventProximity {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventScroll {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3445,7 +3445,7 @@ impl ::std::fmt::Debug for GdkEventScroll {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventSelection {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3483,7 +3483,7 @@ impl ::std::fmt::Debug for GdkEventSequence {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventSetting {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3505,7 +3505,7 @@ impl ::std::fmt::Debug for GdkEventSetting {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventTouch {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3543,7 +3543,7 @@ impl ::std::fmt::Debug for GdkEventTouch {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventTouchpadPinch {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3585,7 +3585,7 @@ impl ::std::fmt::Debug for GdkEventTouchpadPinch {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventTouchpadSwipe {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3623,7 +3623,7 @@ impl ::std::fmt::Debug for GdkEventTouchpadSwipe {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventVisibility {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3643,7 +3643,7 @@ impl ::std::fmt::Debug for GdkEventVisibility {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkEventWindowState {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3813,7 +3813,7 @@ impl ::std::fmt::Debug for GdkTimeCoord {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkWindowAttr {
     pub title: *mut c_char,
     pub event_mask: c_int,

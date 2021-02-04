@@ -132,7 +132,7 @@ impl ::std::fmt::Debug for GdkPixbufAnimationIterClass {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkPixbufFormat {
     pub name: *mut c_char,
     pub signature: *mut GdkPixbufModulePattern,
@@ -185,7 +185,7 @@ impl ::std::fmt::Debug for GdkPixbufLoaderClass {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkPixbufModule {
     pub module_name: *mut c_char,
     pub module_path: *mut c_char,
@@ -259,7 +259,7 @@ impl ::std::fmt::Debug for GdkPixbufModule {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GdkPixbufModulePattern {
     pub prefix: *mut c_char,
     pub mask: *mut c_char,

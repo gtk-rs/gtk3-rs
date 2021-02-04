@@ -271,7 +271,7 @@ impl ::std::fmt::Debug for GClosureNotifyData {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GEnumClass {
     pub g_type_class: GTypeClass,
     pub minimum: c_int,
@@ -293,7 +293,7 @@ impl ::std::fmt::Debug for GEnumClass {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GEnumValue {
     pub value: c_int,
     pub value_name: *const c_char,
@@ -311,7 +311,7 @@ impl ::std::fmt::Debug for GEnumValue {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GFlagsClass {
     pub g_type_class: GTypeClass,
     pub mask: c_uint,
@@ -331,7 +331,7 @@ impl ::std::fmt::Debug for GFlagsClass {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GFlagsValue {
     pub value: c_uint,
     pub value_name: *const c_char,
@@ -349,7 +349,7 @@ impl ::std::fmt::Debug for GFlagsValue {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GInitiallyUnownedClass {
     pub g_type_class: GTypeClass,
     pub construct_properties: *mut glib::GSList,
@@ -407,7 +407,7 @@ impl ::std::fmt::Debug for GInterfaceInfo {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GObjectClass {
     pub g_type_class: GTypeClass,
     pub construct_properties: *mut glib::GSList,
@@ -447,7 +447,7 @@ impl ::std::fmt::Debug for GObjectClass {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GObjectConstructParam {
     pub pspec: *mut GParamSpec,
     pub value: *mut GValue,
@@ -523,7 +523,7 @@ impl ::std::fmt::Debug for GParamSpecTypeInfo {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GParameter {
     pub name: *const c_char,
     pub value: GValue,
@@ -557,7 +557,7 @@ impl ::std::fmt::Debug for GSignalInvocationHint {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GSignalQuery {
     pub signal_id: c_uint,
     pub signal_name: *const c_char,
@@ -610,7 +610,7 @@ impl ::std::fmt::Debug for GTypeFundamentalInfo {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GTypeInfo {
     pub class_size: u16,
     pub base_init: GBaseInitFunc,
@@ -642,7 +642,7 @@ impl ::std::fmt::Debug for GTypeInfo {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GTypeInstance {
     pub g_class: *mut GTypeClass,
 }
@@ -716,7 +716,7 @@ impl ::std::fmt::Debug for GTypePluginClass {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GTypeQuery {
     pub type_: GType,
     pub type_name: *const c_char,
@@ -736,7 +736,7 @@ impl ::std::fmt::Debug for GTypeQuery {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GTypeValueTable {
     pub value_init: Option<unsafe extern "C" fn(*mut GValue)>,
     pub value_free: Option<unsafe extern "C" fn(*mut GValue)>,
@@ -783,7 +783,7 @@ impl ::std::fmt::Debug for GValue {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GValueArray {
     pub n_values: c_uint,
     pub values: *mut GValue,
@@ -825,7 +825,7 @@ impl ::std::fmt::Debug for GBinding {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GInitiallyUnowned {
     pub g_type_instance: GTypeInstance,
     pub ref_count: c_uint,
@@ -841,7 +841,7 @@ impl ::std::fmt::Debug for GInitiallyUnowned {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GObject {
     pub g_type_instance: GTypeInstance,
     pub ref_count: c_uint,
@@ -857,7 +857,7 @@ impl ::std::fmt::Debug for GObject {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GParamSpec {
     pub g_type_instance: GTypeInstance,
     pub name: *const c_char,
@@ -956,7 +956,7 @@ impl ::std::fmt::Debug for GParamSpecDouble {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GParamSpecEnum {
     pub parent_instance: GParamSpec,
     pub enum_class: *mut GEnumClass,
@@ -974,7 +974,7 @@ impl ::std::fmt::Debug for GParamSpecEnum {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GParamSpecFlags {
     pub parent_instance: GParamSpec,
     pub flags_class: *mut GFlagsClass,
@@ -1104,7 +1104,7 @@ impl ::std::fmt::Debug for GParamSpecObject {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GParamSpecOverride {
     pub parent_instance: GParamSpec,
     pub overridden: *mut GParamSpec,
@@ -1267,7 +1267,7 @@ impl ::std::fmt::Debug for GParamSpecUnichar {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GParamSpecValueArray {
     pub parent_instance: GParamSpec,
     pub element_spec: *mut GParamSpec,
@@ -1285,7 +1285,7 @@ impl ::std::fmt::Debug for GParamSpecValueArray {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GParamSpecVariant {
     pub parent_instance: GParamSpec,
     pub type_: *mut glib::GVariantType,
@@ -1304,7 +1304,7 @@ impl ::std::fmt::Debug for GParamSpecVariant {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GTypeModule {
     pub parent_instance: GObject,
     pub use_count: c_uint,

@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct Color(Boxed<ffi::PangoColor>);
 
     match fn {
-        copy => |ptr| ffi::pango_color_copy(mut_override(ptr)),
+        copy => |ptr| ffi::pango_color_copy(ptr),
         free => |ptr| ffi::pango_color_free(ptr),
         get_type => || ffi::pango_color_get_type(),
     }

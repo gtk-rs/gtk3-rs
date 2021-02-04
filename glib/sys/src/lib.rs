@@ -1005,7 +1005,7 @@ impl ::std::fmt::Debug for GMutex {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub union GTokenValue {
     pub v_symbol: gpointer,
     pub v_identifier: *mut c_char,
@@ -1144,7 +1144,7 @@ pub type GVoidFunc = Option<unsafe extern "C" fn()>;
 
 // Records
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GArray {
     pub data: *mut c_char,
     pub len: c_uint,
@@ -1170,7 +1170,7 @@ pub struct _GBookmarkFile(c_void);
 pub type GBookmarkFile = *mut _GBookmarkFile;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GByteArray {
     pub data: *mut u8,
     pub len: c_uint,
@@ -1250,7 +1250,7 @@ impl ::std::fmt::Debug for GDateTime {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDebugKey {
     pub key: *const c_char,
     pub value: c_uint,
@@ -1286,7 +1286,7 @@ impl ::std::fmt::Debug for GDoubleIEEE754_mpn {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GError {
     pub domain: GQuark,
     pub code: c_int,
@@ -1352,7 +1352,7 @@ pub struct _GHmac(c_void);
 pub type GHmac = *mut _GHmac;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GHook {
     pub data: gpointer,
     pub next: *mut GHook,
@@ -1489,7 +1489,7 @@ impl ::std::fmt::Debug for GKeyFile {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GList {
     pub data: gpointer,
     pub next: *mut GList,
@@ -1507,7 +1507,7 @@ impl ::std::fmt::Debug for GList {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GLogField {
     pub key: *const c_char,
     pub value: gconstpointer,
@@ -1648,7 +1648,7 @@ impl ::std::fmt::Debug for GMemVTable {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GNode {
     pub data: gpointer,
     pub next: *mut GNode,
@@ -1689,7 +1689,7 @@ pub struct _GOptionContext(c_void);
 pub type GOptionContext = *mut _GOptionContext;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GOptionEntry {
     pub long_name: *const c_char,
     pub short_name: c_char,
@@ -1745,7 +1745,7 @@ impl ::std::fmt::Debug for GPrivate {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GPtrArray {
     pub pdata: *mut gpointer,
     pub len: c_uint,
@@ -1761,7 +1761,7 @@ impl ::std::fmt::Debug for GPtrArray {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GQueue {
     pub head: *mut GList,
     pub tail: *mut GList,
@@ -1822,7 +1822,7 @@ impl ::std::fmt::Debug for GRegex {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GSList {
     pub data: gpointer,
     pub next: *mut GSList,
@@ -1838,7 +1838,7 @@ impl ::std::fmt::Debug for GSList {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GScanner {
     pub user_data: gpointer,
     pub max_parse_errors: c_uint,
@@ -1919,7 +1919,7 @@ pub struct _GSequenceIter(c_void);
 pub type GSequenceIter = *mut _GSequenceIter;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GSource {
     pub callback_data: gpointer,
     pub callback_funcs: *mut GSourceCallbackFuncs,
@@ -1994,7 +1994,7 @@ pub struct _GStatBuf(c_void);
 pub type GStatBuf = *mut _GStatBuf;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GString {
     pub str: *mut c_char,
     pub len: size_t,
@@ -2046,7 +2046,7 @@ impl ::std::fmt::Debug for GTestConfig {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GTestLogBuffer {
     pub data: *mut GString,
     pub msgs: *mut GSList,
@@ -2145,7 +2145,7 @@ pub struct _GTimer(c_void);
 pub type GTimer = *mut _GTimer;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GTrashStack {
     pub next: *mut GTrashStack,
 }
@@ -2214,7 +2214,7 @@ impl ::std::fmt::Debug for GVariantBuilder {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GVariantBuilder_u_s {
     pub partial_magic: size_t,
     pub type_: *const GVariantType,
@@ -2246,7 +2246,7 @@ impl ::std::fmt::Debug for GVariantDict {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GVariantDict_u_s {
     pub asv: *mut GVariant,
     pub partial_magic: size_t,

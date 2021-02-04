@@ -935,7 +935,7 @@ pub type GVfsFileLookupFunc =
 
 // Records
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GActionEntry {
     pub name: *const c_char,
     pub activate: Option<unsafe extern "C" fn(*mut GSimpleAction, *mut glib::GVariant, gpointer)>,
@@ -1593,7 +1593,7 @@ pub struct _GCredentialsClass(c_void);
 pub type GCredentialsClass = *mut _GCredentialsClass;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDBusAnnotationInfo {
     pub ref_count: c_int,
     pub key: *mut c_char,
@@ -1612,7 +1612,7 @@ impl ::std::fmt::Debug for GDBusAnnotationInfo {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDBusArgInfo {
     pub ref_count: c_int,
     pub name: *mut c_char,
@@ -1631,7 +1631,7 @@ impl ::std::fmt::Debug for GDBusArgInfo {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDBusErrorEntry {
     pub error_code: c_int,
     pub dbus_error_name: *const c_char,
@@ -1669,7 +1669,7 @@ impl ::std::fmt::Debug for GDBusInterfaceIface {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDBusInterfaceInfo {
     pub ref_count: c_int,
     pub name: *mut c_char,
@@ -1750,7 +1750,7 @@ impl ::std::fmt::Debug for GDBusInterfaceVTable {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDBusMethodInfo {
     pub ref_count: c_int,
     pub name: *mut c_char,
@@ -1771,7 +1771,7 @@ impl ::std::fmt::Debug for GDBusMethodInfo {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDBusNodeInfo {
     pub ref_count: c_int,
     pub path: *mut c_char,
@@ -1979,7 +1979,7 @@ pub struct _GDBusObjectSkeletonPrivate(c_void);
 pub type GDBusObjectSkeletonPrivate = *mut _GDBusObjectSkeletonPrivate;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDBusPropertyInfo {
     pub ref_count: c_int,
     pub name: *mut c_char,
@@ -2026,7 +2026,7 @@ pub struct _GDBusProxyPrivate(c_void);
 pub type GDBusProxyPrivate = *mut _GDBusProxyPrivate;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDBusSignalInfo {
     pub ref_count: c_int,
     pub name: *mut c_char,
@@ -2499,7 +2499,7 @@ pub struct _GEmblemedIconPrivate(c_void);
 pub type GEmblemedIconPrivate = *mut _GEmblemedIconPrivate;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GFileAttributeInfo {
     pub name: *mut c_char,
     pub type_: GFileAttributeType,
@@ -2517,7 +2517,7 @@ impl ::std::fmt::Debug for GFileAttributeInfo {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GFileAttributeInfoList {
     pub infos: *mut GFileAttributeInfo,
     pub n_infos: c_int,
@@ -3942,7 +3942,7 @@ impl ::std::fmt::Debug for GInitableIface {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GInputMessage {
     pub address: *mut *mut GSocketAddress,
     pub vectors: *mut GInputVector,
@@ -4692,7 +4692,7 @@ pub struct _GNetworkServicePrivate(c_void);
 pub type GNetworkServicePrivate = *mut _GNetworkServicePrivate;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GOutputMessage {
     pub address: *mut GSocketAddress,
     pub vectors: *mut GOutputVector,
@@ -5938,7 +5938,7 @@ impl ::std::fmt::Debug for GSrvTarget {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GStaticResource {
     pub data: *const u8,
     pub data_len: size_t,
@@ -6982,7 +6982,7 @@ impl ::std::fmt::Debug for GAppInfoMonitor {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GAppLaunchContext {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GAppLaunchContextPrivate,
@@ -6997,7 +6997,7 @@ impl ::std::fmt::Debug for GAppLaunchContext {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GApplication {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GApplicationPrivate,
@@ -7011,7 +7011,7 @@ impl ::std::fmt::Debug for GApplication {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GApplicationCommandLine {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GApplicationCommandLinePrivate,
@@ -7025,7 +7025,7 @@ impl ::std::fmt::Debug for GApplicationCommandLine {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GBufferedInputStream {
     pub parent_instance: GFilterInputStream,
     pub priv_: *mut GBufferedInputStreamPrivate,
@@ -7040,7 +7040,7 @@ impl ::std::fmt::Debug for GBufferedInputStream {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GBufferedOutputStream {
     pub parent_instance: GFilterOutputStream,
     pub priv_: *mut GBufferedOutputStreamPrivate,
@@ -7066,7 +7066,7 @@ impl ::std::fmt::Debug for GBytesIcon {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GCancellable {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GCancellablePrivate,
@@ -7091,7 +7091,7 @@ impl ::std::fmt::Debug for GCharsetConverter {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GConverterInputStream {
     pub parent_instance: GFilterInputStream,
     pub priv_: *mut GConverterInputStreamPrivate,
@@ -7106,7 +7106,7 @@ impl ::std::fmt::Debug for GConverterInputStream {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GConverterOutputStream {
     pub parent_instance: GFilterOutputStream,
     pub priv_: *mut GConverterOutputStreamPrivate,
@@ -7161,7 +7161,7 @@ impl ::std::fmt::Debug for GDBusConnection {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDBusInterfaceSkeleton {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GDBusInterfaceSkeletonPrivate,
@@ -7205,7 +7205,7 @@ impl ::std::fmt::Debug for GDBusMethodInvocation {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDBusObjectManagerClient {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GDBusObjectManagerClientPrivate,
@@ -7222,7 +7222,7 @@ impl ::std::fmt::Debug for GDBusObjectManagerClient {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDBusObjectManagerServer {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GDBusObjectManagerServerPrivate,
@@ -7239,7 +7239,7 @@ impl ::std::fmt::Debug for GDBusObjectManagerServer {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDBusObjectProxy {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GDBusObjectProxyPrivate,
@@ -7253,7 +7253,7 @@ impl ::std::fmt::Debug for GDBusObjectProxy {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDBusObjectSkeleton {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GDBusObjectSkeletonPrivate,
@@ -7267,7 +7267,7 @@ impl ::std::fmt::Debug for GDBusObjectSkeleton {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDBusProxy {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GDBusProxyPrivate,
@@ -7291,7 +7291,7 @@ impl ::std::fmt::Debug for GDBusServer {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDataInputStream {
     pub parent_instance: GBufferedInputStream,
     pub priv_: *mut GDataInputStreamPrivate,
@@ -7306,7 +7306,7 @@ impl ::std::fmt::Debug for GDataInputStream {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GDataOutputStream {
     pub parent_instance: GFilterOutputStream,
     pub priv_: *mut GDataOutputStreamPrivate,
@@ -7341,7 +7341,7 @@ impl ::std::fmt::Debug for GEmblem {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GEmblemedIcon {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GEmblemedIconPrivate,
@@ -7356,7 +7356,7 @@ impl ::std::fmt::Debug for GEmblemedIcon {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GFileEnumerator {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GFileEnumeratorPrivate,
@@ -7371,7 +7371,7 @@ impl ::std::fmt::Debug for GFileEnumerator {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GFileIOStream {
     pub parent_instance: GIOStream,
     pub priv_: *mut GFileIOStreamPrivate,
@@ -7406,7 +7406,7 @@ impl ::std::fmt::Debug for GFileInfo {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GFileInputStream {
     pub parent_instance: GInputStream,
     pub priv_: *mut GFileInputStreamPrivate,
@@ -7421,7 +7421,7 @@ impl ::std::fmt::Debug for GFileInputStream {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GFileMonitor {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GFileMonitorPrivate,
@@ -7436,7 +7436,7 @@ impl ::std::fmt::Debug for GFileMonitor {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GFileOutputStream {
     pub parent_instance: GOutputStream,
     pub priv_: *mut GFileOutputStreamPrivate,
@@ -7461,7 +7461,7 @@ impl ::std::fmt::Debug for GFilenameCompleter {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GFilterInputStream {
     pub parent_instance: GInputStream,
     pub base_stream: *mut GInputStream,
@@ -7477,7 +7477,7 @@ impl ::std::fmt::Debug for GFilterInputStream {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GFilterOutputStream {
     pub parent_instance: GOutputStream,
     pub base_stream: *mut GOutputStream,
@@ -7503,7 +7503,7 @@ impl ::std::fmt::Debug for GIOModule {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GIOStream {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GIOStreamPrivate,
@@ -7518,7 +7518,7 @@ impl ::std::fmt::Debug for GIOStream {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GInetAddress {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GInetAddressPrivate,
@@ -7533,7 +7533,7 @@ impl ::std::fmt::Debug for GInetAddress {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GInetAddressMask {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GInetAddressMaskPrivate,
@@ -7548,7 +7548,7 @@ impl ::std::fmt::Debug for GInetAddressMask {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GInetSocketAddress {
     pub parent_instance: GSocketAddress,
     pub priv_: *mut GInetSocketAddressPrivate,
@@ -7563,7 +7563,7 @@ impl ::std::fmt::Debug for GInetSocketAddress {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GInputStream {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GInputStreamPrivate,
@@ -7588,7 +7588,7 @@ impl ::std::fmt::Debug for GListStore {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GMemoryInputStream {
     pub parent_instance: GInputStream,
     pub priv_: *mut GMemoryInputStreamPrivate,
@@ -7603,7 +7603,7 @@ impl ::std::fmt::Debug for GMemoryInputStream {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GMemoryOutputStream {
     pub parent_instance: GOutputStream,
     pub priv_: *mut GMemoryOutputStreamPrivate,
@@ -7628,7 +7628,7 @@ impl ::std::fmt::Debug for GMenu {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GMenuAttributeIter {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GMenuAttributeIterPrivate,
@@ -7654,7 +7654,7 @@ impl ::std::fmt::Debug for GMenuItem {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GMenuLinkIter {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GMenuLinkIterPrivate,
@@ -7670,7 +7670,7 @@ impl ::std::fmt::Debug for GMenuLinkIter {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GMenuModel {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GMenuModelPrivate,
@@ -7686,7 +7686,7 @@ impl ::std::fmt::Debug for GMenuModel {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GMountOperation {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GMountOperationPrivate,
@@ -7702,7 +7702,7 @@ impl ::std::fmt::Debug for GMountOperation {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GNativeSocketAddress {
     pub parent_instance: GSocketAddress,
     pub priv_: *mut GNativeSocketAddressPrivate,
@@ -7731,7 +7731,7 @@ impl ::std::fmt::Debug for GNativeVolumeMonitor {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GNetworkAddress {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GNetworkAddressPrivate,
@@ -7746,7 +7746,7 @@ impl ::std::fmt::Debug for GNetworkAddress {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GNetworkService {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GNetworkServicePrivate,
@@ -7771,7 +7771,7 @@ impl ::std::fmt::Debug for GNotification {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GOutputStream {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GOutputStreamPrivate,
@@ -7786,7 +7786,7 @@ impl ::std::fmt::Debug for GOutputStream {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GPermission {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GPermissionPrivate,
@@ -7811,7 +7811,7 @@ impl ::std::fmt::Debug for GPropertyAction {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GProxyAddress {
     pub parent_instance: GInetSocketAddress,
     pub priv_: *mut GProxyAddressPrivate,
@@ -7826,7 +7826,7 @@ impl ::std::fmt::Debug for GProxyAddress {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GProxyAddressEnumerator {
     pub parent_instance: GSocketAddressEnumerator,
     pub priv_: *mut GProxyAddressEnumeratorPrivate,
@@ -7840,7 +7840,7 @@ impl ::std::fmt::Debug for GProxyAddressEnumerator {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GResolver {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GResolverPrivate,
@@ -7856,7 +7856,7 @@ impl ::std::fmt::Debug for GResolver {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GSettings {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GSettingsPrivate,
@@ -7872,7 +7872,7 @@ impl ::std::fmt::Debug for GSettings {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GSettingsBackend {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GSettingsBackendPrivate,
@@ -7897,7 +7897,7 @@ impl ::std::fmt::Debug for GSimpleAction {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GSimpleActionGroup {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GSimpleActionGroupPrivate,
@@ -7941,7 +7941,7 @@ impl ::std::fmt::Debug for GSimplePermission {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GSimpleProxyResolver {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GSimpleProxyResolverPrivate,
@@ -7956,7 +7956,7 @@ impl ::std::fmt::Debug for GSimpleProxyResolver {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GSocket {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GSocketPrivate,
@@ -8002,7 +8002,7 @@ impl ::std::fmt::Debug for GSocketAddressEnumerator {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GSocketClient {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GSocketClientPrivate,
@@ -8018,7 +8018,7 @@ impl ::std::fmt::Debug for GSocketClient {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GSocketConnection {
     pub parent_instance: GIOStream,
     pub priv_: *mut GSocketConnectionPrivate,
@@ -8034,7 +8034,7 @@ impl ::std::fmt::Debug for GSocketConnection {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GSocketControlMessage {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GSocketControlMessagePrivate,
@@ -8050,7 +8050,7 @@ impl ::std::fmt::Debug for GSocketControlMessage {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GSocketListener {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GSocketListenerPrivate,
@@ -8066,7 +8066,7 @@ impl ::std::fmt::Debug for GSocketListener {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GSocketService {
     pub parent_instance: GSocketListener,
     pub priv_: *mut GSocketServicePrivate,
@@ -8112,7 +8112,7 @@ impl ::std::fmt::Debug for GTask {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GTcpConnection {
     pub parent_instance: GSocketConnection,
     pub priv_: *mut GTcpConnectionPrivate,
@@ -8128,7 +8128,7 @@ impl ::std::fmt::Debug for GTcpConnection {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GTcpWrapperConnection {
     pub parent_instance: GTcpConnection,
     pub priv_: *mut GTcpWrapperConnectionPrivate,
@@ -8164,7 +8164,7 @@ impl ::std::fmt::Debug for GThemedIcon {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GThreadedSocketService {
     pub parent_instance: GSocketService,
     pub priv_: *mut GThreadedSocketServicePrivate,
@@ -8180,7 +8180,7 @@ impl ::std::fmt::Debug for GThreadedSocketService {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GTlsCertificate {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GTlsCertificatePrivate,
@@ -8196,7 +8196,7 @@ impl ::std::fmt::Debug for GTlsCertificate {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GTlsConnection {
     pub parent_instance: GIOStream,
     pub priv_: *mut GTlsConnectionPrivate,
@@ -8212,7 +8212,7 @@ impl ::std::fmt::Debug for GTlsConnection {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GTlsDatabase {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GTlsDatabasePrivate,
@@ -8228,7 +8228,7 @@ impl ::std::fmt::Debug for GTlsDatabase {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GTlsInteraction {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GTlsInteractionPrivate,
@@ -8242,7 +8242,7 @@ impl ::std::fmt::Debug for GTlsInteraction {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GTlsPassword {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GTlsPasswordPrivate,
@@ -8258,7 +8258,7 @@ impl ::std::fmt::Debug for GTlsPassword {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GUnixConnection {
     pub parent_instance: GSocketConnection,
     pub priv_: *mut GUnixConnectionPrivate,
@@ -8274,7 +8274,7 @@ impl ::std::fmt::Debug for GUnixConnection {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GUnixCredentialsMessage {
     pub parent_instance: GSocketControlMessage,
     pub priv_: *mut GUnixCredentialsMessagePrivate,
@@ -8290,7 +8290,7 @@ impl ::std::fmt::Debug for GUnixCredentialsMessage {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GUnixFDList {
     pub parent_instance: gobject::GObject,
     pub priv_: *mut GUnixFDListPrivate,
@@ -8306,7 +8306,7 @@ impl ::std::fmt::Debug for GUnixFDList {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GUnixFDMessage {
     pub parent_instance: GSocketControlMessage,
     pub priv_: *mut GUnixFDMessagePrivate,
@@ -8322,7 +8322,7 @@ impl ::std::fmt::Debug for GUnixFDMessage {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GUnixInputStream {
     pub parent_instance: GInputStream,
     pub priv_: *mut GUnixInputStreamPrivate,
@@ -8347,7 +8347,7 @@ impl ::std::fmt::Debug for GUnixMountMonitor {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GUnixOutputStream {
     pub parent_instance: GOutputStream,
     pub priv_: *mut GUnixOutputStreamPrivate,
@@ -8362,7 +8362,7 @@ impl ::std::fmt::Debug for GUnixOutputStream {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Clone)]
 pub struct GUnixSocketAddress {
     pub parent_instance: GSocketAddress,
     pub priv_: *mut GUnixSocketAddressPrivate,
