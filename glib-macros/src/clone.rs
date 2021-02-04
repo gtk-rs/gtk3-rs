@@ -2,7 +2,7 @@
 
 use crate::utils::crate_ident_new;
 use proc_macro::token_stream::IntoIter as ProcIter;
-use proc_macro::{Delimiter, Group, TokenStream, TokenTree};
+use proc_macro::{Delimiter, Group, Ident, Punct, Spacing, Span, TokenStream, TokenTree};
 use std::iter::Peekable;
 
 #[derive(Clone, Copy, Debug)]
@@ -452,13 +452,13 @@ fn check_before_closure(parts: &mut Peekable<ProcIter>) {
     }
 }
 
-fn get_closure(parts: &mut Peekable<ProcIter>) -> String {
-    let mut ret = String::new();
+fn get_closure(parts: &mut Peekable<ProcIter>) -> Vec<TokenTree> {
+    let mut ret = Vec::new();
 
     loop {
         match parts.next() {
             Some(TokenTree::Punct(p)) if p.to_string() == "|" => break,
-            Some(x) => ret.push_str(&x.to_string()),
+            Some(x) => ret.push(x),
             None => panic!("Unexpected end 3"),
         }
     }
@@ -539,22 +539,66 @@ pub(crate) fn clone_inner(item: TokenStream) -> TokenStream {
     let return_kind = parse_return_kind(&mut parts);
     check_before_closure(&mut parts);
     let closure = get_closure(&mut parts);
-    let body = tokens_to_string(parts);
+    let mut body = TokenStream::new();
+    body.extend(parts.collect::<Vec<_>>());
 
-    let x = format!(
-        "{{\n{}\nmove |{}| {{\n{}\nlet ____ret = {{ {} }};\n____ret\n}}\n}}",
-        elements
-            .iter()
-            .map(|x| x.to_str_before())
-            .collect::<Vec<_>>()
-            .join("\n"),
-        closure,
-        elements
-            .iter()
-            .map(|x| x.to_str_after(&return_kind))
-            .collect::<Vec<_>>()
-            .join("\n"),
-        body,
-    );
-    x.parse().unwrap()
+    // To prevent to lose the spans in case some errors occur in the code, we need to keep `body`!
+    //
+    // If we replaced everything that follows with a `format!`, it'd look like this:
+    //
+    // format!(
+    //     "{{\n{}\nmove |{}| {{\n{}\nlet ____ret = {{ {} }};\n____ret\n}}\n}}",
+    //     elements
+    //         .iter()
+    //         .map(|x| x.to_str_before())
+    //         .collect::<Vec<_>>()
+    //         .join("\n"),
+    //     closure,
+    //     elements
+    //         .iter()
+    //         .map(|x| x.to_str_after(&return_kind))
+    //         .collect::<Vec<_>>()
+    //         .join("\n"),
+    //     body,
+    // )
+    let mut ret: Vec<TokenTree> = vec![];
+    for el in &elements {
+        let stream: TokenStream = el
+            .to_str_before()
+            .parse()
+            .expect("failed to convert element");
+        ret.extend(stream.into_iter().collect::<Vec<_>>());
+    }
+    ret.extend(vec![
+        TokenTree::Ident(Ident::new("move", Span::call_site())),
+        TokenTree::Punct(Punct::new('|', Spacing::Alone)),
+    ]);
+    ret.extend(closure);
+    ret.extend(vec![TokenTree::Punct(Punct::new('|', Spacing::Alone))]);
+    let mut inner: Vec<TokenTree> = Vec::new();
+    for el in elements {
+        let stream: TokenStream = el
+            .to_str_after(&return_kind)
+            .parse()
+            .expect("failed to convert element after");
+        inner.extend(stream.into_iter().collect::<Vec<_>>());
+    }
+    // The commented lines that follow *might* be useful, don't know. Just in case, I'm keeping
+    // them around. You're welcome future me!
+    inner.extend(vec![
+        // TokenTree::Ident(Ident::new("let", Span::call_site())),
+        // TokenTree::Ident(Ident::new("____ret", Span::call_site())),
+        // TokenTree::Punct(Punct::new('=', Spacing::Alone)),
+        TokenTree::Group(Group::new(Delimiter::Brace, body)),
+        // TokenTree::Punct(Punct::new(';', Spacing::Alone)),
+        // TokenTree::Ident(Ident::new("____ret", Span::call_site())),
+    ]);
+    let mut inners = TokenStream::new();
+    inners.extend(inner);
+    ret.extend(vec![TokenTree::Group(Group::new(Delimiter::Brace, inners))]);
+
+    let mut rets = TokenStream::new();
+    rets.extend(ret);
+
+    TokenTree::Group(Group::new(Delimiter::Brace, rets)).into()
 }
