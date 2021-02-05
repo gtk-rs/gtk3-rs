@@ -400,11 +400,15 @@ fn test_clone_macro_double_rename() {
     closure(0i8); // to prevent compiler error for unknown `x` type.
     let _ = clone!(@weak v, @weak w as _x => @default-return true, move || false);
 
-    let closure = clone!(@strong v as _x, @strong w => @default-return true, move |_| { false });
+    let closure = clone!(@strong v as _x, @strong w => @default-return true, move |_| {
+        false
+    });
     closure(0i8); // to prevent compiler error for unknown `x` type.
     let _ = clone!(@strong v as _x, @strong w => @default-return true, move || false);
 
-    let closure = clone!(@strong v, @strong w as _x => @default-return true, move |_| { false });
+    let closure = clone!(@strong v, @strong w as _x => @default-return true, move |_| {
+        false
+    });
     closure(0i8); // to prevent compiler error for unknown `x` type.
     let _ = clone!(@strong v, @strong w as _x => @default-return true, move || false);
 }
@@ -450,14 +454,14 @@ fn test_clone_macro_default_return() {
 
     struct Foo(i32);
 
-    let _closure = clone!(@weak v => @default-return Foo(0), move || { Foo(1) });
+    let _closure = clone!(@weak v => @default-return Foo(0), move || Foo(1));
 
     #[allow(dead_code)]
     struct Bar {
         x: i32,
     }
 
-    let _closure = clone!(@weak v => @default-return Bar { x: 0 }, move || { Bar { x: 1 } });
+    let _closure = clone!(@weak v => @default-return Bar { x: 0 }, move || Bar { x: 1 });
 
     #[allow(dead_code)]
     enum Enum {
@@ -465,10 +469,10 @@ fn test_clone_macro_default_return() {
         B(i32),
         C { x: i32 },
     }
-    let _closure = clone!(@weak v => @default-return Enum::A, move || { Enum::A });
-    let _closure = clone!(@weak v => @default-return Enum::B(0), move || { Enum::A });
-    let _closure = clone!(@weak v => @default-return Enum::C { x: 0 }, move || { Enum::A });
-    let _closure = clone!(@weak v => @default-return { let x = 12; x + 2 }, move || { 19 });
+    let _closure = clone!(@weak v => @default-return Enum::A, move || Enum::A);
+    let _closure = clone!(@weak v => @default-return Enum::B(0), move || Enum::A);
+    let _closure = clone!(@weak v => @default-return Enum::C { x: 0 }, move || Enum::A);
+    let _closure = clone!(@weak v => @default-return { let x = 12; x + 2 }, move || 19);
 }
 
 #[test]
