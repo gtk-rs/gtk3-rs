@@ -243,14 +243,24 @@ impl TypeData {
                 return ptr::null_mut();
             }
 
-            for (t, p) in &(*self.class_data) {
-                if t == &type_ {
-                    return *p;
-                }
-            }
-
-            ptr::null_mut()
+            *(*self.class_data).get(&type_).unwrap_or(&ptr::null_mut())
         }
+    }
+
+    pub unsafe fn set(&mut self, type_: ffi::GType, data: ffi::gpointer) {
+        if self.class_data.is_null() {
+            self.class_data = Box::into_raw(Box::new(HashMap::new()));
+        }
+        if self.class_data.as_ref().unwrap().get(&type_).is_some() {
+            panic!("The class_data already contains a key for {}", type_);
+        }
+        (*(self.class_data as *mut HashMap<ffi::GType, ffi::gpointer>)).insert(type_, data);
+    }
+
+    pub unsafe fn get_mut(&mut self, type_: ffi::GType) -> ffi::gpointer {
+        *(*(self.class_data as *mut HashMap<ffi::GType, ffi::gpointer>))
+            .get_mut(&type_)
+            .unwrap_or(&mut ptr::null_mut())
     }
 
     /// Returns the offset of the private struct in bytes relative to the
