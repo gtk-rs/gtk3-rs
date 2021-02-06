@@ -5,10 +5,10 @@
 use crate::object::{Cast, ObjectSubclassIs, ObjectType};
 use crate::translate::*;
 use crate::{Closure, Object, StaticType, Type, Value};
-use std::collections::HashMap;
 use std::marker;
 use std::mem;
 use std::ptr;
+use std::{any::Any, collections::HashMap};
 
 /// A newly registered `glib::Type` that is currently still being initialized.
 ///
@@ -212,7 +212,7 @@ pub struct TypeData {
     #[doc(hidden)]
     pub parent_class: ffi::gpointer,
     #[doc(hidden)]
-    pub class_data: *const HashMap<ffi::GType, ffi::gpointer>,
+    pub class_data: Option<ptr::NonNull<HashMap<ffi::GType, Box<dyn Any + Send + Sync>>>>,
     #[doc(hidden)]
     pub private_offset: isize,
 }
@@ -237,30 +237,49 @@ impl TypeData {
     /// Returns a pointer to the class implementation specific data.
     ///
     /// This is used for class implementations to store additional data.
-    pub fn get_class_data(&self, type_: ffi::GType) -> ffi::gpointer {
+    pub fn get_class_data<T: Any + Send + Sync + 'static>(&self, type_: ffi::GType) -> Option<&T> {
         unsafe {
-            if self.class_data.is_null() {
-                return ptr::null_mut();
+            match self.class_data {
+                None => None,
+                Some(data) => data.as_ref().get(&type_).and_then(|ptr| ptr.downcast_ref()),
             }
-
-            *(*self.class_data).get(&type_).unwrap_or(&ptr::null_mut())
         }
     }
 
-    pub unsafe fn set(&mut self, type_: ffi::GType, data: ffi::gpointer) {
-        if self.class_data.is_null() {
-            self.class_data = Box::into_raw(Box::new(HashMap::new()));
+    /// Gets a mutable reference of the class implementation specific data
+    ///
+    /// # Safety
+    ///
+    /// This can only be executed before initializing the type data
+    pub unsafe fn get_class_data_mut<T: Any + Send + Sync>(
+        &mut self,
+        type_: ffi::GType,
+    ) -> Option<&mut T> {
+        match self.class_data.as_mut() {
+            None => None,
+            Some(map) => map.as_mut().get_mut(&type_).and_then(|v| v.downcast_mut()),
         }
-        if self.class_data.as_ref().unwrap().get(&type_).is_some() {
-            panic!("The class_data already contains a key for {}", type_);
-        }
-        (*(self.class_data as *mut HashMap<ffi::GType, ffi::gpointer>)).insert(type_, data);
     }
 
-    pub unsafe fn get_mut(&mut self, type_: ffi::GType) -> ffi::gpointer {
-        *(*(self.class_data as *mut HashMap<ffi::GType, ffi::gpointer>))
-            .get_mut(&type_)
-            .unwrap_or(&mut ptr::null_mut())
+    /// Sets class specific implementation data
+    ///
+    /// # Safety
+    ///
+    /// Note the set_class_data can only used before type initialization
+    ///
+    /// # Panics
+    ///
+    /// If the class_data contains a data for the specified `type_`
+    pub unsafe fn set_class_data<T: Any + Send + Sync>(&mut self, type_: ffi::GType, data: T) {
+        if self.class_data.is_none() {
+            self.class_data = ptr::NonNull::new(Box::into_raw(Box::new(HashMap::new())));
+        }
+        if let Some(class_data) = self.class_data.as_mut() {
+            if class_data.as_ref().get(&type_).is_some() {
+                panic!("The class_data already contains a key for {}", type_);
+            }
+            class_data.as_mut().insert(type_, Box::new(data));
+        }
     }
 
     /// Returns the offset of the private struct in bytes relative to the
@@ -280,7 +299,7 @@ macro_rules! object_subclass {
             static mut DATA: $crate::subclass::TypeData = $crate::subclass::TypeData {
                 type_: $crate::Type::Invalid,
                 parent_class: std::ptr::null_mut(),
-                class_data: std::ptr::null_mut(),
+                class_data: None,
                 private_offset: 0,
             };
 
