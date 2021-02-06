@@ -5,6 +5,7 @@
 use crate::object::{Cast, ObjectSubclassIs, ObjectType};
 use crate::translate::*;
 use crate::{Closure, Object, StaticType, Type, Value};
+use std::collections::HashMap;
 use std::marker;
 use std::mem;
 use std::ptr;
@@ -211,7 +212,7 @@ pub struct TypeData {
     #[doc(hidden)]
     pub parent_class: ffi::gpointer,
     #[doc(hidden)]
-    pub interface_data: *const Vec<(ffi::GType, ffi::gpointer)>,
+    pub class_data: *const HashMap<ffi::GType, ffi::gpointer>,
     #[doc(hidden)]
     pub private_offset: isize,
 }
@@ -233,18 +234,18 @@ impl TypeData {
         self.parent_class
     }
 
-    /// Returns a pointer to the interface implementation specific data.
+    /// Returns a pointer to the class implementation specific data.
     ///
-    /// This is used for interface implementations to store additional data.
-    pub fn get_interface_data(&self, type_: ffi::GType) -> ffi::gpointer {
+    /// This is used for class implementations to store additional data.
+    pub fn get_class_data(&self, type_: ffi::GType) -> ffi::gpointer {
         unsafe {
-            if self.interface_data.is_null() {
+            if self.class_data.is_null() {
                 return ptr::null_mut();
             }
 
-            for &(t, p) in &(*self.interface_data) {
-                if t == type_ {
-                    return p;
+            for (t, p) in &(*self.class_data) {
+                if t == &type_ {
+                    return *p;
                 }
             }
 
@@ -269,7 +270,7 @@ macro_rules! object_subclass {
             static mut DATA: $crate::subclass::TypeData = $crate::subclass::TypeData {
                 type_: $crate::Type::Invalid,
                 parent_class: std::ptr::null_mut(),
-                interface_data: std::ptr::null_mut(),
+                class_data: std::ptr::null_mut(),
                 private_offset: 0,
             };
 
