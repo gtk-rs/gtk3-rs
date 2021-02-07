@@ -13,7 +13,7 @@ use std::mem;
 use std::ptr;
 
 /// A GLib or GLib-based library type
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Type {
     /// An invalid `Type` used as error return value in some functions
     Invalid,

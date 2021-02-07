@@ -8,6 +8,7 @@ use crate::{Closure, Object, StaticType, Type, Value};
 use std::marker;
 use std::mem;
 use std::ptr;
+use std::{any::Any, collections::HashMap};
 
 /// A newly registered `glib::Type` that is currently still being initialized.
 ///
@@ -211,7 +212,7 @@ pub struct TypeData {
     #[doc(hidden)]
     pub parent_class: ffi::gpointer,
     #[doc(hidden)]
-    pub interface_data: *const Vec<(ffi::GType, ffi::gpointer)>,
+    pub class_data: Option<ptr::NonNull<HashMap<Type, Box<dyn Any + Send + Sync>>>>,
     #[doc(hidden)]
     pub private_offset: isize,
 }
@@ -233,22 +234,55 @@ impl TypeData {
         self.parent_class
     }
 
-    /// Returns a pointer to the interface implementation specific data.
+    /// Returns a pointer to the class implementation specific data.
     ///
-    /// This is used for interface implementations to store additional data.
-    pub fn get_interface_data(&self, type_: ffi::GType) -> ffi::gpointer {
+    /// This is used for class implementations to store additional data.
+    pub fn get_class_data<T: Any + Send + Sync + 'static>(&self, type_: Type) -> Option<&T> {
         unsafe {
-            if self.interface_data.is_null() {
-                return ptr::null_mut();
+            match self.class_data {
+                None => None,
+                Some(ref data) => data.as_ref().get(&type_).and_then(|ptr| ptr.downcast_ref()),
+            }
+        }
+    }
+
+    /// Gets a mutable reference of the class implementation specific data.
+    ///
+    /// # Safety
+    ///
+    /// This can only be used while the type is being initialized.
+    pub unsafe fn get_class_data_mut<T: Any + Send + Sync + 'static>(
+        &mut self,
+        type_: Type,
+    ) -> Option<&mut T> {
+        match self.class_data {
+            None => None,
+            Some(ref mut data) => data.as_mut().get_mut(&type_).and_then(|v| v.downcast_mut()),
+        }
+    }
+
+    /// Sets class specific implementation data.
+    ///
+    /// # Safety
+    ///
+    /// This can only be used while the type is being initialized.
+    ///
+    /// # Panics
+    ///
+    /// If the class_data already contains a data for the specified `type_`.
+    pub unsafe fn set_class_data<T: Any + Send + Sync + 'static>(&mut self, type_: Type, data: T) {
+        if self.class_data.is_none() {
+            self.class_data = Some(ptr::NonNull::new_unchecked(Box::into_raw(Box::new(
+                HashMap::new(),
+            ))));
+        }
+
+        if let Some(ref mut class_data) = self.class_data {
+            if class_data.as_ref().get(&type_).is_some() {
+                panic!("The class_data already contains a key for {}", type_);
             }
 
-            for &(t, p) in &(*self.interface_data) {
-                if t == type_ {
-                    return p;
-                }
-            }
-
-            ptr::null_mut()
+            class_data.as_mut().insert(type_, Box::new(data));
         }
     }
 
@@ -269,7 +303,7 @@ macro_rules! object_subclass {
             static mut DATA: $crate::subclass::TypeData = $crate::subclass::TypeData {
                 type_: $crate::Type::Invalid,
                 parent_class: std::ptr::null_mut(),
-                interface_data: std::ptr::null_mut(),
+                class_data: None,
                 private_offset: 0,
             };
 
