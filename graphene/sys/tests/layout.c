@@ -7,6 +7,5 @@
 #include <stdio.h>
 
 int main() {
-    printf("%zu\n%zu", sizeof(ABI_TYPE_NAME), alignof(ABI_TYPE_NAME));
     return 0;
 }

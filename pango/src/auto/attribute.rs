@@ -12,7 +12,7 @@ glib::wrapper! {
     pub struct Attribute(Boxed<ffi::PangoAttribute>);
 
     match fn {
-        copy => |ptr| ffi::pango_attribute_copy(mut_override(ptr)),
+        copy => |ptr| ffi::pango_attribute_copy(ptr),
         free => |ptr| ffi::pango_attribute_destroy(ptr),
         get_type => || ffi::pango_attribute_get_type(),
     }
@@ -24,7 +24,7 @@ glib::wrapper! {
     pub struct Attribute(Boxed<ffi::PangoAttribute>);
 
     match fn {
-        copy => |ptr| ffi::pango_attribute_copy(mut_override(ptr)),
+        copy => |ptr| ffi::pango_attribute_copy(ptr),
         free => |ptr| ffi::pango_attribute_destroy(ptr),
     }
 }

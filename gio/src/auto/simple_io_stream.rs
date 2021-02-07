@@ -15,6 +15,8 @@ use glib::object::Cast;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::object::IsA;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::translate::*;
 use std::fmt;
 
