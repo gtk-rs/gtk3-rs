@@ -212,7 +212,7 @@ pub struct TypeData {
     #[doc(hidden)]
     pub parent_class: ffi::gpointer,
     #[doc(hidden)]
-    pub class_data: Option<ptr::NonNull<HashMap<ffi::GType, Box<dyn Any + Send + Sync>>>>,
+    pub class_data: Option<ptr::NonNull<HashMap<Type, Box<dyn Any + Send + Sync>>>>,
     #[doc(hidden)]
     pub private_offset: isize,
 }
@@ -237,47 +237,51 @@ impl TypeData {
     /// Returns a pointer to the class implementation specific data.
     ///
     /// This is used for class implementations to store additional data.
-    pub fn get_class_data<T: Any + Send + Sync + 'static>(&self, type_: ffi::GType) -> Option<&T> {
+    pub fn get_class_data<T: Any + Send + Sync + 'static>(&self, type_: Type) -> Option<&T> {
         unsafe {
             match self.class_data {
                 None => None,
-                Some(data) => data.as_ref().get(&type_).and_then(|ptr| ptr.downcast_ref()),
+                Some(ref data) => data.as_ref().get(&type_).and_then(|ptr| ptr.downcast_ref()),
             }
         }
     }
 
-    /// Gets a mutable reference of the class implementation specific data
+    /// Gets a mutable reference of the class implementation specific data.
     ///
     /// # Safety
     ///
-    /// This can only be executed before initializing the type data
-    pub unsafe fn get_class_data_mut<T: Any + Send + Sync>(
+    /// This can only be used while the type is being initialized.
+    pub unsafe fn get_class_data_mut<T: Any + Send + Sync + 'static>(
         &mut self,
-        type_: ffi::GType,
+        type_: Type,
     ) -> Option<&mut T> {
-        match self.class_data.as_mut() {
+        match self.class_data {
             None => None,
-            Some(map) => map.as_mut().get_mut(&type_).and_then(|v| v.downcast_mut()),
+            Some(ref mut data) => data.as_mut().get_mut(&type_).and_then(|v| v.downcast_mut()),
         }
     }
 
-    /// Sets class specific implementation data
+    /// Sets class specific implementation data.
     ///
     /// # Safety
     ///
-    /// Note the set_class_data can only used before type initialization
+    /// This can only be used while the type is being initialized.
     ///
     /// # Panics
     ///
-    /// If the class_data contains a data for the specified `type_`
-    pub unsafe fn set_class_data<T: Any + Send + Sync>(&mut self, type_: ffi::GType, data: T) {
+    /// If the class_data already contains a data for the specified `type_`.
+    pub unsafe fn set_class_data<T: Any + Send + Sync + 'static>(&mut self, type_: Type, data: T) {
         if self.class_data.is_none() {
-            self.class_data = ptr::NonNull::new(Box::into_raw(Box::new(HashMap::new())));
+            self.class_data = Some(ptr::NonNull::new_unchecked(Box::into_raw(Box::new(
+                HashMap::new(),
+            ))));
         }
-        if let Some(class_data) = self.class_data.as_mut() {
+
+        if let Some(ref mut class_data) = self.class_data {
             if class_data.as_ref().get(&type_).is_some() {
                 panic!("The class_data already contains a key for {}", type_);
             }
+
             class_data.as_mut().insert(type_, Box::new(data));
         }
     }
