@@ -4,7 +4,6 @@
 
 use crate::Buildable;
 use crate::Widget;
-use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {

@@ -13,7 +13,7 @@ glib::wrapper! {
     pub struct SelectionData(Boxed<ffi::GtkSelectionData>);
 
     match fn {
-        copy => |ptr| ffi::gtk_selection_data_copy(mut_override(ptr)),
+        copy => |ptr| ffi::gtk_selection_data_copy(ptr),
         free => |ptr| ffi::gtk_selection_data_free(ptr),
         get_type => || ffi::gtk_selection_data_get_type(),
     }

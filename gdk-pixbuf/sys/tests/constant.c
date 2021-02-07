@@ -5,23 +5,48 @@
 #include "manual.h"
 #include <stdio.h>
 
+#define PRINT_CONSTANT(CONSTANT_NAME) \
+    printf("%s;", #CONSTANT_NAME); \
+    printf(_Generic((CONSTANT_NAME), \
+                    char *: "%s", \
+                    const char *: "%s", \
+                    char: "%c", \
+                    signed char: "%hhd", \
+                    unsigned char: "%hhu", \
+                    short int: "%hd", \
+                    unsigned short int: "%hu", \
+                    int: "%d", \
+                    unsigned int: "%u", \
+                    long: "%ld", \
+                    unsigned long: "%lu", \
+                    long long: "%lld", \
+                    unsigned long long: "%llu", \
+                    double: "%f", \
+                    long double: "%ld"), \
+           CONSTANT_NAME); \
+    printf("\n");
+
 int main() {
-    printf(_Generic((ABI_CONSTANT_NAME),
-                    char *: "###gir test###%s###gir test###\n",
-                    const char *: "###gir test###%s###gir test###\n",
-                    char: "###gir test###%c###gir test###\n",
-                    signed char: "###gir test###%hhd###gir test###\n",
-                    unsigned char: "###gir test###%hhu###gir test###\n",
-                    short int: "###gir test###%hd###gir test###\n",
-                    unsigned short int: "###gir test###%hu###gir test###\n",
-                    int: "###gir test###%d###gir test###\n",
-                    unsigned int: "###gir test###%u###gir test###\n",
-                    long: "###gir test###%ld###gir test###\n",
-                    unsigned long: "###gir test###%lu###gir test###\n",
-                    long long: "###gir test###%lld###gir test###\n",
-                    unsigned long long: "###gir test###%llu###gir test###\n",
-                    double: "###gir test###%f###gir test###\n",
-                    long double: "###gir test###%ld###gir test###\n"),
-           ABI_CONSTANT_NAME);
+    PRINT_CONSTANT((gint) GDK_COLORSPACE_RGB);
+    PRINT_CONSTANT((gint) GDK_INTERP_BILINEAR);
+    PRINT_CONSTANT((gint) GDK_INTERP_HYPER);
+    PRINT_CONSTANT((gint) GDK_INTERP_NEAREST);
+    PRINT_CONSTANT((gint) GDK_INTERP_TILES);
+    PRINT_CONSTANT((gint) GDK_PIXBUF_ALPHA_BILEVEL);
+    PRINT_CONSTANT((gint) GDK_PIXBUF_ALPHA_FULL);
+    PRINT_CONSTANT((gint) GDK_PIXBUF_ERROR_BAD_OPTION);
+    PRINT_CONSTANT((gint) GDK_PIXBUF_ERROR_CORRUPT_IMAGE);
+    PRINT_CONSTANT((gint) GDK_PIXBUF_ERROR_FAILED);
+    PRINT_CONSTANT((gint) GDK_PIXBUF_ERROR_INCOMPLETE_ANIMATION);
+    PRINT_CONSTANT((gint) GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY);
+    PRINT_CONSTANT((gint) GDK_PIXBUF_ERROR_UNKNOWN_TYPE);
+    PRINT_CONSTANT((gint) GDK_PIXBUF_ERROR_UNSUPPORTED_OPERATION);
+    PRINT_CONSTANT((guint) GDK_PIXBUF_FORMAT_SCALABLE);
+    PRINT_CONSTANT((guint) GDK_PIXBUF_FORMAT_THREADSAFE);
+    PRINT_CONSTANT((guint) GDK_PIXBUF_FORMAT_WRITABLE);
+    PRINT_CONSTANT((gint) GDK_PIXBUF_ROTATE_CLOCKWISE);
+    PRINT_CONSTANT((gint) GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE);
+    PRINT_CONSTANT((gint) GDK_PIXBUF_ROTATE_NONE);
+    PRINT_CONSTANT((gint) GDK_PIXBUF_ROTATE_UPSIDEDOWN);
     return 0;
 }

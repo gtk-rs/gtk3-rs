@@ -7,6 +7,8 @@ use crate::Device;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use crate::DevicePadFeature;
 use glib::object::IsA;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use glib::translate::*;
 use std::fmt;
 

@@ -17,7 +17,7 @@ glib::wrapper! {
     pub struct FontDescription(Boxed<ffi::PangoFontDescription>);
 
     match fn {
-        copy => |ptr| ffi::pango_font_description_copy(mut_override(ptr)),
+        copy => |ptr| ffi::pango_font_description_copy(ptr),
         free => |ptr| ffi::pango_font_description_free(ptr),
         get_type => || ffi::pango_font_description_get_type(),
     }

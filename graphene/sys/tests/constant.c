@@ -5,23 +5,70 @@
 #include "manual.h"
 #include <stdio.h>
 
+#define PRINT_CONSTANT(CONSTANT_NAME) \
+    printf("%s;", #CONSTANT_NAME); \
+    printf(_Generic((CONSTANT_NAME), \
+                    char *: "%s", \
+                    const char *: "%s", \
+                    char: "%c", \
+                    signed char: "%hhd", \
+                    unsigned char: "%hhu", \
+                    short int: "%hd", \
+                    unsigned short int: "%hu", \
+                    int: "%d", \
+                    unsigned int: "%u", \
+                    long: "%ld", \
+                    unsigned long: "%lu", \
+                    long long: "%lld", \
+                    unsigned long long: "%llu", \
+                    double: "%f", \
+                    long double: "%ld"), \
+           CONSTANT_NAME); \
+    printf("\n");
+
 int main() {
-    printf(_Generic((ABI_CONSTANT_NAME),
-                    char *: "###gir test###%s###gir test###\n",
-                    const char *: "###gir test###%s###gir test###\n",
-                    char: "###gir test###%c###gir test###\n",
-                    signed char: "###gir test###%hhd###gir test###\n",
-                    unsigned char: "###gir test###%hhu###gir test###\n",
-                    short int: "###gir test###%hd###gir test###\n",
-                    unsigned short int: "###gir test###%hu###gir test###\n",
-                    int: "###gir test###%d###gir test###\n",
-                    unsigned int: "###gir test###%u###gir test###\n",
-                    long: "###gir test###%ld###gir test###\n",
-                    unsigned long: "###gir test###%lu###gir test###\n",
-                    long long: "###gir test###%lld###gir test###\n",
-                    unsigned long long: "###gir test###%llu###gir test###\n",
-                    double: "###gir test###%f###gir test###\n",
-                    long double: "###gir test###%ld###gir test###\n"),
-           ABI_CONSTANT_NAME);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_DEFAULT);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_RXYX);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_RXYZ);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_RXZX);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_RXZY);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_RYXY);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_RYXZ);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_RYZX);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_RYZY);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_RZXY);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_RZXZ);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_RZYX);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_RZYZ);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_SXYX);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_SXYZ);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_SXZX);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_SXZY);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_SYXY);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_SYXZ);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_SYZX);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_SYZY);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_SZXY);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_SZXZ);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_SZYX);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_SZYZ);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_XYZ);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_XZY);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_YXZ);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_YZX);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_ZXY);
+    PRINT_CONSTANT((gint) GRAPHENE_EULER_ORDER_ZYX);
+    PRINT_CONSTANT(GRAPHENE_HAS_GCC);
+    PRINT_CONSTANT(GRAPHENE_HAS_SCALAR);
+    PRINT_CONSTANT(GRAPHENE_HAS_SSE);
+    PRINT_CONSTANT(GRAPHENE_PI);
+    PRINT_CONSTANT(GRAPHENE_PI_2);
+    PRINT_CONSTANT((gint) GRAPHENE_RAY_INTERSECTION_KIND_ENTER);
+    PRINT_CONSTANT((gint) GRAPHENE_RAY_INTERSECTION_KIND_LEAVE);
+    PRINT_CONSTANT((gint) GRAPHENE_RAY_INTERSECTION_KIND_NONE);
+    PRINT_CONSTANT(GRAPHENE_SIMD_S);
+    PRINT_CONSTANT(GRAPHENE_VEC2_LEN);
+    PRINT_CONSTANT(GRAPHENE_VEC3_LEN);
+    PRINT_CONSTANT(GRAPHENE_VEC4_LEN);
     return 0;
 }
