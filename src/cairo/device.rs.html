@@ -368,6 +368,8 @@
 <span id="365">365</span>
 <span id="366">366</span>
 <span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -409,6 +411,8 @@
 <span class="doccomment">/// See the `DeviceManager` documentation for more information</span>
 <span class="doccomment">/// about the various kinds of master and slave devices, and their</span>
 <span class="doccomment">/// relationships.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This is an Abstract Base Class, you cannot instantiate it.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Device</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">cairo_device_t</span><span class="op">&gt;</span>);
 
