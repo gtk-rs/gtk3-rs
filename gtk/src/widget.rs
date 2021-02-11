@@ -5,12 +5,12 @@ use glib::ffi::gboolean;
 use glib::object::{Cast, IsA, WeakRef};
 use glib::signal::{connect_raw, Inhibit, SignalHandlerId};
 use glib::translate::*;
+use glib::Continue;
 use glib::ObjectExt;
 use std::mem::transmute;
 use std::ptr;
 
-use crate::{DestDefaults, Rectangle, TargetEntry, Widget};
-use glib::Continue;
+use crate::{DestDefaults, Rectangle, TargetEntry, Widget, WidgetExt};
 
 pub struct TickCallbackId {
     id: u32,
@@ -268,6 +268,18 @@ impl<O: IsA<Widget>> WidgetExtManual for O {
             Inhibit(from_glib(ffi::gtk_widget_hide_on_delete(
                 self.as_ref().to_glib_none().0,
             )))
+        }
+    }
+}
+
+pub trait InitializingWidgetExt {
+    fn init_template(&self);
+}
+
+impl<T: IsA<Widget>> InitializingWidgetExt for glib::subclass::InitializingObject<T> {
+    fn init_template(&self) {
+        unsafe {
+            self.as_ref().init_template();
         }
     }
 }

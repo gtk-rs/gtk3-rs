@@ -46,7 +46,7 @@ pub use crate::switch::SwitchExtManual;
 pub use crate::text_buffer::TextBufferExtManual;
 pub use crate::tree_sortable::TreeSortableExtManual;
 pub use crate::tree_store::TreeStoreExtManual;
-pub use crate::widget::WidgetExtManual;
+pub use crate::widget::{InitializingWidgetExt, WidgetExtManual};
 pub use crate::window::GtkWindowExtManual;
 
 pub use crate::signal::*;
