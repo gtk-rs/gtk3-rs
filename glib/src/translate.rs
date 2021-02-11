@@ -400,6 +400,7 @@ pub trait ToGlibPtrMut<'a, P: Copy> {
     /// Transfer: none.
     ///
     /// The pointer in the `Stash` is only valid for the lifetime of the `Stash`.
+    #[allow(clippy::wrong_self_convention)]
     fn to_glib_none_mut(&'a mut self) -> StashMut<P, Self>;
 }
 
@@ -697,8 +698,11 @@ where
 {
     type Storage;
 
+    #[allow(clippy::wrong_self_convention)]
     fn to_glib_none_from_slice(t: &'a [Self]) -> (P, Self::Storage);
+    #[allow(clippy::wrong_self_convention)]
     fn to_glib_container_from_slice(t: &'a [Self]) -> (P, Self::Storage);
+    #[allow(clippy::wrong_self_convention)]
     fn to_glib_full_from_slice(t: &[Self]) -> P;
 }
 
