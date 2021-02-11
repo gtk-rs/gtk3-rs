@@ -133,6 +133,7 @@ mod tests {
     use super::Closure;
     use crate::{ToValue, Value};
 
+    #[allow(clippy::unnecessary_wraps)]
     fn closure_fn(values: &[Value]) -> Option<Value> {
         assert_eq!(values.len(), 2);
         let string_arg = values[0].get::<String>();
