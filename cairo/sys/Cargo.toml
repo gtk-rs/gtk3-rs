@@ -66,4 +66,4 @@ features = ["xlib"]
 winapi = { version = "0.3.2", features = ["windef"], optional = true }
 
 [build-dependencies]
-system-deps = "2.0"
+system-deps = "3"
