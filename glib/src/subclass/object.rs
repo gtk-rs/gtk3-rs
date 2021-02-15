@@ -241,7 +241,6 @@ impl<T: ObjectImpl> ObjectImplExt for T {
             let instance = self.get_instance();
 
             let signal_id = signal.signal_id();
-            assert!(type_.is_a(&signal_id.type_()));
 
             let self_v = {
                 let mut v = Value::uninitialized();
@@ -299,7 +298,6 @@ impl<T: ObjectImpl> ObjectImplExt for T {
             let instance = self.get_instance();
 
             let signal_id = signal.signal_id();
-            assert!(type_.is_a(&signal_id.type_()));
 
             let self_v = {
                 let mut v = Value::uninitialized();
