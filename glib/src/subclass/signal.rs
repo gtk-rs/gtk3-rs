@@ -1,5 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use smallvec::SmallVec;
+
 use crate::translate::*;
 use crate::Closure;
 use crate::SignalFlags;
@@ -68,6 +70,57 @@ impl fmt::Debug for SignalInvocationHint {
     }
 }
 
+/// In-depth information of a specific signal
+#[repr(transparent)]
+pub struct SignalQuery(gobject_ffi::GSignalQuery);
+
+impl SignalQuery {
+    pub fn signal_name(&self) -> crate::GString {
+        unsafe { from_glib_none(self.0.signal_name) }
+    }
+
+    pub fn signal_id(&self) -> SignalId {
+        unsafe { SignalId::new(from_glib(self.0.itype), self.0.signal_id) }
+    }
+
+    pub fn type_(&self) -> Type {
+        unsafe { from_glib(self.0.itype) }
+    }
+
+    pub fn flags(&self) -> SignalFlags {
+        unsafe { from_glib(self.0.signal_flags) }
+    }
+
+    pub fn return_type(&self) -> Type {
+        unsafe { from_glib(self.0.return_type) }
+    }
+
+    pub fn n_params(&self) -> u32 {
+        self.0.n_params
+    }
+
+    /// The parameters for the user callback.
+    pub fn param_types(&self) -> SmallVec<[SignalType; 10]> {
+        unsafe {
+            let types = self.0.param_types;
+            FromGlibContainerAsVec::from_glib_none_num_as_vec(types, self.n_params() as usize)
+                .into_iter()
+                .collect::<smallvec::SmallVec<[_; 10]>>()
+        }
+    }
+}
+
+impl fmt::Debug for SignalQuery {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        f.debug_struct("SignalQuery")
+            .field("signal_name", &self.signal_name())
+            .field("type", &self.type_())
+            .field("flags", &self.flags())
+            .field("return_type", &self.return_type())
+            .field("param_types", &self.param_types())
+            .finish()
+    }
+}
 /// Signal ID.
 #[derive(Debug, Clone, Copy)]
 pub struct SignalId(Type, u32);
@@ -77,14 +130,7 @@ impl SignalId {
         Self(type_, id)
     }
 
-    pub fn id(&self) -> u32 {
-        self.1
-    }
-
-    pub fn type_(&self) -> Type {
-        self.0
-    }
-
+    /// Find a SignalId by it's `name` and the `type` it connects to
     #[doc(alias = "g_signal_lookup")]
     pub fn lookup(name: &str, type_: Type) -> Option<Self> {
         unsafe {
@@ -97,6 +143,25 @@ impl SignalId {
         }
     }
 
+    pub fn id(&self) -> u32 {
+        self.1
+    }
+
+    pub fn type_(&self) -> Type {
+        self.0
+    }
+
+    /// Queries more in-depth information about the current signal
+    #[doc(alias = "g_signal_query")]
+    pub fn query(&self) -> SignalQuery {
+        unsafe {
+            let query_ptr = std::ptr::null_mut();
+            gobject_ffi::g_signal_query(self.id(), query_ptr);
+            SignalQuery(*query_ptr)
+        }
+    }
+
+    /// Find the signal name
     #[doc(alias = "g_signal_name")]
     pub fn name(&self) -> Option<crate::GString> {
         unsafe {
