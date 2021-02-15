@@ -70,7 +70,21 @@ impl fmt::Debug for SignalInvocationHint {
 
 /// Signal ID.
 #[derive(Debug, Clone, Copy)]
-pub struct SignalId(pub(super) Type, pub(super) u32);
+pub struct SignalId(Type, u32);
+
+impl SignalId {
+    unsafe fn new(type_: Type, id: u32) -> Self {
+        Self(type_, id)
+    }
+
+    pub fn id(&self) -> u32 {
+        self.1
+    }
+
+    pub fn type_(&self) -> Type {
+        self.0
+    }
+}
 
 #[allow(clippy::type_complexity)]
 enum SignalRegistration {
@@ -247,7 +261,9 @@ impl Signal {
     pub fn signal_id(&self) -> SignalId {
         match &*self.registration.lock().unwrap() {
             SignalRegistration::Unregistered { .. } => panic!("Signal not registered yet"),
-            SignalRegistration::Registered { type_, signal_id } => SignalId(*type_, *signal_id),
+            SignalRegistration::Registered { type_, signal_id } => unsafe {
+                SignalId::new(*type_, *signal_id)
+            },
         }
     }
 

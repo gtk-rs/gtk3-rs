@@ -241,7 +241,7 @@ impl<T: ObjectImpl> ObjectImplExt for T {
             let instance = self.get_instance();
 
             let signal_id = signal.signal_id();
-            assert!(type_.is_a(&signal_id.0));
+            assert!(type_.is_a(&signal_id.type_()));
 
             let self_v = {
                 let mut v = Value::uninitialized();
@@ -271,7 +271,7 @@ impl<T: ObjectImpl> ObjectImplExt for T {
 
             gobject_ffi::g_signal_emitv(
                 mut_override(args.as_ptr()) as *mut gobject_ffi::GValue,
-                signal_id.1,
+                signal_id.id(),
                 0,
                 return_value.to_glib_none_mut().0,
             );
@@ -299,7 +299,7 @@ impl<T: ObjectImpl> ObjectImplExt for T {
             let instance = self.get_instance();
 
             let signal_id = signal.signal_id();
-            assert!(type_.is_a(&signal_id.0));
+            assert!(type_.is_a(&signal_id.type_()));
 
             let self_v = {
                 let mut v = Value::uninitialized();
@@ -329,7 +329,7 @@ impl<T: ObjectImpl> ObjectImplExt for T {
 
             gobject_ffi::g_signal_emitv(
                 mut_override(args.as_ptr()) as *mut gobject_ffi::GValue,
-                signal_id.1,
+                signal_id.id(),
                 details.to_glib(),
                 return_value.to_glib_none_mut().0,
             );
