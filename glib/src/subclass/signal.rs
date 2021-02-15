@@ -84,6 +84,26 @@ impl SignalId {
     pub fn type_(&self) -> Type {
         self.0
     }
+
+    #[doc(alias = "g_signal_lookup")]
+    pub fn lookup(name: &str, type_: Type) -> Option<Self> {
+        unsafe {
+            let signal_id = gobject_ffi::g_signal_lookup(name.to_glib_none().0, type_.to_glib());
+            if signal_id == 0 {
+                None
+            } else {
+                Some(Self::new(type_, signal_id))
+            }
+        }
+    }
+
+    #[doc(alias = "g_signal_name")]
+    pub fn name(&self) -> Option<crate::GString> {
+        unsafe {
+            let signal_name = gobject_ffi::g_signal_name(self.1);
+            from_glib_none(signal_name)
+        }
+    }
 }
 
 #[allow(clippy::type_complexity)]
