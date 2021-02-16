@@ -76,7 +76,7 @@ impl ThreadPool {
     pub fn push_future<T: Send + 'static, F: FnOnce() -> T + Send + 'static>(
         &self,
         func: F,
-    ) -> Result<impl Future<Output = T>, crate::Error> {
+    ) -> Result<impl Future<Output = T> + Send + Sync + 'static, crate::Error> {
         let (sender, receiver) = oneshot::channel();
 
         self.push(move || {
