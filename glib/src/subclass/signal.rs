@@ -17,8 +17,8 @@ use std::{fmt, num::NonZeroU32};
 pub struct SignalBuilder<'a> {
     name: &'a str,
     flags: SignalFlags,
-    arg_types: &'a [Type],
-    ret_type: Type,
+    param_types: &'a [Type],
+    return_type: Type,
     class_handler: Option<
         Box<dyn Fn(&SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static>,
     >,
@@ -31,8 +31,8 @@ pub struct SignalBuilder<'a> {
 pub struct Signal {
     name: String,
     flags: SignalFlags,
-    arg_types: Vec<Type>,
-    ret_type: Type,
+    param_types: Vec<Type>,
+    return_type: Type,
     registration: Mutex<SignalRegistration>,
 }
 
@@ -321,8 +321,8 @@ impl<'a> SignalBuilder<'a> {
         Signal {
             name: String::from(self.name),
             flags,
-            arg_types: Vec::from(self.arg_types),
-            ret_type: self.ret_type,
+            param_types: Vec::from(self.param_types),
+            return_type: self.return_type,
             registration: Mutex::new(SignalRegistration::Unregistered {
                 class_handler: self.class_handler,
                 accumulator: self.accumulator,
@@ -333,11 +333,15 @@ impl<'a> SignalBuilder<'a> {
 
 impl Signal {
     /// Create a new builder for a signal.
-    pub fn builder<'a>(name: &'a str, arg_types: &'a [Type], ret_type: Type) -> SignalBuilder<'a> {
+    pub fn builder<'a>(
+        name: &'a str,
+        param_types: &'a [Type],
+        return_type: Type,
+    ) -> SignalBuilder<'a> {
         SignalBuilder {
             name,
-            arg_types,
-            ret_type,
+            param_types,
+            return_type,
             flags: SignalFlags::empty(),
             class_handler: None,
             accumulator: None,
@@ -354,14 +358,14 @@ impl Signal {
         self.flags
     }
 
-    /// Argument types of the signal.
-    pub fn arg_types(&self) -> &[Type] {
-        &self.arg_types
+    /// Parameter types of the signal.
+    pub fn param_types(&self) -> &[Type] {
+        &self.param_types
     }
 
     /// Return type of the signal.
-    pub fn ret_type(&self) -> Type {
-        self.ret_type
+    pub fn return_type(&self) -> Type {
+        self.return_type
     }
 
     /// Signal ID.
@@ -395,8 +399,8 @@ impl Signal {
             SignalRegistration::Registered { .. } => unreachable!(),
         };
 
-        let arg_types = self
-            .arg_types
+        let param_types = self
+            .param_types
             .iter()
             .map(ToGlib::to_glib)
             .collect::<Vec<_>>();
@@ -445,9 +449,9 @@ impl Signal {
                 accumulator_trampoline,
                 accumulator as ffi::gpointer,
                 None,
-                self.ret_type.to_glib(),
-                arg_types.len() as u32,
-                arg_types.as_ptr() as *mut _,
+                self.return_type.to_glib(),
+                param_types.len() as u32,
+                param_types.as_ptr() as *mut _,
             );
             *registration = SignalRegistration::Registered {
                 type_,

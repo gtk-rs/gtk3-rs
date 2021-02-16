@@ -261,10 +261,10 @@ impl<T: ObjectImpl> ObjectImplExt for T {
             validate_signal_arguments(type_, &signal, &mut args)?;
 
             let mut return_value = Value::uninitialized();
-            if signal.ret_type() != crate::Type::Unit {
+            if signal.return_type() != crate::Type::Unit {
                 gobject_ffi::g_value_init(
                     return_value.to_glib_none_mut().0,
-                    signal.ret_type().to_glib(),
+                    signal.return_type().to_glib(),
                 );
             }
 
@@ -318,10 +318,10 @@ impl<T: ObjectImpl> ObjectImplExt for T {
             validate_signal_arguments(type_, &signal, &mut args)?;
 
             let mut return_value = Value::uninitialized();
-            if signal.ret_type() != crate::Type::Unit {
+            if signal.return_type() != crate::Type::Unit {
                 gobject_ffi::g_value_init(
                     return_value.to_glib_none_mut().0,
-                    signal.ret_type().to_glib(),
+                    signal.return_type().to_glib(),
                 );
             }
 
@@ -348,19 +348,19 @@ fn validate_signal_arguments(
     signal: &super::Signal,
     args: &mut [Value],
 ) -> Result<(), crate::BoolError> {
-    let arg_types = signal.arg_types();
+    let param_types = signal.param_types();
 
-    if arg_types.len() != args.len() {
+    if param_types.len() != args.len() {
         return Err(bool_error!(
             "Incompatible number of arguments for signal '{}' of type '{}' (expected {}, got {})",
             signal.name(),
             type_,
-            arg_types.len(),
+            param_types.len(),
             args.len(),
         ));
     }
 
-    for (i, (arg, param_type)) in Iterator::zip(args.iter_mut(), arg_types.iter()).enumerate() {
+    for (i, (arg, param_type)) in Iterator::zip(args.iter_mut(), param_types.iter()).enumerate() {
         if arg.type_().is_a(&Object::static_type()) {
             match arg.get::<Object>() {
                 Ok(Some(obj)) => {
