@@ -270,7 +270,7 @@ impl<T: ObjectImpl> ObjectImplExt for T {
 
             gobject_ffi::g_signal_emitv(
                 mut_override(args.as_ptr()) as *mut gobject_ffi::GValue,
-                signal_id.id().into(),
+                signal_id.to_glib(),
                 0,
                 return_value.to_glib_none_mut().0,
             );
@@ -327,7 +327,7 @@ impl<T: ObjectImpl> ObjectImplExt for T {
 
             gobject_ffi::g_signal_emitv(
                 mut_override(args.as_ptr()) as *mut gobject_ffi::GValue,
-                signal_id.id().into(),
+                signal_id.to_glib(),
                 details.to_glib(),
                 return_value.to_glib_none_mut().0,
             );

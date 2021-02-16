@@ -71,30 +71,38 @@ impl fmt::Debug for SignalInvocationHint {
 }
 
 /// In-depth information of a specific signal
-#[repr(transparent)]
 pub struct SignalQuery(gobject_ffi::GSignalQuery);
 
 impl SignalQuery {
-    pub fn signal_name(&self) -> crate::GString {
-        unsafe { from_glib_none(self.0.signal_name) }
+    /// The name of the signal.
+    pub fn signal_name<'a>(&self) -> &'a str {
+        unsafe {
+            let ptr = self.0.signal_name;
+            std::ffi::CStr::from_ptr(ptr).to_str().unwrap()
+        }
     }
 
+    /// The ID of the signal.
     pub fn signal_id(&self) -> SignalId {
-        unsafe { SignalId::new(NonZeroU32::new_unchecked(self.0.signal_id)) }
+        unsafe { SignalId::from_glib(self.0.signal_id) }
     }
 
+    /// The instance type this signal can be emitted for.
     pub fn type_(&self) -> Type {
         unsafe { from_glib(self.0.itype) }
     }
 
+    /// The signal flags.
     pub fn flags(&self) -> SignalFlags {
         unsafe { from_glib(self.0.signal_flags) }
     }
 
+    /// The return type for the user callback.
     pub fn return_type(&self) -> Type {
         unsafe { from_glib(self.0.return_type) }
     }
 
+    /// The number of parameters the user callback takes.
     pub fn n_params(&self) -> u32 {
         self.0.n_params
     }
@@ -122,15 +130,20 @@ impl fmt::Debug for SignalQuery {
     }
 }
 /// Signal ID.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct SignalId(NonZeroU32);
 
 impl SignalId {
-    unsafe fn new(id: NonZeroU32) -> Self {
+    /// Create a new Signal Identifier.
+    ///
+    /// # Safety
+    ///
+    /// The caller has to ensure it's a valid signal identifier.
+    pub unsafe fn new(id: NonZeroU32) -> Self {
         Self(id)
     }
 
-    /// Find a SignalId by it's `name` and the `type` it connects to
+    /// Find a SignalId by it's `name` and the `type` it connects to.
     #[doc(alias = "g_signal_lookup")]
     pub fn lookup(name: &str, type_: Type) -> Option<Self> {
         unsafe {
@@ -143,27 +156,42 @@ impl SignalId {
         }
     }
 
-    pub fn id(&self) -> NonZeroU32 {
-        self.0
-    }
-
-    /// Queries more in-depth information about the current signal
+    /// Queries more in-depth information about the current signal.
     #[doc(alias = "g_signal_query")]
     pub fn query(&self) -> SignalQuery {
         unsafe {
-            let query_ptr = std::ptr::null_mut();
-            gobject_ffi::g_signal_query(self.id().into(), query_ptr);
-            SignalQuery(*query_ptr)
+            let mut query_ptr = std::mem::MaybeUninit::uninit();
+            gobject_ffi::g_signal_query(self.to_glib(), query_ptr.as_mut_ptr());
+            let query = query_ptr.assume_init();
+            assert_ne!(query.signal_id, 0);
+            SignalQuery(query)
         }
     }
 
-    /// Find the signal name
+    /// Find the signal name.
     #[doc(alias = "g_signal_name")]
-    pub fn name(&self) -> Option<crate::GString> {
+    pub fn name<'a>(&self) -> &'a str {
         unsafe {
-            let signal_name = gobject_ffi::g_signal_name(self.id().into());
-            from_glib_none(signal_name)
+            let ptr = gobject_ffi::g_signal_name(self.to_glib());
+            std::ffi::CStr::from_ptr(ptr).to_str().unwrap()
         }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<u32> for SignalId {
+    unsafe fn from_glib(signal_id: u32) -> Self {
+        assert_ne!(signal_id, 0);
+        Self::new(NonZeroU32::new_unchecked(signal_id))
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for SignalId {
+    type GlibType = u32;
+
+    fn to_glib(&self) -> u32 {
+        self.0.into()
     }
 }
 
@@ -181,7 +209,7 @@ enum SignalRegistration {
     },
     Registered {
         type_: Type,
-        signal_id: NonZeroU32,
+        signal_id: SignalId,
     },
 }
 
@@ -342,10 +370,7 @@ impl Signal {
     pub fn signal_id(&self) -> SignalId {
         match &*self.registration.lock().unwrap() {
             SignalRegistration::Unregistered { .. } => panic!("Signal not registered yet"),
-            SignalRegistration::Registered {
-                type_: _,
-                signal_id,
-            } => unsafe { SignalId::new(*signal_id) },
+            SignalRegistration::Registered { signal_id, .. } => *signal_id,
         }
     }
 
@@ -426,7 +451,7 @@ impl Signal {
             );
             *registration = SignalRegistration::Registered {
                 type_,
-                signal_id: NonZeroU32::new_unchecked(signal_id),
+                signal_id: SignalId::from_glib(signal_id),
             };
         }
     }
