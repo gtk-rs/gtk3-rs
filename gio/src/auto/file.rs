@@ -335,12 +335,12 @@ pub trait FileExt: 'static {
     fn load_contents<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<(Vec<u8>, glib::GString), glib::Error>;
+    ) -> Result<(Vec<u8>, Option<glib::GString>), glib::Error>;
 
     #[doc(alias = "g_file_load_contents_async")]
     fn load_contents_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static,
+        Q: FnOnce(Result<(Vec<u8>, Option<glib::GString>), glib::Error>) + Send + 'static,
     >(
         &self,
         cancellable: Option<&P>,
@@ -351,16 +351,16 @@ pub trait FileExt: 'static {
         &self,
     ) -> Pin<
         Box_<
-            dyn std::future::Future<Output = Result<(Vec<u8>, glib::GString), glib::Error>>
+            dyn std::future::Future<Output = Result<(Vec<u8>, Option<glib::GString>), glib::Error>>
                 + 'static,
         >,
     >;
 
     //#[doc(alias = "g_file_load_partial_contents_async")]
-    //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static, R: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R);
+    //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnOnce(Result<(Vec<u8>, Option<glib::GString>), glib::Error>) + Send + 'static, R: FnOnce(Result<(Vec<u8>, Option<glib::GString>), glib::Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R);
 
     //
-    //fn load_partial_contents_async_future<Q: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static>(&self, read_more_callback: Q) -> Pin<Box_<dyn std::future::Future<Output = Result<(Vec<u8>, glib::GString), glib::Error>> + 'static>>;
+    //fn load_partial_contents_async_future<Q: FnOnce(Result<(Vec<u8>, Option<glib::GString>), glib::Error>) + Send + 'static>(&self, read_more_callback: Q) -> Pin<Box_<dyn std::future::Future<Output = Result<(Vec<u8>, Option<glib::GString>), glib::Error>> + 'static>>;
 
     #[doc(alias = "g_file_make_directory")]
     fn make_directory<P: IsA<Cancellable>>(
@@ -673,7 +673,7 @@ pub trait FileExt: 'static {
         make_backup: bool,
         flags: FileCreateFlags,
         cancellable: Option<&P>,
-    ) -> Result<glib::GString, glib::Error>;
+    ) -> Result<Option<glib::GString>, glib::Error>;
 
     //#[doc(alias = "g_file_replace_contents_bytes_async")]
     //fn replace_contents_bytes_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + 'static>(&self, contents: &glib::Bytes, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, cancellable: Option<&P>, callback: Q);
@@ -1599,7 +1599,7 @@ impl<O: IsA<File>> FileExt for O {
     fn load_contents<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<(Vec<u8>, glib::GString), glib::Error> {
+    ) -> Result<(Vec<u8>, Option<glib::GString>), glib::Error> {
         unsafe {
             let mut contents = ptr::null_mut();
             let mut length = mem::MaybeUninit::uninit();
@@ -1626,7 +1626,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn load_contents_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static,
+        Q: FnOnce(Result<(Vec<u8>, Option<glib::GString>), glib::Error>) + Send + 'static,
     >(
         &self,
         cancellable: Option<&P>,
@@ -1634,7 +1634,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn load_contents_async_trampoline<
-            Q: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static,
+            Q: FnOnce(Result<(Vec<u8>, Option<glib::GString>), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut glib::gobject_ffi::GObject,
             res: *mut crate::ffi::GAsyncResult,
@@ -1678,7 +1678,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
     ) -> Pin<
         Box_<
-            dyn std::future::Future<Output = Result<(Vec<u8>, glib::GString), glib::Error>>
+            dyn std::future::Future<Output = Result<(Vec<u8>, Option<glib::GString>), glib::Error>>
                 + 'static,
         >,
     > {
@@ -1692,12 +1692,12 @@ impl<O: IsA<File>> FileExt for O {
         }))
     }
 
-    //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static, R: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R) {
+    //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnOnce(Result<(Vec<u8>, Option<glib::GString>), glib::Error>) + Send + 'static, R: FnOnce(Result<(Vec<u8>, Option<glib::GString>), glib::Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R) {
     //    unsafe { TODO: call ffi:g_file_load_partial_contents_async() }
     //}
 
     //
-    //fn load_partial_contents_async_future<Q: FnOnce(Result<(Vec<u8>, glib::GString), glib::Error>) + Send + 'static>(&self, read_more_callback: Q) -> Pin<Box_<dyn std::future::Future<Output = Result<(Vec<u8>, glib::GString), glib::Error>> + 'static>> {
+    //fn load_partial_contents_async_future<Q: FnOnce(Result<(Vec<u8>, Option<glib::GString>), glib::Error>) + Send + 'static>(&self, read_more_callback: Q) -> Pin<Box_<dyn std::future::Future<Output = Result<(Vec<u8>, Option<glib::GString>), glib::Error>> + 'static>> {
 
     //Box_::pin(crate::GioFuture::new(self, move |obj, send| {
     //    let cancellable = Cancellable::new();
@@ -2729,7 +2729,7 @@ impl<O: IsA<File>> FileExt for O {
         make_backup: bool,
         flags: FileCreateFlags,
         cancellable: Option<&P>,
-    ) -> Result<glib::GString, glib::Error> {
+    ) -> Result<Option<glib::GString>, glib::Error> {
         let length = contents.len() as usize;
         unsafe {
             let mut new_etag = ptr::null_mut();

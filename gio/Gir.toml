@@ -589,10 +589,37 @@ manual_traits = ["FileExtManual"]
     # AsRef
     manual = true
     doc_trait_name = "FileExtManual"
+    # See https://gitlab.gnome.org/GNOME/glib/-/merge_requests/1840
     [[object.function]]
     name = "get_uri"
         [object.function.return]
         nullable = false
+    # See https://gitlab.gnome.org/GNOME/glib/-/merge_requests/1956
+    [[object.function]]
+    name = "load_contents"
+        [[object.function.parameter]]
+        name = "etag_out"
+        nullable = true
+    [[object.function]]
+    name = "load_partial_contents_async"
+        [[object.function.parameter]]
+        name = "etag_out"
+        nullable = true
+    [[object.function]]
+    name = "load_contents_async"
+        [[object.function.parameter]]
+        name = "etag_out"
+        nullable = true
+    [[object.function]]
+    name = "replace_contents"
+        [[object.function.parameter]]
+        name = "new_etag"
+        nullable = true
+    [[object.function]]
+    name = "replace_contents_async"
+        [[object.function.parameter]]
+        name = "new_etag"
+        nullable = true
 
 [[object]]
 name = "Gio.FileAttributeMatcher"
