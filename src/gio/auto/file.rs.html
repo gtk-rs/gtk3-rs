@@ -6278,7 +6278,7 @@
     <span class="kw">fn</span> <span class="ident">load_contents</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">glib</span>::<span class="ident">GString</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Starts an asynchronous load of the `self`&#39;s contents.</span>
     <span class="doccomment">///</span>
@@ -6302,7 +6302,7 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_file_load_contents_async&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">load_contents_async</span><span class="op">&lt;</span>
         <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>,
-        <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">glib</span>::<span class="ident">GString</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+        <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
@@ -6313,16 +6313,16 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span>
         <span class="ident">Box_</span><span class="op">&lt;</span>
-            <span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">glib</span>::<span class="ident">GString</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span>
+            <span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span>
                 <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="op">&gt;</span>,
     <span class="op">&gt;</span>;
 
     <span class="comment">//#[doc(alias = &quot;g_file_load_partial_contents_async&quot;)]</span>
-    <span class="comment">//fn load_partial_contents_async&lt;P: IsA&lt;Cancellable&gt;, Q: FnOnce(Result&lt;(Vec&lt;u8&gt;, glib::GString), glib::Error&gt;) + Send + &#39;static, R: FnOnce(Result&lt;(Vec&lt;u8&gt;, glib::GString), glib::Error&gt;) + Send + &#39;static&gt;(&amp;self, cancellable: Option&lt;&amp;P&gt;, read_more_callback: Q, callback: R);</span>
+    <span class="comment">//fn load_partial_contents_async&lt;P: IsA&lt;Cancellable&gt;, Q: FnOnce(Result&lt;(Vec&lt;u8&gt;, Option&lt;glib::GString&gt;), glib::Error&gt;) + Send + &#39;static, R: FnOnce(Result&lt;(Vec&lt;u8&gt;, Option&lt;glib::GString&gt;), glib::Error&gt;) + Send + &#39;static&gt;(&amp;self, cancellable: Option&lt;&amp;P&gt;, read_more_callback: Q, callback: R);</span>
 
     <span class="comment">//</span>
-    <span class="comment">//fn load_partial_contents_async_future&lt;Q: FnOnce(Result&lt;(Vec&lt;u8&gt;, glib::GString), glib::Error&gt;) + Send + &#39;static&gt;(&amp;self, read_more_callback: Q) -&gt; Pin&lt;Box_&lt;dyn std::future::Future&lt;Output = Result&lt;(Vec&lt;u8&gt;, glib::GString), glib::Error&gt;&gt; + &#39;static&gt;&gt;;</span>
+    <span class="comment">//fn load_partial_contents_async_future&lt;Q: FnOnce(Result&lt;(Vec&lt;u8&gt;, Option&lt;glib::GString&gt;), glib::Error&gt;) + Send + &#39;static&gt;(&amp;self, read_more_callback: Q) -&gt; Pin&lt;Box_&lt;dyn std::future::Future&lt;Output = Result&lt;(Vec&lt;u8&gt;, Option&lt;glib::GString&gt;), glib::Error&gt;&gt; + &#39;static&gt;&gt;;</span>
 
     <span class="doccomment">/// Creates a directory. Note that this will only create a child directory</span>
     <span class="doccomment">/// of the immediate parent directory of the path or URI given by the `File`.</span>
@@ -7275,7 +7275,7 @@
         <span class="ident">make_backup</span>: <span class="ident">bool</span>,
         <span class="ident">flags</span>: <span class="ident">FileCreateFlags</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>;
 
     <span class="comment">//#[doc(alias = &quot;g_file_replace_contents_bytes_async&quot;)]</span>
     <span class="comment">//fn replace_contents_bytes_async&lt;P: IsA&lt;Cancellable&gt;, Q: FnOnce(Result&lt;(), glib::Error&gt;) + &#39;static&gt;(&amp;self, contents: &amp;glib::Bytes, etag: Option&lt;&amp;str&gt;, make_backup: bool, flags: FileCreateFlags, cancellable: Option&lt;&amp;P&gt;, callback: Q);</span>
@@ -8574,7 +8574,7 @@
     <span class="kw">fn</span> <span class="ident">load_contents</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">glib</span>::<span class="ident">GString</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">contents</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">length</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>::<span class="ident">uninit</span>();
@@ -8601,7 +8601,7 @@
 
     <span class="kw">fn</span> <span class="ident">load_contents_async</span><span class="op">&lt;</span>
         <span class="ident">P</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">Cancellable</span><span class="op">&gt;</span>,
-        <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">glib</span>::<span class="ident">GString</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+        <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
@@ -8609,7 +8609,7 @@
     ) {
         <span class="kw">let</span> <span class="ident">user_data</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_</span>::<span class="ident">new</span>(<span class="ident">callback</span>);
         <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">load_contents_async_trampoline</span><span class="op">&lt;</span>
-            <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">glib</span>::<span class="ident">GString</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+            <span class="ident">Q</span>: <span class="ident">FnOnce</span>(<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="op">&gt;</span>(
             <span class="ident">_source_object</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>,
             <span class="ident">res</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">crate</span>::<span class="ident">ffi</span>::<span class="ident">GAsyncResult</span>,
@@ -8653,7 +8653,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span>
         <span class="ident">Box_</span><span class="op">&lt;</span>
-            <span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">glib</span>::<span class="ident">GString</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span>
+            <span class="kw">dyn</span> <span class="ident">std</span>::<span class="ident">future</span>::<span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span>), <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span>
                 <span class="op">+</span> <span class="lifetime">&#39;static</span>,
         <span class="op">&gt;</span>,
     <span class="op">&gt;</span> {
@@ -8667,12 +8667,12 @@
         }))
     }
 
-    <span class="comment">//fn load_partial_contents_async&lt;P: IsA&lt;Cancellable&gt;, Q: FnOnce(Result&lt;(Vec&lt;u8&gt;, glib::GString), glib::Error&gt;) + Send + &#39;static, R: FnOnce(Result&lt;(Vec&lt;u8&gt;, glib::GString), glib::Error&gt;) + Send + &#39;static&gt;(&amp;self, cancellable: Option&lt;&amp;P&gt;, read_more_callback: Q, callback: R) {</span>
+    <span class="comment">//fn load_partial_contents_async&lt;P: IsA&lt;Cancellable&gt;, Q: FnOnce(Result&lt;(Vec&lt;u8&gt;, Option&lt;glib::GString&gt;), glib::Error&gt;) + Send + &#39;static, R: FnOnce(Result&lt;(Vec&lt;u8&gt;, Option&lt;glib::GString&gt;), glib::Error&gt;) + Send + &#39;static&gt;(&amp;self, cancellable: Option&lt;&amp;P&gt;, read_more_callback: Q, callback: R) {</span>
     <span class="comment">//    unsafe { TODO: call ffi:g_file_load_partial_contents_async() }</span>
     <span class="comment">//}</span>
 
     <span class="comment">//</span>
-    <span class="comment">//fn load_partial_contents_async_future&lt;Q: FnOnce(Result&lt;(Vec&lt;u8&gt;, glib::GString), glib::Error&gt;) + Send + &#39;static&gt;(&amp;self, read_more_callback: Q) -&gt; Pin&lt;Box_&lt;dyn std::future::Future&lt;Output = Result&lt;(Vec&lt;u8&gt;, glib::GString), glib::Error&gt;&gt; + &#39;static&gt;&gt; {</span>
+    <span class="comment">//fn load_partial_contents_async_future&lt;Q: FnOnce(Result&lt;(Vec&lt;u8&gt;, Option&lt;glib::GString&gt;), glib::Error&gt;) + Send + &#39;static&gt;(&amp;self, read_more_callback: Q) -&gt; Pin&lt;Box_&lt;dyn std::future::Future&lt;Output = Result&lt;(Vec&lt;u8&gt;, Option&lt;glib::GString&gt;), glib::Error&gt;&gt; + &#39;static&gt;&gt; {</span>
 
     <span class="comment">//Box_::pin(crate::GioFuture::new(self, move |obj, send| {</span>
     <span class="comment">//    let cancellable = Cancellable::new();</span>
@@ -9704,7 +9704,7 @@
         <span class="ident">make_backup</span>: <span class="ident">bool</span>,
         <span class="ident">flags</span>: <span class="ident">FileCreateFlags</span>,
         <span class="ident">cancellable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">P</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span>, <span class="ident">glib</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">length</span> <span class="op">=</span> <span class="ident">contents</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">usize</span>;
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">new_etag</span> <span class="op">=</span> <span class="ident">ptr</span>::<span class="ident">null_mut</span>();
