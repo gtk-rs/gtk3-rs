@@ -1734,13 +1734,6 @@ impl<T: ObjectType> ObjectExt for T {
         let (signal_id, signal_detail) = SignalId::parse_name(signal_name, type_, true)
             .ok_or_else(|| bool_error!("Signal '{}' of type '{}' not found", signal_name, type_))?;
         let signal_query = signal_id.query();
-        if signal_query.signal_id() != signal_id {
-            return Err(bool_error!(
-                "Signal '{}' of type '{}' not found",
-                signal_name,
-                type_
-            ));
-        }
 
         // This is actually G_SIGNAL_TYPE_STATIC_SCOPE
         let return_type: Type = from_glib(
@@ -2075,14 +2068,6 @@ fn validate_signal_arguments(
         .ok_or_else(|| bool_error!("Signal '{}' of type '{}' not found", signal_name, type_))?;
 
     let signal_query = signal_id.query();
-
-    if signal_query.signal_id() != signal_id {
-        return Err(bool_error!(
-            "Signal '{}' of type '{}' not found",
-            signal_name,
-            type_
-        ));
-    }
 
     if signal_query.n_params() != args.len() as u32 {
         return Err(bool_error!(
