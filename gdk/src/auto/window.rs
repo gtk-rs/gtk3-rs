@@ -224,25 +224,6 @@ impl Window {
         }
     }
 
-    #[doc(alias = "gdk_window_create_similar_image_surface")]
-    pub fn create_similar_image_surface(
-        &self,
-        format: i32,
-        width: i32,
-        height: i32,
-        scale: i32,
-    ) -> Option<cairo::Surface> {
-        unsafe {
-            from_glib_full(ffi::gdk_window_create_similar_image_surface(
-                self.to_glib_none().0,
-                format,
-                width,
-                height,
-                scale,
-            ))
-        }
-    }
-
     #[doc(alias = "gdk_window_deiconify")]
     pub fn deiconify(&self) {
         unsafe {
