@@ -139,6 +139,25 @@ impl Window {
             ))
         }
     }
+
+    #[doc(alias = "gdk_window_create_similar_image_surface")]
+    pub fn create_similar_image_surface(
+        &self,
+        format: cairo::Format,
+        width: i32,
+        height: i32,
+        scale: i32,
+    ) -> Option<cairo::Surface> {
+        unsafe {
+            from_glib_full(ffi::gdk_window_create_similar_image_surface(
+                self.to_glib_none().0,
+                format.into(),
+                width,
+                height,
+                scale,
+            ))
+        }
+    }
 }
 
 pub trait WindowExtManual: 'static {

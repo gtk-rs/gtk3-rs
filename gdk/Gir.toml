@@ -441,6 +441,10 @@ manual_traits = ["WindowExtManual"]
     [[object.function]]
     name = "create_similar_surface"
     manual = true
+    # See https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/3228
+    [[object.function]]
+    name = "create_similar_image_surface"
+    manual = true
     [[object.function]]
     name = "set_opaque_region"
         [[object.function.parameter]]
