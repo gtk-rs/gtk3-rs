@@ -17,7 +17,7 @@ fn create_and_fill_model() -> ListStore {
     // Filling up the tree view.
     let entries = &["Michel", "Sara", "Liam", "Zelda", "Neo", "Octopus master"];
     for (i, entry) in entries.iter().enumerate() {
-        model.insert_with_values(None, &[0, 1], &[&(i as u32 + 1), &entry]);
+        model.insert_with_values(None, &[(0, &(i as u32 + 1)), (1, &entry)]);
     }
     model
 }

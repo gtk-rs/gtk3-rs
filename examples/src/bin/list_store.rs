@@ -169,8 +169,6 @@ fn create_model() -> gtk::ListStore {
 
     let store = gtk::ListStore::new(&col_types);
 
-    let col_indices: [u32; 8] = [0, 1, 2, 3, 4, 5, 6, 7];
-
     for (d_idx, d) in data.iter().enumerate() {
         let icon_name = if d_idx == 1 || d_idx == 3 {
             "battery-caution-charging-symbolic"
@@ -180,17 +178,17 @@ fn create_model() -> gtk::ListStore {
 
         let sensitive = d_idx != 3;
 
-        let values: [&dyn ToValue; 8] = [
-            &d.fixed,
-            &d.number,
-            &d.severity,
-            &d.description,
-            &0u32,
-            &icon_name,
-            &false,
-            &sensitive,
+        let values: [(u32, &dyn ToValue); 8] = [
+            (0, &d.fixed),
+            (1, &d.number),
+            (2, &d.severity),
+            (3, &d.description),
+            (4, &0u32),
+            (5, &icon_name),
+            (6, &false),
+            (7, &sensitive),
         ];
-        store.set(&store.append(), &col_indices, &values);
+        store.set(&store.append(), &values);
     }
 
     store
