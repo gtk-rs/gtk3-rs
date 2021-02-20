@@ -53,10 +53,12 @@ fn create_list_store_model() -> gtk::ListStore {
                     icon_view_model.insert_with_values(
                         None,
                         &[
-                            IconViewColumnType::TextColumn as u32,
-                            IconViewColumnType::PixbufColumn as u32,
+                            (
+                                IconViewColumnType::TextColumn as u32,
+                                &String::from("Label"),
+                            ),
+                            (IconViewColumnType::PixbufColumn as u32, &r),
                         ],
-                        &[&String::from("Label"), &r],
                     );
                 }
                 Err(err) => {

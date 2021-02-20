@@ -15,10 +15,10 @@ fn build_ui(application: &gtk::Application) {
     window.set_default_size(350, 70);
 
     let store = gtk::TreeStore::new(&[glib::Type::String]);
-    store.insert_with_values(None, None, &[0], &[&"One"]);
-    store.insert_with_values(None, None, &[0], &[&"Two"]);
-    store.insert_with_values(None, None, &[0], &[&"Three"]);
-    store.insert_with_values(None, None, &[0], &[&"Four"]);
+    store.insert_with_values(None, None, &[(0, &"One")]);
+    store.insert_with_values(None, None, &[(0, &"Two")]);
+    store.insert_with_values(None, None, &[(0, &"Three")]);
+    store.insert_with_values(None, None, &[(0, &"Four")]);
 
     // We create the `TreeModelSort` and we give it the `TreeStore` as
     // parameter.

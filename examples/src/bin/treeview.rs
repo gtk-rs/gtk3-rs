@@ -36,13 +36,13 @@ fn build_ui(application: &gtk::Application) {
     append_text_column(&left_tree);
 
     for i in 0..10 {
-        // insert_with_values takes two slices: column indices and ToValue
+        // insert_with_values takes a slice of tuples: column index and ToValue
         // trait objects. ToValue is implemented for strings, numeric types,
         // bool and Object descendants
-        let iter = left_store.insert_with_values(None, None, &[0], &[&format!("Hello {}", i)]);
+        let iter = left_store.insert_with_values(None, None, &[(0, &format!("Hello {}", i))]);
 
         for _ in 0..i {
-            left_store.insert_with_values(Some(&iter), None, &[0], &[&"I'm a child node"]);
+            left_store.insert_with_values(Some(&iter), None, &[(0, &"I'm a child node")]);
         }
     }
 
@@ -84,8 +84,7 @@ fn build_ui(application: &gtk::Application) {
         right_store.insert_with_values(
             None,
             None,
-            &[0, 1],
-            &[&image, &"I'm a child node with an image"],
+            &[(0, &image), (1, &"I'm a child node with an image")],
         );
     }
 
