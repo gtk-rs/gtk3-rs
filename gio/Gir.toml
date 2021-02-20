@@ -620,6 +620,10 @@ manual_traits = ["FileExtManual"]
         [[object.function.parameter]]
         name = "new_etag"
         nullable = true
+    [[object.function]]
+    name = "get_child"
+        [object.function.return]
+        nullable = false
 
 [[object]]
 name = "Gio.FileAttributeMatcher"

@@ -264,7 +264,7 @@ pub trait FileExt: 'static {
     fn get_basename(&self) -> Option<std::path::PathBuf>;
 
     #[doc(alias = "g_file_get_child")]
-    fn get_child<P: AsRef<std::path::Path>>(&self, name: P) -> Option<File>;
+    fn get_child<P: AsRef<std::path::Path>>(&self, name: P) -> File;
 
     #[doc(alias = "g_file_get_child_for_display_name")]
     fn get_child_for_display_name(&self, display_name: &str) -> Result<File, glib::Error>;
@@ -1422,7 +1422,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe { from_glib_full(ffi::g_file_get_basename(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_child<P: AsRef<std::path::Path>>(&self, name: P) -> Option<File> {
+    fn get_child<P: AsRef<std::path::Path>>(&self, name: P) -> File {
         unsafe {
             from_glib_full(ffi::g_file_get_child(
                 self.as_ref().to_glib_none().0,
