@@ -6,7 +6,7 @@
 use super::prelude::*;
 use super::Signal;
 use crate::translate::*;
-use crate::{Cast, Object, ObjectType, ParamSpec, StaticType, Value};
+use crate::{Cast, Object, ObjectType, ParamSpec, Value};
 use std::mem;
 use std::ptr;
 
@@ -223,7 +223,7 @@ mod test {
     use super::super::super::subclass;
     use super::super::super::value::{ToValue, Value};
     use super::*;
-    use crate::Type;
+    use crate::{StaticType, Type};
 
     use std::cell::RefCell;
 
@@ -305,7 +305,7 @@ mod test {
                             let old_name = imp.name.borrow_mut().take();
                             *imp.name.borrow_mut() = Some(new_name);
 
-                            obj.emit("name-changed", &[&*imp.name.borrow()])
+                            obj.emit_by_name("name-changed", &[&*imp.name.borrow()])
                                 .expect("Failed to borrow name");
 
                             Some(old_name.to_value())
@@ -371,7 +371,7 @@ mod test {
                             .get()
                             .expect("type conformity checked by 'Object::set_property'");
                         self.name.replace(name);
-                        obj.emit("name-changed", &[&*self.name.borrow()])
+                        obj.emit_by_name("name-changed", &[&*self.name.borrow()])
                             .expect("Failed to borrow name");
                     }
                     "construct-name" => {
@@ -601,7 +601,7 @@ mod test {
         assert!(!name_changed_triggered.load(Ordering::Relaxed));
 
         let old_name = obj
-            .emit("change-name", &[&"new-name"])
+            .emit_by_name("change-name", &[&"new-name"])
             .expect("Failed to emit")
             .expect("Failed to get value from emit")
             .get::<String>()
@@ -619,8 +619,10 @@ mod test {
         })
         .expect("Failed to connect on 'create-string'");
 
+        let signal_id = imp::SimpleObject::signals()[2].signal_id();
+
         let value = obj
-            .emit("create-string", &[])
+            .emit(signal_id, &[])
             .expect("Failed to emit")
             .expect("Failed to get value from emit");
         assert_eq!(value.get::<String>(), Ok(Some("return value".to_string())));
@@ -661,7 +663,7 @@ mod test {
         .expect("Failed to connect on 'create-child-object'");
 
         let value = obj
-            .emit("create-child-object", &[])
+            .emit_by_name("create-child-object", &[])
             .expect("Failed to emit")
             .expect("Failed to get value from emit");
         assert!(value.type_().is_a(&ChildObject::static_type()));

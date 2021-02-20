@@ -1266,7 +1266,7 @@ pub trait ObjectExt: ObjectType {
         F: Fn(&[Value]) -> Option<Value>;
     /// Emit signal by signal id.
     fn emit(&self, signal_id: SignalId, args: &[&dyn ToValue]) -> Result<Option<Value>, BoolError>;
-    fn emit_generic<'a, N: Into<&'a str>>(
+    fn emit_by_name<'a, N: Into<&'a str>>(
         &self,
         signal_name: N,
         args: &[&dyn ToValue],
@@ -1935,7 +1935,7 @@ impl<T: ObjectType> ObjectExt for T {
         }
     }
 
-    fn emit_generic<'a, N: Into<&'a str>>(
+    fn emit_by_name<'a, N: Into<&'a str>>(
         &self,
         signal_name: N,
         args: &[&dyn ToValue],
