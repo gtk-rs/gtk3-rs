@@ -6,7 +6,7 @@
 use super::prelude::*;
 use super::Signal;
 use crate::translate::*;
-use crate::{Cast, Object, ObjectExt, ObjectType, ParamSpec, StaticType, ToValue, Value};
+use crate::{Cast, Object, ObjectType, ParamSpec, StaticType, Value};
 use std::mem;
 use std::ptr;
 
@@ -188,21 +188,6 @@ pub trait ObjectImplExt: ObjectSubclass {
         token: &super::SignalClassHandlerToken,
         values: &[Value],
     ) -> Option<Value>;
-
-    /// Emit signal by signal id.
-    fn emit(
-        &self,
-        signal: &super::Signal,
-        args: &[&dyn ToValue],
-    ) -> Result<Option<Value>, crate::BoolError>;
-
-    /// Emit signal with details by signal id.
-    fn emit_with_details(
-        &self,
-        signal: &super::Signal,
-        details: crate::Quark,
-        args: &[&dyn ToValue],
-    ) -> Result<Option<Value>, crate::BoolError>;
 }
 
 impl<T: ObjectImpl> ObjectImplExt for T {
@@ -230,176 +215,6 @@ impl<T: ObjectImpl> ObjectImplExt for T {
             )
         }
     }
-
-    fn emit(
-        &self,
-        signal: &super::Signal,
-        args: &[&dyn ToValue],
-    ) -> Result<Option<Value>, crate::BoolError> {
-        unsafe {
-            let type_ = Self::get_type();
-            let instance = self.get_instance();
-
-            let signal_id = signal.signal_id();
-
-            let self_v = {
-                let mut v = Value::uninitialized();
-                gobject_ffi::g_value_init(v.to_glib_none_mut().0, Self::get_type().to_glib());
-                gobject_ffi::g_value_set_object(
-                    v.to_glib_none_mut().0,
-                    instance.as_object_ref().to_glib_none().0,
-                );
-                v
-            };
-
-            let mut args = Iterator::chain(
-                std::iter::once(self_v),
-                args.iter().copied().map(ToValue::to_value),
-            )
-            .collect::<smallvec::SmallVec<[_; 10]>>();
-
-            validate_signal_arguments(type_, &signal, &mut args)?;
-
-            let mut return_value = Value::uninitialized();
-            if signal.return_type() != crate::Type::Unit {
-                gobject_ffi::g_value_init(
-                    return_value.to_glib_none_mut().0,
-                    signal.return_type().to_glib(),
-                );
-            }
-
-            gobject_ffi::g_signal_emitv(
-                mut_override(args.as_ptr()) as *mut gobject_ffi::GValue,
-                signal_id.to_glib(),
-                0,
-                return_value.to_glib_none_mut().0,
-            );
-
-            if return_value.type_() != crate::Type::Unit
-                && return_value.type_() != crate::Type::Invalid
-            {
-                Ok(Some(return_value))
-            } else {
-                Ok(None)
-            }
-        }
-    }
-
-    fn emit_with_details(
-        &self,
-        signal: &super::Signal,
-        details: crate::Quark,
-        args: &[&dyn ToValue],
-    ) -> Result<Option<Value>, crate::BoolError> {
-        assert!(signal.flags().contains(crate::SignalFlags::DETAILED));
-
-        unsafe {
-            let type_ = Self::get_type();
-            let instance = self.get_instance();
-
-            let signal_id = signal.signal_id();
-
-            let self_v = {
-                let mut v = Value::uninitialized();
-                gobject_ffi::g_value_init(v.to_glib_none_mut().0, Self::get_type().to_glib());
-                gobject_ffi::g_value_set_object(
-                    v.to_glib_none_mut().0,
-                    instance.as_object_ref().to_glib_none().0,
-                );
-                v
-            };
-
-            let mut args = Iterator::chain(
-                std::iter::once(self_v),
-                args.iter().copied().map(ToValue::to_value),
-            )
-            .collect::<smallvec::SmallVec<[_; 10]>>();
-
-            validate_signal_arguments(type_, &signal, &mut args)?;
-
-            let mut return_value = Value::uninitialized();
-            if signal.return_type() != crate::Type::Unit {
-                gobject_ffi::g_value_init(
-                    return_value.to_glib_none_mut().0,
-                    signal.return_type().to_glib(),
-                );
-            }
-
-            gobject_ffi::g_signal_emitv(
-                mut_override(args.as_ptr()) as *mut gobject_ffi::GValue,
-                signal_id.to_glib(),
-                details.to_glib(),
-                return_value.to_glib_none_mut().0,
-            );
-
-            if return_value.type_() != crate::Type::Unit
-                && return_value.type_() != crate::Type::Invalid
-            {
-                Ok(Some(return_value))
-            } else {
-                Ok(None)
-            }
-        }
-    }
-}
-
-fn validate_signal_arguments(
-    type_: crate::Type,
-    signal: &super::Signal,
-    args: &mut [Value],
-) -> Result<(), crate::BoolError> {
-    let param_types = signal.param_types();
-
-    if param_types.len() != args.len() {
-        return Err(bool_error!(
-            "Incompatible number of arguments for signal '{}' of type '{}' (expected {}, got {})",
-            signal.name(),
-            type_,
-            param_types.len(),
-            args.len(),
-        ));
-    }
-
-    for (i, (arg, param_type)) in Iterator::zip(args.iter_mut(), param_types.iter()).enumerate() {
-        if arg.type_().is_a(&Object::static_type()) {
-            match arg.get::<Object>() {
-                Ok(Some(obj)) => {
-                    if obj.get_type().is_a(&param_type) {
-                        arg.0.g_type = param_type.to_glib();
-                    } else {
-                        return Err(
-                            bool_error!(
-                                "Incompatible argument type in argument {} for signal '{}' of type '{}' (expected {}, got {})",
-                                i,
-                                signal.name(),
-                                type_,
-                                param_type,
-                                arg.type_(),
-                            )
-                        );
-                    }
-                }
-                Ok(None) => {
-                    // If the value is None then the type is compatible too
-                    arg.0.g_type = param_type.to_glib();
-                }
-                Err(_) => unreachable!("property_value type conformity already checked"),
-            }
-        } else if *param_type != arg.type_() {
-            return Err(
-                bool_error!(
-                    "Incompatible argument type in argument {} for signal '{}' of type '{}' (expected {}, got {})",
-                    i,
-                    signal.name(),
-                    type_,
-                    param_type,
-                    arg.type_(),
-                )
-            );
-        }
-    }
-
-    Ok(())
 }
 
 #[cfg(test)]

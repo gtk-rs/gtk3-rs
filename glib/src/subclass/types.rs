@@ -10,6 +10,8 @@ use std::mem;
 use std::ptr;
 use std::{any::Any, collections::HashMap};
 
+use super::SignalId;
+
 /// A newly registered `glib::Type` that is currently still being initialized.
 ///
 /// This allows running additional type-setup functions.
@@ -665,20 +667,15 @@ pub(crate) unsafe fn signal_override_class_handler<F>(
         class_handler(&super::SignalClassHandlerToken(instance as *mut _), values)
     });
 
-    let mut signal_id = 0;
-    let found: bool = from_glib(gobject_ffi::g_signal_parse_name(
-        name.to_glib_none().0,
-        type_,
-        &mut signal_id,
-        ptr::null_mut(),
-        false.to_glib(),
-    ));
-
-    if !found {
+    if let Some((signal_id, _)) = SignalId::parse_name(name, from_glib(type_), false) {
+        gobject_ffi::g_signal_override_class_closure(
+            signal_id.to_glib(),
+            type_,
+            class_handler.to_glib_none().0,
+        );
+    } else {
         panic!("Signal '{}' not found", name);
     }
-
-    gobject_ffi::g_signal_override_class_closure(signal_id, type_, class_handler.to_glib_none().0);
 }
 
 pub(crate) unsafe fn signal_chain_from_overridden(

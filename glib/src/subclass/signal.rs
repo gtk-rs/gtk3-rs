@@ -130,7 +130,7 @@ impl fmt::Debug for SignalQuery {
     }
 }
 /// Signal ID.
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct SignalId(NonZeroU32);
 
 impl SignalId {
@@ -141,6 +141,30 @@ impl SignalId {
     /// The caller has to ensure it's a valid signal identifier.
     pub unsafe fn new(id: NonZeroU32) -> Self {
         Self(id)
+    }
+
+    #[doc(alias = "g_signal_parse_name")]
+    pub fn parse_name(name: &str, type_: Type, force_detail: bool) -> Option<(Self, crate::Quark)> {
+        let mut signal_id = std::mem::MaybeUninit::uninit();
+        let mut detail_quark = std::mem::MaybeUninit::uninit();
+        unsafe {
+            let found: bool = from_glib(gobject_ffi::g_signal_parse_name(
+                name.to_glib_none().0,
+                type_.to_glib(),
+                signal_id.as_mut_ptr(),
+                detail_quark.as_mut_ptr(),
+                force_detail.to_glib(),
+            ));
+
+            if found {
+                Some((
+                    from_glib(signal_id.assume_init()),
+                    crate::Quark::from_glib(detail_quark.assume_init()),
+                ))
+            } else {
+                None
+            }
+        }
     }
 
     /// Find a SignalId by it's `name` and the `type` it connects to.
@@ -192,6 +216,104 @@ impl ToGlib for SignalId {
 
     fn to_glib(&self) -> u32 {
         self.0.into()
+    }
+}
+
+#[derive(Copy, Clone, Hash)]
+pub struct SignalType(ffi::GType);
+
+impl SignalType {
+    pub fn with_static_scope(type_: Type) -> Self {
+        Self(type_.to_glib() | gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT)
+    }
+
+    pub fn static_scope(&self) -> bool {
+        (self.0 & gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT) != 0
+    }
+
+    pub fn type_(&self) -> Type {
+        (*self).into()
+    }
+}
+
+impl From<Type> for SignalType {
+    fn from(type_: Type) -> Self {
+        Self(type_.to_glib())
+    }
+}
+
+impl From<SignalType> for Type {
+    fn from(type_: SignalType) -> Self {
+        // Remove the extra-bit used for G_SIGNAL_TYPE_STATIC_SCOPE
+        let type_ = type_.0 & (!gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT);
+        unsafe { from_glib(type_) }
+    }
+}
+
+impl PartialEq<Type> for SignalType {
+    fn eq(&self, other: &Type) -> bool {
+        let type_: Type = (*self).into();
+        type_.eq(other)
+    }
+}
+
+impl std::fmt::Debug for SignalType {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        let type_: Type = (*self).into();
+        f.debug_struct("SignalType")
+            .field("name", &type_.name())
+            .field("static_scope", &self.static_scope())
+            .finish()
+    }
+}
+
+impl std::fmt::Display for SignalType {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        let type_: Type = (*self).into();
+        f.debug_struct("SignalType")
+            .field("name", &type_.name())
+            .field("static_scope", &self.static_scope())
+            .finish()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GType> for SignalType {
+    unsafe fn from_glib(type_: ffi::GType) -> Self {
+        Self(type_)
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for SignalType {
+    type GlibType = ffi::GType;
+
+    fn to_glib(&self) -> ffi::GType {
+        self.0
+    }
+}
+
+impl FromGlibContainerAsVec<Type, *const ffi::GType> for SignalType {
+    unsafe fn from_glib_none_num_as_vec(ptr: *const ffi::GType, num: usize) -> Vec<Self> {
+        if num == 0 || ptr.is_null() {
+            return Vec::new();
+        }
+
+        let mut res = Vec::with_capacity(num);
+        for i in 0..num {
+            res.push(from_glib(*ptr.add(i)));
+        }
+        res
+    }
+
+    unsafe fn from_glib_container_num_as_vec(_: *const ffi::GType, _: usize) -> Vec<Self> {
+        // Can't really free a *const
+        unimplemented!();
+    }
+
+    unsafe fn from_glib_full_num_as_vec(_: *const ffi::GType, _: usize) -> Vec<Self> {
+        // Can't really free a *const
+        unimplemented!();
     }
 }
 
