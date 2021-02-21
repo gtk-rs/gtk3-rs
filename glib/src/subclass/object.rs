@@ -281,14 +281,14 @@ mod test {
                     vec![
                         super::Signal::builder(
                             "name-changed",
-                            &[String::static_type()],
-                            crate::Type::Unit,
+                            &[String::static_type().into()],
+                            crate::Type::Unit.into(),
                         )
                         .build(),
                         super::Signal::builder(
                             "change-name",
-                            &[String::static_type()],
-                            String::static_type(),
+                            &[String::static_type().into()],
+                            String::static_type().into(),
                         )
                         .action()
                         .class_handler(|_, args| {
@@ -311,9 +311,14 @@ mod test {
                             Some(old_name.to_value())
                         })
                         .build(),
-                        super::Signal::builder("create-string", &[], String::static_type()).build(),
-                        super::Signal::builder("create-child-object", &[], ChildObject::get_type())
+                        super::Signal::builder("create-string", &[], String::static_type().into())
                             .build(),
+                        super::Signal::builder(
+                            "create-child-object",
+                            &[],
+                            ChildObject::get_type().into(),
+                        )
+                        .build(),
                     ]
                 });
 

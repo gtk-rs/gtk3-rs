@@ -1291,14 +1291,14 @@ pub trait ObjectExt: ObjectType {
     fn emit_with_details(
         &self,
         signal_id: SignalId,
-        details: crate::Quark,
+        details: Quark,
         args: &[&dyn ToValue],
     ) -> Result<Option<Value>, BoolError>;
     /// Same as `emit_with_details` but takes `Value` for the arguments.
     fn emit_with_details_and_values(
         &self,
         signal_id: SignalId,
-        details: crate::Quark,
+        details: Quark,
         args: &[Value],
     ) -> Result<Option<Value>, BoolError>;
     fn disconnect(&self, handler_id: SignalHandlerId);
@@ -1761,10 +1761,7 @@ impl<T: ObjectType> ObjectExt for T {
             .ok_or_else(|| bool_error!("Signal '{}' of type '{}' not found", signal_name, type_))?;
         let signal_query = signal_id.query();
 
-        // This is actually G_SIGNAL_TYPE_STATIC_SCOPE
-        let return_type: Type = from_glib(
-            signal_query.return_type().to_glib() & (!gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT),
-        );
+        let return_type: Type = signal_query.return_type().into();
         let closure = Closure::new_unsafe(move |values| {
             let ret = callback(values);
 
@@ -1902,9 +1899,9 @@ impl<T: ObjectType> ObjectExt for T {
     fn emit_with_details(
         &self,
         signal_id: SignalId,
-        details: crate::Quark,
+        details: Quark,
         args: &[&dyn ToValue],
-    ) -> Result<Option<Value>, crate::BoolError> {
+    ) -> Result<Option<Value>, BoolError> {
         let signal_query = signal_id.query();
         assert!(signal_query.flags().contains(crate::SignalFlags::DETAILED));
 
@@ -2200,7 +2197,7 @@ fn validate_signal_arguments(
     type_: Type,
     signal_query: &SignalQuery,
     args: &mut [Value],
-) -> Result<Quark, crate::BoolError> {
+) -> Result<Quark, BoolError> {
     let signal_name = signal_query.signal_name();
     let (signal_id, signal_detail) = SignalId::parse_name(signal_name, type_, false)
         .ok_or_else(|| bool_error!("Signal '{}' of type '{}' not found", signal_name, type_))?;
@@ -2220,6 +2217,7 @@ fn validate_signal_arguments(
     let param_types = Iterator::zip(args.iter_mut(), signal_query.param_types());
 
     for (i, (arg, param_type)) in param_types.enumerate() {
+        let param_type: Type = param_type.into();
         if arg.type_().is_a(&Object::static_type()) {
             match arg.get::<Object>() {
                 Ok(Some(obj)) => {

@@ -17,8 +17,8 @@ use std::{fmt, num::NonZeroU32};
 pub struct SignalBuilder<'a> {
     name: &'a str,
     flags: SignalFlags,
-    param_types: &'a [Type],
-    return_type: Type,
+    param_types: &'a [SignalType],
+    return_type: SignalType,
     class_handler: Option<
         Box<dyn Fn(&SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static>,
     >,
@@ -31,8 +31,8 @@ pub struct SignalBuilder<'a> {
 pub struct Signal {
     name: String,
     flags: SignalFlags,
-    param_types: Vec<Type>,
-    return_type: Type,
+    param_types: Vec<SignalType>,
+    return_type: SignalType,
     registration: Mutex<SignalRegistration>,
 }
 
@@ -98,7 +98,7 @@ impl SignalQuery {
     }
 
     /// The return type for the user callback.
-    pub fn return_type(&self) -> Type {
+    pub fn return_type(&self) -> SignalType {
         unsafe { from_glib(self.0.return_type) }
     }
 
@@ -443,7 +443,7 @@ impl<'a> SignalBuilder<'a> {
         Signal {
             name: String::from(self.name),
             flags,
-            param_types: Vec::from(self.param_types),
+            param_types: self.param_types.to_vec(),
             return_type: self.return_type,
             registration: Mutex::new(SignalRegistration::Unregistered {
                 class_handler: self.class_handler,
@@ -457,8 +457,8 @@ impl Signal {
     /// Create a new builder for a signal.
     pub fn builder<'a>(
         name: &'a str,
-        param_types: &'a [Type],
-        return_type: Type,
+        param_types: &'a [SignalType],
+        return_type: SignalType,
     ) -> SignalBuilder<'a> {
         SignalBuilder {
             name,
@@ -481,12 +481,12 @@ impl Signal {
     }
 
     /// Parameter types of the signal.
-    pub fn param_types(&self) -> &[Type] {
+    pub fn param_types(&self) -> &[SignalType] {
         &self.param_types
     }
 
     /// Return type of the signal.
-    pub fn return_type(&self) -> Type {
+    pub fn return_type(&self) -> SignalType {
         self.return_type
     }
 
