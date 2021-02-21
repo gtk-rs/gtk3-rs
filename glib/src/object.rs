@@ -1190,13 +1190,16 @@ pub trait ObjectExt: ObjectType {
         property_name: N,
         value: &V,
     ) -> Result<(), BoolError>;
-    fn set_property_generic<'a, N: Into<&'a str>>(
+    fn set_property_with_value<'a, N: Into<&'a str>>(
         &self,
         property_name: N,
         value: &Value,
     ) -> Result<(), BoolError>;
     fn set_properties(&self, property_values: &[(&str, &dyn ToValue)]) -> Result<(), BoolError>;
-    fn set_properties_generic(&self, property_values: &[(&str, Value)]) -> Result<(), BoolError>;
+    fn set_properties_with_values(
+        &self,
+        property_values: &[(&str, Value)],
+    ) -> Result<(), BoolError>;
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool;
     fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
@@ -1266,10 +1269,23 @@ pub trait ObjectExt: ObjectType {
         F: Fn(&[Value]) -> Option<Value>;
     /// Emit signal by signal id.
     fn emit(&self, signal_id: SignalId, args: &[&dyn ToValue]) -> Result<Option<Value>, BoolError>;
+    /// Same as `emit` but takes `Value` for the arguments.
+    fn emit_with_values(
+        &self,
+        signal_id: SignalId,
+        args: &[Value],
+    ) -> Result<Option<Value>, BoolError>;
+    /// Emit signal by it's name.
     fn emit_by_name<'a, N: Into<&'a str>>(
         &self,
         signal_name: N,
         args: &[&dyn ToValue],
+    ) -> Result<Option<Value>, BoolError>;
+    /// Same as `emit_by_name` but takes `Value` for the arguments.
+    fn emit_by_name_with_values<'a, N: Into<&'a str>>(
+        &self,
+        signal_name: N,
+        args: &[Value],
     ) -> Result<Option<Value>, BoolError>;
     /// Emit signal with details by signal id.
     fn emit_with_details(
@@ -1277,6 +1293,13 @@ pub trait ObjectExt: ObjectType {
         signal_id: SignalId,
         details: crate::Quark,
         args: &[&dyn ToValue],
+    ) -> Result<Option<Value>, BoolError>;
+    /// Same as `emit_with_details` but takes `Value` for the arguments.
+    fn emit_with_details_and_values(
+        &self,
+        signal_id: SignalId,
+        details: crate::Quark,
+        args: &[Value],
     ) -> Result<Option<Value>, BoolError>;
     fn disconnect(&self, handler_id: SignalHandlerId);
 
@@ -1364,7 +1387,10 @@ impl<T: ObjectType> ObjectExt for T {
         Ok(())
     }
 
-    fn set_properties_generic(&self, property_values: &[(&str, Value)]) -> Result<(), BoolError> {
+    fn set_properties_with_values(
+        &self,
+        property_values: &[(&str, Value)],
+    ) -> Result<(), BoolError> {
         use std::ffi::CString;
 
         let pspecs = self.list_properties();
@@ -1433,7 +1459,7 @@ impl<T: ObjectType> ObjectExt for T {
         Ok(())
     }
 
-    fn set_property_generic<'a, N: Into<&'a str>>(
+    fn set_property_with_value<'a, N: Into<&'a str>>(
         &self,
         property_name: N,
         value: &Value,
@@ -1968,6 +1994,118 @@ impl<T: ObjectType> ObjectExt for T {
         let ptr: *mut gobject_ffi::GObject = stash.0;
 
         unsafe { ffi::g_atomic_int_get(&(*ptr).ref_count as *const u32 as *const i32) as u32 }
+    }
+
+    fn emit_with_values(
+        &self,
+        signal_id: SignalId,
+        args: &[Value],
+    ) -> Result<Option<Value>, BoolError> {
+        unsafe {
+            let type_ = self.get_type();
+
+            let signal_query = signal_id.query();
+
+            let self_v = {
+                let mut v = Value::uninitialized();
+                gobject_ffi::g_value_init(v.to_glib_none_mut().0, self.get_type().to_glib());
+                gobject_ffi::g_value_set_object(
+                    v.to_glib_none_mut().0,
+                    self.as_object_ref().to_glib_none().0,
+                );
+                v
+            };
+
+            let mut args = Iterator::chain(std::iter::once(self_v), args.iter().cloned())
+                .collect::<smallvec::SmallVec<[_; 10]>>();
+
+            let signal_detail = validate_signal_arguments(type_, &signal_query, &mut args[1..])?;
+
+            let mut return_value = Value::uninitialized();
+            if signal_query.return_type() != Type::Unit {
+                gobject_ffi::g_value_init(
+                    return_value.to_glib_none_mut().0,
+                    signal_query.return_type().to_glib(),
+                );
+            }
+
+            gobject_ffi::g_signal_emitv(
+                mut_override(args.as_ptr()) as *mut gobject_ffi::GValue,
+                signal_id.to_glib(),
+                signal_detail.to_glib(),
+                return_value.to_glib_none_mut().0,
+            );
+
+            if return_value.type_() != Type::Unit && return_value.type_() != Type::Invalid {
+                Ok(Some(return_value))
+            } else {
+                Ok(None)
+            }
+        }
+    }
+
+    fn emit_by_name_with_values<'a, N: Into<&'a str>>(
+        &self,
+        signal_name: N,
+        args: &[Value],
+    ) -> Result<Option<Value>, BoolError> {
+        let signal_name: &str = signal_name.into();
+        let type_ = self.get_type();
+        let signal_id = SignalId::lookup(signal_name, type_)
+            .ok_or_else(|| bool_error!("Signal '{}' of type '{}' not found", signal_name, type_))?;
+        self.emit_with_values(signal_id, args)
+    }
+
+    fn emit_with_details_and_values(
+        &self,
+        signal_id: SignalId,
+        details: Quark,
+        args: &[Value],
+    ) -> Result<Option<Value>, BoolError> {
+        let signal_query = signal_id.query();
+        assert!(signal_query.flags().contains(crate::SignalFlags::DETAILED));
+
+        unsafe {
+            let type_ = self.get_type();
+
+            let self_v = {
+                let mut v = Value::uninitialized();
+                gobject_ffi::g_value_init(v.to_glib_none_mut().0, self.get_type().to_glib());
+                gobject_ffi::g_value_set_object(
+                    v.to_glib_none_mut().0,
+                    self.as_object_ref().to_glib_none().0,
+                );
+                v
+            };
+
+            let mut args = Iterator::chain(std::iter::once(self_v), args.iter().cloned())
+                .collect::<smallvec::SmallVec<[_; 10]>>();
+
+            validate_signal_arguments(type_, &signal_query, &mut args)?;
+
+            let mut return_value = Value::uninitialized();
+            if signal_query.return_type() != crate::Type::Unit {
+                gobject_ffi::g_value_init(
+                    return_value.to_glib_none_mut().0,
+                    signal_query.return_type().to_glib(),
+                );
+            }
+
+            gobject_ffi::g_signal_emitv(
+                mut_override(args.as_ptr()) as *mut gobject_ffi::GValue,
+                signal_id.to_glib(),
+                details.to_glib(),
+                return_value.to_glib_none_mut().0,
+            );
+
+            if return_value.type_() != crate::Type::Unit
+                && return_value.type_() != crate::Type::Invalid
+            {
+                Ok(Some(return_value))
+            } else {
+                Ok(None)
+            }
+        }
     }
 }
 
