@@ -32,97 +32,97 @@ Please be sure to have installed all the required libraries before building exam
 Screenshots of examples using cario or futures is missing. Examples are from cross compiling projects for Windows 10.
 
 #### Full GTK Example
-<img src="../images/rust-gtk/GTKTest.png">
+<img src="../images/GTKTest.png">
 
 #### Accessibility
-<img src="../images/rust-gtk/Accessibility.png">
+<img src="images/Accessibility.png">
 
 #### A Basic Screen
-<img src="../images/rust-gtk/Basic.png">
+<img src="images/Basic.png">
 
 #### Basic Subclassing
-<img src="../images/rust-gtk/BasicSubclass.png">
+<img src="images/BasicSubclass.png">
 
 #### Builder Basics
-<img src="../images/rust-gtk/BuilderBasics.png">
+<img src="images/BuilderBasics.png">
 
 #### Builders
-<img src="../images/rust-gtk/Builders.png">
+<img src="images/Builders.png">
 
 #### Builder Signal
-<img src="../images/rust-gtk/BuilderSignal.png">
+<img src="images/BuilderSignal.png">
 
 #### Child Properties
-<img src="../images/rust-gtk/ChildProperties.png">
+<img src="images/ChildProperties.png">
 
 #### Simple Clipboard
-<img src="../images/rust-gtk/ClipboardSimple.png">
+<img src="images/ClipboardSimple.png">
 
 #### Clock
-<img src="../images/rust-gtk/Clock.png">
+<img src="images/Clock.png">
 
 #### Clone Macros
-<img src="../images/rust-gtk/CloneMacros.png">
+<img src="images/CloneMacros.png">
 
 #### Communication Thread
-<img src="../images/rust-gtk/CommunicationThread.png">
+<img src="images/CommunicationThread.png">
 
 #### Complex Drag and Drop
-<img src="../images/rust-gtk/ComplexDragDrop.png">
+<img src="images/ComplexDragDrop.png">
 
 #### CSS
-<img src="../images/rust-gtk/CSS.png">
+<img src="images/CSS.png">
 
 #### Entry Completion
-<img src="../images/rust-gtk/EntryCompletion.png">
+<img src="images/EntryCompletion.png">
 
 #### Grid
-<img src="../images/rust-gtk/Grid.png">
+<img src="images/Grid.png">
 
 #### Icon View
-<img src="../images/rust-gtk/Iconview.png">
+<img src="images/Iconview.png">
 
 #### List Box
-<img src="../images/rust-gtk/ListBox.png">
+<img src="images/ListBox.png">
 
 #### List Store
-<img src="../images/rust-gtk/ListStore.png">
+<img src="images/ListStore.png">
 
 #### Menu 
-<img src="../images/rust-gtk/Menu.png">
+<img src="images/Menu.png">
 
 #### Multithreading
-<img src="../images/rust-gtk/Multithreading.png">
+<img src="images/Multithreading.png">
 
 #### Multi Window
-<img src="../images/rust-gtk/MultiWindow.png">
+<img src="images/MultiWindow.png">
 
 #### Notebook
-<img src="../images/rust-gtk/Notebook.png">
+<img src="images/Notebook.png">
 
 #### Overlay
-<img src="../images/rust-gtk/Overlay.png">
+<img src="images/Overlay.png">
 
 #### Progress Tracker
-<img src="../images/rust-gtk/ProgressTracker.png">
+<img src="images/ProgressTracker.png">
 
 #### Simple Drag and Drop
-<img src="../images/rust-gtk/SimpleDragDrop.png">
+<img src="images/SimpleDragDrop.png">
 
 #### Sync Widgets
-<img src="../images/rust-gtk/SyncWidget.png">
+<img src="images/SyncWidget.png">
 
 #### System Menu
-<img src="../images/rust-gtk/SystemMenu.png">
+<img src="images/SystemMenu.png">
 
 #### Text Viewer
-<img src="../images/rust-gtk/Textviewer.png">
+<img src="images/Textviewer.png">
 
 #### Tree View
-<img src="../images/rust-gtk/Treeview.png">
+<img src="images/Treeview.png">
 
 #### Tree View with Sort
-<img src="../images/rust-gtk/TreeviewModelSort.png">
+<img src="images/TreeviewModelSort.png">
 
 ## LICENSE
 The gtk-rs examples repository is licensed under the MIT license, please refer to the LICENSE and COPYRIGHT files for more information.
