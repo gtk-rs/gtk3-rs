@@ -738,7 +738,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
     fn emit_close(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("close", &[])
+                .emit_by_name("close", &[])
                 .unwrap()
         };
     }
@@ -769,7 +769,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
     fn emit_search(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("search", &[])
+                .emit_by_name("search", &[])
                 .unwrap()
         };
     }

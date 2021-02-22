@@ -3315,7 +3315,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     fn emit_composited_changed(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("composited-changed", &[])
+                .emit_by_name("composited-changed", &[])
                 .unwrap()
         };
     }
@@ -4150,7 +4150,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     fn emit_grab_focus(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("grab-focus", &[])
+                .emit_by_name("grab-focus", &[])
                 .unwrap()
         };
     }
@@ -4506,7 +4506,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     fn emit_move_focus(&self, direction: DirectionType) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("move-focus", &[&direction])
+                .emit_by_name("move-focus", &[&direction])
                 .unwrap()
         };
     }
@@ -4567,7 +4567,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     fn emit_popup_menu(&self) -> bool {
         let res = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("popup-menu", &[])
+                .emit_by_name("popup-menu", &[])
                 .unwrap()
         };
         res.unwrap()
@@ -5062,7 +5062,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     fn emit_show_help(&self, help_type: WidgetHelpType) -> bool {
         let res = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("show-help", &[&help_type])
+                .emit_by_name("show-help", &[&help_type])
                 .unwrap()
         };
         res.unwrap()

@@ -2564,7 +2564,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     fn emit_activate(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("activate", &[])
+                .emit_by_name("activate", &[])
                 .unwrap()
         };
     }
@@ -2595,7 +2595,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     fn emit_backspace(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("backspace", &[])
+                .emit_by_name("backspace", &[])
                 .unwrap()
         };
     }
@@ -2626,7 +2626,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     fn emit_copy_clipboard(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("copy-clipboard", &[])
+                .emit_by_name("copy-clipboard", &[])
                 .unwrap()
         };
     }
@@ -2657,7 +2657,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     fn emit_cut_clipboard(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("cut-clipboard", &[])
+                .emit_by_name("cut-clipboard", &[])
                 .unwrap()
         };
     }
@@ -2700,7 +2700,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     fn emit_delete_from_cursor(&self, type_: DeleteType, count: i32) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("delete-from-cursor", &[&type_, &count])
+                .emit_by_name("delete-from-cursor", &[&type_, &count])
                 .unwrap()
         };
     }
@@ -2805,7 +2805,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     fn emit_insert_at_cursor(&self, string: &str) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("insert-at-cursor", &[&string])
+                .emit_by_name("insert-at-cursor", &[&string])
                 .unwrap()
         };
     }
@@ -2840,7 +2840,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     fn emit_insert_emoji(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("insert-emoji", &[])
+                .emit_by_name("insert-emoji", &[])
                 .unwrap()
         };
     }
@@ -2885,7 +2885,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     fn emit_move_cursor(&self, step: MovementStep, count: i32, extend_selection: bool) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("move-cursor", &[&step, &count, &extend_selection])
+                .emit_by_name("move-cursor", &[&step, &count, &extend_selection])
                 .unwrap()
         };
     }
@@ -2916,7 +2916,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     fn emit_paste_clipboard(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("paste-clipboard", &[])
+                .emit_by_name("paste-clipboard", &[])
                 .unwrap()
         };
     }
@@ -2978,7 +2978,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     fn emit_preedit_changed(&self, preedit: &str) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("preedit-changed", &[&preedit])
+                .emit_by_name("preedit-changed", &[&preedit])
                 .unwrap()
         };
     }
@@ -3009,7 +3009,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     fn emit_toggle_overwrite(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("toggle-overwrite", &[])
+                .emit_by_name("toggle-overwrite", &[])
                 .unwrap()
         };
     }

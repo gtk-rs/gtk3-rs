@@ -160,7 +160,7 @@ impl ShortcutsSection {
     pub fn emit_change_current_page(&self, object: i32) -> bool {
         let res = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("change-current-page", &[&object])
+                .emit_by_name("change-current-page", &[&object])
                 .unwrap()
         };
         res.unwrap()

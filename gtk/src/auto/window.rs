@@ -2107,7 +2107,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
     fn emit_activate_default(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("activate-default", &[])
+                .emit_by_name("activate-default", &[])
                 .unwrap()
         };
     }
@@ -2138,7 +2138,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
     fn emit_activate_focus(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("activate-focus", &[])
+                .emit_by_name("activate-focus", &[])
                 .unwrap()
         };
     }
@@ -2178,7 +2178,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
     fn emit_enable_debugging(&self, toggle: bool) -> bool {
         let res = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("enable-debugging", &[&toggle])
+                .emit_by_name("enable-debugging", &[&toggle])
                 .unwrap()
         };
         res.unwrap()

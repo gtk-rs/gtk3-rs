@@ -741,7 +741,7 @@ impl<O: IsA<Toolbar>> ToolbarExt for O {
     fn emit_focus_home_or_end(&self, focus_home: bool) -> bool {
         let res = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("focus-home-or-end", &[&focus_home])
+                .emit_by_name("focus-home-or-end", &[&focus_home])
                 .unwrap()
         };
         res.unwrap()

@@ -1200,7 +1200,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     fn emit_move_scroll(&self, scroll_type: ScrollType) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("move-scroll", &[&scroll_type])
+                .emit_by_name("move-scroll", &[&scroll_type])
                 .unwrap()
         };
     }
