@@ -698,9 +698,6 @@
 <span id="695">695</span>
 <span id="696">696</span>
 <span id="697">697</span>
-<span id="698">698</span>
-<span id="699">699</span>
-<span id="700">700</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -713,6 +710,8 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">any</span>::<span class="ident">Any</span>, <span class="ident">collections</span>::<span class="ident">HashMap</span>};
+
+<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">SignalId</span>;
 
 <span class="doccomment">/// A newly registered `glib::Type` that is currently still being initialized.</span>
 <span class="doccomment">///</span>
@@ -1369,20 +1368,15 @@
         <span class="ident">class_handler</span>(<span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">SignalClassHandlerToken</span>(<span class="ident">instance</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>), <span class="ident">values</span>)
     });
 
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">signal_id</span> <span class="op">=</span> <span class="number">0</span>;
-    <span class="kw">let</span> <span class="ident">found</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_signal_parse_name</span>(
-        <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-        <span class="ident">type_</span>,
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">signal_id</span>,
-        <span class="ident">ptr</span>::<span class="ident">null_mut</span>(),
-        <span class="bool-val">false</span>.<span class="ident">to_glib</span>(),
-    ));
-
-    <span class="kw">if</span> <span class="op">!</span><span class="ident">found</span> {
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">signal_id</span>, <span class="kw">_</span>)) <span class="op">=</span> <span class="ident">SignalId</span>::<span class="ident">parse_name</span>(<span class="ident">name</span>, <span class="ident">from_glib</span>(<span class="ident">type_</span>), <span class="bool-val">false</span>) {
+        <span class="ident">gobject_ffi</span>::<span class="ident">g_signal_override_class_closure</span>(
+            <span class="ident">signal_id</span>.<span class="ident">to_glib</span>(),
+            <span class="ident">type_</span>,
+            <span class="ident">class_handler</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
+        );
+    } <span class="kw">else</span> {
         <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Signal &#39;{}&#39; not found&quot;</span>, <span class="ident">name</span>);
     }
-
-    <span class="ident">gobject_ffi</span>::<span class="ident">g_signal_override_class_closure</span>(<span class="ident">signal_id</span>, <span class="ident">type_</span>, <span class="ident">class_handler</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>);
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">signal_chain_from_overridden</span>(
