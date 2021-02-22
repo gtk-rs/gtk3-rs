@@ -29,7 +29,7 @@ Please be sure to have installed all the required libraries before building exam
 
 ## Example Screenshots
 
-Screenshots of examples using cario or futures is missing. Examples are from cross compiling projects for Windows 10.
+Screenshots of examples using cairo or futures are missing.
 
 #### Full GTK Example
 <img src="images/GTKTest.png">
