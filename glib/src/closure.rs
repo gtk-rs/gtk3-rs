@@ -97,10 +97,10 @@ impl Closure {
             .map(ToValue::to_value)
             .collect::<smallvec::SmallVec<[_; 10]>>();
 
-        self.invoke_generic(&values)
+        self.invoke_with_values(&values)
     }
 
-    pub fn invoke_generic(&self, values: &[Value]) -> Option<Value> {
+    pub fn invoke_with_values(&self, values: &[Value]) -> Option<Value> {
         let result = unsafe {
             let mut result = Value::uninitialized();
             gobject_ffi::g_closure_invoke(

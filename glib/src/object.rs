@@ -1105,7 +1105,7 @@ impl Object {
         unsafe { Object::new_internal(type_, &params) }
     }
 
-    pub fn new_generic(type_: Type, properties: &[(&str, Value)]) -> Result<Object, BoolError> {
+    pub fn with_values(type_: Type, properties: &[(&str, Value)]) -> Result<Object, BoolError> {
         use std::ffi::CString;
 
         let klass = ObjectClass::from_type(type_)
@@ -1190,16 +1190,14 @@ pub trait ObjectExt: ObjectType {
         property_name: N,
         value: &V,
     ) -> Result<(), BoolError>;
-    fn set_property_with_value<'a, N: Into<&'a str>>(
+    fn set_property_from_value<'a, N: Into<&'a str>>(
         &self,
         property_name: N,
         value: &Value,
     ) -> Result<(), BoolError>;
     fn set_properties(&self, property_values: &[(&str, &dyn ToValue)]) -> Result<(), BoolError>;
-    fn set_properties_with_values(
-        &self,
-        property_values: &[(&str, Value)],
-    ) -> Result<(), BoolError>;
+    fn set_properties_from_value(&self, property_values: &[(&str, Value)])
+        -> Result<(), BoolError>;
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool;
     fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
@@ -1387,7 +1385,7 @@ impl<T: ObjectType> ObjectExt for T {
         Ok(())
     }
 
-    fn set_properties_with_values(
+    fn set_properties_from_value(
         &self,
         property_values: &[(&str, Value)],
     ) -> Result<(), BoolError> {
@@ -1459,7 +1457,7 @@ impl<T: ObjectType> ObjectExt for T {
         Ok(())
     }
 
-    fn set_property_with_value<'a, N: Into<&'a str>>(
+    fn set_property_from_value<'a, N: Into<&'a str>>(
         &self,
         property_name: N,
         value: &Value,
