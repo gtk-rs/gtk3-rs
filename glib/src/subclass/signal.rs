@@ -1,22 +1,24 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use smallvec::SmallVec;
+
 use crate::translate::*;
 use crate::Closure;
 use crate::SignalFlags;
 use crate::Type;
 use crate::Value;
 
-use std::fmt;
 use std::ptr;
 use std::sync::Mutex;
+use std::{fmt, num::NonZeroU32};
 
 /// Builder for signals.
 #[allow(clippy::type_complexity)]
 pub struct SignalBuilder<'a> {
     name: &'a str,
     flags: SignalFlags,
-    arg_types: &'a [Type],
-    ret_type: Type,
+    param_types: &'a [SignalType],
+    return_type: SignalType,
     class_handler: Option<
         Box<dyn Fn(&SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static>,
     >,
@@ -29,8 +31,8 @@ pub struct SignalBuilder<'a> {
 pub struct Signal {
     name: String,
     flags: SignalFlags,
-    arg_types: Vec<Type>,
-    ret_type: Type,
+    param_types: Vec<SignalType>,
+    return_type: SignalType,
     registration: Mutex<SignalRegistration>,
 }
 
@@ -68,9 +70,252 @@ impl fmt::Debug for SignalInvocationHint {
     }
 }
 
+/// In-depth information of a specific signal
+pub struct SignalQuery(gobject_ffi::GSignalQuery);
+
+impl SignalQuery {
+    /// The name of the signal.
+    pub fn signal_name<'a>(&self) -> &'a str {
+        unsafe {
+            let ptr = self.0.signal_name;
+            std::ffi::CStr::from_ptr(ptr).to_str().unwrap()
+        }
+    }
+
+    /// The ID of the signal.
+    pub fn signal_id(&self) -> SignalId {
+        unsafe { SignalId::from_glib(self.0.signal_id) }
+    }
+
+    /// The instance type this signal can be emitted for.
+    pub fn type_(&self) -> Type {
+        unsafe { from_glib(self.0.itype) }
+    }
+
+    /// The signal flags.
+    pub fn flags(&self) -> SignalFlags {
+        unsafe { from_glib(self.0.signal_flags) }
+    }
+
+    /// The return type for the user callback.
+    pub fn return_type(&self) -> SignalType {
+        unsafe { from_glib(self.0.return_type) }
+    }
+
+    /// The number of parameters the user callback takes.
+    pub fn n_params(&self) -> u32 {
+        self.0.n_params
+    }
+
+    /// The parameters for the user callback.
+    pub fn param_types(&self) -> SmallVec<[SignalType; 10]> {
+        unsafe {
+            let types = self.0.param_types;
+            FromGlibContainerAsVec::from_glib_none_num_as_vec(types, self.n_params() as usize)
+                .into_iter()
+                .collect::<smallvec::SmallVec<[_; 10]>>()
+        }
+    }
+}
+
+impl fmt::Debug for SignalQuery {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        f.debug_struct("SignalQuery")
+            .field("signal_name", &self.signal_name())
+            .field("type", &self.type_())
+            .field("flags", &self.flags())
+            .field("return_type", &self.return_type())
+            .field("param_types", &self.param_types())
+            .finish()
+    }
+}
 /// Signal ID.
-#[derive(Debug, Clone, Copy)]
-pub struct SignalId(pub(super) Type, pub(super) u32);
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub struct SignalId(NonZeroU32);
+
+impl SignalId {
+    /// Create a new Signal Identifier.
+    ///
+    /// # Safety
+    ///
+    /// The caller has to ensure it's a valid signal identifier.
+    pub unsafe fn new(id: NonZeroU32) -> Self {
+        Self(id)
+    }
+
+    #[doc(alias = "g_signal_parse_name")]
+    pub fn parse_name(name: &str, type_: Type, force_detail: bool) -> Option<(Self, crate::Quark)> {
+        let mut signal_id = std::mem::MaybeUninit::uninit();
+        let mut detail_quark = std::mem::MaybeUninit::uninit();
+        unsafe {
+            let found: bool = from_glib(gobject_ffi::g_signal_parse_name(
+                name.to_glib_none().0,
+                type_.to_glib(),
+                signal_id.as_mut_ptr(),
+                detail_quark.as_mut_ptr(),
+                force_detail.to_glib(),
+            ));
+
+            if found {
+                Some((
+                    from_glib(signal_id.assume_init()),
+                    crate::Quark::from_glib(detail_quark.assume_init()),
+                ))
+            } else {
+                None
+            }
+        }
+    }
+
+    /// Find a SignalId by it's `name` and the `type` it connects to.
+    #[doc(alias = "g_signal_lookup")]
+    pub fn lookup(name: &str, type_: Type) -> Option<Self> {
+        unsafe {
+            let signal_id = gobject_ffi::g_signal_lookup(name.to_glib_none().0, type_.to_glib());
+            if signal_id == 0 {
+                None
+            } else {
+                Some(Self::new(NonZeroU32::new_unchecked(signal_id)))
+            }
+        }
+    }
+
+    /// Queries more in-depth information about the current signal.
+    #[doc(alias = "g_signal_query")]
+    pub fn query(&self) -> SignalQuery {
+        unsafe {
+            let mut query_ptr = std::mem::MaybeUninit::uninit();
+            gobject_ffi::g_signal_query(self.to_glib(), query_ptr.as_mut_ptr());
+            let query = query_ptr.assume_init();
+            assert_ne!(query.signal_id, 0);
+            SignalQuery(query)
+        }
+    }
+
+    /// Find the signal name.
+    #[doc(alias = "g_signal_name")]
+    pub fn name<'a>(&self) -> &'a str {
+        unsafe {
+            let ptr = gobject_ffi::g_signal_name(self.to_glib());
+            std::ffi::CStr::from_ptr(ptr).to_str().unwrap()
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<u32> for SignalId {
+    unsafe fn from_glib(signal_id: u32) -> Self {
+        assert_ne!(signal_id, 0);
+        Self::new(NonZeroU32::new_unchecked(signal_id))
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for SignalId {
+    type GlibType = u32;
+
+    fn to_glib(&self) -> u32 {
+        self.0.into()
+    }
+}
+
+#[derive(Copy, Clone, Hash)]
+pub struct SignalType(ffi::GType);
+
+impl SignalType {
+    pub fn with_static_scope(type_: Type) -> Self {
+        Self(type_.to_glib() | gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT)
+    }
+
+    pub fn static_scope(&self) -> bool {
+        (self.0 & gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT) != 0
+    }
+
+    pub fn type_(&self) -> Type {
+        (*self).into()
+    }
+}
+
+impl From<Type> for SignalType {
+    fn from(type_: Type) -> Self {
+        Self(type_.to_glib())
+    }
+}
+
+impl From<SignalType> for Type {
+    fn from(type_: SignalType) -> Self {
+        // Remove the extra-bit used for G_SIGNAL_TYPE_STATIC_SCOPE
+        let type_ = type_.0 & (!gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT);
+        unsafe { from_glib(type_) }
+    }
+}
+
+impl PartialEq<Type> for SignalType {
+    fn eq(&self, other: &Type) -> bool {
+        let type_: Type = (*self).into();
+        type_.eq(other)
+    }
+}
+
+impl std::fmt::Debug for SignalType {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        let type_: Type = (*self).into();
+        f.debug_struct("SignalType")
+            .field("name", &type_.name())
+            .field("static_scope", &self.static_scope())
+            .finish()
+    }
+}
+
+impl std::fmt::Display for SignalType {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        let type_: Type = (*self).into();
+        f.debug_struct("SignalType")
+            .field("name", &type_.name())
+            .field("static_scope", &self.static_scope())
+            .finish()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GType> for SignalType {
+    unsafe fn from_glib(type_: ffi::GType) -> Self {
+        Self(type_)
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for SignalType {
+    type GlibType = ffi::GType;
+
+    fn to_glib(&self) -> ffi::GType {
+        self.0
+    }
+}
+
+impl FromGlibContainerAsVec<Type, *const ffi::GType> for SignalType {
+    unsafe fn from_glib_none_num_as_vec(ptr: *const ffi::GType, num: usize) -> Vec<Self> {
+        if num == 0 || ptr.is_null() {
+            return Vec::new();
+        }
+
+        let mut res = Vec::with_capacity(num);
+        for i in 0..num {
+            res.push(from_glib(*ptr.add(i)));
+        }
+        res
+    }
+
+    unsafe fn from_glib_container_num_as_vec(_: *const ffi::GType, _: usize) -> Vec<Self> {
+        // Can't really free a *const
+        unimplemented!();
+    }
+
+    unsafe fn from_glib_full_num_as_vec(_: *const ffi::GType, _: usize) -> Vec<Self> {
+        // Can't really free a *const
+        unimplemented!();
+    }
+}
 
 #[allow(clippy::type_complexity)]
 enum SignalRegistration {
@@ -86,7 +331,7 @@ enum SignalRegistration {
     },
     Registered {
         type_: Type,
-        signal_id: u32,
+        signal_id: SignalId,
     },
 }
 
@@ -198,8 +443,8 @@ impl<'a> SignalBuilder<'a> {
         Signal {
             name: String::from(self.name),
             flags,
-            arg_types: Vec::from(self.arg_types),
-            ret_type: self.ret_type,
+            param_types: self.param_types.to_vec(),
+            return_type: self.return_type,
             registration: Mutex::new(SignalRegistration::Unregistered {
                 class_handler: self.class_handler,
                 accumulator: self.accumulator,
@@ -210,11 +455,15 @@ impl<'a> SignalBuilder<'a> {
 
 impl Signal {
     /// Create a new builder for a signal.
-    pub fn builder<'a>(name: &'a str, arg_types: &'a [Type], ret_type: Type) -> SignalBuilder<'a> {
+    pub fn builder<'a>(
+        name: &'a str,
+        param_types: &'a [SignalType],
+        return_type: SignalType,
+    ) -> SignalBuilder<'a> {
         SignalBuilder {
             name,
-            arg_types,
-            ret_type,
+            param_types,
+            return_type,
             flags: SignalFlags::empty(),
             class_handler: None,
             accumulator: None,
@@ -231,14 +480,14 @@ impl Signal {
         self.flags
     }
 
-    /// Argument types of the signal.
-    pub fn arg_types(&self) -> &[Type] {
-        &self.arg_types
+    /// Parameter types of the signal.
+    pub fn param_types(&self) -> &[SignalType] {
+        &self.param_types
     }
 
     /// Return type of the signal.
-    pub fn ret_type(&self) -> Type {
-        self.ret_type
+    pub fn return_type(&self) -> SignalType {
+        self.return_type
     }
 
     /// Signal ID.
@@ -247,7 +496,7 @@ impl Signal {
     pub fn signal_id(&self) -> SignalId {
         match &*self.registration.lock().unwrap() {
             SignalRegistration::Unregistered { .. } => panic!("Signal not registered yet"),
-            SignalRegistration::Registered { type_, signal_id } => SignalId(*type_, *signal_id),
+            SignalRegistration::Registered { signal_id, .. } => *signal_id,
         }
     }
 
@@ -272,8 +521,8 @@ impl Signal {
             SignalRegistration::Registered { .. } => unreachable!(),
         };
 
-        let arg_types = self
-            .arg_types
+        let param_types = self
+            .param_types
             .iter()
             .map(ToGlib::to_glib)
             .collect::<Vec<_>>();
@@ -313,8 +562,8 @@ impl Signal {
             (ptr::null_mut(), None)
         };
 
-        let signal_id = unsafe {
-            gobject_ffi::g_signal_newv(
+        unsafe {
+            let signal_id = gobject_ffi::g_signal_newv(
                 self.name.to_glib_none().0,
                 type_.to_glib(),
                 self.flags.to_glib(),
@@ -322,12 +571,14 @@ impl Signal {
                 accumulator_trampoline,
                 accumulator as ffi::gpointer,
                 None,
-                self.ret_type.to_glib(),
-                arg_types.len() as u32,
-                arg_types.as_ptr() as *mut _,
-            )
-        };
-
-        *registration = SignalRegistration::Registered { type_, signal_id };
+                self.return_type.to_glib(),
+                param_types.len() as u32,
+                param_types.as_ptr() as *mut _,
+            );
+            *registration = SignalRegistration::Registered {
+                type_,
+                signal_id: SignalId::from_glib(signal_id),
+            };
+        }
     }
 }

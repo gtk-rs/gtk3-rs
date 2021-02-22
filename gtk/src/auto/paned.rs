@@ -741,7 +741,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     fn emit_accept_position(&self) -> bool {
         let res = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("accept-position", &[])
+                .emit_by_name("accept-position", &[])
                 .unwrap()
         };
         res.unwrap()
@@ -777,7 +777,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     fn emit_cancel_position(&self) -> bool {
         let res = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("cancel-position", &[])
+                .emit_by_name("cancel-position", &[])
                 .unwrap()
         };
         res.unwrap()
@@ -821,7 +821,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     fn emit_cycle_child_focus(&self, reversed: bool) -> bool {
         let res = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("cycle-child-focus", &[&reversed])
+                .emit_by_name("cycle-child-focus", &[&reversed])
                 .unwrap()
         };
         res.unwrap()
@@ -865,7 +865,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     fn emit_cycle_handle_focus(&self, reversed: bool) -> bool {
         let res = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("cycle-handle-focus", &[&reversed])
+                .emit_by_name("cycle-handle-focus", &[&reversed])
                 .unwrap()
         };
         res.unwrap()
@@ -909,7 +909,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     fn emit_move_handle(&self, scroll_type: ScrollType) -> bool {
         let res = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("move-handle", &[&scroll_type])
+                .emit_by_name("move-handle", &[&scroll_type])
                 .unwrap()
         };
         res.unwrap()
@@ -945,7 +945,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     fn emit_toggle_handle_focus(&self) -> bool {
         let res = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("toggle-handle-focus", &[])
+                .emit_by_name("toggle-handle-focus", &[])
                 .unwrap()
         };
         res.unwrap()

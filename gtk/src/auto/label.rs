@@ -1232,7 +1232,7 @@ impl<O: IsA<Label>> LabelExt for O {
     fn emit_activate_current_link(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("activate-current-link", &[])
+                .emit_by_name("activate-current-link", &[])
                 .unwrap()
         };
     }
@@ -1298,7 +1298,7 @@ impl<O: IsA<Label>> LabelExt for O {
     fn emit_copy_clipboard(&self) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("copy-clipboard", &[])
+                .emit_by_name("copy-clipboard", &[])
                 .unwrap()
         };
     }
@@ -1343,7 +1343,7 @@ impl<O: IsA<Label>> LabelExt for O {
     fn emit_move_cursor(&self, step: MovementStep, count: i32, extend_selection: bool) {
         let _ = unsafe {
             glib::Object::from_glib_borrow(self.as_ptr() as *mut glib::gobject_ffi::GObject)
-                .emit("move-cursor", &[&step, &count, &extend_selection])
+                .emit_by_name("move-cursor", &[&step, &count, &extend_selection])
                 .unwrap()
         };
     }
