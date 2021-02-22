@@ -32,7 +32,7 @@ Please be sure to have installed all the required libraries before building exam
 Screenshots of examples using cario or futures is missing. Examples are from cross compiling projects for Windows 10.
 
 #### Full GTK Example
-<img src="../images/GTKTest.png">
+<img src="images/GTKTest.png">
 
 #### Accessibility
 <img src="images/Accessibility.png">
