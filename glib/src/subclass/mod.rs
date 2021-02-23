@@ -103,37 +103,33 @@
 //!     // Trait that is used to override virtual methods of glib::Object.
 //!     impl ObjectImpl for SimpleObject {
 //!         // Called once in the very beginning to list all properties of this class.
+//!         #[glib::lazy_static]
 //!         fn properties() -> &'static [glib::ParamSpec] {
-//!             use once_cell::sync::Lazy;
-//!             static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
-//!                 vec![
-//!                     glib::ParamSpec::string(
-//!                         "name",
-//!                         "Name",
-//!                         "Name of this object",
-//!                         None,
-//!                         glib::ParamFlags::READWRITE,
-//!                     ),
-//!                     glib::ParamSpec::enum_(
-//!                         "animal",
-//!                         "Animal",
-//!                         "Animal",
-//!                         Animal::static_type(),
-//!                         Animal::default() as i32,
-//!                         glib::ParamFlags::READWRITE,
-//!                     ),
-//!                     glib::ParamSpec::flags(
-//!                         "flags",
-//!                         "Flags",
-//!                         "Flags",
-//!                         MyFlags::static_type(),
-//!                         MyFlags::default().bits(),
-//!                         glib::ParamFlags::READWRITE,
-//!                     ),
-//!                 ]
-//!             });
-//!
-//!             PROPERTIES.as_ref()
+//!             vec![
+//!                 glib::ParamSpec::string(
+//!                     "name",
+//!                     "Name",
+//!                     "Name of this object",
+//!                     None,
+//!                     glib::ParamFlags::READWRITE,
+//!                 ),
+//!                 glib::ParamSpec::enum_(
+//!                     "animal",
+//!                     "Animal",
+//!                     "Animal",
+//!                     Animal::static_type(),
+//!                     Animal::default() as i32,
+//!                     glib::ParamFlags::READWRITE,
+//!                 ),
+//!                 glib::ParamSpec::flags(
+//!                     "flags",
+//!                     "Flags",
+//!                     "Flags",
+//!                     MyFlags::static_type(),
+//!                     MyFlags::default().bits(),
+//!                     glib::ParamFlags::READWRITE,
+//!                 ),
+//!             ]
 //!         }
 //!
 //!         // Called whenever a property is set on this instance. The id

@@ -275,92 +275,84 @@ mod test {
         }
 
         impl ObjectImpl for SimpleObject {
+            #[crate::lazy_static]
             fn signals() -> &'static [super::Signal] {
-                use once_cell::sync::Lazy;
-                static SIGNALS: Lazy<Vec<super::Signal>> = Lazy::new(|| {
-                    vec![
-                        super::Signal::builder(
-                            "name-changed",
-                            &[String::static_type().into()],
-                            crate::Type::Unit.into(),
-                        )
+                vec![
+                    super::Signal::builder(
+                        "name-changed",
+                        &[String::static_type().into()],
+                        crate::Type::Unit.into(),
+                    )
+                    .build(),
+                    super::Signal::builder(
+                        "change-name",
+                        &[String::static_type().into()],
+                        String::static_type().into(),
+                    )
+                    .action()
+                    .class_handler(|_, args| {
+                        let obj = args[0]
+                            .get::<super::SimpleObject>()
+                            .expect("Failed to get args[0]")
+                            .expect("Failed to get Object from args[0]");
+                        let new_name = args[1]
+                            .get::<String>()
+                            .expect("Failed to get args[1]")
+                            .expect("Failed to get Object from args[1]");
+                        let imp = SimpleObject::from_instance(&obj);
+
+                        let old_name = imp.name.borrow_mut().take();
+                        *imp.name.borrow_mut() = Some(new_name);
+
+                        obj.emit_by_name("name-changed", &[&*imp.name.borrow()])
+                            .expect("Failed to borrow name");
+
+                        Some(old_name.to_value())
+                    })
+                    .build(),
+                    super::Signal::builder("create-string", &[], String::static_type().into())
                         .build(),
-                        super::Signal::builder(
-                            "change-name",
-                            &[String::static_type().into()],
-                            String::static_type().into(),
-                        )
-                        .action()
-                        .class_handler(|_, args| {
-                            let obj = args[0]
-                                .get::<super::SimpleObject>()
-                                .expect("Failed to get args[0]")
-                                .expect("Failed to get Object from args[0]");
-                            let new_name = args[1]
-                                .get::<String>()
-                                .expect("Failed to get args[1]")
-                                .expect("Failed to get Object from args[1]");
-                            let imp = SimpleObject::from_instance(&obj);
-
-                            let old_name = imp.name.borrow_mut().take();
-                            *imp.name.borrow_mut() = Some(new_name);
-
-                            obj.emit_by_name("name-changed", &[&*imp.name.borrow()])
-                                .expect("Failed to borrow name");
-
-                            Some(old_name.to_value())
-                        })
-                        .build(),
-                        super::Signal::builder("create-string", &[], String::static_type().into())
-                            .build(),
-                        super::Signal::builder(
-                            "create-child-object",
-                            &[],
-                            ChildObject::get_type().into(),
-                        )
-                        .build(),
-                    ]
-                });
-
-                SIGNALS.as_ref()
+                    super::Signal::builder(
+                        "create-child-object",
+                        &[],
+                        ChildObject::get_type().into(),
+                    )
+                    .build(),
+                ]
             }
 
+            #[crate::lazy_static]
             fn properties() -> &'static [ParamSpec] {
-                use once_cell::sync::Lazy;
-                static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                    vec![
-                        crate::ParamSpec::string(
-                            "name",
-                            "Name",
-                            "Name of this object",
-                            None,
-                            crate::ParamFlags::READWRITE,
-                        ),
-                        crate::ParamSpec::string(
-                            "construct-name",
-                            "Construct Name",
-                            "Construct Name of this object",
-                            None,
-                            crate::ParamFlags::READWRITE | crate::ParamFlags::CONSTRUCT_ONLY,
-                        ),
-                        crate::ParamSpec::boolean(
-                            "constructed",
-                            "Constructed",
-                            "True if the constructed() virtual method was called",
-                            false,
-                            crate::ParamFlags::READABLE,
-                        ),
-                        crate::ParamSpec::object(
-                            "child",
-                            "Child",
-                            "Child object",
-                            super::ChildObject::static_type(),
-                            crate::ParamFlags::READWRITE,
-                        ),
-                    ]
-                });
-
-                PROPERTIES.as_ref()
+                vec![
+                    crate::ParamSpec::string(
+                        "name",
+                        "Name",
+                        "Name of this object",
+                        None,
+                        crate::ParamFlags::READWRITE,
+                    ),
+                    crate::ParamSpec::string(
+                        "construct-name",
+                        "Construct Name",
+                        "Construct Name of this object",
+                        None,
+                        crate::ParamFlags::READWRITE | crate::ParamFlags::CONSTRUCT_ONLY,
+                    ),
+                    crate::ParamSpec::boolean(
+                        "constructed",
+                        "Constructed",
+                        "True if the constructed() virtual method was called",
+                        false,
+                        crate::ParamFlags::READABLE,
+                    ),
+                    crate::ParamSpec::object(
+                        "child",
+                        "Child",
+                        "Child object",
+                        super::ChildObject::static_type(),
+                        crate::ParamFlags::READWRITE,
+                    ),
+                ]
             }
 
             fn set_property(
