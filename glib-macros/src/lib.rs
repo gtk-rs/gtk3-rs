@@ -5,11 +5,12 @@ mod downgrade_derive;
 mod gboxed_derive;
 mod genum_derive;
 mod gflags_attribute;
+mod static_attribute;
 mod utils;
 
 use proc_macro::TokenStream;
 use proc_macro_error::proc_macro_error;
-use syn::{parse_macro_input, DeriveInput, LitStr};
+use syn::{parse_macro_input, DeriveInput, ItemFn, LitStr};
 
 /// Macro for passing variables as strong or weak references into a closure.
 ///
@@ -373,4 +374,49 @@ pub fn gflags(attr: TokenStream, item: TokenStream) -> TokenStream {
 pub fn downgrade(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     downgrade_derive::impl_downgrade(input)
+}
+
+/// An attribute macro for wrapping the function's body  in a `once_cell::sync::Lazy`.
+///
+/// The macro is mostly useful for `ObjectImpl` properties/signals definitions.
+///
+/// Example:
+///
+/// Without using the macro
+/// ```rust
+/// pub fn static_func() -> &'static [String] {
+///     use once_cell::sync::Lazy;
+///     static items: Lazy<Vec<String>> = Lazy::new(|| {
+///         vec!["item".to_string(), "item2".to_string()]
+///     });
+///     items.as_ref()
+/// }
+/// ```
+/// With the macro
+/// ```rust
+/// #[glib::lazy_static]
+/// pub fn static_func() -> &'static [String] {
+///     vec!["item".to_string(), "item2".to_string()]
+/// }
+/// ```
+///
+///
+/// ```rust
+/// #[glib::lazy_static]
+/// pub fn static_func2() -> &'static str {
+///     String::from("test")
+/// }
+/// ```
+///  
+/// ```rust
+/// #[glib::lazy_static]
+/// pub fn static_func3() -> &'static std::path::Path {
+///     glib::get_user_cache_dir()
+/// }
+/// ```
+#[proc_macro_attribute]
+#[proc_macro_error]
+pub fn lazy_static(_attr: TokenStream, item: TokenStream) -> TokenStream {
+    let input = parse_macro_input!(item as ItemFn);
+    static_attribute::impl_lazy_static(input)
 }
