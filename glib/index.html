@@ -34,7 +34,7 @@ domains</a> (such as
 <p>Each class and interface has a corresponding smart pointer struct
 representing an instance of that type (e.g. <code>Object</code> for <code>GObject</code>,
 <code>gtk::Widget</code> for <code>GtkWidget</code>). They are reference counted and feature
-interior mutability similarly to Rust's <code>Rc&lt;RefCell&lt;T&gt;&gt;</code> idiom.
+interior mutability similarly to Rust’s <code>Rc&lt;RefCell&lt;T&gt;&gt;</code> idiom.
 Consequently, cloning objects is cheap and their methods never require
 mutable borrows. Two smart pointers are equal iff they point to the same
 object.</p>
@@ -46,7 +46,7 @@ and downcasting.</p>
 <code>ObjectExt</code> and <code>gtk::WidgetExt</code>), which are blanketly implemented for all
 their subtypes.</p>
 <p>You can create new subclasses of <code>Object</code> or other object types. Look at
-the module's documentation for further details and a code example.</p>
+the module’s documentation for further details and a code example.</p>
 <h1 id="under-the-hood" class="section-header"><a href="#under-the-hood">Under the hood</a></h1>
 <p>GLib-based libraries largely operate on pointers to various boxed or
 reference counted structures so the bindings have to implement corresponding

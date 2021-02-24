@@ -580,7 +580,7 @@ path will be modified to reflect this change.</p>
 </div><h3 id="tymethod.scroll_to_point" class="method"><code>fn <a href="#tymethod.scroll_to_point" class="fnname">scroll_to_point</a>(&amp;self, tree_x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, tree_y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../src/gtk/auto/tree_view.rs.html#1386" title="goto source code">[src]</a></h3><div class="docblock"><p>Scrolls the tree view such that the top-left corner of the visible
 area is <code>tree_x</code>, <code>tree_y</code>, where <code>tree_x</code> and <code>tree_y</code> are specified
 in tree coordinates. The <code>self</code> must be realized before
-this function is called. If it isn't, you probably want to be
+this function is called. If it isn’t, you probably want to be
 using <code>TreeViewExt::scroll_to_cell</code>.</p>
 <p>If either <code>tree_x</code> or <code>tree_y</code> are -1, then that direction isn’t scrolled.</p>
 <h2 id="tree_x" class="section-header"><a href="#tree_x"><code>tree_x</code></a></h2>
@@ -650,7 +650,7 @@ If <code>path</code> is <code>None</code>, an existing highlight is removed.</p>
 <h2 id="pos-2" class="section-header"><a href="#pos-2"><code>pos</code></a></h2>
 <p>Specifies whether to drop before, after or into the row</p>
 </div><h3 id="tymethod.set_enable_search" class="method"><code>fn <a href="#tymethod.set_enable_search" class="fnname">set_enable_search</a>(&amp;self, enable_search: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../src/gtk/auto/tree_view.rs.html#1494" title="goto source code">[src]</a></h3><div class="docblock"><p>If <code>enable_search</code> is set, then the user can type in text to search through
-the tree interactively (this is sometimes called &quot;typeahead find&quot;).</p>
+the tree interactively (this is sometimes called “typeahead find”).</p>
 <p>Note that even if this is <code>false</code>, the user can still initiate a search
 using the “start-interactive-search” key binding.</p>
 <h2 id="enable_search" class="section-header"><a href="#enable_search"><code>enable_search</code></a></h2>
@@ -716,7 +716,7 @@ and <code>TreeModel::row-deleted</code> signals. The reordering is implemented
 by setting up the tree view as a drag source and destination.
 Therefore, drag and drop can not be used in a reorderable view for any
 other purpose.</p>
-<p>This function does not give you any degree of control over the order -- any
+<p>This function does not give you any degree of control over the order – any
 reordering is allowed. If more control is needed, you should probably
 handle drag and drop manually.</p>
 <h2 id="reorderable" class="section-header"><a href="#reorderable"><code>reorderable</code></a></h2>
@@ -840,11 +840,11 @@ supported. <code>MovementStep::LogicalPositions</code> and
 undefined for all other values.</p>
 <h1 id="returns-37" class="section-header"><a href="#returns-37">Returns</a></h1>
 <p><code>true</code> if <code>step</code> is supported, <code>false</code> otherwise.</p>
-</div><h3 id="tymethod.emit_move_cursor" class="method"><code>fn <a href="#tymethod.emit_move_cursor" class="fnname">emit_move_cursor</a>(&amp;self, step: <a class="enum" href="../gtk/enum.MovementStep.html" title="enum gtk::MovementStep">MovementStep</a>, direction: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gtk/auto/tree_view.rs.html#1795" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_row_activated" class="method"><code>fn <a href="#tymethod.connect_row_activated" class="fnname">connect_row_activated</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gtk/struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, &amp;<a class="struct" href="../gtk/struct.TreeViewColumn.html" title="struct gtk::TreeViewColumn">TreeViewColumn</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/tree_view.rs.html#1812-1815" title="goto source code">[src]</a></h3><div class="docblock"><p>The &quot;row-activated&quot; signal is emitted when the method
+</div><h3 id="tymethod.emit_move_cursor" class="method"><code>fn <a href="#tymethod.emit_move_cursor" class="fnname">emit_move_cursor</a>(&amp;self, step: <a class="enum" href="../gtk/enum.MovementStep.html" title="enum gtk::MovementStep">MovementStep</a>, direction: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gtk/auto/tree_view.rs.html#1795" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_row_activated" class="method"><code>fn <a href="#tymethod.connect_row_activated" class="fnname">connect_row_activated</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gtk/struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, &amp;<a class="struct" href="../gtk/struct.TreeViewColumn.html" title="struct gtk::TreeViewColumn">TreeViewColumn</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/tree_view.rs.html#1812-1815" title="goto source code">[src]</a></h3><div class="docblock"><p>The “row-activated” signal is emitted when the method
 <code>TreeViewExt::row_activated</code> is called, when the user double
-clicks a treeview row with the &quot;activate-on-single-click&quot;
+clicks a treeview row with the “activate-on-single-click”
 property set to <code>false</code>, or when the user single clicks a row when
-the &quot;activate-on-single-click&quot; property set to <code>true</code>. It is also
+the “activate-on-single-click” property set to <code>true</code>. It is also
 emitted when a non-editable row is selected and one of the keys:
 Space, Shift+Space, Return or Enter is pressed.</p>
 <p>For selection handling refer to the

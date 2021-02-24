@@ -23,7 +23,7 @@ and will result in <code>IOErrorEnum::Pending</code> errors.</p>
 requested size, as it can happen e.g. on a partial I/O error,
 but generally we try to write as many bytes as requested.</p>
 <p>You are guaranteed that this method will never fail with
-<code>IOErrorEnum::WouldBlock</code> - if <code>self</code> can't accept more data, the
+<code>IOErrorEnum::WouldBlock</code> - if <code>self</code> can’t accept more data, the
 method will just wait until this changes.</p>
 <p>Any outstanding I/O request with higher priority (lower numerical
 value) will be executed before an outstanding request with lower

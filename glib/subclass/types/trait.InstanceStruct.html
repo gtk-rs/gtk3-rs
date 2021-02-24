@@ -6,7 +6,7 @@
     fn <a href="#method.get_impl" class="fnname">get_impl</a>(&amp;self) -&gt; &amp;Self::<a class="type" href="../../../glib/subclass/types/trait.InstanceStruct.html#associatedtype.Type" title="type glib::subclass::types::InstanceStruct::Type">Type</a> { ... }
 <div class="item-spacer"></div>    fn <a href="#method.get_class" class="fnname">get_class</a>(&amp;self) -&gt; &amp;&lt;Self::<a class="type" href="../../../glib/subclass/types/trait.InstanceStruct.html#associatedtype.Type" title="type glib::subclass::types::InstanceStruct::Type">Type</a> as <a class="trait" href="../../../glib/subclass/types/trait.ObjectSubclass.html" title="trait glib::subclass::types::ObjectSubclass">ObjectSubclass</a>&gt;::<a class="type" href="../../../glib/subclass/types/trait.ObjectSubclass.html#associatedtype.Class" title="type glib::subclass::types::ObjectSubclass::Class">Class</a> { ... }
 }</pre></div><div class="docblock"><p>Trait implemented by structs that implement a <code>GObject</code> C instance struct.</p>
-<p>The struct must be <code>#[repr(C)]</code> and have the parent type's instance struct
+<p>The struct must be <code>#[repr(C)]</code> and have the parent type’s instance struct
 as the first field.</p>
 <p>See <a href="../simple/struct.InstanceStruct.html"><code>simple::InstanceStruct</code></a> for a basic implementation of this that can
 be used most of the time and should only not be used if additional fields are

@@ -74,7 +74,7 @@ readable text alternative for <code>value</code></p>
 <p><code>true</code> if new value is successfully set, <code>false</code> otherwise.</p>
 </div><h3 id="tymethod.set_value" class="method"><code>fn <a href="#tymethod.set_value" class="fnname">set_value</a>(&amp;self, new_value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>)</code><a class="srclink" href="../src/atk/auto/value.rs.html#151" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the value of this object.</p>
 <p>This method is intended to provide a way to change the value of the
-object. In any case, it is possible that the value can't be
+object. In any case, it is possible that the value can’t be
 modified (ie: a read-only component). If the value changes due this
 call, it is possible that the text could change, and will trigger
 an <code>Value::value-changed</code> signal emission.</p>
@@ -86,7 +86,7 @@ required anymore to return if the value was properly assigned or
 not.</p>
 <h2 id="new_value" class="section-header"><a href="#new_value"><code>new_value</code></a></h2>
 <p>a double which is the desired new accessible value.</p>
-</div><h3 id="tymethod.connect_value_changed" class="method"><code>fn <a href="#tymethod.connect_value_changed" class="fnname">connect_value_changed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/atk/auto/value.rs.html#170" title="goto source code">[src]</a></h3><div class="docblock"><p>The 'value-changed' signal is emitted when the current value
+</div><h3 id="tymethod.connect_value_changed" class="method"><code>fn <a href="#tymethod.connect_value_changed" class="fnname">connect_value_changed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/atk/auto/value.rs.html#170" title="goto source code">[src]</a></h3><div class="docblock"><p>The ‘value-changed’ signal is emitted when the current value
 that represent the object changes. <code>value</code> is the numerical
 representation of this new value. <code>text</code> is the human
 readable text alternative of <code>value</code>, and can be NULL if it is
@@ -96,7 +96,7 @@ should be included regardless of whether or not it has also
 changed.</p>
 <p>Example: a password meter whose value changes as the user
 types their new password. Appropiate value text would be
-&quot;weak&quot;, &quot;acceptable&quot; and &quot;strong&quot;.</p>
+“weak”, “acceptable” and “strong”.</p>
 <h2 id="value-6" class="section-header"><a href="#value-6"><code>value</code></a></h2>
 <p>the new value in a numerical form.</p>
 <h2 id="text-1" class="section-header"><a href="#text-1"><code>text</code></a></h2>

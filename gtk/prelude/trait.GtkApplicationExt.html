@@ -78,7 +78,7 @@ if another application has it — this is just the most
 recently-focused window within this application.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>the active window, or <code>None</code> if
-there isn't one.</p>
+there isn’t one.</p>
 </div><h3 id="tymethod.get_app_menu" class="method"><code>fn <a href="#tymethod.get_app_menu" class="fnname">get_app_menu</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../gio/auto/menu_model/struct.MenuModel.html" title="struct gio::auto::menu_model::MenuModel">MenuModel</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/application.rs.html#204" title="goto source code">[src]</a></h3><div class="docblock"><p>Returns the menu model that has been set with
 <code>GtkApplicationExt::set_app_menu</code>.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
@@ -164,22 +164,22 @@ menu, which will be shown by the desktop environment. If it returns
 a menubar.</p>
 <p>The value returned by this function is purely advisory and you are
 free to ignore it. If you call <code>GtkApplicationExt::set_app_menu</code> even
-if the desktop environment doesn't support app menus, then a fallback
+if the desktop environment doesn’t support app menus, then a fallback
 will be provided.</p>
 <p>Applications are similarly free not to set an app menu even if the
 desktop environment wants to show one. In that case, a fallback will
 also be created by the desktop environment (GNOME, for example, uses
-a menu with only a &quot;Quit&quot; item in it).</p>
+a menu with only a “Quit” item in it).</p>
 <p>The value returned by this function never changes. Once it returns a
 particular value, it is guaranteed to always return the same value.</p>
 <p>You may only call this function after the application has been
-registered and after the base startup handler has run. You're most
+registered and after the base startup handler has run. You’re most
 likely to want to use this from your own startup handler. It may
 also make sense to consult this function while constructing UI (in
 activate, open or an action activation handler) in order to determine
 if you should show a gear menu or not.</p>
 <p>This function will return <code>false</code> on Mac OS and a default app menu
-will be created automatically with the &quot;usual&quot; contents of that menu
+will be created automatically with the “usual” contents of that menu
 typical to most Mac OS applications. If you call
 <code>GtkApplicationExt::set_app_menu</code> anyway, then this menu will be
 replaced with your own.</p>

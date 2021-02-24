@@ -23,7 +23,7 @@ internally, and any other operations on the stream will fail with
 <p>Can fail if the stream was already closed (with <code>error</code> being set to
 <code>IOErrorEnum::Closed</code>), the stream has pending operations (with <code>error</code> being
 set to <code>IOErrorEnum::Pending</code>), or if querying info is not supported for
-the stream's interface (with <code>error</code> being set to <code>IOErrorEnum::NotSupported</code>). In
+the stream’s interface (with <code>error</code> being set to <code>IOErrorEnum::NotSupported</code>). In
 all cases of failure, <code>None</code> will be returned.</p>
 <p>If <code>cancellable</code> is not <code>None</code>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation

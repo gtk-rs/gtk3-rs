@@ -135,7 +135,7 @@ event that possibly starts kinetic scrolling. When <code>capture_button_press</c
 is set to <code>true</code>, the event is captured by the scrolled window, and
 then later replayed if it is meant to go to the child widget.</p>
 <p>This should be enabled if any child widgets perform non-reversible
-actions on <code>Widget::button-press-event</code>. If they don't, and handle
+actions on <code>Widget::button-press-event</code>. If they don’t, and handle
 additionally handle <code>Widget::grab-broken-event</code>, it might be better
 to set <code>capture_button_press</code> to <code>false</code>.</p>
 <p>This setting only has an effect if kinetic scrolling is enabled.</p>

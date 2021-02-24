@@ -60,17 +60,17 @@ connectivity state will be <code>NetworkConnectivity::Full</code> (if there
 is full Internet connectivity), <code>NetworkConnectivity::Limited</code> (if
 the host has a default route, but appears to be unable to actually
 reach the full Internet), or <code>NetworkConnectivity::Portal</code> (if the
-host is trapped behind a &quot;captive portal&quot; that requires some sort
+host is trapped behind a “captive portal” that requires some sort
 of login or acknowledgement before allowing full Internet access).</p>
 <p>Note that in the case of <code>NetworkConnectivity::Limited</code> and
 <code>NetworkConnectivity::Portal</code>, it is possible that some sites are
 reachable but others are not. In this case, applications can
 attempt to connect to remote servers, but should gracefully fall
-back to their &quot;offline&quot; behavior if the connection attempt fails.</p>
+back to their “offline” behavior if the connection attempt fails.</p>
 <p>Feature: <code>v2_44</code></p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>the network connectivity state</p>
-</div><h3 id="tymethod.get_network_available" class="method"><code>fn <a href="#tymethod.get_network_available" class="fnname">get_network_available</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/network_monitor.rs.html#157" title="goto source code">[src]</a></h3><div class="docblock"><p>Checks if the network is available. &quot;Available&quot; here means that the
+</div><h3 id="tymethod.get_network_available" class="method"><code>fn <a href="#tymethod.get_network_available" class="fnname">get_network_available</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/network_monitor.rs.html#157" title="goto source code">[src]</a></h3><div class="docblock"><p>Checks if the network is available. “Available” here means that the
 system has a default route available for at least one of IPv4 or
 IPv6. It does not necessarily imply that the public Internet is
 reachable. See <code>NetworkMonitor:network-available</code> for more details.</p>

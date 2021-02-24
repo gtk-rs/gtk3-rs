@@ -295,7 +295,7 @@ imageable area (i.e. inside the margins).</p>
 <h2 id="full_page" class="section-header"><a href="#full_page"><code>full_page</code></a></h2>
 <p><code>true</code> to set up the <code>PrintContext</code> for the full page</p>
 </div><h3 id="tymethod.get_property_allow_async" class="method"><code>fn <a href="#tymethod.get_property_allow_async" class="fnname">get_property_allow_async</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gtk/auto/print_operation.rs.html#575" title="goto source code">[src]</a></h3><div class="docblock"><p>Determines whether the print operation may run asynchronously or not.</p>
-<p>Some systems don't support asynchronous printing, but those that do
+<p>Some systems don’t support asynchronous printing, but those that do
 will return <code>PrintOperationResult::InProgress</code> as the status, and
 emit the <code>PrintOperation::done</code> signal when the operation is actually
 done.</p>
@@ -318,7 +318,7 @@ by letting the user pick the “Print to PDF” item from the
 list of printers in the print dialog.</p>
 </div><h3 id="tymethod.get_property_job_name" class="method"><code>fn <a href="#tymethod.get_property_job_name" class="fnname">get_property_job_name</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../src/gtk/auto/print_operation.rs.html#607" title="goto source code">[src]</a></h3><div class="docblock"><p>A string used to identify the job (e.g. in monitoring
 applications like eggcups).</p>
-<p>If you don't set a job name, GTK+ picks a default one
+<p>If you don’t set a job name, GTK+ picks a default one
 by numbering successive print jobs.</p>
 </div><h3 id="tymethod.get_property_n_pages" class="method"><code>fn <a href="#tymethod.get_property_n_pages" class="fnname">get_property_n_pages</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../src/gtk/auto/print_operation.rs.html#620" title="goto source code">[src]</a></h3><div class="docblock"><p>The number of pages in the document.</p>
 <p>This must be set to a positive number
@@ -383,7 +383,7 @@ after <code>PrintOperation::done</code> was emitted.</p>
 <h2 id="result" class="section-header"><a href="#result"><code>result</code></a></h2>
 <p>the result of the print operation</p>
 </div><h3 id="tymethod.connect_draw_page" class="method"><code>fn <a href="#tymethod.connect_draw_page" class="fnname">connect_draw_page</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gtk/struct.PrintContext.html" title="struct gtk::PrintContext">PrintContext</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/print_operation.rs.html#754-757" title="goto source code">[src]</a></h3><div class="docblock"><p>Emitted for every page that is printed. The signal handler
-must render the <code>page_nr</code>'s page onto the cairo context obtained
+must render the <code>page_nr</code>’s page onto the cairo context obtained
 from <code>context</code> using <code>PrintContext::get_cairo_context</code>.</p>
 <pre><code class="language-C">static void
 draw_page (GtkPrintOperation *operation,
@@ -445,7 +445,7 @@ in small chunks, to avoid blocking the user interface for a long
 time. The signal handler should update the number of pages using
 <code>PrintOperationExt::set_n_pages</code>, and return <code>true</code> if the document
 has been completely paginated.</p>
-<p>If you don't need to do pagination in chunks, you can simply do
+<p>If you don’t need to do pagination in chunks, you can simply do
 it all in the ::begin-print handler, and set the number of pages
 from there.</p>
 <h2 id="context-3" class="section-header"><a href="#context-3"><code>context</code></a></h2>

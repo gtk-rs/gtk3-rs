@@ -345,7 +345,7 @@ indices in the layout to byte indices in the entry contents.</p>
 <p>location to store Y offset of layout, or <code>None</code></p>
 </div><h3 id="tymethod.get_max_length" class="method"><code>fn <a href="#tymethod.get_max_length" class="fnname">get_max_length</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/entry.rs.html#1046" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the maximum allowed length of the text in
 <code>self</code>. See <code>EntryExt::set_max_length</code>.</p>
-<p>This is equivalent to getting <code>self</code>'s <code>EntryBuffer</code> and
+<p>This is equivalent to getting <code>self</code>’s <code>EntryBuffer</code> and
 calling <code>EntryBufferExt::get_max_length</code> on it.</p>
 <h1 id="returns-18" class="section-header"><a href="#returns-18">Returns</a></h1>
 <p>the maximum allowed number of characters
@@ -374,7 +374,7 @@ any.</p>
 <p>the tabstops, or <code>None</code> if none was set.</p>
 </div><h3 id="tymethod.get_text" class="method"><code>fn <a href="#tymethod.get_text" class="fnname">get_text</a>(&amp;self) -&gt; <a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a></code><a class="srclink" href="../../src/gtk/auto/entry.rs.html#1113" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the contents of the entry widget.
 See also <code>Editable::get_chars</code>.</p>
-<p>This is equivalent to getting <code>self</code>'s <code>EntryBuffer</code> and calling
+<p>This is equivalent to getting <code>self</code>’s <code>EntryBuffer</code> and calling
 <code>EntryBufferExt::get_text</code> on it.</p>
 <h1 id="returns-25" class="section-header"><a href="#returns-25">Returns</a></h1>
 <p>a pointer to the contents of the widget as a
@@ -389,7 +389,7 @@ useful when drawing something to the entry in a draw callback.</p>
 <p>Return location for the text area.</p>
 </div><h3 id="tymethod.get_text_length" class="method"><code>fn <a href="#tymethod.get_text_length" class="fnname">get_text_length</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a></code><a class="srclink" href="../../src/gtk/auto/entry.rs.html#1137" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the current length of the text in
 <code>self</code>.</p>
-<p>This is equivalent to getting <code>self</code>'s <code>EntryBuffer</code> and
+<p>This is equivalent to getting <code>self</code>’s <code>EntryBuffer</code> and
 calling <code>EntryBufferExt::get_length</code> on it.</p>
 <h1 id="returns-26" class="section-header"><a href="#returns-26">Returns</a></h1>
 <p>the current number of characters
@@ -403,9 +403,9 @@ in <code>Entry</code>, or 0 if there are none.</p>
 <p>number of chars to request space for, or negative if unset</p>
 </div><h3 id="tymethod.grab_focus_without_selecting" class="method"><code>fn <a href="#tymethod.grab_focus_without_selecting" class="fnname">grab_focus_without_selecting</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/entry.rs.html#1169" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Causes <code>self</code> to have keyboard focus.</p>
 <p>It behaves like <code>WidgetExt::grab_focus</code>,
-except that it doesn't select the contents of the entry.
+except that it doesn’t select the contents of the entry.
 You only want to call this on some special entries
-which the user usually doesn't want to replace all text in,
+which the user usually doesn’t want to replace all text in,
 such as search-as-you-type entries.</p>
 <p>Feature: <code>v3_16</code></p>
 </div><h3 id="tymethod.im_context_filter_keypress" class="method"><code>fn <a href="#tymethod.im_context_filter_keypress" class="fnname">im_context_filter_keypress</a>(&amp;self, event: &amp;<a class="struct" href="../../gdk/event_key/struct.EventKey.html" title="struct gdk::event_key::EventKey">EventKey</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/entry.rs.html#1188" title="goto source code">[src]</a></h3><div class="docblock"><p>Allow the <code>Entry</code> input method to internally handle key press
@@ -575,7 +575,7 @@ at all; there will be no text on the screen as they type.</p>
 </div><h3 id="tymethod.set_max_length" class="method"><code>fn <a href="#tymethod.set_max_length" class="fnname">set_max_length</a>(&amp;self, max: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/entry.rs.html#1441" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the maximum allowed length of the contents of the widget. If
 the current contents are longer than the given length, then they
 will be truncated to fit.</p>
-<p>This is equivalent to getting <code>self</code>'s <code>EntryBuffer</code> and
+<p>This is equivalent to getting <code>self</code>’s <code>EntryBuffer</code> and
 calling <code>EntryBufferExt::set_max_length</code> on it.
 ]|</p>
 <h2 id="max" class="section-header"><a href="#max"><code>max</code></a></h2>

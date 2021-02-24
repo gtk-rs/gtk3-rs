@@ -62,7 +62,7 @@ contents is needed, program code must additionally compare relevant fields.</p>
 </div><h3 id="tymethod.get_commandline" class="method"><code>fn <a href="#tymethod.get_commandline" class="fnname">get_commandline</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html" title="struct std::path::PathBuf">PathBuf</a>&gt;</code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#412" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the commandline with which the application will be
 started.</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
-<p>a string containing the <code>self</code>'s commandline,
+<p>a string containing the <code>self</code>’s commandline,
 or <code>None</code> if this information is not available</p>
 </div><h3 id="tymethod.get_description" class="method"><code>fn <a href="#tymethod.get_description" class="fnname">get_description</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#421" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets a human-readable description of an installed application.</p>
 <h1 id="returns-7" class="section-header"><a href="#returns-7">Returns</a></h1>
@@ -73,9 +73,9 @@ descriptive to the user than the name itself.</p>
 <h1 id="returns-8" class="section-header"><a href="#returns-8">Returns</a></h1>
 <p>the display name of the application for <code>self</code>, or the name if
 no display name is available.</p>
-</div><h3 id="tymethod.get_executable" class="method"><code>fn <a href="#tymethod.get_executable" class="fnname">get_executable</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html" title="struct std::path::PathBuf">PathBuf</a>&gt;</code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#440" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the executable's name for the installed application.</p>
+</div><h3 id="tymethod.get_executable" class="method"><code>fn <a href="#tymethod.get_executable" class="fnname">get_executable</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html" title="struct std::path::PathBuf">PathBuf</a>&gt;</code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#440" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the executable’s name for the installed application.</p>
 <h1 id="returns-9" class="section-header"><a href="#returns-9">Returns</a></h1>
-<p>a string containing the <code>self</code>'s application
+<p>a string containing the <code>self</code>’s application
 binaries name</p>
 </div><h3 id="tymethod.get_icon" class="method"><code>fn <a href="#tymethod.get_icon" class="fnname">get_icon</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../gio/struct.Icon.html" title="struct gio::Icon">Icon</a>&gt;</code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#449" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the icon for the application.</p>
 <h1 id="returns-10" class="section-header"><a href="#returns-10">Returns</a></h1>
@@ -88,7 +88,7 @@ desktop file id from the xdg menu specification.</p>
 <p>Note that the returned ID may be <code>None</code>, depending on how
 the <code>self</code> has been constructed.</p>
 <h1 id="returns-11" class="section-header"><a href="#returns-11">Returns</a></h1>
-<p>a string containing the application's ID.</p>
+<p>a string containing the application’s ID.</p>
 </div><h3 id="tymethod.get_name" class="method"><code>fn <a href="#tymethod.get_name" class="fnname">get_name</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#471" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the installed name of the application.</p>
 <h1 id="returns-12" class="section-header"><a href="#returns-12">Returns</a></h1>
 <p>the name of the application for <code>self</code>.</p>

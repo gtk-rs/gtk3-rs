@@ -6,7 +6,7 @@
     fn <a href="#method.override_vfuncs" class="fnname">override_vfuncs</a>(&amp;mut self)<br>&nbsp;&nbsp;&nbsp; <span class="where">where<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Self::<a class="type" href="../../../glib/subclass/types/trait.ClassStruct.html#associatedtype.Type" title="type glib::subclass::types::ClassStruct::Type">Type</a> as <a class="trait" href="../../../glib/subclass/types/trait.ObjectSubclass.html" title="trait glib::subclass::types::ObjectSubclass">ObjectSubclass</a>&gt;::<a class="type" href="../../../glib/subclass/types/trait.ObjectSubclass.html#associatedtype.ParentType" title="type glib::subclass::types::ObjectSubclass::ParentType">ParentType</a>: <a class="trait" href="../../../glib/subclass/types/trait.IsSubclassable.html" title="trait glib::subclass::types::IsSubclassable">IsSubclassable</a>&lt;Self::<a class="type" href="../../../glib/subclass/types/trait.ClassStruct.html#associatedtype.Type" title="type glib::subclass::types::ClassStruct::Type">Type</a>&gt;</span>,
     { ... }
 }</pre></div><div class="docblock"><p>Trait implemented by structs that implement a <code>GObject</code> C class struct.</p>
-<p>The struct must be <code>#[repr(C)]</code> and have the parent type's class struct
+<p>The struct must be <code>#[repr(C)]</code> and have the parent type’s class struct
 as the first field.</p>
 <p>See <a href="../simple/struct.ClassStruct.html"><code>simple::ClassStruct</code></a> for a basic implementation of this that can
 be used most of the time and should only not be used if additional fields are

@@ -60,7 +60,7 @@ anywhere. Do not free, the string belongs to <code>self</code>.</p>
 </div><h3 id="tymethod.get_properties" class="method"><code>fn <a href="#tymethod.get_properties" class="fnname">get_properties</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../glib/variant/struct.Variant.html" title="struct glib::variant::Variant">Variant</a>&gt;</code><a class="srclink" href="../../src/gio/auto/dbus_interface_skeleton.rs.html#112" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets all D-Bus properties for <code>self</code>.</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
 <p>A <code>glib::Variant</code> of type
-['a{sv}'][G-VARIANT-TYPE-VARDICT:CAPS].
+[‘a{sv}’][G-VARIANT-TYPE-VARDICT:CAPS].
 Free with <code>glib::Variant::unref</code>.</p>
 </div><h3 id="tymethod.has_connection" class="method"><code>fn <a href="#tymethod.has_connection" class="fnname">has_connection</a>(&amp;self, connection: &amp;<a class="struct" href="../../gio/struct.DBusConnection.html" title="struct gio::DBusConnection">DBusConnection</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/dbus_interface_skeleton.rs.html#125" title="goto source code">[src]</a></h3><div class="docblock"><p>Checks if <code>self</code> is exported on <code>connection</code>.</p>
 <h2 id="connection-1" class="section-header"><a href="#connection-1"><code>connection</code></a></h2>
@@ -100,7 +100,7 @@ handlers return <code>false</code>, then the method is dispatched. If
 the handlers for this signal.</p>
 <p>The default class handler just returns <code>true</code>.</p>
 <p>Please note that the common case is optimized: if no signals
-handlers are connected and the default class handler isn't
+handlers are connected and the default class handler isn’t
 overridden (for both <code>interface</code> and the enclosing
 <code>DBusObjectSkeleton</code>, if any) and <code>DBusInterfaceSkeleton:g-flags</code> does
 not have the

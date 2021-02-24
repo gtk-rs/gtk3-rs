@@ -94,11 +94,11 @@ and the current value.</p>
 <p>the position in which the current value is displayed</p>
 </div><h3 id="tymethod.connect_format_value" class="method"><code>fn <a href="#tymethod.connect_format_value" class="fnname">connect_format_value</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/scale.rs.html#653" title="goto source code">[src]</a></h3><div class="docblock"><p>Signal which allows you to change how the scale value is displayed.
 Connect a signal handler which returns an allocated string representing
-<code>value</code>. That string will then be used to display the scale's value.</p>
+<code>value</code>. That string will then be used to display the scale’s value.</p>
 <p>If no user-provided handlers are installed, the value will be displayed on
 its own, rounded according to the value of the <code>Scale:digits</code> property.</p>
-<p>Here's an example signal handler which displays a value 1.0 as
-with &quot;--&gt;1.0&lt;--&quot;.</p>
+<p>Here’s an example signal handler which displays a value 1.0 as
+with “–&gt;1.0&lt;–”.</p>
 <pre><code class="language-C">static gchar*
 format_value_callback (GtkScale *scale,
                        gdouble   value)

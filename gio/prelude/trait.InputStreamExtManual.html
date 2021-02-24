@@ -22,7 +22,7 @@ It is not an error if this is not the same as the requested size, as it
 can happen e.g. near the end of a file. Zero is returned on end of file
 (or if <code>count</code> is zero), but never otherwise.</p>
 <p>The returned <code>buffer</code> is not a nul-terminated string, it can contain nul bytes
-at any position, and this function doesn't nul-terminate the <code>buffer</code>.</p>
+at any position, and this function doesn’t nul-terminate the <code>buffer</code>.</p>
 <p>If <code>cancellable</code> is not <code>None</code>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <code>IOErrorEnum::Cancelled</code> will be returned. If an

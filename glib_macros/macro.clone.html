@@ -10,9 +10,9 @@ closure is immediately returning an optional default return value. If none is pr
 returned.</p>
 <h3 id="debugging" class="section-header"><a href="#debugging">Debugging</a></h3>
 <p>In case something goes wrong inside the <code>clone!</code> macro, we use the <a href="https://gtk-rs.org/docs/glib/macro.g_debug.html"><code>g_debug</code></a> macro. Meaning
-that if you want to see these debug messages, you'll have to set the <code>G_MESSAGES_DEBUG</code>
+that if you want to see these debug messages, you’ll have to set the <code>G_MESSAGES_DEBUG</code>
 environment variable when running your code (either in the code directly or when running the
-binary) to either &quot;all&quot; or <a href="https://gtk-rs.org/docs/glib/constant.CLONE_MACRO_LOG_DOMAIN.html"><code>CLONE_MACRO_LOG_DOMAIN</code></a>:</p>
+binary) to either “all” or <a href="https://gtk-rs.org/docs/glib/constant.CLONE_MACRO_LOG_DOMAIN.html"><code>CLONE_MACRO_LOG_DOMAIN</code></a>:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">CLONE_MACRO_LOG_DOMAIN</span>;
@@ -43,7 +43,7 @@ binary) to either &quot;all&quot; or <a href="https://gtk-rs.org/docs/glib/const
 
 <span class="ident">closure</span>(<span class="number">3</span>);</pre></div>
 <h4 id="allowing-a-nullable-weak-reference" class="section-header"><a href="#allowing-a-nullable-weak-reference">Allowing a nullable weak reference</a></h4>
-<p>In some cases, even if the weak references can't be retrieved, you might want to still have
+<p>In some cases, even if the weak references can’t be retrieved, you might want to still have
 your closure called. In this case, you need to use <code>@weak-allow-none</code>:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -90,7 +90,7 @@ your closure called. In this case, you need to use <code>@weak-allow-none</code>
 <span class="ident">drop</span>(<span class="ident">v</span>);
 
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">closure</span>(<span class="number">2</span>), <span class="bool-val">false</span>);</pre></div>
-<p>Or by using <code>@default-panic</code> (if the value fails to get upgraded, it'll panic):</p>
+<p>Or by using <code>@default-panic</code> (if the value fails to get upgraded, it’ll panic):</p>
 <pre><code class="language-run_fail"># use glib_macros::clone;
 # use std::rc::Rc;
 # let v = Rc::new(1);
@@ -122,7 +122,7 @@ let closure = clone!(@weak v =&gt; @default-panic, move |x| {
         });
     }
 }</pre></div>
-<p>If you want to use <code>self</code> directly, you'll need to rename it:</p>
+<p>If you want to use <code>self</code> directly, you’ll need to rename it:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>

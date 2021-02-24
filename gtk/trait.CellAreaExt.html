@@ -460,7 +460,7 @@ where <code>editable</code> should be added</p>
 </div><h3 id="tymethod.connect_focus_changed" class="method"><code>fn <a href="#tymethod.connect_focus_changed" class="fnname">connect_focus_changed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gtk/struct.CellRenderer.html" title="struct gtk::CellRenderer">CellRenderer</a>, <a class="struct" href="../gtk/struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/cell_area.rs.html#764-767" title="goto source code">[src]</a></h3><div class="docblock"><p>Indicates that focus changed on this <code>area</code>. This signal
 is emitted either as a result of focus handling or event
 handling.</p>
-<p>It's possible that the signal is emitted even if the
+<p>It’s possible that the signal is emitted even if the
 currently focused renderer did not change, this is
 because focus may change to the same renderer in the
 same cell area for a different row of data.</p>

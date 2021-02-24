@@ -92,10 +92,10 @@ information about volume identifiers.</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
 <p>a newly allocated string containing the
 requested identifier, or <code>None</code> if the <code>Volume</code>
-doesn't have this kind of identifier</p>
+doesn’t have this kind of identifier</p>
 </div><h3 id="tymethod.get_mount" class="method"><code>fn <a href="#tymethod.get_mount" class="fnname">get_mount</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../gio/struct.Mount.html" title="struct gio::Mount">Mount</a>&gt;</code><a class="srclink" href="../../src/gio/auto/volume.rs.html#178" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the mount for the <code>self</code>.</p>
 <h1 id="returns-7" class="section-header"><a href="#returns-7">Returns</a></h1>
-<p>a <code>Mount</code> or <code>None</code> if <code>self</code> isn't mounted.
+<p>a <code>Mount</code> or <code>None</code> if <code>self</code> isn’t mounted.
 The returned object should be unreffed with <code>gobject::ObjectExt::unref</code>
 when no longer needed.</p>
 </div><h3 id="tymethod.get_name" class="method"><code>fn <a href="#tymethod.get_name" class="fnname">get_name</a>(&amp;self) -&gt; <a class="struct" href="../../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a></code><a class="srclink" href="../../src/gio/auto/volume.rs.html#187" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the name of <code>self</code>.</p>

@@ -47,7 +47,7 @@ does not exist, <code>None</code> is returned.</p>
 <p>An immutable <code>MenuModel</code> will never emit the <code>MenuModel::items-changed</code>
 signal. Consumers of the model may make optimisations accordingly.</p>
 <h1 id="returns-3" class="section-header"><a href="#returns-3">Returns</a></h1>
-<p><code>true</code> if the model is mutable (ie: &quot;items-changed&quot; may be
+<p><code>true</code> if the model is mutable (ie: “items-changed” may be
 emitted).</p>
 </div><h3 id="tymethod.items_changed" class="method"><code>fn <a href="#tymethod.items_changed" class="fnname">items_changed</a>(&amp;self, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, removed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, added: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gio/auto/menu_model.rs.html#123" title="goto source code">[src]</a></h3><div class="docblock"><p>Requests emission of the <code>MenuModel::items-changed</code> signal on <code>self</code>.</p>
 <p>This function should never be called except by <code>MenuModel</code>
@@ -58,7 +58,7 @@ menu before emitting the signal. The implementation should further
 expect to receive queries about the new state of the menu (and
 particularly added menu items) while signal handlers are running.</p>
 <p>The implementation must dispatch this call directly from a mainloop
-entry and not in response to calls -- particularly those from the
+entry and not in response to calls – particularly those from the
 <code>MenuModel</code> API. Said another way: the menu must not change while
 user code is running without returning to the mainloop.</p>
 <h2 id="position" class="section-header"><a href="#position"><code>position</code></a></h2>

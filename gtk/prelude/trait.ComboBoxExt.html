@@ -231,13 +231,13 @@ call to <code>ComboBoxExt::set_active_iter</code>.
 It will also be emitted while typing into the entry of a combo box
 with an entry.</p>
 </div><h3 id="tymethod.connect_format_entry_text" class="method"><code>fn <a href="#tymethod.connect_format_entry_text" class="fnname">connect_format_entry_text</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/combo_box.rs.html#935-938" title="goto source code">[src]</a></h3><div class="docblock"><p>For combo boxes that are created with an entry (See <code>ComboBox</code>:has-entry).</p>
-<p>A signal which allows you to change how the text displayed in a combo box's
+<p>A signal which allows you to change how the text displayed in a combo box’s
 entry is displayed.</p>
 <p>Connect a signal handler which returns an allocated string representing
-<code>path</code>. That string will then be used to set the text in the combo box's entry.
+<code>path</code>. That string will then be used to set the text in the combo box’s entry.
 The default signal handler uses the text from the <code>ComboBox</code>::entry-text-column
 model column.</p>
-<p>Here's an example signal handler which fetches data from the model and
+<p>Here’s an example signal handler which fetches data from the model and
 displays it in the entry.</p>
 <pre><code class="language-C">static gchar*
 format_entry_text_callback (GtkComboBox *combo,
@@ -259,7 +259,7 @@ format_entry_text_callback (GtkComboBox *combo,
 }
 </code></pre>
 <h2 id="path" class="section-header"><a href="#path"><code>path</code></a></h2>
-<p>the <code>TreePath</code> string from the combo box's current model to format text for</p>
+<p>the <code>TreePath</code> string from the combo box’s current model to format text for</p>
 <h1 id="returns-14" class="section-header"><a href="#returns-14">Returns</a></h1>
 <p>a newly allocated string representing <code>path</code>
 for the current <code>ComboBox</code> model.</p>

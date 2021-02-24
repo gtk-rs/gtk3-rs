@@ -44,9 +44,9 @@ the information is available (and if supported by the backend),
 <code>FileMonitorEvent::MovedIn</code> or <code>FileMonitorEvent::MovedOut</code>.</p>
 <p>In all cases <code>file</code> will be a child of the monitored directory. For
 renames, <code>file</code> will be the old name and <code>other_file</code> is the new
-name. For &quot;moved in&quot; events, <code>file</code> is the name of the file that
+name. For “moved in” events, <code>file</code> is the name of the file that
 appeared and <code>other_file</code> is the old name that it was moved from (in
-another directory). For &quot;moved out&quot; events, <code>file</code> is the name of
+another directory). For “moved out” events, <code>file</code> is the name of
 the file that used to be in this directory and <code>other_file</code> is the
 name of the file at its new location.</p>
 <p>It makes sense to treat <code>FileMonitorEvent::MovedIn</code> as

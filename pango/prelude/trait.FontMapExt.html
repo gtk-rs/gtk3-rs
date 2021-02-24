@@ -18,13 +18,13 @@ Trait containing all <code>FontMap</code> methods.</p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.changed" class="method"><code>fn <a href="#tymethod.changed" class="fnname">changed</a>(&amp;self)</code><a class="srclink" href="../../src/pango/auto/font_map.rs.html#47" title="goto source code">[src]</a></h3><div class="docblock"><p>Forces a change in the context, which will cause any <code>Context</code>
 using this fontmap to change.</p>
 <p>This function is only useful when implementing a new backend
-for Pango, something applications won't do. Backends should
+for Pango, something applications won’t do. Backends should
 call this function if they have attached extra data to the context
 and such data is changed.</p>
 </div><h3 id="tymethod.create_context" class="method"><code>fn <a href="#tymethod.create_context" class="fnname">create_context</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../pango/struct.Context.html" title="struct pango::Context">Context</a>&gt;</code><a class="srclink" href="../../src/pango/auto/font_map.rs.html#63" title="goto source code">[src]</a></h3><div class="docblock"><p>Creates a <code>Context</code> connected to <code>self</code>. This is equivalent
 to <code>Context::new</code> followed by <code>Context::set_font_map</code>.</p>
 <p>If you are using Pango as part of a higher-level system,
-that system may have it's own way of create a <code>Context</code>.
+that system may have it’s own way of create a <code>Context</code>.
 For instance, the GTK+ toolkit has, among others,
 <code>gdk_pango_context_get_for_screen</code>, and
 <code>gtk_widget_get_pango_context</code>. Use those instead.</p>
@@ -41,7 +41,7 @@ which should be freed with <code>gobject::Object::unref</code>.</p>
 initialized to an small number larger than zero when a new fontmap
 is created and is increased whenever the fontmap is changed. It may
 wrap, but will never have the value 0. Since it can wrap, never compare
-it with &quot;less than&quot;, always use &quot;not equals&quot;.</p>
+it with “less than”, always use “not equals”.</p>
 <p>The fontmap can only be changed using backend-specific API, like changing
 fontmap resolution.</p>
 <p>This can be used to automatically detect changes to a <code>FontMap</code>, like

@@ -168,9 +168,9 @@ operation, in which case <code>error</code> (if non-<code>None</code>) will be s
 to create a <code>NetworkService</code> and use its <code>SocketConnectable</code>
 interface.</p>
 <h2 id="service" class="section-header"><a href="#service"><code>service</code></a></h2>
-<p>the service type to look up (eg, &quot;ldap&quot;)</p>
+<p>the service type to look up (eg, “ldap”)</p>
 <h2 id="protocol" class="section-header"><a href="#protocol"><code>protocol</code></a></h2>
-<p>the networking protocol to use for <code>service</code> (eg, &quot;tcp&quot;)</p>
+<p>the networking protocol to use for <code>service</code> (eg, “tcp”)</p>
 <h2 id="domain" class="section-header"><a href="#domain"><code>domain</code></a></h2>
 <p>the DNS domain to look up the service in</p>
 <h2 id="cancellable-8" class="section-header"><a href="#cancellable-8"><code>cancellable</code></a></h2>
@@ -186,9 +186,9 @@ this.)</p>
 get the final result. See <code>ResolverExt::lookup_service</code> for more
 details.</p>
 <h2 id="service-1" class="section-header"><a href="#service-1"><code>service</code></a></h2>
-<p>the service type to look up (eg, &quot;ldap&quot;)</p>
+<p>the service type to look up (eg, “ldap”)</p>
 <h2 id="protocol-1" class="section-header"><a href="#protocol-1"><code>protocol</code></a></h2>
-<p>the networking protocol to use for <code>service</code> (eg, &quot;tcp&quot;)</p>
+<p>the networking protocol to use for <code>service</code> (eg, “tcp”)</p>
 <h2 id="domain-1" class="section-header"><a href="#domain-1"><code>domain</code></a></h2>
 <p>the DNS domain to look up the service in</p>
 <h2 id="cancellable-9" class="section-header"><a href="#cancellable-9"><code>cancellable</code></a></h2>
@@ -197,11 +197,11 @@ details.</p>
 <p>callback to call after resolution completes</p>
 <h2 id="user_data-4" class="section-header"><a href="#user_data-4"><code>user_data</code></a></h2>
 <p>data for <code>callback</code></p>
-</div><h3 id="tymethod.lookup_service_async_future" class="method"><code>fn <a href="#tymethod.lookup_service_async_future" class="fnname">lookup_service_async_future</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;service: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;protocol: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;domain: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><br>) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/core/pin/struct.Pin.html" title="struct core::pin::Pin">Pin</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box_</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html" title="trait core::future::future::Future">Future</a>&lt;Output = <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../../gio/struct.SrvTarget.html" title="struct gio::SrvTarget">SrvTarget</a>&gt;, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;&gt; + 'static&gt;&gt;</code><a class="srclink" href="../../src/gio/auto/resolver.rs.html#394-399" title="goto source code">[src]</a></h3><h3 id="tymethod.set_default" class="method"><code>fn <a href="#tymethod.set_default" class="fnname">set_default</a>(&amp;self)</code><a class="srclink" href="../../src/gio/auto/resolver.rs.html#411" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets <code>self</code> to be the application's default resolver (reffing
+</div><h3 id="tymethod.lookup_service_async_future" class="method"><code>fn <a href="#tymethod.lookup_service_async_future" class="fnname">lookup_service_async_future</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;service: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;protocol: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;domain: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><br>) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/core/pin/struct.Pin.html" title="struct core::pin::Pin">Pin</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box_</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html" title="trait core::future::future::Future">Future</a>&lt;Output = <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../../gio/struct.SrvTarget.html" title="struct gio::SrvTarget">SrvTarget</a>&gt;, <a class="struct" href="../../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;&gt; + 'static&gt;&gt;</code><a class="srclink" href="../../src/gio/auto/resolver.rs.html#394-399" title="goto source code">[src]</a></h3><h3 id="tymethod.set_default" class="method"><code>fn <a href="#tymethod.set_default" class="fnname">set_default</a>(&amp;self)</code><a class="srclink" href="../../src/gio/auto/resolver.rs.html#411" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets <code>self</code> to be the application’s default resolver (reffing
 <code>self</code>, and unreffing the previous default resolver, if any).
 Future calls to <code>Resolver::get_default</code> will return this resolver.</p>
 <p>This can be used if an application wants to perform any sort of DNS
-caching or &quot;pinning&quot;; it can implement its own <code>Resolver</code> that
+caching or “pinning”; it can implement its own <code>Resolver</code> that
 calls the original default resolver for DNS operations, and
 implements its own cache policies on top of that, and then set
 itself as the default resolver for all later code to use.</p>

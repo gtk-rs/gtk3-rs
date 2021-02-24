@@ -79,7 +79,7 @@ between <code>GTK_STYLE_PROVIDER_PRIORITY_FALLBACK</code> and
 <code>GTK_STYLE_PROVIDER_PRIORITY_USER</code></p>
 </div><h3 id="tymethod.get_background_color" class="method"><code>fn <a href="#tymethod.get_background_color" class="fnname">get_background_color</a>(&amp;self, state: <a class="struct" href="../../gtk/struct.StateFlags.html" title="struct gtk::StateFlags">StateFlags</a>) -&gt; <a class="struct" href="../../gdk/rgba/struct.RGBA.html" title="struct gdk::rgba::RGBA">RGBA</a></code><a class="srclink" href="../../src/gtk/auto/style_context.rs.html#253" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated</div></div><div class="docblock"><p>Gets the background color for a given state.</p>
 <p>This function is far less useful than it seems, and it should not be used in
-newly written code. CSS has no concept of &quot;background color&quot;, as a background
+newly written code. CSS has no concept of “background color”, as a background
 can be an image, or a gradient, or any other pattern including solid colors.</p>
 <p>The only reason why you would call <code>StyleContextExt::get_background_color</code> is
 to use the returned value to draw the background with it; the correct way to

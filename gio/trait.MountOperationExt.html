@@ -46,8 +46,8 @@ for an anonymous user.</p>
 <p><code>true</code> if mount operation is anonymous.</p>
 </div><h3 id="tymethod.get_choice" class="method"><code>fn <a href="#tymethod.get_choice" class="fnname">get_choice</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../src/gio/auto/mount_operation.rs.html#81" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets a choice from the mount operation.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p>an integer containing an index of the user's choice from
-the choice's list, or <code>0</code>.</p>
+<p>an integer containing an index of the user’s choice from
+the choice’s list, or <code>0</code>.</p>
 </div><h3 id="tymethod.get_domain" class="method"><code>fn <a href="#tymethod.get_domain" class="fnname">get_domain</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../src/gio/auto/mount_operation.rs.html#89" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the domain of the mount operation.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>a string set to the domain.</p>
@@ -83,7 +83,7 @@ for a TCRYPT system volume.</p>
 </div><h3 id="tymethod.set_choice" class="method"><code>fn <a href="#tymethod.set_choice" class="fnname">set_choice</a>(&amp;self, choice: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../src/gio/auto/mount_operation.rs.html#172" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets a default choice for the mount operation.</p>
 <h2 id="choice" class="section-header"><a href="#choice"><code>choice</code></a></h2>
 <p>an integer.</p>
-</div><h3 id="tymethod.set_domain" class="method"><code>fn <a href="#tymethod.set_domain" class="fnname">set_domain</a>(&amp;self, domain: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../src/gio/auto/mount_operation.rs.html#178" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the mount operation's domain.</p>
+</div><h3 id="tymethod.set_domain" class="method"><code>fn <a href="#tymethod.set_domain" class="fnname">set_domain</a>(&amp;self, domain: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../src/gio/auto/mount_operation.rs.html#178" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the mount operation’s domain.</p>
 <h2 id="domain" class="section-header"><a href="#domain"><code>domain</code></a></h2>
 <p>the domain to set.</p>
 </div><h3 id="tymethod.set_is_tcrypt_hidden_volume" class="method"><code>fn <a href="#tymethod.set_is_tcrypt_hidden_volume" class="fnname">set_is_tcrypt_hidden_volume</a>(&amp;self, hidden_volume: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../src/gio/auto/mount_operation.rs.html#189" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v2_58</code></strong> only.</div></div><div class="docblock"><p>Sets the mount operation to use a hidden volume if <code>hidden_volume</code> is <code>true</code>.</p>
@@ -94,13 +94,13 @@ for a TCRYPT system volume.</p>
 <p>Feature: <code>v2_58</code></p>
 <h2 id="system_volume" class="section-header"><a href="#system_volume"><code>system_volume</code></a></h2>
 <p>boolean value.</p>
-</div><h3 id="tymethod.set_password" class="method"><code>fn <a href="#tymethod.set_password" class="fnname">set_password</a>(&amp;self, password: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../src/gio/auto/mount_operation.rs.html#206" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the mount operation's password to <code>password</code>.</p>
+</div><h3 id="tymethod.set_password" class="method"><code>fn <a href="#tymethod.set_password" class="fnname">set_password</a>(&amp;self, password: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../src/gio/auto/mount_operation.rs.html#206" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the mount operation’s password to <code>password</code>.</p>
 <h2 id="password" class="section-header"><a href="#password"><code>password</code></a></h2>
 <p>password to set.</p>
 </div><h3 id="tymethod.set_password_save" class="method"><code>fn <a href="#tymethod.set_password_save" class="fnname">set_password_save</a>(&amp;self, save: <a class="enum" href="../gio/enum.PasswordSave.html" title="enum gio::PasswordSave">PasswordSave</a>)</code><a class="srclink" href="../src/gio/auto/mount_operation.rs.html#212" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets the state of saving passwords for the mount operation.</p>
 <h2 id="save" class="section-header"><a href="#save"><code>save</code></a></h2>
 <p>a set of <code>PasswordSave</code> flags.</p>
-</div><h3 id="tymethod.set_pim" class="method"><code>fn <a href="#tymethod.set_pim" class="fnname">set_pim</a>(&amp;self, pim: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</code><a class="srclink" href="../src/gio/auto/mount_operation.rs.html#223" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v2_58</code></strong> only.</div></div><div class="docblock"><p>Sets the mount operation's PIM to <code>pim</code>.</p>
+</div><h3 id="tymethod.set_pim" class="method"><code>fn <a href="#tymethod.set_pim" class="fnname">set_pim</a>(&amp;self, pim: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</code><a class="srclink" href="../src/gio/auto/mount_operation.rs.html#223" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v2_58</code></strong> only.</div></div><div class="docblock"><p>Sets the mount operation’s PIM to <code>pim</code>.</p>
 <p>Feature: <code>v2_58</code></p>
 <h2 id="pim" class="section-header"><a href="#pim"><code>pim</code></a></h2>
 <p>an unsigned integer.</p>

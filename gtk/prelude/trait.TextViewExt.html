@@ -136,7 +136,7 @@
 <p>a <code>Widget</code></p>
 <h2 id="anchor" class="section-header"><a href="#anchor"><code>anchor</code></a></h2>
 <p>a <code>TextChildAnchor</code> in the <code>TextBuffer</code> for <code>self</code></p>
-</div><h3 id="tymethod.add_child_in_window" class="method"><code>fn <a href="#tymethod.add_child_in_window" class="fnname">add_child_in_window</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../../gtk/struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;child: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;which_window: <a class="enum" href="../../gtk/enum.TextWindowType.html" title="enum gtk::TextWindowType">TextWindowType</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;xpos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;ypos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><br>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#689-695" title="goto source code">[src]</a></h3><div class="docblock"><p>Adds a child at fixed coordinates in one of the text widget's
+</div><h3 id="tymethod.add_child_in_window" class="method"><code>fn <a href="#tymethod.add_child_in_window" class="fnname">add_child_in_window</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../../gtk/struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;child: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;which_window: <a class="enum" href="../../gtk/enum.TextWindowType.html" title="enum gtk::TextWindowType">TextWindowType</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;xpos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;ypos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><br>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#689-695" title="goto source code">[src]</a></h3><div class="docblock"><p>Adds a child at fixed coordinates in one of the text widget’s
 windows.</p>
 <p>The window must have nonzero size (see
 <code>TextViewExt::set_border_window_size</code>). Note that the child
@@ -383,7 +383,7 @@ override the defaults. The returned array will be <code>None</code> if
 with <code>pango::TabArray::free</code>.</p>
 <h1 id="returns-22" class="section-header"><a href="#returns-22">Returns</a></h1>
 <p>copy of default tab array, or <code>None</code> if
-“standard&quot; tabs are used; must be freed with <code>pango::TabArray::free</code>.</p>
+“standard“ tabs are used; must be freed with <code>pango::TabArray::free</code>.</p>
 </div><h3 id="tymethod.get_top_margin" class="method"><code>fn <a href="#tymethod.get_top_margin" class="fnname">get_top_margin</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1095" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_18</code></strong> only.</div></div><div class="docblock"><p>Gets the top margin for text in the <code>self</code>.</p>
 <p>Feature: <code>v3_18</code></p>
 <h1 id="returns-23" class="section-header"><a href="#returns-23">Returns</a></h1>
@@ -451,7 +451,7 @@ gtk_foo_bar_key_press_event (GtkWidget   *widget,
 <p>new X position in window coordinates</p>
 <h2 id="ypos-1" class="section-header"><a href="#ypos-1"><code>ypos</code></a></h2>
 <p>new Y position in window coordinates</p>
-</div><h3 id="tymethod.move_mark_onscreen" class="method"><code>fn <a href="#tymethod.move_mark_onscreen" class="fnname">move_mark_onscreen</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../../gtk/struct.TextMark.html" title="struct gtk::TextMark">TextMark</a>&gt;&gt;(&amp;self, mark: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1200" title="goto source code">[src]</a></h3><div class="docblock"><p>Moves a mark within the buffer so that it's
+</div><h3 id="tymethod.move_mark_onscreen" class="method"><code>fn <a href="#tymethod.move_mark_onscreen" class="fnname">move_mark_onscreen</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../../gtk/struct.TextMark.html" title="struct gtk::TextMark">TextMark</a>&gt;&gt;(&amp;self, mark: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1200" title="goto source code">[src]</a></h3><div class="docblock"><p>Moves a mark within the buffer so that it’s
 located within the currently-visible text area.</p>
 <h2 id="mark" class="section-header"><a href="#mark"><code>mark</code></a></h2>
 <p>a <code>TextMark</code></p>
@@ -478,11 +478,11 @@ positive moves right)</p>
 buffer, it it isn’t there already.</p>
 <h1 id="returns-30" class="section-header"><a href="#returns-30">Returns</a></h1>
 <p><code>true</code> if the cursor had to be moved.</p>
-</div><h3 id="tymethod.reset_cursor_blink" class="method"><code>fn <a href="#tymethod.reset_cursor_blink" class="fnname">reset_cursor_blink</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1247" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_20</code></strong> only.</div></div><div class="docblock"><p>Ensures that the cursor is shown (i.e. not in an 'off' blink
+</div><h3 id="tymethod.reset_cursor_blink" class="method"><code>fn <a href="#tymethod.reset_cursor_blink" class="fnname">reset_cursor_blink</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1247" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_20</code></strong> only.</div></div><div class="docblock"><p>Ensures that the cursor is shown (i.e. not in an ‘off’ blink
 interval) and resets the time that it will stay blinking (or
 visible, in case blinking is disabled).</p>
 <p>This function should be called in response to user input
-(e.g. from derived classes that override the textview's
+(e.g. from derived classes that override the textview’s
 <code>Widget::key-press-event</code> handler).</p>
 <p>Feature: <code>v3_20</code></p>
 </div><h3 id="tymethod.reset_im_context" class="method"><code>fn <a href="#tymethod.reset_im_context" class="fnname">reset_im_context</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1254" title="goto source code">[src]</a></h3><div class="docblock"><p>Reset the input method context of the text view if needed.</p>
@@ -806,9 +806,9 @@ for selecting and Shift-Ctrl-a and Ctrl-\ for unselecting.</p>
 <p><code>true</code> to select, <code>false</code> to unselect</p>
 </div><h3 id="tymethod.emit_select_all" class="method"><code>fn <a href="#tymethod.emit_select_all" class="fnname">emit_select_all</a>(&amp;self, select: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1790" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_set_anchor" class="method"><code>fn <a href="#tymethod.connect_set_anchor" class="fnname">connect_set_anchor</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1799" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::set-anchor signal is a
 [keybinding signal][<code>BindingSignal</code>]
-which gets emitted when the user initiates setting the &quot;anchor&quot;
-mark. The &quot;anchor&quot; mark gets placed at the same position as the
-&quot;insert&quot; mark.</p>
+which gets emitted when the user initiates setting the “anchor”
+mark. The “anchor” mark gets placed at the same position as the
+“insert” mark.</p>
 <p>This signal has no default bindings.</p>
 </div><h3 id="tymethod.emit_set_anchor" class="method"><code>fn <a href="#tymethod.emit_set_anchor" class="fnname">emit_set_anchor</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1801" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_toggle_cursor_visible" class="method"><code>fn <a href="#tymethod.connect_toggle_cursor_visible" class="fnname">connect_toggle_cursor_visible</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../../src/gtk/auto/text_view.rs.html#1809" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::toggle-cursor-visible signal is a
 [keybinding signal][<code>BindingSignal</code>]

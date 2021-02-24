@@ -340,7 +340,7 @@
 <p><a href="struct.Actionable.html"><code>Actionable</code></a>, <a href="struct.AppChooser.html"><code>AppChooser</code></a>, <a href="struct.Calendar.html"><code>Calendar</code></a>, <a href="struct.CellEditable.html"><code>CellEditable</code></a>, <a href="struct.CellView.html"><code>CellView</code></a>, <a href="struct.Container.html"><code>Container</code></a>, <a href="struct.DrawingArea.html"><code>DrawingArea</code></a>, <a href="struct.Entry.html"><code>Entry</code></a>, <a href="struct.GLArea.html"><code>GLArea</code></a>, <a href="struct.Invisible.html"><code>Invisible</code></a>, <a href="struct.LevelBar.html"><code>LevelBar</code></a>, <a href="struct.Misc.html"><code>Misc</code></a>, <a href="struct.ProgressBar.html"><code>ProgressBar</code></a>, <a href="struct.Range.html"><code>Range</code></a>, <a href="struct.Separator.html"><code>Separator</code></a>, <a href="struct.Spinner.html"><code>Spinner</code></a>, <a href="struct.Switch.html"><code>Switch</code></a>, <a href="struct.ToolShell.html"><code>ToolShell</code></a>, <a href="struct.Widget.html"><code>Widget</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.activate" class="method"><code>fn <a href="#tymethod.activate" class="fnname">activate</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#102" title="goto source code">[src]</a></h3><div class="docblock"><p>For widgets that can be “activated” (buttons, menu items, etc.)
 this function activates them. Activation is what happens when you
-press Enter on a widget during key navigation. If <code>self</code> isn't
+press Enter on a widget during key navigation. If <code>self</code> isn’t
 activatable, the function returns <code>false</code>.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p><code>true</code> if the widget was activatable</p>
@@ -387,7 +387,7 @@ its ancestors mapped.</p>
 <p>the ID of a signal installed on <code>self</code></p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p><code>true</code> if the accelerator can be activated.</p>
-</div><h3 id="tymethod.child_focus" class="method"><code>fn <a href="#tymethod.child_focus" class="fnname">child_focus</a>(&amp;self, direction: <a class="enum" href="../gtk/enum.DirectionType.html" title="enum gtk::DirectionType">DirectionType</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#194" title="goto source code">[src]</a></h3><div class="docblock"><p>This function is used by custom widget implementations; if you're
+</div><h3 id="tymethod.child_focus" class="method"><code>fn <a href="#tymethod.child_focus" class="fnname">child_focus</a>(&amp;self, direction: <a class="enum" href="../gtk/enum.DirectionType.html" title="enum gtk::DirectionType">DirectionType</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#194" title="goto source code">[src]</a></h3><div class="docblock"><p>This function is used by custom widget implementations; if you’re
 writing an app, you’d use <code>WidgetExt::grab_focus</code> to move the focus
 to a particular widget, and <code>ContainerExt::set_focus_chain</code> to
 change the focus tab order. So you may want to investigate those
@@ -778,7 +778,7 @@ never should be called by an application.</p>
 <h1 id="returns-23" class="section-header"><a href="#returns-23">Returns</a></h1>
 <p><code>true</code> if the widget is mapped with the parent.</p>
 </div><h3 id="tymethod.get_clip" class="method"><code>fn <a href="#tymethod.get_clip" class="fnname">get_clip</a>(&amp;self) -&gt; <a class="struct" href="../gtk/struct.Rectangle.html" title="struct gtk::Rectangle">Allocation</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#806" title="goto source code">[src]</a></h3><div class="docblock"><p>Retrieves the widget’s clip area.</p>
-<p>The clip area is the area in which all of <code>self</code>'s drawing will
+<p>The clip area is the area in which all of <code>self</code>’s drawing will
 happen. Other toolkits call it the bounding box.</p>
 <p>Historically, in GTK+ the clip area has been equal to the allocation
 retrieved via <code>WidgetExt::get_allocation</code>.</p>
@@ -1155,7 +1155,7 @@ seem unlikely, it actually happens when a <code>Plug</code> is embedded
 inside a <code>Socket</code> within the same application.</p>
 <p>To reliably find the toplevel <code>Window</code>, use
 <code>WidgetExt::get_toplevel</code> and call GTK_IS_WINDOW()
-on the result. For instance, to get the title of a widget's toplevel
+on the result. For instance, to get the title of a widget’s toplevel
 window, one might use:</p>
 <pre><code class="language-C">static const char *
 get_widget_toplevel_title (GtkWidget *widget)
@@ -1223,7 +1223,7 @@ activatable, that is, <code>WidgetExt::activate</code> should affect them. Note
 that <code>Entry</code> widgets require the “activates-default” property
 set to <code>true</code> before they activate the default widget when Enter
 is pressed and the <code>Entry</code> is focused.</p>
-</div><h3 id="tymethod.grab_focus" class="method"><code>fn <a href="#tymethod.grab_focus" class="fnname">grab_focus</a>(&amp;self)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#1592" title="goto source code">[src]</a></h3><div class="docblock"><p>Causes <code>self</code> to have the keyboard focus for the <code>Window</code> it's
+</div><h3 id="tymethod.grab_focus" class="method"><code>fn <a href="#tymethod.grab_focus" class="fnname">grab_focus</a>(&amp;self)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#1592" title="goto source code">[src]</a></h3><div class="docblock"><p>Causes <code>self</code> to have the keyboard focus for the <code>Window</code> it’s
 inside. <code>self</code> must be a focusable widget, such as a <code>Entry</code>;
 something like <code>Frame</code> won’t work.</p>
 <p>More precisely, it must have the <code>GTK_CAN_FOCUS</code> flag set. Use
@@ -1382,7 +1382,7 @@ by connecting to the <code>AccelGroup::accel-changed</code> signal of the
 <h1 id="returns-88" class="section-header"><a href="#returns-88">Returns</a></h1>
 <p>a newly allocated <code>glib::List</code> of closures</p>
 </div><h3 id="tymethod.list_action_prefixes" class="method"><code>fn <a href="#tymethod.list_action_prefixes" class="fnname">list_action_prefixes</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#1867" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Retrieves a <code>None</code>-terminated array of strings containing the prefixes of
-<code>gio::ActionGroup</code>'s available to <code>self</code>.</p>
+<code>gio::ActionGroup</code>’s available to <code>self</code>.</p>
 <p>Feature: <code>v3_16</code></p>
 <h1 id="returns-89" class="section-header"><a href="#returns-89">Returns</a></h1>
 <p>a <code>None</code>-terminated array of strings.</p>
@@ -1494,7 +1494,7 @@ calls to <code>WidgetExt::override_symbolic_color</code></p>
 </div><h3 id="tymethod.queue_allocate" class="method"><code>fn <a href="#tymethod.queue_allocate" class="fnname">queue_allocate</a>(&amp;self)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#2041" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_20</code></strong> only.</div></div><div class="docblock"><p>This function is only for use in widget implementations.</p>
 <p>Flags the widget for a rerun of the <code>WidgetClass</code>::size_allocate
 function. Use this function instead of <code>WidgetExt::queue_resize</code>
-when the <code>self</code>'s size request didn't change but it wants to
+when the <code>self</code>’s size request didn’t change but it wants to
 reposition its contents.</p>
 <p>An example user of this function is <code>WidgetExt::set_halign</code>.</p>
 <p>Feature: <code>v3_20</code></p>
@@ -1669,7 +1669,7 @@ an <code>Widget::draw</code> handler.</p>
 <p>This is a hint to the widget and does not affect the behavior of
 the GTK+ core; many widgets ignore this flag entirely. For widgets
 that do pay attention to the flag, such as <code>EventBox</code> and <code>Window</code>,
-the effect is to suppress default themed drawing of the widget's
+the effect is to suppress default themed drawing of the widget’s
 background. (Children of the widget will still be drawn.) The application
 is then entirely responsible for drawing the widget background.</p>
 <p>Note that the background is still drawn when the widget is mapped.</p>
@@ -1706,9 +1706,9 @@ but from within a widget’s size_allocate method.
 It must be called after <code>WidgetExt::set_allocation</code> (or after chaining up
 to the parent class), because that function resets the clip.</p>
 <p>The clip set should be the area that <code>self</code> draws on. If <code>self</code> is a
-<code>Container</code>, the area must contain all children's clips.</p>
+<code>Container</code>, the area must contain all children’s clips.</p>
 <p>If this function is not called by <code>self</code> during a ::size-allocate handler,
-the clip will be set to <code>self</code>'s allocation.</p>
+the clip will be set to <code>self</code>’s allocation.</p>
 <h2 id="clip-1" class="section-header"><a href="#clip-1"><code>clip</code></a></h2>
 <p>a pointer to a <code>Allocation</code> to copy from</p>
 </div><h3 id="tymethod.set_device_enabled" class="method"><code>fn <a href="#tymethod.set_device_enabled" class="fnname">set_device_enabled</a>(&amp;self, device: &amp;<a class="struct" href="../gdk/auto/device/struct.Device.html" title="struct gdk::auto::device::Device">Device</a>, enabled: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#2366" title="goto source code">[src]</a></h3><div class="docblock"><p>Enables or disables a <code>gdk::Device</code> to interact with <code>self</code>
@@ -1824,7 +1824,7 @@ for completeness and consistency.</p>
 <h2 id="set" class="section-header"><a href="#set"><code>set</code></a></h2>
 <p>value for hexpand-set property</p>
 </div><h3 id="tymethod.set_mapped" class="method"><code>fn <a href="#tymethod.set_mapped" class="fnname">set_mapped</a>(&amp;self, mapped: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#2529" title="goto source code">[src]</a></h3><div class="docblock"><p>Marks the widget as being mapped.</p>
-<p>This function should only ever be called in a derived widget's
+<p>This function should only ever be called in a derived widget’s
 “map” or “unmap” implementation.</p>
 <h2 id="mapped" class="section-header"><a href="#mapped"><code>mapped</code></a></h2>
 <p><code>true</code> to mark the widget as mapped</p>
@@ -1849,7 +1849,7 @@ CSS file. You can apply a style to widgets with a particular name
 in the CSS file. See the documentation for the CSS syntax (on the
 same page as the docs for <code>StyleContext</code>).</p>
 <p>Note that the CSS syntax has certain special characters to delimit
-and represent elements in a selector (period, #, &gt;, *...), so using
+and represent elements in a selector (period, #, &gt;, *…), so using
 these will make your widget impossible to match by name. Any combination
 of alphanumeric symbols, dashes and underscores will suffice.</p>
 <h2 id="name-3" class="section-header"><a href="#name-3"><code>name</code></a></h2>
@@ -1893,7 +1893,7 @@ window is realized.</p>
 </div><h3 id="tymethod.set_realized" class="method"><code>fn <a href="#tymethod.set_realized" class="fnname">set_realized</a>(&amp;self, realized: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#2635" title="goto source code">[src]</a></h3><div class="docblock"><p>Marks the widget as being realized. This function must only be
 called after all <code>GdkWindows</code> for the <code>self</code> have been created
 and registered.</p>
-<p>This function should only ever be called in a derived widget's
+<p>This function should only ever be called in a derived widget’s
 “realize” or “unrealize” implementation.</p>
 <h2 id="realized" class="section-header"><a href="#realized"><code>realized</code></a></h2>
 <p><code>true</code> to mark the widget as realized</p>
@@ -1939,7 +1939,7 @@ request. When dealing with window sizes,
 <code>GtkWindowExt::set_geometry_hints</code> can be a useful function as well.</p>
 <p>Note the inherent danger of setting any fixed size - themes,
 translations into other languages, different fonts, and user action
-can all change the appropriate size for a given widget. So, it's
+can all change the appropriate size for a given widget. So, it’s
 basically impossible to hardcode a size that will always be
 correct.</p>
 <p>The size request of a widget is the smallest size a widget can
@@ -1960,7 +1960,7 @@ or border properties set by any subclass of <code>Widget</code>.</p>
 </div><h3 id="tymethod.set_state_flags" class="method"><code>fn <a href="#tymethod.set_state_flags" class="fnname">set_state_flags</a>(&amp;self, flags: <a class="struct" href="../gtk/struct.StateFlags.html" title="struct gtk::StateFlags">StateFlags</a>, clear: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#2734" title="goto source code">[src]</a></h3><div class="docblock"><p>This function is for use in widget implementations. Turns on flag
 values in the current widget state (insensitive, prelighted, etc.).</p>
 <p>This function accepts the values <code>StateFlags::DirLtr</code> and
-<code>StateFlags::DirRtl</code> but ignores them. If you want to set the widget's
+<code>StateFlags::DirRtl</code> but ignores them. If you want to set the widget’s
 direction, use <code>WidgetExt::set_direction</code>.</p>
 <p>It is worth mentioning that any other state than <code>StateFlags::Insensitive</code>,
 will be propagated down to all non-internal children if <code>self</code> is a
@@ -2078,7 +2078,7 @@ position and (optionally) baseline to their child widgets.</p>
 will be forced to a 1x1 minimum size, and the
 adjust_size_allocation virtual and adjust_baseline_allocation
 methods on the child will be used to adjust the allocation and
-baseline. Standard adjustments include removing the widget's
+baseline. Standard adjustments include removing the widget’s
 margins, and applying the widget’s <code>Widget:halign</code> and
 <code>Widget:valign</code> properties.</p>
 <p>If the child widget does not have a valign of <code>Align::Baseline</code> the
@@ -2136,9 +2136,9 @@ See <code>WidgetExt::set_state_flags</code>.</p>
 <p>State flags to turn off</p>
 </div><h3 id="tymethod.get_property_composite_child" class="method"><code>fn <a href="#tymethod.get_property_composite_child" class="fnname">get_property_composite_child</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3001" title="goto source code">[src]</a></h3><h3 id="tymethod.get_property_expand" class="method"><code>fn <a href="#tymethod.get_property_expand" class="fnname">get_property_expand</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3004" title="goto source code">[src]</a></h3><div class="docblock"><p>Whether to expand in both directions. Setting this sets both <code>Widget:hexpand</code> and <code>Widget:vexpand</code></p>
 </div><h3 id="tymethod.set_property_expand" class="method"><code>fn <a href="#tymethod.set_property_expand" class="fnname">set_property_expand</a>(&amp;self, expand: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3007" title="goto source code">[src]</a></h3><div class="docblock"><p>Whether to expand in both directions. Setting this sets both <code>Widget:hexpand</code> and <code>Widget:vexpand</code></p>
-</div><h3 id="tymethod.get_property_has_default" class="method"><code>fn <a href="#tymethod.get_property_has_default" class="fnname">get_property_has_default</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3009" title="goto source code">[src]</a></h3><h3 id="tymethod.set_property_has_default" class="method"><code>fn <a href="#tymethod.set_property_has_default" class="fnname">set_property_has_default</a>(&amp;self, has_default: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3011" title="goto source code">[src]</a></h3><h3 id="tymethod.get_property_has_focus" class="method"><code>fn <a href="#tymethod.get_property_has_focus" class="fnname">get_property_has_focus</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3013" title="goto source code">[src]</a></h3><h3 id="tymethod.set_property_has_focus" class="method"><code>fn <a href="#tymethod.set_property_has_focus" class="fnname">set_property_has_focus</a>(&amp;self, has_focus: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3015" title="goto source code">[src]</a></h3><h3 id="tymethod.get_property_height_request" class="method"><code>fn <a href="#tymethod.get_property_height_request" class="fnname">get_property_height_request</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3017" title="goto source code">[src]</a></h3><h3 id="tymethod.set_property_height_request" class="method"><code>fn <a href="#tymethod.set_property_height_request" class="fnname">set_property_height_request</a>(&amp;self, height_request: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3019" title="goto source code">[src]</a></h3><h3 id="tymethod.get_property_is_focus" class="method"><code>fn <a href="#tymethod.get_property_is_focus" class="fnname">get_property_is_focus</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3021" title="goto source code">[src]</a></h3><h3 id="tymethod.set_property_is_focus" class="method"><code>fn <a href="#tymethod.set_property_is_focus" class="fnname">set_property_is_focus</a>(&amp;self, is_focus: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3023" title="goto source code">[src]</a></h3><h3 id="tymethod.get_property_margin" class="method"><code>fn <a href="#tymethod.get_property_margin" class="fnname">get_property_margin</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3027" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets all four sides' margin at once. If read, returns max
+</div><h3 id="tymethod.get_property_has_default" class="method"><code>fn <a href="#tymethod.get_property_has_default" class="fnname">get_property_has_default</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3009" title="goto source code">[src]</a></h3><h3 id="tymethod.set_property_has_default" class="method"><code>fn <a href="#tymethod.set_property_has_default" class="fnname">set_property_has_default</a>(&amp;self, has_default: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3011" title="goto source code">[src]</a></h3><h3 id="tymethod.get_property_has_focus" class="method"><code>fn <a href="#tymethod.get_property_has_focus" class="fnname">get_property_has_focus</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3013" title="goto source code">[src]</a></h3><h3 id="tymethod.set_property_has_focus" class="method"><code>fn <a href="#tymethod.set_property_has_focus" class="fnname">set_property_has_focus</a>(&amp;self, has_focus: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3015" title="goto source code">[src]</a></h3><h3 id="tymethod.get_property_height_request" class="method"><code>fn <a href="#tymethod.get_property_height_request" class="fnname">get_property_height_request</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3017" title="goto source code">[src]</a></h3><h3 id="tymethod.set_property_height_request" class="method"><code>fn <a href="#tymethod.set_property_height_request" class="fnname">set_property_height_request</a>(&amp;self, height_request: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3019" title="goto source code">[src]</a></h3><h3 id="tymethod.get_property_is_focus" class="method"><code>fn <a href="#tymethod.get_property_is_focus" class="fnname">get_property_is_focus</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3021" title="goto source code">[src]</a></h3><h3 id="tymethod.set_property_is_focus" class="method"><code>fn <a href="#tymethod.set_property_is_focus" class="fnname">set_property_is_focus</a>(&amp;self, is_focus: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3023" title="goto source code">[src]</a></h3><h3 id="tymethod.get_property_margin" class="method"><code>fn <a href="#tymethod.get_property_margin" class="fnname">get_property_margin</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3027" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets all four sides’ margin at once. If read, returns max
 margin on any side.</p>
-</div><h3 id="tymethod.set_property_margin" class="method"><code>fn <a href="#tymethod.set_property_margin" class="fnname">set_property_margin</a>(&amp;self, margin: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3031" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets all four sides' margin at once. If read, returns max
+</div><h3 id="tymethod.set_property_margin" class="method"><code>fn <a href="#tymethod.set_property_margin" class="fnname">set_property_margin</a>(&amp;self, margin: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3031" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets all four sides’ margin at once. If read, returns max
 margin on any side.</p>
 </div><h3 id="tymethod.get_property_width_request" class="method"><code>fn <a href="#tymethod.get_property_width_request" class="fnname">get_property_width_request</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3033" title="goto source code">[src]</a></h3><h3 id="tymethod.set_property_width_request" class="method"><code>fn <a href="#tymethod.set_property_width_request" class="fnname">set_property_width_request</a>(&amp;self, width_request: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3035" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_accel_closures_changed" class="method"><code>fn <a href="#tymethod.connect_accel_closures_changed" class="fnname">connect_accel_closures_changed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3037" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_button_press_event" class="method"><code>fn <a href="#tymethod.connect_button_press_event" class="fnname">connect_button_press_event</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gdk/event_button/struct.EventButton.html" title="struct gdk::event_button::EventButton">EventButton</a>) -&gt; <a class="struct" href="../gtk/struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3054-3059" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::button-press-event signal will be emitted when a button
 (typically from a mouse) is pressed.</p>
@@ -2173,7 +2173,7 @@ for determining whether an accelerator can be activated.</p>
 <p><code>true</code> if the signal can be activated.</p>
 </div><h3 id="tymethod.connect_child_notify" class="method"><code>fn <a href="#tymethod.connect_child_notify" class="fnname">connect_child_notify</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../glib/param_spec/struct.ParamSpec.html" title="struct glib::param_spec::ParamSpec">ParamSpec</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3104-3107" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::child-notify signal is emitted for each
 [child property][child-properties] that has
-changed on an object. The signal's detail holds the property name.</p>
+changed on an object. The signal’s detail holds the property name.</p>
 <h2 id="child_property-1" class="section-header"><a href="#child_property-1"><code>child_property</code></a></h2>
 <p>the <code>gobject::ParamSpec</code> of the changed child property</p>
 </div><h3 id="tymethod.connect_composited_changed" class="method"><code>fn <a href="#tymethod.connect_composited_changed" class="fnname">connect_composited_changed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3117" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated</div></div><div class="docblock"><p>The ::composited-changed signal is emitted when the composited
@@ -2182,7 +2182,7 @@ See <code>gdk::Screen::is_composited</code>.</p>
 <h1 id="deprecated-since-322-3" class="section-header"><a href="#deprecated-since-322-3">Deprecated since 3.22</a></h1>
 <p>Use <code>gdk::Screen</code>::composited-changed instead.</p>
 </div><h3 id="tymethod.emit_composited_changed" class="method"><code>fn <a href="#tymethod.emit_composited_changed" class="fnname">emit_composited_changed</a>(&amp;self)</code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3120" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated</div></div><h3 id="tymethod.connect_configure_event" class="method"><code>fn <a href="#tymethod.connect_configure_event" class="fnname">connect_configure_event</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gdk/event_configure/struct.EventConfigure.html" title="struct gdk::event_configure::EventConfigure">EventConfigure</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3136-3139" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::configure-event signal will be emitted when the size, position or
-stacking of the <code>widget</code>'s window has changed.</p>
+stacking of the <code>widget</code>’s window has changed.</p>
 <p>To receive this signal, the <code>gdk::Window</code> associated to the widget needs
 to enable the <code>gdk::EventMask::StructureMask</code> mask. GDK will enable this mask
 automatically for all new windows.</p>
@@ -2241,7 +2241,7 @@ override what the default handler did.</p>
 </div><h3 id="tymethod.connect_drag_data_delete" class="method"><code>fn <a href="#tymethod.connect_drag_data_delete" class="fnname">connect_drag_data_delete</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gdk/auto/drag_context/struct.DragContext.html" title="struct gdk::auto::drag_context::DragContext">DragContext</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3229-3232" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::drag-data-delete signal is emitted on the drag source when a drag
 with the action <code>gdk::DragAction::Move</code> is successfully completed. The signal
 handler is responsible for deleting the data that has been dropped. What
-&quot;delete&quot; means depends on the context of the drag operation.</p>
+“delete” means depends on the context of the drag operation.</p>
 <h2 id="context-3" class="section-header"><a href="#context-3"><code>context</code></a></h2>
 <p>the drag context</p>
 </div><h3 id="tymethod.connect_drag_data_get" class="method"><code>fn <a href="#tymethod.connect_drag_data_get" class="fnname">connect_drag_data_get</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gdk/auto/drag_context/struct.DragContext.html" title="struct gdk::auto::drag_context::DragContext">DragContext</a>, &amp;<a class="struct" href="../gtk/struct.SelectionData.html" title="struct gtk::SelectionData">SelectionData</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3248-3251" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::drag-data-get signal is emitted on the drag source when the drop
@@ -2356,7 +2356,7 @@ things done in <code>Widget::drag-begin</code>.</p>
 </div><h3 id="tymethod.connect_drag_failed" class="method"><code>fn <a href="#tymethod.connect_drag_failed" class="fnname">connect_drag_failed</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gdk/auto/drag_context/struct.DragContext.html" title="struct gdk::auto::drag_context::DragContext">DragContext</a>, <a class="enum" href="../gtk/enum.DragResult.html" title="enum gtk::DragResult">DragResult</a>) -&gt; <a class="struct" href="../gtk/struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3383-3388" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::drag-failed signal is emitted on the drag source when a drag has
 failed. The signal handler may hook custom code to handle a failed DnD
 operation based on the type of error, it returns <code>true</code> is the failure has
-been already handled (not showing the default &quot;drag operation failed&quot;
+been already handled (not showing the default “drag operation failed”
 animation), otherwise it returns <code>false</code>.</p>
 <h2 id="context-8" class="section-header"><a href="#context-8"><code>context</code></a></h2>
 <p>the drag context</p>
@@ -2382,7 +2382,7 @@ If it is not in a drop zone, it returns <code>false</code> and no further proces
 is necessary. Otherwise, the handler returns <code>true</code>. In this case, the
 handler is responsible for providing the necessary information for
 displaying feedback to the user, by calling <code>gdk_drag_status</code>.</p>
-<p>If the decision whether the drop will be accepted or rejected can't be
+<p>If the decision whether the drop will be accepted or rejected can’t be
 made based solely on the cursor position and the type of the data, the
 handler may inspect the dragged data by calling <code>WidgetExt::drag_get_data</code> and
 defer the <code>gdk_drag_status</code> call to the <code>Widget::drag-data-received</code>
@@ -2392,7 +2392,7 @@ when using the drag-motion signal that way.</p>
 <p>Also note that there is no drag-enter signal. The drag receiver has to
 keep track of whether he has received any drag-motion signals since the
 last <code>Widget::drag-leave</code> and if not, treat the drag-motion signal as
-an &quot;enter&quot; signal. Upon an &quot;enter&quot;, the handler will typically highlight
+an “enter” signal. Upon an “enter”, the handler will typically highlight
 the drop site with <code>WidgetExt::drag_highlight</code>.</p>
 <pre><code class="language-C">static void
 drag_motion (GtkWidget      *widget,
@@ -2469,16 +2469,16 @@ drag_data_received (GtkWidget        *widget,
 <h1 id="returns-105" class="section-header"><a href="#returns-105">Returns</a></h1>
 <p>whether the cursor position is in a drop zone</p>
 </div><h3 id="tymethod.connect_draw" class="method"><code>fn <a href="#tymethod.connect_draw" class="fnname">connect_draw</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../cairo/context/struct.Context.html" title="struct cairo::context::Context">Context</a>) -&gt; <a class="struct" href="../gtk/struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3538-3541" title="goto source code">[src]</a></h3><div class="docblock"><p>This signal is emitted when a widget is supposed to render itself.
-The <code>widget</code>'s top left corner must be painted at the origin of
+The <code>widget</code>’s top left corner must be painted at the origin of
 the passed in context and be sized to the values returned by
 <code>WidgetExt::get_allocated_width</code> and
 <code>WidgetExt::get_allocated_height</code>.</p>
 <p>Signal handlers connected to this signal can modify the cairo
-context passed as <code>cr</code> in any way they like and don't need to
+context passed as <code>cr</code> in any way they like and don’t need to
 restore it. The signal emission takes care of calling <code>cairo_save</code>
 before and <code>cairo_restore</code> after invoking the handler.</p>
 <p>The signal handler will get a <code>cr</code> with a clip region already set to the
-widget's dirty region, i.e. to the area that needs repainting. Complicated
+widget’s dirty region, i.e. to the area that needs repainting. Complicated
 widgets that want to avoid redrawing themselves completely can get the full
 extents of the clip region with <code>gdk_cairo_get_clip_rectangle</code>, or they can
 get a finer-grained representation of the dirty region with
@@ -2489,7 +2489,7 @@ get a finer-grained representation of the dirty region with
 <p><code>true</code> to stop other handlers from being invoked for the event.
 <code>false</code> to propagate the event further.</p>
 </div><h3 id="tymethod.connect_enter_notify_event" class="method"><code>fn <a href="#tymethod.connect_enter_notify_event" class="fnname">connect_enter_notify_event</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gdk/event_crossing/struct.EventCrossing.html" title="struct gdk::event_crossing::EventCrossing">EventCrossing</a>) -&gt; <a class="struct" href="../gtk/struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3558-3563" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::enter-notify-event will be emitted when the pointer enters
-the <code>widget</code>'s window.</p>
+the <code>widget</code>’s window.</p>
 <p>To receive this signal, the <code>gdk::Window</code> associated to the widget needs
 to enable the <code>gdk::EventMask::EnterNotifyMask</code> mask.</p>
 <p>This signal will be sent to the grab widget if there is one.</p>
@@ -2520,7 +2520,7 @@ regardless of the previous two signals handlers return values.</p>
 </div><h3 id="tymethod.connect_focus" class="method"><code>fn <a href="#tymethod.connect_focus" class="fnname">connect_focus</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="enum" href="../gtk/enum.DirectionType.html" title="enum gtk::DirectionType">DirectionType</a>) -&gt; <a class="struct" href="../gtk/struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3596-3599" title="goto source code">[src]</a></h3><div class="docblock"><h1 id="returns-109" class="section-header"><a href="#returns-109">Returns</a></h1>
 <p><code>true</code> to stop other handlers from being invoked for the event. <code>false</code> to propagate the event further.</p>
 </div><h3 id="tymethod.connect_focus_in_event" class="method"><code>fn <a href="#tymethod.connect_focus_in_event" class="fnname">connect_focus_in_event</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gdk/event_focus/struct.EventFocus.html" title="struct gdk::event_focus::EventFocus">EventFocus</a>) -&gt; <a class="struct" href="../gtk/struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3614-3617" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::focus-in-event signal will be emitted when the keyboard focus
-enters the <code>widget</code>'s window.</p>
+enters the <code>widget</code>’s window.</p>
 <p>To receive this signal, the <code>gdk::Window</code> associated to the widget needs
 to enable the <code>gdk::EventMask::FocusChangeMask</code> mask.</p>
 <h2 id="event-13" class="section-header"><a href="#event-13"><code>event</code></a></h2>
@@ -2530,7 +2530,7 @@ this signal.</p>
 <p><code>true</code> to stop other handlers from being invoked for the event.
 <code>false</code> to propagate the event further.</p>
 </div><h3 id="tymethod.connect_focus_out_event" class="method"><code>fn <a href="#tymethod.connect_focus_out_event" class="fnname">connect_focus_out_event</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gdk/event_focus/struct.EventFocus.html" title="struct gdk::event_focus::EventFocus">EventFocus</a>) -&gt; <a class="struct" href="../gtk/struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3632-3635" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::focus-out-event signal will be emitted when the keyboard focus
-leaves the <code>widget</code>'s window.</p>
+leaves the <code>widget</code>’s window.</p>
 <p>To receive this signal, the <code>gdk::Window</code> associated to the widget needs
 to enable the <code>gdk::EventMask::FocusChangeMask</code> mask.</p>
 <h2 id="event-14" class="section-header"><a href="#event-14"><code>event</code></a></h2>
@@ -2597,7 +2597,7 @@ See <code>WidgetExt::keynav_failed</code> for details.</p>
 if the emitting widget should try to handle the keyboard
 navigation attempt in its parent container(s).</p>
 </div><h3 id="tymethod.connect_leave_notify_event" class="method"><code>fn <a href="#tymethod.connect_leave_notify_event" class="fnname">connect_leave_notify_event</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gdk/event_crossing/struct.EventCrossing.html" title="struct gdk::event_crossing::EventCrossing">EventCrossing</a>) -&gt; <a class="struct" href="../gtk/struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3758-3763" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::leave-notify-event will be emitted when the pointer leaves
-the <code>widget</code>'s window.</p>
+the <code>widget</code>’s window.</p>
 <p>To receive this signal, the <code>gdk::Window</code> associated to the widget needs
 to enable the <code>gdk::EventMask::LeaveNotifyMask</code> mask.</p>
 <p>This signal will be sent to the grab widget if there is one.</p>
@@ -2623,7 +2623,7 @@ is <code>false</code>, or just makes <code>widget</code> grab focus if <code>gro
 <p><code>true</code> to stop other handlers from being invoked for the event.
 <code>false</code> to propagate the event further.</p>
 </div><h3 id="tymethod.connect_motion_notify_event" class="method"><code>fn <a href="#tymethod.connect_motion_notify_event" class="fnname">connect_motion_notify_event</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gdk/event_motion/struct.EventMotion.html" title="struct gdk::event_motion::EventMotion">EventMotion</a>) -&gt; <a class="struct" href="../gtk/struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3805-3810" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::motion-notify-event signal is emitted when the pointer moves
-over the widget's <code>gdk::Window</code>.</p>
+over the widget’s <code>gdk::Window</code>.</p>
 <p>To receive this signal, the <code>gdk::Window</code> associated to the widget
 needs to enable the <code>gdk::EventMask::PointerMotionMask</code> mask.</p>
 <p>This signal will be sent to the grab widget if there is one.</p>
@@ -2648,7 +2648,7 @@ for an example of how to use this signal.</p>
 <h1 id="returns-119" class="section-header"><a href="#returns-119">Returns</a></h1>
 <p><code>true</code> if a menu was activated</p>
 </div><h3 id="tymethod.emit_popup_menu" class="method"><code>fn <a href="#tymethod.emit_popup_menu" class="fnname">emit_popup_menu</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3836" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_property_notify_event" class="method"><code>fn <a href="#tymethod.connect_property_notify_event" class="fnname">connect_property_notify_event</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gdk/event_property/struct.EventProperty.html" title="struct gdk::event_property::EventProperty">EventProperty</a>) -&gt; <a class="struct" href="../gtk/struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3851-3856" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::property-notify-event signal will be emitted when a property on
-the <code>widget</code>'s window has been changed or deleted.</p>
+the <code>widget</code>’s window has been changed or deleted.</p>
 <p>To receive this signal, the <code>gdk::Window</code> associated to the widget needs
 to enable the <code>gdk::EventMask::PropertyChangeMask</code> mask.</p>
 <h2 id="event-20" class="section-header"><a href="#event-20"><code>event</code></a></h2>
@@ -2676,7 +2676,7 @@ this signal.</p>
 <p><code>true</code> to stop other handlers from being invoked for the event.
 <code>false</code> to propagate the event further.</p>
 </div><h3 id="tymethod.connect_query_tooltip" class="method"><code>fn <a href="#tymethod.connect_query_tooltip" class="fnname">connect_query_tooltip</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, &amp;<a class="struct" href="../gtk/struct.Tooltip.html" title="struct gtk::Tooltip">Tooltip</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3922-3925" title="goto source code">[src]</a></h3><div class="docblock"><p>Emitted when <code>Widget:has-tooltip</code> is <code>true</code> and the hover timeout
-has expired with the cursor hovering &quot;above&quot; <code>widget</code>; or emitted when <code>widget</code> got
+has expired with the cursor hovering “above” <code>widget</code>; or emitted when <code>widget</code> got
 focus in keyboard mode.</p>
 <p>Using the given coordinates, the signal handler should determine
 whether a tooltip should be shown for <code>widget</code>. If this is the case
@@ -2687,10 +2687,10 @@ should not be used.</p>
 destined function calls.</p>
 <h2 id="x-5" class="section-header"><a href="#x-5"><code>x</code></a></h2>
 <p>the x coordinate of the cursor position where the request has
-been emitted, relative to <code>widget</code>'s left side</p>
+been emitted, relative to <code>widget</code>’s left side</p>
 <h2 id="y-5" class="section-header"><a href="#y-5"><code>y</code></a></h2>
 <p>the y coordinate of the cursor position where the request has
-been emitted, relative to <code>widget</code>'s top</p>
+been emitted, relative to <code>widget</code>’s top</p>
 <h2 id="keyboard_mode" class="section-header"><a href="#keyboard_mode"><code>keyboard_mode</code></a></h2>
 <p><code>true</code> if the tooltip was triggered using the keyboard</p>
 <h2 id="tooltip" class="section-header"><a href="#tooltip"><code>tooltip</code></a></h2>
@@ -2718,7 +2718,7 @@ this signal.</p>
 <p><code>true</code> to stop other handlers from being invoked for the event.
 <code>false</code> to propagate the event further.</p>
 </div><h3 id="tymethod.connect_selection_clear_event" class="method"><code>fn <a href="#tymethod.connect_selection_clear_event" class="fnname">connect_selection_clear_event</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gdk/event_selection/struct.EventSelection.html" title="struct gdk::event_selection::EventSelection">EventSelection</a>) -&gt; <a class="struct" href="../gtk/struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3973-3978" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::selection-clear-event signal will be emitted when the
-the <code>widget</code>'s window has lost ownership of a selection.</p>
+the <code>widget</code>’s window has lost ownership of a selection.</p>
 <h2 id="event-24" class="section-header"><a href="#event-24"><code>event</code></a></h2>
 <p>the <code>gdk::EventSelection</code> which triggered
 this signal.</p>
@@ -2729,7 +2729,7 @@ this signal.</p>
 <p><code>true</code> to stop other handlers from being invoked for the event. <code>false</code> to propagate the event further.</p>
 </div><h3 id="tymethod.connect_selection_received" class="method"><code>fn <a href="#tymethod.connect_selection_received" class="fnname">connect_selection_received</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gtk/struct.SelectionData.html" title="struct gtk::SelectionData">SelectionData</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#3996-3999" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_selection_request_event" class="method"><code>fn <a href="#tymethod.connect_selection_request_event" class="fnname">connect_selection_request_event</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gdk/event_selection/struct.EventSelection.html" title="struct gdk::event_selection::EventSelection">EventSelection</a>) -&gt; <a class="struct" href="../gtk/struct.Inhibit.html" title="struct gtk::Inhibit">Inhibit</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#4012-4017" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::selection-request-event signal will be emitted when
 another client requests ownership of the selection owned by
-the <code>widget</code>'s window.</p>
+the <code>widget</code>’s window.</p>
 <h2 id="event-25" class="section-header"><a href="#event-25"><code>event</code></a></h2>
 <p>the <code>gdk::EventSelection</code> which triggered
 this signal.</p>
@@ -2749,7 +2749,7 @@ changes, see <code>WidgetExt::get_state_flags</code>.</p>
 <h2 id="flags-2" class="section-header"><a href="#flags-2"><code>flags</code></a></h2>
 <p>The previous state flags.</p>
 </div><h3 id="tymethod.connect_style_updated" class="method"><code>fn <a href="#tymethod.connect_style_updated" class="fnname">connect_style_updated</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/widget.rs.html#4055" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::style-updated signal is a convenience signal that is emitted when the
-<code>StyleContext::changed</code> signal is emitted on the <code>widget</code>'s associated
+<code>StyleContext::changed</code> signal is emitted on the <code>widget</code>’s associated
 <code>StyleContext</code> as returned by <code>WidgetExt::get_style_context</code>.</p>
 <p>Note that style-modifying functions like <code>WidgetExt::override_color</code> also
 cause this signal to be emitted.</p>

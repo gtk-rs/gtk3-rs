@@ -54,16 +54,16 @@ constructor. The implementation of <code>uri_func</code> should not be blocking,
 must not call <code>VfsExt::register_uri_scheme</code> or <code>VfsExt::unregister_uri_scheme</code>.</p>
 <p>When <code>File::parse_name</code> is called with a parse name obtained from such file,
 <code>parse_name_func</code> will be called to allow the <code>File</code> to be created again. In
-that case, it's responsibility of <code>parse_name_func</code> to make sure the parse
+that case, it’s responsibility of <code>parse_name_func</code> to make sure the parse
 name matches what the custom <code>File</code> implementation returned when
 <code>File::get_parse_name</code> was previously called. The implementation of
 <code>parse_name_func</code> should not be blocking, and must not call
 <code>VfsExt::register_uri_scheme</code> or <code>VfsExt::unregister_uri_scheme</code>.</p>
-<p>It's an error to call this function twice with the same scheme. To unregister
+<p>It’s an error to call this function twice with the same scheme. To unregister
 a custom URI scheme, use <code>VfsExt::unregister_uri_scheme</code>.</p>
 <p>Feature: <code>v2_50</code></p>
 <h2 id="scheme" class="section-header"><a href="#scheme"><code>scheme</code></a></h2>
-<p>an URI scheme, e.g. &quot;http&quot;</p>
+<p>an URI scheme, e.g. “http”</p>
 <h2 id="uri_func" class="section-header"><a href="#uri_func"><code>uri_func</code></a></h2>
 <p>a <code>GVfsFileLookupFunc</code></p>
 <h2 id="uri_data" class="section-header"><a href="#uri_data"><code>uri_data</code></a></h2>
@@ -88,7 +88,7 @@ for <code>scheme</code> already exists.</p>
 <code>VfsExt::register_uri_scheme</code>.</p>
 <p>Feature: <code>v2_50</code></p>
 <h2 id="scheme-1" class="section-header"><a href="#scheme-1"><code>scheme</code></a></h2>
-<p>an URI scheme, e.g. &quot;http&quot;</p>
+<p>an URI scheme, e.g. “http”</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
 <p><code>true</code> if <code>scheme</code> was successfully unregistered, or <code>false</code> if a
 handler for <code>scheme</code> does not exist.</p>

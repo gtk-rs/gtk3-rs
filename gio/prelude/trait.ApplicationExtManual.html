@@ -56,15 +56,15 @@ for the duration that the application is running.</p>
 <p>Since 2.40, applications that are not explicitly flagged as services
 or launchers (ie: neither <code>ApplicationFlags::IsService</code> or
 <code>ApplicationFlags::IsLauncher</code> are given as flags) will check (from the
-default handler for local_command_line) if &quot;--gapplication-service&quot;
+default handler for local_command_line) if “–gapplication-service”
 was given in the command line. If this flag is present then normal
 commandline processing is interrupted and the
-<code>ApplicationFlags::IsService</code> flag is set. This provides a &quot;compromise&quot;
+<code>ApplicationFlags::IsService</code> flag is set. This provides a “compromise”
 solution whereby running an application directly from the commandline
 will invoke it in the normal way (which can be useful for debugging)
 while still allowing applications to be D-Bus activated in service
 mode. The D-Bus service file should invoke the executable with
-&quot;--gapplication-service&quot; as the sole commandline argument. This
+“–gapplication-service” as the sole commandline argument. This
 approach is suitable for use by most graphical applications but
 should not be used from applications like editors that need precise
 control over when processes invoked via the commandline will exit and

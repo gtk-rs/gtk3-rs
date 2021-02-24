@@ -15,7 +15,7 @@
 <p><a href="struct.RelationSet.html"><code>RelationSet</code></a></p>
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.add" class="method"><code>fn <a href="#tymethod.add" class="fnname">add</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../../atk/struct.Relation.html" title="struct atk::Relation">Relation</a>&gt;&gt;(&amp;self, relation: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code><a class="srclink" href="../../src/atk/auto/relation_set.rs.html#55" title="goto source code">[src]</a></h3><div class="docblock"><p>Add a new relation to the current relation set if it is not already
 present.
-This function ref's the AtkRelation so the caller of this function
+This function ref’s the AtkRelation so the caller of this function
 should unref it to ensure that it will be destroyed when the AtkRelationSet
 is destroyed.</p>
 <h2 id="relation" class="section-header"><a href="#relation"><code>relation</code></a></h2>
@@ -61,7 +61,7 @@ position i in the set.</p>
 <p>an <code>Relation</code>, which is a relation matching the
 specified type.</p>
 </div><h3 id="tymethod.remove" class="method"><code>fn <a href="#tymethod.remove" class="fnname">remove</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../../atk/struct.Relation.html" title="struct atk::Relation">Relation</a>&gt;&gt;(&amp;self, relation: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code><a class="srclink" href="../../src/atk/auto/relation_set.rs.html#131" title="goto source code">[src]</a></h3><div class="docblock"><p>Removes a relation from the relation set.
-This function unref's the <code>Relation</code> so it will be deleted unless there
+This function unref’s the <code>Relation</code> so it will be deleted unless there
 is another reference to it.</p>
 <h2 id="relation-1" class="section-header"><a href="#relation-1"><code>relation</code></a></h2>
 <p>an <code>Relation</code></p>

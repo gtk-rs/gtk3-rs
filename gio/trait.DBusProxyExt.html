@@ -48,7 +48,7 @@ the operation will fail with <code>IOErrorEnum::Closed</code>. If
 compatible with the D-Bus protocol, the operation fails with
 <code>IOErrorEnum::InvalidArgument</code>.</p>
 <p>If the <code>parameters</code> <code>glib::Variant</code> is floating, it is consumed. This allows
-convenient 'inline' use of <code>glib::Variant::new</code>, e.g.:</p>
+convenient ‘inline’ use of <code>glib::Variant::new</code>, e.g.:</p>
 <pre><code class="language-C"> g_dbus_proxy_call (proxy,
                     &quot;TwoStrings&quot;,
                     g_variant_new (&quot;(ss)&quot;,
@@ -80,11 +80,11 @@ the <code>DBusMessageFlags::NoReplyExpected</code> flag set.</p>
 <p>Flags from the <code>DBusCallFlags</code> enumeration.</p>
 <h2 id="timeout_msec" class="section-header"><a href="#timeout_msec"><code>timeout_msec</code></a></h2>
 <p>The timeout in milliseconds (with <code>G_MAXINT</code> meaning
-&quot;infinite&quot;) or -1 to use the proxy default timeout.</p>
+“infinite”) or -1 to use the proxy default timeout.</p>
 <h2 id="cancellable" class="section-header"><a href="#cancellable"><code>cancellable</code></a></h2>
 <p>A <code>Cancellable</code> or <code>None</code>.</p>
 <h2 id="callback" class="section-header"><a href="#callback"><code>callback</code></a></h2>
-<p>A <code>GAsyncReadyCallback</code> to call when the request is satisfied or <code>None</code> if you don't
+<p>A <code>GAsyncReadyCallback</code> to call when the request is satisfied or <code>None</code> if you don’t
 care about the result of the method invocation.</p>
 <h2 id="user_data" class="section-header"><a href="#user_data"><code>user_data</code></a></h2>
 <p>The data to pass to <code>callback</code>.</p>
@@ -99,7 +99,7 @@ the operation will fail with <code>IOErrorEnum::Closed</code>. If
 compatible with the D-Bus protocol, the operation fails with
 <code>IOErrorEnum::InvalidArgument</code>.</p>
 <p>If the <code>parameters</code> <code>glib::Variant</code> is floating, it is consumed. This allows
-convenient 'inline' use of <code>glib::Variant::new</code>, e.g.:</p>
+convenient ‘inline’ use of <code>glib::Variant::new</code>, e.g.:</p>
 <pre><code class="language-C"> g_dbus_proxy_call_sync (proxy,
                          &quot;TwoStrings&quot;,
                          g_variant_new (&quot;(ss)&quot;,
@@ -125,7 +125,7 @@ or <code>None</code> if not passing parameters.</p>
 <p>Flags from the <code>DBusCallFlags</code> enumeration.</p>
 <h2 id="timeout_msec-1" class="section-header"><a href="#timeout_msec-1"><code>timeout_msec</code></a></h2>
 <p>The timeout in milliseconds (with <code>G_MAXINT</code> meaning
-&quot;infinite&quot;) or -1 to use the proxy default timeout.</p>
+“infinite”) or -1 to use the proxy default timeout.</p>
 <h2 id="cancellable-1" class="section-header"><a href="#cancellable-1"><code>cancellable</code></a></h2>
 <p>A <code>Cancellable</code> or <code>None</code>.</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
@@ -141,13 +141,13 @@ return values. Free with <code>glib::Variant::unref</code>.</p>
 <p>Flags from the <code>DBusCallFlags</code> enumeration.</p>
 <h2 id="timeout_msec-2" class="section-header"><a href="#timeout_msec-2"><code>timeout_msec</code></a></h2>
 <p>The timeout in milliseconds (with <code>G_MAXINT</code> meaning
-&quot;infinite&quot;) or -1 to use the proxy default timeout.</p>
+“infinite”) or -1 to use the proxy default timeout.</p>
 <h2 id="fd_list" class="section-header"><a href="#fd_list"><code>fd_list</code></a></h2>
 <p>A <code>UnixFDList</code> or <code>None</code>.</p>
 <h2 id="cancellable-2" class="section-header"><a href="#cancellable-2"><code>cancellable</code></a></h2>
 <p>A <code>Cancellable</code> or <code>None</code>.</p>
 <h2 id="callback-1" class="section-header"><a href="#callback-1"><code>callback</code></a></h2>
-<p>A <code>GAsyncReadyCallback</code> to call when the request is satisfied or <code>None</code> if you don't
+<p>A <code>GAsyncReadyCallback</code> to call when the request is satisfied or <code>None</code> if you don’t
 care about the result of the method invocation.</p>
 <h2 id="user_data-1" class="section-header"><a href="#user_data-1"><code>user_data</code></a></h2>
 <p>The data to pass to <code>callback</code>.</p>
@@ -162,7 +162,7 @@ or <code>None</code> if not passing parameters.</p>
 <p>Flags from the <code>DBusCallFlags</code> enumeration.</p>
 <h2 id="timeout_msec-3" class="section-header"><a href="#timeout_msec-3"><code>timeout_msec</code></a></h2>
 <p>The timeout in milliseconds (with <code>G_MAXINT</code> meaning
-&quot;infinite&quot;) or -1 to use the proxy default timeout.</p>
+“infinite”) or -1 to use the proxy default timeout.</p>
 <h2 id="fd_list-1" class="section-header"><a href="#fd_list-1"><code>fd_list</code></a></h2>
 <p>A <code>UnixFDList</code> or <code>None</code>.</p>
 <h2 id="out_fd_list" class="section-header"><a href="#out_fd_list"><code>out_fd_list</code></a></h2>
@@ -231,7 +231,7 @@ property cache.</p>
 <code>DBusProxy:g-interface-info</code>) and <code>property_name</code> is referenced by
 it, then <code>value</code> is checked against the type of the property.</p>
 <p>If the <code>value</code> <code>glib::Variant</code> is floating, it is consumed. This allows
-convenient 'inline' use of <code>glib::Variant::new</code>, e.g.</p>
+convenient ‘inline’ use of <code>glib::Variant::new</code>, e.g.</p>
 <pre><code class="language-C"> g_dbus_proxy_set_cached_property (proxy,
                                    &quot;SomeProperty&quot;,
                                    g_variant_new (&quot;(si)&quot;,
@@ -285,12 +285,12 @@ the default timeout (typically 25 seconds) is used. If set to
 </div><h3 id="tymethod.get_property_g_interface_info" class="method"><code>fn <a href="#tymethod.get_property_g_interface_info" class="fnname">get_property_g_interface_info</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../gio/struct.DBusInterfaceInfo.html" title="struct gio::DBusInterfaceInfo">DBusInterfaceInfo</a>&gt;</code><a class="srclink" href="../src/gio/auto/dbus_proxy.rs.html#837" title="goto source code">[src]</a></h3><div class="docblock"><p>Ensure that interactions with this proxy conform to the given
 interface. This is mainly to ensure that malformed data received
 from the other peer is ignored. The given <code>DBusInterfaceInfo</code> is
-said to be the &quot;expected interface&quot;.</p>
+said to be the “expected interface”.</p>
 <p>The checks performed are:</p>
 <ul>
 <li>
 <p>When completing a method call, if the type signature of
-the reply message isn't what's expected, the reply is
+the reply message isn’t what’s expected, the reply is
 discarded and the <code>glib::Error</code> is set to <code>IOErrorEnum::InvalidArgument</code>.</p>
 </li>
 <li>
@@ -313,12 +313,12 @@ service-side is not considered an ABI break.</p>
 </div><h3 id="tymethod.set_property_g_interface_info" class="method"><code>fn <a href="#tymethod.set_property_g_interface_info" class="fnname">set_property_g_interface_info</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;g_interface_info: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="../gio/struct.DBusInterfaceInfo.html" title="struct gio::DBusInterfaceInfo">DBusInterfaceInfo</a>&gt;<br>)</code><a class="srclink" href="../src/gio/auto/dbus_proxy.rs.html#863" title="goto source code">[src]</a></h3><div class="docblock"><p>Ensure that interactions with this proxy conform to the given
 interface. This is mainly to ensure that malformed data received
 from the other peer is ignored. The given <code>DBusInterfaceInfo</code> is
-said to be the &quot;expected interface&quot;.</p>
+said to be the “expected interface”.</p>
 <p>The checks performed are:</p>
 <ul>
 <li>
 <p>When completing a method call, if the type signature of
-the reply message isn't what's expected, the reply is
+the reply message isn’t what’s expected, the reply is
 discarded and the <code>glib::Error</code> is set to <code>IOErrorEnum::InvalidArgument</code>.</p>
 </li>
 <li>

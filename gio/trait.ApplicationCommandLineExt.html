@@ -46,9 +46,9 @@ directory, so this may be <code>None</code>.</p>
 long as <code>self</code> exists.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
 <p>the current directory, or <code>None</code></p>
-</div><h3 id="tymethod.get_environ" class="method"><code>fn <a href="#tymethod.get_environ" class="fnname">get_environ</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/ffi/os_str/struct.OsString.html" title="struct std::ffi::os_str::OsString">OsString</a>&gt;</code><a class="srclink" href="../src/gio/auto/application_command_line.rs.html#105" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the contents of the 'environ' variable of the command line
+</div><h3 id="tymethod.get_environ" class="method"><code>fn <a href="#tymethod.get_environ" class="fnname">get_environ</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/ffi/os_str/struct.OsString.html" title="struct std::ffi::os_str::OsString">OsString</a>&gt;</code><a class="srclink" href="../src/gio/auto/application_command_line.rs.html#105" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the contents of the ‘environ’ variable of the command line
 invocation, as would be returned by <code>g_get_environ</code>, ie as a
-<code>None</code>-terminated list of strings in the form 'NAME=VALUE'.
+<code>None</code>-terminated list of strings in the form ‘NAME=VALUE’.
 The strings may contain non-utf8 data.</p>
 <p>The remote application usually does not send an environment. Use
 <code>ApplicationFlags::SendEnvironment</code> to affect that. Even with this flag
@@ -73,7 +73,7 @@ options that were parsed according to the <code>GOptionEntrys</code> added to th
 application with <code>ApplicationExt::add_main_option_entries</code> and possibly
 modified from your GApplication::handle-local-options handler.</p>
 <p>If no options were sent then an empty dictionary is returned so that
-you don't need to check for <code>None</code>.</p>
+you don’t need to check for <code>None</code>.</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
 <p>a <code>glib::VariantDict</code> with the options</p>
 </div><h3 id="tymethod.get_platform_data" class="method"><code>fn <a href="#tymethod.get_platform_data" class="fnname">get_platform_data</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../glib/variant/struct.Variant.html" title="struct glib::variant::Variant">Variant</a>&gt;</code><a class="srclink" href="../src/gio/auto/application_command_line.rs.html#153" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the platform data associated with the invocation of <code>self</code>.</p>
@@ -87,7 +87,7 @@ notification ID.</p>
 </div><h3 id="tymethod.get_stdin" class="method"><code>fn <a href="#tymethod.get_stdin" class="fnname">get_stdin</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../gio/struct.InputStream.html" title="struct gio::InputStream">InputStream</a>&gt;</code><a class="srclink" href="../src/gio/auto/application_command_line.rs.html#170" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the stdin of the invoking process.</p>
 <p>The <code>InputStream</code> can be used to read data passed to the standard
 input of the invoking process.
-This doesn't work on all platforms. Presently, it is only available
+This doesn’t work on all platforms. Presently, it is only available
 on UNIX when using a DBus daemon capable of passing file descriptors.
 If stdin is not available then <code>None</code> will be returned. In the
 future, support may be expanded to other platforms.</p>
@@ -122,7 +122,7 @@ that was set with this function.</p>
 is slightly more complicated. If the commandline invocation results
 in the mainloop running (ie: because the use-count of the application
 increased to a non-zero value) then the application is considered to
-have been 'successful' in a certain sense, and the exit status is
+have been ‘successful’ in a certain sense, and the exit status is
 always zero. If the application use count is zero, though, the exit
 status of the local <code>ApplicationCommandLine</code> is used.</p>
 <h2 id="exit_status" class="section-header"><a href="#exit_status"><code>exit_status</code></a></h2>

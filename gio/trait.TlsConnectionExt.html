@@ -38,16 +38,16 @@
 </div><h2 id="required-methods" class="small-section-header">Required methods<a href="#required-methods" class="anchor"></a></h2><div class="methods"><h3 id="tymethod.emit_accept_certificate" class="method"><code>fn <a href="#tymethod.emit_accept_certificate" class="fnname">emit_accept_certificate</a>&lt;P:&nbsp;<a class="trait" href="../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../gio/struct.TlsCertificate.html" title="struct gio::TlsCertificate">TlsCertificate</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;peer_cert: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P, <br>&nbsp;&nbsp;&nbsp;&nbsp;errors: <a class="struct" href="../gio/struct.TlsCertificateFlags.html" title="struct gio::TlsCertificateFlags">TlsCertificateFlags</a><br>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gio/auto/tls_connection.rs.html#53-57" title="goto source code">[src]</a></h3><div class="docblock"><p>Used by <code>TlsConnection</code> implementations to emit the
 <code>TlsConnection::accept-certificate</code> signal.</p>
 <h2 id="peer_cert" class="section-header"><a href="#peer_cert"><code>peer_cert</code></a></h2>
-<p>the peer's <code>TlsCertificate</code></p>
+<p>the peer’s <code>TlsCertificate</code></p>
 <h2 id="errors" class="section-header"><a href="#errors"><code>errors</code></a></h2>
 <p>the problems with <code>peer_cert</code></p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p><code>true</code> if one of the signal handlers has returned
 <code>true</code> to accept <code>peer_cert</code></p>
-</div><h3 id="tymethod.get_certificate" class="method"><code>fn <a href="#tymethod.get_certificate" class="fnname">get_certificate</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../gio/struct.TlsCertificate.html" title="struct gio::TlsCertificate">TlsCertificate</a>&gt;</code><a class="srclink" href="../src/gio/auto/tls_connection.rs.html#66" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets <code>self</code>'s certificate, as set by
+</div><h3 id="tymethod.get_certificate" class="method"><code>fn <a href="#tymethod.get_certificate" class="fnname">get_certificate</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../gio/struct.TlsCertificate.html" title="struct gio::TlsCertificate">TlsCertificate</a>&gt;</code><a class="srclink" href="../src/gio/auto/tls_connection.rs.html#66" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets <code>self</code>’s certificate, as set by
 <code>TlsConnectionExt::set_certificate</code>.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
-<p><code>self</code>'s certificate, or <code>None</code></p>
+<p><code>self</code>’s certificate, or <code>None</code></p>
 </div><h3 id="tymethod.get_database" class="method"><code>fn <a href="#tymethod.get_database" class="fnname">get_database</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../gio/struct.TlsDatabase.html" title="struct gio::TlsDatabase">TlsDatabase</a>&gt;</code><a class="srclink" href="../src/gio/auto/tls_connection.rs.html#75" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the certificate database that <code>self</code> uses to verify
 peer certificates. See <code>TlsConnectionExt::set_database</code>.</p>
 <h1 id="returns-2" class="section-header"><a href="#returns-2">Returns</a></h1>
@@ -60,22 +60,22 @@ no user interaction will occur for this connection.</p>
 </div><h3 id="tymethod.get_negotiated_protocol" class="method"><code>fn <a href="#tymethod.get_negotiated_protocol" class="fnname">get_negotiated_protocol</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../src/gio/auto/tls_connection.rs.html#104" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v2_60</code></strong> only.</div></div><div class="docblock"><p>Gets the name of the application-layer protocol negotiated during
 the handshake.</p>
 <p>If the peer did not use the ALPN extension, or did not advertise a
-protocol that matched one of <code>self</code>'s protocols, or the TLS backend
+protocol that matched one of <code>self</code>’s protocols, or the TLS backend
 does not support ALPN, then this will be <code>None</code>. See
 <code>TlsConnectionExt::set_advertised_protocols</code>.</p>
 <p>Feature: <code>v2_60</code></p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p>the negotiated protocol, or <code>None</code></p>
-</div><h3 id="tymethod.get_peer_certificate" class="method"><code>fn <a href="#tymethod.get_peer_certificate" class="fnname">get_peer_certificate</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../gio/struct.TlsCertificate.html" title="struct gio::TlsCertificate">TlsCertificate</a>&gt;</code><a class="srclink" href="../src/gio/auto/tls_connection.rs.html#114" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets <code>self</code>'s peer's certificate after the handshake has completed
+</div><h3 id="tymethod.get_peer_certificate" class="method"><code>fn <a href="#tymethod.get_peer_certificate" class="fnname">get_peer_certificate</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../gio/struct.TlsCertificate.html" title="struct gio::TlsCertificate">TlsCertificate</a>&gt;</code><a class="srclink" href="../src/gio/auto/tls_connection.rs.html#114" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets <code>self</code>’s peer’s certificate after the handshake has completed
 or failed. (It is not set during the emission of
 <code>TlsConnection::accept-certificate</code>.)</p>
 <h1 id="returns-5" class="section-header"><a href="#returns-5">Returns</a></h1>
-<p><code>self</code>'s peer's certificate, or <code>None</code></p>
-</div><h3 id="tymethod.get_peer_certificate_errors" class="method"><code>fn <a href="#tymethod.get_peer_certificate_errors" class="fnname">get_peer_certificate_errors</a>(&amp;self) -&gt; <a class="struct" href="../gio/struct.TlsCertificateFlags.html" title="struct gio::TlsCertificateFlags">TlsCertificateFlags</a></code><a class="srclink" href="../src/gio/auto/tls_connection.rs.html#124" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the errors associated with validating <code>self</code>'s peer's
+<p><code>self</code>’s peer’s certificate, or <code>None</code></p>
+</div><h3 id="tymethod.get_peer_certificate_errors" class="method"><code>fn <a href="#tymethod.get_peer_certificate_errors" class="fnname">get_peer_certificate_errors</a>(&amp;self) -&gt; <a class="struct" href="../gio/struct.TlsCertificateFlags.html" title="struct gio::TlsCertificateFlags">TlsCertificateFlags</a></code><a class="srclink" href="../src/gio/auto/tls_connection.rs.html#124" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the errors associated with validating <code>self</code>’s peer’s
 certificate, after the handshake has completed or failed. (It is
 not set during the emission of <code>TlsConnection::accept-certificate</code>.)</p>
 <h1 id="returns-6" class="section-header"><a href="#returns-6">Returns</a></h1>
-<p><code>self</code>'s peer's certificate errors</p>
+<p><code>self</code>’s peer’s certificate errors</p>
 </div><h3 id="tymethod.get_rehandshake_mode" class="method"><code>fn <a href="#tymethod.get_rehandshake_mode" class="fnname">get_rehandshake_mode</a>(&amp;self) -&gt; <a class="enum" href="../gio/enum.TlsRehandshakeMode.html" title="enum gio::TlsRehandshakeMode">TlsRehandshakeMode</a></code><a class="srclink" href="../src/gio/auto/tls_connection.rs.html#140" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated</div></div><div class="docblock"><p>Gets <code>self</code> rehandshaking mode. See
 <code>TlsConnectionExt::set_rehandshake_mode</code> for details.</p>
 <h1 id="deprecated-since-260" class="section-header"><a href="#deprecated-since-260">Deprecated since 2.60</a></h1>
@@ -93,7 +93,7 @@ notification.</p>
 </div><h3 id="tymethod.handshake" class="method"><code>fn <a href="#tymethod.handshake" class="fnname">handshake</a>&lt;P:&nbsp;<a class="trait" href="../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../gio/struct.Cancellable.html" title="struct gio::Cancellable">Cancellable</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;cancellable: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="../glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</code><a class="srclink" href="../src/gio/auto/tls_connection.rs.html#191" title="goto source code">[src]</a></h3><div class="docblock"><p>Attempts a TLS handshake on <code>self</code>.</p>
 <p>On the client side, it is never necessary to call this method;
 although the connection needs to perform a handshake after
-connecting (or after sending a &quot;STARTTLS&quot;-type command),
+connecting (or after sending a “STARTTLS”-type command),
 <code>TlsConnection</code> will handle this for you automatically when you try
 to send or receive data on the connection. You can call
 <code>TlsConnectionExt::handshake</code> manually if you want to know whether
@@ -142,7 +142,7 @@ for a list of registered protocol IDs.</p>
 <p>Feature: <code>v2_60</code></p>
 <h2 id="protocols" class="section-header"><a href="#protocols"><code>protocols</code></a></h2>
 <p>a <code>None</code>-terminated
-array of ALPN protocol names (eg, &quot;http/1.1&quot;, &quot;h2&quot;), or <code>None</code></p>
+array of ALPN protocol names (eg, “http/1.1”, “h2”), or <code>None</code></p>
 </div><h3 id="tymethod.set_certificate" class="method"><code>fn <a href="#tymethod.set_certificate" class="fnname">set_certificate</a>&lt;P:&nbsp;<a class="trait" href="../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../gio/struct.TlsCertificate.html" title="struct gio::TlsCertificate">TlsCertificate</a>&gt;&gt;(&amp;self, certificate: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P)</code><a class="srclink" href="../src/gio/auto/tls_connection.rs.html#258" title="goto source code">[src]</a></h3><div class="docblock"><p>This sets the certificate that <code>self</code> will present to its peer
 during the TLS handshake. For a <code>TlsServerConnection</code>, it is
 mandatory to set this, and that will normally be done at construct
@@ -155,7 +155,7 @@ call this method first. You can call
 to get a list of Certificate Authorities that the server will
 accept certificates from.</p>
 <p>(It is also possible that a server will allow the connection with
-or without a certificate; in that case, if you don't provide a
+or without a certificate; in that case, if you don’t provide a
 certificate, you can tell that the server requested one by the fact
 that <code>TlsClientConnection::get_accepted_cas</code> will return
 non-<code>None</code>.)</p>
@@ -202,7 +202,7 @@ somehow self-delimiting); in this case, the close notify is
 redundant and sometimes omitted. (TLS 1.1 explicitly allows this;
 in TLS 1.0 it is technically an error, but often done anyway.) You
 can use <code>TlsConnectionExt::set_require_close_notify</code> to tell <code>self</code>
-to allow an &quot;unannounced&quot; connection close, in which case the close
+to allow an “unannounced” connection close, in which case the close
 will show up as a 0-length read, as in a non-TLS
 <code>SocketConnection</code>, and it is up to the application to check that
 the data has been fully received.</p>
@@ -210,7 +210,7 @@ the data has been fully received.</p>
 connection; when the application calls <code>IOStreamExt::close</code> itself
 on <code>self</code>, this will send a close notification regardless of the
 setting of this property. If you explicitly want to do an unclean
-close, you can close <code>self</code>'s <code>TlsConnection:base-io-stream</code> rather
+close, you can close <code>self</code>’s <code>TlsConnection:base-io-stream</code> rather
 than closing <code>self</code> itself, but note that this may only be done when no other
 operations are pending on <code>self</code> or the base I/O stream.</p>
 <h2 id="require_close_notify" class="section-header"><a href="#require_close_notify"><code>require_close_notify</code></a></h2>
@@ -225,17 +225,17 @@ throughout its lifetime. Consequently, after the <code>IOStream</code> has been
 constructed, application code may only run its own operations on this
 stream when no <code>IOStream</code> operations are running.</p>
 </div><h3 id="tymethod.connect_accept_certificate" class="method"><code>fn <a href="#tymethod.connect_accept_certificate" class="fnname">connect_accept_certificate</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gio/struct.TlsCertificate.html" title="struct gio::TlsCertificate">TlsCertificate</a>, <a class="struct" href="../gio/struct.TlsCertificateFlags.html" title="struct gio::TlsCertificateFlags">TlsCertificateFlags</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gio/auto/tls_connection.rs.html#393-398" title="goto source code">[src]</a></h3><div class="docblock"><p>Emitted during the TLS handshake after the peer certificate has
-been received. You can examine <code>peer_cert</code>'s certification path by
+been received. You can examine <code>peer_cert</code>’s certification path by
 calling <code>TlsCertificateExt::get_issuer</code> on it.</p>
-<p>For a client-side connection, <code>peer_cert</code> is the server's
+<p>For a client-side connection, <code>peer_cert</code> is the server’s
 certificate, and the signal will only be emitted if the
-certificate was not acceptable according to <code>conn</code>'s
+certificate was not acceptable according to <code>conn</code>’s
 <code>TlsClientConnection:validation_flags</code>. If you would like the
 certificate to be accepted despite <code>errors</code>, return <code>true</code> from the
 signal handler. Otherwise, if no handler accepts the certificate,
 the handshake will fail with <code>TlsError::BadCertificate</code>.</p>
 <p>For a server-side connection, <code>peer_cert</code> is the certificate
-presented by the client, if this was requested via the server's
+presented by the client, if this was requested via the server’s
 <code>TlsServerConnection:authentication_mode</code>. On the server side,
 the signal is always emitted when the client presents a
 certificate, and the certificate will only be accepted if a
@@ -254,7 +254,7 @@ the next time.</p>
 need to worry about this, and can simply block in the signal
 handler until the UI thread returns an answer.</p>
 <h2 id="peer_cert-1" class="section-header"><a href="#peer_cert-1"><code>peer_cert</code></a></h2>
-<p>the peer's <code>TlsCertificate</code></p>
+<p>the peer’s <code>TlsCertificate</code></p>
 <h2 id="errors-1" class="section-header"><a href="#errors-1"><code>errors</code></a></h2>
 <p>the problems with <code>peer_cert</code>.</p>
 <h1 id="returns-10" class="section-header"><a href="#returns-10">Returns</a></h1>

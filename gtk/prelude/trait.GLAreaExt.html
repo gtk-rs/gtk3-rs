@@ -37,7 +37,7 @@
 and read target, and that all the required buffers for the <code>self</code>
 are created and bound to the frambuffer.</p>
 <p>This function is automatically called before emitting the
-<code>GLArea::render</code> signal, and doesn't normally need to be called
+<code>GLArea::render</code> signal, and doesn’t normally need to be called
 by application code.</p>
 <p>Feature: <code>v3_16</code></p>
 </div><h3 id="tymethod.get_auto_render" class="method"><code>fn <a href="#tymethod.get_auto_render" class="fnname">get_auto_render</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#482" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Returns whether the area is in auto render mode or not.</p>
@@ -79,7 +79,7 @@ and <code>false</code> otherwise</p>
 </div><h3 id="tymethod.make_current" class="method"><code>fn <a href="#tymethod.make_current" class="fnname">make_current</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#589" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Ensures that the <code>gdk::GLContext</code> used by <code>self</code> is associated with
 the <code>GLArea</code>.</p>
 <p>This function is automatically called before emitting the
-<code>GLArea::render</code> signal, and doesn't normally need to be called
+<code>GLArea::render</code> signal, and doesn’t normally need to be called
 by application code.</p>
 <p>Feature: <code>v3_16</code></p>
 </div><h3 id="tymethod.queue_render" class="method"><code>fn <a href="#tymethod.queue_render" class="fnname">queue_render</a>(&amp;self)</code><a class="srclink" href="../../src/gtk/auto/gl_area.rs.html#604" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_16</code></strong> only.</div></div><div class="docblock"><p>Marks the currently rendered data (if any) as invalid, and queues

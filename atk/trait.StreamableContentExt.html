@@ -19,7 +19,7 @@ should not free the character string.</p>
 <h1 id="returns-1" class="section-header"><a href="#returns-1">Returns</a></h1>
 <p>a gint which is the number of mime types supported by the object.</p>
 </div><h3 id="tymethod.get_uri" class="method"><code>fn <a href="#tymethod.get_uri" class="fnname">get_uri</a>(&amp;self, mime_type: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../src/atk/auto/streamable_content.rs.html#65" title="goto source code">[src]</a></h3><div class="docblock"><p>Get a string representing a URI in IETF standard format
-(see http://www.ietf.org/rfc/rfc2396.txt) from which the object's content
+(see http://www.ietf.org/rfc/rfc2396.txt) from which the object’s content
 may be streamed in the specified mime-type, if one is available.
 If mime_type is NULL, the URI for the default (and possibly only) mime-type is
 returned.</p>

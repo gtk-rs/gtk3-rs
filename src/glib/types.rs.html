@@ -513,6 +513,27 @@
 <span id="510">510</span>
 <span id="511">511</span>
 <span id="512">512</span>
+<span id="513">513</span>
+<span id="514">514</span>
+<span id="515">515</span>
+<span id="516">516</span>
+<span id="517">517</span>
+<span id="518">518</span>
+<span id="519">519</span>
+<span id="520">520</span>
+<span id="521">521</span>
+<span id="522">522</span>
+<span id="523">523</span>
+<span id="524">524</span>
+<span id="525">525</span>
+<span id="526">526</span>
+<span id="527">527</span>
+<span id="528">528</span>
+<span id="529">529</span>
+<span id="530">530</span>
+<span id="531">531</span>
+<span id="532">532</span>
+<span id="533">533</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -529,7 +550,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 
 <span class="doccomment">/// A GLib or GLib-based library type</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Type</span> {
     <span class="doccomment">/// An invalid `Type` used as error return value in some functions</span>
     <span class="ident">Invalid</span>,
@@ -1010,6 +1031,8 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">InitiallyUnowned</span>;
+    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::{<span class="ident">BTreeSet</span>, <span class="ident">HashSet</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">invalid</span>() {
@@ -1024,6 +1047,25 @@
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">invalid</span>.<span class="ident">interfaces</span>(), <span class="macro">vec</span><span class="macro">!</span>[]);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">invalid</span>.<span class="ident">interface_prerequisites</span>(), <span class="macro">vec</span><span class="macro">!</span>[]);
         <span class="macro">dbg</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="ident">invalid</span>);
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">hash</span>() {
+        <span class="comment">// Get this first so the type is registered</span>
+        <span class="kw">let</span> <span class="ident">iu_type</span> <span class="op">=</span> <span class="ident">InitiallyUnowned</span>::<span class="ident">static_type</span>();
+
+        <span class="kw">let</span> <span class="ident">set</span> <span class="op">=</span> <span class="ident">Type</span>::<span class="ident">Object</span>.<span class="ident">children</span>().<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">set</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">iu_type</span>));
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">ord</span>() {
+        <span class="comment">// Get this first so the type is registered</span>
+        <span class="kw">let</span> <span class="ident">iu_type</span> <span class="op">=</span> <span class="ident">InitiallyUnowned</span>::<span class="ident">static_type</span>();
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">Type</span>::<span class="ident">Object</span> <span class="op">&lt;</span> <span class="ident">iu_type</span>);
+
+        <span class="kw">let</span> <span class="ident">set</span> <span class="op">=</span> <span class="ident">Type</span>::<span class="ident">Object</span>.<span class="ident">children</span>().<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">BTreeSet</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">set</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">iu_type</span>));
     }
 }
 </pre></div>

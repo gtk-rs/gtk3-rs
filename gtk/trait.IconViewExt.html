@@ -401,11 +401,11 @@ column must be of type <code>GDK_TYPE_PIXBUF</code></p>
 support the <code>TreeDragSourceIface</code> and the <code>TreeDragDestIface</code>. Both
 <code>TreeStore</code> and <code>ListStore</code> support these. If <code>reorderable</code> is <code>true</code>, then
 the user can reorder the model by dragging and dropping rows. The
-developer can listen to these changes by connecting to the model's
+developer can listen to these changes by connecting to the model’s
 row_inserted and row_deleted signals. The reordering is implemented by setting up
 the icon view as a drag source and destination. Therefore, drag and
 drop can not be used in a reorderable view for any other purpose.</p>
-<p>This function does not give you any degree of control over the order -- any
+<p>This function does not give you any degree of control over the order – any
 reordering is allowed. If more control is needed, you should probably
 handle drag and drop manually.</p>
 <h2 id="reorderable" class="section-header"><a href="#reorderable"><code>reorderable</code></a></h2>
@@ -472,9 +472,9 @@ programmatically.</p>
 <p>The default bindings for this signal are Space, Return and Enter.</p>
 </div><h3 id="tymethod.emit_activate_cursor_item" class="method"><code>fn <a href="#tymethod.emit_activate_cursor_item" class="fnname">emit_activate_cursor_item</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gtk/auto/icon_view.rs.html#1265" title="goto source code">[src]</a></h3><h3 id="tymethod.connect_item_activated" class="method"><code>fn <a href="#tymethod.connect_item_activated" class="fnname">connect_item_activated</a>&lt;F:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self, &amp;<a class="struct" href="../gtk/struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>) + 'static&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;f: F<br>) -&gt; <a class="struct" href="../glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></code><a class="srclink" href="../src/gtk/auto/icon_view.rs.html#1276" title="goto source code">[src]</a></h3><div class="docblock"><p>The ::item-activated signal is emitted when the method
 <code>IconViewExt::item_activated</code> is called, when the user double
-clicks an item with the &quot;activate-on-single-click&quot; property set
+clicks an item with the “activate-on-single-click” property set
 to <code>false</code>, or when the user single clicks an item when the
-&quot;activate-on-single-click&quot; property set to <code>true</code>. It is also
+“activate-on-single-click” property set to <code>true</code>. It is also
 emitted when a non-editable item is selected and one of the keys:
 Space, Return or Enter is pressed.</p>
 <h2 id="path-18" class="section-header"><a href="#path-18"><code>path</code></a></h2>
@@ -489,7 +489,7 @@ programmatically.</p>
 <ul>
 <li>Arrow keys which move by individual steps</li>
 <li>Home/End keys which move to the first/last item</li>
-<li>PageUp/PageDown which move by &quot;pages&quot;
+<li>PageUp/PageDown which move by “pages”
 All of these will extend the selection when combined with
 the Shift modifier.</li>
 </ul>

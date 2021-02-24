@@ -148,7 +148,7 @@ width as the entry.</p>
 <p><code>true</code> to make the width of the popup the same as the entry</p>
 </div><h3 id="tymethod.set_popup_single_match" class="method"><code>fn <a href="#tymethod.set_popup_single_match" class="fnname">set_popup_single_match</a>(&amp;self, popup_single_match: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/entry_completion.rs.html#361" title="goto source code">[src]</a></h3><div class="docblock"><p>Sets whether the completion popup window will appear even if there is
 only a single match. You may want to set this to <code>false</code> if you
-are using [inline completion][<code>EntryCompletion</code>--inline-completion].</p>
+are using [inline completion][<code>EntryCompletion</code>–inline-completion].</p>
 <h2 id="popup_single_match" class="section-header"><a href="#popup_single_match"><code>popup_single_match</code></a></h2>
 <p><code>true</code> if the popup should appear even for a single
 match</p>
@@ -157,7 +157,7 @@ completion list with just strings. This function will set up <code>self</code>
 to have a list displaying all (and just) strings in the completion list,
 and to get those strings from <code>column</code> in the model of <code>self</code>.</p>
 <p>This functions creates and adds a <code>CellRendererText</code> for the selected
-column. If you need to set the text column, but don't want the cell
+column. If you need to set the text column, but don’t want the cell
 renderer, use <code>gobject::ObjectExt::set</code> to set the <code>EntryCompletion:text-column</code>
 property directly.</p>
 <h2 id="column" class="section-header"><a href="#column"><code>column</code></a></h2>
@@ -187,7 +187,7 @@ whole prefix and select the newly inserted part.</p>
 <p>Applications may connect to this signal in order to insert only a
 smaller part of the <code>prefix</code> into the entry - e.g. the entry used in
 the <code>FileChooser</code> inserts only the part of the prefix up to the
-next '/'.</p>
+next ‘/’.</p>
 <h2 id="prefix" class="section-header"><a href="#prefix"><code>prefix</code></a></h2>
 <p>the common prefix of all possible completions</p>
 <h1 id="returns-11" class="section-header"><a href="#returns-11">Returns</a></h1>

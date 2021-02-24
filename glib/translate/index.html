@@ -44,7 +44,7 @@ In the example below, <a href="../../glib/translate/trait.ToGlib.html" title="To
     }
 }</pre></div>
 <p>The <a href="../../glib/translate/trait.TryFromGlib.html" title="TryFromGlib"><code>TryFromGlib</code></a> trait can also be implemented when the Glib type range is larger than the
-target Rust type's range. In the example below, the Rust type <code>U32</code> can be built from a signed
+target Rust type’s range. In the example below, the Rust type <code>U32</code> can be built from a signed
 [<code>libc::c_long</code>], which means that the negative range is not valid.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -68,7 +68,7 @@ according to their <code>transfer</code> annotations.
 They acquire non-gobject types,
 as well as turning floating references to strong ones,
 which are the only ones properly handled by the Rust bindings.</p>
-<p>For more information about floating references, please refer to the &quot;Floating references&quot; section
+<p>For more information about floating references, please refer to the “Floating references” section
 of <a href="https://developer.gnome.org/gobject/stable/gobject-The-Base-Object-Type.html">the gobject reference</a>.</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">

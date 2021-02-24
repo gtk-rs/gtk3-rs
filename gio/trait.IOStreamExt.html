@@ -40,7 +40,7 @@ otherwise there might be a loss of data as all data might not be written.</p>
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <code>IOErrorEnum::Cancelled</code> will be returned.
 Cancelling a close will still leave the stream closed, but some streams
-can use a faster close that doesn't block to e.g. check errors.</p>
+can use a faster close that doesn’t block to e.g. check errors.</p>
 <p>The default implementation of this method just calls close on the
 individual input/output streams.</p>
 <h2 id="cancellable" class="section-header"><a href="#cancellable"><code>cancellable</code></a></h2>

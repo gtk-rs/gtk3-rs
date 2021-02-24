@@ -230,9 +230,9 @@ windows. But normally the window will end up fullscreen. Just
 don’t write code that crashes if not.</p>
 <p>You can track the fullscreen state via the “window-state-event” signal
 on <code>Widget</code>.</p>
-</div><h3 id="tymethod.fullscreen_on_monitor" class="method"><code>fn <a href="#tymethod.fullscreen_on_monitor" class="fnname">fullscreen_on_monitor</a>(&amp;self, screen: &amp;<a class="struct" href="../../gdk/auto/screen/struct.Screen.html" title="struct gdk::auto::screen::Screen">Screen</a>, monitor: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/window.rs.html#928" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_18</code></strong> only.</div></div><div class="docblock"><p>Asks to place <code>self</code> in the fullscreen state. Note that you shouldn't assume
+</div><h3 id="tymethod.fullscreen_on_monitor" class="method"><code>fn <a href="#tymethod.fullscreen_on_monitor" class="fnname">fullscreen_on_monitor</a>(&amp;self, screen: &amp;<a class="struct" href="../../gdk/auto/screen/struct.Screen.html" title="struct gdk::auto::screen::Screen">Screen</a>, monitor: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/window.rs.html#928" title="goto source code">[src]</a></h3><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>v3_18</code></strong> only.</div></div><div class="docblock"><p>Asks to place <code>self</code> in the fullscreen state. Note that you shouldn’t assume
 the window is definitely full screen afterward.</p>
-<p>You can track the fullscreen state via the &quot;window-state-event&quot; signal
+<p>You can track the fullscreen state via the “window-state-event” signal
 on <code>Widget</code>.</p>
 <p>Feature: <code>v3_18</code></p>
 <h2 id="screen" class="section-header"><a href="#screen"><code>screen</code></a></h2>
@@ -304,7 +304,7 @@ when maximized. See gtk_window_set_hide_titlebar_when_maximized ().</p>
 <h1 id="returns-15" class="section-header"><a href="#returns-15">Returns</a></h1>
 <p><code>true</code> if the window has requested to have its titlebar
 hidden when maximized</p>
-</div><h3 id="tymethod.get_icon" class="method"><code>fn <a href="#tymethod.get_icon" class="fnname">get_icon</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="struct gdk_pixbuf::auto::pixbuf::Pixbuf">Pixbuf</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/window.rs.html#1071" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value set by <code>GtkWindowExt::set_icon</code> (or if you've
+</div><h3 id="tymethod.get_icon" class="method"><code>fn <a href="#tymethod.get_icon" class="fnname">get_icon</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="struct gdk_pixbuf::auto::pixbuf::Pixbuf">Pixbuf</a>&gt;</code><a class="srclink" href="../../src/gtk/auto/window.rs.html#1071" title="goto source code">[src]</a></h3><div class="docblock"><p>Gets the value set by <code>GtkWindowExt::set_icon</code> (or if you’ve
 called <code>GtkWindowExt::set_icon_list</code>, gets the first icon in
 the icon list).</p>
 <h1 id="returns-16" class="section-header"><a href="#returns-16">Returns</a></h1>
@@ -428,7 +428,7 @@ on the screen, you should, instead, simply set the window’s semantic
 type with <code>GtkWindowExt::set_type_hint</code>, which allows the window manager
 to e.g. center dialogs. Also, if you set the transient parent of
 dialogs with <code>GtkWindowExt::set_transient_for</code> window managers will
-often center the dialog over its parent window. It's much preferred
+often center the dialog over its parent window. It’s much preferred
 to let the window manager handle these cases rather than doing it
 yourself, because all apps will behave consistently and according to
 user or system preferences, if the window manager handles it. Also,
@@ -641,7 +641,7 @@ overriding the standard key handling for a toplevel window.</p>
 </div><h3 id="tymethod.resize" class="method"><code>fn <a href="#tymethod.resize" class="fnname">resize</a>(&amp;self, width: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, height: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</code><a class="srclink" href="../../src/gtk/auto/window.rs.html#1609" title="goto source code">[src]</a></h3><div class="docblock"><p>Resizes the window as if the user had done so, obeying geometry
 constraints. The default geometry constraint is that windows may
 not be smaller than their size request; to override this
-constraint, call <code>WidgetExt::set_size_request</code> to set the window's
+constraint, call <code>WidgetExt::set_size_request</code> to set the window’s
 request to a smaller value.</p>
 <p>If <code>GtkWindowExt::resize</code> is called before showing a window for the
 first time, it overrides any default size set with
@@ -780,7 +780,7 @@ policy involved.</p>
 <p><code>true</code> to decorate the window as deletable</p>
 </div><h3 id="tymethod.set_destroy_with_parent" class="method"><code>fn <a href="#tymethod.set_destroy_with_parent" class="fnname">set_destroy_with_parent</a>(&amp;self, setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/window.rs.html#1777" title="goto source code">[src]</a></h3><div class="docblock"><p>If <code>setting</code> is <code>true</code>, then destroying the transient parent of <code>self</code>
 will also destroy <code>self</code> itself. This is useful for dialogs that
-shouldn’t persist beyond the lifetime of the main window they're
+shouldn’t persist beyond the lifetime of the main window they’re
 associated with, for example.</p>
 <h2 id="setting-3" class="section-header"><a href="#setting-3"><code>setting</code></a></h2>
 <p>whether to destroy <code>self</code> with its transient parent</p>
@@ -956,8 +956,8 @@ by default.</p>
 <p><code>true</code> if the user can resize this window</p>
 </div><h3 id="tymethod.set_role" class="method"><code>fn <a href="#tymethod.set_role" class="fnname">set_role</a>(&amp;self, role: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code><a class="srclink" href="../../src/gtk/auto/window.rs.html#2046" title="goto source code">[src]</a></h3><div class="docblock"><p>This function is only useful on X11, not with other GTK+ targets.</p>
 <p>In combination with the window title, the window role allows a
-[window manager][gtk-X11-arch] to identify &quot;the
-same&quot; window when an application is restarted. So for example you
+[window manager][gtk-X11-arch] to identify “the
+same” window when an application is restarted. So for example you
 might set the “toolbox” role on your app’s toolbox window, so that
 when the user restarts their session, the window manager can put
 the toolbox back in the same place.</p>
@@ -973,7 +973,7 @@ then remapped on the new screen.</p>
 <p>a <code>gdk::Screen</code>.</p>
 </div><h3 id="tymethod.set_skip_pager_hint" class="method"><code>fn <a href="#tymethod.set_skip_pager_hint" class="fnname">set_skip_pager_hint</a>(&amp;self, setting: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</code><a class="srclink" href="../../src/gtk/auto/window.rs.html#2064" title="goto source code">[src]</a></h3><div class="docblock"><p>Windows may set a hint asking the desktop environment not to display
 the window in the pager. This function sets this hint.
-(A &quot;pager&quot; is any desktop navigation tool such as a workspace
+(A “pager” is any desktop navigation tool such as a workspace
 switcher that displays a thumbnail representation of the windows
 on the screen.)</p>
 <h2 id="setting-11" class="section-header"><a href="#setting-11"><code>setting</code></a></h2>
@@ -1059,7 +1059,7 @@ desktops. Note that you shouldn’t assume the window is definitely
 stuck afterward, because other entities (e.g. the user or
 [window manager][gtk-X11-arch] could unstick it
 again, and some window managers do not support sticking
-windows. But normally the window will end up stuck. Just don't
+windows. But normally the window will end up stuck. Just don’t
 write code that crashes if not.</p>
 <p>It’s permitted to call this function before showing a window.</p>
 <p>You can track stickiness via the “window-state-event” signal

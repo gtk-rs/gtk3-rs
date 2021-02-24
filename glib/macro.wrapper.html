@@ -251,7 +251,7 @@ class implements.</p>
 <p><code>get_type</code>: <code>|| -&gt; glib_ffi::GType</code> (optional) returns the
 <code>glib_ffi::GType</code> that corresponds to the foreign struct.</p>
 <h3 id="object" class="section-header"><a href="#object">Object</a></h3>
-<p>Objects -- classes.  Note that the class name, if available, must be specified after the
+<p>Objects – classes.  Note that the class name, if available, must be specified after the
 $foreign type; see below for <a href="#non-derivable-classes">non-derivable classes</a>.</p>
 <p>The basic syntax is this:</p>
 
@@ -269,7 +269,7 @@ $foreign type; see below for <a href="#non-derivable-classes">non-derivable clas
 <p><code>get_type</code>: <code>|| -&gt; glib_ffi::GType</code> returns the <code>glib_ffi::GType</code>
 that corresponds to the foreign class.</p>
 <h4 id="all-parent-classes-must-be-specified" class="section-header"><a href="#all-parent-classes-must-be-specified">All parent classes must be specified</a></h4>
-<p>In the example above, &quot;<code>@extends ParentClass, GrandparentClass, ...,</code>&quot; is where you must
+<p>In the example above, “<code>@extends ParentClass, GrandparentClass, ...,</code>” is where you must
 specify all the parent classes of the one you are wrapping. The uppermost parent class,
 <code>glib::Object</code>, must not be specified.</p>
 <p>For example, <code>ffi::GtkWindowGroup</code> derives directly from
@@ -310,10 +310,10 @@ behind the <code>@implements</code> keyword:</p>
     }
 }</pre></div>
 <h4 id="non-derivable-classes" class="section-header"><a href="#non-derivable-classes">Non-derivable classes</a></h4>
-<p>By convention, GObject implements &quot;final&quot; classes, i.e. those who
+<p>By convention, GObject implements “final” classes, i.e. those who
 cannot be subclassed, by <em>not</em> exposing a public Class struct.
 This way it is not possible to override any methods, as there are
-no <code>klass.method_name</code> fields to overwrite.  In this case, don't
+no <code>klass.method_name</code> fields to overwrite.  In this case, don’t
 specify a FFI class name at all in the <code>Object&lt;&gt;</code> part:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
