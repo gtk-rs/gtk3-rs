@@ -459,7 +459,7 @@ mod test {
         let type_ = SimpleObject::static_type();
         let obj = Object::with_type(type_, &[]).expect("Object::new failed");
 
-        assert!(obj.get_type().is_a(&DummyInterface::static_type()));
+        assert!(obj.get_type().is_a(DummyInterface::static_type()));
 
         assert_eq!(
             obj.get_property("constructed")
@@ -671,6 +671,6 @@ mod test {
             .emit_by_name("create-child-object", &[])
             .expect("Failed to emit")
             .expect("Failed to get value from emit");
-        assert!(value.type_().is_a(&ChildObject::static_type()));
+        assert!(value.type_().is_a(ChildObject::static_type()));
     }
 }

@@ -1135,7 +1135,7 @@ impl Object {
         type_: Type,
         params: &[(std::ffi::CString, Value)],
     ) -> Result<Object, BoolError> {
-        if !type_.is_a(&Object::static_type()) {
+        if !type_.is_a(Object::static_type()) {
             return Err(bool_error!(
                 "Can't instantiate non-GObject type '{}'",
                 type_
@@ -1169,7 +1169,7 @@ impl Object {
         );
         if ptr.is_null() {
             Err(bool_error!("Can't instantiate object for type '{}'", type_))
-        } else if type_.is_a(&InitiallyUnowned::static_type()) {
+        } else if type_.is_a(InitiallyUnowned::static_type()) {
             // Attention: This takes ownership of the floating reference
             Ok(from_glib_none(ptr))
         } else {
@@ -1333,7 +1333,7 @@ pub trait ObjectExt: ObjectType {
 
 impl<T: ObjectType> ObjectExt for T {
     fn is<U: StaticType>(&self) -> bool {
-        self.get_type().is_a(&U::static_type())
+        self.get_type().is_a(U::static_type())
     }
 
     fn get_type(&self) -> Type {
@@ -1785,10 +1785,10 @@ impl<T: ObjectType> ObjectExt for T {
                         // actual typed of the contained object is compatible and if so create
                         // a properly typed Value. This can happen if the type field in the
                         // Value is set to a more generic type than the contained value
-                        if !valid_type && ret.type_().is_a(&Object::static_type()) {
+                        if !valid_type && ret.type_().is_a(Object::static_type()) {
                             match ret.get::<Object>() {
                                 Ok(Some(obj)) => {
-                                    if obj.get_type().is_a(&return_type) {
+                                    if obj.get_type().is_a(return_type) {
                                         ret.0.g_type = return_type.to_glib();
                                     } else {
                                         panic!(
@@ -2135,10 +2135,10 @@ fn validate_property_type(
         // actual type of the contained object is compatible and if so create
         // a properly typed Value. This can happen if the type field in the
         // Value is set to a more generic type than the contained value
-        if !valid_type && property_value.type_().is_a(&Object::static_type()) {
+        if !valid_type && property_value.type_().is_a(Object::static_type()) {
             match property_value.get::<Object>() {
                 Ok(Some(obj)) => {
-                    if obj.get_type().is_a(&pspec.get_value_type()) {
+                    if obj.get_type().is_a(pspec.get_value_type()) {
                         property_value.0.g_type = pspec.get_value_type().to_glib();
                     } else {
                         return Err(
@@ -2212,10 +2212,10 @@ fn validate_signal_arguments(
 
     for (i, (arg, param_type)) in param_types.enumerate() {
         let param_type: Type = param_type.into();
-        if arg.type_().is_a(&Object::static_type()) {
+        if arg.type_().is_a(Object::static_type()) {
             match arg.get::<Object>() {
                 Ok(Some(obj)) => {
-                    if obj.get_type().is_a(&param_type) {
+                    if obj.get_type().is_a(param_type) {
                         arg.0.g_type = param_type.to_glib();
                     } else {
                         return Err(
@@ -2579,7 +2579,7 @@ impl<T: ObjectType> Class<T> {
     where
         U: IsA<T>,
     {
-        if !self.get_type().is_a(&U::static_type()) {
+        if !self.get_type().is_a(U::static_type()) {
             return None;
         }
 
@@ -2595,7 +2595,7 @@ impl<T: ObjectType> Class<T> {
     where
         U: IsA<T>,
     {
-        if !self.get_type().is_a(&U::static_type()) {
+        if !self.get_type().is_a(U::static_type()) {
             return None;
         }
 
@@ -2609,7 +2609,7 @@ impl<T: ObjectType> Class<T> {
     ///
     /// This will return `None` if `type_` is not a subclass of `Self`.
     pub fn from_type(type_: Type) -> Option<ClassRef<T>> {
-        if !type_.is_a(&T::static_type()) {
+        if !type_.is_a(T::static_type()) {
             return None;
         }
 

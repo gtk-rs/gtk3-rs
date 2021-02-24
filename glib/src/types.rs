@@ -84,7 +84,7 @@ impl Type {
     pub const OBJECT: Self = Self(gobject_ffi::G_TYPE_OBJECT);
 
     #[doc(alias = "g_type_name")]
-    pub fn name(&self) -> String {
+    pub fn name(self) -> String {
         match self.to_glib() {
             gobject_ffi::G_TYPE_INVALID => "<invalid>".to_string(),
             x => unsafe { from_glib_none(gobject_ffi::g_type_name(x)) },
@@ -92,7 +92,7 @@ impl Type {
     }
 
     #[doc(alias = "g_type_qname")]
-    pub fn qname(&self) -> crate::Quark {
+    pub fn qname(self) -> crate::Quark {
         match self.to_glib() {
             gobject_ffi::G_TYPE_INVALID => crate::Quark::from_string("<invalid>"),
             x => unsafe { from_glib(gobject_ffi::g_type_qname(x)) },
@@ -100,12 +100,12 @@ impl Type {
     }
 
     #[doc(alias = "g_type_is_a")]
-    pub fn is_a(&self, other: &Type) -> bool {
+    pub fn is_a(self, other: Self) -> bool {
         unsafe { from_glib(gobject_ffi::g_type_is_a(self.to_glib(), other.to_glib())) }
     }
 
     #[doc(alias = "g_type_parent")]
-    pub fn parent(&self) -> Option<Self> {
+    pub fn parent(self) -> Option<Self> {
         unsafe {
             let parent = from_glib(gobject_ffi::g_type_parent(self.to_glib()));
             if parent == Self::INVALID {
@@ -117,7 +117,7 @@ impl Type {
     }
 
     #[doc(alias = "g_type_children")]
-    pub fn children(&self) -> Vec<Self> {
+    pub fn children(self) -> Vec<Self> {
         unsafe {
             let mut n_children = 0u32;
             let children = gobject_ffi::g_type_children(self.to_glib(), &mut n_children);
@@ -127,7 +127,7 @@ impl Type {
     }
 
     #[doc(alias = "g_type_interfaces")]
-    pub fn interfaces(&self) -> Vec<Self> {
+    pub fn interfaces(self) -> Vec<Self> {
         unsafe {
             let mut n_interfaces = 0u32;
             let interfaces = gobject_ffi::g_type_interfaces(self.to_glib(), &mut n_interfaces);
@@ -137,9 +137,9 @@ impl Type {
     }
 
     #[doc(alias = "g_type_interface_prerequisites")]
-    pub fn interface_prerequisites(&self) -> Vec<Self> {
+    pub fn interface_prerequisites(self) -> Vec<Self> {
         match self {
-            t if !t.is_a(&Self::INTERFACE) => vec![],
+            t if !t.is_a(Self::INTERFACE) => vec![],
             _ => unsafe {
                 let mut n_prereqs = 0u32;
                 let prereqs =

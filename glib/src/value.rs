@@ -225,7 +225,7 @@ impl Value {
     /// or is a sub-type of `T`.
     #[inline]
     pub fn is<'a, T: FromValueOptional<'a> + SetValue>(&self) -> bool {
-        self.type_().is_a(&T::static_type())
+        self.type_().is_a(T::static_type())
     }
 
     /// Returns the type of the value.
