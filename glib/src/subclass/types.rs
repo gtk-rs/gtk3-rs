@@ -322,7 +322,7 @@ macro_rules! object_subclass {
             unsafe {
                 let data = Self::type_data();
                 let type_ = data.as_ref().get_type();
-                assert_ne!(type_, $crate::Type::INVALID);
+                assert!(type_.is_valid());
 
                 type_
             }
@@ -412,7 +412,7 @@ pub trait ObjectSubclass: Sized + 'static {
         unsafe {
             let data = Self::type_data();
             let type_ = data.as_ref().get_type();
-            assert_ne!(type_, Type::INVALID);
+            assert!(type_.is_valid());
 
             let offset = -data.as_ref().private_offset;
 
@@ -689,9 +689,5 @@ pub(crate) unsafe fn signal_chain_from_overridden(
         values.as_ptr() as *mut Value as *mut gobject_ffi::GValue,
         result.to_glib_none_mut().0,
     );
-    if result.type_() != Type::UNIT && result.type_() != Type::INVALID {
-        Some(result)
-    } else {
-        None
-    }
+    Some(result).filter(|r| r.type_().is_valid() && r.type_() != Type::UNIT)
 }

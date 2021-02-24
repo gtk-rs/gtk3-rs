@@ -169,7 +169,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
             });
 
             unsafe {
-                assert_ne!(TYPE, #crate_ident::Type::INVALID);
+                assert!(TYPE.is_valid());
                 TYPE
             }
         }

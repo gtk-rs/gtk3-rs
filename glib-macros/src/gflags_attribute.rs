@@ -183,7 +183,7 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
             });
 
             unsafe {
-                assert_ne!(TYPE, #crate_ident::Type::INVALID);
+                assert!(TYPE.is_valid());
                 TYPE
             }
         }

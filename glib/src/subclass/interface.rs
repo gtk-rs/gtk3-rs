@@ -38,8 +38,7 @@ macro_rules! object_interface {
             });
 
             unsafe {
-                assert_ne!(TYPE, $crate::Type::INVALID);
-
+                assert!(TYPE.is_valid());
                 TYPE
             }
         }

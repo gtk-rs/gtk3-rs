@@ -287,7 +287,7 @@ impl Drop for Value {
     fn drop(&mut self) {
         // Before GLib 2.48, unsetting a zeroed GValue would give critical warnings
         // https://bugzilla.gnome.org/show_bug.cgi?id=755766
-        if self.type_() != Type::INVALID {
+        if self.type_().is_valid() {
             unsafe { gobject_ffi::g_value_unset(self.to_glib_none_mut().0) }
         }
     }

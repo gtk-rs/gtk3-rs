@@ -107,7 +107,10 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
                     }
                 });
 
-                unsafe { TYPE_ }
+                unsafe {
+                    assert!(TYPE_.is_valid());
+                    TYPE_
+                }
             }
         }
 

@@ -1519,15 +1519,13 @@ impl<T: ObjectType> ObjectExt for T {
             );
 
             // This can't really happen unless something goes wrong inside GObject
-            if value.type_() == crate::Type::INVALID {
-                Err(bool_error!(
+            Some(value).filter(|v| v.type_().is_valid()).ok_or_else(|| {
+                bool_error!(
                     "Failed to get property value for property '{}' of type '{}'",
                     property_name,
                     self.get_type()
-                ))
-            } else {
-                Ok(value)
-            }
+                )
+            })
         }
     }
 
@@ -1886,11 +1884,7 @@ impl<T: ObjectType> ObjectExt for T {
                 return_value.to_glib_none_mut().0,
             );
 
-            if return_value.type_() != Type::UNIT && return_value.type_() != Type::INVALID {
-                Ok(Some(return_value))
-            } else {
-                Ok(None)
-            }
+            Ok(Some(return_value).filter(|r| r.type_().is_valid() && r.type_() != Type::UNIT))
         }
     }
 
@@ -1939,11 +1933,7 @@ impl<T: ObjectType> ObjectExt for T {
                 return_value.to_glib_none_mut().0,
             );
 
-            if return_value.type_() != Type::UNIT && return_value.type_() != Type::INVALID {
-                Ok(Some(return_value))
-            } else {
-                Ok(None)
-            }
+            Ok(Some(return_value).filter(|r| r.type_().is_valid() && r.type_() != Type::UNIT))
         }
     }
 
@@ -2029,11 +2019,7 @@ impl<T: ObjectType> ObjectExt for T {
                 return_value.to_glib_none_mut().0,
             );
 
-            if return_value.type_() != Type::UNIT && return_value.type_() != Type::INVALID {
-                Ok(Some(return_value))
-            } else {
-                Ok(None)
-            }
+            Ok(Some(return_value).filter(|r| r.type_().is_valid() && r.type_() != Type::UNIT))
         }
     }
 
@@ -2091,11 +2077,7 @@ impl<T: ObjectType> ObjectExt for T {
                 return_value.to_glib_none_mut().0,
             );
 
-            if return_value.type_() != Type::UNIT && return_value.type_() != Type::INVALID {
-                Ok(Some(return_value))
-            } else {
-                Ok(None)
-            }
+            Ok(Some(return_value).filter(|r| r.type_().is_valid() && r.type_() != Type::UNIT))
         }
     }
 }

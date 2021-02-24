@@ -9,7 +9,6 @@ use std::slice;
 use libc::{c_uint, c_void};
 
 use crate::translate::{from_glib_none, mut_override, ToGlibPtr, ToGlibPtrMut, Uninitialized};
-use crate::types::Type;
 use crate::ToValue;
 use crate::Value;
 
@@ -114,11 +113,7 @@ impl Closure {
             result
         };
 
-        if result.type_() == Type::INVALID {
-            None
-        } else {
-            Some(result)
-        }
+        Some(result).filter(|r| r.type_().is_valid())
     }
 }
 

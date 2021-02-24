@@ -107,12 +107,8 @@ impl Type {
     #[doc(alias = "g_type_parent")]
     pub fn parent(self) -> Option<Self> {
         unsafe {
-            let parent = from_glib(gobject_ffi::g_type_parent(self.to_glib()));
-            if parent == Self::INVALID {
-                None
-            } else {
-                Some(parent)
-            }
+            let parent: Self = from_glib(gobject_ffi::g_type_parent(self.to_glib()));
+            Some(parent).filter(|t| t.is_valid())
         }
     }
 
@@ -153,13 +149,16 @@ impl Type {
     #[doc(alias = "g_type_from_name")]
     pub fn from_name<'a, P: Into<&'a str>>(name: P) -> Option<Self> {
         unsafe {
-            let type_ = from_glib(gobject_ffi::g_type_from_name(name.into().to_glib_none().0));
-            if type_ == Self::INVALID {
-                None
-            } else {
-                Some(type_)
-            }
+            let type_: Self =
+                from_glib(gobject_ffi::g_type_from_name(name.into().to_glib_none().0));
+            Some(type_).filter(|t| t.is_valid())
         }
+    }
+
+    /// Checks that the type is not [`INVALID`](Self::INVALID)
+    #[inline]
+    pub fn is_valid(self) -> bool {
+        self != Self::INVALID
     }
 }
 
@@ -479,6 +478,7 @@ mod tests {
         assert_eq!(invalid.children(), vec![]);
         assert_eq!(invalid.interfaces(), vec![]);
         assert_eq!(invalid.interface_prerequisites(), vec![]);
+        assert!(!invalid.is_valid());
         dbg!(&invalid);
     }
 
