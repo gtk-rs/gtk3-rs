@@ -27,11 +27,10 @@ description = "FFI bindings to libgraphene-1.0"
 homepage = "https://gtk-rs.org/"
 keywords = ["graphene", "ffi", "gtk-rs", "gnome"]
 license = "MIT"
-links = "graphene"
+links = "graphene-1.0"
 name = "graphene-sys"
 repository = "https://github.com/gtk-rs/gtk-rs"
 version = "0.13.0"
-link = "graphene-1.0"
 edition = "2018"
 [package.metadata.docs.rs]
 features = ["dox"]
