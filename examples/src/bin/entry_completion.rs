@@ -13,7 +13,7 @@ struct Data {
 }
 
 fn create_list_model() -> gtk::ListStore {
-    let col_types: [glib::Type; 1] = [glib::Type::String];
+    let col_types: [glib::Type; 1] = [glib::Type::STRING];
 
     let data: [Data; 4] = [
         Data {

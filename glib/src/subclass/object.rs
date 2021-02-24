@@ -282,7 +282,7 @@ mod test {
                         super::Signal::builder(
                             "name-changed",
                             &[String::static_type().into()],
-                            crate::Type::Unit.into(),
+                            crate::Type::UNIT.into(),
                         )
                         .build(),
                         super::Signal::builder(

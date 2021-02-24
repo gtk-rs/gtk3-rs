@@ -1055,7 +1055,7 @@ mod tests {
         let default_value = pspec.get_default_value();
         assert_eq!(default_value.get::<&str>().unwrap(), Some("default"));
         assert_eq!(pspec.get_flags(), ParamFlags::READWRITE);
-        assert_eq!(pspec.get_value_type(), Type::String);
+        assert_eq!(pspec.get_value_type(), Type::STRING);
         assert_eq!(pspec.get_type(), ParamSpecString::static_type());
 
         let pspec_ref = pspec

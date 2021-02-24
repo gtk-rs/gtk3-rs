@@ -13,70 +13,89 @@ use std::mem;
 use std::ptr;
 
 /// A GLib or GLib-based library type
-#[derive(Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub enum Type {
-    /// An invalid `Type` used as error return value in some functions
-    Invalid,
-    /// The fundamental type corresponding to the unit type `()`
-    Unit,
-    /// The fundamental type corresponding to `i8`
-    I8,
-    /// The fundamental type corresponding to `u8`
-    U8,
-    /// The fundamental type corresponding to `bool`
-    Bool,
-    /// The fundamental type corresponding to `i32`
-    I32,
-    /// The fundamental type corresponding to `u32`
-    U32,
-    /// The fundamental type corresponding to C `long`
-    ILong,
-    /// The fundamental type corresponding to C `unsigned long`
-    ULong,
-    /// The fundamental type corresponding to `i64`
-    I64,
-    /// The fundamental type corresponding to `u64`
-    U64,
-    /// The fundamental type corresponding to `f32`
-    F32,
-    /// The fundamental type corresponding to `f64`
-    F64,
-    /// The fundamental type corresponding to `String`
-    String,
-    /// The fundamental type corresponding to a pointer
-    Pointer,
-    /// The fundamental type of GVariant
-    Variant,
-    /// The fundamental type from which all interfaces are derived
-    Interface,
-    /// The fundamental type from which all enumeration types are derived
-    Enum,
-    /// The fundamental type from which all flags types are derived
-    Flags,
-    /// The fundamental type from which all boxed types are derived
-    Boxed,
-    /// The fundamental type from which all `GParamSpec` types are derived
-    ParamSpec,
-    /// The fundamental type from which all objects are derived
-    Object,
-    /// A non-fundamental type identified by value of type `usize`
-    Other(usize),
-}
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct Type(ffi::GType);
 
 impl Type {
+    /// An invalid `Type` used as error return value in some functions
+    pub const INVALID: Self = Self(gobject_ffi::G_TYPE_INVALID);
+
+    /// The fundamental type corresponding to the unit type `()`
+    pub const UNIT: Self = Self(gobject_ffi::G_TYPE_NONE);
+
+    /// The fundamental type corresponding to `i8`
+    pub const I8: Self = Self(gobject_ffi::G_TYPE_CHAR);
+
+    /// The fundamental type corresponding to `u8`
+    pub const U8: Self = Self(gobject_ffi::G_TYPE_UCHAR);
+
+    /// The fundamental type corresponding to `bool`
+    pub const BOOL: Self = Self(gobject_ffi::G_TYPE_BOOLEAN);
+
+    /// The fundamental type corresponding to `i32`
+    pub const I32: Self = Self(gobject_ffi::G_TYPE_INT);
+
+    /// The fundamental type corresponding to `u32`
+    pub const U32: Self = Self(gobject_ffi::G_TYPE_UINT);
+
+    /// The fundamental type corresponding to C `long`
+    pub const I_LONG: Self = Self(gobject_ffi::G_TYPE_LONG);
+
+    /// The fundamental type corresponding to C `unsigned long`
+    pub const U_LONG: Self = Self(gobject_ffi::G_TYPE_ULONG);
+
+    /// The fundamental type corresponding to `i64`
+    pub const I64: Self = Self(gobject_ffi::G_TYPE_INT64);
+
+    /// The fundamental type corresponding to `u64`
+    pub const U64: Self = Self(gobject_ffi::G_TYPE_UINT64);
+
+    /// The fundamental type corresponding to `f32`
+    pub const F32: Self = Self(gobject_ffi::G_TYPE_FLOAT);
+
+    /// The fundamental type corresponding to `f64`
+    pub const F64: Self = Self(gobject_ffi::G_TYPE_DOUBLE);
+
+    /// The fundamental type corresponding to `String`
+    pub const STRING: Self = Self(gobject_ffi::G_TYPE_STRING);
+
+    /// The fundamental type corresponding to a pointer
+    pub const POINTER: Self = Self(gobject_ffi::G_TYPE_POINTER);
+
+    /// The fundamental type of GVariant
+    pub const VARIANT: Self = Self(gobject_ffi::G_TYPE_VARIANT);
+
+    /// The fundamental type from which all interfaces are derived
+    pub const INTERFACE: Self = Self(gobject_ffi::G_TYPE_INTERFACE);
+
+    /// The fundamental type from which all enumeration types are derived
+    pub const ENUM: Self = Self(gobject_ffi::G_TYPE_ENUM);
+
+    /// The fundamental type from which all flags types are derived
+    pub const FLAGS: Self = Self(gobject_ffi::G_TYPE_FLAGS);
+
+    /// The fundamental type from which all boxed types are derived
+    pub const BOXED: Self = Self(gobject_ffi::G_TYPE_BOXED);
+
+    /// The fundamental type from which all `GParamSpec` types are derived
+    pub const PARAM_SPEC: Self = Self(gobject_ffi::G_TYPE_PARAM);
+
+    /// The fundamental type from which all objects are derived
+    pub const OBJECT: Self = Self(gobject_ffi::G_TYPE_OBJECT);
+
     #[doc(alias = "g_type_name")]
     pub fn name(&self) -> String {
-        match self {
-            Type::Invalid => "<invalid>".to_string(),
-            _ => unsafe { from_glib_none(gobject_ffi::g_type_name(self.to_glib())) },
+        match self.to_glib() {
+            gobject_ffi::G_TYPE_INVALID => "<invalid>".to_string(),
+            x => unsafe { from_glib_none(gobject_ffi::g_type_name(x)) },
         }
     }
 
     #[doc(alias = "g_type_qname")]
     pub fn qname(&self) -> crate::Quark {
-        match self {
-            Type::Invalid => crate::Quark::from_string("<invalid>"),
-            _ => unsafe { from_glib(gobject_ffi::g_type_qname(self.to_glib())) },
+        match self.to_glib() {
+            gobject_ffi::G_TYPE_INVALID => crate::Quark::from_string("<invalid>"),
+            x => unsafe { from_glib(gobject_ffi::g_type_qname(x)) },
         }
     }
 
@@ -88,11 +107,11 @@ impl Type {
     #[doc(alias = "g_type_parent")]
     pub fn parent(&self) -> Option<Self> {
         unsafe {
-            let parent = gobject_ffi::g_type_parent(self.to_glib());
-            if parent == gobject_ffi::G_TYPE_INVALID {
+            let parent = from_glib(gobject_ffi::g_type_parent(self.to_glib()));
+            if parent == Self::INVALID {
                 None
             } else {
-                Some(from_glib(parent))
+                Some(parent)
             }
         }
     }
@@ -120,7 +139,7 @@ impl Type {
     #[doc(alias = "g_type_interface_prerequisites")]
     pub fn interface_prerequisites(&self) -> Vec<Self> {
         match self {
-            t if !t.is_a(&Type::Interface) => vec![],
+            t if !t.is_a(&Self::INTERFACE) => vec![],
             _ => unsafe {
                 let mut n_prereqs = 0u32;
                 let prereqs =
@@ -134,11 +153,11 @@ impl Type {
     #[doc(alias = "g_type_from_name")]
     pub fn from_name<'a, P: Into<&'a str>>(name: P) -> Option<Self> {
         unsafe {
-            let type_ = gobject_ffi::g_type_from_name(name.into().to_glib_none().0);
-            if type_ == gobject_ffi::G_TYPE_INVALID {
+            let type_ = from_glib(gobject_ffi::g_type_from_name(name.into().to_glib_none().0));
+            if type_ == Self::INVALID {
                 None
             } else {
-                Some(from_glib(type_))
+                Some(type_)
             }
         }
     }
@@ -317,19 +336,19 @@ impl PartialOrd<ULong> for libc::c_ulong {
     }
 }
 
-builtin!(bool, Bool);
+builtin!(bool, BOOL);
 builtin!(i8, I8);
 builtin!(u8, U8);
 builtin!(i32, I32);
 builtin!(u32, U32);
 builtin!(i64, I64);
 builtin!(u64, U64);
-builtin!(ILong, ILong);
-builtin!(ULong, ULong);
+builtin!(ILong, I_LONG);
+builtin!(ULong, U_LONG);
 builtin!(f32, F32);
 builtin!(f64, F64);
-builtin!(str, String);
-builtin!(String, String);
+builtin!(str, STRING);
+builtin!(String, STRING);
 
 impl<'a> StaticType for [&'a str] {
     fn static_type() -> Type {
@@ -345,7 +364,7 @@ impl StaticType for Vec<String> {
 
 impl StaticType for () {
     fn static_type() -> Type {
-        Type::Unit
+        Type::UNIT
     }
 }
 
@@ -360,65 +379,16 @@ pub unsafe fn instance_of<C: StaticType>(ptr: ffi::gconstpointer) -> bool {
 impl FromGlib<ffi::GType> for Type {
     #[inline]
     unsafe fn from_glib(val: ffi::GType) -> Type {
-        use self::Type::*;
-        match val {
-            gobject_ffi::G_TYPE_INVALID => Invalid,
-            gobject_ffi::G_TYPE_NONE => Unit,
-            gobject_ffi::G_TYPE_INTERFACE => Interface,
-            gobject_ffi::G_TYPE_CHAR => I8,
-            gobject_ffi::G_TYPE_UCHAR => U8,
-            gobject_ffi::G_TYPE_BOOLEAN => Bool,
-            gobject_ffi::G_TYPE_INT => I32,
-            gobject_ffi::G_TYPE_UINT => U32,
-            gobject_ffi::G_TYPE_LONG => ILong,
-            gobject_ffi::G_TYPE_ULONG => ULong,
-            gobject_ffi::G_TYPE_INT64 => I64,
-            gobject_ffi::G_TYPE_UINT64 => U64,
-            gobject_ffi::G_TYPE_ENUM => Enum,
-            gobject_ffi::G_TYPE_FLAGS => Flags,
-            gobject_ffi::G_TYPE_FLOAT => F32,
-            gobject_ffi::G_TYPE_DOUBLE => F64,
-            gobject_ffi::G_TYPE_STRING => String,
-            gobject_ffi::G_TYPE_POINTER => Pointer,
-            gobject_ffi::G_TYPE_BOXED => Boxed,
-            gobject_ffi::G_TYPE_PARAM => ParamSpec,
-            gobject_ffi::G_TYPE_OBJECT => Object,
-            gobject_ffi::G_TYPE_VARIANT => Variant,
-            x => Other(x as usize),
-        }
+        Self(val)
     }
 }
 
 impl ToGlib for Type {
     type GlibType = ffi::GType;
 
+    #[inline]
     fn to_glib(&self) -> ffi::GType {
-        use self::Type::*;
-        match *self {
-            Invalid => gobject_ffi::G_TYPE_INVALID,
-            Unit => gobject_ffi::G_TYPE_NONE,
-            Interface => gobject_ffi::G_TYPE_INTERFACE,
-            I8 => gobject_ffi::G_TYPE_CHAR,
-            U8 => gobject_ffi::G_TYPE_UCHAR,
-            Bool => gobject_ffi::G_TYPE_BOOLEAN,
-            I32 => gobject_ffi::G_TYPE_INT,
-            U32 => gobject_ffi::G_TYPE_UINT,
-            ILong => gobject_ffi::G_TYPE_LONG,
-            ULong => gobject_ffi::G_TYPE_ULONG,
-            I64 => gobject_ffi::G_TYPE_INT64,
-            U64 => gobject_ffi::G_TYPE_UINT64,
-            Enum => gobject_ffi::G_TYPE_ENUM,
-            Flags => gobject_ffi::G_TYPE_FLAGS,
-            F32 => gobject_ffi::G_TYPE_FLOAT,
-            F64 => gobject_ffi::G_TYPE_DOUBLE,
-            String => gobject_ffi::G_TYPE_STRING,
-            Pointer => gobject_ffi::G_TYPE_POINTER,
-            Boxed => gobject_ffi::G_TYPE_BOXED,
-            ParamSpec => gobject_ffi::G_TYPE_PARAM,
-            Object => gobject_ffi::G_TYPE_OBJECT,
-            Variant => gobject_ffi::G_TYPE_VARIANT,
-            Other(x) => x as ffi::GType,
-        }
+        self.0
     }
 }
 
@@ -499,12 +469,12 @@ mod tests {
 
     #[test]
     fn invalid() {
-        let invalid = Type::Invalid;
+        let invalid = Type::INVALID;
 
         assert_eq!(invalid.name(), "<invalid>");
         assert_eq!(invalid.qname(), crate::Quark::from_string("<invalid>"));
-        assert!(invalid.is_a(&Type::Invalid));
-        assert!(!invalid.is_a(&Type::String));
+        assert!(invalid.is_a(Type::INVALID));
+        assert!(!invalid.is_a(Type::STRING));
         assert_eq!(invalid.parent(), None);
         assert_eq!(invalid.children(), vec![]);
         assert_eq!(invalid.interfaces(), vec![]);
@@ -517,7 +487,7 @@ mod tests {
         // Get this first so the type is registered
         let iu_type = InitiallyUnowned::static_type();
 
-        let set = Type::Object.children().into_iter().collect::<HashSet<_>>();
+        let set = Type::OBJECT.children().into_iter().collect::<HashSet<_>>();
         assert!(set.contains(&iu_type));
     }
 
@@ -525,9 +495,9 @@ mod tests {
     fn ord() {
         // Get this first so the type is registered
         let iu_type = InitiallyUnowned::static_type();
-        assert!(Type::Object < iu_type);
+        assert!(Type::OBJECT < iu_type);
 
-        let set = Type::Object.children().into_iter().collect::<BTreeSet<_>>();
+        let set = Type::OBJECT.children().into_iter().collect::<BTreeSet<_>>();
         assert!(set.contains(&iu_type));
     }
 }

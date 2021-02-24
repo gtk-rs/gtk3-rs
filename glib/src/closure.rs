@@ -114,7 +114,7 @@ impl Closure {
             result
         };
 
-        if result.type_() == Type::Invalid {
+        if result.type_() == Type::INVALID {
             None
         } else {
             Some(result)

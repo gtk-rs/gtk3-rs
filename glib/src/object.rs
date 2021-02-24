@@ -1519,7 +1519,7 @@ impl<T: ObjectType> ObjectExt for T {
             );
 
             // This can't really happen unless something goes wrong inside GObject
-            if value.type_() == crate::Type::Invalid {
+            if value.type_() == crate::Type::INVALID {
                 Err(bool_error!(
                     "Failed to get property value for property '{}' of type '{}'",
                     property_name,
@@ -1763,7 +1763,7 @@ impl<T: ObjectType> ObjectExt for T {
         let closure = Closure::new_unsafe(move |values| {
             let ret = callback(values);
 
-            if return_type == Type::Unit {
+            if return_type == Type::UNIT {
                 if let Some(ret) = ret {
                     panic!(
                         "Signal '{}' of type '{}' required no return value but got value of type '{}'",
@@ -1872,7 +1872,7 @@ impl<T: ObjectType> ObjectExt for T {
             let signal_detail = validate_signal_arguments(type_, &signal_query, &mut args[1..])?;
 
             let mut return_value = Value::uninitialized();
-            if signal_query.return_type() != Type::Unit {
+            if signal_query.return_type() != Type::UNIT {
                 gobject_ffi::g_value_init(
                     return_value.to_glib_none_mut().0,
                     signal_query.return_type().to_glib(),
@@ -1886,7 +1886,7 @@ impl<T: ObjectType> ObjectExt for T {
                 return_value.to_glib_none_mut().0,
             );
 
-            if return_value.type_() != Type::Unit && return_value.type_() != Type::Invalid {
+            if return_value.type_() != Type::UNIT && return_value.type_() != Type::INVALID {
                 Ok(Some(return_value))
             } else {
                 Ok(None)
@@ -1925,7 +1925,7 @@ impl<T: ObjectType> ObjectExt for T {
             validate_signal_arguments(type_, &signal_query, &mut args)?;
 
             let mut return_value = Value::uninitialized();
-            if signal_query.return_type() != crate::Type::Unit {
+            if signal_query.return_type() != Type::UNIT {
                 gobject_ffi::g_value_init(
                     return_value.to_glib_none_mut().0,
                     signal_query.return_type().to_glib(),
@@ -1939,9 +1939,7 @@ impl<T: ObjectType> ObjectExt for T {
                 return_value.to_glib_none_mut().0,
             );
 
-            if return_value.type_() != crate::Type::Unit
-                && return_value.type_() != crate::Type::Invalid
-            {
+            if return_value.type_() != Type::UNIT && return_value.type_() != Type::INVALID {
                 Ok(Some(return_value))
             } else {
                 Ok(None)
@@ -2017,7 +2015,7 @@ impl<T: ObjectType> ObjectExt for T {
             let signal_detail = validate_signal_arguments(type_, &signal_query, &mut args[1..])?;
 
             let mut return_value = Value::uninitialized();
-            if signal_query.return_type() != Type::Unit {
+            if signal_query.return_type() != Type::UNIT {
                 gobject_ffi::g_value_init(
                     return_value.to_glib_none_mut().0,
                     signal_query.return_type().to_glib(),
@@ -2031,7 +2029,7 @@ impl<T: ObjectType> ObjectExt for T {
                 return_value.to_glib_none_mut().0,
             );
 
-            if return_value.type_() != Type::Unit && return_value.type_() != Type::Invalid {
+            if return_value.type_() != Type::UNIT && return_value.type_() != Type::INVALID {
                 Ok(Some(return_value))
             } else {
                 Ok(None)
@@ -2079,7 +2077,7 @@ impl<T: ObjectType> ObjectExt for T {
             validate_signal_arguments(type_, &signal_query, &mut args)?;
 
             let mut return_value = Value::uninitialized();
-            if signal_query.return_type() != crate::Type::Unit {
+            if signal_query.return_type() != Type::UNIT {
                 gobject_ffi::g_value_init(
                     return_value.to_glib_none_mut().0,
                     signal_query.return_type().to_glib(),
@@ -2093,9 +2091,7 @@ impl<T: ObjectType> ObjectExt for T {
                 return_value.to_glib_none_mut().0,
             );
 
-            if return_value.type_() != crate::Type::Unit
-                && return_value.type_() != crate::Type::Invalid
-            {
+            if return_value.type_() != Type::UNIT && return_value.type_() != Type::INVALID {
                 Ok(Some(return_value))
             } else {
                 Ok(None)

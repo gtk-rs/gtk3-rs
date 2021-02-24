@@ -77,12 +77,12 @@ mod test {
 
     #[test]
     fn test_register() {
-        assert_ne!(crate::Type::Invalid, MyBoxed::get_type());
+        assert_ne!(crate::Type::INVALID, MyBoxed::get_type());
     }
 
     #[test]
     fn test_value() {
-        assert_ne!(crate::Type::Invalid, MyBoxed::get_type());
+        assert_ne!(crate::Type::INVALID, MyBoxed::get_type());
 
         let b = MyBoxed(String::from("abc"));
         let v = b.to_value();

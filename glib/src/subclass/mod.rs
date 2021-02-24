@@ -232,7 +232,7 @@
 //! struct MyBoxed(String);
 //!
 //! pub fn main() {
-//!     assert_ne!(glib::Type::Invalid, MyBoxed::get_type());
+//!     assert_ne!(glib::Type::INVALID, MyBoxed::get_type());
 //!
 //!     let b = MyBoxed(String::from("abc"));
 //!     let v = b.to_value();
