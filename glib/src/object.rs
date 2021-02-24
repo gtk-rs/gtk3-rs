@@ -1806,9 +1806,7 @@ impl<T: ObjectType> ObjectExt for T {
 
                 match opt_obj {
                     Some(obj) => {
-                        if obj.get_type().is_a(return_type) {
-                            ret.0.g_type = return_type.to_glib();
-                        } else {
+                        if !obj.get_type().is_a(return_type) {
                             panic!(
                                 "Signal '{}' of type '{}' required return value of type '{}' but got '{}' (actual '{}')",
                                 signal_name,
@@ -1819,12 +1817,10 @@ impl<T: ObjectType> ObjectExt for T {
                             );
                         }
                     }
-                    None => {
-                        // If the value is None then the type is compatible too
-                        ret.0.g_type = return_type.to_glib();
-                    }
+                    None => {} // If the value is None then the type is compatible too
                 }
 
+                ret.0.g_type = return_type.to_glib();
                 Some(ret)
             })
         };
