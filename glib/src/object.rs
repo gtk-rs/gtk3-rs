@@ -1794,29 +1794,7 @@ impl<T: ObjectType> ObjectExt for T {
                 // actual typed of the contained object is compatible and if so create
                 // a properly typed Value. This can happen if the type field in the
                 // Value is set to a more generic type than the contained value
-                if ret.type_().is_a(Object::static_type()) {
-                    match ret.get::<Object>() {
-                        Ok(Some(obj)) => {
-                            if obj.get_type().is_a(return_type) {
-                                ret.0.g_type = return_type.to_glib();
-                            } else {
-                                panic!(
-                                    "Signal '{}' of type '{}' required return value of type '{}' but got '{}' (actual '{}')",
-                                    signal_name,
-                                    type_,
-                                    return_type,
-                                    ret.type_(),
-                                    obj.get_type()
-                                );
-                            }
-                        }
-                        Ok(None) => {
-                            // If the value is None then the type is compatible too
-                            ret.0.g_type = return_type.to_glib();
-                        }
-                        Err(_) => unreachable!("ret type conformity already checked"),
-                    }
-                } else {
+                if !ret.type_().is_a(Object::static_type()) {
                     panic!(
                         "Signal '{}' of type '{}' required return value of type '{}' but got '{}'",
                         signal_name,
@@ -1825,6 +1803,29 @@ impl<T: ObjectType> ObjectExt for T {
                         ret.type_()
                     );
                 }
+
+                match ret.get::<Object>() {
+                    Ok(Some(obj)) => {
+                        if obj.get_type().is_a(return_type) {
+                            ret.0.g_type = return_type.to_glib();
+                        } else {
+                            panic!(
+                                "Signal '{}' of type '{}' required return value of type '{}' but got '{}' (actual '{}')",
+                                signal_name,
+                                type_,
+                                return_type,
+                                ret.type_(),
+                                obj.get_type()
+                            );
+                        }
+                    }
+                    Ok(None) => {
+                        // If the value is None then the type is compatible too
+                        ret.0.g_type = return_type.to_glib();
+                    }
+                    Err(_) => unreachable!("ret type conformity already checked"),
+                }
+
                 Some(ret)
             })
         };
