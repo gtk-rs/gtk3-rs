@@ -1758,10 +1758,9 @@ impl<T: ObjectType> ObjectExt for T {
         let signal_query = signal_id.query();
 
         let return_type: Type = signal_query.return_type().into();
-        let closure = Closure::new_unsafe(move |values| {
-            let ret = callback(values);
-
-            if return_type == Type::UNIT {
+        let closure = if return_type == Type::UNIT {
+            Closure::new_unsafe(move |values| {
+                let ret = callback(values);
                 if let Some(ret) = ret {
                     panic!(
                         "Signal '{}' of type '{}' required no return value but got value of type '{}'",
@@ -1771,7 +1770,10 @@ impl<T: ObjectType> ObjectExt for T {
                     );
                 }
                 None
-            } else {
+            })
+        } else {
+            Closure::new_unsafe(move |values| {
+                let ret = callback(values);
                 match ret {
                     Some(mut ret) => {
                         let valid_type: bool = from_glib(gobject_ffi::g_type_check_value_holds(
@@ -1825,8 +1827,8 @@ impl<T: ObjectType> ObjectExt for T {
                         );
                     }
                 }
-            }
-        });
+            })
+        };
         let handler = gobject_ffi::g_signal_connect_closure_by_id(
             self.as_object_ref().to_glib_none().0,
             signal_id.to_glib(),
