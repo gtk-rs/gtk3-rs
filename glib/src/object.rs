@@ -1794,7 +1794,7 @@ impl<T: ObjectType> ObjectExt for T {
                 // actual typed of the contained object is compatible and if so create
                 // a properly typed Value. This can happen if the type field in the
                 // Value is set to a more generic type than the contained value
-                if !ret.type_().is_a(Object::static_type()) {
+                let opt_obj = ret.get::<Object>().unwrap_or_else(|_| {
                     panic!(
                         "Signal '{}' of type '{}' required return value of type '{}' but got '{}'",
                         signal_name,
@@ -1802,10 +1802,10 @@ impl<T: ObjectType> ObjectExt for T {
                         return_type,
                         ret.type_()
                     );
-                }
+                });
 
-                match ret.get::<Object>() {
-                    Ok(Some(obj)) => {
+                match opt_obj {
+                    Some(obj) => {
                         if obj.get_type().is_a(return_type) {
                             ret.0.g_type = return_type.to_glib();
                         } else {
@@ -1819,11 +1819,10 @@ impl<T: ObjectType> ObjectExt for T {
                             );
                         }
                     }
-                    Ok(None) => {
+                    None => {
                         // If the value is None then the type is compatible too
                         ret.0.g_type = return_type.to_glib();
                     }
-                    Err(_) => unreachable!("ret type conformity already checked"),
                 }
 
                 Some(ret)
