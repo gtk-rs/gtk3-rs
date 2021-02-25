@@ -6,7 +6,7 @@ use proc_macro_error::abort_call_site;
 use quote::{format_ident, quote, quote_spanned};
 use syn::{
     punctuated::Punctuated, spanned::Spanned, token::Comma, Attribute, Data, DeriveInput, Ident,
-    LitStr, Variant,
+    LitStr, Variant, Visibility,
 };
 
 use crate::utils::{
@@ -80,6 +80,7 @@ fn gen_gflags_values(
 
 fn gen_bitflags(
     enum_name: &Ident,
+    visibility: &Visibility,
     enum_variants: &Punctuated<Variant, Comma>,
     crate_ident: &Ident,
 ) -> TokenStream {
@@ -95,7 +96,7 @@ fn gen_bitflags(
 
     quote! {
         #crate_ident::bitflags::bitflags! {
-            struct #enum_name: u32 {
+            #visibility struct #enum_name: u32 {
                 #(#recurse)*
             }
         }
@@ -103,6 +104,7 @@ fn gen_bitflags(
 }
 
 pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
+    let visibility = &input.vis;
     let name = &input.ident;
     let crate_ident = crate_ident_new();
 
@@ -111,7 +113,7 @@ pub fn impl_gflags(input: &DeriveInput, gtype_name: &LitStr) -> TokenStream {
         _ => abort_call_site!("gflags only supports enums"),
     };
 
-    let bitflags = gen_bitflags(name, enum_variants, &crate_ident);
+    let bitflags = gen_bitflags(name, visibility, enum_variants, &crate_ident);
 
     let get_type = format_ident!("{}_get_type", name.to_string().to_snake_case());
     let (gflags_values, nb_gflags_values) = gen_gflags_values(name, enum_variants);
