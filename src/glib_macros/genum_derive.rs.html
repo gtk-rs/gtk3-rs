@@ -330,7 +330,7 @@
 
         <span class="kw">fn</span> #<span class="ident">get_type</span>() <span class="op">-</span><span class="op">&gt;</span> #<span class="ident">crate_ident</span>::<span class="ident">Type</span> {
             <span class="kw">static</span> <span class="ident">ONCE</span>: <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Once</span> <span class="op">=</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Once</span>::<span class="ident">new</span>();
-            <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">TYPE</span>: #<span class="ident">crate_ident</span>::<span class="ident">Type</span> <span class="op">=</span> #<span class="ident">crate_ident</span>::<span class="ident">Type</span>::<span class="ident">Invalid</span>;
+            <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">TYPE</span>: #<span class="ident">crate_ident</span>::<span class="ident">Type</span> <span class="op">=</span> #<span class="ident">crate_ident</span>::<span class="ident">Type</span>::<span class="ident">INVALID</span>;
 
             <span class="ident">ONCE</span>.<span class="ident">call_once</span>(<span class="op">|</span><span class="op">|</span> {
                 <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">VALUES</span>: [#<span class="ident">crate_ident</span>::<span class="ident">gobject_ffi</span>::<span class="ident">GEnumValue</span>; #<span class="ident">nb_genum_values</span>] <span class="op">=</span> [
@@ -350,7 +350,7 @@
             });
 
             <span class="kw">unsafe</span> {
-                <span class="macro">assert_ne</span><span class="macro">!</span>(<span class="ident">TYPE</span>, #<span class="ident">crate_ident</span>::<span class="ident">Type</span>::<span class="ident">Invalid</span>);
+                <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">TYPE</span>.<span class="ident">is_valid</span>());
                 <span class="ident">TYPE</span>
             }
         }

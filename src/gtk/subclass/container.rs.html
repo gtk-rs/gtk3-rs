@@ -378,7 +378,7 @@
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">child_type</span> {
                 <span class="ident">from_glib</span>(<span class="ident">f</span>(<span class="ident">container</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">Container</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>))
             } <span class="kw">else</span> {
-                <span class="ident">glib</span>::<span class="ident">Type</span>::<span class="ident">Unit</span>
+                <span class="ident">glib</span>::<span class="ident">Type</span>::<span class="ident">UNIT</span>
             }
         }
     }

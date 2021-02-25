@@ -169,11 +169,6 @@
 <span id="166">166</span>
 <span id="167">167</span>
 <span id="168">168</span>
-<span id="169">169</span>
-<span id="170">170</span>
-<span id="171">171</span>
-<span id="172">172</span>
-<span id="173">173</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -186,7 +181,6 @@
 <span class="kw">use</span> <span class="ident">libc</span>::{<span class="ident">c_uint</span>, <span class="ident">c_void</span>};
 
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::{<span class="ident">from_glib_none</span>, <span class="ident">mut_override</span>, <span class="ident">ToGlibPtr</span>, <span class="ident">ToGlibPtrMut</span>, <span class="ident">Uninitialized</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">types</span>::<span class="ident">Type</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">ToValue</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Value</span>;
 
@@ -291,11 +285,7 @@
             <span class="ident">result</span>
         };
 
-        <span class="kw">if</span> <span class="ident">result</span>.<span class="ident">type_</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">Type</span>::<span class="ident">Invalid</span> {
-            <span class="prelude-val">None</span>
-        } <span class="kw">else</span> {
-            <span class="prelude-val">Some</span>(<span class="ident">result</span>)
-        }
+        <span class="prelude-val">Some</span>(<span class="ident">result</span>).<span class="ident">filter</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">r</span>.<span class="ident">type_</span>().<span class="ident">is_valid</span>())
     }
 }
 
