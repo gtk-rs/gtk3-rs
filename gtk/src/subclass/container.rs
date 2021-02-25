@@ -108,7 +108,7 @@ impl<T: ContainerImpl> ContainerImplExt for T {
             if let Some(f) = (*parent_class).child_type {
                 from_glib(f(container.unsafe_cast_ref::<Container>().to_glib_none().0))
             } else {
-                glib::Type::Unit
+                glib::Type::UNIT
             }
         }
     }

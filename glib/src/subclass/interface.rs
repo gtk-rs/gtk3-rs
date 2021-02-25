@@ -28,7 +28,7 @@ macro_rules! object_interface {
     () => {
         fn get_type() -> $crate::Type {
             static ONCE: std::sync::Once = std::sync::Once::new();
-            static mut TYPE: $crate::Type = $crate::Type::Invalid;
+            static mut TYPE: $crate::Type = $crate::Type::INVALID;
 
             ONCE.call_once(|| {
                 let type_ = $crate::subclass::register_interface::<Self>();
@@ -38,8 +38,7 @@ macro_rules! object_interface {
             });
 
             unsafe {
-                assert_ne!(TYPE, $crate::Type::Invalid);
-
+                assert!(TYPE.is_valid());
                 TYPE
             }
         }
@@ -109,7 +108,7 @@ pub trait ObjectInterfaceExt: ObjectInterface {
     ///
     /// This will panic if `obj` does not implement the interface.
     fn from_instance<T: IsA<Object>>(obj: &T) -> &Self {
-        assert!(obj.as_ref().get_type().is_a(&Self::get_type()));
+        assert!(obj.as_ref().get_type().is_a(Self::get_type()));
 
         unsafe {
             let klass = (*(obj.as_ptr() as *const gobject_ffi::GTypeInstance)).g_class;
@@ -165,7 +164,7 @@ pub fn register_interface<T: ObjectInterface>() -> Type {
         );
 
         let type_ = from_glib(gobject_ffi::g_type_register_static_simple(
-            Type::Interface.to_glib(),
+            Type::INTERFACE.to_glib(),
             type_name.as_ptr(),
             mem::size_of::<T>() as u32,
             Some(interface_init::<T>),

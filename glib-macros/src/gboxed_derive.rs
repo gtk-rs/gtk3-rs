@@ -97,7 +97,7 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
             const NAME: &'static str = #gtype_name;
 
             fn get_type() -> #crate_ident::Type {
-                static mut TYPE_: #crate_ident::Type = #crate_ident::Type::Invalid;
+                static mut TYPE_: #crate_ident::Type = #crate_ident::Type::INVALID;
                 static ONCE: ::std::sync::Once = ::std::sync::Once::new();
 
                 ONCE.call_once(|| {
@@ -107,7 +107,10 @@ pub fn impl_gboxed(input: &syn::DeriveInput) -> TokenStream {
                     }
                 });
 
-                unsafe { TYPE_ }
+                unsafe {
+                    assert!(TYPE_.is_valid());
+                    TYPE_
+                }
             }
         }
 

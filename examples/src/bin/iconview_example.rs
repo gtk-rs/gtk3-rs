@@ -31,7 +31,7 @@ fn create_list_store_model() -> gtk::ListStore {
 
     // Initialize an array of column types for ListStore object. Here we say that the first item
     // must always be of glib::Type String and the second item is of glib::Type Pixbuf.
-    let col_types: [glib::Type; 2] = [glib::Type::String, gdk_pixbuf::Pixbuf::static_type()];
+    let col_types: [glib::Type; 2] = [glib::Type::STRING, gdk_pixbuf::Pixbuf::static_type()];
     let icon_view_model = gtk::ListStore::new(&col_types);
 
     // IconTheme provides a facility for looking up icons by name and size.

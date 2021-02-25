@@ -86,7 +86,7 @@ where
     if let Some(ref i) = item {
         let type_ = imp.get_item_type(wrap.unsafe_cast_ref());
         assert!(
-            type_.is_a(&i.get_type()),
+            type_.is_a(i.get_type()),
             "All ListModel items should be of the same type"
         );
     };

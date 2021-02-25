@@ -149,7 +149,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
 
         fn #get_type() -> #crate_ident::Type {
             static ONCE: std::sync::Once = std::sync::Once::new();
-            static mut TYPE: #crate_ident::Type = #crate_ident::Type::Invalid;
+            static mut TYPE: #crate_ident::Type = #crate_ident::Type::INVALID;
 
             ONCE.call_once(|| {
                 static mut VALUES: [#crate_ident::gobject_ffi::GEnumValue; #nb_genum_values] = [
@@ -169,7 +169,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
             });
 
             unsafe {
-                assert_ne!(TYPE, #crate_ident::Type::Invalid);
+                assert!(TYPE.is_valid());
                 TYPE
             }
         }

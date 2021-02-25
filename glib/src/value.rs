@@ -225,7 +225,7 @@ impl Value {
     /// or is a sub-type of `T`.
     #[inline]
     pub fn is<'a, T: FromValueOptional<'a> + SetValue>(&self) -> bool {
-        self.type_().is_a(&T::static_type())
+        self.type_().is_a(T::static_type())
     }
 
     /// Returns the type of the value.
@@ -287,7 +287,7 @@ impl Drop for Value {
     fn drop(&mut self) {
         // Before GLib 2.48, unsetting a zeroed GValue would give critical warnings
         // https://bugzilla.gnome.org/show_bug.cgi?id=755766
-        if self.type_() != Type::Invalid {
+        if self.type_().is_valid() {
             unsafe { gobject_ffi::g_value_unset(self.to_glib_none_mut().0) }
         }
     }
@@ -1138,11 +1138,11 @@ mod tests {
         assert_eq!(v.get_some::<i32>(), Ok(123));
         assert_eq!(
             v.get::<&str>(),
-            Err(GetError::new_type_mismatch(Type::I32, Type::String))
+            Err(GetError::new_type_mismatch(Type::I32, Type::STRING))
         );
         assert_eq!(
             v.get_some::<bool>(),
-            Err(GetError::new_type_mismatch(Type::I32, Type::Bool))
+            Err(GetError::new_type_mismatch(Type::I32, Type::BOOL))
         );
 
         let some_v = Some("test").to_value();
@@ -1150,7 +1150,7 @@ mod tests {
         assert_eq!(some_v.get::<&str>(), Ok(Some("test")));
         assert_eq!(
             some_v.get::<i32>(),
-            Err(GetError::new_type_mismatch(Type::String, Type::I32))
+            Err(GetError::new_type_mismatch(Type::STRING, Type::I32))
         );
 
         let none_str: Option<&str> = None;
@@ -1158,7 +1158,7 @@ mod tests {
         assert_eq!(none_v.get::<&str>(), Ok(None));
         assert_eq!(
             none_v.get::<i32>(),
-            Err(GetError::new_type_mismatch(Type::String, Type::I32))
+            Err(GetError::new_type_mismatch(Type::STRING, Type::I32))
         );
     }
 

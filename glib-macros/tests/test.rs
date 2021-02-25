@@ -43,7 +43,7 @@ fn derive_genum() {
     );
 
     let t = Animal::static_type();
-    assert!(t.is_a(&glib::Type::Enum));
+    assert!(t.is_a(glib::Type::ENUM));
     assert_eq!(t.name(), "TestAnimalType");
 
     let e = glib::EnumClass::new(t).expect("EnumClass::new failed");
@@ -134,7 +134,7 @@ fn attr_gflags() {
     );
 
     let t = MyFlags::static_type();
-    assert!(t.is_a(&glib::Type::Flags));
+    assert!(t.is_a(glib::Type::FLAGS));
     assert_eq!(t.name(), "MyFlags");
 
     let e = glib::FlagsClass::new(t).expect("FlagsClass::new failed");

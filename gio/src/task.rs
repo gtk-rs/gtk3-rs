@@ -81,7 +81,7 @@ impl Task {
             let value = from_glib_full(value as *mut glib::gobject_ffi::GValue);
             match value {
                 Some(value) => Ok(value),
-                None => Ok(glib::Value::from_type(glib::types::Type::Unit)),
+                None => Ok(glib::Value::from_type(glib::types::Type::UNIT)),
             }
         }
     }

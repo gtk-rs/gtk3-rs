@@ -1135,7 +1135,7 @@ impl Object {
         type_: Type,
         params: &[(std::ffi::CString, Value)],
     ) -> Result<Object, BoolError> {
-        if !type_.is_a(&Object::static_type()) {
+        if !type_.is_a(Object::static_type()) {
             return Err(bool_error!(
                 "Can't instantiate non-GObject type '{}'",
                 type_
@@ -1169,7 +1169,7 @@ impl Object {
         );
         if ptr.is_null() {
             Err(bool_error!("Can't instantiate object for type '{}'", type_))
-        } else if type_.is_a(&InitiallyUnowned::static_type()) {
+        } else if type_.is_a(InitiallyUnowned::static_type()) {
             // Attention: This takes ownership of the floating reference
             Ok(from_glib_none(ptr))
         } else {
@@ -1333,7 +1333,7 @@ pub trait ObjectExt: ObjectType {
 
 impl<T: ObjectType> ObjectExt for T {
     fn is<U: StaticType>(&self) -> bool {
-        self.get_type().is_a(&U::static_type())
+        self.get_type().is_a(U::static_type())
     }
 
     fn get_type(&self) -> Type {
@@ -1519,15 +1519,13 @@ impl<T: ObjectType> ObjectExt for T {
             );
 
             // This can't really happen unless something goes wrong inside GObject
-            if value.type_() == crate::Type::Invalid {
-                Err(bool_error!(
+            Some(value).filter(|v| v.type_().is_valid()).ok_or_else(|| {
+                bool_error!(
                     "Failed to get property value for property '{}' of type '{}'",
                     property_name,
                     self.get_type()
-                ))
-            } else {
-                Ok(value)
-            }
+                )
+            })
         }
     }
 
@@ -1763,7 +1761,7 @@ impl<T: ObjectType> ObjectExt for T {
         let closure = Closure::new_unsafe(move |values| {
             let ret = callback(values);
 
-            if return_type == Type::Unit {
+            if return_type == Type::UNIT {
                 if let Some(ret) = ret {
                     panic!(
                         "Signal '{}' of type '{}' required no return value but got value of type '{}'",
@@ -1785,10 +1783,10 @@ impl<T: ObjectType> ObjectExt for T {
                         // actual typed of the contained object is compatible and if so create
                         // a properly typed Value. This can happen if the type field in the
                         // Value is set to a more generic type than the contained value
-                        if !valid_type && ret.type_().is_a(&Object::static_type()) {
+                        if !valid_type && ret.type_().is_a(Object::static_type()) {
                             match ret.get::<Object>() {
                                 Ok(Some(obj)) => {
-                                    if obj.get_type().is_a(&return_type) {
+                                    if obj.get_type().is_a(return_type) {
                                         ret.0.g_type = return_type.to_glib();
                                     } else {
                                         panic!(
@@ -1872,7 +1870,7 @@ impl<T: ObjectType> ObjectExt for T {
             let signal_detail = validate_signal_arguments(type_, &signal_query, &mut args[1..])?;
 
             let mut return_value = Value::uninitialized();
-            if signal_query.return_type() != Type::Unit {
+            if signal_query.return_type() != Type::UNIT {
                 gobject_ffi::g_value_init(
                     return_value.to_glib_none_mut().0,
                     signal_query.return_type().to_glib(),
@@ -1886,11 +1884,7 @@ impl<T: ObjectType> ObjectExt for T {
                 return_value.to_glib_none_mut().0,
             );
 
-            if return_value.type_() != Type::Unit && return_value.type_() != Type::Invalid {
-                Ok(Some(return_value))
-            } else {
-                Ok(None)
-            }
+            Ok(Some(return_value).filter(|r| r.type_().is_valid() && r.type_() != Type::UNIT))
         }
     }
 
@@ -1925,7 +1919,7 @@ impl<T: ObjectType> ObjectExt for T {
             validate_signal_arguments(type_, &signal_query, &mut args)?;
 
             let mut return_value = Value::uninitialized();
-            if signal_query.return_type() != crate::Type::Unit {
+            if signal_query.return_type() != Type::UNIT {
                 gobject_ffi::g_value_init(
                     return_value.to_glib_none_mut().0,
                     signal_query.return_type().to_glib(),
@@ -1939,13 +1933,7 @@ impl<T: ObjectType> ObjectExt for T {
                 return_value.to_glib_none_mut().0,
             );
 
-            if return_value.type_() != crate::Type::Unit
-                && return_value.type_() != crate::Type::Invalid
-            {
-                Ok(Some(return_value))
-            } else {
-                Ok(None)
-            }
+            Ok(Some(return_value).filter(|r| r.type_().is_valid() && r.type_() != Type::UNIT))
         }
     }
 
@@ -2017,7 +2005,7 @@ impl<T: ObjectType> ObjectExt for T {
             let signal_detail = validate_signal_arguments(type_, &signal_query, &mut args[1..])?;
 
             let mut return_value = Value::uninitialized();
-            if signal_query.return_type() != Type::Unit {
+            if signal_query.return_type() != Type::UNIT {
                 gobject_ffi::g_value_init(
                     return_value.to_glib_none_mut().0,
                     signal_query.return_type().to_glib(),
@@ -2031,11 +2019,7 @@ impl<T: ObjectType> ObjectExt for T {
                 return_value.to_glib_none_mut().0,
             );
 
-            if return_value.type_() != Type::Unit && return_value.type_() != Type::Invalid {
-                Ok(Some(return_value))
-            } else {
-                Ok(None)
-            }
+            Ok(Some(return_value).filter(|r| r.type_().is_valid() && r.type_() != Type::UNIT))
         }
     }
 
@@ -2079,7 +2063,7 @@ impl<T: ObjectType> ObjectExt for T {
             validate_signal_arguments(type_, &signal_query, &mut args)?;
 
             let mut return_value = Value::uninitialized();
-            if signal_query.return_type() != crate::Type::Unit {
+            if signal_query.return_type() != Type::UNIT {
                 gobject_ffi::g_value_init(
                     return_value.to_glib_none_mut().0,
                     signal_query.return_type().to_glib(),
@@ -2093,13 +2077,7 @@ impl<T: ObjectType> ObjectExt for T {
                 return_value.to_glib_none_mut().0,
             );
 
-            if return_value.type_() != crate::Type::Unit
-                && return_value.type_() != crate::Type::Invalid
-            {
-                Ok(Some(return_value))
-            } else {
-                Ok(None)
-            }
+            Ok(Some(return_value).filter(|r| r.type_().is_valid() && r.type_() != Type::UNIT))
         }
     }
 }
@@ -2139,10 +2117,10 @@ fn validate_property_type(
         // actual type of the contained object is compatible and if so create
         // a properly typed Value. This can happen if the type field in the
         // Value is set to a more generic type than the contained value
-        if !valid_type && property_value.type_().is_a(&Object::static_type()) {
+        if !valid_type && property_value.type_().is_a(Object::static_type()) {
             match property_value.get::<Object>() {
                 Ok(Some(obj)) => {
-                    if obj.get_type().is_a(&pspec.get_value_type()) {
+                    if obj.get_type().is_a(pspec.get_value_type()) {
                         property_value.0.g_type = pspec.get_value_type().to_glib();
                     } else {
                         return Err(
@@ -2216,10 +2194,10 @@ fn validate_signal_arguments(
 
     for (i, (arg, param_type)) in param_types.enumerate() {
         let param_type: Type = param_type.into();
-        if arg.type_().is_a(&Object::static_type()) {
+        if arg.type_().is_a(Object::static_type()) {
             match arg.get::<Object>() {
                 Ok(Some(obj)) => {
-                    if obj.get_type().is_a(&param_type) {
+                    if obj.get_type().is_a(param_type) {
                         arg.0.g_type = param_type.to_glib();
                     } else {
                         return Err(
@@ -2583,7 +2561,7 @@ impl<T: ObjectType> Class<T> {
     where
         U: IsA<T>,
     {
-        if !self.get_type().is_a(&U::static_type()) {
+        if !self.get_type().is_a(U::static_type()) {
             return None;
         }
 
@@ -2599,7 +2577,7 @@ impl<T: ObjectType> Class<T> {
     where
         U: IsA<T>,
     {
-        if !self.get_type().is_a(&U::static_type()) {
+        if !self.get_type().is_a(U::static_type()) {
             return None;
         }
 
@@ -2613,7 +2591,7 @@ impl<T: ObjectType> Class<T> {
     ///
     /// This will return `None` if `type_` is not a subclass of `Self`.
     pub fn from_type(type_: Type) -> Option<ClassRef<T>> {
-        if !type_.is_a(&T::static_type()) {
+        if !type_.is_a(T::static_type()) {
             return None;
         }
 
