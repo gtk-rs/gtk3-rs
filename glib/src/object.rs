@@ -1758,10 +1758,9 @@ impl<T: ObjectType> ObjectExt for T {
         let signal_query = signal_id.query();
 
         let return_type: Type = signal_query.return_type().into();
-        let closure = Closure::new_unsafe(move |values| {
-            let ret = callback(values);
-
-            if return_type == Type::UNIT {
+        let closure = if return_type == Type::UNIT {
+            Closure::new_unsafe(move |values| {
+                let ret = callback(values);
                 if let Some(ret) = ret {
                     panic!(
                         "Signal '{}' of type '{}' required no return value but got value of type '{}'",
@@ -1771,62 +1770,56 @@ impl<T: ObjectType> ObjectExt for T {
                     );
                 }
                 None
-            } else {
-                match ret {
-                    Some(mut ret) => {
-                        let valid_type: bool = from_glib(gobject_ffi::g_type_check_value_holds(
-                            mut_override(ret.to_glib_none().0),
-                            return_type.to_glib(),
-                        ));
+            })
+        } else {
+            Closure::new_unsafe(move |values| {
+                let mut ret = callback(values).unwrap_or_else(|| {
+                    panic!(
+                        "Signal '{}' of type '{}' required return value of type '{}' but got None",
+                        signal_name,
+                        type_,
+                        return_type.name()
+                    );
+                });
+                let valid_type: bool = from_glib(gobject_ffi::g_type_check_value_holds(
+                    mut_override(ret.to_glib_none().0),
+                    return_type.to_glib(),
+                ));
 
-                        // If it's not directly a valid type but an object type, we check if the
-                        // actual typed of the contained object is compatible and if so create
-                        // a properly typed Value. This can happen if the type field in the
-                        // Value is set to a more generic type than the contained value
-                        if !valid_type && ret.type_().is_a(Object::static_type()) {
-                            match ret.get::<Object>() {
-                                Ok(Some(obj)) => {
-                                    if obj.get_type().is_a(return_type) {
-                                        ret.0.g_type = return_type.to_glib();
-                                    } else {
-                                        panic!(
-                                            "Signal '{}' of type '{}' required return value of type '{}' but got '{}' (actual '{}')",
-                                            signal_name,
-                                            type_,
-                                            return_type,
-                                            ret.type_(),
-                                            obj.get_type()
-                                        );
-                                    }
-                                }
-                                Ok(None) => {
-                                    // If the value is None then the type is compatible too
-                                    ret.0.g_type = return_type.to_glib();
-                                }
-                                Err(_) => unreachable!("ret type conformity already checked"),
-                            }
-                        } else if !valid_type {
-                            panic!(
-                                "Signal '{}' of type '{}' required return value of type '{}' but got '{}'",
-                                signal_name,
-                                type_,
-                                return_type,
-                                ret.type_()
-                            );
-                        }
-                        Some(ret)
-                    }
-                    None => {
-                        panic!(
-                            "Signal '{}' of type '{}' required return value of type '{}' but got None",
-                            signal_name,
-                            type_,
-                            return_type.name()
-                        );
-                    }
+                if valid_type {
+                    return Some(ret);
                 }
-            }
-        });
+
+                // If it's not directly a valid type but an object type, we check if the
+                // actual typed of the contained object is compatible and if so create
+                // a properly typed Value. This can happen if the type field in the
+                // Value is set to a more generic type than the contained value
+                let opt_obj = ret.get::<Object>().unwrap_or_else(|_| {
+                    panic!(
+                        "Signal '{}' of type '{}' required return value of type '{}' but got '{}'",
+                        signal_name,
+                        type_,
+                        return_type,
+                        ret.type_()
+                    );
+                });
+
+                let actual_type = opt_obj.map_or_else(|| ret.type_(), |obj| obj.get_type());
+                if !actual_type.is_a(return_type) {
+                    panic!(
+                        "Signal '{}' of type '{}' required return value of type '{}' but got '{}' (actual '{}')",
+                        signal_name,
+                        type_,
+                        return_type,
+                        ret.type_(),
+                        actual_type
+                    );
+                }
+
+                ret.0.g_type = return_type.to_glib();
+                Some(ret)
+            })
+        };
         let handler = gobject_ffi::g_signal_connect_closure_by_id(
             self.as_object_ref().to_glib_none().0,
             signal_id.to_glib(),
