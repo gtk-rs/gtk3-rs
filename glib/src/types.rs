@@ -3,8 +3,8 @@
 //! Runtime type information.
 
 use crate::translate::{
-    from_glib, from_glib_none, FromGlib, FromGlibContainerAsVec, ToGlib, ToGlibContainerFromSlice,
-    ToGlibPtr, ToGlibPtrMut,
+    from_glib, FromGlib, FromGlibContainerAsVec, ToGlib, ToGlibContainerFromSlice, ToGlibPtr,
+    ToGlibPtrMut,
 };
 use crate::value::{FromValue, FromValueOptional, SetValue, Value};
 
@@ -84,10 +84,13 @@ impl Type {
     pub const OBJECT: Self = Self(gobject_ffi::G_TYPE_OBJECT);
 
     #[doc(alias = "g_type_name")]
-    pub fn name(self) -> String {
+    pub fn name<'a>(self) -> &'a str {
         match self.to_glib() {
-            gobject_ffi::G_TYPE_INVALID => "<invalid>".to_string(),
-            x => unsafe { from_glib_none(gobject_ffi::g_type_name(x)) },
+            gobject_ffi::G_TYPE_INVALID => "<invalid>",
+            x => unsafe {
+                let ptr = gobject_ffi::g_type_name(x);
+                std::ffi::CStr::from_ptr(ptr).to_str().unwrap()
+            },
         }
     }
 
