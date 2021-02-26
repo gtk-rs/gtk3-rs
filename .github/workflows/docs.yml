@@ -47,11 +47,12 @@ jobs:
         with:
           command: doc
           args: -p atk -p atk-sys -p cairo-rs -p cairo-sys-rs -p gdk -p gdk-sys -p gdk-pixbuf -p gdk-pixbuf-sys -p gdkx11 -p gdkx11-sys -p gio -p gio-sys -p glib -p gobject-sys -p glib-sys -p glib-macros -p graphene-rs -p graphene-sys -p gtk -p gtk-sys -p pango -p pango-sys -p pangocairo -p pangocairo-sys --all-features --no-deps
+        env: 
+          RUSTDOCFLAGS: "--enable-index-page -Zunstable-options"
 
       - name: deploy
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-        uses: peaceiris/actions-gh-pages@v2
-        env:
-          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./target/doc/
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/doc/
