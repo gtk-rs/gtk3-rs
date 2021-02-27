@@ -2,6 +2,8 @@ on:
   push:
     branches: [master]
   pull_request:
+  release:
+    types: [published]
 
 name: docs
 
@@ -50,9 +52,19 @@ jobs:
         env: 
           RUSTDOCFLAGS: "--enable-index-page -Zunstable-options"
 
-      - name: deploy
+      - name: Deploy stable docs
+        if: ${{ github.event_name == 'release' }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: target/doc/
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: gtk-rs/docs
+          destination_dir: stable/
+      - name: Deploy unstable docs
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/doc/
+          publish_dir: target/doc/
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: gtk-rs/docs
+          destination_dir: unstable/
