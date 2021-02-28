@@ -351,6 +351,8 @@ builtin!(f32, F32);
 builtin!(f64, F64);
 builtin!(str, STRING);
 builtin!(String, STRING);
+builtin!(std::ffi::OsString, STRING);
+builtin!(std::ffi::OsStr, STRING);
 builtin!(std::path::PathBuf, STRING);
 builtin!(std::path::Path, STRING);
 

@@ -907,6 +907,12 @@ impl<'a> FromValueOptional<'a> for String {
     }
 }
 
+impl<'a> FromValueOptional<'a> for std::ffi::OsString {
+    unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
+        from_glib_none(gobject_ffi::g_value_get_string(value.to_glib_none().0))
+    }
+}
+
 impl<'a> FromValueOptional<'a> for std::path::PathBuf {
     unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
         std::ffi::OsString::from_value_optional(value).map(Into::into)
@@ -1010,6 +1016,30 @@ impl SetValue for String {
 }
 
 impl SetValueOptional for String {
+    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
+        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+    }
+}
+
+impl SetValue for std::ffi::OsString {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+    }
+}
+
+impl SetValueOptional for std::ffi::OsString {
+    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
+        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+    }
+}
+
+impl SetValue for std::ffi::OsStr {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+    }
+}
+
+impl SetValueOptional for std::ffi::OsStr {
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
         gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
     }
@@ -1212,6 +1242,28 @@ mod tests {
         assert_eq!(
             pathbuf_value.get::<PathBuf>(),
             Ok(Some(PathBuf::from("apple")))
+        );
+    }
+
+    #[test]
+    fn test_osstr() {
+        use std::ffi::{OsStr, OsString};
+        let osstr = OsStr::new("banana");
+        let osstring = osstr.to_owned();
+        let osstr_value = osstr.to_value();
+        let osstring_value = osstring.to_value();
+
+        assert_eq!(osstring_value.get::<OsString>(), Ok(Some(osstring.clone())));
+        assert_eq!(osstr_value.get::<OsString>(), Ok(Some(osstring.clone())));
+        // Drop the backing storage, and compare with str to ensure valid memory management.
+        drop(osstring);
+        assert_eq!(
+            osstr_value.get::<OsString>(),
+            Ok(Some(OsString::from("banana")))
+        );
+        assert_eq!(
+            osstring_value.get::<OsString>(),
+            Ok(Some(OsString::from("banana")))
         );
     }
 
