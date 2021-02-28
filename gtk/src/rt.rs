@@ -1,7 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use glib::translate::*;
-use libc::c_uint;
 use std::cell::Cell;
 use std::sync::atomic::{AtomicBool, Ordering, ATOMIC_BOOL_INIT};
 
@@ -38,7 +37,7 @@ macro_rules! skip_assert_initialized {
 #[allow(unused_macros)]
 macro_rules! assert_not_initialized {
     () => {
-        if ::rt::is_initialized() {
+        if crate::rt::is_initialized() {
             panic!("This function has to be called before `gtk::init`.");
         }
     };
@@ -138,51 +137,5 @@ pub fn main_quit() {
         } else if cfg!(debug_assertions) {
             panic!("Attempted to quit a GTK main loop when none is running.");
         }
-    }
-}
-
-#[doc(alias = "gtk_get_major_version")]
-pub fn get_major_version() -> u32 {
-    skip_assert_initialized!();
-    unsafe { ffi::gtk_get_major_version() as u32 }
-}
-
-#[doc(alias = "gtk_get_minor_version")]
-pub fn get_minor_version() -> u32 {
-    skip_assert_initialized!();
-    unsafe { ffi::gtk_get_minor_version() as u32 }
-}
-
-#[doc(alias = "gtk_get_micro_version")]
-pub fn get_micro_version() -> u32 {
-    skip_assert_initialized!();
-    unsafe { ffi::gtk_get_micro_version() as u32 }
-}
-
-#[doc(alias = "gtk_get_binary_age")]
-pub fn get_binary_age() -> u32 {
-    skip_assert_initialized!();
-    unsafe { ffi::gtk_get_binary_age() as u32 }
-}
-
-#[doc(alias = "gtk_get_interface_age")]
-pub fn get_interface_age() -> u32 {
-    skip_assert_initialized!();
-    unsafe { ffi::gtk_get_interface_age() as u32 }
-}
-
-#[doc(alias = "gtk_check_version")]
-pub fn check_version(
-    required_major: u32,
-    required_minor: u32,
-    required_micro: u32,
-) -> Option<String> {
-    skip_assert_initialized!();
-    unsafe {
-        from_glib_none(ffi::gtk_check_version(
-            required_major as c_uint,
-            required_minor as c_uint,
-            required_micro as c_uint,
-        ))
     }
 }

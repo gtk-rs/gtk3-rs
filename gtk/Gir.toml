@@ -287,20 +287,20 @@ status = "generate"
     ignore = true
     [[object.function]]
     pattern = "get_(major|minor|micro)_version"
-    #manual skip_assert_initialized
-    ignore = true
+    assertion = "skip"
     [[object.function]]
     pattern = "get_(binary|interface)_age"
-    #manual skip_assert_initialized
-    ignore = true
+    assertion = "skip"
     [[object.function]]
     name = "check_version"
-    #manual skip_assert_initialized
-    ignore = true
+    assertion = "skip"
     [[object.function]]
     pattern = "drag_.+"
     #manual trait
     ignore = true
+    [[object.function]]
+    name = "disable_setlocale"
+    assertion = "not-initialized"
 
 [[object]]
 name = "Gtk.AboutDialog"

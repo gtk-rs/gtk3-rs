@@ -211,6 +211,22 @@ pub fn cairo_transform_to_window<P: IsA<Widget>>(
     }
 }
 
+#[doc(alias = "gtk_check_version")]
+pub fn check_version(
+    required_major: u32,
+    required_minor: u32,
+    required_micro: u32,
+) -> Option<glib::GString> {
+    skip_assert_initialized!();
+    unsafe {
+        from_glib_none(ffi::gtk_check_version(
+            required_major,
+            required_minor,
+            required_micro,
+        ))
+    }
+}
+
 #[doc(alias = "gtk_device_grab_add")]
 pub fn device_grab_add<P: IsA<Widget>>(widget: &P, device: &gdk::Device, block_others: bool) {
     skip_assert_initialized!();
@@ -233,7 +249,7 @@ pub fn device_grab_remove<P: IsA<Widget>>(widget: &P, device: &gdk::Device) {
 
 #[doc(alias = "gtk_disable_setlocale")]
 pub fn disable_setlocale() {
-    assert_initialized_main_thread!();
+    assert_not_initialized!();
     unsafe {
         ffi::gtk_disable_setlocale();
     }
@@ -254,6 +270,12 @@ pub fn events_pending() -> bool {
 pub fn false_() -> bool {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_false()) }
+}
+
+#[doc(alias = "gtk_get_binary_age")]
+pub fn get_binary_age() -> u32 {
+    skip_assert_initialized!();
+    unsafe { ffi::gtk_get_binary_age() }
 }
 
 #[doc(alias = "gtk_get_current_event")]
@@ -307,10 +329,34 @@ pub fn get_event_widget(event: &mut gdk::Event) -> Option<Widget> {
     unsafe { from_glib_none(ffi::gtk_get_event_widget(event.to_glib_none_mut().0)) }
 }
 
+#[doc(alias = "gtk_get_interface_age")]
+pub fn get_interface_age() -> u32 {
+    skip_assert_initialized!();
+    unsafe { ffi::gtk_get_interface_age() }
+}
+
 #[doc(alias = "gtk_get_locale_direction")]
 pub fn get_locale_direction() -> TextDirection {
     assert_initialized_main_thread!();
     unsafe { from_glib(ffi::gtk_get_locale_direction()) }
+}
+
+#[doc(alias = "gtk_get_major_version")]
+pub fn get_major_version() -> u32 {
+    skip_assert_initialized!();
+    unsafe { ffi::gtk_get_major_version() }
+}
+
+#[doc(alias = "gtk_get_micro_version")]
+pub fn get_micro_version() -> u32 {
+    skip_assert_initialized!();
+    unsafe { ffi::gtk_get_micro_version() }
+}
+
+#[doc(alias = "gtk_get_minor_version")]
+pub fn get_minor_version() -> u32 {
+    skip_assert_initialized!();
+    unsafe { ffi::gtk_get_minor_version() }
 }
 
 //#[doc(alias = "gtk_get_option_group")]
