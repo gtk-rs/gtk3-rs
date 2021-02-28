@@ -238,14 +238,22 @@ pub trait SettingsExt: 'static {
 
     //fn connect_change_event<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_changed<F: Fn(&Self, &str) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId;
 
     fn connect_writable_change_event<F: Fn(&Self, u32) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_writable_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_writable_changed<F: Fn(&Self, &str) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId;
 
     fn connect_property_delay_apply_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -669,7 +677,11 @@ impl<O: IsA<Settings>> SettingsExt for O {
     //    Unimplemented keys: *.CArray TypeId { ns_id: 2, id: 5 }
     //}
 
-    fn connect_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_changed<F: Fn(&Self, &str) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId {
         unsafe extern "C" fn changed_trampoline<P, F: Fn(&P, &str) + 'static>(
             this: *mut ffi::GSettings,
             key: *mut libc::c_char,
@@ -685,9 +697,13 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
+            let detailed_signal_name = detail.map(|name| format!("changed::{}\0", name));
+            let signal_name: &[u8] = detailed_signal_name
+                .as_ref()
+                .map_or(&b"changed\0"[..], |n| n.as_bytes());
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"changed\0".as_ptr() as *const _,
+                signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     changed_trampoline::<Self, F> as *const (),
                 )),
@@ -727,7 +743,11 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn connect_writable_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_writable_changed<F: Fn(&Self, &str) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId {
         unsafe extern "C" fn writable_changed_trampoline<P, F: Fn(&P, &str) + 'static>(
             this: *mut ffi::GSettings,
             key: *mut libc::c_char,
@@ -743,9 +763,13 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
+            let detailed_signal_name = detail.map(|name| format!("writable-changed::{}\0", name));
+            let signal_name: &[u8] = detailed_signal_name
+                .as_ref()
+                .map_or(&b"writable-changed\0"[..], |n| n.as_bytes());
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"writable-changed\0".as_ptr() as *const _,
+                signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     writable_changed_trampoline::<Self, F> as *const (),
                 )),

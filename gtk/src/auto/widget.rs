@@ -850,6 +850,7 @@ pub trait WidgetExt: 'static {
 
     fn connect_child_notify<F: Fn(&Self, &glib::ParamSpec) + 'static>(
         &self,
+        detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
@@ -3261,6 +3262,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
 
     fn connect_child_notify<F: Fn(&Self, &glib::ParamSpec) + 'static>(
         &self,
+        detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn child_notify_trampoline<P, F: Fn(&P, &glib::ParamSpec) + 'static>(
@@ -3278,9 +3280,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
+            let detailed_signal_name = detail.map(|name| format!("child-notify::{}\0", name));
+            let signal_name: &[u8] = detailed_signal_name
+                .as_ref()
+                .map_or(&b"child-notify\0"[..], |n| n.as_bytes());
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"child-notify\0".as_ptr() as *const _,
+                signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     child_notify_trampoline::<Self, F> as *const (),
                 )),

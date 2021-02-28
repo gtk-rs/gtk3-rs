@@ -80,11 +80,13 @@ pub trait AccelGroupExt: 'static {
         F: Fn(&Self, &glib::Object, u32, gdk::ModifierType) -> bool + 'static,
     >(
         &self,
+        detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
     fn connect_accel_changed<F: Fn(&Self, u32, gdk::ModifierType, &glib::Closure) + 'static>(
         &self,
+        detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
@@ -170,6 +172,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         F: Fn(&Self, &glib::Object, u32, gdk::ModifierType) -> bool + 'static,
     >(
         &self,
+        detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn accel_activate_trampoline<
@@ -196,9 +199,13 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
+            let detailed_signal_name = detail.map(|name| format!("accel-activate::{}\0", name));
+            let signal_name: &[u8] = detailed_signal_name
+                .as_ref()
+                .map_or(&b"accel-activate\0"[..], |n| n.as_bytes());
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"accel-activate\0".as_ptr() as *const _,
+                signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     accel_activate_trampoline::<Self, F> as *const (),
                 )),
@@ -209,6 +216,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
 
     fn connect_accel_changed<F: Fn(&Self, u32, gdk::ModifierType, &glib::Closure) + 'static>(
         &self,
+        detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn accel_changed_trampoline<
@@ -233,9 +241,13 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
+            let detailed_signal_name = detail.map(|name| format!("accel-changed::{}\0", name));
+            let signal_name: &[u8] = detailed_signal_name
+                .as_ref()
+                .map_or(&b"accel-changed\0"[..], |n| n.as_bytes());
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"accel-changed\0".as_ptr() as *const _,
+                signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     accel_changed_trampoline::<Self, F> as *const (),
                 )),
