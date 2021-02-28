@@ -2,11 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use graphene_sys::*;
 use std::env;
 use std::error::Error;
 use std::ffi::OsString;
-use std::mem::{align_of, size_of};
 use std::path::Path;
 use std::process::Command;
 use std::str;
