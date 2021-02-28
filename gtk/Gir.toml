@@ -298,6 +298,9 @@ status = "generate"
     pattern = "drag_.+"
     #manual trait
     ignore = true
+    [[object.function]]
+    name = "disable_setlocale"
+    assertion = "not-initialized"
 
 [[object]]
 name = "Gtk.AboutDialog"

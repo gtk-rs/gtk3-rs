@@ -249,7 +249,7 @@ pub fn device_grab_remove<P: IsA<Widget>>(widget: &P, device: &gdk::Device) {
 
 #[doc(alias = "gtk_disable_setlocale")]
 pub fn disable_setlocale() {
-    assert_initialized_main_thread!();
+    assert_not_initialized!();
     unsafe {
         ffi::gtk_disable_setlocale();
     }

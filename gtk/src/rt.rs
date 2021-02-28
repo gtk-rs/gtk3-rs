@@ -1,7 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use glib::translate::*;
-use libc::c_uint;
 use std::cell::Cell;
 use std::sync::atomic::{AtomicBool, Ordering, ATOMIC_BOOL_INIT};
 
@@ -140,4 +139,3 @@ pub fn main_quit() {
         }
     }
 }
-
