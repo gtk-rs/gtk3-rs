@@ -61,17 +61,27 @@ pub trait ActionGroupExt: 'static {
     #[doc(alias = "g_action_group_list_actions")]
     fn list_actions(&self) -> Vec<glib::GString>;
 
-    fn connect_action_added<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_action_enabled_changed<F: Fn(&Self, &str, bool) + 'static>(
+    fn connect_action_added<F: Fn(&Self, &str) + 'static>(
         &self,
+        detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_action_removed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_action_enabled_changed<F: Fn(&Self, &str, bool) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId;
+
+    fn connect_action_removed<F: Fn(&Self, &str) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId;
 
     fn connect_action_state_changed<F: Fn(&Self, &str, &glib::Variant) + 'static>(
         &self,
+        detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 }
@@ -197,7 +207,11 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         }
     }
 
-    fn connect_action_added<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_action_added<F: Fn(&Self, &str) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId {
         unsafe extern "C" fn action_added_trampoline<P, F: Fn(&P, &str) + 'static>(
             this: *mut ffi::GActionGroup,
             action_name: *mut libc::c_char,
@@ -213,9 +227,13 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
+            let detailed_signal_name = detail.map(|name| format!("action-added::{}\0", name));
+            let signal_name: &[u8] = detailed_signal_name
+                .as_ref()
+                .map_or(&b"action-added\0"[..], |n| n.as_bytes());
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"action-added\0".as_ptr() as *const _,
+                signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     action_added_trampoline::<Self, F> as *const (),
                 )),
@@ -226,6 +244,7 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
 
     fn connect_action_enabled_changed<F: Fn(&Self, &str, bool) + 'static>(
         &self,
+        detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn action_enabled_changed_trampoline<P, F: Fn(&P, &str, bool) + 'static>(
@@ -245,9 +264,14 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
+            let detailed_signal_name =
+                detail.map(|name| format!("action-enabled-changed::{}\0", name));
+            let signal_name: &[u8] = detailed_signal_name
+                .as_ref()
+                .map_or(&b"action-enabled-changed\0"[..], |n| n.as_bytes());
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"action-enabled-changed\0".as_ptr() as *const _,
+                signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     action_enabled_changed_trampoline::<Self, F> as *const (),
                 )),
@@ -256,7 +280,11 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         }
     }
 
-    fn connect_action_removed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_action_removed<F: Fn(&Self, &str) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId {
         unsafe extern "C" fn action_removed_trampoline<P, F: Fn(&P, &str) + 'static>(
             this: *mut ffi::GActionGroup,
             action_name: *mut libc::c_char,
@@ -272,9 +300,13 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
+            let detailed_signal_name = detail.map(|name| format!("action-removed::{}\0", name));
+            let signal_name: &[u8] = detailed_signal_name
+                .as_ref()
+                .map_or(&b"action-removed\0"[..], |n| n.as_bytes());
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"action-removed\0".as_ptr() as *const _,
+                signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     action_removed_trampoline::<Self, F> as *const (),
                 )),
@@ -285,6 +317,7 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
 
     fn connect_action_state_changed<F: Fn(&Self, &str, &glib::Variant) + 'static>(
         &self,
+        detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn action_state_changed_trampoline<
@@ -307,9 +340,14 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
+            let detailed_signal_name =
+                detail.map(|name| format!("action-state-changed::{}\0", name));
+            let signal_name: &[u8] = detailed_signal_name
+                .as_ref()
+                .map_or(&b"action-state-changed\0"[..], |n| n.as_bytes());
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"action-state-changed\0".as_ptr() as *const _,
+                signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     action_state_changed_trampoline::<Self, F> as *const (),
                 )),

@@ -457,7 +457,11 @@ pub trait LevelBarExt: 'static {
     #[doc(alias = "gtk_level_bar_set_value")]
     fn set_value(&self, value: f64);
 
-    fn connect_offset_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_offset_changed<F: Fn(&Self, &str) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId;
 
     fn connect_property_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -561,7 +565,11 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
     }
 
-    fn connect_offset_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_offset_changed<F: Fn(&Self, &str) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId {
         unsafe extern "C" fn offset_changed_trampoline<P, F: Fn(&P, &str) + 'static>(
             this: *mut ffi::GtkLevelBar,
             name: *mut libc::c_char,
@@ -577,9 +585,13 @@ impl<O: IsA<LevelBar>> LevelBarExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
+            let detailed_signal_name = detail.map(|name| format!("offset-changed::{}\0", name));
+            let signal_name: &[u8] = detailed_signal_name
+                .as_ref()
+                .map_or(&b"offset-changed\0"[..], |n| n.as_bytes());
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"offset-changed\0".as_ptr() as *const _,
+                signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     offset_changed_trampoline::<Self, F> as *const (),
                 )),

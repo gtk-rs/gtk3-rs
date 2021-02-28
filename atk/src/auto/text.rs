@@ -126,9 +126,17 @@ pub trait TextExt: 'static {
 
     fn connect_text_caret_moved<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_text_insert<F: Fn(&Self, i32, i32, &str) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_text_insert<F: Fn(&Self, i32, i32, &str) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId;
 
-    fn connect_text_remove<F: Fn(&Self, i32, i32, &str) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_text_remove<F: Fn(&Self, i32, i32, &str) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId;
 
     fn connect_text_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -424,7 +432,11 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    fn connect_text_insert<F: Fn(&Self, i32, i32, &str) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_text_insert<F: Fn(&Self, i32, i32, &str) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId {
         unsafe extern "C" fn text_insert_trampoline<P, F: Fn(&P, i32, i32, &str) + 'static>(
             this: *mut ffi::AtkText,
             arg1: libc::c_int,
@@ -444,9 +456,13 @@ impl<O: IsA<Text>> TextExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
+            let detailed_signal_name = detail.map(|name| format!("text-insert::{}\0", name));
+            let signal_name: &[u8] = detailed_signal_name
+                .as_ref()
+                .map_or(&b"text-insert\0"[..], |n| n.as_bytes());
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"text-insert\0".as_ptr() as *const _,
+                signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     text_insert_trampoline::<Self, F> as *const (),
                 )),
@@ -455,7 +471,11 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    fn connect_text_remove<F: Fn(&Self, i32, i32, &str) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_text_remove<F: Fn(&Self, i32, i32, &str) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId {
         unsafe extern "C" fn text_remove_trampoline<P, F: Fn(&P, i32, i32, &str) + 'static>(
             this: *mut ffi::AtkText,
             arg1: libc::c_int,
@@ -475,9 +495,13 @@ impl<O: IsA<Text>> TextExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
+            let detailed_signal_name = detail.map(|name| format!("text-remove::{}\0", name));
+            let signal_name: &[u8] = detailed_signal_name
+                .as_ref()
+                .map_or(&b"text-remove\0"[..], |n| n.as_bytes());
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"text-remove\0".as_ptr() as *const _,
+                signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     text_remove_trampoline::<Self, F> as *const (),
                 )),

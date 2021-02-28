@@ -575,7 +575,11 @@ pub trait AppChooserButtonExt: 'static {
     #[doc(alias = "gtk_app_chooser_button_set_show_dialog_item")]
     fn set_show_dialog_item(&self, setting: bool);
 
-    fn connect_custom_item_activated<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_custom_item_activated<F: Fn(&Self, &str) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId;
 
     fn connect_property_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -668,7 +672,11 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
-    fn connect_custom_item_activated<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_custom_item_activated<F: Fn(&Self, &str) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId {
         unsafe extern "C" fn custom_item_activated_trampoline<P, F: Fn(&P, &str) + 'static>(
             this: *mut ffi::GtkAppChooserButton,
             item_name: *mut libc::c_char,
@@ -684,9 +692,14 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
+            let detailed_signal_name =
+                detail.map(|name| format!("custom-item-activated::{}\0", name));
+            let signal_name: &[u8] = detailed_signal_name
+                .as_ref()
+                .map_or(&b"custom-item-activated\0"[..], |n| n.as_bytes());
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"custom-item-activated\0".as_ptr() as *const _,
+                signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     custom_item_activated_trampoline::<Self, F> as *const (),
                 )),

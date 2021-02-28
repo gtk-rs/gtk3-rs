@@ -179,17 +179,23 @@ pub trait AtkObjectExt: 'static {
 
     fn connect_active_descendant_changed<F: Fn(&Self, &Object) + 'static>(
         &self,
+        detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
     fn connect_children_changed<F: Fn(&Self, u32, &Object) + 'static>(
         &self,
+        detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId;
 
-    //fn connect_property_change<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
+    //fn connect_property_change<Unsupported or ignored types>(&self, detail: Option<&str>, f: F) -> SignalHandlerId;
 
-    fn connect_state_change<F: Fn(&Self, &str, bool) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_state_change<F: Fn(&Self, &str, bool) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId;
 
     fn connect_visible_data_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -797,6 +803,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
 
     fn connect_active_descendant_changed<F: Fn(&Self, &Object) + 'static>(
         &self,
+        detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn active_descendant_changed_trampoline<P, F: Fn(&P, &Object) + 'static>(
@@ -814,9 +821,14 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
+            let detailed_signal_name =
+                detail.map(|name| format!("active-descendant-changed::{}\0", name));
+            let signal_name: &[u8] = detailed_signal_name
+                .as_ref()
+                .map_or(&b"active-descendant-changed\0"[..], |n| n.as_bytes());
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"active-descendant-changed\0".as_ptr() as *const _,
+                signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     active_descendant_changed_trampoline::<Self, F> as *const (),
                 )),
@@ -827,6 +839,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
 
     fn connect_children_changed<F: Fn(&Self, u32, &Object) + 'static>(
         &self,
+        detail: Option<&str>,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn children_changed_trampoline<P, F: Fn(&P, u32, &Object) + 'static>(
@@ -846,9 +859,13 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
+            let detailed_signal_name = detail.map(|name| format!("children-changed::{}\0", name));
+            let signal_name: &[u8] = detailed_signal_name
+                .as_ref()
+                .map_or(&b"children-changed\0"[..], |n| n.as_bytes());
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"children-changed\0".as_ptr() as *const _,
+                signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     children_changed_trampoline::<Self, F> as *const (),
                 )),
@@ -857,11 +874,15 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    //fn connect_property_change<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
+    //fn connect_property_change<Unsupported or ignored types>(&self, detail: Option<&str>, f: F) -> SignalHandlerId {
     //    Ignored arg1: Atk.PropertyValues
     //}
 
-    fn connect_state_change<F: Fn(&Self, &str, bool) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_state_change<F: Fn(&Self, &str, bool) + 'static>(
+        &self,
+        detail: Option<&str>,
+        f: F,
+    ) -> SignalHandlerId {
         unsafe extern "C" fn state_change_trampoline<P, F: Fn(&P, &str, bool) + 'static>(
             this: *mut ffi::AtkObject,
             arg1: *mut libc::c_char,
@@ -879,9 +900,13 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
+            let detailed_signal_name = detail.map(|name| format!("state-change::{}\0", name));
+            let signal_name: &[u8] = detailed_signal_name
+                .as_ref()
+                .map_or(&b"state-change\0"[..], |n| n.as_bytes());
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"state-change\0".as_ptr() as *const _,
+                signal_name.as_ptr() as *const _,
                 Some(transmute::<_, unsafe extern "C" fn()>(
                     state_change_trampoline::<Self, F> as *const (),
                 )),
