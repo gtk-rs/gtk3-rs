@@ -674,6 +674,12 @@ impl<'a> ToGlibPtr<'a, *const c_char> for OsStr {
         let tmp = os_str_to_c(self);
         Stash(tmp.as_ptr(), tmp)
     }
+
+    #[inline]
+    fn to_glib_full(&self) -> *const c_char {
+        let stash = self.to_glib_none();
+        unsafe { ffi::g_strdup(stash.0) as *mut c_char }
+    }
 }
 
 impl<'a> ToGlibPtr<'a, *mut c_char> for OsStr {
@@ -683,6 +689,12 @@ impl<'a> ToGlibPtr<'a, *mut c_char> for OsStr {
     fn to_glib_none(&'a self) -> Stash<'a, *mut c_char, Self> {
         let tmp = os_str_to_c(self);
         Stash(tmp.as_ptr() as *mut c_char, tmp)
+    }
+
+    #[inline]
+    fn to_glib_full(&self) -> *mut c_char {
+        let stash = self.to_glib_none();
+        unsafe { ffi::g_strdup(stash.0) as *mut c_char }
     }
 }
 
@@ -694,6 +706,11 @@ impl<'a> ToGlibPtr<'a, *const c_char> for OsString {
         let tmp = os_str_to_c(self);
         Stash(tmp.as_ptr(), tmp)
     }
+
+    #[inline]
+    fn to_glib_full(&self) -> *const c_char {
+        OsStr::to_glib_full(&*self)
+    }
 }
 
 impl<'a> ToGlibPtr<'a, *mut c_char> for OsString {
@@ -703,6 +720,11 @@ impl<'a> ToGlibPtr<'a, *mut c_char> for OsString {
     fn to_glib_none(&'a self) -> Stash<'a, *mut c_char, Self> {
         let tmp = os_str_to_c(self);
         Stash(tmp.as_ptr() as *mut c_char, tmp)
+    }
+
+    #[inline]
+    fn to_glib_full(&self) -> *mut c_char {
+        OsStr::to_glib_full(&*self)
     }
 }
 
