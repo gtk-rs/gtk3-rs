@@ -907,6 +907,12 @@ impl<'a> FromValueOptional<'a> for String {
     }
 }
 
+impl<'a> FromValueOptional<'a> for std::path::PathBuf {
+    unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
+        std::ffi::OsString::from_value_optional(value).map(Into::into)
+    }
+}
+
 impl<'a> FromValueOptional<'a> for &'a str {
     unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
         let cstr = gobject_ffi::g_value_get_string(value.to_glib_none().0);
@@ -1004,6 +1010,30 @@ impl SetValue for String {
 }
 
 impl SetValueOptional for String {
+    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
+        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+    }
+}
+
+impl SetValue for std::path::PathBuf {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+    }
+}
+
+impl SetValueOptional for std::path::PathBuf {
+    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
+        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+    }
+}
+
+impl SetValue for std::path::Path {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+    }
+}
+
+impl SetValueOptional for std::path::Path {
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
         gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
     }
@@ -1159,6 +1189,29 @@ mod tests {
         assert_eq!(
             none_v.get::<i32>(),
             Err(GetError::new_type_mismatch(Type::STRING, Type::I32))
+        );
+    }
+
+    #[test]
+    fn test_path() {
+        use std::path::{Path, PathBuf};
+
+        let path = Path::new("apple");
+        let pathbuf = path.to_owned();
+        let path_value = path.to_value();
+        let pathbuf_value = pathbuf.to_value();
+
+        assert_eq!(pathbuf_value.get::<PathBuf>(), Ok(Some(pathbuf.clone())));
+        assert_eq!(path_value.get::<PathBuf>(), Ok(Some(pathbuf.clone())));
+        // Drop the backing storage, and compare with str to ensure valid memory management.
+        drop(pathbuf);
+        assert_eq!(
+            path_value.get::<PathBuf>(),
+            Ok(Some(PathBuf::from("apple")))
+        );
+        assert_eq!(
+            pathbuf_value.get::<PathBuf>(),
+            Ok(Some(PathBuf::from("apple")))
         );
     }
 

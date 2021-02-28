@@ -351,6 +351,8 @@ builtin!(f32, F32);
 builtin!(f64, F64);
 builtin!(str, STRING);
 builtin!(String, STRING);
+builtin!(std::path::PathBuf, STRING);
+builtin!(std::path::Path, STRING);
 
 impl<'a> StaticType for [&'a str] {
     fn static_type() -> Type {
