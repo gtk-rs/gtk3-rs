@@ -11,16 +11,16 @@ use super::bin::BinImpl;
 
 pub trait ListBoxRowImpl: ListBoxRowImplExt + BinImpl {
     fn activate(&self, list_box_row: &Self::Type) {
-        self.list_box_row_activate(list_box_row)
+        self.parent_activate(list_box_row)
     }
 }
 
 pub trait ListBoxRowImplExt: ObjectSubclass {
-    fn list_box_row_activate(&self, list_box_row: &Self::Type);
+    fn parent_activate(&self, list_box_row: &Self::Type);
 }
 
 impl<T: ListBoxRowImpl> ListBoxRowImplExt for T {
-    fn list_box_row_activate(&self, list_box_row: &Self::Type) {
+    fn parent_activate(&self, list_box_row: &Self::Type) {
         unsafe {
             let data = T::type_data();
             let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkListBoxRowClass;
