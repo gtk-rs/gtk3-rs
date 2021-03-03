@@ -235,6 +235,14 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
     fn scroll_event(&self, widget: &Self::Type, event: &gdk::EventScroll) -> Inhibit {
         self.parent_scroll_event(widget, event)
     }
+
+    fn enter_notify_event(&self, widget: &Self::Type, event: &gdk::EventCrossing) -> Inhibit {
+        self.parent_enter_notify_event(widget, event)
+    }
+
+    fn leave_notify_event(&self, widget: &Self::Type, event: &gdk::EventCrossing) -> Inhibit {
+        self.parent_leave_notify_event(widget, event)
+    }
 }
 
 pub trait WidgetImplExt: ObjectSubclass {
@@ -337,6 +345,10 @@ pub trait WidgetImplExt: ObjectSubclass {
     fn parent_unmap(&self, widget: &Self::Type);
     fn parent_motion_notify_event(&self, widget: &Self::Type, event: &gdk::EventMotion) -> Inhibit;
     fn parent_scroll_event(&self, widget: &Self::Type, event: &gdk::EventScroll) -> Inhibit;
+    fn parent_enter_notify_event(&self, widget: &Self::Type, event: &gdk::EventCrossing)
+        -> Inhibit;
+    fn parent_leave_notify_event(&self, widget: &Self::Type, event: &gdk::EventCrossing)
+        -> Inhibit;
 }
 
 impl<T: WidgetImpl> WidgetImplExt for T {
@@ -976,6 +988,44 @@ impl<T: WidgetImpl> WidgetImplExt for T {
             }
         }
     }
+
+    fn parent_enter_notify_event(
+        &self,
+        widget: &Self::Type,
+        event: &gdk::EventCrossing,
+    ) -> Inhibit {
+        unsafe {
+            let data = T::type_data();
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).enter_notify_event {
+                Inhibit(from_glib(f(
+                    widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                )))
+            } else {
+                Inhibit(false)
+            }
+        }
+    }
+
+    fn parent_leave_notify_event(
+        &self,
+        widget: &Self::Type,
+        event: &gdk::EventCrossing,
+    ) -> Inhibit {
+        unsafe {
+            let data = T::type_data();
+            let parent_class = data.as_ref().get_parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).leave_notify_event {
+                Inhibit(from_glib(f(
+                    widget.unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                )))
+            } else {
+                Inhibit(false)
+            }
+        }
+    }
 }
 
 unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
@@ -1023,6 +1073,8 @@ unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
         klass.unmap = Some(widget_unmap::<T>);
         klass.motion_notify_event = Some(widget_motion_notify_event::<T>);
         klass.scroll_event = Some(widget_scroll_event::<T>);
+        klass.enter_notify_event = Some(widget_enter_notify_event::<T>);
+        klass.leave_notify_event = Some(widget_leave_notify_event::<T>);
     }
 }
 
@@ -1563,6 +1615,32 @@ unsafe extern "C" fn widget_scroll_event<T: WidgetImpl>(
     let event: Borrowed<gdk::EventScroll> = from_glib_borrow(mptr);
 
     imp.scroll_event(wrap.unsafe_cast_ref(), &event).to_glib()
+}
+
+unsafe extern "C" fn widget_enter_notify_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    mptr: *mut gdk::ffi::GdkEventCrossing,
+) -> glib::ffi::gboolean {
+    let instance = &*(ptr as *mut T::Instance);
+    let imp = instance.get_impl();
+    let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
+    let event: Borrowed<gdk::EventCrossing> = from_glib_borrow(mptr);
+
+    imp.enter_notify_event(wrap.unsafe_cast_ref(), &event)
+        .to_glib()
+}
+
+unsafe extern "C" fn widget_leave_notify_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    mptr: *mut gdk::ffi::GdkEventCrossing,
+) -> glib::ffi::gboolean {
+    let instance = &*(ptr as *mut T::Instance);
+    let imp = instance.get_impl();
+    let wrap: Borrowed<Widget> = from_glib_borrow(ptr);
+    let event: Borrowed<gdk::EventCrossing> = from_glib_borrow(mptr);
+
+    imp.leave_notify_event(wrap.unsafe_cast_ref(), &event)
+        .to_glib()
 }
 
 pub unsafe trait WidgetClassSubclassExt: ClassStruct {
