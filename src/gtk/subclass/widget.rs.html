@@ -1701,6 +1701,84 @@
 <span id="1698">1698</span>
 <span id="1699">1699</span>
 <span id="1700">1700</span>
+<span id="1701">1701</span>
+<span id="1702">1702</span>
+<span id="1703">1703</span>
+<span id="1704">1704</span>
+<span id="1705">1705</span>
+<span id="1706">1706</span>
+<span id="1707">1707</span>
+<span id="1708">1708</span>
+<span id="1709">1709</span>
+<span id="1710">1710</span>
+<span id="1711">1711</span>
+<span id="1712">1712</span>
+<span id="1713">1713</span>
+<span id="1714">1714</span>
+<span id="1715">1715</span>
+<span id="1716">1716</span>
+<span id="1717">1717</span>
+<span id="1718">1718</span>
+<span id="1719">1719</span>
+<span id="1720">1720</span>
+<span id="1721">1721</span>
+<span id="1722">1722</span>
+<span id="1723">1723</span>
+<span id="1724">1724</span>
+<span id="1725">1725</span>
+<span id="1726">1726</span>
+<span id="1727">1727</span>
+<span id="1728">1728</span>
+<span id="1729">1729</span>
+<span id="1730">1730</span>
+<span id="1731">1731</span>
+<span id="1732">1732</span>
+<span id="1733">1733</span>
+<span id="1734">1734</span>
+<span id="1735">1735</span>
+<span id="1736">1736</span>
+<span id="1737">1737</span>
+<span id="1738">1738</span>
+<span id="1739">1739</span>
+<span id="1740">1740</span>
+<span id="1741">1741</span>
+<span id="1742">1742</span>
+<span id="1743">1743</span>
+<span id="1744">1744</span>
+<span id="1745">1745</span>
+<span id="1746">1746</span>
+<span id="1747">1747</span>
+<span id="1748">1748</span>
+<span id="1749">1749</span>
+<span id="1750">1750</span>
+<span id="1751">1751</span>
+<span id="1752">1752</span>
+<span id="1753">1753</span>
+<span id="1754">1754</span>
+<span id="1755">1755</span>
+<span id="1756">1756</span>
+<span id="1757">1757</span>
+<span id="1758">1758</span>
+<span id="1759">1759</span>
+<span id="1760">1760</span>
+<span id="1761">1761</span>
+<span id="1762">1762</span>
+<span id="1763">1763</span>
+<span id="1764">1764</span>
+<span id="1765">1765</span>
+<span id="1766">1766</span>
+<span id="1767">1767</span>
+<span id="1768">1768</span>
+<span id="1769">1769</span>
+<span id="1770">1770</span>
+<span id="1771">1771</span>
+<span id="1772">1772</span>
+<span id="1773">1773</span>
+<span id="1774">1774</span>
+<span id="1775">1775</span>
+<span id="1776">1776</span>
+<span id="1777">1777</span>
+<span id="1778">1778</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -1939,6 +2017,14 @@
     <span class="kw">fn</span> <span class="ident">scroll_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">EventScroll</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Inhibit</span> {
         <span class="self">self</span>.<span class="ident">parent_scroll_event</span>(<span class="ident">widget</span>, <span class="ident">event</span>)
     }
+
+    <span class="kw">fn</span> <span class="ident">enter_notify_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">EventCrossing</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Inhibit</span> {
+        <span class="self">self</span>.<span class="ident">parent_enter_notify_event</span>(<span class="ident">widget</span>, <span class="ident">event</span>)
+    }
+
+    <span class="kw">fn</span> <span class="ident">leave_notify_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">EventCrossing</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Inhibit</span> {
+        <span class="self">self</span>.<span class="ident">parent_leave_notify_event</span>(<span class="ident">widget</span>, <span class="ident">event</span>)
+    }
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">WidgetImplExt</span>: <span class="ident">ObjectSubclass</span> {
@@ -2041,6 +2127,10 @@
     <span class="kw">fn</span> <span class="ident">parent_unmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>);
     <span class="kw">fn</span> <span class="ident">parent_motion_notify_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">EventMotion</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Inhibit</span>;
     <span class="kw">fn</span> <span class="ident">parent_scroll_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">EventScroll</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Inhibit</span>;
+    <span class="kw">fn</span> <span class="ident">parent_enter_notify_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">EventCrossing</span>)
+        <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Inhibit</span>;
+    <span class="kw">fn</span> <span class="ident">parent_leave_notify_event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">EventCrossing</span>)
+        <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Inhibit</span>;
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span> <span class="ident">WidgetImplExt</span> <span class="kw">for</span> <span class="ident">T</span> {
@@ -2680,6 +2770,44 @@
             }
         }
     }
+
+    <span class="kw">fn</span> <span class="ident">parent_enter_notify_event</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>,
+        <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">EventCrossing</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Inhibit</span> {
+        <span class="kw">unsafe</span> {
+            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkWidgetClass</span>;
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">enter_notify_event</span> {
+                <span class="ident">Inhibit</span>(<span class="ident">from_glib</span>(<span class="ident">f</span>(
+                    <span class="ident">widget</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
+                    <span class="ident">mut_override</span>(<span class="ident">event</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>),
+                )))
+            } <span class="kw">else</span> {
+                <span class="ident">Inhibit</span>(<span class="bool-val">false</span>)
+            }
+        }
+    }
+
+    <span class="kw">fn</span> <span class="ident">parent_leave_notify_event</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>,
+        <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">gdk</span>::<span class="ident">EventCrossing</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Inhibit</span> {
+        <span class="kw">unsafe</span> {
+            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">type_data</span>();
+            <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkWidgetClass</span>;
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">f</span>) <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">parent_class</span>).<span class="ident">leave_notify_event</span> {
+                <span class="ident">Inhibit</span>(<span class="ident">from_glib</span>(<span class="ident">f</span>(
+                    <span class="ident">widget</span>.<span class="ident">unsafe_cast_ref</span>::<span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
+                    <span class="ident">mut_override</span>(<span class="ident">event</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>),
+                )))
+            } <span class="kw">else</span> {
+                <span class="ident">Inhibit</span>(<span class="bool-val">false</span>)
+            }
+        }
+    }
 }
 
 <span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Widget</span> {
@@ -2727,6 +2855,8 @@
         <span class="ident">klass</span>.<span class="ident">unmap</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">widget_unmap</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">motion_notify_event</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">widget_motion_notify_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">scroll_event</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">widget_scroll_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">klass</span>.<span class="ident">enter_notify_event</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">widget_enter_notify_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">klass</span>.<span class="ident">leave_notify_event</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">widget_leave_notify_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
     }
 }
 
@@ -3267,6 +3397,32 @@
     <span class="kw">let</span> <span class="ident">event</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">gdk</span>::<span class="ident">EventScroll</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">mptr</span>);
 
     <span class="ident">imp</span>.<span class="ident">scroll_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">event</span>).<span class="ident">to_glib</span>()
+}
+
+<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_enter_notify_event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkWidget</span>,
+    <span class="ident">mptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gdk</span>::<span class="ident">ffi</span>::<span class="ident">GdkEventCrossing</span>,
+) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gboolean</span> {
+    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
+    <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
+    <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
+    <span class="kw">let</span> <span class="ident">event</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">gdk</span>::<span class="ident">EventCrossing</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">mptr</span>);
+
+    <span class="ident">imp</span>.<span class="ident">enter_notify_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">event</span>)
+        .<span class="ident">to_glib</span>()
+}
+
+<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_leave_notify_event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
+    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkWidget</span>,
+    <span class="ident">mptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gdk</span>::<span class="ident">ffi</span>::<span class="ident">GdkEventCrossing</span>,
+) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gboolean</span> {
+    <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>::<span class="ident">Instance</span>);
+    <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">get_impl</span>();
+    <span class="kw">let</span> <span class="ident">wrap</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">ptr</span>);
+    <span class="kw">let</span> <span class="ident">event</span>: <span class="ident">Borrowed</span><span class="op">&lt;</span><span class="ident">gdk</span>::<span class="ident">EventCrossing</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_glib_borrow</span>(<span class="ident">mptr</span>);
+
+    <span class="ident">imp</span>.<span class="ident">leave_notify_event</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">event</span>)
+        .<span class="ident">to_glib</span>()
 }
 
 <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">WidgetClassSubclassExt</span>: <span class="ident">ClassStruct</span> {
