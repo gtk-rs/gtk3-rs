@@ -68,6 +68,7 @@
 //!     // ObjectSubclass is the trait that defines the new type and
 //!     // contains all information needed by the GObject type system,
 //!     // including the new type's name, parent type, etc.
+//!     #[glib::object_subclass]
 //!     impl ObjectSubclass for SimpleObject {
 //!         // This type name must be unique per process.
 //!         const NAME: &'static str = "SimpleObject";
@@ -78,16 +79,6 @@
 //!
 //!         // Interfaces this type implements
 //!         type Interfaces = ();
-//!
-//!         // The C/FFI instance and class structs. The simple ones
-//!         // are enough in most cases and more is only needed to
-//!         // expose public instance fields to C APIs or to provide
-//!         // new virtual methods for subclasses of this type.
-//!         type Instance = subclass::simple::InstanceStruct<Self>;
-//!         type Class = subclass::simple::ClassStruct<Self>;
-//!
-//!         // This macro defines some boilerplate.
-//!         glib::object_subclass!();
 //!
 //!         // Called every time a new instance is created. This should return
 //!         // a new instance of our type with its basic values.

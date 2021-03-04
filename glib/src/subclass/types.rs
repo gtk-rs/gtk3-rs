@@ -296,10 +296,8 @@ impl TypeData {
 }
 
 #[macro_export]
-/// Macro for boilerplate of [`ObjectSubclass`] implementations.
-///
-/// [`ObjectSubclass`]: subclass/types/trait.ObjectSubclass.html
-macro_rules! object_subclass {
+#[doc(hidden)]
+macro_rules! object_subclass_internal {
     () => {
         fn type_data() -> std::ptr::NonNull<$crate::subclass::TypeData> {
             static mut DATA: $crate::subclass::TypeData = $crate::subclass::TypeData {

@@ -480,28 +480,20 @@ unsafe extern "C" fn application_handle_local_options<T: ApplicationImpl>(
 mod tests {
     use super::*;
     use crate::prelude::*;
-    use glib::subclass;
 
     const EXIT_STATUS: i32 = 20;
 
     mod imp {
         use super::*;
 
+        #[derive(Default)]
         pub struct SimpleApplication;
 
+        #[glib::object_subclass]
         impl ObjectSubclass for SimpleApplication {
             const NAME: &'static str = "SimpleApplication";
             type Type = super::SimpleApplication;
             type ParentType = Application;
-            type Interfaces = ();
-            type Instance = subclass::simple::InstanceStruct<Self>;
-            type Class = subclass::simple::ClassStruct<Self>;
-
-            glib::object_subclass!();
-
-            fn new() -> Self {
-                Self
-            }
         }
 
         impl ObjectImpl for SimpleApplication {}

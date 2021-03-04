@@ -83,7 +83,7 @@ pub use gobject_ffi;
 #[doc(hidden)]
 pub use bitflags;
 
-pub use glib_macros::{clone, gflags, Downgrade, GBoxed, GEnum};
+pub use glib_macros::{clone, gflags, object_subclass, Downgrade, GBoxed, GEnum};
 
 pub use self::byte_array::ByteArray;
 pub use self::bytes::Bytes;

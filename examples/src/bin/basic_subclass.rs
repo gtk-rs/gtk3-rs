@@ -9,7 +9,6 @@ use gio::ApplicationFlags;
 use gtk::{gio, glib};
 
 use glib::clone;
-use glib::subclass;
 
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
@@ -30,28 +29,17 @@ mod imp_win {
     // This is the private part of our `SimpleWindow` object.
     // Its where state and widgets are stored when they don't
     // need to be publicly accesible.
-    #[derive(Debug)]
+    #[derive(Debug, Default)]
     pub struct SimpleWindow {
         widgets: OnceCell<WindowWidgets>,
         counter: Cell<u64>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for SimpleWindow {
         const NAME: &'static str = "SimpleWindow";
         type Type = super::SimpleWindow;
         type ParentType = gtk::ApplicationWindow;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
-
-        fn new() -> Self {
-            Self {
-                widgets: OnceCell::new(),
-                counter: Cell::new(0),
-            }
-        }
     }
 
     impl ObjectImpl for SimpleWindow {
@@ -120,26 +108,16 @@ impl SimpleWindow {
 mod imp_app {
     use super::*;
 
-    #[derive(Debug)]
+    #[derive(Debug, Default)]
     pub struct SimpleApplication {
         window: OnceCell<SimpleWindow>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for SimpleApplication {
         const NAME: &'static str = "SimpleApplication";
         type Type = super::SimpleApplication;
         type ParentType = gtk::Application;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
-
-        fn new() -> Self {
-            Self {
-                window: OnceCell::new(),
-            }
-        }
     }
 
     impl ObjectImpl for SimpleApplication {}

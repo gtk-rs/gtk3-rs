@@ -26,7 +26,7 @@ mod model {
         use glib::subclass;
         use glib::subclass::prelude::*;
         use std::cell::RefCell;
-        #[derive(Debug)]
+        #[derive(Debug, Default)]
         pub struct Model(pub RefCell<Vec<RowData>>);
 
         // Basic declaration of our type for the GObject type system
@@ -35,15 +35,6 @@ mod model {
             type Type = super::Model;
             type ParentType = glib::Object;
             type Interfaces = (gio::ListModel,);
-            type Instance = subclass::simple::InstanceStruct<Self>;
-            type Class = subclass::simple::ClassStruct<Self>;
-
-            glib::object_subclass!();
-
-            // Called once at the very beginning of instantiation
-            fn new() -> Self {
-                Self(RefCell::new(Vec::new()))
-            }
         }
 
         impl ObjectImpl for Model {}
@@ -296,6 +287,7 @@ mod row_data {
 
         // The actual data structure that stores our values. This is not accessible
         // directly from the outside.
+        #[derive(Default)]
         pub struct RowData {
             name: RefCell<Option<String>>,
             count: RefCell<u32>,
@@ -306,20 +298,6 @@ mod row_data {
             const NAME: &'static str = "RowData";
             type Type = super::RowData;
             type ParentType = glib::Object;
-            type Interfaces = ();
-            type Instance = subclass::simple::InstanceStruct<Self>;
-            type Class = subclass::simple::ClassStruct<Self>;
-
-            glib::object_subclass!();
-
-            // Called once at the very beginning of instantiation of each instance and
-            // creates the data structure that contains all our state
-            fn new() -> Self {
-                Self {
-                    name: RefCell::new(None),
-                    count: RefCell::new(0),
-                }
-            }
         }
 
         // The ObjectImpl trait provides the setters/getters for GObject properties.
