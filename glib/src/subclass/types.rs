@@ -208,6 +208,9 @@ macro_rules! interface_list_trait_inner(
 interface_list_trait!(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S);
 
 /// Type-specific data that is filled in during type creation.
+// FIXME: Once trait bounds other than `Sized` on const fn parameters are stable
+// the content of `TypeData` can be made private and we can add a `const fn new`
+// for initialization by the `object_subclass_internal!` macro.
 pub struct TypeData {
     #[doc(hidden)]
     pub type_: Type,
