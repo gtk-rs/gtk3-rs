@@ -102,14 +102,19 @@ pub unsafe trait IsSubclassable<T: ObjectSubclass>: ObjectType {
 }
 
 /// Trait for implementable interfaces.
-pub unsafe trait IsImplementable<T: ObjectSubclass>: StaticType {
-    /// Initializes the interface's virtual methods.
+pub unsafe trait IsImplementable<T: ObjectSubclass>: ObjectType {
+    /// Override the virtual methods of this interface for the given subclass and do other interface initialization.
     ///
-    /// # Safety
-    ///
-    /// It is the responsibility of the implementor of the interface to
-    /// correctly type the pointers when working on the vtables they point at.
-    unsafe extern "C" fn interface_init(iface: ffi::gpointer, _iface_data: ffi::gpointer);
+    /// This is automatically called during type initialization.
+    fn interface_init(class: &mut crate::Class<Self>);
+}
+
+unsafe extern "C" fn interface_init<T: ObjectSubclass, A: IsImplementable<T>>(
+    iface: ffi::gpointer,
+    _iface_data: ffi::gpointer,
+) {
+    let iface = &mut *(iface as *mut crate::Class<A>);
+    A::interface_init(iface);
 }
 
 /// Trait for a type list of interfaces.
@@ -129,7 +134,7 @@ impl<T: ObjectSubclass, A: IsImplementable<T>> InterfaceList<T> for (A,) {
         vec![(
             A::static_type().to_glib(),
             gobject_ffi::GInterfaceInfo {
-                interface_init: Some(A::interface_init),
+                interface_init: Some(interface_init::<T, A>),
                 interface_finalize: None,
                 interface_data: ptr::null_mut(),
             },
@@ -184,7 +189,7 @@ macro_rules! interface_list_trait_inner(
             (
                 $head::static_type().to_glib(),
                 gobject_ffi::GInterfaceInfo {
-                    interface_init: Some($head::interface_init),
+                    interface_init: Some(interface_init::<T, $head>),
                     interface_finalize: None,
                     interface_data: ptr::null_mut(),
                 },
@@ -197,7 +202,7 @@ macro_rules! interface_list_trait_inner(
             (
                 $head::static_type().to_glib(),
                 gobject_ffi::GInterfaceInfo {
-                    interface_init: Some($head::interface_init),
+                    interface_init: Some(interface_init::<T, $head>),
                     interface_finalize: None,
                     interface_data: ptr::null_mut(),
                 },
