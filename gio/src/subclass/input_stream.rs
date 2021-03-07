@@ -255,31 +255,22 @@ mod tests {
     use super::*;
     use crate::prelude::*;
     use crate::subclass::prelude::*;
-    use glib::subclass;
     use std::cell::RefCell;
 
     mod imp {
         use super::*;
 
+        #[derive(Default)]
         pub struct SimpleInputStream {
             pub pos: RefCell<usize>,
         }
 
+        #[glib::object_subclass]
         impl ObjectSubclass for SimpleInputStream {
             const NAME: &'static str = "SimpleInputStream";
             type Type = super::SimpleInputStream;
             type ParentType = InputStream;
             type Interfaces = (crate::Seekable,);
-            type Instance = subclass::simple::InstanceStruct<Self>;
-            type Class = subclass::simple::ClassStruct<Self>;
-
-            glib::object_subclass!();
-
-            fn new() -> Self {
-                Self {
-                    pos: RefCell::new(0),
-                }
-            }
         }
 
         impl ObjectImpl for SimpleInputStream {}

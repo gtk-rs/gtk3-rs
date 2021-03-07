@@ -3,7 +3,6 @@
 use crate::prelude::*;
 use crate::subclass::prelude::*;
 use crate::OutputStream;
-use glib::subclass;
 
 use std::any::Any;
 use std::io::{Seek, Write};
@@ -19,25 +18,17 @@ mod imp {
         WriteSeek(AnyWriter),
     }
 
+    #[derive(Default)]
     pub struct WriteOutputStream {
         pub(super) write: RefCell<Option<Writer>>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for WriteOutputStream {
         const NAME: &'static str = "WriteOutputStream";
         type Type = super::WriteOutputStream;
         type ParentType = OutputStream;
         type Interfaces = (crate::Seekable,);
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
-
-        fn new() -> Self {
-            Self {
-                write: RefCell::new(None),
-            }
-        }
     }
 
     impl ObjectImpl for WriteOutputStream {}

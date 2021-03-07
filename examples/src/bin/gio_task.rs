@@ -5,7 +5,6 @@
 //! This can be useful, for example, when porting to Rust some existing C code exposing such an API.
 
 use futures_channel::oneshot;
-use gtk::glib::subclass;
 use gtk::glib::subclass::prelude::*;
 use gtk::glib::translate::*;
 use gtk::prelude::AsyncResultExt;
@@ -19,24 +18,16 @@ mod imp {
 
     // FileSize is a simple object that will just contain the read file size.
     // Initially the optional size field will be initialized to None.
+    #[derive(Default)]
     pub struct FileSize {
         pub size: std::cell::RefCell<Option<i64>>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for FileSize {
         const NAME: &'static str = "FileSize";
         type ParentType = glib::Object;
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Interfaces = ();
-        type Class = subclass::simple::ClassStruct<Self>;
         type Type = super::FileSize;
-        glib::object_subclass!();
-
-        fn new() -> Self {
-            Self {
-                size: std::cell::RefCell::new(None),
-            }
-        }
     }
 
     impl ObjectImpl for FileSize {}

@@ -8,11 +8,10 @@ use gtk::{prelude::*, CompositeTemplate};
 
 mod imp {
     use super::*;
-    use glib::subclass;
     use gtk::subclass::prelude::*;
 
     /// The private struct, which can hold widgets and other data.
-    #[derive(Debug, CompositeTemplate)]
+    #[derive(Debug, Default, CompositeTemplate)]
     #[template(file = "composite_template.ui")]
     pub struct ExApplicationWindow {
         // The #[template_child] attribute tells the CompositeTemplate macro
@@ -27,23 +26,11 @@ mod imp {
         pub subtitle: TemplateChild<gtk::Label>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for ExApplicationWindow {
         const NAME: &'static str = "ExApplicationWindow";
         type Type = super::ExApplicationWindow;
         type ParentType = gtk::ApplicationWindow;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
-
-        fn new() -> Self {
-            Self {
-                headerbar: TemplateChild::default(),
-                label: TemplateChild::default(),
-                subtitle: TemplateChild::default(),
-            }
-        }
 
         // Within class_init() you must set the template.
         // The CompositeTemplate derive macro provides a convenience function

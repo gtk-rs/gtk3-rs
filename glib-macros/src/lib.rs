@@ -5,6 +5,7 @@ mod downgrade_derive;
 mod gboxed_derive;
 mod genum_derive;
 mod gflags_attribute;
+mod object_subclass_attribute;
 mod utils;
 
 use proc_macro::TokenStream;
@@ -308,6 +309,45 @@ pub fn gflags(attr: TokenStream, item: TokenStream) -> TokenStream {
     let gtype_name = parse_macro_input!(attr as LitStr);
     let gen = gflags_attribute::impl_gflags(&input, &gtype_name);
     gen.into()
+}
+
+/// Macro for boilerplate of [`ObjectSubclass`] implementations.
+///
+/// This adds implementations for the `type_data()` and `get_type()` methods,
+/// which should probably never be defined differently.
+///
+/// It provides default values for the `Instance`, `Class`, and `Interfaces`
+/// type parameters. If these are present, the macro will use the provided value
+/// instead of the default.
+///
+/// Usually the defaults for `Instance` and `Class` will work. `Interfaces` is
+/// necessary for types that implement interfaces.
+///
+/// ```ignore
+/// type Instance = glib::subclass::simple::InstanceStruct<Self>;
+/// type Class = glib::subclass::simple::ClassStruct<Self>;
+/// type Interfaces = ();
+/// ```
+///
+/// If no `new()` or `with_class()` method is provide, the macro adds a `new()`
+/// implementation calling `Default::default()`. So the type needs to implement
+/// `Default`, or this should be overridden.
+///
+/// ```ignore
+/// fn new() -> Self {
+///     Default::default()
+/// }
+/// ```
+///
+/// [`ObjectSubclass`]: subclass/types/trait.ObjectSubclass.html
+#[proc_macro_attribute]
+#[proc_macro_error]
+pub fn object_subclass(_attr: TokenStream, item: TokenStream) -> TokenStream {
+    use proc_macro_error::abort_call_site;
+    match syn::parse::<syn::ItemImpl>(item) {
+        Ok(input) => object_subclass_attribute::impl_object_subclass(&input).into(),
+        Err(_) => abort_call_site!(object_subclass_attribute::WRONG_PLACE_MSG),
+    }
 }
 
 /// Macro for deriving implementations of [`glib::clone::Downgrade`] and

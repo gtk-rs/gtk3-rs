@@ -223,6 +223,7 @@ mod test {
     use super::super::super::subclass;
     use super::super::super::value::{ToValue, Value};
     use super::*;
+    use crate as glib;
     use crate::{StaticType, Type};
 
     use std::cell::RefCell;
@@ -231,47 +232,31 @@ mod test {
         use super::*;
 
         // A dummy `Object` to test setting an `Object` property and returning an `Object` in signals
+        #[derive(Default)]
         pub struct ChildObject;
+
+        #[glib::object_subclass]
         impl ObjectSubclass for ChildObject {
             const NAME: &'static str = "ChildObject";
             type Type = super::ChildObject;
             type ParentType = Object;
-            type Interfaces = ();
-            type Instance = subclass::simple::InstanceStruct<Self>;
-            type Class = subclass::simple::ClassStruct<Self>;
-
-            object_subclass!();
-
-            fn new() -> Self {
-                ChildObject
-            }
         }
 
         impl ObjectImpl for ChildObject {}
 
+        #[derive(Default)]
         pub struct SimpleObject {
             name: RefCell<Option<String>>,
             construct_name: RefCell<Option<String>>,
             constructed: RefCell<bool>,
         }
 
+        #[glib::object_subclass]
         impl ObjectSubclass for SimpleObject {
             const NAME: &'static str = "SimpleObject";
             type Type = super::SimpleObject;
             type ParentType = Object;
             type Interfaces = (DummyInterface,);
-            type Instance = subclass::simple::InstanceStruct<Self>;
-            type Class = subclass::simple::ClassStruct<Self>;
-
-            object_subclass!();
-
-            fn new() -> Self {
-                Self {
-                    name: RefCell::new(None),
-                    construct_name: RefCell::new(None),
-                    constructed: RefCell::new(false),
-                }
-            }
         }
 
         impl ObjectImpl for SimpleObject {

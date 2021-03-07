@@ -25,7 +25,7 @@ use syn::{parse_macro_input, DeriveInput};
 /// use gtk::prelude::*;
 /// use gtk::CompositeTemplate;
 ///
-/// #[derive(Debug, CompositeTemplate)]
+/// #[derive(Debug, Default, CompositeTemplate)]
 /// #[template(file = "composite_template.ui")]
 /// struct MyWidget {
 ///     #[template_child]
@@ -39,20 +39,11 @@ use syn::{parse_macro_input, DeriveInput};
 ///
 ///
 /// ```compile_fail
+/// #[glib::object_subclass]
 /// impl ObjectSubclass for MyWidget {
 ///        const NAME: &'static str = "MyWidget";
 ///        type Type = super::MyWidget;
 ///        type ParentType = gtk::Widget;
-///        type Instance = subclass::simple::InstanceStruct<Self>;
-///        type Class = subclass::simple::ClassStruct<Self>;
-///
-///        glib::object_subclass!();
-///
-///        fn new() -> Self {
-///            Self {
-///                label: TemplateChild::default(),
-///            }
-///        }
 ///
 ///        fn class_init(klass: &mut Self::Class) {
 ///            Self::bind_template(klass);

@@ -3,7 +3,6 @@
 use crate::prelude::*;
 use crate::subclass::prelude::*;
 use crate::InputStream;
-use glib::subclass;
 
 use std::any::Any;
 use std::io::{Read, Seek};
@@ -17,25 +16,17 @@ mod imp {
         ReadSeek(AnyReader),
     }
 
+    #[derive(Default)]
     pub struct ReadInputStream {
         pub(super) read: RefCell<Option<Reader>>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for ReadInputStream {
         const NAME: &'static str = "ReadInputStream";
         type Type = super::ReadInputStream;
         type ParentType = InputStream;
         type Interfaces = (crate::Seekable,);
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
-
-        fn new() -> Self {
-            Self {
-                read: RefCell::new(None),
-            }
-        }
     }
 
     impl ObjectImpl for ReadInputStream {}

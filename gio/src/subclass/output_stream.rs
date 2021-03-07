@@ -317,31 +317,21 @@ unsafe extern "C" fn stream_splice<T: OutputStreamImpl>(
 mod tests {
     use super::*;
     use crate::prelude::*;
-    use glib::subclass;
     use std::cell::RefCell;
 
     mod imp {
         use super::*;
 
+        #[derive(Default)]
         pub struct SimpleOutputStream {
             pub sum: RefCell<usize>,
         }
 
+        #[glib::object_subclass]
         impl ObjectSubclass for SimpleOutputStream {
             const NAME: &'static str = "SimpleOutputStream";
             type Type = super::SimpleOutputStream;
             type ParentType = OutputStream;
-            type Interfaces = ();
-            type Instance = subclass::simple::InstanceStruct<Self>;
-            type Class = subclass::simple::ClassStruct<Self>;
-
-            glib::object_subclass!();
-
-            fn new() -> Self {
-                Self {
-                    sum: RefCell::new(0),
-                }
-            }
         }
 
         impl ObjectImpl for SimpleOutputStream {}
