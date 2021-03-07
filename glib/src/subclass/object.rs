@@ -423,8 +423,6 @@ mod test {
         pub struct Dummy(ObjectInterface<imp::DummyInterface>);
     }
 
-    // Usually this would be implemented on a Rust wrapper type defined
-    // with wrapper!() but for the test the following is susyscient
     unsafe impl<T: ObjectSubclass> IsImplementable<T> for Dummy {
         fn interface_init(_iface: &mut crate::Class<Dummy>) {}
     }
