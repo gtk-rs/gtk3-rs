@@ -10,7 +10,7 @@ jobs:
     name: ${{matrix.conf.name}} (rust ${{matrix.rust}})
     runs-on: ubuntu-latest
     container:
-      image: ubuntu:20.10
+      image: ghcr.io/gtk-rs/gtk-rs/gtk:latest
     strategy:
       matrix:
         rust:
@@ -31,8 +31,6 @@ jobs:
           - { name: "pango", features: "v1_46", nightly: "--all-features", test_sys: false }
           - { name: "pangocairo", features: "", nightly: "--all-features", test_sys: true }
     steps:
-      - run: apt-get update -y
-      - run: apt-get install -y libgtk-3-dev libglib2.0-dev libgraphene-1.0-dev git xvfb curl libcairo-gobject2 libcairo2-dev
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
         with:
@@ -114,7 +112,7 @@ jobs:
   build-others:
     runs-on: ubuntu-latest
     container:
-      image: ubuntu:20.10
+      image: ghcr.io/gtk-rs/gtk-rs/gtk:latest
     strategy:
       matrix:
         rust:
@@ -123,8 +121,6 @@ jobs:
           - nightly
           - "1.48.0"
     steps:
-      - run: apt-get update -y
-      - run: apt-get install -y libgtk-3-dev libglib2.0-dev libgraphene-1.0-dev git xvfb curl libcairo-gobject2 libcairo2-dev
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
         with:
