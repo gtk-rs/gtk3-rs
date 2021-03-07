@@ -125,7 +125,7 @@
 /// ```ignore
 /// wrapper! {
 ///     /// Your documentation goes here
-///     pub struct InstanceName(Object<ffi::InstanceStruct, ffi::ClassStruct, ClassName>)
+///     pub struct InstanceName(Object<ffi::InstanceStruct, ffi::ClassStruct>)
 ///         @extends ParentClass, GrandparentClass, ...,
 ///         @implements Interface1, Interface2, ...;
 ///
@@ -149,7 +149,7 @@
 ///
 /// ```ignore
 /// wrapper! {
-///     pub struct WindowGroup(Object<ffi::GtkWindowGroup, ffi::GtkWindowGroupClass, WindowGroupClass>);
+///     pub struct WindowGroup(Object<ffi::GtkWindowGroup, ffi::GtkWindowGroupClass>);
 ///
 ///     match fn {
 ///         get_type => || ffi::gtk_window_group_get_type(),
@@ -161,7 +161,7 @@
 ///
 /// ```ignore
 /// wrapper! {
-///     pub struct Button(Object<ffi::GtkButton, ButtonClass>) @extends Bin, Container, Widget;
+///     pub struct Button(Object<ffi::GtkButton>) @extends Bin, Container, Widget;
 ///         // see note on interfaces in the example below
 ///
 ///     match fn {
@@ -178,7 +178,7 @@
 ///
 /// ```ignore
 /// wrapper! {
-///     pub struct Button(Object<ffi::GtkButton, ButtonClass>)
+///     pub struct Button(Object<ffi::GtkButton>)
 ///         @extends Bin, Container, Widget, // parent classes
 ///         @implements Buildable, Actionable;  // interfaces
 ///
@@ -198,7 +198,7 @@
 ///
 /// ```ignore
 /// wrapper! {
-///     pub struct Clipboard(Object<ffi::GtkClipboard, ClipboardClass>);
+///     pub struct Clipboard(Object<ffi::GtkClipboard>);
 ///     ...
 /// }
 /// ```
@@ -210,7 +210,7 @@
 ///
 /// ```ignore
 /// wrapper! {
-///     pub struct TreeModel(Interface<ffi::GtkTreeModel, ffi::GtkTreeModelIface, TreeModelIface>);
+///     pub struct TreeModel(Interface<ffi::GtkTreeModel, ffi::GtkTreeModelIface>);
 ///     ...
 /// }
 /// ```
@@ -222,7 +222,7 @@
 ///
 /// ```ignore
 /// wrapper! {
-///     pub struct TreeSortable(Interface<ffi::GtkTreeSortable, ffi::GtkTreeSortable, TreeSortableIface>) @requires TreeModel;
+///     pub struct TreeSortable(Interface<ffi::GtkTreeSortable, ffi::GtkTreeSortable>) @requires TreeModel;
 ///     ...
 /// }
 /// ```
@@ -478,7 +478,7 @@ macro_rules! wrapper {
         }
     };
 
-    // Interface, no prerequisites
+    // Interface, no prerequisites, no class
     (
         $(#[$attr:meta])*
         pub struct $name:ident(Interface<$ffi_name:ty>);
@@ -487,10 +487,10 @@ macro_rules! wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, @get_type $get_type_expr, @requires []);
+        $crate::glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, std::os::raw::c_void, @get_type $get_type_expr, @requires []);
     };
 
-    // Interface, prerequisites
+    // Interface, prerequisites, no class
     (
         $(#[$attr:meta])*
         pub struct $name:ident(Interface<$ffi_name:ty>) @requires $($requires:path),+;
@@ -499,6 +499,30 @@ macro_rules! wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        $crate::glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, @get_type $get_type_expr, @requires [$($requires),+]);
+        $crate::glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, std::os::raw::c_void, @get_type $get_type_expr, @requires [$($requires),+]);
+    };
+
+    // Interface, no prerequisites, class
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Interface<$ffi_name:ty, $ffi_class_name:ty>);
+
+        match fn {
+            get_type => || $get_type_expr:expr,
+        }
+    ) => {
+        $crate::glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, $ffi_class_name, @get_type $get_type_expr, @requires []);
+    };
+
+    // Interface, prerequisites, class
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Interface<$ffi_name:ty, $ffi_class_name:ty>) @requires $($requires:path),+;
+
+        match fn {
+            get_type => || $get_type_expr:expr,
+        }
+    ) => {
+        $crate::glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, $ffi_class_name, @get_type $get_type_expr, @requires [$($requires),+]);
     };
 }
