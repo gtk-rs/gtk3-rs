@@ -301,27 +301,23 @@ pub trait ActionGroupImpl: ObjectImpl {
 }
 
 unsafe impl<T: ActionGroupImpl> IsImplementable<T> for ActionGroup {
-    unsafe extern "C" fn interface_init(
-        iface: glib::ffi::gpointer,
-        _iface_data: glib::ffi::gpointer,
-    ) {
-        let action_group_iface = &mut *(iface as *mut ffi::GActionGroupInterface);
+    fn interface_init(iface: &mut glib::Class<Self>) {
+        let iface = iface.as_mut();
 
-        action_group_iface.action_added = Some(action_group_action_added::<T>);
-        action_group_iface.action_enabled_changed = Some(action_group_action_enabled_changed::<T>);
-        action_group_iface.action_removed = Some(action_group_action_removed::<T>);
-        action_group_iface.action_state_changed = Some(action_group_action_state_changed::<T>);
-        action_group_iface.activate_action = Some(action_group_activate_action::<T>);
-        action_group_iface.change_action_state = Some(action_group_change_action_state::<T>);
-        action_group_iface.get_action_enabled = Some(action_group_get_action_enabled::<T>);
-        action_group_iface.get_action_parameter_type =
-            Some(action_group_get_action_parameter_type::<T>);
-        action_group_iface.get_action_state = Some(action_group_get_action_state::<T>);
-        action_group_iface.get_action_state_hint = Some(action_group_get_action_state_hint::<T>);
-        action_group_iface.get_action_state_type = Some(action_group_get_action_state_type::<T>);
-        action_group_iface.has_action = Some(action_group_has_action::<T>);
-        action_group_iface.list_actions = Some(action_group_list_actions::<T>);
-        action_group_iface.query_action = Some(action_group_query_action::<T>);
+        iface.action_added = Some(action_group_action_added::<T>);
+        iface.action_enabled_changed = Some(action_group_action_enabled_changed::<T>);
+        iface.action_removed = Some(action_group_action_removed::<T>);
+        iface.action_state_changed = Some(action_group_action_state_changed::<T>);
+        iface.activate_action = Some(action_group_activate_action::<T>);
+        iface.change_action_state = Some(action_group_change_action_state::<T>);
+        iface.get_action_enabled = Some(action_group_get_action_enabled::<T>);
+        iface.get_action_parameter_type = Some(action_group_get_action_parameter_type::<T>);
+        iface.get_action_state = Some(action_group_get_action_state::<T>);
+        iface.get_action_state_hint = Some(action_group_get_action_state_hint::<T>);
+        iface.get_action_state_type = Some(action_group_get_action_state_type::<T>);
+        iface.has_action = Some(action_group_has_action::<T>);
+        iface.list_actions = Some(action_group_list_actions::<T>);
+        iface.query_action = Some(action_group_query_action::<T>);
     }
 }
 

@@ -16,15 +16,12 @@ unsafe impl<T: ListModelImpl> IsImplementable<T> for ListModel
 where
     <T as ObjectSubclass>::Type: IsA<glib::Object>,
 {
-    unsafe extern "C" fn interface_init(
-        iface: glib::ffi::gpointer,
-        _iface_data: glib::ffi::gpointer,
-    ) {
-        let list_model_iface = &mut *(iface as *mut ffi::GListModelInterface);
+    fn interface_init(iface: &mut glib::Class<Self>) {
+        let iface = iface.as_mut();
 
-        list_model_iface.get_item_type = Some(list_model_get_item_type::<T>);
-        list_model_iface.get_n_items = Some(list_model_get_n_items::<T>);
-        list_model_iface.get_item = Some(list_model_get_item::<T>);
+        iface.get_item_type = Some(list_model_get_item_type::<T>);
+        iface.get_n_items = Some(list_model_get_n_items::<T>);
+        iface.get_item = Some(list_model_get_item::<T>);
     }
 }
 

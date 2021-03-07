@@ -32,17 +32,14 @@ pub trait SeekableImpl: ObjectImpl + Send {
 }
 
 unsafe impl<T: SeekableImpl> IsImplementable<T> for Seekable {
-    unsafe extern "C" fn interface_init(
-        iface: glib::ffi::gpointer,
-        _iface_data: glib::ffi::gpointer,
-    ) {
-        let seekable_iface = &mut *(iface as *mut ffi::GSeekableIface);
+    fn interface_init(iface: &mut glib::Class<Self>) {
+        let iface = iface.as_mut();
 
-        seekable_iface.tell = Some(seekable_tell::<T>);
-        seekable_iface.can_seek = Some(seekable_can_seek::<T>);
-        seekable_iface.seek = Some(seekable_seek::<T>);
-        seekable_iface.can_truncate = Some(seekable_can_truncate::<T>);
-        seekable_iface.truncate_fn = Some(seekable_truncate::<T>);
+        iface.tell = Some(seekable_tell::<T>);
+        iface.can_seek = Some(seekable_can_seek::<T>);
+        iface.seek = Some(seekable_seek::<T>);
+        iface.can_truncate = Some(seekable_can_truncate::<T>);
+        iface.truncate_fn = Some(seekable_truncate::<T>);
     }
 }
 

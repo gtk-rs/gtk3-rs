@@ -106,7 +106,7 @@ pub unsafe trait IsImplementable<T: ObjectSubclass>: ObjectType {
     /// Override the virtual methods of this interface for the given subclass and do other interface initialization.
     ///
     /// This is automatically called during type initialization.
-    fn interface_init(class: &mut crate::Class<Self>);
+    fn interface_init(iface: &mut crate::Class<Self>);
 }
 
 unsafe extern "C" fn interface_init<T: ObjectSubclass, A: IsImplementable<T>>(
