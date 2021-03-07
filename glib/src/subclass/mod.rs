@@ -254,6 +254,7 @@ pub mod prelude {
     pub use super::object::{ObjectClassSubclassExt, ObjectImpl, ObjectImplExt};
     pub use super::types::{
         ClassStruct, InstanceStruct, IsImplementable, IsSubclassable, ObjectSubclass,
+        ObjectSubclassExt,
     };
 }
 

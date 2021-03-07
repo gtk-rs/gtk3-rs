@@ -405,39 +405,6 @@ pub trait ObjectSubclass: Sized + 'static {
     /// [`object_subclass!`]: ../../macro.object_subclass.html
     fn get_type() -> Type;
 
-    /// Returns the corresponding object instance.
-    fn get_instance(&self) -> Self::Type {
-        unsafe {
-            let data = Self::type_data();
-            let type_ = data.as_ref().get_type();
-            assert!(type_.is_valid());
-
-            let offset = -data.as_ref().private_offset;
-
-            let ptr = self as *const Self as *const u8;
-            let ptr = ptr.offset(offset);
-            let ptr = ptr as *mut u8 as *mut <Self::Type as ObjectType>::GlibType;
-
-            // The object might just be finalized, and in that case it's unsafe to access
-            // it and use any API on it. This can only happen from inside the Drop impl
-            // of Self.
-            assert_ne!((*(ptr as *mut gobject_ffi::GObject)).ref_count, 0);
-
-            // Don't steal floating reference here via from_glib_none() but
-            // preserve it if needed by reffing manually.
-            gobject_ffi::g_object_ref(ptr as *mut gobject_ffi::GObject);
-            from_glib_full(ptr)
-        }
-    }
-
-    /// Returns the implementation from an instance.
-    fn from_instance(obj: &Self::Type) -> &Self {
-        unsafe {
-            let ptr = obj.as_ptr() as *const Self::Instance;
-            (*ptr).get_impl()
-        }
-    }
-
     /// Additional type initialization.
     ///
     /// This is called right after the type was registered and allows
@@ -487,6 +454,48 @@ pub trait ObjectSubclass: Sized + 'static {
     /// Called just after `with_class()`. At this point the initialization has not completed yet, so
     /// only a limited set of operations is safe (see `InitializingObject`).
     fn instance_init(_obj: &InitializingObject<Self::Type>) {}
+}
+
+/// Extension methods for all `ObjectSubclass` impls.
+pub trait ObjectSubclassExt: ObjectSubclass {
+    /// Returns the corresponding object instance.
+    fn get_instance(&self) -> Self::Type;
+
+    /// Returns the implementation from an instance.
+    fn from_instance(obj: &Self::Type) -> &Self;
+}
+
+impl<T: ObjectSubclass> ObjectSubclassExt for T {
+    fn get_instance(&self) -> Self::Type {
+        unsafe {
+            let data = Self::type_data();
+            let type_ = data.as_ref().get_type();
+            assert!(type_.is_valid());
+
+            let offset = -data.as_ref().private_offset;
+
+            let ptr = self as *const Self as *const u8;
+            let ptr = ptr.offset(offset);
+            let ptr = ptr as *mut u8 as *mut <Self::Type as ObjectType>::GlibType;
+
+            // The object might just be finalized, and in that case it's unsafe to access
+            // it and use any API on it. This can only happen from inside the Drop impl
+            // of Self.
+            assert_ne!((*(ptr as *mut gobject_ffi::GObject)).ref_count, 0);
+
+            // Don't steal floating reference here via from_glib_none() but
+            // preserve it if needed by reffing manually.
+            gobject_ffi::g_object_ref(ptr as *mut gobject_ffi::GObject);
+            from_glib_full(ptr)
+        }
+    }
+
+    fn from_instance(obj: &Self::Type) -> &Self {
+        unsafe {
+            let ptr = obj.as_ptr() as *const Self::Instance;
+            (*ptr).get_impl()
+        }
+    }
 }
 
 /// An object that is currently being initialized.
