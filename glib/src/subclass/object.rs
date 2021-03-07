@@ -401,8 +401,6 @@ mod test {
             }
         }
 
-        pub struct Dummy(std::os::raw::c_void);
-
         #[repr(C)]
         pub struct DummyInterface {
             parent: gobject_ffi::GTypeInterface,
@@ -427,11 +425,7 @@ mod test {
     }
 
     wrapper! {
-        pub struct Dummy(Interface<imp::Dummy, imp::DummyInterface>);
-
-        match fn {
-            get_type => || imp::DummyInterface::get_type().to_glib(),
-        }
+        pub struct Dummy(ObjectInterface<imp::DummyInterface>);
     }
 
     // Usually this would be implemented on a Rust wrapper type defined

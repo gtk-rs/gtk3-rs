@@ -525,4 +525,24 @@ macro_rules! wrapper {
     ) => {
         $crate::glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, $ffi_class_name, @get_type $get_type_expr, @requires [$($requires),+]);
     };
+
+    // ObjectInterface, no prerequisites
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(ObjectInterface<$iface_name:ty>);
+    ) => {
+        $crate::glib_object_wrapper!(@interface [$($attr)*] $name, std::os::raw::c_void, $iface_name,
+            @get_type $crate::translate::ToGlib::to_glib(&<$iface_name as $crate::subclass::interface::ObjectInterface>::get_type()),
+            @requires []);
+    };
+
+    // ObjectInterface, prerequisites
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(ObjectInterface<$iface_name:ty>) @requires $($requires:path),+;
+    ) => {
+        $crate::glib_object_wrapper!(@interface [$($attr)*] $name, std::os::raw::c_void, $iface_name,
+            @get_type $crate::translate::ToGlib::to_glib(&<$iface_name as $crate::subclass::interface::ObjectInterface>::get_type()),
+            @requires [$($requires),+]);
+    };
 }
