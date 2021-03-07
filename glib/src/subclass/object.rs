@@ -220,7 +220,6 @@ impl<T: ObjectImpl> ObjectImplExt for T {
 #[cfg(test)]
 mod test {
     use super::super::super::object::ObjectExt;
-    use super::super::super::subclass;
     use super::super::super::value::{ToValue, Value};
     use super::*;
     use crate as glib;
@@ -409,10 +408,6 @@ mod test {
         #[glib::object_interface]
         impl ObjectInterface for DummyInterface {
             const NAME: &'static str = "Dummy";
-
-            fn type_init(type_: &mut subclass::InitializingType<Self>) {
-                type_.add_prerequisite::<Object>();
-            }
         }
     }
 

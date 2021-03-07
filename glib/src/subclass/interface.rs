@@ -2,23 +2,81 @@
 
 use super::{InitializingType, Signal};
 use crate::translate::*;
-use crate::{IsA, Object, ObjectExt, ParamSpec, StaticType, Type};
+use crate::{IsA, Object, ObjectExt, ParamSpec, Type};
 use std::marker;
 use std::mem;
 
-impl<T: ObjectInterface> InitializingType<T> {
-    /// Adds an interface prerequisite for `I` to the type.
-    ///
-    /// All implementors of the interface must be a subclass of `I` or implement the interface `I`.
-    pub fn add_prerequisite<I: StaticType>(&mut self) {
-        unsafe {
-            gobject_ffi::g_type_interface_add_prerequisite(
-                self.0.to_glib(),
-                I::static_type().to_glib(),
-            )
-        }
+/// Trait for a type list of prerequisite object types.
+pub trait PrerequisiteList {
+    /// Returns the list of types for this list.
+    fn types() -> Vec<ffi::GType>;
+}
+
+impl PrerequisiteList for () {
+    fn types() -> Vec<ffi::GType> {
+        vec![]
     }
 }
+
+impl<T: crate::ObjectType> PrerequisiteList for (T,) {
+    fn types() -> Vec<ffi::GType> {
+        vec![T::static_type().to_glib()]
+    }
+}
+
+// Generates all the PrerequisiteList impls for prerequisite_lists of arbitrary sizes based on a list of type
+// parameters like A B C. It would generate the impl then for (A, B) and (A, B, C).
+macro_rules! prerequisite_list_trait(
+    ($name1:ident, $name2: ident, $($name:ident),*) => (
+        prerequisite_list_trait!(__impl $name1, $name2; $($name),*);
+    );
+    (__impl $($name:ident),+; $name1:ident, $($name2:ident),*) => (
+        prerequisite_list_trait_impl!($($name),+);
+        prerequisite_list_trait!(__impl $($name),+ , $name1; $($name2),*);
+    );
+    (__impl $($name:ident),+; $name1:ident) => (
+        prerequisite_list_trait_impl!($($name),+);
+        prerequisite_list_trait_impl!($($name),+, $name1);
+    );
+);
+
+// Generates the impl block for PrerequisiteList on prerequisite_lists or arbitrary sizes based on its
+// arguments. Takes a list of type parameters as parameters, e.g. A B C
+// and then implements the trait on (A, B, C).
+macro_rules! prerequisite_list_trait_impl(
+    ($($name:ident),+) => (
+        impl<$($name: crate::ObjectType),+> PrerequisiteList for ( $($name),+ ) {
+            fn types() -> Vec<ffi::GType> {
+                let mut types = Vec::new();
+                prerequisite_list_trait_inner!(types, $($name)+)
+            }
+        }
+    );
+);
+
+// Generates the inner part of the PrerequisiteList::types() implementation, which will
+// basically look as follows:
+//
+// let mut types = Vec::new();
+//
+// types.push(A::static_type().to_glib());
+// types.push(B::static_type().to_glib());
+// [...]
+// types.push(Z::static_type().to_glib());
+//
+// types
+macro_rules! prerequisite_list_trait_inner(
+    ($types:ident, $head:ident $($id:ident)+) => ({
+        $types.push($head::static_type().to_glib());
+        prerequisite_list_trait_inner!($types, $($id)+)
+    });
+    ($types:ident, $head:ident) => ({
+        $types.push($head::static_type().to_glib());
+        $types
+    });
+);
+
+prerequisite_list_trait!(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S);
 
 #[macro_export]
 #[doc(hidden)]
@@ -61,6 +119,12 @@ pub trait ObjectInterface: Sized + 'static {
     /// This must be unique in the whole process.
     const NAME: &'static str;
 
+    /// Prerequisites for this interface.
+    ///
+    /// Any implementer of the interface must be a subclass of the prerequisites or implement them
+    /// in case of interfaces.
+    type Prerequisites: PrerequisiteList;
+
     /// Returns the `glib::Type` ID of the interface.
     ///
     /// This will register the type with the type system on the first call and is usually generated
@@ -72,8 +136,7 @@ pub trait ObjectInterface: Sized + 'static {
     /// Additional type initialization.
     ///
     /// This is called right after the type was registered and allows
-    /// interfaces to do additional type-specific initialization, e.g.
-    /// for adding prerequisites.
+    /// interfaces to do additional type-specific initialization.
     ///
     /// Optional
     fn type_init(_type_: &mut InitializingType<Self>) {}
@@ -161,7 +224,7 @@ pub fn register_interface<T: ObjectInterface>() -> Type {
             gobject_ffi::G_TYPE_INVALID
         );
 
-        let type_ = from_glib(gobject_ffi::g_type_register_static_simple(
+        let type_ = gobject_ffi::g_type_register_static_simple(
             Type::INTERFACE.to_glib(),
             type_name.as_ptr(),
             mem::size_of::<T>() as u32,
@@ -169,7 +232,14 @@ pub fn register_interface<T: ObjectInterface>() -> Type {
             0,
             None,
             0,
-        ));
+        );
+
+        let prerequisites = T::Prerequisites::types();
+        for prerequisite in prerequisites {
+            gobject_ffi::g_type_interface_add_prerequisite(type_, prerequisite);
+        }
+
+        let type_ = from_glib(type_);
 
         T::type_init(&mut InitializingType::<T>(type_, marker::PhantomData));
 

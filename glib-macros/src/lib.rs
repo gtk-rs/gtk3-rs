@@ -5,8 +5,8 @@ mod downgrade_derive;
 mod gboxed_derive;
 mod genum_derive;
 mod gflags_attribute;
-mod object_subclass_attribute;
 mod object_interface_attribute;
+mod object_subclass_attribute;
 mod utils;
 
 use proc_macro::TokenStream;
@@ -355,6 +355,15 @@ pub fn object_subclass(_attr: TokenStream, item: TokenStream) -> TokenStream {
 ///
 /// This adds implementations for the `get_type()` method, which should probably never be defined
 /// differently.
+///
+/// It provides default values for the `Prerequisites` type parameter. If this present, the macro
+/// will use the provided value instead of the default.
+///
+/// `Prerequisites` is interfaces for types that require a specific base class or interfaces.
+///
+/// ```ignore
+/// type Prerequisites = ();
+/// ```
 ///
 /// [`ObjectInterface`]: interface/types/trait.ObjectInterface.html
 #[proc_macro_attribute]
