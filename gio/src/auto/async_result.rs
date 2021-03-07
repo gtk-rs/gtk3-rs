@@ -8,7 +8,7 @@ use std::fmt;
 use std::ptr;
 
 glib::wrapper! {
-    pub struct AsyncResult(Interface<ffi::GAsyncResult>);
+    pub struct AsyncResult(Interface<ffi::GAsyncResult, ffi::GAsyncResultIface>);
 
     match fn {
         get_type => || ffi::g_async_result_get_type(),

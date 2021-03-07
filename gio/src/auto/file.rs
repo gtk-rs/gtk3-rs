@@ -31,7 +31,7 @@ use std::pin::Pin;
 use std::ptr;
 
 glib::wrapper! {
-    pub struct File(Interface<ffi::GFile>);
+    pub struct File(Interface<ffi::GFile, ffi::GFileIface>);
 
     match fn {
         get_type => || ffi::g_file_get_type(),

@@ -23,7 +23,7 @@ use std::pin::Pin;
 use std::ptr;
 
 glib::wrapper! {
-    pub struct Mount(Interface<ffi::GMount>);
+    pub struct Mount(Interface<ffi::GMount, ffi::GMountIface>);
 
     match fn {
         get_type => || ffi::g_mount_get_type(),

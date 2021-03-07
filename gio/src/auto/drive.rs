@@ -22,7 +22,7 @@ use std::pin::Pin;
 use std::ptr;
 
 glib::wrapper! {
-    pub struct Drive(Interface<ffi::GDrive>);
+    pub struct Drive(Interface<ffi::GDrive, ffi::GDriveIface>);
 
     match fn {
         get_type => || ffi::g_drive_get_type(),

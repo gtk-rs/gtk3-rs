@@ -13,7 +13,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
-    pub struct Window(Interface<ffi::AtkWindow>) @requires Object;
+    pub struct Window(Interface<ffi::AtkWindow, ffi::AtkWindowIface>) @requires Object;
 
     match fn {
         get_type => || ffi::atk_window_get_type(),

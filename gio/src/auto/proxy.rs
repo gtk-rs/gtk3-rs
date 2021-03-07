@@ -14,7 +14,7 @@ use std::pin::Pin;
 use std::ptr;
 
 glib::wrapper! {
-    pub struct Proxy(Interface<ffi::GProxy>);
+    pub struct Proxy(Interface<ffi::GProxy, ffi::GProxyInterface>);
 
     match fn {
         get_type => || ffi::g_proxy_get_type(),

@@ -17,7 +17,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib::wrapper! {
-    pub struct TlsClientConnection(Interface<ffi::GTlsClientConnection>) @requires TlsConnection, IOStream;
+    pub struct TlsClientConnection(Interface<ffi::GTlsClientConnection, ffi::GTlsClientConnectionInterface>) @requires TlsConnection, IOStream;
 
     match fn {
         get_type => || ffi::g_tls_client_connection_get_type(),

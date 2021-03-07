@@ -9,7 +9,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
-    pub struct StyleProvider(Interface<ffi::GtkStyleProvider>);
+    pub struct StyleProvider(Interface<ffi::GtkStyleProvider, ffi::GtkStyleProviderIface>);
 
     match fn {
         get_type => || ffi::gtk_style_provider_get_type(),

@@ -15,7 +15,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib::wrapper! {
-    pub struct TlsFileDatabase(Interface<ffi::GTlsFileDatabase>) @requires TlsDatabase;
+    pub struct TlsFileDatabase(Interface<ffi::GTlsFileDatabase, ffi::GTlsFileDatabaseInterface>) @requires TlsDatabase;
 
     match fn {
         get_type => || ffi::g_tls_file_database_get_type(),

@@ -17,7 +17,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib::wrapper! {
-    pub struct RecentChooser(Interface<ffi::GtkRecentChooser>);
+    pub struct RecentChooser(Interface<ffi::GtkRecentChooser, ffi::GtkRecentChooserIface>);
 
     match fn {
         get_type => || ffi::gtk_recent_chooser_get_type(),

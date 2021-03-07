@@ -23,7 +23,7 @@ use std::pin::Pin;
 use std::ptr;
 
 glib::wrapper! {
-    pub struct Volume(Interface<ffi::GVolume>);
+    pub struct Volume(Interface<ffi::GVolume, ffi::GVolumeIface>);
 
     match fn {
         get_type => || ffi::g_volume_get_type(),

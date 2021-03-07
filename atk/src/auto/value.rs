@@ -15,7 +15,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib::wrapper! {
-    pub struct Value(Interface<ffi::AtkValue>);
+    pub struct Value(Interface<ffi::AtkValue, ffi::AtkValueIface>);
 
     match fn {
         get_type => || ffi::atk_value_get_type(),

@@ -9,7 +9,7 @@ use std::fmt;
 use std::ptr;
 
 glib::wrapper! {
-    pub struct Seekable(Interface<ffi::GSeekable>);
+    pub struct Seekable(Interface<ffi::GSeekable, ffi::GSeekableIface>);
 
     match fn {
         get_type => || ffi::g_seekable_get_type(),
