@@ -408,10 +408,9 @@ mod test {
             parent: gobject_ffi::GTypeInterface,
         }
 
+        #[glib::object_interface]
         impl ObjectInterface for DummyInterface {
             const NAME: &'static str = "Dummy";
-
-            object_interface!();
 
             fn type_init(type_: &mut subclass::InitializingType<Self>) {
                 type_.add_prerequisite::<Object>();

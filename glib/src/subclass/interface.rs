@@ -20,11 +20,9 @@ impl<T: ObjectInterface> InitializingType<T> {
     }
 }
 
-/// Macro for boilerplate of [`ObjectInterface`] implementations.
-///
-/// [`ObjectInterface`]: subclass/types/trait.ObjectInterface.html
 #[macro_export]
-macro_rules! object_interface {
+#[doc(hidden)]
+macro_rules! object_interface_internal {
     () => {
         fn get_type() -> $crate::Type {
             static ONCE: std::sync::Once = std::sync::Once::new();

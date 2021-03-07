@@ -6,6 +6,7 @@ mod gboxed_derive;
 mod genum_derive;
 mod gflags_attribute;
 mod object_subclass_attribute;
+mod object_interface_attribute;
 mod utils;
 
 use proc_macro::TokenStream;
@@ -347,6 +348,22 @@ pub fn object_subclass(_attr: TokenStream, item: TokenStream) -> TokenStream {
     match syn::parse::<syn::ItemImpl>(item) {
         Ok(input) => object_subclass_attribute::impl_object_subclass(&input).into(),
         Err(_) => abort_call_site!(object_subclass_attribute::WRONG_PLACE_MSG),
+    }
+}
+
+/// Macro for boilerplate of [`ObjectInterface`] implementations.
+///
+/// This adds implementations for the `get_type()` method, which should probably never be defined
+/// differently.
+///
+/// [`ObjectInterface`]: interface/types/trait.ObjectInterface.html
+#[proc_macro_attribute]
+#[proc_macro_error]
+pub fn object_interface(_attr: TokenStream, item: TokenStream) -> TokenStream {
+    use proc_macro_error::abort_call_site;
+    match syn::parse::<syn::ItemImpl>(item) {
+        Ok(input) => object_interface_attribute::impl_object_interface(&input).into(),
+        Err(_) => abort_call_site!(object_interface_attribute::WRONG_PLACE_MSG),
     }
 }
 
