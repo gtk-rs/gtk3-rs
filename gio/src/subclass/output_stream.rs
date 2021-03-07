@@ -186,8 +186,8 @@ impl<T: OutputStreamImpl> OutputStreamImplExt for T {
 }
 
 unsafe impl<T: OutputStreamImpl> IsSubclassable<T> for OutputStream {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
-        <glib::Object as IsSubclassable<T>>::override_vfuncs(class);
+    fn class_init(class: &mut ::glib::Class<Self>) {
+        <glib::Object as IsSubclassable<T>>::class_init(class);
 
         let klass = class.as_mut();
         klass.write_fn = Some(stream_write::<T>);

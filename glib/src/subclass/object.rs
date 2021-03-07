@@ -144,7 +144,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
 unsafe impl ObjectClassSubclassExt for crate::Class<Object> {}
 
 unsafe impl<T: ObjectImpl> IsSubclassable<T> for Object {
-    fn override_vfuncs(class: &mut crate::Class<Self>) {
+    fn class_init(class: &mut crate::Class<Self>) {
         let klass = class.as_mut();
         klass.set_property = Some(set_property::<T>);
         klass.get_property = Some(get_property::<T>);

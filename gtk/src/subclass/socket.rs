@@ -53,8 +53,8 @@ impl<T: SocketImpl> SocketImplExt for T {
 }
 
 unsafe impl<T: SocketImpl> IsSubclassable<T> for Socket {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
-        <Container as IsSubclassable<T>>::override_vfuncs(class);
+    fn class_init(class: &mut ::glib::Class<Self>) {
+        <Container as IsSubclassable<T>>::class_init(class);
 
         let klass = class.as_mut();
         klass.plug_added = Some(socket_plug_added::<T>);

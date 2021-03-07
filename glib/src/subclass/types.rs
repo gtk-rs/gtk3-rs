@@ -79,24 +79,26 @@ pub unsafe trait ClassStruct: Sized + 'static {
     /// Override the vfuncs of all parent types.
     ///
     /// This is automatically called during type initialization.
-    fn override_vfuncs(&mut self)
+    fn class_init(&mut self)
     where
         <Self::Type as ObjectSubclass>::ParentType: IsSubclassable<Self::Type>,
     {
         unsafe {
             let base = &mut *(self as *mut _
                 as *mut crate::Class<<Self::Type as ObjectSubclass>::ParentType>);
-            <<Self::Type as ObjectSubclass>::ParentType as IsSubclassable<Self::Type>>::override_vfuncs(base);
+            <<Self::Type as ObjectSubclass>::ParentType as IsSubclassable<Self::Type>>::class_init(
+                base,
+            );
         }
     }
 }
 
 /// Trait for subclassable class structs.
 pub unsafe trait IsSubclassable<T: ObjectSubclass>: ObjectType {
-    /// Override the virtual methods of this class for the given subclass.
+    /// Override the virtual methods of this class for the given subclass and do other class initialization.
     ///
     /// This is automatically called during type initialization.
-    fn override_vfuncs(class: &mut crate::Class<Self>);
+    fn class_init(class: &mut crate::Class<Self>);
 }
 
 /// Trait for implementable interfaces.
@@ -552,7 +554,7 @@ where
 
         (*data.as_mut()).parent_class = parent_class as ffi::gpointer;
 
-        klass.override_vfuncs();
+        klass.class_init();
         T::class_init(klass);
     }
 }

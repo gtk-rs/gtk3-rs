@@ -61,7 +61,7 @@ impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {
 }
 
 unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
+    fn class_init(class: &mut ::glib::Class<Self>) {
         unsafe extern "C" fn application_window_added<T: GtkApplicationImpl>(
             ptr: *mut ffi::GtkApplication,
             wptr: *mut ffi::GtkWindow,
@@ -93,7 +93,7 @@ unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
             imp.startup(wrap.unsafe_cast_ref())
         }
 
-        <gio::Application as IsSubclassable<T>>::override_vfuncs(class);
+        <gio::Application as IsSubclassable<T>>::class_init(class);
 
         let klass = class.as_mut();
         klass.window_added = Some(application_window_added::<T>);

@@ -144,8 +144,8 @@ impl<T: ContainerImpl> ContainerImplExt for T {
 }
 
 unsafe impl<T: ContainerImpl> IsSubclassable<T> for Container {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
-        <Widget as IsSubclassable<T>>::override_vfuncs(class);
+    fn class_init(class: &mut ::glib::Class<Self>) {
+        <Widget as IsSubclassable<T>>::class_init(class);
 
         let klass = class.as_mut();
         klass.add = Some(container_add::<T>);

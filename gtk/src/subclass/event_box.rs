@@ -9,7 +9,7 @@ use crate::EventBox;
 pub trait EventBoxImpl: BinImpl {}
 
 unsafe impl<T: EventBoxImpl> IsSubclassable<T> for EventBox {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
-        <Bin as IsSubclassable<T>>::override_vfuncs(class);
+    fn class_init(class: &mut ::glib::Class<Self>) {
+        <Bin as IsSubclassable<T>>::class_init(class);
     }
 }
