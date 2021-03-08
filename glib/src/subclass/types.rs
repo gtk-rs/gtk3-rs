@@ -92,18 +92,32 @@ pub unsafe trait ClassStruct: Sized + 'static {
 
 /// Trait for subclassable class structs.
 pub unsafe trait IsSubclassable<T: ObjectSubclass>: ObjectType {
-    /// Override the virtual methods of this class for the given subclass and do other class initialization.
+    /// Override the virtual methods of this class for the given subclass and do other class
+    /// initialization.
     ///
-    /// This is automatically called during type initialization.
+    /// This is automatically called during type initialization and must call `class_init()` of the
+    /// parent class.
     fn class_init(class: &mut crate::Class<Self>);
+
+    /// Instance specific initialization.
+    ///
+    /// This is automatically called during instance initialization and must call `instance_init()`
+    /// of the parent class.
+    fn instance_init(instance: &mut InitializingObject<T::Type>);
 }
 
 /// Trait for implementable interfaces.
 pub unsafe trait IsImplementable<T: ObjectSubclass>: ObjectType {
-    /// Override the virtual methods of this interface for the given subclass and do other interface initialization.
+    /// Override the virtual methods of this interface for the given subclass and do other
+    /// interface initialization.
     ///
     /// This is automatically called during type initialization.
     fn interface_init(iface: &mut crate::Class<Self>);
+
+    /// Instance specific initialization.
+    ///
+    /// This is automatically called during instance initialization.
+    fn instance_init(instance: &mut InitializingObject<T::Type>);
 }
 
 unsafe extern "C" fn interface_init<T: ObjectSubclass, A: IsImplementable<T>>(
@@ -115,15 +129,20 @@ unsafe extern "C" fn interface_init<T: ObjectSubclass, A: IsImplementable<T>>(
 }
 
 /// Trait for a type list of interfaces.
-pub trait InterfaceList<T> {
+pub trait InterfaceList<T: ObjectSubclass> {
     /// Returns the list of types and corresponding interface infos for this list.
     fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)>;
+
+    /// Runs `instance_init` on each of the `IsImplementable` items.
+    fn instance_init(_instance: &mut InitializingObject<T::Type>);
 }
 
 impl<T: ObjectSubclass> InterfaceList<T> for () {
     fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)> {
         vec![]
     }
+
+    fn instance_init(_instance: &mut InitializingObject<T::Type>) {}
 }
 
 impl<T: ObjectSubclass, A: IsImplementable<T>> InterfaceList<T> for (A,) {
@@ -136,6 +155,10 @@ impl<T: ObjectSubclass, A: IsImplementable<T>> InterfaceList<T> for (A,) {
                 interface_data: ptr::null_mut(),
             },
         )]
+    }
+
+    fn instance_init(instance: &mut InitializingObject<T::Type>) {
+        A::instance_init(instance);
     }
 }
 
@@ -163,13 +186,17 @@ macro_rules! interface_list_trait_impl(
         impl<T: ObjectSubclass, $($name: IsImplementable<T>),+> InterfaceList<T> for ( $($name),+ ) {
             fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)> {
                 let mut types = Vec::new();
-                interface_list_trait_inner!(types, $($name)+)
+                interface_list_trait_inner_iface_infos!(types, $($name)+)
+            }
+
+            fn instance_init(instance: &mut InitializingObject<T::Type>) {
+                interface_list_trait_inner_instance_init!(instance, $($name)+)
             }
         }
     );
 );
 
-// Generates the inner part of the InterfaceList::types() implementation, which will
+// Generates the inner part of the InterfaceList::iface_infos() implementation, which will
 // basically look as follows:
 //
 // let mut types = Vec::new();
@@ -180,7 +207,7 @@ macro_rules! interface_list_trait_impl(
 // types.push((Z::static_type().to_glib(), ...));
 //
 // types
-macro_rules! interface_list_trait_inner(
+macro_rules! interface_list_trait_inner_iface_infos(
     ($types:ident, $head:ident $($id:ident)+) => ({
         $types.push(
             (
@@ -192,7 +219,7 @@ macro_rules! interface_list_trait_inner(
                 },
             )
         );
-        interface_list_trait_inner!($types, $($id)+)
+        interface_list_trait_inner_iface_infos!($types, $($id)+)
     });
     ($types:ident, $head:ident) => ({
         $types.push(
@@ -206,6 +233,23 @@ macro_rules! interface_list_trait_inner(
             )
         );
         $types
+    });
+);
+
+// Generates the inner part of the InterfaceList::instance_init() implementation, which will
+// basically look as follows:
+//
+// A::instance_init(instance);
+// B::instance_init(instance);
+// [...]
+// Z::instance_init(instance);
+macro_rules! interface_list_trait_inner_instance_init(
+    ($instance:ident, $head:ident $($id:ident)+) => ({
+        $head::instance_init($instance);
+        interface_list_trait_inner_instance_init!($instance, $($id)+)
+    });
+    ($instance:ident, $head:ident) => ({
+        $head::instance_init($instance);
     });
 );
 
@@ -487,6 +531,17 @@ impl<T: ObjectType> InitializingObject<T> {
     pub unsafe fn as_ref(&self) -> &T {
         &self.0
     }
+
+    /// Returns a pointer to the object.
+    ///
+    /// # Safety
+    ///
+    /// The returned object has not been completely initialized at this point. Use of the object
+    /// should be restricted to methods that are explicitly documented to be safe to call during
+    /// `instance_init()`.
+    pub unsafe fn as_ptr(&self) -> *mut T {
+        self.0.as_ptr() as *const T as *mut T
+    }
 }
 
 unsafe extern "C" fn class_init<T: ObjectSubclass>(
@@ -547,7 +602,12 @@ unsafe extern "C" fn instance_init<T: ObjectSubclass>(
     // Any additional instance initialization.
     let obj = from_glib_borrow::<_, Object>(obj.cast());
     let obj = Borrowed::new(obj.into_inner().unsafe_cast());
-    T::instance_init(&InitializingObject(obj));
+    let mut obj = InitializingObject(obj);
+
+    T::ParentType::instance_init(&mut obj);
+    T::Interfaces::instance_init(&mut obj);
+
+    T::instance_init(&obj);
 }
 
 unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject) {
