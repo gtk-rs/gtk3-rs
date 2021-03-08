@@ -406,7 +406,7 @@ mod test {
         }
 
         #[glib::object_interface]
-        impl ObjectInterface for DummyInterface {
+        unsafe impl ObjectInterface for DummyInterface {
             const NAME: &'static str = "Dummy";
         }
     }

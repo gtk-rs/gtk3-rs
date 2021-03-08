@@ -113,7 +113,7 @@ macro_rules! object_interface_internal {
 /// with the type system.
 ///
 /// [`register_interface`]: fn.register_interface.html
-pub trait ObjectInterface: Sized + 'static {
+pub unsafe trait ObjectInterface: Sized + 'static {
     /// `GObject` type name.
     ///
     /// This must be unique in the whole process.

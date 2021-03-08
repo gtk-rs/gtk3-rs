@@ -23,6 +23,7 @@ pub fn impl_object_interface(input: &syn::ItemImpl) -> TokenStream {
         generics,
         trait_,
         self_ty,
+        unsafety,
         items,
         ..
     } = &input;
@@ -44,7 +45,7 @@ pub fn impl_object_interface(input: &syn::ItemImpl) -> TokenStream {
 
     quote! {
         #(#attrs)*
-        impl#generics #trait_path for #self_ty {
+        #unsafety impl#generics #trait_path for #self_ty {
             #prerequisites_opt
             #crate_ident::object_interface_internal!();
             #(#items)*
