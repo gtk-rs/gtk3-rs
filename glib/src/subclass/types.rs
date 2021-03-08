@@ -79,10 +79,7 @@ pub unsafe trait ClassStruct: Sized + 'static {
     /// Override the vfuncs of all parent types.
     ///
     /// This is automatically called during type initialization.
-    fn class_init(&mut self)
-    where
-        <Self::Type as ObjectSubclass>::ParentType: IsSubclassable<Self::Type>,
-    {
+    fn class_init(&mut self) {
         unsafe {
             let base = &mut *(self as *mut _
                 as *mut crate::Class<<Self::Type as ObjectSubclass>::ParentType>);
@@ -352,7 +349,7 @@ pub trait ObjectSubclass: ObjectSubclassType + Sized + 'static {
         + FromGlibPtrNone<*mut <Self::Type as ObjectType>::GlibType>;
 
     /// Parent Rust type to inherit from.
-    type ParentType: ObjectType
+    type ParentType: IsSubclassable<Self>
         + FromGlibPtrFull<*mut <Self::ParentType as ObjectType>::GlibType>
         + FromGlibPtrBorrow<*mut <Self::ParentType as ObjectType>::GlibType>
         + FromGlibPtrNone<*mut <Self::ParentType as ObjectType>::GlibType>;
@@ -492,10 +489,10 @@ impl<T: ObjectType> InitializingObject<T> {
     }
 }
 
-unsafe extern "C" fn class_init<T: ObjectSubclass>(klass: ffi::gpointer, _klass_data: ffi::gpointer)
-where
-    <T as ObjectSubclass>::ParentType: IsSubclassable<T>,
-{
+unsafe extern "C" fn class_init<T: ObjectSubclass>(
+    klass: ffi::gpointer,
+    _klass_data: ffi::gpointer,
+) {
     let mut data = T::type_data();
 
     // We have to update the private struct offset once the class is actually
@@ -577,10 +574,7 @@ unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject)
 /// ensure that it's only ever called once.
 ///
 /// [`object_subclass!`]: ../../macro.object_subclass.html
-pub fn register_type<T: ObjectSubclass>() -> Type
-where
-    <T as ObjectSubclass>::ParentType: IsSubclassable<T>,
-{
+pub fn register_type<T: ObjectSubclass>() -> Type {
     // GLib aligns the type private data to two gsizes so we can't safely store any type there that
     // requires a bigger alignment.
     if mem::align_of::<T>() > 2 * mem::size_of::<usize>() {
