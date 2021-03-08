@@ -10,10 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     name: build
     container:
-      image: ubuntu:20.10
+      image: ghcr.io/gtk-rs/gtk-rs/gtk:latest
     steps:
-      - run: apt-get update -y
-      - run: apt-get install -y libgtk-3-dev libglib2.0-dev libgraphene-1.0-dev git curl libcairo-gobject2 libcairo2-dev
       - uses: actions/checkout@v2
         with:
           submodules: recursive
@@ -47,7 +45,7 @@ jobs:
         with:
           command: doc
           args: -p atk -p atk-sys -p cairo-rs -p cairo-sys-rs -p gdk -p gdk-sys -p gdk-pixbuf -p gdk-pixbuf-sys -p gdkx11 -p gdkx11-sys -p gio -p gio-sys -p glib -p gobject-sys -p glib-sys -p glib-macros -p graphene-rs -p graphene-sys -p gtk -p gtk-sys -p pango -p pango-sys -p pangocairo -p pangocairo-sys --all-features --no-deps
-        env: 
+        env:
           RUSTDOCFLAGS: "--enable-index-page -Zunstable-options"
 
       - name: deploy
