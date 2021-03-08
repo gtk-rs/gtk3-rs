@@ -631,10 +631,6 @@
 <span id="628">628</span>
 <span id="629">629</span>
 <span id="630">630</span>
-<span id="631">631</span>
-<span id="632">632</span>
-<span id="633">633</span>
-<span id="634">634</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -939,27 +935,23 @@
 }
 
 <span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ActionGroupImpl</span><span class="op">&gt;</span> <span class="ident">IsImplementable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ActionGroup</span> {
-    <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">interface_init</span>(
-        <span class="ident">iface</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
-        <span class="ident">_iface_data</span>: <span class="ident">glib</span>::<span class="ident">ffi</span>::<span class="ident">gpointer</span>,
-    ) {
-        <span class="kw">let</span> <span class="ident">action_group_iface</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span>(<span class="ident">iface</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GActionGroupInterface</span>);
+    <span class="kw">fn</span> <span class="ident">interface_init</span>(<span class="ident">iface</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">Class</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) {
+        <span class="kw">let</span> <span class="ident">iface</span> <span class="op">=</span> <span class="ident">iface</span>.<span class="ident">as_mut</span>();
 
-        <span class="ident">action_group_iface</span>.<span class="ident">action_added</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_action_added</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
-        <span class="ident">action_group_iface</span>.<span class="ident">action_enabled_changed</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_action_enabled_changed</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
-        <span class="ident">action_group_iface</span>.<span class="ident">action_removed</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_action_removed</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
-        <span class="ident">action_group_iface</span>.<span class="ident">action_state_changed</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_action_state_changed</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
-        <span class="ident">action_group_iface</span>.<span class="ident">activate_action</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_activate_action</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
-        <span class="ident">action_group_iface</span>.<span class="ident">change_action_state</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_change_action_state</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
-        <span class="ident">action_group_iface</span>.<span class="ident">get_action_enabled</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_get_action_enabled</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
-        <span class="ident">action_group_iface</span>.<span class="ident">get_action_parameter_type</span> <span class="op">=</span>
-            <span class="prelude-val">Some</span>(<span class="ident">action_group_get_action_parameter_type</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
-        <span class="ident">action_group_iface</span>.<span class="ident">get_action_state</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_get_action_state</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
-        <span class="ident">action_group_iface</span>.<span class="ident">get_action_state_hint</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_get_action_state_hint</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
-        <span class="ident">action_group_iface</span>.<span class="ident">get_action_state_type</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_get_action_state_type</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
-        <span class="ident">action_group_iface</span>.<span class="ident">has_action</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_has_action</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
-        <span class="ident">action_group_iface</span>.<span class="ident">list_actions</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_list_actions</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
-        <span class="ident">action_group_iface</span>.<span class="ident">query_action</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_query_action</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">iface</span>.<span class="ident">action_added</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_action_added</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">iface</span>.<span class="ident">action_enabled_changed</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_action_enabled_changed</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">iface</span>.<span class="ident">action_removed</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_action_removed</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">iface</span>.<span class="ident">action_state_changed</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_action_state_changed</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">iface</span>.<span class="ident">activate_action</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_activate_action</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">iface</span>.<span class="ident">change_action_state</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_change_action_state</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">iface</span>.<span class="ident">get_action_enabled</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_get_action_enabled</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">iface</span>.<span class="ident">get_action_parameter_type</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_get_action_parameter_type</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">iface</span>.<span class="ident">get_action_state</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_get_action_state</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">iface</span>.<span class="ident">get_action_state_hint</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_get_action_state_hint</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">iface</span>.<span class="ident">get_action_state_type</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_get_action_state_type</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">iface</span>.<span class="ident">has_action</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_has_action</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">iface</span>.<span class="ident">list_actions</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_list_actions</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+        <span class="ident">iface</span>.<span class="ident">query_action</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_query_action</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
     }
 }
 

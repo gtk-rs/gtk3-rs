@@ -443,7 +443,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 
 <span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NetworkMonitor</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GNetworkMonitor</span><span class="op">&gt;</span>);
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NetworkMonitor</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GNetworkMonitor</span>, <span class="ident">ffi</span>::<span class="ident">GNetworkMonitorInterface</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {
         <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_network_monitor_get_type</span>(),

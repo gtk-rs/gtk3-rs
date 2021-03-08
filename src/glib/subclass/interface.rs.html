@@ -181,34 +181,158 @@
 <span id="178">178</span>
 <span id="179">179</span>
 <span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">InitializingType</span>, <span class="ident">Signal</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">IsA</span>, <span class="ident">Object</span>, <span class="ident">ObjectExt</span>, <span class="ident">ParamSpec</span>, <span class="ident">StaticType</span>, <span class="ident">Type</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">IsA</span>, <span class="ident">Object</span>, <span class="ident">ObjectExt</span>, <span class="ident">ParamSpec</span>, <span class="ident">Type</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">marker</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectInterface</span><span class="op">&gt;</span> <span class="ident">InitializingType</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Adds an interface prerequisite for `I` to the type.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// All implementors of the interface must be a subclass of `I` or implement the interface `I`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_prerequisite</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="ident">StaticType</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
-        <span class="kw">unsafe</span> {
-            <span class="ident">gobject_ffi</span>::<span class="ident">g_type_interface_add_prerequisite</span>(
-                <span class="self">self</span>.<span class="number">0</span>.<span class="ident">to_glib</span>(),
-                <span class="ident">I</span>::<span class="ident">static_type</span>().<span class="ident">to_glib</span>(),
-            )
-        }
+<span class="doccomment">/// Trait for a type list of prerequisite object types.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">PrerequisiteList</span> {
+    <span class="doccomment">/// Returns the list of types for this list.</span>
+    <span class="kw">fn</span> <span class="ident">types</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GType</span><span class="op">&gt;</span>;
+}
+
+<span class="kw">impl</span> <span class="ident">PrerequisiteList</span> <span class="kw">for</span> () {
+    <span class="kw">fn</span> <span class="ident">types</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GType</span><span class="op">&gt;</span> {
+        <span class="macro">vec</span><span class="macro">!</span>[]
     }
 }
 
-<span class="doccomment">/// Macro for boilerplate of [`ObjectInterface`] implementations.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`ObjectInterface`]: subclass/types/trait.ObjectInterface.html</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="kw">crate</span>::<span class="ident">ObjectType</span><span class="op">&gt;</span> <span class="ident">PrerequisiteList</span> <span class="kw">for</span> (<span class="ident">T</span>,) {
+    <span class="kw">fn</span> <span class="ident">types</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GType</span><span class="op">&gt;</span> {
+        <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">T</span>::<span class="ident">static_type</span>().<span class="ident">to_glib</span>()]
+    }
+}
+
+<span class="comment">// Generates all the PrerequisiteList impls for prerequisite_lists of arbitrary sizes based on a list of type</span>
+<span class="comment">// parameters like A B C. It would generate the impl then for (A, B) and (A, B, C).</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">prerequisite_list_trait</span>(
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name1</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name2</span>: <span class="ident">ident</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>),<span class="kw-2">*</span>) <span class="op">=</span><span class="op">&gt;</span> (
+        <span class="macro">prerequisite_list_trait</span><span class="macro">!</span>(<span class="ident">__impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name1</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name2</span>; $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="kw-2">*</span>);
+    );
+    (<span class="ident">__impl</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>),<span class="op">+</span>; <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name1</span>:<span class="ident">ident</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name2</span>:<span class="ident">ident</span>),<span class="kw-2">*</span>) <span class="op">=</span><span class="op">&gt;</span> (
+        <span class="macro">prerequisite_list_trait_impl</span><span class="macro">!</span>($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span>);
+        <span class="macro">prerequisite_list_trait</span><span class="macro">!</span>(<span class="ident">__impl</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span> , <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name1</span>; $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name2</span>),<span class="kw-2">*</span>);
+    );
+    (<span class="ident">__impl</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>),<span class="op">+</span>; <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name1</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> (
+        <span class="macro">prerequisite_list_trait_impl</span><span class="macro">!</span>($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span>);
+        <span class="macro">prerequisite_list_trait_impl</span><span class="macro">!</span>($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name1</span>);
+    );
+);
+
+<span class="comment">// Generates the impl block for PrerequisiteList on prerequisite_lists or arbitrary sizes based on its</span>
+<span class="comment">// arguments. Takes a list of type parameters as parameters, e.g. A B C</span>
+<span class="comment">// and then implements the trait on (A, B, C).</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">prerequisite_list_trait_impl</span>(
+    ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>),<span class="op">+</span>) <span class="op">=</span><span class="op">&gt;</span> (
+        <span class="kw">impl</span><span class="op">&lt;</span>$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>: <span class="kw">crate</span>::<span class="ident">ObjectType</span>),<span class="op">+</span><span class="op">&gt;</span> <span class="ident">PrerequisiteList</span> <span class="kw">for</span> ( $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>),<span class="op">+</span> ) {
+            <span class="kw">fn</span> <span class="ident">types</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GType</span><span class="op">&gt;</span> {
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">types</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
+                <span class="macro">prerequisite_list_trait_inner</span><span class="macro">!</span>(<span class="ident">types</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>)<span class="op">+</span>)
+            }
+        }
+    );
+);
+
+<span class="comment">// Generates the inner part of the PrerequisiteList::types() implementation, which will</span>
+<span class="comment">// basically look as follows:</span>
+<span class="comment">//</span>
+<span class="comment">// let mut types = Vec::new();</span>
+<span class="comment">//</span>
+<span class="comment">// types.push(A::static_type().to_glib());</span>
+<span class="comment">// types.push(B::static_type().to_glib());</span>
+<span class="comment">// [...]</span>
+<span class="comment">// types.push(Z::static_type().to_glib());</span>
+<span class="comment">//</span>
+<span class="comment">// types</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">prerequisite_list_trait_inner</span>(
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">types</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span>:<span class="ident">ident</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">id</span>:<span class="ident">ident</span>)<span class="op">+</span>) <span class="op">=</span><span class="op">&gt;</span> ({
+        <span class="macro-nonterminal">$</span><span class="macro-nonterminal">types</span>.<span class="ident">push</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span>::<span class="ident">static_type</span>().<span class="ident">to_glib</span>());
+        <span class="macro">prerequisite_list_trait_inner</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">types</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">id</span>)<span class="op">+</span>)
+    });
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">types</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> ({
+        <span class="macro-nonterminal">$</span><span class="macro-nonterminal">types</span>.<span class="ident">push</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span>::<span class="ident">static_type</span>().<span class="ident">to_glib</span>());
+        <span class="macro-nonterminal">$</span><span class="macro-nonterminal">types</span>
+    });
+);
+
+<span class="macro">prerequisite_list_trait</span><span class="macro">!</span>(<span class="ident">A</span>, <span class="ident">B</span>, <span class="ident">C</span>, <span class="ident">D</span>, <span class="ident">E</span>, <span class="ident">F</span>, <span class="ident">G</span>, <span class="ident">H</span>, <span class="ident">I</span>, <span class="ident">J</span>, <span class="ident">K</span>, <span class="ident">L</span>, <span class="ident">M</span>, <span class="ident">N</span>, <span class="ident">O</span>, <span class="ident">P</span>, <span class="ident">Q</span>, <span class="ident">R</span>, <span class="ident">S</span>);
+
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">object_interface</span> {
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">object_interface_internal</span> {
     () <span class="op">=</span><span class="op">&gt;</span> {
         <span class="kw">fn</span> <span class="ident">get_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">Type</span> {
             <span class="kw">static</span> <span class="ident">ONCE</span>: <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Once</span> <span class="op">=</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Once</span>::<span class="ident">new</span>();
@@ -241,11 +365,17 @@
 <span class="doccomment">/// with the type system.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`register_interface`]: fn.register_interface.html</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ObjectInterface</span>: <span class="ident">Sized</span> <span class="op">+</span> <span class="lifetime">&#39;static</span> {
+<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">ObjectInterface</span>: <span class="ident">Sized</span> <span class="op">+</span> <span class="lifetime">&#39;static</span> {
     <span class="doccomment">/// `GObject` type name.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This must be unique in the whole process.</span>
     <span class="kw">const</span> <span class="ident">NAME</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>;
+
+    <span class="doccomment">/// Prerequisites for this interface.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Any implementer of the interface must be a subclass of the prerequisites or implement them</span>
+    <span class="doccomment">/// in case of interfaces.</span>
+    <span class="kw">type</span> <span class="ident">Prerequisites</span>: <span class="ident">PrerequisiteList</span>;
 
     <span class="doccomment">/// Returns the `glib::Type` ID of the interface.</span>
     <span class="doccomment">///</span>
@@ -258,8 +388,7 @@
     <span class="doccomment">/// Additional type initialization.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is called right after the type was registered and allows</span>
-    <span class="doccomment">/// interfaces to do additional type-specific initialization, e.g.</span>
-    <span class="doccomment">/// for adding prerequisites.</span>
+    <span class="doccomment">/// interfaces to do additional type-specific initialization.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Optional</span>
     <span class="kw">fn</span> <span class="ident">type_init</span>(<span class="ident">_type_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">InitializingType</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) {}
@@ -347,7 +476,7 @@
             <span class="ident">gobject_ffi</span>::<span class="ident">G_TYPE_INVALID</span>
         );
 
-        <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_type_register_static_simple</span>(
+        <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">gobject_ffi</span>::<span class="ident">g_type_register_static_simple</span>(
             <span class="ident">Type</span>::<span class="ident">INTERFACE</span>.<span class="ident">to_glib</span>(),
             <span class="ident">type_name</span>.<span class="ident">as_ptr</span>(),
             <span class="ident">mem</span>::<span class="ident">size_of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>() <span class="kw">as</span> <span class="ident">u32</span>,
@@ -355,7 +484,14 @@
             <span class="number">0</span>,
             <span class="prelude-val">None</span>,
             <span class="number">0</span>,
-        ));
+        );
+
+        <span class="kw">let</span> <span class="ident">prerequisites</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">Prerequisites</span>::<span class="ident">types</span>();
+        <span class="kw">for</span> <span class="ident">prerequisite</span> <span class="kw">in</span> <span class="ident">prerequisites</span> {
+            <span class="ident">gobject_ffi</span>::<span class="ident">g_type_interface_add_prerequisite</span>(<span class="ident">type_</span>, <span class="ident">prerequisite</span>);
+        }
+
+        <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">from_glib</span>(<span class="ident">type_</span>);
 
         <span class="ident">T</span>::<span class="ident">type_init</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">InitializingType</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">type_</span>, <span class="ident">marker</span>::<span class="ident">PhantomData</span>));
 

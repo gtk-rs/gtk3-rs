@@ -96,7 +96,6 @@ to build if not defined).</p>
 </td></tr><tr class="module-item"><td><a class="macro" href="macro.info.html" title="glib::info macro">info</a></td><td class="docblock-short"><span class="stab portability" title="This is supported on crate feature `log_macros` only"><code>log_macros</code></span><p>A macro which behaves exactly as <code>log::info!</code> except that it sets the
 current log target to the contents of a <code>G_LOG_DOMAIN</code> constant (and fails
 to build if not defined).</p>
-</td></tr><tr class="module-item"><td><a class="macro" href="macro.object_interface.html" title="glib::object_interface macro">object_interface</a></td><td class="docblock-short"><p>Macro for boilerplate of <a href="subclass/types/trait.ObjectInterface.html"><code>ObjectInterface</code></a> implementations.</p>
 </td></tr><tr class="module-item"><td><a class="macro" href="macro.result_from_gboolean.html" title="glib::result_from_gboolean macro">result_from_gboolean</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="macro" href="macro.trace.html" title="glib::trace macro">trace</a></td><td class="docblock-short"><span class="stab portability" title="This is supported on crate feature `log_macros` only"><code>log_macros</code></span><p>A macro which behaves exactly as <code>log::trace!</code> except that it sets the
 current log target to the contents of a <code>G_LOG_DOMAIN</code> constant (and fails
 to build if not defined).</p>
@@ -171,6 +170,7 @@ logger (it prints to stdout by default), you can set your own logger using the c
 <table><tr class="module-item"><td><a class="attr" href="attr.gflags.html" title="glib::gflags attr">gflags</a></td><td class="docblock-short"><p>Attribute macro for defining flags using the <code>bitflags</code> crate.
 This macro will also define a <code>GFlags::get_type</code> function and
 the <a href="value/struct.Value.html"><code>glib::Value</code></a> traits.</p>
+</td></tr><tr class="module-item"><td><a class="attr" href="attr.object_interface.html" title="glib::object_interface attr">object_interface</a></td><td class="docblock-short"><p>Macro for boilerplate of <a href="interface/types/trait.ObjectInterface.html"><code>ObjectInterface</code></a> implementations.</p>
 </td></tr><tr class="module-item"><td><a class="attr" href="attr.object_subclass.html" title="glib::object_subclass attr">object_subclass</a></td><td class="docblock-short"><p>Macro for boilerplate of <a href="subclass/types/trait.ObjectSubclass.html"><code>ObjectSubclass</code></a> implementations.</p>
 </td></tr></table><h2 id="derives" class="section-header"><a href="#derives">Derive Macros</a></h2>
 <table><tr class="module-item"><td><a class="derive" href="derive.Downgrade.html" title="glib::Downgrade derive">Downgrade</a></td><td class="docblock-short"><p>Macro for deriving implementations of <a href="clone/trait.Downgrade.html"><code>glib::clone::Downgrade</code></a> and

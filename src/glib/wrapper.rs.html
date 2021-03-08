@@ -505,6 +505,50 @@
 <span id="502">502</span>
 <span id="503">503</span>
 <span id="504">504</span>
+<span id="505">505</span>
+<span id="506">506</span>
+<span id="507">507</span>
+<span id="508">508</span>
+<span id="509">509</span>
+<span id="510">510</span>
+<span id="511">511</span>
+<span id="512">512</span>
+<span id="513">513</span>
+<span id="514">514</span>
+<span id="515">515</span>
+<span id="516">516</span>
+<span id="517">517</span>
+<span id="518">518</span>
+<span id="519">519</span>
+<span id="520">520</span>
+<span id="521">521</span>
+<span id="522">522</span>
+<span id="523">523</span>
+<span id="524">524</span>
+<span id="525">525</span>
+<span id="526">526</span>
+<span id="527">527</span>
+<span id="528">528</span>
+<span id="529">529</span>
+<span id="530">530</span>
+<span id="531">531</span>
+<span id="532">532</span>
+<span id="533">533</span>
+<span id="534">534</span>
+<span id="535">535</span>
+<span id="536">536</span>
+<span id="537">537</span>
+<span id="538">538</span>
+<span id="539">539</span>
+<span id="540">540</span>
+<span id="541">541</span>
+<span id="542">542</span>
+<span id="543">543</span>
+<span id="544">544</span>
+<span id="545">545</span>
+<span id="546">546</span>
+<span id="547">547</span>
+<span id="548">548</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -633,7 +677,7 @@
 <span class="doccomment">/// ```ignore</span>
 <span class="doccomment">/// wrapper! {</span>
 <span class="doccomment">///     /// Your documentation goes here</span>
-<span class="doccomment">///     pub struct InstanceName(Object&lt;ffi::InstanceStruct, ffi::ClassStruct, ClassName&gt;)</span>
+<span class="doccomment">///     pub struct InstanceName(Object&lt;ffi::InstanceStruct, ffi::ClassStruct&gt;)</span>
 <span class="doccomment">///         @extends ParentClass, GrandparentClass, ...,</span>
 <span class="doccomment">///         @implements Interface1, Interface2, ...;</span>
 <span class="doccomment">///</span>
@@ -657,7 +701,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
 <span class="doccomment">/// wrapper! {</span>
-<span class="doccomment">///     pub struct WindowGroup(Object&lt;ffi::GtkWindowGroup, ffi::GtkWindowGroupClass, WindowGroupClass&gt;);</span>
+<span class="doccomment">///     pub struct WindowGroup(Object&lt;ffi::GtkWindowGroup, ffi::GtkWindowGroupClass&gt;);</span>
 <span class="doccomment">///</span>
 <span class="doccomment">///     match fn {</span>
 <span class="doccomment">///         get_type =&gt; || ffi::gtk_window_group_get_type(),</span>
@@ -669,7 +713,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
 <span class="doccomment">/// wrapper! {</span>
-<span class="doccomment">///     pub struct Button(Object&lt;ffi::GtkButton, ButtonClass&gt;) @extends Bin, Container, Widget;</span>
+<span class="doccomment">///     pub struct Button(Object&lt;ffi::GtkButton&gt;) @extends Bin, Container, Widget;</span>
 <span class="doccomment">///         // see note on interfaces in the example below</span>
 <span class="doccomment">///</span>
 <span class="doccomment">///     match fn {</span>
@@ -686,7 +730,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
 <span class="doccomment">/// wrapper! {</span>
-<span class="doccomment">///     pub struct Button(Object&lt;ffi::GtkButton, ButtonClass&gt;)</span>
+<span class="doccomment">///     pub struct Button(Object&lt;ffi::GtkButton&gt;)</span>
 <span class="doccomment">///         @extends Bin, Container, Widget, // parent classes</span>
 <span class="doccomment">///         @implements Buildable, Actionable;  // interfaces</span>
 <span class="doccomment">///</span>
@@ -706,7 +750,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
 <span class="doccomment">/// wrapper! {</span>
-<span class="doccomment">///     pub struct Clipboard(Object&lt;ffi::GtkClipboard, ClipboardClass&gt;);</span>
+<span class="doccomment">///     pub struct Clipboard(Object&lt;ffi::GtkClipboard&gt;);</span>
 <span class="doccomment">///     ...</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
@@ -718,7 +762,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
 <span class="doccomment">/// wrapper! {</span>
-<span class="doccomment">///     pub struct TreeModel(Interface&lt;ffi::GtkTreeModel, ffi::GtkTreeModelIface, TreeModelIface&gt;);</span>
+<span class="doccomment">///     pub struct TreeModel(Interface&lt;ffi::GtkTreeModel, ffi::GtkTreeModelIface&gt;);</span>
 <span class="doccomment">///     ...</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
@@ -730,7 +774,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
 <span class="doccomment">/// wrapper! {</span>
-<span class="doccomment">///     pub struct TreeSortable(Interface&lt;ffi::GtkTreeSortable, ffi::GtkTreeSortable, TreeSortableIface&gt;) @requires TreeModel;</span>
+<span class="doccomment">///     pub struct TreeSortable(Interface&lt;ffi::GtkTreeSortable, ffi::GtkTreeSortable&gt;) @requires TreeModel;</span>
 <span class="doccomment">///     ...</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
@@ -986,7 +1030,7 @@
         }
     };
 
-    <span class="comment">// Interface, no prerequisites</span>
+    <span class="comment">// Interface, no prerequisites, no class</span>
     (
         $(<span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>:<span class="ident">meta</span>]</span>)<span class="op">*</span>
         <span class="kw">pub</span> <span class="kw">struct</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>:<span class="ident">ty</span><span class="op">&gt;</span>);
@@ -995,10 +1039,10 @@
             <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>:<span class="ident">expr</span>,
         }
     ) <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">interface</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, @<span class="ident">get_type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>, @<span class="ident">requires</span> []);
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">interface</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="ident">std</span>::<span class="ident">os</span>::<span class="ident">raw</span>::<span class="ident">c_void</span>, @<span class="ident">get_type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>, @<span class="ident">requires</span> []);
     };
 
-    <span class="comment">// Interface, prerequisites</span>
+    <span class="comment">// Interface, prerequisites, no class</span>
     (
         $(<span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>:<span class="ident">meta</span>]</span>)<span class="op">*</span>
         <span class="kw">pub</span> <span class="kw">struct</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>:<span class="ident">ty</span><span class="op">&gt;</span>) @<span class="ident">requires</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">requires</span>:<span class="ident">path</span>),<span class="op">+</span>;
@@ -1007,7 +1051,51 @@
             <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>:<span class="ident">expr</span>,
         }
     ) <span class="op">=</span><span class="op">&gt;</span> {
-        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">interface</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, @<span class="ident">get_type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>, @<span class="ident">requires</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">requires</span>),<span class="op">+</span>]);
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">interface</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="ident">std</span>::<span class="ident">os</span>::<span class="ident">raw</span>::<span class="ident">c_void</span>, @<span class="ident">get_type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>, @<span class="ident">requires</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">requires</span>),<span class="op">+</span>]);
+    };
+
+    <span class="comment">// Interface, no prerequisites, class</span>
+    (
+        $(<span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>:<span class="ident">meta</span>]</span>)<span class="op">*</span>
+        <span class="kw">pub</span> <span class="kw">struct</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_class_name</span>:<span class="ident">ty</span><span class="op">&gt;</span>);
+
+        <span class="kw">match</span> <span class="kw">fn</span> {
+            <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>:<span class="ident">expr</span>,
+        }
+    ) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">interface</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_class_name</span>, @<span class="ident">get_type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>, @<span class="ident">requires</span> []);
+    };
+
+    <span class="comment">// Interface, prerequisites, class</span>
+    (
+        $(<span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>:<span class="ident">meta</span>]</span>)<span class="op">*</span>
+        <span class="kw">pub</span> <span class="kw">struct</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_class_name</span>:<span class="ident">ty</span><span class="op">&gt;</span>) @<span class="ident">requires</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">requires</span>:<span class="ident">path</span>),<span class="op">+</span>;
+
+        <span class="kw">match</span> <span class="kw">fn</span> {
+            <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>:<span class="ident">expr</span>,
+        }
+    ) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">interface</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ffi_class_name</span>, @<span class="ident">get_type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">get_type_expr</span>, @<span class="ident">requires</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">requires</span>),<span class="op">+</span>]);
+    };
+
+    <span class="comment">// ObjectInterface, no prerequisites</span>
+    (
+        $(<span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>:<span class="ident">meta</span>]</span>)<span class="op">*</span>
+        <span class="kw">pub</span> <span class="kw">struct</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>(<span class="ident">ObjectInterface</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">iface_name</span>:<span class="ident">ty</span><span class="op">&gt;</span>);
+    ) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">interface</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="ident">std</span>::<span class="ident">os</span>::<span class="ident">raw</span>::<span class="ident">c_void</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">iface_name</span>,
+            @<span class="ident">get_type</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">translate</span>::<span class="ident">ToGlib</span>::<span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">iface_name</span> <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">subclass</span>::<span class="ident">interface</span>::<span class="ident">ObjectInterface</span><span class="op">&gt;</span>::<span class="ident">get_type</span>()),
+            @<span class="ident">requires</span> []);
+    };
+
+    <span class="comment">// ObjectInterface, prerequisites</span>
+    (
+        $(<span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>:<span class="ident">meta</span>]</span>)<span class="op">*</span>
+        <span class="kw">pub</span> <span class="kw">struct</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>(<span class="ident">ObjectInterface</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">iface_name</span>:<span class="ident">ty</span><span class="op">&gt;</span>) @<span class="ident">requires</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">requires</span>:<span class="ident">path</span>),<span class="op">+</span>;
+    ) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro">glib_object_wrapper</span><span class="macro">!</span>(@<span class="macro-nonterminal">interface</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>)<span class="kw-2">*</span>] <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="ident">std</span>::<span class="ident">os</span>::<span class="ident">raw</span>::<span class="ident">c_void</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">iface_name</span>,
+            @<span class="ident">get_type</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">translate</span>::<span class="ident">ToGlib</span>::<span class="ident">to_glib</span>(<span class="kw-2">&amp;</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">iface_name</span> <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">subclass</span>::<span class="ident">interface</span>::<span class="ident">ObjectInterface</span><span class="op">&gt;</span>::<span class="ident">get_type</span>()),
+            @<span class="ident">requires</span> [$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">requires</span>),<span class="op">+</span>]);
     };
 }
 </pre></div>

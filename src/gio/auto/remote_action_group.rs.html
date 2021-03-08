@@ -123,7 +123,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 
 <span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RemoteActionGroup</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GRemoteActionGroup</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">ActionGroup</span>;
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RemoteActionGroup</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GRemoteActionGroup</span>, <span class="ident">ffi</span>::<span class="ident">GRemoteActionGroupInterface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">ActionGroup</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
         <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_remote_action_group_get_type</span>(),

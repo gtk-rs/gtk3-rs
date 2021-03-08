@@ -198,7 +198,7 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 
 <span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LoadableIcon</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GLoadableIcon</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">Icon</span>;
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LoadableIcon</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GLoadableIcon</span>, <span class="ident">ffi</span>::<span class="ident">GLoadableIconIface</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">Icon</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {
         <span class="ident">get_type</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ffi</span>::<span class="ident">g_loadable_icon_get_type</span>(),

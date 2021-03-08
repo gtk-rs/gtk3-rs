@@ -692,6 +692,25 @@
 <span id="689">689</span>
 <span id="690">690</span>
 <span id="691">691</span>
+<span id="692">692</span>
+<span id="693">693</span>
+<span id="694">694</span>
+<span id="695">695</span>
+<span id="696">696</span>
+<span id="697">697</span>
+<span id="698">698</span>
+<span id="699">699</span>
+<span id="700">700</span>
+<span id="701">701</span>
+<span id="702">702</span>
+<span id="703">703</span>
+<span id="704">704</span>
+<span id="705">705</span>
+<span id="706">706</span>
+<span id="707">707</span>
+<span id="708">708</span>
+<span id="709">709</span>
+<span id="710">710</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -774,35 +793,42 @@
     <span class="doccomment">/// Override the vfuncs of all parent types.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is automatically called during type initialization.</span>
-    <span class="kw">fn</span> <span class="ident">override_vfuncs</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>)
+    <span class="kw">fn</span> <span class="ident">class_init</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>)
     <span class="kw">where</span>
         <span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Type</span> <span class="kw">as</span> <span class="ident">ObjectSubclass</span><span class="op">&gt;</span>::<span class="ident">ParentType</span>: <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Type</span><span class="op">&gt;</span>,
     {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">base</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span>(<span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>
                 <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">crate</span>::<span class="ident">Class</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Type</span> <span class="kw">as</span> <span class="ident">ObjectSubclass</span><span class="op">&gt;</span>::<span class="ident">ParentType</span><span class="op">&gt;</span>);
-            <span class="op">&lt;</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Type</span> <span class="kw">as</span> <span class="ident">ObjectSubclass</span><span class="op">&gt;</span>::<span class="ident">ParentType</span> <span class="kw">as</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Type</span><span class="op">&gt;</span><span class="op">&gt;</span>::<span class="ident">override_vfuncs</span>(<span class="ident">base</span>);
+            <span class="op">&lt;</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Type</span> <span class="kw">as</span> <span class="ident">ObjectSubclass</span><span class="op">&gt;</span>::<span class="ident">ParentType</span> <span class="kw">as</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Type</span><span class="op">&gt;</span><span class="op">&gt;</span>::<span class="ident">class_init</span>(
+                <span class="ident">base</span>,
+            );
         }
     }
 }
 
 <span class="doccomment">/// Trait for subclassable class structs.</span>
 <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectSubclass</span><span class="op">&gt;</span>: <span class="ident">ObjectType</span> {
-    <span class="doccomment">/// Override the virtual methods of this class for the given subclass.</span>
+    <span class="doccomment">/// Override the virtual methods of this class for the given subclass and do other class initialization.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is automatically called during type initialization.</span>
-    <span class="kw">fn</span> <span class="ident">override_vfuncs</span>(<span class="ident">class</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">crate</span>::<span class="ident">Class</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>);
+    <span class="kw">fn</span> <span class="ident">class_init</span>(<span class="ident">class</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">crate</span>::<span class="ident">Class</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>);
 }
 
 <span class="doccomment">/// Trait for implementable interfaces.</span>
-<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">IsImplementable</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectSubclass</span><span class="op">&gt;</span>: <span class="ident">StaticType</span> {
-    <span class="doccomment">/// Initializes the interface&#39;s virtual methods.</span>
+<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">IsImplementable</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectSubclass</span><span class="op">&gt;</span>: <span class="ident">ObjectType</span> {
+    <span class="doccomment">/// Override the virtual methods of this interface for the given subclass and do other interface initialization.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Safety</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// It is the responsibility of the implementor of the interface to</span>
-    <span class="doccomment">/// correctly type the pointers when working on the vtables they point at.</span>
-    <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">interface_init</span>(<span class="ident">iface</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>, <span class="ident">_iface_data</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>);
+    <span class="doccomment">/// This is automatically called during type initialization.</span>
+    <span class="kw">fn</span> <span class="ident">interface_init</span>(<span class="ident">iface</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">crate</span>::<span class="ident">Class</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>);
+}
+
+<span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">interface_init</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectSubclass</span>, <span class="ident">A</span>: <span class="ident">IsImplementable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+    <span class="ident">iface</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+    <span class="ident">_iface_data</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+) {
+    <span class="kw">let</span> <span class="ident">iface</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span>(<span class="ident">iface</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">crate</span>::<span class="ident">Class</span><span class="op">&lt;</span><span class="ident">A</span><span class="op">&gt;</span>);
+    <span class="ident">A</span>::<span class="ident">interface_init</span>(<span class="ident">iface</span>);
 }
 
 <span class="doccomment">/// Trait for a type list of interfaces.</span>
@@ -822,7 +848,7 @@
         <span class="macro">vec</span><span class="macro">!</span>[(
             <span class="ident">A</span>::<span class="ident">static_type</span>().<span class="ident">to_glib</span>(),
             <span class="ident">gobject_ffi</span>::<span class="ident">GInterfaceInfo</span> {
-                <span class="ident">interface_init</span>: <span class="prelude-val">Some</span>(<span class="ident">A</span>::<span class="ident">interface_init</span>),
+                <span class="ident">interface_init</span>: <span class="prelude-val">Some</span>(<span class="ident">interface_init</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">A</span><span class="op">&gt;</span>),
                 <span class="ident">interface_finalize</span>: <span class="prelude-val">None</span>,
                 <span class="ident">interface_data</span>: <span class="ident">ptr</span>::<span class="ident">null_mut</span>(),
             },
@@ -877,7 +903,7 @@
             (
                 <span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span>::<span class="ident">static_type</span>().<span class="ident">to_glib</span>(),
                 <span class="ident">gobject_ffi</span>::<span class="ident">GInterfaceInfo</span> {
-                    <span class="ident">interface_init</span>: <span class="prelude-val">Some</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span>::<span class="ident">interface_init</span>),
+                    <span class="ident">interface_init</span>: <span class="prelude-val">Some</span>(<span class="ident">interface_init</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span><span class="op">&gt;</span>),
                     <span class="ident">interface_finalize</span>: <span class="prelude-val">None</span>,
                     <span class="ident">interface_data</span>: <span class="ident">ptr</span>::<span class="ident">null_mut</span>(),
                 },
@@ -890,7 +916,7 @@
             (
                 <span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span>::<span class="ident">static_type</span>().<span class="ident">to_glib</span>(),
                 <span class="ident">gobject_ffi</span>::<span class="ident">GInterfaceInfo</span> {
-                    <span class="ident">interface_init</span>: <span class="prelude-val">Some</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span>::<span class="ident">interface_init</span>),
+                    <span class="ident">interface_init</span>: <span class="prelude-val">Some</span>(<span class="ident">interface_init</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span><span class="op">&gt;</span>),
                     <span class="ident">interface_finalize</span>: <span class="prelude-val">None</span>,
                     <span class="ident">interface_data</span>: <span class="ident">ptr</span>::<span class="ident">null_mut</span>(),
                 },
@@ -903,6 +929,9 @@
 <span class="macro">interface_list_trait</span><span class="macro">!</span>(<span class="ident">A</span>, <span class="ident">B</span>, <span class="ident">C</span>, <span class="ident">D</span>, <span class="ident">E</span>, <span class="ident">F</span>, <span class="ident">G</span>, <span class="ident">H</span>, <span class="ident">I</span>, <span class="ident">J</span>, <span class="ident">K</span>, <span class="ident">L</span>, <span class="ident">M</span>, <span class="ident">N</span>, <span class="ident">O</span>, <span class="ident">P</span>, <span class="ident">Q</span>, <span class="ident">R</span>, <span class="ident">S</span>);
 
 <span class="doccomment">/// Type-specific data that is filled in during type creation.</span>
+<span class="comment">// FIXME: Once trait bounds other than `Sized` on const fn parameters are stable</span>
+<span class="comment">// the content of `TypeData` can be made private and we can add a `const fn new`</span>
+<span class="comment">// for initialization by the `object_subclass_internal!` macro.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TypeData</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="kw">pub</span> <span class="ident">type_</span>: <span class="ident">Type</span>,
@@ -1100,39 +1129,6 @@
     <span class="doccomment">/// [`object_subclass!`]: ../../macro.object_subclass.html</span>
     <span class="kw">fn</span> <span class="ident">get_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span>;
 
-    <span class="doccomment">/// Returns the corresponding object instance.</span>
-    <span class="kw">fn</span> <span class="ident">get_instance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Type</span> {
-        <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">type_data</span>();
-            <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_type</span>();
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">type_</span>.<span class="ident">is_valid</span>());
-
-            <span class="kw">let</span> <span class="ident">offset</span> <span class="op">=</span> <span class="op">-</span><span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">private_offset</span>;
-
-            <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="self">Self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>;
-            <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">ptr</span>.<span class="ident">offset</span>(<span class="ident">offset</span>);
-            <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">u8</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Type</span> <span class="kw">as</span> <span class="ident">ObjectType</span><span class="op">&gt;</span>::<span class="ident">GlibType</span>;
-
-            <span class="comment">// The object might just be finalized, and in that case it&#39;s unsafe to access</span>
-            <span class="comment">// it and use any API on it. This can only happen from inside the Drop impl</span>
-            <span class="comment">// of Self.</span>
-            <span class="macro">assert_ne</span><span class="macro">!</span>((<span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>)).<span class="ident">ref_count</span>, <span class="number">0</span>);
-
-            <span class="comment">// Don&#39;t steal floating reference here via from_glib_none() but</span>
-            <span class="comment">// preserve it if needed by reffing manually.</span>
-            <span class="ident">gobject_ffi</span>::<span class="ident">g_object_ref</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>);
-            <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>)
-        }
-    }
-
-    <span class="doccomment">/// Returns the implementation from an instance.</span>
-    <span class="kw">fn</span> <span class="ident">from_instance</span>(<span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span> {
-        <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">obj</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="self">Self</span>::<span class="ident">Instance</span>;
-            (<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">get_impl</span>()
-        }
-    }
-
     <span class="doccomment">/// Additional type initialization.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is called right after the type was registered and allows</span>
@@ -1182,6 +1178,48 @@
     <span class="doccomment">/// Called just after `with_class()`. At this point the initialization has not completed yet, so</span>
     <span class="doccomment">/// only a limited set of operations is safe (see `InitializingObject`).</span>
     <span class="kw">fn</span> <span class="ident">instance_init</span>(<span class="ident">_obj</span>: <span class="kw-2">&amp;</span><span class="ident">InitializingObject</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Type</span><span class="op">&gt;</span>) {}
+}
+
+<span class="doccomment">/// Extension methods for all `ObjectSubclass` impls.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ObjectSubclassExt</span>: <span class="ident">ObjectSubclass</span> {
+    <span class="doccomment">/// Returns the corresponding object instance.</span>
+    <span class="kw">fn</span> <span class="ident">get_instance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Type</span>;
+
+    <span class="doccomment">/// Returns the implementation from an instance.</span>
+    <span class="kw">fn</span> <span class="ident">from_instance</span>(<span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span>;
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectSubclass</span><span class="op">&gt;</span> <span class="ident">ObjectSubclassExt</span> <span class="kw">for</span> <span class="ident">T</span> {
+    <span class="kw">fn</span> <span class="ident">get_instance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>::<span class="ident">Type</span> {
+        <span class="kw">unsafe</span> {
+            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">type_data</span>();
+            <span class="kw">let</span> <span class="ident">type_</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">get_type</span>();
+            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">type_</span>.<span class="ident">is_valid</span>());
+
+            <span class="kw">let</span> <span class="ident">offset</span> <span class="op">=</span> <span class="op">-</span><span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">private_offset</span>;
+
+            <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="self">Self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>;
+            <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">ptr</span>.<span class="ident">offset</span>(<span class="ident">offset</span>);
+            <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">u8</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Type</span> <span class="kw">as</span> <span class="ident">ObjectType</span><span class="op">&gt;</span>::<span class="ident">GlibType</span>;
+
+            <span class="comment">// The object might just be finalized, and in that case it&#39;s unsafe to access</span>
+            <span class="comment">// it and use any API on it. This can only happen from inside the Drop impl</span>
+            <span class="comment">// of Self.</span>
+            <span class="macro">assert_ne</span><span class="macro">!</span>((<span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>)).<span class="ident">ref_count</span>, <span class="number">0</span>);
+
+            <span class="comment">// Don&#39;t steal floating reference here via from_glib_none() but</span>
+            <span class="comment">// preserve it if needed by reffing manually.</span>
+            <span class="ident">gobject_ffi</span>::<span class="ident">g_object_ref</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">gobject_ffi</span>::<span class="ident">GObject</span>);
+            <span class="ident">from_glib_full</span>(<span class="ident">ptr</span>)
+        }
+    }
+
+    <span class="kw">fn</span> <span class="ident">from_instance</span>(<span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span> {
+        <span class="kw">unsafe</span> {
+            <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">obj</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="self">Self</span>::<span class="ident">Instance</span>;
+            (<span class="kw-2">*</span><span class="ident">ptr</span>).<span class="ident">get_impl</span>()
+        }
+    }
 }
 
 <span class="doccomment">/// An object that is currently being initialized.</span>
@@ -1235,7 +1273,7 @@
 
         (<span class="kw-2">*</span><span class="ident">data</span>.<span class="ident">as_mut</span>()).<span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">parent_class</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gpointer</span>;
 
-        <span class="ident">klass</span>.<span class="ident">override_vfuncs</span>();
+        <span class="ident">klass</span>.<span class="ident">class_init</span>();
         <span class="ident">T</span>::<span class="ident">class_init</span>(<span class="ident">klass</span>);
     }
 }
