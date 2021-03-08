@@ -8,7 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
-    pub struct PollableInputStream(Interface<ffi::GPollableInputStream>) @requires InputStream;
+    pub struct PollableInputStream(Interface<ffi::GPollableInputStream, ffi::GPollableInputStreamInterface>) @requires InputStream;
 
     match fn {
         get_type => || ffi::g_pollable_input_stream_get_type(),

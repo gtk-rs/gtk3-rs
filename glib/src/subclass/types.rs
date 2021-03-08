@@ -79,35 +79,42 @@ pub unsafe trait ClassStruct: Sized + 'static {
     /// Override the vfuncs of all parent types.
     ///
     /// This is automatically called during type initialization.
-    fn override_vfuncs(&mut self)
+    fn class_init(&mut self)
     where
         <Self::Type as ObjectSubclass>::ParentType: IsSubclassable<Self::Type>,
     {
         unsafe {
             let base = &mut *(self as *mut _
                 as *mut crate::Class<<Self::Type as ObjectSubclass>::ParentType>);
-            <<Self::Type as ObjectSubclass>::ParentType as IsSubclassable<Self::Type>>::override_vfuncs(base);
+            <<Self::Type as ObjectSubclass>::ParentType as IsSubclassable<Self::Type>>::class_init(
+                base,
+            );
         }
     }
 }
 
 /// Trait for subclassable class structs.
 pub unsafe trait IsSubclassable<T: ObjectSubclass>: ObjectType {
-    /// Override the virtual methods of this class for the given subclass.
+    /// Override the virtual methods of this class for the given subclass and do other class initialization.
     ///
     /// This is automatically called during type initialization.
-    fn override_vfuncs(class: &mut crate::Class<Self>);
+    fn class_init(class: &mut crate::Class<Self>);
 }
 
 /// Trait for implementable interfaces.
-pub unsafe trait IsImplementable<T: ObjectSubclass>: StaticType {
-    /// Initializes the interface's virtual methods.
+pub unsafe trait IsImplementable<T: ObjectSubclass>: ObjectType {
+    /// Override the virtual methods of this interface for the given subclass and do other interface initialization.
     ///
-    /// # Safety
-    ///
-    /// It is the responsibility of the implementor of the interface to
-    /// correctly type the pointers when working on the vtables they point at.
-    unsafe extern "C" fn interface_init(iface: ffi::gpointer, _iface_data: ffi::gpointer);
+    /// This is automatically called during type initialization.
+    fn interface_init(iface: &mut crate::Class<Self>);
+}
+
+unsafe extern "C" fn interface_init<T: ObjectSubclass, A: IsImplementable<T>>(
+    iface: ffi::gpointer,
+    _iface_data: ffi::gpointer,
+) {
+    let iface = &mut *(iface as *mut crate::Class<A>);
+    A::interface_init(iface);
 }
 
 /// Trait for a type list of interfaces.
@@ -127,7 +134,7 @@ impl<T: ObjectSubclass, A: IsImplementable<T>> InterfaceList<T> for (A,) {
         vec![(
             A::static_type().to_glib(),
             gobject_ffi::GInterfaceInfo {
-                interface_init: Some(A::interface_init),
+                interface_init: Some(interface_init::<T, A>),
                 interface_finalize: None,
                 interface_data: ptr::null_mut(),
             },
@@ -182,7 +189,7 @@ macro_rules! interface_list_trait_inner(
             (
                 $head::static_type().to_glib(),
                 gobject_ffi::GInterfaceInfo {
-                    interface_init: Some($head::interface_init),
+                    interface_init: Some(interface_init::<T, $head>),
                     interface_finalize: None,
                     interface_data: ptr::null_mut(),
                 },
@@ -195,7 +202,7 @@ macro_rules! interface_list_trait_inner(
             (
                 $head::static_type().to_glib(),
                 gobject_ffi::GInterfaceInfo {
-                    interface_init: Some($head::interface_init),
+                    interface_init: Some(interface_init::<T, $head>),
                     interface_finalize: None,
                     interface_data: ptr::null_mut(),
                 },
@@ -208,6 +215,9 @@ macro_rules! interface_list_trait_inner(
 interface_list_trait!(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S);
 
 /// Type-specific data that is filled in during type creation.
+// FIXME: Once trait bounds other than `Sized` on const fn parameters are stable
+// the content of `TypeData` can be made private and we can add a `const fn new`
+// for initialization by the `object_subclass_internal!` macro.
 pub struct TypeData {
     #[doc(hidden)]
     pub type_: Type,
@@ -405,39 +415,6 @@ pub trait ObjectSubclass: Sized + 'static {
     /// [`object_subclass!`]: ../../macro.object_subclass.html
     fn get_type() -> Type;
 
-    /// Returns the corresponding object instance.
-    fn get_instance(&self) -> Self::Type {
-        unsafe {
-            let data = Self::type_data();
-            let type_ = data.as_ref().get_type();
-            assert!(type_.is_valid());
-
-            let offset = -data.as_ref().private_offset;
-
-            let ptr = self as *const Self as *const u8;
-            let ptr = ptr.offset(offset);
-            let ptr = ptr as *mut u8 as *mut <Self::Type as ObjectType>::GlibType;
-
-            // The object might just be finalized, and in that case it's unsafe to access
-            // it and use any API on it. This can only happen from inside the Drop impl
-            // of Self.
-            assert_ne!((*(ptr as *mut gobject_ffi::GObject)).ref_count, 0);
-
-            // Don't steal floating reference here via from_glib_none() but
-            // preserve it if needed by reffing manually.
-            gobject_ffi::g_object_ref(ptr as *mut gobject_ffi::GObject);
-            from_glib_full(ptr)
-        }
-    }
-
-    /// Returns the implementation from an instance.
-    fn from_instance(obj: &Self::Type) -> &Self {
-        unsafe {
-            let ptr = obj.as_ptr() as *const Self::Instance;
-            (*ptr).get_impl()
-        }
-    }
-
     /// Additional type initialization.
     ///
     /// This is called right after the type was registered and allows
@@ -487,6 +464,48 @@ pub trait ObjectSubclass: Sized + 'static {
     /// Called just after `with_class()`. At this point the initialization has not completed yet, so
     /// only a limited set of operations is safe (see `InitializingObject`).
     fn instance_init(_obj: &InitializingObject<Self::Type>) {}
+}
+
+/// Extension methods for all `ObjectSubclass` impls.
+pub trait ObjectSubclassExt: ObjectSubclass {
+    /// Returns the corresponding object instance.
+    fn get_instance(&self) -> Self::Type;
+
+    /// Returns the implementation from an instance.
+    fn from_instance(obj: &Self::Type) -> &Self;
+}
+
+impl<T: ObjectSubclass> ObjectSubclassExt for T {
+    fn get_instance(&self) -> Self::Type {
+        unsafe {
+            let data = Self::type_data();
+            let type_ = data.as_ref().get_type();
+            assert!(type_.is_valid());
+
+            let offset = -data.as_ref().private_offset;
+
+            let ptr = self as *const Self as *const u8;
+            let ptr = ptr.offset(offset);
+            let ptr = ptr as *mut u8 as *mut <Self::Type as ObjectType>::GlibType;
+
+            // The object might just be finalized, and in that case it's unsafe to access
+            // it and use any API on it. This can only happen from inside the Drop impl
+            // of Self.
+            assert_ne!((*(ptr as *mut gobject_ffi::GObject)).ref_count, 0);
+
+            // Don't steal floating reference here via from_glib_none() but
+            // preserve it if needed by reffing manually.
+            gobject_ffi::g_object_ref(ptr as *mut gobject_ffi::GObject);
+            from_glib_full(ptr)
+        }
+    }
+
+    fn from_instance(obj: &Self::Type) -> &Self {
+        unsafe {
+            let ptr = obj.as_ptr() as *const Self::Instance;
+            (*ptr).get_impl()
+        }
+    }
 }
 
 /// An object that is currently being initialized.
@@ -540,7 +559,7 @@ where
 
         (*data.as_mut()).parent_class = parent_class as ffi::gpointer;
 
-        klass.override_vfuncs();
+        klass.class_init();
         T::class_init(klass);
     }
 }

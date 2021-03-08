@@ -7,7 +7,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
-    pub struct Action(Interface<ffi::AtkAction>);
+    pub struct Action(Interface<ffi::AtkAction, ffi::AtkActionIface>);
 
     match fn {
         get_type => || ffi::atk_action_get_type(),

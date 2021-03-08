@@ -9,7 +9,7 @@ use crate::Widget;
 pub trait DrawingAreaImpl: WidgetImpl {}
 
 unsafe impl<T: DrawingAreaImpl> IsSubclassable<T> for DrawingArea {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
-        <Widget as IsSubclassable<T>>::override_vfuncs(class);
+    fn class_init(class: &mut ::glib::Class<Self>) {
+        <Widget as IsSubclassable<T>>::class_init(class);
     }
 }

@@ -9,7 +9,7 @@ use crate::TreeView;
 pub trait TreeViewImpl: ContainerImpl {}
 
 unsafe impl<T: ContainerImpl> IsSubclassable<T> for TreeView {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
-        <Container as IsSubclassable<T>>::override_vfuncs(class);
+    fn class_init(class: &mut ::glib::Class<Self>) {
+        <Container as IsSubclassable<T>>::class_init(class);
     }
 }

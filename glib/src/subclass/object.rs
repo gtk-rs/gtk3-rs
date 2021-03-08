@@ -144,7 +144,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
 unsafe impl ObjectClassSubclassExt for crate::Class<Object> {}
 
 unsafe impl<T: ObjectImpl> IsSubclassable<T> for Object {
-    fn override_vfuncs(class: &mut crate::Class<Self>) {
+    fn class_init(class: &mut crate::Class<Self>) {
         let klass = class.as_mut();
         klass.set_property = Some(set_property::<T>);
         klass.get_property = Some(get_property::<T>);
@@ -220,11 +220,10 @@ impl<T: ObjectImpl> ObjectImplExt for T {
 #[cfg(test)]
 mod test {
     use super::super::super::object::ObjectExt;
-    use super::super::super::subclass;
     use super::super::super::value::{ToValue, Value};
     use super::*;
     use crate as glib;
-    use crate::{StaticType, Type};
+    use crate::StaticType;
 
     use std::cell::RefCell;
 
@@ -256,7 +255,7 @@ mod test {
             const NAME: &'static str = "SimpleObject";
             type Type = super::SimpleObject;
             type ParentType = Object;
-            type Interfaces = (DummyInterface,);
+            type Interfaces = (super::Dummy,);
         }
 
         impl ObjectImpl for SimpleObject {
@@ -400,6 +399,16 @@ mod test {
                 *self.constructed.borrow_mut() = true;
             }
         }
+
+        #[repr(C)]
+        pub struct DummyInterface {
+            parent: gobject_ffi::GTypeInterface,
+        }
+
+        #[glib::object_interface]
+        unsafe impl ObjectInterface for DummyInterface {
+            const NAME: &'static str = "Dummy";
+        }
     }
 
     wrapper! {
@@ -410,33 +419,12 @@ mod test {
         pub struct SimpleObject(ObjectSubclass<imp::SimpleObject>);
     }
 
-    #[repr(C)]
-    pub struct DummyInterface {
-        parent: gobject_ffi::GTypeInterface,
+    wrapper! {
+        pub struct Dummy(ObjectInterface<imp::DummyInterface>);
     }
 
-    impl ObjectInterface for DummyInterface {
-        const NAME: &'static str = "DummyInterface";
-
-        object_interface!();
-
-        fn type_init(type_: &mut subclass::InitializingType<Self>) {
-            type_.add_prerequisite::<Object>();
-        }
-    }
-
-    // Usually this would be implemented on a Rust wrapper type defined
-    // with wrapper!() but for the test the following is susyscient
-    impl StaticType for DummyInterface {
-        fn static_type() -> Type {
-            DummyInterface::get_type()
-        }
-    }
-
-    // Usually this would be implemented on a Rust wrapper type defined
-    // with wrapper!() but for the test the following is susyscient
-    unsafe impl<T: ObjectImpl> IsImplementable<T> for DummyInterface {
-        unsafe extern "C" fn interface_init(_iface: ffi::gpointer, _iface_data: ffi::gpointer) {}
+    unsafe impl<T: ObjectSubclass> IsImplementable<T> for Dummy {
+        fn interface_init(_iface: &mut crate::Class<Dummy>) {}
     }
 
     #[test]
@@ -444,7 +432,7 @@ mod test {
         let type_ = SimpleObject::static_type();
         let obj = Object::with_type(type_, &[]).expect("Object::new failed");
 
-        assert!(obj.get_type().is_a(DummyInterface::static_type()));
+        assert!(obj.get_type().is_a(Dummy::static_type()));
 
         assert_eq!(
             obj.get_property("constructed")

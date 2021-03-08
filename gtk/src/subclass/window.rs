@@ -102,8 +102,8 @@ impl<T: WindowImpl> WindowImplExt for T {
 }
 
 unsafe impl<T: WindowImpl> IsSubclassable<T> for Window {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
-        <Bin as IsSubclassable<T>>::override_vfuncs(class);
+    fn class_init(class: &mut ::glib::Class<Self>) {
+        <Bin as IsSubclassable<T>>::class_init(class);
 
         let klass = class.as_mut();
         klass.set_focus = Some(window_set_focus::<T>);

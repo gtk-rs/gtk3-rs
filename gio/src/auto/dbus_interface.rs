@@ -9,7 +9,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
-    pub struct DBusInterface(Interface<ffi::GDBusInterface>);
+    pub struct DBusInterface(Interface<ffi::GDBusInterface, ffi::GDBusInterfaceIface>);
 
     match fn {
         get_type => || ffi::g_dbus_interface_get_type(),

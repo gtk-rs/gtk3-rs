@@ -9,7 +9,7 @@ use std::fmt;
 use std::mem;
 
 glib::wrapper! {
-    pub struct Image(Interface<ffi::AtkImage>);
+    pub struct Image(Interface<ffi::AtkImage, ffi::AtkImageIface>);
 
     match fn {
         get_type => || ffi::atk_image_get_type(),

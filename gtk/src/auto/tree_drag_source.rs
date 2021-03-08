@@ -9,7 +9,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
-    pub struct TreeDragSource(Interface<ffi::GtkTreeDragSource>);
+    pub struct TreeDragSource(Interface<ffi::GtkTreeDragSource, ffi::GtkTreeDragSourceIface>);
 
     match fn {
         get_type => || ffi::gtk_tree_drag_source_get_type(),

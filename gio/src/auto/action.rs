@@ -13,7 +13,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib::wrapper! {
-    pub struct Action(Interface<ffi::GAction>);
+    pub struct Action(Interface<ffi::GAction, ffi::GActionInterface>);
 
     match fn {
         get_type => || ffi::g_action_get_type(),

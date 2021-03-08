@@ -13,7 +13,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
-    pub struct DBusObject(Interface<ffi::GDBusObject>);
+    pub struct DBusObject(Interface<ffi::GDBusObject, ffi::GDBusObjectIface>);
 
     match fn {
         get_type => || ffi::g_dbus_object_get_type(),

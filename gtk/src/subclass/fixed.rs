@@ -9,7 +9,7 @@ use crate::Fixed;
 pub trait FixedImpl: ContainerImpl {}
 
 unsafe impl<T: FixedImpl> IsSubclassable<T> for Fixed {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
-        <Container as IsSubclassable<T>>::override_vfuncs(class);
+    fn class_init(class: &mut ::glib::Class<Self>) {
+        <Container as IsSubclassable<T>>::class_init(class);
     }
 }

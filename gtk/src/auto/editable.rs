@@ -8,7 +8,7 @@ use std::fmt;
 use std::mem;
 
 glib::wrapper! {
-    pub struct Editable(Interface<ffi::GtkEditable>);
+    pub struct Editable(Interface<ffi::GtkEditable, ffi::GtkEditableInterface>);
 
     match fn {
         get_type => || ffi::gtk_editable_get_type(),

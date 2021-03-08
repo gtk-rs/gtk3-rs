@@ -24,7 +24,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
-    pub struct ListModel(Interface<ffi::GListModel>);
+    pub struct ListModel(Interface<ffi::GListModel, ffi::GListModelInterface>);
 
     match fn {
         get_type => || ffi::g_list_model_get_type(),

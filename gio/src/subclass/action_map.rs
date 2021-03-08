@@ -17,15 +17,12 @@ unsafe impl<T: ActionMapImpl> IsImplementable<T> for ActionMap
 where
     <T as ObjectSubclass>::Type: IsA<glib::Object>,
 {
-    unsafe extern "C" fn interface_init(
-        iface: glib::ffi::gpointer,
-        _iface_data: glib::ffi::gpointer,
-    ) {
-        let action_map_iface = &mut *(iface as *mut ffi::GActionMapInterface);
+    fn interface_init(iface: &mut glib::Class<Self>) {
+        let iface = iface.as_mut();
 
-        action_map_iface.lookup_action = Some(action_map_lookup_action::<T>);
-        action_map_iface.add_action = Some(action_map_add_action::<T>);
-        action_map_iface.remove_action = Some(action_map_remove_action::<T>);
+        iface.lookup_action = Some(action_map_lookup_action::<T>);
+        iface.add_action = Some(action_map_add_action::<T>);
+        iface.remove_action = Some(action_map_remove_action::<T>);
     }
 }
 

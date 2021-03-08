@@ -12,7 +12,7 @@ use std::pin::Pin;
 use std::ptr;
 
 glib::wrapper! {
-    pub struct ProxyResolver(Interface<ffi::GProxyResolver>);
+    pub struct ProxyResolver(Interface<ffi::GProxyResolver, ffi::GProxyResolverInterface>);
 
     match fn {
         get_type => || ffi::g_proxy_resolver_get_type(),

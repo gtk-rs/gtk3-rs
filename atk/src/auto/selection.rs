@@ -13,7 +13,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
-    pub struct Selection(Interface<ffi::AtkSelection>);
+    pub struct Selection(Interface<ffi::AtkSelection, ffi::AtkSelectionIface>);
 
     match fn {
         get_type => || ffi::atk_selection_get_type(),

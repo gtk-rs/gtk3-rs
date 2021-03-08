@@ -8,7 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
-    pub struct HyperlinkImpl(Interface<ffi::AtkHyperlinkImpl>);
+    pub struct HyperlinkImpl(Interface<ffi::AtkHyperlinkImpl, ffi::AtkHyperlinkImplIface>);
 
     match fn {
         get_type => || ffi::atk_hyperlink_impl_get_type(),

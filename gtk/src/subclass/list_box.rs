@@ -151,8 +151,8 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
 }
 
 unsafe impl<T: ListBoxImpl> IsSubclassable<T> for ListBox {
-    fn override_vfuncs(class: &mut ::glib::Class<Self>) {
-        <Container as IsSubclassable<T>>::override_vfuncs(class);
+    fn class_init(class: &mut ::glib::Class<Self>) {
+        <Container as IsSubclassable<T>>::class_init(class);
 
         let klass = class.as_mut();
         klass.activate_cursor_row = Some(list_box_activate_cursor_row::<T>);

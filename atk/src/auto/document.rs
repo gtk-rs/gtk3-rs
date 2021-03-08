@@ -12,7 +12,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
-    pub struct Document(Interface<ffi::AtkDocument>);
+    pub struct Document(Interface<ffi::AtkDocument, ffi::AtkDocumentIface>);
 
     match fn {
         get_type => || ffi::atk_document_get_type(),

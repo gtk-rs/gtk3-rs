@@ -8,7 +8,7 @@ use std::fmt;
 use std::ptr;
 
 glib::wrapper! {
-    pub struct Icon(Interface<ffi::GIcon>);
+    pub struct Icon(Interface<ffi::GIcon, ffi::GIconIface>);
 
     match fn {
         get_type => || ffi::g_icon_get_type(),
