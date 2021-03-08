@@ -66,13 +66,13 @@ pub fn impl_object_subclass(input: &syn::ItemImpl) -> TokenStream {
     let class_opt = if has_class {
         None
     } else {
-        Some(quote!(type Class = #crate_ident::subclass::simple::ClassStruct<Self>;))
+        Some(quote!(type Class = #crate_ident::subclass::basic::ClassStruct<Self>;))
     };
 
     let instance_opt = if has_instance {
         None
     } else {
-        Some(quote!(type Instance = #crate_ident::subclass::simple::InstanceStruct<Self>;))
+        Some(quote!(type Instance = #crate_ident::subclass::basic::InstanceStruct<Self>;))
     };
 
     let trait_path = match &trait_ {

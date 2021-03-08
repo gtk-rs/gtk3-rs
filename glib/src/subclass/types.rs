@@ -31,11 +31,11 @@ impl<T> ToGlib for InitializingType<T> {
 /// The struct must be `#[repr(C)]` and have the parent type's instance struct
 /// as the first field.
 ///
-/// See [`simple::InstanceStruct`] for a basic implementation of this that can
+/// See [`basic::InstanceStruct`] for a basic implementation of this that can
 /// be used most of the time and should only not be used if additional fields are
 /// required in the instance struct.
 ///
-/// [`simple::InstanceStruct`]: ../simple/struct.InstanceStruct.html
+/// [`basic::InstanceStruct`]: ../basic/struct.InstanceStruct.html
 pub unsafe trait InstanceStruct: Sized + 'static {
     /// Corresponding object subclass type for this instance struct.
     type Type: ObjectSubclass;
@@ -67,11 +67,11 @@ pub unsafe trait InstanceStruct: Sized + 'static {
 /// The struct must be `#[repr(C)]` and have the parent type's class struct
 /// as the first field.
 ///
-/// See [`simple::ClassStruct`] for a basic implementation of this that can
+/// See [`basic::ClassStruct`] for a basic implementation of this that can
 /// be used most of the time and should only not be used if additional fields are
 /// required in the class struct, e.g. for declaring new virtual methods.
 ///
-/// [`simple::ClassStruct`]: ../simple/struct.ClassStruct.html
+/// [`basic::ClassStruct`]: ../basic/struct.ClassStruct.html
 pub unsafe trait ClassStruct: Sized + 'static {
     /// Corresponding object subclass type for this class struct.
     type Type: ObjectSubclass;
@@ -403,21 +403,21 @@ pub trait ObjectSubclass: ObjectSubclassType + Sized + 'static {
 
     /// The C instance struct.
     ///
-    /// See [`simple::InstanceStruct`] for an basic instance struct that should be
+    /// See [`basic::InstanceStruct`] for an basic instance struct that should be
     /// used in most cases.
     ///
-    /// [`simple::InstanceStruct`]: ../simple/struct.InstanceStruct.html
-    // TODO: Should default to simple::InstanceStruct<Self> once associated
+    /// [`basic::InstanceStruct`]: ../basic/struct.InstanceStruct.html
+    // TODO: Should default to basic::InstanceStruct<Self> once associated
     // type defaults are stabilized https://github.com/rust-lang/rust/issues/29661
     type Instance: InstanceStruct<Type = Self>;
 
     /// The C class struct.
     ///
-    /// See [`simple::ClassStruct`] for an basic instance struct that should be
+    /// See [`basic::ClassStruct`] for an basic instance struct that should be
     /// used in most cases.
     ///
-    /// [`simple::ClassStruct`]: ../simple/struct.ClassStruct.html
-    // TODO: Should default to simple::ClassStruct<Self> once associated
+    /// [`basic::ClassStruct`]: ../basic/struct.ClassStruct.html
+    // TODO: Should default to basic::ClassStruct<Self> once associated
     // type defaults are stabilized https://github.com/rust-lang/rust/issues/29661
     type Class: ClassStruct<Type = Self>;
 
