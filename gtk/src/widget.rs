@@ -276,10 +276,12 @@ pub trait InitializingWidgetExt {
     fn init_template(&self);
 }
 
-impl<T: IsA<Widget>> InitializingWidgetExt for glib::subclass::InitializingObject<T> {
+impl<T: crate::subclass::widget::WidgetImpl> InitializingWidgetExt
+    for glib::subclass::InitializingObject<T>
+{
     fn init_template(&self) {
         unsafe {
-            self.as_ref().init_template();
+            self.as_ref().unsafe_cast_ref::<Widget>().init_template();
         }
     }
 }

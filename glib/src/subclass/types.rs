@@ -26,6 +26,12 @@ impl<T> ToGlib for InitializingType<T> {
     }
 }
 
+/// Struct used for the instance private data of the GObject.
+struct PrivateStruct<T: ObjectSubclass> {
+    imp: T,
+    instance_data: Option<ptr::NonNull<HashMap<Type, Box<dyn Any + Send + Sync>>>>,
+}
+
 /// Trait implemented by structs that implement a `GObject` C instance struct.
 ///
 /// The struct must be `#[repr(C)]` and have the parent type's instance struct
@@ -47,10 +53,10 @@ pub unsafe trait InstanceStruct: Sized + 'static {
     fn get_impl(&self) -> &Self::Type {
         unsafe {
             let data = Self::Type::type_data();
-            let private_offset = data.as_ref().private_offset;
+            let private_offset = data.as_ref().get_impl_offset();
             let ptr: *const u8 = self as *const _ as *const u8;
-            let priv_ptr = ptr.offset(private_offset);
-            let imp = priv_ptr as *const Self::Type;
+            let imp_ptr = ptr.offset(private_offset);
+            let imp = imp_ptr as *const Self::Type;
 
             &*imp
         }
@@ -103,7 +109,7 @@ pub unsafe trait IsSubclassable<T: ObjectSubclass>: ObjectType {
     ///
     /// This is automatically called during instance initialization and must call `instance_init()`
     /// of the parent class.
-    fn instance_init(instance: &mut InitializingObject<T::Type>);
+    fn instance_init(instance: &mut InitializingObject<T>);
 }
 
 /// Trait for implementable interfaces.
@@ -117,7 +123,7 @@ pub unsafe trait IsImplementable<T: ObjectSubclass>: ObjectType {
     /// Instance specific initialization.
     ///
     /// This is automatically called during instance initialization.
-    fn instance_init(instance: &mut InitializingObject<T::Type>);
+    fn instance_init(_instance: &mut InitializingObject<T>);
 }
 
 unsafe extern "C" fn interface_init<T: ObjectSubclass, A: IsImplementable<T>>(
@@ -134,7 +140,7 @@ pub trait InterfaceList<T: ObjectSubclass> {
     fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)>;
 
     /// Runs `instance_init` on each of the `IsImplementable` items.
-    fn instance_init(_instance: &mut InitializingObject<T::Type>);
+    fn instance_init(_instance: &mut InitializingObject<T>);
 }
 
 impl<T: ObjectSubclass> InterfaceList<T> for () {
@@ -142,7 +148,7 @@ impl<T: ObjectSubclass> InterfaceList<T> for () {
         vec![]
     }
 
-    fn instance_init(_instance: &mut InitializingObject<T::Type>) {}
+    fn instance_init(_instance: &mut InitializingObject<T>) {}
 }
 
 impl<T: ObjectSubclass, A: IsImplementable<T>> InterfaceList<T> for (A,) {
@@ -157,7 +163,7 @@ impl<T: ObjectSubclass, A: IsImplementable<T>> InterfaceList<T> for (A,) {
         )]
     }
 
-    fn instance_init(instance: &mut InitializingObject<T::Type>) {
+    fn instance_init(instance: &mut InitializingObject<T>) {
         A::instance_init(instance);
     }
 }
@@ -189,7 +195,7 @@ macro_rules! interface_list_trait_impl(
                 interface_list_trait_inner_iface_infos!(types, $($name)+)
             }
 
-            fn instance_init(instance: &mut InitializingObject<T::Type>) {
+            fn instance_init(instance: &mut InitializingObject<T>) {
                 interface_list_trait_inner_instance_init!(instance, $($name)+)
             }
         }
@@ -268,6 +274,8 @@ pub struct TypeData {
     pub class_data: Option<ptr::NonNull<HashMap<Type, Box<dyn Any + Send + Sync>>>>,
     #[doc(hidden)]
     pub private_offset: isize,
+    #[doc(hidden)]
+    pub private_imp_offset: isize,
 }
 
 unsafe impl Send for TypeData {}
@@ -339,10 +347,10 @@ impl TypeData {
         }
     }
 
-    /// Returns the offset of the private struct in bytes relative to the
-    /// beginning of the instance struct.
-    pub fn get_private_offset(&self) -> isize {
-        self.private_offset
+    /// Returns the offset of the private implementation struct in bytes relative to the beginning
+    /// of the instance struct.
+    pub fn get_impl_offset(&self) -> isize {
+        self.private_offset + self.private_imp_offset
     }
 }
 
@@ -469,7 +477,7 @@ pub trait ObjectSubclass: ObjectSubclassType + Sized + 'static {
     ///
     /// Called just after `with_class()`. At this point the initialization has not completed yet, so
     /// only a limited set of operations is safe (see `InitializingObject`).
-    fn instance_init(_obj: &InitializingObject<Self::Type>) {}
+    fn instance_init(_obj: &InitializingObject<Self>) {}
 }
 
 /// Extension methods for all `ObjectSubclass` impls.
@@ -479,6 +487,11 @@ pub trait ObjectSubclassExt: ObjectSubclass {
 
     /// Returns the implementation from an instance.
     fn from_instance(obj: &Self::Type) -> &Self;
+
+    /// Returns a pointer to the instance implementation specific data.
+    ///
+    /// This is used for the subclassing infrastructure to store additional instance data.
+    fn get_instance_data<U: Any + Send + Sync + 'static>(&self, type_: Type) -> Option<&U>;
 }
 
 impl<T: ObjectSubclass> ObjectSubclassExt for T {
@@ -488,10 +501,10 @@ impl<T: ObjectSubclass> ObjectSubclassExt for T {
             let type_ = data.as_ref().get_type();
             assert!(type_.is_valid());
 
-            let offset = -data.as_ref().private_offset;
+            let offset = -data.as_ref().get_impl_offset();
 
             let ptr = self as *const Self as *const u8;
-            let ptr = ptr.offset(offset);
+            let ptr = ptr.offset(offset as isize);
             let ptr = ptr as *mut u8 as *mut <Self::Type as ObjectType>::GlibType;
 
             // The object might just be finalized, and in that case it's unsafe to access
@@ -512,15 +525,38 @@ impl<T: ObjectSubclass> ObjectSubclassExt for T {
             (*ptr).get_impl()
         }
     }
+
+    /// Returns a pointer to the instance implementation specific data.
+    ///
+    /// This is used for the subclassing infrastructure to store additional instance data.
+    fn get_instance_data<U: Any + Send + Sync + 'static>(&self, type_: Type) -> Option<&U> {
+        unsafe {
+            let type_data = Self::type_data();
+            let self_type_ = type_data.as_ref().get_type();
+            assert!(self_type_.is_valid());
+
+            let offset = -type_data.as_ref().private_offset;
+
+            let ptr = self as *const Self as *const u8;
+            let ptr = ptr.offset(offset as isize);
+            let ptr = ptr as *const PrivateStruct<Self>;
+            let priv_ = &*ptr;
+
+            match priv_.instance_data {
+                None => None,
+                Some(ref data) => data.as_ref().get(&type_).and_then(|ptr| ptr.downcast_ref()),
+            }
+        }
+    }
 }
 
 /// An object that is currently being initialized.
 ///
 /// Binding crates should use traits for adding methods to this struct. Only methods explicitly safe
 /// to call during `instance_init()` should be added.
-pub struct InitializingObject<T: ObjectType>(Borrowed<T>);
+pub struct InitializingObject<T: ObjectSubclass>(Borrowed<T::Type>);
 
-impl<T: ObjectType> InitializingObject<T> {
+impl<T: ObjectSubclass> InitializingObject<T> {
     /// Returns a reference to the object.
     ///
     /// # Safety
@@ -528,7 +564,7 @@ impl<T: ObjectType> InitializingObject<T> {
     /// The returned object has not been completely initialized at this point. Use of the object
     /// should be restricted to methods that are explicitly documented to be safe to call during
     /// `instance_init()`.
-    pub unsafe fn as_ref(&self) -> &T {
+    pub unsafe fn as_ref(&self) -> &T::Type {
         &self.0
     }
 
@@ -539,8 +575,42 @@ impl<T: ObjectType> InitializingObject<T> {
     /// The returned object has not been completely initialized at this point. Use of the object
     /// should be restricted to methods that are explicitly documented to be safe to call during
     /// `instance_init()`.
-    pub unsafe fn as_ptr(&self) -> *mut T {
-        self.0.as_ptr() as *const T as *mut T
+    pub unsafe fn as_ptr(&self) -> *mut T::Type {
+        self.0.as_ptr() as *const T::Type as *mut T::Type
+    }
+
+    /// Sets instance specific implementation data.
+    ///
+    /// # Panics
+    ///
+    /// If the instance_data already contains a data for the specified `type_`.
+    pub fn set_instance_data<U: Any + Send + Sync + 'static>(&mut self, type_: Type, data: U) {
+        unsafe {
+            let type_data = T::type_data();
+            let self_type_ = type_data.as_ref().get_type();
+            assert!(self_type_.is_valid());
+
+            let offset = -type_data.as_ref().private_offset;
+
+            let ptr = self as *const Self as *const u8;
+            let ptr = ptr.offset(offset as isize);
+            let ptr = ptr as *mut PrivateStruct<T>;
+            let priv_ = &mut *ptr;
+
+            if priv_.instance_data.is_none() {
+                priv_.instance_data = Some(ptr::NonNull::new_unchecked(Box::into_raw(Box::new(
+                    HashMap::new(),
+                ))));
+            }
+
+            if let Some(ref mut instance_data) = priv_.instance_data {
+                if instance_data.as_ref().get(&type_).is_some() {
+                    panic!("The class_data already contains a key for {}", type_);
+                }
+
+                instance_data.as_mut().insert(type_, Box::new(data));
+            }
+        }
     }
 }
 
@@ -552,11 +622,9 @@ unsafe extern "C" fn class_init<T: ObjectSubclass>(
 
     // We have to update the private struct offset once the class is actually
     // being initialized.
-    if mem::size_of::<T>() != 0 {
-        let mut private_offset = data.as_ref().private_offset as i32;
-        gobject_ffi::g_type_class_adjust_private_offset(klass, &mut private_offset);
-        (*data.as_mut()).private_offset = private_offset as isize;
-    }
+    let mut private_offset = data.as_ref().private_offset as i32;
+    gobject_ffi::g_type_class_adjust_private_offset(klass, &mut private_offset);
+    (*data.as_mut()).private_offset = private_offset as isize;
 
     // Set trampolines for the basic GObject virtual methods.
     {
@@ -591,13 +659,14 @@ unsafe extern "C" fn instance_init<T: ObjectSubclass>(
     let private_offset = (*data.as_mut()).private_offset;
     let ptr: *mut u8 = obj as *mut _ as *mut u8;
     let priv_ptr = ptr.offset(private_offset);
-    let imp_storage = priv_ptr as *mut T;
+    let priv_storage = priv_ptr as *mut PrivateStruct<T>;
 
     let klass = &*(klass as *const T::Class);
 
     let imp = T::with_class(klass);
 
-    ptr::write(imp_storage, imp);
+    ptr::write(&mut (*priv_storage).imp, imp);
+    ptr::write(&mut (*priv_storage).instance_data, None);
 
     // Any additional instance initialization.
     let obj = from_glib_borrow::<_, Object>(obj.cast());
@@ -616,8 +685,11 @@ unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject)
     let private_offset = (*data.as_mut()).private_offset;
     let ptr: *mut u8 = obj as *mut _ as *mut u8;
     let priv_ptr = ptr.offset(private_offset);
-    let imp_storage = priv_ptr as *mut T;
-    ptr::drop_in_place(imp_storage);
+    let priv_storage = &mut *(priv_ptr as *mut PrivateStruct<T>);
+    ptr::drop_in_place(&mut priv_storage.imp);
+    if let Some(instance_data) = priv_storage.instance_data.take() {
+        ptr::drop_in_place(instance_data.as_ptr());
+    }
 
     // Chain up to the parent class' finalize implementation, if any.
     let parent_class = &*(data.as_ref().get_parent_class() as *const gobject_ffi::GObjectClass);
@@ -673,12 +745,23 @@ pub fn register_type<T: ObjectSubclass>() -> Type {
         let mut data = T::type_data();
         (*data.as_mut()).type_ = type_;
 
-        let private_offset = if mem::size_of::<T>() == 0 {
-            0
-        } else {
-            gobject_ffi::g_type_add_instance_private(type_.to_glib(), mem::size_of::<T>())
-        };
+        let private_offset = gobject_ffi::g_type_add_instance_private(
+            type_.to_glib(),
+            mem::size_of::<PrivateStruct<T>>(),
+        );
         (*data.as_mut()).private_offset = private_offset as isize;
+
+        // Get the offset from PrivateStruct<T> to the imp field in it. This has to go through
+        // some hoops because Rust doesn't have an offsetof operator yet.
+        (*data.as_mut()).private_imp_offset = {
+            // Must not be a dangling pointer so let's create some uninitialized memory
+            let priv_ = std::mem::MaybeUninit::<PrivateStruct<T>>::uninit();
+            let ptr = priv_.as_ptr();
+            // FIXME: Technically UB but we'd need std::ptr::raw_const for this
+            let imp_ptr = &(*ptr).imp as *const _ as *const u8;
+            let ptr = ptr as *const u8;
+            imp_ptr as isize - ptr as isize
+        };
 
         let iface_types = T::Interfaces::iface_infos();
         for (iface_type, iface_info) in iface_types {

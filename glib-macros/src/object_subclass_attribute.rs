@@ -97,6 +97,7 @@ pub fn impl_object_subclass(input: &syn::ItemImpl) -> TokenStream {
                     parent_class: std::ptr::null_mut(),
                     class_data: None,
                     private_offset: 0,
+                    private_imp_offset: 0,
                 };
 
                 unsafe { std::ptr::NonNull::new_unchecked(&mut DATA) }

@@ -1706,7 +1706,7 @@ pub unsafe trait WidgetClassSubclassExt: ClassStruct {
                 as *mut ffi::GtkWidgetClass;
         let private_offset = <Self::Type as ObjectSubclassType>::type_data()
             .as_ref()
-            .private_offset;
+            .get_impl_offset();
         ffi::gtk_widget_class_bind_template_child_full(
             widget_class,
             name.to_glib_none().0,
