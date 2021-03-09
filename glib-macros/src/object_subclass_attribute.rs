@@ -66,13 +66,13 @@ pub fn impl_object_subclass(input: &syn::ItemImpl) -> TokenStream {
     let class_opt = if has_class {
         None
     } else {
-        Some(quote!(type Class = #crate_ident::subclass::simple::ClassStruct<Self>;))
+        Some(quote!(type Class = #crate_ident::subclass::basic::ClassStruct<Self>;))
     };
 
     let instance_opt = if has_instance {
         None
     } else {
-        Some(quote!(type Instance = #crate_ident::subclass::simple::InstanceStruct<Self>;))
+        Some(quote!(type Instance = #crate_ident::subclass::basic::InstanceStruct<Self>;))
     };
 
     let trait_path = match &trait_ {
@@ -97,6 +97,7 @@ pub fn impl_object_subclass(input: &syn::ItemImpl) -> TokenStream {
                     parent_class: std::ptr::null_mut(),
                     class_data: None,
                     private_offset: 0,
+                    private_imp_offset: 0,
                 };
 
                 unsafe { std::ptr::NonNull::new_unchecked(&mut DATA) }

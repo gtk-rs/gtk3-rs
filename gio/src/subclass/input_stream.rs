@@ -154,6 +154,10 @@ unsafe impl<T: InputStreamImpl> IsSubclassable<T> for InputStream {
         klass.close_fn = Some(stream_close::<T>);
         klass.skip = Some(stream_skip::<T>);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <glib::Object as IsSubclassable<T>>::instance_init(instance);
+    }
 }
 
 unsafe extern "C" fn stream_read<T: InputStreamImpl>(

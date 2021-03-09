@@ -176,6 +176,8 @@ unsafe impl<T: ObjectImpl> IsSubclassable<T> for Object {
             signal.register(type_);
         }
     }
+
+    fn instance_init(_instance: &mut super::InitializingObject<T>) {}
 }
 
 pub trait ObjectImplExt: ObjectSubclass {
@@ -425,6 +427,7 @@ mod test {
 
     unsafe impl<T: ObjectSubclass> IsImplementable<T> for Dummy {
         fn interface_init(_iface: &mut crate::Class<Dummy>) {}
+        fn instance_init(_instance: &mut super::super::InitializingObject<T>) {}
     }
 
     #[test]
@@ -451,10 +454,7 @@ mod test {
     fn test_create_child_object() {
         let obj: ChildObject = Object::new(&[]).expect("Object::new failed");
 
-        // ChildObject is a zero-sized type and we map that to the same pointer as the object
-        // itself. No private/impl data is allocated for zero-sized types.
         let imp = imp::ChildObject::from_instance(&obj);
-        assert_eq!(imp as *const _ as *const (), obj.as_ptr() as *const _);
         assert_eq!(obj, imp.get_instance());
     }
 

@@ -195,6 +195,10 @@ unsafe impl<T: OutputStreamImpl> IsSubclassable<T> for OutputStream {
         klass.flush = Some(stream_flush::<T>);
         klass.splice = Some(stream_splice::<T>);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <glib::Object as IsSubclassable<T>>::instance_init(instance);
+    }
 }
 
 unsafe extern "C" fn stream_write<T: OutputStreamImpl>(

@@ -358,6 +358,10 @@ unsafe impl<T: ApplicationImpl> IsSubclassable<T> for Application {
         klass.startup = Some(application_startup::<T>);
         klass.handle_local_options = Some(application_handle_local_options::<T>);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <glib::Object as IsSubclassable<T>>::instance_init(instance);
+    }
 }
 
 unsafe extern "C" fn application_activate<T: ApplicationImpl>(ptr: *mut ffi::GApplication) {

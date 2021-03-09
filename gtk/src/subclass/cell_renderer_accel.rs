@@ -93,6 +93,10 @@ unsafe impl<T: CellRendererAccelImpl> IsSubclassable<T> for CellRendererAccel {
         klass.accel_edited = Some(cell_renderer_accel_edited::<T>);
         klass.accel_cleared = Some(cell_renderer_accel_cleared::<T>);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <CellRendererText as IsSubclassable<T>>::instance_init(instance);
+    }
 }
 
 unsafe extern "C" fn cell_renderer_accel_edited<T: CellRendererAccelImpl>(

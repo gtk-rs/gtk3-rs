@@ -102,4 +102,8 @@ unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
         let klass = &mut class.as_mut().parent_class;
         klass.startup = Some(application_startup::<T>);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <gio::Application as IsSubclassable<T>>::instance_init(instance);
+    }
 }

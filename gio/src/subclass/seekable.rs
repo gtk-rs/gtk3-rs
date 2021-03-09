@@ -41,6 +41,8 @@ unsafe impl<T: SeekableImpl> IsImplementable<T> for Seekable {
         iface.can_truncate = Some(seekable_can_truncate::<T>);
         iface.truncate_fn = Some(seekable_truncate::<T>);
     }
+
+    fn instance_init(_instance: &mut glib::subclass::InitializingObject<T>) {}
 }
 
 unsafe extern "C" fn seekable_tell<T: SeekableImpl>(seekable: *mut ffi::GSeekable) -> i64 {

@@ -112,6 +112,10 @@ unsafe impl<T: WindowImpl> IsSubclassable<T> for Window {
         klass.keys_changed = Some(window_keys_changed::<T>);
         klass.enable_debugging = Some(window_enable_debugging::<T>);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <Bin as IsSubclassable<T>>::instance_init(instance);
+    }
 }
 
 unsafe extern "C" fn window_set_focus<T: WindowImpl>(

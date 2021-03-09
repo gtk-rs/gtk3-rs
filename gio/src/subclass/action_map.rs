@@ -24,6 +24,8 @@ where
         iface.add_action = Some(action_map_add_action::<T>);
         iface.remove_action = Some(action_map_remove_action::<T>);
     }
+
+    fn instance_init(_instance: &mut glib::subclass::InitializingObject<T>) {}
 }
 
 static ACTION_MAP_LOOKUP_ACTION_QUARK: Lazy<Quark> =

@@ -98,6 +98,10 @@ unsafe impl<T: IOStreamImpl> IsSubclassable<T> for IOStream {
         klass.get_output_stream = Some(stream_get_output_stream::<T>);
         klass.close_fn = Some(stream_close::<T>);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <glib::Object as IsSubclassable<T>>::instance_init(instance);
+    }
 }
 
 static OUTPUT_STREAM_QUARK: Lazy<glib::Quark> =

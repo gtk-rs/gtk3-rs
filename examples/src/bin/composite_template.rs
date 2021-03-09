@@ -40,7 +40,7 @@ mod imp {
         }
 
         // You must call `Widget`'s `init_template()` within `instance_init()`.
-        fn instance_init(obj: &glib::subclass::InitializingObject<Self::Type>) {
+        fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }

@@ -232,7 +232,7 @@
 //! }
 //! ```
 
-pub mod simple;
+pub mod basic;
 #[macro_use]
 pub mod types;
 

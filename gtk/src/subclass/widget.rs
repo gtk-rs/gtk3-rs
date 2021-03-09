@@ -1076,6 +1076,10 @@ unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
         klass.enter_notify_event = Some(widget_enter_notify_event::<T>);
         klass.leave_notify_event = Some(widget_leave_notify_event::<T>);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <Object as IsSubclassable<T>>::instance_init(instance);
+    }
 }
 
 unsafe extern "C" fn widget_adjust_baseline_allocation<T: WidgetImpl>(
@@ -1706,7 +1710,7 @@ pub unsafe trait WidgetClassSubclassExt: ClassStruct {
                 as *mut ffi::GtkWidgetClass;
         let private_offset = <Self::Type as ObjectSubclassType>::type_data()
             .as_ref()
-            .private_offset;
+            .get_impl_offset();
         ffi::gtk_widget_class_bind_template_child_full(
             widget_class,
             name.to_glib_none().0,
