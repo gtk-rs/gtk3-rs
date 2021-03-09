@@ -12,4 +12,8 @@ unsafe impl<T: EventBoxImpl> IsSubclassable<T> for EventBox {
     fn class_init(class: &mut ::glib::Class<Self>) {
         <Bin as IsSubclassable<T>>::class_init(class);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <Bin as IsSubclassable<T>>::instance_init(instance);
+    }
 }

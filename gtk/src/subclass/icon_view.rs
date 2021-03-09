@@ -157,6 +157,10 @@ unsafe impl<T: IconViewImpl> IsSubclassable<T> for IconView {
         klass.move_cursor = Some(icon_view_move_cursor::<T>);
         klass.activate_cursor_item = Some(icon_view_activate_cursor_item::<T>);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <Container as IsSubclassable<T>>::instance_init(instance);
+    }
 }
 
 unsafe extern "C" fn icon_view_item_activated<T: IconViewImpl>(

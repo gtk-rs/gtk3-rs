@@ -23,6 +23,8 @@ where
         iface.get_n_items = Some(list_model_get_n_items::<T>);
         iface.get_item = Some(list_model_get_item::<T>);
     }
+
+    fn instance_init(_instance: &mut glib::subclass::InitializingObject<T>) {}
 }
 
 static LIST_ITEM_TYPE_QUARK: Lazy<glib::Quark> =

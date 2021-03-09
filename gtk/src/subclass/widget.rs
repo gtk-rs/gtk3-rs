@@ -1076,6 +1076,10 @@ unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
         klass.enter_notify_event = Some(widget_enter_notify_event::<T>);
         klass.leave_notify_event = Some(widget_leave_notify_event::<T>);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <Object as IsSubclassable<T>>::instance_init(instance);
+    }
 }
 
 unsafe extern "C" fn widget_adjust_baseline_allocation<T: WidgetImpl>(

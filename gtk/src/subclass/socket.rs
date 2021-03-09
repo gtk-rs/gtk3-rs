@@ -60,6 +60,10 @@ unsafe impl<T: SocketImpl> IsSubclassable<T> for Socket {
         klass.plug_added = Some(socket_plug_added::<T>);
         klass.plug_removed = Some(socket_plug_removed::<T>);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <Container as IsSubclassable<T>>::instance_init(instance);
+    }
 }
 
 unsafe extern "C" fn socket_plug_added<T: SocketImpl>(ptr: *mut ffi::GtkSocket) {

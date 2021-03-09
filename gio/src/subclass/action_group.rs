@@ -319,6 +319,8 @@ unsafe impl<T: ActionGroupImpl> IsImplementable<T> for ActionGroup {
         iface.list_actions = Some(action_group_list_actions::<T>);
         iface.query_action = Some(action_group_query_action::<T>);
     }
+
+    fn instance_init(_instance: &mut glib::subclass::InitializingObject<T>) {}
 }
 
 unsafe extern "C" fn action_group_has_action<T: ActionGroupImpl>(

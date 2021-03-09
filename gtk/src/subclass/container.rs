@@ -156,6 +156,10 @@ unsafe impl<T: ContainerImpl> IsSubclassable<T> for Container {
         klass.get_path_for_child = Some(container_get_path_for_child::<T>);
         klass.forall = Some(container_forall::<T>);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <Widget as IsSubclassable<T>>::instance_init(instance);
+    }
 }
 
 unsafe extern "C" fn container_add<T: ContainerImpl>(

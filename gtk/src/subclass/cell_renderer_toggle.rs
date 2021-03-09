@@ -46,6 +46,10 @@ unsafe impl<T: CellRendererToggleImpl> IsSubclassable<T> for CellRendererToggle 
         let klass = class.as_mut();
         klass.toggled = Some(cell_renderer_toggle_toggled::<T>);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <CellRenderer as IsSubclassable<T>>::instance_init(instance);
+    }
 }
 
 unsafe extern "C" fn cell_renderer_toggle_toggled<T: CellRendererToggleImpl>(

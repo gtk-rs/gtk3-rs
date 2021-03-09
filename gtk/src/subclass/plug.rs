@@ -38,6 +38,10 @@ unsafe impl<T: PlugImpl> IsSubclassable<T> for Plug {
         let klass = class.as_mut();
         klass.embedded = Some(plug_embedded::<T>);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <Window as IsSubclassable<T>>::instance_init(instance);
+    }
 }
 
 unsafe extern "C" fn plug_embedded<T: PlugImpl>(ptr: *mut ffi::GtkPlug) {

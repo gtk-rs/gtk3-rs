@@ -164,6 +164,10 @@ unsafe impl<T: ListBoxImpl> IsSubclassable<T> for ListBox {
         klass.toggle_cursor_row = Some(list_box_toggle_cursor_row::<T>);
         klass.unselect_all = Some(list_box_unselect_all::<T>);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <Container as IsSubclassable<T>>::instance_init(instance);
+    }
 }
 
 unsafe extern "C" fn list_box_activate_cursor_row<T: ListBoxImpl>(ptr: *mut ffi::GtkListBox) {

@@ -439,6 +439,10 @@ unsafe impl<T: CellRendererImpl> IsSubclassable<T> for CellRenderer {
         klass.editing_started = Some(cell_renderer_editing_started::<T>);
         klass.editing_canceled = Some(cell_renderer_editing_canceled::<T>);
     }
+
+    fn instance_init(instance: &mut glib::subclass::InitializingObject<T>) {
+        <Object as IsSubclassable<T>>::instance_init(instance);
+    }
 }
 
 unsafe extern "C" fn cell_renderer_get_request_mode<T: CellRendererImpl>(
