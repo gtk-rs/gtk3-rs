@@ -176,6 +176,8 @@ unsafe impl<T: ObjectImpl> IsSubclassable<T> for Object {
             signal.register(type_);
         }
     }
+
+    fn instance_init(_instance: &mut super::InitializingObject<T>) {}
 }
 
 pub trait ObjectImplExt: ObjectSubclass {
@@ -425,6 +427,7 @@ mod test {
 
     unsafe impl<T: ObjectSubclass> IsImplementable<T> for Dummy {
         fn interface_init(_iface: &mut crate::Class<Dummy>) {}
+        fn instance_init(_instance: &mut super::super::InitializingObject<T>) {}
     }
 
     #[test]

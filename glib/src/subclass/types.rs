@@ -66,6 +66,22 @@ pub unsafe trait InstanceStruct: Sized + 'static {
     fn get_class(&self) -> &<Self::Type as ObjectSubclass>::Class {
         unsafe { &**(self as *const _ as *const *const <Self::Type as ObjectSubclass>::Class) }
     }
+
+    /// Instance specific initialization.
+    ///
+    /// This is automatically called during instance initialization and must call `instance_init()`
+    /// of the parent class.
+    fn instance_init(&mut self) {
+        unsafe {
+            let obj = from_glib_borrow::<_, Object>(self as *mut _ as *mut gobject_ffi::GObject);
+            let obj = Borrowed::new(obj.into_inner().unsafe_cast());
+            let mut obj = InitializingObject(obj);
+
+            <<Self::Type as ObjectSubclass>::ParentType as IsSubclassable<Self::Type>>::instance_init(
+                &mut obj,
+            );
+        }
+    }
 }
 
 /// Trait implemented by structs that implement a `GObject` C class struct.
@@ -504,7 +520,7 @@ impl<T: ObjectSubclass> ObjectSubclassExt for T {
             let offset = -data.as_ref().get_impl_offset();
 
             let ptr = self as *const Self as *const u8;
-            let ptr = ptr.offset(offset as isize);
+            let ptr = ptr.offset(offset);
             let ptr = ptr as *mut u8 as *mut <Self::Type as ObjectType>::GlibType;
 
             // The object might just be finalized, and in that case it's unsafe to access
@@ -535,10 +551,10 @@ impl<T: ObjectSubclass> ObjectSubclassExt for T {
             let self_type_ = type_data.as_ref().get_type();
             assert!(self_type_.is_valid());
 
-            let offset = -type_data.as_ref().private_offset;
+            let offset = -type_data.as_ref().private_imp_offset;
 
             let ptr = self as *const Self as *const u8;
-            let ptr = ptr.offset(offset as isize);
+            let ptr = ptr.offset(offset);
             let ptr = ptr as *const PrivateStruct<Self>;
             let priv_ = &*ptr;
 
@@ -590,10 +606,10 @@ impl<T: ObjectSubclass> InitializingObject<T> {
             let self_type_ = type_data.as_ref().get_type();
             assert!(self_type_.is_valid());
 
-            let offset = -type_data.as_ref().private_offset;
+            let offset = type_data.as_ref().private_offset;
 
-            let ptr = self as *const Self as *const u8;
-            let ptr = ptr.offset(offset as isize);
+            let ptr = self.0.as_ptr() as *mut u8;
+            let ptr = ptr.offset(offset);
             let ptr = ptr as *mut PrivateStruct<T>;
             let priv_ = &mut *ptr;
 
@@ -657,25 +673,29 @@ unsafe extern "C" fn instance_init<T: ObjectSubclass>(
     // and actually store it in that place.
     let mut data = T::type_data();
     let private_offset = (*data.as_mut()).private_offset;
-    let ptr: *mut u8 = obj as *mut _ as *mut u8;
+    let ptr = obj as *mut u8;
     let priv_ptr = ptr.offset(private_offset);
     let priv_storage = priv_ptr as *mut PrivateStruct<T>;
 
     let klass = &*(klass as *const T::Class);
 
     let imp = T::with_class(klass);
-
-    ptr::write(&mut (*priv_storage).imp, imp);
-    ptr::write(&mut (*priv_storage).instance_data, None);
+    ptr::write(
+        priv_storage,
+        PrivateStruct {
+            imp,
+            instance_data: None,
+        },
+    );
 
     // Any additional instance initialization.
+    T::Instance::instance_init(&mut *(obj as *mut _));
+
     let obj = from_glib_borrow::<_, Object>(obj.cast());
     let obj = Borrowed::new(obj.into_inner().unsafe_cast());
     let mut obj = InitializingObject(obj);
 
-    T::ParentType::instance_init(&mut obj);
     T::Interfaces::instance_init(&mut obj);
-
     T::instance_init(&obj);
 }
 
@@ -683,12 +703,12 @@ unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject)
     // Retrieve the private struct and drop it for freeing all associated memory.
     let mut data = T::type_data();
     let private_offset = (*data.as_mut()).private_offset;
-    let ptr: *mut u8 = obj as *mut _ as *mut u8;
+    let ptr = obj as *mut u8;
     let priv_ptr = ptr.offset(private_offset);
     let priv_storage = &mut *(priv_ptr as *mut PrivateStruct<T>);
     ptr::drop_in_place(&mut priv_storage.imp);
     if let Some(instance_data) = priv_storage.instance_data.take() {
-        ptr::drop_in_place(instance_data.as_ptr());
+        drop(Box::from_raw(instance_data.as_ptr()));
     }
 
     // Chain up to the parent class' finalize implementation, if any.
