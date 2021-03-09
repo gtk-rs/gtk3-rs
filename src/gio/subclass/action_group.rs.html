@@ -631,6 +631,8 @@
 <span id="628">628</span>
 <span id="629">629</span>
 <span id="630">630</span>
+<span id="631">631</span>
+<span id="632">632</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -953,6 +955,8 @@
         <span class="ident">iface</span>.<span class="ident">list_actions</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_list_actions</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">iface</span>.<span class="ident">query_action</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">action_group_query_action</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
     }
+
+    <span class="kw">fn</span> <span class="ident">instance_init</span>(<span class="ident">_instance</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">InitializingObject</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) {}
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">action_group_has_action</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ActionGroupImpl</span><span class="op">&gt;</span>(

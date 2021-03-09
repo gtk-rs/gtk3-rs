@@ -128,6 +128,10 @@
 <span id="125">125</span>
 <span id="126">126</span>
 <span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -223,6 +227,10 @@
         <span class="kw">let</span> <span class="ident">klass</span> <span class="op">=</span> <span class="ident">class</span>.<span class="ident">as_mut</span>();
         <span class="ident">klass</span>.<span class="ident">accel_edited</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">cell_renderer_accel_edited</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">accel_cleared</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">cell_renderer_accel_cleared</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+    }
+
+    <span class="kw">fn</span> <span class="ident">instance_init</span>(<span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">InitializingObject</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) {
+        <span class="op">&lt;</span><span class="ident">CellRendererText</span> <span class="kw">as</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>::<span class="ident">instance_init</span>(<span class="ident">instance</span>);
     }
 }
 

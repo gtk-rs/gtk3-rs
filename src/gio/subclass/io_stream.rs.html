@@ -169,6 +169,10 @@
 <span id="166">166</span>
 <span id="167">167</span>
 <span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -269,6 +273,10 @@
         <span class="ident">klass</span>.<span class="ident">get_input_stream</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">stream_get_input_stream</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">get_output_stream</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">stream_get_output_stream</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">close_fn</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">stream_close</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+    }
+
+    <span class="kw">fn</span> <span class="ident">instance_init</span>(<span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">InitializingObject</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) {
+        <span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Object</span> <span class="kw">as</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>::<span class="ident">instance_init</span>(<span class="ident">instance</span>);
     }
 }
 

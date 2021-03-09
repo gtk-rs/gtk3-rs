@@ -244,6 +244,10 @@
 <span id="241">241</span>
 <span id="242">242</span>
 <span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -410,6 +414,10 @@
         <span class="ident">klass</span>.<span class="ident">selected_rows_changed</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">list_box_selected_rows_changed</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">toggle_cursor_row</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">list_box_toggle_cursor_row</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">unselect_all</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">list_box_unselect_all</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+    }
+
+    <span class="kw">fn</span> <span class="ident">instance_init</span>(<span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">InitializingObject</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) {
+        <span class="op">&lt;</span><span class="ident">Container</span> <span class="kw">as</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>::<span class="ident">instance_init</span>(<span class="ident">instance</span>);
     }
 }
 

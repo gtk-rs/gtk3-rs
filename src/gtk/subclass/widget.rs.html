@@ -1779,6 +1779,10 @@
 <span id="1776">1776</span>
 <span id="1777">1777</span>
 <span id="1778">1778</span>
+<span id="1779">1779</span>
+<span id="1780">1780</span>
+<span id="1781">1781</span>
+<span id="1782">1782</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -2858,6 +2862,10 @@
         <span class="ident">klass</span>.<span class="ident">enter_notify_event</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">widget_enter_notify_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">leave_notify_event</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">widget_leave_notify_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
     }
+
+    <span class="kw">fn</span> <span class="ident">instance_init</span>(<span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">InitializingObject</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) {
+        <span class="op">&lt;</span><span class="ident">Object</span> <span class="kw">as</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>::<span class="ident">instance_init</span>(<span class="ident">instance</span>);
+    }
 }
 
 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">widget_adjust_baseline_allocation</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">WidgetImpl</span><span class="op">&gt;</span>(
@@ -3488,7 +3496,7 @@
                 <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GtkWidgetClass</span>;
         <span class="kw">let</span> <span class="ident">private_offset</span> <span class="op">=</span> <span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Type</span> <span class="kw">as</span> <span class="ident">ObjectSubclassType</span><span class="op">&gt;</span>::<span class="ident">type_data</span>()
             .<span class="ident">as_ref</span>()
-            .<span class="ident">private_offset</span>;
+            .<span class="ident">get_impl_offset</span>();
         <span class="ident">ffi</span>::<span class="ident">gtk_widget_class_bind_template_child_full</span>(
             <span class="ident">widget_class</span>,
             <span class="ident">name</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,

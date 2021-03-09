@@ -267,6 +267,10 @@
 <span id="264">264</span>
 <span id="265">265</span>
 <span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -425,6 +429,10 @@
         <span class="ident">klass</span>.<span class="ident">child_type</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">container_child_type</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">get_path_for_child</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">container_get_path_for_child</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">forall</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">container_forall</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+    }
+
+    <span class="kw">fn</span> <span class="ident">instance_init</span>(<span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">InitializingObject</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) {
+        <span class="op">&lt;</span><span class="ident">Widget</span> <span class="kw">as</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>::<span class="ident">instance_init</span>(<span class="ident">instance</span>);
     }
 }
 

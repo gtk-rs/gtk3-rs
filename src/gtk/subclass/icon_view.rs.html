@@ -236,6 +236,10 @@
 <span id="233">233</span>
 <span id="234">234</span>
 <span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -395,6 +399,10 @@
         <span class="ident">klass</span>.<span class="ident">toggle_cursor_item</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">icon_view_toggle_cursor_item</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">move_cursor</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">icon_view_move_cursor</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">klass</span>.<span class="ident">activate_cursor_item</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">icon_view_activate_cursor_item</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+    }
+
+    <span class="kw">fn</span> <span class="ident">instance_init</span>(<span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">InitializingObject</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) {
+        <span class="op">&lt;</span><span class="ident">Container</span> <span class="kw">as</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>::<span class="ident">instance_init</span>(<span class="ident">instance</span>);
     }
 }
 

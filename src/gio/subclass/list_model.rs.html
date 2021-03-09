@@ -92,6 +92,8 @@
 <span id="89">89</span>
 <span id="90">90</span>
 <span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -118,6 +120,8 @@
         <span class="ident">iface</span>.<span class="ident">get_n_items</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">list_model_get_n_items</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
         <span class="ident">iface</span>.<span class="ident">get_item</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">list_model_get_item</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
     }
+
+    <span class="kw">fn</span> <span class="ident">instance_init</span>(<span class="ident">_instance</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">InitializingObject</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) {}
 }
 
 <span class="kw">static</span> <span class="ident">LIST_ITEM_TYPE_QUARK</span>: <span class="ident">Lazy</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Quark</span><span class="op">&gt;</span> <span class="op">=</span>
