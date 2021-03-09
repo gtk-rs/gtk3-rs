@@ -4,6 +4,7 @@ use crate::error::Error;
 use std::ffi::CStr;
 use std::fmt;
 
+#[doc(alias = "cairo_debug_reset_static_data")]
 pub unsafe fn debug_reset_static_data() {
     ffi::cairo_debug_reset_static_data()
 }
@@ -15,6 +16,7 @@ pub fn status_to_result(status: ffi::cairo_status_t) -> Result<(), Error> {
     }
 }
 
+#[doc(alias = "cairo_version_string")]
 pub fn get_version_string() -> &'static str {
     unsafe {
         let ptr = ffi::cairo_version_string();
@@ -32,6 +34,7 @@ pub struct Version {
 }
 
 impl Version {
+    #[doc(alias = "cairo_version")]
     pub fn get_version() -> Version {
         let version = unsafe { ffi::cairo_version() };
         Version {

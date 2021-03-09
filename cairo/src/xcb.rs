@@ -261,6 +261,7 @@ impl fmt::Display for XCBScreen {
 declare_surface!(XCBSurface, SurfaceType::Xcb);
 
 impl XCBSurface {
+    #[doc(alias = "cairo_xcb_surface_create")]
     pub fn create(
         connection: &XCBConnection,
         drawable: &XCBDrawable,
@@ -279,6 +280,7 @@ impl XCBSurface {
         }
     }
 
+    #[doc(alias = "cairo_xcb_surface_create_for_bitmap")]
     pub fn create_for_bitmap(
         connection: &XCBConnection,
         screen: &XCBScreen,
@@ -299,6 +301,7 @@ impl XCBSurface {
         }
     }
 
+    #[doc(alias = "cairo_xcb_surface_create_with_xrender_format")]
     pub fn create_with_xrender_format(
         connection: &XCBConnection,
         screen: &XCBScreen,
@@ -326,11 +329,13 @@ impl XCBSurface {
         status_to_result(status)
     }
 
+    #[doc(alias = "cairo_xcb_surface_set_size")]
     pub fn set_size(&self, width: i32, height: i32) -> Result<(), Error> {
         unsafe { ffi::cairo_xcb_surface_set_size(self.to_raw_none(), width, height) }
         self.status()
     }
 
+    #[doc(alias = "cairo_xcb_surface_set_drawable")]
     pub fn set_drawable(
         &self,
         drawable: &XCBDrawable,
@@ -420,12 +425,14 @@ impl fmt::Display for XCBVisualType {
 }
 
 impl crate::device::Device {
+    #[doc(alias = "cairo_xcb_device_get_connection")]
     pub fn get_connection(&self) -> XCBConnection {
         unsafe {
             XCBConnection::from_raw_full(ffi::cairo_xcb_device_get_connection(self.to_raw_none()))
         }
     }
 
+    #[doc(alias = "cairo_xcb_device_debug_cap_xshm_version")]
     pub fn debug_cap_xshm_version(&self, major_version: i32, minor_version: i32) {
         unsafe {
             ffi::cairo_xcb_device_debug_cap_xshm_version(

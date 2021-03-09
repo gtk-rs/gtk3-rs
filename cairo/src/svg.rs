@@ -33,6 +33,7 @@ impl SvgVersion {
 declare_surface!(SvgSurface, SurfaceType::Svg);
 
 impl SvgSurface {
+    #[doc(alias = "cairo_svg_surface_create")]
     pub fn new<P: AsRef<Path>>(
         width: f64,
         height: f64,
@@ -70,6 +71,7 @@ impl SvgSurface {
 
     for_stream_constructors!(cairo_svg_surface_create_for_stream);
 
+    #[doc(alias = "cairo_svg_get_versions")]
     pub fn get_versions() -> impl Iterator<Item = SvgVersion> {
         let vers_slice = unsafe {
             let mut vers_ptr = ptr::null_mut();
@@ -82,6 +84,7 @@ impl SvgSurface {
         vers_slice.iter().map(|v| SvgVersion::from(*v))
     }
 
+    #[doc(alias = "cairo_svg_surface_restrict_to_version")]
     pub fn restrict(&self, version: SvgVersion) {
         unsafe {
             ffi::cairo_svg_surface_restrict_to_version(self.0.to_raw_none(), version.into());
@@ -89,6 +92,7 @@ impl SvgSurface {
     }
 
     #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
+    #[doc(alias = "cairo_svg_surface_set_document_unit")]
     pub fn set_document_unit(&mut self, unit: SvgUnit) {
         unsafe {
             ffi::cairo_svg_surface_set_document_unit(self.0.to_raw_none(), unit.into());
@@ -96,6 +100,7 @@ impl SvgSurface {
     }
 
     #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
+    #[doc(alias = "cairo_svg_surface_get_document_unit")]
     pub fn get_document_unit(&self) -> SvgUnit {
         unsafe {
             SvgUnit::from(ffi::cairo_svg_surface_get_document_unit(

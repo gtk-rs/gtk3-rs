@@ -18,6 +18,7 @@ use std::fmt;
 declare_surface!(ImageSurface, SurfaceType::Image);
 
 impl ImageSurface {
+    #[doc(alias = "cairo_image_surface_create")]
     pub fn create(format: Format, width: i32, height: i32) -> Result<ImageSurface, Error> {
         unsafe {
             Self::from_raw_full(ffi::cairo_image_surface_create(
@@ -34,6 +35,7 @@ impl ImageSurface {
     ///   and at least `width * stride` succeeding bytes should be allocated.
     /// - `data` must live longer than any reference to the returned surface.
     /// - You have to free `data` by yourself.
+    #[doc(alias = "cairo_image_surface_create_for_data")]
     pub unsafe fn create_for_data_unsafe(
         data: *mut u8,
         format: Format,
@@ -50,6 +52,7 @@ impl ImageSurface {
         ))
     }
 
+    #[doc(alias = "cairo_image_surface_create_for_data")]
     pub fn create_for_data<D: AsMut<[u8]> + 'static>(
         data: D,
         format: Format,
@@ -83,6 +86,7 @@ impl ImageSurface {
         result
     }
 
+    #[doc(alias = "cairo_image_surface_get_data")]
     pub fn get_data(&mut self) -> Result<ImageSurfaceData, BorrowError> {
         unsafe {
             if ffi::cairo_surface_get_reference_count(self.to_raw_none()) > 1 {
@@ -119,18 +123,22 @@ impl ImageSurface {
         Ok(())
     }
 
+    #[doc(alias = "cairo_image_surface_get_format")]
     pub fn get_format(&self) -> Format {
         unsafe { Format::from(ffi::cairo_image_surface_get_format(self.to_raw_none())) }
     }
 
+    #[doc(alias = "cairo_image_surface_get_height")]
     pub fn get_height(&self) -> i32 {
         unsafe { ffi::cairo_image_surface_get_height(self.to_raw_none()) }
     }
 
+    #[doc(alias = "cairo_image_surface_get_stride")]
     pub fn get_stride(&self) -> i32 {
         unsafe { ffi::cairo_image_surface_get_stride(self.to_raw_none()) }
     }
 
+    #[doc(alias = "cairo_image_surface_get_width")]
     pub fn get_width(&self) -> i32 {
         unsafe { ffi::cairo_image_surface_get_width(self.to_raw_none()) }
     }

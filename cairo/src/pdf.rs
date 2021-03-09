@@ -32,6 +32,7 @@ impl PdfVersion {
 declare_surface!(PdfSurface, SurfaceType::Pdf);
 
 impl PdfSurface {
+    #[doc(alias = "cairo_pdf_surface_create")]
     pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Result<Self, Error> {
         let path = path.as_ref().to_string_lossy().into_owned();
         let path = CString::new(path).unwrap();
@@ -41,6 +42,7 @@ impl PdfSurface {
 
     for_stream_constructors!(cairo_pdf_surface_create_for_stream);
 
+    #[doc(alias = "cairo_pdf_get_versions")]
     pub fn get_versions() -> impl Iterator<Item = PdfVersion> {
         let vers_slice = unsafe {
             let mut vers_ptr = ptr::null_mut();
@@ -52,6 +54,7 @@ impl PdfSurface {
         vers_slice.iter().map(|v| PdfVersion::from(*v))
     }
 
+    #[doc(alias = "cairo_pdf_surface_restrict_to_version")]
     pub fn restrict(&self, version: PdfVersion) -> Result<(), Error> {
         unsafe {
             ffi::cairo_pdf_surface_restrict_to_version(self.0.to_raw_none(), version.into());
@@ -59,6 +62,7 @@ impl PdfSurface {
         self.status()
     }
 
+    #[doc(alias = "cairo_pdf_surface_set_size")]
     pub fn set_size(&self, width: f64, height: f64) -> Result<(), Error> {
         unsafe {
             ffi::cairo_pdf_surface_set_size(self.0.to_raw_none(), width, height);
@@ -67,6 +71,7 @@ impl PdfSurface {
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
+    #[doc(alias = "cairo_pdf_surface_set_metadata")]
     pub fn set_metadata(&self, metadata: PdfMetadata, value: &str) -> Result<(), Error> {
         let value = CString::new(value).unwrap();
         unsafe {
@@ -80,6 +85,7 @@ impl PdfSurface {
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
+    #[doc(alias = "cairo_pdf_surface_set_page_label")]
     pub fn set_page_label(&self, label: &str) -> Result<(), Error> {
         let label = CString::new(label).unwrap();
         unsafe {
@@ -101,6 +107,7 @@ impl PdfSurface {
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
+    #[doc(alias = "cairo_pdf_surface_add_outline")]
     pub fn add_outline(
         &self,
         parent_id: i32,
