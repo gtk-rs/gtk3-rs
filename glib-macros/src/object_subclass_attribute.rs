@@ -87,8 +87,36 @@ pub fn impl_object_subclass(input: &syn::ItemImpl) -> TokenStream {
             #class_opt
             #instance_opt
             #new_opt
-            #crate_ident::object_subclass_internal!();
             #(#items)*
+        }
+
+        unsafe impl #crate_ident::subclass::types::ObjectSubclassType for #self_ty {
+            fn type_data() -> std::ptr::NonNull<#crate_ident::subclass::TypeData> {
+                static mut DATA: #crate_ident::subclass::TypeData = #crate_ident::subclass::TypeData {
+                    type_: #crate_ident::Type::INVALID,
+                    parent_class: std::ptr::null_mut(),
+                    class_data: None,
+                    private_offset: 0,
+                };
+
+                unsafe { std::ptr::NonNull::new_unchecked(&mut DATA) }
+            }
+
+            fn get_type() -> #crate_ident::Type {
+                static ONCE: std::sync::Once = std::sync::Once::new();
+
+                ONCE.call_once(|| {
+                    #crate_ident::subclass::register_type::<Self>();
+                });
+
+                unsafe {
+                    let data = Self::type_data();
+                    let type_ = data.as_ref().get_type();
+                    assert!(type_.is_valid());
+
+                    type_
+                }
+            }
         }
     }
 }
