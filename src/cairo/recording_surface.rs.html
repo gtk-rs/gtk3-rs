@@ -66,6 +66,9 @@
 <span id="63">63</span>
 <span id="64">64</span>
 <span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -83,6 +86,7 @@
 
 <span class="macro">declare_surface</span><span class="macro">!</span>(<span class="ident">RecordingSurface</span>, <span class="ident">SurfaceType</span>::<span class="ident">Recording</span>);
 <span class="kw">impl</span> <span class="ident">RecordingSurface</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_recording_surface_create&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Rectangle</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">content</span>: <span class="ident">Content</span>,
         <span class="ident">extends</span>: <span class="ident">T</span>,
@@ -101,6 +105,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_recording_surface_get_extents&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_extents</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Rectangle</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">rectangle</span>: <span class="ident">Rectangle</span> <span class="op">=</span> ::<span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">zeroed</span>();
@@ -114,6 +119,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_recording_surface_ink_extents&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ink_extents</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>, <span class="ident">f64</span>) {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x0</span> <span class="op">=</span> <span class="number">0.</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y0</span> <span class="op">=</span> <span class="number">0.</span>;

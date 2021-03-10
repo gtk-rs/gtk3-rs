@@ -439,6 +439,13 @@
 <span id="436">436</span>
 <span id="437">437</span>
 <span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -703,6 +710,7 @@
 <span class="macro">declare_surface</span><span class="macro">!</span>(<span class="ident">XCBSurface</span>, <span class="ident">SurfaceType</span>::<span class="ident">Xcb</span>);
 
 <span class="kw">impl</span> <span class="ident">XCBSurface</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xcb_surface_create&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create</span>(
         <span class="ident">connection</span>: <span class="kw-2">&amp;</span><span class="ident">XCBConnection</span>,
         <span class="ident">drawable</span>: <span class="kw-2">&amp;</span><span class="ident">XCBDrawable</span>,
@@ -721,6 +729,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xcb_surface_create_for_bitmap&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_for_bitmap</span>(
         <span class="ident">connection</span>: <span class="kw-2">&amp;</span><span class="ident">XCBConnection</span>,
         <span class="ident">screen</span>: <span class="kw-2">&amp;</span><span class="ident">XCBScreen</span>,
@@ -741,6 +750,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xcb_surface_create_with_xrender_format&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_with_xrender_format</span>(
         <span class="ident">connection</span>: <span class="kw-2">&amp;</span><span class="ident">XCBConnection</span>,
         <span class="ident">screen</span>: <span class="kw-2">&amp;</span><span class="ident">XCBScreen</span>,
@@ -768,11 +778,13 @@
         <span class="ident">status_to_result</span>(<span class="ident">status</span>)
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xcb_surface_set_size&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">width</span>: <span class="ident">i32</span>, <span class="ident">height</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_xcb_surface_set_size</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">width</span>, <span class="ident">height</span>) }
         <span class="self">self</span>.<span class="ident">status</span>()
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xcb_surface_set_drawable&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_drawable</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">drawable</span>: <span class="kw-2">&amp;</span><span class="ident">XCBDrawable</span>,
@@ -862,12 +874,14 @@
 }
 
 <span class="kw">impl</span> <span class="kw">crate</span>::<span class="ident">device</span>::<span class="ident">Device</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xcb_device_get_connection&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_connection</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">XCBConnection</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">XCBConnection</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_xcb_device_get_connection</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()))
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xcb_device_debug_cap_xshm_version&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">debug_cap_xshm_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">major_version</span>: <span class="ident">i32</span>, <span class="ident">minor_version</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
             <span class="ident">ffi</span>::<span class="ident">cairo_xcb_device_debug_cap_xshm_version</span>(

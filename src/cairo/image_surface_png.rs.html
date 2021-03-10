@@ -207,6 +207,8 @@
 <span id="204">204</span>
 <span id="205">205</span>
 <span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -289,6 +291,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ImageSurface</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_image_surface_create_from_png_stream&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_from_png</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">Read</span><span class="op">&gt;</span>(<span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ImageSurface</span>, <span class="ident">IoError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">env</span> <span class="op">=</span> <span class="ident">ReadEnv</span> {
             <span class="ident">reader</span>: <span class="ident">stream</span>,
@@ -314,6 +317,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_surface_write_to_png_stream&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_to_png</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">Write</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">W</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">IoError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">env</span> <span class="op">=</span> <span class="ident">WriteEnv</span> {
             <span class="ident">writer</span>: <span class="ident">stream</span>,

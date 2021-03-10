@@ -370,6 +370,26 @@
 <span id="367">367</span>
 <span id="368">368</span>
 <span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -438,6 +458,7 @@
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;script&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_script_create&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">filename</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Device</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">filename</span> <span class="op">=</span> <span class="ident">filename</span>.<span class="ident">as_ref</span>().<span class="ident">to_string_lossy</span>().<span class="ident">into_owned</span>();
@@ -452,6 +473,7 @@
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;script&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_script_from_recording_surface&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_recording_surface</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">surface</span>: <span class="kw-2">&amp;</span><span class="ident">RecordingSurface</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span>
@@ -466,6 +488,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a `InputSource`</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;script&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_script_get_mode&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ScriptMode</span> {
         <span class="kw">unsafe</span> { <span class="ident">ScriptMode</span>::<span class="ident">from</span>(<span class="ident">ffi</span>::<span class="ident">cairo_script_get_mode</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>())) }
     }
@@ -484,11 +507,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// `true` if the mode was successfully changed.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;script&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_script_set_mode&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_mode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mode</span>: <span class="ident">ScriptMode</span>) {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_script_set_mode</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">mode</span>.<span class="ident">into</span>()) }
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;script&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_script_surface_create&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">surface_create</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">content</span>: <span class="ident">Content</span>,
@@ -506,6 +531,7 @@
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;script&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_script_surface_create_for_target&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">surface_create_for_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="kw-2">&amp;</span><span class="ident">Surface</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Surface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="prelude-val">Ok</span>(<span class="ident">Surface</span>::<span class="ident">from_raw_full</span>(
@@ -518,6 +544,7 @@
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;script&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_script_write_comment&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_comment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">comment</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">comment</span>.<span class="ident">len</span>();
@@ -526,18 +553,22 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_device_finish&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">finish</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_device_finish</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_device_flush&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_device_flush</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_device_get_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DeviceType</span> {
         <span class="kw">unsafe</span> { <span class="ident">DeviceType</span>::<span class="ident">from</span>(<span class="ident">ffi</span>::<span class="ident">cairo_device_get_type</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>())) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_device_acquire&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">acquire</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DeviceAcquireGuard</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="ident">ffi</span>::<span class="ident">cairo_device_acquire</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>());
@@ -550,31 +581,38 @@
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_device_release</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_device_observer_elapsed&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">observer_elapsed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_device_observer_elapsed</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_device_observer_fill_elapsed&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">observer_fill_elapsed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_device_observer_fill_elapsed</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_device_observer_glyphs_elapsed&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">observer_glyphs_elapsed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_device_observer_glyphs_elapsed</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_device_observer_mask_elapsed&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">observer_mask_elapsed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_device_observer_mask_elapsed</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_device_observer_paint_elapsed&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">observer_paint_elapsed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_device_observer_paint_elapsed</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_device_observer_stroke_elapsed&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">observer_stroke_elapsed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_device_observer_stroke_elapsed</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xlib&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xcb&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xlib_device_debug_cap_xrender_version&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">debug_cap_xrender_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">major_version</span>: <span class="ident">i32</span>, <span class="ident">minor_version</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">match</span> <span class="self">self</span>.<span class="ident">get_type</span>() {
@@ -612,6 +650,7 @@
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xlib&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xcb&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xlib_device_debug_get_precision&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">debug_get_precision</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">match</span> <span class="self">self</span>.<span class="ident">get_type</span>() {
@@ -641,6 +680,7 @@
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xlib&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;xcb&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_xlib_device_debug_set_precision&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">debug_set_precision</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">precision</span>: <span class="ident">i32</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">match</span> <span class="self">self</span>.<span class="ident">get_type</span>() {

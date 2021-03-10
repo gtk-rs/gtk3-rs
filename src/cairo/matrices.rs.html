@@ -279,6 +279,14 @@
 <span id="276">276</span>
 <span id="277">277</span>
 <span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -369,6 +377,7 @@
     <span class="doccomment">/// ## `res`</span>
     <span class="doccomment">/// return location for the matrix</span>
     <span class="doccomment">///  result</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_multiply&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">multiply</span>(<span class="ident">left</span>: <span class="kw-2">&amp;</span><span class="ident">Matrix</span>, <span class="ident">right</span>: <span class="kw-2">&amp;</span><span class="ident">Matrix</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">null</span>();
         <span class="kw">unsafe</span> {
@@ -392,6 +401,7 @@
     <span class="doccomment">/// amount to translate in the X direction</span>
     <span class="doccomment">/// ## `ty`</span>
     <span class="doccomment">/// amount to translate in the Y direction</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_translate&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">translate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tx</span>: <span class="ident">f64</span>, <span class="ident">ty</span>: <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_matrix_translate</span>(<span class="self">self</span>.<span class="ident">mut_ptr</span>(), <span class="ident">tx</span>, <span class="ident">ty</span>) }
     }
@@ -416,6 +426,7 @@
     <span class="doccomment">/// amount to scale by in X direction</span>
     <span class="doccomment">/// ## `scale_y`</span>
     <span class="doccomment">/// amount to scale by in Y direction</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_scale&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">scale</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">sx</span>: <span class="ident">f64</span>, <span class="ident">sy</span>: <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_matrix_scale</span>(<span class="self">self</span>.<span class="ident">mut_ptr</span>(), <span class="ident">sx</span>, <span class="ident">sy</span>) }
     }
@@ -435,15 +446,18 @@
     <span class="doccomment">/// counter-clockwise then applying the original transformation.</span>
     <span class="doccomment">/// ## `degrees`</span>
     <span class="doccomment">/// degrees to rotate counter-clockwise</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_rotate&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rotate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">angle</span>: <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_matrix_rotate</span>(<span class="self">self</span>.<span class="ident">mut_ptr</span>(), <span class="ident">angle</span>) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_invert&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">invert</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
         <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_matrix_invert</span>(<span class="self">self</span>.<span class="ident">mut_ptr</span>()) };
         <span class="ident">status_to_result</span>(<span class="ident">status</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to invert matrix&quot;</span>);
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_invert&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">try_invert</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Matrix</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="kw-2">*</span><span class="self">self</span>;
 
@@ -470,6 +484,7 @@
     <span class="doccomment">/// in/out X component of a distance vector</span>
     <span class="doccomment">/// ## `dy`</span>
     <span class="doccomment">/// in/out Y component of a distance vector</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_transform_distance&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transform_distance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_dx</span>: <span class="ident">f64</span>, <span class="ident">_dy</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>) {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">dx</span> <span class="op">=</span> <span class="ident">_dx</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">dy</span> <span class="op">=</span> <span class="ident">_dy</span>;
@@ -498,6 +513,7 @@
     <span class="doccomment">/// in/out X position</span>
     <span class="doccomment">/// ## `y`</span>
     <span class="doccomment">/// in/out Y position</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_transform_point&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transform_point</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_x</span>: <span class="ident">f64</span>, <span class="ident">_y</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>) {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">_x</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y</span> <span class="op">=</span> <span class="ident">_y</span>;

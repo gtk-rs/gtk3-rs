@@ -179,6 +179,17 @@
 <span id="176">176</span>
 <span id="177">177</span>
 <span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -221,6 +232,7 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FontFace</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">cairo_font_face_t</span><span class="op">&gt;</span>);
 
 <span class="kw">impl</span> <span class="ident">FontFace</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_toy_font_face_create&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">toy_create</span>(<span class="ident">family</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">slant</span>: <span class="ident">FontSlant</span>, <span class="ident">weight</span>: <span class="ident">FontWeight</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontFace</span> {
         <span class="kw">let</span> <span class="ident">font_face</span>: <span class="ident">FontFace</span> <span class="op">=</span> <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">family</span> <span class="op">=</span> <span class="ident">CString</span>::<span class="ident">new</span>(<span class="ident">family</span>).<span class="ident">unwrap</span>();
@@ -237,6 +249,7 @@
 
     <span class="comment">// Safety: the FT_Face must be valid and not be freed until the `FontFace` is dropped.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;freetype&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_ft_font_face_create_for_ft_face&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">create_from_ft</span>(<span class="ident">face</span>: <span class="ident">freetype_crate</span>::<span class="ident">freetype</span>::<span class="ident">FT_Face</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontFace</span> {
         <span class="kw">let</span> <span class="ident">font_face</span> <span class="op">=</span> <span class="ident">FontFace</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_ft_font_face_create_for_ft_face</span>(
             <span class="ident">face</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
@@ -249,6 +262,7 @@
 
     <span class="comment">// Safety: the FT_Face must be valid and not be freed until the `FontFace` is dropped.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;freetype&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_ft_font_face_create_for_ft_face&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">create_from_ft_with_flags</span>(
         <span class="ident">face</span>: <span class="ident">freetype_crate</span>::<span class="ident">freetype</span>::<span class="ident">FT_Face</span>,
         <span class="ident">load_flags</span>: <span class="ident">c_int</span>,
@@ -294,37 +308,45 @@
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ptr</span>()
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_toy_font_face_get_family&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">toy_get_family</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> { <span class="ident">to_optional_string</span>(<span class="ident">ffi</span>::<span class="ident">cairo_toy_font_face_get_family</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>())) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_toy_font_face_get_slant&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">toy_get_slant</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontSlant</span> {
         <span class="kw">unsafe</span> { <span class="ident">FontSlant</span>::<span class="ident">from</span>(<span class="ident">ffi</span>::<span class="ident">cairo_toy_font_face_get_slant</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>())) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_toy_font_face_get_weight&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">toy_get_weight</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontWeight</span> {
         <span class="kw">unsafe</span> { <span class="ident">FontWeight</span>::<span class="ident">from</span>(<span class="ident">ffi</span>::<span class="ident">cairo_toy_font_face_get_weight</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>())) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_font_face_get_type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FontType</span> {
         <span class="kw">unsafe</span> { <span class="ident">FontType</span>::<span class="ident">from</span>(<span class="ident">ffi</span>::<span class="ident">cairo_font_face_get_type</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>())) }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_font_face_get_reference_count&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_reference_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_font_face_get_reference_count</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) <span class="kw">as</span> <span class="ident">usize</span> }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_ft_font_face_get_synthesize&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;freetype&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_synthesize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FtSynthesize</span> {
         <span class="kw">unsafe</span> { <span class="ident">FtSynthesize</span>::<span class="ident">from</span>(<span class="ident">ffi</span>::<span class="ident">cairo_ft_font_face_get_synthesize</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>())) }
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;freetype&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_ft_font_face_set_synthesize&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_synthesize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">synth_flags</span>: <span class="ident">FtSynthesize</span>) {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_ft_font_face_set_synthesize</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">synth_flags</span>.<span class="ident">into</span>()) }
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;freetype&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_ft_font_face_unset_synthesize&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unset_synthesize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">synth_flags</span>: <span class="ident">FtSynthesize</span>) {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_ft_font_face_unset_synthesize</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>(), <span class="ident">synth_flags</span>.<span class="ident">into</span>()) }
     }

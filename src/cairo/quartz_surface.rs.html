@@ -44,6 +44,9 @@
 <span id="41">41</span>
 <span id="42">42</span>
 <span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -62,6 +65,7 @@
 <span class="macro">declare_surface</span><span class="macro">!</span>(<span class="ident">QuartzSurface</span>, <span class="ident">SurfaceType</span>::<span class="ident">Quartz</span>);
 
 <span class="kw">impl</span> <span class="ident">QuartzSurface</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_quartz_surface_create&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create</span>(<span class="ident">format</span>: <span class="ident">Format</span>, <span class="ident">width</span>: <span class="ident">u32</span>, <span class="ident">height</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">QuartzSurface</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="self">Self</span>::<span class="ident">from_raw_full</span>(<span class="ident">ffi</span>::<span class="ident">cairo_quartz_surface_create</span>(
@@ -72,6 +76,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_quartz_surface_create_for_cg_context&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_for_cg_context</span>(
         <span class="ident">cg_context</span>: <span class="ident">CGContextRef</span>,
         <span class="ident">width</span>: <span class="ident">u32</span>,
@@ -84,6 +89,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_quartz_surface_get_cg_context&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_cg_context</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CGContextRef</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_quartz_surface_get_cg_context</span>(<span class="self">self</span>.<span class="ident">to_raw_none</span>()) }
     }
