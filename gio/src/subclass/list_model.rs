@@ -46,7 +46,8 @@ where
     match wrap.get_qdata(*LIST_ITEM_TYPE_QUARK) {
         Some(old_type) => {
             assert_eq!(
-                type_, *old_type,
+                type_,
+                *old_type.as_ref(),
                 "ListModel's get_item_type cannot be changed"
             );
         }

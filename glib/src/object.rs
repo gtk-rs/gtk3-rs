@@ -1212,8 +1212,11 @@ pub trait ObjectExt: ObjectType {
 
     /// # Safety
     ///
+    /// The returned pointer can become invalid by a call to
+    /// `set_qdata`, `steal_qdata`, `set_data` or `steal_data`.
+    ///
     /// The caller is responsible for ensuring the returned value is of a suitable type
-    unsafe fn get_qdata<QD: 'static>(&self, key: Quark) -> Option<&QD>;
+    unsafe fn get_qdata<QD: 'static>(&self, key: Quark) -> Option<ptr::NonNull<QD>>;
 
     /// # Safety
     ///
@@ -1227,8 +1230,11 @@ pub trait ObjectExt: ObjectType {
 
     /// # Safety
     ///
+    /// The returned pointer can become invalid by a call to
+    /// `set_qdata`, `steal_qdata`, `set_data` or `steal_data`.
+    ///
     /// The caller is responsible for ensuring the returned value is of a suitable type
-    unsafe fn get_data<QD: 'static>(&self, key: &str) -> Option<&QD>;
+    unsafe fn get_data<QD: 'static>(&self, key: &str) -> Option<ptr::NonNull<QD>>;
 
     /// # Safety
     ///
@@ -1546,14 +1552,11 @@ impl<T: ObjectType> ObjectExt for T {
         );
     }
 
-    unsafe fn get_qdata<QD: 'static>(&self, key: Quark) -> Option<&QD> {
-        let ptr =
-            gobject_ffi::g_object_get_qdata(self.as_object_ref().to_glib_none().0, key.to_glib());
-        if ptr.is_null() {
-            None
-        } else {
-            Some(&*(ptr as *const QD))
-        }
+    unsafe fn get_qdata<QD: 'static>(&self, key: Quark) -> Option<ptr::NonNull<QD>> {
+        ptr::NonNull::new(gobject_ffi::g_object_get_qdata(
+            self.as_object_ref().to_glib_none().0,
+            key.to_glib(),
+        ) as *mut QD)
     }
 
     unsafe fn steal_qdata<QD: 'static>(&self, key: Quark) -> Option<QD> {
@@ -1571,7 +1574,7 @@ impl<T: ObjectType> ObjectExt for T {
         self.set_qdata::<QD>(Quark::from_string(key), value)
     }
 
-    unsafe fn get_data<QD: 'static>(&self, key: &str) -> Option<&QD> {
+    unsafe fn get_data<QD: 'static>(&self, key: &str) -> Option<ptr::NonNull<QD>> {
         self.get_qdata::<QD>(Quark::from_string(key))
     }
 
@@ -2642,6 +2645,29 @@ impl<T: ParentClassIs> ops::DerefMut for Class<T> {
         unsafe {
             let klass = self as *mut _ as *mut Self::Target;
             &mut *klass
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn new() {
+        let obj: Object = Object::new(&[]).unwrap();
+        drop(obj);
+    }
+
+    #[test]
+    fn data() {
+        let obj: Object = Object::new(&[]).unwrap();
+        unsafe {
+            obj.set_data::<String>("foo", "hello".into());
+            let data = obj.get_data::<String>("foo").unwrap();
+            assert_eq!(data.as_ref(), "hello");
+            let data2 = obj.steal_data::<String>("foo").unwrap();
+            assert_eq!(data2, "hello");
         }
     }
 }
