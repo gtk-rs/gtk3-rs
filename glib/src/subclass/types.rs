@@ -29,7 +29,7 @@ impl<T> ToGlib for InitializingType<T> {
 /// Struct used for the instance private data of the GObject.
 struct PrivateStruct<T: ObjectSubclass> {
     imp: T,
-    instance_data: Option<ptr::NonNull<HashMap<Type, Box<dyn Any + Send + Sync>>>>,
+    instance_data: Option<HashMap<Type, Box<dyn Any + Send + Sync>>>,
 }
 
 /// Trait implemented by structs that implement a `GObject` C instance struct.
@@ -287,7 +287,7 @@ pub struct TypeData {
     #[doc(hidden)]
     pub parent_class: ffi::gpointer,
     #[doc(hidden)]
-    pub class_data: Option<ptr::NonNull<HashMap<Type, Box<dyn Any + Send + Sync>>>>,
+    pub class_data: Option<HashMap<Type, Box<dyn Any + Send + Sync>>>,
     #[doc(hidden)]
     pub private_offset: isize,
     #[doc(hidden)]
@@ -315,11 +315,9 @@ impl TypeData {
     ///
     /// This is used for class implementations to store additional data.
     pub fn get_class_data<T: Any + Send + Sync + 'static>(&self, type_: Type) -> Option<&T> {
-        unsafe {
-            match self.class_data {
-                None => None,
-                Some(ref data) => data.as_ref().get(&type_).and_then(|ptr| ptr.downcast_ref()),
-            }
+        match self.class_data {
+            None => None,
+            Some(ref data) => data.get(&type_).and_then(|ptr| ptr.downcast_ref()),
         }
     }
 
@@ -334,7 +332,7 @@ impl TypeData {
     ) -> Option<&mut T> {
         match self.class_data {
             None => None,
-            Some(ref mut data) => data.as_mut().get_mut(&type_).and_then(|v| v.downcast_mut()),
+            Some(ref mut data) => data.get_mut(&type_).and_then(|v| v.downcast_mut()),
         }
     }
 
@@ -349,17 +347,15 @@ impl TypeData {
     /// If the class_data already contains a data for the specified `type_`.
     pub unsafe fn set_class_data<T: Any + Send + Sync + 'static>(&mut self, type_: Type, data: T) {
         if self.class_data.is_none() {
-            self.class_data = Some(ptr::NonNull::new_unchecked(Box::into_raw(Box::new(
-                HashMap::new(),
-            ))));
+            self.class_data = Some(HashMap::new());
         }
 
         if let Some(ref mut class_data) = self.class_data {
-            if class_data.as_ref().get(&type_).is_some() {
+            if class_data.get(&type_).is_some() {
                 panic!("The class_data already contains a key for {}", type_);
             }
 
-            class_data.as_mut().insert(type_, Box::new(data));
+            class_data.insert(type_, Box::new(data));
         }
     }
 
@@ -560,7 +556,7 @@ impl<T: ObjectSubclass> ObjectSubclassExt for T {
 
             match priv_.instance_data {
                 None => None,
-                Some(ref data) => data.as_ref().get(&type_).and_then(|ptr| ptr.downcast_ref()),
+                Some(ref data) => data.get(&type_).and_then(|ptr| ptr.downcast_ref()),
             }
         }
     }
@@ -614,17 +610,15 @@ impl<T: ObjectSubclass> InitializingObject<T> {
             let priv_ = &mut *ptr;
 
             if priv_.instance_data.is_none() {
-                priv_.instance_data = Some(ptr::NonNull::new_unchecked(Box::into_raw(Box::new(
-                    HashMap::new(),
-                ))));
+                priv_.instance_data = Some(HashMap::new());
             }
 
             if let Some(ref mut instance_data) = priv_.instance_data {
-                if instance_data.as_ref().get(&type_).is_some() {
+                if instance_data.get(&type_).is_some() {
                     panic!("The class_data already contains a key for {}", type_);
                 }
 
-                instance_data.as_mut().insert(type_, Box::new(data));
+                instance_data.insert(type_, Box::new(data));
             }
         }
     }
@@ -708,7 +702,7 @@ unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject)
     let priv_storage = &mut *(priv_ptr as *mut PrivateStruct<T>);
     ptr::drop_in_place(&mut priv_storage.imp);
     if let Some(instance_data) = priv_storage.instance_data.take() {
-        drop(Box::from_raw(instance_data.as_ptr()));
+        drop(instance_data);
     }
 
     // Chain up to the parent class' finalize implementation, if any.
