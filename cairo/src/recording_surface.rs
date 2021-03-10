@@ -14,6 +14,7 @@ use crate::surface::Surface;
 
 declare_surface!(RecordingSurface, SurfaceType::Recording);
 impl RecordingSurface {
+    #[doc(alias = "cairo_recording_surface_create")]
     pub fn create<T: Into<Option<Rectangle>>>(
         content: Content,
         extends: T,
@@ -32,6 +33,7 @@ impl RecordingSurface {
         }
     }
 
+    #[doc(alias = "cairo_recording_surface_get_extents")]
     pub fn get_extents(&self) -> Option<Rectangle> {
         unsafe {
             let rectangle: Rectangle = ::std::mem::zeroed();
@@ -45,6 +47,7 @@ impl RecordingSurface {
         }
     }
 
+    #[doc(alias = "cairo_recording_surface_ink_extents")]
     pub fn ink_extents(&self) -> (f64, f64, f64, f64) {
         let mut x0 = 0.;
         let mut y0 = 0.;

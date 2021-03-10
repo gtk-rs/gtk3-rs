@@ -65,6 +65,7 @@ impl Matrix {
         }
     }
 
+    #[doc(alias = "cairo_matrix_multiply")]
     pub fn multiply(left: &Matrix, right: &Matrix) -> Matrix {
         let mut matrix = Matrix::null();
         unsafe {
@@ -73,23 +74,28 @@ impl Matrix {
         matrix
     }
 
+    #[doc(alias = "cairo_matrix_translate")]
     pub fn translate(&mut self, tx: f64, ty: f64) {
         unsafe { ffi::cairo_matrix_translate(self.mut_ptr(), tx, ty) }
     }
 
+    #[doc(alias = "cairo_matrix_scale")]
     pub fn scale(&mut self, sx: f64, sy: f64) {
         unsafe { ffi::cairo_matrix_scale(self.mut_ptr(), sx, sy) }
     }
 
+    #[doc(alias = "cairo_matrix_rotate")]
     pub fn rotate(&mut self, angle: f64) {
         unsafe { ffi::cairo_matrix_rotate(self.mut_ptr(), angle) }
     }
 
+    #[doc(alias = "cairo_matrix_invert")]
     pub fn invert(&mut self) {
         let status = unsafe { ffi::cairo_matrix_invert(self.mut_ptr()) };
         status_to_result(status).expect("Failed to invert matrix");
     }
 
+    #[doc(alias = "cairo_matrix_invert")]
     pub fn try_invert(&self) -> Result<Matrix, Error> {
         let mut matrix = *self;
 
@@ -98,6 +104,7 @@ impl Matrix {
         Ok(matrix)
     }
 
+    #[doc(alias = "cairo_matrix_transform_distance")]
     pub fn transform_distance(&self, _dx: f64, _dy: f64) -> (f64, f64) {
         let mut dx = _dx;
         let mut dy = _dy;
@@ -108,6 +115,7 @@ impl Matrix {
         (dx, dy)
     }
 
+    #[doc(alias = "cairo_matrix_transform_point")]
     pub fn transform_point(&self, _x: f64, _y: f64) -> (f64, f64) {
         let mut x = _x;
         let mut y = _y;

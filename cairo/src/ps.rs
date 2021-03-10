@@ -29,6 +29,7 @@ impl PsLevel {
 declare_surface!(PsSurface, SurfaceType::Ps);
 
 impl PsSurface {
+    #[doc(alias = "cairo_ps_surface_create")]
     pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Result<PsSurface, Error> {
         let path = path.as_ref().to_string_lossy().into_owned();
         let path = CString::new(path).unwrap();
@@ -38,6 +39,7 @@ impl PsSurface {
 
     for_stream_constructors!(cairo_ps_surface_create_for_stream);
 
+    #[doc(alias = "cairo_ps_get_levels")]
     pub fn get_levels() -> impl Iterator<Item = PsLevel> {
         let lvls_slice = unsafe {
             let mut vers_ptr = ptr::null_mut();
@@ -50,41 +52,48 @@ impl PsSurface {
         lvls_slice.iter().map(|v| PsLevel::from(*v))
     }
 
+    #[doc(alias = "cairo_ps_surface_restrict_to_level")]
     pub fn restrict(&self, level: PsLevel) {
         unsafe {
             ffi::cairo_ps_surface_restrict_to_level(self.0.to_raw_none(), level.into());
         }
     }
 
+    #[doc(alias = "cairo_ps_surface_get_eps")]
     pub fn get_eps(&self) -> bool {
         unsafe { ffi::cairo_ps_surface_get_eps(self.0.to_raw_none()).as_bool() }
     }
 
+    #[doc(alias = "cairo_ps_surface_set_eps")]
     pub fn set_eps(&self, eps: bool) {
         unsafe {
             ffi::cairo_ps_surface_set_eps(self.0.to_raw_none(), eps.into());
         }
     }
 
+    #[doc(alias = "cairo_ps_surface_set_size")]
     pub fn set_size(&self, width: f64, height: f64) {
         unsafe {
             ffi::cairo_ps_surface_set_size(self.0.to_raw_none(), width, height);
         }
     }
 
-    pub fn cairo_ps_surface_dsc_begin_setup(&self) {
+    #[doc(alias = "cairo_ps_surface_dsc_begin_setup")]
+    pub fn dsc_begin_setup(&self) {
         unsafe {
             ffi::cairo_ps_surface_dsc_begin_setup(self.0.to_raw_none());
         }
     }
 
-    pub fn cairo_ps_surface_dsc_begin_page_setup(&self) {
+    #[doc(alias = "cairo_ps_surface_dsc_begin_page_setup")]
+    pub fn begin_page_setup(&self) {
         unsafe {
             ffi::cairo_ps_surface_dsc_begin_page_setup(self.0.to_raw_none());
         }
     }
 
-    pub fn cairo_ps_surface_dsc_comment(&self, comment: &str) {
+    #[doc(alias = "cairo_ps_surface_dsc_comment")]
+    pub fn dsc_comment(&self, comment: &str) {
         let comment = CString::new(comment).unwrap();
         unsafe {
             ffi::cairo_ps_surface_dsc_comment(self.0.to_raw_none(), comment.as_ptr());
