@@ -94,6 +94,7 @@
 <span id="91">91</span>
 <span id="92">92</span>
 <span id="93">93</span>
+<span id="94">94</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -143,7 +144,8 @@
     <span class="kw">match</span> <span class="ident">wrap</span>.<span class="ident">get_qdata</span>(<span class="kw-2">*</span><span class="ident">LIST_ITEM_TYPE_QUARK</span>) {
         <span class="prelude-val">Some</span>(<span class="ident">old_type</span>) <span class="op">=</span><span class="op">&gt;</span> {
             <span class="macro">assert_eq</span><span class="macro">!</span>(
-                <span class="ident">type_</span>, <span class="kw-2">*</span><span class="ident">old_type</span>,
+                <span class="ident">type_</span>,
+                <span class="kw-2">*</span><span class="ident">old_type</span>.<span class="ident">as_ref</span>(),
                 <span class="string">&quot;ListModel&#39;s get_item_type cannot be changed&quot;</span>
             );
         }

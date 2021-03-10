@@ -2648,6 +2648,32 @@
 <span id="2645">2645</span>
 <span id="2646">2646</span>
 <span id="2647">2647</span>
+<span id="2648">2648</span>
+<span id="2649">2649</span>
+<span id="2650">2650</span>
+<span id="2651">2651</span>
+<span id="2652">2652</span>
+<span id="2653">2653</span>
+<span id="2654">2654</span>
+<span id="2655">2655</span>
+<span id="2656">2656</span>
+<span id="2657">2657</span>
+<span id="2658">2658</span>
+<span id="2659">2659</span>
+<span id="2660">2660</span>
+<span id="2661">2661</span>
+<span id="2662">2662</span>
+<span id="2663">2663</span>
+<span id="2664">2664</span>
+<span id="2665">2665</span>
+<span id="2666">2666</span>
+<span id="2667">2667</span>
+<span id="2668">2668</span>
+<span id="2669">2669</span>
+<span id="2670">2670</span>
+<span id="2671">2671</span>
+<span id="2672">2672</span>
+<span id="2673">2673</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -3863,8 +3889,11 @@
 
     <span class="doccomment">/// # Safety</span>
     <span class="doccomment">///</span>
+    <span class="doccomment">/// The returned pointer can become invalid by a call to</span>
+    <span class="doccomment">/// `set_qdata`, `steal_qdata`, `set_data` or `steal_data`.</span>
+    <span class="doccomment">///</span>
     <span class="doccomment">/// The caller is responsible for ensuring the returned value is of a suitable type</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_qdata</span><span class="op">&lt;</span><span class="ident">QD</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="ident">Quark</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">QD</span><span class="op">&gt;</span>;
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_qdata</span><span class="op">&lt;</span><span class="ident">QD</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="ident">Quark</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ptr</span>::<span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">QD</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// # Safety</span>
     <span class="doccomment">///</span>
@@ -3878,8 +3907,11 @@
 
     <span class="doccomment">/// # Safety</span>
     <span class="doccomment">///</span>
+    <span class="doccomment">/// The returned pointer can become invalid by a call to</span>
+    <span class="doccomment">/// `set_qdata`, `steal_qdata`, `set_data` or `steal_data`.</span>
+    <span class="doccomment">///</span>
     <span class="doccomment">/// The caller is responsible for ensuring the returned value is of a suitable type</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_data</span><span class="op">&lt;</span><span class="ident">QD</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">QD</span><span class="op">&gt;</span>;
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_data</span><span class="op">&lt;</span><span class="ident">QD</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ptr</span>::<span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">QD</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// # Safety</span>
     <span class="doccomment">///</span>
@@ -4197,14 +4229,11 @@
         );
     }
 
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_qdata</span><span class="op">&lt;</span><span class="ident">QD</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="ident">Quark</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">QD</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span>
-            <span class="ident">gobject_ffi</span>::<span class="ident">g_object_get_qdata</span>(<span class="self">self</span>.<span class="ident">as_object_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">key</span>.<span class="ident">to_glib</span>());
-        <span class="kw">if</span> <span class="ident">ptr</span>.<span class="ident">is_null</span>() {
-            <span class="prelude-val">None</span>
-        } <span class="kw">else</span> {
-            <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">QD</span>))
-        }
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_qdata</span><span class="op">&lt;</span><span class="ident">QD</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="ident">Quark</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ptr</span>::<span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">QD</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="ident">ptr</span>::<span class="ident">NonNull</span>::<span class="ident">new</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_object_get_qdata</span>(
+            <span class="self">self</span>.<span class="ident">as_object_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
+            <span class="ident">key</span>.<span class="ident">to_glib</span>(),
+        ) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">QD</span>)
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">steal_qdata</span><span class="op">&lt;</span><span class="ident">QD</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="ident">Quark</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">QD</span><span class="op">&gt;</span> {
@@ -4222,7 +4251,7 @@
         <span class="self">self</span>.<span class="ident">set_qdata</span>::<span class="op">&lt;</span><span class="ident">QD</span><span class="op">&gt;</span>(<span class="ident">Quark</span>::<span class="ident">from_string</span>(<span class="ident">key</span>), <span class="ident">value</span>)
     }
 
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_data</span><span class="op">&lt;</span><span class="ident">QD</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">QD</span><span class="op">&gt;</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_data</span><span class="op">&lt;</span><span class="ident">QD</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ptr</span>::<span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">QD</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">get_qdata</span>::<span class="op">&lt;</span><span class="ident">QD</span><span class="op">&gt;</span>(<span class="ident">Quark</span>::<span class="ident">from_string</span>(<span class="ident">key</span>))
     }
 
@@ -5293,6 +5322,29 @@
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">klass</span> <span class="op">=</span> <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="self">Self</span>::<span class="ident">Target</span>;
             <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">klass</span>
+        }
+    }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+<span class="kw">mod</span> <span class="ident">tests</span> {
+    <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">new</span>() {
+        <span class="kw">let</span> <span class="ident">obj</span>: <span class="ident">Object</span> <span class="op">=</span> <span class="ident">Object</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span>[]).<span class="ident">unwrap</span>();
+        <span class="ident">drop</span>(<span class="ident">obj</span>);
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">data</span>() {
+        <span class="kw">let</span> <span class="ident">obj</span>: <span class="ident">Object</span> <span class="op">=</span> <span class="ident">Object</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span>[]).<span class="ident">unwrap</span>();
+        <span class="kw">unsafe</span> {
+            <span class="ident">obj</span>.<span class="ident">set_data</span>::<span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>(<span class="string">&quot;foo&quot;</span>, <span class="string">&quot;hello&quot;</span>.<span class="ident">into</span>());
+            <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">obj</span>.<span class="ident">get_data</span>::<span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>(<span class="string">&quot;foo&quot;</span>).<span class="ident">unwrap</span>();
+            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">data</span>.<span class="ident">as_ref</span>(), <span class="string">&quot;hello&quot;</span>);
+            <span class="kw">let</span> <span class="ident">data2</span> <span class="op">=</span> <span class="ident">obj</span>.<span class="ident">steal_data</span>::<span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>(<span class="string">&quot;foo&quot;</span>).<span class="ident">unwrap</span>();
+            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">data2</span>, <span class="string">&quot;hello&quot;</span>);
         }
     }
 }
