@@ -142,6 +142,41 @@ fn into_raw_unix_fd<F: FnMut(RawFd, IOCondition) -> Continue + 'static>(func: F)
     Box::into_raw(func) as gpointer
 }
 
+/// Transform a generic FnOnce into a closure that can be used as callback in various glib methods
+///
+/// The resulting function can only be called once and will panic otherwise. It will return `Continue(false)`
+/// in order to prevent being called twice.
+#[inline(always)]
+fn fnmut_callback_wrapper(
+    func: impl FnOnce() + Send + 'static,
+) -> impl FnMut() -> Continue + Send + 'static {
+    let mut func = Some(func);
+    move || {
+        func.take()
+            .expect("GSource closure called after returning glib::Continue(false)");
+        Continue(false)
+    }
+}
+
+/// Transform a generic FnOnce into a closure that can be used as callback in various glib methods
+///
+/// The resulting function can only be called once and will panic otherwise. It will return `Continue(false)`
+/// in order to prevent being called twice.
+///
+/// Different to `fnmut_callback_wrapper()`, this does not require `func` to be
+/// `Send` but can only be called from the thread that owns the main context.
+#[inline(always)]
+fn fnmut_callback_wrapper_local(
+    func: impl FnOnce() + 'static,
+) -> impl FnMut() -> Continue + 'static {
+    let mut func = Some(func);
+    move || {
+        func.take()
+            .expect("GSource closure called after returning glib::Continue(false)");
+        Continue(false)
+    }
+}
+
 /// Adds a closure to be called by the default main loop when it's idle.
 ///
 /// `func` will be called repeatedly until it returns `Continue(false)`.
@@ -170,6 +205,23 @@ where
 /// The default main loop almost always is the main loop of the main thread.
 /// Thus the closure is called on the main thread.
 ///
+/// In comparison to `idle_add()`, this only requires `func` to be
+/// `FnOnce`, and will automatically return `Continue(false)`.
+#[doc(alias = "g_idle_add_full")]
+pub fn idle_add_once<F>(func: F) -> SourceId
+where
+    F: FnOnce() + Send + 'static,
+{
+    idle_add(fnmut_callback_wrapper(func))
+}
+
+/// Adds a closure to be called by the default main loop when it's idle.
+///
+/// `func` will be called repeatedly until it returns `Continue(false)`.
+///
+/// The default main loop almost always is the main loop of the main thread.
+/// Thus the closure is called on the main thread.
+///
 /// Different to `idle_add()`, this does not require `func` to be
 /// `Send` but can only be called from the thread that owns the main context.
 ///
@@ -189,6 +241,29 @@ where
             Some(destroy_closure::<F>),
         ))
     }
+}
+
+/// Adds a closure to be called by the default main loop when it's idle.
+///
+/// `func` will be called repeatedly until it returns `Continue(false)`.
+///
+/// The default main loop almost always is the main loop of the main thread.
+/// Thus the closure is called on the main thread.
+///
+/// Different to `idle_add()`, this does not require `func` to be
+/// `Send` but can only be called from the thread that owns the main context.
+///
+/// This function panics if called from a different thread than the one that
+/// owns the main context.
+///
+/// In comparison to `idle_add_local()`, this only requires `func` to be
+/// `FnOnce`, and will automatically return `Continue(false)`.
+#[doc(alias = "g_idle_add_full")]
+pub fn idle_add_local_once<F>(func: F) -> SourceId
+where
+    F: FnOnce() + 'static,
+{
+    idle_add_local(fnmut_callback_wrapper_local(func))
 }
 
 /// Adds a closure to be called by the default main loop at regular intervals
@@ -228,6 +303,27 @@ where
 /// The default main loop almost always is the main loop of the main thread.
 /// Thus the closure is called on the main thread.
 ///
+/// In comparison to `timeout_add()`, this only requires `func` to be
+/// `FnOnce`, and will automatically return `Continue(false)`.
+#[doc(alias = "g_timeout_add_full")]
+pub fn timeout_add_once<F>(interval: Duration, func: F) -> SourceId
+where
+    F: FnOnce() + Send + 'static,
+{
+    timeout_add(interval, fnmut_callback_wrapper(func))
+}
+
+/// Adds a closure to be called by the default main loop at regular intervals
+/// with millisecond granularity.
+///
+/// `func` will be called repeatedly every `interval` milliseconds until it
+/// returns `Continue(false)`. Precise timing is not guaranteed, the timeout may
+/// be delayed by other events. Prefer `timeout_add_seconds` when millisecond
+/// precision is not necessary.
+///
+/// The default main loop almost always is the main loop of the main thread.
+/// Thus the closure is called on the main thread.
+///
 /// Different to `timeout_add()`, this does not require `func` to be
 /// `Send` but can only be called from the thread that owns the main context.
 ///
@@ -248,6 +344,33 @@ where
             Some(destroy_closure::<F>),
         ))
     }
+}
+
+/// Adds a closure to be called by the default main loop at regular intervals
+/// with millisecond granularity.
+///
+/// `func` will be called repeatedly every `interval` milliseconds until it
+/// returns `Continue(false)`. Precise timing is not guaranteed, the timeout may
+/// be delayed by other events. Prefer `timeout_add_seconds` when millisecond
+/// precision is not necessary.
+///
+/// The default main loop almost always is the main loop of the main thread.
+/// Thus the closure is called on the main thread.
+///
+/// Different to `timeout_add()`, this does not require `func` to be
+/// `Send` but can only be called from the thread that owns the main context.
+///
+/// This function panics if called from a different thread than the one that
+/// owns the main context.
+///
+/// In comparison to `timeout_add_local()`, this only requires `func` to be
+/// `FnOnce`, and will automatically return `Continue(false)`.
+#[doc(alias = "g_timeout_add_full")]
+pub fn timeout_add_local_once<F>(interval: Duration, func: F) -> SourceId
+where
+    F: FnOnce() + 'static,
+{
+    timeout_add_local(interval, fnmut_callback_wrapper_local(func))
 }
 
 /// Adds a closure to be called by the default main loop at regular intervals
@@ -285,6 +408,26 @@ where
 /// The default main loop almost always is the main loop of the main thread.
 /// Thus the closure is called on the main thread.
 ///
+/// In comparison to `timeout_add_seconds()`, this only requires `func` to be
+/// `FnOnce`, and will automatically return `Continue(false)`.
+#[doc(alias = "g_timeout_add_seconds_full")]
+pub fn timeout_add_seconds_once<F>(interval: u32, func: F) -> SourceId
+where
+    F: FnOnce() + Send + 'static,
+{
+    timeout_add_seconds(interval, fnmut_callback_wrapper(func))
+}
+
+/// Adds a closure to be called by the default main loop at regular intervals
+/// with second granularity.
+///
+/// `func` will be called repeatedly every `interval` seconds until it
+/// returns `Continue(false)`. Precise timing is not guaranteed, the timeout may
+/// be delayed by other events.
+///
+/// The default main loop almost always is the main loop of the main thread.
+/// Thus the closure is called on the main thread.
+///
 /// Different to `timeout_add_seconds()`, this does not require `func` to be
 /// `Send` but can only be called from the thread that owns the main context.
 ///
@@ -305,6 +448,32 @@ where
             Some(destroy_closure::<F>),
         ))
     }
+}
+
+/// Adds a closure to be called by the default main loop at regular intervals
+/// with second granularity.
+///
+/// `func` will be called repeatedly every `interval` seconds until it
+/// returns `Continue(false)`. Precise timing is not guaranteed, the timeout may
+/// be delayed by other events.
+///
+/// The default main loop almost always is the main loop of the main thread.
+/// Thus the closure is called on the main thread.
+///
+/// Different to `timeout_add_seconds()`, this does not require `func` to be
+/// `Send` but can only be called from the thread that owns the main context.
+///
+/// This function panics if called from a different thread than the one that
+/// owns the main context.
+///
+/// In comparison to `timeout_add_seconds_local()`, this only requires `func` to be
+/// `FnOnce`, and will automatically return `Continue(false)`.
+#[doc(alias = "g_timeout_add_seconds_full")]
+pub fn timeout_add_seconds_local_once<F>(interval: u32, func: F) -> SourceId
+where
+    F: FnOnce() + 'static,
+{
+    timeout_add_seconds_local(interval, fnmut_callback_wrapper_local(func))
 }
 
 /// Adds a closure to be called by the main loop the returned `Source` is attached to when a child
@@ -389,6 +558,26 @@ where
 /// The default main loop almost always is the main loop of the main thread.
 /// Thus the closure is called on the main thread.
 ///
+/// In comparison to `unix_signal_add()`, this only requires `func` to be
+/// `FnOnce`, and will automatically return `Continue(false)`.
+#[doc(alias = "g_unix_signal_add_full")]
+pub fn unix_signal_add_once<F>(signum: i32, func: F) -> SourceId
+where
+    F: FnOnce() + Send + 'static,
+{
+    unix_signal_add(signum, fnmut_callback_wrapper(func))
+}
+
+#[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+/// Adds a closure to be called by the default main loop whenever a UNIX signal is raised.
+///
+/// `func` will be called repeatedly every time `signum` is raised until it
+/// returns `Continue(false)`.
+///
+/// The default main loop almost always is the main loop of the main thread.
+/// Thus the closure is called on the main thread.
+///
 /// Different to `unix_signal_add()`, this does not require `func` to be
 /// `Send` but can only be called from the thread that owns the main context.
 ///
@@ -409,6 +598,32 @@ where
             Some(destroy_closure::<F>),
         ))
     }
+}
+
+#[cfg(any(unix, feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(unix)))]
+/// Adds a closure to be called by the default main loop whenever a UNIX signal is raised.
+///
+/// `func` will be called repeatedly every time `signum` is raised until it
+/// returns `Continue(false)`.
+///
+/// The default main loop almost always is the main loop of the main thread.
+/// Thus the closure is called on the main thread.
+///
+/// Different to `unix_signal_add()`, this does not require `func` to be
+/// `Send` but can only be called from the thread that owns the main context.
+///
+/// This function panics if called from a different thread than the one that
+/// owns the main context.
+///
+/// In comparison to `unix_signal_add_local()`, this only requires `func` to be
+/// `FnOnce`, and will automatically return `Continue(false)`.
+#[doc(alias = "g_unix_signal_add_full")]
+pub fn unix_signal_add_local_once<F>(signum: i32, func: F) -> SourceId
+where
+    F: FnOnce() + 'static,
+{
+    unix_signal_add_local(signum, fnmut_callback_wrapper_local(func))
 }
 
 #[cfg(any(unix, feature = "dox"))]
