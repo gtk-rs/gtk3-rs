@@ -1254,6 +1254,17 @@ pub trait ObjectExt: ObjectType {
     where
         N: Into<&'a str>,
         F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static;
+    /// Same as `connect` but takes a `SignalId` instead of a signal name.
+    fn connect_id<F>(
+        &self,
+        signal_id: SignalId,
+        details: Option<Quark>,
+        after: bool,
+        callback: F,
+    ) -> Result<SignalHandlerId, BoolError>
+    where
+        F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static;
+
     fn connect_local<'a, N, F>(
         &self,
         signal_name: N,
@@ -1263,6 +1274,17 @@ pub trait ObjectExt: ObjectType {
     where
         N: Into<&'a str>,
         F: Fn(&[Value]) -> Option<Value> + 'static;
+    /// Same as `connect_local` but takes a `SignalId` instead of a signal name.
+    fn connect_local_id<F>(
+        &self,
+        signal_id: SignalId,
+        details: Option<Quark>,
+        after: bool,
+        callback: F,
+    ) -> Result<SignalHandlerId, BoolError>
+    where
+        F: Fn(&[Value]) -> Option<Value> + 'static;
+
     unsafe fn connect_unsafe<'a, N, F>(
         &self,
         signal_name: N,
@@ -1271,6 +1293,16 @@ pub trait ObjectExt: ObjectType {
     ) -> Result<SignalHandlerId, BoolError>
     where
         N: Into<&'a str>,
+        F: Fn(&[Value]) -> Option<Value>;
+    /// Same as `connect_unsafe` but takes a `SignalId` instead of a signal name.
+    unsafe fn connect_unsafe_id<F>(
+        &self,
+        signal_id: SignalId,
+        details: Option<Quark>,
+        after: bool,
+        callback: F,
+    ) -> Result<SignalHandlerId, BoolError>
+    where
         F: Fn(&[Value]) -> Option<Value>;
     /// Emit signal by signal id.
     fn emit(&self, signal_id: SignalId, args: &[&dyn ToValue]) -> Result<Option<Value>, BoolError>;
@@ -1725,6 +1757,19 @@ impl<T: ObjectType> ObjectExt for T {
         unsafe { self.connect_unsafe(signal_name, after, callback) }
     }
 
+    fn connect_id<F>(
+        &self,
+        signal_id: SignalId,
+        details: Option<Quark>,
+        after: bool,
+        callback: F,
+    ) -> Result<SignalHandlerId, BoolError>
+    where
+        F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static,
+    {
+        unsafe { self.connect_unsafe_id(signal_id, details, after, callback) }
+    }
+
     fn connect_local<'a, N, F>(
         &self,
         signal_name: N,
@@ -1744,6 +1789,25 @@ impl<T: ObjectType> ObjectExt for T {
         }
     }
 
+    fn connect_local_id<F>(
+        &self,
+        signal_id: SignalId,
+        details: Option<Quark>,
+        after: bool,
+        callback: F,
+    ) -> Result<SignalHandlerId, BoolError>
+    where
+        F: Fn(&[Value]) -> Option<Value> + 'static,
+    {
+        let callback = crate::ThreadGuard::new(callback);
+
+        unsafe {
+            self.connect_unsafe_id(signal_id, details, after, move |values| {
+                (callback.get_ref())(values)
+            })
+        }
+    }
+
     unsafe fn connect_unsafe<'a, N, F>(
         &self,
         signal_name: N,
@@ -1756,12 +1820,25 @@ impl<T: ObjectType> ObjectExt for T {
     {
         let signal_name: &str = signal_name.into();
         let type_ = self.get_type();
-
-        let (signal_id, signal_detail) = SignalId::parse_name(signal_name, type_, true)
+        let (signal_id, details) = SignalId::parse_name(signal_name, type_, true)
             .ok_or_else(|| bool_error!("Signal '{}' of type '{}' not found", signal_name, type_))?;
-        let signal_query = signal_id.query();
+        self.connect_unsafe_id(signal_id, Some(details), after, callback)
+    }
 
+    unsafe fn connect_unsafe_id<F>(
+        &self,
+        signal_id: SignalId,
+        details: Option<Quark>,
+        after: bool,
+        callback: F,
+    ) -> Result<SignalHandlerId, BoolError>
+    where
+        F: Fn(&[Value]) -> Option<Value>,
+    {
+        let signal_query = signal_id.query();
+        let type_ = self.get_type();
         let return_type: Type = signal_query.return_type().into();
+        let signal_name = signal_id.name();
         let closure = if return_type == Type::UNIT {
             Closure::new_unsafe(move |values| {
                 let ret = callback(values);
@@ -1827,7 +1904,7 @@ impl<T: ObjectType> ObjectExt for T {
         let handler = gobject_ffi::g_signal_connect_closure_by_id(
             self.as_object_ref().to_glib_none().0,
             signal_id.to_glib(),
-            signal_detail.to_glib(),
+            details.map(|d| d.to_glib()).unwrap_or(0), // 0 matches no detail
             closure.to_glib_none().0,
             after.to_glib(),
         );
