@@ -943,7 +943,7 @@
 }
 
 <span class="doccomment">/// Trait for subclassable class structs.</span>
-<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectSubclass</span><span class="op">&gt;</span>: <span class="ident">ObjectType</span> {
+<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">IsSubclassable</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectSubclass</span><span class="op">&gt;</span>: <span class="kw">crate</span>::<span class="ident">object</span>::<span class="ident">IsClass</span> {
     <span class="doccomment">/// Override the virtual methods of this class for the given subclass and do other class</span>
     <span class="doccomment">/// initialization.</span>
     <span class="doccomment">///</span>
@@ -959,12 +959,12 @@
 }
 
 <span class="doccomment">/// Trait for implementable interfaces.</span>
-<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">IsImplementable</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectSubclass</span><span class="op">&gt;</span>: <span class="ident">ObjectType</span> {
+<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">IsImplementable</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ObjectSubclass</span><span class="op">&gt;</span>: <span class="kw">crate</span>::<span class="ident">object</span>::<span class="ident">IsInterface</span> {
     <span class="doccomment">/// Override the virtual methods of this interface for the given subclass and do other</span>
     <span class="doccomment">/// interface initialization.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is automatically called during type initialization.</span>
-    <span class="kw">fn</span> <span class="ident">interface_init</span>(<span class="ident">iface</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">crate</span>::<span class="ident">Class</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>);
+    <span class="kw">fn</span> <span class="ident">interface_init</span>(<span class="ident">iface</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">crate</span>::<span class="ident">Interface</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>);
 
     <span class="doccomment">/// Instance specific initialization.</span>
     <span class="doccomment">///</span>
@@ -976,7 +976,7 @@
     <span class="ident">iface</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
     <span class="ident">_iface_data</span>: <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
 ) {
-    <span class="kw">let</span> <span class="ident">iface</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span>(<span class="ident">iface</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">crate</span>::<span class="ident">Class</span><span class="op">&lt;</span><span class="ident">A</span><span class="op">&gt;</span>);
+    <span class="kw">let</span> <span class="ident">iface</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span>(<span class="ident">iface</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">crate</span>::<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">A</span><span class="op">&gt;</span>);
     <span class="ident">A</span>::<span class="ident">interface_init</span>(<span class="ident">iface</span>);
 }
 
