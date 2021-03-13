@@ -91,7 +91,8 @@ pub use self::closure::Closure;
 pub use self::error::{BoolError, Error};
 pub use self::file_error::FileError;
 pub use self::object::{
-    Cast, Class, InitiallyUnowned, IsA, Object, ObjectExt, ObjectType, SendWeakRef, WeakRef,
+    Cast, Class, InitiallyUnowned, Interface, IsA, Object, ObjectExt, ObjectType, SendWeakRef,
+    WeakRef,
 };
 pub use self::signal::{
     signal_handler_block, signal_handler_disconnect, signal_handler_unblock,
