@@ -113,7 +113,7 @@ pub unsafe trait ClassStruct: Sized + 'static {
 }
 
 /// Trait for subclassable class structs.
-pub unsafe trait IsSubclassable<T: ObjectSubclass>: ObjectType {
+pub unsafe trait IsSubclassable<T: ObjectSubclass>: crate::object::IsClass {
     /// Override the virtual methods of this class for the given subclass and do other class
     /// initialization.
     ///
@@ -129,12 +129,12 @@ pub unsafe trait IsSubclassable<T: ObjectSubclass>: ObjectType {
 }
 
 /// Trait for implementable interfaces.
-pub unsafe trait IsImplementable<T: ObjectSubclass>: ObjectType {
+pub unsafe trait IsImplementable<T: ObjectSubclass>: crate::object::IsInterface {
     /// Override the virtual methods of this interface for the given subclass and do other
     /// interface initialization.
     ///
     /// This is automatically called during type initialization.
-    fn interface_init(iface: &mut crate::Class<Self>);
+    fn interface_init(iface: &mut crate::Interface<Self>);
 
     /// Instance specific initialization.
     ///
@@ -146,7 +146,7 @@ unsafe extern "C" fn interface_init<T: ObjectSubclass, A: IsImplementable<T>>(
     iface: ffi::gpointer,
     _iface_data: ffi::gpointer,
 ) {
-    let iface = &mut *(iface as *mut crate::Class<A>);
+    let iface = &mut *(iface as *mut crate::Interface<A>);
     A::interface_init(iface);
 }
 

@@ -16,7 +16,7 @@ unsafe impl<T: ListModelImpl> IsImplementable<T> for ListModel
 where
     <T as ObjectSubclass>::Type: IsA<glib::Object>,
 {
-    fn interface_init(iface: &mut glib::Class<Self>) {
+    fn interface_init(iface: &mut glib::Interface<Self>) {
         let iface = iface.as_mut();
 
         iface.get_item_type = Some(list_model_get_item_type::<T>);

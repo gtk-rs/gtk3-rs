@@ -32,7 +32,7 @@ pub trait SeekableImpl: ObjectImpl + Send {
 }
 
 unsafe impl<T: SeekableImpl> IsImplementable<T> for Seekable {
-    fn interface_init(iface: &mut glib::Class<Self>) {
+    fn interface_init(iface: &mut glib::Interface<Self>) {
         let iface = iface.as_mut();
 
         iface.tell = Some(seekable_tell::<T>);
