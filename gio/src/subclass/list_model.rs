@@ -12,6 +12,58 @@ pub trait ListModelImpl: ObjectImpl {
     fn get_item(&self, list_model: &Self::Type, position: u32) -> Option<glib::Object>;
 }
 
+pub trait ListModelImplExt: ObjectSubclass {
+    fn parent_get_item_type(&self, list_model: &Self::Type) -> glib::Type;
+    fn parent_get_n_items(&self, list_model: &Self::Type) -> u32;
+    fn parent_get_item(&self, list_model: &Self::Type, position: u32) -> Option<glib::Object>;
+}
+
+impl<T: ListModelImpl> ListModelImplExt for T {
+    fn parent_get_item_type(&self, list_model: &Self::Type) -> glib::Type {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface = type_data.as_ref().get_parent_interface::<ListModel>()
+                as *const ffi::GListModelInterface;
+
+            let func = (*parent_iface)
+                .get_item_type
+                .expect("no parent \"get_item_type\" implementation");
+            let ret = func(list_model.unsafe_cast_ref::<ListModel>().to_glib_none().0);
+            from_glib(ret)
+        }
+    }
+
+    fn parent_get_n_items(&self, list_model: &Self::Type) -> u32 {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface = type_data.as_ref().get_parent_interface::<ListModel>()
+                as *const ffi::GListModelInterface;
+
+            let func = (*parent_iface)
+                .get_n_items
+                .expect("no parent \"get_n_items\" implementation");
+            func(list_model.unsafe_cast_ref::<ListModel>().to_glib_none().0)
+        }
+    }
+
+    fn parent_get_item(&self, list_model: &Self::Type, position: u32) -> Option<glib::Object> {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface = type_data.as_ref().get_parent_interface::<ListModel>()
+                as *const ffi::GListModelInterface;
+
+            let func = (*parent_iface)
+                .get_item
+                .expect("no parent \"get_item\" implementation");
+            let ret = func(
+                list_model.unsafe_cast_ref::<ListModel>().to_glib_none().0,
+                position,
+            );
+            from_glib_full(ret)
+        }
+    }
+}
+
 unsafe impl<T: ListModelImpl> IsImplementable<T> for ListModel
 where
     <T as ObjectSubclass>::Type: IsA<glib::Object>,

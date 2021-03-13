@@ -8,6 +8,7 @@ use glib::SeekType;
 use glib::subclass::prelude::*;
 
 use std::mem;
+use std::ptr;
 
 use crate::Cancellable;
 use crate::Seekable;
@@ -29,6 +30,132 @@ pub trait SeekableImpl: ObjectImpl + Send {
         offset: i64,
         cancellable: Option<&Cancellable>,
     ) -> Result<(), Error>;
+}
+
+pub trait SeekableImplExt: ObjectSubclass {
+    fn parent_tell(&self, seekable: &Self::Type) -> i64;
+    fn parent_can_seek(&self, seekable: &Self::Type) -> bool;
+    fn parent_seek(
+        &self,
+        seekable: &Self::Type,
+        offset: i64,
+        type_: SeekType,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<(), Error>;
+    fn parent_can_truncate(&self, seekable: &Self::Type) -> bool;
+    fn parent_truncate(
+        &self,
+        seekable: &Self::Type,
+        offset: i64,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<(), Error>;
+}
+
+impl<T: SeekableImpl> SeekableImplExt for T {
+    fn parent_tell(&self, seekable: &Self::Type) -> i64 {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface =
+                type_data.as_ref().get_parent_interface::<Seekable>() as *const ffi::GSeekableIface;
+
+            let func = (*parent_iface)
+                .tell
+                .expect("no parent \"tell\" implementation");
+            func(seekable.unsafe_cast_ref::<Seekable>().to_glib_none().0)
+        }
+    }
+
+    fn parent_can_seek(&self, seekable: &Self::Type) -> bool {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface =
+                type_data.as_ref().get_parent_interface::<Seekable>() as *const ffi::GSeekableIface;
+
+            let func = (*parent_iface)
+                .can_seek
+                .expect("no parent \"can_seek\" implementation");
+            let ret = func(seekable.unsafe_cast_ref::<Seekable>().to_glib_none().0);
+            from_glib(ret)
+        }
+    }
+
+    fn parent_seek(
+        &self,
+        seekable: &Self::Type,
+        offset: i64,
+        type_: SeekType,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<(), Error> {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface =
+                type_data.as_ref().get_parent_interface::<Seekable>() as *const ffi::GSeekableIface;
+
+            let func = (*parent_iface)
+                .seek
+                .expect("no parent \"seek\" implementation");
+
+            let mut err = ptr::null_mut();
+            func(
+                seekable.unsafe_cast_ref::<Seekable>().to_glib_none().0,
+                offset,
+                type_.to_glib(),
+                cancellable.to_glib_none().0,
+                &mut err,
+            );
+
+            if err.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(err))
+            }
+        }
+    }
+
+    fn parent_can_truncate(&self, seekable: &Self::Type) -> bool {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface =
+                type_data.as_ref().get_parent_interface::<Seekable>() as *const ffi::GSeekableIface;
+
+            let func = (*parent_iface)
+                .can_truncate
+                .expect("no parent \"can_truncate\" implementation");
+            let ret = func(seekable.unsafe_cast_ref::<Seekable>().to_glib_none().0);
+            from_glib(ret)
+        }
+    }
+
+    fn parent_truncate(
+        &self,
+        seekable: &Self::Type,
+        offset: i64,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<(), Error> {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface =
+                type_data.as_ref().get_parent_interface::<Seekable>() as *const ffi::GSeekableIface;
+
+            let func = (*parent_iface)
+                .truncate_fn
+                .expect("no parent \"truncate\" implementation");
+
+            let mut err = ptr::null_mut();
+            func(
+                seekable.unsafe_cast_ref::<Seekable>().to_glib_none().0,
+                offset,
+                cancellable.to_glib_none().0,
+                &mut err,
+            );
+
+            if err.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(err))
+            }
+        }
+    }
 }
 
 unsafe impl<T: SeekableImpl> IsImplementable<T> for Seekable {
