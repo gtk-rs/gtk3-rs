@@ -402,6 +402,7 @@ mod test {
             }
         }
 
+        #[derive(Clone, Copy)]
         #[repr(C)]
         pub struct DummyInterface {
             parent: gobject_ffi::GTypeInterface,
