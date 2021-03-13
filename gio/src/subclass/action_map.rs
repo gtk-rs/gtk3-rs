@@ -17,7 +17,7 @@ unsafe impl<T: ActionMapImpl> IsImplementable<T> for ActionMap
 where
     <T as ObjectSubclass>::Type: IsA<glib::Object>,
 {
-    fn interface_init(iface: &mut glib::Class<Self>) {
+    fn interface_init(iface: &mut glib::Interface<Self>) {
         let iface = iface.as_mut();
 
         iface.lookup_action = Some(action_map_lookup_action::<T>);

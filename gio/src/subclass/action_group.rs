@@ -301,7 +301,7 @@ pub trait ActionGroupImpl: ObjectImpl {
 }
 
 unsafe impl<T: ActionGroupImpl> IsImplementable<T> for ActionGroup {
-    fn interface_init(iface: &mut glib::Class<Self>) {
+    fn interface_init(iface: &mut glib::Interface<Self>) {
         let iface = iface.as_mut();
 
         iface.action_added = Some(action_group_action_added::<T>);
