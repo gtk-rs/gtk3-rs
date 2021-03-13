@@ -1174,6 +1174,11 @@ pub trait ObjectExt: ObjectType {
 
     fn get_type(&self) -> Type;
     fn get_object_class(&self) -> &ObjectClass;
+    fn get_class(&self) -> &Class<Self>
+    where
+        Self: IsClass;
+    fn get_class_of<T: IsClass>(&self) -> Option<&Class<T>>;
+    fn get_interface<T: IsInterface>(&self) -> Option<InterfaceRef<T>>;
 
     fn set_property<'a, N: Into<&'a str>, V: ToValue>(
         &self,
@@ -1343,6 +1348,34 @@ impl<T: ObjectType> ObjectExt for T {
             &*klass
         }
     }
+
+    fn get_class(&self) -> &Class<Self>
+    where
+        Self: IsClass,
+    {
+        unsafe {
+            let obj: *mut gobject_ffi::GObject = self.as_object_ref().to_glib_none().0;
+            let klass = (*obj).g_type_instance.g_class as *const Class<Self>;
+            &*klass
+        }
+    }
+
+    fn get_class_of<U: IsClass>(&self) -> Option<&Class<U>> {
+        if !self.is::<U>() {
+            return None;
+        }
+
+        unsafe {
+            let obj: *mut gobject_ffi::GObject = self.as_object_ref().to_glib_none().0;
+            let klass = (*obj).g_type_instance.g_class as *const Class<U>;
+            Some(&*klass)
+        }
+    }
+
+    fn get_interface<U: IsInterface>(&self) -> Option<InterfaceRef<U>> {
+        Interface::from_class(self.get_object_class())
+    }
+
     fn set_properties(&self, property_values: &[(&str, &dyn ToValue)]) -> Result<(), BoolError> {
         use std::ffi::CString;
 
