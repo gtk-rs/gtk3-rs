@@ -48,15 +48,15 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">subclass</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">action_group</span>::<span class="ident">ActionGroupImpl</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">action_map</span>::<span class="ident">ActionMapImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">action_group</span>::{<span class="ident">ActionGroupImpl</span>, <span class="ident">ActionGroupImplExt</span>};
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">action_map</span>::{<span class="ident">ActionMapImpl</span>, <span class="ident">ActionMapImplExt</span>};
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">application</span>::{<span class="ident">ApplicationImpl</span>, <span class="ident">ApplicationImplExt</span>};
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">input_stream</span>::{<span class="ident">InputStreamImpl</span>, <span class="ident">InputStreamImplExt</span>};
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">io_stream</span>::{<span class="ident">IOStreamImpl</span>, <span class="ident">IOStreamImplExt</span>};
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v2_44&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">list_model</span>::<span class="ident">ListModelImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">list_model</span>::{<span class="ident">ListModelImpl</span>, <span class="ident">ListModelImplExt</span>};
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">output_stream</span>::{<span class="ident">OutputStreamImpl</span>, <span class="ident">OutputStreamImplExt</span>};
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">seekable</span>::<span class="ident">SeekableImpl</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">seekable</span>::{<span class="ident">SeekableImpl</span>, <span class="ident">SeekableImplExt</span>};
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gio" data-search-js="../../../search-index.js"></div>
