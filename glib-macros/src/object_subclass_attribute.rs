@@ -95,6 +95,7 @@ pub fn impl_object_subclass(input: &syn::ItemImpl) -> TokenStream {
                 static mut DATA: #crate_ident::subclass::TypeData = #crate_ident::subclass::TypeData {
                     type_: #crate_ident::Type::INVALID,
                     parent_class: std::ptr::null_mut(),
+                    parent_ifaces: None,
                     class_data: None,
                     private_offset: 0,
                     private_imp_offset: 0,

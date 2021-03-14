@@ -129,7 +129,10 @@ pub unsafe trait IsSubclassable<T: ObjectSubclass>: crate::object::IsClass {
 }
 
 /// Trait for implementable interfaces.
-pub unsafe trait IsImplementable<T: ObjectSubclass>: crate::object::IsInterface {
+pub unsafe trait IsImplementable<T: ObjectSubclass>: crate::object::IsInterface
+where
+    <Self as ObjectType>::GlibClassType: Copy,
+{
     /// Override the virtual methods of this interface for the given subclass and do other
     /// interface initialization.
     ///
@@ -145,8 +148,24 @@ pub unsafe trait IsImplementable<T: ObjectSubclass>: crate::object::IsInterface 
 unsafe extern "C" fn interface_init<T: ObjectSubclass, A: IsImplementable<T>>(
     iface: ffi::gpointer,
     _iface_data: ffi::gpointer,
-) {
+) where
+    <A as ObjectType>::GlibClassType: Copy,
+{
     let iface = &mut *(iface as *mut crate::Interface<A>);
+
+    let mut data = T::type_data();
+    if data.as_ref().parent_ifaces.is_none() {
+        data.as_mut().parent_ifaces = Some(HashMap::new());
+    }
+    {
+        let copy = Box::new(*iface.as_ref());
+        data.as_mut()
+            .parent_ifaces
+            .as_mut()
+            .unwrap()
+            .insert(A::static_type(), Box::into_raw(copy) as ffi::gpointer);
+    }
+
     A::interface_init(iface);
 }
 
@@ -167,7 +186,10 @@ impl<T: ObjectSubclass> InterfaceList<T> for () {
     fn instance_init(_instance: &mut InitializingObject<T>) {}
 }
 
-impl<T: ObjectSubclass, A: IsImplementable<T>> InterfaceList<T> for (A,) {
+impl<T: ObjectSubclass, A: IsImplementable<T>> InterfaceList<T> for (A,)
+where
+    <A as ObjectType>::GlibClassType: Copy,
+{
     fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)> {
         vec![(
             A::static_type().to_glib(),
@@ -205,7 +227,10 @@ macro_rules! interface_list_trait(
 // and then implements the trait on (A, B, C).
 macro_rules! interface_list_trait_impl(
     ($($name:ident),+) => (
-        impl<T: ObjectSubclass, $($name: IsImplementable<T>),+> InterfaceList<T> for ( $($name),+ ) {
+        impl<T: ObjectSubclass, $($name: IsImplementable<T>),+> InterfaceList<T> for ( $($name),+ )
+        where
+            $(<$name as ObjectType>::GlibClassType: Copy),+
+        {
             fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)> {
                 let mut types = Vec::new();
                 interface_list_trait_inner_iface_infos!(types, $($name)+)
@@ -287,6 +312,8 @@ pub struct TypeData {
     #[doc(hidden)]
     pub parent_class: ffi::gpointer,
     #[doc(hidden)]
+    pub parent_ifaces: Option<HashMap<Type, ffi::gpointer>>,
+    #[doc(hidden)]
     pub class_data: Option<HashMap<Type, Box<dyn Any + Send + Sync>>>,
     #[doc(hidden)]
     pub private_offset: isize,
@@ -308,7 +335,26 @@ impl TypeData {
     /// This is used for chaining up to the parent class' implementation
     /// of virtual methods.
     pub fn get_parent_class(&self) -> ffi::gpointer {
+        debug_assert!(!self.parent_class.is_null());
         self.parent_class
+    }
+
+    /// Returns a pointer to the native parent interface struct for interface `type_`.
+    ///
+    /// This is used for chaining up to the parent interface's implementation
+    /// of virtual methods.
+    ///
+    /// # Panics
+    ///
+    /// This function panics if the type to which the `TypeData` belongs does not implement the
+    /// given interface or was not registered yet.
+    pub fn get_parent_interface<I: crate::object::IsInterface>(&self) -> ffi::gpointer {
+        match self.parent_ifaces {
+            None => unreachable!("No parent interfaces"),
+            Some(ref parent_ifaces) => *parent_ifaces
+                .get(&I::static_type())
+                .expect("Parent interface not found"),
+        }
     }
 
     /// Returns a pointer to the class implementation specific data.

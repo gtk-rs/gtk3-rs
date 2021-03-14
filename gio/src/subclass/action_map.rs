@@ -13,6 +13,63 @@ pub trait ActionMapImpl: ObjectImpl {
     fn remove_action(&self, action_map: &Self::Type, action_name: &str);
 }
 
+pub trait ActionMapImplExt: ObjectSubclass {
+    fn parent_lookup_action(&self, action_map: &Self::Type, action_name: &str) -> Option<Action>;
+    fn parent_add_action(&self, action_map: &Self::Type, action: &Action);
+    fn parent_remove_action(&self, action_map: &Self::Type, action_name: &str);
+}
+
+impl<T: ActionMapImpl> ActionMapImplExt for T {
+    fn parent_lookup_action(&self, action_map: &Self::Type, name: &str) -> Option<Action> {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface = type_data.as_ref().get_parent_interface::<ActionMap>()
+                as *const ffi::GActionMapInterface;
+
+            let func = (*parent_iface)
+                .lookup_action
+                .expect("no parent \"lookup_action\" implementation");
+            let ret = func(
+                action_map.unsafe_cast_ref::<ActionMap>().to_glib_none().0,
+                name.to_glib_none().0,
+            );
+            from_glib_none(ret)
+        }
+    }
+
+    fn parent_add_action(&self, action_map: &Self::Type, action: &Action) {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface = type_data.as_ref().get_parent_interface::<ActionMap>()
+                as *const ffi::GActionMapInterface;
+
+            let func = (*parent_iface)
+                .add_action
+                .expect("no parent \"add_action\" implementation");
+            func(
+                action_map.unsafe_cast_ref::<ActionMap>().to_glib_none().0,
+                action.to_glib_none().0,
+            );
+        }
+    }
+
+    fn parent_remove_action(&self, action_map: &Self::Type, action_name: &str) {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface = type_data.as_ref().get_parent_interface::<ActionMap>()
+                as *const ffi::GActionMapInterface;
+
+            let func = (*parent_iface)
+                .remove_action
+                .expect("no parent \"remove_action\" implementation");
+            func(
+                action_map.unsafe_cast_ref::<ActionMap>().to_glib_none().0,
+                action_name.to_glib_none().0,
+            );
+        }
+    }
+}
+
 unsafe impl<T: ActionMapImpl> IsImplementable<T> for ActionMap
 where
     <T as ObjectSubclass>::Type: IsA<glib::Object>,
