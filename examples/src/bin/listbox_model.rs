@@ -10,7 +10,12 @@
 //!
 //! In addition it is possible to add new rows and delete old ones.
 
-use gtk::{gio, glib::clone, ResponseType};
+use gtk::{
+    gio,
+    glib::{self, clone},
+    prelude::*,
+    ResponseType,
+};
 
 use std::env::args;
 
@@ -18,18 +23,19 @@ use row_data::RowData;
 
 mod model {
     use super::*;
-    use gio::subclass::ObjectSubclass;
+    use glib::subclass::prelude::*;
     use row_data::RowData;
+
     mod imp {
         use super::*;
-        use gio::subclass::ListModelImpl;
-        use glib::subclass;
-        use glib::subclass::prelude::*;
+        use gio::subclass::prelude::*;
         use std::cell::RefCell;
+
         #[derive(Debug, Default)]
         pub struct Model(pub RefCell<Vec<RowData>>);
 
         // Basic declaration of our type for the GObject type system
+        #[glib::object_subclass]
         impl ObjectSubclass for Model {
             const NAME: &'static str = "Model";
             type Type = super::Model;
@@ -277,7 +283,6 @@ fn main() {
 mod row_data {
     use super::*;
 
-    use glib::subclass;
     use glib::subclass::prelude::*;
 
     // Implementation sub-module of the GObject
@@ -294,6 +299,7 @@ mod row_data {
         }
 
         // Basic declaration of our type for the GObject type system
+        #[glib::object_subclass]
         impl ObjectSubclass for RowData {
             const NAME: &'static str = "RowData";
             type Type = super::RowData;
