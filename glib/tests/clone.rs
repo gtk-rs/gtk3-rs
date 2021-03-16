@@ -489,6 +489,16 @@ fn test_clone_macro_body() {
 }
 
 #[test]
+fn test_clone_macro_async_kinds() {
+    let v = Rc::new(1);
+
+    // This one is still a rust unstable feature.
+    // let _closure = clone!(@weak v => async move || 0);
+    let _closure = clone!(@weak v => move || async move { 0 });
+    let _closure = clone!(@weak v => async move { 0 });
+}
+
+#[test]
 fn derive_downgrade() {
     #[derive(Downgrade)]
     pub struct NewType(Object);
