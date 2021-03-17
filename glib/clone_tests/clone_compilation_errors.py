@@ -54,14 +54,23 @@ TESTS = [
         "Unknown keyword `yolo`, only `weak`, `weak-allow-none` and `strong` are allowed"),
     ("clone!(v => move || {})",
         "Unexpected ident `v`: you need to specify if this is a weak or a strong clone."),
-    ("clone!(@strong v => async move {println!(\"foo\");});",
-        "async blocks are not supported by the clone! macro"),
     ("clone!(@strong v => {println!(\"foo\");});",
         "Missing `move` and closure declaration"),
     ("clone!(@strong v, @default-return lol => move || {println!(\"foo\");});",
         "`@default-return` should be after `=>`"),
     ("clone!(@default-return lol, @strong v => move || {println!(\"foo\");});",
         "`@default-return` should be after `=>`"),
+    # The async part!
+    ("clone!(@strong v => async || {println!(\"foo\");});",
+        "Expected `move` after `async`, found `|`"),
+    ("clone!(@strong v => async {println!(\"foo\");});",
+        "Expected `move` after `async`, found `{`"),
+    ("clone!(@strong v => move || async {println!(\"foo\");});",
+        "Expected `move` after `async`, found `{`"),
+    ("clone!(@strong v => move || async println!(\"foo\"););",
+        "Expected `move` after `async`, found `println`"),
+    ("clone!(@strong v => move || async move println!(\"foo\"););",
+        "Expected block after `| async move`"),
 ]
 
 

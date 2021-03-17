@@ -317,22 +317,39 @@ fn parse_ident(parts: &mut Peekable<ProcIter>, elements: &mut Vec<ElemToClone>) 
     });
 }
 
+fn delimiter_to_string(delimiter: Delimiter, open: bool) -> &'static str {
+    match delimiter {
+        Delimiter::Parenthesis => {
+            if open {
+                "("
+            } else {
+                ")"
+            }
+        }
+        Delimiter::Brace => {
+            if open {
+                "{"
+            } else {
+                "}"
+            }
+        }
+        Delimiter::Bracket => {
+            if open {
+                "["
+            } else {
+                "]"
+            }
+        }
+        Delimiter::None => "",
+    }
+}
+
 fn group_to_string(g: &Group) -> String {
     format!(
         "{}{}{}",
-        match g.delimiter() {
-            Delimiter::Parenthesis => "(",
-            Delimiter::Brace => "{",
-            Delimiter::Bracket => "[",
-            Delimiter::None => "",
-        },
+        delimiter_to_string(g.delimiter(), true),
         tokens_to_string(g.stream().into_iter().peekable()),
-        match g.delimiter() {
-            Delimiter::Parenthesis => ")",
-            Delimiter::Brace => "}",
-            Delimiter::Bracket => "]",
-            Delimiter::None => "",
-        },
+        delimiter_to_string(g.delimiter(), false),
     )
 }
 
@@ -429,12 +446,70 @@ fn parse_return_kind(parts: &mut Peekable<ProcIter>) -> WrapperKind {
     ret
 }
 
-fn check_before_closure(parts: &mut Peekable<ProcIter>) {
-    match parts.peek() {
-        Some(TokenTree::Ident(i)) if i.to_string() == "move" => {}
-        Some(TokenTree::Ident(i)) if i.to_string() == "async" => {
-            panic!("async blocks are not supported by the clone! macro");
+enum BlockKind {
+    Closure(Vec<TokenTree>),
+    ClosureWrappingAsync(Vec<TokenTree>),
+    AsyncClosure(Vec<TokenTree>),
+    AsyncBlock,
+}
+
+impl BlockKind {
+    fn get_closure(self) -> Option<Vec<TokenTree>> {
+        match self {
+            Self::AsyncBlock => None,
+            Self::Closure(c) | Self::ClosureWrappingAsync(c) | Self::AsyncClosure(c) => Some(c),
         }
+    }
+}
+
+fn check_move_after_async(parts: &mut Peekable<ProcIter>) {
+    match parts.next() {
+        Some(TokenTree::Ident(i)) if i.to_string() == "move" => {}
+        // The next checks are just for better error messages.
+        Some(TokenTree::Ident(i)) => {
+            panic!("Expected `move` after `async`, found `{}`", i.to_string());
+        }
+        Some(TokenTree::Punct(p)) => {
+            panic!("Expected `move` after `async`, found `{}`", p.to_string());
+        }
+        Some(TokenTree::Group(g)) => {
+            panic!(
+                "Expected `move` after `async`, found `{}`",
+                delimiter_to_string(g.delimiter(), true),
+            );
+        }
+        _ => panic!("Expected `move` after `async`"),
+    }
+}
+
+fn check_async_syntax(parts: &mut Peekable<ProcIter>) -> BlockKind {
+    check_move_after_async(parts);
+    match parts.next() {
+        Some(TokenTree::Punct(p)) if p.to_string() == "|" => {
+            BlockKind::AsyncClosure(get_closure(parts))
+        }
+        Some(TokenTree::Punct(p)) => {
+            panic!(
+                "Expected closure or block after `async move`, found `{}`",
+                p.to_string()
+            );
+        }
+        Some(TokenTree::Group(g)) if g.delimiter() == Delimiter::Brace => BlockKind::AsyncBlock,
+        Some(TokenTree::Group(g)) => {
+            panic!(
+                "Expected closure or block after `async move`, found `{}`",
+                delimiter_to_string(g.delimiter(), true),
+            );
+        }
+        _ => panic!("Expected closure or block after `async move`"),
+    }
+}
+
+// Returns `true` if this is an async context.
+fn check_before_closure(parts: &mut Peekable<ProcIter>) -> BlockKind {
+    let is_async = match parts.peek() {
+        Some(TokenTree::Ident(i)) if i.to_string() == "move" => false,
+        Some(TokenTree::Ident(i)) if i.to_string() == "async" => true,
         Some(TokenTree::Ident(i)) if i.to_string() == "default" => {
             let ret = get_return_kind(parts);
             panic!("Missing `@` before `{}`", ret.keyword());
@@ -443,12 +518,42 @@ fn check_before_closure(parts: &mut Peekable<ProcIter>) {
             panic!("Closure needs to be \"moved\" so please add `move` before closure")
         }
         _ => panic!("Missing `move` and closure declaration"),
-    }
+    };
     parts.next();
+    if is_async {
+        return check_async_syntax(parts);
+    }
     match parts.next() {
         Some(TokenTree::Punct(p)) if p.to_string() == "|" => {}
         Some(x) => panic!("Expected closure, found `{}`", x.to_string()),
         None => panic!("Expected closure"),
+    }
+    let closure = get_closure(parts);
+    match parts.peek() {
+        Some(TokenTree::Ident(i)) if i.to_string() == "async" => {
+            parts.next();
+            check_move_after_async(parts);
+            match parts.next() {
+                Some(TokenTree::Group(g)) if g.delimiter() == Delimiter::Brace => {
+                    BlockKind::ClosureWrappingAsync(closure)
+                }
+                // The next matchings are for better error messages.
+                Some(TokenTree::Punct(p)) => {
+                    panic!(
+                        "Expected block after `| async move`, found `{}`",
+                        p.to_string()
+                    );
+                }
+                Some(TokenTree::Group(g)) => {
+                    panic!(
+                        "Expected block after `| async move`, found `{}`",
+                        delimiter_to_string(g.delimiter(), true),
+                    );
+                }
+                _ => panic!("Expected block after `| async move`"),
+            }
+        }
+        _ => BlockKind::Closure(closure),
     }
 }
 
@@ -494,6 +599,97 @@ pub fn tokens_to_string(parts: Peekable<ProcIter>) -> String {
     ret
 }
 
+fn build_closure(
+    parts: Peekable<ProcIter>,
+    elements: Vec<ElemToClone>,
+    return_kind: WrapperKind,
+    kind: BlockKind,
+) -> TokenStream {
+    let mut body = TokenStream::new();
+    body.extend(parts.collect::<Vec<_>>());
+
+    // To prevent to lose the spans in case some errors occur in the code, we need to keep `body`!
+    //
+    // If we replaced everything that follows with a `format!`, it'd look like this:
+    //
+    // format!(
+    //     "{{\n{}\nmove |{}| {{\n{}\nlet ____ret = {{ {} }};\n____ret\n}}\n}}",
+    //     elements
+    //         .iter()
+    //         .map(|x| x.to_str_before())
+    //         .collect::<Vec<_>>()
+    //         .join("\n"),
+    //     closure,
+    //     elements
+    //         .iter()
+    //         .map(|x| x.to_str_after(&return_kind))
+    //         .collect::<Vec<_>>()
+    //         .join("\n"),
+    //     body,
+    // )
+    let mut ret: Vec<TokenTree> = vec![];
+    for el in &elements {
+        let stream: TokenStream = el
+            .to_str_before()
+            .parse()
+            .expect("failed to convert element");
+        ret.extend(stream.into_iter().collect::<Vec<_>>());
+    }
+
+    // This part is creating the TokenStream using the variables that needs to be cloned (from the
+    // @weak and @strong annotations).
+    let mut inner: Vec<TokenTree> = Vec::new();
+    for el in elements {
+        let stream: TokenStream = el
+            .to_str_after(&return_kind)
+            .parse()
+            .expect("failed to convert element after");
+        inner.extend(stream.into_iter().collect::<Vec<_>>());
+    }
+    if matches!(kind, BlockKind::ClosureWrappingAsync(_)) {
+        inner.extend(vec![
+            TokenTree::Ident(Ident::new("async", Span::call_site())),
+            TokenTree::Ident(Ident::new("move", Span::call_site())),
+        ]);
+    }
+
+    let is_async_closure_kind = matches!(kind, BlockKind::AsyncClosure(_));
+    if let Some(closure) = kind.get_closure() {
+        if is_async_closure_kind {
+            ret.push(TokenTree::Ident(Ident::new("async", Span::call_site())));
+        }
+        ret.extend(vec![
+            TokenTree::Ident(Ident::new("move", Span::call_site())),
+            TokenTree::Punct(Punct::new('|', Spacing::Alone)),
+        ]);
+        ret.extend(closure);
+        ret.extend(vec![TokenTree::Punct(Punct::new('|', Spacing::Alone))]);
+    } else {
+        ret.extend(vec![
+            TokenTree::Ident(Ident::new("async", Span::call_site())),
+            TokenTree::Ident(Ident::new("move", Span::call_site())),
+        ]);
+    }
+    // The commented lines that follow *might* be useful, don't know. Just in case, I'm keeping
+    // them around. You're welcome future me!
+    inner.extend(vec![
+        // TokenTree::Ident(Ident::new("let", Span::call_site())),
+        // TokenTree::Ident(Ident::new("____ret", Span::call_site())),
+        // TokenTree::Punct(Punct::new('=', Spacing::Alone)),
+        TokenTree::Group(Group::new(Delimiter::Brace, body)),
+        // TokenTree::Punct(Punct::new(';', Spacing::Alone)),
+        // TokenTree::Ident(Ident::new("____ret", Span::call_site())),
+    ]);
+    let mut inners = TokenStream::new();
+    inners.extend(inner);
+    ret.extend(vec![TokenTree::Group(Group::new(Delimiter::Brace, inners))]);
+
+    let mut rets = TokenStream::new();
+    rets.extend(ret);
+
+    TokenTree::Group(Group::new(Delimiter::Brace, rets)).into()
+}
+
 pub(crate) fn clone_inner(item: TokenStream) -> TokenStream {
     let mut parts = item.into_iter().peekable();
     let mut elements = Vec::new();
@@ -537,68 +733,6 @@ pub(crate) fn clone_inner(item: TokenStream) -> TokenStream {
         panic!("If you have nothing to clone, no need to use this macro!");
     }
     let return_kind = parse_return_kind(&mut parts);
-    check_before_closure(&mut parts);
-    let closure = get_closure(&mut parts);
-    let mut body = TokenStream::new();
-    body.extend(parts.collect::<Vec<_>>());
-
-    // To prevent to lose the spans in case some errors occur in the code, we need to keep `body`!
-    //
-    // If we replaced everything that follows with a `format!`, it'd look like this:
-    //
-    // format!(
-    //     "{{\n{}\nmove |{}| {{\n{}\nlet ____ret = {{ {} }};\n____ret\n}}\n}}",
-    //     elements
-    //         .iter()
-    //         .map(|x| x.to_str_before())
-    //         .collect::<Vec<_>>()
-    //         .join("\n"),
-    //     closure,
-    //     elements
-    //         .iter()
-    //         .map(|x| x.to_str_after(&return_kind))
-    //         .collect::<Vec<_>>()
-    //         .join("\n"),
-    //     body,
-    // )
-    let mut ret: Vec<TokenTree> = vec![];
-    for el in &elements {
-        let stream: TokenStream = el
-            .to_str_before()
-            .parse()
-            .expect("failed to convert element");
-        ret.extend(stream.into_iter().collect::<Vec<_>>());
-    }
-    ret.extend(vec![
-        TokenTree::Ident(Ident::new("move", Span::call_site())),
-        TokenTree::Punct(Punct::new('|', Spacing::Alone)),
-    ]);
-    ret.extend(closure);
-    ret.extend(vec![TokenTree::Punct(Punct::new('|', Spacing::Alone))]);
-    let mut inner: Vec<TokenTree> = Vec::new();
-    for el in elements {
-        let stream: TokenStream = el
-            .to_str_after(&return_kind)
-            .parse()
-            .expect("failed to convert element after");
-        inner.extend(stream.into_iter().collect::<Vec<_>>());
-    }
-    // The commented lines that follow *might* be useful, don't know. Just in case, I'm keeping
-    // them around. You're welcome future me!
-    inner.extend(vec![
-        // TokenTree::Ident(Ident::new("let", Span::call_site())),
-        // TokenTree::Ident(Ident::new("____ret", Span::call_site())),
-        // TokenTree::Punct(Punct::new('=', Spacing::Alone)),
-        TokenTree::Group(Group::new(Delimiter::Brace, body)),
-        // TokenTree::Punct(Punct::new(';', Spacing::Alone)),
-        // TokenTree::Ident(Ident::new("____ret", Span::call_site())),
-    ]);
-    let mut inners = TokenStream::new();
-    inners.extend(inner);
-    ret.extend(vec![TokenTree::Group(Group::new(Delimiter::Brace, inners))]);
-
-    let mut rets = TokenStream::new();
-    rets.extend(ret);
-
-    TokenTree::Group(Group::new(Delimiter::Brace, rets)).into()
+    let kind = check_before_closure(&mut parts);
+    build_closure(parts, elements, return_kind, kind)
 }
