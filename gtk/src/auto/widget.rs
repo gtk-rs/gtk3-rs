@@ -909,9 +909,7 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_drag_drop<
-        F: Fn(&Self, &gdk::DragContext, i32, i32, u32) -> glib::signal::Inhibit + 'static,
-    >(
+    fn connect_drag_drop<F: Fn(&Self, &gdk::DragContext, i32, i32, u32) -> bool + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
@@ -930,9 +928,7 @@ pub trait WidgetExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
-    fn connect_drag_motion<
-        F: Fn(&Self, &gdk::DragContext, i32, i32, u32) -> glib::signal::Inhibit + 'static,
-    >(
+    fn connect_drag_motion<F: Fn(&Self, &gdk::DragContext, i32, i32, u32) -> bool + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
@@ -3668,15 +3664,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_drag_drop<
-        F: Fn(&Self, &gdk::DragContext, i32, i32, u32) -> glib::signal::Inhibit + 'static,
-    >(
+    fn connect_drag_drop<F: Fn(&Self, &gdk::DragContext, i32, i32, u32) -> bool + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn drag_drop_trampoline<
             P,
-            F: Fn(&P, &gdk::DragContext, i32, i32, u32) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::DragContext, i32, i32, u32) -> bool + 'static,
         >(
             this: *mut ffi::GtkWidget,
             context: *mut gdk::ffi::GdkDragContext,
@@ -3809,15 +3803,13 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn connect_drag_motion<
-        F: Fn(&Self, &gdk::DragContext, i32, i32, u32) -> glib::signal::Inhibit + 'static,
-    >(
+    fn connect_drag_motion<F: Fn(&Self, &gdk::DragContext, i32, i32, u32) -> bool + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn drag_motion_trampoline<
             P,
-            F: Fn(&P, &gdk::DragContext, i32, i32, u32) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::DragContext, i32, i32, u32) -> bool + 'static,
         >(
             this: *mut ffi::GtkWidget,
             context: *mut gdk::ffi::GdkDragContext,

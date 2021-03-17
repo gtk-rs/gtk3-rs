@@ -2706,13 +2706,7 @@ manual_traits = ["WidgetExtManual"]
         name = "data"
         transformation = "borrow"
     [[object.signal]]
-    name = "drag-drop"
-    inhibit = true
-    [[object.signal]]
     name = "drag-failed"
-    inhibit = true
-    [[object.signal]]
-    name = "drag-motion"
     inhibit = true
     [[object.signal]]
     name = "draw"
