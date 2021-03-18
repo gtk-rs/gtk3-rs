@@ -13,6 +13,7 @@ generate = [
     "Gio.Action",
     "Gio.ActionMap",
     "Gio.AppInfoCreateFlags",
+    "Gio.AppInfoMonitor",
     "Gio.ApplicationFlags",
     "Gio.AskPasswordFlags",
     "Gio.AsyncResult",
@@ -51,6 +52,7 @@ generate = [
     "Gio.DBusServerFlags",
     "Gio.DBusSignalFlags",
     "Gio.DBusSignalInfo",
+    "Gio.Drive",
     "Gio.DriveStartFlags",
     "Gio.DriveStartStopType",
     "Gio.Emblem",
@@ -83,6 +85,7 @@ generate = [
     "Gio.MenuItem",
     "Gio.MenuLinkIter",
     "Gio.MenuModel",
+    "Gio.Mount",
     "Gio.MountMountFlags",
     "Gio.MountOperation",
     "Gio.MountOperationResult",
@@ -90,6 +93,7 @@ generate = [
     "Gio.NetworkConnectivity",
     "Gio.NetworkMonitor",
     "Gio.NetworkService",
+    "Gio.Notification",
     "Gio.NotificationPriority",
     "Gio.OutputStreamSpliceFlags",
     "Gio.PasswordSave",
@@ -143,6 +147,8 @@ generate = [
     "Gio.TlsPasswordFlags",
     "Gio.TlsRehandshakeMode",
     "Gio.TlsServerConnection",
+    "Gio.Volume",
+    "Gio.VolumeMonitor",
     "Gio.ZlibCompressor",
     "Gio.ZlibCompressorFormat",
     "Gio.ZlibDecompressor",
@@ -232,14 +238,6 @@ manual_traits = ["AppInfoExtManual"]
     name = "launch_uris_async"
     #in array of strings
     manual = true
-
-[[object]]
-name = "Gio.AppInfoMonitor"
-status = "generate"
-    [[object.function]]
-    name = "get"
-        [object.function.return]
-        nullable = false
 
 [[object]]
 name = "Gio.AppLaunchContext"
@@ -532,48 +530,20 @@ cfg_condition = "all(not(windows),not(target_os = \"macos\"))"
     manual = true
 
 [[object]]
-name = "Gio.Drive"
-status = "generate"
-    [[object.function]]
-    name = "get_icon"
-        [object.function.return]
-        nullable = false
-    [[object.function]]
-    name = "get_name"
-        [object.function.return]
-        nullable = false
-    [[object.function]]
-    name = "get_symbolic_icon"
-        [object.function.return]
-        nullable = false
-
-[[object]]
 name = "Gio.File"
 status = "generate"
 concurrency = "send+sync"
 manual_traits = ["FileExtManual"]
     [[object.function]]
-    name = "new_for_path"
-        [object.function.return]
-        nullable = false
-    [[object.function]]
-    name = "new_for_uri"
-        [object.function.return]
-        nullable = false
-    [[object.function]]
     name = "new_for_commandline_arg"
         [[object.function.parameter]]
         name = "arg"
         string_type = "os_string"
-        [object.function.return]
-        nullable = false
     [[object.function]]
     name = "new_for_commandline_arg_and_cwd"
         [[object.function.parameter]]
         name = "arg"
         string_type = "os_string"
-        [object.function.return]
-        nullable = false
     [[object.function]]
     name = "hash"
     ignore = true
@@ -590,41 +560,6 @@ manual_traits = ["FileExtManual"]
     # AsRef
     manual = true
     doc_trait_name = "FileExtManual"
-    # See https://gitlab.gnome.org/GNOME/glib/-/merge_requests/1840
-    [[object.function]]
-    name = "get_uri"
-        [object.function.return]
-        nullable = false
-    # See https://gitlab.gnome.org/GNOME/glib/-/merge_requests/1956
-    [[object.function]]
-    name = "load_contents"
-        [[object.function.parameter]]
-        name = "etag_out"
-        nullable = true
-    [[object.function]]
-    name = "load_partial_contents_async"
-        [[object.function.parameter]]
-        name = "etag_out"
-        nullable = true
-    [[object.function]]
-    name = "load_contents_async"
-        [[object.function.parameter]]
-        name = "etag_out"
-        nullable = true
-    [[object.function]]
-    name = "replace_contents"
-        [[object.function.parameter]]
-        name = "new_etag"
-        nullable = true
-    [[object.function]]
-    name = "replace_contents_async"
-        [[object.function.parameter]]
-        name = "new_etag"
-        nullable = true
-    [[object.function]]
-    name = "get_child"
-        [object.function.return]
-        nullable = false
 
 [[object]]
 name = "Gio.FileAttributeMatcher"
@@ -633,11 +568,6 @@ status = "generate"
     name = "enumerate_next"
     # Better API with `IntoIter`
     ignore = true
-    [[object.function]]
-    name = "subtract"
-        [[object.function.parameter]]
-        name = "subtract"
-        nullable = true
 
 [[object]]
 name = "Gio.FileEnumerator"
@@ -671,10 +601,6 @@ status = "generate"
 name =  "Gio.InetAddressMask"
 status = "generate"
 concurrency = "send+sync"
-    [[object.function]]
-    name = "get_address"
-        [object.function.return]
-        nullable = false
 
 [[object]]
 name = "Gio.InetAddress"
@@ -726,7 +652,6 @@ manual_traits = ["IOStreamExtManual"]
 name = "Gio.ListModel"
 status = "generate"
 version = "2.44"
-generate_builder = true
 
 [[object]]
 name = "Gio.ListStore"
@@ -792,37 +717,9 @@ status = "generate"
     ignore = true
 
 [[object]]
-name = "Gio.Mount"
-status = "generate"
-    [[object.function]]
-    name = "get_default_location"
-        [object.function.return]
-        nullable = false
-    [[object.function]]
-    name = "get_icon"
-        [object.function.return]
-        nullable = false
-    [[object.function]]
-    name = "get_name"
-        [object.function.return]
-        nullable = false
-    [[object.function]]
-    name = "get_root"
-        [object.function.return]
-        nullable = false
-    [[object.function]]
-    name = "get_symbolic_icon"
-        [object.function.return]
-        nullable = false
-
-[[object]]
 name = "Gio.NetworkAddress"
 status = "generate"
 concurrency = "send+sync"
-
-[[object]]
-name = "Gio.Notification"
-status = "generate"
 
 [[object]]
 name = "Gio.OutputStream"
@@ -873,14 +770,6 @@ manual_traits = ["PollableOutputStreamExtManual"]
 name = "Gio.ProxyAddress"
 status = "generate"
 concurrency = "send+sync"
-    [[object.function]]
-    name = "get_destination_hostname"
-        [object.function.return]
-        nullable = false
-    [[object.function]]
-    name = "get_protocol"
-        [object.function.return]
-        nullable = false
 
 [[object]]
 name = "Gio.Resource"
@@ -901,10 +790,6 @@ status = "generate"
     pattern="set_.*"
         [object.function.return]
         bool_return_is_error = "Can't set readonly key"
-    [[object.function]]
-    name = "get_value"
-        [object.function.return]
-        nullable = false
     [[object.function]]
     name = "bind"
     manual = true
@@ -1156,8 +1041,6 @@ manual_traits = ["UnixFDListExtManual"]
     manual = true
     doc_trait_name = "UnixFDListExtManual"
 
-
-
 [[object]]
 name = "Gio.UnixInputStream"
 status = "generate"
@@ -1282,30 +1165,6 @@ cfg_condition = "unix"
 name = "Gio.Vfs"
 status = "generate"
 concurrency = "send+sync"
-
-[[object]]
-name = "Gio.Volume"
-status = "generate"
-    [[object.function]]
-    name = "get_icon"
-        [object.function.return]
-        nullable = false
-    [[object.function]]
-    name = "get_name"
-        [object.function.return]
-        nullable = false
-    [[object.function]]
-    name = "get_symbolic_icon"
-        [object.function.return]
-        nullable = false
-
-[[object]]
-name = "Gio.VolumeMonitor"
-status = "generate"
-    [[object.function]]
-    name = "get"
-        [object.function.return]
-        nullable = false
 
 [[object]]
 name = "Gio.Win32InputStream"
