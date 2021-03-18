@@ -1,5 +1,5 @@
 [options]
-girs_dir = "gir-files"
+girs_directories = ["gir-files"]
 library = "Pango"
 version = "1.0"
 target_path = "."
