@@ -106,7 +106,7 @@ pub trait SocketExt: 'static {
     ) -> Result<(), glib::Error>;
 
     #[doc(alias = "g_socket_connection_factory_create_connection")]
-    fn connection_factory_create_connection(&self) -> Option<SocketConnection>;
+    fn connection_factory_create_connection(&self) -> SocketConnection;
 
     #[doc(alias = "g_socket_get_available_bytes")]
     fn get_available_bytes(&self) -> isize;
@@ -420,7 +420,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn connection_factory_create_connection(&self) -> Option<SocketConnection> {
+    fn connection_factory_create_connection(&self) -> SocketConnection {
         unsafe {
             from_glib_full(ffi::g_socket_connection_factory_create_connection(
                 self.as_ref().to_glib_none().0,

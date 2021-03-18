@@ -84,11 +84,11 @@ pub const NONE_CONVERTER_OUTPUT_STREAM: Option<&ConverterOutputStream> = None;
 
 pub trait ConverterOutputStreamExt: 'static {
     #[doc(alias = "g_converter_output_stream_get_converter")]
-    fn get_converter(&self) -> Option<Converter>;
+    fn get_converter(&self) -> Converter;
 }
 
 impl<O: IsA<ConverterOutputStream>> ConverterOutputStreamExt for O {
-    fn get_converter(&self) -> Option<Converter> {
+    fn get_converter(&self) -> Converter {
         unsafe {
             from_glib_none(ffi::g_converter_output_stream_get_converter(
                 self.as_ref().to_glib_none().0,

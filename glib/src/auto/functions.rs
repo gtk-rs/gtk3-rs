@@ -246,7 +246,10 @@ pub fn clear_error() -> Result<(), crate::Error> {
 //}
 
 #[doc(alias = "g_compute_checksum_for_bytes")]
-pub fn compute_checksum_for_bytes(checksum_type: ChecksumType, data: &Bytes) -> crate::GString {
+pub fn compute_checksum_for_bytes(
+    checksum_type: ChecksumType,
+    data: &Bytes,
+) -> Option<crate::GString> {
     unsafe {
         from_glib_full(ffi::g_compute_checksum_for_bytes(
             checksum_type.to_glib(),
@@ -256,7 +259,10 @@ pub fn compute_checksum_for_bytes(checksum_type: ChecksumType, data: &Bytes) -> 
 }
 
 #[doc(alias = "g_compute_checksum_for_data")]
-pub fn compute_checksum_for_data(checksum_type: ChecksumType, data: &[u8]) -> crate::GString {
+pub fn compute_checksum_for_data(
+    checksum_type: ChecksumType,
+    data: &[u8],
+) -> Option<crate::GString> {
     let length = data.len() as usize;
     unsafe {
         from_glib_full(ffi::g_compute_checksum_for_data(
@@ -268,7 +274,10 @@ pub fn compute_checksum_for_data(checksum_type: ChecksumType, data: &[u8]) -> cr
 }
 
 #[doc(alias = "g_compute_checksum_for_string")]
-pub fn compute_checksum_for_string(checksum_type: ChecksumType, str: &str) -> crate::GString {
+pub fn compute_checksum_for_string(
+    checksum_type: ChecksumType,
+    str: &str,
+) -> Option<crate::GString> {
     let length = str.len() as isize;
     unsafe {
         from_glib_full(ffi::g_compute_checksum_for_string(
@@ -790,12 +799,12 @@ pub fn hostname_is_non_ascii(hostname: &str) -> bool {
 }
 
 #[doc(alias = "g_hostname_to_ascii")]
-pub fn hostname_to_ascii(hostname: &str) -> crate::GString {
+pub fn hostname_to_ascii(hostname: &str) -> Option<crate::GString> {
     unsafe { from_glib_full(ffi::g_hostname_to_ascii(hostname.to_glib_none().0)) }
 }
 
 #[doc(alias = "g_hostname_to_unicode")]
-pub fn hostname_to_unicode(hostname: &str) -> crate::GString {
+pub fn hostname_to_unicode(hostname: &str) -> Option<crate::GString> {
     unsafe { from_glib_full(ffi::g_hostname_to_unicode(hostname.to_glib_none().0)) }
 }
 
@@ -895,7 +904,7 @@ pub fn listenv() -> Vec<std::ffi::OsString> {
 //}
 
 #[doc(alias = "g_main_current_source")]
-pub fn main_current_source() -> Source {
+pub fn main_current_source() -> Option<Source> {
     unsafe { from_glib_none(ffi::g_main_current_source()) }
 }
 
@@ -965,6 +974,7 @@ pub fn mem_profile() {
 //    unsafe { TODO: call ffi:g_mem_set_vtable() }
 //}
 
+//#[cfg_attr(feature = "v2_68", deprecated)]
 //#[doc(alias = "g_memdup")]
 //pub fn memdup(mem: /*Unimplemented*/Option<Fundamental: Pointer>, byte_size: u32) -> /*Unimplemented*/Option<Fundamental: Pointer> {
 //    unsafe { TODO: call ffi:g_memdup() }

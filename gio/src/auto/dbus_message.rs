@@ -187,7 +187,7 @@ impl DBusMessage {
     }
 
     #[doc(alias = "g_dbus_message_get_signature")]
-    pub fn get_signature(&self) -> Option<glib::GString> {
+    pub fn get_signature(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_dbus_message_get_signature(self.to_glib_none().0)) }
     }
 
@@ -206,16 +206,12 @@ impl DBusMessage {
     }
 
     //#[doc(alias = "g_dbus_message_new_method_error")]
-    //pub fn new_method_error(&self, error_name: &str, error_message_format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<DBusMessage> {
+    //pub fn new_method_error(&self, error_name: &str, error_message_format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> DBusMessage {
     //    unsafe { TODO: call ffi:g_dbus_message_new_method_error() }
     //}
 
     #[doc(alias = "g_dbus_message_new_method_error_literal")]
-    pub fn new_method_error_literal(
-        &self,
-        error_name: &str,
-        error_message: &str,
-    ) -> Option<DBusMessage> {
+    pub fn new_method_error_literal(&self, error_name: &str, error_message: &str) -> DBusMessage {
         unsafe {
             from_glib_full(ffi::g_dbus_message_new_method_error_literal(
                 self.to_glib_none().0,
@@ -226,17 +222,17 @@ impl DBusMessage {
     }
 
     //#[doc(alias = "g_dbus_message_new_method_error_valist")]
-    //pub fn new_method_error_valist(&self, error_name: &str, error_message_format: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<DBusMessage> {
+    //pub fn new_method_error_valist(&self, error_name: &str, error_message_format: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> DBusMessage {
     //    unsafe { TODO: call ffi:g_dbus_message_new_method_error_valist() }
     //}
 
     #[doc(alias = "g_dbus_message_new_method_reply")]
-    pub fn new_method_reply(&self) -> Option<DBusMessage> {
+    pub fn new_method_reply(&self) -> DBusMessage {
         unsafe { from_glib_full(ffi::g_dbus_message_new_method_reply(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_message_print")]
-    pub fn print(&self, indent: u32) -> Option<glib::GString> {
+    pub fn print(&self, indent: u32) -> glib::GString {
         unsafe { from_glib_full(ffi::g_dbus_message_print(self.to_glib_none().0, indent)) }
     }
 
@@ -255,7 +251,7 @@ impl DBusMessage {
     }
 
     #[doc(alias = "g_dbus_message_set_destination")]
-    pub fn set_destination(&self, value: &str) {
+    pub fn set_destination(&self, value: Option<&str>) {
         unsafe {
             ffi::g_dbus_message_set_destination(self.to_glib_none().0, value.to_glib_none().0);
         }
@@ -287,14 +283,14 @@ impl DBusMessage {
     }
 
     #[doc(alias = "g_dbus_message_set_interface")]
-    pub fn set_interface(&self, value: &str) {
+    pub fn set_interface(&self, value: Option<&str>) {
         unsafe {
             ffi::g_dbus_message_set_interface(self.to_glib_none().0, value.to_glib_none().0);
         }
     }
 
     #[doc(alias = "g_dbus_message_set_member")]
-    pub fn set_member(&self, value: &str) {
+    pub fn set_member(&self, value: Option<&str>) {
         unsafe {
             ffi::g_dbus_message_set_member(self.to_glib_none().0, value.to_glib_none().0);
         }
@@ -317,7 +313,7 @@ impl DBusMessage {
     }
 
     #[doc(alias = "g_dbus_message_set_path")]
-    pub fn set_path(&self, value: &str) {
+    pub fn set_path(&self, value: Option<&str>) {
         unsafe {
             ffi::g_dbus_message_set_path(self.to_glib_none().0, value.to_glib_none().0);
         }
@@ -331,7 +327,7 @@ impl DBusMessage {
     }
 
     #[doc(alias = "g_dbus_message_set_sender")]
-    pub fn set_sender(&self, value: &str) {
+    pub fn set_sender(&self, value: Option<&str>) {
         unsafe {
             ffi::g_dbus_message_set_sender(self.to_glib_none().0, value.to_glib_none().0);
         }
@@ -345,7 +341,7 @@ impl DBusMessage {
     }
 
     #[doc(alias = "g_dbus_message_set_signature")]
-    pub fn set_signature(&self, value: &str) {
+    pub fn set_signature(&self, value: Option<&str>) {
         unsafe {
             ffi::g_dbus_message_set_signature(self.to_glib_none().0, value.to_glib_none().0);
         }

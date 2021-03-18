@@ -52,7 +52,7 @@ impl Action {
     pub fn print_detailed_name(
         action_name: &str,
         target_value: Option<&glib::Variant>,
-    ) -> Option<glib::GString> {
+    ) -> glib::GString {
         unsafe {
             from_glib_full(ffi::g_action_print_detailed_name(
                 action_name.to_glib_none().0,
@@ -75,7 +75,7 @@ pub trait ActionExt: 'static {
     fn get_enabled(&self) -> bool;
 
     #[doc(alias = "g_action_get_name")]
-    fn get_name(&self) -> Option<glib::GString>;
+    fn get_name(&self) -> glib::GString;
 
     #[doc(alias = "g_action_get_parameter_type")]
     fn get_parameter_type(&self) -> Option<glib::VariantType>;
@@ -120,7 +120,7 @@ impl<O: IsA<Action>> ActionExt for O {
         unsafe { from_glib(ffi::g_action_get_enabled(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_name(&self) -> Option<glib::GString> {
+    fn get_name(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_action_get_name(self.as_ref().to_glib_none().0)) }
     }
 

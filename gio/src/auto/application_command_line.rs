@@ -26,7 +26,7 @@ pub const NONE_APPLICATION_COMMAND_LINE: Option<&ApplicationCommandLine> = None;
 
 pub trait ApplicationCommandLineExt: 'static {
     #[doc(alias = "g_application_command_line_create_file_for_arg")]
-    fn create_file_for_arg<P: AsRef<std::ffi::OsStr>>(&self, arg: P) -> Option<File>;
+    fn create_file_for_arg<P: AsRef<std::ffi::OsStr>>(&self, arg: P) -> File;
 
     #[doc(alias = "g_application_command_line_get_arguments")]
     fn get_arguments(&self) -> Vec<std::ffi::OsString>;
@@ -44,7 +44,7 @@ pub trait ApplicationCommandLineExt: 'static {
     fn get_is_remote(&self) -> bool;
 
     #[doc(alias = "g_application_command_line_get_options_dict")]
-    fn get_options_dict(&self) -> Option<glib::VariantDict>;
+    fn get_options_dict(&self) -> glib::VariantDict;
 
     #[doc(alias = "g_application_command_line_get_platform_data")]
     fn get_platform_data(&self) -> Option<glib::Variant>;
@@ -68,7 +68,7 @@ pub trait ApplicationCommandLineExt: 'static {
 }
 
 impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
-    fn create_file_for_arg<P: AsRef<std::ffi::OsStr>>(&self, arg: P) -> Option<File> {
+    fn create_file_for_arg<P: AsRef<std::ffi::OsStr>>(&self, arg: P) -> File {
         unsafe {
             from_glib_full(ffi::g_application_command_line_create_file_for_arg(
                 self.as_ref().to_glib_none().0,
@@ -119,7 +119,7 @@ impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
         }
     }
 
-    fn get_options_dict(&self) -> Option<glib::VariantDict> {
+    fn get_options_dict(&self) -> glib::VariantDict {
         unsafe {
             from_glib_none(ffi::g_application_command_line_get_options_dict(
                 self.as_ref().to_glib_none().0,

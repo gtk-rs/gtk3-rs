@@ -24,7 +24,7 @@ pub const NONE_FILTER_OUTPUT_STREAM: Option<&FilterOutputStream> = None;
 
 pub trait FilterOutputStreamExt: 'static {
     #[doc(alias = "g_filter_output_stream_get_base_stream")]
-    fn get_base_stream(&self) -> Option<OutputStream>;
+    fn get_base_stream(&self) -> OutputStream;
 
     #[doc(alias = "g_filter_output_stream_get_close_base_stream")]
     fn get_close_base_stream(&self) -> bool;
@@ -39,7 +39,7 @@ pub trait FilterOutputStreamExt: 'static {
 }
 
 impl<O: IsA<FilterOutputStream>> FilterOutputStreamExt for O {
-    fn get_base_stream(&self) -> Option<OutputStream> {
+    fn get_base_stream(&self) -> OutputStream {
         unsafe {
             from_glib_none(ffi::g_filter_output_stream_get_base_stream(
                 self.as_ref().to_glib_none().0,

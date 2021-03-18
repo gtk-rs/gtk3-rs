@@ -33,7 +33,7 @@ impl Emblem {
     }
 
     #[doc(alias = "g_emblem_get_icon")]
-    pub fn get_icon(&self) -> Option<Icon> {
+    pub fn get_icon(&self) -> Icon {
         unsafe { from_glib_none(ffi::g_emblem_get_icon(self.to_glib_none().0)) }
     }
 

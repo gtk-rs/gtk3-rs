@@ -92,7 +92,7 @@ pub trait SocketConnectionExt: 'static {
     fn get_remote_address(&self) -> Result<SocketAddress, glib::Error>;
 
     #[doc(alias = "g_socket_connection_get_socket")]
-    fn get_socket(&self) -> Option<Socket>;
+    fn get_socket(&self) -> Socket;
 
     #[doc(alias = "g_socket_connection_is_connected")]
     fn is_connected(&self) -> bool;
@@ -206,7 +206,7 @@ impl<O: IsA<SocketConnection>> SocketConnectionExt for O {
         }
     }
 
-    fn get_socket(&self) -> Option<Socket> {
+    fn get_socket(&self) -> Socket {
         unsafe {
             from_glib_none(ffi::g_socket_connection_get_socket(
                 self.as_ref().to_glib_none().0,

@@ -18,7 +18,7 @@ crate::wrapper! {
 
 impl Checksum {
     #[doc(alias = "g_checksum_new")]
-    pub fn new(checksum_type: ChecksumType) -> Checksum {
+    pub fn new(checksum_type: ChecksumType) -> Option<Checksum> {
         unsafe { from_glib_full(ffi::g_checksum_new(checksum_type.to_glib())) }
     }
 

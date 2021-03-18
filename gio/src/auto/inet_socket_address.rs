@@ -49,7 +49,7 @@ pub const NONE_INET_SOCKET_ADDRESS: Option<&InetSocketAddress> = None;
 
 pub trait InetSocketAddressExt: 'static {
     #[doc(alias = "g_inet_socket_address_get_address")]
-    fn get_address(&self) -> Option<InetAddress>;
+    fn get_address(&self) -> InetAddress;
 
     #[doc(alias = "g_inet_socket_address_get_flowinfo")]
     fn get_flowinfo(&self) -> u32;
@@ -62,7 +62,7 @@ pub trait InetSocketAddressExt: 'static {
 }
 
 impl<O: IsA<InetSocketAddress>> InetSocketAddressExt for O {
-    fn get_address(&self) -> Option<InetAddress> {
+    fn get_address(&self) -> InetAddress {
         unsafe {
             from_glib_none(ffi::g_inet_socket_address_get_address(
                 self.as_ref().to_glib_none().0,

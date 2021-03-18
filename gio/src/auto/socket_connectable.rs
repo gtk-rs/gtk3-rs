@@ -19,19 +19,19 @@ pub const NONE_SOCKET_CONNECTABLE: Option<&SocketConnectable> = None;
 
 pub trait SocketConnectableExt: 'static {
     #[doc(alias = "g_socket_connectable_enumerate")]
-    fn enumerate(&self) -> Option<SocketAddressEnumerator>;
+    fn enumerate(&self) -> SocketAddressEnumerator;
 
     #[doc(alias = "g_socket_connectable_proxy_enumerate")]
-    fn proxy_enumerate(&self) -> Option<SocketAddressEnumerator>;
+    fn proxy_enumerate(&self) -> SocketAddressEnumerator;
 
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
     #[doc(alias = "g_socket_connectable_to_string")]
-    fn to_string(&self) -> Option<glib::GString>;
+    fn to_string(&self) -> glib::GString;
 }
 
 impl<O: IsA<SocketConnectable>> SocketConnectableExt for O {
-    fn enumerate(&self) -> Option<SocketAddressEnumerator> {
+    fn enumerate(&self) -> SocketAddressEnumerator {
         unsafe {
             from_glib_full(ffi::g_socket_connectable_enumerate(
                 self.as_ref().to_glib_none().0,
@@ -39,7 +39,7 @@ impl<O: IsA<SocketConnectable>> SocketConnectableExt for O {
         }
     }
 
-    fn proxy_enumerate(&self) -> Option<SocketAddressEnumerator> {
+    fn proxy_enumerate(&self) -> SocketAddressEnumerator {
         unsafe {
             from_glib_full(ffi::g_socket_connectable_proxy_enumerate(
                 self.as_ref().to_glib_none().0,
@@ -49,7 +49,7 @@ impl<O: IsA<SocketConnectable>> SocketConnectableExt for O {
 
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
-    fn to_string(&self) -> Option<glib::GString> {
+    fn to_string(&self) -> glib::GString {
         unsafe {
             from_glib_full(ffi::g_socket_connectable_to_string(
                 self.as_ref().to_glib_none().0,

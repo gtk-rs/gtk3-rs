@@ -40,7 +40,7 @@ impl FileInfo {
     }
 
     #[doc(alias = "g_file_info_dup")]
-    pub fn dup(&self) -> Option<FileInfo> {
+    pub fn dup(&self) -> FileInfo {
         unsafe { from_glib_full(ffi::g_file_info_dup(self.to_glib_none().0)) }
     }
 
@@ -168,12 +168,12 @@ impl FileInfo {
     }
 
     #[doc(alias = "g_file_info_get_display_name")]
-    pub fn get_display_name(&self) -> Option<glib::GString> {
+    pub fn get_display_name(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_file_info_get_display_name(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_file_info_get_edit_name")]
-    pub fn get_edit_name(&self) -> Option<glib::GString> {
+    pub fn get_edit_name(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_file_info_get_edit_name(self.to_glib_none().0)) }
     }
 
@@ -219,7 +219,7 @@ impl FileInfo {
     }
 
     #[doc(alias = "g_file_info_get_name")]
-    pub fn get_name(&self) -> Option<std::path::PathBuf> {
+    pub fn get_name(&self) -> std::path::PathBuf {
         unsafe { from_glib_none(ffi::g_file_info_get_name(self.to_glib_none().0)) }
     }
 

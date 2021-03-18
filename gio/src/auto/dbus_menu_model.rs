@@ -21,7 +21,7 @@ impl DBusMenuModel {
         connection: &DBusConnection,
         bus_name: Option<&str>,
         object_path: &str,
-    ) -> Option<DBusMenuModel> {
+    ) -> DBusMenuModel {
         unsafe {
             from_glib_full(ffi::g_dbus_menu_model_get(
                 connection.to_glib_none().0,

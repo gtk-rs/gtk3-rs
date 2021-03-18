@@ -29,7 +29,7 @@ glib::wrapper! {
 
 impl NetworkMonitor {
     #[doc(alias = "g_network_monitor_get_default")]
-    pub fn get_default() -> Option<NetworkMonitor> {
+    pub fn get_default() -> NetworkMonitor {
         unsafe { from_glib_none(ffi::g_network_monitor_get_default()) }
     }
 }

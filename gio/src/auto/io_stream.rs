@@ -51,10 +51,10 @@ pub trait IOStreamExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     #[doc(alias = "g_io_stream_get_input_stream")]
-    fn get_input_stream(&self) -> Option<InputStream>;
+    fn get_input_stream(&self) -> InputStream;
 
     #[doc(alias = "g_io_stream_get_output_stream")]
-    fn get_output_stream(&self) -> Option<OutputStream>;
+    fn get_output_stream(&self) -> OutputStream;
 
     #[doc(alias = "g_io_stream_has_pending")]
     fn has_pending(&self) -> bool;
@@ -143,7 +143,7 @@ impl<O: IsA<IOStream>> IOStreamExt for O {
         }))
     }
 
-    fn get_input_stream(&self) -> Option<InputStream> {
+    fn get_input_stream(&self) -> InputStream {
         unsafe {
             from_glib_none(ffi::g_io_stream_get_input_stream(
                 self.as_ref().to_glib_none().0,
@@ -151,7 +151,7 @@ impl<O: IsA<IOStream>> IOStreamExt for O {
         }
     }
 
-    fn get_output_stream(&self) -> Option<OutputStream> {
+    fn get_output_stream(&self) -> OutputStream {
         unsafe {
             from_glib_none(ffi::g_io_stream_get_output_stream(
                 self.as_ref().to_glib_none().0,

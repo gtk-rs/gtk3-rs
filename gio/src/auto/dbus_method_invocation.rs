@@ -25,7 +25,7 @@ glib::wrapper! {
 
 impl DBusMethodInvocation {
     #[doc(alias = "g_dbus_method_invocation_get_connection")]
-    pub fn get_connection(&self) -> Option<DBusConnection> {
+    pub fn get_connection(&self) -> DBusConnection {
         unsafe {
             from_glib_none(ffi::g_dbus_method_invocation_get_connection(
                 self.to_glib_none().0,
@@ -34,7 +34,7 @@ impl DBusMethodInvocation {
     }
 
     #[doc(alias = "g_dbus_method_invocation_get_interface_name")]
-    pub fn get_interface_name(&self) -> Option<glib::GString> {
+    pub fn get_interface_name(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_dbus_method_invocation_get_interface_name(
                 self.to_glib_none().0,
@@ -43,7 +43,7 @@ impl DBusMethodInvocation {
     }
 
     #[doc(alias = "g_dbus_method_invocation_get_message")]
-    pub fn get_message(&self) -> Option<DBusMessage> {
+    pub fn get_message(&self) -> DBusMessage {
         unsafe {
             from_glib_none(ffi::g_dbus_method_invocation_get_message(
                 self.to_glib_none().0,
@@ -61,7 +61,7 @@ impl DBusMethodInvocation {
     }
 
     #[doc(alias = "g_dbus_method_invocation_get_method_name")]
-    pub fn get_method_name(&self) -> Option<glib::GString> {
+    pub fn get_method_name(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_dbus_method_invocation_get_method_name(
                 self.to_glib_none().0,
@@ -70,7 +70,7 @@ impl DBusMethodInvocation {
     }
 
     #[doc(alias = "g_dbus_method_invocation_get_object_path")]
-    pub fn get_object_path(&self) -> Option<glib::GString> {
+    pub fn get_object_path(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_dbus_method_invocation_get_object_path(
                 self.to_glib_none().0,
@@ -79,7 +79,7 @@ impl DBusMethodInvocation {
     }
 
     #[doc(alias = "g_dbus_method_invocation_get_parameters")]
-    pub fn get_parameters(&self) -> Option<glib::Variant> {
+    pub fn get_parameters(&self) -> glib::Variant {
         unsafe {
             from_glib_none(ffi::g_dbus_method_invocation_get_parameters(
                 self.to_glib_none().0,
@@ -97,7 +97,7 @@ impl DBusMethodInvocation {
     }
 
     #[doc(alias = "g_dbus_method_invocation_get_sender")]
-    pub fn get_sender(&self) -> Option<glib::GString> {
+    pub fn get_sender(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_dbus_method_invocation_get_sender(
                 self.to_glib_none().0,

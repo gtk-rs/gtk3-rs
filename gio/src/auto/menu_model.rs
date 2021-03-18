@@ -48,10 +48,10 @@ pub trait MenuModelExt: 'static {
     fn items_changed(&self, position: i32, removed: i32, added: i32);
 
     #[doc(alias = "g_menu_model_iterate_item_attributes")]
-    fn iterate_item_attributes(&self, item_index: i32) -> Option<MenuAttributeIter>;
+    fn iterate_item_attributes(&self, item_index: i32) -> MenuAttributeIter;
 
     #[doc(alias = "g_menu_model_iterate_item_links")]
-    fn iterate_item_links(&self, item_index: i32) -> Option<MenuLinkIter>;
+    fn iterate_item_links(&self, item_index: i32) -> MenuLinkIter;
 
     fn connect_items_changed<F: Fn(&Self, i32, i32, i32) + 'static>(&self, f: F)
         -> SignalHandlerId;
@@ -107,7 +107,7 @@ impl<O: IsA<MenuModel>> MenuModelExt for O {
         }
     }
 
-    fn iterate_item_attributes(&self, item_index: i32) -> Option<MenuAttributeIter> {
+    fn iterate_item_attributes(&self, item_index: i32) -> MenuAttributeIter {
         unsafe {
             from_glib_full(ffi::g_menu_model_iterate_item_attributes(
                 self.as_ref().to_glib_none().0,
@@ -116,7 +116,7 @@ impl<O: IsA<MenuModel>> MenuModelExt for O {
         }
     }
 
-    fn iterate_item_links(&self, item_index: i32) -> Option<MenuLinkIter> {
+    fn iterate_item_links(&self, item_index: i32) -> MenuLinkIter {
         unsafe {
             from_glib_full(ffi::g_menu_model_iterate_item_links(
                 self.as_ref().to_glib_none().0,

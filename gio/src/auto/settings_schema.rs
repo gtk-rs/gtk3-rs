@@ -18,12 +18,12 @@ glib::wrapper! {
 
 impl SettingsSchema {
     #[doc(alias = "g_settings_schema_get_id")]
-    pub fn get_id(&self) -> Option<glib::GString> {
+    pub fn get_id(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_settings_schema_get_id(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_settings_schema_get_key")]
-    pub fn get_key(&self, name: &str) -> Option<SettingsSchemaKey> {
+    pub fn get_key(&self, name: &str) -> SettingsSchemaKey {
         unsafe {
             from_glib_full(ffi::g_settings_schema_get_key(
                 self.to_glib_none().0,

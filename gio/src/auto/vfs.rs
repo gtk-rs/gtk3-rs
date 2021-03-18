@@ -20,12 +20,12 @@ glib::wrapper! {
 
 impl Vfs {
     #[doc(alias = "g_vfs_get_default")]
-    pub fn get_default() -> Option<Vfs> {
+    pub fn get_default() -> Vfs {
         unsafe { from_glib_none(ffi::g_vfs_get_default()) }
     }
 
     #[doc(alias = "g_vfs_get_local")]
-    pub fn get_local() -> Option<Vfs> {
+    pub fn get_local() -> Vfs {
         unsafe { from_glib_none(ffi::g_vfs_get_local()) }
     }
 }
@@ -37,10 +37,10 @@ pub const NONE_VFS: Option<&Vfs> = None;
 
 pub trait VfsExt: 'static {
     #[doc(alias = "g_vfs_get_file_for_path")]
-    fn get_file_for_path(&self, path: &str) -> Option<File>;
+    fn get_file_for_path(&self, path: &str) -> File;
 
     #[doc(alias = "g_vfs_get_file_for_uri")]
-    fn get_file_for_uri(&self, uri: &str) -> Option<File>;
+    fn get_file_for_uri(&self, uri: &str) -> File;
 
     #[doc(alias = "g_vfs_get_supported_uri_schemes")]
     fn get_supported_uri_schemes(&self) -> Vec<glib::GString>;
@@ -49,7 +49,7 @@ pub trait VfsExt: 'static {
     fn is_active(&self) -> bool;
 
     #[doc(alias = "g_vfs_parse_name")]
-    fn parse_name(&self, parse_name: &str) -> Option<File>;
+    fn parse_name(&self, parse_name: &str) -> File;
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
@@ -68,7 +68,7 @@ pub trait VfsExt: 'static {
 }
 
 impl<O: IsA<Vfs>> VfsExt for O {
-    fn get_file_for_path(&self, path: &str) -> Option<File> {
+    fn get_file_for_path(&self, path: &str) -> File {
         unsafe {
             from_glib_full(ffi::g_vfs_get_file_for_path(
                 self.as_ref().to_glib_none().0,
@@ -77,7 +77,7 @@ impl<O: IsA<Vfs>> VfsExt for O {
         }
     }
 
-    fn get_file_for_uri(&self, uri: &str) -> Option<File> {
+    fn get_file_for_uri(&self, uri: &str) -> File {
         unsafe {
             from_glib_full(ffi::g_vfs_get_file_for_uri(
                 self.as_ref().to_glib_none().0,
@@ -98,7 +98,7 @@ impl<O: IsA<Vfs>> VfsExt for O {
         unsafe { from_glib(ffi::g_vfs_is_active(self.as_ref().to_glib_none().0)) }
     }
 
-    fn parse_name(&self, parse_name: &str) -> Option<File> {
+    fn parse_name(&self, parse_name: &str) -> File {
         unsafe {
             from_glib_full(ffi::g_vfs_parse_name(
                 self.as_ref().to_glib_none().0,

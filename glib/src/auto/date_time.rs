@@ -239,9 +239,29 @@ impl DateTime {
         }
     }
 
+    #[doc(alias = "g_date_time_compare")]
+    fn compare(&self, dt2: &DateTime) -> i32 {
+        unsafe {
+            ffi::g_date_time_compare(
+                ToGlibPtr::<*mut ffi::GDateTime>::to_glib_none(self).0 as ffi::gconstpointer,
+                ToGlibPtr::<*mut ffi::GDateTime>::to_glib_none(dt2).0 as ffi::gconstpointer,
+            )
+        }
+    }
+
     #[doc(alias = "g_date_time_difference")]
     pub fn difference(&self, begin: &DateTime) -> TimeSpan {
         unsafe { ffi::g_date_time_difference(self.to_glib_none().0, begin.to_glib_none().0) }
+    }
+
+    #[doc(alias = "g_date_time_equal")]
+    fn equal(&self, dt2: &DateTime) -> bool {
+        unsafe {
+            from_glib(ffi::g_date_time_equal(
+                ToGlibPtr::<*mut ffi::GDateTime>::to_glib_none(self).0 as ffi::gconstpointer,
+                ToGlibPtr::<*mut ffi::GDateTime>::to_glib_none(dt2).0 as ffi::gconstpointer,
+            ))
+        }
     }
 
     #[doc(alias = "g_date_time_format")]
@@ -365,6 +385,15 @@ impl DateTime {
         }
     }
 
+    #[doc(alias = "g_date_time_hash")]
+    fn hash(&self) -> u32 {
+        unsafe {
+            ffi::g_date_time_hash(
+                ToGlibPtr::<*mut ffi::GDateTime>::to_glib_none(self).0 as ffi::gconstpointer,
+            )
+        }
+    }
+
     #[doc(alias = "g_date_time_is_daylight_savings")]
     pub fn is_daylight_savings(&self) -> bool {
         unsafe { from_glib(ffi::g_date_time_is_daylight_savings(self.to_glib_none().0)) }
@@ -405,35 +434,6 @@ impl DateTime {
         unsafe {
             Option::<_>::from_glib_full(ffi::g_date_time_to_utc(self.to_glib_none().0))
                 .ok_or_else(|| crate::bool_error!("Invalid date"))
-        }
-    }
-
-    #[doc(alias = "g_date_time_compare")]
-    fn compare(&self, dt2: &DateTime) -> i32 {
-        unsafe {
-            ffi::g_date_time_compare(
-                ToGlibPtr::<*mut ffi::GDateTime>::to_glib_none(self).0 as ffi::gconstpointer,
-                ToGlibPtr::<*mut ffi::GDateTime>::to_glib_none(dt2).0 as ffi::gconstpointer,
-            )
-        }
-    }
-
-    #[doc(alias = "g_date_time_equal")]
-    fn equal(&self, dt2: &DateTime) -> bool {
-        unsafe {
-            from_glib(ffi::g_date_time_equal(
-                ToGlibPtr::<*mut ffi::GDateTime>::to_glib_none(self).0 as ffi::gconstpointer,
-                ToGlibPtr::<*mut ffi::GDateTime>::to_glib_none(dt2).0 as ffi::gconstpointer,
-            ))
-        }
-    }
-
-    #[doc(alias = "g_date_time_hash")]
-    fn hash(&self) -> u32 {
-        unsafe {
-            ffi::g_date_time_hash(
-                ToGlibPtr::<*mut ffi::GDateTime>::to_glib_none(self).0 as ffi::gconstpointer,
-            )
         }
     }
 }

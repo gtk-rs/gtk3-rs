@@ -53,7 +53,7 @@ impl DBusServer {
     }
 
     #[doc(alias = "g_dbus_server_get_client_address")]
-    pub fn get_client_address(&self) -> Option<glib::GString> {
+    pub fn get_client_address(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_dbus_server_get_client_address(self.to_glib_none().0)) }
     }
 
@@ -63,7 +63,7 @@ impl DBusServer {
     }
 
     #[doc(alias = "g_dbus_server_get_guid")]
-    pub fn get_guid(&self) -> Option<glib::GString> {
+    pub fn get_guid(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_dbus_server_get_guid(self.to_glib_none().0)) }
     }
 

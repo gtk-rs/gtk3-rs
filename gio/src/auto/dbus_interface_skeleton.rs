@@ -47,10 +47,10 @@ pub trait DBusInterfaceSkeletonExt: 'static {
     fn get_object_path(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_dbus_interface_skeleton_get_properties")]
-    fn get_properties(&self) -> Option<glib::Variant>;
+    fn get_properties(&self) -> glib::Variant;
 
     //#[doc(alias = "g_dbus_interface_skeleton_get_vtable")]
-    //fn get_vtable(&self) -> /*Ignored*/Option<DBusInterfaceVTable>;
+    //fn get_vtable(&self) -> /*Ignored*/DBusInterfaceVTable;
 
     #[doc(alias = "g_dbus_interface_skeleton_has_connection")]
     fn has_connection(&self, connection: &DBusConnection) -> bool;
@@ -132,7 +132,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
         }
     }
 
-    fn get_properties(&self) -> Option<glib::Variant> {
+    fn get_properties(&self) -> glib::Variant {
         unsafe {
             from_glib_full(ffi::g_dbus_interface_skeleton_get_properties(
                 self.as_ref().to_glib_none().0,
@@ -140,7 +140,7 @@ impl<O: IsA<DBusInterfaceSkeleton>> DBusInterfaceSkeletonExt for O {
         }
     }
 
-    //fn get_vtable(&self) -> /*Ignored*/Option<DBusInterfaceVTable> {
+    //fn get_vtable(&self) -> /*Ignored*/DBusInterfaceVTable {
     //    unsafe { TODO: call ffi:g_dbus_interface_skeleton_get_vtable() }
     //}
 

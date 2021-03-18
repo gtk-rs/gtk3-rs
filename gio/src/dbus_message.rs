@@ -5,10 +5,6 @@ use std::fmt;
 
 impl fmt::Display for DBusMessage {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "{}",
-            self.print(0).unwrap_or_else(|| "<print error>".into())
-        )
+        write!(f, "{}", self.print(0))
     }
 }

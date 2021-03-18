@@ -61,7 +61,7 @@ impl Uri {
     #[cfg(any(feature = "v2_66", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_66")))]
     #[doc(alias = "g_uri_get_host")]
-    pub fn get_host(&self) -> crate::GString {
+    pub fn get_host(&self) -> Option<crate::GString> {
         unsafe { from_glib_none(ffi::g_uri_get_host(self.to_glib_none().0)) }
     }
 
