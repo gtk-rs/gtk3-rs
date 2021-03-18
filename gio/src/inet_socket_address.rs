@@ -14,6 +14,6 @@ impl From<SocketAddr> for InetSocketAddress {
 
 impl From<InetSocketAddress> for SocketAddr {
     fn from(addr: InetSocketAddress) -> Self {
-        SocketAddr::new(addr.get_address().unwrap().into(), addr.get_port())
+        SocketAddr::new(addr.get_address().into(), addr.get_port())
     }
 }

@@ -18,12 +18,14 @@ pub trait IOStreamExtManual: Sized + IsA<IOStream> {
     fn into_async_read_write(self) -> Result<IOStreamAsyncReadWrite<Self>, Self> {
         let write = self
             .get_output_stream()
-            .and_then(|s| s.dynamic_cast::<PollableOutputStream>().ok())
+            .dynamic_cast::<PollableOutputStream>()
+            .ok()
             .and_then(|s| s.into_async_write().ok());
 
         let read = self
             .get_input_stream()
-            .and_then(|s| s.dynamic_cast::<PollableInputStream>().ok())
+            .dynamic_cast::<PollableInputStream>()
+            .ok()
             .and_then(|s| s.into_async_read().ok());
 
         let (read, write) = match (read, write) {

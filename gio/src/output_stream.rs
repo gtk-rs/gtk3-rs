@@ -418,7 +418,7 @@ mod tests {
         let stream = write.into_output_stream();
         stream.close(crate::NONE_CANCELLABLE).unwrap();
         assert_eq!(ret.unwrap(), 3);
-        assert_eq!(stream.steal_as_bytes().unwrap(), [1, 2, 3].as_ref());
+        assert_eq!(stream.steal_as_bytes(), [1, 2, 3].as_ref());
     }
 
     #[test]

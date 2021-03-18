@@ -11,7 +11,7 @@ mod tests {
         assert_eq!(strm.get_data_size(), 0);
 
         assert!(strm.close(crate::NONE_CANCELLABLE).is_ok());
-        assert_eq!(strm.steal_as_bytes().unwrap(), [].as_ref());
+        assert_eq!(strm.steal_as_bytes(), [].as_ref());
     }
 
     #[test]
@@ -25,6 +25,6 @@ mod tests {
         assert_eq!(strm.get_data_size(), 5);
 
         assert!(strm.close(crate::NONE_CANCELLABLE).is_ok());
-        assert_eq!(strm.steal_as_bytes().unwrap(), [1, 2, 3, 4, 5].as_ref());
+        assert_eq!(strm.steal_as_bytes(), [1, 2, 3, 4, 5].as_ref());
     }
 }
