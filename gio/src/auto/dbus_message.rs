@@ -255,7 +255,7 @@ impl DBusMessage {
     }
 
     #[doc(alias = "g_dbus_message_set_destination")]
-    pub fn set_destination(&self, value: &str) {
+    pub fn set_destination(&self, value: Option<&str>) {
         unsafe {
             ffi::g_dbus_message_set_destination(self.to_glib_none().0, value.to_glib_none().0);
         }
@@ -287,14 +287,14 @@ impl DBusMessage {
     }
 
     #[doc(alias = "g_dbus_message_set_interface")]
-    pub fn set_interface(&self, value: &str) {
+    pub fn set_interface(&self, value: Option<&str>) {
         unsafe {
             ffi::g_dbus_message_set_interface(self.to_glib_none().0, value.to_glib_none().0);
         }
     }
 
     #[doc(alias = "g_dbus_message_set_member")]
-    pub fn set_member(&self, value: &str) {
+    pub fn set_member(&self, value: Option<&str>) {
         unsafe {
             ffi::g_dbus_message_set_member(self.to_glib_none().0, value.to_glib_none().0);
         }
@@ -317,7 +317,7 @@ impl DBusMessage {
     }
 
     #[doc(alias = "g_dbus_message_set_path")]
-    pub fn set_path(&self, value: &str) {
+    pub fn set_path(&self, value: Option<&str>) {
         unsafe {
             ffi::g_dbus_message_set_path(self.to_glib_none().0, value.to_glib_none().0);
         }
@@ -331,7 +331,7 @@ impl DBusMessage {
     }
 
     #[doc(alias = "g_dbus_message_set_sender")]
-    pub fn set_sender(&self, value: &str) {
+    pub fn set_sender(&self, value: Option<&str>) {
         unsafe {
             ffi::g_dbus_message_set_sender(self.to_glib_none().0, value.to_glib_none().0);
         }
@@ -345,7 +345,7 @@ impl DBusMessage {
     }
 
     #[doc(alias = "g_dbus_message_set_signature")]
-    pub fn set_signature(&self, value: &str) {
+    pub fn set_signature(&self, value: Option<&str>) {
         unsafe {
             ffi::g_dbus_message_set_signature(self.to_glib_none().0, value.to_glib_none().0);
         }

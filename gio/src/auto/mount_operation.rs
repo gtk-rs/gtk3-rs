@@ -81,7 +81,7 @@ pub trait MountOperationExt: 'static {
     fn set_choice(&self, choice: i32);
 
     #[doc(alias = "g_mount_operation_set_domain")]
-    fn set_domain(&self, domain: &str);
+    fn set_domain(&self, domain: Option<&str>);
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
@@ -94,7 +94,7 @@ pub trait MountOperationExt: 'static {
     fn set_is_tcrypt_system_volume(&self, system_volume: bool);
 
     #[doc(alias = "g_mount_operation_set_password")]
-    fn set_password(&self, password: &str);
+    fn set_password(&self, password: Option<&str>);
 
     #[doc(alias = "g_mount_operation_set_password_save")]
     fn set_password_save(&self, save: PasswordSave);
@@ -105,7 +105,7 @@ pub trait MountOperationExt: 'static {
     fn set_pim(&self, pim: u32);
 
     #[doc(alias = "g_mount_operation_set_username")]
-    fn set_username(&self, username: &str);
+    fn set_username(&self, username: Option<&str>);
 
     fn connect_aborted<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -251,7 +251,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
-    fn set_domain(&self, domain: &str) {
+    fn set_domain(&self, domain: Option<&str>) {
         unsafe {
             ffi::g_mount_operation_set_domain(
                 self.as_ref().to_glib_none().0,
@@ -282,7 +282,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
-    fn set_password(&self, password: &str) {
+    fn set_password(&self, password: Option<&str>) {
         unsafe {
             ffi::g_mount_operation_set_password(
                 self.as_ref().to_glib_none().0,
@@ -308,7 +308,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
-    fn set_username(&self, username: &str) {
+    fn set_username(&self, username: Option<&str>) {
         unsafe {
             ffi::g_mount_operation_set_username(
                 self.as_ref().to_glib_none().0,

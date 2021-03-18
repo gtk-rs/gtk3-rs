@@ -2905,7 +2905,9 @@ extern "C" {
     pub fn g_date_time_add_seconds(datetime: *mut GDateTime, seconds: c_double) -> *mut GDateTime;
     pub fn g_date_time_add_weeks(datetime: *mut GDateTime, weeks: c_int) -> *mut GDateTime;
     pub fn g_date_time_add_years(datetime: *mut GDateTime, years: c_int) -> *mut GDateTime;
+    pub fn g_date_time_compare(dt1: gconstpointer, dt2: gconstpointer) -> c_int;
     pub fn g_date_time_difference(end: *mut GDateTime, begin: *mut GDateTime) -> GTimeSpan;
+    pub fn g_date_time_equal(dt1: gconstpointer, dt2: gconstpointer) -> gboolean;
     pub fn g_date_time_format(datetime: *mut GDateTime, format: *const c_char) -> *mut c_char;
     #[cfg(any(feature = "v2_62", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_62")))]
@@ -2933,6 +2935,7 @@ extern "C" {
         month: *mut c_int,
         day: *mut c_int,
     );
+    pub fn g_date_time_hash(datetime: gconstpointer) -> c_uint;
     pub fn g_date_time_is_daylight_savings(datetime: *mut GDateTime) -> gboolean;
     pub fn g_date_time_ref(datetime: *mut GDateTime) -> *mut GDateTime;
     pub fn g_date_time_to_local(datetime: *mut GDateTime) -> *mut GDateTime;
@@ -2941,9 +2944,6 @@ extern "C" {
     pub fn g_date_time_to_unix(datetime: *mut GDateTime) -> i64;
     pub fn g_date_time_to_utc(datetime: *mut GDateTime) -> *mut GDateTime;
     pub fn g_date_time_unref(datetime: *mut GDateTime);
-    pub fn g_date_time_compare(dt1: gconstpointer, dt2: gconstpointer) -> c_int;
-    pub fn g_date_time_equal(dt1: gconstpointer, dt2: gconstpointer) -> gboolean;
-    pub fn g_date_time_hash(datetime: gconstpointer) -> c_uint;
 
     //=========================================================================
     // GDir

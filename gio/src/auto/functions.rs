@@ -274,7 +274,7 @@ pub fn dbus_address_get_for_bus_sync<P: IsA<Cancellable>>(
 #[doc(alias = "g_dbus_address_get_stream")]
 pub fn dbus_address_get_stream<
     P: IsA<Cancellable>,
-    Q: FnOnce(Result<(IOStream, glib::GString), glib::Error>) + Send + 'static,
+    Q: FnOnce(Result<(IOStream, Option<glib::GString>), glib::Error>) + Send + 'static,
 >(
     address: &str,
     cancellable: Option<&P>,
@@ -282,7 +282,7 @@ pub fn dbus_address_get_stream<
 ) {
     let user_data: Box_<Q> = Box_::new(callback);
     unsafe extern "C" fn dbus_address_get_stream_trampoline<
-        Q: FnOnce(Result<(IOStream, glib::GString), glib::Error>) + Send + 'static,
+        Q: FnOnce(Result<(IOStream, Option<glib::GString>), glib::Error>) + Send + 'static,
     >(
         _source_object: *mut glib::gobject_ffi::GObject,
         res: *mut crate::ffi::GAsyncResult,
@@ -314,7 +314,8 @@ pub fn dbus_address_get_stream_future(
     address: &str,
 ) -> Pin<
     Box_<
-        dyn std::future::Future<Output = Result<(IOStream, glib::GString), glib::Error>> + 'static,
+        dyn std::future::Future<Output = Result<(IOStream, Option<glib::GString>), glib::Error>>
+            + 'static,
     >,
 > {
     let address = String::from(address);
@@ -332,7 +333,7 @@ pub fn dbus_address_get_stream_future(
 pub fn dbus_address_get_stream_sync<P: IsA<Cancellable>>(
     address: &str,
     cancellable: Option<&P>,
-) -> Result<(IOStream, glib::GString), glib::Error> {
+) -> Result<(IOStream, Option<glib::GString>), glib::Error> {
     unsafe {
         let mut out_guid = ptr::null_mut();
         let mut error = ptr::null_mut();
