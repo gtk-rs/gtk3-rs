@@ -405,7 +405,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a new `File`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_create_file_for_arg&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">create_file_for_arg</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">arg</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">File</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">create_file_for_arg</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">arg</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">File</span>;
 
     <span class="doccomment">/// Gets the list of arguments that was passed on the command line.</span>
     <span class="doccomment">///</span>
@@ -497,7 +497,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a `glib::VariantDict` with the options</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_application_command_line_get_options_dict&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_options_dict</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">VariantDict</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">get_options_dict</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">VariantDict</span>;
 
     <span class="doccomment">/// Gets the platform data associated with the invocation of `self`.</span>
     <span class="doccomment">///</span>
@@ -519,7 +519,7 @@
     <span class="doccomment">/// The `InputStream` can be used to read data passed to the standard</span>
     <span class="doccomment">/// input of the invoking process.</span>
     <span class="doccomment">/// This doesn&#39;t work on all platforms. Presently, it is only available</span>
-    <span class="doccomment">/// on UNIX when using a DBus daemon capable of passing file descriptors.</span>
+    <span class="doccomment">/// on UNIX when using a D-Bus daemon capable of passing file descriptors.</span>
     <span class="doccomment">/// If stdin is not available then `None` will be returned. In the</span>
     <span class="doccomment">/// future, support may be expanded to other platforms.</span>
     <span class="doccomment">///</span>
@@ -587,7 +587,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">ApplicationCommandLine</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">ApplicationCommandLineExt</span> <span class="kw">for</span> <span class="ident">O</span> {
-    <span class="kw">fn</span> <span class="ident">create_file_for_arg</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">arg</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">File</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">create_file_for_arg</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">ffi</span>::<span class="ident">OsStr</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">arg</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">File</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_application_command_line_create_file_for_arg</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -638,7 +638,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_options_dict</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">VariantDict</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_options_dict</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">VariantDict</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_application_command_line_get_options_dict</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,

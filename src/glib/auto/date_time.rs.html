@@ -718,9 +718,29 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_compare&quot;</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">compare</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dt2</span>: <span class="kw-2">&amp;</span><span class="ident">DateTime</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
+        <span class="kw">unsafe</span> {
+            <span class="ident">ffi</span>::<span class="ident">g_date_time_compare</span>(
+                <span class="ident">ToGlibPtr</span>::<span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GDateTime</span><span class="op">&gt;</span>::<span class="ident">to_glib_none</span>(<span class="self">self</span>).<span class="number">0</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gconstpointer</span>,
+                <span class="ident">ToGlibPtr</span>::<span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GDateTime</span><span class="op">&gt;</span>::<span class="ident">to_glib_none</span>(<span class="ident">dt2</span>).<span class="number">0</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gconstpointer</span>,
+            )
+        }
+    }
+
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_difference&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">difference</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">begin</span>: <span class="kw-2">&amp;</span><span class="ident">DateTime</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TimeSpan</span> {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">g_date_time_difference</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>, <span class="ident">begin</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) }
+    }
+
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_equal&quot;</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">equal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dt2</span>: <span class="kw-2">&amp;</span><span class="ident">DateTime</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+        <span class="kw">unsafe</span> {
+            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_equal</span>(
+                <span class="ident">ToGlibPtr</span>::<span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GDateTime</span><span class="op">&gt;</span>::<span class="ident">to_glib_none</span>(<span class="self">self</span>).<span class="number">0</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gconstpointer</span>,
+                <span class="ident">ToGlibPtr</span>::<span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GDateTime</span><span class="op">&gt;</span>::<span class="ident">to_glib_none</span>(<span class="ident">dt2</span>).<span class="number">0</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gconstpointer</span>,
+            ))
+        }
     }
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_format&quot;</span>)]</span>
@@ -844,6 +864,15 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_hash&quot;</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">hash</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+        <span class="kw">unsafe</span> {
+            <span class="ident">ffi</span>::<span class="ident">g_date_time_hash</span>(
+                <span class="ident">ToGlibPtr</span>::<span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GDateTime</span><span class="op">&gt;</span>::<span class="ident">to_glib_none</span>(<span class="self">self</span>).<span class="number">0</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gconstpointer</span>,
+            )
+        }
+    }
+
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_is_daylight_savings&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_daylight_savings</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_is_daylight_savings</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
@@ -884,35 +913,6 @@
         <span class="kw">unsafe</span> {
             <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>::<span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_to_utc</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>))
                 .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">crate</span>::<span class="macro">bool_error</span><span class="macro">!</span>(<span class="string">&quot;Invalid date&quot;</span>))
-        }
-    }
-
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_compare&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">compare</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dt2</span>: <span class="kw-2">&amp;</span><span class="ident">DateTime</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
-        <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_date_time_compare</span>(
-                <span class="ident">ToGlibPtr</span>::<span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GDateTime</span><span class="op">&gt;</span>::<span class="ident">to_glib_none</span>(<span class="self">self</span>).<span class="number">0</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gconstpointer</span>,
-                <span class="ident">ToGlibPtr</span>::<span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GDateTime</span><span class="op">&gt;</span>::<span class="ident">to_glib_none</span>(<span class="ident">dt2</span>).<span class="number">0</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gconstpointer</span>,
-            )
-        }
-    }
-
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_equal&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">equal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dt2</span>: <span class="kw-2">&amp;</span><span class="ident">DateTime</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="kw">unsafe</span> {
-            <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_date_time_equal</span>(
-                <span class="ident">ToGlibPtr</span>::<span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GDateTime</span><span class="op">&gt;</span>::<span class="ident">to_glib_none</span>(<span class="self">self</span>).<span class="number">0</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gconstpointer</span>,
-                <span class="ident">ToGlibPtr</span>::<span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GDateTime</span><span class="op">&gt;</span>::<span class="ident">to_glib_none</span>(<span class="ident">dt2</span>).<span class="number">0</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gconstpointer</span>,
-            ))
-        }
-    }
-
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_date_time_hash&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">hash</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
-        <span class="kw">unsafe</span> {
-            <span class="ident">ffi</span>::<span class="ident">g_date_time_hash</span>(
-                <span class="ident">ToGlibPtr</span>::<span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi</span>::<span class="ident">GDateTime</span><span class="op">&gt;</span>::<span class="ident">to_glib_none</span>(<span class="self">self</span>).<span class="number">0</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gconstpointer</span>,
-            )
         }
     }
 }

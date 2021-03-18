@@ -425,7 +425,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a new `MenuAttributeIter`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_model_iterate_item_attributes&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">iterate_item_attributes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">item_index</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MenuAttributeIter</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">iterate_item_attributes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">item_index</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MenuAttributeIter</span>;
 
     <span class="doccomment">/// Creates a `MenuLinkIter` to iterate over the links of the item at</span>
     <span class="doccomment">/// position `item_index` in `self`.</span>
@@ -438,7 +438,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a new `MenuLinkIter`</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_menu_model_iterate_item_links&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">iterate_item_links</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">item_index</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MenuLinkIter</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">iterate_item_links</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">item_index</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MenuLinkIter</span>;
 
     <span class="doccomment">/// Emitted when a change has occurred to the menu.</span>
     <span class="doccomment">///</span>
@@ -520,7 +520,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">iterate_item_attributes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">item_index</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MenuAttributeIter</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">iterate_item_attributes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">item_index</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MenuAttributeIter</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_menu_model_iterate_item_attributes</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -529,7 +529,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">iterate_item_links</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">item_index</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MenuLinkIter</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">iterate_item_links</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">item_index</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MenuLinkIter</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_menu_model_iterate_item_links</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,

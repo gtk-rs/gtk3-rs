@@ -14,7 +14,7 @@ created by <code>Resolver</code>.</p>
 <p>the target’s weight</p>
 <h1 id="returns" class="section-header"><a href="#returns">Returns</a></h1>
 <p>a new <code>SrvTarget</code>.</p>
-</div><h4 id="method.get_hostname" class="method"><code>pub fn <a href="#method.get_hostname" class="fnname">get_hostname</a>(&amp;mut self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</code><a class="srclink" href="../src/gio/auto/srv_target.rs.html#56-58" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets <code>self</code>’s hostname (in ASCII form; if you are going to present
+</div><h4 id="method.get_hostname" class="method"><code>pub fn <a href="#method.get_hostname" class="fnname">get_hostname</a>(&amp;mut self) -&gt; <a class="struct" href="../glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a></code><a class="srclink" href="../src/gio/auto/srv_target.rs.html#56-58" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets <code>self</code>’s hostname (in ASCII form; if you are going to present
 this to the user, you should use <code>g_hostname_is_ascii_encoded</code> to
 check if it contains encoded Unicode segments, and use
 <code>g_hostname_to_unicode</code> to convert it if it does.)</p>

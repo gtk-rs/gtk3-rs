@@ -592,7 +592,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// the locale-specific action name</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_desktop_app_info_get_action_name&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_action_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">action_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_action_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">action_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">GString</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_desktop_app_info_get_action_name</span>(
                 <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -649,7 +649,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_desktop_app_info_get_filename</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Gets the generic name from the destkop file.</span>
+    <span class="doccomment">/// Gets the generic name from the desktop file.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>

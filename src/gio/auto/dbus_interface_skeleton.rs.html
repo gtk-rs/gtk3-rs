@@ -506,10 +506,10 @@
     <span class="doccomment">/// [&#39;a{sv}&#39;][G-VARIANT-TYPE-VARDICT:CAPS].</span>
     <span class="doccomment">/// Free with `glib::Variant::unref`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_dbus_interface_skeleton_get_properties&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_properties</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Variant</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">get_properties</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Variant</span>;
 
     <span class="comment">//#[doc(alias = &quot;g_dbus_interface_skeleton_get_vtable&quot;)]</span>
-    <span class="comment">//fn get_vtable(&amp;self) -&gt; /*Ignored*/Option&lt;DBusInterfaceVTable&gt;;</span>
+    <span class="comment">//fn get_vtable(&amp;self) -&gt; /*Ignored*/DBusInterfaceVTable;</span>
 
     <span class="doccomment">/// Checks if `self` is exported on `connection`.</span>
     <span class="doccomment">/// ## `connection`</span>
@@ -652,7 +652,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_properties</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">Variant</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_properties</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">Variant</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_dbus_interface_skeleton_get_properties</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -660,7 +660,7 @@
         }
     }
 
-    <span class="comment">//fn get_vtable(&amp;self) -&gt; /*Ignored*/Option&lt;DBusInterfaceVTable&gt; {</span>
+    <span class="comment">//fn get_vtable(&amp;self) -&gt; /*Ignored*/DBusInterfaceVTable {</span>
     <span class="comment">//    unsafe { TODO: call ffi:g_dbus_interface_skeleton_get_vtable() }</span>
     <span class="comment">//}</span>
 

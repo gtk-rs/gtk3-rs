@@ -130,20 +130,20 @@ returned.</p>
 <p>the (meaningless) <code>waitpid</code> exit status from the kernel</p>
 </div><h4 id="method.get_stderr_pipe" class="method"><code>pub fn <a href="#method.get_stderr_pipe" class="fnname">get_stderr_pipe</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../gio/struct.InputStream.html" title="struct gio::InputStream">InputStream</a>&gt;</code><a class="srclink" href="../src/gio/auto/subprocess.rs.html#367-369" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the <code>InputStream</code> from which to read the stderr output of
 <code>self</code>.</p>
-<p>The process must have been created with
-<code>SubprocessFlags::StderrPipe</code>.</p>
+<p>The process must have been created with <code>SubprocessFlags::StderrPipe</code>,
+otherwise <code>None</code> will be returned.</p>
 <h1 id="returns-7" class="section-header"><a href="#returns-7">Returns</a></h1>
 <p>the stderr pipe</p>
 </div><h4 id="method.get_stdin_pipe" class="method"><code>pub fn <a href="#method.get_stdin_pipe" class="fnname">get_stdin_pipe</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../gio/struct.OutputStream.html" title="struct gio::OutputStream">OutputStream</a>&gt;</code><a class="srclink" href="../src/gio/auto/subprocess.rs.html#381-383" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the <code>OutputStream</code> that you can write to in order to give data
 to the stdin of <code>self</code>.</p>
-<p>The process must have been created with
-<code>SubprocessFlags::StdinPipe</code>.</p>
+<p>The process must have been created with <code>SubprocessFlags::StdinPipe</code> and
+not <code>SubprocessFlags::StdinInherit</code>, otherwise <code>None</code> will be returned.</p>
 <h1 id="returns-8" class="section-header"><a href="#returns-8">Returns</a></h1>
 <p>the stdout pipe</p>
 </div><h4 id="method.get_stdout_pipe" class="method"><code>pub fn <a href="#method.get_stdout_pipe" class="fnname">get_stdout_pipe</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../gio/struct.InputStream.html" title="struct gio::InputStream">InputStream</a>&gt;</code><a class="srclink" href="../src/gio/auto/subprocess.rs.html#395-397" title="goto source code">[src]</a></h4><div class="docblock"><p>Gets the <code>InputStream</code> from which to read the stdout output of
 <code>self</code>.</p>
-<p>The process must have been created with
-<code>SubprocessFlags::StdoutPipe</code>.</p>
+<p>The process must have been created with <code>SubprocessFlags::StdoutPipe</code>,
+otherwise <code>None</code> will be returned.</p>
 <h1 id="returns-9" class="section-header"><a href="#returns-9">Returns</a></h1>
 <p>the stdout pipe</p>
 </div><h4 id="method.get_successful" class="method"><code>pub fn <a href="#method.get_successful" class="fnname">get_successful</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../src/gio/auto/subprocess.rs.html#410-412" title="goto source code">[src]</a></h4><div class="docblock"><p>Checks if the process was “successful”. A process is considered

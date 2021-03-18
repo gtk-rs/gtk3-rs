@@ -1248,11 +1248,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// a duplicate of `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_dup&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">dup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AppInfo</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">dup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AppInfo</span>;
 
     <span class="doccomment">/// Checks if two `GAppInfos` are equal.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note that the check `&lt;emphasis&gt;`may not`&lt;/emphasis&gt;` compare each individual</span>
+    <span class="doccomment">/// Note that the check *may not* compare each individual</span>
     <span class="doccomment">/// field, and only does an identity check. In case detecting changes in the</span>
     <span class="doccomment">/// contents is needed, program code must additionally compare relevant fields.</span>
     <span class="doccomment">/// ## `appinfo2`</span>
@@ -1291,7 +1291,7 @@
     <span class="doccomment">/// the display name of the application for `self`, or the name if</span>
     <span class="doccomment">/// no display name is available.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_get_display_name&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_display_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">get_display_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">GString</span>;
 
     <span class="doccomment">/// Gets the executable&#39;s name for the installed application.</span>
     <span class="doccomment">///</span>
@@ -1300,7 +1300,7 @@
     <span class="doccomment">/// a string containing the `self`&#39;s application</span>
     <span class="doccomment">/// binaries name</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_get_executable&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_executable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">path</span>::<span class="ident">PathBuf</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">get_executable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std</span>::<span class="ident">path</span>::<span class="ident">PathBuf</span>;
 
     <span class="doccomment">/// Gets the icon for the application.</span>
     <span class="doccomment">///</span>
@@ -1331,7 +1331,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// the name of the application for `self`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;g_app_info_get_name&quot;</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">get_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">get_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">GString</span>;
 
     <span class="doccomment">/// Retrieves the list of content types that `app_info` claims to support.</span>
     <span class="doccomment">/// If this information is not provided by the environment, this function</span>
@@ -1520,7 +1520,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">ffi</span>::<span class="ident">g_app_info_delete</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="kw">fn</span> <span class="ident">dup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AppInfo</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">dup</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AppInfo</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_full</span>(<span class="ident">ffi</span>::<span class="ident">g_app_info_dup</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
@@ -1549,7 +1549,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_display_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_display_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">GString</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_app_info_get_display_name</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1557,7 +1557,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_executable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">path</span>::<span class="ident">PathBuf</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_executable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std</span>::<span class="ident">path</span>::<span class="ident">PathBuf</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_app_info_get_executable</span>(
                 <span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>,
@@ -1573,7 +1573,7 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_app_info_get_id</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">glib</span>::<span class="ident">GString</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">glib</span>::<span class="ident">GString</span> {
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi</span>::<span class="ident">g_app_info_get_name</span>(<span class="self">self</span>.<span class="ident">as_ref</span>().<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
     }
 
