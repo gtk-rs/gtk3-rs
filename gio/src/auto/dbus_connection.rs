@@ -561,7 +561,7 @@ impl DBusConnection {
     }
 
     #[doc(alias = "g_dbus_connection_get_guid")]
-    pub fn get_guid(&self) -> Option<glib::GString> {
+    pub fn get_guid(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_dbus_connection_get_guid(self.to_glib_none().0)) }
     }
 
@@ -580,7 +580,7 @@ impl DBusConnection {
     }
 
     #[doc(alias = "g_dbus_connection_get_stream")]
-    pub fn get_stream(&self) -> Option<IOStream> {
+    pub fn get_stream(&self) -> IOStream {
         unsafe { from_glib_none(ffi::g_dbus_connection_get_stream(self.to_glib_none().0)) }
     }
 

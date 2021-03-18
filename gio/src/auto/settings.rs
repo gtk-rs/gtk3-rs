@@ -110,7 +110,7 @@ pub trait SettingsExt: 'static {
     );
 
     #[doc(alias = "g_settings_create_action")]
-    fn create_action(&self, key: &str) -> Option<Action>;
+    fn create_action(&self, key: &str) -> Action;
 
     #[doc(alias = "g_settings_delay")]
     fn delay(&self);
@@ -122,7 +122,7 @@ pub trait SettingsExt: 'static {
     fn get_boolean(&self, key: &str) -> bool;
 
     #[doc(alias = "g_settings_get_child")]
-    fn get_child(&self, name: &str) -> Option<Settings>;
+    fn get_child(&self, name: &str) -> Settings;
 
     #[doc(alias = "g_settings_get_default_value")]
     fn get_default_value(&self, key: &str) -> Option<glib::Variant>;
@@ -151,7 +151,7 @@ pub trait SettingsExt: 'static {
     //fn get_mapped(&self, key: &str, mapping: /*Unimplemented*/FnMut(&glib::Variant, /*Unimplemented*/Option<Fundamental: Pointer>) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
     #[doc(alias = "g_settings_get_string")]
-    fn get_string(&self, key: &str) -> Option<glib::GString>;
+    fn get_string(&self, key: &str) -> glib::GString;
 
     #[doc(alias = "g_settings_get_strv")]
     fn get_strv(&self, key: &str) -> Vec<glib::GString>;
@@ -288,7 +288,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn create_action(&self, key: &str) -> Option<Action> {
+    fn create_action(&self, key: &str) -> Action {
         unsafe {
             from_glib_full(ffi::g_settings_create_action(
                 self.as_ref().to_glib_none().0,
@@ -316,7 +316,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_child(&self, name: &str) -> Option<Settings> {
+    fn get_child(&self, name: &str) -> Settings {
         unsafe {
             from_glib_full(ffi::g_settings_get_child(
                 self.as_ref().to_glib_none().0,
@@ -368,7 +368,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     //    unsafe { TODO: call ffi:g_settings_get_mapped() }
     //}
 
-    fn get_string(&self, key: &str) -> Option<glib::GString> {
+    fn get_string(&self, key: &str) -> glib::GString {
         unsafe {
             from_glib_full(ffi::g_settings_get_string(
                 self.as_ref().to_glib_none().0,

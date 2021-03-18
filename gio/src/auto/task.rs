@@ -38,7 +38,7 @@ impl Task {
     //}
 
     #[doc(alias = "g_task_get_cancellable")]
-    pub fn get_cancellable(&self) -> Option<Cancellable> {
+    pub fn get_cancellable(&self) -> Cancellable {
         unsafe { from_glib_none(ffi::g_task_get_cancellable(self.to_glib_none().0)) }
     }
 
@@ -55,7 +55,7 @@ impl Task {
     }
 
     #[doc(alias = "g_task_get_context")]
-    pub fn get_context(&self) -> Option<glib::MainContext> {
+    pub fn get_context(&self) -> glib::MainContext {
         unsafe { from_glib_none(ffi::g_task_get_context(self.to_glib_none().0)) }
     }
 

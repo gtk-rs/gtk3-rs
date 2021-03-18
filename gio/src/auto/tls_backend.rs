@@ -17,7 +17,7 @@ glib::wrapper! {
 
 impl TlsBackend {
     #[doc(alias = "g_tls_backend_get_default")]
-    pub fn get_default() -> Option<TlsBackend> {
+    pub fn get_default() -> TlsBackend {
         unsafe { from_glib_none(ffi::g_tls_backend_get_default()) }
     }
 }
@@ -32,7 +32,7 @@ pub trait TlsBackendExt: 'static {
     fn get_client_connection_type(&self) -> glib::types::Type;
 
     #[doc(alias = "g_tls_backend_get_default_database")]
-    fn get_default_database(&self) -> Option<TlsDatabase>;
+    fn get_default_database(&self) -> TlsDatabase;
 
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
@@ -81,7 +81,7 @@ impl<O: IsA<TlsBackend>> TlsBackendExt for O {
         }
     }
 
-    fn get_default_database(&self) -> Option<TlsDatabase> {
+    fn get_default_database(&self) -> TlsDatabase {
         unsafe {
             from_glib_full(ffi::g_tls_backend_get_default_database(
                 self.as_ref().to_glib_none().0,

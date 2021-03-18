@@ -38,7 +38,7 @@ pub trait MemoryOutputStreamExt: 'static {
     fn get_data_size(&self) -> usize;
 
     #[doc(alias = "g_memory_output_stream_steal_as_bytes")]
-    fn steal_as_bytes(&self) -> Option<glib::Bytes>;
+    fn steal_as_bytes(&self) -> glib::Bytes;
 
     fn connect_property_data_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -48,7 +48,7 @@ impl<O: IsA<MemoryOutputStream>> MemoryOutputStreamExt for O {
         unsafe { ffi::g_memory_output_stream_get_data_size(self.as_ref().to_glib_none().0) }
     }
 
-    fn steal_as_bytes(&self) -> Option<glib::Bytes> {
+    fn steal_as_bytes(&self) -> glib::Bytes {
         unsafe {
             from_glib_full(ffi::g_memory_output_stream_steal_as_bytes(
                 self.as_ref().to_glib_none().0,

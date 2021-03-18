@@ -29,7 +29,7 @@ impl SrvTarget {
     }
 
     #[doc(alias = "g_srv_target_get_hostname")]
-    pub fn get_hostname(&mut self) -> Option<glib::GString> {
+    pub fn get_hostname(&mut self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_srv_target_get_hostname(self.to_glib_none_mut().0)) }
     }
 

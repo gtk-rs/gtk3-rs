@@ -187,7 +187,7 @@ impl DBusMessage {
     }
 
     #[doc(alias = "g_dbus_message_get_signature")]
-    pub fn get_signature(&self) -> Option<glib::GString> {
+    pub fn get_signature(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_dbus_message_get_signature(self.to_glib_none().0)) }
     }
 
@@ -206,16 +206,12 @@ impl DBusMessage {
     }
 
     //#[doc(alias = "g_dbus_message_new_method_error")]
-    //pub fn new_method_error(&self, error_name: &str, error_message_format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<DBusMessage> {
+    //pub fn new_method_error(&self, error_name: &str, error_message_format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> DBusMessage {
     //    unsafe { TODO: call ffi:g_dbus_message_new_method_error() }
     //}
 
     #[doc(alias = "g_dbus_message_new_method_error_literal")]
-    pub fn new_method_error_literal(
-        &self,
-        error_name: &str,
-        error_message: &str,
-    ) -> Option<DBusMessage> {
+    pub fn new_method_error_literal(&self, error_name: &str, error_message: &str) -> DBusMessage {
         unsafe {
             from_glib_full(ffi::g_dbus_message_new_method_error_literal(
                 self.to_glib_none().0,
@@ -226,17 +222,17 @@ impl DBusMessage {
     }
 
     //#[doc(alias = "g_dbus_message_new_method_error_valist")]
-    //pub fn new_method_error_valist(&self, error_name: &str, error_message_format: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<DBusMessage> {
+    //pub fn new_method_error_valist(&self, error_name: &str, error_message_format: &str, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> DBusMessage {
     //    unsafe { TODO: call ffi:g_dbus_message_new_method_error_valist() }
     //}
 
     #[doc(alias = "g_dbus_message_new_method_reply")]
-    pub fn new_method_reply(&self) -> Option<DBusMessage> {
+    pub fn new_method_reply(&self) -> DBusMessage {
         unsafe { from_glib_full(ffi::g_dbus_message_new_method_reply(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "g_dbus_message_print")]
-    pub fn print(&self, indent: u32) -> Option<glib::GString> {
+    pub fn print(&self, indent: u32) -> glib::GString {
         unsafe { from_glib_full(ffi::g_dbus_message_print(self.to_glib_none().0, indent)) }
     }
 

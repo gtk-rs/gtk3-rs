@@ -21,7 +21,7 @@ impl SettingsBackend {
     //}
 
     #[doc(alias = "g_settings_backend_get_default")]
-    pub fn get_default() -> Option<SettingsBackend> {
+    pub fn get_default() -> SettingsBackend {
         unsafe { from_glib_full(ffi::g_settings_backend_get_default()) }
     }
 }

@@ -215,7 +215,7 @@ pub trait AppInfoExt: 'static {
     fn delete(&self) -> bool;
 
     #[doc(alias = "g_app_info_dup")]
-    fn dup(&self) -> Option<AppInfo>;
+    fn dup(&self) -> AppInfo;
 
     #[doc(alias = "g_app_info_equal")]
     fn equal<P: IsA<AppInfo>>(&self, appinfo2: &P) -> bool;
@@ -227,10 +227,10 @@ pub trait AppInfoExt: 'static {
     fn get_description(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_app_info_get_display_name")]
-    fn get_display_name(&self) -> Option<glib::GString>;
+    fn get_display_name(&self) -> glib::GString;
 
     #[doc(alias = "g_app_info_get_executable")]
-    fn get_executable(&self) -> Option<std::path::PathBuf>;
+    fn get_executable(&self) -> std::path::PathBuf;
 
     #[doc(alias = "g_app_info_get_icon")]
     fn get_icon(&self) -> Option<Icon>;
@@ -239,7 +239,7 @@ pub trait AppInfoExt: 'static {
     fn get_id(&self) -> Option<glib::GString>;
 
     #[doc(alias = "g_app_info_get_name")]
-    fn get_name(&self) -> Option<glib::GString>;
+    fn get_name(&self) -> glib::GString;
 
     #[doc(alias = "g_app_info_get_supported_types")]
     fn get_supported_types(&self) -> Vec<glib::GString>;
@@ -316,7 +316,7 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         unsafe { from_glib(ffi::g_app_info_delete(self.as_ref().to_glib_none().0)) }
     }
 
-    fn dup(&self) -> Option<AppInfo> {
+    fn dup(&self) -> AppInfo {
         unsafe { from_glib_full(ffi::g_app_info_dup(self.as_ref().to_glib_none().0)) }
     }
 
@@ -345,7 +345,7 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         }
     }
 
-    fn get_display_name(&self) -> Option<glib::GString> {
+    fn get_display_name(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_app_info_get_display_name(
                 self.as_ref().to_glib_none().0,
@@ -353,7 +353,7 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         }
     }
 
-    fn get_executable(&self) -> Option<std::path::PathBuf> {
+    fn get_executable(&self) -> std::path::PathBuf {
         unsafe {
             from_glib_none(ffi::g_app_info_get_executable(
                 self.as_ref().to_glib_none().0,
@@ -369,7 +369,7 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         unsafe { from_glib_none(ffi::g_app_info_get_id(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_name(&self) -> Option<glib::GString> {
+    fn get_name(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::g_app_info_get_name(self.as_ref().to_glib_none().0)) }
     }
 

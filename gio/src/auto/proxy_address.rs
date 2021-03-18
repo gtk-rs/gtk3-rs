@@ -58,7 +58,7 @@ pub trait ProxyAddressExt: 'static {
     fn get_destination_port(&self) -> u16;
 
     #[doc(alias = "g_proxy_address_get_destination_protocol")]
-    fn get_destination_protocol(&self) -> Option<glib::GString>;
+    fn get_destination_protocol(&self) -> glib::GString;
 
     #[doc(alias = "g_proxy_address_get_password")]
     fn get_password(&self) -> Option<glib::GString>;
@@ -86,7 +86,7 @@ impl<O: IsA<ProxyAddress>> ProxyAddressExt for O {
         unsafe { ffi::g_proxy_address_get_destination_port(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_destination_protocol(&self) -> Option<glib::GString> {
+    fn get_destination_protocol(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_proxy_address_get_destination_protocol(
                 self.as_ref().to_glib_none().0,

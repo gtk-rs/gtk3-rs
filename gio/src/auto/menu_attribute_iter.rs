@@ -15,24 +15,31 @@ glib::wrapper! {
     }
 }
 
+impl fmt::Display for MenuAttributeIter {
+    #[inline]
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.write_str(&MenuAttributeIterExt::get_name(self))
+    }
+}
+
 pub const NONE_MENU_ATTRIBUTE_ITER: Option<&MenuAttributeIter> = None;
 
 pub trait MenuAttributeIterExt: 'static {
     #[doc(alias = "g_menu_attribute_iter_get_name")]
-    fn get_name(&self) -> Option<glib::GString>;
+    fn get_name(&self) -> glib::GString;
 
     #[doc(alias = "g_menu_attribute_iter_get_next")]
     fn get_next(&self) -> Option<(glib::GString, glib::Variant)>;
 
     #[doc(alias = "g_menu_attribute_iter_get_value")]
-    fn get_value(&self) -> Option<glib::Variant>;
+    fn get_value(&self) -> glib::Variant;
 
     #[doc(alias = "g_menu_attribute_iter_next")]
     fn next(&self) -> bool;
 }
 
 impl<O: IsA<MenuAttributeIter>> MenuAttributeIterExt for O {
-    fn get_name(&self) -> Option<glib::GString> {
+    fn get_name(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_menu_attribute_iter_get_name(
                 self.as_ref().to_glib_none().0,
@@ -57,7 +64,7 @@ impl<O: IsA<MenuAttributeIter>> MenuAttributeIterExt for O {
         }
     }
 
-    fn get_value(&self) -> Option<glib::Variant> {
+    fn get_value(&self) -> glib::Variant {
         unsafe {
             from_glib_full(ffi::g_menu_attribute_iter_get_value(
                 self.as_ref().to_glib_none().0,
@@ -71,11 +78,5 @@ impl<O: IsA<MenuAttributeIter>> MenuAttributeIterExt for O {
                 self.as_ref().to_glib_none().0,
             ))
         }
-    }
-}
-
-impl fmt::Display for MenuAttributeIter {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("MenuAttributeIter")
     }
 }

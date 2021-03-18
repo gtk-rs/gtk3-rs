@@ -36,13 +36,13 @@ pub const NONE_TLS_PASSWORD: Option<&TlsPassword> = None;
 
 pub trait TlsPasswordExt: 'static {
     #[doc(alias = "g_tls_password_get_description")]
-    fn get_description(&self) -> Option<glib::GString>;
+    fn get_description(&self) -> glib::GString;
 
     #[doc(alias = "g_tls_password_get_flags")]
     fn get_flags(&self) -> TlsPasswordFlags;
 
     #[doc(alias = "g_tls_password_get_warning")]
-    fn get_warning(&self) -> Option<glib::GString>;
+    fn get_warning(&self) -> glib::GString;
 
     #[doc(alias = "g_tls_password_set_description")]
     fn set_description(&self, description: &str);
@@ -64,7 +64,7 @@ pub trait TlsPasswordExt: 'static {
 }
 
 impl<O: IsA<TlsPassword>> TlsPasswordExt for O {
-    fn get_description(&self) -> Option<glib::GString> {
+    fn get_description(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_tls_password_get_description(
                 self.as_ref().to_glib_none().0,
@@ -80,7 +80,7 @@ impl<O: IsA<TlsPassword>> TlsPasswordExt for O {
         }
     }
 
-    fn get_warning(&self) -> Option<glib::GString> {
+    fn get_warning(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_tls_password_get_warning(
                 self.as_ref().to_glib_none().0,

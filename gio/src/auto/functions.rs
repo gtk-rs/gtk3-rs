@@ -141,7 +141,7 @@ pub fn content_type_from_mime_type(mime_type: &str) -> Option<glib::GString> {
 }
 
 #[doc(alias = "g_content_type_get_description")]
-pub fn content_type_get_description(type_: &str) -> Option<glib::GString> {
+pub fn content_type_get_description(type_: &str) -> glib::GString {
     unsafe { from_glib_full(ffi::g_content_type_get_description(type_.to_glib_none().0)) }
 }
 
@@ -155,7 +155,7 @@ pub fn content_type_get_generic_icon_name(type_: &str) -> Option<glib::GString> 
 }
 
 #[doc(alias = "g_content_type_get_icon")]
-pub fn content_type_get_icon(type_: &str) -> Option<Icon> {
+pub fn content_type_get_icon(type_: &str) -> Icon {
     unsafe { from_glib_full(ffi::g_content_type_get_icon(type_.to_glib_none().0)) }
 }
 
@@ -172,7 +172,7 @@ pub fn content_type_get_mime_type(type_: &str) -> Option<glib::GString> {
 }
 
 #[doc(alias = "g_content_type_get_symbolic_icon")]
-pub fn content_type_get_symbolic_icon(type_: &str) -> Option<Icon> {
+pub fn content_type_get_symbolic_icon(type_: &str) -> Icon {
     unsafe {
         from_glib_full(ffi::g_content_type_get_symbolic_icon(
             type_.to_glib_none().0,
@@ -247,7 +247,7 @@ pub fn content_types_get_registered() -> Vec<glib::GString> {
 }
 
 #[doc(alias = "g_dbus_address_escape_value")]
-pub fn dbus_address_escape_value(string: &str) -> Option<glib::GString> {
+pub fn dbus_address_escape_value(string: &str) -> glib::GString {
     unsafe { from_glib_full(ffi::g_dbus_address_escape_value(string.to_glib_none().0)) }
 }
 
@@ -352,15 +352,12 @@ pub fn dbus_address_get_stream_sync<P: IsA<Cancellable>>(
 }
 
 #[doc(alias = "g_dbus_generate_guid")]
-pub fn dbus_generate_guid() -> Option<glib::GString> {
+pub fn dbus_generate_guid() -> glib::GString {
     unsafe { from_glib_full(ffi::g_dbus_generate_guid()) }
 }
 
 #[doc(alias = "g_dbus_gvalue_to_gvariant")]
-pub fn dbus_gvalue_to_gvariant(
-    gvalue: &glib::Value,
-    type_: &glib::VariantTy,
-) -> Option<glib::Variant> {
+pub fn dbus_gvalue_to_gvariant(gvalue: &glib::Value, type_: &glib::VariantTy) -> glib::Variant {
     unsafe {
         from_glib_full(ffi::g_dbus_gvalue_to_gvariant(
             gvalue.to_glib_none().0,
@@ -465,7 +462,7 @@ pub fn keyfile_settings_backend_new(
     filename: &str,
     root_path: &str,
     root_group: Option<&str>,
-) -> Option<SettingsBackend> {
+) -> SettingsBackend {
     unsafe {
         from_glib_full(ffi::g_keyfile_settings_backend_new(
             filename.to_glib_none().0,
@@ -476,7 +473,7 @@ pub fn keyfile_settings_backend_new(
 }
 
 #[doc(alias = "g_memory_settings_backend_new")]
-pub fn memory_settings_backend_new() -> Option<SettingsBackend> {
+pub fn memory_settings_backend_new() -> SettingsBackend {
     unsafe { from_glib_full(ffi::g_memory_settings_backend_new()) }
 }
 
@@ -488,7 +485,7 @@ pub fn networking_init() {
 }
 
 #[doc(alias = "g_null_settings_backend_new")]
-pub fn null_settings_backend_new() -> Option<SettingsBackend> {
+pub fn null_settings_backend_new() -> SettingsBackend {
     unsafe { from_glib_full(ffi::g_null_settings_backend_new()) }
 }
 

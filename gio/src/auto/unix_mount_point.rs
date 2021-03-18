@@ -42,7 +42,7 @@ impl UnixMountPoint {
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
     #[doc(alias = "g_unix_mount_point_get_device_path")]
-    pub fn get_device_path(&self) -> Option<std::path::PathBuf> {
+    pub fn get_device_path(&self) -> std::path::PathBuf {
         unsafe {
             from_glib_none(ffi::g_unix_mount_point_get_device_path(mut_override(
                 self.to_glib_none().0,
@@ -53,7 +53,7 @@ impl UnixMountPoint {
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
     #[doc(alias = "g_unix_mount_point_get_fs_type")]
-    pub fn get_fs_type(&self) -> Option<glib::GString> {
+    pub fn get_fs_type(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_unix_mount_point_get_fs_type(mut_override(
                 self.to_glib_none().0,
@@ -64,7 +64,7 @@ impl UnixMountPoint {
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
     #[doc(alias = "g_unix_mount_point_get_mount_path")]
-    pub fn get_mount_path(&self) -> Option<std::path::PathBuf> {
+    pub fn get_mount_path(&self) -> std::path::PathBuf {
         unsafe {
             from_glib_none(ffi::g_unix_mount_point_get_mount_path(mut_override(
                 self.to_glib_none().0,
@@ -97,7 +97,7 @@ impl UnixMountPoint {
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
     #[doc(alias = "g_unix_mount_point_guess_icon")]
-    pub fn guess_icon(&self) -> Option<Icon> {
+    pub fn guess_icon(&self) -> Icon {
         unsafe {
             from_glib_full(ffi::g_unix_mount_point_guess_icon(mut_override(
                 self.to_glib_none().0,
@@ -108,7 +108,7 @@ impl UnixMountPoint {
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
     #[doc(alias = "g_unix_mount_point_guess_name")]
-    pub fn guess_name(&self) -> Option<glib::GString> {
+    pub fn guess_name(&self) -> glib::GString {
         unsafe {
             from_glib_full(ffi::g_unix_mount_point_guess_name(mut_override(
                 self.to_glib_none().0,
@@ -119,7 +119,7 @@ impl UnixMountPoint {
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
     #[doc(alias = "g_unix_mount_point_guess_symbolic_icon")]
-    pub fn guess_symbolic_icon(&self) -> Option<Icon> {
+    pub fn guess_symbolic_icon(&self) -> Icon {
         unsafe {
             from_glib_full(ffi::g_unix_mount_point_guess_symbolic_icon(mut_override(
                 self.to_glib_none().0,

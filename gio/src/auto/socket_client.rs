@@ -168,7 +168,7 @@ pub trait SocketClientExt: 'static {
     fn get_protocol(&self) -> SocketProtocol;
 
     #[doc(alias = "g_socket_client_get_proxy_resolver")]
-    fn get_proxy_resolver(&self) -> Option<ProxyResolver>;
+    fn get_proxy_resolver(&self) -> ProxyResolver;
 
     #[doc(alias = "g_socket_client_get_socket_type")]
     fn get_socket_type(&self) -> SocketType;
@@ -630,7 +630,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn get_proxy_resolver(&self) -> Option<ProxyResolver> {
+    fn get_proxy_resolver(&self) -> ProxyResolver {
         unsafe {
             from_glib_none(ffi::g_socket_client_get_proxy_resolver(
                 self.as_ref().to_glib_none().0,

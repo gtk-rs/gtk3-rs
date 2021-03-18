@@ -46,7 +46,7 @@ impl DesktopAppInfo {
     }
 
     #[doc(alias = "g_desktop_app_info_get_action_name")]
-    pub fn get_action_name(&self, action_name: &str) -> Option<glib::GString> {
+    pub fn get_action_name(&self, action_name: &str) -> glib::GString {
         unsafe {
             from_glib_full(ffi::g_desktop_app_info_get_action_name(
                 self.to_glib_none().0,

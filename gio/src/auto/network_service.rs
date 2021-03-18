@@ -37,16 +37,16 @@ pub const NONE_NETWORK_SERVICE: Option<&NetworkService> = None;
 
 pub trait NetworkServiceExt: 'static {
     #[doc(alias = "g_network_service_get_domain")]
-    fn get_domain(&self) -> Option<glib::GString>;
+    fn get_domain(&self) -> glib::GString;
 
     #[doc(alias = "g_network_service_get_protocol")]
-    fn get_protocol(&self) -> Option<glib::GString>;
+    fn get_protocol(&self) -> glib::GString;
 
     #[doc(alias = "g_network_service_get_scheme")]
-    fn get_scheme(&self) -> Option<glib::GString>;
+    fn get_scheme(&self) -> glib::GString;
 
     #[doc(alias = "g_network_service_get_service")]
-    fn get_service(&self) -> Option<glib::GString>;
+    fn get_service(&self) -> glib::GString;
 
     #[doc(alias = "g_network_service_set_scheme")]
     fn set_scheme(&self, scheme: &str);
@@ -55,7 +55,7 @@ pub trait NetworkServiceExt: 'static {
 }
 
 impl<O: IsA<NetworkService>> NetworkServiceExt for O {
-    fn get_domain(&self) -> Option<glib::GString> {
+    fn get_domain(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_network_service_get_domain(
                 self.as_ref().to_glib_none().0,
@@ -63,7 +63,7 @@ impl<O: IsA<NetworkService>> NetworkServiceExt for O {
         }
     }
 
-    fn get_protocol(&self) -> Option<glib::GString> {
+    fn get_protocol(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_network_service_get_protocol(
                 self.as_ref().to_glib_none().0,
@@ -71,7 +71,7 @@ impl<O: IsA<NetworkService>> NetworkServiceExt for O {
         }
     }
 
-    fn get_scheme(&self) -> Option<glib::GString> {
+    fn get_scheme(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_network_service_get_scheme(
                 self.as_ref().to_glib_none().0,
@@ -79,7 +79,7 @@ impl<O: IsA<NetworkService>> NetworkServiceExt for O {
         }
     }
 
-    fn get_service(&self) -> Option<glib::GString> {
+    fn get_service(&self) -> glib::GString {
         unsafe {
             from_glib_none(ffi::g_network_service_get_service(
                 self.as_ref().to_glib_none().0,

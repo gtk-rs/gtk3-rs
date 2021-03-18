@@ -22,7 +22,7 @@ impl BytesIcon {
     }
 
     #[doc(alias = "g_bytes_icon_get_bytes")]
-    pub fn get_bytes(&self) -> Option<glib::Bytes> {
+    pub fn get_bytes(&self) -> glib::Bytes {
         unsafe { from_glib_none(ffi::g_bytes_icon_get_bytes(self.to_glib_none().0)) }
     }
 }

@@ -42,7 +42,7 @@ pub trait EmblemedIconExt: 'static {
     fn get_emblems(&self) -> Vec<Emblem>;
 
     #[doc(alias = "g_emblemed_icon_get_icon")]
-    fn get_icon(&self) -> Option<Icon>;
+    fn get_icon(&self) -> Icon;
 
     fn get_property_gicon(&self) -> Option<Icon>;
 }
@@ -71,7 +71,7 @@ impl<O: IsA<EmblemedIcon>> EmblemedIconExt for O {
         }
     }
 
-    fn get_icon(&self) -> Option<Icon> {
+    fn get_icon(&self) -> Icon {
         unsafe {
             from_glib_none(ffi::g_emblemed_icon_get_icon(
                 self.as_ref().to_glib_none().0,

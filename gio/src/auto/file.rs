@@ -42,7 +42,7 @@ impl File {
     //#[cfg(any(feature = "v2_56", feature = "dox"))]
     //#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
     //#[doc(alias = "g_file_new_build_filename")]
-    //pub fn new_build_filename<P: AsRef<std::path::Path>>(first_element: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<File> {
+    //pub fn new_build_filename<P: AsRef<std::path::Path>>(first_element: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> File {
     //    unsafe { TODO: call ffi:g_file_new_build_filename() }
     //}
 
@@ -96,7 +96,7 @@ impl File {
     }
 
     #[doc(alias = "g_file_parse_name")]
-    pub fn parse_name(parse_name: &str) -> Option<File> {
+    pub fn parse_name(parse_name: &str) -> File {
         unsafe { from_glib_full(ffi::g_file_parse_name(parse_name.to_glib_none().0)) }
     }
 }
@@ -222,7 +222,7 @@ pub trait FileExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     #[doc(alias = "g_file_dup")]
-    fn dup(&self) -> Option<File>;
+    fn dup(&self) -> File;
 
     #[doc(alias = "g_file_eject_mountable_with_operation")]
     fn eject_mountable_with_operation<
@@ -273,7 +273,7 @@ pub trait FileExt: 'static {
     fn get_parent(&self) -> Option<File>;
 
     #[doc(alias = "g_file_get_parse_name")]
-    fn get_parse_name(&self) -> Option<glib::GString>;
+    fn get_parse_name(&self) -> glib::GString;
 
     #[doc(alias = "g_file_get_path")]
     fn get_path(&self) -> Option<std::path::PathBuf>;
@@ -710,7 +710,7 @@ pub trait FileExt: 'static {
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<FileIOStream, glib::Error>> + 'static>>;
 
     #[doc(alias = "g_file_resolve_relative_path")]
-    fn resolve_relative_path<P: AsRef<std::path::Path>>(&self, relative_path: P) -> Option<File>;
+    fn resolve_relative_path<P: AsRef<std::path::Path>>(&self, relative_path: P) -> File;
 
     //#[doc(alias = "g_file_set_attribute")]
     //fn set_attribute<P: IsA<Cancellable>>(&self, attribute: &str, type_: FileAttributeType, value_p: /*Unimplemented*/Option<Fundamental: Pointer>, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result<(), glib::Error>;
@@ -1296,7 +1296,7 @@ impl<O: IsA<File>> FileExt for O {
         }))
     }
 
-    fn dup(&self) -> Option<File> {
+    fn dup(&self) -> File {
         unsafe { from_glib_full(ffi::g_file_dup(self.as_ref().to_glib_none().0)) }
     }
 
@@ -1451,7 +1451,7 @@ impl<O: IsA<File>> FileExt for O {
         unsafe { from_glib_full(ffi::g_file_get_parent(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_parse_name(&self) -> Option<glib::GString> {
+    fn get_parse_name(&self) -> glib::GString {
         unsafe { from_glib_full(ffi::g_file_get_parse_name(self.as_ref().to_glib_none().0)) }
     }
 
@@ -2854,7 +2854,7 @@ impl<O: IsA<File>> FileExt for O {
         }))
     }
 
-    fn resolve_relative_path<P: AsRef<std::path::Path>>(&self, relative_path: P) -> Option<File> {
+    fn resolve_relative_path<P: AsRef<std::path::Path>>(&self, relative_path: P) -> File {
         unsafe {
             from_glib_full(ffi::g_file_resolve_relative_path(
                 self.as_ref().to_glib_none().0,
