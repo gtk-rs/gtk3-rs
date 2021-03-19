@@ -86,7 +86,9 @@ pub use bitflags;
 #[doc(hidden)]
 pub use once_cell;
 
-pub use glib_macros::{clone, gflags, object_interface, object_subclass, Downgrade, GBoxed, GEnum};
+pub use glib_macros::{
+    clone, gflags, object_interface, object_subclass, Downgrade, GBoxed, GEnum, GErrorDomain,
+};
 
 pub use self::byte_array::ByteArray;
 pub use self::bytes::Bytes;
