@@ -6,6 +6,7 @@ min_cfg_version = "1.9.2"
 girs_dir = "../gir-files"
 target_path = "."
 single_version_file = "."
+girs_directories = ["../../gir-files"]
 
 external_libraries = [
     "GLib",

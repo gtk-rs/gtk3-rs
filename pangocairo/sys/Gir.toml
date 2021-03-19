@@ -4,6 +4,7 @@ library = "PangoCairo"
 version = "1.0"
 min_cfg_version = "1.36"
 single_version_file = "."
+girs_directories = ["../../gir-files"]
 
 external_libraries = [
     "GLib",

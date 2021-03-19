@@ -9,6 +9,7 @@ work_mode = "normal"
 single_version_file = true
 deprecate_by_min_version = true
 trust_return_value_nullability = true
+girs_directories = ["../gir-files"]
 
 generate = [
     "GObject.BindingFlags",

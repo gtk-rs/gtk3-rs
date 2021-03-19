@@ -4,6 +4,7 @@ library = "GLib"
 version = "2.0"
 min_cfg_version = "2.42"
 single_version_file = "."
+girs_directories = ["../../gir-files"]
 
 ignore = [
     "GLib.ANALYZER_ANALYZING",

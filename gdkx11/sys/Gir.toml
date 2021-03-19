@@ -5,6 +5,7 @@ version = "3.0"
 min_cfg_version = "3.14"
 single_version_file = "."
 dox_feature_dependencies = ["cairo"]
+girs_directories = ["../../gir-files"]
 
 external_libraries = [
     "Gdk",
