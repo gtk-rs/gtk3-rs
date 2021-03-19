@@ -1,5 +1,5 @@
 [options]
-girs_dir = "gir-files"
+girs_directories = ["gir-files"]
 library = "GdkPixbuf"
 version = "2.0"
 min_cfg_version = "2.30"
