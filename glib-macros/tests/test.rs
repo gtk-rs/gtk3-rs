@@ -5,7 +5,22 @@
 use glib::prelude::*;
 use glib::subclass::prelude::*;
 use glib::translate::{FromGlib, ToGlib};
-use glib::{gflags, GBoxed, GEnum};
+use glib::{gflags, GBoxed, GEnum, GErrorDomain};
+
+#[test]
+fn derive_gerror_domain() {
+    #[derive(Debug, Eq, PartialEq, Clone, Copy, GErrorDomain)]
+    #[gerror_domain(name = "TestError")]
+    enum TestError {
+        Invalid,
+        Bad,
+        Wrong,
+    }
+
+    let err = glib::Error::new(TestError::Bad, "oh no!");
+    assert!(err.is::<TestError>());
+    assert!(matches!(err.kind::<TestError>(), Some(TestError::Bad)));
+}
 
 #[test]
 fn derive_genum() {
