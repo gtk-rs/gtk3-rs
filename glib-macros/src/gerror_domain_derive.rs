@@ -2,29 +2,10 @@
 
 use proc_macro2::TokenStream;
 use proc_macro_error::abort_call_site;
-use quote::{quote, quote_spanned};
-use syn::{punctuated::Punctuated, spanned::Spanned, token::Comma, Data, Ident, Variant};
+use quote::quote;
+use syn::Data;
 
-use crate::utils::{crate_ident_new, parse_name};
-
-// FIXME: merge with genum version
-fn gen_enum_from_glib(
-    enum_name: &Ident,
-    enum_variants: &Punctuated<Variant, Comma>,
-) -> TokenStream {
-    // FIXME: can we express this with a match()?
-    let recurse = enum_variants.iter().map(|v| {
-        let name = &v.ident;
-        quote_spanned! {v.span()=>
-            if code == #enum_name::#name as i32 {
-                return Some(#enum_name::#name);
-            }
-        }
-    });
-    quote! {
-        #(#recurse)*
-    }
-}
+use crate::utils::{crate_ident_new, gen_enum_from_glib, parse_name};
 
 pub fn impl_gerror_domain(input: &syn::DeriveInput) -> TokenStream {
     let name = &input.ident;
@@ -61,12 +42,11 @@ pub fn impl_gerror_domain(input: &syn::DeriveInput) -> TokenStream {
                 self as i32
             }
 
-            fn from(code: i32) -> Option<Self>
+            fn from(value: i32) -> Option<Self>
             where
                 Self: Sized
             {
                 #from_glib
-                None
             }
         }
     }

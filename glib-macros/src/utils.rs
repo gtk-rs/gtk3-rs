@@ -1,9 +1,13 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use anyhow::{bail, Result};
-use proc_macro2::{Ident, Span};
+use proc_macro2::{Ident, Span, TokenStream};
 use proc_macro_crate::crate_name;
-use syn::{Attribute, DeriveInput, Lit, Meta, MetaList, NestedMeta};
+use quote::{quote, quote_spanned};
+use syn::{
+    punctuated::Punctuated, spanned::Spanned, token::Comma, Attribute, DeriveInput, Lit, Meta,
+    MetaList, NestedMeta, Variant,
+};
 
 // find the #[@attr_name] attribute in @attrs
 pub fn find_attribute_meta(attrs: &[Attribute], attr_name: &str) -> Result<Option<MetaList>> {
@@ -155,4 +159,29 @@ pub fn crate_ident_new() -> Ident {
     };
 
     Ident::new(&crate_name, Span::call_site())
+}
+
+// Generate i32 to enum mapping, used to implement
+// glib::translate::TryFromGlib<i32>, such as:
+//
+//   if value == Animal::Goat as i32 {
+//       return Some(Animal::Goat);
+//   }
+pub fn gen_enum_from_glib(
+    enum_name: &Ident,
+    enum_variants: &Punctuated<Variant, Comma>,
+) -> TokenStream {
+    // FIXME: can we express this with a match()?
+    let recurse = enum_variants.iter().map(|v| {
+        let name = &v.ident;
+        quote_spanned! { v.span() =>
+            if value == #enum_name::#name as i32 {
+                return Some(#enum_name::#name);
+            }
+        }
+    });
+    quote! {
+        #(#recurse)*
+        None
+    }
 }
