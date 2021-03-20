@@ -69,7 +69,7 @@ unsafe extern "C" fn get_property<T: ObjectImpl>(
 
     let v = imp.get_property(
         &from_glib_borrow::<_, Object>(obj).unsafe_cast_ref(),
-        (id - 1) as usize,
+        id as usize,
         &from_glib_borrow(pspec),
     );
 
@@ -96,7 +96,7 @@ unsafe extern "C" fn set_property<T: ObjectImpl>(
     let imp = instance.get_impl();
     imp.set_property(
         &from_glib_borrow::<_, Object>(obj).unsafe_cast_ref(),
-        (id - 1) as usize,
+        id as usize,
         &*(value as *mut Value),
         &from_glib_borrow(pspec),
     );
