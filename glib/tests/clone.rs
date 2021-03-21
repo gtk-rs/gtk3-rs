@@ -457,23 +457,33 @@ fn test_clone_macro_default_return() {
 
     let _closure = clone!(@weak v => @default-return Foo(0), move || Foo(1));
 
-    #[allow(dead_code)]
+    #[derive(PartialEq, Debug)]
     struct Bar {
         x: i32,
     }
 
-    let _closure = clone!(@weak v => @default-return Bar { x: 0 }, move || Bar { x: 1 });
+    let closure = clone!(@weak v => @default-return Bar { x: 0 }, move || Bar { x: 1 });
+    let wrapper = clone!(@weak v => move |call: &(dyn Fn() -> Bar)| call());
+    assert_eq!(wrapper(&closure), Bar { x: 0 });
 
-    #[allow(dead_code)]
+    #[derive(PartialEq, Debug)]
     enum Enum {
         A,
         B(i32),
         C { x: i32 },
     }
-    let _closure = clone!(@weak v => @default-return Enum::A, move || Enum::A);
-    let _closure = clone!(@weak v => @default-return Enum::B(0), move || Enum::A);
-    let _closure = clone!(@weak v => @default-return Enum::C { x: 0 }, move || Enum::A);
-    let _closure = clone!(@weak v => @default-return { let x = 12; x + 2 }, move || 19);
+    let closure1 = clone!(@weak v => @default-return Enum::A, move || Enum::B(0));
+    let closure2 = clone!(@weak v => @default-return Enum::B(0), move || Enum::A);
+    let closure3 = clone!(@weak v => @default-return Enum::C { x: 0 }, move || Enum::A);
+    let closure4 = clone!(@weak v => @default-return { let x = 12; x + 2 }, move || 19);
+
+    let wrapper = clone!(@weak v => move |call: &(dyn Fn() -> Enum)| call());
+    assert_eq!(wrapper(&closure1), Enum::B(0));
+    assert_eq!(wrapper(&closure2), Enum::A);
+    assert_eq!(wrapper(&closure3), Enum::A);
+
+    let wrapper = clone!(@weak v => move |call: &(dyn Fn() -> usize)| call());
+    assert_eq!(wrapper(&closure4), 14);
 }
 
 #[test]
