@@ -4,6 +4,7 @@ use std::panic;
 use std::rc::Rc;
 use std::sync::{Arc, Mutex};
 
+use futures_executor::block_on;
 use glib::{clone, Downgrade, Object};
 
 struct State {
@@ -490,12 +491,15 @@ fn test_clone_macro_body() {
 
 #[test]
 fn test_clone_macro_async_kinds() {
-    let v = Rc::new(1);
+    let v = Rc::new(RefCell::new(1));
 
     // This one is still a rust unstable feature.
     // let _closure = clone!(@weak v => async move || 0);
-    let _closure = clone!(@weak v => move || async move { 0 });
-    let _closure = clone!(@weak v => async move { 0 });
+    let closure = clone!(@weak v => move || async move { *v.borrow_mut() += 1; });
+    block_on(closure());
+    assert_eq!(*v.borrow(), 2);
+    block_on(clone!(@weak v => async move { *v.borrow_mut() += 1; }));
+    assert_eq!(*v.borrow(), 3);
 }
 
 #[test]
