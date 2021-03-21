@@ -270,7 +270,7 @@ pub fn genum_derive(input: TokenStream) -> TokenStream {
 /// [`ErrorDomain`]: error/trait.ErrorDomain.html
 #[proc_macro_derive(GErrorDomain, attributes(gerror_domain))]
 #[proc_macro_error]
-pub fn gerror_doman_derive(input: TokenStream) -> TokenStream {
+pub fn gerror_domain_derive(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let gen = gerror_domain_derive::impl_gerror_domain(&input);
     gen.into()
