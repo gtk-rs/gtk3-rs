@@ -739,6 +739,7 @@
 <span id="736">736</span>
 <span id="737">737</span>
 <span id="738">738</span>
+<span id="739">739</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -1226,8 +1227,9 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
 
 <span class="kw">fn</span> <span class="ident">check_async_syntax</span>(<span class="ident">parts</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Peekable</span><span class="op">&lt;</span><span class="ident">ProcIter</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BlockKind</span> {
     <span class="ident">check_move_after_async</span>(<span class="ident">parts</span>);
-    <span class="kw">match</span> <span class="ident">parts</span>.<span class="ident">next</span>() {
+    <span class="kw">match</span> <span class="ident">parts</span>.<span class="ident">peek</span>() {
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Punct</span>(<span class="ident">p</span>)) <span class="kw">if</span> <span class="ident">p</span>.<span class="ident">to_string</span>() <span class="op">=</span><span class="op">=</span> <span class="string">&quot;|&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident">parts</span>.<span class="ident">next</span>();
             <span class="ident">BlockKind</span>::<span class="ident">AsyncClosure</span>(<span class="ident">get_closure</span>(<span class="ident">parts</span>))
         }
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Punct</span>(<span class="ident">p</span>)) <span class="op">=</span><span class="op">&gt;</span> {
@@ -1275,7 +1277,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">i</span>)) <span class="kw">if</span> <span class="ident">i</span>.<span class="ident">to_string</span>() <span class="op">=</span><span class="op">=</span> <span class="string">&quot;async&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
             <span class="ident">parts</span>.<span class="ident">next</span>();
             <span class="ident">check_move_after_async</span>(<span class="ident">parts</span>);
-            <span class="kw">match</span> <span class="ident">parts</span>.<span class="ident">next</span>() {
+            <span class="kw">match</span> <span class="ident">parts</span>.<span class="ident">peek</span>() {
                 <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Group</span>(<span class="ident">g</span>)) <span class="kw">if</span> <span class="ident">g</span>.<span class="ident">delimiter</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">Delimiter</span>::<span class="ident">Brace</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="ident">BlockKind</span>::<span class="ident">ClosureWrappingAsync</span>(<span class="ident">closure</span>)
                 }
