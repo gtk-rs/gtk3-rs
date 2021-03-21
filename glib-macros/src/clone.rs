@@ -484,8 +484,9 @@ fn check_move_after_async(parts: &mut Peekable<ProcIter>) {
 
 fn check_async_syntax(parts: &mut Peekable<ProcIter>) -> BlockKind {
     check_move_after_async(parts);
-    match parts.next() {
+    match parts.peek() {
         Some(TokenTree::Punct(p)) if p.to_string() == "|" => {
+            parts.next();
             BlockKind::AsyncClosure(get_closure(parts))
         }
         Some(TokenTree::Punct(p)) => {
@@ -533,7 +534,7 @@ fn check_before_closure(parts: &mut Peekable<ProcIter>) -> BlockKind {
         Some(TokenTree::Ident(i)) if i.to_string() == "async" => {
             parts.next();
             check_move_after_async(parts);
-            match parts.next() {
+            match parts.peek() {
                 Some(TokenTree::Group(g)) if g.delimiter() == Delimiter::Brace => {
                     BlockKind::ClosureWrappingAsync(closure)
                 }
