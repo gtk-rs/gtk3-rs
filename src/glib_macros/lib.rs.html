@@ -743,7 +743,7 @@
 <span class="doccomment">/// [`ErrorDomain`]: error/trait.ErrorDomain.html</span>
 <span class="attribute">#[<span class="ident">proc_macro_derive</span>(<span class="ident">GErrorDomain</span>, <span class="ident">attributes</span>(<span class="ident">gerror_domain</span>))]</span>
 <span class="attribute">#[<span class="ident">proc_macro_error</span>]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gerror_doman_derive</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gerror_domain_derive</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">parse_macro_input</span><span class="macro">!</span>(<span class="ident">input</span> <span class="kw">as</span> <span class="ident">DeriveInput</span>);
     <span class="kw">let</span> <span class="ident">gen</span> <span class="op">=</span> <span class="ident">gerror_domain_derive</span>::<span class="ident">impl_gerror_domain</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>);
     <span class="ident">gen</span>.<span class="ident">into</span>()
