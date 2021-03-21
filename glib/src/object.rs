@@ -2764,6 +2764,12 @@ impl<'a, T: IsClass> ops::Deref for ClassRef<'a, T> {
     }
 }
 
+impl<'a, T: IsClass> ops::DerefMut for ClassRef<'a, T> {
+    fn deref_mut(&mut self) -> &mut Class<T> {
+        unsafe { self.0.as_mut() }
+    }
+}
+
 impl<'a, T: IsClass> Drop for ClassRef<'a, T> {
     fn drop(&mut self) {
         if self.1 {
@@ -2931,6 +2937,12 @@ impl<'a, T: IsInterface> ops::Deref for InterfaceRef<'a, T> {
 
     fn deref(&self) -> &Interface<T> {
         unsafe { self.0.as_ref() }
+    }
+}
+
+impl<'a, T: IsInterface> ops::DerefMut for InterfaceRef<'a, T> {
+    fn deref_mut(&mut self) -> &mut Interface<T> {
+        unsafe { self.0.as_mut() }
     }
 }
 
