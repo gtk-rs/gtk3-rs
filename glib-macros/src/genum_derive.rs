@@ -6,26 +6,9 @@ use proc_macro_error::abort_call_site;
 use quote::{format_ident, quote, quote_spanned};
 use syn::{punctuated::Punctuated, spanned::Spanned, token::Comma, Data, Ident, Variant};
 
-use crate::utils::{crate_ident_new, parse_item_attributes, parse_type_name, ItemAttribute};
-
-// Generate i32 to enum mapping, used to implement glib::translate::FromGlib<i32>, such as:
-//   if value == Animal::Goat as i32 {
-//       return Animal::Goat;
-//   }
-fn gen_from_glib(enum_name: &Ident, enum_variants: &Punctuated<Variant, Comma>) -> TokenStream {
-    // FIXME: can we express this with a match()?
-    let recurse = enum_variants.iter().map(|v| {
-        let name = &v.ident;
-        quote_spanned! {v.span()=>
-            if value == #enum_name::#name as i32 {
-                return #enum_name::#name;
-            }
-        }
-    });
-    quote! {
-        #(#recurse)*
-    }
-}
+use crate::utils::{
+    crate_ident_new, gen_enum_from_glib, parse_item_attributes, parse_type_name, ItemAttribute,
+};
 
 // Generate glib::gobject_ffi::GEnumValue structs mapping the enum such as:
 //     glib::gobject_ffi::GEnumValue {
@@ -100,7 +83,7 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
         ),
     };
     let get_type = format_ident!("{}_get_type", name.to_string().to_snake_case());
-    let from_glib = gen_from_glib(name, enum_variants);
+    let from_glib = gen_enum_from_glib(name, enum_variants);
     let (genum_values, nb_genum_values) = gen_genum_values(name, enum_variants);
 
     quote! {
@@ -112,10 +95,23 @@ pub fn impl_genum(input: &syn::DeriveInput) -> TokenStream {
             }
         }
 
+        impl #crate_ident::translate::TryFromGlib<i32> for #name {
+            type Error = i32;
+
+            fn try_from_glib(value: i32) -> Result<Self, i32> {
+                let from_glib = || {
+                    #from_glib
+                };
+
+                from_glib().ok_or(value)
+            }
+        }
+
         impl #crate_ident::translate::FromGlib<i32> for #name {
             unsafe fn from_glib(value: i32) -> Self {
-                #from_glib
-                unreachable!();
+                use #crate_ident::translate::TryFromGlib;
+
+                Self::try_from_glib(value).unwrap()
             }
         }
 

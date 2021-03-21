@@ -1,9 +1,13 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use anyhow::{bail, Result};
-use proc_macro2::{Ident, Span};
+use proc_macro2::{Ident, Span, TokenStream};
 use proc_macro_crate::crate_name;
-use syn::{Attribute, DeriveInput, Lit, Meta, MetaList, NestedMeta};
+use quote::{quote, quote_spanned};
+use syn::{
+    punctuated::Punctuated, spanned::Spanned, token::Comma, Attribute, DeriveInput, Lit, Meta,
+    MetaList, NestedMeta, Variant,
+};
 
 // find the #[@attr_name] attribute in @attrs
 pub fn find_attribute_meta(attrs: &[Attribute], attr_name: &str) -> Result<Option<MetaList>> {
@@ -80,6 +84,38 @@ pub fn parse_type_name(input: &DeriveInput, attr_name: &str) -> Result<String> {
 }
 
 #[derive(Debug)]
+pub enum ErrorDomainAttribute {
+    Name(String),
+}
+
+pub fn parse_error_attribute(meta: &NestedMeta) -> Result<ErrorDomainAttribute> {
+    let (ident, v) = parse_attribute(meta)?;
+
+    match ident.as_ref() {
+        "name" => Ok(ErrorDomainAttribute::Name(v)),
+        s => bail!("Unknown enum meta {}", s),
+    }
+}
+
+// Parse attribute such as:
+// #[gerror_domain(name = "MyError")]
+pub fn parse_name(input: &DeriveInput, attr_name: &str) -> Result<String> {
+    let meta = match find_attribute_meta(&input.attrs, attr_name)? {
+        Some(meta) => meta,
+        _ => bail!("Missing '{}' attribute", attr_name),
+    };
+
+    let meta = match find_nested_meta(&meta, "name") {
+        Some(meta) => meta,
+        _ => bail!("Missing meta 'name'"),
+    };
+
+    match parse_error_attribute(&meta)? {
+        ErrorDomainAttribute::Name(n) => Ok(n),
+    }
+}
+
+#[derive(Debug)]
 pub enum ItemAttribute {
     Name(String),
     Nick(String),
@@ -123,4 +159,29 @@ pub fn crate_ident_new() -> Ident {
     };
 
     Ident::new(&crate_name, Span::call_site())
+}
+
+// Generate i32 to enum mapping, used to implement
+// glib::translate::TryFromGlib<i32>, such as:
+//
+//   if value == Animal::Goat as i32 {
+//       return Some(Animal::Goat);
+//   }
+pub fn gen_enum_from_glib(
+    enum_name: &Ident,
+    enum_variants: &Punctuated<Variant, Comma>,
+) -> TokenStream {
+    // FIXME: can we express this with a match()?
+    let recurse = enum_variants.iter().map(|v| {
+        let name = &v.ident;
+        quote_spanned! { v.span() =>
+            if value == #enum_name::#name as i32 {
+                return Some(#enum_name::#name);
+            }
+        }
+    });
+    quote! {
+        #(#recurse)*
+        None
+    }
 }

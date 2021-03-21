@@ -4,6 +4,7 @@ mod clone;
 mod downgrade_derive;
 mod gboxed_derive;
 mod genum_derive;
+mod gerror_domain_derive;
 mod gflags_attribute;
 mod object_interface_attribute;
 mod object_subclass_attribute;
@@ -246,6 +247,32 @@ pub fn clone(item: TokenStream) -> TokenStream {
 pub fn genum_derive(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let gen = genum_derive::impl_genum(&input);
+    gen.into()
+}
+
+/// Derive macro for defining a GLib error domain and its associated
+/// [`ErrorDomain`] trait.
+///
+/// # Example
+///
+/// ```
+/// use glib::prelude::*;
+/// use glib::subclass::prelude::*;
+///
+/// #[derive(Debug, Copy, Clone, glib::GErrorDomain)]
+/// #[gerror_domain(name = "ExFoo")]
+/// enum Foo {
+///     Blah,
+///     Baaz,
+/// }
+/// ```
+///
+/// [`ErrorDomain`]: error/trait.ErrorDomain.html
+#[proc_macro_derive(GErrorDomain, attributes(gerror_domain))]
+#[proc_macro_error]
+pub fn gerror_doman_derive(input: TokenStream) -> TokenStream {
+    let input = parse_macro_input!(input as DeriveInput);
+    let gen = gerror_domain_derive::impl_gerror_domain(&input);
     gen.into()
 }
 
