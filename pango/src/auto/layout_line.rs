@@ -89,25 +89,4 @@ impl LayoutLine {
             x_pos
         }
     }
-
-    #[doc(alias = "pango_layout_line_x_to_index")]
-    pub fn x_to_index(&self, x_pos: i32) -> Option<(i32, i32)> {
-        unsafe {
-            let mut index_ = mem::MaybeUninit::uninit();
-            let mut trailing = mem::MaybeUninit::uninit();
-            let ret = from_glib(ffi::pango_layout_line_x_to_index(
-                self.to_glib_none().0,
-                x_pos,
-                index_.as_mut_ptr(),
-                trailing.as_mut_ptr(),
-            ));
-            let index_ = index_.assume_init();
-            let trailing = trailing.assume_init();
-            if ret {
-                Some((index_, trailing))
-            } else {
-                None
-            }
-        }
-    }
 }
