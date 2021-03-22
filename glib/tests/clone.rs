@@ -451,20 +451,27 @@ fn test_clone_macro_typed_args() {
 
 #[test]
 fn test_clone_macro_default_return() {
-    let v = Rc::new(1);
+    macro_rules! test_default {
+        ($ret:expr, $($closure_body:tt)*) => {{
+            let v = Rc::new(1);
+            let tmp = clone!(@weak v => @default-return $ret, move || $($closure_body)*);
+            assert_eq!(tmp(), $($closure_body)*, "shouldn't use default-return value!");
+            ::std::mem::drop(v);
+            assert_eq!(tmp(), $ret, "should use default-return value!");
+        }}
+    }
 
+    #[derive(PartialEq, Debug)]
     struct Foo(i32);
 
-    let _closure = clone!(@weak v => @default-return Foo(0), move || Foo(1));
+    test_default!(Foo(0), Foo(1));
 
     #[derive(PartialEq, Debug)]
     struct Bar {
         x: i32,
     }
 
-    let closure = clone!(@weak v => @default-return Bar { x: 0 }, move || Bar { x: 1 });
-    let wrapper = clone!(@weak v => move |call: &(dyn Fn() -> Bar)| call());
-    assert_eq!(wrapper(&closure), Bar { x: 0 });
+    test_default!(Bar { x: 0 }, Bar { x: 1 });
 
     #[derive(PartialEq, Debug)]
     enum Enum {
@@ -472,18 +479,18 @@ fn test_clone_macro_default_return() {
         B(i32),
         C { x: i32 },
     }
-    let closure1 = clone!(@weak v => @default-return Enum::A, move || Enum::B(0));
-    let closure2 = clone!(@weak v => @default-return Enum::B(0), move || Enum::A);
-    let closure3 = clone!(@weak v => @default-return Enum::C { x: 0 }, move || Enum::A);
-    let closure4 = clone!(@weak v => @default-return { let x = 12; x + 2 }, move || 19);
-
-    let wrapper = clone!(@weak v => move |call: &(dyn Fn() -> Enum)| call());
-    assert_eq!(wrapper(&closure1), Enum::B(0));
-    assert_eq!(wrapper(&closure2), Enum::A);
-    assert_eq!(wrapper(&closure3), Enum::A);
-
-    let wrapper = clone!(@weak v => move |call: &(dyn Fn() -> usize)| call());
-    assert_eq!(wrapper(&closure4), 14);
+    test_default!(Enum::A, Enum::B(0));
+    test_default!(Enum::B(0), Enum::A);
+    test_default!(Enum::C { x: 0 }, Enum::A);
+    test_default!(
+        {
+            let x = 12;
+            x + 2
+        },
+        19
+    );
+    // This one is simply to check that we wait for the comma for the default-return value.
+    test_default!(Enum::A == Enum::B(0) || false, true);
 }
 
 #[test]
