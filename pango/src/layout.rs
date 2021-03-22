@@ -34,6 +34,21 @@ pub struct HitPosition {
 }
 
 impl LayoutLine {
+    // rustdoc-stripper-ignore-next
+    /// The byte index of the start of this line into the text used to create
+    /// the source [`Layout`].
+    ///
+    /// [`Layout`]: crate::Layout
+    pub fn start_index(&self) -> i32 {
+        unsafe { (*self.to_glib_none().0).start_index }
+    }
+
+    // rustdoc-stripper-ignore-next
+    /// The length of this line's text, in bytes.
+    pub fn length(&self) -> i32 {
+        unsafe { (*self.to_glib_none().0).length }
+    }
+
     #[doc(alias = "pango_layout_line_x_to_index")]
     pub fn x_to_index(&self, x_pos: i32) -> HitPosition {
         let mut index = 0;
