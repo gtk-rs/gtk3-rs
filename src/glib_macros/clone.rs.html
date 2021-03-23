@@ -740,6 +740,11 @@
 <span id="737">737</span>
 <span id="738">738</span>
 <span id="739">739</span>
+<span id="740">740</span>
+<span id="741">741</span>
+<span id="742">742</span>
+<span id="743">743</span>
+<span id="744">744</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -1124,14 +1129,19 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
                 }
                 <span class="ident">ret</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">p_s</span>);
             }
-            <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Group</span>(<span class="ident">g</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ret</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">group_to_string</span>(<span class="ident">g</span>)),
+            <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Group</span>(<span class="ident">g</span>)) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">ret</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">group_to_string</span>(<span class="ident">g</span>));
+            }
             <span class="prelude-val">Some</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">if</span> <span class="ident">total</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">ret</span>.<span class="ident">ends_with</span>(<span class="string">&#39;:&#39;</span>) {
                     <span class="kw">return</span> <span class="ident">ret</span>;
                 }
                 <span class="ident">ret</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">to_string</span>())
             }
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unexpected end after `{}`&quot;</span>, <span class="ident">ret</span>),
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(
+                <span class="string">&quot;Unexpected end after `{}`. Did you forget a `,` after the @default-return value?&quot;</span>,
+                <span class="ident">ret</span>
+            ),
         }
         <span class="ident">parts</span>.<span class="ident">next</span>();
     }
@@ -1314,7 +1324,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
     <span class="ident">ret</span>
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tokens_to_string</span>(<span class="ident">parts</span>: <span class="ident">Peekable</span><span class="op">&lt;</span><span class="ident">ProcIter</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tokens_to_string</span>(<span class="ident">parts</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">TokenTree</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">String</span>::<span class="ident">new</span>();
     <span class="comment">// This is used in case of &quot;if ident&quot; or other similar cases.</span>
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">prev_is_ident</span> <span class="op">=</span> <span class="bool-val">false</span>;
