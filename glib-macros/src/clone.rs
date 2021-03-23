@@ -75,14 +75,14 @@ impl ElemToClone {
         }
     }
 
-    fn to_str_after(&self, wrapper_kind: &WrapperKind) -> String {
+    fn to_str_after(&self, wrapper_kind: &Option<WrapperKind>) -> String {
+        let name = if let Some(ref a) = self.alias {
+            a
+        } else {
+            &self.name
+        };
         match (self.borrow_kind, wrapper_kind) {
-            (BorrowKind::Weak, WrapperKind::DefaultPanic) => {
-                let name = if let Some(ref a) = self.alias {
-                    a
-                } else {
-                    &self.name
-                };
+            (BorrowKind::Weak, Some(WrapperKind::DefaultPanic)) => {
                 format!(
                     "\
 let {0} = match {1}::clone::Upgrade::upgrade(&{0}) {{
@@ -95,12 +95,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&{0}) {{
                     crate_ident_new(),
                 )
             }
-            (BorrowKind::Weak, WrapperKind::DefaultReturn(ref r)) => {
-                let name = if let Some(ref a) = self.alias {
-                    a
-                } else {
-                    &self.name
-                };
+            (BorrowKind::Weak, Some(WrapperKind::DefaultReturn(ref r))) => {
                 format!(
                     "\
 let {0} = match {1}::clone::Upgrade::upgrade(&{0}) {{
@@ -119,13 +114,26 @@ let {0} = match {1}::clone::Upgrade::upgrade(&{0}) {{
                     r,
                 )
             }
+            (BorrowKind::Weak, None) => {
+                format!(
+                    "\
+let {0} = match {1}::clone::Upgrade::upgrade(&{0}) {{
+    Some(val) => val,
+    None => {{
+        {1}::g_debug!(
+            {1}::CLONE_MACRO_LOG_DOMAIN,
+            \"Failed to upgrade {0}\",
+        );
+        return;
+    }}
+}};",
+                    name,
+                    crate_ident_new(),
+                )
+            }
             (BorrowKind::WeakAllowNone, _) => format!(
                 "let {0} = {1}::clone::Upgrade::upgrade(&{0});",
-                if let Some(ref a) = self.alias {
-                    a
-                } else {
-                    &self.name
-                },
+                name,
                 crate_ident_new(),
             ),
             _ => String::new(),
@@ -427,11 +435,11 @@ fn get_return_kind(parts: &mut Peekable<ProcIter>) -> WrapperKind {
     WrapperKind::DefaultReturn(get_expr(parts))
 }
 
-fn parse_return_kind(parts: &mut Peekable<ProcIter>) -> WrapperKind {
+fn parse_return_kind(parts: &mut Peekable<ProcIter>) -> Option<WrapperKind> {
     match parts.peek() {
         Some(TokenTree::Punct(p)) if p.to_string() == "@" => {}
         None => panic!("Unexpected end 2"),
-        _ => return WrapperKind::DefaultPanic,
+        _ => return None,
     }
     parts.next();
     let ret = get_return_kind(parts);
@@ -448,7 +456,7 @@ fn parse_return_kind(parts: &mut Peekable<ProcIter>) -> WrapperKind {
         }
         Ok(()) => {}
     }
-    ret
+    Some(ret)
 }
 
 enum BlockKind {
@@ -608,10 +616,18 @@ pub fn tokens_to_string(parts: impl Iterator<Item = TokenTree>) -> String {
 fn build_closure(
     parts: Peekable<ProcIter>,
     elements: Vec<ElemToClone>,
-    return_kind: WrapperKind,
+    return_kind: Option<WrapperKind>,
     kind: BlockKind,
 ) -> TokenStream {
     let mut body = TokenStream::new();
+
+    for el in &elements {
+        let stream: TokenStream = el
+            .to_str_after(&return_kind)
+            .parse()
+            .expect("failed to convert element after");
+        body.extend(stream.into_iter().collect::<Vec<_>>());
+    }
     body.extend(parts.collect::<Vec<_>>());
 
     // To prevent to lose the spans in case some errors occur in the code, we need to keep `body`!
@@ -634,7 +650,7 @@ fn build_closure(
     //     body,
     // )
     let mut ret: Vec<TokenTree> = vec![];
-    for el in &elements {
+    for el in elements {
         let stream: TokenStream = el
             .to_str_before()
             .parse()
@@ -645,13 +661,6 @@ fn build_closure(
     // This part is creating the TokenStream using the variables that needs to be cloned (from the
     // @weak and @strong annotations).
     let mut inner: Vec<TokenTree> = Vec::new();
-    for el in elements {
-        let stream: TokenStream = el
-            .to_str_after(&return_kind)
-            .parse()
-            .expect("failed to convert element after");
-        inner.extend(stream.into_iter().collect::<Vec<_>>());
-    }
     if matches!(kind, BlockKind::ClosureWrappingAsync(_)) {
         inner.extend(vec![
             TokenTree::Ident(Ident::new("async", Span::call_site())),
