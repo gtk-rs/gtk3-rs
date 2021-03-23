@@ -338,80 +338,107 @@ fn test_clone_macro_double_simple() {
 fn test_clone_macro_double_rename() {
     let v = Rc::new(1);
     let w = Rc::new(2);
+    let done = Rc::new(RefCell::new(0));
 
-    let closure = clone!(@weak v as x, @weak w => @default-panic, move |_x| {
-        println!("v: {}, w: {}", x, w);
+    let closure = clone!(@weak v as x, @weak w => @default-panic, move |z| {
+        z + *x + *w
     });
-    closure(0i8); // to prevent compiler error for unknown `x` type.
-    let _ = clone!(@weak v as x, @weak w => @default-panic, move || println!("v: {}, w: {}", x, w));
+    assert_eq!(closure(1i8), 4i8);
+    let closure = clone!(@weak v as x, @weak w => @default-panic, move || 1);
+    assert_eq!(closure(), 1);
 
-    let closure = clone!(@weak v, @weak w as x => @default-panic, move |_x| {
-        println!("v: {}, w: {}", v, x);
+    let closure = clone!(@weak v, @weak w as x => @default-panic, move |z| {
+        z + *v + *x
     });
-    closure(0i8); // to prevent compiler error for unknown `x` type.
-    let _ = clone!(@weak v, @weak w as x => @default-panic, move || println!("v: {}, w: {}", v, x));
+    assert_eq!(closure(10i8), 13i8);
+    let closure = clone!(@weak v, @weak w as x => @default-panic, move || 2 + *x);
+    assert_eq!(closure(), 4);
 
-    let closure = clone!(@strong v as x, @strong w => @default-panic, move |_x| {
-        println!("v: {}, w: {}", x, w);
+    let closure = clone!(@strong v as x, @strong w => @default-panic, move |z| {
+        z + *x + *w
     });
-    closure(0i8); // to prevent compiler error for unknown `x` type.
-    let _ =
-        clone!(@strong v as x, @strong w => @default-panic, move || println!("v: {}, w: {}", x, w));
+    assert_eq!(closure(3i8), 6i8);
+    let closure = clone!(@strong v as x, @strong w => @default-panic, move || 4 + *w);
+    assert_eq!(closure(), 6);
 
-    let closure = clone!(@strong v, @strong w as x => @default-panic, move |_x| {
-        println!("v: {}, w: {}", v, x);
+    let closure = clone!(@strong v, @strong w as x => @default-panic, move |z| {
+        z + *v + *x
     });
-    closure(0i8); // to prevent compiler error for unknown `x` type.
-    let _ =
-        clone!(@strong v, @strong w as x => @default-panic, move || println!("v: {}, w: {}", v, x));
+    assert_eq!(closure(0i8), 3i8);
+    let closure = clone!(@strong v, @strong w as x => @default-panic, move || 5);
+    assert_eq!(closure(), 5);
 
-    let closure = clone!(@weak v as x, @weak w => move |_x| {
-        println!("v: {}, w: {}", x, w);
+    let t_done = done.clone();
+    let closure = clone!(@weak v as x, @weak w => move |z| {
+        *t_done.borrow_mut() = z + *x + *w;
     });
-    closure(0i8); // to prevent compiler error for unknown `x` type.
-    let _ = clone!(@weak v as x, @weak w => move || println!("v: {}, w: {}", x, w));
+    closure(4i8);
+    assert_eq!(*done.borrow(), 7);
+    let t_done = done.clone();
+    let closure = clone!(@weak v as x, @weak w => move || *t_done.borrow_mut() = *x + *w);
+    closure();
+    assert_eq!(*done.borrow(), 3);
 
-    let closure = clone!(@weak v, @weak w as x => move |_x| {
-        println!("v: {}, w: {}", v, x);
+    let t_done = done.clone();
+    let closure = clone!(@weak v, @weak w as x => move |z| {
+        *t_done.borrow_mut() = z + *v + *x;
     });
-    closure(0i8); // to prevent compiler error for unknown `x` type.
-    let _ = clone!(@weak v, @weak w as x => move || println!("v: {}, w: {}", v, x));
+    closure(8i8);
+    assert_eq!(*done.borrow(), 11i8);
+    let t_done = done.clone();
+    let closure = clone!(@weak v, @weak w as x => move || *t_done.borrow_mut() = *v * *x);
+    closure();
+    assert_eq!(*done.borrow(), 2);
 
-    let closure = clone!(@strong v as x, @strong w => move |_x| {
-        println!("v: {}, w: {}", x, w);
+    let t_done = done.clone();
+    let closure = clone!(@strong v as x, @strong w => move |z| {
+        *t_done.borrow_mut() = z + *x + *w;
     });
-    closure(0i8); // to prevent compiler error for unknown `x` type.
-    let _ = clone!(@strong v as x, @strong w => move || println!("v: {}, w: {}", x, w));
+    closure(9i8);
+    assert_eq!(*done.borrow(), 12i8);
+    let t_done = done.clone();
+    let closure = clone!(@strong v as x, @strong w => move || *t_done.borrow_mut() = *x - *w);
+    closure();
+    assert_eq!(*done.borrow(), -1);
 
-    let closure = clone!(@strong v, @strong w as x => move |_x| {
-        println!("v: {}, w: {}", v, x);
+    let t_done = done.clone();
+    let closure = clone!(@strong v, @strong w as x => move |z| {
+        *t_done.borrow_mut() = *v + *x * z;
     });
-    closure(0i8); // to prevent compiler error for unknown `x` type.
-    let _ = clone!(@strong v, @strong w as x => move || println!("v: {}, w: {}", v, x));
+    closure(2i8);
+    assert_eq!(*done.borrow(), 5);
+    let t_done = done.clone();
+    let closure = clone!(@strong v, @strong w as x => move || *t_done.borrow_mut() = *x - *v);
+    closure();
+    assert_eq!(*done.borrow(), 1);
 
     let closure = clone!(@weak v as _x, @weak w => @default-return true, move |_| {
         false
     });
-    closure(0u8); // to prevent compiler error for unknown `x` type.
-    let _ = clone!(@weak v as _x, @weak w => @default-return true, move || false);
+    assert_eq!(closure(0u8), false);
+    let closure = clone!(@weak v as _x, @weak w => @default-return true, move || false);
+    assert_eq!(closure(), false);
 
     let closure = clone!(@weak v, @weak w as _x => @default-return true, move |_| {
         false
     });
-    closure(0i8); // to prevent compiler error for unknown `x` type.
-    let _ = clone!(@weak v, @weak w as _x => @default-return true, move || false);
+    assert_eq!(closure("a"), false);
+    let closure = clone!(@weak v, @weak w as _x => @default-return true, move || false);
+    assert_eq!(closure(), false);
 
     let closure = clone!(@strong v as _x, @strong w => @default-return true, move |_| {
         false
     });
-    closure(0i8); // to prevent compiler error for unknown `x` type.
-    let _ = clone!(@strong v as _x, @strong w => @default-return true, move || false);
+    assert_eq!(closure('a'), false);
+    let closure = clone!(@strong v as _x, @strong w => @default-return true, move || false);
+    assert_eq!(closure(), false);
 
     let closure = clone!(@strong v, @strong w as _x => @default-return true, move |_| {
         false
     });
-    closure(0i8); // to prevent compiler error for unknown `x` type.
-    let _ = clone!(@strong v, @strong w as _x => @default-return true, move || false);
+    assert_eq!(closure(12.), false);
+    let closure = clone!(@strong v, @strong w as _x => @default-return true, move || false);
+    assert_eq!(closure(), false);
 }
 
 #[test]
@@ -577,15 +604,18 @@ fn test_clone_macro_default_return() {
 
 #[test]
 fn test_clone_macro_body() {
-    let v = Rc::new(1);
+    let v = Arc::new(Mutex::new(0));
 
-    let _closure = clone!(@weak v => move || {
-        ::std::thread::spawn(move || {
-            for pos in 1..=10 {
-                println!("{:?}", pos);
+    let closure = clone!(@weak v => move || {
+        std::thread::spawn(move || {
+            let mut lock = v.lock().expect("failed to lock");
+            for _ in 1..=10 {
+                *lock += 1;
             }
-        });
+        }).join().expect("thread::spawn failed");
     });
+    closure();
+    assert_eq!(10, *v.lock().expect("failed to lock"));
 }
 
 #[test]
