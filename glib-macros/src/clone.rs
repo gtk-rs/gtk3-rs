@@ -381,14 +381,19 @@ fn get_expr(parts: &mut Peekable<ProcIter>) -> String {
                 }
                 ret.push_str(&p_s);
             }
-            Some(TokenTree::Group(g)) => ret.push_str(&group_to_string(g)),
+            Some(TokenTree::Group(g)) => {
+                ret.push_str(&group_to_string(g));
+            }
             Some(x) => {
                 if total == 0 && !ret.ends_with(':') {
                     return ret;
                 }
                 ret.push_str(&x.to_string())
             }
-            None => panic!("Unexpected end after `{}`", ret),
+            None => panic!(
+                "Unexpected end after `{}`. Did you forget a `,` after the @default-return value?",
+                ret
+            ),
         }
         parts.next();
     }
@@ -571,7 +576,7 @@ fn get_closure(parts: &mut Peekable<ProcIter>) -> Vec<TokenTree> {
     ret
 }
 
-pub fn tokens_to_string(parts: Peekable<ProcIter>) -> String {
+pub fn tokens_to_string(parts: impl Iterator<Item = TokenTree>) -> String {
     let mut ret = String::new();
     // This is used in case of "if ident" or other similar cases.
     let mut prev_is_ident = false;
