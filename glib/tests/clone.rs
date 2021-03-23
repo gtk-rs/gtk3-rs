@@ -1,12 +1,11 @@
 use std::cell::RefCell;
-use std::marker::PhantomData;
 use std::panic;
 use std::rc::Rc;
 use std::sync::{Arc, Mutex};
 use std::thread;
 
 use futures_executor::block_on;
-use glib::{clone, Downgrade, Object};
+use glib::clone;
 
 struct State {
     count: i32,
@@ -600,34 +599,4 @@ fn test_clone_macro_async_kinds() {
     assert_eq!(*v.borrow(), 2);
     block_on(clone!(@weak v => async move { *v.borrow_mut() += 1; }));
     assert_eq!(*v.borrow(), 3);
-}
-
-#[test]
-fn derive_downgrade() {
-    #[derive(Downgrade)]
-    pub struct NewType(Object);
-
-    #[derive(Downgrade)]
-    pub struct Struct {
-        o1: Object,
-        o2: std::rc::Rc<u32>,
-    }
-
-    #[derive(Downgrade)]
-    pub enum Enum {
-        None,
-        Pair { x: Object, y: Object },
-        Unit(),
-        SingleUnnamed(Object),
-        MultipleUnnamed(Object, Object, Object),
-    }
-
-    #[derive(Downgrade)]
-    pub struct TypedWrapper<T>(Object, PhantomData<T>);
-
-    #[derive(Downgrade)]
-    pub enum TypedEnum<T> {
-        This(Object, PhantomData<T>),
-        That(Object, PhantomData<T>),
-    }
 }
