@@ -3,6 +3,7 @@ use std::marker::PhantomData;
 use std::panic;
 use std::rc::Rc;
 use std::sync::{Arc, Mutex};
+use std::thread;
 
 use futures_executor::block_on;
 use glib::{clone, Downgrade, Object};
@@ -416,37 +417,119 @@ fn test_clone_macro_double_rename() {
 
 #[test]
 fn test_clone_macro_typed_args() {
-    let v = Rc::new(1);
-    let w = Rc::new(2);
+    macro_rules! test_closure {
+        ($kind:tt, panic) => {{
+            // We need Arc and Mutex to use them below in the thread.
+            let check = Arc::new(Mutex::new(0));
+            let v = Arc::new(Mutex::new(1));
+            let w = Arc::new(Mutex::new(1));
 
-    let _closure = clone!(@weak v as x, @weak w => @default-panic, move |_x: i8| {
-        println!("v: {}, w: {}", x, w);
-    });
+            let closure = clone!(@$kind v as x, @$kind w, @weak check => @default-panic, move |arg: i8| {
+                *x.lock().unwrap() += arg;
+                *w.lock().unwrap() += arg;
+                *check.lock().unwrap() += 1;
+            });
+            closure(1);
+            assert_eq!(2, *v.lock().unwrap());
+            assert_eq!(2, *w.lock().unwrap());
+            assert_eq!(1, *check.lock().unwrap());
 
-    let _closure = clone!(@weak v, @weak w as x => @default-panic, move |_x: i8| {
-        println!("v: {}, w: {}", v, x);
-    });
+            let closure2 = clone!(@$kind v, @$kind w as x, @weak check => @default-panic, move |arg: i8| {
+                *v.lock().unwrap() += arg;
+                *x.lock().unwrap() += arg;
+                *check.lock().unwrap() += 1;
+            });
+            closure2(1);
+            assert_eq!(3, *v.lock().unwrap());
+            assert_eq!(3, *w.lock().unwrap());
+            assert_eq!(2, *check.lock().unwrap());
 
-    let _closure = clone!(@strong v as x, @strong w => @default-panic, move |_x: i8| {
-        println!("v: {}, w: {}", x, w);
-    });
+            macro_rules! inner {
+                (strong) => {{}};
+                (weak) => {{
+                    std::mem::drop(v);
+                    std::mem::drop(w);
 
-    let _closure = clone!(@strong v, @strong w as x => @default-panic, move |_x: i8| {
-        println!("v: {}, w: {}", v, x);
-    });
+                    // We use the threads to ensure that the closure panics as expected.
+                    assert!(thread::spawn(move || {
+                        closure(1);
+                    }).join().is_err());
+                    assert_eq!(2, *check.lock().unwrap());
+                    assert!(thread::spawn(move || {
+                        closure2(1);
+                    }).join().is_err());
+                    assert_eq!(2, *check.lock().unwrap());
+                }}
+            }
 
-    let _closure = clone!(@weak v as x, @weak w => move |_x: i8| {
-        println!("v: {}, w: {}", x, w);
-    });
+            inner!($kind);
+        }};
+        ($kind:tt) => {{
+            let check = Rc::new(RefCell::new(0));
+            let v = Rc::new(RefCell::new(1));
+            let w = Rc::new(RefCell::new(1));
 
-    let _closure = clone!(@weak v, @weak w as x => move |_x: i8| {
-        println!("v: {}, w: {}", v, x);
-    });
+            let closure = clone!(@$kind v as x, @$kind w, @weak check => move |arg: i8| {
+                *x.borrow_mut() += arg;
+                *w.borrow_mut() += arg;
+                *check.borrow_mut() += 1;
+            });
+            closure(1);
+            assert_eq!(2, *v.borrow());
+            assert_eq!(2, *w.borrow());
+            assert_eq!(1, *check.borrow());
 
-    let closure = clone!(@weak v, @weak w as x => move |_: i8, _| {
-        println!("v: {}, w: {}", v, x);
+            let closure2 = clone!(@$kind v, @$kind w as x, @weak check => move |arg: i8| {
+                *v.borrow_mut() += arg;
+                *x.borrow_mut() += arg;
+                *check.borrow_mut() += 1;
+            });
+            closure2(1);
+            assert_eq!(3, *v.borrow());
+            assert_eq!(3, *w.borrow());
+            assert_eq!(2, *check.borrow());
+
+            macro_rules! inner {
+                (strong) => {{}};
+                (weak) => {{
+                    std::mem::drop(v);
+                    std::mem::drop(w);
+
+                    closure(1);
+                    assert_eq!(2, *check.borrow());
+                    closure2(1);
+                    assert_eq!(2, *check.borrow());
+                }}
+            }
+
+            inner!($kind);
+        }};
+        ($kind:tt, $($t:tt)+) => {{
+
+        }}
+    }
+
+    test_closure!(weak, panic);
+    test_closure!(strong, panic);
+    test_closure!(weak);
+    test_closure!(strong);
+
+    let check = Rc::new(RefCell::new(0));
+    let v = Rc::new(RefCell::new(1));
+    let w = Rc::new(RefCell::new(1));
+    let closure = clone!(@weak v, @weak w as x, @weak check => move |arg: i8, arg2| {
+        *v.borrow_mut() = arg;
+        *x.borrow_mut() = arg2;
+        *check.borrow_mut() += 1;
     });
-    closure(0, 'a');
+    closure(0, 9);
+    assert_eq!(0, *v.borrow());
+    assert_eq!(9, *w.borrow());
+    assert_eq!(1, *check.borrow());
+
+    std::mem::drop(v);
+    std::mem::drop(w);
+    assert_eq!(1, *check.borrow());
 }
 
 #[test]
