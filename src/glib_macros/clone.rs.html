@@ -745,6 +745,15 @@
 <span id="742">742</span>
 <span id="743">743</span>
 <span id="744">744</span>
+<span id="745">745</span>
+<span id="746">746</span>
+<span id="747">747</span>
+<span id="748">748</span>
+<span id="749">749</span>
+<span id="750">750</span>
+<span id="751">751</span>
+<span id="752">752</span>
+<span id="753">753</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -823,14 +832,14 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">to_str_after</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">wrapper_kind</span>: <span class="kw-2">&amp;</span><span class="ident">WrapperKind</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+    <span class="kw">fn</span> <span class="ident">to_str_after</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">wrapper_kind</span>: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WrapperKind</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">a</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">alias</span> {
+            <span class="ident">a</span>
+        } <span class="kw">else</span> {
+            <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>
+        };
         <span class="kw">match</span> (<span class="self">self</span>.<span class="ident">borrow_kind</span>, <span class="ident">wrapper_kind</span>) {
-            (<span class="ident">BorrowKind</span>::<span class="ident">Weak</span>, <span class="ident">WrapperKind</span>::<span class="ident">DefaultPanic</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">a</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">alias</span> {
-                    <span class="ident">a</span>
-                } <span class="kw">else</span> {
-                    <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>
-                };
+            (<span class="ident">BorrowKind</span>::<span class="ident">Weak</span>, <span class="prelude-val">Some</span>(<span class="ident">WrapperKind</span>::<span class="ident">DefaultPanic</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">format</span><span class="macro">!</span>(
                     <span class="string">&quot;\
 let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
@@ -843,12 +852,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
                     <span class="ident">crate_ident_new</span>(),
                 )
             }
-            (<span class="ident">BorrowKind</span>::<span class="ident">Weak</span>, <span class="ident">WrapperKind</span>::<span class="ident">DefaultReturn</span>(<span class="kw-2">ref</span> <span class="ident">r</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">a</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">alias</span> {
-                    <span class="ident">a</span>
-                } <span class="kw">else</span> {
-                    <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>
-                };
+            (<span class="ident">BorrowKind</span>::<span class="ident">Weak</span>, <span class="prelude-val">Some</span>(<span class="ident">WrapperKind</span>::<span class="ident">DefaultReturn</span>(<span class="kw-2">ref</span> <span class="ident">r</span>))) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">format</span><span class="macro">!</span>(
                     <span class="string">&quot;\
 let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
@@ -867,13 +871,26 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
                     <span class="ident">r</span>,
                 )
             }
+            (<span class="ident">BorrowKind</span>::<span class="ident">Weak</span>, <span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="macro">format</span><span class="macro">!</span>(
+                    <span class="string">&quot;\
+let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
+    Some(val) =&gt; val,
+    None =&gt; {{
+        {1}::g_debug!(
+            {1}::CLONE_MACRO_LOG_DOMAIN,
+            \&quot;Failed to upgrade {0}\&quot;,
+        );
+        return;
+    }}
+}};&quot;</span>,
+                    <span class="ident">name</span>,
+                    <span class="ident">crate_ident_new</span>(),
+                )
+            }
             (<span class="ident">BorrowKind</span>::<span class="ident">WeakAllowNone</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format</span><span class="macro">!</span>(
                 <span class="string">&quot;let {0} = {1}::clone::Upgrade::upgrade(&amp;{0});&quot;</span>,
-                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">a</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">alias</span> {
-                    <span class="ident">a</span>
-                } <span class="kw">else</span> {
-                    <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>
-                },
+                <span class="ident">name</span>,
                 <span class="ident">crate_ident_new</span>(),
             ),
             <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">String</span>::<span class="ident">new</span>(),
@@ -1175,11 +1192,11 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
     <span class="ident">WrapperKind</span>::<span class="ident">DefaultReturn</span>(<span class="ident">get_expr</span>(<span class="ident">parts</span>))
 }
 
-<span class="kw">fn</span> <span class="ident">parse_return_kind</span>(<span class="ident">parts</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Peekable</span><span class="op">&lt;</span><span class="ident">ProcIter</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WrapperKind</span> {
+<span class="kw">fn</span> <span class="ident">parse_return_kind</span>(<span class="ident">parts</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Peekable</span><span class="op">&lt;</span><span class="ident">ProcIter</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WrapperKind</span><span class="op">&gt;</span> {
     <span class="kw">match</span> <span class="ident">parts</span>.<span class="ident">peek</span>() {
         <span class="prelude-val">Some</span>(<span class="ident">TokenTree</span>::<span class="ident">Punct</span>(<span class="ident">p</span>)) <span class="kw">if</span> <span class="ident">p</span>.<span class="ident">to_string</span>() <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {}
         <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unexpected end 2&quot;</span>),
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="ident">WrapperKind</span>::<span class="ident">DefaultPanic</span>,
+        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">None</span>,
     }
     <span class="ident">parts</span>.<span class="ident">next</span>();
     <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">get_return_kind</span>(<span class="ident">parts</span>);
@@ -1196,7 +1213,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
         }
         <span class="prelude-val">Ok</span>(()) <span class="op">=</span><span class="op">&gt;</span> {}
     }
-    <span class="ident">ret</span>
+    <span class="prelude-val">Some</span>(<span class="ident">ret</span>)
 }
 
 <span class="kw">enum</span> <span class="ident">BlockKind</span> {
@@ -1356,10 +1373,18 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
 <span class="kw">fn</span> <span class="ident">build_closure</span>(
     <span class="ident">parts</span>: <span class="ident">Peekable</span><span class="op">&lt;</span><span class="ident">ProcIter</span><span class="op">&gt;</span>,
     <span class="ident">elements</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ElemToClone</span><span class="op">&gt;</span>,
-    <span class="ident">return_kind</span>: <span class="ident">WrapperKind</span>,
+    <span class="ident">return_kind</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WrapperKind</span><span class="op">&gt;</span>,
     <span class="ident">kind</span>: <span class="ident">BlockKind</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">body</span> <span class="op">=</span> <span class="ident">TokenStream</span>::<span class="ident">new</span>();
+
+    <span class="kw">for</span> <span class="ident">el</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">elements</span> {
+        <span class="kw">let</span> <span class="ident">stream</span>: <span class="ident">TokenStream</span> <span class="op">=</span> <span class="ident">el</span>
+            .<span class="ident">to_str_after</span>(<span class="kw-2">&amp;</span><span class="ident">return_kind</span>)
+            .<span class="ident">parse</span>()
+            .<span class="ident">expect</span>(<span class="string">&quot;failed to convert element after&quot;</span>);
+        <span class="ident">body</span>.<span class="ident">extend</span>(<span class="ident">stream</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>());
+    }
     <span class="ident">body</span>.<span class="ident">extend</span>(<span class="ident">parts</span>.<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>());
 
     <span class="comment">// To prevent to lose the spans in case some errors occur in the code, we need to keep `body`!</span>
@@ -1382,7 +1407,7 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
     <span class="comment">//     body,</span>
     <span class="comment">// )</span>
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TokenTree</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
-    <span class="kw">for</span> <span class="ident">el</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">elements</span> {
+    <span class="kw">for</span> <span class="ident">el</span> <span class="kw">in</span> <span class="ident">elements</span> {
         <span class="kw">let</span> <span class="ident">stream</span>: <span class="ident">TokenStream</span> <span class="op">=</span> <span class="ident">el</span>
             .<span class="ident">to_str_before</span>()
             .<span class="ident">parse</span>()
@@ -1393,13 +1418,6 @@ let {0} = match {1}::clone::Upgrade::upgrade(&amp;{0}) {{
     <span class="comment">// This part is creating the TokenStream using the variables that needs to be cloned (from the</span>
     <span class="comment">// @weak and @strong annotations).</span>
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">inner</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TokenTree</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
-    <span class="kw">for</span> <span class="ident">el</span> <span class="kw">in</span> <span class="ident">elements</span> {
-        <span class="kw">let</span> <span class="ident">stream</span>: <span class="ident">TokenStream</span> <span class="op">=</span> <span class="ident">el</span>
-            .<span class="ident">to_str_after</span>(<span class="kw-2">&amp;</span><span class="ident">return_kind</span>)
-            .<span class="ident">parse</span>()
-            .<span class="ident">expect</span>(<span class="string">&quot;failed to convert element after&quot;</span>);
-        <span class="ident">inner</span>.<span class="ident">extend</span>(<span class="ident">stream</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>());
-    }
     <span class="kw">if</span> <span class="macro">matches</span><span class="macro">!</span>(<span class="ident">kind</span>, <span class="ident">BlockKind</span>::<span class="ident">ClosureWrappingAsync</span>(<span class="kw">_</span>)) {
         <span class="ident">inner</span>.<span class="ident">extend</span>(<span class="macro">vec</span><span class="macro">!</span>[
             <span class="ident">TokenTree</span>::<span class="ident">Ident</span>(<span class="ident">Ident</span>::<span class="ident">new</span>(<span class="string">&quot;async&quot;</span>, <span class="ident">Span</span>::<span class="ident">call_site</span>())),
