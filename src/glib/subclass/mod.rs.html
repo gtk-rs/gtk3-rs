@@ -267,6 +267,10 @@
 <span id="264">264</span>
 <span id="265">265</span>
 <span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -306,13 +310,17 @@
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//!</span>
+<span class="doccomment">//! // Note that the first `#[glib::gflags(...)]` is the proc-macro invocation,</span>
+<span class="doccomment">//! // while the plain `#[gflags(...)]` inside the braces are just custom attributes that</span>
+<span class="doccomment">//! // get read by the proc-macro, and they must be written exactly like that.</span>
+<span class="doccomment">//!</span>
 <span class="doccomment">//! #[glib::gflags(&quot;MyFlags&quot;)]</span>
 <span class="doccomment">//! enum MyFlags {</span>
-<span class="doccomment">//!     #[glib::gflags(name = &quot;Flag A&quot;, nick = &quot;nick-a&quot;)]</span>
+<span class="doccomment">//!     #[gflags(name = &quot;Flag A&quot;, nick = &quot;nick-a&quot;)]</span>
 <span class="doccomment">//!     A = 0b00000001,</span>
-<span class="doccomment">//!     #[glib::gflags(name = &quot;Flag B&quot;)]</span>
+<span class="doccomment">//!     #[gflags(name = &quot;Flag B&quot;)]</span>
 <span class="doccomment">//!     B = 0b00000010,</span>
-<span class="doccomment">//!     #[glib::gflags(skip)]</span>
+<span class="doccomment">//!     #[gflags(skip)]</span>
 <span class="doccomment">//!     AB = Self::A.bits() | Self::B.bits(),</span>
 <span class="doccomment">//!     C = 0b00000100,</span>
 <span class="doccomment">//! }</span>
