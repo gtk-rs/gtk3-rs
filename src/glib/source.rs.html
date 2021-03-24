@@ -964,6 +964,10 @@
 <span id="961">961</span>
 <span id="962">962</span>
 <span id="963">963</span>
+<span id="964">964</span>
+<span id="965">965</span>
+<span id="966">966</span>
+<span id="967">967</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -1119,8 +1123,10 @@
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">FnMut</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Continue</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">func</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">func</span>);
     <span class="kw">move</span> <span class="op">|</span><span class="op">|</span> {
-        <span class="ident">func</span>.<span class="ident">take</span>()
+        <span class="kw">let</span> <span class="ident">func</span> <span class="op">=</span> <span class="ident">func</span>
+            .<span class="ident">take</span>()
             .<span class="ident">expect</span>(<span class="string">&quot;GSource closure called after returning glib::Continue(false)&quot;</span>);
+        <span class="ident">func</span>();
         <span class="ident">Continue</span>(<span class="bool-val">false</span>)
     }
 }
@@ -1138,8 +1144,10 @@
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">FnMut</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Continue</span> <span class="op">+</span> <span class="lifetime">&#39;static</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">func</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">func</span>);
     <span class="kw">move</span> <span class="op">|</span><span class="op">|</span> {
-        <span class="ident">func</span>.<span class="ident">take</span>()
+        <span class="kw">let</span> <span class="ident">func</span> <span class="op">=</span> <span class="ident">func</span>
+            .<span class="ident">take</span>()
             .<span class="ident">expect</span>(<span class="string">&quot;GSource closure called after returning glib::Continue(false)&quot;</span>);
+        <span class="ident">func</span>();
         <span class="ident">Continue</span>(<span class="bool-val">false</span>)
     }
 }
