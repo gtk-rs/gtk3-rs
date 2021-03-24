@@ -152,8 +152,10 @@ fn fnmut_callback_wrapper(
 ) -> impl FnMut() -> Continue + Send + 'static {
     let mut func = Some(func);
     move || {
-        func.take()
+        let func = func
+            .take()
             .expect("GSource closure called after returning glib::Continue(false)");
+        func();
         Continue(false)
     }
 }
@@ -171,8 +173,10 @@ fn fnmut_callback_wrapper_local(
 ) -> impl FnMut() -> Continue + 'static {
     let mut func = Some(func);
     move || {
-        func.take()
+        let func = func
+            .take()
             .expect("GSource closure called after returning glib::Continue(false)");
+        func();
         Continue(false)
     }
 }
