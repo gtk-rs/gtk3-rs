@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["HitPosition","The result of [`LayoutLine::x_to_index`]."]]});
