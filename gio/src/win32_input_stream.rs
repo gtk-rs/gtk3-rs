@@ -41,9 +41,18 @@ impl fmt::Display for Win32InputStream {
 impl Win32InputStream {
     #[doc(alias = "g_win32_input_stream_new")]
     #[allow(clippy::missing_safety_doc)]
-    pub unsafe fn new<T: IntoRawHandle>(handle: T) -> Win32InputStream {
+    pub unsafe fn take_handle<T: IntoRawHandle>(handle: T) -> Win32InputStream {
         let handle = handle.into_raw_handle();
         let close_handle = true.to_glib();
+        InputStream::from_glib_full(ffi::g_win32_input_stream_new(handle, close_handle))
+            .unsafe_cast()
+    }
+
+    #[doc(alias = "g_win32_input_stream_new")]
+    #[allow(clippy::missing_safety_doc)]
+    pub unsafe fn with_handle<T: AsRawHandle>(handle: T) -> Win32InputStream {
+        let handle = handle.as_raw_handle();
+        let close_handle = false.to_glib();
         InputStream::from_glib_full(ffi::g_win32_input_stream_new(handle, close_handle))
             .unsafe_cast()
     }
