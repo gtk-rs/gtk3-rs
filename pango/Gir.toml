@@ -50,7 +50,6 @@ generate = [
     "Pango.GravityHint",
     "Pango.Item",
     "Pango.LayoutIter",
-    "Pango.LayoutLine",
     "Pango.LayoutRun",
     "Pango.Matrix",
     "Pango.Overline",
@@ -240,6 +239,13 @@ status = "generate"
         [[object.function.parameter]]
         name = "tabs"
         const = true
+
+[[object]]
+name = "Pango.LayoutLine"
+status = "generate"
+    [[object.function]]
+    name = "x_to_index"
+    manual = true
 
 [[object]]
 name = "Pango.ShapeFlags"
