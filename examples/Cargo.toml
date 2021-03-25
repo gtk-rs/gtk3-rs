@@ -31,18 +31,185 @@ optional = true
 [build-dependencies.gio]
 path = "../gio"
 
+
+[[bin]]
+name = "accessibility"
+path = "accessibility/main.rs"
+
+[[bin]]
+name = "basic_subclass"
+path = "basic_subclass/main.rs"
+
+[[bin]]
+name = "basics"
+path = "basics/main.rs"
+
+[[bin]]
+name = "builder_pattern"
+path = "builder_pattern/main.rs"
+
 [[bin]]
 name = "cairo_png"
+path = "cairo_png/main.rs"
 required-features = ["cairo"]
 
 [[bin]]
-name = "listbox_model"
-required-features = ["gtk/v3_16"]
+name = "cairo_test"
+path = "cairo_test/main.rs"
 
 [[bin]]
-name = "printing"
-required-features = ["pangocairo"]
+name = "cairo_threads"
+path = "cairo_threads/main.rs"
+
+[[bin]]
+name = "child_properties"
+path = "child_properties/main.rs"
+
+[[bin]]
+name = "clipboard_simple"
+path = "clipboard_simple/main.rs"
+
+[[bin]]
+name = "clock"
+path = "clock/main.rs"
+
+[[bin]]
+name = "clone_macro"
+path = "clone_macro/main.rs"
+
+[[bin]]
+name = "communication_thread"
+path = "communication_thread/main.rs"
+
+[[bin]]
+name = "composite_template"
+path = "composite_template/main.rs"
+
+[[bin]]
+name = "css"
+path = "css/main.rs"
+
+[[bin]]
+name = "dialog"
+path = "dialog/main.rs"
+
+[[bin]]
+name = "drag_drop"
+path = "drag_drop/main.rs"
+
+[[bin]]
+name = "drag_drop_text_view"
+path = "drag_drop_text_view/main.rs"
+
+[[bin]]
+name = "entry_completion"
+path = "entry_completion/main.rs"
 
 [[bin]]
 name = "gio_async_tls"
+path = "gio_async_tls/main.rs"
 required-features = ["async-tls"]
+
+[[bin]]
+name = "gio_futures"
+path = "gio_futures/main.rs"
+
+[[bin]]
+name = "gio_futures_await"
+path = "gio_futures_await/main.rs"
+
+[[bin]]
+name = "gio_task"
+path = "gio_task/main.rs"
+
+[[bin]]
+name = "grid"
+path = "grid/main.rs"
+
+[[bin]]
+name = "gtk_builder_basics"
+path = "gtk_builder_basics/main.rs"
+
+[[bin]]
+name = "gtk_builder_signal"
+path = "gtk_builder_signal/main.rs"
+
+[[bin]]
+name = "gtk_test"
+path = "gtk_test/main.rs"
+
+[[bin]]
+name = "icon_view"
+path = "icon_view/main.rs"
+
+[[bin]]
+name = "list_box_model"
+path = "list_box_model/main.rs"
+required-features = ["gtk/v3_16"]
+
+[[bin]]
+name = "list_store"
+path = "list_store/main.rs"
+
+[[bin]]
+name = "menu_bar"
+path = "menu_bar/main.rs"
+
+[[bin]]
+name = "menu_bar_system"
+path = "menu_bar_system/main.rs"
+
+[[bin]]
+name = "multi_threading_context"
+path = "multi_threading_context/main.rs"
+
+[[bin]]
+name = "multi_window"
+path = "multi_window/main.rs"
+
+[[bin]]
+name = "notebook"
+path = "notebook/main.rs"
+
+[[bin]]
+name = "overlay"
+path = "overlay/main.rs"
+
+[[bin]]
+name = "pango_attributes"
+path = "pango_attributes/main.rs"
+
+[[bin]]
+name = "printing"
+path = "printing/main.rs"
+required-features = ["pangocairo"]
+
+[[bin]]
+name = "progress_tracker"
+path = "progress_tracker/main.rs"
+
+[[bin]]
+name = "sync_widget"
+path = "sync_widget/main.rs"
+
+[[bin]]
+name = "text_viewer"
+path = "text_viewer/main.rs"
+
+[[bin]]
+name = "transparent_main_window"
+path = "transparent_main_window/main.rs"
+
+[[bin]]
+name = "tree_view"
+path = "tree_view/main.rs"
+
+[[bin]]
+name = "tree_view_model_sort"
+path = "tree_view_model_sort/main.rs"
+
+[[bin]]
+name = "tree_view_simple"
+path = "tree_view_simple/main.rs"
+
+
