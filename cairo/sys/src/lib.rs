@@ -5,6 +5,7 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::unreadable_literal)]
 #![allow(clippy::write_literal)]
+#![allow(clippy::upper_case_acronyms)]
 
 extern crate libc;
 
