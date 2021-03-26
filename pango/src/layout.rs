@@ -11,8 +11,7 @@ pub struct HitPosition {
     // rustdoc-stripper-ignore-next
     /// The UTF-8 byte offset of the grapheme closest to the position.
     ///
-    /// This position is relative to the start of the line, not the start
-    /// of the [`Layout`]'s text.
+    /// This position is relative to the start of the [`Layout`]'s text.
     ///
     /// [`Layout`]: crate::Layout
     pub index: i32,
