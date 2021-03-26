@@ -3,14 +3,8 @@
 // DO NOT EDIT
 
 use crate::EventController;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use crate::Widget;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use glib::object::Cast;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
@@ -29,8 +23,6 @@ glib::wrapper! {
 }
 
 impl EventControllerMotion {
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     #[doc(alias = "gtk_event_controller_motion_new")]
     pub fn new<P: IsA<Widget>>(widget: &P) -> EventControllerMotion {
         skip_assert_initialized!();

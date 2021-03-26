@@ -7,8 +7,6 @@ use crate::FileChooserAction;
 use crate::FileFilter;
 use crate::NativeDialog;
 use crate::Widget;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::Window;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -31,8 +29,6 @@ glib::wrapper! {
 }
 
 impl FileChooserNative {
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_file_chooser_native_new")]
     pub fn new<P: IsA<Window>>(
         title: Option<&str>,
@@ -53,8 +49,6 @@ impl FileChooserNative {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_file_chooser_native_get_accept_label")]
     pub fn get_accept_label(&self) -> Option<glib::GString> {
         unsafe {
@@ -64,8 +58,6 @@ impl FileChooserNative {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_file_chooser_native_get_cancel_label")]
     pub fn get_cancel_label(&self) -> Option<glib::GString> {
         unsafe {
@@ -75,8 +67,6 @@ impl FileChooserNative {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_file_chooser_native_set_accept_label")]
     pub fn set_accept_label(&self, accept_label: Option<&str>) {
         unsafe {
@@ -87,8 +77,6 @@ impl FileChooserNative {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gtk_file_chooser_native_set_cancel_label")]
     pub fn set_cancel_label(&self, cancel_label: Option<&str>) {
         unsafe {

@@ -2,21 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use crate::Display;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use crate::Window;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::translate::*;
 use std::fmt;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use std::mem;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use std::ptr;
 
 glib::wrapper! {
@@ -28,22 +18,16 @@ glib::wrapper! {
 }
 
 impl GLContext {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_gl_context_get_debug_enabled")]
     pub fn get_debug_enabled(&self) -> bool {
         unsafe { from_glib(ffi::gdk_gl_context_get_debug_enabled(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_gl_context_get_display")]
     pub fn get_display(&self) -> Option<Display> {
         unsafe { from_glib_none(ffi::gdk_gl_context_get_display(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_gl_context_get_forward_compatible")]
     pub fn get_forward_compatible(&self) -> bool {
         unsafe {
@@ -53,8 +37,6 @@ impl GLContext {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_gl_context_get_required_version")]
     pub fn get_required_version(&self) -> (i32, i32) {
         unsafe {
@@ -71,8 +53,6 @@ impl GLContext {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_gl_context_get_shared_context")]
     pub fn get_shared_context(&self) -> Option<GLContext> {
         unsafe {
@@ -89,8 +69,6 @@ impl GLContext {
         unsafe { from_glib(ffi::gdk_gl_context_get_use_es(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_gl_context_get_version")]
     pub fn get_version(&self) -> (i32, i32) {
         unsafe {
@@ -107,8 +85,6 @@ impl GLContext {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_gl_context_get_window")]
     pub fn get_window(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_gl_context_get_window(self.to_glib_none().0)) }
@@ -121,8 +97,6 @@ impl GLContext {
         unsafe { from_glib(ffi::gdk_gl_context_is_legacy(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_gl_context_make_current")]
     pub fn make_current(&self) {
         unsafe {
@@ -130,8 +104,6 @@ impl GLContext {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_gl_context_realize")]
     pub fn realize(&self) -> Result<(), glib::Error> {
         unsafe {
@@ -145,8 +117,6 @@ impl GLContext {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_gl_context_set_debug_enabled")]
     pub fn set_debug_enabled(&self, enabled: bool) {
         unsafe {
@@ -154,8 +124,6 @@ impl GLContext {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_gl_context_set_forward_compatible")]
     pub fn set_forward_compatible(&self, compatible: bool) {
         unsafe {
@@ -163,8 +131,6 @@ impl GLContext {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_gl_context_set_required_version")]
     pub fn set_required_version(&self, major: i32, minor: i32) {
         unsafe {
@@ -181,8 +147,6 @@ impl GLContext {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_gl_context_clear_current")]
     pub fn clear_current() {
         assert_initialized_main_thread!();
@@ -191,8 +155,6 @@ impl GLContext {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gdk_gl_context_get_current")]
     pub fn get_current() -> Option<GLContext> {
         assert_initialized_main_thread!();

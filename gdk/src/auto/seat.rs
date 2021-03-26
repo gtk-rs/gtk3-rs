@@ -2,48 +2,22 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::Cursor;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::Device;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use crate::DeviceTool;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::Display;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::Event;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::GrabStatus;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::SeatCapabilities;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use crate::Window;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::object::ObjectType as ObjectType_;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::signal::connect_raw;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::signal::SignalHandlerId;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use glib::translate::*;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use std::boxed::Box as Box_;
 use std::fmt;
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
 use std::mem::transmute;
 
 glib::wrapper! {
@@ -55,36 +29,26 @@ glib::wrapper! {
 }
 
 impl Seat {
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_seat_get_capabilities")]
     pub fn get_capabilities(&self) -> SeatCapabilities {
         unsafe { from_glib(ffi::gdk_seat_get_capabilities(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_seat_get_display")]
     pub fn get_display(&self) -> Option<Display> {
         unsafe { from_glib_none(ffi::gdk_seat_get_display(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_seat_get_keyboard")]
     pub fn get_keyboard(&self) -> Option<Device> {
         unsafe { from_glib_none(ffi::gdk_seat_get_keyboard(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_seat_get_pointer")]
     pub fn get_pointer(&self) -> Option<Device> {
         unsafe { from_glib_none(ffi::gdk_seat_get_pointer(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_seat_get_slaves")]
     pub fn get_slaves(&self, capabilities: SeatCapabilities) -> Vec<Device> {
         unsafe {
@@ -95,8 +59,6 @@ impl Seat {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_seat_grab")]
     pub fn grab(
         &self,
@@ -143,8 +105,6 @@ impl Seat {
         }
     }
 
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_20")))]
     #[doc(alias = "gdk_seat_ungrab")]
     pub fn ungrab(&self) {
         unsafe {

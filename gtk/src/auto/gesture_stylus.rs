@@ -5,14 +5,8 @@
 use crate::EventController;
 use crate::Gesture;
 use crate::GestureSingle;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use crate::Widget;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use glib::object::Cast;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use glib::object::IsA;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
@@ -20,8 +14,6 @@ use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use std::boxed::Box as Box_;
 use std::fmt;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 use std::mem;
 use std::mem::transmute;
 
@@ -34,8 +26,6 @@ glib::wrapper! {
 }
 
 impl GestureStylus {
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     #[doc(alias = "gtk_gesture_stylus_new")]
     pub fn new<P: IsA<Widget>>(widget: &P) -> GestureStylus {
         skip_assert_initialized!();
@@ -47,8 +37,6 @@ impl GestureStylus {
         }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     #[doc(alias = "gtk_gesture_stylus_get_axis")]
     pub fn get_axis(&self, axis: gdk::AxisUse) -> Option<f64> {
         unsafe {
@@ -67,8 +55,6 @@ impl GestureStylus {
         }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     #[doc(alias = "gtk_gesture_stylus_get_device_tool")]
     pub fn get_device_tool(&self) -> Option<gdk::DeviceTool> {
         unsafe {

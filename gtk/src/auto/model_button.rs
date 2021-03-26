@@ -7,8 +7,6 @@ use crate::Align;
 use crate::Bin;
 use crate::Buildable;
 use crate::Button;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use crate::ButtonRole;
 use crate::Container;
 use crate::PositionType;
@@ -17,26 +15,14 @@ use crate::ResizeMode;
 use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::object::ObjectType as ObjectType_;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::signal::connect_raw;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::signal::SignalHandlerId;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use std::boxed::Box as Box_;
 use std::fmt;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use std::mem::transmute;
 
 glib::wrapper! {
@@ -48,8 +34,6 @@ glib::wrapper! {
 }
 
 impl ModelButton {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_model_button_new")]
     pub fn new() -> ModelButton {
         assert_initialized_main_thread!();

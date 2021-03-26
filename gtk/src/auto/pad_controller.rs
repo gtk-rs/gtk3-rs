@@ -3,13 +3,9 @@
 // DO NOT EDIT
 
 use crate::EventController;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use crate::PadActionType;
 use crate::PropagationPhase;
 use crate::Widget;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use crate::Window;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -28,8 +24,6 @@ glib::wrapper! {
 }
 
 impl PadController {
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_pad_controller_new")]
     pub fn new<P: IsA<Window>, Q: IsA<gio::ActionGroup>>(
         window: &P,
@@ -46,8 +40,6 @@ impl PadController {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_pad_controller_set_action")]
     pub fn set_action(
         &self,
