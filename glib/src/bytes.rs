@@ -152,6 +152,7 @@ impl Ord for Bytes {
 
 macro_rules! impl_cmp {
     ($lhs:ty, $rhs: ty) => {
+        #[allow(clippy::redundant_slicing)]
         impl<'a, 'b> PartialEq<$rhs> for $lhs {
             #[inline]
             fn eq(&self, other: &$rhs) -> bool {
@@ -159,6 +160,7 @@ macro_rules! impl_cmp {
             }
         }
 
+        #[allow(clippy::redundant_slicing)]
         impl<'a, 'b> PartialEq<$lhs> for $rhs {
             #[inline]
             fn eq(&self, other: &$lhs) -> bool {
@@ -166,6 +168,7 @@ macro_rules! impl_cmp {
             }
         }
 
+        #[allow(clippy::redundant_slicing)]
         impl<'a, 'b> PartialOrd<$rhs> for $lhs {
             #[inline]
             fn partial_cmp(&self, other: &$rhs) -> Option<Ordering> {
@@ -173,6 +176,7 @@ macro_rules! impl_cmp {
             }
         }
 
+        #[allow(clippy::redundant_slicing)]
         impl<'a, 'b> PartialOrd<$lhs> for $rhs {
             #[inline]
             fn partial_cmp(&self, other: &$lhs) -> Option<Ordering> {

@@ -3,6 +3,7 @@
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 #![allow(deprecated)]
 #![allow(clippy::type_complexity)]
+#![allow(clippy::upper_case_acronyms)]
 
 pub use ffi;
 pub use gdk;

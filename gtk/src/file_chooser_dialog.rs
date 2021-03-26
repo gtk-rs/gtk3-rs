@@ -88,7 +88,7 @@ impl FileChooserDialog {
                 _ => {
                     // TODO: Support arbitrary number of buttons once variadic functions are supported.
                     //       See: https://github.com/rust-lang/rust/issues/44930
-                    panic!(format!("`FileChooserDialog::with_buttons` does not support 4+ buttons, received {}", buttons.len()))
+                    panic!("`FileChooserDialog::with_buttons` does not support 4+ buttons, received {}", buttons.len())
                 }
             }).unsafe_cast()
         }

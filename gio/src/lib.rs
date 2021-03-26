@@ -4,6 +4,7 @@
 #![allow(clippy::type_complexity)]
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::missing_safety_doc)]
+#![allow(clippy::upper_case_acronyms)]
 #![allow(deprecated)]
 
 pub use ffi;

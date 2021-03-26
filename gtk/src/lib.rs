@@ -1,6 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 #![allow(clippy::needless_doctest_main)]
+#![allow(clippy::upper_case_acronyms)]
 
 //! # GTK+ 3 bindings
 //!

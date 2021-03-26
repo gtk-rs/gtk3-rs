@@ -232,72 +232,27 @@ macro_rules! interface_list_trait_impl(
             $(<$name as ObjectType>::GlibClassType: Copy),+
         {
             fn iface_infos() -> Vec<(ffi::GType, gobject_ffi::GInterfaceInfo)> {
-                let mut types = Vec::new();
-                interface_list_trait_inner_iface_infos!(types, $($name)+)
+                vec![
+                    $(
+                        (
+                            $name::static_type().to_glib(),
+                            gobject_ffi::GInterfaceInfo {
+                                interface_init: Some(interface_init::<T, $name>),
+                                interface_finalize: None,
+                                interface_data: ptr::null_mut(),
+                            },
+                        )
+                    ),+
+                ]
             }
 
             fn instance_init(instance: &mut InitializingObject<T>) {
-                interface_list_trait_inner_instance_init!(instance, $($name)+)
+                $(
+                    $name::instance_init(instance);
+                )+
             }
         }
     );
-);
-
-// Generates the inner part of the InterfaceList::iface_infos() implementation, which will
-// basically look as follows:
-//
-// let mut types = Vec::new();
-//
-// types.push((A::static_type().to_glib(), ...));
-// types.push((B::static_type().to_glib(), ...));
-// [...]
-// types.push((Z::static_type().to_glib(), ...));
-//
-// types
-macro_rules! interface_list_trait_inner_iface_infos(
-    ($types:ident, $head:ident $($id:ident)+) => ({
-        $types.push(
-            (
-                $head::static_type().to_glib(),
-                gobject_ffi::GInterfaceInfo {
-                    interface_init: Some(interface_init::<T, $head>),
-                    interface_finalize: None,
-                    interface_data: ptr::null_mut(),
-                },
-            )
-        );
-        interface_list_trait_inner_iface_infos!($types, $($id)+)
-    });
-    ($types:ident, $head:ident) => ({
-        $types.push(
-            (
-                $head::static_type().to_glib(),
-                gobject_ffi::GInterfaceInfo {
-                    interface_init: Some(interface_init::<T, $head>),
-                    interface_finalize: None,
-                    interface_data: ptr::null_mut(),
-                },
-            )
-        );
-        $types
-    });
-);
-
-// Generates the inner part of the InterfaceList::instance_init() implementation, which will
-// basically look as follows:
-//
-// A::instance_init(instance);
-// B::instance_init(instance);
-// [...]
-// Z::instance_init(instance);
-macro_rules! interface_list_trait_inner_instance_init(
-    ($instance:ident, $head:ident $($id:ident)+) => ({
-        $head::instance_init($instance);
-        interface_list_trait_inner_instance_init!($instance, $($id)+)
-    });
-    ($instance:ident, $head:ident) => ({
-        $head::instance_init($instance);
-    });
 );
 
 interface_list_trait!(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S);
