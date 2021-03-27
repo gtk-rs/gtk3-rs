@@ -216,7 +216,7 @@
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="comment">// TODO: Support arbitrary number of buttons once variadic functions are supported.</span>
                     <span class="comment">//       See: https://github.com/rust-lang/rust/issues/44930</span>
-                    <span class="macro">panic</span><span class="macro">!</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;`FileChooserDialog::with_buttons` does not support 4+ buttons, received {}&quot;</span>, <span class="ident">buttons</span>.<span class="ident">len</span>()))
+                    <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;`FileChooserDialog::with_buttons` does not support 4+ buttons, received {}&quot;</span>, <span class="ident">buttons</span>.<span class="ident">len</span>())
                 }
             }).<span class="ident">unsafe_cast</span>()
         }

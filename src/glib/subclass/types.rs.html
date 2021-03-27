@@ -828,51 +828,6 @@
 <span id="825">825</span>
 <span id="826">826</span>
 <span id="827">827</span>
-<span id="828">828</span>
-<span id="829">829</span>
-<span id="830">830</span>
-<span id="831">831</span>
-<span id="832">832</span>
-<span id="833">833</span>
-<span id="834">834</span>
-<span id="835">835</span>
-<span id="836">836</span>
-<span id="837">837</span>
-<span id="838">838</span>
-<span id="839">839</span>
-<span id="840">840</span>
-<span id="841">841</span>
-<span id="842">842</span>
-<span id="843">843</span>
-<span id="844">844</span>
-<span id="845">845</span>
-<span id="846">846</span>
-<span id="847">847</span>
-<span id="848">848</span>
-<span id="849">849</span>
-<span id="850">850</span>
-<span id="851">851</span>
-<span id="852">852</span>
-<span id="853">853</span>
-<span id="854">854</span>
-<span id="855">855</span>
-<span id="856">856</span>
-<span id="857">857</span>
-<span id="858">858</span>
-<span id="859">859</span>
-<span id="860">860</span>
-<span id="861">861</span>
-<span id="862">862</span>
-<span id="863">863</span>
-<span id="864">864</span>
-<span id="865">865</span>
-<span id="866">866</span>
-<span id="867">867</span>
-<span id="868">868</span>
-<span id="869">869</span>
-<span id="870">870</span>
-<span id="871">871</span>
-<span id="872">872</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -1108,72 +1063,27 @@
             $(<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="kw">as</span> <span class="ident">ObjectType</span><span class="op">&gt;</span>::<span class="ident">GlibClassType</span>: <span class="ident">Copy</span>),<span class="op">+</span>
         {
             <span class="kw">fn</span> <span class="ident">iface_infos</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">ffi</span>::<span class="ident">GType</span>, <span class="ident">gobject_ffi</span>::<span class="ident">GInterfaceInfo</span>)<span class="op">&gt;</span> {
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">types</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
-                <span class="macro">interface_list_trait_inner_iface_infos</span><span class="macro">!</span>(<span class="ident">types</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>)<span class="op">+</span>)
+                <span class="macro">vec</span><span class="macro">!</span>[
+                    $(
+                        (
+                            <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>::<span class="ident">static_type</span>().<span class="ident">to_glib</span>(),
+                            <span class="ident">gobject_ffi</span>::<span class="ident">GInterfaceInfo</span> {
+                                <span class="ident">interface_init</span>: <span class="prelude-val">Some</span>(<span class="ident">interface_init</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span><span class="op">&gt;</span>),
+                                <span class="ident">interface_finalize</span>: <span class="prelude-val">None</span>,
+                                <span class="ident">interface_data</span>: <span class="ident">ptr</span>::<span class="ident">null_mut</span>(),
+                            },
+                        )
+                    ),<span class="op">+</span>
+                ]
             }
 
             <span class="kw">fn</span> <span class="ident">instance_init</span>(<span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">InitializingObject</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) {
-                <span class="macro">interface_list_trait_inner_instance_init</span><span class="macro">!</span>(<span class="ident">instance</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>)<span class="op">+</span>)
+                $(
+                    <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>::<span class="ident">instance_init</span>(<span class="ident">instance</span>);
+                )<span class="op">+</span>
             }
         }
     );
-);
-
-<span class="comment">// Generates the inner part of the InterfaceList::iface_infos() implementation, which will</span>
-<span class="comment">// basically look as follows:</span>
-<span class="comment">//</span>
-<span class="comment">// let mut types = Vec::new();</span>
-<span class="comment">//</span>
-<span class="comment">// types.push((A::static_type().to_glib(), ...));</span>
-<span class="comment">// types.push((B::static_type().to_glib(), ...));</span>
-<span class="comment">// [...]</span>
-<span class="comment">// types.push((Z::static_type().to_glib(), ...));</span>
-<span class="comment">//</span>
-<span class="comment">// types</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">interface_list_trait_inner_iface_infos</span>(
-    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">types</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span>:<span class="ident">ident</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">id</span>:<span class="ident">ident</span>)<span class="op">+</span>) <span class="op">=</span><span class="op">&gt;</span> ({
-        <span class="macro-nonterminal">$</span><span class="macro-nonterminal">types</span>.<span class="ident">push</span>(
-            (
-                <span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span>::<span class="ident">static_type</span>().<span class="ident">to_glib</span>(),
-                <span class="ident">gobject_ffi</span>::<span class="ident">GInterfaceInfo</span> {
-                    <span class="ident">interface_init</span>: <span class="prelude-val">Some</span>(<span class="ident">interface_init</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span><span class="op">&gt;</span>),
-                    <span class="ident">interface_finalize</span>: <span class="prelude-val">None</span>,
-                    <span class="ident">interface_data</span>: <span class="ident">ptr</span>::<span class="ident">null_mut</span>(),
-                },
-            )
-        );
-        <span class="macro">interface_list_trait_inner_iface_infos</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">types</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">id</span>)<span class="op">+</span>)
-    });
-    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">types</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> ({
-        <span class="macro-nonterminal">$</span><span class="macro-nonterminal">types</span>.<span class="ident">push</span>(
-            (
-                <span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span>::<span class="ident">static_type</span>().<span class="ident">to_glib</span>(),
-                <span class="ident">gobject_ffi</span>::<span class="ident">GInterfaceInfo</span> {
-                    <span class="ident">interface_init</span>: <span class="prelude-val">Some</span>(<span class="ident">interface_init</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span><span class="op">&gt;</span>),
-                    <span class="ident">interface_finalize</span>: <span class="prelude-val">None</span>,
-                    <span class="ident">interface_data</span>: <span class="ident">ptr</span>::<span class="ident">null_mut</span>(),
-                },
-            )
-        );
-        <span class="macro-nonterminal">$</span><span class="macro-nonterminal">types</span>
-    });
-);
-
-<span class="comment">// Generates the inner part of the InterfaceList::instance_init() implementation, which will</span>
-<span class="comment">// basically look as follows:</span>
-<span class="comment">//</span>
-<span class="comment">// A::instance_init(instance);</span>
-<span class="comment">// B::instance_init(instance);</span>
-<span class="comment">// [...]</span>
-<span class="comment">// Z::instance_init(instance);</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">interface_list_trait_inner_instance_init</span>(
-    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">instance</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span>:<span class="ident">ident</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">id</span>:<span class="ident">ident</span>)<span class="op">+</span>) <span class="op">=</span><span class="op">&gt;</span> ({
-        <span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span>::<span class="ident">instance_init</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">instance</span>);
-        <span class="macro">interface_list_trait_inner_instance_init</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">instance</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">id</span>)<span class="op">+</span>)
-    });
-    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">instance</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> ({
-        <span class="macro-nonterminal">$</span><span class="macro-nonterminal">head</span>::<span class="ident">instance_init</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">instance</span>);
-    });
 );
 
 <span class="macro">interface_list_trait</span><span class="macro">!</span>(<span class="ident">A</span>, <span class="ident">B</span>, <span class="ident">C</span>, <span class="ident">D</span>, <span class="ident">E</span>, <span class="ident">F</span>, <span class="ident">G</span>, <span class="ident">H</span>, <span class="ident">I</span>, <span class="ident">J</span>, <span class="ident">K</span>, <span class="ident">L</span>, <span class="ident">M</span>, <span class="ident">N</span>, <span class="ident">O</span>, <span class="ident">P</span>, <span class="ident">Q</span>, <span class="ident">R</span>, <span class="ident">S</span>);
