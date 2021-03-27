@@ -4,11 +4,7 @@
 
 use crate::ListModel;
 use glib::object::Cast;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::object::IsA;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
@@ -26,15 +22,11 @@ glib::wrapper! {
 }
 
 impl ListStore {
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_list_store_new")]
     pub fn new(item_type: glib::types::Type) -> ListStore {
         unsafe { from_glib_full(ffi::g_list_store_new(item_type.to_glib())) }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_list_store_append")]
     pub fn append<P: IsA<glib::Object>>(&self, item: &P) {
         unsafe {
@@ -69,8 +61,6 @@ impl ListStore {
     //    unsafe { TODO: call ffi:g_list_store_find_with_equal_func() }
     //}
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_list_store_insert")]
     pub fn insert<P: IsA<glib::Object>>(&self, position: u32, item: &P) {
         unsafe {
@@ -82,8 +72,6 @@ impl ListStore {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_list_store_remove")]
     pub fn remove(&self, position: u32) {
         unsafe {
@@ -91,8 +79,6 @@ impl ListStore {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_list_store_remove_all")]
     pub fn remove_all(&self) {
         unsafe {
@@ -100,8 +86,6 @@ impl ListStore {
         }
     }
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_list_store_splice")]
     pub fn splice(&self, position: u32, n_removals: u32, additions: &[glib::Object]) {
         let n_additions = additions.len() as u32;

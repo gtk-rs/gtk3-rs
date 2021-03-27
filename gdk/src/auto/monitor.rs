@@ -4,8 +4,6 @@
 
 use crate::Display;
 use crate::Rectangle;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use crate::SubpixelLayout;
 use glib::object::ObjectType as ObjectType_;
 use glib::signal::connect_raw;
@@ -25,15 +23,11 @@ glib::wrapper! {
 }
 
 impl Monitor {
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_monitor_get_display")]
     pub fn get_display(&self) -> Option<Display> {
         unsafe { from_glib_none(ffi::gdk_monitor_get_display(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_monitor_get_geometry")]
     pub fn get_geometry(&self) -> Rectangle {
         unsafe {
@@ -43,57 +37,41 @@ impl Monitor {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_monitor_get_height_mm")]
     pub fn get_height_mm(&self) -> i32 {
         unsafe { ffi::gdk_monitor_get_height_mm(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_monitor_get_manufacturer")]
     pub fn get_manufacturer(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gdk_monitor_get_manufacturer(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_monitor_get_model")]
     pub fn get_model(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gdk_monitor_get_model(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_monitor_get_refresh_rate")]
     pub fn get_refresh_rate(&self) -> i32 {
         unsafe { ffi::gdk_monitor_get_refresh_rate(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_monitor_get_scale_factor")]
     pub fn get_scale_factor(&self) -> i32 {
         unsafe { ffi::gdk_monitor_get_scale_factor(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_monitor_get_subpixel_layout")]
     pub fn get_subpixel_layout(&self) -> SubpixelLayout {
         unsafe { from_glib(ffi::gdk_monitor_get_subpixel_layout(self.to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_monitor_get_width_mm")]
     pub fn get_width_mm(&self) -> i32 {
         unsafe { ffi::gdk_monitor_get_width_mm(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_monitor_get_workarea")]
     pub fn get_workarea(&self) -> Rectangle {
         unsafe {
@@ -103,8 +81,6 @@ impl Monitor {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gdk_monitor_is_primary")]
     pub fn is_primary(&self) -> bool {
         unsafe { from_glib(ffi::gdk_monitor_is_primary(self.to_glib_none().0)) }

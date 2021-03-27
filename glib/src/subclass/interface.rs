@@ -47,33 +47,10 @@ macro_rules! prerequisite_list_trait_impl(
     ($($name:ident),+) => (
         impl<$($name: crate::ObjectType),+> PrerequisiteList for ( $($name),+ ) {
             fn types() -> Vec<ffi::GType> {
-                let mut types = Vec::new();
-                prerequisite_list_trait_inner!(types, $($name)+)
+                vec![$($name::static_type().to_glib()),+]
             }
         }
     );
-);
-
-// Generates the inner part of the PrerequisiteList::types() implementation, which will
-// basically look as follows:
-//
-// let mut types = Vec::new();
-//
-// types.push(A::static_type().to_glib());
-// types.push(B::static_type().to_glib());
-// [...]
-// types.push(Z::static_type().to_glib());
-//
-// types
-macro_rules! prerequisite_list_trait_inner(
-    ($types:ident, $head:ident $($id:ident)+) => ({
-        $types.push($head::static_type().to_glib());
-        prerequisite_list_trait_inner!($types, $($id)+)
-    });
-    ($types:ident, $head:ident) => ({
-        $types.push($head::static_type().to_glib());
-        $types
-    });
 );
 
 prerequisite_list_trait!(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S);

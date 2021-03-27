@@ -8,26 +8,14 @@ use crate::Container;
 use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::signal::connect_raw;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::signal::SignalHandlerId;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use std::boxed::Box as Box_;
 use std::fmt;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use std::mem;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
 use std::mem::transmute;
 
 glib::wrapper! {
@@ -39,8 +27,6 @@ glib::wrapper! {
 }
 
 impl GLArea {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_new")]
     pub fn new() -> GLArea {
         assert_initialized_main_thread!();
@@ -438,43 +424,27 @@ impl GLAreaBuilder {
 pub const NONE_GL_AREA: Option<&GLArea> = None;
 
 pub trait GLAreaExt: 'static {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_attach_buffers")]
     fn attach_buffers(&self);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_get_auto_render")]
     fn get_auto_render(&self) -> bool;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_get_context")]
     fn get_context(&self) -> Option<gdk::GLContext>;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_get_error")]
     fn get_error(&self) -> Option<glib::Error>;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_get_has_alpha")]
     fn get_has_alpha(&self) -> bool;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_get_has_depth_buffer")]
     fn get_has_depth_buffer(&self) -> bool;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_get_has_stencil_buffer")]
     fn get_has_stencil_buffer(&self) -> bool;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_get_required_version")]
     fn get_required_version(&self) -> (i32, i32);
 
@@ -483,43 +453,27 @@ pub trait GLAreaExt: 'static {
     #[doc(alias = "gtk_gl_area_get_use_es")]
     fn get_use_es(&self) -> bool;
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_make_current")]
     fn make_current(&self);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_queue_render")]
     fn queue_render(&self);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_set_auto_render")]
     fn set_auto_render(&self, auto_render: bool);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_set_error")]
     fn set_error(&self, error: Option<&glib::Error>);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_set_has_alpha")]
     fn set_has_alpha(&self, has_alpha: bool);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_set_has_depth_buffer")]
     fn set_has_depth_buffer(&self, has_depth_buffer: bool);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_set_has_stencil_buffer")]
     fn set_has_stencil_buffer(&self, has_stencil_buffer: bool);
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_gl_area_set_required_version")]
     fn set_required_version(&self, major: i32, minor: i32);
 
@@ -578,16 +532,12 @@ pub trait GLAreaExt: 'static {
 }
 
 impl<O: IsA<GLArea>> GLAreaExt for O {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn attach_buffers(&self) {
         unsafe {
             ffi::gtk_gl_area_attach_buffers(self.as_ref().to_glib_none().0);
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_auto_render(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_gl_area_get_auto_render(
@@ -596,20 +546,14 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_context(&self) -> Option<gdk::GLContext> {
         unsafe { from_glib_none(ffi::gtk_gl_area_get_context(self.as_ref().to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_error(&self) -> Option<glib::Error> {
         unsafe { from_glib_none(ffi::gtk_gl_area_get_error(self.as_ref().to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_has_alpha(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_gl_area_get_has_alpha(
@@ -618,8 +562,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_has_depth_buffer(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_gl_area_get_has_depth_buffer(
@@ -628,8 +570,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_has_stencil_buffer(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_gl_area_get_has_stencil_buffer(
@@ -638,8 +578,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn get_required_version(&self) -> (i32, i32) {
         unsafe {
             let mut major = mem::MaybeUninit::uninit();
@@ -661,48 +599,36 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         unsafe { from_glib(ffi::gtk_gl_area_get_use_es(self.as_ref().to_glib_none().0)) }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn make_current(&self) {
         unsafe {
             ffi::gtk_gl_area_make_current(self.as_ref().to_glib_none().0);
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn queue_render(&self) {
         unsafe {
             ffi::gtk_gl_area_queue_render(self.as_ref().to_glib_none().0);
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_auto_render(&self, auto_render: bool) {
         unsafe {
             ffi::gtk_gl_area_set_auto_render(self.as_ref().to_glib_none().0, auto_render.to_glib());
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_error(&self, error: Option<&glib::Error>) {
         unsafe {
             ffi::gtk_gl_area_set_error(self.as_ref().to_glib_none().0, error.to_glib_none().0);
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_has_alpha(&self, has_alpha: bool) {
         unsafe {
             ffi::gtk_gl_area_set_has_alpha(self.as_ref().to_glib_none().0, has_alpha.to_glib());
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_has_depth_buffer(&self, has_depth_buffer: bool) {
         unsafe {
             ffi::gtk_gl_area_set_has_depth_buffer(
@@ -712,8 +638,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_has_stencil_buffer(&self, has_stencil_buffer: bool) {
         unsafe {
             ffi::gtk_gl_area_set_has_stencil_buffer(
@@ -723,8 +647,6 @@ impl<O: IsA<GLArea>> GLAreaExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     fn set_required_version(&self, major: i32, minor: i32) {
         unsafe {
             ffi::gtk_gl_area_set_required_version(self.as_ref().to_glib_none().0, major, minor);

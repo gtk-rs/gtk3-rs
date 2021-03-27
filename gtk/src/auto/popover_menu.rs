@@ -34,16 +34,12 @@ glib::wrapper! {
 }
 
 impl PopoverMenu {
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_popover_menu_new")]
     pub fn new() -> PopoverMenu {
         assert_initialized_main_thread!();
         unsafe { Widget::from_glib_none(ffi::gtk_popover_menu_new()).unsafe_cast() }
     }
 
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_16")))]
     #[doc(alias = "gtk_popover_menu_open_submenu")]
     pub fn open_submenu(&self, name: &str) {
         unsafe {

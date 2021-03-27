@@ -13,26 +13,14 @@ use crate::ResizeMode;
 use crate::Widget;
 use glib::object::Cast;
 use glib::object::IsA;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use glib::object::ObjectType as ObjectType_;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use glib::signal::connect_raw;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use glib::signal::SignalHandlerId;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use glib::translate::*;
 use glib::StaticType;
 use glib::ToValue;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use std::boxed::Box as Box_;
 use std::fmt;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
 use std::mem::transmute;
 
 glib::wrapper! {
@@ -44,8 +32,6 @@ glib::wrapper! {
 }
 
 impl ShortcutLabel {
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_shortcut_label_new")]
     pub fn new(accelerator: &str) -> ShortcutLabel {
         assert_initialized_main_thread!();
@@ -55,8 +41,6 @@ impl ShortcutLabel {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_shortcut_label_get_accelerator")]
     pub fn get_accelerator(&self) -> Option<glib::GString> {
         unsafe {
@@ -66,8 +50,6 @@ impl ShortcutLabel {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_shortcut_label_get_disabled_text")]
     pub fn get_disabled_text(&self) -> Option<glib::GString> {
         unsafe {
@@ -77,8 +59,6 @@ impl ShortcutLabel {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_shortcut_label_set_accelerator")]
     pub fn set_accelerator(&self, accelerator: &str) {
         unsafe {
@@ -89,8 +69,6 @@ impl ShortcutLabel {
         }
     }
 
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_shortcut_label_set_disabled_text")]
     pub fn set_disabled_text(&self, disabled_text: &str) {
         unsafe {

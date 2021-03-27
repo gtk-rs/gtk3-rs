@@ -321,6 +321,7 @@ impl_eq!(&'a VariantTy, Cow<'b, VariantTy>);
 
 macro_rules! impl_str_eq {
     ($lhs:ty, $rhs: ty) => {
+        #[allow(clippy::redundant_slicing)]
         impl<'a, 'b> PartialEq<$rhs> for $lhs {
             #[inline]
             fn eq(&self, other: &$rhs) -> bool {

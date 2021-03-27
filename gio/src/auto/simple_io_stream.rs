@@ -3,20 +3,10 @@
 // DO NOT EDIT
 
 use crate::IOStream;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use crate::InputStream;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use crate::OutputStream;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::object::Cast;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::object::IsA;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 use glib::translate::*;
 use std::fmt;
 
@@ -29,8 +19,6 @@ glib::wrapper! {
 }
 
 impl SimpleIOStream {
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
     #[doc(alias = "g_simple_io_stream_new")]
     pub fn new<P: IsA<InputStream>, Q: IsA<OutputStream>>(
         input_stream: &P,
