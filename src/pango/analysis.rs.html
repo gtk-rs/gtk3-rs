@@ -87,9 +87,11 @@
 <span id="84">84</span>
 <span id="85">85</span>
 <span id="86">86</span>
+<span id="87">87</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Attribute</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">EngineLang</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">EngineShape</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">Font</span>;
@@ -134,9 +136,9 @@
         <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">language</span>) }
     }
 
-    <span class="comment">/*pub fn extra_attrs(&amp;self) -&gt; Vec&lt;LogAttr&gt; {
-        unsafe { from_glib_none_num_as_vec(self.0.extra_attrs) }
-    }*/</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">extra_attrs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Attribute</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> { <span class="ident">FromGlibPtrContainer</span>::<span class="ident">from_glib_none</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">extra_attrs</span>) }
+    }
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
