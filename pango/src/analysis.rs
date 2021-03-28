@@ -1,5 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use crate::Attribute;
 use crate::EngineLang;
 use crate::EngineShape;
 use crate::Font;
@@ -44,9 +45,9 @@ impl Analysis {
         unsafe { from_glib_none(self.0.language) }
     }
 
-    /*pub fn extra_attrs(&self) -> Vec<LogAttr> {
-        unsafe { from_glib_none_num_as_vec(self.0.extra_attrs) }
-    }*/
+    pub fn extra_attrs(&self) -> Vec<Attribute> {
+        unsafe { FromGlibPtrContainer::from_glib_none(self.0.extra_attrs) }
+    }
 }
 
 #[doc(hidden)]
