@@ -99,7 +99,7 @@ pub use crate::atom::TARGET_DRAWABLE;
 pub use crate::atom::TARGET_PIXMAP;
 pub use crate::atom::TARGET_STRING;
 pub use crate::change_data::ChangeData;
-pub use crate::event::Event;
+pub use crate::event::{Event, FromEvent};
 pub use crate::event_button::EventButton;
 pub use crate::event_configure::EventConfigure;
 pub use crate::event_crossing::EventCrossing;
