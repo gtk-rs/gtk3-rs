@@ -91,16 +91,12 @@ your closure called. In this case, you need to use <code>@weak-allow-none</code>
 
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">closure</span>(<span class="number">2</span>), <span class="bool-val">false</span>);</pre></div>
 <p>Or by using <code>@default-panic</code> (if the value fails to get upgraded, it’ll panic):</p>
-<pre><code class="language-run_fail"># use glib_macros::clone;
-# use std::rc::Rc;
-# let v = Rc::new(1);
-let closure = clone!(@weak v =&gt; @default-panic, move |x| {
-    println!(&quot;v: {}, x: {}&quot;, v, x);
-    true
-});
-# drop(v);
-# assert_eq!(closure(2), false);
-</code></pre>
+
+<div class='information'><div class='tooltip should_panic'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered should_panic">
+<span class="kw">let</span> <span class="ident">closure</span> <span class="op">=</span> <span class="macro">clone</span><span class="macro">!</span>(@<span class="ident">weak</span> <span class="ident">v</span> <span class="op">=</span><span class="op">&gt;</span> @<span class="ident">default</span><span class="op">-</span><span class="ident">panic</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">x</span><span class="op">|</span> {
+    <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;v: {}, x: {}&quot;</span>, <span class="ident">v</span>, <span class="ident">x</span>);
+    <span class="bool-val">true</span>
+});</pre></div>
 <h3 id="errors" class="section-header"><a href="#errors">Errors</a></h3>
 <p>Here is a list of errors you might encounter:</p>
 <p><strong>Missing <code>@weak</code> or <code>@strong</code></strong>:</p>
