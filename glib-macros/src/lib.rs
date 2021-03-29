@@ -136,7 +136,7 @@ use syn::{parse_macro_input, DeriveInput, LitStr};
 ///
 /// Or by using `@default-panic` (if the value fails to get upgraded, it'll panic):
 ///
-/// ```run_fail
+/// ```should_panic
 /// # use glib_macros::clone;
 /// # use std::rc::Rc;
 /// # let v = Rc::new(1);
