@@ -4,6 +4,6 @@ This example reads our `Cargo.toml` by executing GIO futures.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin gio_futures
 ```

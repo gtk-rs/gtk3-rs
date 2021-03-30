@@ -4,7 +4,7 @@ This example demonstrates how to use the builder with an imported ui file.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin gtk_builder_basics
 ```
 

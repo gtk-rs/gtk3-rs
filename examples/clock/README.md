@@ -5,7 +5,7 @@ a periodic task, implementing a clock in this example.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin clock
 ```
 

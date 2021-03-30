@@ -4,7 +4,7 @@ This example demonstrates how to use list store by showing (fake) bug data.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin list_store
 ```
 

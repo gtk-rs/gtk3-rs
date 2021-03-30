@@ -4,7 +4,7 @@ This example demonstrates how to handle signals in builder.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin gtk_builder_signal
 ```
 

@@ -4,7 +4,7 @@ Displays a list of filenames when they're dropped on the textview widget.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin drag_drop_text_view
 ```
 

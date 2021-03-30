@@ -7,7 +7,7 @@ structs.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin basic_subclass
 ```
 

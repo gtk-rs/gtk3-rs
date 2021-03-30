@@ -4,7 +4,7 @@ Simple drag and drop example.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin drag_drop
 ```
 

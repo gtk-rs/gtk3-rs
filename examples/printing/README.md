@@ -6,7 +6,7 @@ the other.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin printing --features="pangocairo"
 ```
 

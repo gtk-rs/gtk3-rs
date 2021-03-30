@@ -4,7 +4,7 @@ This example shows the usage of various widgets within a single window.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin gtk_test
 ```
 

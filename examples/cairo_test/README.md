@@ -4,7 +4,7 @@ This example demonstrates how to draw images only with cairo and code.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin cairo_test
 ```
 

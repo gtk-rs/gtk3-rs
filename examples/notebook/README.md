@@ -4,7 +4,7 @@ This example shows how to use `gtk::Notebook`.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin notebook
 ```
 

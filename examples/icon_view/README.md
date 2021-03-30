@@ -15,7 +15,7 @@ install gtk3-icon-browser: https://developer.gnome.org/gtk3/stable/gtk3-icon-bro
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin icon_view
 ```
 

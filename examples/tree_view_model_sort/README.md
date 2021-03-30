@@ -4,7 +4,7 @@ This example demonstrates how to use the `TreeModelSort` widget.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin tree_view_model_sort
 ```
 

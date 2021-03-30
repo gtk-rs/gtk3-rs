@@ -4,7 +4,7 @@ This example demonstrates how to use CSS with gtk-rs.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin css
 ```
 

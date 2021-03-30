@@ -6,6 +6,6 @@ This can be useful, for example, when porting to Rust some existing C code expos
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin gio_futures_await
 ```

@@ -5,7 +5,7 @@ over the `gtk::MenuBar` since it adapts to the targeted system.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin menu_bar_system
 ```
 

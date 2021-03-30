@@ -12,7 +12,7 @@ In addition, it is possible to add new rows and delete old ones.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin list_box_model --features="gtk/v3_16"
 ```
 

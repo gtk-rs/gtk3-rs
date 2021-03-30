@@ -4,7 +4,7 @@ A simple text file viewer
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin text_viewer
 ```
 
