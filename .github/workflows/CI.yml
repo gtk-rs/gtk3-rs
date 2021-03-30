@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:40'
+      options: --privileged
     strategy:
       matrix:
         rust:
@@ -113,6 +114,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:40'
+      options: --privileged
     strategy:
       matrix:
         rust:
