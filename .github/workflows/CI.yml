@@ -10,7 +10,7 @@ jobs:
     name: ${{matrix.conf.name}} (rust ${{matrix.rust}})
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/gtk-rs/gtk-rs/gtk:latest
+      image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:40'
     strategy:
       matrix:
         rust:
@@ -112,7 +112,7 @@ jobs:
   build-others:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/gtk-rs/gtk-rs/gtk:latest
+      image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:40'
     strategy:
       matrix:
         rust:
