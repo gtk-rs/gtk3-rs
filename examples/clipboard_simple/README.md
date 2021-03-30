@@ -4,7 +4,7 @@ A simple clipboard example.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin clipboard_simple
 ```
 

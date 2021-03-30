@@ -4,7 +4,7 @@ This example demonstrates how to use various attributes the text of a `label`.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin pango_attributes
 ```
 

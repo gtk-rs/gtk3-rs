@@ -4,7 +4,7 @@ Demonstrates how to arrange widgets in a grid.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin grid
 ```
 

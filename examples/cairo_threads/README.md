@@ -4,7 +4,7 @@ This example runs four worker threads rendering parts of the image independently
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin cairo_threads
 ```
 

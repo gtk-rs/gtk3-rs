@@ -5,7 +5,7 @@ This is different from the system menu bar (which are preferred) available in `g
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin menu_bar
 ```
 

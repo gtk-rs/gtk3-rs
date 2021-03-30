@@ -5,7 +5,7 @@ spin button and a horizontal scale will get interlocked.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin sync_widget
 ```
 

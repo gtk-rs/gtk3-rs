@@ -6,6 +6,6 @@ Analog of C# example http://www.mgsloan.com/cairo_tut/stroke.cs
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin cairo_png --features="cairo"
 ```

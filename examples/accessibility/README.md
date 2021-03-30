@@ -4,7 +4,7 @@ This example demonstrates how to make an application more accessible.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin accessibility
 ```
 

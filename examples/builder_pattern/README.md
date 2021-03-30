@@ -6,7 +6,7 @@ properties when creating the widget.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin builder_pattern
 ```
 

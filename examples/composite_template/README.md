@@ -4,7 +4,7 @@ This example demonstrates how to create a widget using GTK's composite templates
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin composite_template
 ```
 

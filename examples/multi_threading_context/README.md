@@ -4,7 +4,7 @@ This example shows how to deal with multi-threaded situations by sending message
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin multi_threading_context
 ```
 

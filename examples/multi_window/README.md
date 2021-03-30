@@ -4,7 +4,7 @@ This example shows how to create multiple windows.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin multi_window
 ```
 

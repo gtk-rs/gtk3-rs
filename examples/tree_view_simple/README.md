@@ -4,7 +4,7 @@ This example demonstrates how to create a TreeView with a ListStore.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin tree_view_simple
 ```
 

@@ -5,7 +5,7 @@ to autocomplete a field as the user types in something.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin entry_completions
 ```
 

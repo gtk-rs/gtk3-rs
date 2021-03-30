@@ -4,7 +4,7 @@ This example demonstrates how to set child properties.
 
 Run it by executing:
 
-```console
+```bash
 cargo run --bin child_properties
 ```
 
