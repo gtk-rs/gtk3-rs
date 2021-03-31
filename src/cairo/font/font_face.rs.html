@@ -182,14 +182,6 @@
 <span id="179">179</span>
 <span id="180">180</span>
 <span id="181">181</span>
-<span id="182">182</span>
-<span id="183">183</span>
-<span id="184">184</span>
-<span id="185">185</span>
-<span id="186">186</span>
-<span id="187">187</span>
-<span id="188">188</span>
-<span id="189">189</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -219,14 +211,6 @@
     }
 }
 
-<span class="doccomment">/// The `FontFace` structure is used to represent a group of fonts with</span>
-<span class="doccomment">/// the same family, slant, weight, width, but varying sizes.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// This is an Abstract Base Class, you cannot instantiate it.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// # Implements</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [`FontFaceExt`](trait.FontFaceExt.html)</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_glib&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FontFace</span>(<span class="ident">ptr</span>::<span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">cairo_font_face_t</span><span class="op">&gt;</span>);

@@ -43,12 +43,6 @@
 <span id="40">40</span>
 <span id="41">41</span>
 <span id="42">42</span>
-<span id="43">43</span>
-<span id="44">44</span>
-<span id="45">45</span>
-<span id="46">46</span>
-<span id="47">47</span>
-<span id="48">48</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -56,12 +50,6 @@
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">GString</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 
-<span class="doccomment">/// The `Attribute` structure represents the common portions of all</span>
-<span class="doccomment">/// attributes. Particular types of attributes include this structure</span>
-<span class="doccomment">/// as their initial portion. The common portion of the attribute holds</span>
-<span class="doccomment">/// the range to which the value in the type-specific part of the attribute</span>
-<span class="doccomment">/// applies and should be initialized using `Attribute::init`.</span>
-<span class="doccomment">/// By default an attribute will have an all-inclusive range of [0,`G_MAXUINT`].</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Attribute</span> {
     <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">GString</span>,
     <span class="kw">pub</span> <span class="ident">value</span>: <span class="ident">GString</span>,

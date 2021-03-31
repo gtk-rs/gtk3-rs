@@ -159,6 +159,8 @@
 <span id="156">156</span>
 <span id="157">157</span>
 <span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -170,6 +172,8 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v1_44&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dox&quot;</span>))]</span>
 <span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
+    <span class="doccomment">/// The `Coverage` structure represents a map from Unicode characters</span>
+    <span class="doccomment">/// to `CoverageLevel`. It is an opaque structure with no public fields.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Coverage</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">PangoCoverage</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {

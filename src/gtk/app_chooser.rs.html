@@ -65,6 +65,27 @@
 <span id="62">62</span>
 <span id="63">63</span>
 <span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -74,6 +95,27 @@
 <span class="kw">use</span> <span class="ident">glib</span>::<span class="ident">translate</span>::<span class="kw-2">*</span>;
 
 <span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
+    <span class="doccomment">/// `AppChooser` is an interface that can be implemented by widgets which</span>
+    <span class="doccomment">/// allow the user to choose an application (typically for the purpose of</span>
+    <span class="doccomment">/// opening a file). The main objects that implement this interface are</span>
+    <span class="doccomment">/// `AppChooserWidget`, `AppChooserDialog` and `AppChooserButton`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Applications are represented by GIO `gio::AppInfo` objects here.</span>
+    <span class="doccomment">/// GIO has a concept of recommended and fallback applications for a</span>
+    <span class="doccomment">/// given content type. Recommended applications are those that claim</span>
+    <span class="doccomment">/// to handle the content type itself, while fallback also includes</span>
+    <span class="doccomment">/// applications that handle a more generic content type. GIO also</span>
+    <span class="doccomment">/// knows the default and last-used application for a given content</span>
+    <span class="doccomment">/// type. The `AppChooserWidget` provides detailed control over</span>
+    <span class="doccomment">/// whether the shown list of applications should include default,</span>
+    <span class="doccomment">/// recommended or fallback applications.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// To obtain the application that has been selected in a `AppChooser`,</span>
+    <span class="doccomment">/// use `AppChooser::get_app_info`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Implements</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`AppChooserExt`](trait.AppChooserExt.html), [`WidgetExt`](trait.WidgetExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html), [`BuildableExt`](trait.BuildableExt.html), [`WidgetExtManual`](prelude/trait.WidgetExtManual.html), [`BuildableExtManual`](prelude/trait.BuildableExtManual.html)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AppChooser</span>(<span class="ident">Interface</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkAppChooser</span><span class="op">&gt;</span>) @<span class="ident">requires</span> <span class="ident">Widget</span>;
 
     <span class="kw">match</span> <span class="kw">fn</span> {

@@ -181,132 +181,15 @@
 <span id="178">178</span>
 <span id="179">179</span>
 <span id="180">180</span>
-<span id="181">181</span>
-<span id="182">182</span>
-<span id="183">183</span>
-<span id="184">184</span>
-<span id="185">185</span>
-<span id="186">186</span>
-<span id="187">187</span>
-<span id="188">188</span>
-<span id="189">189</span>
-<span id="190">190</span>
-<span id="191">191</span>
-<span id="192">192</span>
-<span id="193">193</span>
-<span id="194">194</span>
-<span id="195">195</span>
-<span id="196">196</span>
-<span id="197">197</span>
-<span id="198">198</span>
-<span id="199">199</span>
-<span id="200">200</span>
-<span id="201">201</span>
-<span id="202">202</span>
-<span id="203">203</span>
-<span id="204">204</span>
-<span id="205">205</span>
-<span id="206">206</span>
-<span id="207">207</span>
-<span id="208">208</span>
-<span id="209">209</span>
-<span id="210">210</span>
-<span id="211">211</span>
-<span id="212">212</span>
-<span id="213">213</span>
-<span id="214">214</span>
-<span id="215">215</span>
-<span id="216">216</span>
-<span id="217">217</span>
-<span id="218">218</span>
-<span id="219">219</span>
-<span id="220">220</span>
-<span id="221">221</span>
-<span id="222">222</span>
-<span id="223">223</span>
-<span id="224">224</span>
-<span id="225">225</span>
-<span id="226">226</span>
-<span id="227">227</span>
-<span id="228">228</span>
-<span id="229">229</span>
-<span id="230">230</span>
-<span id="231">231</span>
-<span id="232">232</span>
-<span id="233">233</span>
-<span id="234">234</span>
-<span id="235">235</span>
-<span id="236">236</span>
-<span id="237">237</span>
-<span id="238">238</span>
-<span id="239">239</span>
-<span id="240">240</span>
-<span id="241">241</span>
-<span id="242">242</span>
-<span id="243">243</span>
-<span id="244">244</span>
-<span id="245">245</span>
-<span id="246">246</span>
-<span id="247">247</span>
-<span id="248">248</span>
-<span id="249">249</span>
-<span id="250">250</span>
-<span id="251">251</span>
-<span id="252">252</span>
-<span id="253">253</span>
-<span id="254">254</span>
-<span id="255">255</span>
-<span id="256">256</span>
-<span id="257">257</span>
-<span id="258">258</span>
-<span id="259">259</span>
-<span id="260">260</span>
-<span id="261">261</span>
-<span id="262">262</span>
-<span id="263">263</span>
-<span id="264">264</span>
-<span id="265">265</span>
-<span id="266">266</span>
-<span id="267">267</span>
-<span id="268">268</span>
-<span id="269">269</span>
-<span id="270">270</span>
-<span id="271">271</span>
-<span id="272">272</span>
-<span id="273">273</span>
-<span id="274">274</span>
-<span id="275">275</span>
-<span id="276">276</span>
-<span id="277">277</span>
-<span id="278">278</span>
-<span id="279">279</span>
-<span id="280">280</span>
-<span id="281">281</span>
-<span id="282">282</span>
-<span id="283">283</span>
-<span id="284">284</span>
-<span id="285">285</span>
-<span id="286">286</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
+
+<span class="doccomment">//! Generic matrix operations</span>
 
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">utils</span>::<span class="ident">status_to_result</span>;
 <span class="kw">use</span> <span class="ident">libc</span>::<span class="ident">c_double</span>;
 
-<span class="doccomment">/// A structure capable of holding a 4x4 matrix.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// The contents of the `Matrix` structure are private and</span>
-<span class="doccomment">/// should never be accessed directly.</span>
-<span class="comment">// rustdoc-stripper-ignore-next-stop</span>
-<span class="doccomment">/// A structure specifying a transformation between user-space</span>
-<span class="doccomment">/// coordinates and device coordinates. The transformation</span>
-<span class="doccomment">/// is given by</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// `&lt;programlisting&gt;`</span>
-<span class="doccomment">/// x_device = x_user * matrix-&gt;xx + y_user * matrix-&gt;xy + matrix-&gt;x0;</span>
-<span class="doccomment">/// y_device = x_user * matrix-&gt;yx + y_user * matrix-&gt;yy + matrix-&gt;y0;</span>
-<span class="doccomment">/// `&lt;/programlisting&gt;`</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Matrix</span> {
@@ -368,15 +251,6 @@
         }
     }
 
-    <span class="doccomment">/// Multiplies two `Matrix`.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Matrix multiplication is not commutative in general; the order of the factors matters.</span>
-    <span class="doccomment">/// The product of this multiplication is (`self` × `b`)</span>
-    <span class="doccomment">/// ## `b`</span>
-    <span class="doccomment">/// a `Matrix`</span>
-    <span class="doccomment">/// ## `res`</span>
-    <span class="doccomment">/// return location for the matrix</span>
-    <span class="doccomment">///  result</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_multiply&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">multiply</span>(<span class="ident">left</span>: <span class="kw-2">&amp;</span><span class="ident">Matrix</span>, <span class="ident">right</span>: <span class="kw-2">&amp;</span><span class="ident">Matrix</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">matrix</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">null</span>();
@@ -386,66 +260,16 @@
         <span class="ident">matrix</span>
     }
 
-    <span class="doccomment">/// Adds a translation transformation to `self` using the coordinates</span>
-    <span class="doccomment">/// of the given `Point3D`.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This is the equivalent of calling `Matrix::init_translate` and</span>
-    <span class="doccomment">/// then multiplying `self` with the translation matrix.</span>
-    <span class="doccomment">/// ## `pos`</span>
-    <span class="doccomment">/// a `Point3D`</span>
-    <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
-    <span class="doccomment">/// Changes the transformation represented by `self` to be the</span>
-    <span class="doccomment">/// transformation given by first translating by (`tx`, `ty`)</span>
-    <span class="doccomment">/// then applying the original transformation.</span>
-    <span class="doccomment">/// ## `tx`</span>
-    <span class="doccomment">/// amount to translate in the X direction</span>
-    <span class="doccomment">/// ## `ty`</span>
-    <span class="doccomment">/// amount to translate in the Y direction</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_translate&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">translate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tx</span>: <span class="ident">f64</span>, <span class="ident">ty</span>: <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_matrix_translate</span>(<span class="self">self</span>.<span class="ident">mut_ptr</span>(), <span class="ident">tx</span>, <span class="ident">ty</span>) }
     }
 
-    <span class="doccomment">/// Adds a scaling transformation to `self`, using the three</span>
-    <span class="doccomment">/// given factors.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This is the equivalent of calling `Matrix::init_scale` and then</span>
-    <span class="doccomment">/// multiplying the matrix `self` with the scale matrix.</span>
-    <span class="doccomment">/// ## `factor_x`</span>
-    <span class="doccomment">/// scaling factor on the X axis</span>
-    <span class="doccomment">/// ## `factor_y`</span>
-    <span class="doccomment">/// scaling factor on the Y axis</span>
-    <span class="doccomment">/// ## `factor_z`</span>
-    <span class="doccomment">/// scaling factor on the Z axis</span>
-    <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
-    <span class="doccomment">/// Changes the transformation represented by `self` to be the</span>
-    <span class="doccomment">/// transformation given by first scaling by `sx` in the X direction</span>
-    <span class="doccomment">/// and `sy` in the Y direction then applying the original</span>
-    <span class="doccomment">/// transformation.</span>
-    <span class="doccomment">/// ## `scale_x`</span>
-    <span class="doccomment">/// amount to scale by in X direction</span>
-    <span class="doccomment">/// ## `scale_y`</span>
-    <span class="doccomment">/// amount to scale by in Y direction</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_scale&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">scale</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">sx</span>: <span class="ident">f64</span>, <span class="ident">sy</span>: <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_matrix_scale</span>(<span class="self">self</span>.<span class="ident">mut_ptr</span>(), <span class="ident">sx</span>, <span class="ident">sy</span>) }
     }
 
-    <span class="doccomment">/// Adds a rotation transformation to `self`, using the given `angle`</span>
-    <span class="doccomment">/// and `axis` vector.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This is the equivalent of calling `Matrix::init_rotate` and</span>
-    <span class="doccomment">/// then multiplying the matrix `self` with the rotation matrix.</span>
-    <span class="doccomment">/// ## `angle`</span>
-    <span class="doccomment">/// the rotation angle, in degrees</span>
-    <span class="doccomment">/// ## `axis`</span>
-    <span class="doccomment">/// the rotation axis, as a `Vec3`</span>
-    <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
-    <span class="doccomment">/// Changes the transformation represented by `self` to be the</span>
-    <span class="doccomment">/// transformation given by first rotating by `degrees` degrees</span>
-    <span class="doccomment">/// counter-clockwise then applying the original transformation.</span>
-    <span class="doccomment">/// ## `degrees`</span>
-    <span class="doccomment">/// degrees to rotate counter-clockwise</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_rotate&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rotate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">angle</span>: <span class="ident">f64</span>) {
         <span class="kw">unsafe</span> { <span class="ident">ffi</span>::<span class="ident">cairo_matrix_rotate</span>(<span class="self">self</span>.<span class="ident">mut_ptr</span>(), <span class="ident">angle</span>) }
@@ -466,24 +290,6 @@
         <span class="prelude-val">Ok</span>(<span class="ident">matrix</span>)
     }
 
-    <span class="doccomment">/// Transforms the distance vector (`dx`,`dy`) by `self`. This is</span>
-    <span class="doccomment">/// similar to `Matrix::transform_point` except that the translation</span>
-    <span class="doccomment">/// components of the transformation are ignored. The calculation of</span>
-    <span class="doccomment">/// the returned vector is as follows:</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// `&lt;programlisting&gt;`</span>
-    <span class="doccomment">/// dx2 = dx1 * xx + dy1 * xy;</span>
-    <span class="doccomment">/// dy2 = dx1 * yx + dy1 * yy;</span>
-    <span class="doccomment">/// `&lt;/programlisting&gt;`</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Affine transformations are position invariant, so the same vector</span>
-    <span class="doccomment">/// always transforms to the same vector. If (`x1`,`y1`) transforms</span>
-    <span class="doccomment">/// to (`x2`,`y2`) then (`x1`+`dx1`,`y1`+`dy1`) will transform to</span>
-    <span class="doccomment">/// (`x1`+`dx2`,`y1`+`dy2`) for all values of `x1` and `x2`.</span>
-    <span class="doccomment">/// ## `dx`</span>
-    <span class="doccomment">/// in/out X component of a distance vector</span>
-    <span class="doccomment">/// ## `dy`</span>
-    <span class="doccomment">/// in/out Y component of a distance vector</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_transform_distance&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transform_distance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_dx</span>: <span class="ident">f64</span>, <span class="ident">_dy</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>) {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">dx</span> <span class="op">=</span> <span class="ident">_dx</span>;
@@ -495,24 +301,6 @@
         (<span class="ident">dx</span>, <span class="ident">dy</span>)
     }
 
-    <span class="doccomment">/// Transforms the given `Point` using the matrix `self`.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Unlike `Matrix::transform_vec3`, this function will take into</span>
-    <span class="doccomment">/// account the fourth row vector of the `Matrix` when computing</span>
-    <span class="doccomment">/// the dot product of each row vector of the matrix.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// See also: `graphene_simd4x4f_point3_mul`</span>
-    <span class="doccomment">/// ## `p`</span>
-    <span class="doccomment">/// a `Point`</span>
-    <span class="doccomment">/// ## `res`</span>
-    <span class="doccomment">/// return location for the</span>
-    <span class="doccomment">///  transformed `Point`</span>
-    <span class="comment">// rustdoc-stripper-ignore-next-stop</span>
-    <span class="doccomment">/// Transforms the point (`x`, `y`) by `self`.</span>
-    <span class="doccomment">/// ## `x`</span>
-    <span class="doccomment">/// in/out X position</span>
-    <span class="doccomment">/// ## `y`</span>
-    <span class="doccomment">/// in/out Y position</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;cairo_matrix_transform_point&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transform_point</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_x</span>: <span class="ident">f64</span>, <span class="ident">_y</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">f64</span>, <span class="ident">f64</span>) {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">_x</span>;

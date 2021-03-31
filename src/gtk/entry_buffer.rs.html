@@ -104,6 +104,21 @@
 <span id="101">101</span>
 <span id="102">102</span>
 <span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -111,6 +126,21 @@
 <span class="kw">use</span> <span class="ident">libc</span>::{<span class="ident">c_int</span>, <span class="ident">c_uint</span>};
 
 <span class="ident">glib</span>::<span class="macro">wrapper</span><span class="macro">!</span> {
+    <span class="doccomment">/// The `EntryBuffer` class contains the actual text displayed in a</span>
+    <span class="doccomment">/// `Entry` widget.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// A single `EntryBuffer` object can be shared by multiple `Entry`</span>
+    <span class="doccomment">/// widgets which will then share the same text content, but not the cursor</span>
+    <span class="doccomment">/// position, visibility attributes, icon etc.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// `EntryBuffer` may be derived from. Such a derived class might allow</span>
+    <span class="doccomment">/// text to be stored in an alternate location, such as non-pageable memory,</span>
+    <span class="doccomment">/// useful in the case of important passwords. Or a derived class could</span>
+    <span class="doccomment">/// integrate with an application’s concept of undo/redo.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Implements</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`EntryBufferExt`](trait.EntryBufferExt.html), [`glib::object::ObjectExt`](../glib/object/trait.ObjectExt.html)</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EntryBuffer</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi</span>::<span class="ident">GtkEntryBuffer</span>, <span class="ident">ffi</span>::<span class="ident">GtkEntryBufferClass</span><span class="op">&gt;</span>);
 
     <span class="kw">match</span> <span class="kw">fn</span> {

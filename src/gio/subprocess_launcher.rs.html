@@ -150,16 +150,16 @@
 
 <span class="kw">impl</span> <span class="ident">SubprocessLauncher</span> {
     <span class="doccomment">/// Transfer an arbitrary file descriptor from parent process to the</span>
-    <span class="doccomment">/// child. This function takes ownership of the `source_fd`; it will be closed</span>
+    <span class="doccomment">/// child. This function takes &quot;ownership&quot; of the fd; it will be closed</span>
     <span class="doccomment">/// in the parent when `self` is freed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// By default, all file descriptors from the parent will be closed.</span>
-    <span class="doccomment">/// This function allows you to create (for example) a custom `pipe()` or</span>
-    <span class="doccomment">/// `socketpair()` before launching the process, and choose the target</span>
+    <span class="doccomment">/// This function allows you to create (for example) a custom `pipe` or</span>
+    <span class="doccomment">/// `socketpair` before launching the process, and choose the target</span>
     <span class="doccomment">/// descriptor in the child.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// An example use case is GNUPG, which has a command line argument</span>
-    <span class="doccomment">/// `--passphrase-fd` providing a file descriptor number where it expects</span>
+    <span class="doccomment">/// --passphrase-fd providing a file descriptor number where it expects</span>
     <span class="doccomment">/// the passphrase to be written.</span>
     <span class="doccomment">/// ## `source_fd`</span>
     <span class="doccomment">/// File descriptor in parent process</span>
