@@ -1,9 +1,13 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::AttrClass;
+use crate::AttrType;
 use crate::Attribute;
+use crate::Color;
+use crate::FontDescription;
 use crate::Gravity;
 use crate::GravityHint;
+use crate::Language;
 #[cfg(any(feature = "v1_46", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_46")))]
 use crate::Overline;
@@ -199,5 +203,201 @@ impl Attribute {
             let stash = self.to_glib_none_mut();
             (*stash.0).end_index = index;
         }
+    }
+
+    pub fn downcast<T: IsAttribute>(self) -> Result<T, Attribute> {
+        unsafe {
+            if T::ATTR_TYPES.contains(&self.get_attr_class().type_()) {
+                Ok(from_glib_full(self.to_glib_full()))
+            } else {
+                Err(self)
+            }
+        }
+    }
+
+    pub fn downcast_ref<T: IsAttribute>(&self) -> Option<&T> {
+        unsafe {
+            if T::ATTR_TYPES.contains(&self.get_attr_class().type_()) {
+                Some(&*(self as *const Attribute as *const T))
+            } else {
+                None
+            }
+        }
+    }
+}
+
+pub trait IsAttribute:
+    FromGlibPtrFull<*const ffi::PangoAttribute>
+    + FromGlibPtrFull<*mut ffi::PangoAttribute>
+    + std::convert::AsRef<crate::Attribute>
+    + 'static
+{
+    const ATTR_TYPES: &'static [AttrType];
+    fn upcast(self) -> Attribute;
+    fn upcast_ref(&self) -> &Attribute;
+}
+
+macro_rules! define_attribute_struct {
+    ($rust_type:ident, $ffi_type:path, $attr_types:expr) => {
+
+        #[cfg(any(feature = "v1_44", feature = "dox"))]
+        #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
+        glib::wrapper! {
+            #[derive(Debug, PartialOrd, Ord, Hash)]
+            pub struct $rust_type(Boxed<$ffi_type>);
+
+            match fn {
+                copy => |ptr| ffi::pango_attribute_copy(ptr as *const ffi::PangoAttribute) as *mut $ffi_type,
+                free => |ptr| ffi::pango_attribute_destroy(ptr as *mut ffi::PangoAttribute),
+                get_type => || ffi::pango_attribute_get_type(),
+            }
+        }
+
+        #[cfg(not(any(feature = "v1_44", feature = "dox")))]
+        glib::wrapper! {
+            #[derive(Debug, PartialOrd, Ord, Hash)]
+            pub struct $rust_type(Boxed<$ffi_type>);
+
+            match fn {
+                copy => |ptr| ffi::pango_attribute_copy(ptr as *const ffi::PangoAttribute) as *mut $ffi_type,
+                free => |ptr| ffi::pango_attribute_destroy(ptr as *mut ffi::PangoAttribute),
+            }
+        }
+
+        impl $rust_type {
+            #[doc(alias = "pango_attribute_equal")]
+            fn equal(&self, attr2: &$rust_type) -> bool {
+                unsafe {
+                    from_glib(ffi::pango_attribute_equal(
+                        self.to_glib_none().0 as *const ffi::PangoAttribute,
+                        attr2.to_glib_none().0 as *const ffi::PangoAttribute,
+                    ))
+                }
+            }
+        }
+
+        impl PartialEq for $rust_type {
+            #[inline]
+            fn eq(&self, other: &Self) -> bool {
+                self.equal(other)
+            }
+        }
+
+        impl Eq for $rust_type {}
+
+        impl IsAttribute for $rust_type {
+            const ATTR_TYPES: &'static [AttrType] = $attr_types;
+
+            fn upcast(self) -> crate::Attribute {
+                unsafe { from_glib_full(self.to_glib_full() as *mut ffi::PangoAttribute) }
+            }
+
+            fn upcast_ref(&self) -> &crate::Attribute {
+                &*self
+            }
+        }
+
+        #[doc(hidden)]
+        impl FromGlibPtrFull<*mut ffi::PangoAttribute> for $rust_type {
+            unsafe fn from_glib_full(ptr: *mut ffi::PangoAttribute) -> Self {
+                from_glib_full(ptr as *mut $ffi_type)
+            }
+        }
+
+        #[doc(hidden)]
+        impl FromGlibPtrFull<*const ffi::PangoAttribute> for $rust_type {
+            unsafe fn from_glib_full(ptr: *const ffi::PangoAttribute) -> Self {
+                from_glib_full(ptr as *const $ffi_type)
+            }
+        }
+
+        impl std::convert::AsRef<crate::Attribute> for $rust_type {
+            fn as_ref(&self) -> &crate::Attribute {
+                &*self
+            }
+        }
+
+        impl std::ops::Deref for $rust_type {
+            type Target = crate::Attribute;
+
+            fn deref(&self) -> &Self::Target {
+                unsafe { &*(self as *const $rust_type as *const crate::Attribute) }
+            }
+        }
+    }
+}
+
+define_attribute_struct!(
+    AttrColor,
+    ffi::PangoAttrColor,
+    &[
+        AttrType::Foreground,
+        AttrType::Background,
+        AttrType::UnderlineColor,
+        AttrType::StrikethroughColor,
+        AttrType::OverlineColor
+    ]
+);
+
+impl AttrColor {
+    pub fn color(&self) -> Color {
+        unsafe { from_glib_none((&self.0.color) as *const ffi::PangoColor) }
+    }
+}
+
+define_attribute_struct!(
+    AttrInt,
+    ffi::PangoAttrInt,
+    &[
+        AttrType::AbsoluteSize,
+        AttrType::AllowBreaks,
+        AttrType::BackgroundAlpha,
+        AttrType::Fallback,
+        AttrType::FontFeatures,
+        AttrType::ForegroundAlpha,
+        AttrType::Gravity,
+        AttrType::GravityHint,
+        AttrType::InsertHyphens,
+        AttrType::LetterSpacing,
+        AttrType::Overline,
+        AttrType::Rise,
+        AttrType::Show,
+        AttrType::Size,
+        AttrType::Stretch,
+        AttrType::Strikethrough,
+        AttrType::Style,
+        AttrType::Underline,
+        AttrType::Variant,
+        AttrType::Weight
+    ]
+);
+
+impl AttrInt {
+    pub fn value(&self) -> i32 {
+        self.0.value
+    }
+}
+
+define_attribute_struct!(AttrFloat, ffi::PangoAttrFloat, &[AttrType::Scale]);
+
+impl AttrFloat {
+    pub fn value(&self) -> f64 {
+        self.0.value
+    }
+}
+
+define_attribute_struct!(AttrFontDesc, ffi::PangoAttrFontDesc, &[AttrType::FontDesc]);
+
+impl AttrFontDesc {
+    pub fn value(&self) -> FontDescription {
+        unsafe { from_glib_none(self.0.desc) }
+    }
+}
+
+define_attribute_struct!(AttrLanguage, ffi::PangoAttrLanguage, &[AttrType::Language]);
+
+impl AttrLanguage {
+    pub fn value(&self) -> Language {
+        unsafe { from_glib_none(self.0.value) }
     }
 }

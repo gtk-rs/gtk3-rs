@@ -1,6 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use glib::translate::{FromGlibPtrFull, FromGlibPtrNone, Stash, ToGlibPtr};
+use crate::AttrType;
+use glib::translate::{from_glib, FromGlibPtrFull, FromGlibPtrNone, Stash, ToGlibPtr};
 
 #[doc(hidden)]
 impl<'a> ToGlibPtr<'a, *mut ffi::PangoAttrClass> for &'a AttrClass {
@@ -44,6 +45,12 @@ impl FromGlibPtrFull<*const ffi::PangoAttrClass> for AttrClass {
 }
 
 pub struct AttrClass(*mut ffi::PangoAttrClass);
+
+impl AttrClass {
+    pub fn type_(&self) -> AttrType {
+        unsafe { from_glib((*self.0).type_) }
+    }
+}
 
 impl PartialEq for AttrClass {
     fn eq(&self, other: &AttrClass) -> bool {

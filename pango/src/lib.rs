@@ -48,6 +48,10 @@ pub use crate::attr_class::AttrClass;
 pub mod attr_iterator;
 pub mod attr_list;
 pub mod attribute;
+pub use crate::attribute::{
+    AttrColor, AttrFloat, AttrFontDesc, AttrInt, AttrLanguage, IsAttribute,
+};
+pub mod color;
 mod functions;
 pub mod item;
 pub mod language;
