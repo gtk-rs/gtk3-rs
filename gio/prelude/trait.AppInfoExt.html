@@ -52,7 +52,7 @@ See <code>AppInfo::can_delete</code>.</p>
 <h1 id="returns-4" class="section-header"><a href="#returns-4">Returns</a></h1>
 <p>a duplicate of <code>self</code>.</p>
 </div><h3 id="tymethod.equal" class="method"><code>fn <a href="#tymethod.equal" class="fnname">equal</a>&lt;P:&nbsp;<a class="trait" href="../../glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../../gio/struct.AppInfo.html" title="struct gio::AppInfo">AppInfo</a>&gt;&gt;(&amp;self, appinfo2: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>P) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code><a class="srclink" href="../../src/gio/auto/app_info.rs.html#402" title="goto source code">[src]</a></h3><div class="docblock"><p>Checks if two <code>GAppInfos</code> are equal.</p>
-<p>Note that the check <code>&lt;emphasis&gt;</code>may not<code>&lt;/emphasis&gt;</code> compare each individual
+<p>Note that the check <em>may not</em> compare each individual
 field, and only does an identity check. In case detecting changes in the
 contents is needed, program code must additionally compare relevant fields.</p>
 <h2 id="appinfo2" class="section-header"><a href="#appinfo2"><code>appinfo2</code></a></h2>
