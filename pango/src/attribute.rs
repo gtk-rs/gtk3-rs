@@ -243,7 +243,7 @@ macro_rules! define_attribute_struct {
         #[cfg(any(feature = "v1_44", feature = "dox"))]
         #[cfg_attr(feature = "dox", doc(cfg(feature = "v1_44")))]
         glib::wrapper! {
-            #[derive(Debug, PartialOrd, Ord, Hash)]
+            #[derive(Debug)]
             pub struct $rust_type(Boxed<$ffi_type>);
 
             match fn {
@@ -255,7 +255,7 @@ macro_rules! define_attribute_struct {
 
         #[cfg(not(any(feature = "v1_44", feature = "dox")))]
         glib::wrapper! {
-            #[derive(Debug, PartialOrd, Ord, Hash)]
+            #[derive(Debug)]
             pub struct $rust_type(Boxed<$ffi_type>);
 
             match fn {
@@ -263,27 +263,6 @@ macro_rules! define_attribute_struct {
                 free => |ptr| ffi::pango_attribute_destroy(ptr as *mut ffi::PangoAttribute),
             }
         }
-
-        impl $rust_type {
-            #[doc(alias = "pango_attribute_equal")]
-            fn equal(&self, attr2: &$rust_type) -> bool {
-                unsafe {
-                    from_glib(ffi::pango_attribute_equal(
-                        self.to_glib_none().0 as *const ffi::PangoAttribute,
-                        attr2.to_glib_none().0 as *const ffi::PangoAttribute,
-                    ))
-                }
-            }
-        }
-
-        impl PartialEq for $rust_type {
-            #[inline]
-            fn eq(&self, other: &Self) -> bool {
-                self.equal(other)
-            }
-        }
-
-        impl Eq for $rust_type {}
 
         impl IsAttribute for $rust_type {
             const ATTR_TYPES: &'static [AttrType] = $attr_types;
