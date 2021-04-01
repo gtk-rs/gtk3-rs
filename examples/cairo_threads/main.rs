@@ -1,3 +1,6 @@
+mod drawing;
+pub mod image;
+
 use std::cell::RefCell;
 use std::env::args;
 use std::rc::Rc;
@@ -5,113 +8,26 @@ use std::sync::mpsc;
 use std::thread;
 use std::time::Duration;
 
-use gtk::cairo::{Context, Format, ImageSurface};
+use gtk::cairo::Context;
 use gtk::glib;
 use gtk::prelude::*;
 use gtk::{ApplicationWindow, DrawingArea};
 
+use drawing::{draw_image_if_dirty, draw_initial, draw_slow};
+
 const WIDTH: i32 = 200;
 const HEIGHT: i32 = 200;
 
-// Our custom image type. This stores a heap allocated byte array for the pixels for each of our
-// images, can be sent safely between threads and can be temporarily converted to a Cairo image
-// surface for drawing operations
-#[derive(Clone)]
-struct Image(Option<Box<[u8]>>);
+fn main() {
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.cairo_threads"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
 
-impl Image {
-    // Creates a new, black image
-    fn new() -> Self {
-        Image(Some(vec![0; 4 * WIDTH as usize * HEIGHT as usize].into()))
-    }
-
-    // Calls the given closure with a temporary Cairo image surface. After the closure has returned
-    // there must be no further references to the surface.
-    fn with_surface<F: FnOnce(&ImageSurface)>(&mut self, func: F) {
-        // Helper struct that allows passing the pixels to the Cairo image surface and once the
-        // image surface is destroyed the pixels will be stored in the return_location.
-        //
-        // This allows us to give temporary ownership of the pixels to the Cairo surface and later
-        // retrieve them back in a safe way while ensuring that nothing else still has access to
-        // it.
-        struct ImageHolder {
-            image: Option<Box<[u8]>>,
-            return_location: Rc<RefCell<Option<Box<[u8]>>>>,
-        }
-
-        // This stores the pixels back into the return_location as now nothing
-        // references the pixels anymore
-        impl Drop for ImageHolder {
-            fn drop(&mut self) {
-                *self.return_location.borrow_mut() =
-                    Some(self.image.take().expect("Holding no image"));
-            }
-        }
-
-        // Needed for ImageSurface::create_for_data() to be able to access the pixels
-        impl AsRef<[u8]> for ImageHolder {
-            fn as_ref(&self) -> &[u8] {
-                self.image.as_ref().expect("Holding no image").as_ref()
-            }
-        }
-
-        impl AsMut<[u8]> for ImageHolder {
-            fn as_mut(&mut self) -> &mut [u8] {
-                self.image.as_mut().expect("Holding no image").as_mut()
-            }
-        }
-
-        // Temporary move out the pixels
-        let image = self.0.take().expect("Empty image");
-
-        // A new return location that is then passed to our helper struct below
-        let return_location = Rc::new(RefCell::new(None));
-        {
-            let holder = ImageHolder {
-                image: Some(image),
-                return_location: return_location.clone(),
-            };
-
-            // The surface will own the image for the scope of the block below
-            let surface =
-                ImageSurface::create_for_data(holder, Format::Rgb24, WIDTH, HEIGHT, 4 * WIDTH)
-                    .expect("Can't create surface");
-            func(&surface);
-
-            // Now the surface will be destroyed and the pixels are stored in the return_location
-        }
-
-        // And here move the pixels back again
-        self.0 = Some(
-            return_location
-                .borrow_mut()
-                .take()
-                .expect("Image not returned"),
-        );
-    }
+    application.connect_activate(build_ui);
+    application.run(&args().collect::<Vec<_>>());
 }
-
-// This example runs four worker threads rendering parts of the image independently at different
-// paces in a sort of double buffered way.
-//
-// +---+---+
-// | 0 | 1 |
-// +---+---+
-// | 2 | 3 |
-// +---+---+
-//
-// Each worker thread waits for an image to render into, sleeps for a while, does the drawing, then
-// sends the image back and waits for the next one.
-//
-// The GUI thread holds an image per image part at all times and these images are painted on a
-// DrawingArea in its 'draw' signal handler whenever needed.
-//
-// Additionally the GUI thread has a channel for receiving the images from the worker threads. If
-// there is a new image, the old image stored by the GUI thread is replaced with the new one and
-// the old image is sent back to the worker thread. Then the appropriate part of the DrawingArea is
-// invalidated prompting a redraw.
-//
-// The two images per thread are allocated and initialized once and sent back and forth repeatedly.
 
 fn build_ui(application: &gtk::Application) {
     let window = ApplicationWindow::new(application);
@@ -121,7 +37,7 @@ fn build_ui(application: &gtk::Application) {
     area.set_size_request(WIDTH * 2, HEIGHT * 2);
 
     // Create the initial, green image
-    let initial_image = draw_initial();
+    let initial_image = draw_initial(WIDTH, HEIGHT);
 
     // This is the channel for sending results from the worker thread to the main thread
     // For every received image, queue the corresponding part of the DrawingArea for redrawing
@@ -218,65 +134,4 @@ fn build_ui(application: &gtk::Application) {
     });
 
     window.show_all();
-}
-
-fn main() {
-    let application = gtk::Application::new(
-        Some("com.github.gtk-rs.examples.cairo_threads"),
-        Default::default(),
-    )
-    .expect("Initialization failed...");
-
-    application.connect_activate(|app| {
-        build_ui(app);
-    });
-
-    application.run(&args().collect::<Vec<_>>());
-}
-
-// Creates a new image and fill it with green
-fn draw_initial() -> Image {
-    let mut image = Image::new();
-
-    image.with_surface(|surface| {
-        let cr = Context::new(surface);
-        cr.set_source_rgb(0., 1., 0.);
-        cr.paint();
-    });
-
-    image
-}
-
-// Sleep for a while and then draw an arc with a given radius
-fn draw_slow(cr: &Context, delay: Duration, x: f64, y: f64, radius: f64) {
-    use std::f64::consts::PI;
-
-    thread::sleep(delay);
-    cr.set_source_rgb(0., 0., 0.);
-    cr.paint();
-    cr.set_source_rgb(1., 1., 1.);
-    cr.arc(x, y, radius, 0.0, 2. * PI);
-    cr.stroke();
-}
-
-// Render the image surface into the context at the given position
-fn draw_image_if_dirty(
-    cr: &Context,
-    image: &ImageSurface,
-    origin: (i32, i32),
-    dimensions: (i32, i32),
-) {
-    let x = origin.0 as f64;
-    let y = origin.1 as f64;
-    let w = dimensions.0 as f64;
-    let h = dimensions.1 as f64;
-    let (clip_x1, clip_y1, clip_x2, clip_y2) = cr.clip_extents();
-    if clip_x1 >= x + w || clip_y1 >= y + h || clip_x2 <= x || clip_y2 <= y {
-        return;
-    }
-    cr.set_source_surface(image, x, y);
-    cr.paint();
-
-    // Release the reference to the surface again
-    cr.set_source_rgba(0.0, 0.0, 0.0, 0.0);
 }
