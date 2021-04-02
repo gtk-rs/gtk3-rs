@@ -137,9 +137,7 @@ fn main() {
     application.connect_startup(|app| {
         add_accelerators(app);
     });
-    application.connect_activate(|app| {
-        build_ui(app);
-    });
+    application.connect_activate(build_ui);
 
     application.run(&args().collect::<Vec<_>>());
 }

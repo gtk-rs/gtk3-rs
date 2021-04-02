@@ -118,9 +118,7 @@ fn main() {
     )
     .expect("Initialization failed...");
 
-    application.connect_activate(|app| {
-        build_ui(app);
-    });
+    application.connect_activate(build_ui);
 
     application.run(&args().collect::<Vec<_>>());
 }

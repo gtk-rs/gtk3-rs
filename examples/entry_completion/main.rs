@@ -80,9 +80,7 @@ fn main() {
         Default::default(),
     )
     .expect("Initialization failed...");
-    application.connect_activate(|app| {
-        build_ui(app);
-    });
+    application.connect_activate(build_ui);
 
     // When activated, shuts down the application
     let quit = gio::SimpleAction::new("quit", None);

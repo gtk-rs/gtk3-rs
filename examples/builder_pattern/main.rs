@@ -27,9 +27,7 @@ fn main() {
         gtk::Application::new(Some("com.github.gtk-rs.examples.basic"), Default::default())
             .expect("Initialization failed...");
 
-    application.connect_activate(|app| {
-        build_ui(app);
-    });
+    application.connect_activate(build_ui);
 
     application.run(&args().collect::<Vec<_>>());
 }
