@@ -90,8 +90,8 @@ name = "css"
 path = "css/main.rs"
 
 [[bin]]
-name = "dialog"
-path = "dialog/main.rs"
+name = "dialog_async"
+path = "dialog_async/main.rs"
 
 [[bin]]
 name = "drag_drop"
