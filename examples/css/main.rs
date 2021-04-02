@@ -3,36 +3,30 @@ use gtk::{gdk, gio};
 
 use std::env::args;
 
-// Basic CSS: we change background color, we set font color to black and we set it as bold.
-const STYLE: &str = "
-#entry1 {
-    background-image: -gtk-gradient (linear,
-                                     0 0, 1 0,
-                                     color-stop(0, #f00),
-                                     color-stop(1, #0f0));
-    color: blue;
-    font-weight: bold;
-}
+fn main() {
+    let application = gtk::Application::new(Some("com.github.css"), gio::ApplicationFlags::empty())
+        .expect("Initialization failed...");
 
-button {
-    /* If we don't put it, the yellow background won't be visible */
-    background-image: none;
-}
-#label1:hover {
-    transition: 500ms;
-    color: red;
-    background-color: yellow;
-}
+    application.connect_startup(|app| {
+        // The CSS "magic" happens here.
+        let provider = gtk::CssProvider::new();
+        // Load the CSS file
+        let style = include_bytes!("style.css");
+        provider.load_from_data(style).expect("Failed to load CSS");
+        // We give the CssProvided to the default screen so the CSS rules we added
+        // can be applied to our window.
+        gtk::StyleContext::add_provider_for_screen(
+            &gdk::Screen::get_default().expect("Error initializing gtk css provider."),
+            &provider,
+            gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
+        );
 
-combobox button.combo box {
-    padding: 5px;
+        // We build the application UI.
+        build_ui(app);
+    });
+
+    application.run(&args().collect::<Vec<_>>());
 }
-combobox box arrow {
-    -gtk-icon-source: none;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid black;
-}";
 
 fn build_ui(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
@@ -68,29 +62,4 @@ fn build_ui(application: &gtk::Application) {
     application.connect_activate(move |_| {
         window.show_all();
     });
-}
-
-fn main() {
-    let application = gtk::Application::new(Some("com.github.css"), gio::ApplicationFlags::empty())
-        .expect("Initialization failed...");
-
-    application.connect_startup(|app| {
-        // The CSS "magic" happens here.
-        let provider = gtk::CssProvider::new();
-        provider
-            .load_from_data(STYLE.as_bytes())
-            .expect("Failed to load CSS");
-        // We give the CssProvided to the default screen so the CSS rules we added
-        // can be applied to our window.
-        gtk::StyleContext::add_provider_for_screen(
-            &gdk::Screen::get_default().expect("Error initializing gtk css provider."),
-            &provider,
-            gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
-        );
-
-        // We build the application UI.
-        build_ui(app);
-    });
-
-    application.run(&args().collect::<Vec<_>>());
 }
