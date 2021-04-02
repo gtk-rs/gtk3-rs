@@ -1,4 +1,4 @@
-# Dialog Example
+# Dialog Async
 
 Example of how to obtain the response to a dialog as a future
 
