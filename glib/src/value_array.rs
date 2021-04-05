@@ -29,6 +29,15 @@ impl ValueArray {
         }
     }
 
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+
+    pub fn len(&self) -> usize {
+        let value = self.to_glib_none();
+        value.1.n_values as usize
+    }
+
     pub fn get_nth(&self, index_: u32) -> Option<Value> {
         unsafe {
             from_glib_none(gobject_ffi::g_value_array_get_nth(
