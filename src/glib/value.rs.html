@@ -1318,6 +1318,60 @@
 <span id="1315">1315</span>
 <span id="1316">1316</span>
 <span id="1317">1317</span>
+<span id="1318">1318</span>
+<span id="1319">1319</span>
+<span id="1320">1320</span>
+<span id="1321">1321</span>
+<span id="1322">1322</span>
+<span id="1323">1323</span>
+<span id="1324">1324</span>
+<span id="1325">1325</span>
+<span id="1326">1326</span>
+<span id="1327">1327</span>
+<span id="1328">1328</span>
+<span id="1329">1329</span>
+<span id="1330">1330</span>
+<span id="1331">1331</span>
+<span id="1332">1332</span>
+<span id="1333">1333</span>
+<span id="1334">1334</span>
+<span id="1335">1335</span>
+<span id="1336">1336</span>
+<span id="1337">1337</span>
+<span id="1338">1338</span>
+<span id="1339">1339</span>
+<span id="1340">1340</span>
+<span id="1341">1341</span>
+<span id="1342">1342</span>
+<span id="1343">1343</span>
+<span id="1344">1344</span>
+<span id="1345">1345</span>
+<span id="1346">1346</span>
+<span id="1347">1347</span>
+<span id="1348">1348</span>
+<span id="1349">1349</span>
+<span id="1350">1350</span>
+<span id="1351">1351</span>
+<span id="1352">1352</span>
+<span id="1353">1353</span>
+<span id="1354">1354</span>
+<span id="1355">1355</span>
+<span id="1356">1356</span>
+<span id="1357">1357</span>
+<span id="1358">1358</span>
+<span id="1359">1359</span>
+<span id="1360">1360</span>
+<span id="1361">1361</span>
+<span id="1362">1362</span>
+<span id="1363">1363</span>
+<span id="1364">1364</span>
+<span id="1365">1365</span>
+<span id="1366">1366</span>
+<span id="1367">1367</span>
+<span id="1368">1368</span>
+<span id="1369">1369</span>
+<span id="1370">1370</span>
+<span id="1371">1371</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
@@ -1798,6 +1852,12 @@
 <span class="kw">impl</span> <span class="ident">Uninitialized</span> <span class="kw">for</span> <span class="ident">Value</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">uninitialized</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Value</span> {
         <span class="ident">mem</span>::<span class="ident">zeroed</span>()
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">StaticType</span> <span class="kw">for</span> <span class="ident">Value</span> {
+    <span class="kw">fn</span> <span class="ident">static_type</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
+        <span class="kw">unsafe</span> { <span class="ident">from_glib</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_type</span>()) }
     }
 }
 
@@ -2392,6 +2452,54 @@
 <span class="kw">impl</span> <span class="ident">SetValueOptional</span> <span class="kw">for</span> <span class="ident">str</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Value</span>, <span class="ident">this</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="self">Self</span><span class="op">&gt;</span>) {
         <span class="ident">gobject_ffi</span>::<span class="ident">g_value_take_string</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">this</span>.<span class="ident">to_glib_full</span>())
+    }
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Value</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">from_glib_none</span>(
+            <span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_boxed</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">gobject_ffi</span>::<span class="ident">GValue</span>
+        )
+    }
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Value</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Some</span>(<span class="ident">FromValue</span>::<span class="ident">from_value</span>(<span class="ident">value</span>))
+    }
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Value</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">gobject_ffi</span>::<span class="ident">g_value_get_boxed</span>(<span class="ident">value</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Value</span>)
+    }
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromValueOptional</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Value</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Value</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Some</span>(<span class="ident">FromValue</span>::<span class="ident">from_value</span>(<span class="ident">value</span>))
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">SetValue</span> <span class="kw">for</span> <span class="ident">Value</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Value</span>, <span class="ident">this</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
+        <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_boxed</span>(
+            <span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
+            <span class="ident">this</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+        )
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">SetValueOptional</span> <span class="kw">for</span> <span class="ident">Value</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_value_optional</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Value</span>, <span class="ident">this</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="self">Self</span><span class="op">&gt;</span>) {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">this</span>) <span class="op">=</span> <span class="ident">this</span> {
+            <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_boxed</span>(
+                <span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>,
+                <span class="ident">this</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span> <span class="kw">as</span> <span class="ident">ffi</span>::<span class="ident">gpointer</span>,
+            );
+        } <span class="kw">else</span> {
+            <span class="ident">gobject_ffi</span>::<span class="ident">g_value_set_boxed</span>(<span class="ident">value</span>.<span class="ident">to_glib_none_mut</span>().<span class="number">0</span>, <span class="ident">ptr</span>::<span class="ident">null_mut</span>());
+        }
     }
 }
 
