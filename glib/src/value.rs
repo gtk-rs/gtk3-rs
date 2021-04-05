@@ -336,6 +336,12 @@ impl Uninitialized for Value {
     }
 }
 
+impl StaticType for Value {
+    fn static_type() -> Type {
+        unsafe { from_glib(gobject_ffi::g_value_get_type()) }
+    }
+}
+
 #[doc(hidden)]
 impl<'a> ToGlibPtr<'a, *const gobject_ffi::GValue> for Value {
     type Storage = &'a Value;
@@ -927,6 +933,54 @@ impl SetValue for str {
 impl SetValueOptional for str {
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
         gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+    }
+}
+
+impl<'a> FromValue<'a> for Value {
+    unsafe fn from_value(value: &'a Value) -> Self {
+        from_glib_none(
+            gobject_ffi::g_value_get_boxed(value.to_glib_none().0) as *const gobject_ffi::GValue
+        )
+    }
+}
+
+impl<'a> FromValueOptional<'a> for Value {
+    unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for &'a Value {
+    unsafe fn from_value(value: &'a Value) -> Self {
+        &*(gobject_ffi::g_value_get_boxed(value.to_glib_none().0) as *const Value)
+    }
+}
+
+impl<'a> FromValueOptional<'a> for &'a Value {
+    unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl SetValue for Value {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_boxed(
+            value.to_glib_none_mut().0,
+            this.to_glib_none().0 as ffi::gpointer,
+        )
+    }
+}
+
+impl SetValueOptional for Value {
+    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
+        if let Some(this) = this {
+            gobject_ffi::g_value_set_boxed(
+                value.to_glib_none_mut().0,
+                this.to_glib_none().0 as ffi::gpointer,
+            );
+        } else {
+            gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0, ptr::null_mut());
+        }
     }
 }
 
