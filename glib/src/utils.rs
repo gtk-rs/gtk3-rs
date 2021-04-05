@@ -196,6 +196,14 @@ pub fn mkstemp<P: AsRef<std::path::Path>>(tmpl: P) -> i32 {
     unsafe { g_mkstemp(tmpl.as_ref().to_glib_none().0) }
 }
 
+pub fn is_canonical_pspec_name(name: &str) -> bool {
+    name.as_bytes().iter().enumerate().all(|(i, c)| {
+        i != 0 && (*c >= b'0' && *c <= b'9' || *c == b'-')
+            || (*c >= b'A' && *c <= b'Z')
+            || (*c >= b'a' && *c <= b'z')
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use std::env;

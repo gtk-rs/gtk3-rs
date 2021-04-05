@@ -1,6 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::translate::*;
+use crate::utils::is_canonical_pspec_name;
 use crate::value;
 use crate::ParamFlags;
 use crate::StaticType;
@@ -172,6 +173,11 @@ impl ParamSpec {
         default_value: bool,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_boolean(
                 name.to_glib_none().0,
@@ -191,6 +197,11 @@ impl ParamSpec {
         boxed_type: crate::Type,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_boxed(
                 name.to_glib_none().0,
@@ -212,6 +223,11 @@ impl ParamSpec {
         default_value: i8,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_char(
                 name.to_glib_none().0,
@@ -235,6 +251,11 @@ impl ParamSpec {
         default_value: f64,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_double(
                 name.to_glib_none().0,
@@ -257,6 +278,11 @@ impl ParamSpec {
         default_value: i32,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_enum(
                 name.to_glib_none().0,
@@ -278,6 +304,11 @@ impl ParamSpec {
         default_value: u32,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_flags(
                 name.to_glib_none().0,
@@ -300,6 +331,11 @@ impl ParamSpec {
         default_value: f32,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_float(
                 name.to_glib_none().0,
@@ -321,6 +357,11 @@ impl ParamSpec {
         is_a_type: crate::Type,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_gtype(
                 name.to_glib_none().0,
@@ -342,6 +383,11 @@ impl ParamSpec {
         default_value: i32,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_int(
                 name.to_glib_none().0,
@@ -365,6 +411,11 @@ impl ParamSpec {
         default_value: i64,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_int64(
                 name.to_glib_none().0,
@@ -388,6 +439,11 @@ impl ParamSpec {
         default_value: libc::c_long,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_long(
                 name.to_glib_none().0,
@@ -409,6 +465,11 @@ impl ParamSpec {
         object_type: crate::Type,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_object(
                 name.to_glib_none().0,
@@ -422,6 +483,11 @@ impl ParamSpec {
 
     #[doc(alias = "g_param_spec_override")]
     pub fn override_(name: &str, overridden: &ParamSpec) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_override(
                 name.to_glib_none().0,
@@ -438,6 +504,11 @@ impl ParamSpec {
         param_type: crate::Type,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_param(
                 name.to_glib_none().0,
@@ -451,6 +522,11 @@ impl ParamSpec {
 
     #[doc(alias = "g_param_spec_pointer")]
     pub fn pointer(name: &str, nick: &str, blurb: &str, flags: ParamFlags) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_pointer(
                 name.to_glib_none().0,
@@ -469,6 +545,11 @@ impl ParamSpec {
         default_value: Option<&str>,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         let default_value = default_value.to_glib_none();
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_string(
@@ -491,6 +572,11 @@ impl ParamSpec {
         default_value: u8,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_uchar(
                 name.to_glib_none().0,
@@ -514,6 +600,11 @@ impl ParamSpec {
         default_value: u32,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_uint(
                 name.to_glib_none().0,
@@ -537,6 +628,11 @@ impl ParamSpec {
         default_value: u64,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_uint64(
                 name.to_glib_none().0,
@@ -560,6 +656,11 @@ impl ParamSpec {
         default_value: libc::c_ulong,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_ulong(
                 name.to_glib_none().0,
@@ -581,6 +682,11 @@ impl ParamSpec {
         default_value: char,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_unichar(
                 name.to_glib_none().0,
@@ -600,6 +706,11 @@ impl ParamSpec {
         element_spec: &ParamSpec,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_value_array(
                 name.to_glib_none().0,
@@ -620,6 +731,11 @@ impl ParamSpec {
         default_value: Option<&crate::Variant>,
         flags: ParamFlags,
     ) -> ParamSpec {
+        assert!(
+            is_canonical_pspec_name(name),
+            "{} is not a valid canonical parameter name",
+            name
+        );
         unsafe {
             from_glib_none(gobject_ffi::g_param_spec_variant(
                 name.to_glib_none().0,
